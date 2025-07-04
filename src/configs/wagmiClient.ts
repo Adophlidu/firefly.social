@@ -32,19 +32,23 @@ import {
     base as wagmiBase,
     baseSepolia as wagmiBaseSepolia,
     bsc as wagmiBsc,
+    celo as wagmiCelo,
     confluxESpace as wagmiConfluxESpace,
     fantom as wagmiFantom,
     gnosis as wagmiGnosis,
+    linea as wagmiLinea,
     mainnet as wagmiMainnet,
     metis as wagmiMetis,
     optimism as wagmiOptimism,
     polygon as wagmiPolygon,
     scroll as wagmiScroll,
     xLayer as wagmiXLayer,
+    zkSync as wagmiZkSync,
     zora as wagmiZora,
 } from 'wagmi/chains';
 
 import { solanaAdapter, solanaNetworks } from '@/configs/solanaWallets.js';
+import { createPrivyConnector } from '@/connectors/PrivyConnector.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -90,9 +94,26 @@ export const chains = [
     wagmiMetis,
     wagmiZora,
     wagmiScroll,
+    wagmiLinea,
+    wagmiZkSync,
+    wagmiCelo,
     LensChains.mainnet,
     LensChains.testnet,
 ] as const;
+
+export const visibleChains = [
+    wagmiMainnet,
+    wagmiBase,
+    wagmiBsc,
+    wagmiOptimism,
+    wagmiPolygon,
+    wagmiLinea,
+    wagmiArbitrum,
+    wagmiZkSync,
+    wagmiCelo,
+] as const satisfies ReadonlyArray<(typeof chains)[number]>;
+
+export const privyConnector = createPrivyConnector();
 
 export const adapter = new WagmiAdapter({
     projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
@@ -100,6 +121,7 @@ export const adapter = new WagmiAdapter({
     transports: {
         [fantom.id]: http('https://rpc.ftm.tools'),
     },
+    connectors: [privyConnector],
 });
 
 const metadata = {

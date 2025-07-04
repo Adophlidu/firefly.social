@@ -2,7 +2,7 @@ import { TokenIcon as GenericTokenIcon } from '@/components/TokenIcon.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 interface TokenIconProps {
-    token: Token;
+    token: Pick<Token, 'id' | 'chainId' | 'name' | 'logo_url' | 'chainLogoUrl'>;
     tokenSize?: number;
     chainSize?: number;
     disableChainIcon?: boolean;

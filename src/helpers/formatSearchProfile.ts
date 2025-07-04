@@ -4,6 +4,7 @@ import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { isSocialSource } from '@/helpers/isSource.js';
+import { isValidAddress, isZeroAddress } from '@/helpers/isValidAddress.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
@@ -51,10 +52,11 @@ export function formatFireflyProfileToProfile(profile: FireflyProfile): Profile 
     };
 }
 
-interface SearchProfile {
+export interface SearchProfile {
     profile: FireflyProfile;
     related: FireflyProfile[];
     isSpecial?: boolean;
+    addresses?: Array<{ address: string; ens?: string }>;
 }
 
 function isSpecialSearchProfile({ profile, related, isSpecial }: SearchProfile, keyword?: string) {
@@ -119,12 +121,32 @@ export function formatSearchProfile(
         }),
     );
 
+    const stringAddresses = [
+        ...compact(identity.eth?.map((x) => x.primary_address || x.platform_id)),
+        ...compact(identity.solana?.map((x) => x.primary_address || x.platform_id)),
+    ];
+    const ens =
+        identity.ens
+            ?.map((x) => {
+                return {
+                    ens: x.name,
+                    address: x.resolved_address!,
+                };
+            })
+            .filter((x) => !isZeroAddress(x.address) && isValidAddress(x.address)) ?? [];
+
     if (target.platform === FireflyPlatform.Firefly && !allProfile.length) return null;
 
     return {
         profile: fixProfilePlatform(target),
         related: allProfile,
         isSpecial: isSpecialSearchProfile({ profile: target, related: allProfile }, keyword),
+        addresses: [
+            ...stringAddresses.map((address) => ({
+                address,
+            })),
+            ...ens,
+        ],
     };
 }
 

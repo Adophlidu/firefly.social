@@ -408,6 +408,7 @@ export enum WalletSource {
     NFTs = 'nfts',
     LensContract = 'lens_contract',
     Particle = 'particle',
+    Privy = 'privy',
 }
 
 export enum AdvertisementType {

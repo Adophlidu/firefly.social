@@ -168,6 +168,9 @@ msgstr "提問"
 msgid "There is no data available to select."
 msgstr "無可選數據。"
 
+msgid "To"
+msgstr ""
+
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "連結錢包時請保持警惕，惡意網站可能會試圖存取您的資金。"
 
@@ -314,6 +317,9 @@ msgstr ""
 msgid "This token is a gas abuser."
 msgstr "此代幣存在 Gas 濫用問題。"
 
+msgid "Address, ENS, or social handle"
+msgstr ""
+
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr "無法關閉多裝置登入功能，請稍後重試。"
 
@@ -392,6 +398,9 @@ msgstr "<0>已銷毀</0><1/>"
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr "🤑 剛在 {postUrl} 領取了 #FireflyLuckyDrop 🧧💰✨！"
 
+msgid "Firefly wallets"
+msgstr ""
+
 msgid "Join our Discord"
 msgstr "加入我們的 Discord 社群"
 
@@ -434,6 +443,10 @@ msgstr "密碼無效，請輸入 6 位數字密碼。"
 
 msgid "Potential risk of external call."
 msgstr "存在外部調用風險。"
+
+#. placeholder {0}: selected.name
+msgid "Your {0} Address"
+msgstr ""
 
 msgid "FAILED POST"
 msgstr "發文失敗"
@@ -637,6 +650,9 @@ msgstr "重試"
 #. placeholder {0}: decodeURIComponent(connectorName as string)
 msgid "Get {0}"
 msgstr "獲取 {0}"
+
+msgid "TOTAL ASSETS (≈USD)"
+msgstr ""
 
 msgid "Show less"
 msgstr "顯示較少"
@@ -1201,6 +1217,9 @@ msgstr "地址"
 msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgstr "取消追蹤 Firefly 上的 {handleOrEnsOrAddress} 失敗。"
 
+msgid "Copy address"
+msgstr ""
+
 msgid "Mobile QR login"
 msgstr ""
 
@@ -1387,6 +1406,9 @@ msgstr "獲獎者"
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "回覆<0><1>@{0}</1></0>"
 
+msgid "Revoke"
+msgstr ""
+
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 msgstr ""
 
@@ -1498,6 +1520,9 @@ msgid "<0>Bought</0><1/>"
 msgstr "<0>購買</0><1/>"
 
 msgid "Sign in with recovery phrase"
+msgstr ""
+
+msgid "Recipient"
 msgstr ""
 
 msgid "Mint price"
@@ -1691,6 +1716,9 @@ msgstr "無投票權"
 msgid "Your draft was saved."
 msgstr "草稿已儲存"
 
+msgid "The address could not be found."
+msgstr ""
+
 msgid "Verify and Claim"
 msgstr "驗證並領取"
 
@@ -1861,6 +1889,9 @@ msgstr "此代幣合約未經驗證，無法檢查代碼。未驗證合約可能
 msgid "Replies"
 msgstr "回覆"
 
+msgid "Please note that the wallet address related to social account may be inaccurate or subject to change. Be sure to verify the address before sending."
+msgstr ""
+
 msgid "Current Results"
 msgstr "目前結果"
 
@@ -1891,6 +1922,9 @@ msgstr "此代幣非聲明團隊發行，可能是同名詐騙代幣"
 
 msgid "Search post"
 msgstr "搜尋貼文"
+
+msgid "Enter or search for a recipient wallet"
+msgstr ""
 
 msgid "Failed to switch chain"
 msgstr "切換鏈失敗"
@@ -2193,6 +2227,9 @@ msgstr "NFT 鑄造成功！"
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "此操作不可逆，定時發送將被取消"
 
+msgid "NFT Mint"
+msgstr ""
+
 msgid "Lens"
 msgstr ""
 
@@ -2292,6 +2329,9 @@ msgstr ""
 msgid "Standard"
 msgstr ""
 
+msgid "Token"
+msgstr ""
+
 msgid "No darkweb transactions found."
 msgstr ""
 
@@ -2357,6 +2397,10 @@ msgid "Font Color"
 msgstr "字体颜色"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
+msgstr ""
+
+#. placeholder {0}: item.project_name
+msgid "on {0}"
 msgstr ""
 
 msgid "Unsent posts"
@@ -2441,6 +2485,9 @@ msgid "👀 Firefly notifications are off. "
 msgstr ""
 
 msgid "Farcaster"
+msgstr ""
+
+msgid "NFT Receive"
 msgstr ""
 
 msgid "Replying to"
@@ -2748,6 +2795,14 @@ msgstr ""
 msgid "View engagements"
 msgstr "查看互動數據"
 
+#. placeholder {0}: token.balance || '0'
+#. placeholder {1}: token.symbol || '-'
+msgid "Balance: {0} {1}"
+msgstr ""
+
+msgid "This wallet address is invalid"
+msgstr ""
+
 msgid "The contract owner has restrictions on selling."
 msgstr ""
 
@@ -3047,6 +3102,9 @@ msgstr "錢包已提交"
 msgid "This does not appear to be a honeypot."
 msgstr "此地址未檢測到蜜罐風險。"
 
+msgid "NFT Send"
+msgstr ""
+
 msgid "Your Firefly Account is now connected"
 msgstr "你的 Firefly 帳號已連接"
 
@@ -3280,6 +3338,9 @@ msgstr "複製"
 
 msgid "Enter Amount Each"
 msgstr "輸入單筆金額"
+
+msgid "Amount"
+msgstr ""
 
 msgid "firefly.eth liked your transaction"
 msgstr "firefly.eth 喜歡您的交易"
@@ -4115,6 +4176,10 @@ msgstr ""
 msgid "No blackmail activities involved."
 msgstr ""
 
+#. placeholder {0}: formatAddress( item.token_approve?.token.address || token.token.address || token.sender || token.recipient, 4, )
+msgid "With {0}"
+msgstr ""
+
 #. placeholder {0}: error.message
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr ""
@@ -4197,6 +4262,9 @@ msgstr ""
 
 msgid "Video"
 msgstr "影片"
+
+msgid "Firefly Wallet"
+msgstr ""
 
 msgid "Language"
 msgstr "語言"
@@ -4319,6 +4387,9 @@ msgstr ""
 
 #. placeholder {0}: post.author.displayName
 msgid "<0>{0}</0> retruthed"
+msgstr ""
+
+msgid "Interaction"
 msgstr ""
 
 msgid "Sign in with Farcaster"
@@ -4479,6 +4550,9 @@ msgstr "檢測到偽造 KYC"
 
 msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
 msgstr "可在 <0>設定 > 內容偏好</0> 隨時重新開啟"
+
+msgid "NFT"
+msgstr ""
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"

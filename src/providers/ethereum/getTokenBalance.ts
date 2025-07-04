@@ -5,7 +5,10 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import type { EthereumChainId } from '#masknet/web3-shared-evm';
 
-export async function getDebankTokenBalance(token: Token<EthereumChainId, Address>, account: Address) {
+export async function getDebankTokenBalance(
+    token: Pick<Token<EthereumChainId, Address>, 'id' | 'chain' | 'decimals' | 'symbol'>,
+    account: Address,
+) {
     const tokens = await queryClient.fetchQuery({
         queryKey: ['debank', 'tokens', account],
         queryFn: () => FireflyEndpointProvider.getAllTokenList(account),

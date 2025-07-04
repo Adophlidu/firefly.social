@@ -3,7 +3,7 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
-export function isNativeToken(token: Token) {
+export function isNativeToken(token: Pick<Token, 'id' | 'chainId'>) {
     // It is a native token when token.id is not an address
     if (!isValidAddressEthereum(token.id)) {
         // according to https://docs.cloud.debank.com/en/readme/api-pro-reference/chain

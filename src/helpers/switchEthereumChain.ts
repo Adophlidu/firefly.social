@@ -1,14 +1,20 @@
+import type { Config } from 'wagmi';
 import { switchChain } from 'wagmi/actions';
 
 import { chains, config } from '@/configs/wagmiClient.js';
 import type { EthereumChainId } from '#masknet/web3-shared-evm';
 
-export async function switchEthereumChain(chainId: EthereumChainId) {
+export async function switchEthereumChain(
+    chainId: EthereumChainId,
+    options?: {
+        config?: Config;
+    },
+) {
     const chain = chains.find((chain) => chain.id === chainId);
 
     console.log('[switchEthereumChain] Switching to chain:', chainId, chain);
 
-    await switchChain(config, {
+    await switchChain(options?.config || config, {
         chainId,
         addEthereumChainParameter: chain
             ? {

@@ -166,7 +166,7 @@ export function SearchContentPanel<T, F = void>({
                             <div
                                 key={listKey ? listKey(item) : i}
                                 onClick={() => onSelected?.(item)}
-                                className="cursor-pointer hover:bg-lightBg"
+                                className="cursor-pointer rounded-lg hover:bg-lightBg"
                             >
                                 {itemRenderer(item)}
                             </div>

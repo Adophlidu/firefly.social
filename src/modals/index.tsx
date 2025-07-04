@@ -33,6 +33,7 @@ import { PreviewMediaModal } from '@/modals/PreviewMediaModal.js';
 import { RedPacketModal } from '@/modals/RedPacketModal/index.js';
 import { SchedulePostModal } from '@/modals/SchedulePostModal.js';
 import { ShareImageModal } from '@/modals/ShareImageModal.js';
+import { SearchRecipientModal } from '@/modals/SearchRecipientModal.js';
 import { SignInWithFireflyAppModal } from '@/modals/SignInWithFireflyAppModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
 import { SuperFollowModal } from '@/modals/SuperFollowModal.js';
@@ -82,6 +83,7 @@ export const Modals = memo(function Modals() {
             <ConfirmSyncSessionModal ref={controls.ConfirmSyncSessionModalRef.register} />
             <CreateFireflyAccountGuideModal ref={controls.CreateFireflyAccountGuideModalRef.register} />
             <ShareImageModal ref={controls.ShareImageModalRef.register} />
+            <SearchRecipientModal ref={controls.SearchRecipientModalRef.register} />
         </NoSSR>
     );
 });

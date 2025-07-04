@@ -1,3 +1,6 @@
+import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
+import { isZero } from '@/helpers/number.js';
+
 /**
  * Format USD amount according to the following rules:
  * 1. When amount >= $0.01:
@@ -10,7 +13,7 @@
  * @param amount - The USD amount to format
  */
 export function formatTokenUSD(amount: string | number): string {
-    if (!amount) return '$0.00';
+    if (!amount || isZero(amount)) return '$0.00';
 
     const num = typeof amount === 'string' ? parseFloat(amount) : amount;
     if (isNaN(num)) return '$0.00';
@@ -26,5 +29,5 @@ export function formatTokenUSD(amount: string | number): string {
         return '<$0.0001';
     }
 
-    return `$${num.toFixed(4)}`;
+    return `$${removeTrailingZeros(num.toFixed(4))}`;
 }

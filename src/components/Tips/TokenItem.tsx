@@ -1,41 +1,63 @@
 import { Trans } from '@lingui/react/macro';
 
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
+import { classNames } from '@/helpers/classNames.js';
 import { isZero, multipliedBy } from '@/helpers/number.js';
-import type { Token } from '@/hooks/useCustomFungibleTokens.js';
+import type { Token as RawToken } from '@/hooks/useCustomFungibleTokens.js';
 
-interface TokenItemProps {
+export type Token = Pick<
+    RawToken,
+    | 'price'
+    | 'amount'
+    | 'custom'
+    | 'name'
+    | 'balance'
+    | 'symbol'
+    | 'id'
+    | 'logo_url'
+    | 'chainLogoUrl'
+    | 'chainId'
+    | 'decimals'
+>;
+
+interface TokenItemProps extends ClickableButtonProps {
     token: Token;
     disableChainIcon?: boolean;
 }
 
-export function TokenItem({ token, disableChainIcon }: TokenItemProps) {
+export function TokenItem({ className, token, disableChainIcon, ...props }: TokenItemProps) {
     const usdtValue = +multipliedBy(token.price, token.amount).toFixed(2);
     const usd = Number.isNaN(usdtValue) || isZero(usdtValue) ? '' : `$${usdtValue}`;
 
     return (
         <ClickableButton
             key={token.id}
-            className="flex w-full items-center justify-between rounded-lg px-3 py-2 font-bold text-lightMain"
+            className={classNames(
+                'flex w-full items-center justify-between rounded-lg px-3 py-2 font-bold text-lightMain',
+                className,
+            )}
             enablePropagate
+            {...props}
         >
-            <div className="flex items-center gap-x-2.5">
+            <div className="flex items-center gap-x-4">
                 <TokenIcon disableChainIcon={disableChainIcon} token={token} />
                 <div className="text-left">
-                    <span>{token.name}</span>
-                    {token.custom ? (
-                        <span className="ml-2.5 inline-block h-5 rounded bg-lightBg px-2 text-xs font-medium leading-5 text-second">
-                            <Trans>Added</Trans>
-                        </span>
-                    ) : null}
-                    <br />
-                    <span className="text-[13px] text-second">{token.symbol || '-'}</span>
+                    <div className="h-5 w-full leading-5">
+                        <span>{token.name}</span>
+                        {token.custom ? (
+                            <span className="ml-2.5 inline-block h-5 rounded bg-lightBg px-2 text-xs font-medium leading-5 text-second">
+                                <Trans>Added</Trans>
+                            </span>
+                        ) : null}
+                    </div>
+                    <div className="w-full text-[13px] font-normal leading-[18px] text-second">
+                        {token.balance || '0'} {token.symbol || '-'}
+                    </div>
                 </div>
             </div>
-            <div className="flex flex-col items-end">
+            <div className="flex flex-col items-end justify-center font-medium">
                 <span>{usd || '-'}</span>
-                <span className="text-[13px] text-second">{token.balance || '0'}</span>
             </div>
         </ClickableButton>
     );

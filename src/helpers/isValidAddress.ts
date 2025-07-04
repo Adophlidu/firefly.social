@@ -1,6 +1,9 @@
 import { web3 } from '@coral-xyz/anchor';
 import { type Address, isAddress } from 'viem';
 
+import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
+
 export function isValidAddressSolana(address?: string): address is string {
     const length = address?.length;
     if (!length || length < 32 || length > 44) return false;
@@ -17,4 +20,12 @@ export function isValidAddressEthereum(address: string | undefined): address is 
     if (!address_) return false;
     if (!address_.startsWith('0x') && !address_.startsWith('0X')) return false;
     return isAddress(address_ as Address);
+}
+
+export function isValidAddress(address?: string) {
+    return isValidAddressSolana(address) || isValidAddressEthereum(address);
+}
+
+export function isZeroAddress(address?: string): boolean {
+    return isSameAddress(address, ETH_ZERO_ADDRESS) || isSameAddress(address, SOL_ZERO_ADDRESS);
 }

@@ -1,11 +1,14 @@
-import { unreachable } from '@masknet/kit';
+import { safeUnreachable, unreachable } from '@masknet/kit';
+import { useSolanaWallets } from '@privy-io/react-auth';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
+import { first } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
 
 import { NetworkType } from '@/constants/enum.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
+import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
@@ -31,27 +34,54 @@ export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
     }
 }
 
+export function useSolanaAccount() {
+    const walletProvider = useSolanaWalletProvider();
+    const solanaAddress = walletProvider?.publicKey?.toBase58();
+    const { connection } = useAppKitConnection();
+    const { wallets: solanaWallets } = useSolanaWallets();
+    const { activeNetwork } = useSolanaActiveNetworkStore();
+    return useMemo(() => {
+        switch (activeNetwork) {
+            case SolanaNetworkType.Appkit:
+                return {
+                    address: solanaAddress ?? '',
+                    chainId: SolanaChainId.Mainnet,
+                    isConnected: !!connection && !!solanaAddress,
+                    connect: () => WalletConnectModalRef.open({ networkType: NetworkType.Solana }),
+                };
+            case SolanaNetworkType.Privy:
+                return {
+                    address: first(solanaWallets)?.address,
+                    chainId: SolanaChainId.Mainnet,
+                    isConnected: true,
+                    connect: () => console.info('Connected to privy already'),
+                };
+            default:
+                safeUnreachable(activeNetwork);
+                return {
+                    address: solanaAddress ?? '',
+                    chainId: SolanaChainId.Mainnet,
+                    isConnected: !!connection && !!solanaAddress,
+                    connect: () => WalletConnectModalRef.open({ networkType: NetworkType.Solana }),
+                };
+        }
+    }, [activeNetwork, connection, solanaAddress, solanaWallets]);
+}
+
 export function useWalletAccountAll() {
     const account = useAccount();
-    const walletProvider = useSolanaWalletProvider();
-    const { connection } = useAppKitConnection();
-    const solanaAddress = walletProvider?.publicKey?.toBase58();
+    const solana = useSolanaAccount();
 
-    return useMemo(
-        () => ({
-            ethereum: {
-                address: account.address ?? '',
-                chainId: account.chainId,
-                isConnected: account.isConnected && !!account.address,
-                connect: () => WalletConnectModalRef.open({ networkType: NetworkType.Ethereum }),
-            },
-            solana: {
-                address: solanaAddress ?? '',
-                chainId: SolanaChainId.Mainnet,
-                isConnected: !!connection && !!solanaAddress,
-                connect: () => WalletConnectModalRef.open({ networkType: NetworkType.Solana }),
-            },
-        }),
-        [account.address, account.chainId, account.isConnected, solanaAddress, connection],
-    );
+    return useMemo(() => {
+        const ethereum = {
+            address: account.address ?? '',
+            chainId: account.chainId,
+            isConnected: account.isConnected && !!account.address,
+            connect: () => WalletConnectModalRef.open({ networkType: NetworkType.Ethereum }),
+        };
+        return {
+            ethereum,
+            solana,
+        };
+    }, [account.address, account.chainId, account.isConnected, solana]);
 }

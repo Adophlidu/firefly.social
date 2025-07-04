@@ -321,8 +321,10 @@ export type SearchCastsResponse = Response<
       }
 >;
 
+export type SearchProfileListItem = Record<SocialSourceInURL | 'eth' | 'solana' | 'ens' | 'account', Profile[] | null>;
+
 export type SearchProfileResponse = Response<{
-    list?: Array<Record<SocialSourceInURL | 'eth' | 'solana' | 'ens' | 'account', Profile[] | null>>;
+    list?: SearchProfileListItem[];
     cursor: number;
     size: number;
 }>;
@@ -1952,3 +1954,94 @@ export interface TipsDetail {
 }
 
 export type TipsDetailResponse = Response<TipsDetail>;
+
+export interface PrivyWallet {
+    accountId: string;
+    userId: string;
+    createAt: number;
+    wallets: [
+        {
+            publicAddress: Address;
+            chain: NetworkType.Ethereum;
+            verified_at: number;
+        },
+        {
+            publicAddress: string;
+            chain: NetworkType.Solana;
+            verified_at: number;
+        },
+    ];
+}
+export type PrivyWalletResponse = Response<PrivyWallet>;
+
+export enum TransactionHistoryCategory {
+    TokenReceive = 'token_receive',
+    TokenSend = 'token_send',
+    TokenSwap = 'token_swap',
+    TokenApprove = 'token_approve',
+    TokenRevoke = 'token_revoke',
+    NftReceive = 'nft_receive',
+    NftSend = 'nft_send',
+    NftMint = 'nft_mint',
+    ContractInteraction = 'contract_interaction',
+}
+
+export interface TransactionHistoryItem {
+    chain_id: number;
+    hash: string;
+    block_number: number;
+    tx_status: string;
+    project_logo: string;
+    project_name: string;
+    timestamp: string;
+    to_address: string;
+    from_address: string;
+    token_sends: TransactionHistoryTokenAction[];
+    token_receives: TransactionHistoryTokenAction[];
+    token_approve?: TransactionHistoryTokenApprove;
+    nft_receives: TransactionHistoryNFTAction[];
+    nft_sends: TransactionHistoryNFTAction[];
+    category: TransactionHistoryCategory;
+}
+
+export interface TransactionHistoryNFTAction {
+    nft: {
+        address: string;
+        symbol: string;
+        name: string;
+        token_id: string;
+        logo: string;
+    };
+    amount: string;
+    user_address: string;
+    recipient: string;
+    sender: string;
+}
+
+export interface TransactionHistoryToken {
+    address: string;
+    symbol: string;
+    name: string;
+    logo: string;
+    decimal: number;
+    price: string;
+}
+
+export interface TransactionHistoryTokenApprove {
+    token: TransactionHistoryToken;
+    amount: string;
+    spender_address: string;
+}
+
+export interface TransactionHistoryTokenAction {
+    token: TransactionHistoryToken;
+    amount: string;
+    user_address: string;
+    recipient: string;
+    sender: string;
+}
+
+export type WalletHistoryTransactionsResponse = Response<{
+    list: TransactionHistoryItem[];
+    cursor?: string;
+}>;

@@ -1,0 +1,263 @@
+import { Trans } from '@lingui/react/macro';
+import { safeUnreachable } from '@masknet/kit';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import dayjs from 'dayjs';
+import { Fragment } from 'react';
+
+import LinkIcon from '@/assets/link-square.svg';
+import { ChainIcon } from '@/components/ChainIcon.js';
+import { Link } from '@/components/Link.js';
+import { ListInPage } from '@/components/ListInPage.js';
+import { TokenIcon } from '@/components/TokenIcon.js';
+import { NetworkType, Source } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
+import { formatPrice } from '@/helpers/formatPrice.js';
+import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
+import { groupAndSortByDate } from '@/helpers/sortAndGroupByDate.js';
+import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { TransactionHistoryCategory, type TransactionHistoryItem } from '@/providers/types/Firefly.js';
+
+interface Props {
+    chains: number[];
+    address: string;
+}
+
+export function TransactionHistory({ chains, address }: Props) {
+    const queryResult = useSuspenseInfiniteQuery({
+        queryKey: ['wallet-transaction-history', address, chains],
+        async queryFn() {
+            return FireflyEndpointProvider.getWalletHistoryTransactions(chains, address);
+        },
+        initialPageParam: '',
+        getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
+        select: (data) => {
+            const items = data.pages.flatMap((page) => page.data ?? EMPTY_LIST);
+            return groupAndSortByDate<TransactionHistoryItem>(items, (x) =>
+                dayjs.unix(Number(x.timestamp)).format('MMM DD, YYYY'),
+            );
+        },
+    });
+
+    return (
+        <ListInPage
+            source={Source.NFTs}
+            queryResult={queryResult}
+            VirtualListProps={{
+                computeItemKey: (index, item) => `${item.hash}-${index}`,
+                itemContent: getTransactionHistoryItem,
+            }}
+            NoResultsFallbackProps={{
+                className: 'mt-20 !pt-14',
+            }}
+        />
+    );
+}
+
+function getTransactionHistoryItem(
+    index: number,
+    item: TransactionHistoryItem & {
+        date?: string;
+    },
+) {
+    return (
+        <Fragment key={index}>
+            {item.date ? <div className="pt-4 text-sm font-medium text-second">{item.date}</div> : null}
+            <TransactionHistoryItem item={item} />
+        </Fragment>
+    );
+}
+
+function TransactionHistoryItem({ item }: { item: TransactionHistoryItem }) {
+    return (
+        <div className="my-1 flex items-center rounded-lg p-2 hover:bg-bg">
+            <div className="flex items-center space-x-5">
+                <TransactionHistoryTokenItem item={item} />
+                <div>
+                    <div className="text-sm font-medium">
+                        <Category category={item.category} />
+                    </div>
+                    <TransactionHistorySubTitle item={item} />
+                </div>
+            </div>
+            <ItemEnd item={item} />
+        </div>
+    );
+}
+
+function Category({ category }: { category: TransactionHistoryCategory }) {
+    switch (category) {
+        case TransactionHistoryCategory.TokenReceive:
+            return <Trans>Receive</Trans>;
+        case TransactionHistoryCategory.TokenSend:
+            return <Trans>Send</Trans>;
+        case TransactionHistoryCategory.TokenSwap:
+            return <Trans>Swapped</Trans>;
+        case TransactionHistoryCategory.TokenApprove:
+            return <Trans>Approve</Trans>;
+        case TransactionHistoryCategory.TokenRevoke:
+            return <Trans>Revoke</Trans>;
+        case TransactionHistoryCategory.NftReceive:
+            return <Trans>NFT Receive</Trans>;
+        case TransactionHistoryCategory.NftSend:
+            return <Trans>NFT Send</Trans>;
+        case TransactionHistoryCategory.NftMint:
+            return <Trans>NFT Mint</Trans>;
+        case TransactionHistoryCategory.ContractInteraction:
+            return <Trans>Interaction</Trans>;
+        default:
+            safeUnreachable(category);
+            return null;
+    }
+}
+
+function ItemEnd({ item }: { item: TransactionHistoryItem }) {
+    if (item.category === TransactionHistoryCategory.TokenSwap) {
+        return (
+            <div className="ml-auto text-right text-sm font-medium">
+                {item.token_receives[0] ? (
+                    <div className="text-success">
+                        +{formatPrice(item.token_receives[0].amount)} {item.token_receives[0].token.symbol}
+                    </div>
+                ) : null}
+                {item.token_sends[0] ? (
+                    <div className="text-xs font-normal">
+                        -{formatPrice(item.token_sends[0].amount)} {item.token_sends[0].token.symbol}
+                    </div>
+                ) : null}
+            </div>
+        );
+    }
+    if (item.category === TransactionHistoryCategory.TokenRevoke) {
+        if (!item.token_approve) return null;
+        return <div className="ml-auto text-right text-sm font-medium">{item.token_approve.token.symbol}</div>;
+    }
+    if (item.category === TransactionHistoryCategory.TokenApprove) {
+        if (!item.token_approve) return null;
+        return (
+            <div className="ml-auto text-right text-sm font-medium">
+                -{formatPrice(item.token_approve.amount)} {item.token_approve.token.symbol}
+            </div>
+        );
+    }
+    const token = item.token_receives[0] || item.token_sends[0];
+    if (!token) return null;
+    if (item.category === TransactionHistoryCategory.TokenReceive) {
+        return (
+            <div className="ml-auto text-right text-sm font-medium text-success">
+                +{formatPrice(token.amount)} {token.token.symbol}
+            </div>
+        );
+    }
+    if (item.category === TransactionHistoryCategory.TokenSend) {
+        return (
+            <div className="ml-auto text-right text-sm font-medium">
+                -{formatPrice(token.amount)} {token.token.symbol}
+            </div>
+        );
+    }
+    if (
+        [
+            TransactionHistoryCategory.NftReceive,
+            TransactionHistoryCategory.NftSend,
+            TransactionHistoryCategory.NftMint,
+        ].includes(item.category)
+    ) {
+        const nft = item.nft_receives[0] || item.nft_sends[0];
+        if (!nft) return null;
+        const link = resolveExplorerLink(item.chain_id, nft.nft.address, 'address');
+        if (!link) return null;
+        return (
+            <Link href={link} className="ml-auto text-right text-sm font-medium hover:underline">
+                {nft.nft.symbol || <LinkIcon width={16} height={16} className="shrink-0 text-second" />}
+            </Link>
+        );
+    }
+    return (
+        <div className="ml-auto text-right text-sm font-medium">
+            {formatPrice(token.amount)} {token.token.symbol}
+        </div>
+    );
+}
+
+function TransactionHistoryTokenItem({ item }: { item: TransactionHistoryItem }) {
+    const isSolana = item.chain_id === SolanaChainId.Mainnet;
+    const networkType = isSolana ? NetworkType.Solana : NetworkType.Solana;
+    const chainId = item.chain_id;
+    if (
+        [
+            TransactionHistoryCategory.NftReceive,
+            TransactionHistoryCategory.NftSend,
+            TransactionHistoryCategory.NftMint,
+        ].includes(item.category)
+    ) {
+        const nft = item.nft_receives[0] || item.nft_sends[0];
+        return <TokenIcon icon={nft.nft.logo} networkType={networkType} chainId={chainId} />;
+    }
+    if (item.category === TransactionHistoryCategory.TokenSwap && item.token_receives[0] && item.token_sends[0]) {
+        const tokenReceive = item.token_receives[0];
+        const tokenSend = item.token_sends[0];
+        return (
+            <div className="relative size-8">
+                <TokenIcon
+                    icon={tokenReceive.token.logo}
+                    networkType={networkType}
+                    chainId={chainId}
+                    className="!absolute left-0 top-0"
+                    size={24}
+                    disableBadge
+                />
+                <TokenIcon
+                    icon={tokenSend.token.logo}
+                    networkType={networkType}
+                    chainId={chainId}
+                    size={24}
+                    className="!absolute bottom-0 right-0"
+                    disableBadge
+                />
+                <ChainIcon
+                    size={12}
+                    networkType={networkType}
+                    chainId={chainId}
+                    allowEmpty
+                    className="absolute bottom-0 right-0 z-1"
+                />
+            </div>
+        );
+    }
+
+    const token = item.token_receives[0] || item.token_sends[0];
+    if (!token) return null;
+    return <TokenIcon icon={token.token.logo} networkType={networkType} chainId={chainId} disableBadge={isSolana} />;
+}
+
+function TransactionHistorySubTitle({ item }: { item: TransactionHistoryItem }) {
+    if (item.category === TransactionHistoryCategory.TokenSwap) {
+        return (
+            <div className="text-[13px] font-medium leading-[18px] text-second">
+                <Trans>on {item.project_name}</Trans>
+            </div>
+        );
+    }
+    const token = item.token_receives[0] || item.token_sends[0];
+    if (!token) return null;
+
+    if (item.category === TransactionHistoryCategory.ContractInteraction) {
+        <div className="text-[13px] font-medium leading-[18px] text-second">
+            <Trans>
+                With{' '}
+                {formatAddress(
+                    item.token_approve?.token.address || token.token.address || token.sender || token.recipient,
+                    4,
+                )}
+            </Trans>
+        </div>;
+    }
+
+    return (
+        <div className="text-[13px] font-medium leading-[18px] text-second">
+            <div>{formatAddress(token.sender || token.recipient, 4)}</div>
+        </div>
+    );
+}

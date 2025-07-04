@@ -15,6 +15,12 @@ export interface TransactionOptions<ChainIdLike = number, AddressLike = string> 
     token: Token<ChainIdLike, AddressLike>;
 }
 
+export interface GetDefaultGasOptions<ChainIdLike = number, AddressLike = string> {
+    to: AddressLike;
+    amount: string;
+    token: Pick<Token<ChainIdLike, AddressLike>, 'chainId' | 'id'>;
+}
+
 export interface TransferProvider<ChainIdLike = number, AddressLike = string, HashLike = string> {
     transfer: (options: TransactionOptions<ChainIdLike, AddressLike>) => Promise<HashLike>;
     isNativeToken: (token: Token<ChainIdLike, AddressLike>) => boolean;

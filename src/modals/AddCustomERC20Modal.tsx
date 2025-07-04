@@ -16,7 +16,7 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
-import { chains, config } from '@/configs/wagmiClient.js';
+import { config, visibleChains } from '@/configs/wagmiClient.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
@@ -30,10 +30,10 @@ import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStor
 function AddCustomERC20ModalContent({ onClose, initialChainId }: { onClose: () => void; initialChainId: number }) {
     const account = useAccount();
     const isMedium = useIsMedium('max');
-    const chainIds: number[] = chains.map((x) => x.id);
+    const chainIds: number[] = visibleChains.map((x) => x.id);
     const getChainItem = useCallback(
         (chainId: number, isTag?: boolean) => {
-            const chain = chains.find((chain) => chain.id === chainId);
+            const chain = visibleChains.find((chain) => chain.id === chainId);
             return (
                 <div className="flex items-center gap-2">
                     {chain ? (

@@ -1,25 +1,41 @@
+'use client';
+
 import type { web3 } from '@coral-xyz/anchor';
+import { unreachable } from '@masknet/kit';
 import { ProviderUtil } from '@reown/appkit/store';
 import type { Provider } from '@reown/appkit-adapter-solana';
 
+import { PrivySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { NetworkType } from '@/constants/enum.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
 import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.js';
+import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 
 export class WalletNotConnectedError extends Error {
     override name = 'WalletNotConnectedError';
 }
 
-export function getWalletAdapter() {
+export function getAppkitWalletAdapter() {
     if (!('solana' in ProviderUtil.state.providers)) throw new WalletNotConnectedError();
     const provider = ProviderUtil.state.providers.solana as Provider;
     if (!provider) throw new WalletNotConnectedError();
     return provider;
 }
 
+export function getWalletAdapter() {
+    const activeNetwork = useSolanaActiveNetworkStore.getState().activeNetwork;
+    switch (activeNetwork) {
+        case SolanaNetworkType.Appkit:
+            return getAppkitWalletAdapter();
+        case SolanaNetworkType.Privy:
+            return PrivySolanaProvider;
+        default:
+            unreachable(activeNetwork);
+    }
+}
+
 export function getWalletAdaptorConnected() {
-    if (!('solana' in ProviderUtil.state.providers)) throw new WalletNotConnectedError();
-    const provider = ProviderUtil.state.providers.solana as Provider;
+    const provider = getWalletAdapter();
     if (!provider?.publicKey) throw new WalletNotConnectedError();
     return provider as Provider & { publicKey: web3.PublicKey };
 }

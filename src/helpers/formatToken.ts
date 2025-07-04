@@ -7,7 +7,7 @@ import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import { type EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
-export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<number, number> {
+export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<number, number, Token> {
     // it is not a valid address if its native token
     const address =
         token.networkType === NetworkType.Solana
@@ -26,7 +26,8 @@ export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<nu
         type: TokenType.Fungible,
         schema: isNativeToken(token) ? EthereumSchemaType.Native : EthereumSchemaType.ERC20,
         address,
-    } as FungibleToken<EthereumChainId, EthereumSchemaType>;
+        __original__: token,
+    } as FungibleToken<EthereumChainId, EthereumSchemaType, Token>;
 }
 
 export function formatFungibleTokenToDebankToken(token: FungibleToken<number, number>) {

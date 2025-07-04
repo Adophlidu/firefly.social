@@ -114,6 +114,7 @@ import {
     type NFTMintingResponse,
     type PlatformIdentityKey,
     type PolymarketActivityTimeline,
+    type PrivyWalletResponse,
     type ProjectResponse,
     type RelationResponse,
     type Response,
@@ -136,6 +137,7 @@ import {
     type TruthSocialPostResponse,
     type TwitterUserInfoResponse,
     type TwitterUserV2Response,
+    type WalletHistoryTransactionsResponse,
     type WalletProfile,
     type WalletProfileResponse,
     type WalletProfiles,
@@ -1698,6 +1700,38 @@ class FireflyEndpoint {
         if (!data) throw new Error('Tips notification not found');
 
         return data;
+    }
+
+    async getPrivyWallet() {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/create/privy/user');
+        const response = await fireflySessionHolder.fetch<PrivyWalletResponse>(url, {
+            method: 'POST',
+        });
+        return resolveFireflyResponseData(response);
+    }
+
+    async getWalletHistoryTransactions(
+        chains: number[],
+        address: string,
+        options?: {
+            indicator?: PageIndicator;
+        },
+    ) {
+        const indicator = options?.indicator;
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_history/transactions', {
+            chains: chains.join(','),
+            address,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+        const response = await fireflySessionHolder.fetch<WalletHistoryTransactionsResponse>(url, {
+            method: 'GET',
+        });
+        const result = resolveFireflyResponseData(response);
+        return createPageable(
+            result.list,
+            createIndicator(),
+            result.cursor ? createNextIndicator(undefined, result.cursor) : undefined,
+        );
     }
 }
 

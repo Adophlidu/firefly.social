@@ -1,0 +1,240 @@
+'use client';
+
+import { Trans } from '@lingui/react/macro';
+import { safeUnreachable } from '@masknet/kit';
+import { usePrivy } from '@privy-io/react-auth';
+import { useQueries } from '@tanstack/react-query';
+import { BigNumber } from 'bignumber.js';
+import { compact } from 'lodash-es';
+import { notFound } from 'next/navigation.js';
+import { Suspense, useMemo, useRef, useState } from 'react';
+import { type Address } from 'viem';
+
+import AddIcon from '@/assets/add-circle.svg';
+import ComeBack from '@/assets/comeback.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { FireflyWalletChainSelectorWithNetworkType } from '@/components/FireflyWallet/FireflyWalletChainSelectorWithNetworkType.js';
+import { FireflyWalletHomePageUI } from '@/components/FireflyWallet/FireflyWalletHomePageUI.js';
+import { FireflyWalletTokenList } from '@/components/FireflyWallet/FireflyWalletTokenList.js';
+import { SelectPrivyWalletGuard } from '@/components/FireflyWallet/SelectPrivyWalletGuard.js';
+import type { TransferModalRef } from '@/components/FireflyWallet/TransferModal.js';
+import { TransferModal } from '@/components/FireflyWallet/TransferModal.js';
+import { Loading } from '@/components/Loading.js';
+import { NotLoginFallback } from '@/components/NotLoginFallback.js';
+import { NFTs } from '@/components/Profile/NFTs.js';
+import { ReceiveModal } from '@/components/ReceiveModal/index.js';
+import { Tab, Tabs } from '@/components/Tabs/index.js';
+import { TransactionHistory } from '@/components/TransactionHistory/list.js';
+import { visibleChains } from '@/configs/wagmiClient.js';
+import { NetworkPluginID, NetworkType, Source } from '@/constants/enum.js';
+import { useRouter } from '@/esm/navigation.js';
+import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
+import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
+import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
+import { useComeBack } from '@/hooks/useComeback.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsSetupPrivyWallet } from '@/hooks/useIsSetupPrivyWallet.js';
+import { useMixesTokens } from '@/hooks/useMixesTokens.js';
+import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
+import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
+import { AddCustomERC20ModalRef, SwapModalRef } from '@/modals/controls.js';
+import { Debank } from '@/providers/debank/index.js';
+
+const EVM_TRANSACTION_CHAIN_IDS = visibleChains.map((chain) => chain.id);
+const SOLANA_TRANSACTION_CHAIN_IDS = [101];
+
+export default function Wallet() {
+    const isLoginFirefly = useIsLoginFirefly();
+    const { authenticated, ready } = usePrivy();
+    const { isLoading, error } = useIsSetupPrivyWallet();
+
+    if (!isLoginFirefly) {
+        return <NotLoginFallback source={Source.NFTs} />;
+    }
+
+    if (!authenticated || !ready || isLoading) {
+        return <Loading />;
+    }
+
+    if (error) {
+        notFound();
+    }
+
+    return (
+        <SelectPrivyWalletGuard>
+            <FireflyWallet />
+        </SelectPrivyWalletGuard>
+    );
+}
+
+export const enum TabType {
+    Token = 'token',
+    NFT = 'nft',
+    Transactions = 'transactions',
+}
+
+function FireflyWallet() {
+    const { ethereum, solana } = useWalletAccountAll();
+    const router = useRouter();
+
+    const [networkType, setNetworkType] = useState<NetworkType>(NetworkType.Ethereum);
+    const address = useMemo(() => {
+        switch (networkType) {
+            case NetworkType.Ethereum:
+                return ethereum.address;
+            case NetworkType.Solana:
+                return solana.address;
+            default:
+                safeUnreachable(networkType);
+                return;
+        }
+    }, [ethereum, networkType, solana]);
+
+    const totalBalance = useQueries({
+        queries: [
+            {
+                queryKey: ['wallet', 'total-balance', NetworkType.Ethereum, ethereum.address],
+                async queryFn() {
+                    if (!ethereum.address) return '0';
+                    return Debank.getUserTotalBalance(ethereum.address);
+                },
+            },
+            {
+                queryKey: ['wallet', 'total-balance', NetworkType.Solana, solana.address],
+                async queryFn() {
+                    if (!solana.address) return '0';
+                    return Debank.getUserTotalBalance(solana.address);
+                },
+            },
+        ],
+        combine(result) {
+            return result.reduce((acc, query) => acc.plus(query.data ? query.data : '0'), BigNumber(0)).toString();
+        },
+    });
+
+    const { tokens, isLoading: isLoadingTokens } = useMixesTokens({
+        evmAddress: ethereum.address as Address,
+        solanaAddress: solana?.address,
+    });
+
+    const [tabType, setTabType] = useState(TabType.Token);
+    const [openReceiveModal, setOpenReceiveModal] = useState(false);
+
+    const transferModalRef = useRef<TransferModalRef>(null);
+
+    const receiveItems = useMemo(() => {
+        const items = visibleChains.map((chain) => ({
+            avatar: getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chain.id)?.icon ?? '',
+            name: chain.name as string,
+            address: ethereum.address,
+        }));
+        if (solana.address) {
+            items.splice(1, 0, {
+                avatar: getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet)?.icon ?? '',
+                name: 'Solana',
+                address: solana.address,
+            });
+        }
+        return items;
+    }, [ethereum.address, solana.address]);
+
+    if (!address) {
+        return <Loading />;
+    }
+
+    return (
+        <>
+            <NavigationBar />
+            <FireflyWalletHomePageUI
+                balance={totalBalance ?? '0'}
+                onSend={() => transferModalRef.current?.onOpen()}
+                onReceive={() => setOpenReceiveModal(true)}
+                onSwap={() => {
+                    SwapModalRef.open({
+                        providerSwitchable: true,
+                    });
+                }}
+            >
+                <TransferModal ref={transferModalRef} />
+                <ReceiveModal open={openReceiveModal} onClose={() => setOpenReceiveModal(false)} items={receiveItems} />
+                <div className="flex w-full flex-col">
+                    <div className="relative flex items-center justify-between">
+                        <Tabs variant="subtle" onChange={setTabType} value={tabType}>
+                            <Tab value={TabType.Token}>
+                                <Trans>Token</Trans>
+                            </Tab>
+                            <Tab value={TabType.NFT}>
+                                <Trans>NFT</Trans>
+                            </Tab>
+                            <Tab value={TabType.Transactions}>
+                                <Trans>Transactions</Trans>
+                            </Tab>
+                        </Tabs>
+                        <div className="absolute right-0 top-1/2 flex -translate-y-1/2 items-center">
+                            {tabType === TabType.Token && [NetworkType.Ethereum].includes(networkType) ? (
+                                <ClickableButton
+                                    className="text-md flex cursor-pointer items-center space-x-2 text-main"
+                                    onClick={() => {
+                                        AddCustomERC20ModalRef.open({
+                                            initialChainId: EthereumChainId.Mainnet,
+                                        });
+                                    }}
+                                >
+                                    <AddIcon width={24} height={24} className="size-6 shrink-0 text-highlight" />
+                                </ClickableButton>
+                            ) : null}
+                            {tabType === TabType.Transactions ? (
+                                <FireflyWalletChainSelectorWithNetworkType
+                                    selectedChain={networkType}
+                                    onSelectChain={setNetworkType}
+                                />
+                            ) : null}
+                        </div>
+                    </div>
+                    {tabType === TabType.Token ? (
+                        <FireflyWalletTokenList
+                            tokens={tokens}
+                            isLoading={isLoadingTokens}
+                            onClickToken={(token) => {
+                                const url = resolveTokenPageUrl({
+                                    chainId: token.chainId,
+                                    identity: token.id,
+                                });
+                                router.push(url);
+                            }}
+                        />
+                    ) : null}
+                    {tabType === TabType.NFT ? (
+                        <Suspense fallback={<Loading />}>
+                            <NFTs address={address} addresses={compact([ethereum.address, solana.address])} />
+                        </Suspense>
+                    ) : null}
+                    {tabType === TabType.Transactions ? (
+                        <Suspense fallback={<Loading />}>
+                            <TransactionHistory
+                                address={address}
+                                chains={
+                                    networkType === NetworkType.Ethereum
+                                        ? EVM_TRANSACTION_CHAIN_IDS
+                                        : SOLANA_TRANSACTION_CHAIN_IDS
+                                }
+                            />
+                        </Suspense>
+                    ) : null}
+                </div>
+            </FireflyWalletHomePageUI>
+        </>
+    );
+}
+
+export function NavigationBar() {
+    const comeback = useComeBack();
+    return (
+        <div className="sticky top-0 z-40 flex items-center bg-primaryBottom px-4 pb-3 pt-6">
+            <ComeBack width={24} height={24} className="mr-2 cursor-pointer" onClick={comeback} />
+            <h2 className="min-w-0 truncate text-xl font-black leading-6">
+                <Trans>Firefly Wallet</Trans>
+            </h2>
+        </div>
+    );
+}

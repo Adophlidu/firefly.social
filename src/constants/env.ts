@@ -33,6 +33,8 @@ const InternalEnvSchema = z.object({
     FIREFLY_JWT_SECRET: z.string(),
 
     X3_PRO_API_TOKEN: z.string(),
+
+    PRIVY_APP_SECRET: z.string(),
 });
 
 const ExternalEnvSchema = z.object({
@@ -42,6 +44,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.social'),
     NEXT_PUBLIC_SOLANA_RPC_URL: z.string().default('https://api.mainnet-beta.solana.com'),
     NEXT_PUBLIC_FIREFLY_NITTER_URL: z.string().default('https://nitter.r2d2.to'),
+    NEXT_PUBLIC_PRIVY_APP_ID: z.string(),
 
     // features
     NEXT_PUBLIC_POLL: z.nativeEnum(STATUS).default(STATUS.Disabled),
@@ -115,6 +118,7 @@ export const env = {
         : {}) as z.infer<typeof InternalEnvSchema>,
     external: ExternalEnvSchema.parse({
         NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
+        NEXT_PUBLIC_PRIVY_APP_ID: process.env.NEXT_PUBLIC_PRIVY_APP_ID,
 
         // urls
         NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,

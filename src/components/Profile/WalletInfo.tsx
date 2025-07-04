@@ -24,7 +24,6 @@ import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
-import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { Debank } from '@/providers/debank/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -66,8 +65,6 @@ function resolveVerifiedText({ source, provider }: VerifiedSource) {
 }
 
 export function WalletInfo({ profile }: WalletInfoProps) {
-    const isLarge = useIsLarge();
-
     const avatar = profile.avatar ?? getStampAvatarByProfileId(Source.Wallet, profile.address);
     const networkType = getAddressType(profile.address);
 

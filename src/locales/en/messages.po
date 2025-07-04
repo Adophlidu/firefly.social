@@ -163,6 +163,9 @@ msgstr "Ask a question"
 msgid "There is no data available to select."
 msgstr "There is no data available to select."
 
+msgid "To"
+msgstr "To"
+
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 
@@ -309,6 +312,9 @@ msgstr "Password Verification"
 msgid "This token is a gas abuser."
 msgstr "This token is a gas abuser."
 
+msgid "Address, ENS, or social handle"
+msgstr "Address, ENS, or social handle"
+
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr "Failed to disable Multi-device login. Please try again later."
 
@@ -387,6 +393,9 @@ msgstr "<0>Burned</0><1/>"
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 
+msgid "Firefly wallets"
+msgstr "Firefly wallets"
+
 msgid "Join our Discord"
 msgstr "Join our Discord"
 
@@ -429,6 +438,10 @@ msgstr "Invalid password. Please ensure it is a 6-digit number."
 
 msgid "Potential risk of external call."
 msgstr "Potential risk of external call."
+
+#. placeholder {0}: selected.name
+msgid "Your {0} Address"
+msgstr "Your {0} Address"
 
 msgid "FAILED POST"
 msgstr "FAILED POST"
@@ -632,6 +645,9 @@ msgstr "Retry"
 #. placeholder {0}: decodeURIComponent(connectorName as string)
 msgid "Get {0}"
 msgstr "Get {0}"
+
+msgid "TOTAL ASSETS (≈USD)"
+msgstr "TOTAL ASSETS (≈USD)"
 
 msgid "Show less"
 msgstr "Show less"
@@ -1196,6 +1212,9 @@ msgstr "Address"
 msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgstr "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 
+msgid "Copy address"
+msgstr "Copy address"
+
 msgid "Mobile QR login"
 msgstr "Mobile QR login"
 
@@ -1382,6 +1401,9 @@ msgstr "Winners"
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "REPLY to<0><1>@{0}</1></0>"
 
+msgid "Revoke"
+msgstr "Revoke"
+
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 msgstr "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 
@@ -1494,6 +1516,9 @@ msgstr "<0>Bought</0><1/>"
 
 msgid "Sign in with recovery phrase"
 msgstr "Sign in with recovery phrase"
+
+msgid "Recipient"
+msgstr "Recipient"
 
 msgid "Mint price"
 msgstr "Mint price"
@@ -1686,6 +1711,9 @@ msgstr "No voting power"
 msgid "Your draft was saved."
 msgstr "Your draft was saved."
 
+msgid "The address could not be found."
+msgstr "The address could not be found."
+
 msgid "Verify and Claim"
 msgstr "Verify and Claim"
 
@@ -1856,6 +1884,9 @@ msgstr "This token contract has not been verified. We cannot check the contract 
 msgid "Replies"
 msgstr "Replies"
 
+msgid "Please note that the wallet address related to social account may be inaccurate or subject to change. Be sure to verify the address before sending."
+msgstr "Please note that the wallet address related to social account may be inaccurate or subject to change. Be sure to verify the address before sending."
+
 msgid "Current Results"
 msgstr "Current Results"
 
@@ -1886,6 +1917,9 @@ msgstr "This token is not issued by its declared team. Some scams will create a 
 
 msgid "Search post"
 msgstr "Search post"
+
+msgid "Enter or search for a recipient wallet"
+msgstr "Enter or search for a recipient wallet"
 
 msgid "Failed to switch chain"
 msgstr "Failed to switch chain"
@@ -2188,6 +2222,9 @@ msgstr "NFT minted successfully!"
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "This can’t be undone, and the scheduled send will be canceled."
 
+msgid "NFT Mint"
+msgstr "NFT Mint"
+
 msgid "Lens"
 msgstr "Lens"
 
@@ -2287,6 +2324,9 @@ msgstr "Submit a wallet to receive a collectible and $MASK airdrop"
 msgid "Standard"
 msgstr "Standard"
 
+msgid "Token"
+msgstr "Token"
+
 msgid "No darkweb transactions found."
 msgstr "No darkweb transactions found."
 
@@ -2353,6 +2393,10 @@ msgstr "Font Color"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Grow your followers and engagement with Lucky Drop on Firefly!"
+
+#. placeholder {0}: item.project_name
+msgid "on {0}"
+msgstr "on {0}"
 
 msgid "Unsent posts"
 msgstr "Unsent posts"
@@ -2437,6 +2481,9 @@ msgstr "👀 Firefly notifications are off. "
 
 msgid "Farcaster"
 msgstr "Farcaster"
+
+msgid "NFT Receive"
+msgstr "NFT Receive"
 
 msgid "Replying to"
 msgstr "Replying to"
@@ -2748,6 +2795,14 @@ msgstr "{0, plural, =1 {{1}} =2 {{2}} =3 {{3}} =4 {{4}} other {{5}}}"
 msgid "View engagements"
 msgstr "View engagements"
 
+#. placeholder {0}: token.balance || '0'
+#. placeholder {1}: token.symbol || '-'
+msgid "Balance: {0} {1}"
+msgstr "Balance: {0} {1}"
+
+msgid "This wallet address is invalid"
+msgstr "This wallet address is invalid"
+
 msgid "The contract owner has restrictions on selling."
 msgstr "The contract owner has restrictions on selling."
 
@@ -3047,6 +3102,9 @@ msgstr "Wallet submitted"
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."
 
+msgid "NFT Send"
+msgstr "NFT Send"
+
 msgid "Your Firefly Account is now connected"
 msgstr "Your Firefly Account is now connected"
 
@@ -3280,6 +3338,9 @@ msgstr "Copy"
 
 msgid "Enter Amount Each"
 msgstr "Enter Amount Each"
+
+msgid "Amount"
+msgstr "Amount"
 
 msgid "firefly.eth liked your transaction"
 msgstr "firefly.eth liked your transaction"
@@ -4115,6 +4176,10 @@ msgstr "Status"
 msgid "No blackmail activities involved."
 msgstr "No blackmail activities involved."
 
+#. placeholder {0}: formatAddress( item.token_approve?.token.address || token.token.address || token.sender || token.recipient, 4, )
+msgid "With {0}"
+msgstr "With {0}"
+
 #. placeholder {0}: error.message
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr "We encountered an error when try to decrypt this message: {0}"
@@ -4197,6 +4262,9 @@ msgstr "By @{0}"
 
 msgid "Video"
 msgstr "Video"
+
+msgid "Firefly Wallet"
+msgstr "Firefly Wallet"
 
 msgid "Language"
 msgstr "Language"
@@ -4320,6 +4388,9 @@ msgstr "Claim Basic"
 #. placeholder {0}: post.author.displayName
 msgid "<0>{0}</0> retruthed"
 msgstr "<0>{0}</0> retruthed"
+
+msgid "Interaction"
+msgstr "Interaction"
 
 msgid "Sign in with Farcaster"
 msgstr "Sign in with Farcaster"
@@ -4479,6 +4550,9 @@ msgstr "Fake KYC found."
 
 msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
 msgstr "You can turn it back on anytime in <0>Settings > Content preference</0>"
+
+msgid "NFT"
+msgstr "NFT"
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"

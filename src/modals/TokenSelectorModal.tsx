@@ -25,15 +25,17 @@ export interface TokenSelectorModalOpenProps {
     disableBackdropClose?: boolean;
     isSelected?: (item: Token) => boolean;
     initialAddTokenChainId?: number;
+    isConnectRequest?: boolean;
 }
 
-export type TokenSelectorModalCloseProps = FungibleToken<EthereumChainId, EthereumSchemaType> | null;
+export type TokenSelectorModalCloseProps = FungibleToken<EthereumChainId, EthereumSchemaType, Token> | null;
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>>;
 };
 
 export function TokenSelectorModal({ ref }: Props) {
     const [props, setProps] = useState<TokenSelectorModalOpenProps>();
+    const isConnectRequest = props?.isConnectRequest ?? true;
 
     const account = useAccountByNetwork(props?.networkType);
 
@@ -81,7 +83,7 @@ export function TokenSelectorModal({ ref }: Props) {
                     ) : null}
                 </DialogTitle>
                 <div className="min-h-0 flex-1">
-                    {account.isConnected ? (
+                    {account.isConnected || !isConnectRequest ? (
                         <SearchTokenPanel
                             networkType={props.networkType}
                             address={props.address}

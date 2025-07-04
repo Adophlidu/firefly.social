@@ -41,6 +41,7 @@ export default async function Layout({ children, modal }: { children: ReactNode;
                             '/token',
                             '/nft',
                             '/auth',
+                            '/wallet',
                         ]}
                     >
                         <NavigatorBar />

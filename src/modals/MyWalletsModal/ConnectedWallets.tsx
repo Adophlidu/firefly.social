@@ -1,12 +1,11 @@
 import { Trans } from '@lingui/react/macro';
-import { CoreChainController } from '@reown/appkit';
 import { mainnet } from '@reown/appkit/networks';
-import { compact, uniqBy } from 'lodash-es';
-import { type FunctionComponent, memo, type SVGAttributes, useEffect, useMemo, useState } from 'react';
+import { type FunctionComponent, memo, type SVGAttributes } from 'react';
 import { useAsyncFn } from 'react-use';
-import { type Connector, useConnections, useSwitchAccount } from 'wagmi';
+import { type Connector, useSwitchAccount } from 'wagmi';
 
 import EvmIcon from '@/assets/evm.svg';
+import FireflyIcon from '@/assets/firefly.round.svg';
 import PlusIcon from '@/assets/plus.svg';
 import SolanaIcon from '@/assets/solana.svg';
 import SwitchIcon from '@/assets/switch.svg';
@@ -14,17 +13,18 @@ import WalletIcon from '@/assets/wallet.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
+import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit } from '@/configs/wagmiClient.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useEnsNameCached } from '@/hooks/useEnsNameCached.js';
+import { useIsSetupPrivyWallet } from '@/hooks/useIsSetupPrivyWallet.js';
+import { ConnectionSource, useWalletConnections } from '@/hooks/useWalletConnections.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
-import { restoreDisconnectMethod, rewriteDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
+import { rewriteDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
 import { switchNetwork } from '@/modals/MyWalletsModal/switchNetwork.js';
 import { syncWalletIdentity } from '@/modals/MyWalletsModal/syncWalletIdentity.js';
+import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 import type { ChainNamespace } from '@/types/index.js';
 
 const IconMap: Record<ChainNamespace, FunctionComponent<SVGAttributes<SVGElement>>> = {
@@ -42,6 +42,7 @@ interface ConnectedItemProps extends ClickableButtonProps {
     connector?: Connector;
     chainId?: number;
     walletIconUrl?: string;
+    source?: ConnectionSource;
 }
 
 function ConnectedItem({
@@ -51,19 +52,25 @@ function ConnectedItem({
     connector,
     chainId,
     walletIconUrl,
+    source,
     ...rest
 }: ConnectedItemProps) {
     const { switchAccountAsync } = useSwitchAccount();
     const { data: ensName } = useEnsNameCached(address, undefined, namespace === 'eip155');
+    const setActiveNetwork = useSolanaActiveNetworkStore((s) => s.setActiveNetwork);
 
     const Icon = IconMap[namespace] || WalletIcon;
 
     const [{ loading }, onConnectionClick] = useAsyncFn(async () => {
+        if (namespace === 'solana') {
+            setActiveNetwork(source === ConnectionSource.Privy ? SolanaNetworkType.Privy : SolanaNetworkType.Appkit);
+        }
         if (!connected && connector) {
             await switchAccountAsync({ connector });
             return;
         }
         if (!connected) return;
+        if (source === ConnectionSource.Privy) return;
 
         const targetNetwork = await switchNetwork(namespace, chainId);
         if (namespace === 'eip155') {
@@ -72,7 +79,7 @@ function ConnectedItem({
         rewriteDisconnectMethod(namespace, connector?.id);
         await syncWalletIdentity({ address, namespace });
         await appkit.open({ view: 'Account' });
-    }, [connected, connector, namespace, address, chainId, switchAccountAsync]);
+    }, [connected, connector, namespace, chainId, address, source, switchAccountAsync, setActiveNetwork]);
 
     return (
         <ClickableButton
@@ -98,65 +105,56 @@ function ConnectedItem({
     );
 }
 
-export const ConnectedWallets = memo(function ConnectedWallets() {
-    const connections = useConnections();
-    const { ethereum, solana } = useWalletAccountAll();
-    const [chainState, setChainState] = useState(CoreChainController.state.chains);
+export interface ConnectedWalletsProps {
+    onOpenWallets?: () => void;
+}
 
-    const solanaWalletIcon = chainState.get('solana')?.accountState?.connectedWalletInfo?.icon;
-    const allConnections = useMemo<
-        Array<{
-            address: string;
-            namespace: ChainNamespace;
-            connected: boolean;
-            connector?: Connector;
-            chainId?: number;
-            walletIcon?: string;
-        }>
-    >(() => {
-        const currentConnectionId = getWagmiCurrentConnectionId();
-
-        return uniqBy(
-            compact([
-                ...(ethereum.isConnected
-                    ? connections.map((x) => ({
-                          address: x.accounts[0],
-                          namespace: 'eip155' as ChainNamespace,
-                          connected: currentConnectionId
-                              ? currentConnectionId === x.connector.uid
-                              : x.accounts.some((address) => isSameAddress(address, ethereum.address)),
-                          connector: x.connector,
-                          chainId: x.chainId,
-                          walletIcon: x.connector.icon,
-                      }))
-                    : []),
-                solana.isConnected
-                    ? {
-                          address: solana.address,
-                          namespace: 'solana' as ChainNamespace,
-                          connected: true,
-                          connector: undefined,
-                          walletIcon: solanaWalletIcon,
-                      }
-                    : null,
-            ]).sort((a) => (a.connected ? -1 : 1)),
-            (x) => `${x.namespace}:${x.connector?.id}:${x.address}`,
-        );
-    }, [ethereum, solana, connections, solanaWalletIcon]);
-
-    useEffect(() => {
-        const unsubscribe = CoreChainController.subscribeKey('chains', (chains) => {
-            setChainState(chains);
-        });
-
-        return () => {
-            unsubscribe();
-            restoreDisconnectMethod();
-        };
-    }, []);
+export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }: ConnectedWalletsProps) {
+    const allConnections = useWalletConnections();
+    const connections = allConnections.filter((x) => x.source !== 'privy');
+    const privyConnections = allConnections.filter((x) => x.source === 'privy');
+    const { isSetupPrivyWallet } = useIsSetupPrivyWallet();
 
     return (
         <div>
+            {isSetupPrivyWallet ? (
+                <div className="mb-2 overflow-hidden rounded-lg border border-secondaryLine">
+                    <Link
+                        href="/wallet"
+                        className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
+                        onClick={() => {
+                            onOpenWallets?.();
+                        }}
+                    >
+                        <FireflyIcon width={20} height={20} />
+                        <span className="min-w-0 flex-1 truncate text-left text-sm">
+                            <Trans>Firefly wallets</Trans>
+                        </span>
+                        <span className="text-right text-sm">
+                            <Trans>Open</Trans>
+                        </span>
+                    </Link>
+                    {!privyConnections.length ? (
+                        <div className="flex h-10 items-center justify-center text-sm text-secondary">
+                            <Trans>No connected wallet.</Trans>
+                        </div>
+                    ) : (
+                        privyConnections.map((connection) => {
+                            return connection.walletIcon ? (
+                                <ConnectedItem
+                                    key={`${connection.address}:${connection.connector?.id}:${connection.connected}`}
+                                    connected={connection.connected}
+                                    namespace={connection.namespace}
+                                    address={connection.address}
+                                    connector={connection.connector}
+                                    chainId={connection.chainId}
+                                    source={connection.source}
+                                />
+                            ) : null;
+                        })
+                    )}
+                </div>
+            ) : null}
             <div className="overflow-hidden rounded-lg border border-secondaryLine">
                 <ClickableButton
                     className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
@@ -170,24 +168,26 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                     </span>
                     <PlusIcon width={20} height={20} />
                 </ClickableButton>
-                {!allConnections.length ? (
+                {!connections.length ? (
                     <div className="flex h-10 items-center justify-center text-sm text-secondary">
                         <Trans>No connected wallet.</Trans>
                     </div>
-                ) : null}
-                {allConnections.map((connection) => {
-                    return connection.walletIcon ? (
-                        <ConnectedItem
-                            key={`${connection.address}:${connection.connector?.id}:${connection.connected}`}
-                            connected={connection.connected}
-                            namespace={connection.namespace}
-                            address={connection.address}
-                            connector={connection.connector}
-                            chainId={connection.chainId}
-                            walletIconUrl={connection.walletIcon}
-                        />
-                    ) : null;
-                })}
+                ) : (
+                    connections.map((connection) => {
+                        return connection.walletIcon ? (
+                            <ConnectedItem
+                                key={`${connection.address}:${connection.connector?.id}:${connection.connected}`}
+                                connected={connection.connected}
+                                namespace={connection.namespace}
+                                address={connection.address}
+                                connector={connection.connector}
+                                chainId={connection.chainId}
+                                walletIconUrl={connection.walletIcon}
+                                source={connection.source}
+                            />
+                        ) : null;
+                    })
+                )}
             </div>
         </div>
     );
