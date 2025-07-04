@@ -78,7 +78,7 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
                                         className={classNames('inline-flex items-center', {
                                             '-ml-1': index > 0 && profiles.length > 1,
                                         })}
-                                        key={platform_id}
+                                        key={index}
                                     >
                                         <SocialSourceIcon
                                             source={resolveSocialSourceFromFireflyPlatform(platform)}

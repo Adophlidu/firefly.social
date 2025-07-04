@@ -341,17 +341,7 @@ const useTwitterStateBase = createState(
 
                 // show indicator if the session is from the server
                 state.__setStatus__(AsyncStatus.Pending);
-                if (!session || !isNewLogin)
-                    sentryClient.captureException(
-                        ExceptionId.RESUME_TWITTER_SESSION,
-                        new Error('resume twitter session'),
-                        {
-                            profileId: state.currentProfile?.profileId || '',
-                            isNewLogin: isNewLogin.toString(),
-                            idFromSession: idFromSession || '',
-                            createdAt: nextSession?.token.createdAt || '',
-                        },
-                    );
+
                 await addTwitterAccount(sessionPayload, !session || isNewLogin);
                 twitterSessionHolder.resumeSession(TwitterSession.from(sessionPayload.clientId, sessionPayload));
             } catch (error) {
