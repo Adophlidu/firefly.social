@@ -11,7 +11,7 @@ import { GuidePage } from '@/app/(whiteboard)/signup/pages/GuidePage.js';
 import { PageBackground } from '@/app/(whiteboard)/signup/pages/PageBackground.js';
 import { SocialLoginPage } from '@/app/(whiteboard)/signup/pages/SocialLoginPage.js';
 import { SuccessPage } from '@/app/(whiteboard)/signup/pages/SuccessPage.js';
-import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { FireflyLoadingIndicator } from '@/components/FireflyLoadingIndicator.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { PageRoute, SignupStep } from '@/constants/enum.js';
 import { SIGNUP_AUDIO_ID } from '@/constants/index.js';
@@ -87,7 +87,7 @@ export function Signup({ initialStep }: SignupProps) {
     if (isLoading) {
         return (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
-                <LoadingIcon />
+                <FireflyLoadingIndicator />
             </div>
         );
     }
