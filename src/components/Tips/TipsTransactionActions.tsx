@@ -70,19 +70,27 @@ function sharePost(
               tag: CHAR_TAG.MENTION,
               visible: true,
               content: `@${validProfiles[0].displayName}`,
-              profiles: validProfiles.map((profile) => ({
-                  platform_id: profile.identity.id,
-                  platform: resolveFireflyPlatform(profile.identity.source) || FireflyPlatform.Farcaster,
-                  handle: profile.displayName,
-                  name: profile.displayName,
-                  hit: true,
-                  score: 1,
-              })),
+              profiles: compact(
+                  validProfiles.map((profile) => {
+                      const source = profile.identity.source;
+                      const platform = source === Source.Bsky ? FireflyPlatform.Bsky : resolveFireflyPlatform(source);
+                      if (!platform) return null;
+
+                      return {
+                          platform_id: profile.identity.id,
+                          platform,
+                          handle: profile.displayName,
+                          name: profile.displayName,
+                          hit: true,
+                          score: 1,
+                      };
+                  }),
+              ),
           } satisfies MentionChars);
 
     if (view === TipsDetailViewType.Receiver) {
         ComposeModalRef.open({
-            chars: ['Thanks ', mentionNode, ', appreciate your tip via ', FIREFLY_MENTION, ' !\r\n', tipsLink],
+            chars: ['Thanks ', mentionNode, ', appreciate your tip via ', FIREFLY_MENTION, ' ! 💜\r\n', tipsLink],
         });
         return;
     }
