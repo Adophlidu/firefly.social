@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
-import { memo, useState } from 'react';
-import { useAsyncFn, useMount } from 'react-use';
+import { memo, useEffect, useRef, useState } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
@@ -32,6 +32,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
     post,
     canShowMore,
 }) {
+    const detected = useRef(false);
     const [collapsed, setCollapsed] = useState(false);
     const [translationConfig, setTranslationConfig] = useState<Record<'original' | 'target', Language | null>>({
         original: null,
@@ -45,6 +46,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
             original: originalLanguage,
             target: await getTargetLanguage(originalLanguage),
         });
+        detected.current = true;
     }, [content]);
 
     const [{ value: data, loading, error }, handleTranslate] = useAsyncFn(async () => {
@@ -57,10 +59,10 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
         };
     }, [content, translationConfig]);
 
-    useMount(() => {
-        if (!isLoginFirefly || !isValidContentToTranslate(content)) return;
+    useEffect(() => {
+        if (!isLoginFirefly || !isValidContentToTranslate(content) || detected.current) return;
         handleDetect();
-    });
+    }, [content, isLoginFirefly, handleDetect]);
 
     if (!isLoginFirefly || !translationConfig.target) return null;
 
