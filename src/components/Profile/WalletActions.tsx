@@ -1,5 +1,7 @@
 'use client';
 import { Trans } from '@lingui/react/macro';
+import { safeUnreachable } from '@masknet/kit';
+import { useRouter } from 'next/navigation.js';
 import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -13,11 +15,12 @@ import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidA
 import { openWindow } from '@/helpers/openWindow.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
+import { type WalletProfile, WalletProfileDataSource } from '@/providers/types/Firefly.js';
 
 export function WalletActions({ profile }: { profile: WalletProfile }) {
     const isMyWallets = useIsMyRelatedProfile(Source.Wallet, profile.address);
     const isMedium = useIsMedium();
+    const router = useRouter();
 
     if (isMyWallets && isMPCWallet(profile)) {
         const type = isValidAddressEthereum(profile.address)
@@ -28,7 +31,17 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
         return (
             <ClickableButton
                 onClick={() => {
-                    openWindow(urlcat(SITE_URL, '/particle-recovery', { type }));
+                    if (!profile.dataSource) return;
+                    switch (profile.dataSource) {
+                        case WalletProfileDataSource.Particle:
+                            openWindow(urlcat(SITE_URL, '/particle-recovery', { type }));
+                            break;
+                        case WalletProfileDataSource.Privy:
+                            router.push('/wallet');
+                            break;
+                        default:
+                            safeUnreachable(profile.dataSource);
+                    }
                 }}
                 className="ml-auto mr-1 flex h-8 min-w-[100px] items-center justify-center rounded-lg bg-highlight px-2 text-medium font-semibold text-primaryBottom transition-all hover:opacity-80 dark:text-main"
             >

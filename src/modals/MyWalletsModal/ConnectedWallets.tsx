@@ -140,7 +140,7 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
                         </div>
                     ) : (
                         privyConnections.map((connection) => {
-                            return connection.walletIcon ? (
+                            return (
                                 <ConnectedItem
                                     key={`${connection.address}:${connection.connector?.id}:${connection.connected}`}
                                     connected={connection.connected}
@@ -150,7 +150,7 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
                                     chainId={connection.chainId}
                                     source={connection.source}
                                 />
-                            ) : null;
+                            );
                         })
                     )}
                 </div>

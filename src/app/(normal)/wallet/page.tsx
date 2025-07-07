@@ -49,11 +49,21 @@ export default function Wallet() {
     const { isLoading, error } = useIsSetupPrivyWallet();
 
     if (!isLoginFirefly) {
-        return <NotLoginFallback source={Source.NFTs} />;
+        return (
+            <>
+                <NavigationBar />
+                <NotLoginFallback source={Source.NFTs} />
+            </>
+        );
     }
 
     if (!authenticated || !ready || isLoading) {
-        return <Loading />;
+        return (
+            <>
+                <NavigationBar />
+                <Loading />
+            </>
+        );
     }
 
     if (error) {

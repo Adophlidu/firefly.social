@@ -483,6 +483,11 @@ export interface VerifiedSource {
     verifiedText: string;
 }
 
+export const enum WalletProfileDataSource {
+    Particle = 'particle',
+    Privy = 'privy',
+}
+
 export interface WalletProfile {
     address: Address;
     ens?: string[];
@@ -494,7 +499,7 @@ export interface WalletProfile {
     blocked?: boolean;
     hacked?: boolean;
     isDefault?: boolean;
-    dataSource?: string;
+    dataSource?: WalletProfileDataSource;
 }
 
 export type WalletRelationResponse = Response<{
