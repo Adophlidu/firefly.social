@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server.js';
 
 import { authOptions } from '@/app/api/auth/[...nextauth]/options.js';
+import { DeleteCookieScript, MaskDelegateCookieName } from '@/app/api/mask/delegate-x-token/shared.js';
 import { Auth } from '@/esm/Auth.js';
 import type { NextRequestContext } from '@/types/index.js';
 
@@ -8,7 +9,6 @@ const handler = Auth(authOptions);
 
 export { handler as POST };
 
-const MaskDelegateCookieName = 'X-REQUEST_TOKEN-MASK-DELEGATE';
 export async function GET(request: NextRequest, context: NextRequestContext<{}>) {
     if (request.nextUrl.pathname === '/api/auth/signin') {
         return NextResponse.redirect(
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest, context: NextRequestContext<{}>)
         request.cookies.get(MaskDelegateCookieName)?.value
     ) {
         const res = new NextResponse(
-            `<!doctype html><a id="c" href="#">It's now safe to turn off this page.</a><script>c.onclose=()=>window.close()</script>`,
+            `<!doctype html><a id="c" href="#">It's now safe to turn off this page.</a><script>${DeleteCookieScript};c.onclose=()=>window.close()</script>`,
             {
                 headers: {
                     'Content-Type': 'text/html, charset=utf-8',
