@@ -33,7 +33,10 @@ export const useTipsTokens = (address?: string) => {
                             ...token,
                             networkType: NetworkType.Ethereum,
                             chainId: token.chainId,
-                            balance: formatBalance(token.raw_amount, token.decimals, { isFixed: true }),
+                            balance: formatBalance(token.raw_amount, token.decimals, {
+                                isFixed: true,
+                                fixedDecimals: 8,
+                            }),
                             usdValue: +multipliedBy(token.price, token.amount).toFixed(2),
                         },
                     ];

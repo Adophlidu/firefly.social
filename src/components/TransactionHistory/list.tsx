@@ -11,13 +11,18 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { groupAndSortByDate } from '@/helpers/sortAndGroupByDate.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { TransactionHistoryCategory, type TransactionHistoryItem } from '@/providers/types/Firefly.js';
+import {
+    TransactionHistoryCategory,
+    type TransactionHistoryItem,
+    TransactionState,
+} from '@/providers/types/Firefly.js';
 
 interface Props {
     chains: number[];
@@ -75,8 +80,12 @@ function TransactionHistoryItem({ item }: { item: TransactionHistoryItem }) {
             <div className="flex items-center space-x-5">
                 <TransactionHistoryTokenItem item={item} />
                 <div>
-                    <div className="text-sm font-medium">
-                        <Category category={item.category} />
+                    <div
+                        className={classNames('text-sm font-medium', {
+                            'text-fail': item.tx_status === TransactionState.Failed,
+                        })}
+                    >
+                        <Category category={item.category} state={item.tx_status} />
                     </div>
                     <TransactionHistorySubTitle item={item} />
                 </div>
@@ -86,12 +95,37 @@ function TransactionHistoryItem({ item }: { item: TransactionHistoryItem }) {
     );
 }
 
-function Category({ category }: { category: TransactionHistoryCategory }) {
+function Category({ category, state }: { category: TransactionHistoryCategory; state: TransactionState }) {
+    if (state === TransactionState.Failed) {
+        switch (category) {
+            case TransactionHistoryCategory.TokenReceive:
+                return <Trans>Receive Failed</Trans>;
+            case TransactionHistoryCategory.TokenSend:
+                return <Trans>Sent Failed</Trans>;
+            case TransactionHistoryCategory.TokenSwap:
+                return <Trans>Swapped Failed</Trans>;
+            case TransactionHistoryCategory.TokenApprove:
+                return <Trans>Approve Failed</Trans>;
+            case TransactionHistoryCategory.TokenRevoke:
+                return <Trans>Revoke Failed</Trans>;
+            case TransactionHistoryCategory.NftReceive:
+                return <Trans>NFT Receive Failed</Trans>;
+            case TransactionHistoryCategory.NftSend:
+                return <Trans>NFT Send Failed</Trans>;
+            case TransactionHistoryCategory.NftMint:
+                return <Trans>NFT Mint Failed</Trans>;
+            case TransactionHistoryCategory.ContractInteraction:
+                return <Trans>Interacted Failed</Trans>;
+            default:
+                safeUnreachable(category);
+                return null;
+        }
+    }
     switch (category) {
         case TransactionHistoryCategory.TokenReceive:
             return <Trans>Receive</Trans>;
         case TransactionHistoryCategory.TokenSend:
-            return <Trans>Send</Trans>;
+            return <Trans>Sent</Trans>;
         case TransactionHistoryCategory.TokenSwap:
             return <Trans>Swapped</Trans>;
         case TransactionHistoryCategory.TokenApprove:
@@ -105,7 +139,7 @@ function Category({ category }: { category: TransactionHistoryCategory }) {
         case TransactionHistoryCategory.NftMint:
             return <Trans>NFT Mint</Trans>;
         case TransactionHistoryCategory.ContractInteraction:
-            return <Trans>Interaction</Trans>;
+            return <Trans>Interacted</Trans>;
         default:
             safeUnreachable(category);
             return null;
@@ -183,7 +217,7 @@ function ItemEnd({ item }: { item: TransactionHistoryItem }) {
 
 function TransactionHistoryTokenItem({ item }: { item: TransactionHistoryItem }) {
     const isSolana = item.chain_id === SolanaChainId.Mainnet;
-    const networkType = isSolana ? NetworkType.Solana : NetworkType.Solana;
+    const networkType = isSolana ? NetworkType.Solana : NetworkType.Ethereum;
     const chainId = item.chain_id;
     if (
         [
@@ -194,6 +228,11 @@ function TransactionHistoryTokenItem({ item }: { item: TransactionHistoryItem })
     ) {
         const nft = item.nft_receives[0] || item.nft_sends[0];
         return <TokenIcon icon={nft.nft.logo} networkType={networkType} chainId={chainId} />;
+    }
+    if (item.category === TransactionHistoryCategory.TokenApprove) {
+        const token = item.token_approve?.token;
+        if (!token) return null;
+        return <TokenIcon icon={token.logo} networkType={networkType} chainId={chainId} disableBadge={isSolana} />;
     }
     if (item.category === TransactionHistoryCategory.TokenSwap && item.token_receives[0] && item.token_sends[0]) {
         const tokenReceive = item.token_receives[0];
@@ -228,11 +267,19 @@ function TransactionHistoryTokenItem({ item }: { item: TransactionHistoryItem })
     }
 
     const token = item.token_receives[0] || item.token_sends[0];
-    if (!token) return null;
-    return <TokenIcon icon={token.token.logo} networkType={networkType} chainId={chainId} disableBadge={isSolana} />;
+    return <TokenIcon icon={token?.token?.logo} networkType={networkType} chainId={chainId} disableBadge={isSolana} />;
 }
 
 function TransactionHistorySubTitle({ item }: { item: TransactionHistoryItem }) {
+    if (item.category === TransactionHistoryCategory.TokenApprove) {
+        const tokenApprove = item.token_approve;
+        if (!tokenApprove) return null;
+        return (
+            <div className="text-[13px] font-medium lowercase leading-[18px] text-second">
+                <div>{formatAddress(tokenApprove.spender_address, 4)}</div>
+            </div>
+        );
+    }
     if (item.category === TransactionHistoryCategory.TokenSwap) {
         return (
             <div className="text-[13px] font-medium leading-[18px] text-second">
@@ -244,19 +291,22 @@ function TransactionHistorySubTitle({ item }: { item: TransactionHistoryItem }) 
     if (!token) return null;
 
     if (item.category === TransactionHistoryCategory.ContractInteraction) {
-        <div className="text-[13px] font-medium leading-[18px] text-second">
-            <Trans>
-                With{' '}
-                {formatAddress(
-                    item.token_approve?.token.address || token.token.address || token.sender || token.recipient,
-                    4,
-                )}
-            </Trans>
-        </div>;
+        return (
+            <div className="text-[13px] font-medium leading-[18px]">
+                <Trans>
+                    With{' '}
+                    <span className="lowercase">
+                        {formatAddress(
+                            item.token_approve?.token.address || token.token.address || token.sender || token.recipient,
+                            4,
+                        )}
+                    </span>
+                </Trans>
+            </div>
+        );
     }
-
     return (
-        <div className="text-[13px] font-medium leading-[18px] text-second">
+        <div className="text-[13px] font-medium lowercase leading-[18px] text-second">
             <div>{formatAddress(token.sender || token.recipient, 4)}</div>
         </div>
     );

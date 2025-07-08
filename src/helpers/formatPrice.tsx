@@ -1,5 +1,7 @@
 import { BigNumber } from 'bignumber.js';
 
+import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
+
 export function formatPrice(price: number | string | undefined, digits?: number) {
     if (price === undefined) return;
     price = +price;
@@ -15,16 +17,20 @@ export function formatPrice(price: number | string | undefined, digits?: number)
     }
 
     if (price < 1) {
-        return price.toLocaleString('en-US', {
-            minimumSignificantDigits: Math.min(2, digits),
-            maximumSignificantDigits: digits,
-        });
+        return removeTrailingZeros(
+            price.toLocaleString('en-US', {
+                minimumSignificantDigits: Math.min(2, digits),
+                maximumSignificantDigits: digits,
+            }),
+        );
     }
 
-    return price.toLocaleString('en-US', {
-        minimumFractionDigits: Math.min(2, digits),
-        maximumFractionDigits: digits,
-    });
+    return removeTrailingZeros(
+        price.toLocaleString('en-US', {
+            minimumFractionDigits: Math.min(2, digits),
+            maximumFractionDigits: digits,
+        }),
+    );
 }
 
 export function renderShrankPrice(shrank: string) {

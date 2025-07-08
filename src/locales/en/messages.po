@@ -122,6 +122,9 @@ msgstr "Unmute successfully."
 msgid "Simulating"
 msgstr "Simulating"
 
+msgid "Interacted Failed"
+msgstr "Interacted Failed"
+
 msgid "Refunded"
 msgstr "Refunded"
 
@@ -291,6 +294,9 @@ msgstr "You have exceeded the maximum number of attempts. Please try again later
 msgid "FDV"
 msgstr "FDV"
 
+msgid "Receive Failed"
+msgstr "Receive Failed"
+
 msgid "Functions that can suspend trading"
 msgstr "Functions that can suspend trading"
 
@@ -314,6 +320,9 @@ msgstr "This token is a gas abuser."
 
 msgid "Address, ENS, or social handle"
 msgstr "Address, ENS, or social handle"
+
+msgid "Revoke Failed"
+msgstr "Revoke Failed"
 
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr "Failed to disable Multi-device login. Please try again later."
@@ -569,6 +578,9 @@ msgstr "Our transaction simulation and security detection found no issues. Howev
 
 msgid "Market Cap"
 msgstr "Market Cap"
+
+msgid "NFT Send Failed"
+msgstr "NFT Send Failed"
 
 msgid "Eligible for Premium Collectible?"
 msgstr "Eligible for Premium Collectible?"
@@ -1382,6 +1394,9 @@ msgstr "Log in with your X account to view"
 msgid "Login to Firefly"
 msgstr "Login to Firefly"
 
+msgid "Approve Failed"
+msgstr "Approve Failed"
+
 msgid "Canceled"
 msgstr "Canceled"
 
@@ -1708,6 +1723,9 @@ msgstr "Claimed lucky drop with {0} {symbol} successfully"
 msgid "No voting power"
 msgstr "No voting power"
 
+msgid "Interacted"
+msgstr "Interacted"
+
 msgid "Your draft was saved."
 msgstr "Your draft was saved."
 
@@ -1779,6 +1797,9 @@ msgstr "Switch"
 msgid "Drafts"
 msgstr "Drafts"
 
+msgid "NFT Receive Failed"
+msgstr "NFT Receive Failed"
+
 msgid "No financial crime involved."
 msgstr "No financial crime involved."
 
@@ -1802,6 +1823,10 @@ msgstr "This token contract is open source. You can check the contract code for 
 
 msgid "Darkweb transactions found."
 msgstr "Darkweb transactions found."
+
+#. placeholder {0}: formatAddress( item.token_approve?.token.address || token.token.address || token.sender || token.recipient, 4, )
+msgid "With <0>{0}</0>"
+msgstr "With <0>{0}</0>"
 
 #. placeholder {0}: humanize(count)
 msgid "{0} Comments"
@@ -2070,6 +2095,9 @@ msgstr "Sorry, the passcode you entered is invalid"
 
 msgid "Circulating Supply"
 msgstr "Circulating Supply"
+
+msgid "Sent Failed"
+msgstr "Sent Failed"
 
 msgid "Failed to switch."
 msgstr "Failed to switch."
@@ -3754,6 +3782,9 @@ msgstr "no less than {0}"
 msgid "{viewCount, plural, one {view} other {views}}"
 msgstr "{viewCount, plural, one {view} other {views}}"
 
+msgid "Swapped Failed"
+msgstr "Swapped Failed"
+
 msgid "Only people you follow"
 msgstr "Only people you follow"
 
@@ -4176,10 +4207,6 @@ msgstr "Status"
 msgid "No blackmail activities involved."
 msgstr "No blackmail activities involved."
 
-#. placeholder {0}: formatAddress( item.token_approve?.token.address || token.token.address || token.sender || token.recipient, 4, )
-msgid "With {0}"
-msgstr "With {0}"
-
 #. placeholder {0}: error.message
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr "We encountered an error when try to decrypt this message: {0}"
@@ -4195,6 +4222,9 @@ msgstr "Verify"
 
 msgid "Explore now"
 msgstr "Explore now"
+
+msgid "NFT Mint Failed"
+msgstr "NFT Mint Failed"
 
 msgid "Hidden owner."
 msgstr "Hidden owner."
@@ -4388,9 +4418,6 @@ msgstr "Claim Basic"
 #. placeholder {0}: post.author.displayName
 msgid "<0>{0}</0> retruthed"
 msgstr "<0>{0}</0> retruthed"
-
-msgid "Interaction"
-msgstr "Interaction"
 
 msgid "Sign in with Farcaster"
 msgstr "Sign in with Farcaster"

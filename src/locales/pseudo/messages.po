@@ -122,6 +122,9 @@ msgstr ""
 msgid "Simulating"
 msgstr ""
 
+msgid "Interacted Failed"
+msgstr ""
+
 msgid "Refunded"
 msgstr ""
 
@@ -291,6 +294,9 @@ msgstr ""
 msgid "FDV"
 msgstr ""
 
+msgid "Receive Failed"
+msgstr ""
+
 msgid "Functions that can suspend trading"
 msgstr ""
 
@@ -313,6 +319,9 @@ msgid "This token is a gas abuser."
 msgstr ""
 
 msgid "Address, ENS, or social handle"
+msgstr ""
+
+msgid "Revoke Failed"
 msgstr ""
 
 msgid "Failed to disable Multi-device login. Please try again later."
@@ -568,6 +577,9 @@ msgid "Our transaction simulation and security detection found no issues. Howeve
 msgstr ""
 
 msgid "Market Cap"
+msgstr ""
+
+msgid "NFT Send Failed"
 msgstr ""
 
 msgid "Eligible for Premium Collectible?"
@@ -1382,6 +1394,9 @@ msgstr ""
 msgid "Login to Firefly"
 msgstr ""
 
+msgid "Approve Failed"
+msgstr ""
+
 msgid "Canceled"
 msgstr ""
 
@@ -1708,6 +1723,9 @@ msgstr ""
 msgid "No voting power"
 msgstr ""
 
+msgid "Interacted"
+msgstr ""
+
 msgid "Your draft was saved."
 msgstr ""
 
@@ -1779,6 +1797,9 @@ msgstr ""
 msgid "Drafts"
 msgstr ""
 
+msgid "NFT Receive Failed"
+msgstr ""
+
 msgid "No financial crime involved."
 msgstr ""
 
@@ -1801,6 +1822,10 @@ msgid "This token contract is open source. You can check the contract code for d
 msgstr ""
 
 msgid "Darkweb transactions found."
+msgstr ""
+
+#. placeholder {0}: formatAddress( item.token_approve?.token.address || token.token.address || token.sender || token.recipient, 4, )
+msgid "With <0>{0}</0>"
 msgstr ""
 
 #. placeholder {0}: humanize(count)
@@ -2061,6 +2086,9 @@ msgid "Sorry, the passcode you entered is invalid"
 msgstr ""
 
 msgid "Circulating Supply"
+msgstr ""
+
+msgid "Sent Failed"
 msgstr ""
 
 msgid "Failed to switch."
@@ -3738,6 +3766,9 @@ msgstr ""
 msgid "{viewCount, plural, one {view} other {views}}"
 msgstr ""
 
+msgid "Swapped Failed"
+msgstr ""
+
 msgid "Only people you follow"
 msgstr ""
 
@@ -4160,10 +4191,6 @@ msgstr ""
 msgid "No blackmail activities involved."
 msgstr ""
 
-#. placeholder {0}: formatAddress( item.token_approve?.token.address || token.token.address || token.sender || token.recipient, 4, )
-msgid "With {0}"
-msgstr ""
-
 #. placeholder {0}: error.message
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr ""
@@ -4178,6 +4205,9 @@ msgid "Verify"
 msgstr ""
 
 msgid "Explore now"
+msgstr ""
+
+msgid "NFT Mint Failed"
 msgstr ""
 
 msgid "Hidden owner."
@@ -4371,9 +4401,6 @@ msgstr ""
 
 #. placeholder {0}: post.author.displayName
 msgid "<0>{0}</0> retruthed"
-msgstr ""
-
-msgid "Interaction"
 msgstr ""
 
 msgid "Sign in with Farcaster"

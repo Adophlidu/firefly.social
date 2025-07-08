@@ -1981,7 +1981,7 @@ export interface PrivyWallet {
 }
 export type PrivyWalletResponse = Response<PrivyWallet>;
 
-export enum TransactionHistoryCategory {
+export const enum TransactionHistoryCategory {
     TokenReceive = 'token_receive',
     TokenSend = 'token_send',
     TokenSwap = 'token_swap',
@@ -1993,11 +1993,16 @@ export enum TransactionHistoryCategory {
     ContractInteraction = 'contract_interaction',
 }
 
+export const enum TransactionState {
+    Success = 'success',
+    Failed = 'fail',
+}
+
 export interface TransactionHistoryItem {
     chain_id: number;
     hash: string;
     block_number: number;
-    tx_status: string;
+    tx_status: TransactionState;
     project_logo: string;
     project_name: string;
     timestamp: string;

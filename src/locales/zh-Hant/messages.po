@@ -127,6 +127,9 @@ msgstr "已成功取消靜音"
 msgid "Simulating"
 msgstr "模擬中"
 
+msgid "Interacted Failed"
+msgstr ""
+
 msgid "Refunded"
 msgstr "已退款"
 
@@ -296,6 +299,9 @@ msgstr "您已超過最大嘗試次數，請稍後再試。"
 msgid "FDV"
 msgstr ""
 
+msgid "Receive Failed"
+msgstr ""
+
 msgid "Functions that can suspend trading"
 msgstr "可暫停交易的功能"
 
@@ -318,6 +324,9 @@ msgid "This token is a gas abuser."
 msgstr "此代幣存在 Gas 濫用問題。"
 
 msgid "Address, ENS, or social handle"
+msgstr ""
+
+msgid "Revoke Failed"
 msgstr ""
 
 msgid "Failed to disable Multi-device login. Please try again later."
@@ -574,6 +583,9 @@ msgstr "我們的交易模擬與安全檢測未發現問題。但操作前請務
 
 msgid "Market Cap"
 msgstr "市值"
+
+msgid "NFT Send Failed"
+msgstr ""
 
 msgid "Eligible for Premium Collectible?"
 msgstr "符合高級收藏品資格嗎？"
@@ -1387,6 +1399,9 @@ msgstr "使用 X 帳號登入以查看"
 msgid "Login to Firefly"
 msgstr "登入 Firefly"
 
+msgid "Approve Failed"
+msgstr ""
+
 msgid "Canceled"
 msgstr "已取消"
 
@@ -1713,6 +1728,9 @@ msgstr "成功領取 {0} {symbol} 幸運紅包"
 msgid "No voting power"
 msgstr "無投票權"
 
+msgid "Interacted"
+msgstr ""
+
 msgid "Your draft was saved."
 msgstr "草稿已儲存"
 
@@ -1784,6 +1802,9 @@ msgstr "切換"
 msgid "Drafts"
 msgstr "草稿"
 
+msgid "NFT Receive Failed"
+msgstr ""
+
 msgid "No financial crime involved."
 msgstr "未涉及金融犯罪"
 
@@ -1807,6 +1828,10 @@ msgstr "此代幣合約為開源，詳情請查閱合約代碼。未開源合約
 
 msgid "Darkweb transactions found."
 msgstr "發現暗網交易"
+
+#. placeholder {0}: formatAddress( item.token_approve?.token.address || token.token.address || token.sender || token.recipient, 4, )
+msgid "With <0>{0}</0>"
+msgstr ""
 
 #. placeholder {0}: humanize(count)
 msgid "{0} Comments"
@@ -2075,6 +2100,9 @@ msgstr "驗證碼無效"
 
 msgid "Circulating Supply"
 msgstr "流通供應量"
+
+msgid "Sent Failed"
+msgstr ""
 
 msgid "Failed to switch."
 msgstr "切換失敗"
@@ -3754,6 +3782,9 @@ msgstr "不少於 {0}"
 msgid "{viewCount, plural, one {view} other {views}}"
 msgstr ""
 
+msgid "Swapped Failed"
+msgstr ""
+
 msgid "Only people you follow"
 msgstr "僅限追蹤者"
 
@@ -4176,10 +4207,6 @@ msgstr ""
 msgid "No blackmail activities involved."
 msgstr ""
 
-#. placeholder {0}: formatAddress( item.token_approve?.token.address || token.token.address || token.sender || token.recipient, 4, )
-msgid "With {0}"
-msgstr ""
-
 #. placeholder {0}: error.message
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr ""
@@ -4195,6 +4222,9 @@ msgstr ""
 
 msgid "Explore now"
 msgstr "開始探索"
+
+msgid "NFT Mint Failed"
+msgstr ""
 
 msgid "Hidden owner."
 msgstr ""
@@ -4387,9 +4417,6 @@ msgstr ""
 
 #. placeholder {0}: post.author.displayName
 msgid "<0>{0}</0> retruthed"
-msgstr ""
-
-msgid "Interaction"
 msgstr ""
 
 msgid "Sign in with Farcaster"
