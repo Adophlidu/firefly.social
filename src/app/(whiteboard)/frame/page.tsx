@@ -11,7 +11,7 @@ import { GhostError } from '@/app/(whiteboard)/components/GhostError.js';
 import FireflyLogo from '@/assets/firefly.logo.svg';
 import { Image } from '@/components/Image.js';
 import { IS_IOS } from '@/constants/browser.js';
-import { IS_DEVELOPMENT } from '@/constants/index.js';
+import { EIP6963_PROVIDER_DESCRIPTION, IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { createWagmiLimitedClient } from '@/helpers/createWagmiLimitedClient.js';
@@ -40,6 +40,7 @@ interface Props extends NextPageProps {}
 
 export default function Page(props: Props) {
     const [ready, setReady] = useState(false);
+    const endpointRef = useRef<ReturnType<typeof exposeToIframe>['endpoint']>(null);
 
     const { loading: loadingSupported, value: supported = false } = useFireflyBridgeSupported();
 
@@ -82,6 +83,12 @@ export default function Page(props: Props) {
             setPrimaryButton: (options) => {
                 console.log('[frame client] setPrimaryButton', JSON.stringify(options));
                 fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options);
+            },
+            eip6963RequestProvider: () => {
+                endpointRef.current?.emit({
+                    event: 'eip6963:announceProvider',
+                    info: EIP6963_PROVIDER_DESCRIPTION,
+                });
             },
         });
 
@@ -163,8 +170,12 @@ export default function Page(props: Props) {
             miniAppOrigin: '*',
         });
 
+        // set endpoint for later use
+        endpointRef.current = result.endpoint;
+
         return () => {
             result?.cleanup();
+            endpointRef.current = null;
         };
     }, [supported, frame, frameHost]);
 

@@ -24,6 +24,7 @@ interface CardProps {
 
 export const Card = memo<CardProps>(function Card({ post, frame }) {
     const router = useRouter();
+
     const [primaryButton, setPrimaryButton] = useState<Parameters<SetPrimaryButton>[0] | null>(null);
 
     const [frameHost] = useState(() => {

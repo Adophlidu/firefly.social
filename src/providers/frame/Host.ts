@@ -21,7 +21,7 @@ import type { FrameV2 } from '@/types/frame.js';
 export class FarcasterFrameHost implements MiniAppHost {
     constructor(
         public context: Context.MiniAppContext,
-        private options?: {
+        public options?: {
             debug?: boolean;
             frame?: () => FrameV2;
             ready?: (options?: Partial<ReadyOptions>) => void;
@@ -29,6 +29,7 @@ export class FarcasterFrameHost implements MiniAppHost {
             setPrimaryButton?: SetPrimaryButton;
             viewCast?: (hash: string) => void;
             viewProfile?: (profile: Profile) => void;
+            eip6963RequestProvider?: () => void;
         },
     ) {}
 
@@ -171,7 +172,7 @@ export class FarcasterFrameHost implements MiniAppHost {
     };
 
     eip6963RequestProvider: MiniAppHost['eip6963RequestProvider'] = () => {
-        throw new NotImplementedError();
+        this.options?.eip6963RequestProvider?.();
     };
 
     impactOccurred: MiniAppHost['impactOccurred'] = () => {

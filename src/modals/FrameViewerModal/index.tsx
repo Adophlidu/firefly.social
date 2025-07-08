@@ -1,4 +1,4 @@
-import { exposeToIframe, type MiniAppHost } from '@farcaster/miniapp-host';
+import { exposeToIframe } from '@farcaster/miniapp-host';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
@@ -11,7 +11,7 @@ import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import { config } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
-import { IS_DEVELOPMENT } from '@/constants/index.js';
+import { EIP6963_PROVIDER_DESCRIPTION, IS_DEVELOPMENT } from '@/constants/index.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -25,12 +25,13 @@ import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
 import type { FrameV2 } from '@/types/frame.js';
 import { EthereumMethodType } from '#masknet/web3-shared-evm';
+import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;
     timeout: boolean;
     frame: FrameV2;
-    frameHost: MiniAppHost;
+    frameHost: FarcasterFrameHost;
 };
 export type FrameViewerModalCloseProps = void;
 
@@ -54,6 +55,8 @@ export function FrameViewerModal({ ref }: Props) {
     const account = useAccount();
     const chainId = useChainId();
 
+    const endpointRef = useRef<ReturnType<typeof exposeToIframe>['endpoint']>(null);
+
     useEffect(() => {
         if (!frameRef.current) return;
 
@@ -63,7 +66,15 @@ export function FrameViewerModal({ ref }: Props) {
         const result = exposeToIframe({
             debug: IS_DEVELOPMENT,
             iframe: frameRef.current,
-            sdk: props.frameHost,
+            sdk: new FarcasterFrameHost(props.frameHost.context, {
+                ...props.frameHost.options,
+                eip6963RequestProvider: () => {
+                    endpointRef?.current?.emit({
+                        event: 'eip6963:announceProvider',
+                        info: EIP6963_PROVIDER_DESCRIPTION,
+                    });
+                },
+            }),
             ethProvider: createEIP1193Provider(async (parameters) => {
                 const { method, params } = parameters;
 
@@ -107,9 +118,12 @@ export function FrameViewerModal({ ref }: Props) {
             1000 * 60 * 3,
         ); // 3 minutes timeout
 
+        endpointRef.current = result.endpoint;
+
         return () => {
             result?.cleanup();
             clearTimeout(timer);
+            endpointRef.current = null;
         };
     }, [
         props?.frameHost,
