@@ -20,7 +20,7 @@ import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { FireflyPlatform, Source, TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
+import { FireflyPlatform, Source, TipsDetailViewType, TipsNotificationType, TxReactionType } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { CHAR_TAG, type MentionChars } from '@/helpers/chars.js';
@@ -29,8 +29,11 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useToggleTipLikeStatus } from '@/hooks/useToggleTipLikeStatus.js';
+import type { ComposeModalOpenProps } from '@/modals/ComposeModal.js';
 import { ComposeModalRef, LoginModalRef, ShareImageModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
@@ -43,10 +46,11 @@ interface TipsTransactionActionsProps extends HTMLProps<HTMLDivElement> {
     chainId: number;
     autoQuery?: boolean;
     liked?: boolean;
+    reposted?: boolean;
     view?: TipsDetailViewType;
 }
 
-function sharePost(
+async function sharePost(
     {
         txHash,
         tokenSymbol,
@@ -88,29 +92,30 @@ function sharePost(
               ),
           } satisfies MentionChars);
 
-    if (view === TipsDetailViewType.Receiver) {
-        ComposeModalRef.open({
-            chars: ['Thanks ', mentionNode, ', appreciate your tip via ', FIREFLY_MENTION, ' ! 💜\r\n', tipsLink],
-        });
-        return;
-    }
+    const options: ComposeModalOpenProps =
+        view === TipsDetailViewType.Receiver
+            ? {
+                  chars: ['Thanks ', mentionNode, ', appreciate your tip via ', FIREFLY_MENTION, ' ! 💜\r\n', tipsLink],
+              }
+            : {
+                  chars: [
+                      'Hi ',
+                      mentionNode,
+                      `, sent you some $${tokenSymbol} via `,
+                      FIREFLY_MENTION,
+                      ' ✨ Keep shining!\r\n',
+                      tipsLink,
+                  ],
+              };
 
-    ComposeModalRef.open({
-        chars: [
-            'Hi ',
-            mentionNode,
-            `, sent you some $${tokenSymbol} via `,
-            FIREFLY_MENTION,
-            ' ✨ Keep shining!\r\n',
-            tipsLink,
-        ],
-    });
-    return;
+    const result = await ComposeModalRef.openAndWaitForClose(options);
+    return !!result?.post;
 }
 
 export function TipsTransactionActions({
     txHash,
     liked,
+    reposted,
     view,
     tokenSymbol,
     fromAddress,
@@ -129,6 +134,8 @@ export function TipsTransactionActions({
     });
 
     const likedStatus = autoQuery && isLogin ? data?.has_liked : liked;
+    const repostedStatus = autoQuery && isLogin ? data?.has_reposted : reposted;
+
     const { mutateAsync, isPending } = useToggleTipLikeStatus({
         txHash,
         chainId,
@@ -165,7 +172,7 @@ export function TipsTransactionActions({
                 return fireflyProfiles.find((profile) => profile.identity.source === x) || null;
             }),
         );
-        sharePost(
+        const success = await sharePost(
             {
                 txHash,
                 tokenSymbol,
@@ -174,18 +181,33 @@ export function TipsTransactionActions({
             addressForMention,
             mentionProfiles,
         );
-    }, [txHash, tokenSymbol, isLogin, addressForMention, view]);
+        if (success) {
+            runInSafeAsync(() =>
+                FireflyEndpointProvider.createTxReaction(
+                    TxReactionType.ShareTip,
+                    chainId.toString(),
+                    txHash,
+                    fromAddress,
+                ),
+            );
+            updateTipsReactionStatus(txHash, TxReactionType.ShareTip, true);
+        }
+    }, [txHash, tokenSymbol, isLogin, addressForMention, view, chainId, fromAddress]);
 
     return (
         <div className={classNames('flex items-center justify-between', className)}>
             <div className="flex items-center gap-2 text-secondary">
                 <motion.button
-                    disabled={loading}
+                    disabled={loading || isLoading}
                     onClick={handleSharePost}
                     whileTap={{ scale: 0.9 }}
                     className="flex h-7 w-7 items-center justify-center"
                 >
-                    {loading ? <LoadingIcon size={16} /> : <MirrorIcon width={16} height={16} />}
+                    {loading || isLoading ? (
+                        <LoadingIcon size={16} />
+                    ) : (
+                        <MirrorIcon className={repostedStatus ? 'text-secondarySuccess' : ''} width={16} height={16} />
+                    )}
                 </motion.button>
                 <motion.button
                     disabled={isLoading || isPending}

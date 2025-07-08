@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { LikeRecordType, Source } from '@/constants/enum.js';
+import { Source, TxReactionType } from '@/constants/enum.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
@@ -55,10 +55,10 @@ export function useChangeSwapLikeStatus(activity?: SwapActivity) {
             if (!activity) return;
             let result;
             if (activity.is_like) {
-                result = await FireflyEndpointProvider.likeRemove(activity.hash);
+                result = await FireflyEndpointProvider.removeTxReaction(TxReactionType.LikeSwap, [activity.hash]);
             } else {
-                result = await FireflyEndpointProvider.likeCreate(
-                    LikeRecordType.Swap,
+                result = await FireflyEndpointProvider.createTxReaction(
+                    TxReactionType.LikeSwap,
                     activity.chain_id.toString(),
                     activity.hash,
                     activity.owner,

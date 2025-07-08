@@ -200,6 +200,7 @@ export default async function Page(props: Props) {
                             fromAddress={tipsData.from_address}
                             toAddress={tipsData.to_address}
                             liked={tipsData.has_liked}
+                            reposted={tipsData.has_reposted}
                             autoQuery
                         />
                     </NoSSR>

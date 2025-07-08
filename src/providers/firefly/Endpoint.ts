@@ -7,7 +7,6 @@ import { DEBANK_CHAIN_TO_CHAIN_ID_MAP, DEBANK_CHAINS } from '@/constants/chain.j
 import {
     ConnectionPlatform,
     FireflyPlatform,
-    LikeRecordType,
     Locale,
     NetworkType,
     type ProfilePageSource,
@@ -15,6 +14,7 @@ import {
     Source,
     SourceInURL,
     TipsNotificationType,
+    TxReactionType,
 } from '@/constants/enum.js';
 import { OTPExceededMaximumLimit } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -1007,20 +1007,33 @@ class FireflyEndpoint {
         return result;
     }
 
-    async likeCreate(like_type: LikeRecordType, platform_id: string, like_id: string, like_owner_id: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/like/create');
+    async createTxReaction(
+        reaction_type: TxReactionType,
+        platform_id: string,
+        reaction_id: string,
+        reaction_owner_id: string,
+    ) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/reaction/create');
         await fireflySessionHolder.fetch<EmptyResponse>(url, {
             method: 'POST',
-            body: JSON.stringify({ like_id, like_owner_id, like_type, platform_id }),
+            body: JSON.stringify({
+                platform_id,
+                reaction_type,
+                reaction_id,
+                reaction_owner_id,
+            }),
         });
         return true;
     }
 
-    async likeRemove(like_id: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/like/remove');
+    async removeTxReaction(reaction_type: TxReactionType, reaction_ids: string[]) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/reaction/remove');
         await fireflySessionHolder.fetch<EmptyResponse>(url, {
             method: 'POST',
-            body: JSON.stringify({ like_ids: [like_id] }),
+            body: JSON.stringify({
+                reaction_type,
+                reaction_ids,
+            }),
         });
         return true;
     }

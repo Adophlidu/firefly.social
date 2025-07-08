@@ -149,6 +149,7 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
                                 className="mt-1.5"
                                 txHash={data.tx_hash}
                                 liked={data.has_liked}
+                                reposted={data.has_reposted}
                                 fromAddress={data.fromAddress}
                                 toAddress={data.toAddress}
                                 tokenSymbol={data.token_symbol}

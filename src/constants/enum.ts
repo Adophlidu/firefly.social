@@ -623,7 +623,9 @@ export enum TipsDetailViewType {
     Receiver = 'receiver',
 }
 
-export enum LikeRecordType {
-    Swap = 'swap',
-    Tips = 'token_tips',
+export enum TxReactionType {
+    LikeSwap = 'like_swap',
+    LikeTip = 'like_token_tips',
+    ShareTip = 'repost_token_tips',
+    ShareSwap = 'repost_swap',
 }

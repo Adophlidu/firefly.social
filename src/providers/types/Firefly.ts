@@ -1904,6 +1904,7 @@ export interface TipsNotificationData {
     token_icon: string;
     chain_id: number;
     has_liked: boolean;
+    has_reposted: boolean;
     token_address: string;
     fromAddress: string;
     toAddress: string;
@@ -1954,6 +1955,7 @@ export interface TipsDetail {
     token_type: string;
     tips_memos: string;
     has_liked: boolean;
+    has_reposted: boolean;
     from_account?: TipsAccountInfo;
     to_account?: TipsAccountInfo;
 }
