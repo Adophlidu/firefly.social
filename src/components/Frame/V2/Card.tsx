@@ -1,4 +1,4 @@
-import type { Context, SetPrimaryButton } from '@farcaster/frame-host';
+import type { Context, SetPrimaryButton } from '@farcaster/miniapp-host';
 import { memo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -66,7 +66,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
                 added: false,
                 clientFid: fid,
             },
-        } satisfies Context.FrameContext;
+        } satisfies Context.MiniAppContext;
 
         return new FarcasterFrameHost(context, {
             frame: () => frame,

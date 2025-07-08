@@ -1,4 +1,4 @@
-import type { Context, ReadyOptions } from '@farcaster/frame-host';
+import type { Context, ReadyOptions } from '@farcaster/miniapp-host';
 
 import type { FireflyPlatform } from '@/constants/enum.js';
 import type { FrameV2 } from '@/types/frame.js';
@@ -191,7 +191,7 @@ export interface ResponseResult {
     [SupportedMethod.CLOSE]: void;
     [SupportedMethod.SET_PRIMARY_BUTTON]: void;
     [SupportedMethod.SET_FRAME_READY_OPTIONS]: void;
-    [SupportedMethod.GET_FRAME_CONTEXT]: PartialWith<Context.FrameContext, 'client'> & {
+    [SupportedMethod.GET_FRAME_CONTEXT]: PartialWith<Context.MiniAppContext, 'client'> & {
         frame: {
             content: FrameV2;
             originalUrl: string;

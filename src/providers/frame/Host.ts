@@ -1,4 +1,4 @@
-import type { Context, FrameHost, ReadyOptions, SetPrimaryButton } from '@farcaster/frame-host';
+import type { Context, MiniAppHost, ReadyOptions, SetPrimaryButton } from '@farcaster/miniapp-host';
 import { t } from '@lingui/core/macro';
 import urlcat from 'urlcat';
 
@@ -18,9 +18,9 @@ import { signInWithFarcaster } from '@/providers/warpcast/signInWithFarcaster.js
 import { signInWithRelay } from '@/providers/warpcast/signInWithRelay.js';
 import type { FrameV2 } from '@/types/frame.js';
 
-export class FarcasterFrameHost implements FrameHost {
+export class FarcasterFrameHost implements MiniAppHost {
     constructor(
-        public context: Context.FrameContext,
+        public context: Context.MiniAppContext,
         private options?: {
             debug?: boolean;
             frame?: () => FrameV2;
@@ -32,33 +32,43 @@ export class FarcasterFrameHost implements FrameHost {
         },
     ) {}
 
-    addFrame: FrameHost['addFrame'] = () => {
+    addFrame: MiniAppHost['addFrame'] = () => {
         console.warn('[frame host]: addFrame');
         return Promise.resolve({});
     };
 
-    close: FrameHost['close'] = () => {
+    addMiniApp: MiniAppHost['addMiniApp'] = () => {
+        console.warn('[frame host]: addMiniApp');
+        throw new NotImplementedError();
+    };
+
+    openMiniApp: MiniAppHost['openMiniApp'] = (options) => {
+        console.warn('[frame host]: openMiniApp', options);
+        throw new NotImplementedError();
+    };
+
+    close: MiniAppHost['close'] = () => {
         console.warn('[frame host]: close');
         this.options?.close?.();
     };
 
-    openUrl: FrameHost['openUrl'] = (url) => {
+    openUrl: MiniAppHost['openUrl'] = (url) => {
         console.warn('[frame host]: openUrl', url);
         openWindow(url);
     };
 
-    ready: FrameHost['ready'] = (options) => {
+    ready: MiniAppHost['ready'] = (options) => {
         console.warn('[frame host]: ready');
         this.options?.ready?.(options);
     };
 
-    setPrimaryButton: FrameHost['setPrimaryButton'] = (options) => {
+    setPrimaryButton: MiniAppHost['setPrimaryButton'] = (options) => {
         console.warn('[frame host]: setPrimaryButton', options);
         this.options?.setPrimaryButton?.(options);
     };
 
-    signIn: FrameHost['signIn'] = async (options) => {
-        console.log('DEBUG: [frame host]: signIn', options);
+    signIn: MiniAppHost['signIn'] = async (options) => {
+        console.log('DEBUG: [frame host]: signIn', JSON.stringify(options, null, 2));
 
         try {
             const frame = this.options?.frame?.();
@@ -78,17 +88,17 @@ export class FarcasterFrameHost implements FrameHost {
         }
     };
 
-    sendToken: FrameHost['sendToken'] = async (options) => {
+    sendToken: MiniAppHost['sendToken'] = async (options) => {
         console.warn('[frame host]: sendToken', options);
         throw new NotImplementedError();
     };
 
-    swapToken: FrameHost['swapToken'] = async (options) => {
+    swapToken: MiniAppHost['swapToken'] = async (options) => {
         console.warn('[frame host]: swapToken', options);
         throw new NotImplementedError();
     };
 
-    viewCast: FrameHost['viewCast'] = async (options) => {
+    viewCast: MiniAppHost['viewCast'] = async (options) => {
         console.warn('[frame host]: viewCast', options);
 
         const u = `/post/farcaster/${options.hash}`;
@@ -101,7 +111,7 @@ export class FarcasterFrameHost implements FrameHost {
     };
 
     // @ts-ignore
-    composeCast: FrameHost['composeCast'] = async (options) => {
+    composeCast: MiniAppHost['composeCast'] = async (options) => {
         console.warn('[frame host]: composeCast', options);
         const result = await ComposeModalRef.openAndWaitForClose({
             source: Source.Farcaster,
@@ -129,7 +139,7 @@ export class FarcasterFrameHost implements FrameHost {
         };
     };
 
-    viewProfile: FrameHost['viewProfile'] = async (options) => {
+    viewProfile: MiniAppHost['viewProfile'] = async (options) => {
         console.warn('[frame host]: viewProfile', options);
 
         const profile = await getProfileById(Source.Farcaster, `${options.fid}`);
@@ -145,51 +155,51 @@ export class FarcasterFrameHost implements FrameHost {
         }
     };
 
-    viewToken: FrameHost['viewToken'] = (options) => {
+    viewToken: MiniAppHost['viewToken'] = (options) => {
         console.warn('[frame host]: viewToken', options);
         return Promise.resolve();
     };
 
-    ethProviderRequest: FrameHost['ethProviderRequest'] = (payload) => {
+    ethProviderRequest: MiniAppHost['ethProviderRequest'] = (payload) => {
         console.warn('[frame host]: ethProviderRequest', payload);
         throw new NotImplementedError();
     };
 
-    ethProviderRequestV2: FrameHost['ethProviderRequestV2'] = (payload) => {
+    ethProviderRequestV2: MiniAppHost['ethProviderRequestV2'] = (payload) => {
         console.warn('[frame host]: ethProviderRequestV2', payload);
         throw new NotImplementedError();
     };
 
-    eip6963RequestProvider: FrameHost['eip6963RequestProvider'] = () => {
+    eip6963RequestProvider: MiniAppHost['eip6963RequestProvider'] = () => {
         throw new NotImplementedError();
     };
 
-    impactOccurred: FrameHost['impactOccurred'] = () => {
+    impactOccurred: MiniAppHost['impactOccurred'] = () => {
         console.warn('[frame host]: impactOccurred');
         throw new NotImplementedError();
     };
 
-    notificationOccurred: FrameHost['notificationOccurred'] = () => {
+    notificationOccurred: MiniAppHost['notificationOccurred'] = () => {
         console.warn('[frame host]: notificationOccurred');
         throw new NotImplementedError();
     };
 
-    selectionChanged: FrameHost['selectionChanged'] = () => {
+    selectionChanged: MiniAppHost['selectionChanged'] = () => {
         console.warn('[frame host]: selectionChanged');
         throw new NotImplementedError();
     };
 
-    getCapabilities: FrameHost['getCapabilities'] = () => {
+    getCapabilities: MiniAppHost['getCapabilities'] = () => {
         console.warn('[frame host]: getCapabilities');
         throw new NotImplementedError();
     };
 
-    getChains: FrameHost['getChains'] = () => {
+    getChains: MiniAppHost['getChains'] = () => {
         console.warn('[frame host]: getChains');
         throw new NotImplementedError();
     };
 
-    updateBackState: FrameHost['updateBackState'] = () => {
+    updateBackState: MiniAppHost['updateBackState'] = () => {
         console.warn('[frame host]: updateBackState');
         throw new NotImplementedError();
     };

@@ -1,6 +1,6 @@
 'use client';
 
-import { exposeToIframe, type ReadyOptions } from '@farcaster/frame-host';
+import { type ReadyOptions, exposeToIframe } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
@@ -160,7 +160,7 @@ export default function Page(props: Props) {
                     }
                 }
             }),
-            frameOrigin: '*',
+            miniAppOrigin: '*',
         });
 
         return () => {

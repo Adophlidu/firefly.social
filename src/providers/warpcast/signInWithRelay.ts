@@ -1,4 +1,4 @@
-import type { SignInOptions } from '@farcaster/frame-host';
+import type { SignInOptions } from '@farcaster/miniapp-host';
 
 import { SITE_URL } from '@/constants/index.js';
 import { parseUrl } from '@/helpers/parseUrl.js';

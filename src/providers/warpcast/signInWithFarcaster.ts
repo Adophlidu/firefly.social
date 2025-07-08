@@ -1,5 +1,5 @@
 import { idRegistryABI } from '@farcaster/core';
-import type { SignInOptions } from '@farcaster/frame-host';
+import type { SignInOptions } from '@farcaster/miniapp-host';
 import urlcat from 'urlcat';
 import { type Address, checksumAddress, parseUnits, toHex } from 'viem';
 import { readContract } from 'wagmi/actions';

@@ -1,4 +1,4 @@
-import { exposeToIframe, type FrameHost } from '@farcaster/frame-host';
+import { exposeToIframe, type MiniAppHost } from '@farcaster/miniapp-host';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
@@ -30,7 +30,7 @@ export type FrameViewerModalOpenProps = {
     ready: boolean;
     timeout: boolean;
     frame: FrameV2;
-    frameHost: FrameHost;
+    frameHost: MiniAppHost;
 };
 export type FrameViewerModalCloseProps = void;
 
@@ -91,7 +91,7 @@ export function FrameViewerModal({ ref }: Props) {
                         return result;
                 }
             }),
-            frameOrigin: '*',
+            miniAppOrigin: '*',
         });
 
         const timer = setTimeout(
