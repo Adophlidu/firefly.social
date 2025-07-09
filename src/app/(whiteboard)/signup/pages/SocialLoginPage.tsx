@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useAsyncFn } from 'react-use';
 
 import { Card } from '@/app/(whiteboard)/components/Signup/Card.js';
-import { LoggedInProfiles } from '@/app/(whiteboard)/components/Signup/LoggedInProfiles.js';
+import { LoggedInProfiles, LoggedInProfilesThirdParty } from '@/app/(whiteboard)/components/Signup/LoggedInProfiles.js';
 import { LoginButton } from '@/app/(whiteboard)/components/Signup/LoginButton.js';
 import { ShadowInAndOut } from '@/app/(whiteboard)/components/Signup/ShadowInAndOut.js';
 import { SquareButton } from '@/app/(whiteboard)/components/Signup/SquareButton.js';
@@ -41,7 +41,7 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
     return (
         <ShadowInAndOut className="absolute inset-0 z-1 flex items-center justify-center overflow-hidden">
             <Card>
-                <div className="no-scrollbar flex h-full flex-col justify-between overflow-y-auto p-3 pt-0 md:p-12 md:pt-0">
+                <div className="no-scrollbar flex h-full flex-col justify-between overflow-y-auto p-3 pb-20 pt-0 md:p-12 md:pt-0">
                     <div className="w-full">
                         <div className="sticky top-0 z-1 bg-white pt-3 md:pt-12">
                             <motion.button whileTap={{ scale: 0.8 }} onClick={() => changeStep(SignupStep.Welcome)}>
@@ -97,11 +97,15 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
 
                                 <LoggedInProfiles source={Source.Bsky} />
                                 <LoginButton source={Source.Bsky} />
+
+                                <LoggedInProfilesThirdParty />
                                 <LoginButton source="other" />
                             </div>
                         </div>
                     </div>
-                    <div className="mt-6 w-full text-center">
+                </div>
+                <div className="absolute inset-x-0 bottom-0 px-3">
+                    <div className="w-full bg-white pb-3 pt-2 text-center md:pb-12">
                         <SquareButton disabled={!canGoNext || isLoading} onClick={handleNext} loading={loading}>
                             <span className="text-base font-medium">
                                 <Trans>Next</Trans>

@@ -1,9 +1,12 @@
 import { motion } from 'framer-motion';
 import { Fragment } from 'react';
 
+import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { formatThirdPartyProfileName } from '@/helpers/formatThirdPartyProfileName.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
+import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 interface LoggedInProfilesProps {
     source: SocialSource;
@@ -33,6 +36,30 @@ export function LoggedInProfiles({ source }: LoggedInProfilesProps) {
                 >
                     <SocialSourceIcon colorful mono source={source} />
                     <span className="ml-2 mr-4 text-base font-medium text-white">@{account.profile.handle || '-'}</span>
+                </motion.button>
+            ))}
+        </Fragment>
+    );
+}
+
+export function LoggedInProfilesThirdParty() {
+    const { accounts } = useThirdPartyStateStore();
+
+    if (!accounts.length) return null;
+
+    return (
+        <Fragment>
+            {accounts.map((account) => (
+                <motion.button
+                    key={`${account.profile.source}-${account.profile.profileId}`}
+                    whileTap={{ scale: 0.95 }}
+                    style={{ backgroundColor: 'rgba(124, 127, 163, 0.06)' }}
+                    className="flex items-center rounded-3xl p-3"
+                >
+                    <ProfileSourceIcon source={account.profile.source} size={20} />
+                    <span className="ml-2 mr-4 text-base font-medium text-white">
+                        {formatThirdPartyProfileName(account.profile) || '-'}
+                    </span>
                 </motion.button>
             ))}
         </Fragment>
