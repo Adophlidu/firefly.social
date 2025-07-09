@@ -17,6 +17,7 @@ import { notFound } from '@/esm/navigation/server.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
+import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
@@ -179,7 +180,7 @@ export default async function Page(props: Props) {
                                     'text-base font-semibold',
                                     isSender ? 'text-main' : 'text-success',
                                 )}
-                            >{`${isSender ? '-' : '+'}${tipsData.amount}`}</span>
+                            >{`${isSender ? '-' : '+'}${formatTokenAmount(tipsData.amount)}`}</span>
                             {tipsData.token_price ? (
                                 <span>
                                     $

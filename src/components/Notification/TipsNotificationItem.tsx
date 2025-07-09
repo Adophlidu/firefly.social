@@ -15,6 +15,7 @@ import { SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { getChainName } from '@/helpers/getChainName.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -123,7 +124,8 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
                                 ) : (
                                     <span className="font-bold">{fromAccountInfo?.displayName || '-'}</span>
                                 )}{' '}
-                                tipped you <span className="font-bold">{`${data.amount} $${data.token_symbol}`}</span>{' '}
+                                tipped you{' '}
+                                <span className="font-bold">{`${formatTokenAmount(data.amount)} $${data.token_symbol}`}</span>{' '}
                                 on <span className="font-bold">{getChainName(data.chain_id)}</span>
                             </Trans>
                         ) : (
