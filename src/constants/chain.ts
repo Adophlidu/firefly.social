@@ -77,7 +77,7 @@ export const DEBANK_CHAINS = [
         community_id: 42220,
         name: 'Celo',
         native_token_id: 'celo',
-        logo_url: 'https://static.debank.com/image/chain/logo_url/celo/41da5c1d3c0945ae822a1f85f02c76cf.png',
+        logo_url: 'https://static.debank.com/image/chain/logo_url/celo/faae2c36714d55db1d7a36aba5868f6a.png',
     },
     {
         id: 'movr',

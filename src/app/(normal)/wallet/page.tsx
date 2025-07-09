@@ -21,12 +21,11 @@ import type { TransferModalRef } from '@/components/FireflyWallet/TransferModal.
 import { TransferModal } from '@/components/FireflyWallet/TransferModal.js';
 import { Loading } from '@/components/Loading.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { NFTs } from '@/components/Profile/NFTs.js';
 import { ReceiveModal } from '@/components/ReceiveModal/index.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
-import { TransactionHistory } from '@/components/TransactionHistory/list.js';
 import { visibleChains } from '@/configs/wagmiClient.js';
 import { NetworkPluginID, NetworkType, Source } from '@/constants/enum.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
@@ -39,6 +38,13 @@ import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
 import { AddCustomERC20ModalRef, SwapModalRef } from '@/modals/controls.js';
 import { Debank } from '@/providers/debank/index.js';
+
+const TransactionHistory = dynamic(() => import('@/components/TransactionHistory/list.js'), {
+    ssr: false,
+});
+const NFTs = dynamic(() => import('@/components/Profile/NFTs.js'), {
+    ssr: false,
+});
 
 const EVM_TRANSACTION_CHAIN_IDS = visibleChains.map((chain) => chain.id);
 const SOLANA_TRANSACTION_CHAIN_IDS = [101];

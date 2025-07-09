@@ -1,5 +1,6 @@
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
+import { delay } from '@masknet/kit';
 import { AnimatePresence, motion } from 'framer-motion';
 import { type ReactNode, useState } from 'react';
 import QRCode from 'react-qr-code';
@@ -19,7 +20,15 @@ interface Props {
 export function ReceiveModal({ open, onClose, items }: Props) {
     const [selected, setSelected] = useState<{ name: ReactNode; address: string } | null>(null);
     return (
-        <Modal open={open} onClose={() => onClose?.()} dialogClassName="z-50">
+        <Modal
+            open={open}
+            onClose={async () => {
+                onClose?.();
+                await delay(300);
+                setSelected(null);
+            }}
+            dialogClassName="z-50"
+        >
             <div className="z-50 flex min-h-[404px] w-[calc(100%-40px)] max-w-[480px] flex-col rounded-md bg-lightBottom pt-6 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:rounded-xl">
                 <DialogTitle as="h3" className="relative h-10 shrink-0 px-6 pt-safe">
                     {selected ? (

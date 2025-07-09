@@ -1,3 +1,5 @@
+'use client';
+
 import { web3 } from '@coral-xyz/anchor';
 import { Trans } from '@lingui/react/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
@@ -35,6 +37,7 @@ export function TransferModal({ ref }: { ref?: Ref<TransferModalRef> }) {
         setOpen(false);
         await delay(300);
         setRecipient(undefined);
+        setSelectedToken(undefined);
     }, []);
     const [selectedToken, setSelectedToken] = useState<Token | undefined>();
     const [recipient, setRecipient] = useState<RecipientItemProps | undefined>();

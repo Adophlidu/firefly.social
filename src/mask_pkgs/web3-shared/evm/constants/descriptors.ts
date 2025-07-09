@@ -202,6 +202,17 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
         isMainnet: true,
         averageBlockDelay: 10,
     },
+    {
+        ID: `${PLUGIN_ID}_celo`,
+        networkSupporterPluginID: PLUGIN_ID,
+        chainId: EthereumChainId.Celo,
+        type: EthereumNetworkType.Celo,
+        icon: new URL('../assets/celo.png', import.meta.url).href,
+        iconColor: '#3059AE',
+        name: 'Celo',
+        isMainnet: true,
+        averageBlockDelay: 10,
+    },
 ];
 
 export const CHAIN_DESCRIPTORS: ReadonlyArray<

@@ -4,6 +4,7 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { isGreaterThan, rightShift } from '@/helpers/number.js';
+import { parseSolToLamports } from '@/helpers/parseSolToLamports.js';
 import { createTransferInstruction } from '@/providers/solana/createTransferInstruction.js';
 import { getOrCreateAssociatedTokenAccount } from '@/providers/solana/getOrCreateAssociatedTokenAccount.js';
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';
@@ -100,7 +101,7 @@ class Provider implements TransferProvider<SolanaChainId> {
             web3.SystemProgram.transfer({
                 fromPubkey: new web3.PublicKey(await SolanaNetwork.getAccount()),
                 toPubkey: new web3.PublicKey(options.to),
-                lamports: Number.parseInt(options.amount, 10),
+                lamports: parseSolToLamports(options.amount),
             }),
         );
     }

@@ -60,6 +60,8 @@ export function TransactionHistory({ chains, address }: Props) {
     );
 }
 
+export default TransactionHistory;
+
 function getTransactionHistoryItem(
     index: number,
     item: TransactionHistoryItem & {

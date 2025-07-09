@@ -75,3 +75,5 @@ export function NFTs({ address, ...rest }: { address: string; addresses?: string
         </div>
     );
 }
+
+export default NFTs;

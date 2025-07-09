@@ -21,6 +21,7 @@ export enum EthereumChainId {
     Mantle = 5000,
     Zora = 7777777,
     Scroll = 534352,
+    Celo = 42220,
 }
 
 export enum EthereumSchemaType {
@@ -124,6 +125,7 @@ export enum EthereumNetworkType {
     Scroll = 'Scroll',
     XLayer = 'XLayer',
     Zora = 'Zora',
+    Celo = 'Celo',
 }
 
 export enum ProviderType {
