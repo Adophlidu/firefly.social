@@ -81,7 +81,7 @@ async function TipOpenGraphImage({
                     style={{
                         fontSize: 144,
                         lineHeight: '144px',
-                        fontFamily: 'Tickerbit',
+                        fontFamily: 'Bedstead',
                         fontWeight: 700,
                         color: '#fff',
                     }}
@@ -292,8 +292,15 @@ async function createTipOpenGraphImageResponse({ tip, view }: { tip: TipsDetail;
         fonts: [
             ...(await getSatoriFonts()),
             {
-                name: 'Tickerbit',
-                data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Tickerbit-Regular.otf')),
+                name: 'Bedstead',
+                data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Bedstead-Regular.ttf')),
+                weight: 400,
+                style: 'normal',
+            },
+            {
+                name: 'Bedstead',
+                data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Bedstead-Bold.ttf')),
+                weight: 700,
                 style: 'normal',
             },
         ],
