@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-06-28 00:06\n"
+"PO-Revision-Date: 2025-07-09 00:06\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -49,7 +49,7 @@ msgstr "無法靜音所有錢包和帳戶。"
 #. placeholder {1}: notification.source
 #. placeholder {2}: notification.post.type
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</4>"
-msgstr ""
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {轉發了你的} Farcaster {轉發了你的} Bsky {轉發了你的} other {轉發了你的}} <4>{2, select, Post {貼文} Comment {評論} Quote {引用} Mirror {轉發} other {貼文}}</4>"
 
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Tomorrow at {0}"
@@ -251,7 +251,7 @@ msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the to
 msgstr "<0>市值 = 當前價格 × 流通供應量</0><1>指加密貨幣流通供應的總市場價值，類似於股票市場中流通股（非內部或政府鎖定股）的市值計算。</1>"
 
 msgid "Generating"
-msgstr ""
+msgstr "正在為您生成"
 
 #. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
 msgid "GIF source not supported. Supported sources: {0}."
@@ -297,7 +297,7 @@ msgid "You have exceeded the maximum number of attempts. Please try again later.
 msgstr "您已超過最大嘗試次數，請稍後再試。"
 
 msgid "FDV"
-msgstr ""
+msgstr "FDV"
 
 msgid "Receive Failed"
 msgstr ""
@@ -387,7 +387,7 @@ msgstr "抱歉，系統出了點問題。"
 
 #. placeholder {0}: profile.handle
 msgid "A follow request has been sent to @{0} and is pending their approval."
-msgstr ""
+msgstr "已向 @{0} 傳送關注請求，正在等待對方批准。"
 
 msgid "Set Password"
 msgstr "設定密碼"
@@ -405,7 +405,7 @@ msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr "🤑 剛在 {postUrl} 領取了 #FireflyLuckyDrop 🧧💰✨！"
 
 msgid "Firefly wallets"
-msgstr ""
+msgstr "Firefly 錢包"
 
 msgid "Join our Discord"
 msgstr "加入我們的 Discord 社群"
@@ -452,7 +452,7 @@ msgstr "存在外部調用風險。"
 
 #. placeholder {0}: selected.name
 msgid "Your {0} Address"
-msgstr ""
+msgstr "您的 {0} 地址"
 
 msgid "FAILED POST"
 msgstr "發文失敗"
@@ -486,7 +486,7 @@ msgid "MAX"
 msgstr "最大"
 
 msgid "Scan with your phone, or connect instantly via social."
-msgstr ""
+msgstr "掃碼登入，或社交帳號一鍵連接"
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "您可以保存發送失敗的貼文部分，稍後從草稿箱發送。"
@@ -677,7 +677,7 @@ msgid "Proxy contract."
 msgstr "代理合約"
 
 msgid "Liquidity"
-msgstr ""
+msgstr "流動性"
 
 msgid "Verification unsuccessful"
 msgstr "驗證失敗"
@@ -824,7 +824,7 @@ msgid "Type something here..."
 msgstr "在此輸入內容..."
 
 msgid "Users must like, repost/quote, or comment on your post containing the Lucky Drop."
-msgstr "用戶需對您的幸運掉落貼文按讚、轉發/引用或留言"
+msgstr "用戶需對您包含紅包的貼文按讚、轉發/引用或留言。"
 
 msgid "Save Post?"
 msgstr "儲存貼文？"
@@ -881,13 +881,13 @@ msgid "Attendees"
 msgstr "參與者"
 
 msgid "New Connect"
-msgstr ""
+msgstr "綁定新帳號"
 
 msgid "Connected accounts"
 msgstr "已連結帳戶"
 
 msgid "Failed to load image."
-msgstr ""
+msgstr "圖片載入失敗，請重試"
 
 #. placeholder {0}: space.name
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
@@ -939,7 +939,7 @@ msgid "All activities from {handleOrEnsOrAddress} will be hidden from you"
 msgstr "將隱藏 {handleOrEnsOrAddress} 的所有動態"
 
 msgid "<0>Note:</0> If you cross-post a Lucky Drop to multiple social platforms, following your account on any one platform qualifies users to claim."
-msgstr "<0>注意：</0> 若跨平台發布幸運掉落，用戶在任一平台追蹤您即符合領取資格"
+msgstr "<0>注意：</0> 如果你將紅包同時發布到多個社交平台，使用者在任一平台關注你的帳號即可符合領取資格。"
 
 #. placeholder {0}: profile.handle
 msgid "Failed to unfollow @{0} on {sourceName}."
@@ -1089,7 +1089,7 @@ msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
 msgstr "<0>下注</0><1>價值${0}於 Polymarket</1>"
 
 msgid "Holders"
-msgstr ""
+msgstr "持有者"
 
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr "活動已結束，您可探索其他專屬活動。"
@@ -1227,7 +1227,7 @@ msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgstr "取消追蹤 Firefly 上的 {handleOrEnsOrAddress} 失敗。"
 
 msgid "Copy address"
-msgstr ""
+msgstr "複製地址"
 
 msgid "Mobile QR login"
 msgstr ""
@@ -1346,7 +1346,7 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked 
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}} <4>點讚了你的</4><5>{1, select, Post {貼文} Comment {留言} Quote {引用} Mirror {轉發} other {貼文}}</5>"
 
 msgid "The passwords you entered don’t match. Please try again."
-msgstr ""
+msgstr "密碼錯誤，請重試。"
 
 msgid "One-time passcode sent to you"
 msgstr "已向您發送一次性驗證碼"
@@ -1419,7 +1419,7 @@ msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "回覆<0><1>@{0}</1></0>"
 
 msgid "Revoke"
-msgstr ""
+msgstr "撤銷授權"
 
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 msgstr ""
@@ -1501,7 +1501,7 @@ msgstr "確定要檢舉此收藏？"
 #. placeholder {2}: data.token_symbol
 #. placeholder {3}: getChainName(data.chain_id)
 msgid "{0} tipped you <0>{1} ${2}</0> on <1>{3}</1>"
-msgstr ""
+msgstr "{0} 在 <1>{3}</1> 打賞了你 <0>{1} {2}</0>"
 
 msgid "Failed to send."
 msgstr "發送失敗"
@@ -1613,7 +1613,7 @@ msgid "All posts from @{0} will be hidden from you"
 msgstr ""
 
 msgid "<0><1/><2>Received a tip</2></0><3>from</3>{targetAccount}"
-msgstr ""
+msgstr "<0><1/><2>收到打賞</2></0><3>來自</3>{targetAccount}"
 
 msgid "Your email address"
 msgstr "您的電子郵件地址"
@@ -1658,7 +1658,7 @@ msgid "Encrypted choice"
 msgstr ""
 
 msgid "<0>You</0> retruthed"
-msgstr ""
+msgstr "<0>你</0> 已轉發"
 
 msgid "Show more users"
 msgstr "顯示更多用戶"
@@ -1732,7 +1732,7 @@ msgid "Your draft was saved."
 msgstr "草稿已儲存"
 
 msgid "The address could not be found."
-msgstr ""
+msgstr "找不到該地址。"
 
 msgid "Verify and Claim"
 msgstr "驗證並領取"
@@ -1785,7 +1785,7 @@ msgstr "已過期"
 
 #. placeholder {0}: Math.floor(span / HOUR_SPAN)
 msgid "{0, plural, one {# hour} other {# hours}}"
-msgstr ""
+msgstr "{0, plural, one {# 小時} other {# 小時}}"
 
 msgid "Nickname must not contain restricted symbols"
 msgstr "暱稱不得包含限制符號"
@@ -1818,7 +1818,7 @@ msgid "Sorry, this wallet is already linked to another Firefly account. Please t
 msgstr "此錢包已連結其他 Firefly 帳號，請使用其他錢包"
 
 msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
-msgstr "此代幣合約為開源，詳情請查閱合約代碼。未開源合約可能包含惡意功能"
+msgstr "此代幣合約為開源，詳情請查閱合約代碼。未開源合約可能包含惡意功能。"
 
 msgid "Darkweb transactions found."
 msgstr "發現暗網交易"
@@ -1909,7 +1909,7 @@ msgid "Replies"
 msgstr "回覆"
 
 msgid "Please note that the wallet address related to social account may be inaccurate or subject to change. Be sure to verify the address before sending."
-msgstr ""
+msgstr "請注意，與社交帳戶關聯的錢包地址可能不準確或已發生變更。請務必在發送前核實地址。"
 
 msgid "Current Results"
 msgstr "目前結果"
@@ -1943,7 +1943,7 @@ msgid "Search post"
 msgstr "搜尋貼文"
 
 msgid "Enter or search for a recipient wallet"
-msgstr ""
+msgstr "輸入或搜尋接收方錢包地址"
 
 msgid "Failed to switch chain"
 msgstr "切換鏈失敗"
@@ -1985,13 +1985,9 @@ msgstr "Web3 原住民的萬能應用"
 msgid "All wallets and accounts are muted."
 msgstr "所有錢包和帳號已靜音"
 
-msgid ""
-"Just earned $MASK by minting the Buttrfly Fren 🦋 collectible from {fireflyMention} \n"
-"\n"
+msgid "Just earned $MASK by minting the Buttrfly Fren 🦋 collectible from {fireflyMention} \n\n"
 "Claim here {shareUrl}"
-msgstr ""
-"剛透過鑄造 {fireflyMention} 的 Buttrfly Fren 🦋 收藏品賺取 $MASK\n"
-"\n"
+msgstr "剛透過鑄造 {fireflyMention} 的 Buttrfly Fren 🦋 收藏品賺取 $MASK\n\n"
 "領取連結 {shareUrl}"
 
 msgid "Disconnected from your social graph"
@@ -2013,7 +2009,7 @@ msgid "Network"
 msgstr "網路"
 
 msgid "Just now"
-msgstr ""
+msgstr "剛剛"
 
 msgid "Your Firefly Identity is now active."
 msgstr "你的 Firefly 身份已啟用"
@@ -2044,17 +2040,11 @@ msgstr "您的 Telegram 帳號已連結"
 msgid "Failed to report @{0}."
 msgstr "檢舉 @{0} 失敗"
 
-msgid ""
-"Just submitted my wallet to receive my Christmas gift. Let's skate into the holiday season with $PENGU on {fireflyMention}\n"
-"\n"
-"Submit here {shareUrl}\n"
-"\n"
+msgid "Just submitted my wallet to receive my Christmas gift. Let's skate into the holiday season with $PENGU on {fireflyMention}\n\n"
+"Submit here {shareUrl}\n\n"
 "#PENGU #FireflySocial"
-msgstr ""
-"已提交錢包地址領取聖誕禮物，與 {fireflyMention} 的 $PENGU 共度佳節\n"
-"\n"
-"提交連結 {shareUrl}\n"
-"\n"
+msgstr "已提交錢包地址領取聖誕禮物，與 {fireflyMention} 的 $PENGU 共度佳節\n\n"
+"提交連結 {shareUrl}\n\n"
 "#PENGU #FireflySocial"
 
 msgid "Post with link"
@@ -2103,7 +2093,7 @@ msgstr "切換失敗"
 
 #. placeholder {0}: Math.floor(span / MINUTE_SPAN)
 msgid "{0, plural, one {# minute} other {# minutes}}"
-msgstr ""
+msgstr "{0, plural, one {# 分鐘} other {# 分鐘}}"
 
 msgid "Post has been deleted"
 msgstr "貼文已刪除"
@@ -2119,7 +2109,7 @@ msgstr "所有人"
 
 #. placeholder {0}: Math.floor(span / MONTH_SPAN)
 msgid "{0, plural, one {# month} other {# months}}"
-msgstr ""
+msgstr "{0, plural, one {# 月} other {# 月}}"
 
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "此代幣由聲明團隊發行，請注意同名詐騙代幣風險"
@@ -2230,7 +2220,7 @@ msgid "Clear All"
 msgstr "全部清除"
 
 msgid "Failed to download image. Please try again later."
-msgstr ""
+msgstr "圖片下載失敗，請重試"
 
 #. placeholder {0}: notification.actions.length
 #. placeholder {1}: notification.post.type
@@ -2250,7 +2240,7 @@ msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "此操作不可逆，定時發送將被取消"
 
 msgid "NFT Mint"
-msgstr ""
+msgstr "NFT 鑄造"
 
 msgid "Lens"
 msgstr ""
@@ -2259,7 +2249,7 @@ msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means 
 msgstr ""
 
 msgid "For You"
-msgstr ""
+msgstr "為你推薦"
 
 msgid "Failed to fetch bookmarks."
 msgstr "加入書籤失敗。"
@@ -2288,7 +2278,7 @@ msgstr "Firefly 個人檔案建立失敗"
 
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
-msgstr ""
+msgstr "授予紅包智能合約訪問你的 {0} 權限。每個代幣只需執行一次。"
 
 msgid "NFT holder of any one below"
 msgstr ""
@@ -2328,7 +2318,7 @@ msgstr ""
 
 #. placeholder {0}: notification.comment.commentOn.type
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
-msgstr ""
+msgstr "<0/> 评论了你的 <1>{0, select, Post {貼文} Comment {留言} Quote {引用} Mirror {轉發} other {貼文}}</1>"
 
 msgid "Users"
 msgstr "用戶"
@@ -2352,7 +2342,7 @@ msgid "Standard"
 msgstr ""
 
 msgid "Token"
-msgstr ""
+msgstr "代幣"
 
 msgid "No darkweb transactions found."
 msgstr ""
@@ -2423,7 +2413,7 @@ msgstr ""
 
 #. placeholder {0}: item.project_name
 msgid "on {0}"
-msgstr ""
+msgstr "在 {0}"
 
 msgid "Unsent posts"
 msgstr "未發送的貼文"
@@ -2559,13 +2549,10 @@ msgstr "變更密碼"
 
 #. placeholder {0}: failedAt.length
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr ""
+msgstr "{0, plural, one {由於某些錯誤，你的貼文在 {firstPlatform} 发布失败。请点击重试。} two {由於某些錯誤，你的貼文在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {你的帖子发布失败。请点击重试。}}"
 
-msgid ""
-"Just joined this exclusive raffle event \"🇺🇸 Winning with $TRUMP 🇺🇸\" from {fireflyMention}\n"
-"\n"
-"Check your eligibility and participate here {shareUrl}\n"
-"\n"
+msgid "Just joined this exclusive raffle event \"🇺🇸 Winning with $TRUMP 🇺🇸\" from {fireflyMention}\n\n"
+"Check your eligibility and participate here {shareUrl}\n\n"
 "#TRUMP #FireflySocial"
 msgstr ""
 
@@ -2736,7 +2723,7 @@ msgid "{traderCount, plural, one {{0}} other {{1}}}"
 msgstr ""
 
 msgid "Show more comments"
-msgstr "顯示更多評論"
+msgstr "顯示更多留言"
 
 msgid "Connect Solana Wallet"
 msgstr ""
@@ -2832,7 +2819,7 @@ msgid "The gas abuse function is not included. If there is a gas abuse function,
 msgstr ""
 
 msgid "Translated"
-msgstr ""
+msgstr "已翻譯"
 
 msgid "Select Wallet"
 msgstr ""
@@ -2957,7 +2944,7 @@ msgstr "靜音 {handleOrEnsOrAddress}"
 #. placeholder {0}: post.poll ? ( <Trans>Ask a question</Trans> ) : index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 #. placeholder {1}: index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
-msgstr "{type, select, compose {{0}} quote {新增留言} reply {發佈回覆} other {{1}}}"
+msgstr "{type, select, compose {{0}} quote {新增留言} reply {發佈留言} other {{1}}}"
 
 msgid "Unknown transaction method: {method}."
 msgstr "未知交易方法：{method}"
@@ -3100,7 +3087,7 @@ msgid "Failed to repost."
 msgstr "轉發失敗"
 
 msgid "Download image"
-msgstr ""
+msgstr "下載圖片"
 
 msgid "Sorry, today's free collect quota has been reached."
 msgstr "今日免費收藏額度已用盡"
@@ -3146,7 +3133,7 @@ msgid "Primary wallet"
 msgstr "主要錢包"
 
 msgid "<0><1/><2>Sent a tip</2></0><3>to</3>{targetAccount}"
-msgstr ""
+msgstr "<0><1/><2>打賞了</2></0><3></3>{targetAccount}"
 
 #. placeholder {0}: profile.handle
 msgid "Muted @{0} on {sourceName}."
@@ -3520,7 +3507,7 @@ msgid "Everyone can reply"
 msgstr "所有人皆可回覆"
 
 msgid "{seconds, plural, one {# second left} other {# seconds left}}"
-msgstr ""
+msgstr "{seconds, plural, one {剩余 # 秒} other {剩余 # 秒}}"
 
 msgid "No matching token"
 msgstr "無符合的代幣"
@@ -3567,7 +3554,7 @@ msgstr "靜音中..."
 #. placeholder {0}: post.stats.comments
 #. placeholder {0}: post.stats.countOpenActions
 msgid "{0, plural, one {comment} other {comments}}"
-msgstr ""
+msgstr "{0, plural, one {留言} other {留言}}"
 
 msgid "<0/> Loading"
 msgstr "<0/> 載入中"
@@ -3597,7 +3584,7 @@ msgstr "快照已加入書籤"
 
 #. placeholder {0}: Math.floor(span / YEAR_SPAN)
 msgid "{0, plural, one {# year} other {# years}}"
-msgstr ""
+msgstr "{0, plural, one {# 年} other {# 年}}"
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "操作中斷，請啟用 Lens Manager 以無需逐筆簽名交易。"
@@ -3705,17 +3692,13 @@ msgstr "檢測到洗錢行為。"
 msgid "Posted to Lens or Farcaster on <0>Yup</0>"
 msgstr "已透過 <0>Yup</0> 發布至 Lens 或 Farcaster"
 
-msgid ""
-"Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n"
-"\n"
+msgid "Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n\n"
 "Claim here {shareUrl}"
-msgstr ""
-"剛透過鑄造 {fireflyMention} 的「邀請 Yup & Phaver 好友🌟」收藏品賺取 $MASK\n"
-"\n"
+msgstr "剛透過鑄造 {fireflyMention} 的「邀請 Yup & Phaver 好友🌟」收藏品賺取 $MASK\n\n"
 "立即領取 {shareUrl}"
 
 msgid "Share image"
-msgstr ""
+msgstr "分享圖片"
 
 msgid "Download Wallet"
 msgstr "下載錢包"
@@ -3800,7 +3783,7 @@ msgstr "<0>已鑄造</0><1/>{0}"
 
 #. placeholder {0}: fromAccountInfo?.link ? ( <Link onClick={stopPropagation} className="font-bold hover:underline" href={fromAccountInfo.link} > {fromAccountInfo?.displayName || '-'} </Link> ) : ( <span className="font-bold">{fromAccountInfo?.displayName || '-'}</span> )
 msgid "{0} liked your <0>tip</0>"
-msgstr ""
+msgstr "{0} 點讚了你的 <0>打賞</0>"
 
 msgid "1M"
 msgstr ""
@@ -3920,7 +3903,7 @@ msgstr "合約持有者未設定個人滑點限制。"
 
 #. placeholder {0}: formatAddressEthereum(address, 4)
 msgid "Please switch to ${0}"
-msgstr ""
+msgstr "請切換至 ${0}"
 
 msgid "Number of winners"
 msgstr "獲獎人數"
@@ -3992,7 +3975,7 @@ msgid "Hide tokens with small balances"
 msgstr "隱藏小額代幣"
 
 msgid "Welcome back to Firefly!"
-msgstr ""
+msgstr "歡迎回到 Firefly！"
 
 msgid "Proposal"
 msgstr "提案"
@@ -4029,7 +4012,7 @@ msgid "Enable now"
 msgstr "立即啟用"
 
 msgid "Failed to unlike the comment."
-msgstr "評論按讚取消失敗"
+msgstr "評論按讚取消失敗。"
 
 msgid "Statistic"
 msgstr "統計數據"
@@ -4059,7 +4042,7 @@ msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
 msgstr "您持有 <0>2024 總統大選</0> NFT 並投票給川普"
 
 msgid "Tip"
-msgstr ""
+msgstr "打賞"
 
 msgid "Unmute"
 msgstr "取消靜音"
@@ -4291,7 +4274,7 @@ msgid "Video"
 msgstr "影片"
 
 msgid "Firefly Wallet"
-msgstr ""
+msgstr "Firefly 錢包"
 
 msgid "Language"
 msgstr "語言"
@@ -4309,7 +4292,7 @@ msgid "Unmuted {walletHandle}."
 msgstr ""
 
 msgid "Password updated successfully."
-msgstr ""
+msgstr "密碼修改成功！"
 
 msgid "Ignore the warnings to continue"
 msgstr ""
@@ -4516,7 +4499,7 @@ msgid "Something went wrong, please try again."
 msgstr "哎呀... 發生錯誤，請重試。"
 
 msgid "Following"
-msgstr "追蹤中"
+msgstr "正在關注"
 
 msgid "Your X account holds Premium status"
 msgstr "您的 X 帳號具備尊榮會籍"
@@ -4576,7 +4559,7 @@ msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
 msgstr "可在 <0>設定 > 內容偏好</0> 隨時重新開啟"
 
 msgid "NFT"
-msgstr ""
+msgstr "NFT"
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
@@ -4595,7 +4578,7 @@ msgid "Likes"
 msgstr "按讚"
 
 msgid "Please confirm the login with Farcaster."
-msgstr ""
+msgstr "請透過 Farcaster 確認登入"
 
 msgid "Minted"
 msgstr "已鑄造"
@@ -4610,4 +4593,5 @@ msgid "Multi-device login"
 msgstr "多裝置登入"
 
 msgid "Success"
-msgstr ""
+msgstr "成功"
+
