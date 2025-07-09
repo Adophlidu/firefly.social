@@ -103,7 +103,8 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
                         </div>
                     </div>
                     <Link
-                        href={RouteResolver.tip(
+                        href={RouteResolver.tx(
+                            data.chain_id,
                             data.tx_hash,
                             data.notification_type === TipsNotificationType.Tip
                                 ? TipsDetailViewType.Receiver

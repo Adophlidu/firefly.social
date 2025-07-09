@@ -12,6 +12,14 @@ export class RouteResolver {
         });
     }
 
+    static tx(chainId: number | string, hash: string, view?: TipsDetailViewType) {
+        return urlcat(SITE_URL, '/tx/:chainId/:hash', {
+            chainId,
+            hash,
+            view,
+        });
+    }
+
     static swap() {}
     static profile(
         profile: { source: ProfilePageSource; profileId?: string; handle?: string },

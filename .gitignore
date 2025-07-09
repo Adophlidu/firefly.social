@@ -54,3 +54,5 @@ src/locales/**/*.ts
 
 
 *storybook.log
+
+.cursor/

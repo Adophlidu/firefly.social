@@ -1,3 +1,6 @@
+import urlcat from 'urlcat';
+
+import { SITE_URL } from '@/constants/index.js';
 import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSwapPageUrl } from '@/helpers/resolveSwapPageUrl.js';
@@ -10,7 +13,14 @@ export async function createMetadataSwap(pathname: string, hash: string, chainId
 
     const title = createPageTitleOG(`${swap.from_token?.symbol} - ${swap.to_token?.symbol}`);
     const description = swap.from_token?.name;
-    const images = swap.from_token?.logo ? [swap.from_token.logo] : [];
+    const images = [
+        {
+            url: urlcat(SITE_URL, 'api/og/swap/:chainId/:hash/image', {
+                chainId,
+                hash,
+            }),
+        },
+    ];
     return createSiteMetadata(pathname, {
         title,
         description,
@@ -21,7 +31,7 @@ export async function createMetadataSwap(pathname: string, hash: string, chainId
             url: resolveSwapPageUrl(hash, chainId),
         },
         twitter: {
-            card: 'summary',
+            card: 'summary_large_image',
             title,
             description,
             images,

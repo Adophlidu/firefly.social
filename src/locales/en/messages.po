@@ -3735,9 +3735,6 @@ msgstr "Claims"
 msgid "Failed to bookmark snapshot."
 msgstr "Failed to bookmark snapshot."
 
-msgid "The transaction could not be found."
-msgstr "The transaction could not be found."
-
 msgid "Sign in with Firefly App"
 msgstr "Sign in with Firefly App"
 

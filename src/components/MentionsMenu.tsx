@@ -111,6 +111,7 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
                                                             isDark={isDarkMode}
                                                             source={resolveSocialSourceFromFireflyPlatform(platform)}
                                                             size={16}
+                                                            className="min-w-4"
                                                         />
                                                         <span className="truncate text-sm leading-[18px] text-main">
                                                             @{handle}

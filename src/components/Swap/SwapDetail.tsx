@@ -1,10 +1,10 @@
 'use client';
 
 import { Select, Trans } from '@lingui/react/macro';
-import { useSuspenseQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { first } from 'lodash-es';
 import { memo } from 'react';
+import { type Address } from 'viem';
 
 import ExchangeIcon from '@/assets/exchange.svg';
 import LikeIcon from '@/assets/like.svg';
@@ -13,17 +13,18 @@ import LinkOut from '@/assets/link.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { Comeback } from '@/components/Comeback.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-import { Loading } from '@/components/Loading.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
+import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
+import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -31,30 +32,17 @@ import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useChangeSwapLikeStatus } from '@/hooks/useChangeSwapLikeStatus.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { type SwapActivity } from '@/providers/types/Firefly.js';
 
 interface SwapDetailProps {
-    hash: string;
-    chainId: number;
+    activity?: SwapActivity;
 }
 
-export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chainId }) {
-    const { data: activity, isLoading } = useSuspenseQuery({
-        queryKey: ['swap', hash, chainId],
-        queryFn: async () => {
-            const data = await FireflyEndpointProvider.getSwapActivityByHash(hash, chainId);
-            return data;
-        },
-    });
-
+export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }) {
     const addressName = formatAddress(activity?.owner ?? '', 4);
     const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: activity?.owner });
 
     const { mutate: onLikeChange, isPending } = useChangeSwapLikeStatus(activity);
-
-    if (isLoading) {
-        return <Loading />;
-    }
 
     if (!activity) {
         notFound();
@@ -71,6 +59,15 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
 
     return (
         <div className="flex flex-col">
+            <div className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
+                <div className="flex min-w-0 items-center gap-7">
+                    <Comeback className="cursor-pointer text-lightMain" />
+                    <span className="min-w-0 truncate text-xl font-bold text-lightMain">
+                        <Trans>Transaction</Trans>
+                    </span>
+                </div>
+                <WalletBaseMoreAction address={activity.owner as Address} ens={activity.displayInfo?.ensHandle} />
+            </div>
             <div className="flex items-center justify-between px-4 py-3">
                 <div className="flex items-center gap-3">
                     <Link href={profileUrl}>
@@ -175,7 +172,9 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                             {activity.from_token.name}
                                         </span>
                                         {activity.from_token.amount_num ? (
-                                            <span>- {formatTokenAmount(activity.from_token.amount_num)}</span>
+                                            <span>
+                                                - {renderShrankPrice(formatPrice(activity.from_token.amount_num) ?? '')}
+                                            </span>
                                         ) : null}
                                     </div>
 
@@ -222,7 +221,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                         </span>
                                         {activity.to_token.amount_num ? (
                                             <span className="text-success">
-                                                + {formatTokenAmount(activity.to_token.amount_num)}
+                                                + {renderShrankPrice(formatPrice(activity.to_token.amount_num) ?? '')}
                                             </span>
                                         ) : null}
                                     </div>

@@ -26,9 +26,10 @@ export async function getSatoriFonts(signal?: AbortSignal) {
             weight: 700,
             style: 'normal',
         },
+
         {
-            name: 'sans-serif',
-            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/NotoSansSC-Regular.ttf'), {
+            name: 'NotoSans',
+            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/NotoSans-Regular.ttf'), {
                 cache: 'force-cache',
                 signal,
             }),
@@ -36,8 +37,8 @@ export async function getSatoriFonts(signal?: AbortSignal) {
             style: 'normal',
         },
         {
-            name: 'sans-serif',
-            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/NotoSansSC-Bold.ttf'), {
+            name: 'NotoSans',
+            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/NotoSans-Bold.ttf'), {
                 cache: 'force-cache',
                 signal,
             }),

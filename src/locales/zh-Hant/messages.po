@@ -1785,7 +1785,7 @@ msgstr "已過期"
 
 #. placeholder {0}: Math.floor(span / HOUR_SPAN)
 msgid "{0, plural, one {# hour} other {# hours}}"
-msgstr "{0, plural, one {# 小時} other {# 小時}}"
+msgstr ""
 
 msgid "Nickname must not contain restricted symbols"
 msgstr "暱稱不得包含限制符號"
@@ -3734,9 +3734,6 @@ msgstr "領取記錄"
 
 msgid "Failed to bookmark snapshot."
 msgstr "書籤快照失敗"
-
-msgid "The transaction could not be found."
-msgstr ""
 
 msgid "Sign in with Firefly App"
 msgstr "使用 Firefly App 登入"

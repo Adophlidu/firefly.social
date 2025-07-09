@@ -249,6 +249,7 @@ export enum KeyType {
 
     CreateMetadataToken = '/v2/createMetadataToken',
     CreateMetadataSwap = '/v2/createMetadataSwap',
+    CreateMetadataTx = '/v1/createMetadataTx',
     CreateMetadataPostById = '/v2/createPageMetadataById',
     CreateMetadataArticleById = '/v2/createMetadataArticleById',
     CreateMetadataProfileById = '/v3/createMetadataProfileById',

@@ -196,7 +196,7 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
                         lineHeight: '24px',
                     }}
                 >
-                    {dayjs(post.timestamp).format('hh:mm A · MMM D YYYY')}
+                    {dayjs(post.timestamp).format('hh:mm A · UTC · MMM D YYYY')}
                 </div>
                 <div
                     style={{

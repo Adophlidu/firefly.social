@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { compact } from 'lodash-es';
 import type { HTMLProps } from 'react';
 import { useAsyncFn } from 'react-use';
+import urlcat from 'urlcat';
 
 import ImageDownloadIcon from '@/assets/image-download.svg';
 import LikeIcon from '@/assets/like.svg';
@@ -21,7 +22,7 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform, Source, TipsDetailViewType, TipsNotificationType, TxReactionType } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { CHAR_TAG, type MentionChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -55,15 +56,17 @@ async function sharePost(
         txHash,
         tokenSymbol,
         view,
+        chainId,
     }: {
         txHash: string;
         tokenSymbol: string;
         view?: TipsDetailViewType;
+        chainId: number;
     },
     addressForMention: string,
     mentionProfiles?: FireflyProfile[],
 ) {
-    const tipsLink = RouteResolver.tip(txHash, view);
+    const tipsLink = RouteResolver.tx(chainId, txHash, view);
     const sources = getCurrentAvailableSources();
     const validProfiles = compact(
         sources.map((source) => mentionProfiles?.find((profile) => profile.identity.source === source)),
@@ -177,6 +180,7 @@ export function TipsTransactionActions({
                 txHash,
                 tokenSymbol,
                 view,
+                chainId,
             },
             addressForMention,
             mentionProfiles,
@@ -244,7 +248,7 @@ export function TipsTransactionActions({
                     <>
                         <MenuItem>
                             {({ close }) => (
-                                <CopyLinkButton link={RouteResolver.tip(txHash)} onClick={close}>
+                                <CopyLinkButton link={RouteResolver.tx(chainId, txHash)} onClick={close}>
                                     <Trans>Copy link</Trans>
                                 </CopyLinkButton>
                             )}
@@ -255,8 +259,10 @@ export function TipsTransactionActions({
                                     onClick={() => {
                                         close();
                                         ShareImageModalRef.open({
-                                            // TODO: Replace with actual image URL
-                                            imageUrl: 'https://media.firefly.land/advertisement/download.png',
+                                            imageUrl: urlcat(SITE_URL, 'api/og/tip/:hash/image', {
+                                                hash: txHash,
+                                                view,
+                                            }),
                                             aspectRatio: '1200 / 630',
                                         });
                                     }}

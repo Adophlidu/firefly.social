@@ -997,7 +997,7 @@ class FireflyEndpoint {
                         chain_id: chainId,
                     },
                 ],
-                is_realtime: true,
+                is_realtime: false,
             }),
         });
 
@@ -1715,7 +1715,6 @@ class FireflyEndpoint {
         });
         const response = await fireflySessionHolder.fetch<TipsDetailResponse>(url);
         const data = resolveFireflyResponseData(response);
-        if (!data) throw new Error('Tips notification not found');
 
         return data;
     }

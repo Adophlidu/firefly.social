@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { safeUnreachable } from '@masknet/kit';
-import { Transformer } from '@napi-rs/image';
 import { compact, first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
@@ -27,6 +26,7 @@ import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL, SORTED_SOCIAL_ACCOUNT_AVATAR_SO
 import { compose } from '@/helpers/compose.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
+import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -78,22 +78,6 @@ interface ProfileOpenGraphImageProps {
     displayName: string;
     source?: ColoredSource;
     sources?: ProfilePageSource[];
-}
-
-async function fetchAvatarAsBase64(avatarURL: string) {
-    const response = await fetch(avatarURL);
-    if (!response.ok) {
-        return null;
-    }
-    const contentType = response.headers.get('content-type') || 'image/jpeg';
-    const arrayBuffer = await response.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    if (contentType === 'image/png') {
-        return `data:${contentType};base64,${buffer.toString('base64')}`;
-    }
-    const tf = new Transformer(buffer);
-    const pngBuffer = await tf.png();
-    return `data:image/png;base64,${pngBuffer.toString('base64')}`;
 }
 
 async function ProfileOpenGraphImage({ avatar, displayName, sources, source }: ProfileOpenGraphImageProps) {

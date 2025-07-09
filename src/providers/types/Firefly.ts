@@ -1961,7 +1961,7 @@ export interface TipsDetail {
     to_account?: TipsAccountInfo;
 }
 
-export type TipsDetailResponse = Response<TipsDetail>;
+export type TipsDetailResponse = Response<TipsDetail | null>;
 
 export interface PrivyWallet {
     accountId: string;
