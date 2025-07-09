@@ -1088,12 +1088,9 @@ class FireflyEndpoint {
         });
         const response = await fireflySessionHolder.fetch<TokenPriceStatsResponse>(url);
         const result = resolveFireflyResponseData(response);
-        const dayIndex = DAY_RANGES.indexOf(options.days);
-        if (result.prices.length < 2 && dayIndex > 0) {
-            return this.getTokenPriceStats({
-                ...options,
-                days: DAY_RANGES[dayIndex - 1],
-            });
+        if (result.prices.length === 1) {
+            const record = result.prices[0];
+            result.prices.unshift([record[0] - 1, record[1]]);
         }
         result.prices = sortBy(result.prices, (x) => x[0]);
         return result;

@@ -303,17 +303,19 @@ export const TokenMarketData = memo(function TokenMarketData({
                         <div className="text-2xl font-bold">
                             ${renderShrankPrice(formatPrice(activeRecord?.value ?? price) ?? '-')}
                         </div>
-                        <div className="flex items-center">
-                            <PriceArrow
-                                width={20}
-                                height={20}
-                                className={
-                                    isUp === undefined ? 'text-third' : isUp ? 'text-success' : 'rotate-180 text-fail'
-                                }
-                            />
-                            <span className={isUp ? 'text-medium text-success' : 'text-medium text-fail'}>
-                                {isNumber(change24h) ? `${change24h.toFixed(2)}%` : '--%'}
-                            </span>
+                        <div className="flex min-h-[22.5px] items-center">
+                            {isUp === undefined ? null : (
+                                <>
+                                    <PriceArrow
+                                        width={20}
+                                        height={20}
+                                        className={isUp ? 'text-success' : 'rotate-180 text-fail'}
+                                    />
+                                    <span className={isUp ? 'text-medium text-success' : 'text-medium text-fail'}>
+                                        {isNumber(change24h) ? `${change24h.toFixed(2)}%` : '--%'}
+                                    </span>
+                                </>
+                            )}
                             {activeRecord ? (
                                 <span className="ml-2 text-sm text-secondary">
                                     {dayjs(activeRecord.date).format('MMM DD, YYYY, hh:mm A')}
@@ -333,7 +335,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                 {isPending ? (
                     <div className="mx-2 h-full flex-grow rounded-lg bg-gray-100 dark:bg-gray-800" />
                 ) : invalidData ? (
-                    <div className="mx-2 h-full flex-grow rounded-lg">
+                    <div className="mx-2 flex h-full flex-grow items-center justify-center rounded-lg">
                         <Trans>There is no data available to display</Trans>
                     </div>
                 ) : (
