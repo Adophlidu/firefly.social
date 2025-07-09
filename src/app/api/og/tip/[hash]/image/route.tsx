@@ -153,7 +153,6 @@ async function TipOpenGraphImage({
                             top: 0,
                             width: '24px',
                             height: '24px',
-                            zIndex: 2,
                         }}
                     />
                     <Image
@@ -165,7 +164,6 @@ async function TipOpenGraphImage({
                             top: 0,
                             width: '24px',
                             height: '24px',
-                            zIndex: 2,
                         }}
                     />
                     <Image
@@ -177,7 +175,6 @@ async function TipOpenGraphImage({
                             bottom: 0,
                             width: '24px',
                             height: '24px',
-                            zIndex: 2,
                         }}
                     />
                     <Image
@@ -189,7 +186,6 @@ async function TipOpenGraphImage({
                             bottom: 0,
                             width: '24px',
                             height: '24px',
-                            zIndex: 2,
                         }}
                     />
 
@@ -220,7 +216,6 @@ async function TipOpenGraphImage({
                     <div
                         style={{
                             position: 'relative',
-                            zIndex: 1,
                             display: 'flex',
                             alignItems: 'center',
                             gap: '24px',
