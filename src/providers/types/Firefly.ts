@@ -1879,6 +1879,7 @@ export type PostState = Response<PostStateEntry>;
 export type PostListState = Response<PostStateEntry[]>;
 
 interface TipsNotificationAccountInfo {
+    account_uid: string;
     avatar: string | null;
     createdAt: string;
     createdPlatform: 'maskx';
@@ -1898,7 +1899,7 @@ export interface TipsNotificationData {
     timestamp: string;
     from_account_info?: TipsNotificationAccountInfo;
     to_account_info?: TipsNotificationAccountInfo;
-    liker_account_info?: TipsNotificationAccountInfo & { account_id: string };
+    liker_account_info?: TipsNotificationAccountInfo;
     amount: string;
     token_symbol: string;
     token_icon: string;
