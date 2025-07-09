@@ -57,7 +57,7 @@ export namespace EVM {
         content_uri: string | null;
         description: string;
         image_uri?: string;
-        external_uri: string;
+        external_link: string;
         latest_trade_price: string | null;
         latest_trade_symbol: string | null;
         latest_trade_timestamp: number | null;

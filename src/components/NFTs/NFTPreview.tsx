@@ -212,7 +212,7 @@ export const NFTPreviewer = memo(function NFTPreview({ nft, showTradeInfo, class
                     ? {
                           image: isPoap ? undefined : (nft.collection.large_image_url ?? nft.nftscan_uri),
                           name: isPoap ? nft.name : nft.collection.name,
-                          link: nft.external_uri,
+                          link: nft.external_link,
                       }
                     : undefined
             }
