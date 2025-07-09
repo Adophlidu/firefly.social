@@ -357,9 +357,6 @@ msgstr "更多"
 msgid "Translate post"
 msgstr "翻译帖子"
 
-msgid "Transaction {hash} could not be found."
-msgstr "未找到该这条交易 {hash} 。"
-
 msgid "Free"
 msgstr "免费"
 
@@ -1788,9 +1785,6 @@ msgstr "已过期"
 
 #. placeholder {0}: Math.floor(span / HOUR_SPAN)
 msgid "{0, plural, one {# hour} other {# hours}}"
-msgstr ""
-
-msgid "Tip {hash} could not be found."
 msgstr ""
 
 msgid "Nickname must not contain restricted symbols"
@@ -3745,6 +3739,9 @@ msgstr "领取"
 
 msgid "Failed to bookmark snapshot."
 msgstr "收藏 snapshot 失败。"
+
+msgid "The transaction could not be found."
+msgstr ""
 
 msgid "Sign in with Firefly App"
 msgstr "使用 Firefly App 登录"

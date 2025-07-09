@@ -1,13 +1,10 @@
-'use client';
-
 import { Trans } from '@lingui/react/macro';
 
 import NotFound from '@/components/NotFound.js';
-import { useParams } from '@/esm/navigation.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 
-export default function NotFoundToken() {
-    const params = useParams<{ hash: string }>();
-    const hash = decodeURIComponent(params.hash);
+export default async function NotFoundPage() {
+    await setupLocaleForSSR();
 
-    return <NotFound text={<Trans>Tip {hash} could not be found.</Trans>} />;
+    return <NotFound text={<Trans>The transaction could not be found.</Trans>} />;
 }

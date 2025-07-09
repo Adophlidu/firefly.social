@@ -352,9 +352,6 @@ msgstr ""
 msgid "Translate post"
 msgstr ""
 
-msgid "Transaction {hash} could not be found."
-msgstr ""
-
 msgid "Free"
 msgstr ""
 
@@ -1783,9 +1780,6 @@ msgstr ""
 
 #. placeholder {0}: Math.floor(span / HOUR_SPAN)
 msgid "{0, plural, one {# hour} other {# hours}}"
-msgstr ""
-
-msgid "Tip {hash} could not be found."
 msgstr ""
 
 msgid "Nickname must not contain restricted symbols"
@@ -3723,6 +3717,9 @@ msgid "Claims"
 msgstr ""
 
 msgid "Failed to bookmark snapshot."
+msgstr ""
+
+msgid "The transaction could not be found."
 msgstr ""
 
 msgid "Sign in with Firefly App"
