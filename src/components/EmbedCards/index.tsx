@@ -180,7 +180,9 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
                 .filter((address) => !lowerIgnoredLinks.some((link) => link.includes(address)))
                 .map((address) => ({ type: 'address', value: address })),
             ...availableLinks.map((link) => ({ type: 'url', value: link })),
-            ...availableDomains.map((domain) => ({ type: 'domain', value: domain })),
+            ...availableDomains
+                .filter((domain) => !links.some((link) => link.includes(domain))) // exclude domains in links
+                .map((domain) => ({ type: 'domain', value: domain })),
         ] as EmbedEntry[];
 
         const lowercasePostContent = content.toLowerCase();
