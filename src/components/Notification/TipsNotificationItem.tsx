@@ -47,7 +47,7 @@ function getAccountInfo(data: TipsNotificationData) {
                 avatar: avatar || null,
                 displayName: displayName || null,
                 link: data.liker_account_info
-                    ? urlcat(SITE_URL, '/profile/:accountId', { accountId: data.liker_account_info.id })
+                    ? urlcat(SITE_URL, '/profile/:accountId', { accountId: data.liker_account_info.account_id })
                     : null,
             };
         }

@@ -1898,7 +1898,7 @@ export interface TipsNotificationData {
     timestamp: string;
     from_account_info?: TipsNotificationAccountInfo;
     to_account_info?: TipsNotificationAccountInfo;
-    liker_account_info?: TipsNotificationAccountInfo;
+    liker_account_info?: TipsNotificationAccountInfo & { account_id: string };
     amount: string;
     token_symbol: string;
     token_icon: string;
