@@ -15,6 +15,7 @@ import { CommunityLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { Link as OriginalLink } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress, formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatAge } from '@/helpers/formatAge.js';
@@ -343,31 +344,35 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
     return (
         <div {...rest}>
             <div className="grid grid-cols-3 gap-3">
-                <Tooltip
-                    placement="top"
-                    content={
-                        <div className="w-[260px]">
-                            {marketCap === null ? (
-                                <Trans>
-                                    Assuming circulating supply = total supply (includes locked, excludes burned)
-                                </Trans>
-                            ) : (
-                                <Trans>
-                                    Market Cap is sourced from CoinGecko and includes token issued on other blockchain.
-                                </Trans>
-                            )}
-                        </div>
-                    }
-                >
-                    <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
-                        <p className="font-inter text-lg font-bold leading-6 text-main">
-                            {marketCap ? formatMarketCap(marketCap, 2, '$') : fdv ? formatMarketCap(fdv, 2, '$') : '-'}
-                        </p>
-                        <h3 className="font-inter text-medium leading-[18px] text-second underline">
-                            <Trans>Market Cap</Trans>
-                        </h3>
-                    </div>
-                </Tooltip>
+                <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
+                    <p className="font-inter text-lg font-bold leading-6 text-main">
+                        {marketCap ? formatMarketCap(marketCap, 2, '$') : fdv ? formatMarketCap(fdv, 2, '$') : '-'}
+                    </p>
+                    <h3 className="font-inter text-medium leading-[18px] text-second underline">
+                        <Tooltip
+                            placement="top"
+                            content={
+                                <div className="w-[260px]">
+                                    {marketCap === null ? (
+                                        <Trans>
+                                            Assuming circulating supply = total supply (includes locked, excludes
+                                            burned)
+                                        </Trans>
+                                    ) : (
+                                        <Trans>
+                                            Market Cap is sourced from CoinGecko and includes token issued on other
+                                            blockchain.
+                                        </Trans>
+                                    )}
+                                </div>
+                            }
+                        >
+                            <span>
+                                <Trans>Market Cap</Trans>
+                            </span>
+                        </Tooltip>
+                    </h3>
+                </div>
                 <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
                     <p className="font-inter text-lg font-bold leading-6 text-main">
                         {liquidity ? formatMarketCap(liquidity, 2, '$') : '-'}
@@ -392,43 +397,47 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                         <Trans>24h Vol</Trans>
                     </h3>
                 </div>
-                <Tooltip
-                    interactive
-                    content={
-                        <div className="w-[260px]">
-                            <Trans>
-                                In some cases, you can also find a more detailed breakdown of holders in the explorer
-                                page.
-                            </Trans>
-                            <Link href={resolveAddressLink(chainId, address) || ''}>
-                                <LinkIcon width={14} height={14} className="inline-block text-second" />
-                            </Link>
-                        </div>
-                    }
-                    placement="top"
-                >
-                    <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
-                        <p className="font-inter text-lg font-bold leading-6 text-main">
-                            {holders ? formatMarketCap(holders, 2) : '-'}
-                        </p>
-                        <h3 className="font-inter text-medium leading-[18px] text-second underline">
-                            <Trans>Holders</Trans>
-                        </h3>
-                    </div>
-                </Tooltip>
-                <Tooltip
-                    content={createAt ? formatDate(new Date(createAt), 'MMM d, yyyy, hh:mm a') : null}
-                    placement="top"
-                >
-                    <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
-                        <p className="font-inter text-lg font-bold leading-6 text-main">
-                            {createAt ? formatAge(createAt) : '-'}
-                        </p>
-                        <h3 className="font-inter text-medium leading-[18px] text-second underline">
-                            <Trans>Age</Trans>
-                        </h3>
-                    </div>
-                </Tooltip>
+                <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
+                    <p className="font-inter text-lg font-bold leading-6 text-main">
+                        {holders ? formatMarketCap(holders, 2) : '-'}
+                    </p>
+                    <h3 className="font-inter text-medium leading-[18px] text-second underline">
+                        <Tooltip
+                            interactive
+                            content={
+                                <div className="w-[260px]">
+                                    <Trans>
+                                        In some cases, you can also find a more detailed breakdown of holders in the
+                                        explorer page.
+                                    </Trans>
+                                    <OriginalLink target="_blank" href={resolveAddressLink(chainId, address) || ''}>
+                                        <LinkIcon width={14} height={14} className="inline-block text-second" />
+                                    </OriginalLink>
+                                </div>
+                            }
+                            placement="top"
+                        >
+                            <span>
+                                <Trans>Holders</Trans>
+                            </span>
+                        </Tooltip>
+                    </h3>
+                </div>
+                <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
+                    <p className="font-inter text-lg font-bold leading-6 text-main">
+                        {createAt ? formatAge(createAt) : '-'}
+                    </p>
+                    <h3 className="inline-block font-inter text-medium leading-[18px] text-second underline">
+                        <Tooltip
+                            content={createAt ? formatDate(new Date(createAt), 'MMM d, yyyy, hh:mm a') : null}
+                            placement="top"
+                        >
+                            <span>
+                                <Trans>Age</Trans>
+                            </span>
+                        </Tooltip>
+                    </h3>
+                </div>
             </div>
             <div className="mt-3 flex flex-col gap-3">
                 <InfoRow
