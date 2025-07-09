@@ -27,7 +27,10 @@ export function SuccessPage() {
     return (
         <ShadowInAndOut className="no-scrollbar absolute inset-0 z-1 flex flex-col items-center justify-center gap-5 p-6 pt-20 sm:gap-[6.875%] md:flex-row md:pt-6">
             <MusicTogglePlay />
-            <GamePlayer avatar={avatar ? decodeURIComponent(avatar) : ''} />
+            <GamePlayer
+                avatar={avatar ? decodeURIComponent(avatar) : ''}
+                nickname={nickname ? decodeURIComponent(nickname) : undefined}
+            />
             <div className="flex flex-col">
                 {nickname ? (
                     <h1 className={classNames('text-[32px] text-white', levelUp.className)}>

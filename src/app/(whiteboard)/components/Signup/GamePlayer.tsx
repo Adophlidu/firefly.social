@@ -4,15 +4,18 @@ import { memo, useEffect, useRef, useState } from 'react';
 import { toggleSignupAudio } from '@/app/(whiteboard)/signup/pages/audio.js';
 import FireflyCard from '@/assets/firefly-card.svg';
 import { Image } from '@/esm/Image.js';
+import { levelUp } from '@/fonts/index.js';
+import { classNames } from '@/helpers/classNames.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 interface GamePlayerProps {
     avatar?: string;
+    nickname?: string;
 }
 
 const maxTilt = 10;
 
-export const GamePlayer = memo<GamePlayerProps>(function GamePlayer({ avatar }) {
+export const GamePlayer = memo<GamePlayerProps>(function GamePlayer({ avatar, nickname }) {
     const boxRef = useRef<HTMLDivElement>(null);
     const [transform, setTransform] = useState('');
     const isMedium = useIsMedium();
@@ -43,7 +46,7 @@ export const GamePlayer = memo<GamePlayerProps>(function GamePlayer({ avatar }) 
 
     return (
         <div className="relative w-fit" ref={boxRef} style={{ transform: isMedium ? transform : 'none' }}>
-            <FireflyCard className="h-auto w-[80vw] max-w-[385px] cursor-pointer" onClick={toggleSignupAudio} />
+            <FireflyCard className="h-auto w-[60vw] max-w-[385px] cursor-pointer" onClick={toggleSignupAudio} />
             {avatar ? (
                 <div className="absolute left-[29.08%] top-[16.15%] aspect-square w-[35.41%]">
                     <Image
@@ -55,6 +58,14 @@ export const GamePlayer = memo<GamePlayerProps>(function GamePlayer({ avatar }) 
                     />
                 </div>
             ) : null}
+            <div
+                className={classNames(
+                    'absolute inset-x-0 top-[54.2%] -translate-x-2 truncate px-6 text-center text-[29px] font-bold uppercase tracking-[0.07em] text-black md:text-[38px]',
+                    levelUp.className,
+                )}
+            >
+                {nickname || 'Firefly'}
+            </div>
         </div>
     );
 });

@@ -31,11 +31,20 @@ export const FIREFLY_LENS_PROFILE: Profile = {
     score: 0,
 };
 
+export const FIREFLY_BSKY_PROFILE: Profile = {
+    platform_id: 'did:plc:i6lchnoqz37rdwxg4mipfgq5',
+    platform: FireflyPlatform.Bsky,
+    handle: 'fireflyapp.bsky.social',
+    name: 'fireflyapp',
+    hit: true,
+    score: 0,
+};
+
 export const FIREFLY_MENTION = {
     tag: CHAR_TAG?.MENTION,
     visible: true,
     content: `@thefireflyapp`,
-    profiles: [FIREFLY_TWITTER_PROFILE, FIREFLY_FARCASTER_PROFILE, FIREFLY_LENS_PROFILE],
+    profiles: [FIREFLY_TWITTER_PROFILE, FIREFLY_FARCASTER_PROFILE, FIREFLY_LENS_PROFILE, FIREFLY_BSKY_PROFILE],
 } satisfies MentionChars;
 
 export const BRIAN_TWITTER_PROFILE: Profile = {

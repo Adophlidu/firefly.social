@@ -51,12 +51,12 @@ export function LoggedInProfilesThirdParty() {
         <Fragment>
             {accounts.map((account) => (
                 <motion.button
-                    key={`${account.profile.source}-${account.profile.profileId}`}
+                    key={`${account.profile.profileSource}-${account.profile.profileId}`}
                     whileTap={{ scale: 0.95 }}
-                    style={{ backgroundColor: 'rgba(124, 127, 163, 0.06)' }}
+                    style={{ backgroundColor: 'rgba(94, 105, 255, 0.50)' }}
                     className="flex items-center rounded-3xl p-3"
                 >
-                    <ProfileSourceIcon source={account.profile.source} size={20} />
+                    <ProfileSourceIcon source={account.profile.profileSource} size={20} />
                     <span className="ml-2 mr-4 text-base font-medium text-white">
                         {formatThirdPartyProfileName(account.profile) || '-'}
                     </span>
