@@ -3,6 +3,7 @@ import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { getBskySuggestedUsers } from '@/services/getBskySuggestedUsers.js';
 
 async function getProfilesWithFixedTotal(
     queryCallback: (indicator?: PageIndicator) => Promise<Pageable<Profile>>,
@@ -31,12 +32,11 @@ export async function getSuggestedFollowsInCard(source: SocialSource) {
     const provider = resolveSocialMediaProvider(source, { [Source.Twitter]: 'twitter' });
     const currentProfile = getCurrentProfile(source);
     const result = await getProfilesWithFixedTotal(
-        provider.getSuggestedFollows.bind(provider),
+        source === Source.Bsky ? getBskySuggestedUsers : provider.getSuggestedFollows.bind(provider),
         (oldData, newData) =>
             [
                 ...oldData,
                 ...newData.filter((item) => {
-                    if (item.source === Source.Bsky && item.followerCount < 1000) return false;
                     return (
                         !item.viewerContext?.blocking &&
                         !item.viewerContext?.following &&

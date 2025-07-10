@@ -23,6 +23,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
+import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useBskyStateStore } from '@/store/useProfileStore.js';
@@ -41,13 +42,9 @@ export function SuggestedFollowsCard() {
     const asyncStatusAll = useAsyncStatusAll();
     const bskySession = useBskyStateStore.use.currentProfileSession();
 
+    const commonKeys = [...SORTED_SOCIAL_SOURCES.map((x) => profileAll[x]?.profileId), asyncStatusAll, bskySession];
     const { data: suggestedFollows, isLoading } = useQuery({
-        queryKey: [
-            'suggested-follows-lite',
-            ...SORTED_SOCIAL_SOURCES.map((x) => profileAll[x]?.profileId),
-            asyncStatusAll,
-            bskySession,
-        ],
+        queryKey: ['suggested-follows-lite', ...commonKeys],
         staleTime: 1000 * 60 * 2,
         enabled: !asyncStatusAll,
         queryFn: async () => {
@@ -61,6 +58,41 @@ export function SuggestedFollowsCard() {
             return mergeLists(...compact(suggestedProfiles.map((x) => (x.status === 'fulfilled' ? x.value : []))));
         },
     });
+
+    const { data: profilesWithStats } = useQuery({
+        queryKey: ['profile-stats', ...commonKeys],
+        enabled: !!suggestedFollows?.length && !isLoading,
+        staleTime: 1000 * 60 * 30, // 30 minutes
+        queryFn: async () => {
+            if (!suggestedFollows?.length) return [];
+
+            const bskyProfiles = suggestedFollows.filter((x) => x.source === Source.Bsky);
+            const bskyIds = bskyProfiles.map((x) => x.profileId);
+            if (!bskyIds.length) return [];
+
+            const profilesWithStats = await BskySocialMediaProvider.getProfilesByIds(bskyIds);
+
+            return profilesWithStats;
+        },
+    });
+
+    const suggestedFollowsWithStats = useMemo(() => {
+        if (!suggestedFollows?.length || !profilesWithStats?.length) return suggestedFollows;
+
+        return suggestedFollows.map((profile) => {
+            if (profile.source !== Source.Bsky) return profile;
+            const profileWithStats = profilesWithStats.find(
+                (p) => p.profileId === profile.profileId && p.source === profile.source,
+            );
+            if (!profileWithStats) return profile;
+
+            return {
+                ...profile,
+                followerCount: profileWithStats.followerCount,
+                followingCount: profileWithStats.followingCount,
+            };
+        });
+    }, [suggestedFollows, profilesWithStats]);
 
     const showMoreUrl = useMemo(() => {
         const isOnlyFarcaster = !!profileAll.Farcaster && !profileAll.Lens && !profileAll.Bsky;
@@ -90,7 +122,7 @@ export function SuggestedFollowsCard() {
         );
     }
 
-    if (!suggestedFollows?.length || !isLarge) return null;
+    if (!suggestedFollowsWithStats?.length || !isLarge) return null;
 
     return (
         <section>
@@ -108,7 +140,7 @@ export function SuggestedFollowsCard() {
             />
             <div className="rounded-xl bg-bg">
                 <Swiper
-                    initialSlide={suggestedFollows.length > 2 ? 1 : 0}
+                    initialSlide={suggestedFollowsWithStats.length > 2 ? 1 : 0}
                     effect={'coverflow'}
                     grabCursor
                     centeredSlides
@@ -128,7 +160,7 @@ export function SuggestedFollowsCard() {
                     autoplay={{ delay: 5000 }}
                     modules={[Autoplay, EffectCoverflow]}
                 >
-                    {suggestedFollows.map((profile, key) => (
+                    {suggestedFollowsWithStats.map((profile, key) => (
                         <SwiperSlide className="!h-[208px] !w-[164px]" key={key}>
                             <div className="py-3">
                                 <ProfileSlide profile={profile} />

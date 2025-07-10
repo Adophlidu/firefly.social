@@ -412,7 +412,8 @@
         "truthsocial",
         "Tickerbit",
         "napi",
-        "Userid"
+        "Userid",
+        "xrpc"
     ],
     "flagWords": [],
     "ignorePaths": [
