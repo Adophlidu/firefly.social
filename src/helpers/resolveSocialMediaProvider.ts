@@ -1,4 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
+import { isServer } from '@tanstack/react-query';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
@@ -21,7 +22,7 @@ export function resolveSocialMediaProvider(source: SocialSource, options?: Optio
         case Source.Farcaster:
             return FarcasterSocialMediaProvider;
         case Source.Twitter:
-            const preferred = options?.[Source.Twitter] ?? 'twitter';
+            const preferred = (options?.[Source.Twitter] ?? isServer) ? 'nitter' : 'twitter';
 
             switch (preferred) {
                 case 'nitter':
