@@ -32,6 +32,14 @@ export class UnauthorizedError extends Error {
     }
 }
 
+export class NetworkError extends Error {
+    override name = 'NetworkError';
+
+    constructor(message?: string) {
+        super(message ?? 'Network error');
+    }
+}
+
 async function getResponseText(response: Response): Promise<string> {
     try {
         const text = await response.clone().text();

@@ -1,7 +1,7 @@
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
-import { FetchError } from '@/constants/error.js';
+import { FetchError, NetworkError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';
 import { getNextFetchers, type NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 
@@ -32,6 +32,7 @@ export async function fetch(
     const requestInput = resolveRequestInput(input);
 
     const response = await fetcher(requestInput, init);
+    if (!response.ok && !navigator.onLine) throw new NetworkError();
     if (!response.ok && !options?.noStrictOK) {
         const fetchError = await FetchError.from(requestInput, response);
         fetchError.toThrow();
