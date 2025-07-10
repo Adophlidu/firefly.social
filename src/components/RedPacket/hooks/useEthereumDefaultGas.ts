@@ -7,11 +7,12 @@ import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { toFixed, ZERO } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { HappyRedPacketV4ABI } from '@/mask/constants.js';
-import { type CreateRedPacketContext, RedPacketProvider } from '@/providers/ethereum/RedPacket.js';
-import { EthereumSchemaType, getRedPacketConstant, getTokenConstant } from '#masknet/web3-shared-evm';
+import { type CreateRedPacketContext, EthereumRedPacket } from '@/providers/ethereum/RedPacket.js';
+import { EthereumSchemaType, getTokenConstant } from '#masknet/web3-shared-evm';
+import { getRedPacketContractAbi, getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
+import { RED_PACKET_CONTRACT_VERSION } from '@/constants/rp.js';
 
-export function useEvmDefaultGas(context: CreateRedPacketContext, enabled = true) {
+export function useEthereumDefaultGas(context: CreateRedPacketContext, enabled = true) {
     const { account, chainId } = useChainContext({
         account: context.creator,
     });
@@ -29,15 +30,15 @@ export function useEvmDefaultGas(context: CreateRedPacketContext, enabled = true
             const tokenAddress = token.schema === EthereumSchemaType.Native ? NATIVE_TOKEN_ADDRESS : token.address;
             if (!tokenAddress) return ZERO;
 
-            const params = await RedPacketProvider.createRedPacketParams(context);
+            const params = await EthereumRedPacket.createRedPacketParams(context);
             if (!params) return ZERO;
 
             const value = toFixed(params.params.token?.schema === EthereumSchemaType.Native ? total : 0);
             const client = createWagmiPublicClient(chainId);
             const result = await runInSafeAsync(async () => {
                 return client.estimateContractGas({
-                    address: getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address,
-                    abi: HappyRedPacketV4ABI,
+                    abi: getRedPacketContractAbi(RED_PACKET_CONTRACT_VERSION),
+                    address: getRedPacketContractAddress(chainId, RED_PACKET_CONTRACT_VERSION),
                     functionName: 'create_red_packet',
                     args: [
                         params.methodParams.publicKey,

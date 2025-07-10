@@ -5,7 +5,7 @@ import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
 import { Loading } from '@/components/Loading.js';
-import { useEvmClaimedInfo } from '@/components/RedPacket/hooks/useEvmClaimedInfo.js';
+import { useEthereumClaimedInfo } from '@/components/RedPacket/hooks/useEthereumClaimedInfo.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import type { NetworkType } from '@/constants/enum.js';
@@ -49,7 +49,7 @@ function HistoryDetail() {
         networkType: NetworkType;
     };
 
-    const { claimInfo, claimList, onEndReached } = useEvmClaimedInfo(resolveSolanaAccountId(rpid));
+    const { claimInfo, claimList, onEndReached } = useEthereumClaimedInfo(resolveSolanaAccountId(rpid));
 
     return (
         <div className="flex w-[600px] flex-grow flex-col overflow-auto px-4 py-3">

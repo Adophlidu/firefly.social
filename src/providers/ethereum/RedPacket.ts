@@ -4,29 +4,21 @@ import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import type { NetworkType, SocialSource } from '@/constants/enum.js';
-import { isLessThan, toFixed } from '@/helpers/number.js';
+import { isLessThan } from '@/helpers/number.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
-import type { HappyRedPacketV4 } from '@/mask/constants.js';
-import { HappyRedPacketV4ABI } from '@/mask/constants.js';
-import { EVMChainResolver, EVMWeb3 } from '@/mask/index.js';
+import { EVMChainResolver } from '@/mask/index.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
-import { createRedPacketContract } from '@/providers/ethereum/getRedPacketContract.js';
+import { getRedPacketContractAbi, getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import {
-    ContractTransaction,
-    decodeEvents,
-    type EthereumChainId,
-    EthereumSchemaType,
-    type GasConfig,
-    getRedPacketConstant,
-    getTokenConstant,
-    type TransactionReceipt,
-} from '#masknet/web3-shared-evm';
+import { type EthereumChainId, EthereumSchemaType, getTokenConstant } from '#masknet/web3-shared-evm';
+import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
+import { estimateContractGas } from 'viem/actions';
+import { NotImplementedError } from '@/constants/error.js';
 
 export interface CreateRedPacketContext {
     networkType: NetworkType;
@@ -66,7 +58,6 @@ export interface CreateRedPacketParams {
 
 interface CreateResult {
     hash: string;
-    receipt: TransactionReceipt;
     events?: {
         [eventName: string]: any;
     };
@@ -77,19 +68,11 @@ class Provider {
         const { creator, duration, isRandom, message, name, shares, total, token, chainId, version, publicKey } =
             context;
 
-        const contract = createRedPacketContract(chainId, version);
-        const NATIVE_TOKEN_ADDRESS = getTokenConstant(chainId, 'NATIVE_TOKEN_ADDRESS');
-        const tokenAddress = token?.schema === EthereumSchemaType.Native ? NATIVE_TOKEN_ADDRESS : token?.address;
-
-        if (!tokenAddress) {
-            if (process.env.NODE_ENV === 'development' && !NATIVE_TOKEN_ADDRESS) {
-                console.error(
-                    'Not native token address for chain %s. Do you forget to configure it in token.json file?',
-                    token?.chainId,
-                );
-            }
-            return null;
-        }
+        const tokenAddress =
+            token?.schema === EthereumSchemaType.Native
+                ? getTokenConstant(chainId, 'NATIVE_TOKEN_ADDRESS')
+                : token?.address;
+        if (!tokenAddress) throw new Error('Token address is required for creating a red packet.');
 
         const params: CreateRedPacketParams = {
             publicKey,
@@ -116,83 +99,43 @@ class Provider {
         }
 
         const methodParams = omit(params, ['token']) as Omit<CreateRedPacketParams, 'token'>;
-        let gasError: Error | null = null;
-        const value = toFixed(params.token?.schema === EthereumSchemaType.Native ? total : 0);
 
-        const gas = await (contract as HappyRedPacketV4).methods
-            .create_red_packet(
-                methodParams.publicKey,
-                methodParams.shares,
-                methodParams.isRandom,
-                methodParams.duration,
-                methodParams.seed,
-                methodParams.message,
-                methodParams.name,
-                methodParams.tokenType,
-                methodParams.tokenAddress,
-                methodParams.total,
-            )
-            .estimateGas({ from: creator, value })
-            .catch((error: Error) => {
-                gasError = error;
+        try {
+            const gas = await estimateContractGas(createWagmiPublicClient(chainId), {
+                account: creator as Address,
+                address: getRedPacketContractAddress(chainId, version),
+                abi: getRedPacketContractAbi(version),
+                functionName: 'create_red_packet',
+                args: [
+                    methodParams.publicKey,
+                    methodParams.shares,
+                    methodParams.isRandom,
+                    methodParams.duration,
+                    methodParams.seed,
+                    methodParams.message,
+                    methodParams.name,
+                    methodParams.tokenType,
+                    methodParams.tokenAddress,
+                    methodParams.total,
+                ],
+                value: params.token?.schema === EthereumSchemaType.Native ? BigInt(total) : undefined,
             });
-
-        return {
-            gas: gas ? toFixed(gas) : undefined,
-            params,
-            methodParams,
-            gasError,
-        };
-    }
-
-    async createRedPacket(context: CreateRedPacketContext, gasOption?: GasConfig): Promise<CreateResult | null> {
-        const params = await this.createRedPacketParams(context);
-        if (!params) return null;
-
-        const { creator, chainId, version, token } = context;
-
-        const contract = createRedPacketContract(chainId, version);
-        if (!contract) throw new Error('Failed to create contract.');
-
-        // estimate gas and compose transaction
-        const tx = await new ContractTransaction(contract).fillAll(
-            contract.methods.create_red_packet(
-                params.methodParams.publicKey,
-                params.methodParams.shares,
-                params.methodParams.isRandom,
-                params.methodParams.duration,
-                params.methodParams.seed,
-                params.methodParams.message,
-                params.methodParams.name,
-                params.methodParams.tokenType,
-                params.methodParams.tokenAddress,
-                params.methodParams.total,
-            ),
-            {
-                from: creator,
-                value: toFixed(token?.schema === EthereumSchemaType.Native ? params.params.total : 0),
-                gas: params.gas,
-                chainId,
-                ...gasOption,
-            },
-        );
-
-        const hash = await EVMWeb3.sendTransaction(tx, {
-            chainId,
-            paymentToken: gasOption?.gasCurrency,
-            gasOptionType: gasOption?.gasOptionType,
-        });
-        const receipt = await EVMWeb3.getTransactionReceipt(hash, { chainId });
-        if (receipt) {
-            const events = decodeEvents(contract.options.jsonInterface, receipt.logs);
-
             return {
-                hash,
-                receipt,
-                events,
+                gas: `${gas}`,
+                params,
+                methodParams,
+            };
+        } catch (error) {
+            return {
+                params,
+                methodParams,
+                gasError: error,
             };
         }
-        return { hash, receipt };
+    }
+
+    async createRedPacket(context: CreateRedPacketContext): Promise<CreateResult | null> {
+        throw new NotImplementedError();
     }
 
     async claimRedPacket(context: ClaimRedPacketContext) {
@@ -225,10 +168,10 @@ class Provider {
         if (claimWithSponsorHash) return claimWithSponsorHash;
 
         const hash = await writeContract(config, {
-            abi: HappyRedPacketV4ABI,
+            abi: getRedPacketContractAbi(payload.contract_version),
             functionName: 'claim',
             args: [payload.rpid, await signClaimMessage(context), account],
-            address: getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address,
+            address: getRedPacketContractAddress(chainId, payload.contract_version),
             account: account as Address,
         });
 
@@ -237,4 +180,4 @@ class Provider {
     }
 }
 
-export const RedPacketProvider = new Provider();
+export const EthereumRedPacket = new Provider();

@@ -1,24 +1,24 @@
 import { unreachable } from '@masknet/kit';
 import { useContext } from 'react';
 
-import { useCreateRedPacketCallbackEVM } from '@/components/RedPacket/hooks/useCreateRedPacketCallbackEVM.js';
-import { useCreateSolanaRedPacketCallback } from '@/components/RedPacket/hooks/useCreateSolanaRedPacketCallback.js';
+import { useEthereumCreateRedPacketCallback } from '@/components/RedPacket/hooks/useEthereumCreateRedPacketCallback.js';
+import { useSolanaCreateRedPacketCallback } from '@/components/RedPacket/hooks/useSolanaCreateRedPacketCallback.js';
 import { NetworkType } from '@/constants/enum.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
-export function useCreateFTRedPacketCallback(
+export function useCreateRedPacketCallback(
     shareFromName: string,
     publicKey: string,
     claimRequirements?: FireflyRedPacketAPI.ClaimStrategy[],
 ) {
     const { networkType } = useContext(RedPacketContext);
-    const createEvmRedPacket = useCreateRedPacketCallbackEVM(shareFromName, publicKey, claimRequirements);
-    const createSolanaRedPacket = useCreateSolanaRedPacketCallback(shareFromName, claimRequirements);
+    const createEthereumRedPacket = useEthereumCreateRedPacketCallback(shareFromName, publicKey, claimRequirements);
+    const createSolanaRedPacket = useSolanaCreateRedPacketCallback(shareFromName, claimRequirements);
 
     switch (networkType) {
         case NetworkType.Ethereum:
-            return createEvmRedPacket;
+            return createEthereumRedPacket;
         case NetworkType.Solana:
             return createSolanaRedPacket;
         default:

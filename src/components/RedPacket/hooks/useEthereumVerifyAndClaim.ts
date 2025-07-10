@@ -12,12 +12,17 @@ import { config } from '@/configs/wagmiClient.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getRedPacketConstant } from '#masknet/web3-shared-evm';
+import { getRedPacketContractAbi, getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
+import { RED_PACKET_CONTRACT_VERSION } from '@/constants/rp.js';
 
-export function useVerifyAndClaimEVM(payload: RedPacketJSONPayload, source: SocialSource, post: Post, enabled = true) {
+export function useEthereumVerifyAndClaim(
+    payload: RedPacketJSONPayload,
+    source: SocialSource,
+    post: Post,
+    enabled = true,
+) {
     const { address: account } = useAccount();
 
     const signedMessage = 'privateKey' in payload ? payload.privateKey : payload.password;
@@ -48,9 +53,9 @@ export function useVerifyAndClaimEVM(payload: RedPacketJSONPayload, source: Soci
         ]);
 
         const availability = (await readContract(config, {
-            abi: HappyRedPacketV4ABI,
+            abi: getRedPacketContractAbi(RED_PACKET_CONTRACT_VERSION),
             functionName: 'check_availability',
-            address: getRedPacketConstant(payload.chainId!, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address,
+            address: getRedPacketContractAddress(payload.chainId!, RED_PACKET_CONTRACT_VERSION),
             args: [payload.rpid],
             account: account as Address,
             chainId: payload.chainId,

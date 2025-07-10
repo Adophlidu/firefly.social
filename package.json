@@ -10,8 +10,7 @@
         "#masknet/web3-constants/*": "./src/mask_pkgs/web3-constants/*",
         "#masknet/web3-contracts/*": "./src/mask_pkgs/web3-contracts/*",
         "#masknet/web3-helpers": "./src/mask_pkgs/web3-helpers/index.ts",
-        "#masknet/web3-providers": "./src/mask_pkgs/web3-providers/entry.ts",
-        "#masknet/web3-providers/types": "./src/mask_pkgs/web3-providers/entry-types.ts"
+        "#masknet/web3-providers": "./src/mask_pkgs/web3-providers/entry.ts"
     },
     "scripts": {
         "dev": "next dev --turbo",
@@ -149,11 +148,6 @@
         "uuid": "^9.0.1",
         "viem": "^2.26.2",
         "wagmi": "^2.14.16",
-        "web3-core": "1.10.4",
-        "web3-eth": "1.10.2",
-        "web3-eth-abi": "1.10.2",
-        "web3-eth-contract": "1.10.2",
-        "web3-utils": "1.10.2",
         "zod": "^3.24.2",
         "zustand": "^4.5.6"
     },

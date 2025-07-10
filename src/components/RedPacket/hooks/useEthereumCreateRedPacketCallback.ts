@@ -21,15 +21,15 @@ import { rightShift, toFixed } from '@/helpers/number.js';
 import { getRpMetadata } from '@/helpers/rpPayload.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
-import { RedPacketProvider } from '@/providers/ethereum/RedPacket.js';
+import { EthereumRedPacket } from '@/providers/ethereum/RedPacket.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { EthereumChainId, EthereumSchemaType, getRedPacketConstant, getTokenConstant } from '#masknet/web3-shared-evm';
+import { getRedPacketContractAbi, getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 
 function reduceUselessPayloadInfo(payload: RedPacketJSONPayload): RedPacketJSONPayload {
     const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<
@@ -39,7 +39,7 @@ function reduceUselessPayloadInfo(payload: RedPacketJSONPayload): RedPacketJSONP
     return { ...omit(payload, ['block_number']), token };
 }
 
-export function useCreateRedPacketCallbackEVM(
+export function useEthereumCreateRedPacketCallback(
     shareFromName: string,
     publicKey: string,
     claimRequirements?: FireflyRedPacketAPI.ClaimStrategy[],
@@ -84,9 +84,6 @@ export function useCreateRedPacketCallbackEVM(
         try {
             if (!redPacketSettings) return;
 
-            const HAPPY_RED_PACKET_ADDRESS_V4 = getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4');
-            if (!HAPPY_RED_PACKET_ADDRESS_V4) return;
-
             const { duration, isRandom, message, name: senderName, shares, total, token } = redPacketSettings;
             if (!token) return;
 
@@ -96,7 +93,7 @@ export function useCreateRedPacketCallbackEVM(
                     : token.address;
             if (!tokenAddress) return;
 
-            const params = await RedPacketProvider.createRedPacketParams({
+            const params = await EthereumRedPacket.createRedPacketParams({
                 creator: account,
                 duration,
                 isRandom,
@@ -115,8 +112,8 @@ export function useCreateRedPacketCallbackEVM(
             const value = toFixed(params.params.token?.schema === EthereumSchemaType.Native ? total : 0);
 
             const result = await writeContract(config, {
-                address: HAPPY_RED_PACKET_ADDRESS_V4 as Address,
-                abi: HappyRedPacketV4ABI,
+                address: getRedPacketContractAddress(chainId, RED_PACKET_CONTRACT_VERSION),
+                abi: getRedPacketContractAbi(RED_PACKET_CONTRACT_VERSION),
                 functionName: 'create_red_packet',
                 args: [
                     params.methodParams.publicKey,
@@ -141,18 +138,17 @@ export function useCreateRedPacketCallbackEVM(
                 hash: result,
                 chainId,
             });
-
             if (!receipt) return;
 
             const events = parseEventLogs({
-                abi: HappyRedPacketV4ABI,
+                abi: getRedPacketContractAbi(RED_PACKET_CONTRACT_VERSION),
                 eventName: 'CreationSuccess',
                 logs: receipt.logs,
             });
             const item = first(events);
             if (!item) return;
             const { args } = decodeEventLog({
-                abi: HappyRedPacketV4ABI,
+                abi: getRedPacketContractAbi(RED_PACKET_CONTRACT_VERSION),
                 eventName: 'CreationSuccess',
                 data: item.data,
                 topics: item.topics,
@@ -195,7 +191,7 @@ export function useCreateRedPacketCallbackEVM(
                 creation_time: Number.parseInt(creation_time, 10) * 1000,
                 token,
                 network: EVMChainResolver.chainName(chainId),
-                contract_address: HAPPY_RED_PACKET_ADDRESS_V4,
+                contract_address: getRedPacketContractAddress(chainId, RED_PACKET_CONTRACT_VERSION),
                 contract_version: RED_PACKET_CONTRACT_VERSION,
                 txid: receipt.transactionHash,
             };

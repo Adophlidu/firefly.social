@@ -5,7 +5,7 @@ import { useCallback, useMemo } from 'react';
 import { createIndicator } from '@/helpers/pageable.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 
-export function useEvmClaimedInfo(rpid: string) {
+export function useEthereumClaimedInfo(rpid: string) {
     const {
         data: claimData,
         fetchNextPage,

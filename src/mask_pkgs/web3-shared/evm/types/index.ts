@@ -1,8 +1,3 @@
-import type { TransactionReceipt as Web3TransactionReceipt } from 'web3-core';
-
-import type { GasOptionType } from '@/mask_pkgs/web3-shared/base/index.js';
-import type { JsonRpcPayload, JsonRpcResponse } from '@/types/ethereum.js';
-
 // Learn more about ethereum ChainId https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md
 export enum EthereumChainId {
     Mainnet = 1,
@@ -32,24 +27,6 @@ export enum EthereumSchemaType {
     ERC1155 = 4,
     SBT = 5,
 }
-
-export interface EIP1559GasConfig {
-    gas?: string;
-    gasCurrency?: string;
-    maxFeePerGas: string;
-    maxPriorityFeePerGas: string;
-    gasPrice?: string;
-    gasOptionType?: GasOptionType;
-}
-
-export interface PriorEIP1559GasConfig {
-    gas?: string;
-    gasPrice: string;
-    gasCurrency?: string;
-    gasOptionType?: GasOptionType;
-}
-
-export type GasConfig = EIP1559GasConfig | PriorEIP1559GasConfig;
 
 // Learn more for a full list of supported JSON RPC methods
 // https://eth.wiki/json-rpc/API#json-rpc-methods
@@ -133,30 +110,6 @@ export enum ProviderType {
     None = 'None',
 }
 
-/**
- * EIP-1193 compatible provider
- */
-export interface Web3Provider {
-    send(
-        payload: JsonRpcPayload,
-        callback: (error: Error | null, response?: JsonRpcResponse) => void,
-    ): Promise<JsonRpcResponse>;
-    sendAsync(
-        payload: JsonRpcPayload,
-        callback: (error: Error | null, response?: JsonRpcResponse) => void,
-    ): Promise<JsonRpcResponse>;
-    request<T>(requestArguments: RequestArguments): Promise<T>;
-
-    on(name: 'connect', listener: (connectInfo: { chainId: string }) => void): Web3Provider;
-    on(name: 'disconnect', listener: (error: { message: string; code: number; data?: unknown }) => void): Web3Provider;
-    on(name: 'chainChanged', listener: (chainId: string) => void): Web3Provider;
-    on(name: 'accountsChanged', listener: (accounts: string[]) => void): Web3Provider;
-    on(name: 'message', listener: (message: { type: string; data: unknown }) => void): Web3Provider;
-    on(name: string, listener: (event: any) => void): Web3Provider;
-
-    removeListener(name: string, listener: (event: any) => void): Web3Provider;
-}
-
 export interface RequestArguments {
     method: EthereumMethodType;
     params: any[];
@@ -180,22 +133,6 @@ export interface Transaction {
     feeCurrency?: string; // address of the ERC20 contract to use to pay for gas and the gateway fee
     gatewayFeeRecipient?: string; // coinbase address of the full serving the light client's transactions
     gatewayFee?: string; // value paid to the gateway fee recipient, denominated in the fee currency
-}
-export type TransactionReceipt = Web3TransactionReceipt;
-
-export interface TransactionOptions {
-    account?: string;
-    chainId?: EthereumChainId;
-    owner?: string;
-    identifier?: string;
-    paymentToken?: string;
-    allowMaskAsGas?: boolean;
-    providerURL?: string;
-
-    // popups control
-    disableClose?: boolean;
-    popupsWindow?: boolean;
-    silent?: boolean;
 }
 
 export interface Web3Definition {

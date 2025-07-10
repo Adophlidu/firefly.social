@@ -3,7 +3,7 @@ import { unreachable } from '@masknet/kit';
 import { produce } from 'immer';
 import { useAsyncFn } from 'react-use';
 
-import { useRefundEvmCallback } from '@/components/RedPacket/hooks/useRefundEvmCallback.js';
+import { useEthereumRefundCallback } from '@/components/RedPacket/hooks/useEthereumRefundCallback.js';
 import { useRefundSolanaCallback } from '@/components/RedPacket/hooks/useRefundSolanaCallback.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { NetworkType } from '@/constants/enum.js';
@@ -13,7 +13,7 @@ import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEve
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 export function useRefundCallback(rpid?: string, overrides?: ChainContextOverrides) {
-    const [, refundEVM] = useRefundEvmCallback(rpid, overrides);
+    const [, refundEVM] = useEthereumRefundCallback(rpid, overrides);
     const [, refundSolana] = useRefundSolanaCallback(rpid, overrides);
     const { account } = useChainContext(overrides);
 

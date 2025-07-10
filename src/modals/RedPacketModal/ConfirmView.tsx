@@ -13,7 +13,7 @@ import InfoIcon from '@/assets/info.svg';
 import QuestionIcon from '@/assets/question.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { useCreateFTRedPacketCallback } from '@/components/RedPacket/hooks/useCreateFTRedPacketCallback.js';
+import { useCreateRedPacketCallback } from '@/components/RedPacket/hooks/useCreateRedPacketCallback.js';
 import { RedPacketEnvelope } from '@/components/RedPacket/RedPacketEnvelope.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -180,7 +180,7 @@ export function ConfirmView() {
 
     const shareFromName = shareFromEnsName ?? shareFrom;
 
-    const [{ loading: creatingRedPacket }, handleCreate] = useCreateFTRedPacketCallback(
+    const [{ loading: creatingRedPacket }, handleCreate] = useCreateRedPacketCallback(
         shareFromName,
         value?.publicKey ?? '',
         value?.claimRequirements,

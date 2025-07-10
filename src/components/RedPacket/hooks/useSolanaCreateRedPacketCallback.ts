@@ -38,7 +38,7 @@ function reduceUselessPayloadInfo(payload: RedPacketJSONPayload): RedPacketJSONP
     return { ...omit(payload, ['block_number']), token };
 }
 
-export function useCreateSolanaRedPacketCallback(
+export function useSolanaCreateRedPacketCallback(
     shareFromName: string,
     claimRequirements?: FireflyRedPacketAPI.ClaimStrategy[],
 ) {

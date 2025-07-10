@@ -1,6 +1,6 @@
 import { unreachable } from '@masknet/kit';
 
-import { useEVMAvailabilityComputed } from '@/components/RedPacket/hooks/useEVMAvailabilityComputed.js';
+import { useEthereumAvailabilityComputed } from '@/components/RedPacket/hooks/useEthereumAvailabilityComputed.js';
 import { useSolanaAvailabilityComputed } from '@/components/RedPacket/hooks/useSolanaAvailabilityComputed.js';
 import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
@@ -31,7 +31,7 @@ export function useAvailabilityComputed(payload: RedPacketJSONPayload, post: Pos
             : SolanaChainId.Mainnet) ??
         SolanaChainId.Mainnet;
 
-    const evmAvailability = useEVMAvailabilityComputed(
+    const evmAvailability = useEthereumAvailabilityComputed(
         { ...payload, chainId: evmChainId },
         post,
         networkType === NetworkType.Ethereum,

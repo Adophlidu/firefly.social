@@ -33,13 +33,13 @@ import { usePreloadImage } from '@/helpers/preloadImage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import { ComposeModalRef, RedPacketModalRef } from '@/modals/controls.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { TokenType } from '@/types/rp.js';
-import { getRedPacketConstant } from '#masknet/web3-shared-evm';
+import { getRedPacketContractAbi, getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
+import { RED_PACKET_CONTRACT_VERSION } from '@/constants/rp.js';
 
 interface Props {
     payload: RedPacketJSONPayload;
@@ -82,10 +82,10 @@ export function RedPacketCardContent({ payload, post }: Props) {
         const client = createWagmiPublicClient(parsedChainId);
         return runInSafeAsync(async () => {
             return client.estimateContractGas({
-                abi: HappyRedPacketV4ABI,
+                abi: getRedPacketContractAbi(RED_PACKET_CONTRACT_VERSION),
                 functionName: 'claim',
                 args: [payload.rpid, password, account],
-                address: getRedPacketConstant(parsedChainId, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address,
+                address: getRedPacketContractAddress(parsedChainId, RED_PACKET_CONTRACT_VERSION),
                 account: account as Address,
             });
         });

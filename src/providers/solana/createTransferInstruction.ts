@@ -1,6 +1,7 @@
-import { BN, web3 } from '@coral-xyz/anchor';
+import { web3 } from '@coral-xyz/anchor';
 import { blob, struct, u8 } from '@solana/buffer-layout';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
+import { numberToBytes } from 'viem';
 
 enum TokenInstruction {
     InitializeMint = 0,
@@ -61,7 +62,7 @@ export function createTransferInstruction(
     dataLayout.encode(
         {
             instruction: TokenInstruction.Transfer,
-            amount: new TokenAmount(amount).toBuffer(),
+            amount: numberToBytes(amount),
         },
         data,
     );
@@ -83,42 +84,4 @@ function addSigners(
         keys.push({ pubkey: ownerOrAuthority, isSigner: true, isWritable: false });
     }
     return keys;
-}
-
-class TokenAmount extends BN {
-    /**
-     * Convert to Buffer representation
-     */
-    override toBuffer(): Buffer {
-        const a = super.toArray().reverse();
-        const b = Buffer.from(a);
-        if (b.length === 8) {
-            return b;
-        }
-
-        if (b.length >= 8) {
-            throw new Error('TokenAmount too large');
-        }
-
-        const zeroPad = Buffer.alloc(8);
-        b.copy(zeroPad);
-        return zeroPad;
-    }
-
-    /**
-     * Construct a TokenAmount from Buffer representation
-     */
-    static fromBuffer(buffer: Buffer): TokenAmount {
-        if (buffer.length !== 8) {
-            throw new Error(`Invalid buffer length: ${buffer.length}`);
-        }
-
-        return new BN(
-            [...buffer]
-                .reverse()
-                .map((i) => `00${i.toString(16)}`.slice(-2))
-                .join(''),
-            16,
-        );
-    }
 }

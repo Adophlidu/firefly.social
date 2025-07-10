@@ -9,10 +9,9 @@
  *
  */
 
+export { ProfileIdentifier } from '@masknet/base';
 export { getRegisteredWeb3Networks } from '@/mask_pkgs/web3-providers/Manager/index.js';
 export { ExplorerResolver } from '@/mask_pkgs/web3-providers/Web3/Base/apis/ExplorerResolver.js';
-export type { BaseHubOptions } from '@/mask_pkgs/web3-providers/Web3/Base/apis/HubOptions.js';
-export { EVMWeb3 } from '@/mask_pkgs/web3-providers/Web3/EVM/apis/ConnectionAPI.js';
 export {
     EVMChainResolver,
     EVMExplorerResolver,
@@ -23,4 +22,3 @@ export {
     SolanaExplorerResolver,
     SolanaNetworkResolver,
 } from '@/mask_pkgs/web3-providers/Web3/Solana/apis/ResolverAPI.js';
-export { ProfileIdentifier } from '@masknet/base';

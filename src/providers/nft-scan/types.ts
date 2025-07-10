@@ -1,5 +1,3 @@
-import type { Hex } from 'web3-utils';
-
 export enum TransEventType {
     Sale = 'Sale',
     Mint = 'Mint',
@@ -122,7 +120,7 @@ export namespace EVM {
         opensea_floor_price: number;
         opensea_slug: string;
         floor_price: number;
-        collections_with_same_name: Hex[];
+        collections_with_same_name: Array<string | number>;
         price_symbol: string;
         /** extended by Firefly API */
         chain_id: number;

@@ -19,7 +19,7 @@ import { EthereumChainId } from '#masknet/web3-shared-evm';
  * Fetch the red packet info from the chain
  * @param payload
  */
-export function useEVMAvailabilityComputed(payload: RedPacketJSONPayload, post: Post, enabled = true) {
+export function useEthereumAvailabilityComputed(payload: RedPacketJSONPayload, post: Post, enabled = true) {
     const chainId = payload.chainId || EthereumChainId.Mainnet;
     const { account } = useChainContext({
         chainId,

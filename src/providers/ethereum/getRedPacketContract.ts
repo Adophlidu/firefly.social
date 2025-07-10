@@ -1,29 +1,27 @@
 import {
-    type HappyRedPacketV1,
     HappyRedPacketV1ABI,
-    type HappyRedPacketV2,
     HappyRedPacketV2ABI,
-    type HappyRedPacketV3,
     HappyRedPacketV3ABI,
-    type HappyRedPacketV4,
     HappyRedPacketV4ABI,
 } from '@/mask/constants.js';
-import { EVMWeb3 } from '@/mask/index.js';
-import { createContract, type EthereumChainId, getRedPacketConstants } from '#masknet/web3-shared-evm';
+import { type EthereumChainId, getRedPacketConstants } from '#masknet/web3-shared-evm';
+import { type Address } from 'viem';
 
-export function createRedPacketContract(chainId: EthereumChainId, version: number) {
+export function getRedPacketContractAddress(chainId: EthereumChainId, version: number) {
     const {
         HAPPY_RED_PACKET_ADDRESS_V1: addressV1,
         HAPPY_RED_PACKET_ADDRESS_V2: addressV2,
         HAPPY_RED_PACKET_ADDRESS_V3: addressV3,
         HAPPY_RED_PACKET_ADDRESS_V4: addressV4,
     } = getRedPacketConstants(chainId);
-    const web3 = EVMWeb3.getWeb3({ chainId });
-    const v1 = createContract<HappyRedPacketV1>(web3, addressV1, HappyRedPacketV1ABI as any[]);
-    const v2 = createContract<HappyRedPacketV2>(web3, addressV2, HappyRedPacketV2ABI as any[]);
-    const v3 = createContract<HappyRedPacketV3>(web3, addressV3, HappyRedPacketV3ABI as any[]);
-    const v4 = createContract<HappyRedPacketV4>(web3, addressV4, HappyRedPacketV4ABI as any[]);
-    const versions = [v1, v2, v3, v4] as const;
 
-    return versions[version - 1];
+    const address = [addressV1, addressV2, addressV3, addressV4][version - 1];
+    if (!address) throw new Error(`Red Packet contract version ${version} not found for chain ID ${chainId}`);
+    return address as Address;
+}
+
+export function getRedPacketContractAbi(version: number) {
+    const abi = [HappyRedPacketV1ABI, HappyRedPacketV2ABI, HappyRedPacketV3ABI, HappyRedPacketV4ABI][version - 1];
+    if (!abi) throw new Error(`Red Packet contract ABI version ${version} not found`);
+    return abi;
 }

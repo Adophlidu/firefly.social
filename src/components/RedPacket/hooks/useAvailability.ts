@@ -3,8 +3,9 @@ import type { Address } from 'viem';
 import { readContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
-import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { type EthereumChainId, getRedPacketConstant } from '#masknet/web3-shared-evm';
+import { getRedPacketContractAbi, getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
+import { RED_PACKET_CONTRACT_VERSION } from '@/constants/rp.js';
 
 export function useAvailability(
     id: string,
@@ -23,9 +24,9 @@ export function useAvailability(
         queryFn: async () => {
             if (!id) return null;
             const data = await readContract(config, {
-                abi: HappyRedPacketV4ABI,
+                abi: getRedPacketContractAbi(RED_PACKET_CONTRACT_VERSION),
                 functionName: 'check_availability',
-                address: getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address,
+                address: getRedPacketContractAddress(chainId, RED_PACKET_CONTRACT_VERSION),
                 args: [id],
                 account: account as Address,
                 chainId,

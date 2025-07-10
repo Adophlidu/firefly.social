@@ -17,7 +17,7 @@ import { type ClaimNativeTokenContext, SolanaRedPacket } from '@/providers/solan
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Post, enabled = true) {
+export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, post: Post, enabled = true) {
     const isNativeToken = isZeroAddressSolana(payload.token?.address);
 
     const walletProvider = useSolanaWalletProvider();
