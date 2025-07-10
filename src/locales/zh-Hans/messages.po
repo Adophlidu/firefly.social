@@ -3573,7 +3573,6 @@ msgid "Muting..."
 msgstr "隐藏中..."
 
 #. placeholder {0}: post.stats.comments
-#. placeholder {0}: post.stats.countOpenActions
 msgid "{0, plural, one {comment} other {comments}}"
 msgstr "{0, plural, one {评论} other {评论}}"
 
@@ -3837,6 +3836,10 @@ msgstr "发生未知错误。"
 
 msgid "Create time:"
 msgstr "创建时间："
+
+#. placeholder {0}: post.stats.countOpenActions
+msgid "{0, plural, one {collect} other {collects}}"
+msgstr ""
 
 msgid "Change"
 msgstr "切换"

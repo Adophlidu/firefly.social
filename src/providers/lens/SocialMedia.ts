@@ -12,6 +12,7 @@ import {
     PostType,
     PostVisibilityFilter,
     ReferenceRelevancyFilter,
+    TimelineEventItemType,
 } from '@lens-protocol/client';
 import {
     addReaction,
@@ -37,6 +38,7 @@ import {
     fetchPostReferences,
     fetchPosts,
     fetchPostsToExplore,
+    fetchTimeline,
     fetchWhoReferencedPost,
     follow,
     joinGroup as joinLensGroup,
@@ -80,7 +82,12 @@ import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPos
 import { ensureLensResult, ensurePostToLensResult } from '@/helpers/ensureLensResult.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensChannelFromGroup } from '@/helpers/formatLensChannel.js';
-import { filterFeedsV3, formatLensPostV3, formatLensQuoteOrCommentV3 } from '@/helpers/formatLensPost.js';
+import {
+    filterFeedsV3,
+    formatLensPostByFeedV3,
+    formatLensPostV3,
+    formatLensQuoteOrCommentV3,
+} from '@/helpers/formatLensPost.js';
 import { formatLensPostRules } from '@/helpers/formatLensPostRules.js';
 import { formatLensProfileV3 } from '@/helpers/formatLensProfile.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
@@ -137,7 +144,6 @@ import {
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { fetchProfileTimeline } from '@/services/lensV3/fetchProfileTimeline.js';
 import { getAccountWithStatsByHandle, getAccountWithStatsById } from '@/services/lensV3/getAccountWithStats.js';
 import { getGroupWithMemberCount, getGroupWithOwner } from '@/services/lensV3/getFullGroup.js';
 import { uploadLensMetadataToS3 } from '@/services/uploadLensMetadataToS3.js';
@@ -565,7 +571,22 @@ class LensSocialMedia implements Provider {
     }
 
     async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return fetchProfileTimeline(profileId, indicator);
+        const result = await ensureLensResult(
+            fetchTimeline(lensSessionHolder.sessionClient, {
+                cursor: ensureCursor(indicator),
+                filter: {
+                    eventType: [TimelineEventItemType.Post, TimelineEventItemType.Quote, TimelineEventItemType.Repost],
+                },
+                account: safeEvmAddress(profileId),
+            }),
+        );
+
+        const posts = compact(await Promise.all(result.items.map(formatLensPostByFeedV3)));
+        return createPageable(
+            posts.filter((post) => !post.author.viewerContext?.blocking && !post.hasReported),
+            createIndicator(indicator),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
     }
 
     async getCollectedPostsByProfileId(

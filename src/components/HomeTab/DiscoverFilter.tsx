@@ -17,7 +17,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useSocialDiscoverSourcesWithWhitelist } from '@/hooks/useSocialDiscoverSourcesWithWhitelist.js';
 import { capturePostPlatformFilterTabEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
-import { useDiscoverStore } from '@/store/useDiscoverStore.js';
+import { useDiscoverStoreWithTab } from '@/store/useDiscoverStore.js';
 
 interface Props {
     tab: HomeTab;
@@ -34,8 +34,8 @@ function PlatformItem({
     loginRequest?: boolean;
     onClose?: () => void;
 }) {
-    const { postTimelinePlatforms, setFilteredPlatform } = useDiscoverStore();
-    const checked = postTimelinePlatforms[tab].includes(source);
+    const { selectedSources, setFilteredPlatform } = useDiscoverStoreWithTab(tab);
+    const checked = selectedSources.includes(source);
     const isLogin = useIsLogin(source);
 
     return (
@@ -54,7 +54,7 @@ function PlatformItem({
                     });
                     return;
                 }
-                setFilteredPlatform(tab, source);
+                setFilteredPlatform(source);
                 capturePostPlatformFilterTabEvent('home', source);
             }}
         >
@@ -74,10 +74,10 @@ function PlatformItem({
 }
 
 export function DiscoverFilter({ tab }: Props) {
-    const { postTimelinePlatforms, resetFilteredPlatform } = useDiscoverStore();
+    const { selectedSources, resetFilteredPlatform } = useDiscoverStoreWithTab(tab);
     const sources = useSocialDiscoverSourcesWithWhitelist(tab);
 
-    const selectedSource = first(postTimelinePlatforms[tab]);
+    const selectedSource = first(selectedSources);
 
     function getMenuItems() {
         return sources.map((source) => {
@@ -126,7 +126,7 @@ export function DiscoverFilter({ tab }: Props) {
                                         className="flex w-full cursor-pointer items-center gap-2 bg-clip-padding px-3 py-1 hover:bg-bg"
                                         onClick={() => {
                                             close();
-                                            resetFilteredPlatform(tab);
+                                            resetFilteredPlatform();
                                             capturePostPlatformFilterTabEvent('home');
                                         }}
                                     >

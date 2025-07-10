@@ -211,7 +211,7 @@ async function formatContentV3(metadata: PostMetadata, author: Profile, mentions
         case 'UnknownPostMetadata':
             return null;
         default:
-            safeUnreachable(metadata.__typename);
+            safeUnreachable(metadata);
             return null;
     }
 }
@@ -339,7 +339,7 @@ export function getPostLocale(metadata: PostMetadata) {
         case 'UnknownPostMetadata':
             return 'en';
         default:
-            safeUnreachable(metadata.__typename);
+            safeUnreachable(metadata);
             return 'en';
     }
 }

@@ -50,7 +50,7 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
                 ...result.signedTypedData.value,
             },
             trustedData: {
-                messageBytes: result.signature,
+                messageBytes: result.signature as string,
             },
         };
 

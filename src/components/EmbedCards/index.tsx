@@ -172,10 +172,9 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
         });
 
         const lowerDomains = availableDomains.map((x) => x.toLowerCase());
-        const lowerLinks = availableLinks.map((x) => x.toLowerCase());
         const embeds = [
             ...addresses
-                .filter((x) => !lowerLinks.some((link) => link.includes(x.toLowerCase()))) // exclude addresses that are already in links
+                .filter((x) => !links.some((link) => link.includes(x.toLowerCase()))) // exclude addresses that are already in links
                 .filter((x) => !lowerDomains.some((domain) => domain.includes(x.toLowerCase()))) // exclude addresses that are already in domains
                 .filter((address) => !lowerIgnoredLinks.some((link) => link.includes(address)))
                 .map((address) => ({ type: 'address', value: address })),

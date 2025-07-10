@@ -51,7 +51,7 @@ export function FollowingTransactions() {
             },
         })),
         (data) => data.pages.flatMap((page) => page.data),
-        shuffleTransactions,
+        { formatter: shuffleTransactions },
     );
 
     if (!profileIds.length) {

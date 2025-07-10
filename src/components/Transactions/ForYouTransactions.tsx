@@ -24,7 +24,7 @@ export function ForYouTransactions() {
             },
         })),
         (data) => data.pages.flatMap((page) => page.data),
-        shuffleTransactions,
+        { formatter: shuffleTransactions },
     );
 
     return (

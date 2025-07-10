@@ -3568,7 +3568,6 @@ msgid "Muting..."
 msgstr "Muting..."
 
 #. placeholder {0}: post.stats.comments
-#. placeholder {0}: post.stats.countOpenActions
 msgid "{0, plural, one {comment} other {comments}}"
 msgstr "{0, plural, one {comment} other {comments}}"
 
@@ -3832,6 +3831,10 @@ msgstr "Something went wrong"
 
 msgid "Create time:"
 msgstr "Create time:"
+
+#. placeholder {0}: post.stats.countOpenActions
+msgid "{0, plural, one {collect} other {collects}}"
+msgstr "{0, plural, one {collect} other {collects}}"
 
 msgid "Change"
 msgstr "Change"

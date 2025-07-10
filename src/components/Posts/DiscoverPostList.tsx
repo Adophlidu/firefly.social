@@ -13,16 +13,15 @@ import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPage
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export const DiscoverPostList = memo<{ source: SocialSource | Source.Posts }>(function DiscoverPostList({ source }) {
-    const sources = useDiscoverSources(HomeTab.Discover);
+    const { sources, selectedSources } = useDiscoverSources(HomeTab.Discover);
     const queryResult = useMultiInfiniteQueryPageable(
-        ['posts', source, 'discover', ...sources],
+        ['posts', source, 'discover', ...selectedSources],
         sources.map((source) => ({
             key: source,
             async queryFn({ pageParam }) {
                 const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
                 return resolveSocialMediaProvider(source).discoverPosts(indicator);
             },
-            timeout: 10000,
         })),
         (data) => {
             const posts = data.pages.flatMap((page) =>
@@ -32,6 +31,9 @@ export const DiscoverPostList = memo<{ source: SocialSource | Source.Posts }>(fu
                 if (post.mirrors?.length || post.type === 'Mirror') return `${post.postId}:mirror`;
                 return post.postId;
             });
+        },
+        {
+            gcTime: selectedSources.length > 0 ? 0 : 60 * 1000,
         },
     );
 

@@ -236,10 +236,10 @@ export const DraftList = memo(function DraftList() {
                     return dayjs(x.createdAt).unix();
                 },
                 'desc',
-            ).map((draft) => (
+            ).map((draft, index) => (
                 <DraftListItem
                     draft={draft}
-                    key={draft.draftId}
+                    key={`${draft.draftId}-${index}`}
                     handleRemove={handleRemove}
                     handleApply={handleApply}
                 />

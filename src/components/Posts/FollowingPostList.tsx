@@ -37,10 +37,10 @@ export const FollowingPostList = memo<{
     const isLogin = useIsLoginDiscoverNeed(source);
     const profilesAll = useCurrentProfilesAll();
     const asyncStatusAll = useAsyncStatusAll();
-    const sources = useDiscoverSources(HomeTab.Following);
+    const { sources, selectedSources } = useDiscoverSources(HomeTab.Following);
     const { isLoading: isLoadingTwitterWhitelist } = useTwitterTimelineWhitelist();
     const queryResult = useMultiInfiniteQueryPageable(
-        ['posts', source, 'following', isLogin, asyncStatusAll, ...sources],
+        ['posts', source, 'following', isLogin, asyncStatusAll, ...sources, ...selectedSources],
         sources.map((source) => ({
             key: source,
             async queryFn({ pageParam, signal }) {
@@ -54,7 +54,6 @@ export const FollowingPostList = memo<{
                     signal,
                 );
             },
-            timeout: 10000,
         })),
         (data) => {
             const posts = data.pages.flatMap((page) =>
@@ -66,11 +65,14 @@ export const FollowingPostList = memo<{
             });
             return mergeThreadPostsWithoutSource(uniqPosts);
         },
+        {
+            gcTime: selectedSources.length > 0 ? 0 : 60 * 1000,
+        },
     );
 
     if (isLoadingTwitterWhitelist) return <Loading />;
     if (!isLogin) return <NotLoginFallback source={Source.Posts} />;
-    if (asyncStatusAll) return <Loading />;
+    if (asyncStatusAll || (queryResult?.isRefetching && !queryResult.data?.length)) return <Loading />;
 
     return (
         <ListInPage

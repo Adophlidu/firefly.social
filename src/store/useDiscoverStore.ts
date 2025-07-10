@@ -1,9 +1,11 @@
+import { useMemo } from 'react';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { HomeTab, type SocialSource } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
+import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 
 interface DiscoverState {
     postTimelinePlatforms: Record<HomeTab, SocialSource[]>;
@@ -37,3 +39,22 @@ const useDiscoverStoreBase = create<DiscoverState, [['zustand/persist', unknown]
 );
 
 export const useDiscoverStore = createSelectors(useDiscoverStoreBase);
+
+export function useDiscoverStoreWithTab(tab: HomeTab) {
+    const { postTimelinePlatforms, setFilteredPlatform, resetFilteredPlatform } = useDiscoverStore();
+    const profileAll = useCurrentProfilesAll();
+
+    const selectedSources = useMemo(() => {
+        if (tab !== HomeTab.Following) return postTimelinePlatforms[tab];
+
+        return postTimelinePlatforms[tab].filter((source) => {
+            return !!profileAll[source]?.profileId;
+        });
+    }, [postTimelinePlatforms, tab, profileAll]);
+
+    return {
+        selectedSources,
+        setFilteredPlatform: (source: SocialSource) => setFilteredPlatform(tab, source),
+        resetFilteredPlatform: () => resetFilteredPlatform(tab),
+    };
+}

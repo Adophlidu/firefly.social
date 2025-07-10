@@ -2,14 +2,14 @@ import { HomeTab, type SocialDiscoverSource } from '@/constants/enum.js';
 import { SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useSocialDiscoverSourcesWithWhitelist } from '@/hooks/useSocialDiscoverSourcesWithWhitelist.js';
-import { useDiscoverStore } from '@/store/useDiscoverStore.js';
+import { useDiscoverStoreWithTab } from '@/store/useDiscoverStore.js';
 
 const LOGIN_REQUEST = [HomeTab.Following];
 
 export function useDiscoverSources(tab: HomeTab) {
     const profilesAll = useCurrentProfilesAll();
     const followingTimelineSourcesWithWhitelist = useSocialDiscoverSourcesWithWhitelist(tab);
-    const { postTimelinePlatforms } = useDiscoverStore();
+    const { selectedSources } = useDiscoverStoreWithTab(tab);
 
     const sourcesByTab: Record<HomeTab, SocialDiscoverSource[]> = {
         [HomeTab.Discover]: SOCIAL_DISCOVER_SOURCE,
@@ -18,7 +18,10 @@ export function useDiscoverSources(tab: HomeTab) {
     const sources = LOGIN_REQUEST.includes(tab)
         ? sourcesByTab[tab].filter((source) => !!profilesAll[source]?.profileId)
         : sourcesByTab[tab];
-    const selectedSources = sources.filter((x) => postTimelinePlatforms[tab].includes(x));
+    const validSelectedSources = sources.filter((x) => selectedSources.includes(x));
 
-    return selectedSources.length <= 0 ? sources : selectedSources;
+    return {
+        sources: validSelectedSources.length <= 0 ? sources : validSelectedSources,
+        selectedSources: validSelectedSources,
+    };
 }

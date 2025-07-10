@@ -45,6 +45,8 @@ export function formatLensMediaImageMimeType(type: MediaImageType) {
             return 'image/webp';
         case MediaImageType.XMsBmp:
             return 'image/x-ms-bmp';
+        case MediaImageType.Avif:
+            return 'image/avif';
         default:
             safeUnreachable(type);
             return 'image/*';

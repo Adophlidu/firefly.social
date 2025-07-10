@@ -118,12 +118,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     );
 
     const comments = post.stats?.comments ? (
-        <data
-            value={post.stats.comments}
-            className={classNames({
-                'hover:underline': post.source !== Source.Twitter,
-            })}
-        >
+        <data value={post.stats.comments}>
             <span className="mr-[2px] font-bold">{nFormatter(post.stats.comments)}</span>
             <Plural value={post.stats.comments} one="comment" other="comments" />
         </data>
@@ -139,7 +134,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     const collects = post.stats?.countOpenActions ? (
         <data value={post.stats.countOpenActions}>
             <span className="mr-[2px] font-bold">{post.stats.countOpenActions}</span>
-            <Plural value={post.stats.countOpenActions} one="comment" other="comments" />
+            <Plural value={post.stats.countOpenActions} one="collect" other="collects" />
         </data>
     ) : null;
     const mirrors = post.stats?.mirrors ? (
@@ -203,9 +198,10 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                       </Time>
                   ) : null,
                   likes,
-                  collects,
+                  comments,
                   mirrors,
                   quotes,
+                  collects,
                   views,
                   pollVotes,
                   sendFrom && !hideSource ? (

@@ -25,7 +25,7 @@ import {
     TCO_URL_REGEX,
 } from '@/constants/regexp.js';
 import { isChannelSupported } from '@/helpers/isChannelSupported.js';
-import { trimify } from '@/helpers/trimify.js';
+import { trimifyPost } from '@/helpers/trimify.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Pluggable } from '@/types/index.js';
 
@@ -89,7 +89,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
                 ...rest.components,
             }}
         >
-            {trimify(children)}
+            {trimifyPost(children)}
         </ReactMarkdown>
     );
 });

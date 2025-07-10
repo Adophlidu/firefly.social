@@ -22,9 +22,14 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
         timeout?: number; // ms
     }>,
     select: (data: InfiniteData<T>) => D[],
-    formatter?: (data: D[]) => D[],
+    options?: {
+        staleTime?: number;
+        gcTime?: number;
+        formatter?: (data: D[]) => D[];
+    },
 ) {
     type PageParams = Record<string, PageIndicator>;
+    const formatter = options?.formatter;
 
     return useSuspenseInfiniteQuery({
         queryKey,
@@ -79,5 +84,7 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
             ),
         ),
         select,
+        staleTime: options?.staleTime,
+        gcTime: options?.gcTime,
     });
 }
