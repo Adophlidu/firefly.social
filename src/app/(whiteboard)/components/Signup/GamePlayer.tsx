@@ -4,7 +4,7 @@ import { memo, useEffect, useRef, useState } from 'react';
 import { toggleSignupAudio } from '@/app/(whiteboard)/signup/pages/audio.js';
 import FireflyCard from '@/assets/firefly-card.svg';
 import { Image } from '@/esm/Image.js';
-import { levelUp } from '@/fonts/index.js';
+import { bedStead } from '@/fonts/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
@@ -61,7 +61,7 @@ export const GamePlayer = memo<GamePlayerProps>(function GamePlayer({ avatar, ni
             <div
                 className={classNames(
                     'absolute inset-x-0 top-[54.2%] -translate-x-2 truncate px-6 text-center text-[29px] font-bold uppercase tracking-[0.07em] text-black md:text-[38px]',
-                    levelUp.className,
+                    bedStead.className,
                 )}
             >
                 {nickname || 'Firefly'}
