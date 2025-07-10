@@ -810,9 +810,6 @@ msgstr "自定义"
 msgid "Select NFT collection to gate access"
 msgstr "选择 NFT 系列以限制访问权限"
 
-msgid "Password"
-msgstr "密码"
-
 msgid "Connect Email"
 msgstr "绑定邮箱"
 
@@ -2719,6 +2716,9 @@ msgstr "\"{keyword}\" 没有结果"
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "如果存在此功能，项目所有者即使在放弃后也可以重新获得所有权。"
+
+msgid "Password or App Password"
+msgstr ""
 
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
 msgstr "权威 Top 100 榜单｜数据来源：<0>X3</0>"

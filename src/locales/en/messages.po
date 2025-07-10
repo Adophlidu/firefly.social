@@ -805,9 +805,6 @@ msgstr "Custom"
 msgid "Select NFT collection to gate access"
 msgstr "Select NFT collection to gate access"
 
-msgid "Password"
-msgstr "Password"
-
 msgid "Connect Email"
 msgstr "Connect Email"
 
@@ -2714,6 +2711,9 @@ msgstr "No results for \"{keyword}\""
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
+
+msgid "Password or App Password"
+msgstr "Password or App Password"
 
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
 msgstr "Top 100 Web3 profiles powered by <0>X3</0>"
