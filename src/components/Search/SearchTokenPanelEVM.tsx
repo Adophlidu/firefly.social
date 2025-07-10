@@ -11,8 +11,8 @@ import { TokenItem } from '@/components/Tips/TokenItem.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { isGreaterThan, isLessThan } from '@/helpers/number.js';
 import { type Token, useCustomFungibleTokens } from '@/hooks/useCustomFungibleTokens.js';
+import { useEvmTokens } from '@/hooks/useEvmTokens.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { useTipsTokens } from '@/hooks/useTipsTokens.js';
 
 interface SearchTokenPanelProps {
     address: string;
@@ -31,7 +31,7 @@ export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTo
 }) {
     const [showSmall, setShowSmall] = useState(false);
     const isMedium = useIsMedium('max');
-    const { tokens, isLoading } = useTipsTokens(address);
+    const { tokens, isLoading } = useEvmTokens(address);
     const chainIds = uniq(tokens.map((token) => token.chainId));
 
     const getChainItem = useCallback(

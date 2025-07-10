@@ -12,7 +12,7 @@ function sortTokensByUsdValue(tokens: Token[]) {
     return tokens.sort((a, b) => b.usdValue - a.usdValue);
 }
 
-export const useTipsTokens = (address?: string) => {
+export const useEvmTokens = (address?: string) => {
     const { data, isLoading } = useQuery({
         queryKey: ['tokens', address],
         enabled: !!address,

@@ -2712,9 +2712,6 @@ msgstr ""
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr ""
 
-msgid "Password or App Password"
-msgstr ""
-
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
 msgstr "權威 Top 100 榜單｜數據來源：<0>X3</0>"
 
@@ -3750,6 +3747,9 @@ msgstr "轉發"
 #. placeholder {0}: collectParams.mintPrice
 msgid "Collect for {0} {nativeSymbol}"
 msgstr "以 {0} {nativeSymbol} 收藏"
+
+msgid "Account or App Password"
+msgstr ""
 
 msgid "Developers"
 msgstr "開發者"

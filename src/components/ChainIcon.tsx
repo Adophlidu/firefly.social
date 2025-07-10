@@ -8,6 +8,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveCoinGeckoChainIcon } from '@/helpers/resolveCoinGeckoChainIcon.js';
+import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 
 interface ChainIconProps extends HTMLProps<HTMLImageElement> {
     networkType?: NetworkType;
@@ -23,7 +24,7 @@ export function ChainIcon({ chainId, coingeckoChain, size = 22, className, netwo
             ? getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, chainId)
             : getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId);
     const coingeckoChainIcon = coingeckoChain ? resolveCoinGeckoChainIcon(coingeckoChain) : undefined;
-    const icon = networkDescriptor?.icon ?? coingeckoChainIcon;
+    const icon = networkDescriptor?.icon ?? coingeckoChainIcon ?? resolveDebankChain(chainId)?.logo_url;
 
     if (!icon && allowEmpty) return null;
 

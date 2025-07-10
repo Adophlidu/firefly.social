@@ -22,6 +22,7 @@ export enum EthereumChainId {
     Zora = 7777777,
     Scroll = 534352,
     Celo = 42220,
+    Lens = 232,
 }
 
 export enum EthereumSchemaType {

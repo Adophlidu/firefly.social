@@ -253,7 +253,7 @@ export function LoginBsky() {
                         type="password"
                         autoComplete="off"
                         spellCheck="false"
-                        placeholder={t`Password or App Password`}
+                        placeholder={t`Account or App Password`}
                         className="w-full border-0 bg-transparent py-2 pl-9 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
                         {...register('password', { required: true })}
                     />

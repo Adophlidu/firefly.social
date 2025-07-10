@@ -20,9 +20,9 @@ import { config, visibleChains } from '@/configs/wagmiClient.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
+import { useEvmTokens } from '@/hooks/useEvmTokens.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { useTipsTokens } from '@/hooks/useTipsTokens.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { searchTokenLogoURI } from '@/services/searchTokenLogoURI.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
@@ -52,7 +52,7 @@ function AddCustomERC20ModalContent({ onClose, initialChainId }: { onClose: () =
     const [contractAddress, setContractAddress] = useState('');
     const [selectedChain, setSelectedChain] = useState(initialChainId);
 
-    const { tokens, isLoading } = useTipsTokens(account.address);
+    const { tokens, isLoading } = useEvmTokens(account.address);
     const addCustomToken = useCustomTokenStore((state) => state.addToken);
     const [{ loading }, onAdd] = useAsyncFn(async () => {
         try {

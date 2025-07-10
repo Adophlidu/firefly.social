@@ -143,6 +143,13 @@ export const DEBANK_CHAINS = [
         logo_url: 'https://static.debank.com/image/chain/logo_url/fuse/ea4c9e12e7f646d42aa8fb07ab8dfec8.png',
     },
     {
+        id: 'lens',
+        community_id: 232,
+        name: 'GHO',
+        native_token_id: 'lens',
+        logo_url: 'https://static.debank.com/image/chain/logo_url/lens/d41e14ba300d526518fb8ad20714685b.png',
+    },
+    {
         id: 'hmy',
         community_id: 1666600000,
         name: 'Harmony',
@@ -296,6 +303,13 @@ export const DEBANK_CHAINS = [
         native_token_id: 'brise',
         logo_url: 'https://static.debank.com/image/chain/logo_url/brise/4f6c040cf49f4d8c4eabbad7cd2f4ae4.png',
     },
+    {
+        id: 'base',
+        community_id: 8453,
+        name: 'Base',
+        native_token_id: 'eth',
+        logo_url: 'https://static.debank.com/image/chain/logo_url/base/ccc1513e4f390542c4fb2f4b88ce9579.png',
+    },
 ];
 
 export const DEBANK_CHAIN_TO_CHAIN_ID_MAP: Record<string, number> = {
@@ -312,6 +326,7 @@ export const DEBANK_CHAIN_TO_CHAIN_ID_MAP: Record<string, number> = {
     xdai: EthereumChainId.xDai,
     base: EthereumChainId.Base,
     scrl: EthereumChainId.Scroll,
+    lens: EthereumChainId.Lens,
 };
 
 export const SOLANA_CHAIN_ID_IN_FIREFLY = 101;

@@ -2712,9 +2712,6 @@ msgstr "No results for \"{keyword}\""
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 
-msgid "Password or App Password"
-msgstr "Password or App Password"
-
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
 msgstr "Top 100 Web3 profiles powered by <0>X3</0>"
 
@@ -3750,6 +3747,9 @@ msgstr "Repost"
 #. placeholder {0}: collectParams.mintPrice
 msgid "Collect for {0} {nativeSymbol}"
 msgstr "Collect for {0} {nativeSymbol}"
+
+msgid "Account or App Password"
+msgstr "Account or App Password"
 
 msgid "Developers"
 msgstr "Developers"

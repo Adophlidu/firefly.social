@@ -3,7 +3,6 @@ import urlcat from 'urlcat';
 import { type Address, type Hex, isHex } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { DEBANK_CHAIN_TO_CHAIN_ID_MAP, DEBANK_CHAINS } from '@/constants/chain.js';
 import {
     ConnectionPlatform,
     FireflyPlatform,
@@ -52,6 +51,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
+import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
@@ -160,16 +160,6 @@ import { encryptPasscode } from '@/services/crypto.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { muteAllSocialProfiles } from '@/services/muteAllSocialProfiles.js';
 import { settings } from '@/settings/index.js';
-
-function resolveDebankChain(debankChain: string) {
-    const chain = DEBANK_CHAINS.find((chain) => chain.id === debankChain);
-    if (chain) return { id: chain.community_id, logoUrl: chain.logo_url };
-
-    if (debankChain in DEBANK_CHAIN_TO_CHAIN_ID_MAP) {
-        return { id: DEBANK_CHAIN_TO_CHAIN_ID_MAP[debankChain] };
-    }
-    return;
-}
 
 async function block(field: BlockFields, profileId: string): Promise<boolean> {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/mute');
@@ -326,7 +316,7 @@ class FireflyEndpoint {
             address,
         });
         const result = await fireflySessionHolder.fetch<DebankTokensResponse>(url);
-        return result.data?.list ?? [];
+        return result.data?.list || [];
     }
 
     async getTokensByAddress(address: string): Promise<
@@ -347,8 +337,8 @@ class FireflyEndpoint {
             const chain = resolveDebankChain(token.chain);
             return {
                 ...token,
-                chainId: chain?.id,
-                chainLogoUrl: chain?.logoUrl,
+                chainId: chain?.community_id,
+                chainLogoUrl: chain?.logo_url,
             };
         });
     }

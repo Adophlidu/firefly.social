@@ -2704,9 +2704,6 @@ msgstr ""
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr ""
 
-msgid "Password or App Password"
-msgstr ""
-
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
 msgstr ""
 
@@ -3738,6 +3735,9 @@ msgstr ""
 
 #. placeholder {0}: collectParams.mintPrice
 msgid "Collect for {0} {nativeSymbol}"
+msgstr ""
+
+msgid "Account or App Password"
 msgstr ""
 
 msgid "Developers"
