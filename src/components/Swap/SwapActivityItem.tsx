@@ -30,8 +30,8 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
-import { resolveSwapPageUrl } from '@/helpers/resolveSwapPageUrl.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
+import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useChangeSwapLikeStatus } from '@/hooks/useChangeSwapLikeStatus.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
@@ -53,7 +53,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
 
     const { mutate: onLikeChange, isPending } = useChangeSwapLikeStatus(activity);
 
-    const detailUrl = resolveSwapPageUrl(activity.hash, activity.chain_id);
+    const detailUrl = resolveTxPageUrl(activity.hash, activity.chain_id);
 
     return (
         <motion.article

@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { SITE_URL } from '@/constants/index.js';
 import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { resolveSwapPageUrl } from '@/helpers/resolveSwapPageUrl.js';
+import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
@@ -28,7 +28,7 @@ export async function createMetadataSwap(pathname: string, hash: string, chainId
             title,
             description,
             images,
-            url: resolveSwapPageUrl(hash, chainId),
+            url: urlcat(SITE_URL, resolveTxPageUrl(hash, chainId)),
         },
         twitter: {
             card: 'summary_large_image',

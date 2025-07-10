@@ -12,6 +12,7 @@ import { parseOldFollowingUrl } from '@/helpers/parseOldFollowingUrl.js';
 import { parseOldNftUrl } from '@/helpers/parseOldNftUrl.js';
 import { parseOldNotification } from '@/helpers/parseOldNotification.js';
 import { parseOldSettingsUrl } from '@/helpers/parseOldSettingsUrl.js';
+import { parseOldSwapUrl } from '@/helpers/parseOldSwapUrl.js';
 import { parseOldPostUrl } from '@/helpers/parsePostUrl.js';
 import { parseOldProfileUrl, parseProfileUrl } from '@/helpers/parseProfileUrl.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
@@ -23,6 +24,7 @@ import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveProfileSourceInURL } from '@/helpers/resolveSourceInUrl.js';
+import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
@@ -76,6 +78,13 @@ export async function middleware(request: NextRequest) {
         destination.searchParams.delete('profile_tab');
         destination.searchParams.delete('wallet_tab');
         destination.searchParams.delete('source');
+        return NextResponse.redirect(destination);
+    }
+
+    const parsedOldSwapUrl = parseOldSwapUrl(request.nextUrl);
+    if (parsedOldSwapUrl) {
+        const destination = request.nextUrl.clone();
+        destination.pathname = resolveTxPageUrl(parsedOldSwapUrl.hash, Number(parsedOldSwapUrl.chainId));
         return NextResponse.redirect(destination);
     }
 

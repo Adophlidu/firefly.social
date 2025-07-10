@@ -79,7 +79,7 @@ export const WrapTokenMarketData = memo(function WrapTokenMarketData(props: Toke
                 const params = new URLSearchParams(search);
                 params.set('trade', hash);
                 history.replaceState(Object.fromEntries(params.entries()), '', `${pathname}?${params.toString()}`);
-                router.push(`/swap/${chainId}/${hash}`);
+                router.push(`/tx/${chainId}/${hash}`);
             }}
             {...props}
         />
