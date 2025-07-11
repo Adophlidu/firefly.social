@@ -35,7 +35,7 @@ const FrameV2Schema = z.object({
         action: z.object({
             type: z.literal('launch_frame'),
             name: z.string().max(32, 'Max length of 32 characters'),
-            url: z.string().max(512, 'Max 512 characters'),
+            url: z.string().max(512, 'Max 512 characters').default(''),
             splashImageUrl: z.string().max(512, 'Max 512 characters').default(''),
             splashBackgroundColor: z
                 .string()
@@ -123,6 +123,9 @@ class Processor {
             x_manifest: json,
             ...parsed.data,
         };
+        if (!frame.button.action.url) {
+            frame.button.action.url = url;
+        }
         return frame;
     };
 
@@ -171,7 +174,7 @@ class Processor {
         if (!url) throw new Error(`[frame] invalid document URL: ${documentUrl}`);
 
         // Check if the URL is blacklisted
-        if (BLACKLISTED_HOSTS.some((host) => host === url.hostname)) return null;
+        if (BLACKLISTED_HOSTS.includes(url.hostname)) return null;
 
         const response = await fetch(url, {
             // It must respond within 30 seconds.

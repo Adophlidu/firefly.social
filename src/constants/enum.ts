@@ -245,7 +245,7 @@ export enum KeyType {
     GetFollowings = '/v2/getFollowings',
     ConsumerSecret = '/v2/consumerSecret',
     GetBlink = '/v2/getBlink',
-    GetClassifyPostLinkWithRedis = 'getClassifyPostLinkWithRedis',
+    GetClassifyPostLinkWithRedis = '/v1/getClassifyPostLinkWithRedis',
 
     CreateMetadataToken = '/v2/createMetadataToken',
     CreateMetadataSwap = '/v2/createMetadataSwap',

@@ -22,10 +22,10 @@ import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
 import { Modals } from '@/modals/FrameViewerModal/modals.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
+import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
 import type { FrameV2 } from '@/types/frame.js';
 import { EthereumMethodType } from '#masknet/web3-shared-evm';
-import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;
