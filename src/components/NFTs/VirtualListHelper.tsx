@@ -14,7 +14,7 @@ export function getSingleNFTFeedItemContent(
 ) {
     return (
         <SingleNFTFeed
-            key={`${feed.hash}-${index}`}
+            key={`${feed.chain_id}-${feed.hash}`}
             listKey={listKey}
             chainId={chainId}
             index={index}
@@ -37,7 +37,7 @@ export function getSingleFollowingNFTItemContent(
 
     return (
         <SingleNFTFeed
-            key={`${nft.hash}-${index}`}
+            key={`${nft.chain_id}-${nft.hash}`}
             listKey={listKey}
             chainId={chainId}
             index={index}

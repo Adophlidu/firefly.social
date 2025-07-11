@@ -57,6 +57,7 @@ export function useResolveAvatarFallbackUrl(src: string | undefined) {
 
             return null;
         },
+        staleTime: 1000 * 60 * 60,
     });
 }
 
