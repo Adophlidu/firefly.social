@@ -6,13 +6,22 @@ import { Source } from '@/constants/enum.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
+import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export async function getBskySuggestedUsers(
     indicator?: PageIndicator,
-    category?: string,
-    limit = 20,
+    {
+        category,
+        queryStats,
+        limit = 20,
+    }: {
+        category?: string;
+        limit?: number;
+        queryStats?: boolean;
+    } = {},
 ): Promise<Pageable<Profile, PageIndicator | undefined>> {
     const bskyProfile = getCurrentProfile(Source.Bsky);
     if (!bskyProfile || !bskySessionHolder.session) {
@@ -44,5 +53,26 @@ export async function getBskySuggestedUsers(
         return createPageable([], indicator);
     }
 
-    return createPageable(result.actors.map(formatBskyProfile), indicator);
+    const profiles = result.actors.map(formatBskyProfile);
+    const profilesWithStats = queryStats
+        ? await runInSafeAsync(() =>
+              BskySocialMediaProvider.getProfilesByIds(profiles.map((profile) => profile.profileId)),
+          )
+        : undefined;
+    if (!profilesWithStats?.length) {
+        return createPageable(profiles, indicator);
+    }
+
+    return createPageable(
+        profiles.map((profile) => {
+            const profileWithStats = profilesWithStats.find((p) => p.profileId === profile.profileId);
+
+            return {
+                ...profile,
+                followerCount: profileWithStats?.followerCount ?? profile.followerCount,
+                followingCount: profileWithStats?.followingCount ?? profile.followingCount,
+            };
+        }),
+        indicator,
+    );
 }
