@@ -18,7 +18,7 @@ import ShadowLeftArrow from '@/assets/left-arrow-shadow.svg';
 import { SignupStep, Source } from '@/constants/enum.js';
 import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
-import { downloadUrl } from '@/helpers/downloadMediaObjects.js';
+import { downloadUrlWithProxy } from '@/helpers/downloadMediaObjects.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { trimify } from '@/helpers/trimify.js';
@@ -84,7 +84,7 @@ export function AccountForm({ changeStep }: AccountFormProps) {
         try {
             let avatarFile = avatar.type === 'custom' ? avatar.file : null;
             if (avatar.type !== 'custom') {
-                avatarFile = await downloadUrl(avatar.url, `firefly-avatar-${uuid()}.png`);
+                avatarFile = await downloadUrlWithProxy(avatar.url, `avatar-${uuid()}.jpg`);
             }
             if (!avatarFile) {
                 enqueueErrorMessage(t`Failed to read avatar file, please try again.`);

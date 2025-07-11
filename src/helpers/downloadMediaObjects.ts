@@ -1,8 +1,26 @@
+import urlcat from 'urlcat';
+
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { type MediaObject, MediaSource } from '@/types/compose.js';
 
 export async function downloadUrl(url: string, name: string) {
-    const blob = await fetch(url).then((res) => res.blob());
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`Failed to download file from ${url}: ${response.statusText}`);
+    }
+
+    const blob = await response.blob();
+    return new File([blob], name, { type: blob.type });
+}
+
+export async function downloadUrlWithProxy(url: string, name: string) {
+    const proxyUrl = urlcat('/api/proxy-image', { url });
+    const response = await fetch(proxyUrl);
+    if (!response.ok) {
+        throw new Error(`Failed to download file from ${url}: ${response.statusText}`);
+    }
+
+    const blob = await response.blob();
     return new File([blob], name, { type: blob.type });
 }
 
