@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { type HTMLProps, memo } from 'react';
+import { type HTMLProps, memo, useState } from 'react';
 
 import { useFollowingTraderCount } from '@/app/(normal)/token/[symbol]/[[...slug]]/WrapTokenMarketData.js';
 import { TokenMarketData, type TokenMarketDataProps } from '@/components/TokenProfile/TokenMarketData.js';
@@ -18,8 +18,11 @@ export const FeaturedToken = memo<FeaturedTokenProps>(function FeaturedToken({ t
     const profileIds = useCurrentProfileIds();
     const isLoginFirefly = useIsLoginFirefly();
     const swap = coin?.support_swap_platform[0];
-    const chainId = token?.chainId ?? (swap?.chainIndex ? +swap.chainIndex : undefined);
+    const defaultChainId = token?.chainId ?? (swap?.chainIndex ? +swap.chainIndex : undefined);
     const tokenAddress = token.id === COINGECKO_SOL_COIN_ID ? SWAP_SOL_NATIVE_ADDRESS : swap?.tokenContractAddress;
+
+    const [chainId = defaultChainId, setChainId] = useState<number | undefined>(defaultChainId);
+    const [address, setAddress] = useState<string>();
 
     const { data: tradeRecords = EMPTY_LIST } = useQuery({
         queryKey: ['swaps', 'following', 'first-100', profileIds, chainId, tokenAddress],
@@ -47,6 +50,12 @@ export const FeaturedToken = memo<FeaturedTokenProps>(function FeaturedToken({ t
             traderCount={followingTraderCount}
             token={token}
             linkable
+            chainId={chainId}
+            address={address}
+            onContractChange={(chainId, address) => {
+                setChainId(chainId);
+                setAddress(address);
+            }}
         />
     );
 });
