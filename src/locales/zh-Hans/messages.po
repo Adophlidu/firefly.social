@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-07-11 12:01\n"
+"PO-Revision-Date: 2025-07-12 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1419,7 +1419,7 @@ msgid "Revoke"
 msgstr "撤销授权"
 
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
-msgstr "扫描此二维码，并在 Farcaster 移动端应用中确认，即可开始使用你的账户。"
+msgstr "扫描此二维码，并在 Farcaster 移动应用中确认，即可开始使用你的账号。"
 
 #. placeholder {0}: BRIAN_FARCASTER_PROFILE.handle
 msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{0}</1> on Farcaster before Oct 20, 2024"
@@ -2277,7 +2277,7 @@ msgid "NFT owner cant bypass the maximum amount of minting specified in the cont
 msgstr "NFT持有者无法绕过合约中规定的最大铸造数量限制，继续铸造超过此限制的NFT。"
 
 msgid "Failed to create Firefly profile."
-msgstr "Firefly 个人资料创建失败。"
+msgstr "Firefly 个人档案创建失败。"
 
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
@@ -2313,7 +2313,7 @@ msgstr "所有者可以为每个指定地址设置不同的税率。"
 
 #. placeholder {0}: mentionHandle || recipient?.displayName
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
-msgstr "在帖子中标记 {0}，让他知道你已向他的钱包发送了一笔链上打赏。"
+msgstr "在帖子中标记 {0}，让他知道你已向他的钱包打赏了一笔链上小费。"
 
 #. placeholder {0}: nFormatter(collection.items_total || 0)
 msgid "{0}<0> Items</0>"
@@ -2464,7 +2464,7 @@ msgid "Contract source code not verified"
 msgstr "合约源代码未验证"
 
 msgid "NFT removed from your Bookmarks"
-msgstr "NFT 已从收藏夹移除"
+msgstr "NFT 已从你的收藏夹移除"
 
 msgid "Users must hold at least one NFT from the collections you specify."
 msgstr "用户必须持有你指定系列中的至少一个 NFT。"
@@ -3405,7 +3405,7 @@ msgid "Re-enter Password"
 msgstr "再次输入密码"
 
 msgid "Confirm to disconnect this account from Firefly’s social graph?"
-msgstr "确认断开此账户与 Firefly 社交图谱的绑定吗？"
+msgstr "确认断开此账户与 Firefly 社交图谱的连接吗？"
 
 msgid "The contract owner has no restrictions on selling."
 msgstr "合约所有者对销售没有限制。"
@@ -3488,7 +3488,7 @@ msgid "Saved on {0} at {1}"
 msgstr "保存于 {1} {0}"
 
 msgid "No profile found"
-msgstr "找不到任何账户"
+msgstr "找不到任何账号"
 
 #. placeholder {0}: dayjs(scheduleTime).format('DD MMM, YYYY')
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
@@ -3536,7 +3536,7 @@ msgid "<0>Acquired</0><1/>"
 msgstr "<0>获得</0><1/>"
 
 msgid "Copy link to profile"
-msgstr "复制账户分享链接"
+msgstr "复制账号链接"
 
 msgid "No whitelist"
 msgstr "没有白名单"
@@ -4169,7 +4169,7 @@ msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> 和 <1>其他的 {0} 个用户</1>"
 
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
-msgstr "确认断开此钱包及相关账户与 Firefly 社交图谱的绑定吗？"
+msgstr "确认断开此钱包及相关账户与 Firefly 社交图谱的连接吗？"
 
 msgid "Events"
 msgstr "活动"

@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-07-11 12:01\n"
+"PO-Revision-Date: 2025-07-12 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -31,7 +31,7 @@ msgid "Do you want to retry with the full or remaining content?"
 msgstr "您想嘗試發送全部內容還是僅發送剩餘內容？"
 
 msgid "Connected wallets"
-msgstr "已綁定的錢包"
+msgstr "已連結的錢包"
 
 msgid "Stealing attack found."
 msgstr "發現竊取攻擊。"
@@ -728,7 +728,7 @@ msgstr "確認"
 
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 msgid "{0} muted channels"
-msgstr "{0} 個已隱藏群組"
+msgstr "{0} 個已隱藏頻道"
 
 msgid "[Video]"
 msgstr "[影片]"
@@ -1122,7 +1122,7 @@ msgid "LinkDigest Validator"
 msgstr "鏈結摘要驗證器"
 
 msgid "No Lens profile found.<0/>Please change to another wallet."
-msgstr "未找到任何 Lens 帳戶。<0/>請切換其他錢包。"
+msgstr "未找到任何 Lens 帳號。<0/>請切換其他錢包。"
 
 msgid "Drop type"
 msgstr "紅包類型"
@@ -1349,7 +1349,7 @@ msgid "One-time passcode sent to you"
 msgstr "已向您發送一次性驗證碼"
 
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
-msgstr "代幣交易次數受限。詐騙代幣交易次數可能受限（詐騙風險）。"
+msgstr "代幣交易次數受限。詐騙代幣交易次數可能受限（蜜罐風險）。"
 
 msgid "on"
 msgstr "於"
@@ -1406,7 +1406,7 @@ msgid "Participate Now"
 msgstr "立即參與"
 
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
-msgstr "此代幣合約包含不可出售條款，可能是有詐騙風險。"
+msgstr "此代幣合約包含不可出售條款，可能是蜜罐陷阱。"
 
 msgid "Winners"
 msgstr "獲獎者"
@@ -1419,7 +1419,7 @@ msgid "Revoke"
 msgstr "撤銷授權"
 
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
-msgstr "掃描此二維碼，並在 Farcaster 行動版應用中確認，即可開始使用你的帳戶。"
+msgstr "掃描此二維碼，並在 Farcaster 行動應用中確認，即可開始使用你的帳號。"
 
 #. placeholder {0}: BRIAN_FARCASTER_PROFILE.handle
 msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{0}</1> on Farcaster before Oct 20, 2024"
@@ -1449,7 +1449,7 @@ msgid "Followed by {0} and {1}"
 msgstr "被 {0} 和 {1} 追蹤中"
 
 msgid "Deleting your account will permanently disconnect your linked social accounts and remove your Firefly wallets."
-msgstr "刪除帳戶將永久解除您的社交帳戶綁定並移除您的 Firefly 錢包。"
+msgstr "刪除帳戶將永久解除您的社群帳號連結並移除您的 Firefly 錢包。"
 
 msgid "Try searching for something else."
 msgstr "請嘗試搜尋其他關鍵字。"
@@ -1818,7 +1818,7 @@ msgid "Follow"
 msgstr "追蹤"
 
 msgid "Sorry, this wallet is already linked to another Firefly account. Please try a different one."
-msgstr "抱歉，此錢包已綁定到其他 Firefly 帳戶，請使用其他錢包。"
+msgstr "此錢包已連結其他 Firefly 帳戶，請使用其他錢包。"
 
 msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
 msgstr "此代幣合約為開源，詳情請查閱合約代碼。未開源合約可能包含惡意功能。"
@@ -2036,7 +2036,7 @@ msgid "Website"
 msgstr "網站"
 
 msgid "Your TG account is now connected"
-msgstr "您的 TG 帳戶已綁定"
+msgstr "您的 Telegram 帳戶已連結"
 
 #. placeholder {0}: profile.handle
 #. placeholder {0}: article.title
@@ -2290,7 +2290,7 @@ msgid "Push notifications"
 msgstr "推播通知"
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
-msgstr "確認要斷開該帳戶及相關錢包與 Firefly 社交圖譜的連接嗎？"
+msgstr "確認要斷開該帳戶及相關錢包與 Firefly 社交圖譜的連結嗎？"
 
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "於 Firefly 上取消追蹤 {handleOrEnsOrAddress}"
@@ -2355,7 +2355,7 @@ msgstr "合約地址"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "You need to connect your {0} account to use this feature."
-msgstr "您需要連接 {0} 帳戶才可使用此功能。"
+msgstr "您需要連結 {0} 帳戶才可使用此功能。"
 
 msgid "Bad Request. Please check your request."
 msgstr "錯誤的請求。請檢查您的請求。"
@@ -2367,7 +2367,7 @@ msgid "No blackmail activities found."
 msgstr "未檢測到勒索行為。"
 
 msgid "Failed to disconnect"
-msgstr "斷開連接失敗"
+msgstr "斷開連結失敗"
 
 msgid "Post has been encrypted"
 msgstr "貼文已經被加密"
@@ -2386,7 +2386,7 @@ msgid "No cybercrime found."
 msgstr "未涉及網路犯罪。"
 
 msgid "This Apple account is already linked to another Firefly account."
-msgstr "此電子郵件已綁定其他 Apple 帳戶。"
+msgstr "此電子郵件已連結其他 Apple 帳戶。"
 
 msgid "Follow me"
 msgstr "追蹤我"
@@ -2624,7 +2624,7 @@ msgid "Delegate Signing"
 msgstr "委託簽名"
 
 msgid "Failed to disconnect."
-msgstr "斷開連接失敗。"
+msgstr "斷開連結失敗。"
 
 msgid "{followerCount, plural, one {Like} other {Likes}}"
 msgstr "{followerCount, plural, one {讚} other {讚}}"
@@ -3279,7 +3279,7 @@ msgid "Post could not be found."
 msgstr "找不到貼文。"
 
 msgid "Reconnect"
-msgstr "重新連接"
+msgstr "重新連結"
 
 msgid "No suspected malicious behavior found."
 msgstr "未檢測到可疑惡意行為。"
@@ -3405,7 +3405,7 @@ msgid "Re-enter Password"
 msgstr "再次輸入密碼"
 
 msgid "Confirm to disconnect this account from Firefly’s social graph?"
-msgstr "確認要斷開該帳戶與 Firefly 社交圖譜的綁定嗎？"
+msgstr "確認要斷開該帳戶與 Firefly 社交圖譜的連結嗎？"
 
 msgid "The contract owner has no restrictions on selling."
 msgstr "合約持有者無出售限制。"
@@ -3488,7 +3488,7 @@ msgid "Saved on {0} at {1}"
 msgstr "保存於 {0} {1}"
 
 msgid "No profile found"
-msgstr "找不到任意帳戶"
+msgstr "找不到任意檔案"
 
 #. placeholder {0}: dayjs(scheduleTime).format('DD MMM, YYYY')
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
@@ -3897,7 +3897,7 @@ msgstr "可設定一或多項規則，作為領取紅包的條件。"
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 msgid "Your {0} account is now connected."
-msgstr "您的 {0} 帳户已綁定。"
+msgstr "您的 {0} 帳户已連結。"
 
 msgid "Not Found"
 msgstr "找不到內容"
@@ -4169,7 +4169,7 @@ msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> 及 <1>其他的 {0} 個用户</1>"
 
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
-msgstr "確認要斷開該錢包及相關帳戶與 Firefly 社交圖譜的綁定嗎？"
+msgstr "確認要斷開該錢包及相關帳戶與 Firefly 社交圖譜的連結嗎？"
 
 msgid "Events"
 msgstr "活動"
@@ -4348,7 +4348,7 @@ msgid "Location"
 msgstr "位置"
 
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
-msgstr "代幣交易次數沒有限制。但詐騙代幣的交易次數可能受到限制（詐騙風險）。"
+msgstr "代幣交易次數沒有限制。但詐騙代幣的交易次數可能受到限制（蜜罐風險）。"
 
 msgid "Error: {message}"
 msgstr "錯誤：{message}"
@@ -4387,7 +4387,7 @@ msgstr "成員"
 #. placeholder {0}: collectModule.amount
 #. placeholder {1}: collectModule.currency
 msgid "Collect for {0} {1}"
-msgstr "花費 {0}{1} 鑄造"
+msgstr "鑄造 {0}{1}"
 
 msgid "Search nft"
 msgstr "搜尋 NFT"
@@ -4445,7 +4445,7 @@ msgid "Cybercrime."
 msgstr "網路犯罪。"
 
 msgid "This wallet is already linked to a different Firefly account."
-msgstr "此電子郵件已綁定其他 Firefly 帳戶。"
+msgstr "此電子郵件已連結其他 Firefly 帳戶。"
 
 msgid "Unmuted {handleOrEnsOrAddress}."
 msgstr "已取消隱藏 {handleOrEnsOrAddress}。"
