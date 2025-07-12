@@ -7,24 +7,19 @@ import { memo } from 'react';
 import type { Address } from 'viem';
 
 import ExchangeIcon from '@/assets/exchange.svg';
-import LikeIcon from '@/assets/like.svg';
-import LikedIcon from '@/assets/liked.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
+import { SwapActions } from '@/components/Swap/SwapActions.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
-import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -233,39 +228,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                             </Link>
                         ) : null}
 
-                        <div className={classNames('mt-2 flex items-center justify-between gap-2')}>
-                            <SwapButton
-                                className="!ml-0 flex !px-2 py-[2px] !text-[12px] !font-medium !leading-[20px]"
-                                swapProps={{
-                                    chainId: activity.chain_id,
-                                    fromToken: activity.from_token?.address,
-                                    toToken: activity.to_token?.address,
-                                }}
-                            >
-                                <Trans>Copy Trade</Trans>
-                            </SwapButton>
-                            <div
-                                className={classNames('flex items-center gap-1 text-sm text-second', {
-                                    '!text-danger': activity.is_like,
-                                })}
-                            >
-                                <ClickableButton
-                                    className="cursor-pointer"
-                                    loading={isPending}
-                                    loadingSize={16}
-                                    onClick={() => {
-                                        onLikeChange();
-                                    }}
-                                >
-                                    {activity.is_like ? (
-                                        <LikedIcon className="size-4" />
-                                    ) : (
-                                        <LikeIcon className="size-4" />
-                                    )}
-                                </ClickableButton>
-                                {activity.like_count > 0 ? <span>{nFormatter(activity.like_count)}</span> : null}
-                            </div>
-                        </div>
+                        <SwapActions activity={activity} />
                     </ClickableArea>
                 </div>
             </div>

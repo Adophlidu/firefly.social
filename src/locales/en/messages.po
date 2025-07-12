@@ -1504,6 +1504,9 @@ msgstr "Channel"
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 
+msgid "🔥 Spotted a smart swap on Firefly! One-tap copy trading now available. #OnChainSocial"
+msgstr "🔥 Spotted a smart swap on Firefly! One-tap copy trading now available. #OnChainSocial"
+
 msgid "1H"
 msgstr "1H"
 
@@ -1636,6 +1639,9 @@ msgstr "No fake KYC found."
 
 msgid "No function found that retrieves ownership"
 msgstr "No function found that retrieves ownership"
+
+msgid "Share Image"
+msgstr "Share Image"
 
 msgid "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
 msgstr "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
@@ -3750,6 +3756,9 @@ msgstr "Collect for {0} {nativeSymbol}"
 
 msgid "Account or App Password"
 msgstr "Account or App Password"
+
+msgid "Download"
+msgstr "Download"
 
 msgid "Developers"
 msgstr "Developers"

@@ -1509,6 +1509,9 @@ msgstr "頻道"
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr "未包含隱藏所有者功能。若有隱藏所有者，項目方可能具備合約控制權。"
 
+msgid "🔥 Spotted a smart swap on Firefly! One-tap copy trading now available. #OnChainSocial"
+msgstr ""
+
 msgid "1H"
 msgstr "時"
 
@@ -1641,6 +1644,9 @@ msgstr "未發現虛假 KYC"
 
 msgid "No function found that retrieves ownership"
 msgstr "未找到所有權查詢功能"
+
+msgid "Share Image"
+msgstr ""
 
 msgid "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
 msgstr "市值數據來自 CoinGecko，包含該代幣在其他區塊鏈上的發行量。"
@@ -3735,6 +3741,9 @@ msgstr "以 {0} {nativeSymbol} 收藏"
 
 msgid "Account or App Password"
 msgstr "帳戶或應用程式密碼"
+
+msgid "Download"
+msgstr ""
 
 msgid "Developers"
 msgstr "開發者"

@@ -1582,6 +1582,8 @@ export type SwapActivity = {
     source: string;
     like_count: number;
     is_like: boolean;
+    is_repost: boolean;
+    repost_count: number;
     displayInfo?: FireflyDisplayInfo;
     followingSources: FollowingSource[];
 };
