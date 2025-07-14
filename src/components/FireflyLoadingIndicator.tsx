@@ -48,7 +48,7 @@ export function FireflyLoadingIndicator({ size = 208, className, ...rest }: Fire
                 disableRemotePlayback
                 style={{ width: size, height: size }}
                 onLoad={() => setLoaded(true)}
-                className={classNames(!loaded ? 'opacity-0' : '', className)}
+                className={classNames('bg-primaryBottom', !loaded ? 'opacity-0' : '', className)}
                 {...rest}
             />
         </div>
