@@ -2,7 +2,7 @@ import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpe
 import { resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import type { TipsProfile } from '@/hooks/useTipsContext.js';
-import { captureTipsSendEvent } from '@/providers/telemetry/captureTipsSendEvent.js';
+import { captureTipsSendEvent } from '@/providers/telemetry/captureTipsEvent.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import { reportTokenTips, UploadTokenTipsToken } from '@/services/reportTokenTips.js';
@@ -14,6 +14,7 @@ export async function reportAndCaptureTipEvent(
     token: Token,
     amount: string,
     hash: string,
+    isCustomAmount: boolean,
 ) {
     try {
         const [fromAccountId, toAccountId] = await Promise.all([
@@ -47,6 +48,7 @@ export async function reportAndCaptureTipEvent(
             amount_usd: token.usdValue,
             chain_id: token.chainId,
             chain_name: chainName,
+            is_custom_amount: isCustomAmount,
         });
     } catch {
         console.warn('Failed to report and capture tip event');

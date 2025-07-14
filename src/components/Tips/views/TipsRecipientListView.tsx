@@ -8,13 +8,15 @@ import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
+import { captureTipsSwitchWalletEvent } from '@/providers/telemetry/captureTipsEvent.js';
 
 export function TipsRecipientListView() {
-    const { recipientList, recipient: selectedRecipient, update } = TipsContext.useContainer();
+    const { recipientList, recipient: selectedRecipient, identity, update } = TipsContext.useContainer();
 
     const handleSelectRecipient = (recipient: TipsProfile) => {
         if (!isSameAddress(recipient.address, selectedRecipient?.address)) {
             update((prev) => ({ ...prev, recipient }));
+            captureTipsSwitchWalletEvent(identity, recipient.address);
         }
 
         router.navigate({ to: TipsRoutePath.TIPS, replace: true });

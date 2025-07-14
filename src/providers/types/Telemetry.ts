@@ -65,6 +65,8 @@ export enum EventId {
 
     // tips
     TIPS_SEND_SUCCESS = 'tips_send_success', // ✅
+    TIPS_SWITCH_RECIPIENT = 'tips_change_wallet_click', // ✅
+    TIPS_SHARE_POST_SUCCESS = 'tips_share_success', // ✅
 
     // poll
     POLL_CREATE_SUCCESS = 'poll_create_success', // ✅
@@ -622,7 +624,22 @@ export interface Events extends Record<EventId, Event> {
             amount_usd?: number;
             chain_id: number;
             chain_name: string;
+            is_custom_amount: boolean;
         } & WalletEventParameters;
+    };
+    [EventId.TIPS_SWITCH_RECIPIENT]: {
+        type: EventType.Interact;
+        parameters: {
+            target_firefly_account_id: string;
+            target_wallet_address: string;
+        };
+    };
+    [EventId.TIPS_SHARE_POST_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            target_firefly_account_id: string;
+            transaction_id: string;
+        };
     };
     [EventId.LUCKY_DROP_CREATE_SUCCESS]: {
         type: EventType.Interact;

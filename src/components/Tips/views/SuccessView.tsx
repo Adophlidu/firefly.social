@@ -22,6 +22,7 @@ import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js'
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { ComposeModalRef } from '@/modals/controls.js';
+import { captureTipsSharePostEvent } from '@/providers/telemetry/captureTipsEvent.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 export function SuccessView() {
@@ -29,7 +30,7 @@ export function SuccessView() {
     const { context } = useMatch({ from: rootRouteId });
     const currentChannel = useCurrentVisitingChannel();
 
-    const { token, tokenAmount, recipient, hash, handle, socialProfiles, post } = TipsContext.useContainer();
+    const { token, tokenAmount, recipient, hash, handle, socialProfiles, post, identity } = TipsContext.useContainer();
 
     const { canShare } = useMemo(() => {
         const __origin__ = recipient?.__origin__ as WalletProfile;
@@ -54,7 +55,7 @@ export function SuccessView() {
         context.onClose();
         if (!expectedSources.length) return;
 
-        ComposeModalRef.open({
+        ComposeModalRef.openAndWaitForClose({
             type: post ? 'reply' : 'compose',
             post,
             channel: currentChannel,
@@ -72,8 +73,11 @@ export function SuccessView() {
                 ' ✨ Keep shinning! \r\n',
                 hash ? RouteResolver.tip(hash) : '',
             ],
+        }).then((res) => {
+            if (!res?.post || !hash) return;
+            captureTipsSharePostEvent(identity, hash);
         });
-    }, [context, handle, post, socialProfiles, token?.symbol, hash, currentChannel, canShare]);
+    }, [context, handle, post, socialProfiles, token?.symbol, hash, currentChannel, canShare, identity]);
 
     if (!token || !recipient) return null;
 

@@ -29,7 +29,16 @@ interface SendTipsButtonProps {
 
 const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ connected, onConnect }) {
     const { context } = useMatch({ from: rootRouteId });
-    const { token, recipient, tokenAmount: amount, update, identity, hasError, hash } = TipsContext.useContainer();
+    const {
+        token,
+        recipient,
+        tokenAmount: amount,
+        update,
+        identity,
+        hasError,
+        hash,
+        amount: customAmount,
+    } = TipsContext.useContainer();
 
     const {
         value,
@@ -91,7 +100,15 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             });
             update((prev) => ({ ...prev, hash }));
             await transfer.waitForTransaction(hash, token.chainId);
-            reportAndCaptureTipEvent(identity, await network.getAccount(), recipient, token, amount, hash);
+            reportAndCaptureTipEvent(
+                identity,
+                await network.getAccount(),
+                recipient,
+                token,
+                amount,
+                hash,
+                !!customAmount,
+            );
 
             enqueueSuccessMessage(t`Tip sent successfully!`);
             router.navigate({ to: TipsRoutePath.SUCCESS });
@@ -101,7 +118,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             enqueueMessageFromError(error, t`Failed to send tip.`);
             throw error;
         }
-    }, [connected, onConnect, recipient, token, update, amount, identity]);
+    }, [connected, onConnect, recipient, token, update, amount, identity, customAmount]);
 
     const disabled = !connected ? false : isValidating || isSending || !!value?.disabled || !!error;
 
