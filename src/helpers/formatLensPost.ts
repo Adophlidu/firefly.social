@@ -125,7 +125,8 @@ function updateContent(content: string, mentions: PostMention[]) {
 async function formatContentV3(metadata: PostMetadata, author: Profile, mentions: PostMention[]) {
     if (!metadata.__typename) return null;
 
-    switch (metadata.__typename) {
+    const typeName = metadata.__typename;
+    switch (typeName) {
         case 'ArticleMetadata':
             return {
                 content: updateContent(metadata.content, mentions),
@@ -211,7 +212,7 @@ async function formatContentV3(metadata: PostMetadata, author: Profile, mentions
         case 'UnknownPostMetadata':
             return null;
         default:
-            safeUnreachable(metadata);
+            safeUnreachable(typeName);
             return null;
     }
 }

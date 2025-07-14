@@ -108,8 +108,9 @@ export interface Profile<O = unknown> {
     };
     /** the social media source that the profile belongs to */
     source: SocialSource;
-    /** flag the power user - farcaster only */
+    /** @deprecated flag the power user - farcaster only */
     isPowerUser?: boolean;
+    isProUser?: boolean;
     website?: string;
     location?: string;
     /** lens only */

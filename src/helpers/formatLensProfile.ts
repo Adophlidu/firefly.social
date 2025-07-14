@@ -51,6 +51,7 @@ export function formatLensProfileV3(result: Account): Profile {
         followingCount: 0,
         status: ProfileStatus.Active,
         verified: true,
+        isProUser: 'hasSubscribed' in result ? result.hasSubscribed : false,
         signless: false,
         ownedBy: {
             networkType: NetworkType.Ethereum,

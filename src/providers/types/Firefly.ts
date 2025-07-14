@@ -99,6 +99,7 @@ export interface User {
     /** if followed by the user, no relation to whether you follow the user or not */
     isFollowedBack?: boolean;
     isPowerUser?: boolean;
+    isProUser?: boolean;
 }
 
 export interface Profile {

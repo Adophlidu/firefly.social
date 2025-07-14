@@ -1,7 +1,7 @@
 /* cspell:disable */
 
 import { CastAddBody, CastRemoveBody, Factories, ReactionType, UserDataType } from '@farcaster/core';
-import { toInteger } from 'lodash-es';
+import { sortBy, toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
 import { toHex } from 'viem';
 import { z } from 'zod';
@@ -9,12 +9,13 @@ import { z } from 'zod';
 import { Source } from '@/constants/enum.js';
 import { FarcasterInvalidSignerKey, NotImplementedError } from '@/constants/error.js';
 import { NEYNAR_URL } from '@/constants/index.js';
-import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
-import { URL_REGEX } from '@/constants/regexp.js';
+import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
+import { URL_REGEX, YOUTUBE_URL_REGEX } from '@/constants/regexp.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { farcasterPostIdToHash } from '@/helpers/farcasterPostIdToHash.js';
 import { fetchNeynarJSON } from '@/helpers/fetchNeynar.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { CastResponse, Response } from '@/providers/types/Hubble.js';
@@ -384,7 +385,14 @@ class HubbleSocialMedia implements Provider {
 
         const urls = post.metadata.content?.content?.match(URL_REGEX) || [];
         const mediaUrls = post.mediaObjects?.map((v) => ({ url: v.url })) ?? [];
-        const contentUrls = urls.map((url) => ({ url }));
+        const contentUrls = sortBy(urls, (x) => (YOUTUBE_URL_REGEX.test(x) ? -1 : 0)).map((url) => ({ url }));
+
+        // To refresh to pro status
+        await getProfileState(Source.Farcaster).refreshCurrentAccount();
+        const profile = getProfileState(Source.Farcaster).currentProfile;
+        const imageCountLimit = profile?.isProUser
+            ? MAX_IMAGE_SIZE_PRO_PER_POST[Source.Farcaster]
+            : MAX_IMAGE_SIZE_PER_POST[Source.Farcaster];
 
         const { messageJson } = await encodeMessageData(
             () => {
@@ -394,7 +402,7 @@ class HubbleSocialMedia implements Provider {
                     castAddBody: {
                         ...result,
                         embedsDeprecated: [],
-                        embeds: [...mediaUrls, ...contentUrls].slice(0, MAX_IMAGE_SIZE_PER_POST[Source.Farcaster]),
+                        embeds: [...mediaUrls, ...contentUrls].slice(0, imageCountLimit),
                         parentCastId: undefined,
                         parentUrl: undefined,
                     },

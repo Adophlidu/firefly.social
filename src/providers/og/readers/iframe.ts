@@ -1,6 +1,7 @@
 /* cspell:disable */
 import urlcat from 'urlcat';
 
+import { YOUTUBE_SHORT_URL_REGEX, YOUTUBE_URL_REGEX } from '@/constants/regexp.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 
 // URLs that are manually picked to be embedded that dont have embed metatags
@@ -12,8 +13,6 @@ const spotifyTrackUrlRegex = /^ht{2}ps?:\/{2}open\.spotify\.com\/track\/[\dA-Za-
 const spotifyPlaylistUrlRegex = /^ht{2}ps?:\/{2}open\.spotify\.com\/playlist\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
 const oohlalaUrlRegex = /^ht{2}ps?:\/{2}oohlala\.xyz\/playlist\/[\dA-Fa-f-]+(\?si=[\dA-Za-z]+)?$/;
 const soundCloudRegex = /^ht{2}ps?:\/{2}soundcloud\.com(?:\/[\dA-Za-z-]+){2}(\?si=[\dA-Za-z]+)?$/;
-export const youtubeRegex = /^https?:\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w-]+)(?:\?.*)?$/;
-const youtubeShortRegex = /^https?:\/\/(?:www\.)?youtu(?:be\.com\/shorts\/|\.be\/)([\w-]+)(?:\?.*)?$/;
 const tapeRegex = /^https?:\/\/tape\.xyz\/watch\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
 const twitchRegex = /^https?:\/\/www\.twitch\.tv\/videos\/[\dA-Za-z-]+$/;
 const kickRegex = /^https?:\/\/kick\.com\/[\dA-Za-z-]+$/;
@@ -39,7 +38,7 @@ export const getPostIFrame = (embedUrl: string | null, url: string): string | nu
     switch (hostname) {
         case 'youtube.com':
         case 'youtu.be': {
-            if (youtubeRegex.test(cleanedUrl) || youtubeShortRegex.test(cleanedUrl)) {
+            if (YOUTUBE_URL_REGEX.test(cleanedUrl) || YOUTUBE_SHORT_URL_REGEX.test(cleanedUrl)) {
                 return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
             }
 

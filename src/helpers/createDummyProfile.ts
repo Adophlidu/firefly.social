@@ -19,6 +19,7 @@ export function createDummyProfile(source: SocialSource, profileSource: ProfileS
         fullHandle: '',
         status: ProfileStatus.Active,
         verified: true,
+        isProUser: false,
     } satisfies Profile;
 }
 

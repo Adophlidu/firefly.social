@@ -42,7 +42,7 @@ export function ComposeSend(props: ComposeSendProps) {
     const checkPostMedias = useCheckPostMedias();
 
     const [percentage, setPercentage] = useState(0);
-    const hasPosts = posts.length > 1;
+    const hasMultiplePosts = posts.length > 1;
     const [{ loading }, handlePost] = useAsyncFn(
         async (isRetry = false) => {
             if (checkPostMedias()) return;
@@ -51,7 +51,7 @@ export function ComposeSend(props: ComposeSendProps) {
 
                 let postResult: CompositePost | undefined = undefined;
 
-                if (hasPosts) {
+                if (hasMultiplePosts) {
                     scheduleTime
                         ? await crossPostScheduleThread(scheduleTime, controller.current.signal)
                         : await crossPostThread({
@@ -78,7 +78,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 throw error;
             }
         },
-        [checkPostMedias, controller, hasPosts, currentDraftId, removeDraft, scheduleTime, type, post],
+        [checkPostMedias, controller, hasMultiplePosts, currentDraftId, removeDraft, scheduleTime, type, post],
     );
 
     const hasError = useMemo(() => {

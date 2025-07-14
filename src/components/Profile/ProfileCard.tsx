@@ -8,6 +8,7 @@ import { Link } from '@/components/Link.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { FollowersLink } from '@/components/Profile/FollowersLink.js';
+import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -71,16 +72,16 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                 <Link href={url}>
                     <Avatar src={profile.pfp} alt="avatar" size={80} className="size-20 cursor-pointer rounded-full" />
                 </Link>
-
-                <div className="flex max-w-[calc(100%-80px-10px)] flex-1 flex-col gap-[6px]">
+                <div className="flex min-w-0 flex-1 flex-grow flex-col gap-[6px]">
                     <div className="flex items-center gap-2">
                         <Link
                             href={url}
-                            className="block w-full max-w-[calc(100%-18px)] cursor-pointer truncate text-xl leading-6 text-lightMain"
+                            className="block min-w-0 cursor-pointer truncate text-xl leading-6 text-lightMain"
                         >
                             {profile.displayName}
                         </Link>
-                        <SocialSourceIcon source={profile.source} className="flex-shrink-0" size={18} />
+                        <ProfileVerifyBadge profile={profile} />
+                        <SocialSourceIcon source={profile.source} className="ml-auto flex-shrink-0" size={18} />
                     </div>
 
                     <Link href={url} className="cursor-pointer text-medium leading-6 text-secondary">

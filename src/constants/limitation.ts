@@ -16,11 +16,25 @@ export const MAX_CHAR_SIZE_VERIFY_PER_POST: Limitation = {
     [Source.Bsky]: 300,
 };
 
+export const MAX_CHAR_SIZE_PRO_PER_POST: Limitation = {
+    [Source.Farcaster]: 10_000,
+    [Source.Lens]: MAX_CHAR_SIZE_VERIFY_PER_POST[Source.Lens],
+    [Source.Twitter]: MAX_CHAR_SIZE_VERIFY_PER_POST[Source.Twitter],
+    [Source.Bsky]: MAX_CHAR_SIZE_VERIFY_PER_POST[Source.Bsky],
+};
+
 export const MAX_IMAGE_SIZE_PER_POST: Limitation = {
     [Source.Farcaster]: 2,
     [Source.Lens]: 20,
     [Source.Twitter]: 4,
     [Source.Bsky]: 4,
+};
+
+export const MAX_IMAGE_SIZE_PRO_PER_POST: Limitation = {
+    [Source.Farcaster]: 4,
+    [Source.Lens]: MAX_IMAGE_SIZE_PER_POST[Source.Lens],
+    [Source.Twitter]: MAX_IMAGE_SIZE_PER_POST[Source.Twitter],
+    [Source.Bsky]: MAX_IMAGE_SIZE_PER_POST[Source.Bsky],
 };
 
 export const MAX_GIF_SIZE_PER_POST: Limitation = {

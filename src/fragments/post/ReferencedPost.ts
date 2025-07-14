@@ -1,5 +1,7 @@
 import { graphql } from '@lens-protocol/client';
 
+import { LENS_PRO_GROUP_ID } from '@/constants/lens.js';
+
 export const ReferencedPostFragment = graphql(`
     fragment ReferencedPost on Post {
         __typename
@@ -13,6 +15,7 @@ export const ReferencedPostFragment = graphql(`
         }
         author {
             ...Account
+          hasSubscribed: isMemberOf(request: { group: "${LENS_PRO_GROUP_ID}" })
         }
         metadata {
             ...PostMetadata

@@ -1,12 +1,14 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { MAX_GIF_SIZE_PER_POST, MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
+import { MAX_GIF_SIZE_PER_POST, MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import type { ComposeType } from '@/types/compose.js';
 
 export function getCurrentPostImageLimits(type: ComposeType, availableSources: SocialSource[]) {
     if (availableSources.length === 0) return MAX_IMAGE_SIZE_PER_POST[Source.Farcaster];
     return Math.min(
         ...availableSources.map((source) => {
-            const max = MAX_IMAGE_SIZE_PER_POST[source];
+            const profile = getProfileState(Source.Farcaster).currentProfile;
+            const max = profile?.isProUser ? MAX_IMAGE_SIZE_PRO_PER_POST[source] : MAX_IMAGE_SIZE_PER_POST[source];
             return source === Source.Farcaster && type === 'quote' ? max - 1 : max;
         }),
     );

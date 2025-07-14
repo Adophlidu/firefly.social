@@ -1,5 +1,10 @@
 import type { ProfileStatus } from '@/providers/types/SocialMedia.js';
 
+export enum NeynarProStatus {
+    Subscribed = 'subscribed',
+    Unsubscribed = 'unsubscribed',
+}
+
 export interface Profile {
     object: string;
     fid: number;
@@ -26,6 +31,13 @@ export interface Profile {
     };
     active_status: ProfileStatus;
     power_badge: boolean;
+    pro?: {
+        status: NeynarProStatus;
+        /** @example "2023-11-07T05:31:56Z" */
+        subscribed_at: string;
+        /** @example "2023-11-07T05:31:56Z" */
+        expires_at: string;
+    };
 }
 
 export interface Channel {

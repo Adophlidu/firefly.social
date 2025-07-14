@@ -83,3 +83,7 @@ export const SPECIAL_TOKEN_SYMBOLS_REGEX = new RegExp(`\\b(${SPECIAL_TOKEN_SYMBO
 export const TWITTER_PROFILE_SEARCH_REGEXP = /^[A-Za-z0-9_' ]{1,50}$/;
 
 export const BSKY_POST_REGEXP = /^https:\/\/bsky\.app\/profile\/([^/]+)\/post\/([a-zA-Z0-9_]+)/;
+
+/* cspell:ignore youtu */
+export const YOUTUBE_URL_REGEX = /^https?:\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w-]+)(?:\?.*)?$/;
+export const YOUTUBE_SHORT_URL_REGEX = /^https?:\/\/(?:www\.)?youtu(?:be\.com\/shorts\/|\.be\/)([\w-]+)(?:\?.*)?$/;

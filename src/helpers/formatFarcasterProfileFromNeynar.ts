@@ -2,7 +2,7 @@ import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import type { Profile as NeynarProfile } from '@/providers/types/Neynar.js';
+import { NeynarProStatus, type Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function formatFarcasterProfileFromNeynar(user: NeynarProfile): Profile {
@@ -19,6 +19,7 @@ export function formatFarcasterProfileFromNeynar(user: NeynarProfile): Profile {
         followingCount: user.following_count,
         status: user.active_status,
         verified: user.power_badge,
+        isProUser: user.pro?.status === NeynarProStatus.Subscribed,
         viewerContext: {
             following: user.viewer_context?.following,
             followedBy: user.viewer_context?.followed_by,

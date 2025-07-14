@@ -3,7 +3,6 @@
 import { safeUnreachable } from '@masknet/kit';
 import type { HTMLProps } from 'react';
 
-import PowerUserIcon from '@/assets/power-user.svg';
 import VerifyIcon from '@/assets/verify.svg';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
@@ -24,6 +23,20 @@ const presetColors: Record<string, string> = {
 
 export function ProfileVerifyBadge({ profile, className }: Props) {
     const { data: icons = [] } = useProfileVerifyBadge(profile);
+    if (profile.isProUser) {
+        return (
+            <div className={className}>
+                <VerifyIcon
+                    className={classNames('size-4 shrink-0', {
+                        'text-[#FB3E5D]': profile.source === Source.Lens,
+                        'text-[#855DCD]': profile.source === Source.Farcaster,
+                    })}
+                    width={16}
+                    height={16}
+                />
+            </div>
+        );
+    }
     if (!icons.length) return null;
 
     return (
@@ -50,7 +63,7 @@ export function ProfileVerifyBadge({ profile, className }: Props) {
                 }
                 switch (icon.source) {
                     case Source.Farcaster:
-                        return <PowerUserIcon key={i} className="size-4 shrink-0" width={16} height={16} />;
+                        return <VerifyIcon key={i} className="size-4 shrink-0" width={16} height={16} />;
                     case Source.Lens:
                         return null;
                     case Source.Twitter:

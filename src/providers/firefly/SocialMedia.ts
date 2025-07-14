@@ -368,7 +368,11 @@ class FireflySocialMedia implements Provider {
             if (!response.data) {
                 throw new Error(`Profile ${handle} doesn't exist.`);
             }
-            return formatFireflyFarcasterProfile(response.data);
+            const neynarProfile = await NeynarSocialMediaProvider.getProfileById(response.data.fid.toString());
+            return {
+                ...formatFireflyFarcasterProfile(response.data),
+                isProUser: neynarProfile.isProUser,
+            };
         });
     }
 
@@ -434,10 +438,7 @@ class FireflySocialMedia implements Provider {
             );
             const user = resolveFireflyResponseData(response);
             const friendship = await this.getFriendship(profileId);
-            return formatFarcasterProfileFromFirefly({
-                ...user,
-                ...friendship,
-            });
+            return formatFarcasterProfileFromFirefly({ ...user, ...friendship });
         });
     }
 

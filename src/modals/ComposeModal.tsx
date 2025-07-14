@@ -11,7 +11,7 @@ import { delay } from '@masknet/kit';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { RouterProvider } from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
-import { compact, flatten, values } from 'lodash-es';
+import { compact, values } from 'lodash-es';
 import { useCallback, useMemo, useRef } from 'react';
 import { useAsync, useUpdateEffect } from 'react-use';
 import { None } from 'ts-results-es';
@@ -162,14 +162,10 @@ function ComposeModalUI({ ref }: Props) {
         if (posts.some((x) => !isEmptyPost(x))) {
             const errorsSource = [
                 ...new Set(
-                    flatten(
-                        posts.map((x) => {
-                            // Failed source obtained
-                            return compact(
-                                Object.entries(x.postError).map(([key, value]) => (value ? key : undefined)),
-                            );
-                        }),
-                    ),
+                    posts.flatMap((x) => {
+                        // Failed source obtained
+                        return compact(Object.entries(x.postError).map(([key, value]) => (value ? key : undefined)));
+                    }),
                 ),
             ] as SocialSource[];
 

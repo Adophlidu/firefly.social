@@ -53,3 +53,9 @@ export interface LensCredentials {
     refreshToken: RefreshToken;
     idToken: IdToken;
 }
+
+declare module '@lens-protocol/client' {
+    export interface Account {
+        hasSubscribed: boolean;
+    }
+}

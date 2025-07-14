@@ -1,4 +1,5 @@
 import {
+    type Account,
     AccountReportReason,
     AccountsOrderBy,
     GroupsOrderBy,
@@ -293,7 +294,7 @@ class LensSocialMedia implements Provider {
         );
 
         return createPageable(
-            result.items.map((x) => formatLensProfileV3(x.account)),
+            result.items.map((x) => formatLensProfileV3(x.account as Account)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -442,7 +443,7 @@ class LensSocialMedia implements Provider {
             }),
         );
         return profiles.items.map((x) => ({
-            ...formatLensProfileV3(x.account),
+            ...formatLensProfileV3(x.account as Account),
             profileType: x.__typename,
         }));
     }
@@ -772,7 +773,7 @@ class LensSocialMedia implements Provider {
         );
 
         return createPageable(
-            result.items.map((x) => formatLensProfileV3(x.follower)),
+            result.items.map((x) => formatLensProfileV3(x.follower as Account)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -788,7 +789,7 @@ class LensSocialMedia implements Provider {
         );
 
         return createPageable(
-            result.items.map((x) => formatLensProfileV3(x.following)),
+            result.items.map((x) => formatLensProfileV3(x.following as Account)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -809,7 +810,7 @@ class LensSocialMedia implements Provider {
         );
 
         return createPageable(
-            result.items.map((x) => formatLensProfileV3(x.follower)),
+            result.items.map((x) => formatLensProfileV3(x.follower as Account)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -1169,7 +1170,7 @@ class LensSocialMedia implements Provider {
             }),
         );
         if (!result) throw new Error('No one likes this post yet.');
-        const profiles = result.items.map((item) => formatLensProfileV3(item.account));
+        const profiles = result.items.map((item) => formatLensProfileV3(item.account as Account));
         return createPageable(
             profiles,
             createIndicator(indicator),

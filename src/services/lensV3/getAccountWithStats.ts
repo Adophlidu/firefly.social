@@ -8,6 +8,7 @@ import {
 } from '@lens-protocol/client';
 
 import { lensApolloClient } from '@/configs/lensApolloClient.js';
+import { LENS_PRO_GROUP_ID } from '@/constants/lens.js';
 import { formatLensProfileV3 } from '@/helpers/formatLensProfile.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -20,16 +21,23 @@ async function getAccountWithStats(
         {
             account: Account;
             accountStats: AccountStats;
+            proGroupId: string;
         },
         {
             accountRequest: AccountRequest;
             accountStatsRequest: AccountStatsRequest;
+            proGroupId: string;
         }
     >({
         query: gql`
-            query FullAccount($accountRequest: AccountRequest!, $accountStatsRequest: AccountStatsRequest!) {
+            query FullAccount(
+                $accountRequest: AccountRequest!
+                $accountStatsRequest: AccountStatsRequest!
+                $proGroupId: String!
+            ) {
                 account(request: $accountRequest) {
                     ...Account
+                    hasSubscribed: isMemberOf(request: { group: $proGroupId })
                 }
                 accountStats(request: $accountStatsRequest) {
                     graphFollowStats {
@@ -43,6 +51,7 @@ async function getAccountWithStats(
         variables: {
             accountRequest,
             accountStatsRequest,
+            proGroupId: LENS_PRO_GROUP_ID,
         },
     });
 
