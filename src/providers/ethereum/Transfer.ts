@@ -7,7 +7,6 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isGreaterThan, isLessThan, isZero, leftShift, multipliedBy, rightShift } from '@/helpers/number.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
-import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { getAvailableBalance } from '@/providers/ethereum/getAvailableBalance.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
@@ -25,8 +24,6 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
         const hash = this.isNativeToken(token)
             ? await this.transferNative(options)
             : await this.transferContract({ ...options, token });
-
-        await waitForEthereumTransaction(options.token.chainId, hash);
         return hash;
     }
 

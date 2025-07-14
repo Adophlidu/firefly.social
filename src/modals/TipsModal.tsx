@@ -43,11 +43,13 @@ function formatTipsProfiles(profiles: FireflyProfile[]) {
             return profile.identity.source === Source.Wallet && TIPS_SUPPORT_NETWORKS.includes(origin.blockchain);
         })
         .map((profile) => {
-            const { address, primary_ens, blockchain } = profile.__origin__ as WalletProfile;
+            const { address, primary_ens, blockchain, avatar } = profile.__origin__ as WalletProfile;
             return {
                 ...profile,
                 displayName: primary_ens || formatAddressEthereum(address, 8),
                 address,
+                avatar,
+                ens: primary_ens || undefined,
                 networkType: blockchain,
             };
         });

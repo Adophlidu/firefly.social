@@ -8,17 +8,19 @@ import TipsIcon from '@/assets/tips.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
+import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { TipsModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface TipsProps extends HTMLProps<HTMLButtonElement> {
@@ -55,13 +57,19 @@ export function Tips({
                 openLoginModal({ source: post?.source });
                 return;
             }
-            const relatedProfiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(
-                identity,
-                isAuthRequired,
-            );
+            const fireflyProfiles = await queryClient.fetchQuery({
+                queryKey: ['firefly-profile', identity.source, identity.id],
+                staleTime: 1000 * 60 * 10, // 10 minutes
+                queryFn: () => FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, isAuthRequired),
+            });
+            const relatedProfiles = formatFireflyProfilesFromWalletProfiles(fireflyProfiles) as FireflyProfile[];
             if (!relatedProfiles?.some((profile) => profile.identity.source === Source.Wallet)) {
-                throw new Error('No available profiles');
+                const fireflyAccountName = fireflyProfiles.account?.displayName;
+                const displayName = fireflyAccountName || (handle ? `@${handle}` : identity.id);
+                enqueueInfoMessage(t`Sorry, we are not able to find a wallet for ${displayName}.`);
+                return;
             }
+
             onClick?.();
             TipsModalRef.open({
                 identity,
@@ -71,7 +79,7 @@ export function Tips({
                 post,
             });
         } catch (error) {
-            enqueueInfoMessage(t`Sorry, we are not able to find a wallet for ${handle ? '@' + handle : identity.id}.`);
+            enqueueErrorMessage(t`Failed to open tip, please try again later.`);
             throw error;
         }
     }, [identity, onClick, handle, pureWallet, post, isLogin, isAuthRequired]);

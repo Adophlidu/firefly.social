@@ -55,9 +55,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, sele
 msgid "Tomorrow at {0}"
 msgstr "明天 {0}"
 
-msgid "Tip transaction completed!"
-msgstr "打赏交易完成！"
-
 msgid "Muted"
 msgstr "已隐藏"
 
@@ -1500,6 +1497,9 @@ msgstr "您确定要举报这个系列吗？"
 msgid "{0} tipped you <0>{1} ${2}</0> on <1>{3}</1>"
 msgstr "{0} 在 <1>{3}</1> 打赏了你 <0>{1} ${2}</0>"
 
+msgid "Custom token amount"
+msgstr ""
+
 msgid "Failed to send."
 msgstr "发送失败。"
 
@@ -1933,12 +1933,6 @@ msgstr "只有你提及的人"
 msgid "{0} turned in"
 msgstr "{0} 提交了"
 
-#. placeholder {0}: '$'
-#. placeholder {1}: token?.symbol
-#. placeholder {2}: handle || recipient?.displayName
-msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
-msgstr "你成功发送了 <0>{amount} {0}{1}</0> 的打赏给 <1>{2}</1>！"
-
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "此代币不是由其声明的团队发布的。某些骗子将创建一个相同名称的代币来欺诈用户。"
 
@@ -2135,6 +2129,9 @@ msgstr "搜索 ${symbol}"
 msgid "Failed to unmute /{0}."
 msgstr "取消隐藏失败/{0}。"
 
+msgid "Custom amount is required for this token"
+msgstr ""
+
 msgid "Cover background"
 msgstr "封面背景"
 
@@ -2189,6 +2186,9 @@ msgstr "展示更多小额代币"
 #. placeholder {0}: status.payload.farcasterChannelId
 msgid "Member of <0>/{0}</0>"
 msgstr "<0>/{0}</0> 的成员"
+
+msgid "Failed to open tip, please try again later."
+msgstr ""
 
 msgid "Requirements"
 msgstr "条件"
@@ -2320,10 +2320,6 @@ msgstr "UID: {0}"
 
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "所有者可以为每个指定地址设置不同的税率。"
-
-#. placeholder {0}: mentionHandle || recipient?.displayName
-msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
-msgstr "在帖子中标记 {0}，让他知道你已向他的钱包打赏了一笔链上小费。"
 
 #. placeholder {0}: nFormatter(collection.items_total || 0)
 msgid "{0}<0> Items</0>"
@@ -2595,10 +2591,6 @@ msgstr "点赞"
 msgid "Contract Address"
 msgstr "合约地址"
 
-#. placeholder {0}: handle || recipient.displayName
-msgid "Send a tip to @{0}"
-msgstr "发送打赏给 @{0}"
-
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能未启用。如果存在白名单，某些地址可能无法正常交易（欺诈风险）。"
 
@@ -2723,6 +2715,9 @@ msgstr "未找到与 \"{keyword}\" 相关的结果"
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "如果该功能存在，项目方即使放弃所有权后仍可能重新获得控制权"
 
+msgid "Sorry, we are not able to find a wallet for {displayName}."
+msgstr ""
+
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
 msgstr "权威 Top 100 榜单｜数据来源：<0>X3</0>"
 
@@ -2751,6 +2746,9 @@ msgstr "连接Solana钱包"
 
 msgid "Unexpected step for verifying password: {step}."
 msgstr "验证密码时出现意外步骤：{step}。"
+
+msgid "Transaction completed!"
+msgstr ""
 
 msgid "Choose or set the handles for cross at."
 msgstr "选择或设置跨平台@所使用的用户名。"
@@ -2825,7 +2823,9 @@ msgstr "{0, plural, =1 {{1}} =2 {{2}} =3 {{3}} =4 {{4}} other {{5}}}"
 msgid "View engagements"
 msgstr "查看互动"
 
+#. placeholder {0}: token.balance
 #. placeholder {0}: token.balance || '0'
+#. placeholder {1}: token.symbol?.toUpperCase()
 #. placeholder {1}: token.symbol || '-'
 msgid "Balance: {0} {1}"
 msgstr "余额： {0} {1}"
@@ -3021,6 +3021,9 @@ msgstr "在{3}回复 <0>@{0}</0>，<1>@{1}</1> 和 <2>其他{2} 人</2>"
 
 msgid "No phishing site."
 msgstr "未发现钓鱼网站。"
+
+msgid "Custom amount"
+msgstr ""
 
 #. placeholder {0}: filteredProfiles[0].handle
 #. placeholder {1}: filteredProfiles[1].handle
@@ -3470,9 +3473,6 @@ msgstr "预估手续费"
 
 msgid "Sorry, we are not able to find this collection"
 msgstr "对不起，未找到此系列"
-
-msgid "View transaction on explorer"
-msgstr "查看交易详情"
 
 msgid "<0>You</0> reposted"
 msgstr "<0>你</0> 转发了"
@@ -3926,6 +3926,9 @@ msgstr "未发现"
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "发布于 {0} <0>{sendFrom}</0>"
 
+msgid "The transaction is in progress.<0/>You can check its status in history."
+msgstr ""
+
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr "合约所有者对个人滑点没有限制。"
 
@@ -4203,11 +4206,17 @@ msgstr "不可转发"
 msgid "{0} Users"
 msgstr "{0} 用户"
 
+msgid "Choose Wallet"
+msgstr ""
+
 msgid "%Owned"
 msgstr "%拥有"
 
 msgid "Final results"
 msgstr "最终结果"
+
+msgid "Transaction failed"
+msgstr ""
 
 msgid "Status"
 msgstr "状态"
@@ -4515,6 +4524,9 @@ msgstr "退款成功。"
 
 msgid "Remind me later"
 msgstr "稍后提醒我"
+
+msgid "Choose a token to send"
+msgstr ""
 
 msgid "Copy link"
 msgstr "复制链接"

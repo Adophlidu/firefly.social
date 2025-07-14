@@ -1,22 +1,26 @@
-import { createMemoryHistory, createRootRoute, createRoute, createRouter, Outlet } from '@tanstack/react-router';
+import { Trans } from '@lingui/react/macro';
+import { createMemoryHistory, createRootRoute, createRoute, createRouter } from '@tanstack/react-router';
 
 import { Loading } from '@/components/Loading.js';
 import { NoAvailableWallet } from '@/components/Tips/NoAvailableWallet.js';
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
-import { TipSuccess } from '@/components/Tips/TipSuccess.js';
-import { TipsUI } from '@/components/Tips/TipsUI.js';
 import { TokenSelector } from '@/components/Tips/TokenSelector.js';
+import { RootView } from '@/components/Tips/views/RootView.js';
+import { SuccessView } from '@/components/Tips/views/SuccessView.js';
+import { TipsMainView } from '@/components/Tips/views/TipsMainView.js';
+import { TipsRecipientListView } from '@/components/Tips/views/TipsRecipientListView.js';
 
 export enum TipsRoutePath {
     TIPS = '/tips',
     NO_AVAILABLE_WALLET = '/no-available-wallet',
     SELECT_TOKEN = '/select-token',
+    SELECT_RECIPIENT = '/select-recipient',
     LOADING = '/',
     SUCCESS = '/success',
 }
 
 const tipsRootRoute = createRootRoute({
-    component: () => <Outlet />,
+    component: RootView,
 });
 
 const noAvailableWalletRoute = createRoute({
@@ -28,13 +32,34 @@ const noAvailableWalletRoute = createRoute({
 const tipsRoute = createRoute({
     getParentRoute: () => tipsRootRoute,
     path: TipsRoutePath.TIPS,
-    component: TipsUI,
+    component: TipsMainView,
+    beforeLoad: () => {
+        return {
+            title: <Trans>Tip</Trans>,
+        };
+    },
 });
 
 const tokenSelectRoute = createRoute({
     getParentRoute: () => tipsRootRoute,
     path: TipsRoutePath.SELECT_TOKEN,
     component: TokenSelector,
+    beforeLoad: () => {
+        return {
+            title: <Trans>Select Token</Trans>,
+        };
+    },
+});
+
+const recipientSelectRoute = createRoute({
+    getParentRoute: () => tipsRootRoute,
+    path: TipsRoutePath.SELECT_RECIPIENT,
+    component: TipsRecipientListView,
+    beforeLoad: () => {
+        return {
+            title: <Trans>Choose Wallet</Trans>,
+        };
+    },
 });
 
 const loadingRoute = createRoute({
@@ -51,7 +76,7 @@ const loadingRoute = createRoute({
 const successRoute = createRoute({
     getParentRoute: () => tipsRootRoute,
     path: TipsRoutePath.SUCCESS,
-    component: TipSuccess,
+    component: SuccessView,
 });
 
 const routeTree = tipsRootRoute.addChildren([
@@ -60,6 +85,7 @@ const routeTree = tipsRootRoute.addChildren([
     tokenSelectRoute,
     loadingRoute,
     successRoute,
+    recipientSelectRoute,
 ]);
 
 const memoryHistory = createMemoryHistory({

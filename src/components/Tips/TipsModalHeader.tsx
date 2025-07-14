@@ -20,7 +20,10 @@ export function TipsModalHeader({ title, back = false }: TipsModalHeaderProps) {
     const isSmall = useIsSmall('max');
 
     return (
-        <Dialog.Title as="h3" className="relative mb-6 flex shrink-0 justify-center text-center pt-safe">
+        <Dialog.Title
+            as="h3"
+            className="relative mb-4 flex h-10 shrink-0 items-center justify-center text-center pt-safe"
+        >
             <span className="absolute left-0 top-1/2 -translate-y-1/2 text-fourMain">
                 {back ? (
                     <Tooltip placement="top" content={<Trans>Back</Trans>}>
