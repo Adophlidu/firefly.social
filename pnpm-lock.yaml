@@ -4800,13 +4800,11 @@ packages:
       '@gql.tada/svelte-support': 1.0.1
       '@gql.tada/vue-support': 1.0.1
       graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
-      typescript: ^5.0.0 || 5
+      typescript: ^5.0.0
     peerDependenciesMeta:
       '@gql.tada/svelte-support':
         optional: true
       '@gql.tada/vue-support':
-        optional: true
-      typescript:
         optional: true
     dependencies:
       '@0no-co/graphqlsp': 1.12.16(graphql@16.10.0)(typescript@5.7.3)
@@ -5413,7 +5411,7 @@ packages:
   /@lens-protocol/storage@0.0.0-canary-20250707123651:
     resolution: {integrity: sha512-+CAddJwxeX1WoLmRq183wMo9N8ovfi0lLD0R3mAyPT5hAVJtci3+stzhoTejQ1dYU4YQwszikLD2ZUj8kLjzsQ==}
     dependencies:
-      '@lens-protocol/types': 0.0.0-canary-20250416195649
+      '@lens-protocol/types': 0.0.0-canary-20250707123651
       zod: 3.25.67
     dev: false
 
@@ -16983,11 +16981,6 @@ packages:
       chalk: 4.1.2
       is-unicode-supported: 0.1.0
     dev: true
-
-  /loglevel@1.9.2:
-    resolution: {integrity: sha512-HgMmCqIJSAKqo68l0rS2AanEWfkxaZ5wNiEFb5ggm08lDs9Xl2KxBlX3PTcaD2chBM1gXAYf491/M2Rv8Jwayg==}
-    engines: {node: '>= 0.6.0'}
-    dev: false
 
   /lokijs@1.5.12:
     resolution: {integrity: sha512-Q5ALD6JiS6xAUWCwX3taQmgwxyveCtIIuL08+ml0nHwT3k0S/GIFJN+Hd38b1qYIMaE5X++iqsqWVksz7SYW+Q==}
