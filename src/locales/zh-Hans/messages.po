@@ -479,6 +479,9 @@ msgstr "热门"
 msgid "View similar symbols"
 msgstr "查看名称相似的代币"
 
+msgid "Validate failed, please try again."
+msgstr ""
+
 msgid "MAX"
 msgstr "最大"
 

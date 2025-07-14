@@ -474,6 +474,9 @@ msgstr ""
 msgid "View similar symbols"
 msgstr ""
 
+msgid "Validate failed, please try again."
+msgstr ""
+
 msgid "MAX"
 msgstr ""
 

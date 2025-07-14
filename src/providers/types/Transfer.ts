@@ -27,4 +27,5 @@ export interface TransferProvider<ChainIdLike = number, AddressLike = string, Ha
     validateBalance: (options: TransactionOptions<ChainIdLike, AddressLike>) => Promise<boolean>;
     validateGas: (options: TransactionOptions<ChainIdLike, AddressLike>) => Promise<boolean>;
     getAvailableBalance: (options: TransactionOptions<ChainIdLike, AddressLike>) => Promise<string>;
+    waitForTransaction: (hash: HashLike, chainId: number) => Promise<void>;
 }

@@ -316,7 +316,7 @@ export const SORTED_NOTIFICATIONS_SOURCES: NotificationSource[] = [
     Source.Lens,
 ];
 
-export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum];
+export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum, NetworkType.Solana];
 
 // Lens
 export const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';

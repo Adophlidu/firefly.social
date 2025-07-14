@@ -1,11 +1,11 @@
 import { web3 } from '@coral-xyz/anchor';
+import { createTransferInstruction } from '@solana/spl-token';
 
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { isGreaterThan, rightShift } from '@/helpers/number.js';
 import { parseSolToLamports } from '@/helpers/parseSolToLamports.js';
-import { createTransferInstruction } from '@/providers/solana/createTransferInstruction.js';
 import { getOrCreateAssociatedTokenAccount } from '@/providers/solana/getOrCreateAssociatedTokenAccount.js';
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';
 import { getWalletAdapter } from '@/providers/solana/getWalletAdapter.js';
@@ -30,7 +30,6 @@ class Provider implements TransferProvider<SolanaChainId> {
                 ? await this.transferNative(options)
                 : await this.transferContract({ ...options, token });
 
-        await this.connection.confirmTransaction(signature, 'processed');
         return signature;
     }
 
@@ -50,10 +49,15 @@ class Provider implements TransferProvider<SolanaChainId> {
     }
 
     async validateGas(options: TransactionOptions<SolanaChainId>): Promise<boolean> {
-        const nativeBalance = await getNativeTokenBalance(await SolanaNetwork.getAccount(), SolanaChainId.Mainnet);
+        const account = await SolanaNetwork.getAccount();
+        const nativeBalance = await getNativeTokenBalance(account, SolanaChainId.Mainnet);
         const transaction = await this.getTransferTransaction(options);
+        const blockHash = await this.connection.getLatestBlockhash();
+        transaction.feePayer = new web3.PublicKey(account);
+        transaction.recentBlockhash = blockHash.blockhash;
+
         const fees = await transaction.getEstimatedFee(this.connection);
-        return fees !== null ? !isGreaterThan(fees, nativeBalance.value) : false;
+        return fees ? !isGreaterThan(fees, nativeBalance.value) : false;
     }
 
     async getAvailableBalance({ token }: TransactionOptions<SolanaChainId>): Promise<string> {
@@ -138,6 +142,10 @@ class Provider implements TransferProvider<SolanaChainId> {
                 Number.parseInt(options.amount, 10),
             ),
         );
+    }
+
+    async waitForTransaction(signature: string, chainId: number): Promise<void> {
+        await this.connection.confirmTransaction(signature, 'processed');
     }
 }
 

@@ -474,6 +474,9 @@ msgstr "Trending"
 msgid "View similar symbols"
 msgstr "View similar symbols"
 
+msgid "Validate failed, please try again."
+msgstr "Validate failed, please try again."
+
 msgid "MAX"
 msgstr "MAX"
 

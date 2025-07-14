@@ -6,21 +6,18 @@ import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
-import { useAsync, useAsyncFn } from 'react-use';
-import type { Hash } from 'viem';
+import { useAsyncFn, useAsyncRetry } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { NetworkType } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isZero } from '@/helpers/number.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { trimify } from '@/helpers/trimify.js';
-import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
 import { reportAndCaptureTipEvent } from '@/services/reportAndCaptureTipEvent.js';
@@ -38,7 +35,8 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         value,
         loading: isValidating,
         error,
-    } = useAsync(async () => {
+        retry,
+    } = useAsyncRetry(async () => {
         if (token && !token.price && !amount) {
             return {
                 label: <Trans>Custom amount is required for this token</Trans>,
@@ -92,12 +90,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                 amount,
             });
             update((prev) => ({ ...prev, hash }));
-            if (recipient.networkType === NetworkType.Ethereum) {
-                await waitForEthereumTransaction(token.chainId, hash as Hash);
-            } else if (recipient.networkType === NetworkType.Solana) {
-                // TODO: Implement wait for Solana transaction
-                throw new NotImplementedError();
-            }
+            await transfer.waitForTransaction(hash, token.chainId);
             reportAndCaptureTipEvent(identity, await network.getAccount(), recipient, token, amount, hash);
 
             enqueueSuccessMessage(t`Tip sent successfully!`);
@@ -111,6 +104,24 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
     }, [connected, onConnect, recipient, token, update, amount, identity]);
 
     const disabled = !connected ? false : isValidating || isSending || !!value?.disabled || !!error;
+
+    if (error) {
+        return (
+            <motion.button
+                className={classNames(
+                    'mt-4 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-lightMain font-bold text-lightBottom dark:text-darkBottom',
+                    isValidating ? 'cursor-not-allowed opacity-50' : '',
+                )}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => {
+                    if (isValidating) return;
+                    retry();
+                }}
+            >
+                {isValidating ? <LoadingIcon size={20} /> : <Trans>Validate failed, please try again.</Trans>}
+            </motion.button>
+        );
+    }
 
     if (isSending && !hasError && hash) {
         return (
