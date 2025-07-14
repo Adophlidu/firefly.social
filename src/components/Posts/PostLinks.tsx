@@ -50,14 +50,24 @@ export const PostLinks = memo(function PostLinks({ post, isInCompose = false }: 
 
     const content = post.metadata.content?.content;
     useEffect(() => {
-        if (data && url && content) {
+        if (!url || !content) return;
+
+        if (isLoading) {
             patchPostQueryData(post.source, post.postId, (draft) => {
                 if (draft.metadata.content?.content) {
                     draft.metadata.content.truncatedContent = removeAtEnd(draft.metadata.content.content, url);
                 }
             });
+            return;
         }
-    }, [data, url, content, post.source, post.postId]);
+        if (!data) {
+            patchPostQueryData(post.source, post.postId, (draft) => {
+                if (draft.metadata.content?.content) {
+                    draft.metadata.content.truncatedContent = draft.metadata.content.content;
+                }
+            });
+        }
+    }, [data, url, content, post.source, post.postId, isLoading]);
 
     if (!url || isLoading || error || !data) return null;
 
