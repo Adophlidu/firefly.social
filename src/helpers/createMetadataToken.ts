@@ -29,7 +29,6 @@ export async function createMetadataToken(
     });
     if (!token) return createSiteMetadata(pathname);
 
-    if (!token) return createSiteMetadata(pathname);
     const title = createPageTitleOG(`$${token.symbol.toUpperCase()}`);
     const description = token.name;
     const ogImage = token.logoURL;
