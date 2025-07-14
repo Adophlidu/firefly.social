@@ -25,7 +25,7 @@ export default function Page() {
             return <SearchTokenContent />;
         case SearchType.NFTs:
             return <SearchCollectionContent />;
-        case SearchType.Communities:
+        case SearchType.Clubs:
             return <SearchCommunityContent />;
         default:
             safeUnreachable(searchType);

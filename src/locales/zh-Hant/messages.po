@@ -464,9 +464,6 @@ msgstr "貼文互動"
 msgid "No financial crime found."
 msgstr "未發現金融犯罪。"
 
-msgid "Manage the accounts, wallets, and communities that you’ve muted."
-msgstr "管理您已隱藏的帳戶、錢包和群組。"
-
 msgid "Muted {handleOrEnsOrAddress}."
 msgstr "隱藏 {handleOrEnsOrAddress}。"
 
@@ -1102,9 +1099,6 @@ msgstr "全部隱藏"
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "使用來源{source}生成簽名包失敗。"
-
-msgid "Search community"
-msgstr "搜尋群組"
 
 msgid "Save failed post?"
 msgstr "儲存失敗貼文？"
@@ -1970,6 +1964,9 @@ msgstr "允許追蹤模組"
 msgid "Your posts have published successfully on {0}."
 msgstr "貼文已成功發佈至 {0}"
 
+msgid "Manage the accounts, wallets, and clubs that you’ve muted."
+msgstr ""
+
 msgid "Description"
 msgstr "描述"
 
@@ -2441,6 +2438,9 @@ msgstr "擁有者不可出售全部代幣。"
 
 msgid "Search token"
 msgstr "搜尋代幣"
+
+msgid "Search clubs"
+msgstr ""
 
 msgid "Details"
 msgstr "詳細資訊"
@@ -3508,6 +3508,9 @@ msgstr "保存於 {0} {1}"
 
 msgid "No profile found"
 msgstr "找不到任意帳戶"
+
+msgid "Clubs"
+msgstr ""
 
 #. placeholder {0}: dayjs(scheduleTime).format('DD MMM, YYYY')
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')

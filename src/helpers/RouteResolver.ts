@@ -29,7 +29,7 @@ export class RouteResolver {
         return getProfileUrl(profile, category, isCurrentProfile);
     }
     static post() {}
-    static community() {}
+    static club() {}
     static token() {}
     static nft() {}
     static article() {}

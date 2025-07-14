@@ -1,34 +1,34 @@
 import urlcat from 'urlcat';
 
-import { CommunityType, SearchType, Source } from '@/constants/enum.js';
+import { ClubType, SearchType, Source } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 const TYPES_WITHOUT_SOURCE = [SearchType.Profiles, SearchType.NFTs, SearchType.Tokens];
 
-function resolveCommunityType(source: Source, communityType?: CommunityType) {
-    if (communityType) return communityType;
+function resolveClubType(source: Source, clubType?: ClubType) {
+    if (clubType) return clubType;
 
     switch (source) {
         case Source.Farcaster:
-            return CommunityType.FarcasterChannel;
+            return ClubType.FarcasterChannel;
         case Source.Lens:
-            return CommunityType.LensGroup;
+            return ClubType.LensGroup;
         case Source.Bsky:
-            return CommunityType.BskyFeed;
+            return ClubType.BskyFeed;
         default:
-            return communityType || CommunityType.FarcasterChannel;
+            return clubType || ClubType.FarcasterChannel;
     }
 }
 
-export function resolveSearchUrl(query: string, type?: SearchType, source?: Source, communityType?: CommunityType) {
+export function resolveSearchUrl(query: string, type?: SearchType, source?: Source, clubType?: ClubType) {
     // TODO: Support search articles
     const resolvedSource = !source || source === Source.Article ? Source.Farcaster : source;
-    const resolvedType = type === SearchType.Channels ? SearchType.Communities : type || SearchType.Posts;
+    const resolvedType = type === SearchType.Channels ? SearchType.Clubs : type || SearchType.Posts;
 
-    if (resolvedType === SearchType.Communities) {
-        return urlcat('/search/:type/:communityType', {
+    if (resolvedType === SearchType.Clubs) {
+        return urlcat('/search/:type/:clubType', {
             type: resolvedType,
-            communityType: resolveCommunityType(resolvedSource, communityType),
+            clubType: resolveClubType(resolvedSource, clubType),
             q: query,
         });
     }

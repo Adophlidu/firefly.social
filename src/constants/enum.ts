@@ -51,7 +51,7 @@ export enum PageRoute {
     Token = '/token/:symbol',
     Article = '/article/:id',
     ProfileDetail = '/profile/:source/:id',
-    Channel = '/community/:source/:id/:type',
+    Channel = '/club/:source/:id/:type',
     Event = '/event/:name',
     SettingConnected = '/settings/connected',
     SettingsMutes = '/settings/mutes',
@@ -211,7 +211,7 @@ export enum ExploreType {
     CryptoTrends = 'tokens',
     Projects = 'projects',
     TopProfiles = 'users',
-    TopChannels = 'communities',
+    TopChannels = 'clubs',
     TruthSocial = 'truth-social',
 }
 
@@ -228,7 +228,7 @@ export enum SearchType {
     Channels = 'channels',
     NFTs = 'nfts',
     Tokens = 'tokens',
-    Communities = 'communities',
+    Clubs = 'clubs',
 }
 
 /**
@@ -544,9 +544,9 @@ export enum ProfileEditableField {
     Bio = 'Bio',
 }
 
-export enum CommunityType {
-    FarcasterChannel = 'farcaster-channel',
+export enum ClubType {
     BskyFeed = 'bsky-feed',
+    FarcasterChannel = 'farcaster-channel',
     LensGroup = 'lens-group',
 }
 

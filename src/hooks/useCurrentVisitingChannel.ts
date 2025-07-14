@@ -19,7 +19,7 @@ export function useUpdateCurrentVisitingChannel(channel: Channel | null) {
 
 export function useCurrentVisitingChannel() {
     const pathname = usePathname();
-    const isChannelPage = isRoutePathname(pathname, '/community/:name/:type');
+    const isChannelPage = isRoutePathname(pathname, '/club/:name/:type');
     const channel = useValueRef(currentVisitingChannel);
     return isChannelPage && channel?.source === Source.Farcaster ? channel : null;
 }

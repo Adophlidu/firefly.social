@@ -17,7 +17,7 @@ export const MutedContents = memo(function MutedContents() {
     return (
         <ContentCard
             label={<Trans>Muted contents</Trans>}
-            description={<Trans>Manage the accounts, wallets, and communities that you’ve muted.</Trans>}
+            description={<Trans>Manage the accounts, wallets, and clubs that you’ve muted.</Trans>}
         >
             <div className="w-full">
                 {menus.map((menu) => (

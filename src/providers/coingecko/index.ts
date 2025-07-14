@@ -5,7 +5,7 @@ import urlcat from 'urlcat';
 import { TrendingType } from '@/constants/enum.js';
 import { COINGECKO_ROOT_URL, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { getCommunityLink } from '@/helpers/getCommunityLink.js';
+import { getClubLink } from '@/helpers/getCommunityLink.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
@@ -177,7 +177,7 @@ export class CoinGecko {
                 image_url: info.image.small,
                 tags: info.categories.filter(Boolean),
                 announcement_urls: info.links.announcement_url.filter(Boolean),
-                community_urls: getCommunityLink(
+                community_urls: getClubLink(
                     uniqBy(
                         [
                             twitter_url,

@@ -169,10 +169,10 @@ export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> 
     [Source.Bsky]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],
 };
 export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
-    [Source.Lens]: [SearchType.Posts, SearchType.Profiles, SearchType.Communities],
-    [Source.Farcaster]: [SearchType.Posts, SearchType.Profiles, SearchType.Communities],
+    [Source.Lens]: [SearchType.Posts, SearchType.Profiles, SearchType.Clubs],
+    [Source.Farcaster]: [SearchType.Posts, SearchType.Profiles, SearchType.Clubs],
     [Source.Twitter]: [SearchType.Posts, SearchType.Profiles],
-    [Source.Bsky]: [SearchType.Posts, SearchType.Profiles, SearchType.Communities],
+    [Source.Bsky]: [SearchType.Posts, SearchType.Profiles, SearchType.Clubs],
 };
 export const CHANNEL_TAB_TYPE: Record<SocialSource, ChannelTabType[]> = {
     [Source.Farcaster]: [ChannelTabType.Posts, ChannelTabType.Followers, ChannelTabType.Members],

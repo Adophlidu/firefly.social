@@ -16,10 +16,10 @@ import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
-import type { CommunityUrl } from '@/providers/types/Trending.js';
+import type { ClubUrl } from '@/providers/types/Trending.js';
 
 interface Props {
-    link: CommunityUrl;
+    link: ClubUrl;
     iconSize?: number;
 }
 
@@ -37,7 +37,7 @@ const brands = {
     other: LinkIcon,
 };
 
-export function CommunityLink({ link, iconSize = 16 }: Props) {
+export function ClubLink({ link, iconSize = 16 }: Props) {
     const isTwitterLogin = useIsLogin(Source.Twitter);
 
     const isTwitter = link.type === 'twitter';

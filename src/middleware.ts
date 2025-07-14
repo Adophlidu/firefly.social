@@ -7,6 +7,7 @@ import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { parseOldDiscoverUrl } from '@/helpers/parseDiscoverUrl.js';
 import { parseOldEngagementUrl } from '@/helpers/parseEngagementUrl.js';
 import { parseOldBookmarkUrl } from '@/helpers/parseOldBookmarkUrl.js';
+import { parseOldCommunityUrl } from '@/helpers/parseOldCommunityUrl.js';
 import { parseOldExploreUrl } from '@/helpers/parseOldExploreUrl.js';
 import { parseOldFollowingUrl } from '@/helpers/parseOldFollowingUrl.js';
 import { parseOldNftUrl } from '@/helpers/parseOldNftUrl.js';
@@ -16,6 +17,7 @@ import { parseOldSwapUrl } from '@/helpers/parseOldSwapUrl.js';
 import { parseOldPostUrl } from '@/helpers/parsePostUrl.js';
 import { parseOldProfileUrl, parseProfileUrl } from '@/helpers/parseProfileUrl.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
+import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
@@ -164,6 +166,17 @@ export async function middleware(request: NextRequest) {
         return NextResponse.next({
             request,
         });
+    }
+
+    const parsedOldCommunityUrl = parseOldCommunityUrl(request.nextUrl);
+    if (parsedOldCommunityUrl) {
+        const destination = request.nextUrl.clone();
+        destination.pathname = resolveChannelUrl(
+            parsedOldCommunityUrl.id,
+            parsedOldCommunityUrl.source,
+            parsedOldCommunityUrl.type,
+        );
+        return NextResponse.redirect(destination);
     }
 
     if (pathname.startsWith('/profile/lens/')) {

@@ -28,7 +28,7 @@ interface Props
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source = SourceInURL.Farcaster, id, type = ChannelTabType.Posts } = await props.params;
-    return createPageMetadata(`/community/${source}/${id}/${type}`, source, id);
+    return createPageMetadata(`/club/${source}/${id}/${type}`, source, id);
 }
 
 export default async function Layout(props: Props) {

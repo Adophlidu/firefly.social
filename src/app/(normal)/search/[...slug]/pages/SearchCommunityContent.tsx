@@ -3,19 +3,19 @@
 import { safeUnreachable } from '@masknet/kit';
 
 import { SearchChannelContent } from '@/app/(normal)/search/[...slug]/pages/SearchChannelContent.js';
-import { CommunityType } from '@/constants/enum.js';
+import { ClubType } from '@/constants/enum.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export function SearchCommunityContent() {
-    const { communityType } = useSearchStateStore();
+    const { clubType } = useSearchStateStore();
 
-    switch (communityType) {
-        case CommunityType.BskyFeed:
-        case CommunityType.FarcasterChannel:
-        case CommunityType.LensGroup:
+    switch (clubType) {
+        case ClubType.BskyFeed:
+        case ClubType.FarcasterChannel:
+        case ClubType.LensGroup:
             return <SearchChannelContent />;
         default:
-            safeUnreachable(communityType);
+            safeUnreachable(clubType);
             return null;
     }
 }

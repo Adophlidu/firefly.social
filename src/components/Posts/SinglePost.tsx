@@ -53,7 +53,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
     const isPostPage = isRoutePathname(pathname, '/post/:source');
     const isProfilePage = isRoutePathname(pathname, '/profile/:source');
-    const isChannelPage = isRoutePathname(pathname, '/community/:detail');
+    const isChannelPage = isRoutePathname(pathname, '/club/:detail');
     const isBookmarkPage = isRoutePathname(pathname, PageRoute.Bookmarks);
     const isFollowingPage = isRoutePathname(pathname, PageRoute.FollowingPosts, true);
     const postLink = getPostUrl(post);

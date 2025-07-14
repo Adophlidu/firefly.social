@@ -464,9 +464,6 @@ msgstr ""
 msgid "No financial crime found."
 msgstr ""
 
-msgid "Manage the accounts, wallets, and communities that you’ve muted."
-msgstr ""
-
 msgid "Muted {handleOrEnsOrAddress}."
 msgstr ""
 
@@ -1101,9 +1098,6 @@ msgid "Mute all"
 msgstr ""
 
 msgid "Failed to generate signature packet with source = {source}."
-msgstr ""
-
-msgid "Search community"
 msgstr ""
 
 msgid "Save failed post?"
@@ -1970,6 +1964,9 @@ msgstr ""
 msgid "Your posts have published successfully on {0}."
 msgstr ""
 
+msgid "Manage the accounts, wallets, and clubs that you’ve muted."
+msgstr ""
+
 msgid "Description"
 msgstr ""
 
@@ -2432,6 +2429,9 @@ msgid "Holders can not sell all of the token."
 msgstr ""
 
 msgid "Search token"
+msgstr ""
+
+msgid "Search clubs"
 msgstr ""
 
 msgid "Details"
@@ -3494,6 +3494,9 @@ msgid "Saved on {0} at {1}"
 msgstr ""
 
 msgid "No profile found"
+msgstr ""
+
+msgid "Clubs"
 msgstr ""
 
 #. placeholder {0}: dayjs(scheduleTime).format('DD MMM, YYYY')

@@ -1,6 +1,6 @@
-import type { CommunityUrl } from '@/providers/types/Trending.js';
+import type { ClubUrl } from '@/providers/types/Trending.js';
 
-export function getCommunityLink(links: string[]): CommunityUrl[] {
+export function getClubLink(links: string[]): ClubUrl[] {
     return links.map((x) => {
         const host = new URL(x).host;
         if (host === 'twitter.com' || host === 'x.com') return { type: 'twitter', link: x };

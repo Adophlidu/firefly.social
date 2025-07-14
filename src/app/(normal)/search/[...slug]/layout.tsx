@@ -2,10 +2,10 @@ import type { MessageDescriptor } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
 import { last } from 'lodash-es';
 
-import { CommunityTypeTab } from '@/components/Search/CommunityTypeTab.js';
+import { ClubTypeTab } from '@/components/Search/CommunityTypeTab.js';
 import { SearchSources } from '@/components/Search/SearchSources.js';
 import { SearchTabs } from '@/components/Search/SearchTabs.js';
-import { CommunityType, SearchType, SourceInURL } from '@/constants/enum.js';
+import { ClubType, SearchType, SourceInURL } from '@/constants/enum.js';
 import { notFound, redirect } from '@/esm/navigation/server.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
@@ -21,7 +21,7 @@ const resolveSearchTypeTitle = createLookupTableResolver<SearchType, MessageDesc
         [SearchType.Channels]: msg`Search channel`,
         [SearchType.NFTs]: msg`Search nft`,
         [SearchType.Tokens]: msg`Search token`,
-        [SearchType.Communities]: msg`Search community`,
+        [SearchType.Clubs]: msg`Search clubs`,
     },
     msg`Search`,
 );
@@ -35,8 +35,8 @@ function checkSlug(slug: string[]) {
         return ENABLED_SINGLE_SEARCH_TYPES.includes(slug[0] as SearchType);
     }
 
-    if (slug.length === 2 && slug[0] === SearchType.Communities) {
-        return isValidEnumValue(slug[1], CommunityType);
+    if (slug.length === 2 && slug[0] === SearchType.Clubs) {
+        return isValidEnumValue(slug[1], ClubType);
     }
 
     if (slug.length === 2) {
@@ -76,7 +76,7 @@ export default async function Layout(props: Props) {
     const searchParams = await props.searchParams;
 
     if (params.slug[1] === SearchType.Channels) {
-        redirect(resolveSearchUrl(searchParams.q, SearchType.Communities));
+        redirect(resolveSearchUrl(searchParams.q, SearchType.Clubs));
     }
 
     if (!checkSlug(params.slug)) notFound();
@@ -84,7 +84,7 @@ export default async function Layout(props: Props) {
     return (
         <div>
             <SearchTabs />
-            <CommunityTypeTab className="sticky top-[98px] z-20 bg-primaryBottom md:!top-[103px]" />
+            <ClubTypeTab className="sticky top-[98px] z-20 bg-primaryBottom md:!top-[103px]" />
             <SearchSources className="sticky top-[98px] z-20 bg-primaryBottom md:!top-[103px]" />
             {props.children}
         </div>

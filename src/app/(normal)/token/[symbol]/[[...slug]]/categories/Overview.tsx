@@ -11,7 +11,7 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
 import NotFound from '@/components/NotFound.js';
-import { CommunityLink } from '@/components/TokenProfile/CommunityLink.js';
+import { ClubLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -28,7 +28,7 @@ import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useDetectToken } from '@/hooks/useDetectToken.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { CommunityUrl, Contract } from '@/providers/types/Trending.js';
+import type { ClubUrl, Contract } from '@/providers/types/Trending.js';
 
 interface InfoRowProps extends Omit<HTMLProps<HTMLDivElement>, 'title'> {
     title: ReactNode;
@@ -284,7 +284,7 @@ export const Overview = memo<TokenOverviewProps>(function Overview({ coinId, cha
                         extra={
                             <div className="flex gap-2">
                                 {coin.community_urls.map((x) => (
-                                    <CommunityLink key={x.link} link={x} />
+                                    <ClubLink key={x.link} link={x} />
                                 ))}
                             </div>
                         }
@@ -320,7 +320,7 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
     const holders = detail.holders;
     const createAt = detail.pool_created_at;
     const links = detail.links;
-    const communityUrls: CommunityUrl[] = links
+    const communityUrls: ClubUrl[] = links
         ? ([
               {
                   type: 'twitter',
@@ -334,7 +334,7 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                   type: 'telegram',
                   link: links.telegram_handle ? `https://t.me/${links.telegram_handle}` : null,
               },
-          ].filter((x) => x.link) as CommunityUrl[])
+          ].filter((x) => x.link) as ClubUrl[])
         : [];
 
     return (
@@ -484,7 +484,7 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                         extra={
                             <div className="flex gap-2">
                                 {communityUrls.map((x) => (
-                                    <CommunityLink key={x.link} link={x} />
+                                    <ClubLink key={x.link} link={x} />
                                 ))}
                             </div>
                         }

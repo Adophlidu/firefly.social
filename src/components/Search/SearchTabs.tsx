@@ -4,7 +4,7 @@ import { Trans } from '@lingui/react/macro';
 import { type JSX, memo, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
-import { CommunityType, SearchType, type SocialSource, Source } from '@/constants/enum.js';
+import { ClubType, SearchType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SEARCH_TYPE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -12,43 +12,43 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
-function fixSearchUrl(query: string, type: SearchType, source: Source, communityType: CommunityType) {
+function fixSearchUrl(query: string, type: SearchType, source: Source, clubType: ClubType) {
     let resolvedSource = source;
     if (!SORTED_SEARCH_TYPE[source as SocialSource]?.includes(type)) {
         resolvedSource = SORTED_SOCIAL_SOURCES.find((x) => SORTED_SEARCH_TYPE[x].includes(type)) ?? Source.Farcaster;
     }
 
-    return resolveSearchUrl(query, type, resolvedSource, communityType);
+    return resolveSearchUrl(query, type, resolvedSource, clubType);
 }
 
 export const SearchTabs = memo(function SearchTabs() {
     const pathname = usePathname();
-    const { searchKeyword, source, communityType } = useSearchStateStore();
+    const { searchKeyword, source, clubType } = useSearchStateStore();
 
     const tabs = useMemo<Array<{ label: JSX.Element; link: string }>>(() => {
         return [
             {
                 label: <Trans>Posts</Trans>,
-                link: fixSearchUrl(searchKeyword, SearchType.Posts, source, communityType),
+                link: fixSearchUrl(searchKeyword, SearchType.Posts, source, clubType),
             },
             {
                 label: <Trans>Users</Trans>,
-                link: fixSearchUrl(searchKeyword, SearchType.Profiles, source, communityType),
+                link: fixSearchUrl(searchKeyword, SearchType.Profiles, source, clubType),
             },
             {
                 label: <Trans>Tokens</Trans>,
-                link: fixSearchUrl(searchKeyword, SearchType.Tokens, source, communityType),
+                link: fixSearchUrl(searchKeyword, SearchType.Tokens, source, clubType),
             },
             {
                 label: <Trans>NFTs</Trans>,
-                link: fixSearchUrl(searchKeyword, SearchType.NFTs, source, communityType),
+                link: fixSearchUrl(searchKeyword, SearchType.NFTs, source, clubType),
             },
             {
-                label: <Trans>Communities</Trans>,
-                link: fixSearchUrl(searchKeyword, SearchType.Communities, source, communityType),
+                label: <Trans>Clubs</Trans>,
+                link: fixSearchUrl(searchKeyword, SearchType.Clubs, source, clubType),
             },
         ];
-    }, [source, searchKeyword, communityType]);
+    }, [source, searchKeyword, clubType]);
 
     return (
         <nav className="no-scrollbar sticky top-[54px] z-20 flex w-full gap-x-4 overflow-x-auto border-b border-line bg-primaryBottom px-4 md:top-[57px]">
