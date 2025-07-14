@@ -41,17 +41,14 @@ export default async function Page(props: Props) {
     const tipsData = await runInSafeAsync(() =>
         FireflyEndpointProvider.getTipsTransactionDetail(hash, TipsNotificationType.Tip),
     );
+    if (tipsData) {
+        return <TipsDetail tipsData={tipsData} view={view} />;
+    }
 
     const swapData = await runInSafeAsync(() => FireflyEndpointProvider.getSwapActivityByHash(hash, chainId));
-
-    if (!swapData && !tipsData) notFound();
-
     if (swapData) {
         return <SwapDetail activity={swapData} />;
     }
 
-    if (tipsData) {
-        return <TipsDetail tipsData={tipsData} view={view} />;
-    }
-    return null;
+    notFound();
 }

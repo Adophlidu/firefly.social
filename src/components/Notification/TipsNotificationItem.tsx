@@ -19,6 +19,7 @@ import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { getChainName } from '@/helpers/getChainName.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useDefaultFireflyAvatar } from '@/hooks/useDefaultFireflyAvatar.js';
@@ -126,7 +127,13 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
                                     <span className="font-bold">{fromAccountInfo?.displayName || '-'}</span>
                                 )}{' '}
                                 tipped you{' '}
-                                <span className="font-bold">{`${formatTokenAmount(data.amount)} $${data.token_symbol}`}</span>{' '}
+                                <Link
+                                    href={resolveTokenPageUrl({
+                                        identity: data.token_symbol,
+                                        chainId: data.chain_id,
+                                    })}
+                                    className="font-bold"
+                                >{`${formatTokenAmount(data.amount)} $${data.token_symbol}`}</Link>{' '}
                                 on <span className="font-bold">{getChainName(data.chain_id)}</span>
                             </Trans>
                         ) : (

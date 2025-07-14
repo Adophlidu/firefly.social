@@ -21,6 +21,7 @@ import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { multipliedBy } from '@/helpers/number.js';
+import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import type { TipsAccountInfo, TipsDetail as TipsDetailType } from '@/providers/types/Firefly.js';
 
@@ -141,7 +142,13 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                         )}
                     </div>
                     <div className="flex items-center justify-between rounded-lg bg-lightBg p-3">
-                        <div className="flex items-center gap-2">
+                        <Link
+                            href={resolveTokenPageUrl({
+                                identity: tipsData.token_symbol,
+                                chainId: tipsData.chain_id,
+                            })}
+                            className="flex items-center gap-2"
+                        >
                             {tipsData.token_icon ? (
                                 <Image
                                     alt={tipsData.token_symbol}
@@ -155,7 +162,7 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                                 <span className="text-base font-medium text-main">{tipsData.token_name}</span>
                                 <span className="text-sm text-second">{tipsData.token_symbol}</span>
                             </div>
-                        </div>
+                        </Link>
                         <div className="flex flex-col">
                             <span
                                 className={classNames(
