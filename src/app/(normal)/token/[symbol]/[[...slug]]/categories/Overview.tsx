@@ -18,6 +18,8 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { Link as OriginalLink } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { formatAge } from '@/helpers/formatAge.js';
+import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { formatDate } from '@/helpers/formatTimestamp.js';
 import { getChainInfo } from '@/helpers/getChainInfo.js';

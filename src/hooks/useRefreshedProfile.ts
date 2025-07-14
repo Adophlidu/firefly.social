@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function useRefreshedProfile(profile: Profile, enabled = true) {
