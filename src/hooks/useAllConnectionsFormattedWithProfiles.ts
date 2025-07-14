@@ -6,12 +6,15 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { getSocialConnectionsWithProfile } from '@/services/getSocialConnectionsWithProfile.js';
+import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 export function useAllConnectionsFormattedWithProfiles(options?: { enabled?: boolean }) {
     const profileAll = useProfileStoreAll();
-    const queryKeyProfileIds = Object.entries(profileAll).flatMap(([, profile]) =>
-        profile.accounts.map((x) => x.profile.profileId),
-    );
+    const { accounts } = useThirdPartyStateStore();
+
+    const queryKeyProfileIds = Object.entries(profileAll)
+        .flatMap(([, profile]) => profile.accounts.map((x) => x.profile.profileId))
+        .concat(accounts.map((x) => x.profile.profileId));
     return useQuery({
         queryKey: ['my-wallet-connections', 'with-profile', queryKeyProfileIds],
         async queryFn() {
