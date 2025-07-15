@@ -25,6 +25,8 @@ import { SearchRecipientModalRef } from '@/modals/controls.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
 import { SolanaTransfer } from '@/providers/solana/Transfer.js';
+import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import type { Token as TipsToken } from '@/providers/types/Transfer.js';
 
 export interface TransferModalRef {
@@ -83,12 +85,32 @@ export function TransferModal({ ref }: { ref?: Ref<TransferModalRef> }) {
                         recipient,
                         token: selectedToken,
                         async onClickSearch(keyword) {
-                            setRecipient(
-                                await SearchRecipientModalRef.openAndWaitForClose({
-                                    networkType,
-                                    keyword,
-                                }),
-                            );
+                            if (recipient) {
+                                captureFireflyWalletEvent(EventId.FIREFLY_WALLET_SEND_RECIPIENT_CHANGE_WALLET_CLICK, {
+                                    recipient_firefly_account_id: recipient.fireflyId,
+                                    recipient_social_handle: recipient.handle,
+                                });
+                            }
+                            const newRecipient = await SearchRecipientModalRef.openAndWaitForClose({
+                                networkType,
+                                keyword,
+                            });
+                            if (recipient) {
+                                captureFireflyWalletEvent(EventId.FIREFLY_WALLET_SEND_RECIPIENT_WALLET_CHANGE, {
+                                    recipient_firefly_account_id: newRecipient.fireflyId,
+                                    recipient_social_handle: newRecipient.handle,
+                                    target_wallet_address: newRecipient.address,
+                                });
+                            }
+                            captureFireflyWalletEvent(EventId.FIREFLY_WALLET_SEND_RECIPIENT_SELECT, {
+                                recipient_chain: `${selectedToken?.chainId}`,
+                                recipient_type: newRecipient.handle ? 'social_user' : 'onchain_address',
+                                recipient_firefly_account_id: newRecipient.fireflyId,
+                                recipient_social_handle: newRecipient.handle,
+                                target_wallet_address: newRecipient.address,
+                                recipient_ens: newRecipient.ens,
+                            });
+                            setRecipient(newRecipient);
                         },
                         onClickChangeToken() {
                             tokenSelectorModalRef.current?.onOpen();
@@ -100,6 +122,28 @@ export function TransferModal({ ref }: { ref?: Ref<TransferModalRef> }) {
                                 token,
                                 to,
                                 amount: values.amount,
+                            });
+                            let address: string | undefined;
+                            switch (networkType) {
+                                case NetworkType.Ethereum:
+                                    address = ethereum.address;
+                                    break;
+                                case NetworkType.Solana:
+                                    address = solana.address;
+                                    break;
+                                default:
+                                    return;
+                            }
+                            if (!address) return;
+                            const amountUsd = multipliedBy(values.amount, token.price).toNumber();
+                            captureFireflyWalletEvent(EventId.FIREFLY_WALLET_SEND_SUCCESS, {
+                                wallet_address: address,
+                                target_wallet_address: to,
+                                target_firefly_account_id: recipient?.handle,
+                                amount: parseFloat(values.amount),
+                                currency: token.symbol,
+                                amount_usd: amountUsd,
+                                chain_id: token.chainId,
                             });
                         },
                         async estimateGas({ to, amount = '0' }, token) {

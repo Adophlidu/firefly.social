@@ -64,7 +64,7 @@ class Provider implements TransferProvider<SolanaChainId> {
         const account = await SolanaNetwork.getAccount();
         const balance = await getTokenBalance(token, account, SolanaChainId.Mainnet);
         return formatBalance(balance.value, token.decimals, {
-            significant: 4,
+            significant: 8,
             isPrecise: true,
             hasSeparators: false,
         });

@@ -54,7 +54,7 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
         const { token } = options;
         const balance = await getAvailableBalance(options);
         const formattedBalance = formatBalance(balance, token.decimals, {
-            significant: 4,
+            significant: 8,
             isPrecise: true,
             hasSeparators: false,
         });

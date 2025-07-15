@@ -777,6 +777,9 @@ msgstr ""
 msgid "Failed to bookmark NFT."
 msgstr ""
 
+msgid "Firefly wallet"
+msgstr ""
+
 msgid "NFTs"
 msgstr ""
 

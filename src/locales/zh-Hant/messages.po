@@ -777,6 +777,9 @@ msgstr "提交 EVM 錢包進行檢查"
 msgid "Failed to bookmark NFT."
 msgstr "無法收藏 NFT。"
 
+msgid "Firefly wallet"
+msgstr ""
+
 msgid "NFTs"
 msgstr "NFTs"
 

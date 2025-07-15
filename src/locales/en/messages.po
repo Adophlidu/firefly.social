@@ -772,6 +772,9 @@ msgstr "Submit an evm wallet to check"
 msgid "Failed to bookmark NFT."
 msgstr "Failed to bookmark NFT."
 
+msgid "Firefly wallet"
+msgstr "Firefly wallet"
+
 msgid "NFTs"
 msgstr "NFTs"
 

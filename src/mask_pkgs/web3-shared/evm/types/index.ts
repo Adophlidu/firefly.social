@@ -18,6 +18,8 @@ export enum EthereumChainId {
     Scroll = 534352,
     Celo = 42220,
     Lens = 232,
+    ZksyncEra = 324,
+    Linea = 59144,
 }
 
 export enum EthereumSchemaType {
@@ -104,6 +106,8 @@ export enum EthereumNetworkType {
     XLayer = 'XLayer',
     Zora = 'Zora',
     Celo = 'Celo',
+    ZksyncEra = 'ZksyncEra',
+    Linea = 'Linea',
 }
 
 export enum ProviderType {

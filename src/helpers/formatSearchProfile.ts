@@ -53,6 +53,7 @@ export function formatFireflyProfileToProfile(profile: FireflyProfile): Profile 
 }
 
 export interface SearchProfile {
+    account?: FireflyProfile;
     profile: FireflyProfile;
     related: FireflyProfile[];
     isSpecial?: boolean;
@@ -138,6 +139,7 @@ export function formatSearchProfile(
     if (target.platform === FireflyPlatform.Firefly && !allProfile.length) return null;
 
     return {
+        account: identity.account?.[0],
         profile: fixProfilePlatform(target),
         related: allProfile,
         isSpecial: isSpecialSearchProfile({ profile: target, related: allProfile }, keyword),

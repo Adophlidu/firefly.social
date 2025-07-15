@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { compact, uniq, uniqBy } from 'lodash-es';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { RecipientItemProps } from '@/components/SendTransactionModal/RecipientItem.js';
 import {
@@ -42,6 +42,12 @@ export function SelectRecipientModalWithQuery({
     ...props
 }: SelectRecipientModalWithQueryProps) {
     const [searchKeyword, setSearchKeyword] = useState('');
+    useEffect(() => {
+        if (props.open && keyword) {
+            setSearchKeyword(keyword);
+        }
+    }, [keyword, props.open]);
+
     const queryResult = useInfiniteQuery({
         queryKey: ['search', searchType, searchKeyword, 'recipient'],
         queryFn: async ({ pageParam }) => {
@@ -141,7 +147,7 @@ export function SelectRecipientModalWithQuery({
                                 ? x.profile.name
                                 : undefined;
                         const address = x.profile.platform_id;
-                        return formatRecipient({ ...x, address, ens });
+                        return formatRecipient({ ...x, address, ens, fireflyId: x.account?.platform_id });
                     }
                     const recipients =
                         x.addresses
@@ -169,7 +175,12 @@ function formatRecipient({
     related,
     address,
     ens,
-}: Pick<SearchProfile, 'profile' | 'related'> & { address: string; ens?: string }): RecipientItemProps {
+    fireflyId,
+}: Pick<SearchProfile, 'profile' | 'related'> & {
+    address: string;
+    ens?: string;
+    fireflyId?: string;
+}): RecipientItemProps {
     if (profile.platform === FireflyPlatform.Wallet) {
         return {
             address,
@@ -185,5 +196,6 @@ function formatRecipient({
         handle: profile.handle,
         source,
         sources: uniq(related.map((r) => resolveSocialSourceFromFireflyPlatform(r.platform))),
+        fireflyId,
     } satisfies RecipientItemProps;
 }

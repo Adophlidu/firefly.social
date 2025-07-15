@@ -251,6 +251,22 @@ export enum EventId {
     POSTS_FILTER_CHANGE = 'tab_social_filter_click',
     CHAIN_FILTER_CHANGE = 'tab_chain_filter_click',
     ACTIVITIES_FILTER_CHANGE = 'tab_platform_filter_click',
+
+    // firefly wallet
+    FIREFLY_WALLET_OPEN_SUCCESS = 'Firefly_wallet_open_success',
+    FIREFLY_WALLET_RECEIVE_CLICK = 'Firefly_wallet_receive_click',
+    FIREFLY_WALLET_SEND_CLICK = 'Firefly_wallet_send_click',
+    FIREFLY_WALLET_SWAP_CLICK = 'Firefly_wallet_swap_click',
+    FIREFLY_WALLET_CHAIN_FILTER_CLICK = 'Firefly_wallet_chain_filter_click',
+    FIREFLY_WALLET_TOKENS_TAB_CLICK = 'Firefly_wallet_tokens_tab_click',
+    FIREFLY_WALLET_NFTS_TAB_CLICK = 'Firefly_wallet_NFTs_tab_click',
+    FIREFLY_WALLET_TRANSACTIONS_TAB_CLICK = 'Firefly_wallet_transactions_tab_click',
+    FIREFLY_WALLET_SEND_SUCCESS = 'Firefly_wallet_send_success',
+    FIREFLY_WALLET_TXN_CALL = 'Firefly_wallet_txn_call',
+    FIREFLY_WALLET_GENERAL_TRANSACTION_SUBMIT = 'Firefly_wallet_general_transaction_submit',
+    FIREFLY_WALLET_SEND_RECIPIENT_SELECT = 'Firefly_wallet_send_recipient_select',
+    FIREFLY_WALLET_SEND_RECIPIENT_CHANGE_WALLET_CLICK = 'Firefly_wallet_send_recipient_change_wallet_click',
+    FIREFLY_WALLET_SEND_RECIPIENT_WALLET_CHANGE = 'Firefly_wallet_send_recipient_wallet_change',
 }
 
 export enum ExceptionId {
@@ -1208,6 +1224,144 @@ export interface Events extends Record<EventId, Event> {
             wallet_type: string;
             wallet_name?: string;
             time: string;
+        };
+    };
+
+    // firefly wallet
+    [EventId.FIREFLY_WALLET_OPEN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            wallet_address: string;
+            MPC_type: 'privy' | 'particle';
+        };
+    };
+    [EventId.FIREFLY_WALLET_RECEIVE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.FIREFLY_WALLET_SEND_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.FIREFLY_WALLET_SWAP_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.FIREFLY_WALLET_CHAIN_FILTER_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            chain_type: 'EVM' | 'Sol';
+        };
+    };
+    [EventId.FIREFLY_WALLET_TOKENS_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.FIREFLY_WALLET_NFTS_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.FIREFLY_WALLET_SEND_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            wallet_address: string;
+            target_wallet_address: string;
+            target_firefly_account_id?: string;
+            amount: number;
+            currency: string;
+            amount_usd: number;
+            chain_id: number;
+        };
+    };
+    [EventId.FIREFLY_WALLET_TXN_CALL]: {
+        type: EventType.Interact;
+        parameters: {
+            txn_type: 'transfer' | 'mint' | 'swap' | 'other';
+            firefly_account_id: string;
+            firefly_wallet_address: string;
+            use_firefly_transfer: boolean;
+            recipient_type: 'social_user' | 'onchain_address';
+            recipient_social_handle?: string;
+        };
+    };
+    [EventId.FIREFLY_WALLET_GENERAL_TRANSACTION_SUBMIT]: {
+        type: EventType.Interact;
+        parameters: {
+            txn_type: 'transfer' | 'mint' | 'swap' | 'other';
+            txn_network: 'evm' | 'solana';
+            txn_hash: string;
+            txn_status: 'success' | 'failed';
+            txn_failed_reason?: string;
+            firefly_account_id: string;
+            firefly_wallet_address: string;
+            target_firefly_account_id?: string;
+            to_address: string;
+            use_firefly_transfer?: boolean;
+            recipient_type?: 'social_user' | 'onchain_address';
+            recipient_social_handle?: string;
+            token_type?: 'native_token' | 'erc20_token' | 'erc721' | 'erc1155' | 'spl_token';
+            token_address?: string;
+            token_symbol?: string;
+            token_name?: string;
+            token_amount?: number;
+            amount_usd?: number;
+            collection_name?: string;
+        };
+    };
+    [EventId.FIREFLY_WALLET_SEND_RECIPIENT_SELECT]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            recipient_chain: string;
+            recipient_type: 'social_user' | 'onchain_address';
+            recipient_firefly_account_id?: string;
+            recipient_social_handle?: string; // only recipient_type === 'social_user'
+            target_wallet_address: string;
+            recipient_ens?: string;
+        };
+    };
+    [EventId.FIREFLY_WALLET_SEND_RECIPIENT_CHANGE_WALLET_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            recipient_firefly_account_id?: string;
+            recipient_social_handle?: string;
+        };
+    };
+    [EventId.FIREFLY_WALLET_SEND_RECIPIENT_CHANGE_WALLET_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            recipient_firefly_account_id?: string;
+            recipient_social_handle?: string;
+        };
+    };
+    [EventId.FIREFLY_WALLET_SEND_RECIPIENT_WALLET_CHANGE]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            recipient_firefly_account_id?: string;
+            recipient_social_handle?: string;
+            target_wallet_address: string;
+        };
+    };
+    [EventId.FIREFLY_WALLET_TRANSACTIONS_TAB_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
         };
     };
 }

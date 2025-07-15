@@ -4,6 +4,7 @@ import CheckIcon from '@/assets/check.svg';
 import CopyIcon from '@/assets/copy-2.svg';
 import QrCodeIcon from '@/assets/qrcode.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
@@ -11,17 +12,29 @@ import { useCopyText } from '@/hooks/useCopyText.js';
 
 export interface ReceiveChainItemProps extends Pick<HTMLProps<'div'>, 'className'> {
     avatar?: string;
+    chainId?: number;
     name: ReactNode;
     address: string;
     onClickQrCodeButton?: () => void;
 }
 
-export function ReceiveChainItem({ avatar, name, address, onClickQrCodeButton, className }: ReceiveChainItemProps) {
+export function ReceiveChainItem({
+    avatar,
+    chainId,
+    name,
+    address,
+    onClickQrCodeButton,
+    className,
+}: ReceiveChainItemProps) {
     const [copied, handleCopy] = useCopyText(address);
     return (
         <div className={classNames('flex w-full items-center justify-between rounded-2xl bg-bg p-3', className)}>
             <div className="flex space-x-2 text-left">
-                <Avatar src={avatar} alt={address} className="size-10 shrink-0 !bg-transparent" size={40} />
+                {avatar ? (
+                    <Avatar src={avatar} alt={address} className="size-10 shrink-0 !bg-transparent" size={40} />
+                ) : (
+                    <ChainIcon chainId={chainId} className="size-10 shrink-0 !bg-transparent" size={40} />
+                )}
                 <div>
                     <div className="h-[22px] text-medium font-semibold leading-[22px]">{name}</div>
                     <div className="h-[18px] text-sm font-normal leading-[18px] text-second">

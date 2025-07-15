@@ -16,7 +16,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { RecipientItem, type RecipientItemProps } from '@/components/SendTransactionModal/RecipientItem.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatPrice } from '@/helpers/formatPrice.js';
+import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 interface FormValues {
@@ -267,9 +267,15 @@ export function SendTransactionModalContent({
                             <LoadingIcon size={16} />
                         ) : (
                             <div className="font-medium">
-                                {estimatedGas
-                                    ? `${formatPrice(estimatedGas.amount)} ${estimatedGas.symbol}  ≈ $${formatPrice(estimatedGas.usd)}`
-                                    : '-'}
+                                {estimatedGas ? (
+                                    <>
+                                        {renderShrankPrice(formatPrice(estimatedGas.amount) ?? '-')} $
+                                        {estimatedGas.symbol} ≈ $
+                                        {renderShrankPrice(formatPrice(estimatedGas.usd) ?? '-')}
+                                    </>
+                                ) : (
+                                    '-'
+                                )}
                             </div>
                         )}
                     </div>

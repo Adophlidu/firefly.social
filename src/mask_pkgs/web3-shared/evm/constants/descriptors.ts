@@ -213,6 +213,28 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
         isMainnet: true,
         averageBlockDelay: 10,
     },
+    {
+        ID: `${PLUGIN_ID}_zksync_era`,
+        networkSupporterPluginID: PLUGIN_ID,
+        chainId: EthereumChainId.ZksyncEra,
+        type: EthereumNetworkType.ZksyncEra,
+        icon: new URL('../assets/zksync-era.svg', import.meta.url).href,
+        iconColor: '#3059AE',
+        name: 'Zksync Era',
+        isMainnet: true,
+        averageBlockDelay: 10,
+    },
+    {
+        ID: `${PLUGIN_ID}_linea`,
+        networkSupporterPluginID: PLUGIN_ID,
+        chainId: EthereumChainId.Linea,
+        type: EthereumNetworkType.Linea,
+        icon: new URL('../assets/linea.png', import.meta.url).href,
+        iconColor: '#3059AE',
+        name: 'Linea',
+        isMainnet: true,
+        averageBlockDelay: 10,
+    },
 ];
 
 export const CHAIN_DESCRIPTORS: ReadonlyArray<

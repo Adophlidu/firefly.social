@@ -15,7 +15,9 @@ import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidA
 import { openWindow } from '@/helpers/openWindow.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
 import { type WalletProfile, WalletProfileDataSource } from '@/providers/types/Firefly.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 export function WalletActions({ profile }: { profile: WalletProfile }) {
     const isMyWallets = useIsMyRelatedProfile(Source.Wallet, profile.address);
@@ -32,6 +34,10 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
             <ClickableButton
                 onClick={() => {
                     if (!profile.dataSource) return;
+                    captureFireflyWalletEvent(EventId.FIREFLY_WALLET_OPEN_SUCCESS, {
+                        wallet_address: profile.address,
+                        MPC_type: WalletProfileDataSource.Privy,
+                    });
                     switch (profile.dataSource) {
                         case WalletProfileDataSource.Particle:
                             openWindow(urlcat(SITE_URL, '/particle-recovery', { type }));

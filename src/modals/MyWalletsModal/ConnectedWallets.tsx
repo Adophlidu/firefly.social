@@ -24,6 +24,9 @@ import { WalletConnectModalRef } from '@/modals/controls.js';
 import { rewriteDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
 import { switchNetwork } from '@/modals/MyWalletsModal/switchNetwork.js';
 import { syncWalletIdentity } from '@/modals/MyWalletsModal/syncWalletIdentity.js';
+import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
+import { WalletProfileDataSource } from '@/providers/types/Firefly.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 import type { ChainNamespace } from '@/types/index.js';
 
@@ -123,6 +126,10 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
                         href="/wallet"
                         className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
                         onClick={() => {
+                            captureFireflyWalletEvent(EventId.FIREFLY_WALLET_OPEN_SUCCESS, {
+                                wallet_address: privyConnections[0].address,
+                                MPC_type: WalletProfileDataSource.Privy,
+                            });
                             onOpenWallets?.();
                         }}
                     >

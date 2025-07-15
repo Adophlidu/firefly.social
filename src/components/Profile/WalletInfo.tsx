@@ -28,7 +28,12 @@ import { Debank } from '@/providers/debank/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { OKX } from '@/providers/okx/index.js';
-import { RelatedWalletSource, type VerifiedSource, type WalletProfile } from '@/providers/types/Firefly.js';
+import {
+    RelatedWalletSource,
+    type VerifiedSource,
+    type WalletProfile,
+    WalletProfileDataSource,
+} from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface WalletInfoProps {
@@ -64,6 +69,18 @@ function resolveVerifiedText({ source, provider }: VerifiedSource) {
     }
 }
 
+function FireflyWalletText({ dataSource }: { dataSource: WalletProfileDataSource }) {
+    switch (dataSource) {
+        case WalletProfileDataSource.Particle:
+            return <Trans>Legacy Firefly wallet</Trans>;
+        case WalletProfileDataSource.Privy:
+            return <Trans>Firefly wallet</Trans>;
+        default:
+            safeUnreachable(dataSource);
+            return null;
+    }
+}
+
 export function WalletInfo({ profile }: WalletInfoProps) {
     const avatar = profile.avatar ?? getStampAvatarByProfileId(Source.Wallet, profile.address);
     const networkType = getAddressType(profile.address);
@@ -74,11 +91,12 @@ export function WalletInfo({ profile }: WalletInfoProps) {
             : null;
 
     const isMPC = isMPCWallet(profile);
-    const displayName = isMPC ? (
-        <Trans>Legacy Firefly wallet</Trans>
-    ) : (
-        profile.primary_ens || formatAddress(profile.address, 4)
-    );
+    const displayName =
+        isMPC && profile.dataSource ? (
+            <FireflyWalletText dataSource={profile.dataSource} />
+        ) : (
+            profile.primary_ens || formatAddress(profile.address, 4)
+        );
 
     const { data: walletRelation, isLoading: isLoadingWalletRelation } = useQuery({
         queryKey: ['wallet-relation', profile.address],

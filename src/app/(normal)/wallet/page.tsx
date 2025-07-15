@@ -38,6 +38,8 @@ import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
 import { AddCustomERC20ModalRef, SwapModalRef } from '@/modals/controls.js';
 import { Debank } from '@/providers/debank/index.js';
+import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 const TransactionHistory = dynamic(() => import('@/components/TransactionHistory/list.js'), {
     ssr: false,
@@ -163,9 +165,16 @@ function FireflyWallet() {
             <NavigationBar />
             <FireflyWalletHomePageUI
                 balance={totalBalance ?? '0'}
-                onSend={() => transferModalRef.current?.onOpen()}
-                onReceive={() => setOpenReceiveModal(true)}
+                onSend={() => {
+                    captureFireflyWalletEvent(EventId.FIREFLY_WALLET_SEND_CLICK, {});
+                    transferModalRef.current?.onOpen();
+                }}
+                onReceive={() => {
+                    captureFireflyWalletEvent(EventId.FIREFLY_WALLET_RECEIVE_CLICK, {});
+                    setOpenReceiveModal(true);
+                }}
                 onSwap={() => {
+                    captureFireflyWalletEvent(EventId.FIREFLY_WALLET_SWAP_CLICK, {});
                     SwapModalRef.open({
                         providerSwitchable: true,
                     });
@@ -175,7 +184,24 @@ function FireflyWallet() {
                 <ReceiveModal open={openReceiveModal} onClose={() => setOpenReceiveModal(false)} items={receiveItems} />
                 <div className="flex w-full flex-col">
                     <div className="relative flex items-center justify-between">
-                        <Tabs variant="subtle" onChange={setTabType} value={tabType}>
+                        <Tabs
+                            variant="subtle"
+                            onChange={(x) => {
+                                switch (x) {
+                                    case TabType.Token:
+                                        captureFireflyWalletEvent(EventId.FIREFLY_WALLET_TOKENS_TAB_CLICK, {});
+                                        break;
+                                    case TabType.NFT:
+                                        captureFireflyWalletEvent(EventId.FIREFLY_WALLET_NFTS_TAB_CLICK, {});
+                                        break;
+                                    case TabType.Transactions:
+                                        captureFireflyWalletEvent(EventId.FIREFLY_WALLET_TRANSACTIONS_TAB_CLICK, {});
+                                        break;
+                                }
+                                setTabType(x);
+                            }}
+                            value={tabType}
+                        >
                             <Tab value={TabType.Token}>
                                 <Trans>Token</Trans>
                             </Tab>
@@ -202,7 +228,12 @@ function FireflyWallet() {
                             {tabType === TabType.Transactions ? (
                                 <FireflyWalletChainSelectorWithNetworkType
                                     selectedChain={networkType}
-                                    onSelectChain={setNetworkType}
+                                    onSelectChain={(x) => {
+                                        captureFireflyWalletEvent(EventId.FIREFLY_WALLET_CHAIN_FILTER_CLICK, {
+                                            chain_type: x === NetworkType.Ethereum ? 'EVM' : 'Sol',
+                                        });
+                                        setNetworkType(x);
+                                    }}
                                 />
                             ) : null}
                         </div>
@@ -214,7 +245,7 @@ function FireflyWallet() {
                             onClickToken={(token) => {
                                 const url = resolveTokenPageUrl({
                                     chainId: token.chainId,
-                                    identity: token.id,
+                                    identity: token.symbol,
                                 });
                                 router.push(url);
                             }}

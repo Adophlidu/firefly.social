@@ -21,6 +21,7 @@ export interface RecipientItemProps extends Pick<HTMLProps<'div'>, 'className'> 
     username?: string;
     explorerLink?: boolean;
     showSources?: boolean;
+    fireflyId?: string;
 }
 
 export function RecipientItem({

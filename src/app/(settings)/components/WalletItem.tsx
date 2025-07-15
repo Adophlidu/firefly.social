@@ -27,7 +27,7 @@ interface WalletItemProps {
 export function WalletItem({ connection, noAction = false }: WalletItemProps) {
     const isDark = useIsDarkMode();
 
-    const isMPCWallet = connection.source === WalletSource.Particle;
+    const isMPCWallet = connection.source === WalletSource.Particle || connection.source === WalletSource.Privy;
     const isConnected = 'isDefault' in connection && connection.isConnected;
 
     const Icon = isMPCWallet

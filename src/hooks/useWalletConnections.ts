@@ -69,7 +69,8 @@ export function useWalletConnections() {
                                       : ConnectionSource.Appkit,
                           };
                       })
-                    : []),
+                    : []
+                ).sort((a) => (a.connected ? -1 : 1)),
                 solanaAddress
                     ? {
                           address: solanaAddress,
@@ -90,7 +91,7 @@ export function useWalletConnections() {
                           source: ConnectionSource.Privy,
                       }
                     : null,
-            ]).sort((a) => (a.connected ? -1 : 1)),
+            ]),
             (x) => `${x.namespace}:${x.connector?.id}:${x.address}`,
         );
     }, [

@@ -1,7 +1,15 @@
 'use client';
 
-import type { ConnectedSolanaWallet, ConnectedWallet } from '@privy-io/react-auth';
-import { PrivyProvider, usePrivy, useSolanaWallets, useSyncJwtBasedAuthState, useWallets } from '@privy-io/react-auth';
+import {
+    type ConnectedSolanaWallet,
+    type ConnectedWallet,
+    type PrivyClientConfig,
+    PrivyProvider,
+    usePrivy,
+    useSolanaWallets,
+    useSyncJwtBasedAuthState,
+    useWallets,
+} from '@privy-io/react-auth';
 import {
     useSendTransaction,
     type UseSendTransactionInterface,
@@ -14,6 +22,7 @@ import { createRef, type Ref, useCallback, useImperativeHandle } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
 import { FireflyLoginRequired } from '@/components/FireflyLoginRequired.js';
+import { chains } from '@/configs/wagmiClient.js';
 import { env } from '@/constants/env.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -88,7 +97,12 @@ export class PrivyBridgeElement extends HTMLElement implements PrivyBridgeHandle
             this._reactRoot = createRoot(this);
             this._reactRoot.render(
                 <FireflyLoginRequired>
-                    <PrivyProvider appId={env.external.NEXT_PUBLIC_PRIVY_APP_ID}>
+                    <PrivyProvider
+                        appId={env.external.NEXT_PUBLIC_PRIVY_APP_ID}
+                        config={{
+                            supportedChains: chains as unknown as PrivyClientConfig['supportedChains'],
+                        }}
+                    >
                         <PrivyBridge ref={this._ref} />
                     </PrivyProvider>
                 </FireflyLoginRequired>,

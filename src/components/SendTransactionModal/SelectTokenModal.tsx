@@ -4,7 +4,8 @@ import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { uniq } from 'lodash-es';
-import { type Ref, useCallback, useImperativeHandle, useMemo, useState } from 'react';
+import { type Ref, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
+import { useScrollLock } from 'usehooks-ts';
 
 import AddIcon from '@/assets/add-circle.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -38,6 +39,14 @@ export function TokenSelectorModal<T extends Token>({ tokens, isLoading, onSelec
     const onClose = useCallback(() => setOpen(false), []);
     const [chainId, setChainId] = useState<number>();
     const [keyword, setKeyword] = useState('');
+    const { lock, unlock } = useScrollLock({ autoLock: false });
+    useEffect(() => {
+        if (open) {
+            lock();
+        } else {
+            unlock();
+        }
+    }, [lock, open, unlock]);
 
     const {
         tokens: data,

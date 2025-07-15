@@ -1,9 +1,10 @@
 import { Trans } from '@lingui/react/macro';
+import { useMemo } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { classNames } from '@/helpers/classNames.js';
-import { isZero, multipliedBy } from '@/helpers/number.js';
+import { isLessThan, isZero, multipliedBy } from '@/helpers/number.js';
 import type { Token as RawToken } from '@/hooks/useCustomFungibleTokens.js';
 
 export type Token = Pick<
@@ -27,8 +28,13 @@ interface TokenItemProps extends ClickableButtonProps {
 }
 
 export function TokenItem({ className, token, disableChainIcon, ...props }: TokenItemProps) {
-    const usdtValue = +multipliedBy(token.price, token.amount).toFixed(2);
-    const usd = Number.isNaN(usdtValue) || isZero(usdtValue) ? '' : `$${usdtValue}`;
+    const usd = useMemo(() => {
+        const usdtValue = +multipliedBy(token.price, token.amount);
+        if (Number.isNaN(usdtValue)) return '';
+        if (isZero(usdtValue)) return '$0';
+        if (isLessThan(usdtValue, '0.01')) return '<$0.01';
+        return `$${usdtValue.toFixed(2)}`;
+    }, [token.amount, token.price]);
 
     return (
         <ClickableButton
