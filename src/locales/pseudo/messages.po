@@ -471,9 +471,6 @@ msgstr ""
 msgid "View similar symbols"
 msgstr ""
 
-msgid "Validate failed, please try again."
-msgstr ""
-
 msgid "MAX"
 msgstr ""
 
@@ -2517,9 +2514,6 @@ msgid "All posts and activities from this user will be hidden from you"
 msgstr ""
 
 msgid "Unknown Collection"
-msgstr ""
-
-msgid "Validate failed, please check your input."
 msgstr ""
 
 msgid "Your sign-in process was interrupted, please try again"

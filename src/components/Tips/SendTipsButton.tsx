@@ -6,7 +6,7 @@ import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
-import { useAsyncFn, useAsyncRetry } from 'react-use';
+import { useAsync, useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
@@ -45,8 +45,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         value,
         loading: isValidating,
         error,
-        retry,
-    } = useAsyncRetry(async () => {
+    } = useAsync(async () => {
         if (token && !token.price && !amount) {
             return {
                 label: <Trans>Custom amount is required for this token</Trans>,
@@ -121,25 +120,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         }
     }, [connected, onConnect, recipient, token, update, amount, identity, customAmount]);
 
-    const disabled = !connected ? false : isValidating || isSending || !!value?.disabled || !!error;
-
-    if (error) {
-        return (
-            <motion.button
-                className={classNames(
-                    'mt-4 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-lightMain font-bold text-lightBottom dark:text-darkBottom',
-                    isValidating ? 'cursor-not-allowed opacity-50' : '',
-                )}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => {
-                    if (isValidating) return;
-                    retry();
-                }}
-            >
-                {isValidating ? <LoadingIcon size={20} /> : <Trans>Validate failed, please try again.</Trans>}
-            </motion.button>
-        );
-    }
+    const disabled = !connected ? false : isValidating || isSending || !!value?.disabled;
 
     if (isSending && !hasError && hash) {
         return (
@@ -184,7 +165,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                 ) : isSending ? (
                     <Trans>Sending</Trans>
                 ) : error ? (
-                    <Trans>Validate failed, please check your input.</Trans>
+                    <Trans>Send</Trans>
                 ) : (
                     value?.label
                 )}

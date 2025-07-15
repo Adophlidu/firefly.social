@@ -476,9 +476,6 @@ msgstr "熱門"
 msgid "View similar symbols"
 msgstr "查看名稱相似的代幣"
 
-msgid "Validate failed, please try again."
-msgstr ""
-
 msgid "MAX"
 msgstr "最大"
 
@@ -2531,9 +2528,6 @@ msgstr "來自此用戶的所有貼文和動態將對你隱藏"
 
 msgid "Unknown Collection"
 msgstr "未知系列"
-
-msgid "Validate failed, please check your input."
-msgstr "驗證失敗，請檢查你的輸入。"
 
 msgid "Your sign-in process was interrupted, please try again"
 msgstr "您的登入流程已中斷，請重試"
