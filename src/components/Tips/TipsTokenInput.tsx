@@ -1,21 +1,35 @@
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import ArrowDownIcon from '@/assets/arrow-line-down.svg';
 import { Image } from '@/components/Image.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
+import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 
 export const TipsTokenInput = memo(function TipsTokenInput() {
-    const { token } = TipsContext.useContainer();
+    const { token, recipient } = TipsContext.useContainer();
+
+    const [{ loading }, handleSelectToken] = useAsyncFn(async () => {
+        if (!recipient) return;
+
+        const networkProvider = resolveNetworkProvider(recipient.networkType);
+        const account = await networkProvider.getAccount();
+        if (!account) return;
+
+        router.navigate({ to: TipsRoutePath.SELECT_TOKEN });
+    }, [recipient]);
 
     return (
         <motion.div
             whileTap={{ scale: 0.98 }}
             className="mt-3 flex h-[68px] cursor-pointer items-center gap-3 rounded-xl bg-input px-4 dark:bg-lightBg"
-            onClick={() => {
-                router.navigate({ to: TipsRoutePath.SELECT_TOKEN });
+            onClick={async () => {
+                if (loading) return;
+                await handleSelectToken();
             }}
         >
             {!token ? (
@@ -62,7 +76,7 @@ export const TipsTokenInput = memo(function TipsTokenInput() {
                     </div>
                 </>
             )}
-            <ArrowDownIcon width={18} height={18} />
+            {loading ? <LoadingIcon size={18} /> : <ArrowDownIcon width={18} height={18} />}
         </motion.div>
     );
 });
