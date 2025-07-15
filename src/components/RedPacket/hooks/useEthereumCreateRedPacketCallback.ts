@@ -6,6 +6,7 @@ import urlcat from 'urlcat';
 import { type Address, decodeEventLog, parseEventLogs } from 'viem';
 import { getTransactionReceipt, writeContract } from 'wagmi/actions';
 
+import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { config } from '@/configs/wagmiClient.js';
 import { EMPTY_LIST, SITE_URL } from '@/constants/index.js';
@@ -24,12 +25,12 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
+import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { EthereumRedPacket } from '@/providers/ethereum/RedPacket.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { EthereumChainId, EthereumSchemaType, getRedPacketConstant, getTokenConstant } from '#masknet/web3-shared-evm';
-import { getRedPacketContractAbi, getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
+import { EthereumChainId, EthereumSchemaType, getTokenConstant } from '#masknet/web3-shared-evm';
 
 function reduceUselessPayloadInfo(payload: RedPacketJSONPayload): RedPacketJSONPayload {
     const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<
@@ -112,8 +113,8 @@ export function useEthereumCreateRedPacketCallback(
             const value = toFixed(params.params.token?.schema === EthereumSchemaType.Native ? total : 0);
 
             const result = await writeContract(config, {
-                address: getRedPacketContractAddress(chainId, RED_PACKET_CONTRACT_VERSION),
-                abi: getRedPacketContractAbi(RED_PACKET_CONTRACT_VERSION),
+                address: getRedPacketContractAddress(chainId),
+                abi: RED_PACKET_ABI,
                 functionName: 'create_red_packet',
                 args: [
                     params.methodParams.publicKey,
@@ -141,14 +142,14 @@ export function useEthereumCreateRedPacketCallback(
             if (!receipt) return;
 
             const events = parseEventLogs({
-                abi: getRedPacketContractAbi(RED_PACKET_CONTRACT_VERSION),
+                abi: RED_PACKET_ABI,
                 eventName: 'CreationSuccess',
                 logs: receipt.logs,
             });
             const item = first(events);
             if (!item) return;
             const { args } = decodeEventLog({
-                abi: getRedPacketContractAbi(RED_PACKET_CONTRACT_VERSION),
+                abi: RED_PACKET_ABI,
                 eventName: 'CreationSuccess',
                 data: item.data,
                 topics: item.topics,
@@ -191,7 +192,7 @@ export function useEthereumCreateRedPacketCallback(
                 creation_time: Number.parseInt(creation_time, 10) * 1000,
                 token,
                 network: EVMChainResolver.chainName(chainId),
-                contract_address: getRedPacketContractAddress(chainId, RED_PACKET_CONTRACT_VERSION),
+                contract_address: getRedPacketContractAddress(chainId),
                 contract_version: RED_PACKET_CONTRACT_VERSION,
                 txid: receipt.transactionHash,
             };

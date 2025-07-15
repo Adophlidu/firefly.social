@@ -8,6 +8,7 @@ import { useAsync } from 'react-use';
 import urlcat from 'urlcat';
 import type { Address } from 'viem';
 
+import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Loading } from '@/components/Loading.js';
@@ -35,11 +36,10 @@ import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import { ComposeModalRef, RedPacketModalRef } from '@/modals/controls.js';
+import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { TokenType } from '@/types/rp.js';
-import { getRedPacketContractAbi, getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
-import { RED_PACKET_CONTRACT_VERSION } from '@/constants/rp.js';
 
 interface Props {
     payload: RedPacketJSONPayload;
@@ -82,10 +82,10 @@ export function RedPacketCardContent({ payload, post }: Props) {
         const client = createWagmiPublicClient(parsedChainId);
         return runInSafeAsync(async () => {
             return client.estimateContractGas({
-                abi: getRedPacketContractAbi(RED_PACKET_CONTRACT_VERSION),
+                abi: RED_PACKET_ABI,
                 functionName: 'claim',
                 args: [payload.rpid, password, account],
-                address: getRedPacketContractAddress(parsedChainId, RED_PACKET_CONTRACT_VERSION),
+                address: getRedPacketContractAddress(parsedChainId),
                 account: account as Address,
             });
         });

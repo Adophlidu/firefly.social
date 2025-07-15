@@ -1,9 +1,13 @@
 import { omit } from 'lodash-es';
 import { type Address, type Hex, keccak256 } from 'viem';
+import { estimateContractGas } from 'viem/actions';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
+import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { config } from '@/configs/wagmiClient.js';
 import type { NetworkType, SocialSource } from '@/constants/enum.js';
+import { NotImplementedError } from '@/constants/error.js';
+import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { isLessThan } from '@/helpers/number.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -11,14 +15,11 @@ import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction
 import { EVMChainResolver } from '@/mask/index.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
-import { getRedPacketContractAbi, getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
+import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { type EthereumChainId, EthereumSchemaType, getTokenConstant } from '#masknet/web3-shared-evm';
-import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
-import { estimateContractGas } from 'viem/actions';
-import { NotImplementedError } from '@/constants/error.js';
 
 export interface CreateRedPacketContext {
     networkType: NetworkType;
@@ -103,8 +104,8 @@ class Provider {
         try {
             const gas = await estimateContractGas(createWagmiPublicClient(chainId), {
                 account: creator as Address,
-                address: getRedPacketContractAddress(chainId, version),
-                abi: getRedPacketContractAbi(version),
+                address: getRedPacketContractAddress(chainId),
+                abi: RED_PACKET_ABI,
                 functionName: 'create_red_packet',
                 args: [
                     methodParams.publicKey,
@@ -168,10 +169,10 @@ class Provider {
         if (claimWithSponsorHash) return claimWithSponsorHash;
 
         const hash = await writeContract(config, {
-            abi: getRedPacketContractAbi(payload.contract_version),
+            abi: RED_PACKET_ABI,
             functionName: 'claim',
             args: [payload.rpid, await signClaimMessage(context), account],
-            address: getRedPacketContractAddress(chainId, payload.contract_version),
+            address: getRedPacketContractAddress(chainId),
             account: account as Address,
         });
 

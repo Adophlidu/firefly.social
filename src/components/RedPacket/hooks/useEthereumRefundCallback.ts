@@ -1,13 +1,12 @@
 import { useAsyncFn } from 'react-use';
-import type { Address } from 'viem';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
+import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
-import { getRedPacketContractAbi, getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
-import { RED_PACKET_CONTRACT_VERSION } from '@/constants/rp.js';
+import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 
 export function useEthereumRefundCallback(rpid?: string, overrides?: ChainContextOverrides) {
     const { chainId, account } = useChainContext(overrides);
@@ -19,9 +18,9 @@ export function useEthereumRefundCallback(rpid?: string, overrides?: ChainContex
         if (globalChainId !== chainId) await switchChain(config, { chainId });
 
         const hash = await writeContract(config, {
-            abi: getRedPacketContractAbi(RED_PACKET_CONTRACT_VERSION),
+            abi: RED_PACKET_ABI,
             functionName: 'refund',
-            address: getRedPacketContractAddress(chainId, RED_PACKET_CONTRACT_VERSION),
+            address: getRedPacketContractAddress(chainId),
             args: [rpid],
             chainId,
         });

@@ -35,8 +35,8 @@ import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { RedPacketContext, redPacketRandomTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { TypeTabs } from '@/modals/RedPacketModal/TypeTabs.js';
-import { type EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
+import type { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 export function MainView() {
     const { history } = useRouter();
@@ -126,7 +126,7 @@ export function MainView() {
         refetch: refetchAllowance,
     } = useERC20TokenAllowance(
         token.address as Address,
-        getRedPacketContractAddress(chainId, RED_PACKET_CONTRACT_VERSION),
+        isEVM ? getRedPacketContractAddress(chainId) : '',
         {
             chainId,
             networkType,
@@ -217,7 +217,7 @@ export function MainView() {
                 abi: getTokenAbiForWagmi(chainId, token.address as Address),
                 address: token.address as Address,
                 functionName: 'approve',
-                args: [getRedPacketContractAddress(chainId, RED_PACKET_CONTRACT_VERSION), originBalance.value],
+                args: [getRedPacketContractAddress(chainId), originBalance.value],
             });
             await waitForEthereumTransaction(chainId, result);
             refetchAllowance();

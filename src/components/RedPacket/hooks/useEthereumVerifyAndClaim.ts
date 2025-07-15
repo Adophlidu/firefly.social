@@ -5,6 +5,7 @@ import type { Address } from 'viem';
 import { useAccount } from 'wagmi';
 import { readContract } from 'wagmi/actions';
 
+import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { useClaimCallback } from '@/components/RedPacket/hooks/useClaimCallback.js';
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { queryClient } from '@/configs/queryClient.js';
@@ -12,10 +13,9 @@ import { config } from '@/configs/wagmiClient.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
+import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getRedPacketContractAbi, getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
-import { RED_PACKET_CONTRACT_VERSION } from '@/constants/rp.js';
 
 export function useEthereumVerifyAndClaim(
     payload: RedPacketJSONPayload,
@@ -53,9 +53,9 @@ export function useEthereumVerifyAndClaim(
         ]);
 
         const availability = (await readContract(config, {
-            abi: getRedPacketContractAbi(RED_PACKET_CONTRACT_VERSION),
+            abi: RED_PACKET_ABI,
             functionName: 'check_availability',
-            address: getRedPacketContractAddress(payload.chainId!, RED_PACKET_CONTRACT_VERSION),
+            address: getRedPacketContractAddress(payload.chainId!),
             args: [payload.rpid],
             account: account as Address,
             chainId: payload.chainId,

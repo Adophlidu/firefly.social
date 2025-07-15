@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import type { Address } from 'viem';
 import { readContract } from 'wagmi/actions';
 
+import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { config } from '@/configs/wagmiClient.js';
-import { type EthereumChainId, getRedPacketConstant } from '#masknet/web3-shared-evm';
-import { getRedPacketContractAbi, getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
-import { RED_PACKET_CONTRACT_VERSION } from '@/constants/rp.js';
+import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
+import { type EthereumChainId } from '#masknet/web3-shared-evm';
 
 export function useAvailability(
     id: string,
@@ -24,9 +24,9 @@ export function useAvailability(
         queryFn: async () => {
             if (!id) return null;
             const data = await readContract(config, {
-                abi: getRedPacketContractAbi(RED_PACKET_CONTRACT_VERSION),
+                abi: RED_PACKET_ABI,
                 functionName: 'check_availability',
-                address: getRedPacketContractAddress(chainId, RED_PACKET_CONTRACT_VERSION),
+                address: getRedPacketContractAddress(chainId),
                 args: [id],
                 account: account as Address,
                 chainId,

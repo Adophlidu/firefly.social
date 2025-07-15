@@ -2,15 +2,15 @@ import { useQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { type Address } from 'viem';
 
+import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { NetworkType } from '@/constants/enum.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { toFixed, ZERO } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
+import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { type CreateRedPacketContext, EthereumRedPacket } from '@/providers/ethereum/RedPacket.js';
 import { EthereumSchemaType, getTokenConstant } from '#masknet/web3-shared-evm';
-import { getRedPacketContractAbi, getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
-import { RED_PACKET_CONTRACT_VERSION } from '@/constants/rp.js';
 
 export function useEthereumDefaultGas(context: CreateRedPacketContext, enabled = true) {
     const { account, chainId } = useChainContext({
@@ -37,8 +37,8 @@ export function useEthereumDefaultGas(context: CreateRedPacketContext, enabled =
             const client = createWagmiPublicClient(chainId);
             const result = await runInSafeAsync(async () => {
                 return client.estimateContractGas({
-                    abi: getRedPacketContractAbi(RED_PACKET_CONTRACT_VERSION),
-                    address: getRedPacketContractAddress(chainId, RED_PACKET_CONTRACT_VERSION),
+                    abi: RED_PACKET_ABI,
+                    address: getRedPacketContractAddress(chainId),
                     functionName: 'create_red_packet',
                     args: [
                         params.methodParams.publicKey,
