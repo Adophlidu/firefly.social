@@ -14,7 +14,7 @@ import {
 import { parsePostUrl } from '@/helpers/parsePostUrl.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { getPostIFrame } from '@/providers/og/readers/iframe.js';
+import { getPostIframeContent } from '@/providers/og/readers/getPostIframeContent.js';
 import {
     getDescription,
     getEmbedUrl,
@@ -83,7 +83,7 @@ class Processor {
             description: getDescription(document),
             site: getSite(document),
             isLarge: getIsLarge(document),
-            html: getPostIFrame(getEmbedUrl(document), url.href),
+            html: getPostIframeContent(getEmbedUrl(document), url.href),
             locale: null,
             image: null,
         };

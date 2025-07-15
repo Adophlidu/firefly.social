@@ -11,6 +11,7 @@ import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStr
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import type { SocialSource } from '@/constants/enum.js';
+import { RED_PACKET_CONTRACT_VERSION } from '@/constants/rp.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';

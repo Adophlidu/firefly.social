@@ -21,9 +21,8 @@ const tiktokApiRegex = /^https?:\/\/(?:www\.)?tiktok\.com\/player\/v1\/[\dA-Za-z
 
 const universalSize = `width="100%" height="415"`;
 
-export const getPostIFrame = (embedUrl: string | null, url: string): string | null => {
+export function getPostIframeContent(embedUrl: string | null, url: string): string | null {
     const parsedUrl = parseUrl(url);
-
     if (!parsedUrl) return null;
 
     const hostname = parsedUrl.hostname.replace('www.', '');
@@ -117,4 +116,4 @@ export const getPostIFrame = (embedUrl: string | null, url: string): string | nu
             console.warn(`No iframe reader for ${hostname}`);
             return null;
     }
-};
+}

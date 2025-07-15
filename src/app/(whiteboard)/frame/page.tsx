@@ -1,6 +1,6 @@
 'use client';
 
-import { exposeToIframe,type ReadyOptions } from '@farcaster/miniapp-host';
+import { exposeToIframe, type ReadyOptions } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';

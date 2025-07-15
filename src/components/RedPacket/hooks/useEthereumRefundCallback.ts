@@ -4,6 +4,7 @@ import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
+import { RED_PACKET_CONTRACT_VERSION } from '@/constants/rp.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';

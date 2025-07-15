@@ -1,12 +1,12 @@
 import { Action, ActionsRegistry, setProxyUrl } from '@dialectlabs/blinks';
 import urlcat from 'urlcat';
 
-import type { GetClassifyPostLinkOnActionResult } from '@/app/api/post-link/route.js';
 import { bom } from '@/helpers/bom.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import type { ActionGetResponse } from '@/providers/types/Blink.js';
 import type { ResponseJSON } from '@/types/index.js';
+import type { GetClassifyPostLinkOnActionResult } from '@/app/api/post-link/getClassifyPostLink.js';
 
 export interface ClassifyPostLinkResult extends Omit<GetClassifyPostLinkOnActionResult, 'action'> {
     action?: Action;

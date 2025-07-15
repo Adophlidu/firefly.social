@@ -20,7 +20,7 @@ export async function getArticleIdFromUrl(url: string) {
     }
 
     if (PARAGRAPH_ARTICLE_REGEXP.test(url)) {
-        return await FireflyArticleProvider.getParagraphArticleIdWithLink(url.replace('/view/', '/'));
+        return FireflyArticleProvider.getParagraphArticleIdWithLink(url.replace('/view/', '/'));
     }
     return;
 }

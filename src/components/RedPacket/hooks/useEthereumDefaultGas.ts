@@ -4,6 +4,7 @@ import { type Address } from 'viem';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { NetworkType } from '@/constants/enum.js';
+import { RED_PACKET_CONTRACT_VERSION } from '@/constants/rp.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { toFixed, ZERO } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';

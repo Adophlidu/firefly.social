@@ -24,6 +24,7 @@ import { Timer } from '@/components/RedPacket/Timer.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType } from '@/constants/enum.js';
 import { SITE_URL, SUPPORTED_MEDIA_CORS_SOURCES } from '@/constants/index.js';
+import { RED_PACKET_CONTRACT_VERSION } from '@/constants/rp.js';
 import { Image } from '@/esm/Image.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
