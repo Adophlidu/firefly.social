@@ -53,7 +53,7 @@ export const TokenAmountInput = memo(function TokenAmountInput() {
                     className={classNames(
                         'h-full w-10 shrink-0 rounded-xl border text-medium transition-colors hover:border-main md:w-[50px]',
                         !amount && selectedUsdtValue === config.usdt
-                            ? 'border-main text-main'
+                            ? 'border-main font-semibold text-main'
                             : 'border-second text-second',
                     )}
                     onClick={() => {

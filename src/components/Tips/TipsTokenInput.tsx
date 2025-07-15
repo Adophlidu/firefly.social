@@ -13,7 +13,7 @@ export const TipsTokenInput = memo(function TipsTokenInput() {
     return (
         <motion.div
             whileTap={{ scale: 0.98 }}
-            className="mt-3 flex h-[68px] cursor-pointer items-center gap-3 rounded-xl bg-input px-4"
+            className="mt-3 flex h-[68px] cursor-pointer items-center gap-3 rounded-xl bg-input px-4 dark:bg-lightBg"
             onClick={() => {
                 router.navigate({ to: TipsRoutePath.SELECT_TOKEN });
             }}

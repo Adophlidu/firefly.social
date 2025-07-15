@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
-import { Source } from '@/constants/enum.js';
+import { NetworkType, Source } from '@/constants/enum.js';
 import { TIPS_SUPPORT_NETWORKS } from '@/constants/index.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
@@ -62,6 +62,15 @@ function formatWalletHandle(profiles: TipsProfile[], address: string) {
     return profile?.primary_ens ?? formatAddressEthereum(address, 4);
 }
 
+function getSortPriority(walletProfile: WalletProfile, handle: string | null) {
+    const { blockchain, isDefault, primary_ens } = walletProfile;
+    if (isDefault && blockchain === NetworkType.Ethereum) return 5;
+    if (isDefault && blockchain === NetworkType.Solana) return 4;
+    if (primary_ens && primary_ens === handle) return 3;
+    if (primary_ens) return 2;
+    return 1;
+}
+
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<TipsModalOpenProps, TipsModalCloseProps>>;
 };
@@ -77,11 +86,11 @@ function TipsModalUI({ ref }: Props) {
             try {
                 const { walletProfiles, socialProfiles } = formatTipsProfiles(profiles);
 
-                walletProfiles.sort((a) => {
-                    const { primary_ens, isDefault } = a.__origin__ as WalletProfile;
-                    if (isDefault) return -1;
-                    if (primary_ens === handle) return 0;
-                    return 1;
+                walletProfiles.sort((a, b) => {
+                    return (
+                        getSortPriority(b.__origin__ as WalletProfile, handle) -
+                        getSortPriority(a.__origin__ as WalletProfile, handle)
+                    );
                 });
                 if (!walletProfiles.length) {
                     router.navigate({ to: TipsRoutePath.NO_AVAILABLE_WALLET });

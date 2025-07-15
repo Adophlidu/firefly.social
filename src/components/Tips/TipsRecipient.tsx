@@ -25,7 +25,7 @@ export const TipsRecipient = memo(function TipsRecipient() {
     return (
         <motion.div
             whileTap={{ scale: 0.98 }}
-            className="flex h-[77px] cursor-pointer items-center gap-3 rounded-xl bg-input p-4"
+            className="flex h-[77px] cursor-pointer items-center gap-3 rounded-xl bg-input p-4 dark:bg-lightBg"
             onClick={openRecipientSelector}
         >
             <RecipientAvatar recipient={recipient} />

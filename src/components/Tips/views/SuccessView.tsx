@@ -71,13 +71,24 @@ export function SuccessView() {
                 ` , sent you some $${token?.symbol} via `,
                 FIREFLY_MENTION,
                 ' ✨ Keep shinning! \r\n',
-                hash ? RouteResolver.tip(hash) : '',
+                hash && token?.chainId ? RouteResolver.tx(token.chainId, hash) : '',
             ],
         }).then((res) => {
             if (!res?.post || !hash) return;
             captureTipsSharePostEvent(identity, hash);
         });
-    }, [context, handle, post, socialProfiles, token?.symbol, hash, currentChannel, canShare, identity]);
+    }, [
+        context,
+        handle,
+        post,
+        socialProfiles,
+        token?.symbol,
+        hash,
+        currentChannel,
+        canShare,
+        identity,
+        token?.chainId,
+    ]);
 
     if (!token || !recipient) return null;
 
@@ -168,10 +179,10 @@ export function SuccessView() {
                 </div>
             </div>
             <div className="mt-12 flex w-full gap-4 text-medium font-bold">
-                {hash ? (
+                {hash && token.chainId ? (
                     <ClickableButton
                         onClick={() => {
-                            openWindow(RouteResolver.tip(hash));
+                            openWindow(RouteResolver.tx(token.chainId, hash));
                         }}
                         className="h-10 flex-1 rounded-lg bg-secondaryLine text-main"
                     >

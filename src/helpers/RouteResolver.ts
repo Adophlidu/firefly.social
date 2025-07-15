@@ -5,13 +5,6 @@ import { SITE_URL } from '@/constants/index.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 
 export class RouteResolver {
-    static tip(hash: string, view?: TipsDetailViewType) {
-        return urlcat(SITE_URL, '/tip/:hash', {
-            hash,
-            view,
-        });
-    }
-
     static tx(chainId: number | string, hash: string, view?: TipsDetailViewType) {
         return urlcat(SITE_URL, '/tx/:chainId/:hash', {
             chainId,
