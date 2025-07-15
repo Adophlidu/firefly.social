@@ -1,7 +1,9 @@
-import { type Address } from 'viem';
-import { estimateFeesPerGas, estimateGas } from 'wagmi/actions';
+import { type Address, parseUnits } from 'viem';
+import { estimateFeesPerGas } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
+import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
+import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { multipliedBy, ZERO } from '@/helpers/number.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
@@ -9,33 +11,62 @@ import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import type { GetDefaultGasOptions } from '@/providers/types/Transfer.js';
 import type { EthereumChainId } from '#masknet/web3-shared-evm';
 
-export async function getDefaultGas({ token, to }: GetDefaultGasOptions<EthereumChainId, Address>) {
+async function estimateGasForErc20Token(
+    to: string,
+    token: {
+        chainId: number;
+        address: string;
+        decimals: number;
+    },
+    amount: string,
+) {
+    const client = createWagmiPublicClient(token.chainId);
     const account = await EthereumNetwork.getAccount();
+    const data = await client.estimateContractGas({
+        abi: getTokenAbiForWagmi(token.chainId, token.address as Address),
+        functionName: 'transfer',
+        address: token.address as Address,
+        args: [to as Address, parseUnits(amount, token.decimals)],
+        account,
+    });
+
+    return data || 0n;
+}
+
+async function estimateGasForNativeToken(
+    to: string,
+    token: {
+        chainId: number;
+        address: string;
+        decimals: number;
+    },
+    amount: string,
+) {
+    const client = createWagmiPublicClient(token.chainId);
+    const data = await client.estimateGas({
+        to: to as Address,
+        value: parseUnits(amount, token.decimals),
+    });
+
+    return data || 0n;
+}
+
+export async function getDefaultGas({ token, to, amount }: GetDefaultGasOptions<EthereumChainId, Address>) {
     const isEIP1559 = EVMChainResolver.isFeatureSupported(token.chainId, 'EIP1559');
     const { gasPrice, maxFeePerGas, maxPriorityFeePerGas } = await estimateFeesPerGas(config, {
         chainId: token.chainId,
         type: isEIP1559 ? 'eip1559' : 'legacy',
     });
-    const parameters = { chainId: token.chainId, account, to };
+    const isNative = isNativeToken(token);
+    const parameters = { chainId: token.chainId, address: token.id, decimals: token.decimals };
     let gasLimit: bigint;
     try {
-        if (isEIP1559) {
-            gasLimit = await estimateGas(config, {
-                ...parameters,
-                type: 'eip1559',
-                maxFeePerGas,
-                maxPriorityFeePerGas,
-            });
-        } else {
-            gasLimit = await estimateGas(config, {
-                ...parameters,
-                type: 'legacy',
-                gasPrice,
-            });
-        }
+        gasLimit = isNative
+            ? await estimateGasForNativeToken(to, parameters, amount)
+            : await estimateGasForErc20Token(to, parameters, amount);
     } catch {
         // Fallback to default gas limit
-        gasLimit = isNativeToken(token) ? 21000n : 50000n;
+        gasLimit = isNative ? 21000n : 50000n;
     }
 
     const gasFee = isEIP1559

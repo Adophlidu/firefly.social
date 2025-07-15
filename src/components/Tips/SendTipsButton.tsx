@@ -10,12 +10,13 @@ import { useAsyncFn, useAsyncRetry } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { EstimatedCost } from '@/components/Tips/EstimatedCost.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { isZero } from '@/helpers/number.js';
+import { isZero, ZERO } from '@/helpers/number.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { trimify } from '@/helpers/trimify.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
@@ -73,13 +74,13 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             return { label: <Trans>Insufficient Balance</Trans>, disabled: true };
         }
 
-        const isGasValid = await transfer.validateGas({
+        const { isValid, gas } = await transfer.validateGas({
             to: recipient.address,
             token,
             amount,
         });
-        if (isGasValid) return { label: <Trans>Send</Trans>, disabled: false };
-        return { label: <Trans>Insufficient Balance for Gas Fee</Trans>, disabled: true };
+        if (isValid) return { label: <Trans>Send</Trans>, disabled: false, gas };
+        return { label: <Trans>Insufficient Balance for Gas Fee</Trans>, disabled: true, gas };
     }, [recipient, token, amount]);
 
     const [{ loading: isSending }, handleSendTips] = useAsyncFn(async () => {
@@ -167,26 +168,29 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
     }
 
     return (
-        <motion.button
-            className={classNames(
-                'mt-4 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-lightMain font-bold text-lightBottom dark:text-darkBottom',
-                disabled ? 'cursor-not-allowed opacity-50' : '',
-            )}
-            disabled={disabled}
-            whileTap={{ scale: 0.98 }}
-            onClick={handleSendTips}
-        >
-            {isValidating ? null : !connected ? (
-                <Trans>Connect Wallet</Trans>
-            ) : isSending ? (
-                <Trans>Sending</Trans>
-            ) : error ? (
-                <Trans>Validate failed, please check your input.</Trans>
-            ) : (
-                value?.label
-            )}
-            {isSending || isValidating ? <LoadingIcon size={20} /> : null}
-        </motion.button>
+        <>
+            <EstimatedCost gas={value?.gas || ZERO} />
+            <motion.button
+                className={classNames(
+                    'mt-4 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-lightMain font-bold text-lightBottom dark:text-darkBottom',
+                    disabled ? 'cursor-not-allowed opacity-50' : '',
+                )}
+                disabled={disabled}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleSendTips}
+            >
+                {isValidating ? null : !connected ? (
+                    <Trans>Connect Wallet</Trans>
+                ) : isSending ? (
+                    <Trans>Sending</Trans>
+                ) : error ? (
+                    <Trans>Validate failed, please check your input.</Trans>
+                ) : (
+                    value?.label
+                )}
+                {isSending || isValidating ? <LoadingIcon size={20} /> : null}
+            </motion.button>
+        </>
     );
 });
 

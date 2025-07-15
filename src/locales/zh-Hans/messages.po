@@ -2006,6 +2006,9 @@ msgstr "隐藏更多评论"
 msgid "Like / Repost / Comment"
 msgstr "点赞/转发/评论"
 
+msgid "Estimated cost"
+msgstr ""
+
 msgid "Failed to login."
 msgstr "登录失败。"
 

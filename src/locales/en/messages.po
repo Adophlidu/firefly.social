@@ -2001,6 +2001,9 @@ msgstr "Hide more comments"
 msgid "Like / Repost / Comment"
 msgstr "Like / Repost / Comment"
 
+msgid "Estimated cost"
+msgstr "Estimated cost"
+
 msgid "Failed to login."
 msgstr "Failed to login."
 

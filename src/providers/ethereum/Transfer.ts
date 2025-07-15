@@ -38,7 +38,7 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
         return !isGreaterThan(rightShift(options.amount, options.token.decimals), balance);
     }
 
-    async validateGas(options: TransactionOptions<EthereumChainId, Address>): Promise<boolean> {
+    async validateGas(options: TransactionOptions<EthereumChainId, Address>) {
         const { token } = options;
         const account = await EthereumNetwork.getAccount();
         const nativeBalance = await getBalance(config, {
@@ -47,7 +47,10 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
         });
         const { gas } = await getDefaultGas(options);
 
-        return !isLessThan(`${nativeBalance.value}`, `${gas}`);
+        return {
+            isValid: !isLessThan(`${nativeBalance.value}`, `${gas}`),
+            gas,
+        };
     }
 
     async getAvailableBalance(options: TransactionOptions<EthereumChainId, Address>): Promise<string> {

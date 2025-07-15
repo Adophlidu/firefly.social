@@ -1998,6 +1998,9 @@ msgstr ""
 msgid "Like / Repost / Comment"
 msgstr ""
 
+msgid "Estimated cost"
+msgstr ""
+
 msgid "Failed to login."
 msgstr ""
 

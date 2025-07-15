@@ -17,7 +17,7 @@ export function RootView() {
     return (
         <div
             className={classNames('flex w-full flex-col transition-all', {
-                'h-[322px] md:h-[332px]': [TipsRoutePath.TIPS, TipsRoutePath.SELECT_RECIPIENT].includes(
+                'h-[358px] md:h-[368px]': [TipsRoutePath.TIPS, TipsRoutePath.SELECT_RECIPIENT].includes(
                     pathname as TipsRoutePath,
                 ),
                 'h-[382px] md:h-[582px]': pathname === TipsRoutePath.SELECT_TOKEN,

@@ -4,7 +4,7 @@ import { createTransferInstruction } from '@solana/spl-token';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
-import { isGreaterThan, rightShift } from '@/helpers/number.js';
+import { isGreaterThan, isLessThan, minus, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { parseSolToLamports } from '@/helpers/parseSolToLamports.js';
 import { getOrCreateAssociatedTokenAccount } from '@/providers/solana/getOrCreateAssociatedTokenAccount.js';
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';
@@ -12,6 +12,8 @@ import { getWalletAdapter } from '@/providers/solana/getWalletAdapter.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
 import { SolanaChainId } from '#masknet/web3-shared-solana';
+
+const defaultFee = 0.00001 * web3.LAMPORTS_PER_SOL * 1.3; // 0.000008 SOL with a buffer
 
 class Provider implements TransferProvider<SolanaChainId> {
     private _connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');
@@ -38,8 +40,14 @@ class Provider implements TransferProvider<SolanaChainId> {
     }
 
     async validateBalance({ token, amount }: TransactionOptions<SolanaChainId>): Promise<boolean> {
-        const balance = await getTokenBalance(token, await SolanaNetwork.getAccount(), SolanaChainId.Mainnet);
-        return !isGreaterThan(rightShift(amount, token.decimals), balance.value);
+        const balanceRes = await getTokenBalance(token, await SolanaNetwork.getAccount(), SolanaChainId.Mainnet);
+        let balance = balanceRes.value;
+        if (isZeroAddressSolana(token.id)) {
+            const available = minus(balance, defaultFee);
+            balance = isLessThan(available, 0) ? '0' : available.toString();
+        }
+
+        return !isGreaterThan(rightShift(amount, token.decimals), balance);
     }
 
     async getTransferTransaction(options: TransactionOptions<SolanaChainId>) {
@@ -48,7 +56,7 @@ class Provider implements TransferProvider<SolanaChainId> {
             : await this.getSplTransferTransaction(options);
     }
 
-    async validateGas(options: TransactionOptions<SolanaChainId>): Promise<boolean> {
+    async validateGas(options: TransactionOptions<SolanaChainId>) {
         const account = await SolanaNetwork.getAccount();
         const nativeBalance = await getNativeTokenBalance(account, SolanaChainId.Mainnet);
         const transaction = await this.getTransferTransaction(options);
@@ -57,13 +65,22 @@ class Provider implements TransferProvider<SolanaChainId> {
         transaction.recentBlockhash = blockHash.blockhash;
 
         const fees = await transaction.getEstimatedFee(this.connection);
-        return fees ? !isGreaterThan(fees, nativeBalance.value) : false;
+        return {
+            isValid: fees ? !isGreaterThan(fees, nativeBalance.value) : false,
+            gas: fees ? multipliedBy(fees, 1.3) : ZERO,
+        };
     }
 
     async getAvailableBalance({ token }: TransactionOptions<SolanaChainId>): Promise<string> {
         const account = await SolanaNetwork.getAccount();
-        const balance = await getTokenBalance(token, account, SolanaChainId.Mainnet);
-        return formatBalance(balance.value, token.decimals, {
+        const balanceRes = await getTokenBalance(token, account, SolanaChainId.Mainnet);
+        let balance = balanceRes.value;
+        if (isZeroAddressSolana(token.id)) {
+            const available = minus(balance, defaultFee);
+            balance = isLessThan(available, 0) ? '0' : available.toString();
+        }
+
+        return formatBalance(balance, token.decimals, {
             significant: 8,
             isPrecise: true,
             hasSeparators: false,
