@@ -8,20 +8,24 @@ import { AccountConnectButton } from '@/components/AccountConnectButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { WalletConnectButton } from '@/components/WalletConnectButton.js';
+import { SignupStep } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { isPathnameForceRedirect, openLoginModal } from '@/helpers/openLoginModal.js';
+import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useIsLogin, useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
-interface FooterProps {}
-
-export function Footer(props: FooterProps) {
+export function Footer() {
     const mounted = useMounted();
     const isLogin = useIsLogin();
     const isLoginFirefly = useIsLoginFirefly();
     const isLoading = useAsyncStatusAll();
+    const pathname = usePathname();
+
+    const isForceRedirect = isPathnameForceRedirect(pathname);
 
     if (!mounted) return;
 
@@ -46,7 +50,11 @@ export function Footer(props: FooterProps) {
                         onClick={async () => {
                             useNavigatorState.getState().updateSidebarOpen(false);
                             await delay(300);
-                            openLoginModal();
+                            if (isForceRedirect) {
+                                openLoginModal();
+                            } else {
+                                window.location.href = RouteResolver.signup(SignupStep.LoginSocialPlatform);
+                            }
                         }}
                     >
                         {isLoading ? (

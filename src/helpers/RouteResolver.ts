@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import type { ProfileCategory, ProfilePageSource, TipsDetailViewType } from '@/constants/enum.js';
+import type { ProfileCategory, ProfilePageSource, SignupStep, TipsDetailViewType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 
@@ -17,6 +17,12 @@ export class RouteResolver {
             chainId,
             hash,
             view,
+        });
+    }
+
+    static signup(step?: SignupStep) {
+        return urlcat(SITE_URL, '/signup', {
+            step,
         });
     }
 
