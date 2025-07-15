@@ -32,7 +32,7 @@ import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentio
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
-import { isTCOLink } from '@/helpers/resolveTCOLink.js';
+import { isTcoLink } from '@/helpers/resolveTcoLink.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 
 function unpaddings(text: string) {
@@ -242,7 +242,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         );
     }
 
-    if (isTCOLink(title)) {
+    if (isTcoLink(title)) {
         return <TcoLink title={title} post={post} />;
     }
 

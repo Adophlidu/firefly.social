@@ -37,7 +37,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
+import { resolveTcoLink } from '@/helpers/resolveTcoLink.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import { resolveTwitterResponseData } from '@/helpers/resolveTwitterResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -328,14 +328,14 @@ class OfficialSocialMedia implements Provider {
     async getProfileById(profileId: string): Promise<Profile> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
         const data = resolveTwitterResponseData(response);
-        data.url = data.url && !isServer ? ((await resolveTCOLink(data.url)) ?? data.url) : data.url;
+        data.url = data.url && !isServer ? ((await resolveTcoLink(data.url)) ?? data.url) : data.url;
         return formatTwitterProfile(data);
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
         const data = resolveTwitterResponseData(response);
-        data.url = data.url && !isServer ? ((await resolveTCOLink(data.url)) ?? data.url) : data.url;
+        data.url = data.url && !isServer ? ((await resolveTcoLink(data.url)) ?? data.url) : data.url;
         return formatTwitterProfile(data);
     }
 
@@ -354,7 +354,7 @@ class OfficialSocialMedia implements Provider {
             headers: TwitterSession.payloadToHeaders(payload),
         });
         const data = resolveTwitterResponseData(response);
-        data.url = data.url && !isServer ? ((await resolveTCOLink(data.url)) ?? data.url) : data.url;
+        data.url = data.url && !isServer ? ((await resolveTcoLink(data.url)) ?? data.url) : data.url;
         return formatTwitterProfile(data);
     }
 

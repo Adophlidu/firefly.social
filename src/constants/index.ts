@@ -64,6 +64,7 @@ export const FIREFLY_STAMP_DEV_URL = 'https://stamp-dev.firefly.land/avatar';
 export const HEY_IPFS_GW_URL = 'https://gw.ipfs-lens.dev/ipfs';
 export const DSEARCH_BASE_URL = 'https://dsearch.mask.r2d2.to';
 export const CORS_HOST = 'https://cors-next.r2d2.to';
+export const FIREFLY_WORKER_HOST = 'https://firefly.r2d2.to';
 export const COINGECKO_ROOT_URL = 'https://coingecko-agent.r2d2.to/api/v3';
 export const GO_PLUS_LABS_ROOT_URL = 'https://gopluslabs.r2d2.to';
 export const DEBANK_OPEN_API = 'https://debank-proxy.r2d2.to';

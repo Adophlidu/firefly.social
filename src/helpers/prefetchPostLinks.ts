@@ -1,12 +1,12 @@
 import { uniq } from 'lodash-es';
 import urlcat from 'urlcat';
 
+import type { GetClassifyPostLinkOnActionResult } from '@/app/api/post-link/getClassifyPostLink.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { deserializeClassifyPostLinkResult } from '@/services/getClassifyPostLinkWithDeserialization.js';
 import type { ResponseJSON } from '@/types/index.js';
-import type { GetClassifyPostLinkOnActionResult } from '@/app/api/post-link/getClassifyPostLink.js';
 
 export async function prefetchPostLinks(urls: string[]) {
     return runInSafeAsync(async () => {

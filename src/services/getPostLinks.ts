@@ -7,7 +7,7 @@ import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
-import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
+import { resolveTcoLink } from '@/helpers/resolveTcoLink.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
@@ -45,7 +45,7 @@ export async function getPostFrame(url: string): Promise<Frame | null> {
     if (!url || !isValidPostLink(url, true)) return null;
     const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
         urlcat('/api/frame', {
-            link: (await resolveTCOLink(url)) ?? url,
+            link: (await resolveTcoLink(url)) ?? url,
         }),
     );
     return response.success ? response.data.frame : null;
@@ -58,7 +58,7 @@ export const getPostOembed = memoizePromise(
         if (post?.quoteOn) return null;
         const linkDigested = await fetchJSON<ResponseJSON<LinkDigested>>(
             urlcat('/api/oembed', {
-                link: (await resolveTCOLink(url)) ?? url,
+                link: (await resolveTcoLink(url)) ?? url,
             }),
         );
         return linkDigested.success ? linkDigested.data : null;
