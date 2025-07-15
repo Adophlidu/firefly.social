@@ -1,6 +1,8 @@
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
+import { CHAINBASE_API_URL } from '@/constants/index.js';
+import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
@@ -9,9 +11,6 @@ import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import type { ENSRecord } from '@/mask_pkgs/web3-providers/Chainbase/types.js';
 import type { DomainAPI } from '@/mask_pkgs/web3-providers/types/DomainAPI.js';
 import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/types/index.js';
-
-import { CHAINBASE_API_URL } from '@/constants/index.js';
-import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 
 async function fetchFromChainbase<T>(pathname: string) {
     const data = await fetchCachedJSON<

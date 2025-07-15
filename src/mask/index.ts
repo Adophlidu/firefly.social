@@ -9,7 +9,6 @@
  *
  */
 
-export { ProfileIdentifier } from '@masknet/base';
 export { getRegisteredWeb3Networks } from '@/mask_pkgs/web3-providers/Manager/index.js';
 export { ExplorerResolver } from '@/mask_pkgs/web3-providers/Web3/Base/apis/ExplorerResolver.js';
 export {
@@ -22,3 +21,4 @@ export {
     SolanaExplorerResolver,
     SolanaNetworkResolver,
 } from '@/mask_pkgs/web3-providers/Web3/Solana/apis/ResolverAPI.js';
+export { ProfileIdentifier } from '@masknet/base';
