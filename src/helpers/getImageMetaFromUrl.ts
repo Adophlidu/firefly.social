@@ -1,20 +1,20 @@
-import { imageSize } from 'image-size';
+import urlcat from 'urlcat';
 
-export async function getImageMetaFromUrl(
-    url: string,
-): Promise<{ width: number; height: number; base64: string; mime: string } | null> {
-    try {
-        const res = await fetch(url);
-        const arrayBuffer = await res.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
-        const size = imageSize(buffer);
-        if (size.width && size.height && size.type) {
-            const base64 = buffer.toString('base64');
-            const mime = `image/${size.type}`;
-            return { width: size.width, height: size.height, base64, mime };
-        }
-        return null;
-    } catch {
-        return null;
-    }
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import type { ResponseJSON } from '@/types/index.js';
+
+interface ImageDigested {
+    width: number;
+    height: number;
+}
+
+export async function getImageMetaFromUrl(url: string): Promise<ImageDigested | null> {
+    const response = await fetchJSON<ResponseJSON<ImageDigested>>(
+        urlcat(FIREFLY_WORKER_HOST, '/sizeof', {
+            link: url,
+        }),
+    );
+    if (!response.success) return null;
+    return response.data;
 }

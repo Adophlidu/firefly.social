@@ -2,6 +2,7 @@ import urlcat from 'urlcat';
 
 import { KeyType, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { TWEET_SPACE_REGEX } from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -26,9 +27,8 @@ import { getTruthSocialPostFromUrl } from '@/services/getTruthSocialPostFromUrl.
 import { settings } from '@/settings/index.js';
 import type { FireflyBlinkParserBlinkResponse, FireflyBlinkParserBlinkResponseData } from '@/types/blink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
-import type { LinkDigested } from '@/types/og.js';
-import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import type { ResponseJSON } from '@/types/index.js';
+import type { LinkDigested } from '@/types/og.js';
 
 const IGNORE_HOSTS = [/^.+\.firefly\.social$/, 'localhost:3000', 'x.com'];
 

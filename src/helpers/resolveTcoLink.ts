@@ -1,8 +1,9 @@
+import urlcat from 'urlcat';
+
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import type { ResponseJSON } from '@/types/index.js';
-import urlcat from 'urlcat';
 
 type TcoResponse = ResponseJSON<{
     resolved: string;

@@ -1,12 +1,12 @@
 import urlcat from 'urlcat';
 
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { anySignal } from '@/helpers/anySignal.js';
 import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { BaseLoader } from '@/providers/base/Loader.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
-import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 
 class Loader extends BaseLoader<Frame> {
     protected override fetch(url: string, signal?: AbortSignal) {

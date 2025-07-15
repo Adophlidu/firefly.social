@@ -13,6 +13,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { NODE_ENV, SimulateType, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MalformedError, TransactionSimulationError } from '@/constants/error.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
@@ -40,7 +41,6 @@ import {
     type RedirectUrlResponse,
 } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
-import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 
 const TransactionSchema = z.object({
     // a CAIP-2 chain ID to identify the tx network

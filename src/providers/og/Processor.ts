@@ -1,6 +1,7 @@
 import urlcat from 'urlcat';
 
 import { SourceInURL } from '@/constants/enum.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import {
     LENS_DETAIL_REGEX,
     MIRROR_HOSTNAME_REGEXP,
@@ -9,12 +10,11 @@ import {
     WARPCAST_CONVERSATIONS_REGEX,
     WARPCAST_THREAD_REGEX,
 } from '@/constants/regexp.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { getFarcasterPayload, getMirrorPayload } from '@/providers/og/readers/payload.js';
-import { type LinkDigested, type OpenGraph, PayloadType } from '@/types/og.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { ResponseJSON } from '@/types/index.js';
-import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
+import { type LinkDigested, type OpenGraph, PayloadType } from '@/types/og.js';
 
 class Processor {
     digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigested | null> => {
