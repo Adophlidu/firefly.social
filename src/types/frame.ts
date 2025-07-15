@@ -81,10 +81,6 @@ export enum MethodType {
     ETH_SIGN_TYPED_DATA_V4 = 'eth_signTypedData_v4',
 }
 
-export interface LinkDigestedResponse<T = Frame> {
-    frame: T | null;
-}
-
 export interface RedirectUrlResponse {
     redirectUrl: string;
 }
@@ -268,3 +264,7 @@ export interface FrameV2 {
 // #endregion
 
 export type Frame = FrameV1 | FrameV2;
+
+export interface LinkDigestedResponse<T = Frame> {
+    frame: T | null;
+}

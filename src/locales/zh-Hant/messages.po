@@ -1249,9 +1249,6 @@ msgstr "登入狀態驗證器"
 msgid "THREAD POST"
 msgstr "貼文串"
 
-msgid "Frame Validator"
-msgstr "Frame 驗證器"
-
 msgid "Repost again"
 msgstr "再次轉發"
 

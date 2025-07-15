@@ -52,6 +52,7 @@ function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width'
 async function AttachmentImage({ src }: { src: string }) {
     const imageMeta = await getImageMetaFromUrl(src);
     if (!imageMeta) return null;
+
     const maxSize = 280;
     const { width, height } = imageMeta;
     const scale = Math.max(width, height) === 0 ? 1 : maxSize / Math.max(width, height);

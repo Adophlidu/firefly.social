@@ -1249,9 +1249,6 @@ msgstr "登录状态验证器"
 msgid "THREAD POST"
 msgstr "帖子串"
 
-msgid "Frame Validator"
-msgstr "Frame 验证器"
-
 msgid "Repost again"
 msgstr "再次转发"
 

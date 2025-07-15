@@ -12,6 +12,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 
 // We are confident that these hosts will not be used for frame links
 const IGNORE_HOSTS = [/^.+\.mask\.social$/, 'localhost:3000', 'x.com'];
@@ -44,8 +45,8 @@ export async function getPostFrame(url: string): Promise<Frame | null> {
     if (env.external.NEXT_PUBLIC_FRAME !== STATUS.Enabled) return null;
     if (!url || !isValidPostLink(url, true)) return null;
     const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
-        urlcat('/api/frame', {
-            link: (await resolveTcoLink(url)) ?? url,
+        urlcat(FIREFLY_WORKER_HOST, '/frame', {
+            link: url,
         }),
     );
     return response.success ? response.data.frame : null;

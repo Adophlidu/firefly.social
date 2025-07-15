@@ -1244,9 +1244,6 @@ msgstr ""
 msgid "THREAD POST"
 msgstr ""
 
-msgid "Frame Validator"
-msgstr ""
-
 msgid "Repost again"
 msgstr ""
 

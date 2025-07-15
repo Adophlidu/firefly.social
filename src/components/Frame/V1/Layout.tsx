@@ -40,6 +40,7 @@ import {
     type RedirectUrlResponse,
 } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 
 const TransactionSchema = z.object({
     // a CAIP-2 chain ID to identify the tx network
@@ -120,7 +121,7 @@ async function getNextFrame(
             else throw new MalformedError('Invalid frame packet.');
         }
 
-        const url = urlcat('/api/frame', {
+        const url = urlcat(FIREFLY_WORKER_HOST, '/frame', {
             url: frame.url,
             action: button.action,
             target: button.target,

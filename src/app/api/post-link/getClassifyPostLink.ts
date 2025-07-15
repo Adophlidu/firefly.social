@@ -11,7 +11,6 @@ import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { FrameProcessor } from '@/providers/frame/Processor.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import { getPostIframeContent } from '@/providers/og/readers/getPostIframeContent.js';
@@ -26,8 +25,10 @@ import { getSnapshotByLink } from '@/services/getSnapshotByLink.js';
 import { getTruthSocialPostFromUrl } from '@/services/getTruthSocialPostFromUrl.js';
 import { settings } from '@/settings/index.js';
 import type { FireflyBlinkParserBlinkResponse, FireflyBlinkParserBlinkResponseData } from '@/types/blink.js';
-import type { Frame } from '@/types/frame.js';
+import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { LinkDigested } from '@/types/og.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
+import type { ResponseJSON } from '@/types/index.js';
 
 const IGNORE_HOSTS = [/^.+\.firefly\.social$/, 'localhost:3000', 'x.com'];
 
@@ -90,26 +91,28 @@ export async function getClassifyPostLink(url: string) {
                 if (!articleId) return null;
                 return { articleId };
             },
-            // nft
             async () => {
                 const nft = await getNFTFromUrl(url);
                 return nft ? { nft } : null;
             },
-            // nft collection
             async () => {
                 const collection = await getCollectionFromUrl(url);
                 return collection ? { collection } : null;
             },
             async () => {
-                // try iframe first. As we don't have to call other services if matched
                 const html = getPostIframeContent(null, url);
                 return html ? { html } : null;
             },
             async () => {
                 if (env.external.NEXT_PUBLIC_FRAME !== STATUS.Enabled) return null;
                 if (!url || !isValidPostLink(url, true)) return null;
-                const frame = (await FrameProcessor.digestDocumentUrl(url))?.frame;
-                return frame ? { frame } : null;
+                const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
+                    urlcat(FIREFLY_WORKER_HOST, '/frame', {
+                        link: url,
+                    }),
+                );
+                if (!response.success) return null;
+                return response.data.frame ? { frame: response.data.frame } : null;
             },
             async () => {
                 if (env.external.NEXT_PUBLIC_BLINK !== STATUS.Enabled) return null;
