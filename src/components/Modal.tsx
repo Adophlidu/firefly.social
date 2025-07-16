@@ -27,7 +27,7 @@ export function Modal({
     children,
     enableBackdrop = true,
     disableScrollLock = true,
-    disableDialogClose = false,
+    disableDialogClose = true,
     disableBackdropClose = false,
     dialogClassName,
     dialogPanelClassName,

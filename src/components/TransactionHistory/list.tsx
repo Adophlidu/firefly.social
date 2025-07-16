@@ -14,6 +14,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { groupAndSortByDate } from '@/helpers/sortAndGroupByDate.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
@@ -32,8 +33,10 @@ interface Props {
 export function TransactionHistory({ chains, address }: Props) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['wallet-transaction-history', address, chains],
-        async queryFn() {
-            return FireflyEndpointProvider.getWalletHistoryTransactions(chains, address);
+        async queryFn({ pageParam }) {
+            return FireflyEndpointProvider.getWalletHistoryTransactions(chains, address, {
+                indicator: createIndicator(undefined, pageParam),
+            });
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,

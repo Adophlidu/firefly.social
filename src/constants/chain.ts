@@ -338,6 +338,13 @@ export const DEBANK_CHAINS = [
         native_token_id: 'eth',
         logo_url: 'https://static.debank.com/image/chain/logo_url/era/2cfcd0c8436b05d811b03935f6c1d7da.png',
     },
+    {
+        id: 'linea',
+        community_id: 59_144,
+        name: 'Linea',
+        native_token_id: 'eth',
+        logo_url: 'https://static.debank.com/image/chain/logo_url/linea/32d4ff2cf92c766ace975559c232179c.png',
+    },
 ];
 
 export const DEBANK_CHAIN_TO_CHAIN_ID_MAP: Record<string, number> = {
@@ -355,6 +362,8 @@ export const DEBANK_CHAIN_TO_CHAIN_ID_MAP: Record<string, number> = {
     base: EthereumChainId.Base,
     scrl: EthereumChainId.Scroll,
     lens: EthereumChainId.Lens,
+    linea: EthereumChainId.Linea,
+    era: EthereumChainId.ZksyncEra,
 };
 
 export const SOLANA_CHAIN_ID_IN_FIREFLY = 101;

@@ -4,8 +4,7 @@ import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { uniq } from 'lodash-es';
-import { type Ref, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
-import { useScrollLock } from 'usehooks-ts';
+import { type Ref, useCallback, useImperativeHandle, useMemo, useState } from 'react';
 
 import AddIcon from '@/assets/add-circle.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -18,6 +17,7 @@ import { TokenItem } from '@/components/Tips/TokenItem.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
 import { isGreaterThan, isLessThan } from '@/helpers/number.js';
+import { useBodyLock } from '@/hooks/useBodyLock.js';
 import { type Token, useCustomFungibleTokens } from '@/hooks/useCustomFungibleTokens.js';
 import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
@@ -39,14 +39,7 @@ export function TokenSelectorModal<T extends Token>({ tokens, isLoading, onSelec
     const onClose = useCallback(() => setOpen(false), []);
     const [chainId, setChainId] = useState<number>();
     const [keyword, setKeyword] = useState('');
-    const { lock, unlock } = useScrollLock({ autoLock: false });
-    useEffect(() => {
-        if (open) {
-            lock();
-        } else {
-            unlock();
-        }
-    }, [lock, open, unlock]);
+    useBodyLock(open);
 
     const {
         tokens: data,
@@ -196,10 +189,10 @@ export function useExpandableTokens(
         );
     }, [chainId, filteredTokens, keyword]);
 
-    const data =
-        showSmall || !canExpand
-            ? filteredTokens
-            : filteredTokens.filter((token) => (token.custom ? true : isGreaterThan(token.usdValue, 1)));
+    const highValueTokens = filteredTokens.filter((token) => (token.custom ? true : isGreaterThan(token.usdValue, 1)));
+    const lowValueTokens = filteredTokens.filter((token) => (token.custom ? false : isLessThan(token.usdValue, 1)));
+
+    const data = showSmall || !canExpand ? [...highValueTokens, ...lowValueTokens] : highValueTokens;
 
     return {
         tokens: data,

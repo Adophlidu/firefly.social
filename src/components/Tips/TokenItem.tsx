@@ -1,10 +1,13 @@
 import { Trans } from '@lingui/react/macro';
+import { BigNumber } from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { classNames } from '@/helpers/classNames.js';
-import { isLessThan, isZero, multipliedBy } from '@/helpers/number.js';
+import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
+import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
+import { isGreaterThan, multipliedBy } from '@/helpers/number.js';
 import type { Token as RawToken } from '@/hooks/useCustomFungibleTokens.js';
 
 export type Token = Pick<
@@ -28,13 +31,11 @@ interface TokenItemProps extends ClickableButtonProps {
 }
 
 export function TokenItem({ className, token, disableChainIcon, ...props }: TokenItemProps) {
-    const usd = useMemo(() => {
-        const usdtValue = +multipliedBy(token.price, token.amount);
-        if (Number.isNaN(usdtValue)) return '';
-        if (isZero(usdtValue)) return '$0';
-        if (isLessThan(usdtValue, '0.01')) return '<$0.01';
-        return `$${usdtValue.toFixed(2)}`;
-    }, [token.amount, token.price]);
+    const usd = formatPrice(multipliedBy(token.price, token.amount).toString());
+    const balance = useMemo(() => {
+        if (isGreaterThan(token.balance, 1)) return removeTrailingZeros(BigNumber(token.balance).toFormat(2));
+        return token.balance || '0';
+    }, [token.balance]);
 
     return (
         <ClickableButton
@@ -58,12 +59,12 @@ export function TokenItem({ className, token, disableChainIcon, ...props }: Toke
                         ) : null}
                     </div>
                     <div className="w-full text-[13px] font-normal leading-[18px] text-second">
-                        {token.balance || '0'} {token.symbol || '-'}
+                        {balance} {token.symbol || '-'}
                     </div>
                 </div>
             </div>
             <div className="flex flex-col items-end justify-center font-medium">
-                <span>{usd || '-'}</span>
+                <span>{usd ? <>${renderShrankPrice(usd)}</> : '-'}</span>
             </div>
         </ClickableButton>
     );
