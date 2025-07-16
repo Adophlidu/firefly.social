@@ -1,4 +1,4 @@
-import 'tippy.js/dist/tippy.css';
+import '@/assets/css/tippy.css';
 
 import type { TippyProps } from '@tippyjs/react';
 import { memo, type ReactNode } from 'react';

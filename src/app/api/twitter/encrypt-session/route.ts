@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
@@ -26,7 +25,7 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
 
         const payload = await createTwitterSessionAfterLogin();
         if (!payload) {
-            return createErrorResponseJSON('Twitter session not found', { status: StatusCodes.UNAUTHORIZED });
+            return createErrorResponseJSON('Twitter session not found', { status: 401 });
         }
 
         const twitterMetricsData: TwitterMetricsData = {

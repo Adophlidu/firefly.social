@@ -1,13 +1,13 @@
 import { msg } from '@lingui/core/macro';
 import { type ReactNode } from 'react';
 
-import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
-import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
+import { SuggestedChannels } from '@/components/SuggestedChannels/SuggestedChannels.js';
+import { SuggestedFollows } from '@/components/SuggestedFollows/SuggestedFollows.js';
 import { Agent, PageRoute } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -43,7 +43,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
                     <aside className="sticky top-0 z-[1] hidden h-screen w-96 flex-col gap-4 px-4 md:min-w-[384px] lg:flex">
                         <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
                             <AsideSearchBar />
-                            <SuggestedFollowsCard />
+                            <SuggestedFollows />
                             <SuggestedChannels />
                             <LinkCloud />
                         </div>

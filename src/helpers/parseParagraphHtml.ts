@@ -1,18 +1,18 @@
-import { parseHTML } from 'linkedom';
 import { first } from 'lodash-es';
 
+import { parseHtml } from '@/helpers/parseHtml.js';
+import { parseJson } from '@/helpers/parseJson.js';
 import type { ParagraphJSONContent } from '@/providers/paragraph/type.js';
 
 export function parseParagraphHtml(htmlString: string, jsonString: string) {
     if (!htmlString || !jsonString) return;
 
-    const { document } = parseHTML(htmlString);
+    const document = parseHtml(htmlString);
 
-    const json = JSON.parse(jsonString) as { content: ParagraphJSONContent[] };
+    const json = parseJson<{ content: ParagraphJSONContent[] }>(jsonString);
+    const twitterEmbeds = json?.content.filter((x) => x.type === 'twitter');
 
-    const twitterEmbeds = json.content.filter((x) => x.type === 'twitter');
-
-    twitterEmbeds.forEach((x) => {
+    twitterEmbeds?.forEach((x) => {
         const poster = x.attrs?.tweetData?.video?.poster;
         if (!poster) return;
         const videoSrc = first(x.attrs?.tweetData?.video?.variants.filter((video) => video.type === 'video/mp4'))?.src;
@@ -27,9 +27,9 @@ export function parseParagraphHtml(htmlString: string, jsonString: string) {
         img?.replaceWith(videoNode);
     });
 
-    const svgEmbeds = json.content.filter((x) => x.type === 'figure');
+    const svgEmbeds = json?.content.filter((x) => x.type === 'figure');
 
-    svgEmbeds.forEach((x) => {
+    svgEmbeds?.forEach((x) => {
         x.content.forEach((svg) => {
             if (svg.attrs?.nextheight && svg.attrs?.nextwidth) {
                 const node = document.querySelector(`img[src="${svg.attrs.src}"]`);

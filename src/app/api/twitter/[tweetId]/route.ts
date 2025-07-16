@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import { pick } from 'lodash-es';
 import type { NextRequest } from 'next/server.js';
 
@@ -30,7 +29,7 @@ export const DELETE = compose(
             return createTwitterErrorResponseJSON(errors);
         }
 
-        return createSuccessResponseJSON(data, { status: StatusCodes.OK });
+        return createSuccessResponseJSON(data, { status: 200 });
     },
 );
 

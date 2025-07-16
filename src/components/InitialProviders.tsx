@@ -5,7 +5,6 @@ import { isServer } from '@tanstack/react-query';
 import { SnackbarProvider } from 'notistack';
 import { memo, type ReactNode, useEffect, useLayoutEffect, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
-import { v4 as uuid } from 'uuid';
 
 import { sentryClient } from '@/configs/sentryClient.js';
 import { usePathname } from '@/esm/navigation.js';
@@ -43,7 +42,7 @@ export const InitialProviders = memo(function Providers(props: { children: React
     const viewerId = useLeafwatchPersistStore.use.viewerId();
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();
     useEffectOnce(() => {
-        if (!viewerId) setViewerId(uuid());
+        if (!viewerId) setViewerId(crypto.randomUUID());
 
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(console.error);

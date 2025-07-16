@@ -9,7 +9,6 @@ import {
     video,
 } from '@lens-protocol/metadata';
 import { first } from 'lodash-es';
-import { v4 as uuid } from 'uuid';
 
 import { HOME_CLUB } from '@/constants/channel.js';
 import { RestrictionType, Source, SourceInURL } from '@/constants/enum.js';
@@ -111,7 +110,7 @@ export async function createPayloadAttachments(
 
 export function createPostMetadata(metadata: BaseMetadata, attachments?: Attachments, sharingLink?: string) {
     const localBaseMetadata = {
-        id: uuid(),
+        id: crypto.randomUUID(),
         locale: getUserLocale(),
     };
 

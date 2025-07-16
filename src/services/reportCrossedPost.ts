@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
-import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
@@ -40,7 +39,7 @@ const resolvePlatform = createLookupTableResolver<SocialSource, string>(
 
 async function report(post: CompositePost) {
     // a post shared across multiple platforms will have the same relation ID
-    const relationId = uuid();
+    const relationId = crypto.randomUUID();
     const currentProfileAll = getCurrentProfileAll();
 
     const reports = compact(

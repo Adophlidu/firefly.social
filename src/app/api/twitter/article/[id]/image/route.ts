@@ -1,10 +1,10 @@
-import { parseHTML } from 'linkedom';
 import type { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
+import { parseHtml } from '@/helpers/parseHtml.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import { getImageUrl } from '@/providers/og/readers/metadata.js';
@@ -29,7 +29,7 @@ export const GET = compose(
         }
 
         const html = await response.text();
-        const { document } = parseHTML(html);
+        const document = parseHtml(html);
         const imageUrl = getImageUrl(document);
         if (!imageUrl) {
             return createErrorResponseJSON('article not found');

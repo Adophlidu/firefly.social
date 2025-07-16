@@ -1,5 +1,4 @@
 import { sendGAEvent } from '@next/third-parties/google';
-import { v4 as uuid } from 'uuid';
 import { isHex } from 'viem';
 
 import { STATUS } from '@/constants/enum.js';
@@ -68,7 +67,7 @@ class Telemetry extends Provider<Events, never> {
         }
 
         // update the latest event id
-        const publicParameters = getPublicParameters(uuid(), this.latestEventId);
+        const publicParameters = getPublicParameters(crypto.randomUUID(), this.latestEventId);
         this.latestEventId = publicParameters.public_uuid;
 
         const formattedParameters = Object.fromEntries(

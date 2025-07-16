@@ -1,7 +1,6 @@
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { clone, difference, uniq } from 'lodash-es';
 import { type SetStateAction } from 'react';
-import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
@@ -189,7 +188,7 @@ const next = (s: ComposeState, _: (post: CompositePost) => CompositePost, cursor
     posts: s.posts.map((x) => (x.id === cursor ? _(x) : x)),
 });
 
-const initialPostCursor = uuid();
+const initialPostCursor = crypto.randomUUID();
 
 const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
     immer((set, get) => ({
@@ -212,7 +211,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         },
         addPostInThread: () =>
             set((state) => {
-                const cursor = uuid();
+                const cursor = crypto.randomUUID();
                 const index = state.posts.findIndex((x) => x.id === state.cursor);
 
                 const nextPosts = [
@@ -550,7 +549,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                         chars: [
                             ...(Array.isArray(post.chars) ? post.chars : [post.chars]),
                             {
-                                id: `poll-${uuid()}`,
+                                id: `poll-${crypto.randomUUID()}`,
                                 tag: CHAR_TAG.FRAME,
                                 visible: false,
                                 content: '' as never,
@@ -640,7 +639,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             }),
         clear: () =>
             set((state) => {
-                const id = uuid();
+                const id = crypto.randomUUID();
                 const nextState = {
                     type: state.type,
                     cursor: id,

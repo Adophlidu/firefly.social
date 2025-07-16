@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 import { ZodError } from 'zod';
 
@@ -22,32 +21,32 @@ export function withRequestErrorHandler<P>(options?: { throwError?: boolean }) {
             } catch (error) {
                 if (error instanceof ContentTypeError) {
                     return createErrorResponseJSON(error.message, {
-                        status: StatusCodes.BAD_REQUEST,
+                        status: 400,
                     });
                 }
                 if (error instanceof ZodError) {
                     return createErrorResponseJSON(handleZodErrorMessage(error), {
-                        status: StatusCodes.BAD_REQUEST,
+                        status: 400,
                     });
                 }
                 if (error instanceof MalformedError) {
                     return createErrorResponseJSON(error.message, {
-                        status: StatusCodes.BAD_REQUEST,
+                        status: 400,
                     });
                 }
                 if (error instanceof UnauthorizedError) {
                     return createErrorResponseJSON(error.message, {
-                        status: StatusCodes.UNAUTHORIZED,
+                        status: 401,
                     });
                 }
                 if (error instanceof NotFoundError) {
                     return createErrorResponseJSON(error.message, {
-                        status: StatusCodes.NOT_FOUND,
+                        status: 404,
                     });
                 }
                 if (!throwError) {
                     return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
-                        status: StatusCodes.INTERNAL_SERVER_ERROR,
+                        status: 500,
                     });
                 }
 

@@ -10,7 +10,6 @@ import {
     useState,
 } from 'react';
 import { useAsyncFn } from 'react-use';
-import { v4 as uuid } from 'uuid';
 
 import { ImageWithLoading } from '@/app/(whiteboard)/components/Signup/ImageWithLoading.js';
 import { SocialAvatarSelector } from '@/app/(whiteboard)/components/Signup/SocialAvatarSelector.js';
@@ -64,7 +63,7 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
                   }
                 : null,
             {
-                url: getStampAvatarByProfileId(Source.Firefly, uuid()),
+                url: getStampAvatarByProfileId(Source.Firefly, crypto.randomUUID()),
                 type: 'random',
             },
         ]),
@@ -74,7 +73,7 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
             case 'pfp':
                 return;
             case 'random':
-                const newAvatar = getStampAvatarByProfileId(Source.Firefly, uuid());
+                const newAvatar = getStampAvatarByProfileId(Source.Firefly, crypto.randomUUID());
                 setAvatars((prev) => {
                     const existing = prev.find((item) => item.type === 'random');
                     if (existing) {

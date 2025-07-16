@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 import { type Hex } from 'viem';
 import { z } from 'zod';
@@ -18,7 +17,7 @@ const BodySchema = z.object({
 
 export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const parsed = BodySchema.safeParse(await request.json());
-    if (!parsed.success) return createErrorResponseJSON(parsed.error.message, { status: StatusCodes.BAD_REQUEST });
+    if (!parsed.success) return createErrorResponseJSON(parsed.error.message, { status: 400 });
 
     const deadline = dayjs(Date.now()).add(1, 'y').unix();
 

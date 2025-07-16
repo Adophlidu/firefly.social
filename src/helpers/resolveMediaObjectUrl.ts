@@ -1,5 +1,4 @@
 import type { BlobRef } from '@atproto/api';
-import { v4 as uuid } from 'uuid';
 
 import { FileMimeType, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
@@ -11,7 +10,7 @@ import type { TwitterMediaResponse } from '@/types/twitter.js';
 
 export function createLocalMediaObject(file: File, isRpPayloadImage = false): MediaObject {
     return {
-        id: uuid(),
+        id: crypto.randomUUID(),
         file,
         mimeType: file.type,
         urls: {
@@ -23,7 +22,7 @@ export function createLocalMediaObject(file: File, isRpPayloadImage = false): Me
 
 export function createVideoMediaObject(file: File, metadata?: VideoMetadata): MediaObject {
     return {
-        id: uuid(),
+        id: crypto.randomUUID(),
         file,
         mimeType: file.type,
         urls: {

@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 
 import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
@@ -14,11 +13,11 @@ export async function GET(request: NextRequest) {
         if (result) return result;
 
         return createErrorResponseJSON(`Unable to digest paragraph link = ${link}`, {
-            status: StatusCodes.BAD_GATEWAY,
+            status: 502,
         });
     } catch (error) {
         return createErrorResponseJSON(getGatewayErrorMessage(error), {
-            status: StatusCodes.BAD_GATEWAY,
+            status: 502,
         });
     }
 }

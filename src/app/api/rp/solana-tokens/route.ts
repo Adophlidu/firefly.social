@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import { uniqBy } from 'lodash-es';
 
 import { env } from '@/constants/env.js';
@@ -28,7 +27,7 @@ export async function GET() {
         return createSuccessResponseJSON(uniqBy([...(splResult?.tokens || []), ...(jupTokens || [])], 'address'));
     } catch (error) {
         return createErrorResponseJSON(getGatewayErrorMessage(error), {
-            status: StatusCodes.BAD_GATEWAY,
+            status: 502,
         });
     }
 }

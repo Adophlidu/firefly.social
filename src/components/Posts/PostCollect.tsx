@@ -2,7 +2,6 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { StatusCodes } from 'http-status-codes';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -66,7 +65,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             return resolveSocialMediaProvider(post.source).getProfileByIdOrHandle(post.author.handle);
         },
         retry(failureCount, error) {
-            if (error instanceof FetchError && error.status === StatusCodes.FORBIDDEN) return false;
+            if (error instanceof FetchError && error.status === 403) return false;
             return failureCount <= 3;
         },
     });

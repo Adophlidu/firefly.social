@@ -19,7 +19,6 @@ interface ProfileSlideProps {
 
 export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ profile }) {
     const identity = resolveFireflyIdentity(profile);
-
     if (!identity) return null;
 
     return (

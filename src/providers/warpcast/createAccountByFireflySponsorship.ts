@@ -1,6 +1,5 @@
 import { getPublicKey, utils } from '@noble/ed25519';
-import { bytesToHex } from '@noble/hashes/utils';
-import { type Hex, toHex } from 'viem';
+import { bytesToHex, type Hex, toHex } from 'viem';
 
 import { FarcasterSession, FarcasterSponsorship } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';

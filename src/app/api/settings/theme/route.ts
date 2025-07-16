@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 
 import { SiteCookies } from '@/constants/enum.js';
@@ -6,7 +5,7 @@ import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/cr
 
 export async function POST(request: NextRequest) {
     const rootClass = request.nextUrl.searchParams.get('root_class');
-    if (!rootClass) return createErrorResponseJSON('Missing parameter', { status: StatusCodes.BAD_REQUEST });
+    if (!rootClass) return createErrorResponseJSON('Missing parameter', { status: 400 });
 
     return createSuccessResponseJSON(null, {
         headers: {

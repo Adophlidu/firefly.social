@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 
 import { LensHubABI } from '@/abis/LensHub.js';
@@ -10,7 +9,7 @@ import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export async function GET(request: NextRequest) {
     const id = request.nextUrl.searchParams.get('id');
-    if (!id) return createErrorResponseJSON('Missing id', { status: StatusCodes.BAD_REQUEST });
+    if (!id) return createErrorResponseJSON('Missing id', { status: 400 });
 
     try {
         const client = createWagmiPublicClient(EthereumChainId.Polygon);
@@ -33,7 +32,7 @@ export async function GET(request: NextRequest) {
         });
     } catch (error) {
         return createErrorResponseJSON(getGatewayErrorMessage(error, 'Failed to read tokenURI'), {
-            status: StatusCodes.BAD_REQUEST,
+            status: 400,
         });
     }
 }

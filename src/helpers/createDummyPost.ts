@@ -1,5 +1,4 @@
 import { compact } from 'lodash-es';
-import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
@@ -32,7 +31,7 @@ export function createDummyCommentPost(source: SocialSource, compositePost: Comp
     const postId = compositePost.postId[source];
     if (!parentPost || !postId) return null;
     return {
-        publicationId: uuid(),
+        publicationId: crypto.randomUUID(),
         type: 'Comment',
         source,
         postId,

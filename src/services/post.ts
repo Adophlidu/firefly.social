@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
 import urlcat from 'urlcat';
-import { v4 as uuid } from 'uuid';
 
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -25,7 +24,7 @@ export async function schedulePost(
                 posts,
                 display_info: JSON.stringify(displayInfo),
                 ua_type: 'web',
-                groupId: uuid(),
+                groupId: crypto.randomUUID(),
             }),
         },
         {

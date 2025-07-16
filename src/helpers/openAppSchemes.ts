@@ -1,6 +1,5 @@
 import { delay } from '@masknet/kit';
 import { once } from 'lodash-es';
-import { v4 as uuid } from 'uuid';
 
 import { IS_IOS } from '@/constants/browser.js';
 import { env } from '@/constants/env.js';
@@ -36,7 +35,7 @@ async function tryOpenScheme(tagType: 'a' | 'iframe', scheme: string) {
 
     document.body.appendChild(element);
     if (isAnchor) element.click();
-    const eventId = uuid();
+    const eventId = crypto.randomUUID();
     eventIdSet.add(eventId);
     await delay(3500);
     document.body.removeChild(element);

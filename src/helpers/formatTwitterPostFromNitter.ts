@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import { parseHTML } from 'linkedom';
 import { compact, first, last } from 'lodash-es';
 import type { ApiV2Includes, TweetV2 } from 'twitter-api-v2';
 import urlcat from 'urlcat';
@@ -13,6 +12,7 @@ import { formatTwitterProfile, formatTwitterProfileStatus } from '@/helpers/form
 import { formatTwitterProfileFromNitter } from '@/helpers/formatTwitterProfileFromNitter.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getTwitterNitterPicOrigUrl, getTwitterNitterPicUrl } from '@/helpers/getTwitterNitterPicUrl.js';
+import { parseHtml } from '@/helpers/parseHtml.js';
 import { parsePostUrl } from '@/helpers/parsePostUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
@@ -20,7 +20,7 @@ import type { Tweet } from '@/providers/types/Nitter.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
 function parseTweetText(text: string) {
-    const { document } = parseHTML(`<div>${text}</div>`);
+    const document = parseHtml(`<div>${text}</div>`);
     const anchorElements = document.querySelectorAll('a');
     for (const anchorElement of anchorElements) {
         if (anchorElement.innerText.startsWith('#')) continue;
@@ -54,7 +54,7 @@ function parseTweetText(text: string) {
 }
 
 function parseTweetMentions(text: string): Post['mentions'] {
-    const { document } = parseHTML(`<div>${text}</div>`);
+    const document = parseHtml(`<div>${text}</div>`);
     const anchorElements = document.querySelectorAll('a');
     return compact(
         [...anchorElements].map((el) => {
@@ -68,7 +68,7 @@ function parseTweetMentions(text: string): Post['mentions'] {
 }
 
 function parseTweetOembedUrls(text: string) {
-    const { document } = parseHTML(`<div>${text}</div>`);
+    const document = parseHtml(`<div>${text}</div>`);
     const anchorElements = document.querySelectorAll('a');
     return compact(
         [...anchorElements].map((el) => {

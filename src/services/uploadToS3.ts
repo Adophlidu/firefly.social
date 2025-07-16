@@ -1,7 +1,6 @@
 import { type PutObjectCommandInput, S3 } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
 import urlcat from 'urlcat';
-import { v4 as uuid } from 'uuid';
 
 import { SUFFIX_NAMES } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -20,7 +19,7 @@ async function getS3UploadMediaToken() {
 export async function uploadToDirectory(
     file: File,
     directory: string,
-    nameGenerator = (file: File) => `${uuid()}.${SUFFIX_NAMES[file.type as keyof typeof SUFFIX_NAMES]}`,
+    nameGenerator = (file: File) => `${crypto.randomUUID()}.${SUFFIX_NAMES[file.type as keyof typeof SUFFIX_NAMES]}`,
 ): Promise<string> {
     const hit = uploadedCache.get(file);
     if (typeof hit === 'string' || hit instanceof Promise) return hit;

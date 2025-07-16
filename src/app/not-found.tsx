@@ -2,12 +2,12 @@ import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { BaseNotFound } from '@/components/BaseNotFound.js';
-import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { Link } from '@/components/Link.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
 import { AsideSearchBar } from '@/components/Search/SearchBar.js';
-import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
+import { SuggestedChannels } from '@/components/SuggestedChannels/SuggestedChannels.js';
+import { SuggestedFollows } from '@/components/SuggestedFollows/SuggestedFollows.js';
 import { PageRoute } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -38,7 +38,7 @@ export default async function NotFound() {
                 </IfPathname>
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
                     <IfPathname isNotOneOf={[PageRoute.Home]} exact>
-                        <SuggestedFollowsCard />
+                        <SuggestedFollows />
                         <SuggestedChannels />
                     </IfPathname>
                     <LinkCloud />

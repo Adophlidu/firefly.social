@@ -1,6 +1,5 @@
 /* cspell:disable */
 
-import { StatusCodes } from 'http-status-codes';
 import { toArray } from 'lodash-es';
 import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
@@ -101,13 +100,12 @@ export async function GET(request: NextRequest) {
             locale: Locale.en,
         });
         return new Response(result.success ? 'Invalid Params.' : `Full Params: ${result.error.message}`, {
-            status: StatusCodes.BAD_REQUEST,
+            status: 400,
         });
     }
 
     const parsedParams = parseParams(request.nextUrl.searchParams);
-    if (!parsedParams?.success)
-        return new Response(`Invalid Params: ${parsedParams?.error.message}`, { status: StatusCodes.BAD_REQUEST });
+    if (!parsedParams?.success) return new Response(`Invalid Params: ${parsedParams?.error.message}`, { status: 400 });
 
     try {
         const image = await createRedPacketImage(parsedParams.data, request.signal);
@@ -125,7 +123,7 @@ export async function GET(request: NextRequest) {
         });
     } catch (error) {
         return new Response(`Failed to create image: ${(error as Error).message}`, {
-            status: StatusCodes.INTERNAL_SERVER_ERROR,
+            status: 500,
         });
     }
 }

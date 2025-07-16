@@ -1,5 +1,3 @@
-import { v4 as uuid } from 'uuid';
-
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
@@ -61,7 +59,7 @@ export function SetQueryDataForMirrorPost(source: SocialSource) {
             Object.defineProperty(target.prototype, key, {
                 value: async (postId: string, ...args: unknown[]) => {
                     const status = key === 'mirrorPost';
-                    const id = uuid();
+                    const id = crypto.randomUUID();
                     try {
                         const m = method as (
                             postId: string,

@@ -1,6 +1,5 @@
-import { parseHTML } from 'linkedom';
-
 import type { ProfileSource } from '@/constants/enum.js';
+import { parseHtml } from '@/helpers/parseHtml.js';
 import { parseJson } from '@/helpers/parseJson.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
@@ -44,7 +43,7 @@ async function getResponseText(response: Response): Promise<string> {
     try {
         const text = await response.clone().text();
         if (response.headers.get('content-type')?.includes('text/html')) {
-            const dom = parseHTML(text);
+            const dom = parseHtml(text);
             return dom.querySelector('title')?.textContent || 'Internal service error';
         }
         return text;

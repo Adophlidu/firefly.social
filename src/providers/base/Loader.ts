@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import { compact } from 'lodash-es';
 
 import { FetchError } from '@/constants/error.js';
@@ -14,7 +13,7 @@ export abstract class BaseLoader<T> {
             const p = this.fetch(url, signal);
             this.map.set(url, p);
             p.catch((error) => {
-                if (error instanceof FetchError && error.status === StatusCodes.NOT_FOUND) return;
+                if (error instanceof FetchError && error.status === 404) return;
                 this.map.delete(url);
             });
         }

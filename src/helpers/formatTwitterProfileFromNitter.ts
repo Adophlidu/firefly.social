@@ -1,4 +1,3 @@
-import { parseHTML } from 'linkedom';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -7,6 +6,7 @@ import { SITE_URL } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getTwitterNitterPicUrl } from '@/helpers/getTwitterNitterPicUrl.js';
+import { parseHtml } from '@/helpers/parseHtml.js';
 import { parsePostUrl } from '@/helpers/parsePostUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
@@ -14,7 +14,7 @@ import { type User, UserVerifiedType } from '@/providers/types/Nitter.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 function parseBio(text: string) {
-    const { document } = parseHTML(`<div>${text}</div>`);
+    const document = parseHtml(`<div>${text}</div>`);
     const anchorElements = document.querySelectorAll('a');
     for (const anchorElement of anchorElements) {
         if (anchorElement.innerText.startsWith('#')) continue;
@@ -48,7 +48,7 @@ function parseBio(text: string) {
 }
 
 function parseBioMentions(text: string): FireflyIdentity[] {
-    const { document } = parseHTML(`<div>${text}</div>`);
+    const document = parseHtml(`<div>${text}</div>`);
     const anchorElements = document.querySelectorAll('a');
     return compact(
         [...anchorElements].map((el) => {

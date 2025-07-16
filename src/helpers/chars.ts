@@ -1,6 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
-import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { type RP_HASH_TAG } from '@/constants/index.js';
@@ -113,7 +112,8 @@ export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisibl
                     }
                     return x.content;
                 case CHAR_TAG.FRAME:
-                    if (source === Source.Lens) return ` ${getPollFrameUrl(x.id || `poll-${uuid()}`, source)}\n`;
+                    if (source === Source.Lens)
+                        return ` ${getPollFrameUrl(x.id || `poll-${crypto.randomUUID()}`, source)}\n`;
                     return '';
                 case CHAR_TAG.PROMOTE_LINK:
                     const result = `\n ${x.content}`;

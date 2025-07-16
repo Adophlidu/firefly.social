@@ -1,4 +1,3 @@
-import { getReasonPhrase } from 'http-status-codes';
 import { type NextRequest, NextResponse } from 'next/server.js';
 import { z } from 'zod';
 
@@ -25,7 +24,6 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
         }, new Headers());
     return NextResponse.json(await res.json(), {
         status: res.status,
-        statusText: getReasonPhrase(res.status),
         headers,
     });
 });
@@ -38,14 +36,14 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         }),
     );
     const body = await request.json();
-    const res = await fetch(url, {
+    const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
             'Content-Type': 'application/json',
         },
     });
-    return createResponseJSON(await res.json(), {
-        status: res.status,
+    return createResponseJSON(await response.json(), {
+        status: response.status,
     });
 });

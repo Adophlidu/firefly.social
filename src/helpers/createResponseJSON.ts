@@ -1,11 +1,8 @@
-import { getReasonPhrase, StatusCodes } from 'http-status-codes';
-
 export function createResponseJSON(data: unknown, init?: ResponseInit) {
-    const status = init?.status ?? StatusCodes.OK;
+    const status = init?.status ?? 200;
 
     return Response.json(data, {
         status,
-        statusText: getReasonPhrase(status),
         ...init,
     });
 }
@@ -24,7 +21,7 @@ export function createErrorResponseJSON(message: string, init?: Omit<ResponseIni
             },
         },
         {
-            status: StatusCodes.INTERNAL_SERVER_ERROR,
+            status: 500,
             ...init,
         },
     );
@@ -37,7 +34,7 @@ export function createSuccessResponseJSON(data: unknown, init?: ResponseInit) {
             data,
         },
         {
-            status: StatusCodes.OK,
+            status: 200,
             ...init,
         },
     );

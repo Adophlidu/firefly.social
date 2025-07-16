@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { StatusCodes } from 'http-status-codes';
 
 import type { FetchError } from '@/constants/error.js';
 import { parseJson } from '@/helpers/parseJson.js';
@@ -22,15 +21,15 @@ export function getErrorMessageFromFetchError(error: FetchError): string {
     }
 
     switch (error.status) {
-        case StatusCodes.BAD_REQUEST:
+        case 400:
             return t`Bad Request. Please check your request.`;
-        case StatusCodes.UNAUTHORIZED:
+        case 401:
             return t`Unauthorized. Please check your login.`;
-        case StatusCodes.FORBIDDEN:
+        case 403:
             return t`Forbidden. Please check your permissions.`;
-        case StatusCodes.NOT_FOUND:
+        case 404:
             return t`Not Found. Please check your URL[${error.url}].`;
-        case StatusCodes.INTERNAL_SERVER_ERROR:
+        case 500:
             return t`Internal Server Error. Please try again later.`;
         default:
             return t`Failed to fetch: ${error.status}. Please try again later.`;

@@ -1,5 +1,3 @@
-import { v4 as uuid } from 'uuid';
-
 import { type SocialSource, Source } from '@/constants/enum.js';
 import {
     POLL_CHOICE_TYPE,
@@ -12,7 +10,7 @@ import { trimify } from '@/helpers/trimify.js';
 import type { CompositePoll, PollOption } from '@/providers/types/Poll.js';
 
 export const createPollOption = (): PollOption => {
-    return { id: uuid(), label: '' };
+    return { id: crypto.randomUUID(), label: '' };
 };
 
 export const createPoll = (): CompositePoll => {

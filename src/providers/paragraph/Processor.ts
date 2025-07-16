@@ -1,8 +1,8 @@
-import { parseHTML } from 'linkedom';
 import { first, isEmpty } from 'lodash-es';
 
 import { FetchError } from '@/constants/error.js';
 import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { parseHtml } from '@/helpers/parseHtml.js';
 import { parseJson } from '@/helpers/parseJson.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import type { ParagraphChain } from '@/providers/paragraph/type.js';
@@ -59,12 +59,10 @@ class Processor {
         if (!url) return null;
 
         const response = await fetch(url, { signal });
-
         if (!response.ok || (response.status >= 500 && response.status < 600)) throw FetchError.from(url, response);
 
         const html = await response.text();
-
-        const { document } = parseHTML(html);
+        const document = parseHtml(html);
 
         const dataScript = document.getElementById('__NEXT_DATA__');
         const data = dataScript?.innerText ? parseJson<State>(dataScript.innerText) : undefined;

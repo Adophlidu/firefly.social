@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 
 import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
@@ -14,7 +13,7 @@ export function withTwitterRequestErrorHandler(
         } catch (error) {
             const { status, message } = getTwitterErrorMessage(error);
             return createErrorResponseJSON(message, {
-                status: status ?? StatusCodes.INTERNAL_SERVER_ERROR,
+                status: status ?? 500,
             });
         }
     };

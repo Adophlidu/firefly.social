@@ -1,7 +1,6 @@
 import { FarcasterNetwork, Message, MessageData, NobleEd25519Signer } from '@farcaster/core';
 import { blake3 } from '@noble/hashes/blake3';
-import { bytesToHex } from '@noble/hashes/utils';
-import { toBytes } from 'viem';
+import { bytesToHex, toBytes } from 'viem';
 
 import { getPublicKeyInHexFromSigner, signMessageInHexFromSigner } from '@/helpers/ed25519.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';

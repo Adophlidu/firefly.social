@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 
 import { KeyType } from '@/constants/enum.js';
@@ -14,7 +13,7 @@ const digestLinkRedis = memoizeWithRedis(OpenGraphProcessor.digestDocumentUrl, {
 
 export async function DELETE(request: NextRequest) {
     const link = request.nextUrl.searchParams.get('link');
-    if (!link) return createErrorResponseJSON('Missing link', { status: StatusCodes.BAD_REQUEST });
+    if (!link) return createErrorResponseJSON('Missing link', { status: 400 });
 
     await digestLinkRedis.cache.delete(link);
     return createSuccessResponseJSON(null);
@@ -33,23 +32,23 @@ const patterns = [
 ];
 export async function GET(request: NextRequest) {
     const link = request.nextUrl.searchParams.get('link');
-    if (!link) return createErrorResponseJSON('Missing link', { status: StatusCodes.BAD_REQUEST });
+    if (!link) return createErrorResponseJSON('Missing link', { status: 400 });
 
     if (patterns.some((x) => x.test(decodeURIComponent(link)))) {
         // For the time being, we do not support OG information capture for OpenSea links.
-        return createErrorResponseJSON(`Unsupported link = ${link}`, { status: StatusCodes.BAD_REQUEST });
+        return createErrorResponseJSON(`Unsupported link = ${link}`, { status: 400 });
     }
 
     try {
         const linkDigested = await digestLinkRedis(decodeURIComponent(link), request.signal);
         if (!linkDigested)
             return createErrorResponseJSON(`Unable to digest oembed link = ${link}`, {
-                status: StatusCodes.BAD_GATEWAY,
+                status: 502,
             });
         return createSuccessResponseJSON(linkDigested);
     } catch (error) {
         return createErrorResponseJSON(getGatewayErrorMessage(error), {
-            status: StatusCodes.BAD_GATEWAY,
+            status: 502,
         });
     }
 }

@@ -11,6 +11,6 @@ interface Props extends PropsWithChildren {
 export function WithinDiscover({ children, otherwise }: Props) {
     const pathname = usePathname();
     const segments = useSelectedLayoutSegments();
-    const withinDiscover = segments.includes('discover') || segments.includes('explore') || pathname === '/';
+    const withinDiscover = segments.includes('discover') || segments.includes('explore');
     return withinDiscover ? children : otherwise;
 }

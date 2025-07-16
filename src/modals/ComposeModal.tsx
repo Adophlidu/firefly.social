@@ -16,7 +16,6 @@ import { useCallback, useMemo, useRef } from 'react';
 import { useAsync, useUpdateEffect } from 'react-use';
 import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
-import { v4 as uuid } from 'uuid';
 
 import { router } from '@/components/Compose/ComposeRouter.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
@@ -193,7 +192,7 @@ function ComposeModalUI({ ref }: Props) {
 
             if (confirmed) {
                 const draft = {
-                    draftId: currentDraftId || uuid(),
+                    draftId: currentDraftId || crypto.randomUUID(),
                     createdAt: new Date(),
                     cursor,
                     posts: hasError ? posts.map((x) => ({ ...x, availableSources: sources })) : posts,

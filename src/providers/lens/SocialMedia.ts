@@ -60,7 +60,6 @@ import { unreachable } from '@masknet/kit';
 import { isServer } from '@tanstack/react-query';
 import { compact, first, flatMap, uniqBy, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
-import { v4 as uuid } from 'uuid';
 
 import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { InvalidResultError, NotImplementedError } from '@/constants/error.js';
@@ -1295,7 +1294,7 @@ class LensSocialMedia implements Provider {
             profile.location ? { type: MetadataAttributeType.STRING, key: 'location', value: profile.location } : null,
         ]);
         const metadata = account({
-            id: uuid(),
+            id: crypto.randomUUID(),
             name: profile.displayName,
             bio: profile.bio || undefined,
             picture: profile.pfp || undefined,

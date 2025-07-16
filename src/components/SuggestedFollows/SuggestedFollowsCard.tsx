@@ -1,4 +1,5 @@
 'use client';
+
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-coverflow';
@@ -13,6 +14,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { AsideTitle } from '@/components/AsideTitle.js';
 import { Link } from '@/components/Link.js';
 import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
+import { SuggestedFollowsSkeleton } from '@/components/SuggestedFollows/SuggestedFollowsSkeleton.js';
 import { ExploreType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { isSocialDiscoverSource } from '@/helpers/isSource.js';
@@ -116,15 +118,7 @@ export function SuggestedFollowsCard() {
         );
     }, [currentSource, profileAll.Farcaster, profileAll.Lens, profileAll.Bsky]);
 
-    if (isLoading) {
-        return (
-            <div className="flex h-[252px] w-full shrink-0 animate-pulse flex-col gap-4">
-                <div className="mx-3 h-7 bg-bg" />
-                <div className="w-full flex-1 rounded-xl bg-bg" />
-            </div>
-        );
-    }
-
+    if (isLoading) return <SuggestedFollowsSkeleton />;
     if (!suggestedFollowsWithStats?.length || !isLarge) return null;
 
     return (

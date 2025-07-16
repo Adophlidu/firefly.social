@@ -8,6 +8,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { SuggestedChannelsSkeleton } from '@/components/SuggestedChannels/SuggestedChannelsSkeleton.js';
 import { ExploreType, Source } from '@/constants/enum.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
@@ -30,7 +31,7 @@ function SuggestedChannelItem({ channel }: { channel: Channel }) {
     );
 }
 
-export function SuggestedChannels() {
+export function SuggestedChannelsCard() {
     const profileIds = useCurrentProfileIds();
     const { data, isLoading, isError } = useQuery({
         queryKey: ['suggest-channels', ...profileIds],
@@ -38,7 +39,7 @@ export function SuggestedChannels() {
         queryFn: () => getTrendingChannels([Source.Farcaster, Source.Bsky, Source.Lens]),
     });
 
-    if (isError || isLoading || !data?.length) return null;
+    if (isError || isLoading || !data?.length) return <SuggestedChannelsSkeleton />;
 
     return (
         <section>

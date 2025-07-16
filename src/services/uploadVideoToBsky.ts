@@ -1,7 +1,6 @@
 import type { BlobRef } from '@atproto/api';
 import { delay } from '@masknet/kit';
 import urlcat from 'urlcat';
-import { v4 as uuid } from 'uuid';
 
 import { FileMimeType, Source } from '@/constants/enum.js';
 import { BSKY_VIDEO_ENDPOINT } from '@/constants/index.js';
@@ -94,7 +93,7 @@ async function setupUploadJob(file: File, bskyProfile: Profile, signal?: AbortSi
     const job = await fetchJSON<UploadJob>(
         urlcat(BSKY_VIDEO_ENDPOINT, '/app.bsky.video.uploadVideo', {
             did: bskyProfile.profileId,
-            name: `${uuid()}.${resolveExtFromMimeType(file.type as FileMimeType)}`,
+            name: `${crypto.randomUUID()}.${resolveExtFromMimeType(file.type as FileMimeType)}`,
         }),
         {
             method: 'POST',

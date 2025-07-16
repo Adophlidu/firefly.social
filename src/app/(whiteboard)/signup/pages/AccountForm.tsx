@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { compact, first } from 'lodash-es';
 import { useCallback, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import { v4 as uuid } from 'uuid';
 
 import { type AvatarConfig, AvatarSelector } from '@/app/(whiteboard)/components/Signup/AvatarSelector.js';
 import { Card } from '@/app/(whiteboard)/components/Signup/Card.js';
@@ -64,7 +63,7 @@ export function AccountForm({ changeStep }: AccountFormProps) {
     const firstAvailableProfile = first(availableProfiles);
     const [nickname, setNickname] = useState(firstAvailableProfile?.displayName || '');
     const [avatar, setAvatar] = useState<AvatarConfig>({
-        url: firstAvailableProfile?.pfp || getStampAvatarByProfileId(Source.Firefly, uuid()),
+        url: firstAvailableProfile?.pfp || getStampAvatarByProfileId(Source.Firefly, crypto.randomUUID()),
         file: null,
         type: firstAvailableProfile?.pfp ? 'pfp' : 'random',
     });
@@ -84,7 +83,7 @@ export function AccountForm({ changeStep }: AccountFormProps) {
         try {
             let avatarFile = avatar.type === 'custom' ? avatar.file : null;
             if (avatar.type !== 'custom') {
-                avatarFile = await downloadUrlWithProxy(avatar.url, `avatar-${uuid()}.jpg`);
+                avatarFile = await downloadUrlWithProxy(avatar.url, `avatar-${crypto.randomUUID()}.jpg`);
             }
             if (!avatarFile) {
                 enqueueErrorMessage(t`Failed to read avatar file, please try again.`);

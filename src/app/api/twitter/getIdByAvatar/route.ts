@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 
 import { createErrorResponseJSON, createResponseJSON } from '@/helpers/createResponseJSON.js';
@@ -23,11 +22,11 @@ export async function GET(request: NextRequest) {
             });
         }
         return createErrorResponseJSON('Not Found', {
-            status: StatusCodes.NOT_FOUND,
+            status: 404,
         });
     } catch (error) {
         return createErrorResponseJSON(getGatewayErrorMessage(error, 'Failed to get twitter avatar'), {
-            status: StatusCodes.BAD_REQUEST,
+            status: 400,
         });
     }
 }
