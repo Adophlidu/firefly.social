@@ -1,11 +1,10 @@
 /* cspell:disable */
 
 import type { ComAtprotoServerDescribeServer } from '@atproto/api';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAsyncFn } from 'react-use';
 import { z } from 'zod';
@@ -94,11 +93,39 @@ const schema = z.object({
     serviceUrl: z.union([HttpsUrl, z.literal('')]).optional(),
 });
 
+function createFormResolver<T extends z.ZodSchema>(schema: T) {
+    return (values: z.input<T>) => {
+        const result = schema.safeParse(values);
+
+        if (result.success) {
+            return {
+                values: result.data,
+                errors: {},
+            };
+        }
+
+        const errors: Record<string, { type: string; message: string }> = {};
+        result.error.issues.forEach((issue) => {
+            const path = issue.path.join('.');
+            errors[path] = {
+                type: 'validation',
+                message: issue.message,
+            };
+        });
+
+        return {
+            values: {},
+            errors,
+        };
+    };
+}
+
 export function LoginBsky() {
     const controller = useAbortController();
 
+    const resolver = useMemo(() => createFormResolver(schema), []);
     const { register, handleSubmit, watch, formState, resetField, setFocus } = useForm<z.infer<typeof schema>>({
-        resolver: zodResolver(schema),
+        resolver,
         mode: 'onChange',
         defaultValues: {
             account: '',
