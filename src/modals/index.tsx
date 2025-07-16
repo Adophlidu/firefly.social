@@ -36,7 +36,6 @@ import { SearchRecipientModal } from '@/modals/SearchRecipientModal.js';
 import { ShareImageModal } from '@/modals/ShareImageModal.js';
 import { SignInWithFireflyAppModal } from '@/modals/SignInWithFireflyAppModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
-import { SuperFollowModal } from '@/modals/SuperFollowModal.js';
 import { SwapModal } from '@/modals/SwapModal/SwapModal.js';
 import { TipsModal } from '@/modals/TipsModal/index.js';
 import { TokenSelectorModal } from '@/modals/TokenSelectorModal.js';
@@ -61,7 +60,6 @@ export const Modals = memo(function Modals() {
             <EnableSignlessModal ref={controls.EnableSignlessModalRef.register} />
             <CollectPostModal ref={controls.CollectPostModalRef.register} />
             <AddWalletModal ref={controls.AddWalletModalRef.register} />
-            <SuperFollowModal ref={controls.SuperFollowModalRef.register} />
             <TransactionSimulatorModal ref={controls.TransactionSimulatorModalRef.register} />
             <DisconnectFireflyAccountModal ref={controls.DisconnectFireflyAccountModalRef.register} />
             <TokenSelectorModal ref={controls.TokenSelectorModalRef.register} />

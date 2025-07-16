@@ -34,7 +34,6 @@ import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
 import type { SearchRecipientModalOpenProps } from '@/modals/SearchRecipientModal.js';
 import type { ShareImageModalOpenProps } from '@/modals/ShareImageModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
-import type { SuperFollowModalOpenProps } from '@/modals/SuperFollowModal.js';
 import type { SwapModalOpenProps } from '@/modals/SwapModal/SwapModalContent.js';
 import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal/index.js';
 import type { TokenSelectorModalCloseProps, TokenSelectorModalOpenProps } from '@/modals/TokenSelectorModal.js';
@@ -60,7 +59,6 @@ export const CollectArticleModalRef = new SingletonModal<CollectArticleModalOpen
 export const EnableSignlessModalRef = new SingletonModal<void, boolean>();
 export const CollectPostModalRef = new SingletonModal<CollectPostModalOpenProps>();
 export const AddWalletModalRef = new SingletonModal<AddWalletModalProps, AddWalletModalCloseProps>();
-export const SuperFollowModalRef = new SingletonModal<SuperFollowModalOpenProps>();
 export const TransactionSimulatorModalRef = new SingletonModal<TransactionSimulatorModalOpenProps>();
 export const DisconnectFireflyAccountModalRef = new SingletonModal<DisconnectFireflyAccountModalProps>();
 export const TokenSelectorModalRef = new SingletonModal<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>();

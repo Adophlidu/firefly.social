@@ -19,6 +19,8 @@ import { Modal } from '@/components/Modal.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SOLANA_CHAIN_ID_IN_FIREFLY, SOLANA_CHAIN_ID_IN_OKX } from '@/constants/chain.js';
 import { Locale, OkxProviderType } from '@/constants/enum.js';
+import { UnreachableError } from '@/constants/error.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { useLocale } from '@/helpers/getCookies.js';
 import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
@@ -26,8 +28,6 @@ import { EthereumWalletProvider, SolanaWalletProvider } from '@/providers/okx/Wa
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { UnreachableError } from '@/constants/error.js';
 
 const LangMap = {
     [Locale.en]: 'en_us',
