@@ -16,7 +16,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { SwapModalRef, WalletConnectModalRef } from '@/modals/controls.js';
-import type { SwapModalOpenProps } from '@/modals/SwapModal.js';
+import type { SwapModalOpenProps } from '@/modals/SwapModal/SwapModal.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 

@@ -37,7 +37,7 @@ import { ShareImageModal } from '@/modals/ShareImageModal.js';
 import { SignInWithFireflyAppModal } from '@/modals/SignInWithFireflyAppModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
 import { SuperFollowModal } from '@/modals/SuperFollowModal.js';
-import { SwapModal } from '@/modals/SwapModal.js';
+import { SwapModal } from '@/modals/SwapModal/SwapModal.js';
 import { TipsModal } from '@/modals/TipsModal.js';
 import { TokenSelectorModal } from '@/modals/TokenSelectorModal.js';
 import { TransactionSimulatorModal } from '@/modals/TransactionSimulatorModal.js';
