@@ -64,11 +64,13 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             return { label: <Trans>Cannot send tip to yourself</Trans>, disabled: true };
         }
 
-        const isBalanceValid = await transfer.validateBalance({
-            to: recipient.address,
-            token,
-            amount,
-        });
+        const isBalanceValid = token.custom
+            ? true
+            : await transfer.validateBalance({
+                  to: recipient.address,
+                  token,
+                  amount,
+              });
         if (!isBalanceValid) {
             return { label: <Trans>Insufficient Balance</Trans>, disabled: true };
         }

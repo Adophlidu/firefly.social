@@ -9,6 +9,7 @@ export type Token<ChainIdLike = number, AddressLike = string> = DebankToken<Addr
     usdValue: number;
     chainLogoUrl?: string;
     networkType: NetworkType;
+    custom?: boolean;
 };
 
 export interface TransactionOptions<ChainIdLike = number, AddressLike = string> {
