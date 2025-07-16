@@ -13,7 +13,7 @@ import { NetworkType, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { formatPrice } from '@/helpers/formatPrice.js';
+import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { groupAndSortByDate } from '@/helpers/sortAndGroupByDate.js';
@@ -157,12 +157,14 @@ function ItemEnd({ item }: { item: TransactionHistoryItem }) {
             <div className="ml-auto text-right text-sm font-medium">
                 {item.token_receives[0] ? (
                     <div className="text-success">
-                        +{formatPrice(item.token_receives[0].amount)} {item.token_receives[0].token.symbol}
+                        +{renderShrankPrice(formatPrice(item.token_receives[0].amount) ?? '-')}{' '}
+                        {item.token_receives[0].token.symbol}
                     </div>
                 ) : null}
                 {item.token_sends[0] ? (
                     <div className="text-xs font-normal">
-                        -{formatPrice(item.token_sends[0].amount)} {item.token_sends[0].token.symbol}
+                        -{renderShrankPrice(formatPrice(item.token_sends[0].amount) ?? '-')}{' '}
+                        {item.token_sends[0].token.symbol}
                     </div>
                 ) : null}
             </div>
@@ -176,7 +178,7 @@ function ItemEnd({ item }: { item: TransactionHistoryItem }) {
         if (!item.token_approve) return null;
         return (
             <div className="ml-auto text-right text-sm font-medium">
-                -{formatPrice(item.token_approve.amount)} {item.token_approve.token.symbol}
+                -{renderShrankPrice(formatPrice(item.token_approve.amount) ?? '-')} {item.token_approve.token.symbol}
             </div>
         );
     }
@@ -185,14 +187,14 @@ function ItemEnd({ item }: { item: TransactionHistoryItem }) {
     if (item.category === TransactionHistoryCategory.TokenReceive) {
         return (
             <div className="ml-auto text-right text-sm font-medium text-success">
-                +{formatPrice(token.amount)} {token.token.symbol}
+                +{renderShrankPrice(formatPrice(token.amount) ?? '-')} {token.token.symbol}
             </div>
         );
     }
     if (item.category === TransactionHistoryCategory.TokenSend) {
         return (
             <div className="ml-auto text-right text-sm font-medium">
-                -{formatPrice(token.amount)} {token.token.symbol}
+                -{renderShrankPrice(formatPrice(token.amount) ?? '-')} {token.token.symbol}
             </div>
         );
     }
@@ -215,7 +217,7 @@ function ItemEnd({ item }: { item: TransactionHistoryItem }) {
     }
     return (
         <div className="ml-auto text-right text-sm font-medium">
-            {formatPrice(token.amount)} {token.token.symbol}
+            {renderShrankPrice(formatPrice(token.amount) ?? '-')} {token.token.symbol}
         </div>
     );
 }

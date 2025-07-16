@@ -1,11 +1,9 @@
-import { BigNumber } from 'bignumber.js';
 import { type Address, type Hash, parseUnits } from 'viem';
 import { getBalance, sendTransaction, writeContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
-import { formatBalance } from '@/helpers/formatBalance.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
-import { isGreaterThan, isLessThan, isZero, leftShift, multipliedBy, rightShift } from '@/helpers/number.js';
+import { isGreaterThan, isLessThan, leftShift, minus, multipliedBy, rightShift } from '@/helpers/number.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { getAvailableBalance } from '@/providers/ethereum/getAvailableBalance.js';
@@ -55,18 +53,12 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
 
     async getAvailableBalance(options: TransactionOptions<EthereumChainId, Address>): Promise<string> {
         const { token } = options;
-        const balance = await getAvailableBalance(options);
-        const formattedBalance = formatBalance(balance, token.decimals, {
-            significant: 8,
-            isPrecise: true,
-            hasSeparators: false,
-        });
-
-        return (
-            (isZero(formattedBalance)
-                ? new BigNumber(leftShift(balance, token.decimals).toPrecision(2)).toFormat()
-                : formattedBalance) ?? '0'
-        );
+        let balance = await getAvailableBalance(options);
+        if (this.isNativeToken(token)) {
+            const { gas } = await getDefaultGas(options);
+            balance = minus(balance, gas).toString();
+        }
+        return leftShift(balance, token.decimals).toString();
     }
 
     private async transferNative(options: TransactionOptions<EthereumChainId, Address>): Promise<Address> {

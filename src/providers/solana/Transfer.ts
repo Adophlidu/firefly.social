@@ -1,10 +1,9 @@
 import { web3 } from '@coral-xyz/anchor';
 import { createTransferInstruction } from '@solana/spl-token';
 
-import { formatBalance } from '@/helpers/formatBalance.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
-import { isGreaterThan, isLessThan, minus, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
+import { isGreaterThan, isLessThan, leftShift, minus, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { parseSolToLamports } from '@/helpers/parseSolToLamports.js';
 import { getOrCreateAssociatedTokenAccount } from '@/providers/solana/getOrCreateAssociatedTokenAccount.js';
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';
@@ -79,12 +78,7 @@ class Provider implements TransferProvider<SolanaChainId> {
             const available = minus(balance, defaultFee);
             balance = isLessThan(available, 0) ? '0' : available.toString();
         }
-
-        return formatBalance(balance, token.decimals, {
-            significant: 8,
-            isPrecise: true,
-            hasSeparators: false,
-        });
+        return leftShift(balance, token.decimals).toString();
     }
 
     private async transferNative(options: TransactionOptions<SolanaChainId>): Promise<string> {

@@ -5,6 +5,7 @@ import { first } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
 
+import { PrivySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { NetworkType } from '@/constants/enum.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
@@ -27,7 +28,7 @@ export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
             return {
                 address: walletProvider?.publicKey?.toBase58() ?? '',
                 chainId: SolanaChainId.Mainnet,
-                isConnected: !!connection,
+                isConnected: walletProvider === PrivySolanaProvider ? true : !!connection,
             };
         default:
             unreachable(networkType);
