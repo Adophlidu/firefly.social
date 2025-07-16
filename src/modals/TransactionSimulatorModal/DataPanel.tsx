@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import { getPanelConfig } from '@/components/TransactionSimulator/config.js';
 import { SimulateType } from '@/constants/enum.js';
+import { getPanelConfig } from '@/modals/TransactionSimulatorModal/config.js';
 import type { SimulateResponse, SimulationOptions } from '@/providers/types/Tenderly.js';
 
 interface DataPanelProps {

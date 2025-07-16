@@ -1,7 +1,7 @@
-import { TransactionSimulator } from '@/components/TransactionSimulator/SimulatorContent.js';
 import { TransactionSimulationError } from '@/constants/error.js';
 import { DraggablePopoverRef, TransactionSimulatorModalRef } from '@/modals/controls.js';
-import { type TransactionSimulatorModalOpenProps } from '@/modals/TransactionSimulatorModal.js';
+import { TransactionSimulatorContent } from '@/modals/TransactionSimulatorModal/SimulatorContent.js';
+import { type TransactionSimulatorModalOpenProps } from '@/modals/TransactionSimulatorModal/TransactionSimulatorModal.js';
 
 export function simulate(props: TransactionSimulatorModalOpenProps) {
     return new Promise<void>((resolve, reject) => {
@@ -19,7 +19,7 @@ export function simulate(props: TransactionSimulatorModalOpenProps) {
                 onClose: onCanceled,
                 enableOverflow: false,
                 content: (
-                    <TransactionSimulator
+                    <TransactionSimulatorContent
                         showCloseButton={false}
                         options={props}
                         onContinue={() => {

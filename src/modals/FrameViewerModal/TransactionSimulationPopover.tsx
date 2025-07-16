@@ -3,7 +3,7 @@
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useState } from 'react';
 
-import { TransactionSimulator } from '@/components/TransactionSimulator/SimulatorContent.js';
+import { TransactionSimulatorContent } from '@/modals/TransactionSimulatorModal/SimulatorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { Popover } from '@/modals/FrameViewerModal/Popover.js';
@@ -30,7 +30,7 @@ export function TransactionSimulationPopover({ ref }: Props) {
         <Popover
             title={<Trans>Review Transaction</Trans>}
             content={
-                <TransactionSimulator
+                <TransactionSimulatorContent
                     options={null!}
                     showCloseButton={false}
                     onContinue={() => dispatch?.close(true)}

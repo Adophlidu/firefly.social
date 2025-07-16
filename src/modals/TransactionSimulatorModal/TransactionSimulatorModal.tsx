@@ -1,15 +1,16 @@
 import { useCallback, useState } from 'react';
 
 import { Modal } from '@/components/Modal.js';
-import { TransactionSimulator } from '@/components/TransactionSimulator/SimulatorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { TransactionSimulatorContent } from '@/modals/TransactionSimulatorModal/SimulatorContent.js';
 import type { SimulationOptions } from '@/providers/types/Tenderly.js';
 
 export type TransactionSimulatorModalOpenProps = SimulationOptions & {
     onContinue?: () => void;
     onCanceled?: () => void;
 };
+
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<TransactionSimulatorModalOpenProps>>;
 };
@@ -34,7 +35,7 @@ export function TransactionSimulatorModal({ ref }: Props) {
     return (
         <Modal open={open} onClose={onClose}>
             <div className="w-[485px] max-w-[90vw] transform rounded-xl bg-primaryBottom p-6 transition-all">
-                <TransactionSimulator options={props} onClose={onClose} onContinue={onContinue} />
+                <TransactionSimulatorContent options={props} onClose={onClose} onContinue={onContinue} />
             </div>
         </Modal>
     );

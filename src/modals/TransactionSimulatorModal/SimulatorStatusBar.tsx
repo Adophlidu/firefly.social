@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { getStatusConfig } from '@/components/TransactionSimulator/config.js';
-import { MessagesTippy } from '@/components/TransactionSimulator/MessagesTippy.js';
 import { SimulateStatus } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getStatusConfig } from '@/modals/TransactionSimulatorModal/config.js';
+import { MessagesTippy } from '@/modals/TransactionSimulatorModal/MessagesTippy.js';
 import { type StaticSecurityMessage } from '@/providers/types/Security.js';
 
 interface SimulatorStatusBarProps {

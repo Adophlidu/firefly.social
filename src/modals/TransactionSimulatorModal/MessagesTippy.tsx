@@ -26,6 +26,7 @@ const textFontColorMap = {
     [SecurityMessageLevel.Safe]: 'text-success',
     [SecurityMessageLevel.Info]: 'text-second',
 };
+
 function groupMessages(messages: StaticSecurityMessage[]) {
     return reduce<StaticSecurityMessage, Record<SecurityMessageLevel, StaticSecurityMessage[]>>(
         messages,

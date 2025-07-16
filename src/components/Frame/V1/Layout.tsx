@@ -8,7 +8,7 @@ import { getAccount } from 'wagmi/actions';
 import { z } from 'zod';
 
 import { Card } from '@/components/Frame/V1/Card.js';
-import { simulate } from '@/components/TransactionSimulator/simulate.js';
+import { simulate } from '@/modals/TransactionSimulatorModal/simulate.js';
 import { config } from '@/configs/wagmiClient.js';
 import { NODE_ENV, SimulateType, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';

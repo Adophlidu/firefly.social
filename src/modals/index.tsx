@@ -40,7 +40,7 @@ import { SuperFollowModal } from '@/modals/SuperFollowModal.js';
 import { SwapModal } from '@/modals/SwapModal/SwapModal.js';
 import { TipsModal } from '@/modals/TipsModal.js';
 import { TokenSelectorModal } from '@/modals/TokenSelectorModal.js';
-import { TransactionSimulatorModal } from '@/modals/TransactionSimulatorModal.js';
+import { TransactionSimulatorModal } from '@/modals/TransactionSimulatorModal/TransactionSimulatorModal.js';
 import { WalletConnectModal } from '@/modals/WalletConnectModal/index.js';
 
 export const Modals = memo(function Modals() {

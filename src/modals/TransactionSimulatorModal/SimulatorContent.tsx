@@ -3,11 +3,11 @@ import { useQuery } from '@tanstack/react-query';
 import { useAccount } from 'wagmi';
 
 import { CloseButton } from '@/components/IconButton.js';
-import { ContinueButton } from '@/components/TransactionSimulator/ContinueButton.js';
-import { DataPanel } from '@/components/TransactionSimulator/DataPanel.js';
-import { simulateAndCheckSecurity } from '@/components/TransactionSimulator/simulateAndCheckSecurity.js';
-import { SimulatorStatusBar } from '@/components/TransactionSimulator/SimulatorStatusBar.js';
 import { SimulateStatus, SimulateType } from '@/constants/enum.js';
+import { ContinueButton } from '@/modals/TransactionSimulatorModal/ContinueButton.js';
+import { DataPanel } from '@/modals/TransactionSimulatorModal/DataPanel.js';
+import { simulateAndCheckSecurity } from '@/modals/TransactionSimulatorModal/simulateAndCheckSecurity.js';
+import { SimulatorStatusBar } from '@/modals/TransactionSimulatorModal/SimulatorStatusBar.js';
 import type { SimulationOptions } from '@/providers/types/Tenderly.js';
 
 interface TransactionSimulatorProps {
@@ -16,7 +16,7 @@ interface TransactionSimulatorProps {
     onClose?: () => void;
     onContinue?: () => void;
 }
-export function TransactionSimulator({
+export function TransactionSimulatorContent({
     options,
     showCloseButton = true,
     onContinue,
