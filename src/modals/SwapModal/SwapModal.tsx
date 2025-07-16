@@ -1,4 +1,7 @@
+import { useState } from 'react';
+
 import { dynamic } from '@/esm/dynamic.js';
+import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { SwapModalOpenProps } from '@/modals/SwapModal/SwapModalContent.js';
 
@@ -15,5 +18,14 @@ type Props = {
 };
 
 export function SwapModal({ ref }: Props) {
-    return <SwapModalContent ref={ref} />;
+    const [props, setProps] = useState<SwapModalOpenProps>();
+    const [open, dispatch, mounted] = useSingletonModal(ref, {
+        onOpen: (props) => {
+            setProps(props);
+        },
+    });
+
+    if (!mounted) return null;
+
+    return <SwapModalContent open={open} props={props} onClose={() => dispatch?.close()} />;
 }

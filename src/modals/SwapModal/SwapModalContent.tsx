@@ -18,16 +18,16 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SOLANA_CHAIN_ID_IN_FIREFLY, SOLANA_CHAIN_ID_IN_OKX } from '@/constants/chain.js';
-import { Locale } from '@/constants/enum.js';
+import { Locale, OkxProviderType } from '@/constants/enum.js';
 import { useLocale } from '@/helpers/getCookies.js';
 import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
-import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { EthereumWalletProvider, SolanaWalletProvider } from '@/providers/okx/WalletProvider.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { UnreachableError } from '@/constants/error.js';
 
 const LangMap = {
     [Locale.en]: 'en_us',
@@ -39,14 +39,10 @@ export interface SwapModalOpenProps {
     chainId?: number;
     fromToken?: string;
     toToken?: string;
-    providerType?: ProviderType;
+    providerType?: OkxProviderType;
     chainIds?: string[];
     providerSwitchable?: boolean;
 }
-
-type Props = {
-    ref: React.Ref<SingletonModalRefCreator<SwapModalOpenProps>>;
-};
 
 function getConnectWalletName(isEvm: boolean) {
     if (isEvm) {
@@ -58,31 +54,41 @@ function getConnectWalletName(isEvm: boolean) {
     return info?.name;
 }
 
-export function SwapModalContent({ ref }: Props) {
+const resolveProviderType = createLookupTableResolver<OkxProviderType, ProviderType>(
+    {
+        [OkxProviderType.EVM]: ProviderType.EVM,
+        [OkxProviderType.SOLANA]: ProviderType.SOLANA,
+        [OkxProviderType.WALLET_CONNECT]: ProviderType.WALLET_CONNECT,
+    },
+    (providerType) => {
+        throw new UnreachableError('providerType', providerType);
+    },
+);
+
+interface SwapModalContentProps {
+    open: boolean;
+    props?: SwapModalOpenProps;
+    onClose: () => void;
+}
+
+export function SwapModalContent({ open, props, onClose }: SwapModalContentProps) {
     const [widgetRef, setWidgetRef] = useState<HTMLDivElement | null>(null);
 
     const locale = useLocale();
-    const [props, setProps] = useState<SwapModalOpenProps>();
-    const [networkType, setNetworkType] = useState<ProviderType>(ProviderType.EVM);
+    const [providerType, setProviderType] = useState<OkxProviderType>();
     const mode = useThemeModeStore.use.themeMode();
-    const instanceRef = useRef<OkxSwapWidgetHandler | undefined>(undefined);
+    const instanceRef = useRef<OkxSwapWidgetHandler | null>(null);
 
-    const isEvm = networkType === ProviderType.EVM;
+    const computedProviderType = providerType ?? props?.providerType ?? OkxProviderType.EVM;
+    const isEvm = computedProviderType === OkxProviderType.EVM;
     const isDark = useMediaQuery('(prefers-color-scheme: dark)');
     const theme = isDark || mode === 'dark' ? THEME.DARK : THEME.LIGHT;
 
-    const [open, dispatch] = useSingletonModal(ref, {
-        onOpen: (props) => {
-            setProps(props);
-            if (props.providerType) {
-                setNetworkType(props.providerType);
-            }
-        },
-        onClose: () => {
-            instanceRef.current?.destroy();
-            instanceRef.current = undefined;
-        },
-    });
+    useEffect(() => {
+        if (open) return;
+        instanceRef.current?.destroy();
+        instanceRef.current = null;
+    }, [open]);
 
     useEffect(() => {
         if (!instanceRef.current) return;
@@ -109,7 +115,7 @@ export function SwapModalContent({ ref }: Props) {
             lang: LangMap[locale] || 'en_us',
             theme,
             width: 400,
-            providerType: networkType,
+            providerType: resolveProviderType(computedProviderType),
             chainIds: props?.chainIds,
             tokenPair,
         };
@@ -149,24 +155,19 @@ export function SwapModalContent({ ref }: Props) {
 
         return () => {
             instanceRef.current?.destroy();
-            instanceRef.current = undefined;
+            instanceRef.current = null;
         };
-    }, [props, locale, theme, open, widgetRef, networkType, isEvm]);
+    }, [props, locale, theme, open, widgetRef, computedProviderType, isEvm]);
 
     return (
-        <Modal onClose={() => dispatch?.close()} open={open}>
+        <Modal onClose={onClose} open={open}>
             <div className="relative z-10 w-[calc(100%-40px)] max-w-[400px] overflow-hidden rounded-2xl border-line bg-white pt-6 dark:bg-black">
                 <div className="relative z-1 -mb-4 flex h-8 w-full items-center justify-between px-6">
-                    <CloseButton
-                        className="text-main"
-                        onClick={() => {
-                            dispatch?.close();
-                        }}
-                    />
+                    <CloseButton className="text-main" onClick={onClose} />
                     {props?.providerSwitchable ? (
                         <FireflyWalletChainSelectorWithOkxProviderType
-                            selectedChain={networkType}
-                            onSelectChain={setNetworkType}
+                            selectedChain={computedProviderType}
+                            onSelectChain={setProviderType}
                         />
                     ) : null}
                 </div>

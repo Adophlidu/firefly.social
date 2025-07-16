@@ -356,6 +356,12 @@ export enum NetworkType {
     Solana = 'solana',
 }
 
+export enum OkxProviderType {
+    EVM = 'EVM',
+    SOLANA = 'SOLANA',
+    WALLET_CONNECT = 'WALLET_CONNECT',
+}
+
 export enum CurrencyType {
     NATIVE = 'native',
     BTC = 'btc',

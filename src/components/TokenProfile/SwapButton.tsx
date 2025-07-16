@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { ProviderType } from '@okxweb3/dex-widget';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { switchChain } from 'wagmi/actions';
@@ -11,7 +10,7 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupportedChains.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/chain.js';
-import { NetworkType } from '@/constants/enum.js';
+import { NetworkType, OkxProviderType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
@@ -33,19 +32,19 @@ export const SwapButton = memo<Props>(function SwapButton({
     const { ethereum, solana } = useWalletAccountAll();
 
     const chainId = swapPropsFromProps?.chainId;
-    const providerType = chainId !== SOLANA_CHAIN_ID_IN_FIREFLY ? ProviderType.EVM : ProviderType.SOLANA;
+    const providerType = chainId !== SOLANA_CHAIN_ID_IN_FIREFLY ? OkxProviderType.EVM : OkxProviderType.SOLANA;
 
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         if (
-            (providerType === ProviderType.EVM && !ethereum.isConnected) ||
-            (providerType === ProviderType.SOLANA && !solana.isConnected)
+            (providerType === OkxProviderType.EVM && !ethereum.isConnected) ||
+            (providerType === OkxProviderType.SOLANA && !solana.isConnected)
         ) {
             WalletConnectModalRef.open({
-                networkType: providerType === ProviderType.EVM ? NetworkType.Ethereum : NetworkType.Solana,
+                networkType: providerType === OkxProviderType.EVM ? NetworkType.Ethereum : NetworkType.Solana,
             });
             return;
         }
-        if (chainId && providerType === ProviderType.EVM) await switchChain(config, { chainId });
+        if (chainId && providerType === OkxProviderType.EVM) await switchChain(config, { chainId });
         captureSwapEvent(EventId.EVENT_SWAP_COPY_TRADE_CLICK);
         SwapModalRef.open({
             ...swapPropsFromProps,
@@ -54,7 +53,7 @@ export const SwapButton = memo<Props>(function SwapButton({
     }, [chainId, providerType, ethereum.isConnected, solana.isConnected, swapPropsFromProps]);
 
     const chainIds = supportedChainIds.map((x) => x.chainId);
-    if (providerType === ProviderType.EVM && chainId && !chainIds.includes(chainId)) return null;
+    if (providerType === OkxProviderType.EVM && chainId && !chainIds.includes(chainId)) return null;
 
     return (
         <ClickableButton
