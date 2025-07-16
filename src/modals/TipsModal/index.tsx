@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { RouterProvider } from '@tanstack/react-router';
 import { useCallback } from 'react';
 
 import { Modal } from '@/components/Modal.js';
@@ -7,6 +6,7 @@ import { Popover } from '@/components/Popover.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { TIPS_SUPPORT_NETWORKS } from '@/constants/index.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
@@ -14,8 +14,14 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { TipsModalContentSkeleton } from '@/modals/TipsModal/TipsModalContentSkeleton.js';
 import type { FireflyIdentity, FireflyProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+
+const TipsModalContent = dynamic(() => import('@/modals/TipsModal/ModalContent.js').then((m) => m.TipsModalContent), {
+    ssr: false,
+    loading: () => <TipsModalContentSkeleton />,
+});
 
 export interface TipsModalOpenProps {
     identity: FireflyIdentity;
@@ -124,7 +130,7 @@ function TipsModalUI({ ref }: Props) {
         return (
             <Modal open={open} onClose={onClose} disableScrollLock={false} disableDialogClose>
                 <div className="z-10 w-4/5 rounded-md bg-lightBottom px-3 py-6 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:w-[485px] md:rounded-xl md:px-6">
-                    <RouterProvider router={router} context={{ onClose }} />
+                    <TipsModalContent />
                 </div>
             </Modal>
         );
@@ -133,7 +139,7 @@ function TipsModalUI({ ref }: Props) {
     return (
         <Popover open={open} onClose={onClose} dialogPanelClassName="!p-0 !pt-6">
             <div className="px-3 pb-6 text-medium text-lightMain">
-                <RouterProvider router={router} context={{ onClose }} />
+                <TipsModalContent />
             </div>
         </Popover>
     );

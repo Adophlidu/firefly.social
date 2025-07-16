@@ -17,9 +17,11 @@ export function RootView() {
     return (
         <div
             className={classNames('flex w-full flex-col transition-all', {
-                'h-[358px] md:h-[368px]': [TipsRoutePath.TIPS, TipsRoutePath.SELECT_RECIPIENT].includes(
-                    pathname as TipsRoutePath,
-                ),
+                'h-[358px] md:h-[368px]': [
+                    TipsRoutePath.TIPS,
+                    TipsRoutePath.SELECT_RECIPIENT,
+                    TipsRoutePath.NO_AVAILABLE_WALLET,
+                ].includes(pathname as TipsRoutePath),
                 'h-[382px] md:h-[582px]': pathname === TipsRoutePath.SELECT_TOKEN,
                 'h-[424px]': pathname === TipsRoutePath.SUCCESS,
             })}

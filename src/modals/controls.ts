@@ -36,7 +36,7 @@ import type { ShareImageModalOpenProps } from '@/modals/ShareImageModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
 import type { SuperFollowModalOpenProps } from '@/modals/SuperFollowModal.js';
 import type { SwapModalOpenProps } from '@/modals/SwapModal/SwapModalContent.js';
-import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal.js';
+import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal/index.js';
 import type { TokenSelectorModalCloseProps, TokenSelectorModalOpenProps } from '@/modals/TokenSelectorModal.js';
 import type { TransactionSimulatorModalOpenProps } from '@/modals/TransactionSimulatorModal/TransactionSimulatorModal.js';
 import type { WalletConnectModalCloseProps, WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.js';
