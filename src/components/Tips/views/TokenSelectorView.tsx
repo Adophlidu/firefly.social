@@ -1,0 +1,52 @@
+import { memo, useCallback } from 'react';
+import { useAsync } from 'react-use';
+
+import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { SearchTokenPanel } from '@/components/Search/SearchTokenPanel.js';
+import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
+import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
+import { TipsContext } from '@/hooks/useTipsContext.js';
+import type { Token } from '@/providers/types/Transfer.js';
+
+export const TokenSelectorView = memo(function TokenSelectorView() {
+    const { recipient, token: selectedToken, update } = TipsContext.useContainer();
+
+    const { value: address, loading } = useAsync(async () => {
+        if (!recipient) return;
+        const network = resolveNetworkProvider(recipient?.networkType);
+        return network.getAccount();
+    }, [recipient]);
+
+    const onTokenSelected = useCallback(
+        (token: Token) => {
+            update((prev) => ({ ...prev, token }));
+            router.navigate({ to: TipsRoutePath.TIPS, replace: true });
+        },
+        [update],
+    );
+
+    const isSelected = useCallback((item: Token) => item.id === selectedToken?.id, [selectedToken]);
+
+    if (loading) {
+        return (
+            <div className="flex h-[50vh] items-center justify-center md:h-[526px]">
+                <LoadingIcon />
+            </div>
+        );
+    }
+
+    return (
+        <>
+            {address && recipient?.networkType ? (
+                <div className="h-[50vh] md:h-[526px]">
+                    <SearchTokenPanel
+                        networkType={recipient.networkType}
+                        address={address}
+                        onSelected={onTokenSelected}
+                        isSelected={isSelected}
+                    />
+                </div>
+            ) : null}
+        </>
+    );
+});

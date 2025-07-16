@@ -220,9 +220,6 @@ msgstr "上传失败。视频超过最大限制 {0}"
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 msgstr "合约所有者无权修改其他地址的代币余额。"
 
-msgid "Select token"
-msgstr "选择代币"
-
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
 

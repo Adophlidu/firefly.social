@@ -4,11 +4,11 @@ import { createMemoryHistory, createRootRoute, createRoute, createRouter } from 
 import { Loading } from '@/components/Loading.js';
 import { NoAvailableWallet } from '@/components/Tips/NoAvailableWallet.js';
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
-import { TokenSelector } from '@/components/Tips/TokenSelector.js';
 import { RootView } from '@/components/Tips/views/RootView.js';
 import { SuccessView } from '@/components/Tips/views/SuccessView.js';
 import { TipsMainView } from '@/components/Tips/views/TipsMainView.js';
 import { TipsRecipientListView } from '@/components/Tips/views/TipsRecipientListView.js';
+import { TokenSelectorView } from '@/components/Tips/views/TokenSelectorView.js';
 
 export enum TipsRoutePath {
     TIPS = '/tips',
@@ -43,7 +43,7 @@ const tipsRoute = createRoute({
 const tokenSelectRoute = createRoute({
     getParentRoute: () => tipsRootRoute,
     path: TipsRoutePath.SELECT_TOKEN,
-    component: TokenSelector,
+    component: TokenSelectorView,
     beforeLoad: () => {
         return {
             title: <Trans>Select Token</Trans>,

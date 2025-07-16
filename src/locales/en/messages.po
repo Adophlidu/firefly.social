@@ -215,9 +215,6 @@ msgstr "Failed to upload. Video size exceeds {0}"
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 msgstr "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 
-msgid "Select token"
-msgstr "Select token"
-
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
 
