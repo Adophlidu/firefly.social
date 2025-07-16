@@ -406,7 +406,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
-        return profile.isPowerUser
+        return profile.isProUser
             ? [
                   {
                       source: Source.Farcaster,

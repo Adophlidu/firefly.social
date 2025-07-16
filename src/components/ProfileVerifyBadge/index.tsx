@@ -63,7 +63,7 @@ export function ProfileVerifyBadge({ profile, className }: Props) {
                 }
                 switch (icon.source) {
                     case Source.Farcaster:
-                        return <VerifyIcon key={i} className="size-4 shrink-0" width={16} height={16} />;
+                        return <VerifyIcon key={i} className="size-4 shrink-0 text-[#855DCD]" width={16} height={16} />;
                     case Source.Lens:
                         return null;
                     case Source.Twitter:

@@ -1,7 +1,7 @@
 /* cspell:disable */
 import urlcat from 'urlcat';
 
-import { YOUTUBE_SHORT_URL_REGEX, YOUTUBE_URL_REGEX } from '@/constants/regexp.js';
+import { isYouTubeUrl } from '@/helpers/isYouTubeUrl.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 
 // URLs that are manually picked to be embedded that dont have embed metatags
@@ -37,7 +37,7 @@ export function getPostIframeContent(embedUrl: string | null, url: string): stri
     switch (hostname) {
         case 'youtube.com':
         case 'youtu.be': {
-            if (YOUTUBE_URL_REGEX.test(cleanedUrl) || YOUTUBE_SHORT_URL_REGEX.test(cleanedUrl)) {
+            if (isYouTubeUrl(cleanedUrl)) {
                 return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
             }
 

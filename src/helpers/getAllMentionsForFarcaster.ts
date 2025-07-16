@@ -44,10 +44,11 @@ export async function getAllMentionsForFarcaster(text: string) {
 
     const length = resolveLengthCalculator(Source.Farcaster)(text);
 
+    const castType = length > 1024 ? CastType.TEN_K_CAST : length > 320 ? CastType.LONG_CAST : CastType.CAST;
     return {
         text,
         mentionsPositions: replacedIndices,
         mentions,
-        type: length > 320 ? CastType.LONG_CAST : CastType.CAST,
+        type: castType,
     };
 }

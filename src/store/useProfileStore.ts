@@ -272,6 +272,9 @@ const useFarcasterStateBase = createState(
                     const farcasterSession = state.currentProfileSession as FarcasterSession;
                     farcasterSessionHolder.resumeSession(farcasterSession);
                 }
+                if (state.currentProfile && state.currentProfile.isProUser === undefined) {
+                    await state.refreshCurrentAccount();
+                }
             } finally {
                 state.__setStatus__(AsyncStatus.Idle);
             }

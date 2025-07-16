@@ -45,7 +45,7 @@
         "@dialectlabs/blinks-core": "^0.20.7",
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.0",
-        "@farcaster/core": "^0.16.3",
+        "@farcaster/core": "^0.18.4",
         "@farcaster/miniapp-host": "^0.2.4",
         "@floating-ui/react": "^0.27.9",
         "@giphy/js-fetch-api": "^5.6.0",

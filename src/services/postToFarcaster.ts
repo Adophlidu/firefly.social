@@ -1,7 +1,7 @@
 import { uniqBy } from 'lodash-es';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
+import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
 import { isFrameV1 } from '@/helpers/frame.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
@@ -35,6 +35,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     const { currentProfile } = useFarcasterStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
+    const maxImageConfig = currentProfile.isProUser ? MAX_IMAGE_SIZE_PRO_PER_POST : MAX_IMAGE_SIZE_PER_POST;
     const composeDraft = (postType: PostType, images: MediaObject[], videos: MediaObject[], polls?: Poll[]) => {
         if (
             images.some((image) => !resolveImageUrl(Source.Farcaster, image)) ||
@@ -77,7 +78,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     })),
                 ],
                 (x) => x.url.toLowerCase(),
-            ).slice(0, MAX_IMAGE_SIZE_PER_POST[Source.Farcaster]),
+            ).slice(0, maxImageConfig[Source.Farcaster]),
             commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,
             parentChannelKey: isHomeChannel(currentChannel) ? undefined : currentChannel?.id,
             parentChannelUrl: isHomeChannel(currentChannel) ? undefined : currentChannel?.parentUrl,

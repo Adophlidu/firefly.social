@@ -80,8 +80,8 @@ dependencies:
     specifier: ^11.14.0
     version: 11.14.0(@emotion/react@11.14.0)(@types/react@19.0.2)(react@19.0.0)
   '@farcaster/core':
-    specifier: ^0.16.3
-    version: 0.16.3(typescript@5.7.3)(zod@3.24.2)
+    specifier: ^0.18.4
+    version: 0.18.4(typescript@5.7.3)(zod@3.24.2)
   '@farcaster/miniapp-host':
     specifier: ^0.2.4
     version: 0.2.4(react@19.0.0)(typescript@5.7.3)(zod@3.24.2)
@@ -4131,15 +4131,15 @@ packages:
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
     dev: false
 
-  /@farcaster/core@0.16.3(typescript@5.7.3)(zod@3.24.2):
-    resolution: {integrity: sha512-fAs5+5oFfyQtSDVnApyPW0GAesz+hnjmZ1LW1iFi7zMb70ETboCrFvFtz4t7s2UB92ayQEgaq4ifg2sM5PgF4Q==}
+  /@farcaster/core@0.18.4(typescript@5.7.3)(zod@3.24.2):
+    resolution: {integrity: sha512-3DX0ZYX6tRzufXlAIbL7SezEeLUvZbzsLpx+/8vnGvJZw/f+dT8Rx5UG26Gzayi60DCb/uTOGk7B7VdSc/b0Vw==}
     dependencies:
       '@faker-js/faker': 7.6.0
-      '@noble/curves': 1.8.1
-      '@noble/hashes': 1.7.1
+      '@noble/curves': 1.9.2
+      '@noble/hashes': 1.8.0
       bs58: 5.0.0
       neverthrow: 6.2.2
-      viem: 2.26.2(typescript@5.7.3)(zod@3.24.2)
+      viem: 2.31.4(typescript@5.7.3)(zod@3.24.2)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -22330,7 +22330,7 @@ time:
   /@dialectlabs/blinks@0.22.5: '2025-04-04T10:41:01.533Z'
   /@emotion/react@11.14.0: '2024-12-09T08:43:27.996Z'
   /@emotion/styled@11.14.0: '2024-12-09T08:43:28.080Z'
-  /@farcaster/core@0.16.3: '2025-04-29T22:36:02.736Z'
+  /@farcaster/core@0.18.4: '2025-07-12T16:14:38.184Z'
   /@farcaster/miniapp-host@0.2.4: '2025-07-07T20:11:49.280Z'
   /@floating-ui/react@0.27.9: '2025-05-26T03:31:17.104Z'
   /@giphy/js-fetch-api@5.6.0: '2024-05-28T16:39:28.633Z'

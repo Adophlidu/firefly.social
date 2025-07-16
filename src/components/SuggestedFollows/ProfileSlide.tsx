@@ -5,7 +5,6 @@ import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowersLink } from '@/components/Profile/FollowersLink.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
-import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -41,7 +40,6 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
                             {profile.displayName}
                         </Link>
                     </ProfileTippy>
-                    <ProfileVerifyBadge profile={profile} />
                     <SocialSourceIcon source={profile.source} size={15} className="shrink-0" />
                 </div>
                 {profile.source === Source.Lens ? null : (
