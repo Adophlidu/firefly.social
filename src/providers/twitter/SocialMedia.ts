@@ -1,3 +1,4 @@
+import { NotImplementedError } from '@/constants/error.js';
 import { NitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
 import { OfficialSocialMedia, OfficialSocialMediaProvider } from '@/providers/twitter/OfficialSocialMedia.js';
 
@@ -9,14 +10,24 @@ function createProxy<T>(providers: Array<Partial<T>>): T {
                 return async (...args: any[]) => {
                     if (prop === 'type') return 'proxy';
 
+                    let latestError: unknown | null = null;
+
                     for (const provider of providers) {
                         const method = provider[prop as keyof T];
-                        if (typeof method === 'function') {
-                            return method.call(provider, ...args);
+                        try {
+                            if (typeof method === 'function') {
+                                return method.call(provider, ...args);
+                            }
+                        } catch (error) {
+                            latestError = error;
+
+                            if (error instanceof NotImplementedError) {
+                                continue; // Skip to the next provider if NotImplementedError is thrown
+                            }
                         }
                     }
 
-                    throw new Error(`Method ${String(prop)} not found on TwitterSocialMediaProxy`);
+                    throw latestError || new Error(`Method ${String(prop)} not found on TwitterSocialMediaProxy`);
                 };
             },
         },
