@@ -3,10 +3,11 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
+import { useQuery } from '@tanstack/react-query';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
-import { useAsync, useAsyncFn } from 'react-use';
+import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
@@ -42,47 +43,52 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
     } = TipsContext.useContainer();
 
     const {
-        value,
-        loading: isValidating,
+        data: value,
+        isLoading,
+        isRefetching,
         error,
-    } = useAsync(async () => {
-        if (token && !token.price && !amount) {
-            return {
-                label: <Trans>Custom amount is required for this token</Trans>,
-                disabled: true,
-            };
-        }
+    } = useQuery({
+        staleTime: 1000 * 60 * 2, // 2 minutes
+        queryKey: ['tips-validate', recipient?.networkType, recipient?.address, token?.chainId, token?.id, amount],
+        queryFn: async () => {
+            if (token && !token.price && !amount) {
+                return {
+                    label: <Trans>Custom amount is required for this token</Trans>,
+                    disabled: true,
+                };
+            }
 
-        if (!recipient || !token || !trimify(amount) || isZero(trimify(amount))) {
-            return { label: <Trans>Send</Trans>, disabled: true };
-        }
+            if (!recipient || !token || !trimify(amount) || isZero(trimify(amount))) {
+                return { label: <Trans>Send</Trans>, disabled: true };
+            }
 
-        const transfer = resolveTransferProvider(recipient.networkType);
-        const network = resolveNetworkProvider(recipient.networkType);
+            const transfer = resolveTransferProvider(recipient.networkType);
+            const network = resolveNetworkProvider(recipient.networkType);
 
-        if (isSameAddress(recipient.address, await network.getAccount())) {
-            return { label: <Trans>Cannot send tip to yourself</Trans>, disabled: true };
-        }
+            if (isSameAddress(recipient.address, await network.getAccount())) {
+                return { label: <Trans>Cannot send tip to yourself</Trans>, disabled: true };
+            }
 
-        const isBalanceValid = token.custom
-            ? true
-            : await transfer.validateBalance({
-                  to: recipient.address,
-                  token,
-                  amount,
-              });
-        if (!isBalanceValid) {
-            return { label: <Trans>Insufficient Balance</Trans>, disabled: true };
-        }
+            const isBalanceValid = token.custom
+                ? true
+                : await transfer.validateBalance({
+                      to: recipient.address,
+                      token,
+                      amount,
+                  });
+            if (!isBalanceValid) {
+                return { label: <Trans>Insufficient Balance</Trans>, disabled: true };
+            }
 
-        const { isValid, gas } = await transfer.validateGas({
-            to: recipient.address,
-            token,
-            amount,
-        });
-        if (isValid) return { label: <Trans>Send</Trans>, disabled: false, gas };
-        return { label: <Trans>Insufficient Balance for Gas Fee</Trans>, disabled: true, gas };
-    }, [recipient, token, amount]);
+            const { isValid, gas } = await transfer.validateGas({
+                to: recipient.address,
+                token,
+                amount,
+            });
+            if (isValid) return { label: <Trans>Send</Trans>, disabled: false, gas };
+            return { label: <Trans>Insufficient Balance for Gas Fee</Trans>, disabled: true, gas };
+        },
+    });
 
     const [{ loading: isSending }, handleSendTips] = useAsyncFn(async () => {
         if (!connected) {
@@ -122,6 +128,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         }
     }, [connected, onConnect, recipient, token, update, amount, identity, customAmount]);
 
+    const isValidating = isLoading || isRefetching;
     const disabled = !connected ? false : isValidating || isSending || !!value?.disabled;
 
     if (isSending && !hasError && hash) {

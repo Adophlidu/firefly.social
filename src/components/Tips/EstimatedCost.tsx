@@ -1,20 +1,38 @@
 import { Trans } from '@lingui/react/macro';
 import type { BigNumber } from 'bignumber.js';
+import { memo, useMemo } from 'react';
 
-import { NetworkType } from '@/constants/enum.js';
-import { formatLamportsToSol } from '@/helpers/formatLamportsToSol.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
-import { isZero, leftShift } from '@/helpers/number.js';
+import { isGreaterThan, leftShift, multipliedBy } from '@/helpers/number.js';
+import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 
 interface EstimatedCostProps {
     gas: BigNumber;
 }
 
-export function EstimatedCost({ gas }: EstimatedCostProps) {
-    const { token, recipient } = TipsContext.useContainer();
-    const nativeToken = token && recipient ? getNativeToken(recipient.networkType, token.chainId) : null;
+export const EstimatedCost = memo<EstimatedCostProps>(function EstimatedCost({ gas }) {
+    const { token, recipient, tokenAmount } = TipsContext.useContainer();
+
+    const isValidGas = isGreaterThan(gas, 0);
+    const { data } = useNativeTokenPrice(
+        {
+            chainId: token?.chainId,
+            networkType: recipient?.networkType,
+        },
+        !!recipient && !!token && isValidGas,
+    );
+
+    const costUsdtValue = useMemo(() => {
+        const nativeToken =
+            token && recipient?.networkType ? getNativeToken(recipient.networkType, token.chainId) : null;
+        const tokenUsdtValue = token?.price && tokenAmount ? multipliedBy(token.price, tokenAmount) : null;
+        const gasUsdtValue =
+            data && isValidGas && nativeToken ? leftShift(gas, nativeToken.decimals).multipliedBy(data) : null;
+
+        return tokenUsdtValue ? tokenUsdtValue.plus(gasUsdtValue || 0) : null;
+    }, [data, token, isValidGas, gas, recipient?.networkType, tokenAmount]);
 
     return (
         <p className="mt-4 flex h-5 items-center justify-between text-sm">
@@ -22,12 +40,8 @@ export function EstimatedCost({ gas }: EstimatedCostProps) {
                 <Trans>Estimated cost</Trans>
             </span>
             <span className="font-medium text-main">
-                {!token || !nativeToken || isZero(gas)
-                    ? '-'
-                    : recipient?.networkType === NetworkType.Ethereum
-                      ? `${formatPrice(leftShift(gas, nativeToken.decimals).toString())} ${nativeToken.symbol}`
-                      : `${formatLamportsToSol(gas.toString())} SOL`}
+                {!costUsdtValue ? '-' : `$${formatPrice(costUsdtValue.toString())}`}
             </span>
         </p>
     );
-}
+});

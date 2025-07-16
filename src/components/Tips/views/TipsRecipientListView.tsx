@@ -15,7 +15,11 @@ export function TipsRecipientListView() {
 
     const handleSelectRecipient = (recipient: TipsProfile) => {
         if (!isSameAddress(recipient.address, selectedRecipient?.address)) {
-            update((prev) => ({ ...prev, recipient }));
+            update((prev) => ({
+                ...prev,
+                recipient,
+                token: selectedRecipient?.networkType !== recipient.networkType ? null : prev.token,
+            }));
             captureTipsSwitchWalletEvent(identity, recipient.address);
         }
 
