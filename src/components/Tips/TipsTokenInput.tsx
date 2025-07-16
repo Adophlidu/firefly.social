@@ -71,7 +71,7 @@ export const TipsTokenInput = memo(function TipsTokenInput() {
                     <div className="flex min-w-0 flex-1 flex-col items-start text-left">
                         <span className="w-full truncate text-medium font-bold text-main">{token.name}</span>
                         <span className="text-[13px] text-second">
-                            <Trans>Balance: {`${token.balance} ${token.symbol?.toUpperCase()}`}</Trans>
+                            <Trans>Balance: {`${token.balance || '-'} ${token.symbol?.toUpperCase()}`}</Trans>
                         </span>
                     </div>
                 </>

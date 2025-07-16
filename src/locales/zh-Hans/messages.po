@@ -2823,7 +2823,7 @@ msgstr "{0, plural, =1 {{1}} =2 {{2}} =3 {{3}} =4 {{4}} other {{5}}}"
 msgid "View engagements"
 msgstr "查看互动"
 
-#. placeholder {0}: token.balance
+#. placeholder {0}: token.balance || '-'
 #. placeholder {0}: token.balance || '0'
 #. placeholder {1}: token.symbol?.toUpperCase()
 #. placeholder {1}: token.symbol || '-'
