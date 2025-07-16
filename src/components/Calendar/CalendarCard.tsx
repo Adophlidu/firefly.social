@@ -4,6 +4,7 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 
+import { CalendarCardSkeleton } from '@/components/Calendar/CalendarCardSkeleton.js';
 import { DatePickerTab } from '@/components/Calendar/DatePickerTab.js';
 import { EventList } from '@/components/Calendar/EventList.js';
 import { useAvailableDates } from '@/components/Calendar/hooks/useAvailableDates.js';
@@ -12,7 +13,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { EventProvider } from '@/types/calendar.js';
 
-export function CalendarContent() {
+export function CalendarCard() {
     const tabs = [
         {
             label: <Trans>News</Trans>,
@@ -30,10 +31,12 @@ export function CalendarContent() {
     const [pickerDate, setPickerDate] = useState(date);
     const [open, setOpen] = useState(false);
 
-    const { data: allowedDates = EMPTY_LIST } = useAvailableDates(
+    const { data: allowedDates = EMPTY_LIST, isLoading } = useAvailableDates(
         isNews ? EventProvider.CoinCarp : EventProvider.Luma,
         pickerDate,
     );
+
+    if (isLoading) return <CalendarCardSkeleton />;
 
     return (
         <div className="relative flex flex-col rounded-xl">

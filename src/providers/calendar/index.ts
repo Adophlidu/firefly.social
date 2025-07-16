@@ -3,7 +3,7 @@
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import type { Event, EventDatesResponse, EventProvider, EventResponse, ParsedEvent } from '@/types/calendar.js';
 
@@ -64,7 +64,7 @@ function fixEvent(event: Event): ParsedEvent {
 
 export class CalendarProvider {
     static async getNewsList(startDate: number, endDate?: number, indicator?: PageIndicator) {
-        const res = await fetchCachedJSON<EventResponse>(
+        const response = await fetchJSON<EventResponse>(
             urlcat(BASE_URL, 'crypto_event_list', {
                 provider_type: 'coincarp',
                 size: 100,
@@ -73,9 +73,9 @@ export class CalendarProvider {
                 cursor: indicator?.id,
             }),
         );
-        if (!res.data?.events.length) return createPageable([], createIndicator(indicator));
-        const events = res.data.events.map(fixEventDate);
-        const next = res.data.page.next;
+        if (!response.data?.events.length) return createPageable([], createIndicator(indicator));
+        const events = response.data.events.map(fixEventDate);
+        const next = response.data.page.next;
         return createPageable(
             events,
             indicator,
@@ -84,7 +84,7 @@ export class CalendarProvider {
     }
 
     static async getEventList(start_date: number, end_date: number, indicator?: PageIndicator) {
-        const res = await fetchCachedJSON<EventResponse>(
+        const response = await fetchJSON<EventResponse>(
             urlcat(BASE_URL, 'crypto_event_list', {
                 provider_type: 'luma',
                 size: 100,
@@ -93,10 +93,10 @@ export class CalendarProvider {
                 end_date: Math.floor(end_date / 1000),
             }),
         );
-        if (!res?.data?.events.length) return createPageable([], createIndicator(indicator));
+        if (!response?.data?.events.length) return createPageable([], createIndicator(indicator));
 
-        const events = res.data.events.map(fixEvent);
-        const next = res.data.page.next;
+        const events = response.data.events.map(fixEvent);
+        const next = response.data.page.next;
         return createPageable(
             events,
             indicator,
@@ -105,13 +105,13 @@ export class CalendarProvider {
     }
 
     static async getAvailableDates(type: EventProvider, start_date: number, end_date: number) {
-        const res = await fetchCachedJSON<EventDatesResponse>(
+        const response = await fetchJSON<EventDatesResponse>(
             urlcat(BASE_URL, 'crypto_event_date_list', {
                 provider_type: type,
                 start_date: start_date / 1000,
                 end_date: end_date / 1000,
             }),
         );
-        return (res.data || []).map((x) => x * 1000);
+        return (response.data || []).map((x) => x * 1000);
     }
 }

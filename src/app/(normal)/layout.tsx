@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 
 import { Advertisement } from '@/components/Advertisement/index.js';
-import { CalendarContent } from '@/components/Calendar/CalendarContent.js';
+import { Calendar } from '@/components/Calendar/Calendar.js';
 import { ComposeWatcher } from '@/components/Compose/ComposeWatcher.js';
 import { ComposeButton } from '@/components/ComposeButton/index.js';
 import { IfPathname } from '@/components/IfPathname.js';
@@ -73,7 +73,7 @@ export default async function Layout({ children, modal }: { children: ReactNode;
                         }
                     >
                         <Section title="Web3 Calendar">
-                            <CalendarContent />
+                            <Calendar />
                         </Section>
                     </WithinDiscover>
 

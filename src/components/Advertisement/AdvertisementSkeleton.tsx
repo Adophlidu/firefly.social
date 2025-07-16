@@ -1,3 +1,3 @@
 export function AdvertisementSkeleton() {
-    return <div className="h-[130px] w-full animate-pulse rounded-lg bg-gray-200" />;
+    return <div className="h-[130px] w-full animate-pulse rounded-lg bg-bg" />;
 }
