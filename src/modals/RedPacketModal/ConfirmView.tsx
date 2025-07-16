@@ -30,7 +30,7 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useSelectFiles } from '@/hooks/useSelectFiles.js';
-import { ImageEditorRef, RedPacketModalRef } from '@/modals/controls.js';
+import { ImageEditorModalRef, RedPacketModalRef } from '@/modals/controls.js';
 import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/common.js';
 import {
     RedPacketContext,
@@ -194,7 +194,7 @@ export function ConfirmView() {
 
     const [{ loading: creatingTheme }, createTheme] = useAsyncFn(
         async (file: File) => {
-            const blob = await ImageEditorRef.openAndWaitForClose({
+            const blob = await ImageEditorModalRef.openAndWaitForClose({
                 image: file,
                 AvatarEditorProps: {
                     border: [0, 30],

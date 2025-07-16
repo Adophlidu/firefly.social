@@ -23,7 +23,7 @@ import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { ImageEditorRef } from '@/modals/controls.js';
+import { ImageEditorModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export type AvatarType = 'pfp' | 'random' | 'custom';
@@ -114,7 +114,7 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
             if (!file) return;
 
             inputRef.current!.value = ''; // Reset input value to allow re-uploading the same file
-            const newAvatar = await ImageEditorRef.openAndWaitForClose({ image: file });
+            const newAvatar = await ImageEditorModalRef.openAndWaitForClose({ image: file });
             if (!newAvatar) return;
 
             const url = URL.createObjectURL(newAvatar);
