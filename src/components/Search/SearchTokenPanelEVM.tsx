@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { uniq } from 'lodash-es';
+import { orderBy, uniq } from 'lodash-es';
 import { memo, useCallback, useMemo, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
@@ -8,7 +8,7 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';
-import { chains } from '@/configs/wagmiClient.js';
+import { chains, visibleChains } from '@/configs/wagmiClient.js';
 import { isGreaterThan, isLessThan } from '@/helpers/number.js';
 import { type Token, useCustomFungibleTokens } from '@/hooks/useCustomFungibleTokens.js';
 import { useEvmTokens } from '@/hooks/useEvmTokens.js';
@@ -32,7 +32,12 @@ export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTo
     const [showSmall, setShowSmall] = useState(false);
     const isMedium = useIsMedium('max');
     const { tokens, isLoading } = useEvmTokens(address);
-    const chainIds = uniq(tokens.map((token) => token.chainId));
+    const chainIds = useMemo(() => {
+        return orderBy(uniq(tokens.map((token) => token.chainId)), (chainId) => {
+            const index = visibleChains.findIndex((chain) => chain.id === chainId);
+            return index === -1 ? Number.MAX_SAFE_INTEGER : index;
+        });
+    }, [tokens]);
 
     const getChainItem = useCallback(
         (chainId: number, isTag?: boolean) => {

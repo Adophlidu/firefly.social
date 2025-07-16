@@ -24,7 +24,7 @@ export function ChainIcon({ chainId, coingeckoChain, size = 22, className, netwo
             ? getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, chainId)
             : getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId);
     const coingeckoChainIcon = coingeckoChain ? resolveCoinGeckoChainIcon(coingeckoChain) : undefined;
-    const icon = networkDescriptor?.icon ?? coingeckoChainIcon ?? resolveDebankChain(chainId)?.logo_url;
+    const icon = networkDescriptor?.icon || coingeckoChainIcon || resolveDebankChain(chainId)?.logo_url;
 
     if (!icon && allowEmpty) return null;
 

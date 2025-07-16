@@ -4,7 +4,7 @@ import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { type Address, erc20Abi } from 'viem';
 import { useAccount } from 'wagmi';
@@ -27,10 +27,21 @@ import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { searchTokenLogoURI } from '@/services/searchTokenLogoURI.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 
-function AddCustomERC20ModalContent({ onClose, initialChainId }: { onClose: () => void; initialChainId: number }) {
+export interface AddCustomERC20ModalContentProps {
+    onClose: () => void;
+    initialChainId: number;
+    /** privy wallet only supports some networks */
+    chainIds?: number[];
+}
+
+function AddCustomERC20ModalContent({
+    onClose,
+    initialChainId,
+    chainIds: propChainIds,
+}: AddCustomERC20ModalContentProps) {
     const account = useAccount();
     const isMedium = useIsMedium('max');
-    const chainIds: number[] = visibleChains.map((x) => x.id);
+    const chainIds: number[] = useMemo(() => propChainIds ?? visibleChains.map((x) => x.id), [propChainIds]);
     const getChainItem = useCallback(
         (chainId: number, isTag?: boolean) => {
             const chain = visibleChains.find((chain) => chain.id === chainId);
@@ -147,9 +158,9 @@ function AddCustomERC20ModalContent({ onClose, initialChainId }: { onClose: () =
     );
 }
 
-export interface AddCustomERC20ModalOpenProps {
-    initialChainId: number;
-}
+export interface AddCustomERC20ModalOpenProps
+    extends Pick<AddCustomERC20ModalContentProps, 'initialChainId' | 'chainIds'> {}
+
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<AddCustomERC20ModalOpenProps>>;
 };

@@ -23,7 +23,7 @@ import { Loading } from '@/components/Loading.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { ReceiveModal } from '@/components/ReceiveModal/index.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
-import { visibleChains } from '@/configs/wagmiClient.js';
+import { privyVisibleChains, visibleChains } from '@/configs/wagmiClient.js';
 import { NetworkPluginID, NetworkType, Source } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useRouter } from '@/esm/navigation.js';
@@ -140,6 +140,8 @@ function FireflyWallet() {
 
     const transferModalRef = useRef<TransferModalRef>(null);
 
+    const chainIds = useMemo(() => privyVisibleChains.map((chain) => chain.id), []);
+
     const receiveItems = useMemo(() => {
         const items = visibleChains.map((chain) => ({
             avatar: getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chain.id)?.icon ?? '',
@@ -219,6 +221,7 @@ function FireflyWallet() {
                                     onClick={() => {
                                         AddCustomERC20ModalRef.open({
                                             initialChainId: EthereumChainId.Mainnet,
+                                            chainIds,
                                         });
                                     }}
                                 >

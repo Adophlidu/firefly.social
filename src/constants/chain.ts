@@ -310,6 +310,34 @@ export const DEBANK_CHAINS = [
         native_token_id: 'eth',
         logo_url: 'https://static.debank.com/image/chain/logo_url/base/ccc1513e4f390542c4fb2f4b88ce9579.png',
     },
+    {
+        id: 'metis',
+        community_id: 1088,
+        name: 'Metis',
+        native_token_id: 'eth',
+        logo_url: 'https://static.debank.com/image/chain/logo_url/metis/7485c0a61c1e05fdf707113b6b6ac917.png',
+    },
+    {
+        id: 'zora',
+        community_id: 7777777,
+        name: 'Zora',
+        native_token_id: 'eth',
+        logo_url: 'https://static.debank.com/image/chain/logo_url/zora/de39f62c4489a2359d5e1198a8e02ef1.png',
+    },
+    {
+        id: 'scrl',
+        community_id: 534352,
+        name: 'Scroll',
+        native_token_id: 'eth',
+        logo_url: 'https://static.debank.com/image/chain/logo_url/scrl/1fa5c7e0bfd353ed0a97c1476c9c42d2.png',
+    },
+    {
+        id: 'era',
+        community_id: 324,
+        name: 'ZKsync Era',
+        native_token_id: 'eth',
+        logo_url: 'https://static.debank.com/image/chain/logo_url/era/2cfcd0c8436b05d811b03935f6c1d7da.png',
+    },
 ];
 
 export const DEBANK_CHAIN_TO_CHAIN_ID_MAP: Record<string, number> = {
