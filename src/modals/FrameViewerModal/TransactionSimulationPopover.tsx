@@ -3,10 +3,10 @@
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useState } from 'react';
 
-import { TransactionSimulatorContent } from '@/modals/TransactionSimulatorModal/SimulatorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { Popover } from '@/modals/FrameViewerModal/Popover.js';
+import { TransactionSimulatorContent } from '@/modals/TransactionSimulatorModal/SimulatorContent.js';
 import type { FrameV2 } from '@/types/frame.js';
 
 export interface TransactionSimulationPopoverProps {

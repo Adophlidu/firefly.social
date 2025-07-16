@@ -20,7 +20,7 @@ import type { EditCrossAtModalCloseProps, EditCrossAtModalOpenProps } from '@/mo
 import type { EditFireflyProfileModalOpenProps } from '@/modals/EditFireflyProfileModal.js';
 import type { FrameViewerModalCloseProps, FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/index.js';
 import type { FreeMintModalOpenProps } from '@/modals/FreeMintModal/index.js';
-import type { ImageEditorCloseProps, ImageEditorOpenProps } from '@/modals/ImageEditor/index.js';
+import type { ImageEditorCloseProps, ImageEditorOpenProps } from '@/modals/ImageEditor/ImageEditorModal.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type {

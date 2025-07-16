@@ -23,7 +23,7 @@ import { EditFireflyProfileModal } from '@/modals/EditFireflyProfileModal.js';
 import { EnableSignlessModal } from '@/modals/EnableSignlessModal.js';
 import { FrameViewerModal } from '@/modals/FrameViewerModal/index.js';
 import { FreeMintModal } from '@/modals/FreeMintModal/index.js';
-import { ImageEditorModal } from '@/modals/ImageEditor/index.js';
+import { ImageEditorModal } from '@/modals/ImageEditor/ImageEditorModal.js';
 import { LoginModal } from '@/modals/LoginModal/index.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
 import { MyWalletsModal } from '@/modals/MyWalletsModal/index.js';

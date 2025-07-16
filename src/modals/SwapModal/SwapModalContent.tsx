@@ -58,7 +58,7 @@ function getConnectWalletName(isEvm: boolean) {
     return info?.name;
 }
 
-export function SwapModal({ ref }: Props) {
+export function SwapModalContent({ ref }: Props) {
     const [widgetRef, setWidgetRef] = useState<HTMLDivElement | null>(null);
 
     const locale = useLocale();
@@ -67,10 +67,9 @@ export function SwapModal({ ref }: Props) {
     const mode = useThemeModeStore.use.themeMode();
     const instanceRef = useRef<OkxSwapWidgetHandler | undefined>(undefined);
 
+    const isEvm = networkType === ProviderType.EVM;
     const isDark = useMediaQuery('(prefers-color-scheme: dark)');
     const theme = isDark || mode === 'dark' ? THEME.DARK : THEME.LIGHT;
-
-    const isEvm = networkType === ProviderType.EVM;
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
@@ -87,7 +86,6 @@ export function SwapModal({ ref }: Props) {
 
     useEffect(() => {
         if (!instanceRef.current) return;
-
         instanceRef.current.updateParams({ theme });
     }, [theme]);
 

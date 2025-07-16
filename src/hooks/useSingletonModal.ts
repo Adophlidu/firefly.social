@@ -13,6 +13,7 @@ export function useSingletonModal<OpenProps, CloseProps>(
     type T = SingletonModalRefCreator<OpenProps, CloseProps>;
 
     const [open, setOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
     const dispatchRef = useRef<ReturnType<T>>(undefined);
     const optionsRef = useRef<typeof options>(undefined);
     const openRef = useRef(open);
@@ -28,6 +29,7 @@ export function useSingletonModal<OpenProps, CloseProps>(
                 optionsRef.current?.onOpen?.(props, this);
                 dispatchOpen(props);
                 setOpen(true);
+                setMounted(true);
             },
             close(props) {
                 optionsRef.current?.onClose?.(props, this);
@@ -45,5 +47,5 @@ export function useSingletonModal<OpenProps, CloseProps>(
 
     useImperativeHandle(ref, () => creator, [creator]);
 
-    return [open, dispatchRef.current] as const;
+    return [open, dispatchRef.current, mounted] as const;
 }

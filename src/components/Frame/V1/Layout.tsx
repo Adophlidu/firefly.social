@@ -8,7 +8,6 @@ import { getAccount } from 'wagmi/actions';
 import { z } from 'zod';
 
 import { Card } from '@/components/Frame/V1/Card.js';
-import { simulate } from '@/modals/TransactionSimulatorModal/simulate.js';
 import { config } from '@/configs/wagmiClient.js';
 import { NODE_ENV, SimulateType, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -25,6 +24,7 @@ import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmLeavingModalRef } from '@/modals/controls.js';
+import { simulate } from '@/modals/TransactionSimulatorModal/simulate.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
