@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useTimeoutFn } from 'react-use';
 
-import { FireflyLoadingIndicator } from '@/components/FireflyLoadingIndicator.js';
 import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { bom } from '@/helpers/bom.js';
+import { finishLoadFont, finishSignupCheck } from '@/helpers/finishGlobalLoading.js';
 import { isPathnameForceRedirect } from '@/helpers/openLoginModal.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
@@ -22,6 +23,12 @@ export function FireflyAccountChecker() {
     const isForceRedirect = isPathnameForceRedirect(pathname);
     const hasLoggedIn = profiles.length > 0 || accounts.length > 0;
 
+    useTimeoutFn(() => {
+        // Remove the global loading indicator after 3 seconds
+        finishLoadFont();
+        finishSignupCheck();
+    }, 3000);
+
     useEffect(() => {
         if (!bom?.location) return;
         if (pathname === PageRoute.Signup) return;
@@ -36,12 +43,10 @@ export function FireflyAccountChecker() {
         bom.location.href = PageRoute.Signup;
     }, [pathname, hasFireflyAccount, isLoading, isForceRedirect, hasLoggedIn]);
 
-    if ((((!hasFireflyAccount && !hasLoggedIn) || isLoading) && isForceRedirect) || isSyncing) {
-        return (
-            <div className="fixed inset-0 z-[999] flex items-center justify-center bg-primaryBottom">
-                <FireflyLoadingIndicator />
-            </div>
-        );
+    const showLoading = (((!hasFireflyAccount && !hasLoggedIn) || isLoading) && isForceRedirect) || isSyncing;
+    if (!showLoading) {
+        finishLoadFont();
+        finishSignupCheck();
     }
 
     return null;

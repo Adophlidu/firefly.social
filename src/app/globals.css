@@ -511,10 +511,6 @@ body {
     overscroll-behavior-y: none;
 }
 
-html.font-loading {
-    visibility: hidden;
-}
-
 html {
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
@@ -936,4 +932,15 @@ body.not-support .fixed.inset-y-0 {
 
 .tippy-box[data-theme~='cross-at-tooltip'] .cross-at-edit-item:hover .cross-at-edit {
     display: block;
+}
+
+.global-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+
+    @apply flex items-center justify-center bg-primaryBottom;
 }
