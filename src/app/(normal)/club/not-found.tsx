@@ -6,5 +6,5 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 export default async function ChannelNotFound() {
     await setupLocaleForSSR();
 
-    return <NotFound backText={<Trans>Channel details</Trans>} text={<Trans>Channel could not be found.</Trans>} />;
+    return <NotFound backText={<Trans>Club details</Trans>} text={<Trans>Club could not be found.</Trans>} />;
 }

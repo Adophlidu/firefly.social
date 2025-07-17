@@ -6,8 +6,8 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata() {
-    return createSiteMetadata('/community', {
-        title: await createPageTitleSSR(msg`Channel`),
+    return createSiteMetadata('/club', {
+        title: await createPageTitleSSR(msg`Club`),
     });
 }
 

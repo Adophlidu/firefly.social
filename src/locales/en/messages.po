@@ -297,9 +297,6 @@ msgstr "Functions that can suspend trading"
 msgid "{count}s"
 msgstr "{count}s"
 
-msgid "Channel details"
-msgstr "Channel details"
-
 msgid "Claimed successfully."
 msgstr "Claimed successfully."
 
@@ -519,6 +516,9 @@ msgstr "Solana"
 
 msgid "Casts"
 msgstr "Casts"
+
+msgid "Club details"
+msgstr "Club details"
 
 #. placeholder {0}: formatAmount(usdcSize)
 msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
@@ -1622,6 +1622,9 @@ msgstr "Are you sure you want to report this post?"
 msgid "Oops... Something went wrong. Please try again"
 msgstr "Oops... Something went wrong. Please try again"
 
+msgid "Club could not be found."
+msgstr "Club could not be found."
+
 msgid "No fake KYC found."
 msgstr "No fake KYC found."
 
@@ -1790,6 +1793,9 @@ msgstr "No financial crime involved."
 
 msgid "View on Website"
 msgstr "View on Website"
+
+msgid "Club"
+msgstr "Club"
 
 msgid "Mint NFT"
 msgstr "Mint NFT"
@@ -4077,9 +4083,6 @@ msgstr "Firefly Bridge"
 
 msgid "Congratulations!"
 msgstr "Congratulations!"
-
-msgid "Channel could not be found."
-msgstr "Channel could not be found."
 
 msgid "Clear all requirements"
 msgstr "Clear all requirements"

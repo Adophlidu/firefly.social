@@ -297,9 +297,6 @@ msgstr ""
 msgid "{count}s"
 msgstr ""
 
-msgid "Channel details"
-msgstr ""
-
 msgid "Claimed successfully."
 msgstr ""
 
@@ -518,6 +515,9 @@ msgid "Solana"
 msgstr ""
 
 msgid "Casts"
+msgstr ""
+
+msgid "Club details"
 msgstr ""
 
 #. placeholder {0}: formatAmount(usdcSize)
@@ -1622,6 +1622,9 @@ msgstr ""
 msgid "Oops... Something went wrong. Please try again"
 msgstr ""
 
+msgid "Club could not be found."
+msgstr ""
+
 msgid "No fake KYC found."
 msgstr ""
 
@@ -1789,6 +1792,9 @@ msgid "No financial crime involved."
 msgstr ""
 
 msgid "View on Website"
+msgstr ""
+
+msgid "Club"
 msgstr ""
 
 msgid "Mint NFT"
@@ -4060,9 +4066,6 @@ msgid "Firefly Bridge"
 msgstr ""
 
 msgid "Congratulations!"
-msgstr ""
-
-msgid "Channel could not be found."
 msgstr ""
 
 msgid "Clear all requirements"

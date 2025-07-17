@@ -302,9 +302,6 @@ msgstr "可暫停交易的功能"
 msgid "{count}s"
 msgstr "{count}秒"
 
-msgid "Channel details"
-msgstr "群組詳情"
-
 msgid "Claimed successfully."
 msgstr "領取成功。"
 
@@ -524,6 +521,9 @@ msgstr "Solana"
 
 msgid "Casts"
 msgstr "貼文"
+
+msgid "Club details"
+msgstr ""
 
 #. placeholder {0}: formatAmount(usdcSize)
 msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
@@ -1627,6 +1627,9 @@ msgstr "確定要檢舉此貼文？"
 msgid "Oops... Something went wrong. Please try again"
 msgstr "哎呀... 發生錯誤，請重試"
 
+msgid "Club could not be found."
+msgstr ""
+
 msgid "No fake KYC found."
 msgstr "未發現虛假 KYC"
 
@@ -1795,6 +1798,9 @@ msgstr "未涉及金融犯罪"
 
 msgid "View on Website"
 msgstr "在網站查看"
+
+msgid "Club"
+msgstr ""
 
 msgid "Mint NFT"
 msgstr "鑄造 NFT"
@@ -4082,9 +4088,6 @@ msgstr "Firefly Bridge"
 
 msgid "Congratulations!"
 msgstr "恭喜！"
-
-msgid "Channel could not be found."
-msgstr "找不到群組。"
 
 msgid "Clear all requirements"
 msgstr "清除所有條件"
