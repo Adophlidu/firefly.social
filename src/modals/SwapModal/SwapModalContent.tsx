@@ -1,3 +1,5 @@
+'use client';
+
 import {
     createOkxSwapWidget,
     type EthereumProvider,
@@ -15,7 +17,6 @@ import { getConnections } from 'wagmi/actions';
 
 import { FireflyWalletChainSelectorWithOkxProviderType } from '@/components/FireflyWallet/FireflyWalletChainSelectorWithOkxProviderType.js';
 import { CloseButton } from '@/components/IconButton.js';
-import { Modal } from '@/components/Modal.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SOLANA_CHAIN_ID_IN_FIREFLY, SOLANA_CHAIN_ID_IN_OKX } from '@/constants/chain.js';
 import { Locale, OkxProviderType } from '@/constants/enum.js';
@@ -67,11 +68,11 @@ const resolveProviderType = createLookupTableResolver<OkxProviderType, ProviderT
 
 interface SwapModalContentProps {
     open: boolean;
-    props?: SwapModalOpenProps;
     onClose: () => void;
+    props?: SwapModalOpenProps;
 }
 
-export function SwapModalContent({ open, props, onClose }: SwapModalContentProps) {
+export function SwapModalContent({ props, open, onClose }: SwapModalContentProps) {
     const [widgetRef, setWidgetRef] = useState<HTMLDivElement | null>(null);
 
     const locale = useLocale();
@@ -83,12 +84,6 @@ export function SwapModalContent({ open, props, onClose }: SwapModalContentProps
     const isEvm = computedProviderType === OkxProviderType.EVM;
     const isDark = useMediaQuery('(prefers-color-scheme: dark)');
     const theme = isDark || mode === 'dark' ? THEME.DARK : THEME.LIGHT;
-
-    useEffect(() => {
-        if (open) return;
-        instanceRef.current?.destroy();
-        instanceRef.current = null;
-    }, [open]);
 
     useEffect(() => {
         if (!instanceRef.current) return;
@@ -160,24 +155,22 @@ export function SwapModalContent({ open, props, onClose }: SwapModalContentProps
     }, [props, locale, theme, open, widgetRef, computedProviderType, isEvm]);
 
     return (
-        <Modal onClose={onClose} open={open}>
-            <div className="relative z-10 w-[calc(100%-40px)] max-w-[400px] overflow-hidden rounded-2xl border-line bg-white pt-6 dark:bg-black">
-                <div className="relative z-1 -mb-4 flex h-8 w-full items-center justify-between px-6">
-                    <CloseButton className="text-main" onClick={onClose} />
-                    {props?.providerSwitchable ? (
-                        <FireflyWalletChainSelectorWithOkxProviderType
-                            selectedChain={computedProviderType}
-                            onSelectChain={setProviderType}
-                        />
-                    ) : null}
-                </div>
-                <div
-                    className="min-h-[550px]"
-                    ref={(ref) => {
-                        setWidgetRef(ref);
-                    }}
-                />
+        <div className="relative z-10 w-full overflow-hidden rounded-2xl bg-white pt-6 dark:bg-black">
+            <div className="relative z-1 -mb-4 flex h-8 w-full items-center justify-between px-6">
+                <CloseButton className="text-main" onClick={onClose} />
+                {props?.providerSwitchable ? (
+                    <FireflyWalletChainSelectorWithOkxProviderType
+                        selectedChain={computedProviderType}
+                        onSelectChain={setProviderType}
+                    />
+                ) : null}
             </div>
-        </Modal>
+            <div
+                className="min-h-[550px]"
+                ref={(ref) => {
+                    setWidgetRef(ref);
+                }}
+            />
+        </div>
     );
 }

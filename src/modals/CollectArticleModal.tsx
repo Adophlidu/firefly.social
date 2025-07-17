@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/react/macro';
-import { useRef, useState } from 'react';
+import { delay } from '@masknet/kit';
+import { useState } from 'react';
 
 import { ArticleCollect } from '@/components/Article/ArticleCollect.js';
 import { CloseButton } from '@/components/IconButton.js';
@@ -18,16 +19,13 @@ type Props = {
 
 export function CollectArticleModal({ ref }: Props) {
     const [props, setProps] = useState<CollectArticleModalOpenProps>();
-    const timerRef = useRef<NodeJS.Timeout>(undefined);
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
-            clearTimeout(timerRef.current);
             setProps(props);
         },
-        onClose: () => {
-            timerRef.current = setTimeout(() => {
-                setProps(undefined);
-            }, 200); // 200, duration of modal leaving
+        onClose: async () => {
+            await delay(300);
+            setProps(undefined);
         },
     });
 

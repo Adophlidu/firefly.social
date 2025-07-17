@@ -1,15 +1,18 @@
-import { useState } from 'react';
+'use client';
 
+import { Loading } from '@/components/Loading.js';
+import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { SwapModalOpenProps } from '@/modals/SwapModal/SwapModalContent.js';
+import { useState } from 'react';
 
 const SwapModalContent = dynamic(
     () => import('@/modals/SwapModal/SwapModalContent.js').then((m) => m.SwapModalContent),
     {
         ssr: false,
-        loading: () => null,
+        loading: () => <Loading />,
     },
 );
 
@@ -20,12 +23,16 @@ type Props = {
 export function SwapModal({ ref }: Props) {
     const [props, setProps] = useState<SwapModalOpenProps>();
     const [open, dispatch, mounted] = useSingletonModal(ref, {
-        onOpen: (props) => {
+        onOpen(props) {
             setProps(props);
         },
     });
 
-    if (!mounted) return null;
-
-    return <SwapModalContent open={open} props={props} onClose={() => dispatch?.close()} />;
+    return (
+        <Modal open={open} onClose={() => dispatch?.close()}>
+            <div className="relative z-10 h-[591px] w-[calc(100%-40px)] max-w-[400px] overflow-hidden rounded-2xl bg-white dark:bg-black">
+                {mounted ? <SwapModalContent props={props} open={open} onClose={() => dispatch?.close()} /> : null}
+            </div>
+        </Modal>
+    );
 }

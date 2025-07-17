@@ -24,7 +24,6 @@ export function CollectPostModal({ ref }: Props) {
                 post: props.post,
             });
         },
-        onClose: () => {},
     });
 
     return (

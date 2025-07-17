@@ -18,24 +18,29 @@ type Props = {
 export function TransactionSimulatorModal({ ref }: Props) {
     const [props, setProps] = useState<TransactionSimulatorModalOpenProps>();
     const [open, dispatch] = useSingletonModal(ref, {
-        onOpen: (props) => setProps(props),
+        onOpen: (props) => {
+            setProps(props);
+        },
         onClose: () => {
             props?.onCanceled?.();
             setProps(undefined);
         },
     });
-    const onClose = useCallback(() => dispatch?.close(), [dispatch]);
     const onContinue = useCallback(() => {
         props?.onContinue?.();
-        onClose();
-    }, [onClose, props]);
+        dispatch?.close();
+    }, [props]);
 
     if (!props) return null;
 
     return (
-        <Modal open={open} onClose={onClose}>
+        <Modal open={open} onClose={() => dispatch?.close()}>
             <div className="w-[485px] max-w-[90vw] transform rounded-xl bg-primaryBottom p-6 transition-all">
-                <TransactionSimulatorContent options={props} onClose={onClose} onContinue={onContinue} />
+                <TransactionSimulatorContent
+                    options={props}
+                    onClose={() => dispatch?.close()}
+                    onContinue={onContinue}
+                />
             </div>
         </Modal>
     );

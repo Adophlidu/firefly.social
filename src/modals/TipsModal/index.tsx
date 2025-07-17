@@ -124,7 +124,7 @@ function TipsModalUI({ ref }: Props) {
     });
     const onClose = useCallback(() => {
         dispatch?.close({});
-    }, [dispatch]);
+    }, [dispatch?.close]);
 
     if (isMedium) {
         return (

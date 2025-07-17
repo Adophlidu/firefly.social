@@ -26,7 +26,9 @@ export function AddWalletModal({ ref }: Props) {
         onOpen: (props) => {
             setProps(props);
         },
-        onClose: () => setProps({ connections: EMPTY_LIST }),
+        onClose: () => {
+            setProps({ connections: EMPTY_LIST });
+        },
     });
     const onClose = useCallback((props: AddWalletModalCloseProps = {}) => dispatch?.close(props), [dispatch]);
 

@@ -3209,7 +3209,6 @@ msgid "Upload to change"
 msgstr "上传以修改"
 
 #. placeholder {0}: collection.ownersTotal
-#. placeholder {0}: channel.followerCount
 msgid "{0} items"
 msgstr "{0} 项"
 
@@ -3683,9 +3682,6 @@ msgstr "无效的网站格式"
 
 msgid "Something went wrong. Please try again later."
 msgstr "哎呀，出问题了，请稍后重试。"
-
-msgid "Select Group"
-msgstr "选择圈子"
 
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "支付<0>{feeAmount} ${feeSymbol}</0>来关注并获得专属福利！"
@@ -4350,9 +4346,6 @@ msgstr "<0>已领取: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> 
 
 msgid "View on website"
 msgstr "在网站上查看"
-
-msgid "Select Channel"
-msgstr "选择圈子"
 
 msgid "Please confirm the login with X."
 msgstr "请在 X 确认登录。"

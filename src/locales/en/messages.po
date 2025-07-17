@@ -3204,7 +3204,6 @@ msgid "Upload to change"
 msgstr "Upload to change"
 
 #. placeholder {0}: collection.ownersTotal
-#. placeholder {0}: channel.followerCount
 msgid "{0} items"
 msgstr "{0} items"
 
@@ -3678,9 +3677,6 @@ msgstr "Invalid website format"
 
 msgid "Something went wrong. Please try again later."
 msgstr "Something went wrong. Please try again later."
-
-msgid "Select Group"
-msgstr "Select Group"
 
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
@@ -4345,9 +4341,6 @@ msgstr "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{
 
 msgid "View on website"
 msgstr "View on website"
-
-msgid "Select Channel"
-msgstr "Select Channel"
 
 msgid "Please confirm the login with X."
 msgstr "Please confirm the login with X."
