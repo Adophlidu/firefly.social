@@ -76,7 +76,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                             fill="none"
                             viewBox="0 0 31 40"
                             width={(85 / 208) * size}
-                            height="auto"
+                            height={size}
                             xmlns="http://www.w3.org/2000/svg"
                             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
                         >
@@ -98,9 +98,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                             <g fill="#fff">
                                 <path d="m17.7533 17.5h-2.5362v2.5h2.5362z" />
                                 <path
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                     d="m10.1446 22.5v2.5h-2.5362v10h2.5362v2.5h10.145v-2.5h2.5362v-10h-2.5362v-2.5zm0 5h2.5362v5h-2.5362zm10.145 5v-5h-2.5363v5z"
-                                    fill-rule="evenodd"
+                                    fillRule="evenodd"
                                 />
                             </g>
                         </svg>
