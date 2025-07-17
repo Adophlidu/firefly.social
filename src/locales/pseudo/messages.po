@@ -1098,9 +1098,6 @@ msgstr ""
 msgid "Owners"
 msgstr ""
 
-msgid "OpenGraph Validator"
-msgstr ""
-
 msgid "Phishing activities found."
 msgstr ""
 

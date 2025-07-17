@@ -1098,9 +1098,6 @@ msgstr "Save failed post?"
 msgid "Owners"
 msgstr "Owners"
 
-msgid "OpenGraph Validator"
-msgstr "OpenGraph Validator"
-
 msgid "Phishing activities found."
 msgstr "Phishing activities found."
 

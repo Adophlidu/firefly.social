@@ -1103,9 +1103,6 @@ msgstr "保存发送失败的帖子？"
 msgid "Owners"
 msgstr "拥有者"
 
-msgid "OpenGraph Validator"
-msgstr "OpenGraph 验证器"
-
 msgid "Phishing activities found."
 msgstr "发现钓鱼活动。"
 
