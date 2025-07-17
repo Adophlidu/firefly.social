@@ -24,7 +24,3 @@ interface RegisteredAction {
     host: string;
     state: ActionType;
 }
-
-export interface ActionsRegistryResponse {
-    actions: RegisteredAction[];
-}

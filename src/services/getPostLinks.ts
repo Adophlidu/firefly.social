@@ -41,17 +41,6 @@ function isValidPostLink(url: string, enableFilter = false) {
     return true;
 }
 
-export async function getPostFrame(url: string): Promise<Frame | null> {
-    if (env.external.NEXT_PUBLIC_FRAME !== STATUS.Enabled) return null;
-    if (!url || !isValidPostLink(url, true)) return null;
-    const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
-        urlcat(FIREFLY_WORKER_HOST, '/frame', {
-            link: url,
-        }),
-    );
-    return response.success ? response.data.frame : null;
-}
-
 export const getPostOembed = memoizePromise(
     async function getPostOembed(url: string, post?: Pick<Post, 'quoteOn'>): Promise<LinkDigested | null> {
         if (env.external.NEXT_PUBLIC_OPENGRAPH !== STATUS.Enabled) return null;

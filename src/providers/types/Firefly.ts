@@ -1859,14 +1859,6 @@ export type LensMetricsData = CommonMetricsData & {
     address: string;
 };
 
-export type BskyMetricsData = CommonMetricsData & {
-    access_jwt: string;
-    refresh_jwt: string;
-    handle: string;
-    server_host: string;
-    did: string;
-};
-
 export interface MetricsItemToUpload {
     ciphertext: string;
     metaInfo: MetricsMetaInfo;

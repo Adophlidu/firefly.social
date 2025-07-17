@@ -248,7 +248,6 @@ export enum KeyType {
     GetClassifyPostLinkWithRedis = '/v1/getClassifyPostLinkWithRedis',
 
     CreateMetadataToken = '/v2/createMetadataToken',
-    CreateMetadataSwap = '/v2/createMetadataSwap',
     CreateMetadataTx = '/v1/createMetadataTx',
     CreateMetadataPostById = '/v2/createPageMetadataById',
     CreateMetadataArticleById = '/v2/createMetadataArticleById',

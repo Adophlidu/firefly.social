@@ -24,13 +24,6 @@ export interface SignedKeyRequestResponse extends ErrorResponse {
     };
 }
 
-export interface Recast {
-    displayName: string;
-    fid: number;
-    recastHash: string;
-    username: string;
-}
-
 export interface Cast {
     hash: string;
     parentHash: string;

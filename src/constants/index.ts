@@ -51,12 +51,10 @@ export const SITE_LOGO =
 export const SITE_URL_OFFICIAL = 'https://firefly.social';
 export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL ?? SITE_URL_OFFICIAL;
 export const FARCASTER_REPLY_URL = 'https://relay.farcaster.xyz';
-export const FARCASTER_CONNECT_URL = 'https://connect.farcaster.xyz';
 export const WARPCAST_ROOT_URL = 'https://api.warpcast.com';
 export const WARPCAST_ROOT_URL_V1 = 'https://api.warpcast.com/v1';
 export const WARPCAST_ROOT_URL_V2 = 'https://api.warpcast.com/v2';
 export const WARPCAST_CLIENT_URL_V1 = 'https://client.warpcast.com/v1';
-export const WARPCAST_CLIENT_URL_V2 = 'https://client.warpcast.com/v2';
 export const FIREFLY_ROOT_URL = 'https://api.firefly.land';
 export const FIREFLY_DEV_ROOT_URL = 'https://api-dev.firefly.land';
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
@@ -86,7 +84,6 @@ export const ENS_ROOT_URL = 'https://ens-reverse-lookup.r2d2.to/ens/';
 export const THE_GRAPH_API_URL = 'https://api.thegraph.com/subgraphs/name/ensdomains/ens';
 export const TWITTER_TIMELINE_WHITELIST_JSON_URL = 'https://media.firefly.land/whitelist/twitter-timeline.json';
 export const ACTIONS_BLINK_REGISTER_URL = 'https://actions-registry.dial.to/all';
-export const PRIVY_API_URL = 'https://api.privy.io';
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 
