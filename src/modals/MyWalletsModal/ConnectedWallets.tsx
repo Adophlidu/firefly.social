@@ -123,7 +123,7 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
             {isLoading ? (
                 <div className="mb-2 h-[122px] w-full animate-pulse rounded-lg bg-bg" />
             ) : isSetupPrivyWallet ? (
-                <div className="mb-2 overflow-hidden rounded-lg border border-secondaryLine">
+                <div className="mb-2 h-[122px] overflow-hidden rounded-lg border border-secondaryLine">
                     <Link
                         href="/wallet"
                         className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"

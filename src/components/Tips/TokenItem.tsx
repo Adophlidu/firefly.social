@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
-import { useMemo } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
@@ -32,10 +31,7 @@ interface TokenItemProps extends ClickableButtonProps {
 
 export function TokenItem({ className, token, disableChainIcon, ...props }: TokenItemProps) {
     const usd = formatPrice(multipliedBy(token.price, token.amount).toString());
-    const balance = useMemo(() => {
-        if (isGreaterThan(token.balance, 1)) return removeTrailingZeros(BigNumber(token.balance).toFormat(2));
-        return token.balance || '0';
-    }, [token.balance]);
+    const balance = formatTokenItemAmount(token.amount);
 
     return (
         <ClickableButton
@@ -68,4 +64,11 @@ export function TokenItem({ className, token, disableChainIcon, ...props }: Toke
             </div>
         </ClickableButton>
     );
+}
+
+function formatTokenItemAmount(value: BigNumber.Value) {
+    if (isGreaterThan(value, 1)) {
+        return removeTrailingZeros(BigNumber(value).toFormat(2, BigNumber.ROUND_DOWN));
+    }
+    return removeTrailingZeros(BigNumber(value).toFormat(8, BigNumber.ROUND_DOWN));
 }

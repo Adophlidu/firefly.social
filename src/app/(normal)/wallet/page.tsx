@@ -37,15 +37,18 @@ import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
 import { AddCustomERC20ModalRef, SwapModalRef } from '@/modals/controls.js';
 import { Debank } from '@/providers/debank/index.js';
+import { OKX } from '@/providers/okx/index.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 
 const TransactionHistory = dynamic(() => import('@/components/TransactionHistory/list.js'), {
     ssr: false,
+    loading: () => <Loading />,
 });
 const NFTs = dynamic(() => import('@/components/Profile/NFTs.js'), {
     ssr: false,
+    loading: () => <Loading />,
 });
 
 const EVM_TRANSACTION_CHAIN_IDS = visibleChains.map((chain) => chain.id);
@@ -121,7 +124,7 @@ function FireflyWallet() {
                 queryKey: ['wallet', 'total-balance', NetworkType.Solana, solana.address],
                 async queryFn() {
                     if (!solana.address) return '0';
-                    return Debank.getUserTotalBalance(solana.address);
+                    return OKX.getUserSolanaTotalValue(solana.address);
                 },
             },
         ],
@@ -143,7 +146,7 @@ function FireflyWallet() {
     const chainIds = useMemo(() => privyVisibleChains.map((chain) => chain.id), []);
 
     const receiveItems = useMemo(() => {
-        const items = visibleChains.map((chain) => ({
+        const items = privyVisibleChains.map((chain) => ({
             avatar: getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chain.id)?.icon ?? '',
             name: chain.name as string,
             address: ethereum.address,

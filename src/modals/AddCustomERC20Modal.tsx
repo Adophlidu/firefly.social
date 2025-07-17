@@ -10,9 +10,9 @@ import { type Address, erc20Abi } from 'viem';
 import { useAccount } from 'wagmi';
 import { readContracts } from 'wagmi/actions';
 
-import CloseIcon from '@/assets/close.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
@@ -143,7 +143,7 @@ function AddCustomERC20ModalContent({
                     <div className="flex-1 rounded-lg !border border-transparent !bg-lightBg transition-all focus-within:border-highlight">
                         <SearchInput
                             placeholder={t`Contract address`}
-                            className="!py-1.5 px-3"
+                            className="h-10 !py-1.5 px-3"
                             onChange={(e) => setContractAddress(e.currentTarget.value)}
                             value={contractAddress}
                             onClear={() => setContractAddress('')}
@@ -182,7 +182,7 @@ export function AddCustomERC20Modal({ ref }: Props) {
         <Modal open={open} onClose={onClose} dialogClassName="z-50">
             <div className="z-50 flex h-auto w-[calc(100%-40px)] flex-col rounded-md bg-lightBottom p-4 pt-0 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:w-[450px] md:rounded-xl">
                 <DialogTitle as="h3" className="relative h-14 shrink-0 pt-safe">
-                    <CloseIcon
+                    <CloseButton
                         onClick={onClose}
                         className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
                     />

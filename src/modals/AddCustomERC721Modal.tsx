@@ -113,7 +113,7 @@ function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => vo
                     <div className="flex-1 rounded-lg !border border-transparent !bg-lightBg transition-all focus-within:border-highlight">
                         <SearchInput
                             placeholder={t`Contract address`}
-                            className="!py-1.5 px-3"
+                            className="h-10 !py-1.5 px-3"
                             onChange={(e) => setContractAddress(e.currentTarget.value)}
                             value={contractAddress}
                             onClear={() => setContractAddress('')}

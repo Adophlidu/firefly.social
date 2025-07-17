@@ -3297,6 +3297,9 @@ msgstr "The frame server failed to process the request."
 msgid "Report"
 msgstr "Report"
 
+msgid "Failed to transfer"
+msgstr "Failed to transfer"
+
 msgid "Cancel Repost"
 msgstr "Cancel Repost"
 

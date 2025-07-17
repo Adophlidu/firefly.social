@@ -3302,6 +3302,9 @@ msgstr "框架伺服器處理請求失敗。"
 msgid "Report"
 msgstr "檢舉"
 
+msgid "Failed to transfer"
+msgstr ""
+
 msgid "Cancel Repost"
 msgstr "取消轉發"
 

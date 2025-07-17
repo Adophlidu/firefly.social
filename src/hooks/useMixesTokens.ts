@@ -9,13 +9,13 @@ import { useSolanaTokens } from '@/hooks/useSolanaTokens.js';
 export function useMixesTokens({ evmAddress, solanaAddress }: { evmAddress?: Address; solanaAddress?: string }) {
     const { tokens: evmTokens = EMPTY_LIST, isLoading: isLoadingEvmTokens } = useEvmTokens(evmAddress);
     const { data: solanaTokens = EMPTY_LIST, isLoading: isLoadingSolanaTokens } = useSolanaTokens(solanaAddress);
-    const isLoading = isLoadingEvmTokens && isLoadingSolanaTokens;
+    const isLoading = isLoadingEvmTokens || isLoadingSolanaTokens;
     const tokens = useMemo(
-        () => [...evmTokens, ...solanaTokens.filter((x) => !isZero(x.balance))],
+        () => [...evmTokens, ...solanaTokens.filter((x) => !isZero(x.balance))].sort((a, b) => b.amount - a.amount),
         [evmTokens, solanaTokens],
     );
     return {
         isLoading,
-        tokens,
+        tokens: isLoading ? EMPTY_LIST : tokens,
     };
 }

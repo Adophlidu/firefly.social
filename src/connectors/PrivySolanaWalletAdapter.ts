@@ -14,16 +14,16 @@ import {
 } from '@solana/wallet-adapter-base';
 
 import { getPrivyBridge } from '@/connectors/PrivyConnector.js';
+import { NetworkType } from '@/constants/enum.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
+import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 
 function getWallet() {
     if (typeof window === 'undefined') return null;
-    const privyBridge = getPrivyBridge();
-    if (!privyBridge) return null;
-    const isAuthenticated = privyBridge.getAuthenticated();
-    if (!isAuthenticated) return null;
-    const { solanaWallets } = privyBridge.getWallets();
-    return solanaWallets.find((x) => x.connectorType === 'embedded') ?? null;
+    const wallet = usePrivyWalletStore
+        .getState()
+        .wallets[NetworkType.Solana].find((x) => x.connectorType === 'embedded');
+    return wallet ?? null;
 }
 
 export const PrivySolanaWalletName = 'Firefly Wallet' as WalletName<'Firefly Wallet'>;

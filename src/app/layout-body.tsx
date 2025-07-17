@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
+import { DynamicPrivyBridge } from '@/components/DynamicPrivyBridge.js';
 import { IfPathname } from '@/components/IfPathname.js';
-import { PrivyBridgeProvider } from '@/components/PrivyBridgeProvider.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
@@ -54,9 +54,9 @@ export function LayoutBody({ children }: { children: ReactNode }) {
                     <Modals />
                     {env.external.NEXT_PUBLIC_FORCE_SIGNUP === STATUS.Enabled ? <FireflyAccountChecker /> : null}
                 </RouteProgressBar>
+                <DynamicPrivyBridge />
             </Providers>
             <BeforeUnload />
-            <PrivyBridgeProvider />
         </>
     );
 }

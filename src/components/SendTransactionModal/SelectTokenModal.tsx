@@ -7,10 +7,10 @@ import { uniq } from 'lodash-es';
 import { type Ref, useCallback, useImperativeHandle, useMemo, useState } from 'react';
 
 import AddIcon from '@/assets/add-circle.svg';
-import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';
@@ -91,7 +91,7 @@ export function TokenSelectorModal<T extends Token>({ tokens, isLoading, onSelec
         <Modal open={open} onClose={onClose} dialogClassName="z-50">
             <div className="z-50 flex h-[70vh] w-4/5 flex-col rounded-md bg-lightBottom p-6 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:h-[620px] md:w-[600px] md:rounded-xl">
                 <DialogTitle as="h3" className="relative mb-4 h-10 shrink-0 pt-safe">
-                    <LeftArrowIcon
+                    <CloseButton
                         onClick={onClose}
                         className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
                     />

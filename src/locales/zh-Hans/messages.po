@@ -3302,6 +3302,9 @@ msgstr "Frame 服务器未能处理请求"
 msgid "Report"
 msgstr "举报"
 
+msgid "Failed to transfer"
+msgstr ""
+
 msgid "Cancel Repost"
 msgstr "取消转发"
 

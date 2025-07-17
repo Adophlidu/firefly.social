@@ -1,6 +1,7 @@
 'use client';
 
 import { web3 } from '@coral-xyz/anchor';
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
 import { type Ref, useCallback, useImperativeHandle, useRef, useState } from 'react';
@@ -10,7 +11,9 @@ import type { RecipientItemProps } from '@/components/SendTransactionModal/Recip
 import { TokenSelectorModal, type TokenSelectorModalRef } from '@/components/SendTransactionModal/SelectTokenModal.js';
 import { SendTransactionModal } from '@/components/SendTransactionModal/SendTransactionModal.js';
 import { NetworkType } from '@/constants/enum.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatLamportsToSol } from '@/helpers/formatLamportsToSol.js';
+import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { multipliedBy } from '@/helpers/number.js';
@@ -116,35 +119,41 @@ export function TransferModal({ ref }: { ref?: Ref<TransferModalRef> }) {
                             tokenSelectorModalRef.current?.onOpen();
                         },
                         async onSubmit(values, token) {
-                            const to = values.to;
-                            const transfer = resolveTransferProvider(networkType);
-                            await transfer.transfer({
-                                token,
-                                to,
-                                amount: values.amount,
-                            });
-                            let address: string | undefined;
-                            switch (networkType) {
-                                case NetworkType.Ethereum:
-                                    address = ethereum.address;
-                                    break;
-                                case NetworkType.Solana:
-                                    address = solana.address;
-                                    break;
-                                default:
-                                    return;
+                            try {
+                                const to = values.to;
+                                const transfer = resolveTransferProvider(networkType);
+                                await transfer.transfer({
+                                    token,
+                                    to,
+                                    amount: values.amount,
+                                });
+                                onClose();
+                                let address: string | undefined;
+                                switch (networkType) {
+                                    case NetworkType.Ethereum:
+                                        address = ethereum.address;
+                                        break;
+                                    case NetworkType.Solana:
+                                        address = solana.address;
+                                        break;
+                                    default:
+                                        return;
+                                }
+                                if (!address) return;
+                                const amountUsd = multipliedBy(values.amount, token.price).toNumber();
+                                captureFireflyWalletEvent(EventId.FIREFLY_WALLET_SEND_SUCCESS, {
+                                    wallet_address: address,
+                                    target_wallet_address: to,
+                                    target_firefly_account_id: recipient?.handle,
+                                    amount: parseFloat(values.amount),
+                                    currency: token.symbol,
+                                    amount_usd: amountUsd,
+                                    chain_id: token.chainId,
+                                });
+                            } catch (error) {
+                                enqueueErrorMessage(getErrorMessageFromError(error, t`Failed to transfer`));
+                                throw error;
                             }
-                            if (!address) return;
-                            const amountUsd = multipliedBy(values.amount, token.price).toNumber();
-                            captureFireflyWalletEvent(EventId.FIREFLY_WALLET_SEND_SUCCESS, {
-                                wallet_address: address,
-                                target_wallet_address: to,
-                                target_firefly_account_id: recipient?.handle,
-                                amount: parseFloat(values.amount),
-                                currency: token.symbol,
-                                amount_usd: amountUsd,
-                                chain_id: token.chainId,
-                            });
                         },
                         async estimateGas({ to, amount = '0' }, token) {
                             switch (networkType) {

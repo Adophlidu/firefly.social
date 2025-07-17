@@ -3289,6 +3289,9 @@ msgstr ""
 msgid "Report"
 msgstr ""
 
+msgid "Failed to transfer"
+msgstr ""
+
 msgid "Cancel Repost"
 msgstr ""
 

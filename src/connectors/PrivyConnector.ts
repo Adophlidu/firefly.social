@@ -2,9 +2,11 @@ import { type Address, numberToHex, RpcError, SwitchChainError } from 'viem';
 import { ChainNotConfiguredError, ConnectorChainMismatchError, createConnector, type CreateConnectorFn } from 'wagmi';
 
 import type { PrivyBridgeElement } from '@/components/PrivyBridge.js';
+import { NetworkType } from '@/constants/enum.js';
 import { AbortError, InvalidResultError } from '@/constants/error.js';
 import { retry } from '@/helpers/retry.js';
 import { EthereumMethodType } from '@/mask_pkgs/web3-shared/evm/index.js';
+import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 
 export function getPrivyBridge() {
     if (typeof window === 'undefined') return;
@@ -15,13 +17,9 @@ async function getProvider(signal?: AbortSignal) {
     return retry(
         async () => {
             if (typeof window === 'undefined') throw new AbortError();
-            const privyBridge = getPrivyBridge();
-            if (!privyBridge) throw new InvalidResultError();
-            const isAuthenticated = privyBridge.getAuthenticated();
-            if (!isAuthenticated) throw new InvalidResultError();
-            const { evmWallets } = privyBridge.getWallets();
-            if (!evmWallets[0]) throw new InvalidResultError();
-            const wallet = evmWallets.find((x) => x.connectorType === 'embedded');
+            const wallet = usePrivyWalletStore
+                .getState()
+                .wallets[NetworkType.Ethereum].find((x) => x.connectorType === 'embedded');
             if (!wallet) throw new InvalidResultError();
             return wallet.getEthereumProvider();
         },

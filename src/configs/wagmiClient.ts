@@ -11,15 +11,18 @@ import {
     base,
     baseSepolia,
     bsc,
+    celo,
     confluxESpace,
     fantom,
     gnosis,
+    linea,
     mainnet,
     metis,
     optimism,
     polygon,
     scroll,
     xLayer,
+    zkSync,
     zora,
 } from '@reown/appkit/networks';
 import { createAppKit } from '@reown/appkit/react';
@@ -74,6 +77,9 @@ export const networks = [
     scroll,
     LensChains.mainnet,
     LensChains.testnet,
+    celo,
+    zkSync,
+    linea,
     ...solanaNetworks,
 ] as [AppKitNetwork, ...AppKitNetwork[]];
 
