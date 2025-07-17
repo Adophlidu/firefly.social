@@ -3,6 +3,7 @@
 import { execSync } from 'child_process';
 import { createRequire } from 'module';
 import type { NextConfig } from 'next';
+import createBundleAnalyzer from '@next/bundle-analyzer';
 
 const require = createRequire(import.meta.url);
 
@@ -293,4 +294,8 @@ const config: NextConfig = {
     },
 };
 
-export default config;
+const withBundleAnalyzer = createBundleAnalyzer({
+    enabled: process.env.ANALYZE === 'true',
+});
+
+export default withBundleAnalyzer(config);
