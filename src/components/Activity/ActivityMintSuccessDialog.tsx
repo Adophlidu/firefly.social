@@ -49,10 +49,10 @@ export function ActivityMintSuccessDialog({ claimType, shareContent, open, onClo
                 className="leading-12 relative mt-6 flex h-12 w-full items-center justify-center rounded-full bg-main text-center text-base font-bold text-primaryBottom disabled:opacity-60"
                 onClick={() => {
                     if (claimType) {
-                        const url = parseUrl(window.location.href);
+                        const url = parseUrl(location.href);
                         if (url) {
                             url.searchParams.set('claim-type', claimType);
-                            window.history.replaceState({}, '', url.href);
+                            history.replaceState({}, '', url.href);
                         }
                     }
                     shareAndPost(shareContent);

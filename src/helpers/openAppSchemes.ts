@@ -4,6 +4,7 @@ import { once } from 'lodash-es';
 import { IS_IOS } from '@/constants/browser.js';
 import { env } from '@/constants/env.js';
 import type { Schemes } from '@/types/device.js';
+import { bom } from '@/helpers/bom.js';
 
 const eventIdSet = new Set<string>();
 
@@ -20,7 +21,7 @@ const initListener = once(() => {
 
 async function tryOpenScheme(tagType: 'a' | 'iframe', scheme: string) {
     // fallback to download link if the scheme is not supported
-    if (!scheme) window.location.href = env.external.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK;
+    if (!scheme) location.href = env.external.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK;
 
     initListener();
 
@@ -43,15 +44,15 @@ async function tryOpenScheme(tagType: 'a' | 'iframe', scheme: string) {
     // app not installed since the page is still visible
     if (document.visibilityState === 'visible' && eventIdSet.has(eventId)) {
         eventIdSet.delete(eventId);
-        window.location.href = env.external.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK;
+        location.href = env.external.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK;
         await delay(1000);
     }
 }
 
 export async function openAppSchemes(schemes: Schemes) {
     if (IS_IOS) {
-        if (typeof window.webkit !== 'undefined' && window.webkit.messageHandlers[schemes.ios]) {
-            window.location.href = schemes.ios;
+        if (typeof bom.window?.webkit !== 'undefined' && bom.window.webkit.messageHandlers?.[schemes.ios]) {
+            location.href = schemes.ios;
         } else {
             // < ios 9
             await tryOpenScheme('a', schemes.ios);

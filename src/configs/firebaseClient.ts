@@ -40,7 +40,7 @@ class FirebaseClient {
 
         this._firebaseApp = createFirebaseApp();
         this._firebaseFcm = getMessaging(this._firebaseApp);
-        window._firebaseFcm = this._firebaseFcm;
+        Reflect.set(window, '_firebaseFcm', this._firebaseFcm);
         this.listenMessage();
 
         this._initialized = true;
@@ -63,7 +63,7 @@ class FirebaseClient {
             notification.onclick = (event) => {
                 event.preventDefault();
                 const link = parseUrl(payload.data?.link || '');
-                if (!link || link.pathname === window.location.pathname) {
+                if (!link || link.pathname === location.pathname) {
                     window.focus();
                     return;
                 }

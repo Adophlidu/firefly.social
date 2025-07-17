@@ -46,7 +46,7 @@ export async function captureActivityEvent<E extends EventId>(
         if (response?.fireflyAccountId) parameters.firefly_account_id = response.fireflyAccountId;
     }
 
-    const url = parseUrl(window.location.href);
+    const url = parseUrl(location.href);
     const referralCode = url?.searchParams.get('r');
     const referralParameters =
         [

@@ -82,6 +82,8 @@ const config: NextConfig = {
         COMMIT_HASH: execSync('git rev-parse --short HEAD').toString().trim(),
     },
     experimental: {
+        inlineCss: true,
+        cssChunking: false,
         esmExternals: true,
         scrollRestoration: true,
         serverSourceMaps: false,
@@ -272,6 +274,11 @@ const config: NextConfig = {
                 type: 'asset/resource',
             },
         );
+
+        config.optimization.splitChunks = {
+            chunks: 'all',
+            maxInitialRequests: 10,
+        };
 
         return config;
     },

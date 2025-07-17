@@ -47,7 +47,7 @@ export function SuccessPage() {
                 <SquareButton
                     className="mt-6 sm:mt-12"
                     onClick={() => {
-                        window.location.href = PageRoute.FollowingPosts;
+                        location.href = PageRoute.FollowingPosts;
                     }}
                 >
                     <span className="text-base font-medium text-white">

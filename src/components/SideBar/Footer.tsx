@@ -53,7 +53,7 @@ export function Footer() {
                             if (isForceRedirect) {
                                 openLoginModal();
                             } else {
-                                window.location.href = RouteResolver.signup(SignupStep.LoginSocialPlatform);
+                                location.href = RouteResolver.signup(SignupStep.LoginSocialPlatform);
                             }
                         }}
                     >

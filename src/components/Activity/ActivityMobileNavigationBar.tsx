@@ -71,7 +71,7 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
                         onClick={() => {
                             captureActivityEvent(EventId.EVENT_SHARE_CLICK, {});
                             if (pathname === PageRoute.Events) {
-                                fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: window.location.href });
+                                fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: location.href });
                                 return;
                             }
                             fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: shareUrl });

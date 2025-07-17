@@ -14,7 +14,7 @@ import type { ConnectorWithProvider } from '@/types/index.js';
 function redirectSolanaLinkInNeed(walletId: WalletId) {
     if (CoreChainController.state?.activeChain !== 'solana') return;
 
-    const href = window.location.href;
+    const href = location.href;
     const encodedHref = encodeURIComponent(href);
 
     if (walletId === WalletId.Phantom && !('phantom' in window)) {
@@ -22,9 +22,9 @@ function redirectSolanaLinkInNeed(walletId: WalletId) {
         const host = href.split('/')[2];
         const encodedRef = encodeURIComponent(`${protocol}://${host}`);
 
-        window.location.href = `https://phantom.app/ul/browse/${encodedHref}?ref=${encodedRef}`;
+        location.href = `https://phantom.app/ul/browse/${encodedHref}?ref=${encodedRef}`;
     } else if (walletId === WalletId.CoinBase && !('coinbaseSolana' in window)) {
-        window.location.href = `https://go.cb-w.com/dapp?cb_url=${encodedHref}`;
+        location.href = `https://go.cb-w.com/dapp?cb_url=${encodedHref}`;
     }
 }
 

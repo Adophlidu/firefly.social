@@ -3,7 +3,6 @@
 import '@/app/globals.css';
 import '@dialectlabs/blinks/index.css';
 
-import { GoogleAnalytics } from '@next/third-parties/google';
 import { headers } from 'next/headers.js';
 import type { ReactNode } from 'react';
 
@@ -55,7 +54,17 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                     strategy="lazyOnload"
                     site-id="4e0dc4ab-2a63-4303-ad25-8aa14275d2d4"
                 />
-                <GoogleAnalytics gaId="G-61NFDTK6LT" />
+                <Script async src="https://www.googletagmanager.com/gtag/js?id=G-SHDRZ57LGE"></Script>
+                <Script>
+                    {`
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){
+                            dataLayer.push(arguments);
+                        }
+                        gtag('js', new Date());
+                        gtag('config', 'G-SHDRZ57LGE');
+                    `}
+                </Script>
                 <meta name="theme-color" content="#ffffff" />
                 <meta name="googlebot" content="notranslate" />
                 {/* for ssr purpose */}

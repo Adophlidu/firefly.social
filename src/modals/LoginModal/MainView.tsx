@@ -301,7 +301,7 @@ export function MainView() {
                 case Source.Telegram:
                     const url = await FireflyEndpointProvider.getTelegramLoginUrl();
                     if (!url) return;
-                    window.location.href = url;
+                    location.href = url;
                     break;
                 case Source.Apple:
                 case Source.Google:

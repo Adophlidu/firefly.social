@@ -1,4 +1,3 @@
-import { sendGAEvent } from '@next/third-parties/google';
 import { isHex } from 'viem';
 
 import { STATUS } from '@/constants/enum.js';
@@ -7,9 +6,9 @@ import { AbortError, InvalidResultError, NotImplementedError } from '@/constants
 import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
-import type { Safary } from '@/providers/types/Safary.js';
 import { type Events, EventType, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
+import { bom } from '@/helpers/bom.js';
 
 function formatParameter(key: string, value: unknown): [string, unknown] {
     if (typeof value === 'boolean') {
@@ -24,9 +23,9 @@ function formatParameter(key: string, value: unknown): [string, unknown] {
 async function getSafary(signal?: AbortSignal) {
     return retry(
         async () => {
-            if (typeof window === 'undefined') throw new AbortError();
-            if (typeof window.safary === 'undefined') throw new InvalidResultError();
-            return window.safary as Safary;
+            if (typeof bom.window === 'undefined') throw new AbortError();
+            if (typeof bom.window?.safary === 'undefined') throw new InvalidResultError();
+            return bom.window.safary;
         },
         {
             times: 5,
@@ -34,6 +33,12 @@ async function getSafary(signal?: AbortSignal) {
             signal,
         },
     );
+}
+
+function sendGAEvent(..._args: unknown[]) {
+    if (typeof bom.window === 'undefined') throw new AbortError();
+    if (typeof bom.window?.dataLayer === 'undefined') throw new InvalidResultError();
+    return bom.window.dataLayer.push(..._args);
 }
 
 type CaptureParameters<T extends keyof Events> = [

@@ -32,7 +32,7 @@ export function CreateFireflyAccountGuideModal({ ref }: Props) {
                     <SquareButton
                         onClick={() => {
                             dispatch?.close();
-                            window.location.href = PageRoute.Signup;
+                            location.href = PageRoute.Signup;
                         }}
                     >
                         <span className="text-base font-medium text-primaryBottom">

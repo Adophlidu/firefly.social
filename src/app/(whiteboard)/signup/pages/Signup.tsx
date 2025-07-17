@@ -60,14 +60,14 @@ export function Signup({ initialStep }: SignupProps) {
         (newStep: SignupStep, params?: Record<string, string>) => {
             setStep(newStep);
             // update the URL to reflect the current step
-            const url = new URL(window.location.href);
+            const url = new URL(location.href);
             if (params) {
                 Object.entries(params).forEach(([key, value]) => {
                     url.searchParams.set(key, value);
                 });
             }
             url.searchParams.set('step', newStep.toString());
-            window.history.replaceState({}, '', url.toString());
+            history.replaceState({}, '', url.toString());
 
             if (newStep === SignupStep.Success) {
                 const accountId = currentProfileSession?.profileId;

@@ -35,7 +35,7 @@ export function useActivityCompose() {
                 : { text: chars, mentions: [] };
 
             fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
-                activity: `${window.location.origin}${window.location.pathname}`,
+                activity: `${location.origin}${location.pathname}`,
                 ...params,
             });
             return;
