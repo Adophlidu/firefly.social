@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-07-14 14:59\n"
+"PO-Revision-Date: 2025-07-17 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -28,7 +28,7 @@ msgid "Projects"
 msgstr "项目"
 
 msgid "Do you want to retry with the full or remaining content?"
-msgstr "你想尝试重新发送全部内容，还是仅发送剩余部分？"
+msgstr "你想尝试重新发布全部内容，还是仅发布剩余部分？"
 
 msgid "Connected wallets"
 msgstr "已绑定的钱包"
@@ -135,7 +135,7 @@ msgstr "发送打赏"
 
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your post was sent to {0}."
-msgstr "你的帖子已发送至{0}。"
+msgstr "你的帖子已发布至{0}。"
 
 #. placeholder {0}: channel.id
 msgid "Mute /{0}"
@@ -195,7 +195,7 @@ msgid "Followed @{0} on {sourceName}"
 msgstr "已在 {sourceName} 上关注 @{0}"
 
 msgid "Search collection"
-msgstr "查询 NFT 系列"
+msgstr "搜索 NFT 系列"
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {关注者} other {关注者}}"
@@ -477,7 +477,7 @@ msgid "Scan with your phone, or connect instantly via social."
 msgstr "移动端扫码登录，或选择社交账号立即连接。"
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
-msgstr "你可以先保存发送失败的帖子，稍后在草稿箱发送。"
+msgstr "你可以先保存发布失败的帖子，稍后在草稿箱发布。"
 
 msgid "The external call function is included. The project owner may have the ability to control the contract."
 msgstr "包含外部调用功能。项目所有者可能有能力控制合约。"
@@ -772,7 +772,7 @@ msgid "Failed to bookmark NFT."
 msgstr "收藏 NFT 失败。"
 
 msgid "Firefly wallet"
-msgstr ""
+msgstr "Firefly 钱包"
 
 msgid "NFTs"
 msgstr "NFTs"
@@ -886,7 +886,7 @@ msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr "<0>{0}</0> 由 <1>{1}</1>"
 
 msgid "Sending"
-msgstr "发送中"
+msgstr "发布中"
 
 msgid "Video duration limit reached."
 msgstr "视频尺寸超出最大限制。"
@@ -1110,7 +1110,7 @@ msgid "LinkDigest Validator"
 msgstr "链接摘要验证器"
 
 msgid "No Lens profile found.<0/>Please change to another wallet."
-msgstr "没有找到任何 Lens 账号，<0/>请切换其他钱包。"
+msgstr "没有找到任何 Lens 账号，<0/>请切换到其他钱包。"
 
 msgid "Drop type"
 msgstr "红包类型"
@@ -1423,7 +1423,7 @@ msgid "Verified by {provider}"
 msgstr "由 {provider} 校验"
 
 msgid "Resend full or remaining?"
-msgstr "重新完整发送或者发送剩余部分？"
+msgstr "重新发布完整还是剩余部分？"
 
 msgid "Add Wallet"
 msgstr "添加钱包"
@@ -1489,7 +1489,7 @@ msgid "Custom token amount"
 msgstr "自定义代币数额"
 
 msgid "Failed to send."
-msgstr "发送失败。"
+msgstr "发布失败。"
 
 msgid "Channel"
 msgstr "圈子"
@@ -1550,7 +1550,7 @@ msgid "Blacklist function"
 msgstr "黑名单功能"
 
 msgid "Up to 7 days can be set as the scheduled time. Please reset it"
-msgstr "发送时间最多可设置 7 天内。请重新设置"
+msgstr "发布时间最多可设置 7 天内。请重新设置"
 
 msgid "Posted to Lens on <0>Phaver</0>"
 msgstr "用<0>Phaver</0>发送过 Lens 帖子"
@@ -1872,7 +1872,7 @@ msgid "Cross-post to multiple platforms, track friends' trades, uncover alpha in
 msgstr "支持跨平台一键发帖，聚合好友交易动态，挖掘社交数据中的交易机会"
 
 msgid "Resend"
-msgstr "重新发送"
+msgstr "重新发布"
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "合约所有人有权修改其他地址的代币余额，这可能造成资产损失。"
@@ -1962,7 +1962,7 @@ msgid "Your posts have published successfully on {0}."
 msgstr "你已在 {0} 发布成功。"
 
 msgid "Manage the accounts, wallets, and clubs that you’ve muted."
-msgstr ""
+msgstr "管理您已隐藏的账号，钱包和圈子。"
 
 msgid "Description"
 msgstr "介绍"
@@ -1979,13 +1979,9 @@ msgstr "Web3 原住民的万能应用"
 msgid "All wallets and accounts are muted."
 msgstr "已隐藏所有的钱包和账号。"
 
-msgid ""
-"Just earned $MASK by minting the Buttrfly Fren 🦋 collectible from {fireflyMention} \n"
-"\n"
+msgid "Just earned $MASK by minting the Buttrfly Fren 🦋 collectible from {fireflyMention} \n\n"
 "Claim here {shareUrl}"
-msgstr ""
-"刚刚通过铸造 {fireflyMention} 的 Buttrfly Fren 🦋 收藏品获得了 $MASK 代币。\n"
-"\n"
+msgstr "刚刚通过铸造 {fireflyMention} 的 Buttrfly Fren 🦋 收藏品获得了 $MASK 代币。\n\n"
 "点击这里领取：{shareUrl}"
 
 msgid "Disconnected from your social graph"
@@ -2041,17 +2037,11 @@ msgstr "您的 TG 账户已绑定"
 msgid "Failed to report @{0}."
 msgstr "举报 @{0} 失败。"
 
-msgid ""
-"Just submitted my wallet to receive my Christmas gift. Let's skate into the holiday season with $PENGU on {fireflyMention}\n"
-"\n"
-"Submit here {shareUrl}\n"
-"\n"
+msgid "Just submitted my wallet to receive my Christmas gift. Let's skate into the holiday season with $PENGU on {fireflyMention}\n\n"
+"Submit here {shareUrl}\n\n"
 "#PENGU #FireflySocial"
-msgstr ""
-"刚刚提交了我的钱包地址来领取圣诞礼物。让我们一起带着 $PENGU 滑入假日季吧 {fireflyMention}！\n"
-"\n"
-"提交地址：{shareUrl}\n"
-"\n"
+msgstr "刚刚提交了我的钱包地址来领取圣诞礼物。让我们一起带着 $PENGU 滑入假日季吧 {fireflyMention}！\n\n"
+"提交地址：{shareUrl}\n\n"
 "#PENGU #FireflySocial"
 
 msgid "Post with link"
@@ -2250,7 +2240,7 @@ msgid "NFT minted successfully!"
 msgstr "NFT 铸造成功！"
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
-msgstr "操作无法回滚，并且定时任务将会被取消。"
+msgstr "操作无法回滚，并且定时发布任务将会被取消。"
 
 msgid "NFT Mint"
 msgstr "NFT 铸造"
@@ -2425,7 +2415,7 @@ msgid "on {0}"
 msgstr "在 {0}"
 
 msgid "Unsent posts"
-msgstr "未发送的帖子"
+msgstr "未发布的帖子"
 
 msgid "Disconnected from your Firefly account"
 msgstr "已与你的 Firefly 账户断开绑定"
@@ -2440,7 +2430,7 @@ msgid "Search token"
 msgstr "搜索代币"
 
 msgid "Search clubs"
-msgstr ""
+msgstr "搜索圈子"
 
 msgid "Details"
 msgstr "详情"
@@ -2560,17 +2550,11 @@ msgstr "修改密码"
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {由于某些错误你的帖子在 {firstPlatform} 發佈失敗。請點擊重試。} two {由于某些错误你的帖子在 {firstPlatform} 和{secondPlatform} 發佈失敗。請點擊重試。} other {你的貼文發佈失敗。請點擊重試。}}"
 
-msgid ""
-"Just joined this exclusive raffle event \"🇺🇸 Winning with $TRUMP 🇺🇸\" from {fireflyMention}\n"
-"\n"
-"Check your eligibility and participate here {shareUrl}\n"
-"\n"
+msgid "Just joined this exclusive raffle event \"🇺🇸 Winning with $TRUMP 🇺🇸\" from {fireflyMention}\n\n"
+"Check your eligibility and participate here {shareUrl}\n\n"
 "#TRUMP #FireflySocial"
-msgstr ""
-"Just joined this exclusive raffle event \"🇺🇸 Winning with $TRUMP 🇺🇸\" from {fireflyMention}\n"
-"\n"
-"Check your eligibility and participate here {shareUrl}\n"
-"\n"
+msgstr "Just joined this exclusive raffle event \"🇺🇸 Winning with $TRUMP 🇺🇸\" from {fireflyMention}\n\n"
+"Check your eligibility and participate here {shareUrl}\n\n"
 "#TRUMP #FireflySocial"
 
 msgid "Cybercrime found."
@@ -2601,7 +2585,7 @@ msgid "This NFT contract doesn't have a proxy contract."
 msgstr "该 NFT 合约没有代理合约。"
 
 msgid "Your schedule thread has created successfully."
-msgstr "你定时发送的帖子串已经成功创建。"
+msgstr "你定时发布的帖子串已经成功创建。"
 
 msgid "Super Follow"
 msgstr "超级关注"
@@ -2692,7 +2676,7 @@ msgid "Select Collection"
 msgstr "选择 NFT 系列"
 
 msgid "The scheduled time to send this post can be set up to 7 days in advance."
-msgstr "定时贴的发送时间最多可设置在 7 天内。"
+msgstr "定时贴的发布时间最多可设置在 7 天内。"
 
 msgid "This token can not self destruct."
 msgstr "该代币无法自我销毁。"
@@ -2731,7 +2715,7 @@ msgid "Show More"
 msgstr "显示更多"
 
 msgid "Search..."
-msgstr "查找"
+msgstr "搜索中..."
 
 #. placeholder {0}: <>{i18n.number(traderCount)} person I follow has traded</>
 #. placeholder {1}: <>{i18n.number(traderCount)} people I follow have traded</>
@@ -3081,7 +3065,7 @@ msgid "Live"
 msgstr "进行中"
 
 msgid "Send on schedule"
-msgstr "按计划发送"
+msgstr "按计划发布"
 
 msgid "Post on"
 msgstr "发布于"
@@ -3095,7 +3079,7 @@ msgstr "取消收藏投票失败。"
 #. placeholder {0}: dayjs(task.publish_timestamp).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.publish_timestamp).format('hh:mm A')
 msgid "will send on {0} at {1}"
-msgstr "将在 {0} {1} 发送"
+msgstr "将在 {0} {1} 发布"
 
 msgid "Failed to like the post."
 msgstr "点赞失败。"
@@ -3127,7 +3111,7 @@ msgstr "市场上流通并可供公众交易的货币数量。这相当于市场
 
 #. placeholder {0}: post.stats.mirrors
 msgid "{0, plural, one {repost} other {reposts}}"
-msgstr "{0, plural, one {次转发} other {次转发}}"
+msgstr "{0, plural, one {转发} other {转发}}"
 
 msgid "Wallet submitted"
 msgstr "已提交钱包"
@@ -3288,7 +3272,7 @@ msgid "Follow {handleOrEnsOrAddress}"
 msgstr "关注 {handleOrEnsOrAddress}"
 
 msgid "You can save this to send later from your drafts."
-msgstr "你可以先保存至草稿后再发送。"
+msgstr "你可以先保存至草稿后再发布。"
 
 msgid "Internal Server Error. Please try again later."
 msgstr "内部服务错误。请稍后重试。"
@@ -3324,7 +3308,7 @@ msgid "Your claimed {amount} {symbol}."
 msgstr "你领取了{amount} {symbol}。"
 
 msgid "Sent"
-msgstr "发送"
+msgstr "发布"
 
 msgid "Token could not be found."
 msgstr "未找到该代币。"
@@ -3509,12 +3493,12 @@ msgid "No profile found"
 msgstr "找不到任何账户"
 
 msgid "Clubs"
-msgstr ""
+msgstr "圈子"
 
 #. placeholder {0}: dayjs(scheduleTime).format('DD MMM, YYYY')
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
-msgstr "帖子将在 {1} {0} 发送 <0>查看</0>"
+msgstr "帖子将在 {1} {0} 发布 <0>查看</0>"
 
 msgid "<0>Sold</0><1/>"
 msgstr "<0>卖出</0><1/>"
@@ -3596,7 +3580,7 @@ msgstr "未知状态"
 #. placeholder {0}: dayjs(scheduleTime).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
-msgstr "将在 <0>{0} <1>{1}</1></0> 发送"
+msgstr "将在 <0>{0} <1>{1}</1></0> 发布"
 
 msgid "Reported"
 msgstr "已举报"
@@ -3675,7 +3659,7 @@ msgstr "自定义你的红包发送者名称：可选择你的社交账号或钱
 
 #. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
-msgstr "<0>发送</0><1/><2>至</2><3><4>{0}</4></3>"
+msgstr "<0>已发送</0><1/><2>到</2><3><4>{0}</4></3>"
 
 msgid "Channels"
 msgstr "圈子"
@@ -3714,13 +3698,9 @@ msgstr "被识别为洗钱。"
 msgid "Posted to Lens or Farcaster on <0>Yup</0>"
 msgstr "用<0>Yup</0>发送过 Lens/Farcaster 帖子"
 
-msgid ""
-"Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n"
-"\n"
+msgid "Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n\n"
 "Claim here {shareUrl}"
-msgstr ""
-"刚刚通过铸造 {fireflyMention} 的 Inviting Yup & Phaver frens🌟 收藏品获得了 $MASK 代币。\n"
-"\n"
+msgstr "刚刚通过铸造 {fireflyMention} 的 Inviting Yup & Phaver frens🌟 收藏品获得了 $MASK 代币。\n\n"
 "点击这里领取：{shareUrl}"
 
 msgid "Share image"
@@ -4018,7 +3998,7 @@ msgstr "提案"
 
 #. placeholder {0}: resolveSourceName(target!)
 msgid "Your post was sent to {0}"
-msgstr "你的帖文已发送至{0}"
+msgstr "你的帖文已发布至{0}"
 
 msgid "News"
 msgstr "新闻"
@@ -4141,7 +4121,7 @@ msgid "Unfollowed @{0} on {sourceName}"
 msgstr "已在 {sourceName} 取消关注 @{0}"
 
 msgid "Your post was sent"
-msgstr "你的帖文已发送"
+msgstr "你的帖文已发布"
 
 msgid "Remove"
 msgstr "移除"
@@ -4154,7 +4134,7 @@ msgid "Cancel Recast"
 msgstr "取消转发"
 
 msgid "The scheduled time has passed."
-msgstr "预定发送时间已过。"
+msgstr "预定发布时间已过。"
 
 msgid "The connection has timed out. Please try again later."
 msgstr "连接已经超时。请稍后重试。"
@@ -4265,7 +4245,7 @@ msgid "The metadata of this NFT is stored in IPFS, AR, generated by contract, or
 msgstr "该 NFT 的元数据存储在 IPFS、AR、合约生成或其他去中心化方式中。"
 
 msgid "Searching collections"
-msgstr "NFT 系列查询中"
+msgstr "NFT 系列搜索中"
 
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr "没有反鲸鱼机制（无限的交易次数）"
@@ -4363,8 +4343,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "验证密码时出现意外步骤：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
+msgstr "如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
 "但如果你仍想访问另一个社交账号绑定的 Firefly 钱包，建议你切换账户，而不是删除账户。"
 
 msgid "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
@@ -4450,7 +4429,7 @@ msgid "Followers"
 msgstr "关注者"
 
 msgid "Search channel"
-msgstr "查询圈子"
+msgstr "搜索圈子"
 
 msgid "Mint function"
 msgstr "铸造功能"
@@ -4635,3 +4614,4 @@ msgstr "多设备登录"
 
 msgid "Success"
 msgstr "成功"
+
