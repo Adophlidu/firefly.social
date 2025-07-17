@@ -49,6 +49,10 @@ export function createPrivyConnector(): CreateConnectorFn {
                     method: 'eth_requestAccounts',
                 });
                 console.info(`[privy] connect`, chainId, accounts);
+                config.emitter.emit('connect', {
+                    accounts,
+                    chainId,
+                });
                 return {
                     accounts,
                     chainId,
@@ -56,6 +60,7 @@ export function createPrivyConnector(): CreateConnectorFn {
             },
             async disconnect() {
                 console.info(`[privy] disconnect`);
+                config.emitter.emit('disconnect');
             },
             async switchChain(parameters) {
                 console.info(`[privy] switchChain`, parameters);

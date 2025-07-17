@@ -1,4 +1,3 @@
-import { useSolanaWallets } from '@privy-io/react-auth';
 import { CoreChainController } from '@reown/appkit';
 import { useAppKitProvider } from '@reown/appkit/react';
 import type { Provider } from '@reown/appkit-adapter-solana';
@@ -6,10 +5,12 @@ import { compact, first, uniqBy } from 'lodash-es';
 import { useEffect, useMemo, useState } from 'react';
 import { type Connector, useConnections } from 'wagmi';
 
+import { NetworkType } from '@/constants/enum.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { parseJson } from '@/helpers/parseJson.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { restoreDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
+import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 import type { ChainNamespace } from '@/types/index.js';
 
@@ -44,7 +45,7 @@ export function useWalletConnections() {
     const { walletProvider } = useAppKitProvider<Provider | undefined>('solana');
     const solanaAddress = walletProvider?.publicKey?.toBase58();
     const activeSolanaNetwork = useSolanaActiveNetworkStore((s) => s.activeNetwork);
-    const { wallets: solanaWallets } = useSolanaWallets();
+    const solanaWallets = usePrivyWalletStore((state) => state.wallets[NetworkType.Solana]);
 
     const allConnections = useMemo<Connection[]>(() => {
         const currentConnectionId = getWagmiCurrentConnectionId();

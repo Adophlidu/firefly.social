@@ -18,14 +18,17 @@ import {
     useSignTransaction,
     type UseSignTransactionInterface,
 } from '@privy-io/react-auth/solana';
-import { createRef, type Ref, useCallback, useImperativeHandle } from 'react';
+import { createRef, type Ref, useCallback, useEffect, useImperativeHandle } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
 import { FireflyLoginRequired } from '@/components/FireflyLoginRequired.js';
 import { chains } from '@/configs/wagmiClient.js';
+import { NetworkType } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
+import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 interface PrivyBridgeHandle {
     getWallets: () => {
@@ -41,7 +44,7 @@ interface PrivyBridgeHandle {
 function PrivyBridge({ ref }: { ref: Ref<PrivyBridgeHandle> }) {
     const { wallets: evmWallets } = useWallets();
     const { wallets: solanaWallets } = useSolanaWallets();
-    const { authenticated } = usePrivy();
+    const { authenticated, ready } = usePrivy();
     const { sendTransaction: sendTransactionWithSolana } = useSendTransaction();
     const { signTransaction: signTransactionWithSolana } = useSignTransaction();
     const { signMessage: signMessageWithSolana } = useSignMessage();
@@ -72,12 +75,24 @@ function PrivyBridge({ ref }: { ref: Ref<PrivyBridgeHandle> }) {
     );
     const isLoginFirefly = useIsLoginFirefly();
     const subscribe = useCallback((onJwtAuthStateChange: () => void) => {
-        onJwtAuthStateChange();
-        return () => {};
+        return useFireflyStateStore.subscribe(onJwtAuthStateChange);
     }, []);
     const getExternalJwt = useCallback(async () => {
         return fireflySessionHolder.session?.token;
     }, []);
+
+    useEffect(() => {
+        usePrivyWalletStore.getState().setReady(ready);
+    }, [ready]);
+    useEffect(() => {
+        usePrivyWalletStore.getState().setReady(authenticated);
+    }, [authenticated]);
+    useEffect(() => {
+        usePrivyWalletStore.getState().setWallet(NetworkType.Ethereum, evmWallets);
+    }, [evmWallets]);
+    useEffect(() => {
+        usePrivyWalletStore.getState().setWallet(NetworkType.Solana, solanaWallets);
+    }, [solanaWallets]);
 
     useSyncJwtBasedAuthState({
         getExternalJwt,

@@ -1,5 +1,4 @@
 import { safeUnreachable, unreachable } from '@masknet/kit';
-import { useSolanaWallets } from '@privy-io/react-auth';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { first } from 'lodash-es';
 import { useMemo } from 'react';
@@ -9,6 +8,7 @@ import { PrivySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { NetworkType } from '@/constants/enum.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
+import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 import { SolanaChainId } from '#masknet/web3-shared-solana';
 
@@ -39,7 +39,7 @@ export function useSolanaAccount() {
     const walletProvider = useSolanaWalletProvider();
     const solanaAddress = walletProvider?.publicKey?.toBase58();
     const { connection } = useAppKitConnection();
-    const { wallets: solanaWallets } = useSolanaWallets();
+    const solanaWallets = usePrivyWalletStore((state) => state.wallets[NetworkType.Solana]);
     const { activeNetwork } = useSolanaActiveNetworkStore();
     return useMemo(() => {
         switch (activeNetwork) {

@@ -116,11 +116,13 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
     const allConnections = useWalletConnections();
     const connections = allConnections.filter((x) => x.source !== 'privy');
     const privyConnections = allConnections.filter((x) => x.source === 'privy');
-    const { isSetupPrivyWallet } = useIsSetupPrivyWallet();
+    const { isSetupPrivyWallet, isLoading } = useIsSetupPrivyWallet();
 
     return (
         <div>
-            {isSetupPrivyWallet ? (
+            {isLoading ? (
+                <div className="mb-2 h-[122px] w-full animate-pulse rounded-lg bg-bg" />
+            ) : isSetupPrivyWallet ? (
                 <div className="mb-2 overflow-hidden rounded-lg border border-secondaryLine">
                     <Link
                         href="/wallet"

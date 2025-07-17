@@ -2,7 +2,6 @@
 
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { usePrivy } from '@privy-io/react-auth';
 import { useQueries } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { compact } from 'lodash-es';
@@ -40,6 +39,7 @@ import { AddCustomERC20ModalRef, SwapModalRef } from '@/modals/controls.js';
 import { Debank } from '@/providers/debank/index.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 
 const TransactionHistory = dynamic(() => import('@/components/TransactionHistory/list.js'), {
     ssr: false,
@@ -53,7 +53,7 @@ const SOLANA_TRANSACTION_CHAIN_IDS = [101];
 
 export default function Wallet() {
     const isLoginFirefly = useIsLoginFirefly();
-    const { authenticated, ready } = usePrivy();
+    const ready = usePrivyWalletStore((state) => state.ready);
     const { isLoading, error } = useIsSetupPrivyWallet();
 
     if (!isLoginFirefly) {
@@ -65,7 +65,7 @@ export default function Wallet() {
         );
     }
 
-    if (!authenticated || !ready || isLoading) {
+    if (!ready || isLoading) {
         return (
             <>
                 <NavigationBar />

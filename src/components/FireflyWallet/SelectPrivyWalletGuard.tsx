@@ -1,4 +1,3 @@
-import { useWallets } from '@privy-io/react-auth';
 import { watchAccount } from '@wagmi/core';
 import { useRouter } from 'next/navigation.js';
 import { type PropsWithChildren, useEffect, useRef } from 'react';
@@ -6,9 +5,11 @@ import { useSwitchAccount } from 'wagmi';
 
 import { Loading } from '@/components/Loading.js';
 import { config } from '@/configs/wagmiClient.js';
+import { NetworkType } from '@/constants/enum.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useWalletConnections } from '@/hooks/useWalletConnections.js';
+import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 
 export function SelectPrivyWalletGuard({ children }: PropsWithChildren) {
@@ -16,7 +17,7 @@ export function SelectPrivyWalletGuard({ children }: PropsWithChildren) {
     const connections = useWalletConnections();
     const connection = connections.find((x) => x.connector?.id === 'network.privy');
     const { ethereum } = useWalletAccountAll();
-    const { wallets: evmWallets } = useWallets();
+    const evmWallets = usePrivyWalletStore((state) => state.wallets[NetworkType.Ethereum]);
     const { switchAccountAsync } = useSwitchAccount();
     const router = useRouter();
     const wallet = evmWallets.find((x) => x.connectorType === 'embedded');

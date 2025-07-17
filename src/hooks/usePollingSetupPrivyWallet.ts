@@ -1,17 +1,20 @@
-import { useSolanaWallets, useWallets } from '@privy-io/react-auth';
 import { useQuery } from '@tanstack/react-query';
 import { connect, getConnectors } from '@wagmi/core';
 import { useConnections } from 'wagmi';
 
 import { config } from '@/configs/wagmiClient.js';
 import { getPrivyBridge, PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { NetworkType } from '@/constants/enum.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 
 export function usePollingSetupPrivyWallet() {
     const connections = useConnections();
     const isLoginFirefly = useIsLoginFirefly();
-    const { wallets: evmWallets } = useWallets();
-    const { wallets: solanaWallets } = useSolanaWallets();
+    const { evmWallets, solanaWallets } = usePrivyWalletStore((state) => ({
+        evmWallets: state.wallets[NetworkType.Ethereum],
+        solanaWallets: state.wallets[NetworkType.Solana],
+    }));
     const enabled =
         isLoginFirefly && (!evmWallets.length || !solanaWallets.length || evmWallets.length > connections.length);
 
