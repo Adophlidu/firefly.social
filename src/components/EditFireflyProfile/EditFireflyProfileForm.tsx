@@ -4,7 +4,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQueryClient } from '@tanstack/react-query';
 import { rootRouteId, useRouteContext, useRouter } from '@tanstack/react-router';
-import { compact } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import { useFormContext } from 'react-hook-form';
 
 import EditIcon from '@/assets/edit.svg';
@@ -18,20 +18,22 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
 import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { ImageEditorModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureEditProfileSuccessEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { FireflyProfileUpdateParams } from '@/providers/types/Firefly.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 
 export function EditFireflyProfileForm() {
-    const form = useFormContext<EditFireflyProfileFromValues>();
-    const context = useRouteContext({ from: rootRouteId });
     const { history } = useRouter();
+    const queryClient = useQueryClient();
+    const context = useRouteContext({ from: rootRouteId });
+
+    const form = useFormContext<EditFireflyProfileFromValues>();
     const {
         handleSubmit,
         formState: { isSubmitting, isDirty, isValid, dirtyFields },
     } = form;
-    const queryClient = useQueryClient();
 
     const onSubmit = async (values: EditFireflyProfileFromValues) => {
         try {
@@ -74,10 +76,19 @@ export function EditFireflyProfileForm() {
                         type="file"
                         id="avatar-upload"
                         accept={ALLOWED_IMAGES_MIMES.join(', ')}
-                        onChange={(e) => {
-                            history.replace(Path.AvatarEditor, {
-                                pfp: e.target.files,
+                        onChange={async (e) => {
+                            const file = first(e.target.files);
+                            if (!file) return;
+
+                            const updatedFile = await ImageEditorModalRef.openAndWaitForClose({
+                                file,
                             });
+                            if (!updatedFile) return;
+
+                            form.setValue('avatar', updatedFile, {
+                                shouldDirty: true,
+                            });
+                            history.replace(Path.Root);
                         }}
                     />
                 </div>

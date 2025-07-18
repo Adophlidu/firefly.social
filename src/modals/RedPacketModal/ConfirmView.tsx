@@ -195,7 +195,7 @@ export function ConfirmView() {
     const [{ loading: creatingTheme }, createTheme] = useAsyncFn(
         async (file: File) => {
             const blob = await ImageEditorModalRef.openAndWaitForClose({
-                image: file,
+                file,
                 AvatarEditorProps: {
                     border: [0, 30],
                     borderRadius: 0,

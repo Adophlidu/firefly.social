@@ -2661,9 +2661,6 @@ msgstr "技术支持：Tenderly & GoPlus"
 msgid "Download media"
 msgstr "下载媒体"
 
-msgid "Unable to read image."
-msgstr "无法读取图片。"
-
 msgid "Signing in..."
 msgstr "登录中..."
 

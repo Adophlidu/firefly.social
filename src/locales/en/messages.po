@@ -2656,9 +2656,6 @@ msgstr "Powered by Tenderly and GoPlus"
 msgid "Download media"
 msgstr "Download media"
 
-msgid "Unable to read image."
-msgstr "Unable to read image."
-
 msgid "Signing in..."
 msgstr "Signing in..."
 

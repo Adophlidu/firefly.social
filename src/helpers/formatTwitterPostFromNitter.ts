@@ -12,13 +12,12 @@ import { formatTwitterProfile, formatTwitterProfileStatus } from '@/helpers/form
 import { formatTwitterProfileFromNitter } from '@/helpers/formatTwitterProfileFromNitter.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getTwitterNitterPicOrigUrl, getTwitterNitterPicUrl } from '@/helpers/getTwitterNitterPicUrl.js';
-import { parseHtml } from '@/helpers/parseHtml.js';
+import { parseHtmlNative } from '@/helpers/parseHtmlNative.js';
 import { parsePostUrl } from '@/helpers/parsePostUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Tweet } from '@/providers/types/Nitter.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
-import { parseHtmlNative } from '@/helpers/parseHtmlNative.js';
 
 function parseTweetText(text: string) {
     const document = parseHtmlNative(`<div>${text}</div>`);

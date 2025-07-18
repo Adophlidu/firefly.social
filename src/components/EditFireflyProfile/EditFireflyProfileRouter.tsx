@@ -9,16 +9,10 @@ import { memo } from 'react';
 
 import { EditFireflyProfileForm } from '@/components/EditFireflyProfile/EditFireflyProfileForm.js';
 import { EditFireflyProfileRouteRoot } from '@/components/EditFireflyProfile/EditFireflyProfileRouteRoot.js';
-import { EditProfileAvatarEditor } from '@/components/EditProfile/EditProfileAvatarEditor.js';
 import type { FireflyAccountProfile } from '@/providers/types/Firefly.js';
 
 export enum Path {
     Root = '/',
-    AvatarEditor = '/avatar-editor',
-}
-
-function AvatarEditor() {
-    return <EditProfileAvatarEditor name="avatar" />;
 }
 
 export const EditFireflyProfileRouter = memo<{
@@ -36,18 +30,11 @@ export const EditFireflyProfileRouter = memo<{
         component: EditFireflyProfileForm,
     });
 
-    const avatarEditor = createRoute({
-        getParentRoute: () => rootRoute,
-        path: Path.AvatarEditor,
-        component: AvatarEditor,
-    });
-
-    const routeTree = rootRoute.addChildren([formRoute, avatarEditor]);
-
     const memoryHistory = createMemoryHistory({
         initialEntries: [Path.Root],
     });
 
+    const routeTree = rootRoute.addChildren([formRoute]);
     const router = createRouter({
         routeTree,
         history: memoryHistory,

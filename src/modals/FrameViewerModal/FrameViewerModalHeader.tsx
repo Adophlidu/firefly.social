@@ -1,14 +1,14 @@
+import { delay } from '@masknet/kit';
 import { useCallback } from 'react';
+import { useAsyncFn } from 'react-use';
 
-import type { FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { Image } from '@/components/Image.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
-import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
-import { useAsyncFn } from 'react-use';
-import { delay } from '@masknet/kit';
-import { WalletConnectModalRef } from '@/modals/controls.js';
 import { NetworkType } from '@/constants/enum.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
+import { WalletConnectModalRef } from '@/modals/controls.js';
+import type { FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
+import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 
 interface FrameViewerModalHeaderProps {
     onClose?: () => void;

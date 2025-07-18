@@ -3,8 +3,7 @@ import { Outlet, useLocation, useRouter, useRouterState } from '@tanstack/react-
 
 import HistoryIcon from '@/assets/history.svg';
 import QuestionIcon from '@/assets/question.svg';
-import { BackButton } from '@/components/BackButton.js';
-import { CloseButton } from '@/components/IconButton.js';
+import { BackButton, CloseButton } from '@/components/IconButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { RedPacketModalRef } from '@/modals/controls.js';
 

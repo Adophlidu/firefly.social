@@ -1,8 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import { Outlet, useRouter, useRouterState } from '@tanstack/react-router';
 
-import { BackButton } from '@/components/BackButton.js';
-import { CloseButton } from '@/components/IconButton.js';
+import { BackButton, CloseButton } from '@/components/IconButton.js';
 import { LoginModalRef } from '@/modals/controls.js';
 
 export function RootView() {

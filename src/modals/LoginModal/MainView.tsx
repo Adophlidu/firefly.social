@@ -116,6 +116,7 @@ function FireflyAccount({
     }, []);
 
     if (!profile) return null;
+
     return (
         <div className="flex h-[76px] items-center gap-2 rounded-lg border border-highlight px-2">
             <Avatar src={avatar} size={60} alt={profile.uid ?? ''} />

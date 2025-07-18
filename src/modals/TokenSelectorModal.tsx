@@ -5,8 +5,8 @@ import { useCallback, useState } from 'react';
 import { useChainId } from 'wagmi';
 
 import AddIcon from '@/assets/add-circle.svg';
-import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { BackButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { SearchTokenPanel } from '@/components/Search/SearchTokenPanel.js';
 import { NetworkType } from '@/constants/enum.js';
@@ -62,7 +62,7 @@ export function TokenSelectorModal({ ref }: Props) {
         >
             <div className="z-50 flex h-[70vh] w-4/5 flex-col rounded-md bg-lightBottom p-4 pt-0 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:h-[620px] md:w-[600px] md:rounded-xl">
                 <DialogTitle as="h3" className="relative h-14 shrink-0 pt-safe">
-                    <LeftArrowIcon
+                    <BackButton
                         onClick={() => dispatch?.close(null)}
                         className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
                     />

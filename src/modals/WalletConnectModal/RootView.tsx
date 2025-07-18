@@ -1,8 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import { Outlet, useLocation, useRouter, useRouterState } from '@tanstack/react-router';
 
-import { BackButton } from '@/components/BackButton.js';
-import { CloseButton } from '@/components/IconButton.js';
+import { BackButton, CloseButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { classNames } from '@/helpers/classNames.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';

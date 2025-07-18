@@ -6,9 +6,9 @@ import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 
 import FireflyIcon from '@/assets/firefly.svg';
 import MagnifierIcon from '@/assets/magnifier.svg';
 import MenuIcon from '@/assets/menu.svg';
-import { BackButton } from '@/components/BackButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { HomeTabs } from '@/components/HomeTab/index.js';
+import { BackButton } from '@/components/IconButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';

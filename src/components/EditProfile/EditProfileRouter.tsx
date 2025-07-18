@@ -7,13 +7,12 @@ import {
 } from '@tanstack/react-router';
 import { memo } from 'react';
 
-import { EditProfileAvatarEditor } from '@/components/EditProfile/EditProfileAvatarEditor.js';
 import { EditProfileForm } from '@/components/EditProfile/EditProfileForm.js';
 import { EditProfileRouteRoot } from '@/components/EditProfile/EditProfileRouteRoot.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-function AvatarEditor() {
-    return <EditProfileAvatarEditor name="pfp" />;
+export enum Path {
+    Root = '/',
 }
 
 export const EditProfileRouter = memo<{
@@ -31,13 +30,7 @@ export const EditProfileRouter = memo<{
         component: EditProfileForm,
     });
 
-    const pfpEditor = createRoute({
-        getParentRoute: () => rootRoute,
-        path: '/pfp-editor',
-        component: AvatarEditor,
-    });
-
-    const routeTree = rootRoute.addChildren([formRoute, pfpEditor]);
+    const routeTree = rootRoute.addChildren([formRoute]);
 
     const memoryHistory = createMemoryHistory({
         initialEntries: ['/'],

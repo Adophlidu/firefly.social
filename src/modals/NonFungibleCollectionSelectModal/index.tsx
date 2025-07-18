@@ -6,8 +6,8 @@ import { useCallback, useState } from 'react';
 import { useChainId } from 'wagmi';
 
 import AddIcon from '@/assets/add-circle.svg';
-import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { BackButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -61,9 +61,9 @@ export function NonFungibleCollectionSelectModal({ ref }: Props) {
         <Modal open={open} onClose={() => dispatch?.close(null)} dialogClassName="z-50">
             <div className="z-50 flex h-[70vh] w-4/5 flex-col rounded-md bg-lightBottom p-4 pt-0 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:h-[620px] md:w-[600px] md:rounded-xl">
                 <DialogTitle as="h3" className="relative h-14 shrink-0 pt-safe">
-                    <LeftArrowIcon
-                        onClick={() => dispatch?.close(null)}
+                    <BackButton
                         className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
+                        onClick={() => dispatch?.close(null)}
                     />
                     <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
                         <Trans>Select Collection</Trans>

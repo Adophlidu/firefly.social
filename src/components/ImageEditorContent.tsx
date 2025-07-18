@@ -7,13 +7,13 @@ import AvatarEditor from 'react-avatar-editor';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { FileMimeType } from '@/constants/enum.js';
 
-interface ImageEditorContentProps {
-    image: string | File;
-    onSave?(blob: Blob | null): void;
+export interface ImageEditorContentProps {
+    file: string | File;
+    onSave?(blob: File | null): void;
     AvatarEditorProps?: Omit<AvatarEditorProps, 'image'>;
 }
 
-export function ImageEditorContent({ image, onSave, AvatarEditorProps }: ImageEditorContentProps) {
+export function ImageEditorContent({ file, onSave, AvatarEditorProps }: ImageEditorContentProps) {
     const editorRef = useRef<AvatarEditor>(null);
     const rangerRef = useRef<HTMLDivElement>(null);
 
@@ -33,7 +33,10 @@ export function ImageEditorContent({ image, onSave, AvatarEditorProps }: ImageEd
         const editor = editorRef.current;
         if (!editor) return;
 
-        editor.getImageScaledToCanvas().toBlob((blob) => onSave?.(blob), FileMimeType.PNG);
+        editor.getImageScaledToCanvas().toBlob((blob) => {
+            if (blob) onSave?.(new File([blob], 'image.png', { type: blob?.type }));
+            else onSave?.(null);
+        }, FileMimeType.PNG);
     }, [onSave]);
 
     return (
@@ -44,14 +47,14 @@ export function ImageEditorContent({ image, onSave, AvatarEditorProps }: ImageEd
                         className="!h-auto !w-full rounded-lg"
                         {...AvatarEditorProps}
                         ref={editorRef}
-                        image={image}
+                        image={file}
                         scale={AvatarEditorProps?.scale ?? scale}
                         rotate={AvatarEditorProps?.scale ?? 0}
                         border={AvatarEditorProps?.border ?? 50}
                         borderRadius={AvatarEditorProps?.borderRadius ?? 300}
                     />
                 </div>
-                <div ref={rangerRef} className="relative h-1.5 w-full rounded-2xl bg-bg">
+                <div ref={rangerRef} className="relative mx-2 h-1.5 w-full rounded-2xl bg-bg">
                     {rangerInstance
                         .handles()
                         .map(({ value, onKeyDownHandler, onMouseDownHandler, onTouchStart }, i) => (

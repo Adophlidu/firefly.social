@@ -4,11 +4,9 @@ import { rootRouteId, useMatch, useRouterState } from '@tanstack/react-router';
 import { type ReactNode } from 'react';
 
 import AddIcon from '@/assets/add-circle.svg';
-import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { CloseButton } from '@/components/IconButton.js';
+import { BackButton, CloseButton } from '@/components/IconButton.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
-import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType } from '@/constants/enum.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
@@ -37,11 +35,7 @@ export function TipsModalHeader({ title, back = false }: TipsModalHeaderProps) {
         >
             <span className="absolute left-0 top-1/2 -translate-y-1/2 text-fourMain">
                 {back ? (
-                    <Tooltip placement="top" content={<Trans>Back</Trans>}>
-                        <ClickableButton onClick={() => router.navigate({ to: TipsRoutePath.TIPS, replace: true })}>
-                            <LeftArrowIcon width={24} height={24} />
-                        </ClickableButton>
-                    </Tooltip>
+                    <BackButton onClick={() => router.navigate({ to: TipsRoutePath.TIPS, replace: true })} />
                 ) : !isSmall ? (
                     <CloseButton onClick={context.onClose} />
                 ) : null}

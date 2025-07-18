@@ -114,7 +114,7 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
             if (!file) return;
 
             inputRef.current!.value = ''; // Reset input value to allow re-uploading the same file
-            const newAvatar = await ImageEditorModalRef.openAndWaitForClose({ image: file });
+            const newAvatar = await ImageEditorModalRef.openAndWaitForClose({ file });
             if (!newAvatar) return;
 
             const url = URL.createObjectURL(newAvatar);

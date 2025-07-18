@@ -3,8 +3,8 @@
 import { type HTMLProps, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
-import LeftArrowIcon from '@/assets/left-arrow.svg';
 import SearchIcon from '@/assets/search.svg';
+import { BackButton } from '@/components/IconButton.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { Section } from '@/components/Semantic/Section.js';
@@ -69,7 +69,7 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
             ref={rootRef}
         >
             {isSearchPage && slot === 'header' ? (
-                <LeftArrowIcon width={24} height={24} className="mr-7 cursor-pointer" onClick={comeback} />
+                <BackButton className="mr-7 cursor-pointer" onClick={comeback} />
             ) : null}
             <div className="group relative flex flex-grow items-center rounded-xl border border-transparent bg-lightBg px-3 text-main focus-within:border-highlight focus-within:bg-primaryBottom">
                 <SearchIcon

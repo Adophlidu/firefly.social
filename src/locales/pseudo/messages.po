@@ -2643,9 +2643,6 @@ msgstr ""
 msgid "Download media"
 msgstr ""
 
-msgid "Unable to read image."
-msgstr ""
-
 msgid "Signing in..."
 msgstr ""
 

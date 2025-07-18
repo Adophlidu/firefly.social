@@ -5,14 +5,11 @@ import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import type {
-    FrameViewerModalCloseProps,
-    FrameViewerModalOpenProps,
-} from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
+import type { FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
 import { FrameViewerModalHeader } from '@/modals/FrameViewerModal/FrameViewerModalHeader.js';
 
 type Props = {
-    ref: React.Ref<SingletonModalRefCreator<FrameViewerModalOpenProps, FrameViewerModalCloseProps>>;
+    ref: React.Ref<SingletonModalRefCreator<FrameViewerModalOpenProps>>;
 };
 
 const FrameViewerModalContent = dynamic(

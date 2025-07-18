@@ -3,9 +3,8 @@ import { Trans } from '@lingui/react/macro';
 import { Outlet, rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
 
 import DraftIcon from '@/assets/draft.svg';
-import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
-import { CloseButton } from '@/components/IconButton.js';
+import { BackButton, CloseButton } from '@/components/IconButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { captureDraftClickEvent } from '@/providers/telemetry/captureClickEvent.js';
@@ -26,7 +25,7 @@ export function ComposeRouteRoot() {
         <>
             <Dialog.Title as="h3" className="relative h-14 shrink-0 pt-safe">
                 {isDraft || isGif ? (
-                    <LeftArrowIcon
+                    <BackButton
                         onClick={() => history.replace('/')}
                         className="absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
                     />

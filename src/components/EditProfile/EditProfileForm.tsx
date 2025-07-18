@@ -2,6 +2,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
+import { first } from 'lodash-es';
 import { useFormContext } from 'react-hook-form';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -24,6 +25,7 @@ import {
 import { URL_INPUT_REGEX } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { ImageEditorModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import { updateProfile } from '@/services/updateProfile.js';
@@ -181,7 +183,7 @@ export function EditProfileForm() {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-1 flex-col text-left">
-            <div className="mb-12 flex flex-col gap-4 p-4">
+            <div className="flex flex-col gap-4 p-4">
                 <div className="flex w-full items-center gap-4">
                     <EditProfileAvatar pfp={profile.pfp} name="pfp" />
                     <div className="flex flex-col space-y-2 text-left text-main">
@@ -197,10 +199,19 @@ export function EditProfileForm() {
                             type="file"
                             className="hidden"
                             accept={ALLOWED_IMAGES_MIMES.join(', ')}
-                            onChange={(e) => {
-                                history.replace('/pfp-editor', {
-                                    pfp: e.target.files,
+                            onChange={async (e) => {
+                                const file = first(e.target.files);
+                                if (!file) return;
+
+                                const updatedFile = await ImageEditorModalRef.openAndWaitForClose({
+                                    file,
                                 });
+                                if (!updatedFile) return;
+
+                                form.setValue('pfp', file, {
+                                    shouldDirty: true,
+                                });
+                                history.replace('/');
                             }}
                         />
                     </div>

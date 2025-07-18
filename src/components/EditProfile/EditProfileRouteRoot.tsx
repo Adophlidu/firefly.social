@@ -4,8 +4,8 @@ import { Outlet, rootRouteId, useLocation, useRouteContext, useRouter } from '@t
 import type { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import LeftArrowIcon from '@/assets/left-arrow.svg';
-import { CloseButton } from '@/components/IconButton.js';
+import { Path } from '@/components/EditProfile/EditProfileRouter.js';
+import { BackButton, CloseButton } from '@/components/IconButton.js';
 import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
 
 export interface ProfileFormValues extends Omit<ProfileEditable, 'pfp'> {
@@ -19,8 +19,7 @@ export function EditProfileRouteRoot() {
 
     const profile = context.profile as Profile;
     const titles: Record<string, JSX.Element> = {
-        '/': <Trans>Edit Profile</Trans>,
-        '/pfp-editor': <Trans>Edit Image</Trans>,
+        [Path.Root]: <Trans>Edit Profile</Trans>,
     };
 
     const form = useForm<ProfileFormValues>({
@@ -34,21 +33,21 @@ export function EditProfileRouteRoot() {
     });
 
     return (
-        <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950 md:h-auto md:max-h-[800px] md:w-[455px] md:rounded-xl lg:flex-grow-0">
+        <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-primaryBottom shadow-popover transition-all md:h-auto md:max-h-[800px] md:w-[455px] md:rounded-xl lg:flex-grow-0">
             <Dialog.Title as="h3" className="relative h-14 shrink-0 pt-safe">
-                {pathname === '/' ? (
+                {pathname === Path.Root ? (
                     <CloseButton
-                        className="absolute left-4 top-1/2 -translate-y-1/2 text-fourMain"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
                         onClick={context.onClose}
                     />
                 ) : (
-                    <LeftArrowIcon
-                        onClick={() => history.replace('/')}
+                    <BackButton
                         className="absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
+                        onClick={() => history.replace(Path.Root)}
                     />
                 )}
                 <span className="flex h-full w-full items-center justify-center gap-x-1 text-lg font-bold capitalize text-fourMain">
-                    {titles[pathname] ?? titles['/']}
+                    {titles[pathname] ?? titles[Path.Root]}
                 </span>
             </Dialog.Title>
             <FormProvider {...form}>
