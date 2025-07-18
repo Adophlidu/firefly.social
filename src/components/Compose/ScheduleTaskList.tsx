@@ -21,8 +21,9 @@ import { queryClient } from '@/configs/queryClient.js';
 import { ScrollListKey } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { createIndicator } from '@/helpers/pageable.js';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { ConfirmModalRef, DraggablePopoverRef, SchedulePostModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -161,10 +162,18 @@ function getScheduleTaskItemContent(task: ScheduleTask) {
 }
 
 export function ScheduleTaskList() {
+    const isLogin = useIsLoginFirefly();
+
     const { data, fetchNextPage, isFetching, isFetchingNextPage, hasNextPage } = useSuspenseInfiniteQuery({
         queryKey: ['schedule-tasks', fireflySessionHolder.session?.profileId],
         queryFn: async ({ pageParam }) => {
-            return getScheduledPosts(createIndicator(undefined, pageParam));
+            try {
+                if (!isLogin) return createPageable([], createIndicator());
+
+                return await getScheduledPosts(createIndicator(undefined, pageParam));
+            } catch {
+                return createPageable([], createIndicator());
+            }
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
