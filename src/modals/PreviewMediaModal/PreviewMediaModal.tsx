@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-import type { PreviewMediaProps } from '@/modals/PreviewMediaModal/PreviewMedia.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import type { PreviewMediaProps } from '@/modals/PreviewMediaModal/PreviewMedia.js';
 
 export interface PreviewMediaModalOpenProps extends Omit<PreviewMediaProps, 'open' | 'onClose'> {}
 

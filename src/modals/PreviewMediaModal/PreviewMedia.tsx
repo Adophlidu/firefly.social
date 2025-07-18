@@ -9,14 +9,13 @@ import { useMemo, useRef } from 'react';
 import { Keyboard, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { PostActionsWithGrid } from '@/components/Actions/index.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
-import { PreviewContent } from '@/modals/PreviewMediaModal/PreviewContent.js';
 import type { Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/index.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { PreviewContent } from '@/modals/PreviewMediaModal/PreviewContent.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
 export interface PreviewMediaProps {
@@ -99,9 +98,6 @@ export function PreviewMedia({ post, source, medias, index, open, showAction = t
                             <ArrowRightIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
                         </ClickableButton>
                     </Swiper>
-                </div>
-                <div className="absolute my-1 flex items-center justify-between bottom-safe">
-                    {post && showAction ? <PostActionsWithGrid className="gap-2" post={post} disablePadding /> : null}
                 </div>
             </div>
         </Modal>
