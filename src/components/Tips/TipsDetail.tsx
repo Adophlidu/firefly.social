@@ -104,9 +104,9 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                     <WalletBaseMoreAction autoQueryEns address={maintainAccountInfo.address as Address} />
                 </NoSSR>
             </div>
-            <div className="flex gap-3 p-4">
-                <div className="shrink-0">
-                    <Link href={maintainAccountInfo.link}>
+            <div className="p-4">
+                <div className="flex gap-3">
+                    <Link href={maintainAccountInfo.link} className="shrink-0">
                         <Image
                             width={40}
                             height={40}
@@ -115,11 +115,13 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                             className="h-10 w-10 rounded-full object-cover"
                         />
                     </Link>
+                    <div className="min-w-0 flex-1">
+                        <Link href={maintainAccountInfo.link} className="break-all text-base font-semibold text-main">
+                            {maintainAccountInfo.displayName}
+                        </Link>
+                    </div>
                 </div>
-                <div className="min-w-0 flex-1 space-y-4">
-                    <Link href={maintainAccountInfo.link} className="text-base">
-                        <span className="font-semibold text-main">{maintainAccountInfo.displayName}</span>
-                    </Link>
+                <div className="mt-2 space-y-4 pl-0 md:-mt-1 md:pl-[52px]">
                     <div className="flex flex-wrap items-center text-base">
                         {isSender ? (
                             <Trans>
