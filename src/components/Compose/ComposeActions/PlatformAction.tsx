@@ -38,13 +38,13 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
                         <SocialSourceIcon key={y} source={y} size={14} />
                     ))}
             </span>
-            {type === 'compose' && !hasError ? (
+            {(type === 'compose' || type === 'quote') && !hasError ? (
                 <ChevronDownIcon className="size-4 text-secondary" aria-hidden="true" />
             ) : null}
         </>
     );
 
-    const disabled = availableSources.some((x) => !!parentPost[x]) || hasError;
+    const disabled = (type !== 'quote' && availableSources.some((x) => !!parentPost[x])) || hasError;
 
     if (isMedium)
         return (

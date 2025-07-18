@@ -22,6 +22,7 @@ export const enum CHAR_TAG {
     MENTION = 'mention_tag',
     FRAME = 'frame_tag',
     PROMOTE_LINK = 'promote_link',
+    POST_LINK = 'post_link',
 }
 
 interface Segment {
@@ -61,7 +62,12 @@ interface PromoteLinkChars extends Segment {
     tag: CHAR_TAG.PROMOTE_LINK;
 }
 
-export type ComplexChars = RP_Chars | MentionChars | FrameChars | PromoteLinkChars;
+interface PostLinkChars extends Segment {
+    tag: CHAR_TAG.POST_LINK;
+    content: string;
+}
+
+export type ComplexChars = RP_Chars | MentionChars | FrameChars | PromoteLinkChars | PostLinkChars | PostLinkChars;
 export type Chars = string | Array<string | ComplexChars>;
 
 /**
@@ -119,6 +125,8 @@ export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisibl
                     const result = `\n ${x.content}`;
 
                     return promoteLink && specifiedUrl ? result.replace(promoteLink, specifiedUrl) : result;
+                case CHAR_TAG.POST_LINK:
+                    return `\n ${x.content}`;
                 default:
                     safeUnreachable(x);
                     return '';

@@ -409,6 +409,9 @@ export interface ComposeEventParameters {
     // thread
     is_thread: boolean;
 
+    // cross quote
+    is_cross_quote: boolean;
+
     // draft
     is_draft: boolean;
     draft_id?: string;

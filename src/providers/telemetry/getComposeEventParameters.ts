@@ -19,11 +19,12 @@ export interface Options {
     thread?: CompositePost[];
     failedAt?: SocialSource[];
     availableSources?: SocialSource[];
+    isCrossQuote?: boolean;
 }
 
 export function getComposeEventParameters(
     post: CompositePost,
-    { draftId, scheduleId, thread = [post], availableSources = [] }: Options = {},
+    { draftId, scheduleId, thread = [post], availableSources = [], isCrossQuote = false }: Options = {},
 ): Omit<ComposeEventParameters, 'firefly_account_id'> {
     const lensProfile = useLensStateStore.getState().currentProfile;
     const farcasterProfile = useFarcasterStateStore.getState().currentProfile;
@@ -63,6 +64,8 @@ export function getComposeEventParameters(
         bsky_post_ids: hasBsky ? compact(thread?.map((p) => p.postId[Source.Bsky] ?? undefined)) : [],
 
         is_thread: !!thread?.length && thread.length > 1,
+
+        is_cross_quote: isCrossQuote,
 
         is_draft: !!draftId,
         draft_id: draftId,

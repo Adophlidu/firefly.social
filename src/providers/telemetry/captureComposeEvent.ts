@@ -103,8 +103,8 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
                         return;
                     case 'reply':
                     case 'quote': {
-                        const parentPost = post.parentPost[source];
-                        if (!parentPost) throw new Error(`Parent post is missing, source = ${source}.`);
+                        const parentPost = Object.values(post.parentPost).find((x) => x);
+                        if (!parentPost) throw new Error(`Parent post is missing.`);
 
                         await TelemetryProvider.captureEvent(
                             getPostEventId(type, source, post),
@@ -129,7 +129,10 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
                 );
                 await TelemetryProvider.captureEvent(
                     EventId.COMPOSE_CROSS_POST_SEND_SUCCESS,
-                    getComposeEventParameters(post, options),
+                    getComposeEventParameters(post, {
+                        ...options,
+                        isCrossQuote: type === 'quote',
+                    }),
                 );
                 return;
             }

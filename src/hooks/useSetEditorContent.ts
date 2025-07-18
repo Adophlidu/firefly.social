@@ -19,6 +19,7 @@ function updateParagraphNode(paragraphNode: ParagraphNode, chars: ComplexChars) 
             paragraphNode.append($createMentionNode(chars.content, chars.profiles));
             break;
         case CHAR_TAG.PROMOTE_LINK:
+        case CHAR_TAG.POST_LINK:
             paragraphNode.append($createTextNode(chars.content));
             break;
         default:
