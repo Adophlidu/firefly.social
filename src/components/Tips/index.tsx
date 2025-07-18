@@ -79,7 +79,7 @@ export function Tips({
                 post,
             });
         } catch (error) {
-            enqueueErrorMessage(t`Failed to open tip, please try again later.`);
+            enqueueErrorMessage(t`Something went wrong, please try again.`, { error });
             throw error;
         }
     }, [identity, onClick, handle, pureWallet, post, isLogin, isAuthRequired]);

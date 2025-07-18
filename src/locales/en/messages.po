@@ -2182,9 +2182,6 @@ msgstr "Show more tokens with small balances"
 msgid "Member of <0>/{0}</0>"
 msgstr "Member of <0>/{0}</0>"
 
-msgid "Failed to open tip, please try again later."
-msgstr "Failed to open tip, please try again later."
-
 msgid "Requirements"
 msgstr "Requirements"
 

@@ -1,7 +1,7 @@
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
-import { uniqBy } from 'lodash-es';
-import { useCallback, useMemo } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import ArrowDownIcon from '@/assets/arrow-line-down.svg';
 import SuccessIcon from '@/assets/success.svg';
@@ -9,86 +9,58 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { RecipientAvatar } from '@/components/Tips/RecipientAvatar.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
-import { CHAR_TAG } from '@/helpers/chars.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
-import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
+import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { captureTipsSharePostEvent } from '@/providers/telemetry/captureTipsEvent.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 export function SuccessView() {
     const isLogin = useIsLoginFirefly();
     const { context } = useMatch({ from: rootRouteId });
     const currentChannel = useCurrentVisitingChannel();
 
-    const { token, tokenAmount, recipient, hash, handle, socialProfiles, post, identity } = TipsContext.useContainer();
+    const { token, tokenAmount, recipient, hash, post, identity } = TipsContext.useContainer();
 
-    const { canShare } = useMemo(() => {
-        const __origin__ = recipient?.__origin__ as WalletProfile;
-        if (!handle || !__origin__?.verifiedSources?.length || !socialProfiles.length || !isLogin)
-            return { canShare: false };
-        return { canShare: true };
-    }, [recipient, handle, socialProfiles, isLogin]);
+    const [{ loading }, sharePost] = useAsyncFn(async () => {
+        try {
+            if (!recipient || !isLogin) {
+                context.onClose();
+                return;
+            }
 
-    const sharePost = useCallback(() => {
-        if (!canShare) {
-            context.onClose();
-            return;
+            const mentionChars = await getMentionCharsByIdentity(identity);
+            const mentionNode = mentionChars || recipient.ens || formatAddress(recipient.address, 4);
+
+            ComposeModalRef.openAndWaitForClose({
+                type: post ? 'reply' : 'compose',
+                post,
+                channel: currentChannel,
+                chars: [
+                    'Hi ',
+                    mentionNode,
+                    ` , sent you some $${token?.symbol} via `,
+                    FIREFLY_MENTION,
+                    ' ✨ Keep shinning! \r\n',
+                    hash && token?.chainId ? RouteResolver.tx(token.chainId, hash) : '',
+                ],
+            }).then((res) => {
+                if (!res?.post || !hash) return;
+                captureTipsSharePostEvent(identity, hash);
+            });
+        } catch (error) {
+            enqueueErrorMessage(t`Something went wrong, please try again.`, { error });
+            throw error;
         }
-
-        const profiles = uniqBy(socialProfiles, 'platform');
-        const mentionHandle = profiles.find((x) => x.handle === handle) ? handle : profiles[0]?.handle;
-        const expectedSources = getCurrentAvailableSources().filter((source) =>
-            post
-                ? post.source === source
-                : profiles.some((profile) => resolveSocialSourceFromFireflyPlatform(profile.platform) === source),
-        );
-        context.onClose();
-        if (!expectedSources.length) return;
-
-        ComposeModalRef.openAndWaitForClose({
-            type: post ? 'reply' : 'compose',
-            post,
-            channel: currentChannel,
-            source: expectedSources,
-            chars: [
-                'Hi ',
-                {
-                    tag: CHAR_TAG.MENTION,
-                    visible: true,
-                    content: `@${mentionHandle}`,
-                    profiles,
-                },
-                ` , sent you some $${token?.symbol} via `,
-                FIREFLY_MENTION,
-                ' ✨ Keep shinning! \r\n',
-                hash && token?.chainId ? RouteResolver.tx(token.chainId, hash) : '',
-            ],
-        }).then((res) => {
-            if (!res?.post || !hash) return;
-            captureTipsSharePostEvent(identity, hash);
-        });
-    }, [
-        context,
-        handle,
-        post,
-        socialProfiles,
-        token?.symbol,
-        hash,
-        currentChannel,
-        canShare,
-        identity,
-        token?.chainId,
-    ]);
+    }, [context, post, recipient, token?.symbol, hash, currentChannel, identity, token?.chainId, isLogin]);
 
     if (!token || !recipient) return null;
 
@@ -189,7 +161,11 @@ export function SuccessView() {
                         <Trans>Details</Trans>
                     </ClickableButton>
                 ) : null}
-                <ClickableButton onClick={sharePost} className="h-10 flex-1 rounded-lg bg-main text-primaryBottom">
+                <ClickableButton
+                    loading={loading}
+                    onClick={sharePost}
+                    className="h-10 flex-1 rounded-lg bg-main text-primaryBottom"
+                >
                     <Trans>Done</Trans>
                 </ClickableButton>
             </div>

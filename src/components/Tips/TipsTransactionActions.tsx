@@ -4,7 +4,6 @@ import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { compact } from 'lodash-es';
 import type { HTMLProps } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
@@ -20,15 +19,13 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { queryClient } from '@/configs/queryClient.js';
-import { FireflyPlatform, Source, TipsDetailViewType, TipsNotificationType, TxReactionType } from '@/constants/enum.js';
-import { SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { Source, TipsDetailViewType, TipsNotificationType, TxReactionType } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/index.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
-import { CHAR_TAG, type MentionChars } from '@/helpers/chars.js';
+import { type MentionChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
-import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
+import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
@@ -37,7 +34,6 @@ import { useToggleTipLikeStatus } from '@/hooks/useToggleTipLikeStatus.js';
 import type { ComposeModalOpenProps } from '@/modals/ComposeModal.js';
 import { ComposeModalRef, LoginModalRef, ShareImageModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { FireflyProfile } from '@/providers/types/Firefly.js';
 
 interface TipsTransactionActionsProps extends HTMLProps<HTMLDivElement> {
     txHash: string;
@@ -64,36 +60,10 @@ async function sharePost(
         chainId: number;
     },
     addressForMention: string,
-    mentionProfiles?: FireflyProfile[],
+    mentionChars: MentionChars | null,
 ) {
     const tipsLink = RouteResolver.tx(chainId, txHash, view);
-    const sources = getCurrentAvailableSources();
-    const validProfiles = compact(
-        sources.map((source) => mentionProfiles?.find((profile) => profile.identity.source === source)),
-    );
-    const mentionNode = !validProfiles.length
-        ? formatAddress(addressForMention, 4)
-        : ({
-              tag: CHAR_TAG.MENTION,
-              visible: true,
-              content: `@${validProfiles[0].displayName}`,
-              profiles: compact(
-                  validProfiles.map((profile) => {
-                      const source = profile.identity.source;
-                      const platform = source === Source.Bsky ? FireflyPlatform.Bsky : resolveFireflyPlatform(source);
-                      if (!platform) return null;
-
-                      return {
-                          platform_id: profile.identity.id,
-                          platform,
-                          handle: profile.displayName,
-                          name: profile.displayName,
-                          hit: true,
-                          score: 1,
-                      };
-                  }),
-              ),
-          } satisfies MentionChars);
+    const mentionNode = mentionChars || formatAddress(addressForMention, 4);
 
     const options: ComposeModalOpenProps =
         view === TipsDetailViewType.Receiver
@@ -153,28 +123,10 @@ export function TipsTransactionActions({
             return;
         }
 
-        const fireflyProfiles = await queryClient.fetchQuery<FireflyProfile[]>({
-            queryKey: ['wallet-related-profiles', addressForMention],
-            staleTime: 1000 * 60 * 60, // 1 hour
-            queryFn: () =>
-                FireflyEndpointProvider.getAllPlatformProfileByIdentity(
-                    {
-                        source: Source.Wallet,
-                        id: addressForMention,
-                    },
-                    false,
-                ),
+        const mentionChars = await getMentionCharsByIdentity({
+            source: Source.Wallet,
+            id: addressForMention,
         });
-        const mentionProfiles = compact(
-            SORTED_SOCIAL_SOURCES.map((x) => {
-                const defaultProfile = fireflyProfiles.find(
-                    (profile) => profile.identity.source === x && profile.isDefault,
-                );
-                if (defaultProfile) return defaultProfile;
-
-                return fireflyProfiles.find((profile) => profile.identity.source === x) || null;
-            }),
-        );
         const success = await sharePost(
             {
                 txHash,
@@ -183,7 +135,7 @@ export function TipsTransactionActions({
                 chainId,
             },
             addressForMention,
-            mentionProfiles,
+            mentionChars,
         );
         if (success) {
             runInSafeAsync(() =>
