@@ -15,7 +15,7 @@ export const TokenContext = createContext<TokenContextProps>({
 });
 
 export function TokenContextProvider({ children }: PropsWithChildren) {
-    const [tradeRecords, setTradeRecords] = useState<TradeRecord[]>([]);
+    const [tradeRecords, setTradeRecords] = useState<TradeRecord[]>(EMPTY_LIST);
     const contextValue = useMemo(
         () => ({
             tradeRecords,

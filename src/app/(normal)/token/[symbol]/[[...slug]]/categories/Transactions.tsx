@@ -16,6 +16,7 @@ import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { swapActivityToTradeRecord } from '@/helpers/swapActivityToTradeRecord.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
@@ -70,16 +71,19 @@ export const Transactions = memo<Props>(function Transactions({
     const subcategory =
         (isPending && pendingCategory) || (isMyOwnWallet ? 'mine' : params.get('tx') || subcategories[0].value);
     const isFollowing = subcategory === 'following';
+    const isTrader = subcategory === 'trader';
 
-    const { tradeRecords, setTradeRecords } = useContext(TokenContext);
+    const { setTradeRecords } = useContext(TokenContext);
+    const [traderAvatar, setTraderAvatar] = useState<string>();
     const handleActivitiesUpdate = useCallback(
         (data: SwapActivity[] | undefined) => {
             const records = data?.length
                 ? compact(data.map((activity) => swapActivityToTradeRecord(activity, tokenAddress)))
                 : EMPTY_LIST;
             setTradeRecords(records);
+            if (isTrader && data?.length) setTraderAvatar(getWalletProfileAvatar(data[0].displayInfo));
         },
-        [setTradeRecords, tokenAddress],
+        [setTradeRecords, tokenAddress, isTrader],
     );
     const timelineProps: Omit<SwapTimelineProps, 'isFollowing' | 'address'> = {
         chainId,
@@ -113,10 +117,7 @@ export const Transactions = memo<Props>(function Transactions({
                                 <Avatar
                                     size={15}
                                     alt={trader}
-                                    src={
-                                        tradeRecords[0]?.user?.avatar ||
-                                        getStampAvatarByProfileId(Source.Wallet, trader)
-                                    }
+                                    src={traderAvatar || getStampAvatarByProfileId(Source.Wallet, trader)}
                                 />
                             ) : null}
                             {x.label}
