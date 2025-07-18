@@ -70,9 +70,10 @@ interface SwapModalContentProps {
     open: boolean;
     onClose: () => void;
     props?: SwapModalOpenProps;
+    setProps?: React.Dispatch<React.SetStateAction<SwapModalOpenProps | null>>;
 }
 
-export function SwapModalContent({ props, open, onClose }: SwapModalContentProps) {
+export function SwapModalContent({ open, onClose, props, setProps }: SwapModalContentProps) {
     const [widgetRef, setWidgetRef] = useState<HTMLDivElement | null>(null);
 
     const locale = useLocale();

@@ -17,7 +17,10 @@ import type { DisconnectFireflyAccountModalProps } from '@/modals/DisconnectFire
 import type { DraggablePopoverProps } from '@/modals/DraggablePopover.js';
 import type { EditCrossAtModalCloseProps, EditCrossAtModalOpenProps } from '@/modals/EditCrossAtModal.js';
 import type { EditFireflyProfileModalOpenProps } from '@/modals/EditFireflyProfileModal.js';
-import type { FrameViewerModalCloseProps, FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/index.js';
+import type {
+    FrameViewerModalCloseProps,
+    FrameViewerModalOpenProps,
+} from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
 import type { FreeMintModalOpenProps } from '@/modals/FreeMintModal/index.js';
 import type { ImageEditorCloseProps, ImageEditorOpenProps } from '@/modals/ImageEditor/ImageEditorModal.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
