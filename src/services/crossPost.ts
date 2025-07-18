@@ -5,7 +5,7 @@ import { compact, difference, first } from 'lodash-es';
 import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
+import { COMPOSE_ERROR_NOTIFICATION_KEY, SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { SupportedMetaKeys } from '@/constants/rp.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
@@ -18,6 +18,7 @@ import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
+import { SnackbarRef } from '@/modals/controls.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { capturePollEvent } from '@/providers/telemetry/capturePollEvent.js';
@@ -182,6 +183,7 @@ export async function crossPost(
         capturePollEvent(pollId);
     }
 
+    SnackbarRef.close({ key: COMPOSE_ERROR_NOTIFICATION_KEY });
     const allSettled = await Promise.allSettled(
         SORTED_SOCIAL_SOURCES.map(async (source) => {
             if (!availableSources.includes(source)) return null;
@@ -251,11 +253,11 @@ export async function crossPost(
                     enqueueSuccessMessage(t`Your post was sent to ${resolveSourceName(x)}.`);
                 }
             });
-
             enqueueErrorsMessage(
                 t`Your post failed to send to ${resolveSourcesName(failedAt, '/')}. Click 'Retry' to attempt posting again.`,
                 {
                     errors: compact(allErrors),
+                    key: COMPOSE_ERROR_NOTIFICATION_KEY,
                     persist: true,
                 },
             );

@@ -5,6 +5,7 @@ import { first } from 'lodash-es';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { CreateScheduleError, SignlessRequireError } from '@/constants/error.js';
+import { COMPOSE_ERROR_NOTIFICATION_KEY } from '@/constants/index.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
@@ -76,7 +77,9 @@ export async function crossPostScheduleThread(scheduleTime: Date, signal?: Abort
             EnableSignlessModalRef.open();
         } else {
             if (error instanceof ConnectorNotConnectedError) throw error;
-            enqueueMessageFromError(error, t`Failed to create schedule thread posts.`);
+            enqueueMessageFromError(error, t`Failed to create schedule thread posts.`, {
+                key: COMPOSE_ERROR_NOTIFICATION_KEY,
+            });
         }
         throw error;
     }
