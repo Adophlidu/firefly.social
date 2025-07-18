@@ -80,7 +80,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                 return { label: <Trans>Insufficient Balance</Trans>, disabled: true };
             }
 
-            // ! The caculation of gas fee is not accurate on Solana, such as the fee for creating ATA is not included.
+            // ! The calculation of gas fee is not accurate on Solana, such as the fee for creating ATA is not included.
             const { isValid, gas } =
                 recipient.networkType === NetworkType.Solana
                     ? { isValid: true, gas: ZERO }
