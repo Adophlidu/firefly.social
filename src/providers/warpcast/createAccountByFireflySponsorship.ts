@@ -1,5 +1,5 @@
 import { getPublicKey, utils } from '@noble/ed25519';
-import { bytesToHex, type Hex, toHex } from 'viem';
+import { bytesToHex, toHex } from 'viem';
 
 import { FarcasterSession, FarcasterSponsorship } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -11,7 +11,7 @@ import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySess
 
 async function createSession(signal?: AbortSignal) {
     const privateKey = utils.randomPrivateKey();
-    const publicKey: Hex = `0x${bytesToHex(await getPublicKey(privateKey))}`;
+    const publicKey = bytesToHex(await getPublicKey(privateKey));
     const payload = await createSignedKeyPayloadWithSponsorship(publicKey);
     const key = await createSignedKey(payload.body, signal);
 

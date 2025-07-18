@@ -39,7 +39,7 @@ export async function encodeMessageData(
         messageData,
         messageBytes: Buffer.from(Message.encode(message).finish()),
         messageJson: Message.toJSON(message),
-        messageDataHash: `0x${bytesToHex(messageDataHash)}`,
+        messageDataHash: bytesToHex(messageDataHash),
         messageDataSignature: signature,
     } as const;
 }

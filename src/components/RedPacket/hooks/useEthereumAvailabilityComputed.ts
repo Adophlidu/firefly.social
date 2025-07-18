@@ -51,7 +51,7 @@ export function useEthereumAvailabilityComputed(payload: RedPacketJSONPayload, p
     ) => Promise<QueryObserverResult<typeof availability>>;
 
     const { data: password } = useQuery({
-        queryKey: ['red-packet', 'signed-message', account, post.source],
+        queryKey: ['red-packet', 'signed-message', account, post.source, payload],
         enabled,
         queryFn: async () => {
             const signed = await signClaimMessage({
