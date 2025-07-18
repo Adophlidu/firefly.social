@@ -3,8 +3,8 @@ import { once } from 'lodash-es';
 
 import { IS_IOS } from '@/constants/browser.js';
 import { env } from '@/constants/env.js';
-import type { Schemes } from '@/types/device.js';
 import { bom } from '@/helpers/bom.js';
+import type { Schemes } from '@/types/device.js';
 
 const eventIdSet = new Set<string>();
 
@@ -51,7 +51,7 @@ async function tryOpenScheme(tagType: 'a' | 'iframe', scheme: string) {
 
 export async function openAppSchemes(schemes: Schemes) {
     if (IS_IOS) {
-        if (typeof bom.window?.webkit !== 'undefined' && bom.window.webkit.messageHandlers?.[schemes.ios]) {
+        if (bom.window?.webkit?.messageHandlers?.[schemes.ios]) {
             location.href = schemes.ios;
         } else {
             // < ios 9

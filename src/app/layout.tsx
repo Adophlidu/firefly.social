@@ -54,7 +54,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                     strategy="lazyOnload"
                     site-id="4e0dc4ab-2a63-4303-ad25-8aa14275d2d4"
                 />
-                <Script async src="https://www.googletagmanager.com/gtag/js?id=G-SHDRZ57LGE"></Script>
+                <Script async src="https://www.googletagmanager.com/gtag/js?id=G-SHDRZ57LGE" />
                 <Script>
                     {`
                         window.dataLayer = window.dataLayer || [];

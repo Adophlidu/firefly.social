@@ -3,12 +3,12 @@ import { isHex } from 'viem';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { AbortError, InvalidResultError, NotImplementedError } from '@/constants/error.js';
+import { bom } from '@/helpers/bom.js';
 import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import { type Events, EventType, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
-import { bom } from '@/helpers/bom.js';
 
 function formatParameter(key: string, value: unknown): [string, unknown] {
     if (typeof value === 'boolean') {

@@ -2,6 +2,7 @@ import { skipToken, useQuery } from '@tanstack/react-query';
 import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
 import { type GetEnsNameParameters } from 'wagmi/actions';
+
 import { reverse } from '@/services/ens.js';
 
 const runningQueries = new Map<string, Promise<string | null>>();

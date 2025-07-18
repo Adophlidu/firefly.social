@@ -13,7 +13,7 @@ import { PostActionsWithGrid } from '@/components/Actions/index.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
-import { PreviewContent } from '@/components/PreviewMedia/PreviewContent.js';
+import { PreviewContent } from '@/modals/PreviewMediaModal/PreviewContent.js';
 import type { Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/index.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

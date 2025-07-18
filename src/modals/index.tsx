@@ -28,7 +28,7 @@ import { LogoutModal } from '@/modals/LogoutModal.js';
 import { MyWalletsModal } from '@/modals/MyWalletsModal/index.js';
 import { NonFungibleCollectionSelectModal } from '@/modals/NonFungibleCollectionSelectModal/index.js';
 import { PasswordModal } from '@/modals/PasswordModal/index.js';
-import { PreviewMediaModal } from '@/modals/PreviewMediaModal.js';
+import { PreviewMediaModal } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
 import { RedPacketModal } from '@/modals/RedPacketModal/index.js';
 import { SchedulePostModal } from '@/modals/SchedulePostModal.js';
 import { SearchRecipientModal } from '@/modals/SearchRecipientModal.js';

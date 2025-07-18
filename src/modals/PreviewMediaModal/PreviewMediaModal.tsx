@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import type { PreviewMediaProps } from '@/components/PreviewMedia/index.js';
+import type { PreviewMediaProps } from '@/modals/PreviewMediaModal/PreviewMedia.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -11,7 +11,7 @@ type Props = {
     ref: React.Ref<SingletonModalRefCreator<PreviewMediaModalOpenProps>>;
 };
 
-const PreviewMedia = dynamic(() => import('@/components/PreviewMedia/index.js').then((m) => m.PreviewMedia), {
+const PreviewMedia = dynamic(() => import('@/modals/PreviewMediaModal/PreviewMedia.js').then((m) => m.PreviewMedia), {
     ssr: false,
     loading: () => null,
 });

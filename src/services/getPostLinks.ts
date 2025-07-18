@@ -2,7 +2,6 @@ import urlcat from 'urlcat';
 
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
@@ -10,7 +9,6 @@ import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTcoLink } from '@/helpers/resolveTcoLink.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
 

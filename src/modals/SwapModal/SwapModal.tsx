@@ -1,12 +1,13 @@
 'use client';
 
+import { useState } from 'react';
+
 import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { SwapModalOpenProps } from '@/modals/SwapModal/SwapModalContent.js';
-import { useState } from 'react';
 
 const SwapModalContent = dynamic(
     () => import('@/modals/SwapModal/SwapModalContent.js').then((m) => m.SwapModalContent),

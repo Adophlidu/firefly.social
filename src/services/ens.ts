@@ -1,9 +1,10 @@
+import urlcat from 'urlcat';
+
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import type { ResponseJSON } from '@/types/index.js';
-import urlcat from 'urlcat';
 
 type LookupResponse = ResponseJSON<{
     address: string | null;

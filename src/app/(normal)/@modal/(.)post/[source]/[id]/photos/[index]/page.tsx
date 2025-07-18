@@ -6,7 +6,7 @@ import 'swiper/css/navigation';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { use } from 'react';
 
-import { PreviewMedia } from '@/components/PreviewMedia/index.js';
+import { PreviewMedia } from '@/modals/PreviewMediaModal/PreviewMedia.js';
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

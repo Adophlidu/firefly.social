@@ -27,7 +27,7 @@ import type {
     NonFungibleCollectionSelectModalOpenProps,
 } from '@/modals/NonFungibleCollectionSelectModal/index.js';
 import type { PasswordModalOpenProps } from '@/modals/PasswordModal/index.js';
-import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal.js';
+import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
 import type { RedPacketModalOpenProps } from '@/modals/RedPacketModal/index.js';
 import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
 import type { SearchRecipientModalOpenProps } from '@/modals/SearchRecipientModal.js';
