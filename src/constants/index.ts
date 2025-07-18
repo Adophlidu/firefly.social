@@ -81,7 +81,6 @@ export const X3_PRO_API_URL = `${X3_PRO_URL}/api/api`; // dual /api
 export const X3_PRO_AVATAR_URL = 'https://x3-media-pro-3.oss-cn-hongkong.aliyuncs.com';
 export const CHAINBASE_API_URL = 'https://chainbase-proxy.r2d2.to';
 export const ENS_ROOT_URL = 'https://ens-reverse-lookup.r2d2.to/ens/';
-export const THE_GRAPH_API_URL = 'https://api.thegraph.com/subgraphs/name/ensdomains/ens';
 export const TWITTER_TIMELINE_WHITELIST_JSON_URL = 'https://media.firefly.land/whitelist/twitter-timeline.json';
 export const ACTIONS_BLINK_REGISTER_URL = 'https://actions-registry.dial.to/all';
 
