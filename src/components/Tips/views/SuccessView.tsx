@@ -43,7 +43,8 @@ export function SuccessView() {
             ComposeModalRef.openAndWaitForClose({
                 type: post ? 'reply' : 'compose',
                 post,
-                channel: currentChannel,
+                source: post?.source,
+                channel: post ? null : currentChannel,
                 chars: [
                     'Hi ',
                     mentionNode,
@@ -56,6 +57,8 @@ export function SuccessView() {
                 if (!res?.post || !hash) return;
                 captureTipsSharePostEvent(identity, hash);
             });
+
+            context.onClose();
         } catch (error) {
             enqueueErrorMessage(t`Something went wrong, please try again.`, { error });
             throw error;
