@@ -129,6 +129,7 @@ export const visibleChains = [
     LensChains.mainnet,
 ] as const satisfies ReadonlyArray<(typeof chains)[number]>;
 
+// privy wallet currently only supports these 10 chains
 export const privyVisibleChains = [
     wagmiMainnet,
     wagmiBase,

@@ -16,13 +16,14 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
-import { config, visibleChains } from '@/configs/wagmiClient.js';
+import { config, privyVisibleChains, visibleChains } from '@/configs/wagmiClient.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useEvmTokens } from '@/hooks/useEvmTokens.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
+import { ConnectionSource, useWalletConnections } from '@/hooks/useWalletConnections.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { searchTokenLogoURI } from '@/services/searchTokenLogoURI.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
@@ -30,18 +31,23 @@ import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStor
 export interface AddCustomERC20ModalContentProps {
     onClose: () => void;
     initialChainId: number;
-    /** privy wallet only supports some networks */
-    chainIds?: number[];
 }
 
-function AddCustomERC20ModalContent({
-    onClose,
-    initialChainId,
-    chainIds: propChainIds,
-}: AddCustomERC20ModalContentProps) {
+function useVisibleChainIds() {
+    const connections = useWalletConnections();
+    const isPrivyWallet = connections.some((x) => x.source === ConnectionSource.Privy && x.connected);
+    const chainIds: number[] = useMemo(() => {
+        return (isPrivyWallet ? privyVisibleChains : visibleChains).map((x) => x.id);
+    }, [isPrivyWallet]);
+    return chainIds;
+}
+
+function AddCustomERC20ModalContent({ onClose, initialChainId }: AddCustomERC20ModalContentProps) {
     const account = useAccount();
     const isMedium = useIsMedium('max');
-    const chainIds: number[] = useMemo(() => propChainIds ?? visibleChains.map((x) => x.id), [propChainIds]);
+
+    const chainIds: number[] = useVisibleChainIds();
+
     const getChainItem = useCallback(
         (chainId: number, isTag?: boolean) => {
             const chain = visibleChains.find((chain) => chain.id === chainId);
@@ -158,8 +164,7 @@ function AddCustomERC20ModalContent({
     );
 }
 
-export interface AddCustomERC20ModalOpenProps
-    extends Pick<AddCustomERC20ModalContentProps, 'initialChainId' | 'chainIds'> {}
+export interface AddCustomERC20ModalOpenProps extends Pick<AddCustomERC20ModalContentProps, 'initialChainId'> {}
 
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<AddCustomERC20ModalOpenProps>>;

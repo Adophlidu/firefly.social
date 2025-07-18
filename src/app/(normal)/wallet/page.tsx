@@ -224,7 +224,6 @@ function FireflyWallet() {
                                     onClick={() => {
                                         AddCustomERC20ModalRef.open({
                                             initialChainId: EthereumChainId.Mainnet,
-                                            chainIds,
                                         });
                                     }}
                                 >
