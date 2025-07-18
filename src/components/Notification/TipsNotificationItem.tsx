@@ -37,7 +37,7 @@ function getAccountInfo(data: TipsNotificationData) {
 
             return {
                 avatar: avatar || getStampAvatarByProfileId(Source.Wallet, data.fromAddress),
-                displayName: displayName || formatAddress(data.fromAddress, 4),
+                displayName: displayName || formatAddress(data.fromAddress, 4, undefined, false),
                 link: getProfileUrl({ source: Source.Wallet, profileId: data.fromAddress }),
             };
         }

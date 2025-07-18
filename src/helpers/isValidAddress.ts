@@ -4,14 +4,15 @@ import { type Address, isAddress } from 'viem';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 
-export function isValidAddressSolana(address?: string): address is string {
+export function isValidAddressSolana(address?: string, strict = true) {
     const length = address?.length;
     if (!length || length < 32 || length > 44) return false;
     try {
         new web3.PublicKey(address);
         return true;
     } catch {
-        return false;
+        // For broken solana address, such as all lowercase
+        return strict ? false : /^[1-9a-zA-Z]+$/.test(address);
     }
 }
 
@@ -22,8 +23,8 @@ export function isValidAddressEthereum(address: string | undefined): address is 
     return isAddress(address_ as Address);
 }
 
-export function isValidAddress(address?: string) {
-    return isValidAddressSolana(address) || isValidAddressEthereum(address);
+export function isValidAddress(address?: string, strict = true) {
+    return isValidAddressSolana(address, strict) || isValidAddressEthereum(address);
 }
 
 export function isZeroAddress(address?: string): boolean {

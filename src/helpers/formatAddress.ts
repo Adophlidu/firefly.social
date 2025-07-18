@@ -5,18 +5,18 @@ import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidA
 
 type Offset = 0 | 2;
 
-type Formatter = (address: string, size?: number, offset?: Offset) => string;
+type Formatter = (address: string, size?: number, offset?: Offset, strict?: boolean) => string;
 
 const resolver = (address: string, size = 0) => `${address}.${size}`;
 
-export function formatAddress(address: string, size?: number, offset?: Offset) {
-    if (isValidAddressSolana(address)) return formatAddressSolana(address, size, offset);
+export function formatAddress(address: string, size?: number, offset?: Offset, strict = true) {
+    if (isValidAddressSolana(address, strict)) return formatAddressSolana(address, size, offset, strict);
     if (isValidAddressEthereum(address)) return formatAddressEthereum(address, size, offset);
     return address;
 }
 
-export const formatAddressSolana: Formatter = memoize(function format(address, size = 0, offset = 0) {
-    if (!isValidAddressSolana(address)) return address;
+export const formatAddressSolana: Formatter = memoize(function format(address, size = 0, offset = 0, strict = true) {
+    if (!isValidAddressSolana(address, strict)) return address;
     if (size === 0 || size >= 22) return address;
     return `${address.slice(0, Math.max(0, offset + size))}...${address.slice(-size)}`;
 }, resolver);

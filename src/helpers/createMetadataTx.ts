@@ -1,11 +1,11 @@
 import urlcat from 'urlcat';
-import { isHash } from 'viem';
 
 import { getMaintainAccountInfo } from '@/components/Tips/TipsDetail.js';
 import { TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { isValidTxId } from '@/helpers/isValidTxId.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -79,7 +79,7 @@ function generateTipsMetadata(
 }
 
 export async function createMetadataTx(pathname: string, hash: string, chainId: number, view?: TipsDetailViewType) {
-    if (!isHash(hash)) return createSiteMetadata(pathname);
+    if (!isValidTxId(hash)) return createSiteMetadata(pathname);
 
     const tipsData = await runInSafeAsync(() =>
         FireflyEndpointProvider.getTipsTransactionDetail(hash, TipsNotificationType.Tip),

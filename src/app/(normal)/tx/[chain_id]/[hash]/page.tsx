@@ -1,10 +1,9 @@
-import { isHash } from 'viem';
-
 import { SwapDetail } from '@/components/Swap/SwapDetail.js';
 import { TipsDetail } from '@/components/Tips/TipsDetail.js';
 import { KeyType, TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { createMetadataTx } from '@/helpers/createMetadataTx.js';
+import { isValidTxId } from '@/helpers/isValidTxId.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -36,7 +35,7 @@ export default async function Page(props: Props) {
     const view = params?.view ?? TipsDetailViewType.Sender;
     const chainId = Number(chain_id);
 
-    if (!isHash(hash)) notFound();
+    if (!isValidTxId(hash)) notFound();
 
     const tipsData = await runInSafeAsync(() =>
         FireflyEndpointProvider.getTipsTransactionDetail(hash, TipsNotificationType.Tip),

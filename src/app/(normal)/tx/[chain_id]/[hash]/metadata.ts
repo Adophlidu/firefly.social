@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { isHash } from 'viem';
 
 import { TipsNotificationType } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { isValidTxId } from '@/helpers/isValidTxId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: { chain_id: string;
     const { chain_id, hash } = params;
     const chainId = Number(chain_id);
 
-    if (!isHash(hash)) notFound();
+    if (!isValidTxId(hash)) notFound();
 
     // Try to get Tip transaction details
     const tipsData = await runInSafeAsync(() =>
