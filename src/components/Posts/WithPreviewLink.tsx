@@ -34,7 +34,6 @@ export function WithPreviewLink({
             post,
             index,
             source: post.source,
-            showAction: false,
         });
     };
 

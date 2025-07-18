@@ -10,8 +10,10 @@ import type { SocialSourceInURL } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { PreviewMedia } from '@/modals/PreviewMediaModal/PreviewMedia.js';
+import { PreviewMediaModalContent } from '@/modals/PreviewMediaModal/PreviewMediaModalContent.js';
 import type { NextPageProps } from '@/types/index.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { Modal } from '@/components/Modal.js';
 
 interface Props
     extends NextPageProps<{
@@ -21,11 +23,10 @@ interface Props
     }> {}
 
 export default function Page(props: Props) {
-    const params = use(props.params);
-    const { id: postId, index, source } = params;
+    const { id: postId, index, source } = use(props.params);
 
     const router = useRouter();
-
+    const isMedium = useIsMedium();
     const currentSource = resolveSocialSource(source);
 
     const { data: post } = useSuspenseQuery({
@@ -44,12 +45,19 @@ export default function Page(props: Props) {
     });
 
     return (
-        <PreviewMedia
-            open
-            post={post}
-            source={currentSource}
-            index={Number.isNaN(+index) ? 0 : +index}
-            onClose={() => router.back()}
-        />
+        <Modal open enableBackdrop={false} onClose={() => router.back()}>
+            <div
+                className="preview-actions fixed inset-0 flex transform-none flex-col items-center justify-center bg-black/90 bg-opacity-90 outline-none transition-all"
+                onClick={isMedium ? () => router.back() : undefined}
+            >
+                <PreviewMediaModalContent
+                    open
+                    post={post}
+                    source={currentSource}
+                    index={Number.isNaN(+index) ? 0 : +index}
+                    onClose={() => router.back()}
+                />
+            </div>
+        </Modal>
     );
 }
