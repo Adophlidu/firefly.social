@@ -1,4 +1,8 @@
+import 'server-only';
+
+import { parseHTML } from 'linkedom';
+
 export function parseHtml(html: string): Document {
-    const parser = new DOMParser();
-    return parser.parseFromString(html, 'text/html');
+    const { document } = parseHTML(html);
+    return document;
 }

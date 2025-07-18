@@ -1,5 +1,5 @@
 import type { ProfileSource } from '@/constants/enum.js';
-import { parseHtml } from '@/helpers/parseHtml.js';
+import { parseHtmlNative } from '@/helpers/parseHtmlNative.js';
 import { parseJson } from '@/helpers/parseJson.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
@@ -43,7 +43,7 @@ async function getResponseText(response: Response): Promise<string> {
     try {
         const text = await response.clone().text();
         if (response.headers.get('content-type')?.includes('text/html')) {
-            const dom = parseHtml(text);
+            const dom = parseHtmlNative(text);
             return dom.querySelector('title')?.textContent || 'Internal service error';
         }
         return text;

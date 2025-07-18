@@ -18,9 +18,10 @@ import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Tweet } from '@/providers/types/Nitter.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
+import { parseHtmlNative } from '@/helpers/parseHtmlNative.js';
 
 function parseTweetText(text: string) {
-    const document = parseHtml(`<div>${text}</div>`);
+    const document = parseHtmlNative(`<div>${text}</div>`);
     const anchorElements = document.querySelectorAll('a');
     for (const anchorElement of anchorElements) {
         if (anchorElement.innerText.startsWith('#')) continue;
@@ -54,7 +55,7 @@ function parseTweetText(text: string) {
 }
 
 function parseTweetMentions(text: string): Post['mentions'] {
-    const document = parseHtml(`<div>${text}</div>`);
+    const document = parseHtmlNative(`<div>${text}</div>`);
     const anchorElements = document.querySelectorAll('a');
     return compact(
         [...anchorElements].map((el) => {
@@ -68,7 +69,7 @@ function parseTweetMentions(text: string): Post['mentions'] {
 }
 
 function parseTweetOembedUrls(text: string) {
-    const document = parseHtml(`<div>${text}</div>`);
+    const document = parseHtmlNative(`<div>${text}</div>`);
     const anchorElements = document.querySelectorAll('a');
     return compact(
         [...anchorElements].map((el) => {

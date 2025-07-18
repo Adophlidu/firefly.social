@@ -62,8 +62,8 @@ class Processor {
         if (!response.ok || (response.status >= 500 && response.status < 600)) throw FetchError.from(url, response);
 
         const html = await response.text();
-        const document = parseHtml(html);
 
+        const document = parseHtml(html);
         const dataScript = document.getElementById('__NEXT_DATA__');
         const data = dataScript?.innerText ? parseJson<State>(dataScript.innerText) : undefined;
 

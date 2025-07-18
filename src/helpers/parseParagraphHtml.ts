@@ -1,13 +1,13 @@
 import { first } from 'lodash-es';
 
-import { parseHtml } from '@/helpers/parseHtml.js';
+import { parseHtmlNative } from '@/helpers/parseHtmlNative.js';
 import { parseJson } from '@/helpers/parseJson.js';
 import type { ParagraphJSONContent } from '@/providers/paragraph/type.js';
 
 export function parseParagraphHtml(htmlString: string, jsonString: string) {
     if (!htmlString || !jsonString) return;
 
-    const document = parseHtml(htmlString);
+    const document = parseHtmlNative(htmlString);
 
     const json = parseJson<{ content: ParagraphJSONContent[] }>(jsonString);
     const twitterEmbeds = json?.content.filter((x) => x.type === 'twitter');

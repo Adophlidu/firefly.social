@@ -4,7 +4,6 @@ import type { WaitForTransactionReceiptReturnType } from 'wagmi/actions';
 
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
-/* cspell:disable-next-line */
 import { VITALIK_ADDRESS } from '@/constants/index.js';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
