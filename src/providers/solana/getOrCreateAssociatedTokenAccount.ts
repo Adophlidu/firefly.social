@@ -1,6 +1,8 @@
 import { web3 } from '@coral-xyz/anchor';
+import { delay } from '@masknet/kit';
 import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
+import { retryOnError } from '@/helpers/retryOnError.js';
 import { createAssociatedTokenAccountInstruction } from '@/providers/solana/createAssociatedTokenAccountInstruction.js';
 import { getAccountInfo } from '@/providers/solana/getAccountInfo.js';
 import { getAssociatedTokenAddress } from '@/providers/solana/getAssociatedTokenAddress.js';
@@ -33,6 +35,7 @@ export async function getOrCreateAssociatedTokenAccount(
         // TokenAccountNotFoundError can be possible if the associated address has already received some lamports,
         // becoming a system account. Assuming program derived addressing is safe, this is the only case for the
         // TokenInvalidAccountOwnerError in this code path.
+        let created = false;
         if (error.message === 'TokenAccountNotFoundError' || error.message === 'TokenInvalidAccountOwnerError') {
             // As this isn't atomic, it's possible others can create associated accounts meanwhile.
             try {
@@ -59,13 +62,21 @@ export async function getOrCreateAssociatedTokenAccount(
                     blockhash: blockHash.blockhash,
                     lastValidBlockHeight: blockHash.lastValidBlockHeight,
                 });
+                await delay(800);
+                created = true;
             } catch (error: unknown) {
                 // Ignore all errors; for now there is no API-compatible way to selectively ignore the expected
                 // instruction error if the associated account exists already.
             }
 
             // Now this should always succeed
-            account = await getAccountInfo(connection, associatedToken, commitment, programId);
+            account = await retryOnError(
+                created ? 15 : 2,
+                (error) =>
+                    error.message === 'TokenAccountNotFoundError' || error.message === 'TokenInvalidAccountOwnerError',
+                () => getAccountInfo(connection, associatedToken, commitment, programId),
+                800,
+            );
         } else {
             throw error;
         }

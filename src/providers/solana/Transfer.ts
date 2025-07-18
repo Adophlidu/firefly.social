@@ -150,7 +150,7 @@ class Provider implements TransferProvider<SolanaChainId> {
                 fromTokenAccount.address,
                 toTokenAccount.address,
                 accountPublicKey,
-                Number.parseInt(options.amount, 10),
+                Number.parseInt(rightShift(options.amount, options.token.decimals).toString(), 10),
             ),
         );
     }
