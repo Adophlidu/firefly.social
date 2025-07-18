@@ -6,6 +6,7 @@ import { UnreachableError } from '@/constants/error.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { NitterSocialMediaProxy, TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
 interface Options {
@@ -22,7 +23,11 @@ export function resolveSocialMediaProvider(source: SocialSource, options?: Optio
         case Source.Farcaster:
             return FarcasterSocialMediaProvider;
         case Source.Twitter:
-            const preferred = (options?.[Source.Twitter] ?? isServer) ? 'nitter' : 'twitter';
+            const preferred = options?.[Source.Twitter]
+                ? options[Source.Twitter]
+                : isServer || !twitterSessionHolder.session
+                  ? 'nitter'
+                  : 'twitter';
 
             switch (preferred) {
                 case 'nitter':
