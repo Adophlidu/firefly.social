@@ -99,6 +99,10 @@ export function SendTransactionModalContent({
     }, [getValues, recipient, setValue]);
 
     useEffect(() => {
+        if (token) setValue('amount', '', { shouldValidate: true });
+    }, [setValue, token]);
+
+    useEffect(() => {
         const textareaEl = document.getElementById('send-transaction-recipient') as HTMLTextAreaElement;
         if (!textareaEl) return;
         function adjustTextareaHeight() {

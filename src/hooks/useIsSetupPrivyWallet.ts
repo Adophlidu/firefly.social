@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { usePollingSetupPrivyWallet } from '@/hooks/usePollingSetupPrivyWallet.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
@@ -19,7 +18,6 @@ export function useIsSetupPrivyWallet() {
         refetchOnMount: false,
         staleTime: Infinity,
     });
-    usePollingSetupPrivyWallet();
 
     return {
         isLoading,

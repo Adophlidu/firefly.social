@@ -5,6 +5,7 @@ import { useAccount, useSwitchAccount } from 'wagmi';
 
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { usePollingSetupPrivyWallet } from '@/hooks/usePollingSetupPrivyWallet.js';
 
 export function DynamicPrivyBridge() {
     const [isSetup, setIsSetup] = useState(false);
@@ -25,6 +26,8 @@ export function DynamicPrivyBridge() {
             switchAccountAsync({ connector });
         }
     }, [connector, isLogin, switchAccountAsync]);
+
+    usePollingSetupPrivyWallet();
 
     return isSetup && isLogin ? <privy-bridge /> : null;
 }

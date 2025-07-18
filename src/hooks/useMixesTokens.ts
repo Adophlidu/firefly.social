@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import type { Address } from 'viem';
 
 import { EMPTY_LIST } from '@/constants/index.js';
-import { isZero } from '@/helpers/number.js';
+import { isZero, minus, multipliedBy } from '@/helpers/number.js';
 import { useEvmTokens } from '@/hooks/useEvmTokens.js';
 import { useSolanaTokens } from '@/hooks/useSolanaTokens.js';
 
@@ -11,7 +11,10 @@ export function useMixesTokens({ evmAddress, solanaAddress }: { evmAddress?: Add
     const { data: solanaTokens = EMPTY_LIST, isLoading: isLoadingSolanaTokens } = useSolanaTokens(solanaAddress);
     const isLoading = isLoadingEvmTokens || isLoadingSolanaTokens;
     const tokens = useMemo(
-        () => [...evmTokens, ...solanaTokens.filter((x) => !isZero(x.balance))].sort((a, b) => b.amount - a.amount),
+        () =>
+            [...evmTokens, ...solanaTokens.filter((x) => !isZero(x.balance))].sort((a, b) =>
+                minus(multipliedBy(b.price, b.amount), multipliedBy(a.price, a.amount)).toNumber(),
+            ),
         [evmTokens, solanaTokens],
     );
     return {

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { connect, getConnectors } from '@wagmi/core';
-import { useConnections } from 'wagmi';
+import { useAccount, useConnections } from 'wagmi';
 
 import { config } from '@/configs/wagmiClient.js';
 import { getPrivyBridge, PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
@@ -10,6 +10,7 @@ import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 
 export function usePollingSetupPrivyWallet() {
     const connections = useConnections();
+    const account = useAccount();
     const isLoginFirefly = useIsLoginFirefly();
     const { evmWallets, solanaWallets } = usePrivyWalletStore((state) => ({
         evmWallets: state.wallets[NetworkType.Ethereum],
@@ -27,7 +28,10 @@ export function usePollingSetupPrivyWallet() {
             const connector = connectors.find((x) => x.id === PRIVY_CONNECTOR_ID);
             if (connector) await connect(config, { connector });
         },
-        refetchInterval: 1000 * 10,
+        refetchInterval() {
+            if (account.connector?.id === PRIVY_CONNECTOR_ID) return;
+            return 1000 * 5;
+        },
         enabled,
         staleTime: Infinity,
         refetchOnMount: false,
