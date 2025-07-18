@@ -36,9 +36,7 @@ export function ProfileTransactions({ address }: ProfileTransactionsProps) {
             },
         })),
         (data) => {
-            return data.pages.flatMap((page) =>
-                page.data.concat().sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0)),
-            );
+            return data.pages.flatMap((page) => page.data).sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0));
         },
     );
 
