@@ -457,20 +457,18 @@ export interface Provider {
      * Mirrors a post with the specified post ID.
      *
      * @param postId The ID of the post to mirror.
-     * @param options {
-     *   onMomoka: If the post is created on Momoka. Lens only
-     *   authorId: The id of the cast author. Farcaster only
-     * }
+     * @param authorId The ID of the author of the post to mirror.
      * @returns A promise that resolves to post id.
      */
-    mirrorPost?: (
-        postId: string,
-        options?: {
-            onMomoka?: boolean;
-            authorId?: number;
-        },
-    ) => Promise<string>;
+    mirrorPost?: (postId: string, authorId?: number) => Promise<string>;
 
+    /**
+     * Undo mirror a post with the specified post ID.
+     *
+     * @param postId The ID of the post to unmirror.
+     * @param authorId The ID of the author of the post to unmirror.
+     * @returns A promise that resolves to void.
+     */
     unmirrorPost?: (postId: string, authorId?: number) => Promise<void>;
 
     /**

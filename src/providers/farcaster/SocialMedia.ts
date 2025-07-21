@@ -252,9 +252,9 @@ class FarcasterSocialMedia implements Provider {
         throw new Error('No session found.');
     }
 
-    async mirrorPost(postId: string, options?: { authorId?: number }) {
+    async mirrorPost(postId: string, authorId?: number) {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return HubbleSocialMediaProvider.mirrorPost(postId, options);
+        if (isGrantByPermission) return HubbleSocialMediaProvider.mirrorPost(postId, authorId);
         throw new Error('No session found.');
     }
 

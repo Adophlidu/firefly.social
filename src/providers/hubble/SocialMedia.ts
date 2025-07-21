@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import { CastAddBody, CastRemoveBody, Factories, ReactionType, UserDataType } from '@farcaster/core';
+import { MessageType, ReactionType, UserDataType } from '@farcaster/core';
 import { sortBy, toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
 import { toHex } from 'viem';
@@ -333,49 +333,35 @@ class HubbleSocialMedia implements Provider {
         const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
         if (!postId || !post || !profileId) throw new Error('Failed to quote post.');
 
-        const { messageJson } = await encodeMessageData(
-            () => {
-                const data: {
-                    castAddBody: CastAddBody;
-                } = {
-                    castAddBody: {
-                        ...result,
-                        embedsDeprecated: [],
-                        embeds: [
-                            {
-                                castId: {
-                                    fid: toInteger(profileId),
-                                    hash: farcasterPostIdToHash(postId),
-                                },
+        const { messageJson } = await encodeMessageData(() => {
+            return {
+                type: MessageType.CAST_ADD,
+                castAddBody: {
+                    ...result,
+                    embedsDeprecated: [],
+                    embeds: [
+                        {
+                            castId: {
+                                fid: toInteger(profileId),
+                                hash: farcasterPostIdToHash(postId),
                             },
-                            ...(post.mediaObjects?.map((v) => ({ url: v.url })) ?? []),
-                        ],
-                        parentCastId: undefined,
-                        parentUrl: undefined,
-                    },
-                };
-
-                if (post.commentOn?.postId && post.commentOn?.author.profileId) {
-                    data.castAddBody.parentCastId = {
-                        fid: toInteger(post.commentOn.author.profileId),
-                        hash: farcasterPostIdToHash(post.commentOn.postId),
-                    };
-                } else if (post.parentChannelUrl) {
-                    data.castAddBody.parentUrl = post.parentChannelUrl;
-                }
-                return data;
-            },
-            async (messageData, signer) => {
-                return Factories.CastAddMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
+                        },
+                        ...(post.mediaObjects?.map((v) => ({ url: v.url })) ?? []),
+                    ],
+                    parentCastId:
+                        post.commentOn?.postId && post.commentOn?.author.profileId
+                            ? {
+                                  fid: toInteger(post.commentOn.author.profileId),
+                                  hash: farcasterPostIdToHash(post.commentOn.postId),
+                              }
+                            : undefined,
+                    parentUrl:
+                        !(post.commentOn?.postId && post.commentOn?.author.profileId) && post.parentChannelUrl
+                            ? post.parentChannelUrl
+                            : undefined,
+                },
+            };
+        });
 
         const { hash } = await this.publishMessage<CastResponse>(messageJson);
         return { postId: toHex(new Uint8Array(hash.data)) };
@@ -395,70 +381,43 @@ class HubbleSocialMedia implements Provider {
             ? MAX_IMAGE_SIZE_PRO_PER_POST[Source.Farcaster]
             : MAX_IMAGE_SIZE_PER_POST[Source.Farcaster];
 
-        const { messageJson } = await encodeMessageData(
-            () => {
-                const data: {
-                    castAddBody: CastAddBody;
-                } = {
-                    castAddBody: {
-                        ...result,
-                        embedsDeprecated: [],
-                        embeds: [...mediaUrls, ...contentUrls].slice(0, imageCountLimit),
-                        parentCastId: undefined,
-                        parentUrl: undefined,
-                    },
-                };
-
-                if (post.commentOn?.postId && post.commentOn?.author.profileId) {
-                    data.castAddBody.parentCastId = {
-                        fid: toInteger(post.commentOn.author.profileId),
-                        hash: farcasterPostIdToHash(post.commentOn.postId),
-                    };
-                } else if (post.parentChannelUrl) {
-                    data.castAddBody.parentUrl = post.parentChannelUrl;
-                }
-                return data;
-            },
-            async (messageData, signer) => {
-                return Factories.CastAddMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
+        const { messageJson } = await encodeMessageData(() => {
+            return {
+                type: MessageType.CAST_ADD,
+                castAddBody: {
+                    ...result,
+                    embedsDeprecated: [],
+                    embeds: [...mediaUrls, ...contentUrls].slice(0, imageCountLimit),
+                    parentCastId:
+                        post.commentOn?.postId && post.commentOn?.author.profileId
+                            ? {
+                                  fid: toInteger(post.commentOn.author.profileId),
+                                  hash: farcasterPostIdToHash(post.commentOn.postId),
+                              }
+                            : undefined,
+                    parentUrl:
+                        !(post.commentOn?.postId && post.commentOn?.author.profileId) && post.parentChannelUrl
+                            ? post.parentChannelUrl
+                            : undefined,
+                },
+            };
+        });
 
         const { hash } = await this.publishMessage<CastResponse>(messageJson);
         return { postId: toHex(new Uint8Array(hash.data)) };
     }
 
     async deletePost(postId: string): Promise<boolean> {
-        const { messageJson } = await encodeMessageData(
-            () => {
-                const data: {
-                    castRemoveBody: CastRemoveBody;
-                } = {
-                    castRemoveBody: {
-                        targetHash: farcasterPostIdToHash(postId),
-                    },
-                };
+        const { messageJson } = await encodeMessageData(() => {
+            const data = {
+                type: MessageType.CAST_REMOVE,
+                castRemoveBody: {
+                    targetHash: farcasterPostIdToHash(postId),
+                },
+            };
 
-                return data;
-            },
-            async (messageData, signer) => {
-                return Factories.CastRemoveMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
+            return data;
+        });
 
         await this.publishMessage(messageJson);
         return true;
@@ -467,27 +426,16 @@ class HubbleSocialMedia implements Provider {
     async upvotePost(postId: string, authorId?: number) {
         if (!authorId) throw new Error('Failed to upvote post.');
 
-        const { messageJson } = await encodeMessageData(
-            (fid) => ({
-                reactionBody: {
-                    type: ReactionType.LIKE,
-                    targetCastId: {
-                        fid: authorId,
-                        hash: farcasterPostIdToHash(postId),
-                    },
+        const { messageJson } = await encodeMessageData((fid) => ({
+            type: MessageType.REACTION_ADD,
+            reactionBody: {
+                type: ReactionType.LIKE,
+                targetCastId: {
+                    fid: authorId,
+                    hash: farcasterPostIdToHash(postId),
                 },
-            }),
-            async (messageData, signer) => {
-                return Factories.ReactionAddMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
             },
-        );
+        }));
 
         await this.publishMessage(messageJson);
     }
@@ -495,57 +443,33 @@ class HubbleSocialMedia implements Provider {
     async unvotePost(postId: string, authorId?: number) {
         if (!authorId) throw new Error('Failed to unvote post.');
 
-        const { messageJson } = await encodeMessageData(
-            (fid) => ({
-                reactionBody: {
-                    type: ReactionType.LIKE,
-                    targetCastId: {
-                        fid: authorId,
-                        hash: farcasterPostIdToHash(postId),
-                    },
+        const { messageJson } = await encodeMessageData((fid) => ({
+            type: MessageType.REACTION_REMOVE,
+            reactionBody: {
+                type: ReactionType.LIKE,
+                targetCastId: {
+                    fid: authorId,
+                    hash: farcasterPostIdToHash(postId),
                 },
-            }),
-            async (messageData, signer) => {
-                return Factories.ReactionRemoveMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
             },
-        );
+        }));
 
         await this.publishMessage(messageJson);
     }
 
-    async mirrorPost(postId: string, options?: { authorId?: number }) {
-        if (!options?.authorId) throw new Error('Failed to recast post');
+    async mirrorPost(postId: string, authorId?: number) {
+        if (!authorId) throw new Error('Failed to recast post');
 
-        const reactionBody = {
-            type: ReactionType.RECAST,
-            targetCastId: {
-                fid: options.authorId,
-                hash: farcasterPostIdToHash(postId),
+        const { messageJson } = await encodeMessageData((fid) => ({
+            type: MessageType.REACTION_ADD,
+            reactionBody: {
+                type: ReactionType.RECAST,
+                targetCastId: {
+                    fid: authorId,
+                    hash: farcasterPostIdToHash(postId),
+                },
             },
-        };
-
-        const { messageJson } = await encodeMessageData(
-            (fid) => ({
-                reactionBody,
-            }),
-            async (messageData, signer) => {
-                return Factories.ReactionAddMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
-            },
-        );
+        }));
 
         await this.publishMessage(messageJson);
 
@@ -556,99 +480,56 @@ class HubbleSocialMedia implements Provider {
     async unmirrorPost(postId: string, authorId?: number) {
         if (!authorId) throw new Error('Failed to unmirror post.');
 
-        const { messageJson } = await encodeMessageData(
-            (fid) => ({
-                reactionBody: {
-                    type: ReactionType.RECAST,
-                    targetCastId: {
-                        fid: authorId,
-                        hash: farcasterPostIdToHash(postId),
-                    },
+        const { messageJson } = await encodeMessageData((fid) => ({
+            type: MessageType.REACTION_REMOVE,
+            reactionBody: {
+                type: ReactionType.RECAST,
+                targetCastId: {
+                    fid: authorId,
+                    hash: farcasterPostIdToHash(postId),
                 },
-            }),
-            async (messageData, signer) => {
-                return Factories.ReactionRemoveMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
             },
-        );
+        }));
 
         await this.publishMessage(messageJson);
+
         return;
     }
 
     async follow(profileId: string) {
-        const { messageJson } = await encodeMessageData(
-            () => ({
-                linkBody: {
-                    type: 'follow',
-                    targetFid: Number(profileId),
-                },
-            }),
-            async (messageData, signer) => {
-                return Factories.LinkAddMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
+        const { messageJson } = await encodeMessageData(() => ({
+            type: MessageType.LINK_ADD,
+            linkBody: {
+                type: 'follow',
+                targetFid: Number(profileId),
             },
-        );
+        }));
 
         await this.publishMessage(messageJson);
         return true;
     }
 
     async unfollow(profileId: string) {
-        const { messageJson } = await encodeMessageData(
-            () => ({
-                linkBody: {
-                    type: 'follow',
-                    targetFid: Number(profileId),
-                },
-            }),
-            async (messageData, signer) => {
-                return Factories.LinkRemoveMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
+        const { messageJson } = await encodeMessageData(() => ({
+            type: MessageType.LINK_REMOVE,
+            linkBody: {
+                type: 'follow',
+                targetFid: Number(profileId),
             },
-        );
+        }));
 
         await this.publishMessage(messageJson);
         return true;
     }
 
     async userDataAdd(type: UserDataType, value: string) {
-        const { messageJson } = await encodeMessageData(
-            () => ({
-                userDataBody: {
-                    type,
-                    value,
-                },
-            }),
-            async (messageData, signer) => {
-                return Factories.UserDataAddMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
+        const { messageJson } = await encodeMessageData(() => ({
+            type: MessageType.USER_DATA_ADD,
+            userDataBody: {
+                type,
+                value,
             },
-        );
+        }));
         await this.publishMessage(messageJson);
     }
 

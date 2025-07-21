@@ -66,7 +66,7 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    mirrorPost(postId: string, options?: { onMomoka?: boolean; authorId?: number }): Promise<string> {
+    mirrorPost(postId: string, authorId?: number): Promise<string> {
         throw new NotImplementedError();
     }
 

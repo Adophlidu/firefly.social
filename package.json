@@ -245,7 +245,8 @@
             "@lexical/react@0.18.0": "patches/@lexical__react@0.18.0.patch",
             "@headlessui/react@2.1.10": "patches/@headlessui__react@2.1.10.patch",
             "@bprogress/react@1.2.6": "patches/@bprogress__react@1.2.6.patch",
-            "@reown/appkit@1.7.6": "patches/@reown__appkit@1.7.6.patch"
+            "@reown/appkit@1.7.6": "patches/@reown__appkit@1.7.6.patch",
+            "@farcaster/core@0.18.4": "patches/@farcaster__core@0.18.4.patch"
         }
     },
     "eslintConfig": {

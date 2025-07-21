@@ -27,7 +27,7 @@ import {
 } from '@/decorators/SetQueryDataForDeleteWallet.js';
 import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
 import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
-import { getPublicKeyInHexFromSession } from '@/helpers/ed25519.js';
+import { getPublicKeyInHexFromPrivateKey } from '@/helpers/ed25519.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterProfileFromSuggestedFollow } from '@/helpers/formatFarcasterProfileFromSuggestedFollow.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
@@ -268,7 +268,7 @@ class FireflyEndpoint {
             method: 'POST',
             body: JSON.stringify({
                 fid: session.profileId,
-                signerPublickey: await getPublicKeyInHexFromSession(session),
+                signerPublickey: await getPublicKeyInHexFromPrivateKey(session.token),
                 signerPrivatekey: session.token,
             }),
             signal,

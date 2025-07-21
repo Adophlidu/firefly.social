@@ -106,7 +106,7 @@ class BskySocialMedia implements Provider {
         await bskySessionHolder.agent.deletePost(atUri);
         return true;
     }
-    async mirrorPost(postId: string, options?: { onMomoka?: boolean; authorId?: number }): Promise<string> {
+    async mirrorPost(postId: string, authorId?: number): Promise<string> {
         const post = await this.getPostById(postId);
         if (!post.metadata.contentURI) throw new Error(`Failed to mirror post postId = ${postId}`);
         const response = await bskySessionHolder.agent.repost(post.metadata.contentURI, post.publicationId);

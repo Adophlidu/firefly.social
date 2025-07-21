@@ -1,0 +1,417 @@
+diff --git a/dist/index.js b/dist/index.js
+index 73e8b3f0594a55d8b71d302c1dbb5a5bd9e5dcfd..e8307750a60310975db5c496a2ef98499fc83740 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -20710,7 +20710,6 @@ var storageRegistryABI = [
+ 
+ // src/factories.ts
+ init_cjs_shims();
+-var import_faker = require("@faker-js/faker");
+ 
+ // ../../node_modules/@farcaster/fishery/dist/fishery.mjs
+ init_cjs_shims();
+@@ -21965,45 +21964,19 @@ function toBigInt(value) {
+ 
+ // src/factories.ts
+ var FidFactory = Factory.define(() => {
+-  return import_faker.faker.datatype.number({ min: 1 });
++  throw new Error("[js] FidFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var BytesFactory = Factory.define(({ transientParams }) => {
+-  var _a;
+-  const length = (_a = transientParams.length) != null ? _a : import_faker.faker.datatype.number({ max: 64, min: 1 });
+-  return (0, import_utils4.randomBytes)(length);
++  throw new Error("[js] BytesFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var MessageHashFactory = Factory.define(() => {
+   return BytesFactory.build({}, { transient: { length: 20 } });
+ });
+ var FnameFactory = Factory.define(() => {
+-  const length = import_faker.faker.datatype.number({ min: 1, max: 16 });
+-  const bytes = new Uint8Array(length);
+-  bytes.set(
+-    [
+-      import_faker.faker.helpers.arrayElement([
+-        import_faker.faker.datatype.number({ min: 48, max: 57 }),
+-        import_faker.faker.datatype.number({ min: 97, max: 122 })
+-      ])
+-    ],
+-    0
+-  );
+-  for (let i = 1; i < length; i++) {
+-    bytes.set(
+-      [
+-        import_faker.faker.helpers.arrayElement([
+-          45,
+-          import_faker.faker.datatype.number({ min: 48, max: 57 }),
+-          import_faker.faker.datatype.number({ min: 97, max: 122 })
+-        ])
+-      ],
+-      i
+-    );
+-  }
+-  return bytes;
++  throw new Error("[js] FnameFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var EnsNameFactory = Factory.define(() => {
+-  const ensName = import_faker.faker.random.alphaNumeric(import_faker.faker.datatype.number({ min: 3, max: 16 }));
+-  return utf8StringToBytes(ensName.concat(".eth"))._unsafeUnwrap();
++  throw new Error("[js] EnsNameFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var BlockHashFactory = Factory.define(() => {
+   return BytesFactory.build({}, { transient: { length: 32 } });
+@@ -22045,34 +22018,16 @@ var CastIdFactory = Factory.define(() => {
+   });
+ });
+ var FarcasterNetworkFactory = Factory.define(() => {
+-  return import_faker.faker.helpers.arrayElement([
+-    3 /* DEVNET */,
+-    1 /* MAINNET */,
+-    2 /* TESTNET */
+-  ]);
++  throw new Error("[js] FarcasterNetworkFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var ReactionTypeFactory = Factory.define(() => {
+-  return import_faker.faker.helpers.arrayElement([1 /* LIKE */, 2 /* RECAST */]);
++  throw new Error("[js] ReactionTypeFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var UserDataTypeFactory = Factory.define(() => {
+-  return import_faker.faker.helpers.arrayElement([
+-    3 /* BIO */,
+-    2 /* DISPLAY */,
+-    6 /* USERNAME */,
+-    1 /* PFP */,
+-    5 /* URL */
+-  ]);
++  throw new Error("[js] UserDataTypeFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var MessageTypeFactory = Factory.define(() => {
+-  return import_faker.faker.helpers.arrayElement([
+-    1 /* CAST_ADD */,
+-    2 /* CAST_REMOVE */,
+-    3 /* REACTION_ADD */,
+-    4 /* REACTION_REMOVE */,
+-    11 /* USER_DATA_ADD */,
+-    7 /* VERIFICATION_ADD_ETH_ADDRESS */,
+-    8 /* VERIFICATION_REMOVE */
+-  ]);
++  throw new Error("[js] MessageTypeFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var MessageFactory = Factory.define(
+   ({ onCreate, transientParams }) => {
+@@ -22114,21 +22069,13 @@ var CastIdEmbedFactory = Factory.define(() => {
+   return Embed.create({ castId: CastIdFactory.build() });
+ });
+ var UrlEmbedFactory = Factory.define(() => {
+-  return Embed.create({ url: import_faker.faker.internet.url() });
++  throw new Error("[js] UrlEmbedFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var EmbedFactory = Factory.define(() => {
+-  return import_faker.faker.helpers.arrayElement([CastIdEmbedFactory.build(), UrlEmbedFactory.build()]);
++  throw new Error("[js] EmbedFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var CastAddBodyFactory = Factory.define(() => {
+-  const text = import_faker.faker.lorem.sentence(12);
+-  return CastAddBody.create({
+-    embeds: [EmbedFactory.build(), EmbedFactory.build()],
+-    mentions: [FidFactory.build(), FidFactory.build(), FidFactory.build()],
+-    mentionsPositions: [0, Math.floor(text.length / 2), text.length],
+-    // Hack to avoid duplicates
+-    parentCastId: CastIdFactory.build(),
+-    text
+-  });
++  throw new Error("[js] CastAddBodyFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var CastAddDataFactory = Factory.define(() => {
+   return MessageDataFactory.build({
+@@ -22463,11 +22410,7 @@ var VerificationRemoveMessageFactory = MessageFactory.params({
+   signatureScheme: 1 /* ED25519 */
+ });
+ var UserDataBodyFactory = Factory.define(() => {
+-  return UserDataBody.create({
+-    type: UserDataTypeFactory.build(),
+-    value: import_faker.faker.random.alphaNumeric(16)
+-    // 16 chars to stay within range for all UserDataAdd types
+-  });
++  throw new Error("[js] UserDataBodyFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var UserDataAddDataFactory = Factory.define(() => {
+   return MessageDataFactory.build({
+@@ -22511,11 +22454,7 @@ var UsernameProofMessageFactory = Factory.define(
+   }
+ );
+ var FrameActionBodyFactory = Factory.define(() => {
+-  return FrameActionBody.create({
+-    url: Buffer.from(import_faker.faker.internet.url()),
+-    buttonIndex: import_faker.faker.datatype.number({ min: 1, max: 4 }),
+-    castId: CastIdFactory.build()
+-  });
++  throw new Error("[js] FrameActionBodyFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var FrameActionDataFactory = Factory.define(() => {
+   return MessageDataFactory.build({
+@@ -22535,16 +22474,7 @@ var FrameActionMessageFactory = Factory.define(
+   }
+ );
+ var OnChainEventFactory = Factory.define(() => {
+-  return OnChainEvent.create({
+-    type: 1 /* EVENT_TYPE_SIGNER */,
+-    chainId: 1,
+-    fid: FidFactory.build(),
+-    blockNumber: import_faker.faker.datatype.number({ min: 1, max: 1e5 }),
+-    blockHash: BlockHashFactory.build(),
+-    blockTimestamp: Math.floor(import_faker.faker.datatype.datetime({ min: FARCASTER_EPOCH, max: Date.now() }).getTime() / 1e3),
+-    transactionHash: TransactionHashFactory.build(),
+-    logIndex: import_faker.faker.datatype.number({ min: 0, max: 1e3 })
+-  });
++  throw new Error("[js] OnChainEventFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var UserNameProofFactory = Factory.define(() => {
+   return UserNameProof.create({
+@@ -22595,26 +22525,11 @@ var SignerMigratedOnChainEventFactory = Factory.define(() => {
+   });
+ });
+ var StorageRentEventBodyFactory = Factory.define(() => {
+-  return StorageRentEventBody.create({
+-    payer: EthAddressFactory.build(),
+-    units: import_faker.faker.datatype.number({ min: 1, max: 10 }),
+-    expiry: getFarcasterTime()._unsafeUnwrap() + 60 * 60 * 24 * 365
+-    // a year
+-  });
++  throw new Error("[js] StorageRentEventBodyFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var StorageRentOnChainEventFactory = Factory.define(
+   ({ transientParams }) => {
+-    const oneYearAgo = /* @__PURE__ */ new Date();
+-    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+-    const yesterday = /* @__PURE__ */ new Date();
+-    yesterday.setDate(yesterday.getDate() - 1);
+-    const randomDate = import_faker.faker.date.between(oneYearAgo, yesterday);
+-    const randomDateInSeconds = Math.floor(randomDate.getTime() / 1e3);
+-    return OnChainEventFactory.build({
+-      type: 4 /* EVENT_TYPE_STORAGE_RENT */,
+-      blockTimestamp: randomDateInSeconds,
+-      storageRentEventBody: transientParams.units ? StorageRentEventBodyFactory.build({ units: transientParams.units }) : StorageRentEventBodyFactory.build()
+-    });
++    throw new Error("[js] StorageRentOnChainEventFactory - Implementation was removed cause it depends on faker.js");
+   }
+ );
+ var Factories = {
+diff --git a/dist/index.mjs b/dist/index.mjs
+index 33270a7b2988f4180069e075a59a032ae33344f8..0f11bea713531b5d199a2750f9d495e8c97af1c5 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -20430,7 +20430,6 @@ var storageRegistryABI = [
+ 
+ // src/factories.ts
+ init_esm_shims();
+-import { faker } from "@faker-js/faker";
+ 
+ // ../../node_modules/@farcaster/fishery/dist/fishery.mjs
+ init_esm_shims();
+@@ -21685,45 +21684,20 @@ function toBigInt(value) {
+ 
+ // src/factories.ts
+ var FidFactory = Factory.define(() => {
+-  return faker.datatype.number({ min: 1 });
++  throw new Error("[mjs] FidFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var BytesFactory = Factory.define(({ transientParams }) => {
+-  var _a;
+-  const length = (_a = transientParams.length) != null ? _a : faker.datatype.number({ max: 64, min: 1 });
+-  return randomBytes(length);
++  console.log(new Error().stack);
++  throw new Error("[mjs] BytesFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var MessageHashFactory = Factory.define(() => {
+   return BytesFactory.build({}, { transient: { length: 20 } });
+ });
+ var FnameFactory = Factory.define(() => {
+-  const length = faker.datatype.number({ min: 1, max: 16 });
+-  const bytes = new Uint8Array(length);
+-  bytes.set(
+-    [
+-      faker.helpers.arrayElement([
+-        faker.datatype.number({ min: 48, max: 57 }),
+-        faker.datatype.number({ min: 97, max: 122 })
+-      ])
+-    ],
+-    0
+-  );
+-  for (let i = 1; i < length; i++) {
+-    bytes.set(
+-      [
+-        faker.helpers.arrayElement([
+-          45,
+-          faker.datatype.number({ min: 48, max: 57 }),
+-          faker.datatype.number({ min: 97, max: 122 })
+-        ])
+-      ],
+-      i
+-    );
+-  }
+-  return bytes;
++  throw new Error("[mjs] FnameFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var EnsNameFactory = Factory.define(() => {
+-  const ensName = faker.random.alphaNumeric(faker.datatype.number({ min: 3, max: 16 }));
+-  return utf8StringToBytes(ensName.concat(".eth"))._unsafeUnwrap();
++  throw new Error("[mjs] EnsNameFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var BlockHashFactory = Factory.define(() => {
+   return BytesFactory.build({}, { transient: { length: 32 } });
+@@ -21765,34 +21739,16 @@ var CastIdFactory = Factory.define(() => {
+   });
+ });
+ var FarcasterNetworkFactory = Factory.define(() => {
+-  return faker.helpers.arrayElement([
+-    3 /* DEVNET */,
+-    1 /* MAINNET */,
+-    2 /* TESTNET */
+-  ]);
++  throw new Error("[mjs] FarcasterNetworkFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var ReactionTypeFactory = Factory.define(() => {
+-  return faker.helpers.arrayElement([1 /* LIKE */, 2 /* RECAST */]);
++  throw new Error("[mjs] ReactionTypeFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var UserDataTypeFactory = Factory.define(() => {
+-  return faker.helpers.arrayElement([
+-    3 /* BIO */,
+-    2 /* DISPLAY */,
+-    6 /* USERNAME */,
+-    1 /* PFP */,
+-    5 /* URL */
+-  ]);
++  throw new Error("[mjs] UserDataTypeFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var MessageTypeFactory = Factory.define(() => {
+-  return faker.helpers.arrayElement([
+-    1 /* CAST_ADD */,
+-    2 /* CAST_REMOVE */,
+-    3 /* REACTION_ADD */,
+-    4 /* REACTION_REMOVE */,
+-    11 /* USER_DATA_ADD */,
+-    7 /* VERIFICATION_ADD_ETH_ADDRESS */,
+-    8 /* VERIFICATION_REMOVE */
+-  ]);
++  throw new Error("[mjs] MessageTypeFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var MessageFactory = Factory.define(
+   ({ onCreate, transientParams }) => {
+@@ -21834,21 +21790,13 @@ var CastIdEmbedFactory = Factory.define(() => {
+   return Embed.create({ castId: CastIdFactory.build() });
+ });
+ var UrlEmbedFactory = Factory.define(() => {
+-  return Embed.create({ url: faker.internet.url() });
++  throw new Error("[mjs] UrlEmbedFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var EmbedFactory = Factory.define(() => {
+-  return faker.helpers.arrayElement([CastIdEmbedFactory.build(), UrlEmbedFactory.build()]);
++  throw new Error("[mjs] EmbedFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var CastAddBodyFactory = Factory.define(() => {
+-  const text = faker.lorem.sentence(12);
+-  return CastAddBody.create({
+-    embeds: [EmbedFactory.build(), EmbedFactory.build()],
+-    mentions: [FidFactory.build(), FidFactory.build(), FidFactory.build()],
+-    mentionsPositions: [0, Math.floor(text.length / 2), text.length],
+-    // Hack to avoid duplicates
+-    parentCastId: CastIdFactory.build(),
+-    text
+-  });
++  throw new Error("[mjs] CastAddBodyFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var CastAddDataFactory = Factory.define(() => {
+   return MessageDataFactory.build({
+@@ -22174,20 +22122,8 @@ var VerificationRemoveBodyFactory = Factory.define(({ params }) => {
+       throw new Error(`Unsupported protocol [found: ${params.protocol}]`);
+   }
+ });
+-var VerificationRemoveDataFactory = MessageDataFactory.params({
+-  verificationRemoveBody: VerificationRemoveBodyFactory.build({ protocol: 0 /* ETHEREUM */ }),
+-  type: 8 /* VERIFICATION_REMOVE */
+-});
+-var VerificationRemoveMessageFactory = MessageFactory.params({
+-  data: VerificationRemoveDataFactory.build(),
+-  signatureScheme: 1 /* ED25519 */
+-});
+ var UserDataBodyFactory = Factory.define(() => {
+-  return UserDataBody.create({
+-    type: UserDataTypeFactory.build(),
+-    value: faker.random.alphaNumeric(16)
+-    // 16 chars to stay within range for all UserDataAdd types
+-  });
++  throw new Error("[mjs] UserDataBodyFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var UserDataAddDataFactory = Factory.define(() => {
+   return MessageDataFactory.build({
+@@ -22231,11 +22167,7 @@ var UsernameProofMessageFactory = Factory.define(
+   }
+ );
+ var FrameActionBodyFactory = Factory.define(() => {
+-  return FrameActionBody.create({
+-    url: Buffer.from(faker.internet.url()),
+-    buttonIndex: faker.datatype.number({ min: 1, max: 4 }),
+-    castId: CastIdFactory.build()
+-  });
++  throw new Error("[mjs] FrameActionBodyFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var FrameActionDataFactory = Factory.define(() => {
+   return MessageDataFactory.build({
+@@ -22255,16 +22187,7 @@ var FrameActionMessageFactory = Factory.define(
+   }
+ );
+ var OnChainEventFactory = Factory.define(() => {
+-  return OnChainEvent.create({
+-    type: 1 /* EVENT_TYPE_SIGNER */,
+-    chainId: 1,
+-    fid: FidFactory.build(),
+-    blockNumber: faker.datatype.number({ min: 1, max: 1e5 }),
+-    blockHash: BlockHashFactory.build(),
+-    blockTimestamp: Math.floor(faker.datatype.datetime({ min: FARCASTER_EPOCH, max: Date.now() }).getTime() / 1e3),
+-    transactionHash: TransactionHashFactory.build(),
+-    logIndex: faker.datatype.number({ min: 0, max: 1e3 })
+-  });
++  throw new Error("[mjs] OnChainEventFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var UserNameProofFactory = Factory.define(() => {
+   return UserNameProof.create({
+@@ -22315,26 +22238,11 @@ var SignerMigratedOnChainEventFactory = Factory.define(() => {
+   });
+ });
+ var StorageRentEventBodyFactory = Factory.define(() => {
+-  return StorageRentEventBody.create({
+-    payer: EthAddressFactory.build(),
+-    units: faker.datatype.number({ min: 1, max: 10 }),
+-    expiry: getFarcasterTime()._unsafeUnwrap() + 60 * 60 * 24 * 365
+-    // a year
+-  });
++  throw new Error("[mjs] StorageRentEventBodyFactory - Implementation was removed cause it depends on faker.js");
+ });
+ var StorageRentOnChainEventFactory = Factory.define(
+   ({ transientParams }) => {
+-    const oneYearAgo = /* @__PURE__ */ new Date();
+-    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+-    const yesterday = /* @__PURE__ */ new Date();
+-    yesterday.setDate(yesterday.getDate() - 1);
+-    const randomDate = faker.date.between(oneYearAgo, yesterday);
+-    const randomDateInSeconds = Math.floor(randomDate.getTime() / 1e3);
+-    return OnChainEventFactory.build({
+-      type: 4 /* EVENT_TYPE_STORAGE_RENT */,
+-      blockTimestamp: randomDateInSeconds,
+-      storageRentEventBody: transientParams.units ? StorageRentEventBodyFactory.build({ units: transientParams.units }) : StorageRentEventBodyFactory.build()
+-    });
++    throw new Error("[mjs] StorageRentOnChainEventFactory - Implementation was removed cause it depends on faker.js");
+   }
+ );
+ var Factories = {
+@@ -22390,8 +22298,6 @@ var Factories = {
+   VerificationAddSolAddressData: VerificationAddSolAddressDataFactory,
+   VerificationAddSolAddressMessage: VerificationAddSolAddressMessageFactory,
+   VerificationRemoveBody: VerificationRemoveBodyFactory,
+-  VerificationRemoveData: VerificationRemoveDataFactory,
+-  VerificationRemoveMessage: VerificationRemoveMessageFactory,
+   UserDataBody: UserDataBodyFactory,
+   UserDataAddData: UserDataAddDataFactory,
+   UserDataAddMessage: UserDataAddMessageFactory,

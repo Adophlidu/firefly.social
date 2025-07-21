@@ -1,4 +1,4 @@
-import { Factories, MessageType } from '@farcaster/core';
+import { MessageType } from '@farcaster/core';
 import { toBytes } from 'viem';
 
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
@@ -20,33 +20,21 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
             transactionId?: string;
         },
     ): Promise<FrameSignaturePacket> {
-        const { messageBytes, messageData, messageDataHash } = await encodeMessageData(
-            (fid) => ({
-                type: MessageType.FRAME_ACTION,
-                frameActionBody: {
-                    url: toBytes(frameUrl),
-                    buttonIndex: index,
-                    castId: {
-                        fid,
-                        hash: toBytes(postId),
-                    },
-                    inputText: input ? toBytes(input) : new Uint8Array([]),
-                    state: additional?.state ? toBytes(additional?.state) : new Uint8Array([]),
-                    address: additional?.address ? toBytes(additional.address) : new Uint8Array([]),
-                    transactionId: additional?.transactionId ? toBytes(additional.transactionId) : new Uint8Array([]),
+        const { messageBytes, messageData, messageDataHash } = await encodeMessageData((fid) => ({
+            type: MessageType.FRAME_ACTION,
+            frameActionBody: {
+                url: toBytes(frameUrl),
+                buttonIndex: index,
+                castId: {
+                    fid,
+                    hash: toBytes(postId),
                 },
-            }),
-            async (messageData, signer) => {
-                return Factories.FrameActionMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
+                inputText: input ? toBytes(input) : new Uint8Array([]),
+                state: additional?.state ? toBytes(additional?.state) : new Uint8Array([]),
+                address: additional?.address ? toBytes(additional.address) : new Uint8Array([]),
+                transactionId: additional?.transactionId ? toBytes(additional.transactionId) : new Uint8Array([]),
             },
-        );
+        }));
 
         const packet = {
             untrustedData: omitEmptyParams({

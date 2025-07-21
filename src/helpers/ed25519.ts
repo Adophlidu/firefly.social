@@ -1,21 +1,30 @@
-import { NobleEd25519Signer } from '@farcaster/core';
-import { bytesToHex, toBytes } from 'viem';
+import { getPublicKey, sign } from '@noble/ed25519';
+import { bytesToHex, hexToBytes } from 'viem';
 
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
-
-export async function getPublicKeyInHexFromSigner(signer: NobleEd25519Signer) {
-    const publicKey = await signer.getSignerKey();
-    if (publicKey.isErr()) return null;
-    return bytesToHex(publicKey.value);
+export async function getPublicKeyInHexFromPrivateKey(privateKey: string | Uint8Array) {
+    try {
+        const key = typeof privateKey === 'string' ? hexToBytes(privateKey as `0x${string}`) : privateKey;
+        const bytes = await getPublicKey(key);
+        return bytesToHex(bytes);
+    } catch (error) {
+        console.error(
+            `[getPublicKeyInHexFromPrivateKey] Failed to get public key from private key: ${privateKey.slice(0, 10)}`,
+            error,
+        );
+        return null;
+    }
 }
 
-export async function signMessageInHexFromSigner(signer: NobleEd25519Signer, message: Uint8Array) {
-    const signature = await signer.signMessageHash(message);
-    if (signature.isErr()) return null;
-    return bytesToHex(signature.value);
-}
-
-export async function getPublicKeyInHexFromSession(session: FarcasterSession) {
-    const signer = new NobleEd25519Signer(toBytes(session.token));
-    return getPublicKeyInHexFromSigner(signer);
+export async function signMessageWithPrivateKey(privateKey: string | Uint8Array, message: Uint8Array) {
+    try {
+        const key = typeof privateKey === 'string' ? hexToBytes(privateKey as `0x${string}`) : privateKey;
+        const signature = await sign(message, key);
+        return bytesToHex(signature);
+    } catch (error) {
+        console.error(
+            `[signMessageWithPrivateKey] Failed to sign message with private key: ${privateKey.slice(0, 10)}`,
+            error,
+        );
+        return null;
+    }
 }

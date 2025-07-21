@@ -1,4 +1,3 @@
-import { Message } from '@farcaster/core';
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
@@ -8,7 +7,7 @@ import { fetchNeynarStream } from '@/helpers/fetchNeynar.js';
 
 async function validateFarcasterMessage(messageBytes: string): Promise<boolean> {
     const url = urlcat(NEYNAR_URL, '/v1/validateMessage');
-    const { valid } = await fetchNeynarStream<{ valid: boolean; message: Message }>(url, {
+    const { valid } = await fetchNeynarStream<{ valid: boolean }>(url, {
         method: 'POST',
         body: Buffer.from(messageBytes, 'hex'),
     });

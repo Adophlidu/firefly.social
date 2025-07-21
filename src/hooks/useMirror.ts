@@ -24,9 +24,7 @@ export function useMirror(post: Post) {
                     case Source.Farcaster: {
                         const result = await (hasMirrored
                             ? FarcasterSocialMediaProvider.unmirrorPost(postId, Number(post.author.profileId))
-                            : FarcasterSocialMediaProvider.mirrorPost(postId, {
-                                  authorId: Number(post.author.profileId),
-                              }));
+                            : FarcasterSocialMediaProvider.mirrorPost(postId, Number(post.author.profileId)));
                         enqueueSuccessMessage(hasMirrored ? t`Cancel recast successfully` : t`Recasted`);
                         return result;
                     }

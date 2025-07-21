@@ -1,44 +1,51 @@
-import { FarcasterNetwork, Message, MessageData, NobleEd25519Signer } from '@farcaster/core';
+import { FarcasterNetwork, HashScheme, Message, MessageData, SignatureScheme, toFarcasterTime } from '@farcaster/core';
 import { blake3 } from '@noble/hashes/blake3';
-import { bytesToHex, toBytes } from 'viem';
+import { bytesToHex, hexToBytes } from 'viem';
 
-import { getPublicKeyInHexFromSigner, signMessageInHexFromSigner } from '@/helpers/ed25519.js';
+import { getPublicKeyInHexFromPrivateKey, signMessageWithPrivateKey } from '@/helpers/ed25519.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { PartialWith } from '@/types/index.js';
 
 export async function encodeMessageData(
     withMessageData: (profileId: number) => PartialWith<MessageData, 'type' | 'fid' | 'timestamp' | 'network'>,
-    withMessage: (messageData: MessageData, signer: NobleEd25519Signer) => Promise<Message>,
 ) {
     const { token, profileId } = farcasterSessionHolder.sessionRequired;
 
     // token is the private key of signer
-    const signer = new NobleEd25519Signer(toBytes(token));
     const fid = Number.parseInt(profileId, 10);
 
     // @ts-expect-error timestamp is not needed
     const messageData: MessageData = {
         fid,
         network: FarcasterNetwork.MAINNET,
+        timestamp: toFarcasterTime(Date.now())._unsafeUnwrap(),
         ...withMessageData(fid),
     };
     const messageDataBytes = MessageData.encode(messageData).finish();
     const messageDataHash = blake3(messageDataBytes, { dkLen: 20 });
 
-    const publicKey = await getPublicKeyInHexFromSigner(signer);
-    const signature = await signMessageInHexFromSigner(signer, messageDataHash);
-
-    const message = await withMessage(messageData, signer);
+    const publicKey = await getPublicKeyInHexFromPrivateKey(token);
+    const signature = await signMessageWithPrivateKey(token, messageDataHash);
 
     if (!publicKey || !signature) {
         throw new Error('Invalid signer key or signature.');
     }
 
+    const message = Message.create({
+        data: messageData,
+        hash: messageDataHash,
+        hashScheme: HashScheme.BLAKE3,
+        signature: hexToBytes(signature),
+        signatureScheme: SignatureScheme.ED25519,
+        signer: hexToBytes(publicKey),
+        dataBytes: messageDataBytes,
+    });
+
     return {
         signer: publicKey,
         messageData,
-        messageBytes: Buffer.from(Message.encode(message).finish()),
         messageJson: Message.toJSON(message),
+        messageBytes: Message.encode(message).finish(),
         messageDataHash: bytesToHex(messageDataHash),
         messageDataSignature: signature,
     } as const;

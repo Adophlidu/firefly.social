@@ -1,16 +1,14 @@
-import { NobleEd25519Signer } from '@farcaster/core';
 import { t } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
 import webCrypto from 'crypto';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
-import { toBytes } from 'viem';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SEVEN_DAYS } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { getPublicKeyInHexFromSigner } from '@/helpers/ed25519.js';
+import { getPublicKeyInHexFromPrivateKey } from '@/helpers/ed25519.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getAllAccounts } from '@/helpers/getAllProfiles.js';
@@ -87,8 +85,7 @@ async function getMetricsDataToUpload(account: Account, passcode: string) {
         }
         case Source.Farcaster: {
             const session = account.session as FarcasterSession;
-            const signer = new NobleEd25519Signer(toBytes(session.token));
-            const publicKey = await getPublicKeyInHexFromSigner(signer);
+            const publicKey = await getPublicKeyInHexFromPrivateKey(session.token);
             if (!publicKey) return null;
 
             return {
