@@ -10,7 +10,8 @@ export function getResourceType(urlString: string) {
 
     // TODO Temporary solution for https://mask.atlassian.net/browse/FW-755
     // media.tenor.com is a CDN for GIFs, but it doesn't have a file extension.
-    if (['imagedelivery.net', 'media.tenor.com'].includes(parsedURL.hostname)) {
+    // cspell: disable-next-line
+    if (['imagedelivery.net', 'media.tenor.com', 'tba-social.mypinata.cloud'].includes(parsedURL.hostname)) {
         return 'Image';
     }
 
@@ -34,7 +35,6 @@ export function getResourceType(urlString: string) {
         return 'Audio';
     } else if (isValidPollFrameUrl(parsedURL.origin)) {
         return 'Poll';
-    } else {
-        return;
     }
+    return;
 }

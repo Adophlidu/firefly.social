@@ -139,7 +139,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
         return (
             <CollapsedContent
                 className={classNames({
-                    ['-mt-3 pl-[52px]']: !noLeftPadding,
+                    '-mt-3 pl-[52px]': !noLeftPadding,
                     'my-2': !isQuote,
                 })}
                 ref={ref}
