@@ -14,6 +14,7 @@ import { ShadowInAndOut } from '@/app/(whiteboard)/components/Signup/ShadowInAnd
 import { SquareButton } from '@/app/(whiteboard)/components/Signup/SquareButton.js';
 import { playSignupAudio } from '@/app/(whiteboard)/signup/pages/audio.js';
 import ShadowLeftArrow from '@/assets/left-arrow-shadow.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SignupStep, Source } from '@/constants/enum.js';
 import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -21,6 +22,7 @@ import { downloadUrlWithProxy } from '@/helpers/downloadMediaObjects.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { trimify } from '@/helpers/trimify.js';
+import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
@@ -48,6 +50,7 @@ function checkNickname(nickname: string) {
 }
 
 export function AccountForm({ changeStep }: AccountFormProps) {
+    const isSyncing = useAsyncStatusAll();
     const profilesAll = useCurrentProfilesAll();
     const availableProfiles = useMemo(
         () =>
@@ -116,9 +119,9 @@ export function AccountForm({ changeStep }: AccountFormProps) {
     return (
         <ShadowInAndOut className="absolute inset-0 z-1 flex items-center justify-center">
             <Card>
-                {loading ? (
+                {loading || isSyncing ? (
                     <div className="absolute inset-0 z-10 flex items-center justify-center">
-                        <LoadingBar />
+                        {loading ? <LoadingBar /> : <LoadingIcon />}
                     </div>
                 ) : (
                     <div className="no-scrollbar flex h-full flex-col justify-between overflow-y-auto p-3 pt-0 md:p-12 md:pt-0">

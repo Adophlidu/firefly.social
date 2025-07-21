@@ -106,7 +106,11 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
                 </div>
                 <div className="absolute inset-x-0 bottom-0 px-3">
                     <div className="w-full bg-white pb-3 pt-2 text-center md:pb-12">
-                        <SquareButton disabled={!canGoNext || isLoading} onClick={handleNext} loading={loading}>
+                        <SquareButton
+                            disabled={!canGoNext || isLoading}
+                            onClick={handleNext}
+                            loading={loading || isLoading}
+                        >
                             <span className="text-base font-medium">
                                 <Trans>Next</Trans>
                             </span>
