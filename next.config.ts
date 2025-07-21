@@ -230,13 +230,7 @@ const config: NextConfig = {
 
         config.resolve.fallback = {
             ...config.resolve.fallback,
-            http: require.resolve('stream-http'),
-            https: require.resolve('https-browserify'),
-            crypto: require.resolve('crypto-browserify'),
-            stream: require.resolve('stream-browserify'),
             buffer: require.resolve('buffer'),
-            zlib: require.resolve('zlib-browserify'),
-            'text-encoding': require.resolve('@sinonjs/text-encoding'),
             perf_hooks: false,
         };
 
