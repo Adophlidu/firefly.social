@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import { franc } from 'franc';
+import { franc } from 'franc-min';
 
 import { MIN_CHAR_LENGTH_TO_TRANSLATE } from '@/constants/index.js';
 import { Language } from '@/services/translate.js';

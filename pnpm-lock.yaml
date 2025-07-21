@@ -250,7 +250,7 @@ dependencies:
   framer-motion:
     specifier: ^12.9.2
     version: 12.9.2(react-dom@19.0.0)(react@19.0.0)
-  franc:
+  franc-min:
     specifier: ^6.2.0
     version: 6.2.0
   fuse.js:
@@ -15550,8 +15550,8 @@ packages:
       tslib: 2.8.1
     dev: false
 
-  /franc@6.2.0:
-    resolution: {integrity: sha512-rcAewP7PSHvjq7Kgd7dhj82zE071kX5B4W1M4ewYMf/P+i6YsDQmj62Xz3VQm9zyUzUXwhIde/wHLGCMrM+yGg==}
+  /franc-min@6.2.0:
+    resolution: {integrity: sha512-1uDIEUSlUZgvJa2AKYR/dmJC66v/PvGQ9mWfI9nOr/kPpMFyvswK0gPXOwpYJYiYD008PpHLkGfG58SPjQJFxw==}
     dependencies:
       trigram-utils: 2.0.1
     dev: false
@@ -22567,7 +22567,7 @@ time:
   /firebase@11.6.0: '2025-03-31T19:03:27.852Z'
   /foxact@0.2.45: '2025-03-19T10:32:32.395Z'
   /framer-motion@12.9.2: '2025-04-25T14:02:32.239Z'
-  /franc@6.2.0: '2024-01-11T13:32:46.343Z'
+  /franc-min@6.2.0: '2024-01-11T13:33:46.729Z'
   /fuse.js@7.1.0: '2025-02-03T00:43:03.870Z'
   /graphql-request@6.1.0: '2023-05-23T16:56:02.613Z'
   /graphql@16.10.0: '2024-12-15T10:35:18.376Z'
