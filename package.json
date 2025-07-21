@@ -222,7 +222,8 @@
             "@tanstack/react-query": "5.56.2",
             "@tanstack/react-query-next-experimental": "5.56.2",
             "@types/react-dom": "19.0.2",
-            "core-js-compat": "$core-js"
+            "core-js-compat": "$core-js",
+            "zod": "3.24.2"
         },
         "onlyBuiltDependencies": [],
         "peerDependencyRules": {
