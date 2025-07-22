@@ -145,7 +145,7 @@ export function SendTransactionModalContent({
         >
             <div className="flex w-full flex-col items-start space-y-3">
                 <ClickableButton
-                    className="flex w-full justify-between rounded-xl bg-line p-4"
+                    className="flex w-full items-center justify-between rounded-xl bg-line p-4"
                     onClick={onClickChangeToken}
                 >
                     <div className="flex items-center gap-x-4">
@@ -181,7 +181,7 @@ export function SendTransactionModalContent({
                     ) : null}
                     <label
                         htmlFor="send-transaction-recipient"
-                        className={classNames('flex w-full cursor-text items-center p-4 duration-100', {
+                        className={classNames('flex w-full min-w-0 cursor-text items-center p-4 duration-100', {
                             'opacity-0': !!showRecipient && !isFocusingAddressInput,
                         })}
                     >
