@@ -111,10 +111,11 @@ function ConnectedItem({
 }
 
 function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
+    const allConnections = useWalletConnections();
+
     const { isSetupPrivyWallet, isLoading } = useIsSetupPrivyWallet();
     if (isLoading) return <div className="mb-2 h-[122px] w-full animate-pulse rounded-lg bg-bg" />;
 
-    const allConnections = useWalletConnections();
     const privyConnections = allConnections.filter((x) => x.source === 'privy');
     if (!isSetupPrivyWallet) return null;
     return (

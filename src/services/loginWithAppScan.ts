@@ -6,6 +6,7 @@ import { compact } from 'lodash-es';
 import { decryptAppScanLoginEncryptedData } from '@/actions/decryptAppScanLoginEncryptedData.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import { DecryptionError } from '@/constants/error.js';
 import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
@@ -20,7 +21,6 @@ import type { Account } from '@/providers/types/Account.js';
 import { DesktopLinkInfoStatus, type DesktopLinkInfoStatusData } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { addAccounts } from '@/services/account.js';
-import { DecryptionError } from '@/constants/error.js';
 
 export interface AuthDataFromApp {
     firefly_account_token: string;

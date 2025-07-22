@@ -1,5 +1,4 @@
 import { Emitter } from '@servie/events';
-import { type ReactNode } from 'react';
 
 export type SingletonModalRefCreator<OpenProps = void, CloseProps = void> = (
     onOpen: (props: OpenProps) => void,

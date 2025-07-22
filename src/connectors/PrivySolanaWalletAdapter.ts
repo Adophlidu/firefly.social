@@ -110,7 +110,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
 
     async disconnect(): Promise<void> {
         try {
-            await this._wallet?.disconnect();
+            this._wallet?.disconnect();
         } catch (error: any) {
             this.emit('error', new WalletError('Failed to disconnect', error));
             throw error;

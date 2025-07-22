@@ -109,9 +109,9 @@ export function FrameViewerModal({ open, onClose, props, setProps }: Props) {
             endpointRef.current = null;
         };
     }, [
+        setProps,
         props?.frame,
         props?.frameHost,
-        props?.frame,
         // refresh the provider after account changed
         account,
         // refresh the provider after chain id changed

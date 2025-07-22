@@ -26,7 +26,7 @@ export function FrameViewerModalHeader({ props, setProps, onClose }: FrameViewer
             ...props,
             ready: false,
         });
-    }, [props]);
+    }, [props, setProps]);
 
     const onSwitchWallet = useCallback(() => {
         WalletConnectModalRef.open({ networkType: NetworkType.Ethereum });

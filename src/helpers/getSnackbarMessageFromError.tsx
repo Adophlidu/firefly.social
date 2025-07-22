@@ -3,11 +3,11 @@ import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import type { SnackbarMessage } from 'notistack';
 import { EstimateGasExecutionError, UserRejectedRequestError } from 'viem';
+import { z } from 'zod';
 
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
-import { FarcasterInvalidSignerKey, FetchError, UserRejectionError, DecryptionError } from '@/constants/error.js';
+import { DecryptionError, FarcasterInvalidSignerKey, FetchError, UserRejectionError } from '@/constants/error.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
-import { z } from 'zod';
 
 interface SolanaError {
     code: number;
