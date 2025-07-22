@@ -63,7 +63,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
 
     return (
         <div className="flex-start flex gap-3 overflow-auto border-b border-secondaryLine p-3 hover:bg-bg dark:border-line">
-            <Link onClick={handleClickOnLink} className="shrink-0" href={profileUrl}>
+            <Link onClick={handleClickOnLink} className="shrink-0" href={profileUrl} prefetch={false}>
                 <Avatar
                     className="rounded-full border"
                     src={profile.pfp}
@@ -75,7 +75,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                 <div className="flex-start flex gap-3">
                     <div className="flex-start flex flex-1 flex-col overflow-auto">
                         <p className="flex items-center gap-2 text-sm font-bold leading-5">
-                            <Link className="truncate text-lg leading-6" href={profileUrl}>
+                            <Link className="truncate text-lg leading-6" href={profileUrl} prefetch={false}>
                                 {profile.displayName}
                             </Link>
                             <SocialSourceIcon
@@ -91,6 +91,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                                     className="self-start truncate text-[15px] leading-[22px] text-secondary"
                                     href={profileUrl}
                                     onClick={handleClickOnLink}
+                                    prefetch={false}
                                 >
                                     @{profile.handle}
                                 </Link>
@@ -99,6 +100,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                                 <>
                                     <span className="mx-1 leading-[22px] text-secondary">·</span>
                                     <Link
+                                        prefetch={false}
                                         href={getProfileUrl(profile, FollowCategory.Followers)}
                                         className={classNames('gap-1 text-[15px] leading-[22px] hover:underline', {
                                             'pointer-events-none':
@@ -127,7 +129,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                     ) : null}
                 </div>
                 {profile.bio ? (
-                    <Link href={profileUrl} onClick={handleClickOnLink}>
+                    <Link href={profileUrl} onClick={handleClickOnLink} prefetch={false}>
                         <BioMarkup
                             className="mt-1.5 truncate text-sm"
                             components={overrideComponents}
