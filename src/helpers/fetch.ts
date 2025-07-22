@@ -33,7 +33,7 @@ export async function fetch(
     const requestInput = resolveRequestInput(input);
 
     const response = await fetcher(requestInput, init);
-    if (!response.ok && !bom.navigator?.onLine) throw new NetworkError();
+    if (!response.ok && bom.navigator?.onLine === false) throw new NetworkError();
     if (!response.ok && !options?.noStrictOK) {
         const fetchError = await FetchError.from(requestInput, response);
         fetchError.toThrow();

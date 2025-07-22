@@ -23,7 +23,7 @@ class Processor {
 
         const response = await fetchJSON<ResponseJSON<{ og: OpenGraph }>>(
             urlcat(FIREFLY_WORKER_HOST, '/oembed', {
-                link: url,
+                link: documentUrl,
             }),
             {
                 signal,
