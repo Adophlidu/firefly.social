@@ -3,9 +3,9 @@ import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source, TxReactionType } from '@/constants/enum.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
@@ -58,7 +58,7 @@ export function useChangeSwapLikeStatus(activity?: SwapActivity) {
         mutationFn: async () => {
             if (!activity) return;
             if (!isLoginFirefly) {
-                LoginModalRef.open();
+                openLoginModal();
                 return;
             }
 

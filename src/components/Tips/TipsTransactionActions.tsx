@@ -26,13 +26,14 @@ import { type MentionChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useToggleTipLikeStatus } from '@/hooks/useToggleTipLikeStatus.js';
 import type { ComposeModalOpenProps } from '@/modals/ComposeModal.js';
-import { ComposeModalRef, LoginModalRef, ShareImageModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, ShareImageModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface TipsTransactionActionsProps extends HTMLProps<HTMLDivElement> {
@@ -119,7 +120,7 @@ export function TipsTransactionActions({
     const addressForMention = view === TipsDetailViewType.Receiver ? fromAddress : toAddress;
     const [{ loading }, handleSharePost] = useAsyncFn(async () => {
         if (!isLogin) {
-            LoginModalRef.open();
+            openLoginModal();
             return;
         }
 
@@ -171,7 +172,7 @@ export function TipsTransactionActions({
                     className="flex h-7 w-7 items-center justify-center"
                     onClick={async () => {
                         if (!isLogin) {
-                            LoginModalRef.open();
+                            openLoginModal();
                             return;
                         }
 

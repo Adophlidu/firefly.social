@@ -27,9 +27,11 @@ import { SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { downloadImage } from '@/helpers/downloadImage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 import { useChangeSwapLikeStatus } from '@/hooks/useChangeSwapLikeStatus.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
@@ -41,6 +43,7 @@ interface SwapActionsProps {
 
 export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activity, isDetail = false }) {
     const { mutate: onLikeChange, isPending } = useChangeSwapLikeStatus(activity);
+    const isLoginFirefly = useIsLoginFirefly();
 
     const { data } = useQuery({
         enabled: isDetail,
@@ -54,6 +57,11 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
     });
 
     const [{ loading: handleMirrorLoading }, handleMirror] = useAsyncFn(async () => {
+        if (!isLoginFirefly) {
+            openLoginModal();
+            return;
+        }
+
         const result = await ComposeModalRef.openAndWaitForClose({
             type: 'compose',
             chars: [
@@ -88,7 +96,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                 });
             }
         }
-    }, [activity.hash, activity.chain_id, activity.owner]);
+    }, [activity.hash, activity.chain_id, activity.owner, isLoginFirefly]);
 
     return (
         <div className={classNames('mt-2 flex items-center justify-between gap-2')}>
