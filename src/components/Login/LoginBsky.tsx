@@ -354,9 +354,7 @@ export function LoginBsky() {
                 </div>
                 <ClickableButton
                     className="flex h-[42px] w-full items-center justify-center gap-1 rounded-full border border-line bg-lightMain text-primaryBottom"
-                    disabled={
-                        loading || isLoading || formState.isSubmitting || !formState.isValid || !isValidServiceUrl
-                    }
+                    disabled={loading || isLoading || !formState.isValid || !isValidServiceUrl}
                     type="submit"
                 >
                     {loading ? (
