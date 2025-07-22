@@ -25,7 +25,7 @@ export async function generateMetadata(props: Props) {
     const { chain_id, hash } = await props.params;
     const searchParams = await props.searchParams;
     const view = searchParams?.view ?? TipsDetailViewType.Sender;
-    return createPageMetadata(`/tx/${chain_id}/${hash}`, hash, Number(chain_id), view);
+    return createPageMetadata(`/tx/${chain_id}/${hash}`, hash, Number(chain_id));
 }
 
 export default async function Page(props: Props) {

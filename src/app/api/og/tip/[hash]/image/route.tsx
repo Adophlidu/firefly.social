@@ -30,6 +30,22 @@ import type { NextRequestContext } from '@/types/index.js';
 const OG_FONT_FAMILY = '"Inter", "NotoSans"';
 const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
 
+function breakLines(str: string, maxCharsPerLine = 15, maxLines = 2) {
+    if (!str) return '';
+    const lines = [];
+    for (let i = 0; i < maxLines; i = i + 1) {
+        const start = i * maxCharsPerLine;
+        const end = start + maxCharsPerLine;
+        if (start >= str.length) break;
+        lines.push(str.slice(start, end));
+    }
+    let result = lines.join('\n');
+    if (str.length > maxCharsPerLine * maxLines) {
+        result = result.slice(0, -1) + '…';
+    }
+    return result;
+}
+
 function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width' | 'height' | 'style'>) {
     return <img alt="img" {...props} src={src} />;
 }
@@ -43,12 +59,15 @@ async function TipOpenGraphImage({
 }) {
     const tokenIcon = await fetchAvatarAsBase64(tip.token_icon ?? OG_FALLBACK_AVATAR);
 
-    const accountInfo = getMaintainAccountInfo(tip, view);
+    const accountInfo = getMaintainAccountInfo(tip, TipsDetailViewType.Sender);
 
     const tokenAmount = Number(tip.amount);
     const tokenSymbol = tip.token_symbol;
 
     const tokenUSDValue = multipliedBy(tip.token_price, tip.amount);
+
+    const fromAvatar = await fetchAvatarAsBase64(accountInfo?.maintainAccountInfo.avatar ?? OG_FALLBACK_AVATAR);
+    const toAvatar = await fetchAvatarAsBase64(accountInfo?.targetAccountInfo.avatar ?? OG_FALLBACK_AVATAR);
 
     return (
         <div
@@ -225,28 +244,28 @@ async function TipOpenGraphImage({
                             height: '100%',
                         }}
                     >
-                        <Image
-                            width={80}
-                            height={80}
-                            src={accountInfo?.maintainAccountInfo.avatar}
-                            alt={accountInfo?.maintainAccountInfo.displayName}
-                            style={{ width: '80px', height: '80px', borderRadius: '999px' }}
-                        />
+                        {fromAvatar ? (
+                            <Image
+                                width={80}
+                                height={80}
+                                src={fromAvatar}
+                                alt={accountInfo?.maintainAccountInfo.displayName}
+                                style={{ width: '80px', height: '80px', borderRadius: '999px' }}
+                            />
+                        ) : null}
                         <div
                             style={{
+                                color: '#171717',
+                                maxWidth: '360px',
+                                maxHeight: '80px',
+                                overflow: 'hidden',
+                                whiteSpace: 'pre-line',
                                 fontSize: 40,
                                 lineHeight: '40px',
                                 fontWeight: 500,
-                                color: '#171717',
-                                maxWidth: '360px',
-                                overflow: 'hidden',
-                                display: 'flex',
-                                WebkitBoxOrient: 'vertical',
-                                WebkitLineClamp: 2,
-                                textOverflow: 'ellipsis',
                             }}
                         >
-                            {accountInfo?.maintainAccountInfo.displayName}
+                            {breakLines(accountInfo?.maintainAccountInfo.displayName ?? '')}
                         </div>
                         <Image
                             src={ArrowRightTickerbitSVG}
@@ -255,13 +274,15 @@ async function TipOpenGraphImage({
                             height={64}
                             style={{ width: '64px', height: '64px' }}
                         />
-                        <Image
-                            width={80}
-                            height={80}
-                            src={accountInfo?.targetAccountInfo.avatar}
-                            alt={accountInfo?.targetAccountInfo.displayName}
-                            style={{ width: '80px', height: '80px', borderRadius: '999px' }}
-                        />
+                        {toAvatar ? (
+                            <Image
+                                width={80}
+                                height={80}
+                                src={toAvatar}
+                                alt={accountInfo?.targetAccountInfo.displayName}
+                                style={{ width: '80px', height: '80px', borderRadius: '999px' }}
+                            />
+                        ) : null}
                         <div
                             style={{
                                 fontSize: 40,
@@ -269,14 +290,12 @@ async function TipOpenGraphImage({
                                 fontWeight: 500,
                                 color: '#171717',
                                 maxWidth: '360px',
+                                maxHeight: '80px',
                                 overflow: 'hidden',
-                                display: 'flex',
-                                WebkitBoxOrient: 'vertical',
-                                WebkitLineClamp: 2,
-                                textOverflow: 'ellipsis',
+                                whiteSpace: 'pre-line',
                             }}
                         >
-                            {accountInfo?.targetAccountInfo.displayName}
+                            {breakLines(accountInfo?.targetAccountInfo.displayName ?? '')}
                         </div>
                     </div>
                 </div>

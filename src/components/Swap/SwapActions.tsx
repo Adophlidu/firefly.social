@@ -110,9 +110,9 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
             >
                 <Trans>Copy Trade</Trans>
             </SwapButton>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-5">
                 <div
-                    className={classNames('text-lightSecond flex items-center gap-1 text-sm', {
+                    className={classNames('flex items-center gap-1 text-sm text-second', {
                         '!text-secondarySuccess': !!data?.is_repost,
                     })}
                 >
@@ -126,7 +126,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                     {data?.repost_count && data.repost_count > 0 ? <span>{nFormatter(data.repost_count)}</span> : null}
                 </div>
                 <div
-                    className={classNames('text-lightSecond flex items-center gap-1 text-sm', {
+                    className={classNames('flex items-center gap-1 text-sm text-second', {
                         '!text-danger': !!data?.is_like,
                     })}
                 >
@@ -135,7 +135,6 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                         loading={isPending}
                         loadingSize={16}
                         onClick={() => {
-                            if (data?.is_like) return;
                             onLikeChange();
                         }}
                     >
@@ -149,7 +148,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                     button={
                         <motion.div
                             whileTap={{ scale: 0.9 }}
-                            className="inline-flex size-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link disabled:opacity-60"
+                            className="inline-flex size-4 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link disabled:opacity-60"
                         >
                             <ShareIcon className="size-4" />
                         </motion.div>

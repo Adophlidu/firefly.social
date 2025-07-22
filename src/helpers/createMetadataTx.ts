@@ -3,7 +3,6 @@ import urlcat from 'urlcat';
 import { getMaintainAccountInfo } from '@/components/Tips/TipsDetail.js';
 import { TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
-import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isValidTxId } from '@/helpers/isValidTxId.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
@@ -12,8 +11,13 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { SwapActivity, TipsDetail } from '@/providers/types/Firefly.js';
 
 function generateSwapMetadata(pathname: string, hash: string, chainId: number, swap: SwapActivity) {
-    const title = createPageTitleOG(`${swap.from_token?.symbol} - ${swap.to_token?.symbol}`);
-    const description = swap.from_token?.name;
+    const title =
+        swap.from_token?.symbol && swap.to_token?.symbol
+            ? `View ${swap.from_token?.symbol} - ${swap.to_token?.symbol} swap transaction on Firefly`
+            : `View Swap on Firefly`;
+    const description =
+        'Stay ahead of the curve with real-time on-chain activity: token swaps, NFT trades, Polymarket bets, and more.';
+
     const images = [
         {
             url: urlcat(SITE_URL, 'api/og/swap/:chainId/:hash/image', {
@@ -40,23 +44,14 @@ function generateSwapMetadata(pathname: string, hash: string, chainId: number, s
     });
 }
 
-function generateTipsMetadata(
-    pathname: string,
-    hash: string,
-    chainId: number,
-    tips: TipsDetail,
-    view = TipsDetailViewType.Sender,
-) {
-    const accountInfo = getMaintainAccountInfo(tips, view);
-    const title = createPageTitleOG(
-        `${accountInfo?.maintainAccountInfo?.displayName} - ${accountInfo?.targetAccountInfo.displayName}`,
-    );
-    const description = `${accountInfo?.maintainAccountInfo?.displayName} sent ${tips.amount} ${tips.token_symbol} to ${accountInfo?.targetAccountInfo.displayName}`;
+function generateTipsMetadata(pathname: string, hash: string, chainId: number, tips: TipsDetail) {
+    const accountInfo = getMaintainAccountInfo(tips, TipsDetailViewType.Sender);
+    const title = `${accountInfo?.maintainAccountInfo.displayName} sent a tip to ${accountInfo?.targetAccountInfo.displayName} on Firefly`;
+    const description = 'Looking to grow your influence? Firefly offers tools to engage your community.';
     const images = [
         {
             url: urlcat(SITE_URL, 'api/og/tip/:hash/image', {
                 hash,
-                view,
             }),
         },
     ];
@@ -78,7 +73,7 @@ function generateTipsMetadata(
     });
 }
 
-export async function createMetadataTx(pathname: string, hash: string, chainId: number, view?: TipsDetailViewType) {
+export async function createMetadataTx(pathname: string, hash: string, chainId: number) {
     if (!isValidTxId(hash)) return createSiteMetadata(pathname);
 
     const tipsData = await runInSafeAsync(() =>
@@ -88,7 +83,7 @@ export async function createMetadataTx(pathname: string, hash: string, chainId: 
     const swapData = await runInSafeAsync(() => FireflyEndpointProvider.getSwapActivityByHash(hash, chainId));
     if (swapData) return generateSwapMetadata(pathname, hash, chainId, swapData);
 
-    if (tipsData) return generateTipsMetadata(pathname, hash, chainId, tipsData, view);
+    if (tipsData) return generateTipsMetadata(pathname, hash, chainId, tipsData);
 
     return createSiteMetadata(pathname);
 }
