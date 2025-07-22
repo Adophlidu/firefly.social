@@ -12,10 +12,6 @@ export type SingletonModalRefCreator<OpenProps = void, CloseProps = void> = (
     abort?: (error: Error) => void;
 };
 
-export interface SingletonModalProps {
-    children: ReactNode;
-}
-
 export class SingletonModal<
     OpenProps = void,
     CloseProps = void,

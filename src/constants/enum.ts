@@ -568,10 +568,6 @@ export enum SiteCookies {
     FireflyRootClass = 'firefly_root_class',
 }
 
-export enum NameServiceID {
-    ENS = 'ENS',
-}
-
 export enum TokenCategory {
     Transactions = 'transactions',
     Feeds = 'feeds',
