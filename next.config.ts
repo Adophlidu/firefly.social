@@ -4,6 +4,7 @@ import { execSync } from 'child_process';
 import { createRequire } from 'module';
 import type { NextConfig } from 'next';
 import createBundleAnalyzer from '@next/bundle-analyzer';
+import createStatoscope from 'next-statoscope';
 import path from 'path';
 
 const require = createRequire(import.meta.url);
@@ -304,4 +305,16 @@ const withBundleAnalyzer = createBundleAnalyzer({
     analyzerMode: 'json',
 });
 
-export default withBundleAnalyzer(config);
+const withStatoscope = createStatoscope({
+    enabled: process.env.ANALYZE_STATOSCOPE === 'true',
+    open: false,
+    saveReportTo: 'statoscope.html',
+    saveStatsTo: 'statoscope.json',
+    saveOnlyStats: true,
+    additionalStats: [],
+    watchMode: false,
+    compressor: false,
+    extensions: [],
+});
+
+export default withBundleAnalyzer(withStatoscope(config));
