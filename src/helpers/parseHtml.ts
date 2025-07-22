@@ -1,5 +1,3 @@
-import 'server-only';
-
 import { parseHTML } from 'linkedom';
 
 export function parseHtml(html: string): Document {

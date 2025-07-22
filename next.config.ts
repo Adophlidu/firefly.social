@@ -4,6 +4,7 @@ import { execSync } from 'child_process';
 import { createRequire } from 'module';
 import type { NextConfig } from 'next';
 import createBundleAnalyzer from '@next/bundle-analyzer';
+import path from 'path';
 
 const require = createRequire(import.meta.url);
 
@@ -209,11 +210,6 @@ const config: NextConfig = {
             ],
         );
 
-        config.optimization = {
-            ...config.optimization,
-            usedExports: false,
-        };
-
         config.experiments = {
             ...config.experiments,
             backCompat: false,
@@ -233,6 +229,14 @@ const config: NextConfig = {
             buffer: require.resolve('buffer'),
             perf_hooks: false,
         };
+
+        const parseHTMLServer = path.resolve(__dirname, 'src/helpers/parseHtml.ts');
+        const parseHTMLClient = path.resolve(__dirname, 'src/helpers/parseHtmlNative.ts');
+        if (!context.isServer) {
+            config.resolve.alias[parseHTMLServer] = parseHTMLClient;
+        } else {
+            config.resolve.alias[parseHTMLClient] = parseHTMLServer;
+        }
 
         config.module.rules.push(
             {

@@ -19,7 +19,6 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { setupTwitterSessionForSSR } from '@/helpers/setupTwitterSessionForSSR.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
@@ -31,7 +30,6 @@ interface Props extends NextPageProps<{ id: string; source: ProfileSourceInURL }
 function fixIdentity(identity: FireflyIdentity, profiles: FireflyProfile[]) {
     switch (identity.source) {
         case Source.Farcaster:
-        case Source.Twitter:
             const profile = profiles.find(
                 (p) => p.identity.source === identity.source && p.displayName === identity.id,
             );
@@ -43,7 +41,6 @@ function fixIdentity(identity: FireflyIdentity, profiles: FireflyProfile[]) {
 
 export default async function Layout(props: Props) {
     await setupLocaleForSSR();
-    await setupTwitterSessionForSSR();
 
     const params = await props.params;
 
