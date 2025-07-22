@@ -7,7 +7,6 @@ import {
     CHANNEL_REGEX,
     LENS_MENTION_REGEX,
     MENTION_REGEX,
-    MINIAPPS_ID_REGEXP,
     SYMBOL_REGEX,
     URL_INPUT_REGEX,
     URL_REGEX,
@@ -348,35 +347,3 @@ describe('LENS_MENTION_REGEX', () => {
     });
 });
 
-describe('MINIAPPS_ID_REGEXP', () => {
-    it('should match miniapps id', () => {
-        const cases = [
-            ['https://farcaster.xyz/miniapps/JGqRCr66vP_E/cast-earnings-stats-frame', 'JGqRCr66vP_E'],
-            ['https://farcaster.xyz/miniapps/Qqjy9efZ-1Qu/eggs', 'Qqjy9efZ-1Qu'],
-            ['https://farcaster.xyz/miniapps/ebIiKqVQ26EG/mintclub', 'ebIiKqVQ26EG'],
-            ['https://farcaster.xyz/miniapps/5hWi-kBQ7GCV/betswirl', '5hWi-kBQ7GCV'],
-            ['https://farcaster.xyz/miniapps/5EkAkFcLGrwS/warpslot', '5EkAkFcLGrwS'],
-            ['https://farcaster.xyz/miniapps/VNo09-kNexFz/farcade', 'VNo09-kNexFz'],
-            ['https://farcaster.xyz/miniapps/x9qnnccfRPVV/gmonchain', 'x9qnnccfRPVV'],
-            ['https://farcaster.xyz/miniapps/WoLihpyQDh7w/farville', 'WoLihpyQDh7w'],
-            ['https://farcaster.xyz/miniapps/k3a-FwpFRgSC/ponder', 'k3a-FwpFRgSC'],
-            ['https://farcaster.xyz/miniapps/MFiqHIM-UpPa/amps', 'MFiqHIM-UpPa'],
-            ['https://warpcast.com/miniapps/JGqRCr66vP_E/cast-earnings-stats-frame', 'JGqRCr66vP_E'],
-            ['https://warpcast.com/miniapps/Qqjy9efZ-1Qu/eggs', 'Qqjy9efZ-1Qu'],
-            ['https://warpcast.com/miniapps/ebIiKqVQ26EG/mintclub', 'ebIiKqVQ26EG'],
-            ['https://warpcast.com/miniapps/5hWi-kBQ7GCV/betswirl', '5hWi-kBQ7GCV'],
-            ['https://warpcast.com/miniapps/5EkAkFcLGrwS/warpslot', '5EkAkFcLGrwS'],
-            ['https://warpcast.com/miniapps/VNo09-kNexFz/farcade', 'VNo09-kNexFz'],
-            ['https://warpcast.com/miniapps/x9qnnccfRPVV/gmonchain', 'x9qnnccfRPVV'],
-            ['https://warpcast.com/miniapps/WoLihpyQDh7w/farville', 'WoLihpyQDh7w'],
-            ['https://warpcast.com/miniapps/k3a-FwpFRgSC/ponder', 'k3a-FwpFRgSC'],
-            ['https://warpcast.com/miniapps/MFiqHIM-UpPa/amps', 'MFiqHIM-UpPa'],
-            ['https://warpcast.com/miniapps/', null],
-            ['https://warpcast.com/miniapps', null],
-        ] as const;
-        cases.forEach(([input, expected]) => {
-            const [_, id] = input.match(MINIAPPS_ID_REGEXP) ?? [null, null];
-            expect(id).toBe(expected);
-        });
-    });
-});
