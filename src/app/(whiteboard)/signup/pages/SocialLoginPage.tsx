@@ -41,13 +41,13 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
     return (
         <ShadowInAndOut className="absolute inset-0 z-1 flex items-center justify-center overflow-hidden">
             <Card>
-                <div className="no-scrollbar flex h-full flex-col justify-between overflow-y-auto p-3 pb-20 pt-0 md:p-12 md:pt-0">
-                    <div className="w-full">
-                        <div className="sticky top-0 z-1 bg-white pt-3 md:pt-12">
-                            <motion.button whileTap={{ scale: 0.8 }} onClick={() => changeStep(SignupStep.Welcome)}>
-                                <ShadowLeftArrow width={24} height={24} />
-                            </motion.button>
-                        </div>
+                <div className="flex h-full flex-col p-3 md:p-12">
+                    <div className="shrink-0 bg-white">
+                        <motion.button whileTap={{ scale: 0.8 }} onClick={() => changeStep(SignupStep.Welcome)}>
+                            <ShadowLeftArrow width={24} height={24} />
+                        </motion.button>
+                    </div>
+                    <div className="no-scrollbar min-h-0 w-full flex-1 overflow-y-auto">
                         <div className="mt-6 text-center">
                             <h1 className="text-2xl font-semibold text-[#171717]">
                                 <Trans>Pick a way to sign in</Trans>
@@ -103,9 +103,7 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="absolute inset-x-0 bottom-0 px-3">
-                    <div className="w-full bg-white pb-3 pt-2 text-center md:pb-12">
+                    <div className="h-14 w-full shrink-0 bg-white pt-2 text-center">
                         <SquareButton
                             disabled={!canGoNext || isLoading}
                             onClick={handleNext}
