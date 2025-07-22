@@ -41,7 +41,7 @@ export const FeaturedToken = memo<FeaturedTokenProps>(function FeaturedToken({ t
             return compact(records);
         },
     });
-    const followingTraderCount = useFollowingTraderCount(token.id);
+    const followingTraderCount = useFollowingTraderCount(token.id, chainId, address);
 
     return (
         <TokenMarketData

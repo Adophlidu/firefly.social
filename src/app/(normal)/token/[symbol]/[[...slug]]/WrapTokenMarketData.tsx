@@ -9,17 +9,17 @@ import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidA
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
-export function useFollowingTraderCount(tokenId: string | null) {
+export function useFollowingTraderCount(tokenId: string | null, chainId?: number, address?: string) {
     const search = useSearchParams();
-    const chainId = search.get('chainId') ? Number(search.get('chainId')) : undefined;
-    const address = search.get('address');
+    const finalChainId = chainId || (search.get('chainId') ? Number(search.get('chainId')) : undefined);
+    const finalAddress = address || search.get('address');
     const { data: trending } = useCoinTrending(tokenId);
     const contracts = trending?.contracts;
 
     const tokens = useMemo(() => {
         const list: Array<{ chain_id: number; token_address: string }> = [];
-        if (address && chainId) {
-            list.push({ chain_id: chainId, token_address: address });
+        if (finalAddress && finalChainId) {
+            list.push({ chain_id: finalChainId, token_address: finalAddress });
         }
         if (contracts?.length) {
             list.push(
@@ -29,7 +29,7 @@ export function useFollowingTraderCount(tokenId: string | null) {
             );
         }
         return list;
-    }, [address, chainId, contracts]);
+    }, [finalAddress, finalChainId, contracts]);
 
     const { data: traderCount } = useQuery({
         queryKey: ['following-trader-count', tokens],
@@ -46,10 +46,12 @@ export const WrapTokenMarketData = memo(function WrapTokenMarketData(props: Toke
     const router = useRouter();
     const pathname = usePathname();
     const search = useSearchParams();
-    const chainId = search.get('chainId') ? Number(search.get('chainId')) : undefined;
     const { tradeRecords } = useContext(TokenContext);
 
-    const followingTraderCount = useFollowingTraderCount(props.token.id);
+    const chainId = search.get('chainId') ? Number(search.get('chainId')) : undefined;
+    const address = props.address || props.token.address;
+
+    const followingTraderCount = useFollowingTraderCount(props.token.id, chainId, address);
 
     return (
         <TokenMarketData
