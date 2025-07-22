@@ -12,7 +12,14 @@ interface Props extends NextPageProps<{ source: ExploreSourceInURL; explore: Exp
 export async function generateMetadata(props: Props) {
     const { explore, source } = await props.params;
     return createSiteMetadata(`/explore/${explore}/${source}`, {
-        title: await createPageTitleSSR(msg`Explore`),
+        title: await createPageTitleSSR(
+            explore === ExploreType.TopChannels
+                ? msg`Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly`
+                : msg`Explore`,
+            {
+                withSiteName: explore !== ExploreType.TopChannels,
+            },
+        ),
     });
 }
 

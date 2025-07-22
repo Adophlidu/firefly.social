@@ -2448,6 +2448,9 @@ msgstr "持有者无法出售所有代币。"
 msgid "Search token"
 msgstr "搜索代币"
 
+msgid "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
+msgstr ""
+
 msgid "Search clubs"
 msgstr "搜索圈子"
 

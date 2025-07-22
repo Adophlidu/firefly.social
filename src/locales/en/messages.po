@@ -2443,6 +2443,9 @@ msgstr "Holders can not sell all of the token."
 msgid "Search token"
 msgstr "Search token"
 
+msgid "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
+msgstr "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
+
 msgid "Search clubs"
 msgstr "Search clubs"
 

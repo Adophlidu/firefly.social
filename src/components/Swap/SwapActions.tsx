@@ -50,6 +50,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
             const data = await FireflyEndpointProvider.getSwapActivityByHash(activity.hash, activity.chain_id);
             return data;
         },
+        initialData: activity,
     });
 
     const [{ loading: handleMirrorLoading }, handleMirror] = useAsyncFn(async () => {
@@ -126,6 +127,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                         loading={isPending}
                         loadingSize={16}
                         onClick={() => {
+                            if (data?.is_like) return;
                             onLikeChange();
                         }}
                     >

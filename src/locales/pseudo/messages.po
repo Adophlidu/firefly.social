@@ -2435,6 +2435,9 @@ msgstr ""
 msgid "Search token"
 msgstr ""
 
+msgid "Explore - Trending clubs from Farcaster, Lens and Bluesky - Firefly"
+msgstr ""
+
 msgid "Search clubs"
 msgstr ""
 

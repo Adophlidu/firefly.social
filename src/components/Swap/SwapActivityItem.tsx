@@ -28,7 +28,6 @@ import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import { useChangeSwapLikeStatus } from '@/hooks/useChangeSwapLikeStatus.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -45,8 +44,6 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
     const router = useRouter();
     const addressName = formatAddress(activity.owner, 4);
     const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: activity.owner });
-
-    const { mutate: onLikeChange, isPending } = useChangeSwapLikeStatus(activity);
 
     const detailUrl = resolveTxPageUrl(activity.hash, activity.chain_id);
 
