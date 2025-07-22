@@ -7,10 +7,10 @@ import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
-import { resolveTcoLink } from '@/helpers/resolveTcoLink.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 
 // We are confident that these hosts will not be used for frame links
 const IGNORE_HOSTS = [/^.+\.mask\.social$/, 'localhost:3000', 'x.com'];
@@ -45,8 +45,8 @@ export const getPostOembed = memoizePromise(
         if (!url || !isValidPostLink(url)) return null;
         if (post?.quoteOn) return null;
         const linkDigested = await fetchJSON<ResponseJSON<LinkDigested>>(
-            urlcat('/api/oembed', {
-                link: (await resolveTcoLink(url)) ?? url,
+            urlcat(FIREFLY_WORKER_HOST, '/oembed', {
+                link: url,
             }),
         );
         return linkDigested.success ? linkDigested.data : null;

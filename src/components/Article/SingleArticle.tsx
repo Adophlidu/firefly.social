@@ -19,6 +19,7 @@ import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { type LinkDigested, PayloadType } from '@/types/og.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 
 export interface SingleArticleProps {
     article: Article;
@@ -44,7 +45,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
             if (article.coverUrl) return article.coverUrl;
             if (article.platform === ArticlePlatform.Mirror && article.origin) {
                 const payload = await fetchJSON<ResponseJSON<LinkDigested>>(
-                    urlcat('/api/oembed', {
+                    urlcat(FIREFLY_WORKER_HOST, '/oembed', {
                         link: article.origin,
                     }),
                 );
