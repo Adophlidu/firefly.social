@@ -68,6 +68,9 @@ msgstr "Scan this QR code if you’ve used Farcaster to sign in before.<0/><1>Fi
 msgid "FAILED THREAD POST"
 msgstr "FAILED THREAD POST"
 
+msgid "Or select account on<0>current wallet</0>"
+msgstr "Or select account on<0>current wallet</0>"
+
 msgid "Connecting wallets"
 msgstr "Connecting wallets"
 
@@ -418,9 +421,6 @@ msgstr "<0>You</0> and {0} others recasted"
 msgid "Activities"
 msgstr "Activities"
 
-msgid "Change Wallet"
-msgstr "Change Wallet"
-
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 
@@ -633,6 +633,9 @@ msgstr "Confirm to log out your Firefly account?"
 msgid "Copied"
 msgstr "Copied"
 
+msgid "Scan the QR code with the<0>Orb mobile app</0><1/>or <2>Camera app</2> to sign in instantly"
+msgstr "Scan the QR code with the<0>Orb mobile app</0><1/>or <2>Camera app</2> to sign in instantly"
+
 msgid "Failed to vote."
 msgstr "Failed to vote."
 
@@ -722,9 +725,15 @@ msgstr "[Video]"
 msgid "The author is muted by you."
 msgstr "The author is muted by you."
 
+msgid "please change to another wallet."
+msgstr "please change to another wallet."
+
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}"
 msgstr "Failed to report @{0}"
+
+msgid "Failed to login profile by orb"
+msgstr "Failed to login profile by orb"
 
 msgid "Restricted approval."
 msgstr "Restricted approval."
@@ -805,6 +814,9 @@ msgstr "Connect Email"
 #. placeholder {0}: resolveAppKitNetworkName(chains[0])
 msgid "Only {0}"
 msgstr "Only {0}"
+
+msgid "Orb Mobile"
+msgstr "Orb Mobile"
 
 msgid "Type something here..."
 msgstr "Type something here..."
@@ -993,9 +1005,6 @@ msgstr "The blacklist function is included. Some addresses may not be able to tr
 msgid "<0/>Delete Firefly account"
 msgstr "<0/>Delete Firefly account"
 
-msgid "Select Account"
-msgstr "Select Account"
-
 msgid "POST"
 msgstr "POST"
 
@@ -1103,9 +1112,6 @@ msgstr "Phishing activities found."
 
 msgid "LinkDigest Validator"
 msgstr "LinkDigest Validator"
-
-msgid "No Lens profile found.<0/>Please change to another wallet."
-msgstr "No Lens profile found.<0/>Please change to another wallet."
 
 msgid "Drop type"
 msgstr "Drop type"
@@ -1776,6 +1782,9 @@ msgstr "Expired"
 msgid "{0, plural, one {# hour} other {# hours}}"
 msgstr "{0, plural, one {# hour} other {# hours}}"
 
+msgid "Failed to login lens with orb"
+msgstr "Failed to login lens with orb"
+
 msgid "Nickname must not contain restricted symbols"
 msgstr "Nickname must not contain restricted symbols"
 
@@ -1859,6 +1868,9 @@ msgstr "Total amount shared among all winners"
 
 msgid "Leave"
 msgstr "Leave"
+
+msgid "Sign in with Orb App"
+msgstr "Sign in with Orb App"
 
 msgid "Enter number of winners"
 msgstr "Enter number of winners"
@@ -2055,9 +2067,6 @@ msgstr "Post with link"
 msgid "Rank #{tokenRank}"
 msgstr "Rank #{tokenRank}"
 
-msgid "Please connect your wallet to continue."
-msgstr "Please connect your wallet to continue."
-
 msgid "Votes"
 msgstr "Votes"
 
@@ -2168,6 +2177,9 @@ msgstr "Fully Diluted Valuation"
 
 msgid "Verified by Farcaster"
 msgstr "Verified by Farcaster"
+
+msgid "OR"
+msgstr "OR"
 
 msgid "Phishing activities."
 msgstr "Phishing activities."
@@ -2973,9 +2985,6 @@ msgstr "Discard"
 msgid "REPLY"
 msgstr "REPLY"
 
-msgid "Sign"
-msgstr "Sign"
-
 msgid "Switch wallet"
 msgstr "Switch wallet"
 
@@ -3405,6 +3414,9 @@ msgstr "Login to enable all features"
 msgid "Owner can change balance"
 msgstr "Owner can change balance"
 
+msgid "Sign in with Lens"
+msgstr "Sign in with Lens"
+
 msgid "Non-contract address found."
 msgstr "Non-contract address found."
 
@@ -3621,9 +3633,6 @@ msgstr "Failed to set schedule time."
 #. placeholder {0}: post.stats.mirrors
 msgid "{0, plural, one {recast} other {recasts}}"
 msgstr "{0, plural, one {recast} other {recasts}}"
-
-msgid "Sign the transaction to verify you are the owner of the selected profile."
-msgstr "Sign the transaction to verify you are the owner of the selected profile."
 
 msgid "Refresh"
 msgstr "Refresh"
@@ -3907,9 +3916,9 @@ msgstr "No one can reply"
 msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
 msgstr "You can set one or multiple rules to be eligible to win a Lucky Drop."
 
-#. placeholder {0}: resolveSourceName(Source.Lens)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Bsky)
+#. placeholder {0}: resolveSourceName(account.profile.source)
 msgid "Your {0} account is now connected."
 msgstr "Your {0} account is now connected."
 
@@ -4090,6 +4099,9 @@ msgstr "Oversupply minting."
 msgid "Failed to read avatar file, please try again."
 msgstr "Failed to read avatar file, please try again."
 
+msgid "Your Lens account is now connected"
+msgstr "Your Lens account is now connected"
+
 msgid "*Note: Each NFT can only be used once."
 msgstr "*Note: Each NFT can only be used once."
 
@@ -4215,6 +4227,9 @@ msgstr "Status"
 msgid "No blackmail activities involved."
 msgstr "No blackmail activities involved."
 
+msgid "No Lens profile found,"
+msgstr "No Lens profile found,"
+
 #. placeholder {0}: error.message
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr "We encountered an error when try to decrypt this message: {0}"
@@ -4277,6 +4292,9 @@ msgstr "Scheduled posts are only available on {0}."
 
 msgid "Download App"
 msgstr "Download App"
+
+msgid "Sorry, stay signed in & edit permission from Orb is necessary to continue."
+msgstr "Sorry, stay signed in & edit permission from Orb is necessary to continue."
 
 msgid "Profile"
 msgstr "Profile"
@@ -4399,6 +4417,9 @@ msgstr "Claim Now"
 
 msgid "Members"
 msgstr "Members"
+
+msgid "Failed to query the orb sign in status after several attempts. Please try again later."
+msgstr "Failed to query the orb sign in status after several attempts. Please try again later."
 
 #. placeholder {0}: collectModule.amount
 #. placeholder {1}: collectModule.currency

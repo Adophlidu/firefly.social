@@ -7,6 +7,7 @@ import { FarcasterView, FarcasterViewBeforeLoad } from '@/modals/LoginModal/Farc
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 import { LensView, LensViewBeforeLoad } from '@/modals/LoginModal/LensView.js';
 import { MainView } from '@/modals/LoginModal/MainView.js';
+import { OrbView, OrbViewBeforeLoad } from '@/modals/LoginModal/OrbView.js';
 import { RootView } from '@/modals/LoginModal/RootView.js';
 import { TwitterView } from '@/modals/LoginModal/TwitterView.js';
 
@@ -74,6 +75,14 @@ const emailRoute = createRoute({
     beforeLoad: EmailViewBeforeLoad,
 });
 
+const orbRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    component: OrbView,
+    pendingComponent: OrbView,
+    path: '/orb',
+    beforeLoad: OrbViewBeforeLoad,
+});
+
 export const routeTree = rootRoute.addChildren([
     mainRoute,
     farcasterRoute,
@@ -81,4 +90,5 @@ export const routeTree = rootRoute.addChildren([
     twitterRoute,
     bskyRoute,
     emailRoute,
+    orbRoute,
 ]);

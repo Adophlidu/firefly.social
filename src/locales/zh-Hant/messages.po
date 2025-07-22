@@ -73,6 +73,9 @@ msgstr "如果曾使用過 Farcaster 登入，請掃描此 QR 碼。<0/><1>首�
 msgid "FAILED THREAD POST"
 msgstr "發佈貼文串失敗"
 
+msgid "Or select account on<0>current wallet</0>"
+msgstr ""
+
 msgid "Connecting wallets"
 msgstr "連接中錢包"
 
@@ -423,9 +426,6 @@ msgstr "<0>您</0>與 {0} 人重新轉發"
 msgid "Activities"
 msgstr "活動"
 
-msgid "Change Wallet"
-msgstr "變更錢包"
-
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "超過 10% 可能視為高稅率，50% 以上可能導致無法交易。"
 
@@ -638,6 +638,9 @@ msgstr "確認登出您的 Firefly 帳戶嗎？"
 msgid "Copied"
 msgstr "已複製"
 
+msgid "Scan the QR code with the<0>Orb mobile app</0><1/>or <2>Camera app</2> to sign in instantly"
+msgstr ""
+
 msgid "Failed to vote."
 msgstr "投票失敗。"
 
@@ -727,9 +730,15 @@ msgstr "[影片]"
 msgid "The author is muted by you."
 msgstr "您已隱藏此作者。"
 
+msgid "please change to another wallet."
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}"
 msgstr "檢舉 @{0} 失敗"
+
+msgid "Failed to login profile by orb"
+msgstr ""
 
 msgid "Restricted approval."
 msgstr "限制授權。"
@@ -810,6 +819,9 @@ msgstr "綁定電子郵件"
 #. placeholder {0}: resolveAppKitNetworkName(chains[0])
 msgid "Only {0}"
 msgstr "僅限 {0}"
+
+msgid "Orb Mobile"
+msgstr ""
 
 msgid "Type something here..."
 msgstr "在此輸入內容..."
@@ -998,9 +1010,6 @@ msgstr "包含黑名單功能，部分地址可能無法正常交易（詐騙風
 msgid "<0/>Delete Firefly account"
 msgstr "<0/>刪除 Firefly 帳戶"
 
-msgid "Select Account"
-msgstr "選擇帳號"
-
 msgid "POST"
 msgstr "貼文"
 
@@ -1108,9 +1117,6 @@ msgstr "發現釣魚活動。"
 
 msgid "LinkDigest Validator"
 msgstr "連結摘要驗證器"
-
-msgid "No Lens profile found.<0/>Please change to another wallet."
-msgstr "未找到任何 Lens 帳號。<0/>請變更到其他錢包。"
 
 msgid "Drop type"
 msgstr "紅包類型"
@@ -1781,6 +1787,9 @@ msgstr "已過期"
 msgid "{0, plural, one {# hour} other {# hours}}"
 msgstr "{0, plural, one {# 小時} other {# 小時}}"
 
+msgid "Failed to login lens with orb"
+msgstr ""
+
 msgid "Nickname must not contain restricted symbols"
 msgstr "暱稱不得包含限制符號"
 
@@ -1864,6 +1873,9 @@ msgstr "所有獲獎者共享的總數額"
 
 msgid "Leave"
 msgstr "離開"
+
+msgid "Sign in with Orb App"
+msgstr ""
 
 msgid "Enter number of winners"
 msgstr "輸入獲獎人數"
@@ -2060,9 +2072,6 @@ msgstr "發布分享連結"
 msgid "Rank #{tokenRank}"
 msgstr "排名 #{tokenRank}"
 
-msgid "Please connect your wallet to continue."
-msgstr "請連接錢包以繼續"
-
 msgid "Votes"
 msgstr "票數"
 
@@ -2173,6 +2182,9 @@ msgstr "完全稀釋估值"
 
 msgid "Verified by Farcaster"
 msgstr "由 Farcaster 驗證"
+
+msgid "OR"
+msgstr ""
 
 msgid "Phishing activities."
 msgstr "釣魚活動。"
@@ -2978,9 +2990,6 @@ msgstr "捨棄"
 msgid "REPLY"
 msgstr "留言"
 
-msgid "Sign"
-msgstr "簽名"
-
 msgid "Switch wallet"
 msgstr "切換錢包"
 
@@ -3410,6 +3419,9 @@ msgstr "登入以啟用完整功能"
 msgid "Owner can change balance"
 msgstr "持有者可變更餘額"
 
+msgid "Sign in with Lens"
+msgstr ""
+
 msgid "Non-contract address found."
 msgstr "檢測到非合約地址。"
 
@@ -3626,9 +3638,6 @@ msgstr "設定預約時間失敗。"
 #. placeholder {0}: post.stats.mirrors
 msgid "{0, plural, one {recast} other {recasts}}"
 msgstr "{0, plural, one {轉發} other {轉發}}"
-
-msgid "Sign the transaction to verify you are the owner of the selected profile."
-msgstr "簽名交易以驗證您是所選帳號的擁有者。"
 
 msgid "Refresh"
 msgstr "刷新"
@@ -3912,9 +3921,9 @@ msgstr "禁止留言"
 msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
 msgstr "可設定一或多項規則，作為領取紅包的條件。"
 
-#. placeholder {0}: resolveSourceName(Source.Lens)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Bsky)
+#. placeholder {0}: resolveSourceName(account.profile.source)
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 帳號已連接。"
 
@@ -4095,6 +4104,9 @@ msgstr "超額鑄造中"
 msgid "Failed to read avatar file, please try again."
 msgstr "頭像讀取失敗，請重試"
 
+msgid "Your Lens account is now connected"
+msgstr ""
+
 msgid "*Note: Each NFT can only be used once."
 msgstr "*註：每個 NFT 僅限使用一次"
 
@@ -4220,6 +4232,9 @@ msgstr "狀態"
 msgid "No blackmail activities involved."
 msgstr "未檢測到勒索行為。"
 
+msgid "No Lens profile found,"
+msgstr ""
+
 #. placeholder {0}: error.message
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr "我們在嘗試解密此訊息時遇到了錯誤：{0}"
@@ -4282,6 +4297,9 @@ msgstr "預約貼文僅在 {0} 支持。"
 
 msgid "Download App"
 msgstr "下載 App"
+
+msgid "Sorry, stay signed in & edit permission from Orb is necessary to continue."
+msgstr ""
 
 msgid "Profile"
 msgstr "個人檔案"
@@ -4406,6 +4424,9 @@ msgstr "立即領取"
 
 msgid "Members"
 msgstr "成員"
+
+msgid "Failed to query the orb sign in status after several attempts. Please try again later."
+msgstr ""
 
 #. placeholder {0}: collectModule.amount
 #. placeholder {1}: collectModule.currency

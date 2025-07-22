@@ -1,22 +1,39 @@
+'use client';
+
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useRouter } from '@tanstack/react-router';
-import { ConnectorNotConnectedError } from '@wagmi/core';
-import { uniqBy } from 'lodash-es';
-import { memo } from 'react';
+import { first, uniqBy } from 'lodash-es';
+import { memo, useState } from 'react';
+import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
+import { getWalletClient } from 'wagmi/actions';
 
+import OrbIcon from '@/assets/orb.svg';
+import ScanIcon from '@/assets/scan.svg';
+import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { LoginLens } from '@/components/Login/LoginLens.js';
+import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
+import { AbortError, FireflyAlreadyBoundError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { ensureLensResultSync } from '@/helpers/ensureLensResult.js';
+import { updateCredentialsStorage } from '@/helpers/getLensCredentialsFromStorage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
+import { LoginModalRef, WalletConnectModalRef } from '@/modals/controls.js';
+import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
+import { addAccount } from '@/services/account.js';
+import { enableSignlessForManaged } from '@/services/lensV3/enableSignlessForManaged.js';
 
 export const LensViewBeforeLoad = () => {
     return {
@@ -27,33 +44,34 @@ export const LensViewBeforeLoad = () => {
 function Title() {
     const account = useAccount();
     if (account.isReconnecting) return <Trans>Connecting Wallet</Trans>;
-    return <Trans>Select Account</Trans>;
+    return <Trans>Sign in with Lens</Trans>;
 }
 
 export const LensView = memo(function LensView() {
+    const controller = useAbortController();
+
     const router = useRouter();
     const { history } = router;
 
     const account = useAccount();
     const { expectedProfile } = useLocation().search as { expectedProfile?: string };
 
+    const [selectedProfile, setSelectedProfile] = useState<Profile>();
+
     const { data: profiles = EMPTY_LIST, isLoading } = useQuery({
         retry: false,
+        enabled: !!account.isConnected,
         queryKey: ['lens', 'profiles', account.address],
         queryFn: async () => {
             try {
-                const { account } = await getWalletClientRequired(config);
+                const { account } = await getWalletClient(config);
+                if (!account) return EMPTY_LIST;
                 const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
                 return uniqBy(profiles ?? EMPTY_LIST, (x) => x.profileId);
             } catch (error) {
-                if (error instanceof ConnectorNotConnectedError) {
-                    enqueueWarningMessage(t`Please connect your wallet to continue.`);
-                } else {
-                    enqueueMessageFromError(error, t`Failed to fetch profiles.`);
-                }
+                enqueueMessageFromError(error, t`Failed to fetch profiles.`);
                 console.error('[login lens] Failed to fetch profiles', error);
 
-                history.replace('/main');
                 throw error;
             }
         },
@@ -66,12 +84,139 @@ export const LensView = memo(function LensView() {
         },
     });
 
-    if (isLoading || !account.address)
-        return (
-            <div className="flex h-full min-h-[30vh] w-full items-center justify-center md:h-[462px] md:w-[500px]">
-                <LoadingIcon />
-            </div>
-        );
+    const currentProfile = selectedProfile || first(profiles);
 
-    return <LoginLens profiles={profiles} currentAccount={account.address} />;
+    const [{ loading }, login] = useAsyncFn(async () => {
+        if (!profiles.length || !currentProfile) return;
+
+        controller.current.renew();
+
+        try {
+            const { account, sessionClient } = await createAccountForProfileId(
+                currentProfile,
+                true,
+                controller.current.signal,
+            );
+
+            if (!currentProfile.signless && currentProfile.profileType === 'AccountManaged') {
+                await enableSignlessForManaged(sessionClient);
+            }
+
+            const credentials = ensureLensResultSync(sessionClient.getCredentials());
+            const done = await addAccount(account, {
+                signal: controller.current.signal,
+            });
+            if (done) {
+                // move to local storage
+                if (credentials) {
+                    updateCredentialsStorage(credentials);
+                }
+                lensSessionHolder.resumeSession(account.session);
+                lensSessionHolder.setSessionClient(sessionClient);
+                enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
+            }
+
+            LoginModalRef.close();
+        } catch (error) {
+            // skip if the error is abort error
+            if (AbortError.is(error)) return;
+
+            if (error instanceof FireflyAlreadyBoundError) {
+                enqueueWarningMessage(t`This wallet is already linked to a different Firefly account.`);
+                return;
+            }
+
+            enqueueMessageFromError(error, t`Failed to login.`);
+            throw error;
+        }
+    }, [profiles.length, currentProfile, controller]);
+
+    return (
+        <div className="flex flex-col p-6 pt-0 md:w-[400px]">
+            <div
+                className="flex cursor-pointer items-center gap-2 rounded-lg border border-lightHighlight p-2"
+                onClick={() => {
+                    history.replace('/orb');
+                }}
+            >
+                <OrbIcon />
+                <div className="flex flex-1 flex-col text-left text-[14px] leading-[20px] text-main">
+                    <span>
+                        <Trans>Orb Mobile</Trans>
+                    </span>
+                    <span className="text-second">
+                        <Trans>Scan QR code to access your account</Trans>
+                    </span>
+                </div>
+                <ScanIcon className="size-[20px]" />
+            </div>
+            <div className="my-3 px-2 text-center text-[14px] leading-[14px]">
+                {account.isConnected ? (
+                    <Trans>
+                        Or select account on
+                        <span
+                            className="ml-1 cursor-pointer text-highlight"
+                            onClick={() => {
+                                WalletConnectModalRef.open();
+                            }}
+                        >
+                            current wallet
+                        </span>
+                    </Trans>
+                ) : (
+                    <Trans>OR</Trans>
+                )}
+            </div>
+
+            {account.isConnected ? (
+                profiles.length > 0 ? (
+                    <div className="no-scrollbar flex max-h-[278px] flex-col gap-2 overflow-auto">
+                        {profiles.map((profile) => {
+                            return (
+                                <div
+                                    className="flex cursor-pointer items-center gap-2 rounded-lg border border-secondaryLine p-2"
+                                    key={profile.profileId}
+                                    onClick={() => {
+                                        setSelectedProfile(profile);
+                                    }}
+                                >
+                                    <ProfileAvatar
+                                        profile={profile}
+                                        size={40}
+                                        enableDefaultAvatar
+                                        enableSourceIcon={false}
+                                    />
+
+                                    <div className="flex flex-1 flex-col text-left text-[14px] leading-[20px]">
+                                        <span className="font-bold text-main">{profile.displayName}</span>
+                                        <span className="text-second">@{profile.handle}</span>
+                                    </div>
+                                    <CircleCheckboxIcon checked={isSameProfile(currentProfile, profile)} />
+                                </div>
+                            );
+                        })}
+                    </div>
+                ) : (
+                    <div className="flex h-[228px] flex-col items-center justify-center gap-1">
+                        {isLoading ? (
+                            <LoadingIcon />
+                        ) : (
+                            <>
+                                <span>
+                                    <Trans>No Lens profile found,</Trans>
+                                </span>
+                                <span>
+                                    <Trans>please change to another wallet.</Trans>
+                                </span>
+                            </>
+                        )}
+                    </div>
+                )
+            ) : null}
+
+            <ClickableButton className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom">
+                <Trans>Connect Wallet</Trans>
+            </ClickableButton>
+        </div>
+    );
 });

@@ -73,6 +73,9 @@ msgstr "如果曾使用过 Farcaster 登录，请扫描此二维码。<0/><1>首
 msgid "FAILED THREAD POST"
 msgstr "发送帖子串失败"
 
+msgid "Or select account on<0>current wallet</0>"
+msgstr ""
+
 msgid "Connecting wallets"
 msgstr "连接中钱包"
 
@@ -423,9 +426,6 @@ msgstr "<0> 你 </0> 和 {0} 人都转发了"
 msgid "Activities"
 msgstr "活动"
 
-msgid "Change Wallet"
-msgstr "更换钱包"
-
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "10% 以上的税率可能被认为是高的税率。超过 50% 的税率可能无法交易。"
 
@@ -638,6 +638,9 @@ msgstr "确认登出你的 Firefly 账户吗？"
 msgid "Copied"
 msgstr "已复制"
 
+msgid "Scan the QR code with the<0>Orb mobile app</0><1/>or <2>Camera app</2> to sign in instantly"
+msgstr ""
+
 msgid "Failed to vote."
 msgstr "投票失败。"
 
@@ -727,9 +730,15 @@ msgstr "[视频]"
 msgid "The author is muted by you."
 msgstr "您已隐藏此作者。"
 
+msgid "please change to another wallet."
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}"
 msgstr "举报 @{0} 失败"
+
+msgid "Failed to login profile by orb"
+msgstr ""
 
 msgid "Restricted approval."
 msgstr "限制授权。"
@@ -810,6 +819,9 @@ msgstr "绑定邮箱"
 #. placeholder {0}: resolveAppKitNetworkName(chains[0])
 msgid "Only {0}"
 msgstr "仅支持{0}"
+
+msgid "Orb Mobile"
+msgstr ""
 
 msgid "Type something here..."
 msgstr "从这里开始..."
@@ -998,9 +1010,6 @@ msgstr "黑名单功能已启用。有些地址可能无法正常交易（欺诈
 msgid "<0/>Delete Firefly account"
 msgstr "<0/>删除 Firefly 账号"
 
-msgid "Select Account"
-msgstr "选择账号"
-
 msgid "POST"
 msgstr "发帖"
 
@@ -1108,9 +1117,6 @@ msgstr "发现钓鱼活动。"
 
 msgid "LinkDigest Validator"
 msgstr "链接摘要验证器"
-
-msgid "No Lens profile found.<0/>Please change to another wallet."
-msgstr "没有找到任何 Lens 账号，<0/>请切换到其他钱包。"
 
 msgid "Drop type"
 msgstr "红包类型"
@@ -1781,6 +1787,9 @@ msgstr "已过期"
 msgid "{0, plural, one {# hour} other {# hours}}"
 msgstr "{0, plural, one {# 小时} other {# 小时}}"
 
+msgid "Failed to login lens with orb"
+msgstr ""
+
 msgid "Nickname must not contain restricted symbols"
 msgstr "昵称不可包含违禁字符"
 
@@ -1864,6 +1873,9 @@ msgstr "所有获奖者共享的总数额"
 
 msgid "Leave"
 msgstr "退出"
+
+msgid "Sign in with Orb App"
+msgstr ""
 
 msgid "Enter number of winners"
 msgstr "输入获奖人数"
@@ -2060,9 +2072,6 @@ msgstr "发布分享链接"
 msgid "Rank #{tokenRank}"
 msgstr "排名 #{tokenRank}"
 
-msgid "Please connect your wallet to continue."
-msgstr "请连接您的钱包。"
-
 msgid "Votes"
 msgstr "投票"
 
@@ -2173,6 +2182,9 @@ msgstr "完全稀释估值"
 
 msgid "Verified by Farcaster"
 msgstr "由 Farcaster 验证"
+
+msgid "OR"
+msgstr ""
 
 msgid "Phishing activities."
 msgstr "钓鱼活动。"
@@ -2978,9 +2990,6 @@ msgstr "放弃"
 msgid "REPLY"
 msgstr "评论"
 
-msgid "Sign"
-msgstr "签名"
-
 msgid "Switch wallet"
 msgstr "切换钱包"
 
@@ -3410,6 +3419,9 @@ msgstr "登录以启用所有功能"
 msgid "Owner can change balance"
 msgstr "所有者可以更改余额"
 
+msgid "Sign in with Lens"
+msgstr ""
+
 msgid "Non-contract address found."
 msgstr "发现非合约地址。"
 
@@ -3626,9 +3638,6 @@ msgstr "设置定时时间失败。"
 #. placeholder {0}: post.stats.mirrors
 msgid "{0, plural, one {recast} other {recasts}}"
 msgstr "{0, plural, one {转发} other {转发}}"
-
-msgid "Sign the transaction to verify you are the owner of the selected profile."
-msgstr "签署交易以验证你是所选账号的所有者。"
 
 msgid "Refresh"
 msgstr "刷新"
@@ -3912,9 +3921,9 @@ msgstr "禁止评论"
 msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
 msgstr "你可以设置一个或多个规则，作为领取红包的条件。"
 
-#. placeholder {0}: resolveSourceName(Source.Lens)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Bsky)
+#. placeholder {0}: resolveSourceName(account.profile.source)
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 账号已连接。"
 
@@ -4095,6 +4104,9 @@ msgstr "超出最大铸造数量。"
 msgid "Failed to read avatar file, please try again."
 msgstr "头像读取失败，请重试"
 
+msgid "Your Lens account is now connected"
+msgstr ""
+
 msgid "*Note: Each NFT can only be used once."
 msgstr "*注意：每个NFT只能使用一次。"
 
@@ -4220,6 +4232,9 @@ msgstr "状态"
 msgid "No blackmail activities involved."
 msgstr "未发现勒索行为。"
 
+msgid "No Lens profile found,"
+msgstr ""
+
 #. placeholder {0}: error.message
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr "我们在尝试解密此消息时遇到了错误：{0}"
@@ -4282,6 +4297,9 @@ msgstr "定时贴仅在 {0} 支持。"
 
 msgid "Download App"
 msgstr "下载 App"
+
+msgid "Sorry, stay signed in & edit permission from Orb is necessary to continue."
+msgstr ""
 
 msgid "Profile"
 msgstr "个人资料"
@@ -4406,6 +4424,9 @@ msgstr "立即领取"
 
 msgid "Members"
 msgstr "成员"
+
+msgid "Failed to query the orb sign in status after several attempts. Please try again later."
+msgstr ""
 
 #. placeholder {0}: collectModule.amount
 #. placeholder {1}: collectModule.currency

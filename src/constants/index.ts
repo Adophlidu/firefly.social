@@ -83,6 +83,7 @@ export const CHAINBASE_API_URL = 'https://chainbase-proxy.r2d2.to';
 export const ENS_ROOT_URL = 'https://ens-reverse-lookup.r2d2.to/ens/';
 export const TWITTER_TIMELINE_WHITELIST_JSON_URL = 'https://media.firefly.land/whitelist/twitter-timeline.json';
 export const ACTIONS_BLINK_REGISTER_URL = 'https://actions-registry.dial.to/all';
+export const ORB_API_URL = 'https://orbapi.xyz';
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 
@@ -90,6 +91,7 @@ export const FIREFLY_APP_APP_STORE_URL = 'https://apps.apple.com/us/app/firefly-
 export const FIREFLY_APP_GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=io.dimension.firefly';
 
 export const FARCASTER_REPLY_COUNTDOWN = 50; // in seconds
+export const ORB_REPLY_COUNTDOWN = 60; // in seconds
 
 export const RP_HASH_TAG = '#FireflyLuckyDrop';
 

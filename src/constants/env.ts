@@ -35,6 +35,8 @@ const InternalEnvSchema = z.object({
     X3_PRO_API_TOKEN: z.string(),
 
     PRIVY_APP_SECRET: z.string(),
+
+    ORB_API_KEY: z.string(),
 });
 
 const ExternalEnvSchema = z.object({
