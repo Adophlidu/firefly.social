@@ -1,19 +1,28 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { ClientError } from 'graphql-request';
 import { first } from 'lodash-es';
 import type { SnackbarMessage } from 'notistack';
 import { EstimateGasExecutionError, UserRejectedRequestError } from 'viem';
 
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
-import { FarcasterInvalidSignerKey, FetchError, UserRejectionError } from '@/constants/error.js';
+import { FarcasterInvalidSignerKey, FetchError, UserRejectionError, DecryptionError } from '@/constants/error.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
-import { DecryptionFailed } from '@/services/loginWithAppScan.js';
+import { z } from 'zod';
 
-type SolanaError = {
+interface SolanaError {
     code: number;
     message: string;
-};
+}
+
+const ClientErrorSchema = z.object({
+    response: z.object({
+        errors: z.array(
+            z.object({
+                message: z.string(),
+            }),
+        ),
+    }),
+});
 
 function isRejectedMessage(message: string) {
     return !message
@@ -53,8 +62,9 @@ export function getWarningMessageFromError(error: unknown, fallback?: string) {
  * @returns
  */
 export function getErrorMessageFromError(error: unknown, fallback?: string): SnackbarMessage {
-    if (error instanceof ClientError) {
-        const message = first(error.response.errors)?.message;
+    if (error) {
+        const clientErrorParsed = ClientErrorSchema.safeParse(error);
+        const message = clientErrorParsed.success ? first(clientErrorParsed.data.response.errors)?.message : null;
         if (message) return message;
     }
 
@@ -88,7 +98,7 @@ export function getErrorMessageFromError(error: unknown, fallback?: string): Sna
         );
     }
 
-    if (error instanceof DecryptionFailed) {
+    if (error instanceof DecryptionError) {
         return error.message;
     }
 

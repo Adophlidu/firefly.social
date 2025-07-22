@@ -20,6 +20,7 @@ import type { Account } from '@/providers/types/Account.js';
 import { DesktopLinkInfoStatus, type DesktopLinkInfoStatusData } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { addAccounts } from '@/services/account.js';
+import { DecryptionError } from '@/constants/error.js';
 
 export interface AuthDataFromApp {
     firefly_account_token: string;
@@ -63,15 +64,13 @@ export interface SocialAccountBsky {
 type SocialAccount = SocialAccountTwitter | SocialAccountFarcaster | SourceAccountLens | SocialAccountBsky;
 type SocialSession = FarcasterSession | LensSession | TwitterSession | BskySession;
 
-export class DecryptionFailed extends Error {}
-
 export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: string) {
-    if (data.status !== DesktopLinkInfoStatus.Confirm) throw new DecryptionFailed(t`The encrypted data not found.`);
-    if (!data.encryptedData) throw new DecryptionFailed(t`The encrypted data not found.`);
-    const res = await decryptAppScanLoginEncryptedData(data.encryptedData, otp);
-    if ('error' in res) throw new DecryptionFailed(res.error);
-    const fireflySession = SessionFactory.createSession<FireflySession>(res.fireflySession);
-    const sessions = res.sessions.map((session) => SessionFactory.createSession<SocialSession>(session));
+    if (data.status !== DesktopLinkInfoStatus.Confirm) throw new DecryptionError(t`The encrypted data not found.`);
+    if (!data.encryptedData) throw new DecryptionError(t`The encrypted data not found.`);
+    const response = await decryptAppScanLoginEncryptedData(data.encryptedData, otp);
+    if ('error' in response) throw new DecryptionError(response.error);
+    const fireflySession = SessionFactory.createSession<FireflySession>(response.fireflySession);
+    const sessions = response.sessions.map((session) => SessionFactory.createSession<SocialSession>(session));
     const promises = sessions.map(async (session) => {
         if (session.type === SessionType.Bsky) return null;
         const source = resolveSourceFromSessionType(session.type) as SocialSource;

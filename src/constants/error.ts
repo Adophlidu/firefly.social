@@ -15,6 +15,14 @@ export class AbortError extends Error {
     }
 }
 
+export class DecryptionError extends Error {
+    override name = 'DecryptionFailed';
+
+    constructor(message?: string) {
+        super(message ?? 'Decryption failed');
+    }
+}
+
 export class MalformedError extends Error {
     override name = 'MalformedError';
 
