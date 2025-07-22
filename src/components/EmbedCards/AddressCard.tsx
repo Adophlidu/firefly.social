@@ -1,4 +1,3 @@
-import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useLayoutEffect } from 'react';
 
@@ -7,6 +6,7 @@ import { Indicator, type IndicatorProps } from '@/components/EmbedCards/Indicato
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
 import { WalletCard } from '@/components/EmbedCards/WalletCard.js';
 import { classNames } from '@/helpers/classNames.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useWalletProfile } from '@/hooks/useWalletProfile.js';

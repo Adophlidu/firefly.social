@@ -1,10 +1,10 @@
-import { delay } from '@masknet/kit';
 import { useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { CloseButton } from '@/components/IconButton.js';
 import { Image } from '@/components/Image.js';
 import { NetworkType } from '@/constants/enum.js';
+import { delay } from '@/helpers/delay.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
 import type { FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';

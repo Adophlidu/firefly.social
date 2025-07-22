@@ -1,8 +1,8 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
 
 export function ActivityStatusTag({ status }: { status: ActivityStatus }) {

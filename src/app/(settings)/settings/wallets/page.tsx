@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { delay } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 
 import { AddWalletButton } from '@/app/(settings)/components/AddWalletButton.js';
@@ -14,6 +13,7 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { delay } from '@/helpers/delay.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 

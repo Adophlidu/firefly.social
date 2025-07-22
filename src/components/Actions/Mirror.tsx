@@ -3,7 +3,6 @@
 import { autoUpdate, flip, offset, shift, useDismiss, useFloating, useInteractions } from '@floating-ui/react';
 import { Portal } from '@headlessui/react';
 import { Plural, Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { memo, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -20,6 +19,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { humanize } from '@/helpers/formatCommentCounts.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useMirror } from '@/hooks/useMirror.js';
 import { ComposeModalRef } from '@/modals/controls.js';

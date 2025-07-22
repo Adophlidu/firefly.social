@@ -1,4 +1,3 @@
-import { safeUnreachable } from '@masknet/kit';
 import { compact, find, first, last } from 'lodash-es';
 import type { ApiV2Includes, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
@@ -13,6 +12,7 @@ import { convertTwitterAvatar, formatTwitterProfileStatus } from '@/helpers/form
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 

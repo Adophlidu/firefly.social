@@ -1,7 +1,7 @@
-import { safeUnreachable } from '@masknet/kit';
 import type { UploadMediaV1Params } from 'twitter-api-v2';
 
 import { FileMimeType } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 
 export function getTwitterMediaCategory(
     type: FileMimeType,

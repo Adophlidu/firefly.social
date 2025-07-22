@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { getEnumAsArray } from '@masknet/kit';
 import { useQueries } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';
 import { Fragment, useMemo } from 'react';
@@ -26,6 +25,7 @@ import { TokenIcon } from '@/components/TokenIcon.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
+import { getEnumAsArray } from '@/helpers/getEnumAsArray.js';
 import { isZero } from '@/helpers/number.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';

@@ -1,5 +1,4 @@
 import { Plural, Trans } from '@lingui/react/macro';
-import { delay } from '@masknet/kit';
 import { ConnectorNotConnectedError } from '@wagmi/core';
 import { compact, values } from 'lodash-es';
 import { type HTMLProps, useMemo, useState } from 'react';
@@ -12,6 +11,7 @@ import { AddThread } from '@/components/Compose/ComposeActions/AddThread.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { classNames } from '@/helpers/classNames.js';
+import { delay } from '@/helpers/delay.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';

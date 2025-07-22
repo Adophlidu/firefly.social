@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
 
@@ -21,6 +20,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveNetworkIcon } from '@/helpers/resolveNetworkIcon.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useWalletRelatedProfiles } from '@/hooks/useWalletRelatedProfiles.js';

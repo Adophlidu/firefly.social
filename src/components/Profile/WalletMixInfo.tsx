@@ -2,7 +2,6 @@
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useQueries } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 
@@ -17,6 +16,7 @@ import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { Debank } from '@/providers/debank/index.js';
 import { OKX } from '@/providers/okx/index.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';

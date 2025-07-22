@@ -1,6 +1,5 @@
-import { unreachable } from '@masknet/kit';
-
 import { NetworkPluginID } from '@/constants/enum.js';
+import { unreachable } from '@/helpers/unreachable.js';
 import type { Web3Helper } from '#masknet/web3-helpers';
 import { NETWORK_DESCRIPTORS as evm_network } from '#masknet/web3-shared-evm';
 import { NETWORK_DESCRIPTORS as solana_network } from '#masknet/web3-shared-solana';

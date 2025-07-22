@@ -1,4 +1,3 @@
-import { safeUnreachable } from '@masknet/kit';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
@@ -6,6 +5,7 @@ import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js'
 import { VirtualListFooterBottomText } from '@/components/VirtualList/VirtualListFooterBottomText.js';
 import { TrendingType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
 

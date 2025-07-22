@@ -1,4 +1,3 @@
-import { unreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -6,6 +5,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { flatLenConnections } from '@/helpers/formatWalletConnection.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { unreachable } from '@/helpers/unreachable.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import type { AllConnections } from '@/providers/types/Firefly.js';

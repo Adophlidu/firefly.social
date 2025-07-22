@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
 import { first } from 'lodash-es';
 import { useFormContext } from 'react-hook-form';
@@ -25,6 +24,7 @@ import {
 import { URL_INPUT_REGEX } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { ImageEditorModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';

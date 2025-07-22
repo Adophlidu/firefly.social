@@ -8,7 +8,6 @@ import {
     type TextOnlyMetadata,
     type TimelineItem,
 } from '@lens-protocol/client';
-import { safeUnreachable } from '@masknet/kit';
 import { compact, first, isEmpty, last, uniqBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
@@ -25,6 +24,7 @@ import { formatLensPostOperations, formatLensPostStats } from '@/helpers/formatL
 import { formatLensProfileByMention, formatLensProfileV3 } from '@/helpers/formatLensProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
 import type { Attachment, Post, PostType, Profile } from '@/providers/types/SocialMedia.js';
 

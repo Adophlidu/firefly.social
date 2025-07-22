@@ -1,5 +1,4 @@
 import { IS_IOS } from '@lexical/utils';
-import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { type SocialSource, Source, STATUS, WalletSource } from '@/constants/enum.js';
@@ -18,6 +17,7 @@ import {
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

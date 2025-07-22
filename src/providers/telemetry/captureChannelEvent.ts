@@ -1,8 +1,7 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';

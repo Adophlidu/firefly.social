@@ -1,9 +1,9 @@
 import { t } from '@lingui/core/macro';
-import { delay } from '@masknet/kit';
 import { captureMessage, captureUserFeedback } from '@sentry/browser';
 import { useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import { delay } from '@/helpers/delay.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 
 export function useReportFeedback(

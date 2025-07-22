@@ -1,4 +1,3 @@
-import { safeUnreachable } from '@masknet/kit';
 import { compact, first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
@@ -16,6 +15,7 @@ import { resolveSessionHolder, resolveSessionHolderFromProfileSource } from '@/h
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import {
     ConfirmFireflyModalRef,
     ConfirmSyncSessionModalRef,

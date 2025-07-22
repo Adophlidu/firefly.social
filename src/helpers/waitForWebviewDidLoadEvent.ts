@@ -1,5 +1,4 @@
-import { delay } from '@masknet/kit';
-
+import { delay } from '@/helpers/delay.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { SupportedEvent } from '@/types/bridge.js';
 

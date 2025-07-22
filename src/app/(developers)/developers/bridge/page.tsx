@@ -1,11 +1,10 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { BridgeEventCard } from '@/app/(developers)/components/BridgeEventCard.js';
 import { BridgeMethodButton } from '@/app/(developers)/components/BridgeMethodButton.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { classNames } from '@/helpers/classNames.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { type EventItem, type MethodItem, SupportedEvent, SupportedMethod } from '@/types/bridge.js';
 
 type Item = (MethodItem | EventItem) & {

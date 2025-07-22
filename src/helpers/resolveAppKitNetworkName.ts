@@ -1,6 +1,5 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { ChainNamespace } from '@/types/index.js';
 
 export const resolveAppKitNetworkName = createLookupTableResolver<ChainNamespace, string>(

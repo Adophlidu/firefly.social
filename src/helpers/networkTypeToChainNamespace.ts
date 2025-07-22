@@ -1,6 +1,5 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { NetworkType } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { ChainNamespace } from '@/types/index.js';
 
 export function networkTypeToChainNamespace(networkType: NetworkType): ChainNamespace | null {

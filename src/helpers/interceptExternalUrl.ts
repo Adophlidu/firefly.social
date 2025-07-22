@@ -1,10 +1,10 @@
-import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 
 import { ExternalSiteDomain, Source } from '@/constants/enum.js';
 import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 

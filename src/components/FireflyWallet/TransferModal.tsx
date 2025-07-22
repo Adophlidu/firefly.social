@@ -3,7 +3,6 @@
 import { web3 } from '@coral-xyz/anchor';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { delay, safeUnreachable } from '@masknet/kit';
 import { type Ref, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { type Address, formatEther } from 'viem';
 
@@ -11,6 +10,7 @@ import type { RecipientItemProps } from '@/components/SendTransactionModal/Recip
 import { TokenSelectorModal, type TokenSelectorModalRef } from '@/components/SendTransactionModal/SelectTokenModal.js';
 import { SendTransactionModal } from '@/components/SendTransactionModal/SendTransactionModal.js';
 import { NetworkType } from '@/constants/enum.js';
+import { delay } from '@/helpers/delay.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatLamportsToSol } from '@/helpers/formatLamportsToSol.js';
 import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -19,6 +19,7 @@ import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import type { Token } from '@/hooks/useCustomFungibleTokens.js';
 import { useMixesTokens } from '@/hooks/useMixesTokens.js';

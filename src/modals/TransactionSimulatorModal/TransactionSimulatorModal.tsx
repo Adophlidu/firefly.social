@@ -29,7 +29,7 @@ export function TransactionSimulatorModal({ ref }: Props) {
     const onContinue = useCallback(() => {
         props?.onContinue?.();
         dispatch?.close();
-    }, [props]);
+    }, [props, dispatch]);
 
     if (!props) return null;
 

@@ -1,4 +1,3 @@
-import { safeUnreachable } from '@masknet/kit';
 import { compact, groupBy, isEmpty } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -32,6 +31,7 @@ import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

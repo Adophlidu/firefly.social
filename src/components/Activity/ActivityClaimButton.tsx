@@ -2,7 +2,6 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { type ReactNode, use, useContext, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -15,6 +14,7 @@ import type { SocialSource } from '@/constants/enum.js';
 import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { captureActivityClaimEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';

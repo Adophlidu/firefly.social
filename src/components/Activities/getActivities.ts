@@ -1,8 +1,7 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { resolveArticlePlatform } from '@/components/Activities/resolveArticlePlatform.js';
 import { ActivitiesPlatform, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Article, ArticlePlatform } from '@/providers/types/Article.js';

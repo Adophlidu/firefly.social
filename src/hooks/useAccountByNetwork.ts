@@ -1,4 +1,3 @@
-import { safeUnreachable, unreachable } from '@masknet/kit';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { first } from 'lodash-es';
 import { useMemo } from 'react';
@@ -6,6 +5,7 @@ import { useAccount } from 'wagmi';
 
 import { PrivySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { NetworkType } from '@/constants/enum.js';
+import { safeUnreachable, unreachable } from '@/helpers/unreachable.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';

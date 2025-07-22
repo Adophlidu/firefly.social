@@ -1,4 +1,3 @@
-import { safeUnreachable } from '@masknet/kit';
 import { type ReactNode, Suspense } from 'react';
 
 import { MutedWallets } from '@/app/(settings)/components/MutedWallets.js';
@@ -8,6 +7,7 @@ import { Loading } from '@/components/Loading.js';
 import { MutedProfiles } from '@/components/Profile/MutedProfiles.js';
 import { MuteType, PageRoute, Source } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 
 interface MutedListProps {

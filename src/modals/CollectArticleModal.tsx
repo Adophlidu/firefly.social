@@ -1,10 +1,10 @@
 import { Trans } from '@lingui/react/macro';
-import { delay } from '@masknet/kit';
 import { useState } from 'react';
 
 import { ArticleCollect } from '@/components/Article/ArticleCollect.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
+import { delay } from '@/helpers/delay.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';

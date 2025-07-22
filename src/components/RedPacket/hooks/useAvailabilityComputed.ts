@@ -1,9 +1,8 @@
-import { unreachable } from '@masknet/kit';
-
 import { useEthereumAvailabilityComputed } from '@/components/RedPacket/hooks/useEthereumAvailabilityComputed.js';
 import { useSolanaAvailabilityComputed } from '@/components/RedPacket/hooks/useSolanaAvailabilityComputed.js';
 import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
+import { unreachable } from '@/helpers/unreachable.js';
 import { EVMNetworkResolver, SolanaNetworkResolver } from '@/mask/index.js';
 import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

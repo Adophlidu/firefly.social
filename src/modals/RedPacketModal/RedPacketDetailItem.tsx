@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useRouter } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { memo, useContext } from 'react';
@@ -15,6 +14,7 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
 import { RedPacketActionButton } from '@/modals/RedPacketModal/RedPacketActionButton.js';

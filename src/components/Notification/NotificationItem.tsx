@@ -1,7 +1,6 @@
 'use client';
 
 import { Plural, Select, Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { first, uniqBy } from 'lodash-es';
 import { memo, useMemo } from 'react';
@@ -22,6 +21,7 @@ import { useRouter } from '@/esm/navigation.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { toProfileId } from '@/helpers/isSameProfile.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import type { TipsNotification } from '@/providers/types/Firefly.js';
 import { type Notification, NotificationType } from '@/providers/types/SocialMedia.js';

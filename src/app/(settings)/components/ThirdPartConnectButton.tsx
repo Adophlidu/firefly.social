@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { signIn } from 'next-auth/react';
 import { useAsyncFn } from 'react-use';
 
@@ -9,6 +8,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Source, type ThirdPartySource } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 

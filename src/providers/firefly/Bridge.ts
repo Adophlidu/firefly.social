@@ -1,8 +1,8 @@
-import { timeout } from '@masknet/kit';
 import { uniqueId } from 'lodash-es';
 
 import { bom } from '@/helpers/bom.js';
 import { parseJson } from '@/helpers/parseJson.js';
+import { timeout } from '@/helpers/timeout.js';
 import {
     type EventPayload,
     type RequestArguments,

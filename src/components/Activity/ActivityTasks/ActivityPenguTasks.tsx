@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useCallback, useContext, useState } from 'react';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
@@ -31,6 +30,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 import { SolanaChainId as SolChainId } from '#masknet/web3-shared-solana';

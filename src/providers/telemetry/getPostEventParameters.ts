@@ -1,8 +1,7 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import {
     getProfileEventParameters,
     getSelfProfileEventParameters,

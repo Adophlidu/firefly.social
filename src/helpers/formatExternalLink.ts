@@ -1,11 +1,10 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { ExternalSiteDomain, type SocialSource, Source } from '@/constants/enum.js';
 import { TWEET_REGEX } from '@/constants/regexp.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getUrlSiteType } from '@/helpers/interceptExternalUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { trimify } from '@/helpers/trimify.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 
 async function captureProfileUrl(url: URL, regex: RegExp, source: SocialSource) {
     const { pathname } = url;

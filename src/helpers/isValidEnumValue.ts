@@ -1,4 +1,4 @@
-import { getEnumAsArray } from '@masknet/kit';
+import { getEnumAsArray } from '@/helpers/getEnumAsArray.js';
 
 /**
  * Validate if a value is a valid enum value

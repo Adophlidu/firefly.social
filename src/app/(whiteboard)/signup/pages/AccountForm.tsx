@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { delay } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { compact, first } from 'lodash-es';
 import { useCallback, useMemo, useState } from 'react';
@@ -18,6 +17,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SignupStep, Source } from '@/constants/enum.js';
 import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
+import { delay } from '@/helpers/delay.js';
 import { downloadUrlWithProxy } from '@/helpers/downloadMediaObjects.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

@@ -1,7 +1,5 @@
 'use client';
 
-import { safeUnreachable } from '@masknet/kit';
-
 import { SearchChannelContent } from '@/app/(normal)/search/[...slug]/pages/SearchChannelContent.js';
 import { SearchCollectionContent } from '@/app/(normal)/search/[...slug]/pages/SearchCollectionContent.js';
 import { SearchCommunityContent } from '@/app/(normal)/search/[...slug]/pages/SearchCommunityContent.js';
@@ -9,6 +7,7 @@ import { SearchPostContent } from '@/app/(normal)/search/[...slug]/pages/SearchP
 import { SearchProfileContent } from '@/app/(normal)/search/[...slug]/pages/SearchProfileContent.js';
 import { SearchTokenContent } from '@/app/(normal)/search/[...slug]/pages/SearchTokenContent.js';
 import { SearchType } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export default function Page() {

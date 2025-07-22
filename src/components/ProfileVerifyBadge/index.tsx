@@ -1,6 +1,5 @@
 'use client';
 
-import { safeUnreachable } from '@masknet/kit';
 import type { HTMLProps } from 'react';
 
 import VerifyIcon from '@/assets/verify.svg';
@@ -8,6 +7,7 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useProfileVerifyBadge } from '@/hooks/useProfileVerifyBadge.js';
 import { type Profile, ProfileBadgePresetColors } from '@/providers/types/SocialMedia.js';
 

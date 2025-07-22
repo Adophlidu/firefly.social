@@ -1,5 +1,4 @@
 import { msg } from '@lingui/core/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -12,6 +11,7 @@ import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource, resolveSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { extractTwitterProfileByOpengraphTitle } from '@/services/getTwitterProfileByOG.js';

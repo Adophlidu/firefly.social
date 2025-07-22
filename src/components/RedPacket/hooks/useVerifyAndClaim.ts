@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { unreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
 import { useEthereumVerifyAndClaim } from '@/components/RedPacket/hooks/useEthereumVerifyAndClaim.js';
@@ -10,6 +9,7 @@ import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPaylo
 import { resolveSolanaAccountId } from '@/helpers/resolveSolanaAccountId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { sharePostAfterClaimed } from '@/helpers/sharePostAfterClaimed.js';
+import { unreachable } from '@/helpers/unreachable.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';

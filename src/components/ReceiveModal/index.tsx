@@ -1,6 +1,5 @@
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { delay } from '@masknet/kit';
 import { AnimatePresence, motion } from 'framer-motion';
 import { type ReactNode, useState } from 'react';
 import QRCode from 'react-qr-code';
@@ -9,6 +8,7 @@ import { ActionButton } from '@/components/ActionButton.js';
 import { BackButton, CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { ReceiveChainItem, type ReceiveChainItemProps } from '@/components/ReceiveModal/ReceiveChainItem.js';
+import { delay } from '@/helpers/delay.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 
 interface Props {

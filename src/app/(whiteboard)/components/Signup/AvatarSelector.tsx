@@ -1,4 +1,3 @@
-import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 import {
     type ChangeEvent,
@@ -23,6 +22,7 @@ import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { ImageEditorModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

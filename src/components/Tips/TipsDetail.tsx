@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { memo } from 'react';
 import { type Address } from 'viem';
 
@@ -23,6 +22,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { multipliedBy } from '@/helpers/number.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { TipsAccountInfo, TipsDetail as TipsDetailType } from '@/providers/types/Firefly.js';
 
 interface TipsDetailProps {

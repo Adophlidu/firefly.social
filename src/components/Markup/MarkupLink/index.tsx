@@ -1,6 +1,5 @@
 'use client';
 
-import { safeUnreachable } from '@masknet/kit';
 import { memo } from 'react';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
@@ -34,6 +33,7 @@ import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidA
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { isTcoLink } from '@/helpers/resolveTcoLink.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 
 function unpaddings(text: string) {
     const start = text.match(/(^\s)/)?.[0] || null;

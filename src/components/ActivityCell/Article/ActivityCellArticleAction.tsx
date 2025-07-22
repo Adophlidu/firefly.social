@@ -1,13 +1,13 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import type { ReactNode } from 'react';
 
 import PostedIcon from '@/assets/posted.svg';
 import RevisedIcon from '@/assets/revised.svg';
 import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction.js';
 import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellActionTag.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 
 interface Props {

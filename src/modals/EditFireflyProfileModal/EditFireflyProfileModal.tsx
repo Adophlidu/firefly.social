@@ -1,9 +1,9 @@
-import { delay } from '@masknet/kit';
 import { useState } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
+import { delay } from '@/helpers/delay.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { AllConnections, FireflyAccountProfile } from '@/providers/types/Firefly.js';

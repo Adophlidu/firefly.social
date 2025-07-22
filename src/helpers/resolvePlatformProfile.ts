@@ -1,5 +1,4 @@
-import { safeUnreachable } from '@masknet/kit';
-
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 export function resolvePlatformProfileUrl(platform: FireflyRedPacketAPI.PlatformType, handle: string) {

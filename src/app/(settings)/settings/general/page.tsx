@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { getEnumAsArray } from '@masknet/kit';
 import { isServer } from '@tanstack/react-query';
 import { useMediaQuery } from 'usehooks-ts';
 
@@ -11,6 +10,7 @@ import { SettingsSection } from '@/app/(settings)/components/Section.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
 import { Locale, SiteCookies, type ThemeMode } from '@/constants/enum.js';
 import { useCookie, useLocale } from '@/helpers/getCookies.js';
+import { getEnumAsArray } from '@/helpers/getEnumAsArray.js';
 import { supportedLocales } from '@/i18n/index.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 

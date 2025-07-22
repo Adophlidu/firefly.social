@@ -1,9 +1,9 @@
-import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { NEYNAR_URL } from '@/constants/index.js';
 import { fetchNeynarStream } from '@/helpers/fetchNeynar.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 
 async function validateFarcasterMessage(messageBytes: string): Promise<boolean> {
     const url = urlcat(NEYNAR_URL, '/v1/validateMessage');

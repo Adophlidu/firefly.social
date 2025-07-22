@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useRouter } from '@tanstack/react-router';
 import { ConnectorNotConnectedError } from '@wagmi/core';
 import { type HTMLProps, useState } from 'react';
@@ -30,6 +29,7 @@ import {
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { DraggablePopoverRef, LoginModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';

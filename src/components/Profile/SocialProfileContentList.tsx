@@ -1,6 +1,5 @@
 'use client';
 
-import { safeUnreachable } from '@masknet/kit';
 import { memo } from 'react';
 
 import { ChannelList } from '@/components/Profile/ChannelList.js';
@@ -11,6 +10,7 @@ import { MediaList } from '@/components/Profile/MediaList.js';
 import { RepliesList } from '@/components/Profile/RepliesList.js';
 import { TrumpTruthSocialPosts } from '@/components/TrumpTruthSocial/TrumpTruthSocialPosts.js';
 import { SocialProfileCategory, type SocialSource } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 
 export const SocialProfileContentList = memo(function SocialProfileContentList({
     type,

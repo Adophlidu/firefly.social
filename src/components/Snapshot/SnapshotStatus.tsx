@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useMemo } from 'react';
 
 import ActiveIcon from '@/assets/snapshot-active.svg';
@@ -7,6 +6,7 @@ import ClosedIcon from '@/assets/snapshot-closed.svg';
 import RejectedIcon from '@/assets/snapshot-rejected.svg';
 import { SnapshotState } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 
 interface Props {
     status: SnapshotState;

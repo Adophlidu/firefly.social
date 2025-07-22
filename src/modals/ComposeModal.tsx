@@ -7,7 +7,6 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { encrypt, SteganographyPreset } from '@masknet/encryption';
-import { delay } from '@masknet/kit';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { RouterProvider } from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
@@ -25,6 +24,7 @@ import { FileMimeType, type SocialSource } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { EMPTY_LIST, RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
+import { delay } from '@/helpers/delay.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';

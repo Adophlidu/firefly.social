@@ -2,7 +2,6 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useContext, useMemo } from 'react';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
@@ -20,6 +19,7 @@ import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
 import { resolveActivityShareUrl } from '@/helpers/resolveActivityUrl.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';

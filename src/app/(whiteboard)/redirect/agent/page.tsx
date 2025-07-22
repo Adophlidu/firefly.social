@@ -1,6 +1,5 @@
 'use client';
 
-import { getEnumAsArray } from '@masknet/kit';
 import { useRouter } from 'next/navigation.js';
 import { useAsync } from 'react-use';
 
@@ -8,6 +7,7 @@ import { changeCookies } from '@/actions/changeCookies.js';
 import FireflyIcon from '@/assets/logo.svg';
 import { Agent, PageRoute } from '@/constants/enum.js';
 import { useSearchParams } from '@/esm/navigation.js';
+import { getEnumAsArray } from '@/helpers/getEnumAsArray.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
 const action = async () => {

@@ -1,7 +1,6 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 

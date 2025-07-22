@@ -1,4 +1,4 @@
-import { delay } from '@masknet/kit';
+import { delay } from '@/helpers/delay.js';
 
 export async function retryOnError<P>(
     retries: number,

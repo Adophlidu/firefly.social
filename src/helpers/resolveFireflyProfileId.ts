@@ -1,7 +1,6 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

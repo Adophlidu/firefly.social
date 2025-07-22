@@ -1,10 +1,10 @@
 import { AppBskyFeedThreadgate, ComAtprotoRepoApplyWrites, RichText } from '@atproto/api';
 import { TID } from '@atproto/common-web';
-import { safeUnreachable } from '@masknet/kit';
 import { compact, first } from 'lodash-es';
 
 import { BskyEmbedType, RestrictionType } from '@/constants/enum.js';
 import { resolveBskyEmbed } from '@/helpers/resolveBskyEmbed.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { refreshSessionAndUpdateStore } from '@/providers/bsky/refreshSessionAndUpdateStore.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

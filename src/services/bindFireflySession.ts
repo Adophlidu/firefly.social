@@ -1,4 +1,3 @@
-import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
@@ -12,6 +11,7 @@ import { NOT_DEPEND_SECRET } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { patchFarcasterSessionRequired } from '@/providers/farcaster/patchFarcasterSessionRequired.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';

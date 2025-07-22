@@ -1,7 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
-import { delay } from '@masknet/kit';
 import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
+import { delay } from '@/helpers/delay.js';
 import { retryOnError } from '@/helpers/retryOnError.js';
 import { createAssociatedTokenAccountInstruction } from '@/providers/solana/createAssociatedTokenAccountInstruction.js';
 import { getAccountInfo } from '@/providers/solana/getAccountInfo.js';

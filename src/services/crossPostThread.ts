@@ -1,12 +1,13 @@
 import { plural, t } from '@lingui/core/macro';
-import { delay, safeUnreachable } from '@masknet/kit';
 import { compact, difference, first } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { COMPOSE_ERROR_NOTIFICATION_KEY, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { delay } from '@/helpers/delay.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { SnackbarRef } from '@/modals/controls.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

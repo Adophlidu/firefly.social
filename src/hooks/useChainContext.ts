@@ -1,7 +1,7 @@
-import { unreachable } from '@masknet/kit';
 import { useAccount, useChainId } from 'wagmi';
 
 import { NetworkType } from '@/constants/enum.js';
+import { unreachable } from '@/helpers/unreachable.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';

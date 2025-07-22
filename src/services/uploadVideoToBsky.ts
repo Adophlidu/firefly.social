@@ -1,9 +1,9 @@
 import type { BlobRef } from '@atproto/api';
-import { delay } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { FileMimeType, Source } from '@/constants/enum.js';
 import { BSKY_VIDEO_ENDPOINT } from '@/constants/index.js';
+import { delay } from '@/helpers/delay.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { parseUrl } from '@/helpers/parseUrl.js';

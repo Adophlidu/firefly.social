@@ -1,9 +1,8 @@
 'use client';
 
-import { safeUnreachable } from '@masknet/kit';
-
 import { SearchChannelContent } from '@/app/(normal)/search/[...slug]/pages/SearchChannelContent.js';
 import { ClubType } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export function SearchCommunityContent() {

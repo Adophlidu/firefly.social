@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { getEnumAsArray } from '@masknet/kit';
 import { useRouter } from '@tanstack/react-router';
 import { Fragment, useCallback, useContext, useState } from 'react';
 
@@ -10,6 +9,7 @@ import MinusIcon from '@/assets/minus.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { getEnumAsArray } from '@/helpers/getEnumAsArray.js';
 import { NonFungibleTokenCollectionSelectModalRef } from '@/modals/controls.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/common.js';

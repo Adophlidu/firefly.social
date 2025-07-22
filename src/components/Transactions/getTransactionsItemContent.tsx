@@ -1,9 +1,8 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { getSingleNFTFeedItemContent } from '@/components/NFTs/VirtualListHelper.js';
 import { PolymarketActivityItem } from '@/components/Polymarket/PolymarketActivityItem.js';
 import { SwapActivityItem } from '@/components/Swap/SwapActivityItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { TransactionsItem } from '@/providers/types/Firefly.js';
 
 export function getTransactionsItemContent(data: TransactionsItem, index: number, listKey: ScrollListKey) {

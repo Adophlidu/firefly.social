@@ -3,7 +3,6 @@
 import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { delay } from '@masknet/kit';
 import { useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
@@ -17,6 +16,7 @@ import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { delay } from '@/helpers/delay.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';

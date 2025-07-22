@@ -1,6 +1,5 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';

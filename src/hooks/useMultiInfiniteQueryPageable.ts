@@ -1,7 +1,7 @@
-import { delay } from '@masknet/kit';
 import { type InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
+import { delay } from '@/helpers/delay.js';
 import {
     createIndicator,
     createNextIndicator,

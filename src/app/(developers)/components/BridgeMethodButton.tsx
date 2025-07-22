@@ -2,7 +2,6 @@
 
 'use client';
 
-import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -10,6 +9,7 @@ import { FireflyPlatform } from '@/constants/enum.js';
 import { SITE_DESCRIPTION, SITE_NAME } from '@/constants/index.js';
 import { BRIAN_FARCASTER_PROFILE, BRIAN_LENS_PROFILE, BRIAN_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { enqueueInfoMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { type Mention, type MethodItem, Network, SupportedMethod } from '@/types/bridge.js';
 

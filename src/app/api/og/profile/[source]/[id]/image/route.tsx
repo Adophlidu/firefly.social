@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { safeUnreachable } from '@masknet/kit';
 import { compact, first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
@@ -33,6 +32,7 @@ import { isSocialSource, isWalletSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { WalletProfiles } from '@/providers/types/Firefly.js';

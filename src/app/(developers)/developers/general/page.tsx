@@ -1,6 +1,5 @@
 'use client';
 
-import { safeUnreachable } from '@masknet/kit';
 import type { ChangeEvent, ReactNode } from 'react';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
@@ -10,6 +9,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { settings } from '@/settings/index.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 

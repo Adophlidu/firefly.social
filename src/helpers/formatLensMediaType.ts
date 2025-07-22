@@ -1,5 +1,6 @@
 import { MediaAudioType, MediaImageType, MediaVideoType } from '@lens-protocol/client';
-import { safeUnreachable } from '@masknet/kit';
+
+import { safeUnreachable } from '@/helpers/unreachable.js';
 
 export function formatLensMediaAudioMimeType(type: MediaAudioType) {
     switch (type) {

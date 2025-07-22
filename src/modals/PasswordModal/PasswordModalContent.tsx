@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { memo, useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -7,6 +6,7 @@ import { PasswordStep, PasswordWorkflow, PasswordWorkflowConfig } from '@/consta
 import { FetchError } from '@/constants/error.js';
 import { SESSION_PASSWORD_INPUT_ID } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { PasswordModalOpenProps } from '@/modals/PasswordModal/index.js';
 import { isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
 import { ModalActions } from '@/modals/PasswordModal/ModalActions.js';

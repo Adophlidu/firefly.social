@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { delay } from '@masknet/kit';
 
 import DoubleUser from '@/assets/double-user.svg';
 import { AccountConnectButton } from '@/components/AccountConnectButton.js';
@@ -11,6 +10,7 @@ import { WalletConnectButton } from '@/components/WalletConnectButton.js';
 import { SignupStep } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
+import { delay } from '@/helpers/delay.js';
 import { isPathnameForceRedirect, openLoginModal } from '@/helpers/openLoginModal.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';

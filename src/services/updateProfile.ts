@@ -1,4 +1,3 @@
-import { safeUnreachable } from '@masknet/kit';
 import { produce } from 'immer';
 import { pickBy } from 'lodash-es';
 
@@ -6,6 +5,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';

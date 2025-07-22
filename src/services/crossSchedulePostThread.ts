@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { delay } from '@masknet/kit';
 import { ConnectorNotConnectedError } from '@wagmi/core';
 import { first } from 'lodash-es';
 
@@ -7,6 +6,7 @@ import type { SocialSourceInURL } from '@/constants/enum.js';
 import { CreateScheduleError, SignlessRequireError } from '@/constants/error.js';
 import { COMPOSE_ERROR_NOTIFICATION_KEY } from '@/constants/index.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
+import { delay } from '@/helpers/delay.js';
 import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
 import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';

@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { delay } from '@masknet/kit';
 import { rootRouteId, useRouteContext } from '@tanstack/react-router';
 import { useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -15,6 +14,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
 import { ENABLED_REPLY_SETTINGS_POST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { delay } from '@/helpers/delay.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';

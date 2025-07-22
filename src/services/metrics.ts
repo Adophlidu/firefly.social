@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { safeUnreachable } from '@masknet/kit';
 import webCrypto from 'crypto';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -18,6 +17,7 @@ import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionH
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveTwitterResponseData } from '@/helpers/resolveTwitterResponseData.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { LensSession } from '@/providers/lens/Session.js';

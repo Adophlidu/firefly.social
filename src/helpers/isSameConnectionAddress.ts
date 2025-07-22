@@ -1,6 +1,5 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 
 export function isSameConnectionAddress(platform: 'eth' | 'solana', address: string, otherAddress: string) {
     switch (platform) {

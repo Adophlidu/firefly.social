@@ -1,4 +1,3 @@
-import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -13,6 +12,7 @@ import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import type { CompositePost } from '@/store/useComposeStore.js';

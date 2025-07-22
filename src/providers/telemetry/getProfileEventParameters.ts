@@ -1,8 +1,7 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import {

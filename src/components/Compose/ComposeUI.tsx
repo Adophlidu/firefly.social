@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -15,6 +14,7 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { isImageFileType, isMediaFileType, isVideoFileType } from '@/helpers/isMediaFileType.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { isValidPostImage, isValidPostVideo } from '@/helpers/validatePostFile.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useKeyboardHeight } from '@/hooks/useKeyboardHeight.js';

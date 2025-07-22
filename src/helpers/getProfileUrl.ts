@@ -1,7 +1,6 @@
-import { safeUnreachable } from '@masknet/kit';
-
 import { type ProfileCategory, type ProfilePageSource, Source } from '@/constants/enum.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 
 /**
  * Get the profile URL based on the source and handle/profileId.

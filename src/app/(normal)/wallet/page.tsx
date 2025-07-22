@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useQueries } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { compact } from 'lodash-es';
@@ -29,6 +28,7 @@ import { dynamic } from '@/esm/dynamic.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';

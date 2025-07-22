@@ -1,8 +1,7 @@
-import { unreachable } from '@masknet/kit';
-
 import { useEthereumDefaultGas } from '@/components/RedPacket/hooks/useEthereumDefaultGas.js';
 import { useSolanaDefaultGas } from '@/components/RedPacket/hooks/useSolanaDefaultGas.js';
 import { NetworkType } from '@/constants/enum.js';
+import { unreachable } from '@/helpers/unreachable.js';
 import { type CreateRedPacketContext } from '@/providers/ethereum/RedPacket.js';
 
 export function useDefaultCreateGas(context: CreateRedPacketContext) {

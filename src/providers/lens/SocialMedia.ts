@@ -56,7 +56,6 @@ import {
     unmuteAccount,
 } from '@lens-protocol/client/actions';
 import { account, type MetadataAttribute, MetadataAttributeType } from '@lens-protocol/metadata';
-import { unreachable } from '@masknet/kit';
 import { isServer } from '@tanstack/react-query';
 import { compact, first, flatMap, uniqBy, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -106,6 +105,7 @@ import {
 import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
+import { unreachable } from '@/helpers/unreachable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';

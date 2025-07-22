@@ -1,6 +1,5 @@
 import { AppBskyActorProfile, AppBskyFeedDefs, moderatePost } from '@atproto/api';
 import { BlockedActorError } from '@atproto/api/dist/client/types/app/bsky/feed/getAuthorFeed.js';
-import { safeUnreachable } from '@masknet/kit';
 import { isServer } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -36,6 +35,7 @@ import {
 } from '@/helpers/pageable.js';
 import { resolveBskyResponseData } from '@/helpers/resolveBskyResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { ChannelAtUri, PostAtUri } from '@/providers/bsky/AtUri.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';

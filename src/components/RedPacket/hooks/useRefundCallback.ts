@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { unreachable } from '@masknet/kit';
 import { produce } from 'immer';
 import { useAsyncFn } from 'react-use';
 
@@ -8,6 +7,7 @@ import { useRefundSolanaCallback } from '@/components/RedPacket/hooks/useRefundS
 import { queryClient } from '@/configs/queryClient.js';
 import { NetworkType } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { unreachable } from '@/helpers/unreachable.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
