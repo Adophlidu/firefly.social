@@ -16,6 +16,8 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit } from '@/configs/wagmiClient.js';
+import { STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { useEnsNameCached } from '@/hooks/useEnsNameCached.js';
 import { useIsSetupPrivyWallet } from '@/hooks/useIsSetupPrivyWallet.js';
@@ -108,6 +110,57 @@ function ConnectedItem({
     );
 }
 
+function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
+    const { isSetupPrivyWallet, isLoading } = useIsSetupPrivyWallet();
+    if (isLoading) return <div className="mb-2 h-[122px] w-full animate-pulse rounded-lg bg-bg" />;
+
+    const allConnections = useWalletConnections();
+    const privyConnections = allConnections.filter((x) => x.source === 'privy');
+    if (!isSetupPrivyWallet) return null;
+    return (
+        <div className="mb-2 h-[122px] overflow-hidden rounded-lg border border-secondaryLine">
+            <Link
+                href="/wallet"
+                className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
+                onClick={() => {
+                    captureFireflyWalletEvent(EventId.FIREFLY_WALLET_OPEN_SUCCESS, {
+                        wallet_address: privyConnections[0].address,
+                        MPC_type: WalletProfileDataSource.Privy,
+                    });
+                    onOpenWallets?.();
+                }}
+            >
+                <FireflyIcon width={20} height={20} />
+                <span className="min-w-0 flex-1 truncate text-left text-sm">
+                    <Trans>Firefly wallets</Trans>
+                </span>
+                <span className="text-right text-sm">
+                    <Trans>Open</Trans>
+                </span>
+            </Link>
+            {!privyConnections.length ? (
+                <div className="flex h-10 items-center justify-center text-sm text-secondary">
+                    <Trans>No connected wallet.</Trans>
+                </div>
+            ) : (
+                privyConnections.map((connection) => {
+                    return (
+                        <ConnectedItem
+                            key={`${connection.address}:${connection.connector?.id}:${connection.connected}`}
+                            connected={connection.connected}
+                            namespace={connection.namespace}
+                            address={connection.address}
+                            connector={connection.connector}
+                            chainId={connection.chainId}
+                            source={connection.source}
+                        />
+                    );
+                })
+            )}
+        </div>
+    );
+}
+
 export interface ConnectedWalletsProps {
     onOpenWallets?: () => void;
 }
@@ -115,54 +168,11 @@ export interface ConnectedWalletsProps {
 export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }: ConnectedWalletsProps) {
     const allConnections = useWalletConnections();
     const connections = allConnections.filter((x) => x.source !== 'privy');
-    const privyConnections = allConnections.filter((x) => x.source === 'privy');
-    const { isSetupPrivyWallet, isLoading } = useIsSetupPrivyWallet();
 
     return (
         <div>
-            {isLoading ? (
-                <div className="mb-2 h-[122px] w-full animate-pulse rounded-lg bg-bg" />
-            ) : isSetupPrivyWallet ? (
-                <div className="mb-2 h-[122px] overflow-hidden rounded-lg border border-secondaryLine">
-                    <Link
-                        href="/wallet"
-                        className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
-                        onClick={() => {
-                            captureFireflyWalletEvent(EventId.FIREFLY_WALLET_OPEN_SUCCESS, {
-                                wallet_address: privyConnections[0].address,
-                                MPC_type: WalletProfileDataSource.Privy,
-                            });
-                            onOpenWallets?.();
-                        }}
-                    >
-                        <FireflyIcon width={20} height={20} />
-                        <span className="min-w-0 flex-1 truncate text-left text-sm">
-                            <Trans>Firefly wallets</Trans>
-                        </span>
-                        <span className="text-right text-sm">
-                            <Trans>Open</Trans>
-                        </span>
-                    </Link>
-                    {!privyConnections.length ? (
-                        <div className="flex h-10 items-center justify-center text-sm text-secondary">
-                            <Trans>No connected wallet.</Trans>
-                        </div>
-                    ) : (
-                        privyConnections.map((connection) => {
-                            return (
-                                <ConnectedItem
-                                    key={`${connection.address}:${connection.connector?.id}:${connection.connected}`}
-                                    connected={connection.connected}
-                                    namespace={connection.namespace}
-                                    address={connection.address}
-                                    connector={connection.connector}
-                                    chainId={connection.chainId}
-                                    source={connection.source}
-                                />
-                            );
-                        })
-                    )}
-                </div>
+            {env.external.NEXT_PUBLIC_PRIVY === STATUS.Enabled ? (
+                <FireflyWalletPanel onOpenWallets={onOpenWallets} />
             ) : null}
             <div className="overflow-hidden rounded-lg border border-secondaryLine">
                 <ClickableButton

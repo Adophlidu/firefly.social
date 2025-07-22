@@ -346,4 +346,3 @@ describe('LENS_MENTION_REGEX', () => {
         });
     });
 });
-

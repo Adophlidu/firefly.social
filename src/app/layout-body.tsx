@@ -54,7 +54,7 @@ export function LayoutBody({ children }: { children: ReactNode }) {
                     <Modals />
                     {env.external.NEXT_PUBLIC_FORCE_SIGNUP === STATUS.Enabled ? <FireflyAccountChecker /> : null}
                 </RouteProgressBar>
-                <DynamicPrivyBridge />
+                {env.external.NEXT_PUBLIC_PRIVY === STATUS.Enabled ? <DynamicPrivyBridge /> : null}
             </Providers>
             <BeforeUnload />
         </>

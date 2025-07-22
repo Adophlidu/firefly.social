@@ -5,7 +5,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { useQueries } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { compact } from 'lodash-es';
-import { notFound } from 'next/navigation.js';
+import { notFound, redirect } from 'next/navigation.js';
 import { Suspense, useMemo, useRef, useState } from 'react';
 import { type Address } from 'viem';
 
@@ -23,7 +23,8 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { ReceiveModal } from '@/components/ReceiveModal/index.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { privyVisibleChains, visibleChains } from '@/configs/wagmiClient.js';
-import { NetworkPluginID, NetworkType, Source } from '@/constants/enum.js';
+import { NetworkPluginID, NetworkType, Source, STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
@@ -58,6 +59,10 @@ export default function Wallet() {
     const isLoginFirefly = useIsLoginFirefly();
     const ready = usePrivyWalletStore((state) => state.ready);
     const { isLoading, error } = useIsSetupPrivyWallet();
+
+    if (env.external.NEXT_PUBLIC_PRIVY === STATUS.Disabled) {
+        redirect('/');
+    }
 
     if (!isLoginFirefly) {
         return (
@@ -142,8 +147,6 @@ function FireflyWallet() {
     const [openReceiveModal, setOpenReceiveModal] = useState(false);
 
     const transferModalRef = useRef<TransferModalRef>(null);
-
-    const chainIds = useMemo(() => privyVisibleChains.map((chain) => chain.id), []);
 
     const receiveItems = useMemo(() => {
         const items = privyVisibleChains.map((chain) => ({
