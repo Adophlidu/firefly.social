@@ -1,14 +1,19 @@
 import { Trans } from '@lingui/react/macro';
-import { Outlet, useRouter, useRouterState } from '@tanstack/react-router';
+import { Outlet, rootRouteId, useMatch, useRouter, useRouterState } from '@tanstack/react-router';
 
 import { BackButton, CloseButton } from '@/components/IconButton.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 
 export function RootView() {
     const router = useRouter();
     const { matches, location } = useRouterState();
+    const { context } = useMatch({ from: rootRouteId }) as {
+        context: { props?: LoginModalOpenProps };
+    };
 
     const isMain = location.pathname === '/main';
+    const noBackButton = context?.props?.options?.noBackButton;
 
     const contextTitle = [...matches].reverse().find((x) => x.context.title)?.context.title;
     const title = contextTitle ?? <Trans>Login to Firefly</Trans>;
@@ -16,7 +21,7 @@ export function RootView() {
     return (
         <div className="flex transform flex-col rounded-[12px] bg-primaryBottom transition-all max-md:h-full">
             <div className="flex items-center justify-center gap-2 rounded-t-[12px] p-4">
-                {isMain ? (
+                {isMain || noBackButton ? (
                     <CloseButton
                         onClick={() => {
                             LoginModalRef.close();

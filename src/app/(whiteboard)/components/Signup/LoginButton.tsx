@@ -24,7 +24,7 @@ export function LoginButton({ source }: LoginButtonProps) {
                     return;
                 }
 
-                LoginModalRef.open({ source });
+                LoginModalRef.open({ source, options: { noBackButton: true } });
             }}
         >
             {source === 'other' ? (

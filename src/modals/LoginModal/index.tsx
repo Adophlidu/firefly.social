@@ -51,6 +51,7 @@ export interface LoginModalOpenProps {
         expectedSignType?: FarcasterSignType;
         /** only keep google/tg/apple/email */
         hideSocialLogin?: boolean;
+        noBackButton?: boolean;
     };
 }
 type Props = {
