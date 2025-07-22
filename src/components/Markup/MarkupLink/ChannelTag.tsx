@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { memo, useEffect, useMemo } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 
 import { ChannelCard } from '@/components/Channel/ChannelCard.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -26,6 +26,7 @@ export const ChannelTag = memo<ChannelTagProps>(function ChannelTag({ title, sou
 
     const { allChannelData, addChannel } = useChannelStoreState();
     const [viewed, ref] = useEverSeen<HTMLDivElement>();
+    const [enabled, setEnabled] = useState(false);
 
     useEffect(() => {
         if (!title) return;
@@ -81,7 +82,10 @@ export const ChannelTag = memo<ChannelTagProps>(function ChannelTag({ title, sou
                 maxWidth={350}
                 className="tippy-card"
                 placement="bottom"
-                content={<ChannelCard loading={data.isLoading} channel={data.data} />}
+                onTrigger={() => {
+                    setEnabled(true);
+                }}
+                content={enabled ? <ChannelCard loading={data.isLoading} channel={data.data} /> : null}
             >
                 <span>{content}</span>
             </InteractiveTippy>

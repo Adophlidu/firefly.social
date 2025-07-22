@@ -2,6 +2,7 @@ import type { AppBskyActorDefs } from '@atproto/api';
 import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
+import { BSKY_MENTION_REGEX } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
@@ -14,6 +15,12 @@ function getDisplayNameFromHandle(handle: string) {
     return first(matched) ?? handle;
 }
 
+function parseBioContext(bio: string) {
+    const mentions = bio.match(BSKY_MENTION_REGEX);
+    if (!mentions) return;
+    return { mentions: mentions.map((handle) => ({ source: Source.Bsky, id: handle })) };
+}
+
 export function formatBskyProfile(
     profile: AppBskyActorDefs.ProfileViewDetailed,
 ): Profile<AppBskyActorDefs.ProfileViewDetailed> {
@@ -22,6 +29,7 @@ export function formatBskyProfile(
         profileId: profile.did,
         displayName: profile.displayName || getDisplayNameFromHandle(profile.handle),
         bio: profile.description ?? '',
+        bioContext: parseBioContext(profile.description ?? ''),
         handle: profile.handle,
         fullHandle: profile.handle,
         pfp: profile.avatar ?? '',

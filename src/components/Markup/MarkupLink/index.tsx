@@ -70,17 +70,22 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             }
 
             case Source.Farcaster: {
-                const profile = post?.mentions?.find((x) => [handle, title].includes(x.handle));
-                if (!profile) return <MentionLinkWithQueryProfile source={source} handle={handle} fallback={title} />;
-                const link = getProfileUrl(profile);
+                const bioMention = profile?.bioContext?.mentions?.find((x) => [handle, title].includes(x.id));
+                const postMention = post?.mentions?.find((x) => [handle, title].includes(x.handle));
+                if (!postMention && !bioMention)
+                    return <MentionLinkWithQueryProfile source={source} handle={handle} fallback={title} />;
                 return (
                     <ProfileTippy
                         identity={{
                             source: Source.Farcaster,
-                            id: profile.profileId,
+                            id: handle,
                         }}
                     >
-                        <MentionLink handle={profile.handle} href={link} className="inline-block" />
+                        <MentionLink
+                            handle={handle}
+                            href={getProfileUrl({ source, handle })}
+                            className="inline-block"
+                        />
                     </ProfileTippy>
                 );
             }
@@ -109,8 +114,9 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                     </ProfileTippy>
                 );
             case Source.Bsky: {
+                const bioMention = profile?.bioContext?.mentions?.find((x) => [handle, title].includes(x.id));
                 const postMention = post?.mentions?.find((x) => x.handle === handle || x.handle === title);
-                if (!postMention) {
+                if (!postMention && !bioMention) {
                     return <MentionLinkWithQueryProfile source={source} handle={handle} fallback={title} />;
                 }
                 return (

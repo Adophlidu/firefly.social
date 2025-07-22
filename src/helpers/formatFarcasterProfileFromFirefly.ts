@@ -1,9 +1,24 @@
 import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
+import { CHANNEL_REGEX, MENTION_REGEX } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import type { User } from '@/providers/types/Firefly.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
+
+export function parseFarcasterBioContext(bio: string) {
+    const mentions = bio.match(MENTION_REGEX);
+    const channels = bio.match(CHANNEL_REGEX);
+    return {
+        mentions: mentions
+            ? [...mentions].map((mention) => ({
+                  source: Source.Farcaster,
+                  id: mention.startsWith('@') ? mention.substring(1) : mention,
+              }))
+            : [],
+        channels: channels ? [...channels].map((channel) => ({ id: channel, name: channel })) : [],
+    };
+}
 
 export function formatFarcasterProfileFromFirefly(user: User): Profile {
     return {
@@ -14,6 +29,7 @@ export function formatFarcasterProfileFromFirefly(user: User): Profile {
         displayName: user.display_name,
         pfp: user.pfp,
         bio: user.bio,
+        bioContext: parseFarcasterBioContext(user.bio ?? ''),
         address: first(user.addresses),
         followerCount: user.followers,
         followingCount: user.following,

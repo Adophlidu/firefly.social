@@ -31,7 +31,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
 
     const myProfile = useCurrentProfile(narrowToSocialSource(source));
     const { data: profile, isLoading } = useQuery({
-        queryKey: ['profile', source, id, myProfile?.profileId],
+        queryKey: ['profile', source, id],
         staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: async () => {
             if (!id || !source) return;
@@ -39,6 +39,9 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
             return provider.getProfileByIdOrHandle(id, true);
         },
         initialData: defaultProfile,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: false,
     });
 
     if (isLoading) {

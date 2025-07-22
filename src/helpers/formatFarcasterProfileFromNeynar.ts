@@ -1,7 +1,8 @@
-import { first } from 'lodash-es';
+import { first, uniqBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
+import { parseFarcasterBioContext } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { NeynarProStatus, type Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -14,6 +15,23 @@ export function formatFarcasterProfileFromNeynar(user: NeynarProfile): Profile {
         displayName: user.display_name,
         pfp: user.pfp_url,
         bio: user.profile.bio.text,
+        bioContext: {
+            mentions: uniqBy(
+                [
+                    ...parseFarcasterBioContext(user.profile.bio.text).mentions,
+                    ...(user.profile.bio.mentioned_profiles?.map(({ username }) => ({
+                        source: Source.Farcaster,
+                        id: username,
+                    })) ?? []),
+                ],
+                (x) => x.id,
+            ),
+            channels: user.profile.bio.mentioned_channels?.map(({ image_url, id, name }) => ({
+                id,
+                name,
+                imageURL: image_url,
+            })),
+        },
         address: first(user.verifications),
         followerCount: user.follower_count,
         followingCount: user.following_count,

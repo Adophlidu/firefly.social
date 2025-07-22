@@ -1,5 +1,8 @@
+import { uniqBy } from 'lodash-es';
+
 import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
+import { parseFarcasterBioContext } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import type {
     Channel as FireflyChannel,
     ChannelBrief,
@@ -18,6 +21,23 @@ export function formatChannelProfileFromFirefly(channelProfile: ChannelProfile):
         fullHandle: channelProfile.username,
         pfp: channelProfile.pfp_url,
         bio: channelProfile.profile?.bio?.text,
+        bioContext: {
+            mentions: uniqBy(
+                [
+                    ...parseFarcasterBioContext(channelProfile.profile?.bio?.text ?? '').mentions,
+                    ...(channelProfile.profile?.bio?.mentioned_profiles?.map(({ username }) => ({
+                        source: Source.Farcaster,
+                        id: username,
+                    })) ?? []),
+                ],
+                (x) => x.id,
+            ),
+            channels: channelProfile.profile?.bio?.mentioned_channels?.map(({ image_url, id, name }) => ({
+                id,
+                name,
+                imageURL: image_url,
+            })),
+        },
         address: channelProfile.custody_address,
         followerCount: channelProfile.follower_count,
         followingCount: channelProfile.following_count,
@@ -63,6 +83,7 @@ export function formatBriefChannelProfileFromFirefly(channelProfile: ChannelProf
         fullHandle: channelProfile.username,
         pfp: channelProfile.pfp,
         bio: channelProfile.bio,
+        bioContext: parseFarcasterBioContext(channelProfile.bio),
         followerCount: channelProfile.followers,
         followingCount: channelProfile.following,
         viewerContext: {
@@ -104,6 +125,7 @@ export function formatFireflyFarcasterProfile(profile: FireflyFarcasterProfile):
         fullHandle: profile.username,
         pfp: profile.pfp,
         bio: profile.bio,
+        bioContext: parseFarcasterBioContext(profile.bio),
         followerCount: profile.followers,
         followingCount: profile.following,
         viewerContext: {

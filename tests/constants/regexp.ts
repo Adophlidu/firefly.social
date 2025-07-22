@@ -163,7 +163,7 @@ describe('MENTION_REGEXP', () => {
             ['handle @', null],
             ['@handle_name', '@handle_name'],
             ['handle @name', '@name'],
-            ['@handle.lens', '@handle.lens'],
+            ['@handle.lens', '@handle'],
             ['@lens/handle', '@lens/handle'],
             ['@club/handle', '@club/handle'],
             ['@yup_io', '@yup_io'],

@@ -15,7 +15,20 @@ export interface Profile {
     profile: {
         bio: {
             text: string;
-            mentioned_profiles: string[];
+            mentioned_profiles: Array<{
+                username: string;
+                pfp_url: string;
+                fid: number;
+                object: string;
+                display_name: string;
+                custody_address: string;
+            }>;
+            mentioned_channels: Array<{
+                id: string;
+                image_url: string;
+                name: string;
+                object: string;
+            }>;
         };
     };
     viewer_context?: {

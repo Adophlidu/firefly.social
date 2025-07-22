@@ -7,7 +7,7 @@ import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 
 interface Props extends Omit<LinkProps, 'href'> {
@@ -26,24 +26,44 @@ export const MentionLinkWithQueryProfile = memo<Props>(function MentionLinkWithQ
     fallback = null,
     ...rest
 }) {
-    const myProfile = useCurrentProfile(source);
-    const { data: profile } = useQuery({
-        queryKey: ['profile', source, handle, myProfile?.profileId],
+    const { data: bskyHandle } = useQuery({
+        queryKey: ['bsky-handle', handle],
         async queryFn() {
-            if (source === Source.Bsky) {
-                const didResponse = await bskySessionHolder.agent.resolveHandle({ handle });
-                const did = didResponse?.data?.did;
-                if (!did) return null;
-
-                return { source: Source.Bsky, profileId: did, handle } as const;
-            }
-
-            return resolveSocialMediaProvider(source).getProfileByIdOrHandle(handle);
+            const didResponse = await bskySessionHolder.agent.resolveHandle({ handle });
+            const did = didResponse?.data?.did;
+            if (!did) return null;
+            return { source: Source.Bsky, profileId: did, handle } as const;
         },
-        enabled: !!handle,
+        enabled: !!handle && [Source.Bsky].includes(source),
         retry: false,
         staleTime: 1000 * 60 * 60,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
     });
+    const { data } = useQuery({
+        queryKey: ['profile', source, handle],
+        async queryFn() {
+            return runInSafeAsync(async () => {
+                if (source === Source.Bsky) {
+                    const didResponse = await bskySessionHolder.agent.resolveHandle({ handle });
+                    const did = didResponse?.data?.did;
+                    if (!did) return null;
+
+                    return { source: Source.Bsky, profileId: did, handle } as const;
+                }
+
+                return resolveSocialMediaProvider(source).getProfileByIdOrHandle(handle);
+            });
+        },
+        enabled: !!handle && ![Source.Bsky].includes(source),
+        retry: false,
+        staleTime: 1000 * 60 * 60,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+    });
+    const profile = bskyHandle || data;
     if (!profile) return fallback;
     return (
         <ProfileTippy

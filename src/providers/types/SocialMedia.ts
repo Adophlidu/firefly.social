@@ -71,6 +71,12 @@ export interface Friendship {
     isFollowedBack: boolean;
 }
 
+export interface ProfileChannel {
+    id: string;
+    imageURL?: string;
+    name: string;
+}
+
 export interface Profile<O = unknown> {
     /** fid for Farcaster, twitter id for Twitter */
     profileId: string;
@@ -83,6 +89,7 @@ export interface Profile<O = unknown> {
     bio?: string;
     bioContext?: {
         mentions?: FireflyIdentity[];
+        channels?: ProfileChannel[];
     };
     address?: string;
     followerCount: number;
