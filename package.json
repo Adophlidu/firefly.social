@@ -91,7 +91,6 @@
         "@wagmi/core": "^2.16.7",
         "bignumber.js": "9.1.2",
         "bs58": "^5.0.0",
-        "clipboard-polyfill": "^3.0.3",
         "core-js": "3.42.0",
         "date-fns": "^2.30.0",
         "dayjs": "^1.11.13",
