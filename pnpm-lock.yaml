@@ -221,9 +221,6 @@ dependencies:
   bs58:
     specifier: ^5.0.0
     version: 5.0.0
-  clipboard-polyfill:
-    specifier: ^3.0.3
-    version: 3.0.3
   core-js:
     specifier: 3.42.0
     version: 3.42.0
@@ -13206,10 +13203,6 @@ packages:
   /client-only@0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
 
-  /clipboard-polyfill@3.0.3:
-    resolution: {integrity: sha512-hts0o01ZkwjA1qHA5gFePzAj/780W7v+eyN3GdaCRyDnapzcPsKRV5aodv77gcr40NDIcyNjNmc+HvfKV+jD0g==}
-    dev: false
-
   /cliui@6.0.0:
     resolution: {integrity: sha512-t6wbgtoCXvAzst7QgXxJYqPt0usEfbgQdftEPbLL/cvv6HPE5VgvqCuAIDR0NgU52ds6rFwqrgakNLrHEjCbrQ==}
     dependencies:
@@ -22066,7 +22059,6 @@ time:
   /bignumber.js@9.1.2: '2023-08-28T12:15:45.587Z'
   /bs58@5.0.0: '2022-02-17T13:19:37.346Z'
   /buffer@6.0.3: '2020-11-23T02:51:27.107Z'
-  /clipboard-polyfill@3.0.3: '2021-04-03T22:29:46.525Z'
   /core-js-compat@3.42.0: '2025-04-29T18:04:00.682Z'
   /core-js@3.42.0: '2025-04-29T18:03:50.847Z'
   /cross-fetch@4.1.0: '2024-12-21T15:03:07.027Z'
