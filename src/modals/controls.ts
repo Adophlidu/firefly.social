@@ -34,7 +34,7 @@ import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal/Prev
 import type { RedPacketModalOpenProps } from '@/modals/RedPacketModal/index.js';
 import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
 import type { SearchRecipientModalOpenProps } from '@/modals/SearchRecipientModal.js';
-import type { ShareImageModalOpenProps } from '@/modals/ShareImageModal.js';
+import type { ShareImageModalOpenProps } from '@/modals/ShareImageModal/index.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
 import type { SwapModalOpenProps } from '@/modals/SwapModal/SwapModalContent.js';
 import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal/index.js';

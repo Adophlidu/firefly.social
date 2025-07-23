@@ -6,38 +6,18 @@ import { useAsyncFn } from 'react-use';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { Modal } from '@/components/Modal.js';
-import { Popover } from '@/components/Popover.js';
 import { downloadImage } from '@/helpers/downloadImage.js';
 import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
-export interface ShareImageModalOpenProps {
+interface ShareImageModalContentProps {
     imageUrl: string;
-    aspectRatio?: string; // optimize CLS with this
+    aspectRatio?: string;
+    onClose: () => void;
 }
-type Props = {
-    ref: React.Ref<SingletonModalRefCreator<ShareImageModalOpenProps>>;
-};
 
-export function ShareImageModal({ ref }: Props) {
-    const [props, setProps] = useState<ShareImageModalOpenProps>();
-    const [loading, setLoading] = useState(false);
+export function ShareImageModalContent(props: ShareImageModalContentProps) {
+    const [loading, setLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-    const isMedium = useIsMedium();
-
-    const [open, dispatch] = useSingletonModal(ref, {
-        onOpen: (props) => {
-            setProps(props);
-            setLoading(true);
-            setHasError(false);
-        },
-        onClose: () => {
-            setProps(undefined);
-        },
-    });
 
     const [{ loading: isDownloading }, handleDownload] = useAsyncFn(async () => {
         try {
@@ -51,16 +31,10 @@ export function ShareImageModal({ ref }: Props) {
         }
     }, [props?.imageUrl]);
 
-    if (!props?.imageUrl) return null;
-
-    const onClose = () => {
-        dispatch?.close();
-    };
-
-    const modalContent = (
+    return (
         <div>
             <div className="relative flex h-10 items-center justify-center">
-                <CloseButton className="absolute left-0 top-1/2 -translate-y-1/2" onClick={onClose} />
+                <CloseButton className="absolute left-0 top-1/2 -translate-y-1/2" onClick={props.onClose} />
                 <span className="text-lg font-semibold text-main">
                     <Trans>Share image</Trans>
                 </span>
@@ -69,7 +43,7 @@ export function ShareImageModal({ ref }: Props) {
                 {loading || hasError ? (
                     <div className="absolute inset-0 z-1 flex items-center justify-center bg-primaryBottom">
                         {loading ? (
-                            <LoadingIcon width={24} height={24} />
+                            <LoadingIcon width={24} height={24} className="text-main" />
                         ) : hasError ? (
                             <span className="text-medium font-medium text-secondary">
                                 <Trans>Failed to load image.</Trans>
@@ -107,21 +81,5 @@ export function ShareImageModal({ ref }: Props) {
                 <Trans>Download image</Trans>
             </ClickableButton>
         </div>
-    );
-
-    if (isMedium) {
-        return (
-            <Modal open={open} onClose={onClose}>
-                <div className="relative w-[480px] max-w-[90vw] rounded-3xl bg-primaryBottom p-6 shadow-popover transition-all">
-                    {modalContent}
-                </div>
-            </Modal>
-        );
-    }
-
-    return (
-        <Popover open={open} onClose={onClose} dialogPanelClassName="!p-0 !pt-6">
-            <div className="px-3 pb-6 text-medium text-lightMain">{modalContent}</div>
-        </Popover>
     );
 }

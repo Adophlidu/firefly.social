@@ -2,10 +2,19 @@ import { Trans } from '@lingui/react/macro';
 import { useCallback } from 'react';
 
 import { CloseButton } from '@/components/IconButton.js';
+import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { ConnectedWallets } from '@/modals/MyWalletsModal/ConnectedWallets.js';
+
+const ConnectedWallets = dynamic(
+    () => import('@/modals/MyWalletsModal/ConnectedWallets.js').then((m) => m.ConnectedWallets),
+    {
+        ssr: false,
+        loading: () => <Loading minHeight={252} />,
+    },
+);
 
 type Props = {
     ref: React.Ref<SingletonModalRefCreator>;

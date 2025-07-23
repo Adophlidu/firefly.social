@@ -5,11 +5,19 @@ import type { HTMLProps } from 'react';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { classNames } from '@/helpers/classNames.js';
 
-interface LoadingProps extends HTMLProps<HTMLDivElement> {}
+interface LoadingProps extends HTMLProps<HTMLDivElement> {
+    minHeight?: number | string;
+}
 
-export function Loading({ className }: LoadingProps) {
+export function Loading({ className, minHeight = 500 }: LoadingProps) {
     return (
-        <div className={classNames('flex min-h-[500px] items-center justify-center', className)} data-page-loading>
+        <div
+            className={classNames('flex items-center justify-center', className)}
+            style={{
+                minHeight,
+            }}
+            data-page-loading
+        >
             <LoadingIcon />
         </div>
     );

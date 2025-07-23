@@ -32,7 +32,7 @@ import { PreviewMediaModal } from '@/modals/PreviewMediaModal/PreviewMediaModal.
 import { RedPacketModal } from '@/modals/RedPacketModal/index.js';
 import { SchedulePostModal } from '@/modals/SchedulePostModal.js';
 import { SearchRecipientModal } from '@/modals/SearchRecipientModal.js';
-import { ShareImageModal } from '@/modals/ShareImageModal.js';
+import { ShareImageModal } from '@/modals/ShareImageModal/index.js';
 import { SignInWithFireflyAppModal } from '@/modals/SignInWithFireflyAppModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
 import { SwapModal } from '@/modals/SwapModal/SwapModal.js';

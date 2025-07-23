@@ -189,7 +189,7 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
                     <PlusIcon width={20} height={20} />
                 </ClickableButton>
                 {!connections.length ? (
-                    <div className="flex h-10 items-center justify-center text-sm text-secondary">
+                    <div className="flex h-20 items-center justify-center text-sm text-secondary">
                         <Trans>No connected wallet.</Trans>
                     </div>
                 ) : (
