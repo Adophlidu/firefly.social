@@ -8,7 +8,6 @@ import { Modal } from '@/components/Modal.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { RedPacketProvider } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { routeTree } from '@/modals/RedPacketModal/routes.js';
 
 function PendingComponent() {
@@ -59,9 +58,7 @@ export function RedPacketModal({ ref }: Props) {
 
     return (
         <Modal open={open} onClose={() => dispatch?.close()}>
-            <div>
-                <RedPacketProvider>{Router}</RedPacketProvider>
-            </div>
+            <div>{Router}</div>
         </Modal>
     );
 }

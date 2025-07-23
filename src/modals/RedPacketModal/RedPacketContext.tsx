@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/react/macro';
+import { useLocation } from '@tanstack/react-router';
 import { compact, first, flatten, noop, uniqBy } from 'lodash-es';
 import {
     createContext,
@@ -170,12 +171,12 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
     const { data: themes = EMPTY_LIST } = useRedPacketThemes();
     const [theme = themes[0], setTheme] = useState<FireflyRedPacketAPI.ThemeGroupSettings>();
 
-    const initialNetworkType = ethereum.address
-        ? NetworkType.Ethereum
-        : solana.address
-          ? NetworkType.Solana
-          : NetworkType.Ethereum;
-    const [networkType, setNetworkType] = useState<NetworkType>(initialNetworkType);
+    const paramNetworkType: NetworkType = useLocation().search?.networkType;
+    const [networkType, setNetworkType] = useState<NetworkType>(() => {
+        if (paramNetworkType) return paramNetworkType;
+
+        return ethereum.address ? NetworkType.Ethereum : solana.address ? NetworkType.Solana : NetworkType.Ethereum;
+    });
     const { chainId, account } = useChainContext({ networkType });
 
     const nativeToken = getNativeToken(networkType, chainId);
