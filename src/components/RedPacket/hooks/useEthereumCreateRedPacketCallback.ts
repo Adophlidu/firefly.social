@@ -25,12 +25,13 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
+import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { EthereumRedPacket } from '@/providers/ethereum/RedPacket.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { EthereumChainId, EthereumSchemaType, getTokenConstant } from '#masknet/web3-shared-evm';
+import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 function reduceUselessPayloadInfo(payload: RedPacketJSONPayload): RedPacketJSONPayload {
     const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<
@@ -89,9 +90,7 @@ export function useEthereumCreateRedPacketCallback(
             if (!token) return;
 
             const tokenAddress =
-                token.schema === EthereumSchemaType.Native
-                    ? getTokenConstant(chainId, 'NATIVE_TOKEN_ADDRESS')
-                    : token.address;
+                token.schema === EthereumSchemaType.Native ? getEvmNativeTokenAddress(chainId) : token.address;
             if (!tokenAddress) return;
 
             const params = await EthereumRedPacket.createRedPacketParams({

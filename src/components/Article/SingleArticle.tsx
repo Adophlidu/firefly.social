@@ -11,6 +11,7 @@ import { SingleArticleHeader } from '@/components/Article/SingleArticleHeader.js
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -19,7 +20,6 @@ import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { type LinkDigested, PayloadType } from '@/types/og.js';
-import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 
 export interface SingleArticleProps {
     article: Article;

@@ -15,11 +15,12 @@ import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction
 import { EVMChainResolver } from '@/mask/index.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
+import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import { type EthereumChainId, EthereumSchemaType, getTokenConstant } from '#masknet/web3-shared-evm';
+import { type EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 export interface CreateRedPacketContext {
     networkType: NetworkType;
@@ -70,9 +71,7 @@ class Provider {
             context;
 
         const tokenAddress =
-            token?.schema === EthereumSchemaType.Native
-                ? getTokenConstant(chainId, 'NATIVE_TOKEN_ADDRESS')
-                : token?.address;
+            token?.schema === EthereumSchemaType.Native ? getEvmNativeTokenAddress(chainId) : token?.address;
         if (!tokenAddress) throw new Error('Token address is required for creating a red packet.');
 
         const params: CreateRedPacketParams = {

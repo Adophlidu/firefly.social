@@ -2,6 +2,7 @@ import urlcat from 'urlcat';
 
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
@@ -10,7 +11,6 @@ import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
-import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 
 // We are confident that these hosts will not be used for frame links
 const IGNORE_HOSTS = [/^.+\.mask\.social$/, 'localhost:3000', 'x.com'];

@@ -116,4 +116,6 @@ export const RED_PACKETS: Partial<Record<ChainId, string>> = {
     [ChainId.Metis]: '0x2cf91AD8C175305EBe6970Bd8f81231585EFbd77',
     [ChainId.XLayer]: '0xDb847f1D8099C5b15519ECfd0b0C981d719bccE6',
     [ChainId.Lens]: '0x2CB304F176775Fcb4D9763f488c486B0Af9A6Bf8',
+    [ChainId.ZksyncEra]: '0x5916FEE647A7f0aC234D6828Fe76636bd730B40A',
+    [ChainId.Linea]: '0xB349AC5E5C037C2ecb2AE9fCDc8F122b5f384620',
 };

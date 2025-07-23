@@ -4,7 +4,6 @@ import {
     createFungibleToken,
     type NetworkDescriptor,
 } from '@/mask_pkgs/web3-shared/base/index.js';
-import { getTokenConstant } from '@/mask_pkgs/web3-shared/solana/constants/constants.js';
 import { SolanaChainId, SolanaNetworkType, SolanaSchemaType } from '@/mask_pkgs/web3-shared/solana/types.js';
 
 const PLUGIN_ID = NetworkPluginID.PLUGIN_SOLANA;
@@ -25,7 +24,7 @@ export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<SolanaChainId, Sol
         nativeCurrency: createFungibleToken(
             SolanaChainId.Mainnet,
             SolanaSchemaType.Fungible,
-            getTokenConstant(SolanaChainId.Mainnet, 'SOL_ADDRESS', ''),
+            'So11111111111111111111111111111111111111112',
             'Solana',
             'SOL',
             9,

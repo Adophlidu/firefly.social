@@ -1,9 +1,8 @@
 import { NetworkPluginID, TokenType } from '@/constants/enum.js';
-import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import type { ChainDescriptor, NetworkDescriptor } from '@/mask_pkgs/web3-shared/base/index.js';
 import CHAINS from '@/mask_pkgs/web3-shared/evm/constants/chains.json' with { type: 'json' };
-import { getTokenConstant } from '@/mask_pkgs/web3-shared/evm/constants/constants.js';
 import { EthereumChainId, EthereumNetworkType, EthereumSchemaType } from '@/mask_pkgs/web3-shared/evm/types/index.js';
+import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 
 const PLUGIN_ID = NetworkPluginID.PLUGIN_EVM;
 
@@ -250,8 +249,8 @@ export const CHAIN_DESCRIPTORS: ReadonlyArray<
         type: (x.type as EthereumNetworkType | undefined) || EthereumNetworkType.Ethereum,
         color: network?.iconColor || x.color || 'rgb(138, 138, 138)',
         nativeCurrency: {
-            id: getTokenConstant(x.chainId, 'NATIVE_TOKEN_ADDRESS', ETH_ZERO_ADDRESS)!,
-            address: getTokenConstant(x.chainId, 'NATIVE_TOKEN_ADDRESS', ETH_ZERO_ADDRESS)!,
+            id: getEvmNativeTokenAddress(x.chainId),
+            address: getEvmNativeTokenAddress(x.chainId),
             type: TokenType.Fungible,
             schema: EthereumSchemaType.Native,
             ...x.nativeCurrency,

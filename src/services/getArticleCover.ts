@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { FIREFLY_WORKER_HOST, SITE_URL } from '@/constants/index.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 import type { ResponseJSON } from '@/types/index.js';

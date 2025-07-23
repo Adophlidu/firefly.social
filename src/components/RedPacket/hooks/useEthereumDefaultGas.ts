@@ -8,9 +8,10 @@ import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { toFixed, ZERO } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
+import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { type CreateRedPacketContext, EthereumRedPacket } from '@/providers/ethereum/RedPacket.js';
-import { EthereumSchemaType, getTokenConstant } from '#masknet/web3-shared-evm';
+import { EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 export function useEthereumDefaultGas(context: CreateRedPacketContext, enabled = true) {
     const { account, chainId } = useChainContext({
@@ -26,7 +27,7 @@ export function useEthereumDefaultGas(context: CreateRedPacketContext, enabled =
             const { total, token } = context;
             if (!token) return ZERO;
 
-            const NATIVE_TOKEN_ADDRESS = getTokenConstant(chainId, 'NATIVE_TOKEN_ADDRESS');
+            const NATIVE_TOKEN_ADDRESS = getEvmNativeTokenAddress(chainId);
             const tokenAddress = token.schema === EthereumSchemaType.Native ? NATIVE_TOKEN_ADDRESS : token.address;
             if (!tokenAddress) return ZERO;
 
