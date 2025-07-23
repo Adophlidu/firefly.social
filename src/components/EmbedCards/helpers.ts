@@ -24,6 +24,7 @@ const hosts = [
     /snapshot\.(box|org|page)/,
     /(staging|canary|beta|alpha)\.firefly\.social/,
     /firefly-mask.*-dimension-dev\.vercel\.app/,
+    /mask\.io/, // encrypted post payload
 ];
 export function shouldIgnoreLink(link: string) {
     const url = parseUrl(link);
