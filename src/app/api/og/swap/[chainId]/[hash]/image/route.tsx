@@ -32,15 +32,16 @@ function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width'
 }
 
 async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
-    const fromToken = await fetchAvatarAsBase64(swap.from_token?.logo ?? OG_FALLBACK_AVATAR);
-    const toToken = await fetchAvatarAsBase64(swap.to_token?.logo ?? OG_FALLBACK_AVATAR);
+    const fromToken = await fetchAvatarAsBase64(swap.from_token?.logo || OG_FALLBACK_AVATAR);
+    const toToken = await fetchAvatarAsBase64(swap.to_token?.logo || OG_FALLBACK_AVATAR);
+
     const chainIconUrl = resolveChainIcon(swap.chain_id);
     const chainIcon = chainIconUrl ? await fetchAvatarAsBase64(chainIconUrl) : null;
 
     const fromTokenAmountNum = Number(swap.from_token?.amount_num);
     const toTokenAmountNum = Number(swap.to_token?.amount_num);
 
-    const avatarUrl = swap.displayInfo?.avatarUrl ?? getStampAvatarByProfileId(Source.Wallet, swap.owner);
+    const avatarUrl = swap.displayInfo?.avatarUrl || getStampAvatarByProfileId(Source.Wallet, swap.owner);
     const avatar = avatarUrl ? await fetchAvatarAsBase64(avatarUrl) : null;
 
     return (
@@ -202,6 +203,12 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                     )}
                 </span>
             </div>
+
+            {chainIcon ? (
+                <div style={{ display: 'flex', position: 'absolute', bottom: '64px', right: '64px' }}>
+                    <Image src={chainIcon} alt="chain-icon" width={48} height={48} />
+                </div>
+            ) : null}
         </div>
     );
 }

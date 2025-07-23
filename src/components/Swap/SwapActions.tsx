@@ -26,6 +26,7 @@ import { Source, TxReactionType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { downloadImage } from '@/helpers/downloadImage.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
@@ -42,7 +43,6 @@ interface SwapActionsProps {
 }
 
 export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activity, isDetail = false }) {
-    const { mutate: onLikeChange, isPending } = useChangeSwapLikeStatus(activity);
     const isLoginFirefly = useIsLoginFirefly();
 
     const { data } = useQuery({
@@ -55,6 +55,8 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
         },
         initialData: activity,
     });
+
+    const { mutate: onLikeChange, isPending } = useChangeSwapLikeStatus(data);
 
     const [{ loading: handleMirrorLoading }, handleMirror] = useAsyncFn(async () => {
         if (!isLoginFirefly) {
@@ -185,13 +187,17 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                                             enableCancelButton: false,
                                             confirmButtonText: <Trans>Download</Trans>,
                                             onConfirm: () => {
-                                                downloadImage(
-                                                    urlcat(SITE_URL, 'api/og/swap/:chainId/:hash/image', {
-                                                        chainId: activity.chain_id,
-                                                        hash: activity.hash,
-                                                    }),
-                                                    'firefly_swap_share.jpg',
-                                                );
+                                                try {
+                                                    downloadImage(
+                                                        urlcat(SITE_URL, 'api/og/swap/:chainId/:hash/image', {
+                                                            chainId: activity.chain_id,
+                                                            hash: activity.hash,
+                                                        }),
+                                                        'firefly_swap_share.jpg',
+                                                    );
+                                                } catch (error) {
+                                                    enqueueMessageFromError(error, 'Failed to download image');
+                                                }
                                             },
                                             variant: 'normal',
                                             modalStyle: {
@@ -201,7 +207,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                                         close();
                                     }}
                                 >
-                                    <ShareImageIcon width={18} height={18} />
+                                    <ShareImageIcon width={18} height={18} className="text-main" />
                                     <span className="font-bold leading-[22px] text-main">
                                         <Trans>Share Image</Trans>
                                     </span>
