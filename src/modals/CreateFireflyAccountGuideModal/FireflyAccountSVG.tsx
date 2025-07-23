@@ -11,10 +11,15 @@ interface FireflyAccountSVGProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function FireflyAccountSVG({ className }: FireflyAccountSVGProps) {
     return (
-        <div className={classNames('relative h-[350px] w-[286px]', className)}>
-            <FireflyAccountBg />
+        <div
+            className={classNames('relative max-h-[350px] max-w-[286px]', className)}
+            style={{
+                aspectRatio: '286 / 350',
+            }}
+        >
+            <FireflyAccountBg width="100%" height="100%" />
             <motion.div
-                className="absolute left-[145px] top-0"
+                className="absolute left-[50.7%] top-0 aspect-square w-[23.08%]"
                 animate={{
                     y: [0, -15, 0],
                 }}
@@ -26,11 +31,11 @@ export function FireflyAccountSVG({ className }: FireflyAccountSVGProps) {
                     times: [0, 0.6, 1],
                 }}
             >
-                <FarcasterLogo />
+                <FarcasterLogo width="100%" height="100%" />
             </motion.div>
 
             <motion.div
-                className="absolute left-[214px] top-[125px]"
+                className="absolute left-[74.83%] top-[35.71%] aspect-square w-[23.08%]"
                 animate={{
                     y: [0, -12, 0],
                 }}
@@ -42,11 +47,12 @@ export function FireflyAccountSVG({ className }: FireflyAccountSVGProps) {
                     times: [0, 0.5, 1],
                 }}
             >
-                <LensLogo />
+                <LensLogo width="100%" height="100%" />
             </motion.div>
 
             <motion.div
-                className="absolute left-0 top-[87px]"
+                className="absolute left-0 top-[24.86%] w-[21.68%]"
+                style={{ aspectRatio: '62 / 64' }}
                 animate={{
                     y: [0, -15, 0],
                 }}
@@ -58,11 +64,12 @@ export function FireflyAccountSVG({ className }: FireflyAccountSVGProps) {
                     times: [0, 0.4, 1],
                 }}
             >
-                <TwitterLogo />
+                <TwitterLogo width="100%" height="100%" />
             </motion.div>
 
             <motion.div
-                className="absolute left-[58px] top-[170px]"
+                className="absolute left-[20.28%] top-[48.57%] w-[20.28%]"
+                style={{ aspectRatio: '58 / 49' }}
                 animate={{
                     y: [0, -10, 0],
                 }}
@@ -74,7 +81,7 @@ export function FireflyAccountSVG({ className }: FireflyAccountSVGProps) {
                     times: [0, 0.5, 1],
                 }}
             >
-                <MessageLogo />
+                <MessageLogo width="100%" height="100%" />
             </motion.div>
         </div>
     );

@@ -17,8 +17,8 @@ export function CreateFireflyAccountGuideModal({ ref }: Props) {
     return (
         <Modal disableBackdropClose open={open} onClose={() => dispatch?.close()}>
             <div>
-                <div className="no-scrollbar relative max-h-[75vh] w-[90vw] max-w-[512px] space-y-10 overflow-y-auto rounded-md bg-lightBottom p-8 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:rounded-3xl">
-                    <div>
+                <div className="relative flex max-h-[75vh] w-[90vw] max-w-[512px] flex-col gap-5 rounded-md bg-lightBottom p-3 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:gap-10 md:rounded-3xl md:p-8">
+                    <div className="shrink-0">
                         <h2 className="text-2xl font-bold !leading-[29px] text-main">
                             <Trans>Create your Firefly Profile</Trans>
                         </h2>
@@ -26,19 +26,21 @@ export function CreateFireflyAccountGuideModal({ ref }: Props) {
                             <Trans>One Firefly account manages all your social accounts</Trans>
                         </p>
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex min-h-0 flex-1 justify-center">
                         <FireflyAccountSVG />
                     </div>
-                    <SquareButton
-                        onClick={() => {
-                            dispatch?.close();
-                            location.href = PageRoute.Signup;
-                        }}
-                    >
-                        <span className="text-base font-medium text-primaryBottom">
-                            <Trans>Let’s go!</Trans>
-                        </span>
-                    </SquareButton>
+                    <div className="h-12 w-full shrink-0 text-center">
+                        <SquareButton
+                            onClick={() => {
+                                dispatch?.close();
+                                location.href = PageRoute.Signup;
+                            }}
+                        >
+                            <span className="text-base font-medium text-primaryBottom">
+                                <Trans>Let’s go!</Trans>
+                            </span>
+                        </SquareButton>
+                    </div>
                 </div>
             </div>
         </Modal>

@@ -101,6 +101,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
     return (
         <div className={classNames('mt-2 flex items-center justify-between gap-2')}>
             <SwapButton
+                loginRequired
                 className="!ml-0 flex !px-2 py-[2px] !text-[12px] !font-medium !leading-[20px]"
                 swapProps={{
                     chainId: activity.chain_id,
