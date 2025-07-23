@@ -1,13 +1,15 @@
 import { Trans } from '@lingui/react/macro';
-import { createMemoryHistory, createRootRoute, createRoute, createRouter } from '@tanstack/react-router';
+import {
+    createMemoryHistory,
+    createRootRoute,
+    createRoute,
+    createRouter,
+    lazyRouteComponent,
+} from '@tanstack/react-router';
 
 import { NetworkType } from '@/constants/enum.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
-import { AllWalletsView } from '@/modals/WalletConnectModal/AllWalletsView.js';
-import { ConnectingView } from '@/modals/WalletConnectModal/ConnectingView.js';
-import { ConnectingWcView } from '@/modals/WalletConnectModal/ConnectingWcView.js';
 import { DownloadView } from '@/modals/WalletConnectModal/DownloadView.js';
-import { MultipleChainView } from '@/modals/WalletConnectModal/MultipleChainView.js';
 import { RootView } from '@/modals/WalletConnectModal/RootView.js';
 import { WalletListView } from '@/modals/WalletConnectModal/WalletListView.js';
 
@@ -32,7 +34,11 @@ function MainTitle() {
 
 const mainRoute = createRoute({
     getParentRoute: () => rootRoute,
-    component: WalletListView,
+    component: lazyRouteComponent(
+        () => import('./MultipleChainView.js'),
+        undefined,
+        () => false,
+    ),
     path: '/main',
     beforeLoad: () => {
         return {
@@ -43,7 +49,7 @@ const mainRoute = createRoute({
 
 const connectingView = createRoute({
     getParentRoute: () => rootRoute,
-    component: ConnectingView,
+    component: lazyRouteComponent(() => import('./ConnectingView.js')),
     path: '/connecting',
     beforeLoad: (ctx) => {
         const connectorName = 'name' in ctx.search ? ctx.search.name : '';
@@ -55,7 +61,7 @@ const connectingView = createRoute({
 
 const connectingWcView = createRoute({
     getParentRoute: () => rootRoute,
-    component: ConnectingWcView,
+    component: lazyRouteComponent(() => import('./ConnectingWcView.js')),
     path: '/connecting-wc',
     beforeLoad: (ctx) => {
         const connectorName = 'name' in ctx.search ? ctx.search.name : '';
@@ -67,7 +73,7 @@ const connectingWcView = createRoute({
 
 const allWalletsView = createRoute({
     getParentRoute: () => rootRoute,
-    component: AllWalletsView,
+    component: lazyRouteComponent(() => import('./AllWalletsView.js')),
     path: '/all-wallets',
     beforeLoad: () => {
         return {
@@ -94,7 +100,7 @@ const downloadView = createRoute({
 
 const multipleChainView = createRoute({
     getParentRoute: () => rootRoute,
-    component: MultipleChainView,
+    component: lazyRouteComponent(() => import('./MultipleChainView.js')),
     path: '/multiple-chain',
     beforeLoad: () => {
         return {

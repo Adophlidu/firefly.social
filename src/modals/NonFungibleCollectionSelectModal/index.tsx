@@ -9,12 +9,12 @@ import AddIcon from '@/assets/add-circle.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { BackButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { AddCustomERC721ModalRef } from '@/modals/controls.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
-import { NonFungibleCollectionSelectPanel } from '@/modals/NonFungibleCollectionSelectModal/NoFungibleTokenSelectPanel.js';
 
 export interface NonFungibleCollectionSelectModalOpenProps {
     selected?: Collection | Collection[];
@@ -27,6 +27,11 @@ type Props = {
         SingletonModalRefCreator<NonFungibleCollectionSelectModalOpenProps, NonFungibleCollectionSelectModalCloseProps>
     >;
 };
+
+const NonFungibleCollectionSelectPanel = dynamic(() => import('./NonFungibleCollectionSelectPanel.js'), {
+    ssr: false,
+    loading: () => null,
+});
 
 export function NonFungibleCollectionSelectModal({ ref }: Props) {
     const [props, setProps] = useState<NonFungibleCollectionSelectModalOpenProps>();

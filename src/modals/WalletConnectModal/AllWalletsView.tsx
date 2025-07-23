@@ -1,9 +1,9 @@
 import { CoreConnectorController } from '@reown/appkit';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 
 import { selectWallet } from '@/modals/WalletConnectModal/selectWallet.js';
 
-export function AllWalletsView() {
+export default memo(function AllWalletsView() {
     useEffect(() => {
         const original = CoreConnectorController.selectWalletConnector;
         CoreConnectorController.selectWalletConnector = selectWallet;
@@ -13,4 +13,4 @@ export function AllWalletsView() {
     }, []);
 
     return <w3m-all-wallets-view />;
-}
+});

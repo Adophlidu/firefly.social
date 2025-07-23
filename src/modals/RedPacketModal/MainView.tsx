@@ -38,7 +38,7 @@ import { TypeTabs } from '@/modals/RedPacketModal/TypeTabs.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import type { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
-export function MainView() {
+export default function MainView() {
     const { history } = useRouter();
 
     const {

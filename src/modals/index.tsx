@@ -5,7 +5,7 @@ import { memo } from 'react';
 import { NoSSR } from '@/components/NoSSR.js';
 import { AddCustomERC20Modal } from '@/modals/AddCustomERC20Modal.js';
 import { AddCustomERC721Modal } from '@/modals/AddCustomERC721Modal.js';
-import { AddWalletModal } from '@/modals/AddWalletModal.js';
+import { AddWalletModal } from '@/modals/AddWalletModal/index.js';
 import { CollectArticleModal } from '@/modals/CollectArticleModal.js';
 import { CollectPostModal } from '@/modals/CollectPostModal.js';
 import { ComposeModal } from '@/modals/ComposeModal.js';

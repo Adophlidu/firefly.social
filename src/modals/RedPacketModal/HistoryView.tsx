@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { Suspense, useContext, useState } from 'react';
+import { memo, Suspense, useContext, useState } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
@@ -11,7 +11,7 @@ import { SolanaHistoryList } from '@/modals/RedPacketModal/SolanaHistoryList.js'
 import { TypeTabs } from '@/modals/RedPacketModal/TypeTabs.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
-export function HistoryView() {
+export default memo(function HistoryView() {
     const { networkType } = useContext(RedPacketContext);
     const [historyType, setHistoryType] = useState<FireflyRedPacketAPI.ActionType>(
         FireflyRedPacketAPI.ActionType.Claim,
@@ -43,4 +43,4 @@ export function HistoryView() {
             </div>
         </div>
     );
-}
+});

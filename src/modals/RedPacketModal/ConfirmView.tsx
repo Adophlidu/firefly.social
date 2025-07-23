@@ -2,7 +2,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { compact, flatten } from 'lodash-es';
-import { useCallback, useContext, useMemo, useRef } from 'react';
+import { memo, useCallback, useContext, useMemo, useRef } from 'react';
 import { useAsync, useAsyncFn } from 'react-use';
 import { useEnsName } from 'wagmi';
 
@@ -49,7 +49,7 @@ interface ThemeVariant {
 
 const PostReactionTypes = [RequirementType.Like, RequirementType.Repost, RequirementType.Comment];
 
-export function ConfirmView() {
+export default memo(function ConfirmView() {
     const {
         message,
         coverType,
@@ -457,4 +457,4 @@ export function ConfirmView() {
             </div>
         </>
     );
-}
+});

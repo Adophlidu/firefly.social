@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
+import { memo } from 'react';
 import { useAccount } from 'wagmi';
 
 import { CloseButton } from '@/components/IconButton.js';
@@ -16,7 +17,8 @@ interface TransactionSimulatorProps {
     onClose?: () => void;
     onContinue?: () => void;
 }
-export function TransactionSimulatorContent({
+
+export default memo(function TransactionSimulatorContent({
     options,
     showCloseButton = true,
     onContinue,
@@ -74,4 +76,4 @@ export function TransactionSimulatorContent({
             </div>
         </div>
     );
-}
+});

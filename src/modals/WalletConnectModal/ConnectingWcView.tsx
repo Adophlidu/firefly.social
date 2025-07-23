@@ -1,6 +1,6 @@
 import { CoreChainController, CoreRouterController } from '@reown/appkit';
 import { useLocation } from '@tanstack/react-router';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import urlcat from 'urlcat';
 
 import { getNetworkTypeFromCaipAddress } from '@/helpers/getNetworkTypeFromCaipAddress.js';
@@ -27,7 +27,7 @@ function rewriteAppKitRouter() {
     };
 }
 
-export function ConnectingWcView() {
+export default memo(function ConnectingWcView() {
     const location = useLocation();
     const { origin } = WalletConnectContext.useContainer();
 
@@ -54,4 +54,4 @@ export function ConnectingWcView() {
     }, [location, origin]);
 
     return <w3m-connecting-wc-view />;
-}
+});

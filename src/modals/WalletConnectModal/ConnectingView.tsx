@@ -1,6 +1,6 @@
 import { CoreChainController } from '@reown/appkit';
 import { useLocation } from '@tanstack/react-router';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 import { getNetworkTypeFromCaipAddress } from '@/helpers/getNetworkTypeFromCaipAddress.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
@@ -8,7 +8,7 @@ import { WalletConnectModalRef } from '@/modals/controls.js';
 import { captureConnectWalletEvent } from '@/providers/telemetry/captureConnectWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
-export function ConnectingView() {
+export default memo(function ConnectingView() {
     const [now] = useState(Date.now());
     const location = useLocation();
     const { origin } = WalletConnectContext.useContainer();
@@ -32,4 +32,4 @@ export function ConnectingView() {
     );
 
     return <w3m-connecting-external-view />;
-}
+});

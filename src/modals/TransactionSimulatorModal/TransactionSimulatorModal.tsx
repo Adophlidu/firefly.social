@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
 
 import { Modal } from '@/components/Modal.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { TransactionSimulatorContent } from '@/modals/TransactionSimulatorModal/SimulatorContent.js';
 import type { SimulationOptions } from '@/providers/types/Tenderly.js';
 
 export type TransactionSimulatorModalOpenProps = SimulationOptions & {
@@ -15,6 +15,7 @@ type Props = {
     ref: React.Ref<SingletonModalRefCreator<TransactionSimulatorModalOpenProps>>;
 };
 
+const TransactionSimulatorContent = dynamic(() => import('./SimulatorContent.js'), { ssr: false, loading: () => null });
 export function TransactionSimulatorModal({ ref }: Props) {
     const [props, setProps] = useState<TransactionSimulatorModalOpenProps>();
     const [open, dispatch] = useSingletonModal(ref, {

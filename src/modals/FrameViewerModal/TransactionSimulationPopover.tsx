@@ -3,10 +3,10 @@
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useState } from 'react';
 
+import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { Popover } from '@/modals/FrameViewerModal/Popover.js';
-import { TransactionSimulatorContent } from '@/modals/TransactionSimulatorModal/SimulatorContent.js';
 import type { FrameV2 } from '@/types/frame.js';
 
 export interface TransactionSimulationPopoverProps {
@@ -16,6 +16,11 @@ export interface TransactionSimulationPopoverProps {
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<TransactionSimulationPopoverProps, boolean>>;
 };
+
+const TransactionSimulatorContent = dynamic(() => import('@/modals/TransactionSimulatorModal/SimulatorContent.js'), {
+    ssr: false,
+    loading: () => null,
+});
 
 export function TransactionSimulationPopover({ ref }: Props) {
     const [props, setProps] = useState<TransactionSimulationPopoverProps>();

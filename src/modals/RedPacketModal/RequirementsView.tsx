@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
-import { Fragment, useCallback, useContext, useState } from 'react';
+import { Fragment, memo, useCallback, useContext, useState } from 'react';
 
 import AddIcon from '@/assets/add.svg';
 import ArrowDown from '@/assets/arrow-down.svg';
@@ -16,7 +16,7 @@ import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketM
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
 
-export function RequirementsView() {
+export default memo(function RequirementsView() {
     const { history } = useRouter();
     const { rules, setRules, requireCollections, setRequireCollections, setRequireTokens, token } =
         useContext(RedPacketContext);
@@ -189,4 +189,4 @@ export function RequirementsView() {
             </div>
         </>
     );
-}
+});

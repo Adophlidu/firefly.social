@@ -2,7 +2,7 @@ import type { RecipientItemProps } from '@/components/SendTransactionModal/Recip
 import { SingletonModal } from '@/libs/SingletonModal.js';
 import type { AddCustomERC20ModalOpenProps } from '@/modals/AddCustomERC20Modal.js';
 import type { AddCustomERC721ModalOpenProps } from '@/modals/AddCustomERC721Modal.js';
-import type { AddWalletModalCloseProps, AddWalletModalProps } from '@/modals/AddWalletModal.js';
+import type { AddWalletModalCloseProps, AddWalletModalProps } from '@/modals/AddWalletModal/index.js';
 import type { CollectArticleModalOpenProps } from '@/modals/CollectArticleModal.js';
 import type { CollectPostModalOpenProps } from '@/modals/CollectPostModal.js';
 import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/ComposeModal.js';

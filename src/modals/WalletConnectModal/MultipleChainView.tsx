@@ -7,7 +7,7 @@ import {
     CoreHelperUtil,
     CoreRouterController,
 } from '@reown/appkit';
-import { useSyncExternalStore } from 'react';
+import { memo, useSyncExternalStore } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
@@ -19,7 +19,7 @@ import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
 import { checkIfConnectedAndSwitch } from '@/modals/WalletConnectModal/checkIfConnectedAndSwitch.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 
-export function MultipleChainView() {
+export default memo(function MultipleChainView() {
     const { connectedId } = WalletConnectContext.useContainer();
 
     const connectorState = useSyncExternalStore(CoreConnectorController.subscribe, () => CoreConnectorController.state);
@@ -97,4 +97,4 @@ export function MultipleChainView() {
             </div>
         </div>
     );
-}
+});

@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/react/macro';
+import { memo } from 'react';
 
-export function RequirementRulesView() {
+export default memo(function RequirementRulesView() {
     return (
         <div className="flex w-[400px] flex-col gap-6 p-4 pt-0 text-left text-main">
             <div className="flex flex-col gap-3">
@@ -35,4 +36,4 @@ export function RequirementRulesView() {
             </div>
         </div>
     );
-}
+});

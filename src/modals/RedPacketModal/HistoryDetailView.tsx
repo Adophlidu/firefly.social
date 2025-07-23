@@ -1,6 +1,6 @@
 import { useLocation } from '@tanstack/react-router';
 import { first } from 'lodash-es';
-import { Suspense } from 'react';
+import { memo, Suspense } from 'react';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
@@ -71,10 +71,10 @@ function HistoryDetail() {
     );
 }
 
-export function HistoryDetailView() {
+export default memo(function HistoryDetailView() {
     return (
         <Suspense fallback={<Loading className="!min-h-52" />}>
             <HistoryDetail />
         </Suspense>
     );
-}
+});

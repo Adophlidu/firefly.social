@@ -1,12 +1,6 @@
 import { Trans } from '@lingui/react/macro';
-import { createRootRoute, createRoute } from '@tanstack/react-router';
+import { createRootRoute, createRoute, lazyRouteComponent } from '@tanstack/react-router';
 
-import { ConfirmView } from '@/modals/RedPacketModal/ConfirmView.js';
-import { HistoryDetailView } from '@/modals/RedPacketModal/HistoryDetailView.js';
-import { HistoryView } from '@/modals/RedPacketModal/HistoryView.js';
-import { MainView } from '@/modals/RedPacketModal/MainView.js';
-import { RequirementRulesView } from '@/modals/RedPacketModal/RequirementRules.js';
-import { RequirementsView } from '@/modals/RedPacketModal/RequirementsView.js';
 import { RootView } from '@/modals/RedPacketModal/RootView.js';
 
 const rootRoute = createRootRoute({
@@ -15,7 +9,7 @@ const rootRoute = createRootRoute({
 
 const mainRoute = createRoute({
     getParentRoute: () => rootRoute,
-    component: MainView,
+    component: lazyRouteComponent(() => import('./MainView.js')),
     path: '/main',
     beforeLoad: () => {
         return {
@@ -26,7 +20,7 @@ const mainRoute = createRoute({
 
 const confirmRoute = createRoute({
     getParentRoute: () => rootRoute,
-    component: ConfirmView,
+    component: lazyRouteComponent(() => import('./ConfirmView.js')),
     path: '/confirm',
     beforeLoad: () => {
         return {
@@ -37,7 +31,7 @@ const confirmRoute = createRoute({
 
 const historyRoute = createRoute({
     getParentRoute: () => rootRoute,
-    component: HistoryView,
+    component: lazyRouteComponent(() => import('./HistoryView.js')),
     path: '/history',
     beforeLoad: () => {
         return {
@@ -48,7 +42,7 @@ const historyRoute = createRoute({
 
 const requirementsRoute = createRoute({
     getParentRoute: () => rootRoute,
-    component: RequirementsView,
+    component: lazyRouteComponent(() => import('./RequirementsView.js')),
     path: '/requirements',
     beforeLoad: () => {
         return {
@@ -59,7 +53,7 @@ const requirementsRoute = createRoute({
 
 const requirementRulesRoute = createRoute({
     getParentRoute: () => rootRoute,
-    component: RequirementRulesView,
+    component: lazyRouteComponent(() => import('./RequirementRules.js')),
     path: '/requirement-rules',
     beforeLoad: () => {
         return {
@@ -70,7 +64,7 @@ const requirementRulesRoute = createRoute({
 
 const historyDetailRoute = createRoute({
     getParentRoute: () => rootRoute,
-    component: HistoryDetailView,
+    component: lazyRouteComponent(() => import('./HistoryDetailView.js')),
     path: '/detail',
     beforeLoad: () => {
         return {

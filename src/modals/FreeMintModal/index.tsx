@@ -4,9 +4,9 @@ import { useCallback, useState } from 'react';
 
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { MintModalContent } from '@/modals/FreeMintModal/MintModalContent.js';
 import type { MintMetadata, SponsorMintOptions } from '@/providers/types/Firefly.js';
 
 export interface FreeMintModalOpenProps {
@@ -18,10 +18,12 @@ type Props = {
     ref: React.Ref<SingletonModalRefCreator<FreeMintModalOpenProps>>;
 };
 
+const MintModalContent = dynamic(() => import('./MintModalContent.js'), { ssr: false, loading: () => null });
+
 export function FreeMintModal({ ref }: Props) {
     const [props, setProps] = useState<FreeMintModalOpenProps>();
 
-    const [open, dispatch] = useSingletonModal(ref, {
+    const [open, dispatch, mounted] = useSingletonModal(ref, {
         onOpen: (props) => setProps(props),
         onClose: () => setProps(undefined),
     });
@@ -42,7 +44,7 @@ export function FreeMintModal({ ref }: Props) {
                         <Trans>Mint NFT</Trans>
                     </span>
                 </DialogTitle>
-                <MintModalContent {...props} onSuccess={onMinted} />
+                {mounted ? <MintModalContent {...props} onSuccess={onMinted} /> : null}
             </div>
         </Modal>
     );

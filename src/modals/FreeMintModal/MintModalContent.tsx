@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { useEstimateFeesPerGas } from 'wagmi';
 
 import { multipliedBy, ZERO } from '@/helpers/number.js';
@@ -13,7 +13,7 @@ interface MintModalContentProps {
     onSuccess?: () => void;
 }
 
-export function MintModalContent({ mintTarget, mintParams, onSuccess }: MintModalContentProps) {
+export default memo(function MintModalContent({ mintTarget, mintParams, onSuccess }: MintModalContentProps) {
     const [count, setCount] = useState<number | ''>(1);
 
     const isEIP1559 = EVMChainResolver.isFeatureSupported(mintParams.chainId, 'EIP1559');
@@ -55,4 +55,4 @@ export function MintModalContent({ mintTarget, mintParams, onSuccess }: MintModa
             />
         </>
     );
-}
+});

@@ -1,7 +1,12 @@
 import { TransactionSimulationError } from '@/constants/error.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { DraggablePopoverRef, TransactionSimulatorModalRef } from '@/modals/controls.js';
-import { TransactionSimulatorContent } from '@/modals/TransactionSimulatorModal/SimulatorContent.js';
 import { type TransactionSimulatorModalOpenProps } from '@/modals/TransactionSimulatorModal/TransactionSimulatorModal.js';
+
+const TransactionSimulatorContent = dynamic(() => import('@/modals/TransactionSimulatorModal/SimulatorContent.js'), {
+    ssr: false,
+    loading: () => null,
+});
 
 export function simulate(props: TransactionSimulatorModalOpenProps) {
     return new Promise<void>((resolve, reject) => {
