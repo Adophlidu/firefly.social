@@ -982,6 +982,12 @@ msgstr ""
 msgid "All rights reserved by Firefly. For any inquiries, please <0>contact us.</0>"
 msgstr ""
 
+#. placeholder {0}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
+#. placeholder {0}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
+#. placeholder {1}: activity.dex_name || formatAddress(activity.router_address, 4)
+msgid "<0><1/><2>Swapped</2></0><3>on</3>{0}<4>{1}</4>"
+msgstr ""
+
 msgid "Failed to enable Multi-device login. Please try again later."
 msgstr ""
 
@@ -1340,9 +1346,6 @@ msgid "One-time passcode sent to you"
 msgstr ""
 
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
-msgstr ""
-
-msgid "on"
 msgstr ""
 
 msgid "No phishing site found."

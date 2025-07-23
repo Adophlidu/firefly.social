@@ -982,6 +982,12 @@ msgstr "發現詐騙相關地址。"
 msgid "All rights reserved by Firefly. For any inquiries, please <0>contact us.</0>"
 msgstr "Firefly 保留所有權利。如有疑問請<0>聯絡我們</0>"
 
+#. placeholder {0}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
+#. placeholder {0}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
+#. placeholder {1}: activity.dex_name || formatAddress(activity.router_address, 4)
+msgid "<0><1/><2>Swapped</2></0><3>on</3>{0}<4>{1}</4>"
+msgstr ""
+
 msgid "Failed to enable Multi-device login. Please try again later."
 msgstr "無法開啟多裝置登入功能，請稍後重試。"
 
@@ -1341,9 +1347,6 @@ msgstr "已向您發送一次性驗證碼"
 
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "代幣交易次數受限。詐騙代幣交易次數可能受限（詐騙風險）。"
-
-msgid "on"
-msgstr "於"
 
 msgid "No phishing site found."
 msgstr "未發現釣魚網站"

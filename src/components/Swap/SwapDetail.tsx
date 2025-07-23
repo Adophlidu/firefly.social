@@ -103,30 +103,26 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
             <div className="px-4 py-3">
                 {activity.dex_name || activity.router_address ? (
                     <div className="mb-4 flex items-center gap-x-2">
-                        <div className="flex items-center gap-x-1 rounded-lg border border-main px-2 text-main">
-                            <ExchangeIcon className="size-3" />
-                            <span className="text-[15px] leading-6">
-                                <Trans>Swapped</Trans>
+                        <Trans>
+                            <div className="flex items-center gap-x-1 rounded-lg border border-main px-2 text-main">
+                                <ExchangeIcon className="size-3" />
+                                <span className="text-[15px] leading-6">Swapped</span>
+                            </div>
+                            <span>on</span>
+                            {activity.dex_logo ? (
+                                <Image
+                                    src={activity.dex_logo}
+                                    alt={activity.dex_name}
+                                    className="size-4 rounded-full"
+                                    width={16}
+                                    height={16}
+                                />
+                            ) : null}
+
+                            <span className="text-[14px] font-semibold leading-[18px]">
+                                {activity.dex_name || formatAddress(activity.router_address, 4)}
                             </span>
-                        </div>
-
-                        <span>
-                            <Trans>on</Trans>
-                        </span>
-
-                        {activity.dex_logo ? (
-                            <Image
-                                src={activity.dex_logo}
-                                alt={activity.dex_name}
-                                className="size-4 rounded-full"
-                                width={16}
-                                height={16}
-                            />
-                        ) : null}
-
-                        <span className="text-[14px] font-semibold leading-[18px]">
-                            {activity.dex_name || formatAddress(activity.router_address, 4)}
-                        </span>
+                        </Trans>
                     </div>
                 ) : null}
 
