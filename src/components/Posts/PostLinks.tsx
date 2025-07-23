@@ -71,6 +71,9 @@ export const PostLinks = memo(function PostLinks({ post, isInCompose = false }: 
 
     if (!url || isLoading || error || !data) return null;
 
+    // If the url occurs in the content, it might be rendered as an embed card as well.
+    const isInContent = !!post.metadata.content?.content?.includes(url);
+
     return (
         <>
             {article ? (
@@ -103,7 +106,7 @@ export const PostLinks = memo(function PostLinks({ post, isInCompose = false }: 
             ) : null}
             {data.spaceId ? <TweetSpace spaceId={data.spaceId} /> : null}
             {data?.nft ? <NFTPreviewer nft={data.nft} /> : null}
-            {data?.collection ? <CollectionPreviewer collection={data.collection} /> : null}
+            {data?.collection && !isInContent ? <CollectionPreviewer collection={data.collection} /> : null}
         </>
     );
 });
