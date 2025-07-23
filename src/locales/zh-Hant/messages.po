@@ -2356,6 +2356,9 @@ msgstr "加密貨幣混幣器。"
 msgid "Remove Truth Social"
 msgstr "移除 Truth Social"
 
+msgid "Signing transaction"
+msgstr ""
+
 msgid "Submit a wallet to receive a collectible and $MASK airdrop"
 msgstr "提交錢包地址以獲取收藏品和 $MASK 空投"
 
@@ -3469,6 +3472,9 @@ msgstr "返回"
 
 msgid "Decrypt"
 msgstr "解密"
+
+msgid "Sign to Confirm"
+msgstr ""
 
 msgid "Poll for Lens will come back soon."
 msgstr "Lens 投票功能即將回歸。"

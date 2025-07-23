@@ -8,12 +8,10 @@ import { useCountdown } from 'usehooks-ts';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
-import { Source } from '@/constants/enum.js';
-import { InvalidResultError } from '@/constants/error.js';
+import { InvalidOrbPermissionError, InvalidResultError } from '@/constants/error.js';
 import { ORB_REPLY_COUNTDOWN, SEVEN_DAYS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
 import { retry } from '@/helpers/retry.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -21,6 +19,7 @@ import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { OrbProvider } from '@/providers/orb/index.js';
+import { addAccount } from '@/services/account.js';
 
 export const OrbViewBeforeLoad = () => {
     return {
@@ -45,7 +44,7 @@ export function OrbView() {
         return await OrbProvider.initSignIn();
     }, []);
 
-    useAsync(async () => {
+    const { error: pollError } = useAsync(async () => {
         try {
             controller.current.renew();
             if (!initSignInData) return;
@@ -73,9 +72,8 @@ export function OrbView() {
 
             if (!profile.address) throw new Error(t`Failed to login profile by orb`);
 
-            if (!result.accessToken || !result.refreshToken) {
-                enqueueWarningMessage(t`Sorry, stay signed in & edit permission from Orb is necessary to continue.`);
-                return;
+            if (!result.accessToken) {
+                throw new InvalidOrbPermissionError();
             }
 
             const session = new LensSession(
@@ -83,19 +81,24 @@ export function OrbView() {
                 result.accessToken,
                 Date.now(),
                 Date.now() + SEVEN_DAYS,
-                result.refreshToken,
+                result.refreshToken || '',
                 profile.address,
             );
 
-            await lensSessionHolder.resumeSession(session);
-            const profileState = getProfileState(Source.Lens);
-            profileState.addAccount(
+            const done = await addAccount(
                 {
                     profile,
                     session,
                 },
-                true,
+                {
+                    signal: controller.current.signal,
+                },
             );
+
+            if (done) {
+                lensSessionHolder.resumeSession(session);
+            }
+
             enqueueSuccessMessage(t`Your Lens account is now connected`);
             LoginModalRef.close();
         } catch (error) {
@@ -105,6 +108,11 @@ export function OrbView() {
                 );
                 return;
             }
+            if (error instanceof InvalidOrbPermissionError) {
+                enqueueWarningMessage(t`Sorry, stay signed in & edit permission from Orb is necessary to continue.`);
+                throw error;
+            }
+
             enqueueMessageFromError(error, t`Failed to login lens with orb`);
             throw error;
         }
@@ -136,7 +144,12 @@ export function OrbView() {
                             retryInitSignIn();
                         }}
                     >
-                        <ScannableQRCode url={initSignInData.deepLink} scanned={scanned} countdown={count} />
+                        <ScannableQRCode
+                            url={initSignInData.deepLink}
+                            scanned={scanned}
+                            countdown={count}
+                            showReload={!!pollError}
+                        />
                         {scanned ? (
                             <div className="absolute inset-0 flex flex-col items-center justify-center">
                                 <LoadingIcon />

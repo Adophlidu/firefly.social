@@ -2351,6 +2351,9 @@ msgstr "Cryptocurrency mixer."
 msgid "Remove Truth Social"
 msgstr "Remove Truth Social"
 
+msgid "Signing transaction"
+msgstr "Signing transaction"
+
 msgid "Submit a wallet to receive a collectible and $MASK airdrop"
 msgstr "Submit a wallet to receive a collectible and $MASK airdrop"
 
@@ -3464,6 +3467,9 @@ msgstr "Back"
 
 msgid "Decrypt"
 msgstr "Decrypt"
+
+msgid "Sign to Confirm"
+msgstr "Sign to Confirm"
 
 msgid "Poll for Lens will come back soon."
 msgstr "Poll for Lens will come back soon."

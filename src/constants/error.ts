@@ -210,6 +210,14 @@ export class InvalidResultError extends Error {
     }
 }
 
+export class InvalidOrbPermissionError extends Error {
+    override name = 'InvalidOrbPermissionError';
+
+    constructor() {
+        super('Invalid Orb permission.');
+    }
+}
+
 export class NotFoundError extends Error {
     override name = 'NotFoundError';
 

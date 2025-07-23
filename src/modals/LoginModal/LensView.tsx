@@ -214,9 +214,25 @@ export const LensView = memo(function LensView() {
                 )
             ) : null}
 
-            <ClickableButton className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom">
-                <Trans>Connect Wallet</Trans>
-            </ClickableButton>
+            {account.isConnected && currentProfile ? (
+                <ClickableButton
+                    disabled={!currentProfile}
+                    loading={loading}
+                    onClick={() => login()}
+                    className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
+                >
+                    {loading ? <Trans>Signing transaction</Trans> : <Trans>Sign to Confirm</Trans>}
+                </ClickableButton>
+            ) : (
+                <ClickableButton
+                    className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
+                    onClick={() => {
+                        WalletConnectModalRef.open();
+                    }}
+                >
+                    <Trans>Connect Wallet</Trans>
+                </ClickableButton>
+            )}
         </div>
     );
 });
