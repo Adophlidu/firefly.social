@@ -986,6 +986,7 @@ msgstr ""
 msgid "Failed to enable Multi-device login. Please try again later."
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(Source.Lens)
 #. placeholder {0}: session.type
 msgid "Your {0} account is now connected"
 msgstr ""
@@ -4093,9 +4094,6 @@ msgid "Oversupply minting."
 msgstr ""
 
 msgid "Failed to read avatar file, please try again."
-msgstr ""
-
-msgid "Your Lens account is now connected"
 msgstr ""
 
 msgid "*Note: Each NFT can only be used once."

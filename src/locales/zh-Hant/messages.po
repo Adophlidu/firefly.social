@@ -991,6 +991,7 @@ msgstr ""
 msgid "Failed to enable Multi-device login. Please try again later."
 msgstr "無法開啟多裝置登入功能，請稍後重試。"
 
+#. placeholder {0}: resolveSourceName(Source.Lens)
 #. placeholder {0}: session.type
 msgid "Your {0} account is now connected"
 msgstr "您的 {0} 帳戶已連接"
@@ -4115,9 +4116,6 @@ msgstr "超額鑄造中"
 
 msgid "Failed to read avatar file, please try again."
 msgstr "頭像讀取失敗，請重試"
-
-msgid "Your Lens account is now connected"
-msgstr ""
 
 msgid "*Note: Each NFT can only be used once."
 msgstr "*註：每個 NFT 僅限使用一次"

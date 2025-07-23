@@ -25,13 +25,16 @@ import { ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { updateCredentialsStorage } from '@/helpers/getLensCredentialsFromStorage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { resolveCurrentFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { addAccount } from '@/services/account.js';
 import { enableSignlessForManaged } from '@/services/lensV3/enableSignlessForManaged.js';
 
@@ -135,8 +138,11 @@ export const LensView = memo(function LensView() {
         <div className="flex flex-col p-6 pt-0 md:w-[400px]">
             <div
                 className="flex cursor-pointer items-center gap-2 rounded-lg border border-lightHighlight p-2"
-                onClick={() => {
+                onClick={async () => {
                     history.replace('/orb');
+                    TelemetryProvider.captureEvent(EventId.ORB_LOGIN_IN_CLICK, {
+                        firefly_account_id: await resolveCurrentFireflyAccountId(),
+                    });
                 }}
             >
                 <OrbIcon />

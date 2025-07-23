@@ -198,6 +198,10 @@ export enum EventId {
     BSKY_PROFILE_UNFOLLOW_SUCCESS = 'bsky_unfollow_success', // ✅
     BSKY_PROFILE_SUPER_FOLLOW_SUCCESS = 'bsky_superfollow_success', // ✅
 
+    // orb
+    ORB_LOGIN_IN_CLICK = 'orb_login_in_click',
+    ORB_LOGIN_IN_SUCCESS = 'orb_login_in_success',
+
     // wallet
     WALLET_FOLLOW_SUCCESS = 'wallet_follow_success',
     WALLET_UNFOLLOW_SUCCESS = 'wallet_unfollow_success',
@@ -1120,6 +1124,23 @@ export interface Events extends Record<EventId, Event> {
     [EventId.BSKY_PROFILE_SUPER_FOLLOW_SUCCESS]: {
         type: EventType.Interact;
         parameters: BskyEventParameters & WalletEventParameters;
+    };
+
+    // ----------------
+    // orb
+    // ----------------
+    [EventId.ORB_LOGIN_IN_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.ORB_LOGIN_IN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            lens_accounts: AccountPairs;
+        };
     };
 
     // Wallet

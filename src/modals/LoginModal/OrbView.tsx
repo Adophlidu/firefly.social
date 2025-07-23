@@ -8,10 +8,13 @@ import { useCountdown } from 'usehooks-ts';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
+import { Source } from '@/constants/enum.js';
 import { InvalidOrbPermissionError, InvalidResultError } from '@/constants/error.js';
 import { ORB_REPLY_COUNTDOWN, SEVEN_DAYS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { resolveCurrentFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { retry } from '@/helpers/retry.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -19,6 +22,9 @@ import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { OrbProvider } from '@/providers/orb/index.js';
+import { getAccountPairs } from '@/providers/telemetry/captureAccountEvent.js';
+import { TelemetryProvider } from '@/providers/telemetry/index.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { addAccount } from '@/services/account.js';
 
 export const OrbViewBeforeLoad = () => {
@@ -97,9 +103,13 @@ export function OrbView() {
 
             if (done) {
                 lensSessionHolder.resumeSession(session);
+                enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected`);
+                TelemetryProvider.captureEvent(EventId.ORB_LOGIN_IN_SUCCESS, {
+                    firefly_account_id: await resolveCurrentFireflyAccountId(),
+                    lens_accounts: getAccountPairs(Source.Lens),
+                });
             }
 
-            enqueueSuccessMessage(t`Your Lens account is now connected`);
             LoginModalRef.close();
         } catch (error) {
             if (error instanceof InvalidResultError) {

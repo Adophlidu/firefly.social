@@ -60,7 +60,7 @@ const resolveDisconnectEventId = createLookupTableResolver<LoginSource, EventId>
     },
 );
 
-function getAccountPairs(source: ProfileSource) {
+export function getAccountPairs(source: ProfileSource) {
     return getProfileState(source).accounts.map((x) => [x.profile.profileId, x.profile.handle]) as AccountPairs;
 }
 

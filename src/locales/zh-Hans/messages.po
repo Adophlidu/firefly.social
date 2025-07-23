@@ -991,6 +991,7 @@ msgstr "<0><1/><2>已兑换</2></0><3>在</3>{0}<4>{1}</4>"
 msgid "Failed to enable Multi-device login. Please try again later."
 msgstr "无法开启多设备登录功能，请稍后重试。"
 
+#. placeholder {0}: resolveSourceName(Source.Lens)
 #. placeholder {0}: session.type
 msgid "Your {0} account is now connected"
 msgstr "您的 {0} 账户已连接"
@@ -4115,9 +4116,6 @@ msgstr "超出最大铸造数量。"
 
 msgid "Failed to read avatar file, please try again."
 msgstr "头像读取失败，请重试"
-
-msgid "Your Lens account is now connected"
-msgstr ""
 
 msgid "*Note: Each NFT can only be used once."
 msgstr "*注意：每个NFT只能使用一次。"
