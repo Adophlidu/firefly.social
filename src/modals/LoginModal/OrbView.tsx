@@ -39,6 +39,7 @@ export const OrbViewBeforeLoad = () => {
 export function OrbView() {
     const controller = useAbortController();
     const [scanned, setScanned] = useState(false);
+    const [pollError, setPollError] = useState<Error | null>(null);
     const [count, { startCountdown, stopCountdown, resetCountdown }] = useCountdown({
         countStart: ORB_REPLY_COUNTDOWN,
         intervalMs: 1000,
@@ -53,10 +54,11 @@ export function OrbView() {
         return await OrbProvider.initSignIn();
     }, []);
 
-    const { error: pollError } = useAsync(async () => {
+    useAsync(async () => {
         try {
             controller.current.renew();
             if (!initSignInData) return;
+            setPollError(null);
             resetCountdown();
             startCountdown();
             const result = await retry(
@@ -129,15 +131,20 @@ export function OrbView() {
                 enqueueWarningMessage(
                     t`Failed to query the orb sign in status after several attempts. Please try again later.`,
                 );
+                setPollError(error);
                 return;
             }
             if (error instanceof InvalidOrbPermissionError) {
                 enqueueWarningMessage(t`Sorry, stay signed in & edit permission from Orb is necessary to continue.`);
+                setPollError(error);
                 throw error;
             }
 
             enqueueMessageFromError(error, t`Failed to login lens with orb`);
+            setPollError(error as Error);
             throw error;
+        } finally {
+            setScanned(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [initSignInData]);
