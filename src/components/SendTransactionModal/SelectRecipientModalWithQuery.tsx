@@ -163,6 +163,7 @@ export function SelectRecipientModalWithQuery({
     return (
         <SelectRecipientModal
             {...props}
+            initialKeyword={keyword}
             onQuery={setSearchKeyword}
             isLoading={queryResult.isLoading}
             recipients={queryResult.data}

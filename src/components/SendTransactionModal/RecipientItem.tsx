@@ -57,7 +57,7 @@ export function RecipientItem({
             </div>
             {!username && !ens ? (
                 <div className="flex w-full flex-col items-center justify-center space-y-1 text-[13px]">
-                    <div className="break-word line-clamp-2 w-full whitespace-pre-wrap font-bold leading-[18px]">
+                    <div className="break-word line-clamp-2 w-full whitespace-pre-wrap pr-9 font-bold leading-[18px]">
                         {address}
                     </div>
                 </div>

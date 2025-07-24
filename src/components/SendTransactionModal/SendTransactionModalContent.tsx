@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { omit } from 'lodash-es';
+import { omit, omitBy } from 'lodash-es';
 import { type HTMLProps, type ReactNode, useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useAsyncFn } from 'react-use';
@@ -17,6 +17,7 @@ import { RecipientItem, type RecipientItemProps } from '@/components/SendTransac
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 interface FormValues {
@@ -214,7 +215,7 @@ export function SendTransactionModalContent({
                         </span>
                     </ClickableButton>
                 </div>
-                {recipient && isSocialRecipient(recipient) ? (
+                {recipient && isSocialRecipient(recipient) && isSameAddress(recipient.address, watching.to) ? (
                     <div className="flex items-center space-x-3 rounded-2xl border border-current p-3 text-left text-[13px] font-medium leading-5 text-warn">
                         <InfoIcon width={24} height={24} className="shrink-0" />
                         <div>
@@ -303,7 +304,7 @@ export function SendTransactionModalContent({
 }
 
 function isOnlyAddress(recipient: RecipientItemProps) {
-    return Object.keys(recipient).length === 1 && 'address' in recipient;
+    return Object.keys(omitBy(recipient, (x) => x === undefined || x === null)).length === 1 && 'address' in recipient;
 }
 
 function isSocialRecipient(recipient: RecipientItemProps) {

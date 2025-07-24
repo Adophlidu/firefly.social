@@ -15,19 +15,15 @@ import { isPathnameForceRedirect, openLoginModal } from '@/helpers/openLoginModa
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useIsLogin, useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { useMounted } from '@/hooks/useMounted.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 export function Footer() {
-    const mounted = useMounted();
     const isLogin = useIsLogin();
     const isLoginFirefly = useIsLoginFirefly();
     const isLoading = useAsyncStatusAll();
     const pathname = usePathname();
 
     const isForceRedirect = isPathnameForceRedirect(pathname);
-
-    if (!mounted) return;
 
     return (
         <footer className={classNames('absolute inset-x-0 bottom-20 pl-2 md:pl-6')}>

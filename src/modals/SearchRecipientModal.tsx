@@ -18,7 +18,7 @@ type Props = {
 export function SearchRecipientModal({ ref }: Props) {
     const [keyword, setKeyword] = useState('');
     const [networkType, setNetworkType] = useState<NetworkType | undefined>(undefined);
-    const [open, dispatch] = useSingletonModal(ref, {
+    const [open, dispatch, mounted] = useSingletonModal(ref, {
         onOpen(props) {
             if (props?.keyword) setKeyword(props.keyword);
             if (props?.networkType) setNetworkType(props.networkType);
@@ -27,6 +27,8 @@ export function SearchRecipientModal({ ref }: Props) {
             setKeyword('');
         },
     });
+
+    if (!mounted) return null;
 
     return (
         <SelectRecipientModalWithQuery

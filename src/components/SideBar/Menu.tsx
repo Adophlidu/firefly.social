@@ -18,13 +18,13 @@ import SettingsIcon from '@/assets/setting.svg';
 import { Link } from '@/components/Link.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ExclusiveEvents } from '@/components/SideBar/ExclusiveEvents.js';
-import { Footer } from '@/components/SideBar/Footer.js';
 import { HomeEntry } from '@/components/SideBar/HomeEntry.js';
 import { Post } from '@/components/SideBar/Post.js';
 import { Profile } from '@/components/SideBar/Profile.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { PageRoute } from '@/constants/enum.js';
 import { DEFAULT_BOOKMARK_SOURCE, DEFAULT_EXPLORE_TYPE, DEFAULT_NOTIFICATION_SOURCE } from '@/constants/index.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -32,6 +32,10 @@ import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
+
+const Footer = dynamic(() => import('@/components/SideBar/Footer.js').then((x) => x.Footer), {
+    ssr: false,
+});
 
 interface MenuProps {
     collapsed?: boolean;

@@ -1,8 +1,7 @@
 import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useEffect, useState } from 'react';
-import { useDebounceCallback } from 'usehooks-ts';
+import { useState } from 'react';
 
 import SearchIcon from '@/assets/search.svg';
 import { BaseNotFound } from '@/components/BaseNotFound.js';
@@ -10,7 +9,6 @@ import { CloseButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { RecipientItem, type RecipientItemProps } from '@/components/SendTransactionModal/RecipientItem.js';
-import { useCallbackRef } from '@/hooks/useCallbackRef.js';
 
 type Recipient = RecipientItemProps | RecipientItemProps[];
 
@@ -21,26 +19,10 @@ export interface SelectRecipientModalProps {
     onSelect?: (item: RecipientItemProps) => void;
     recipients?: Recipient[];
     isLoading?: boolean;
+    initialKeyword?: string;
 }
 
-export function SelectRecipientModal({
-    open,
-    onClose,
-    recipients,
-    onSelect,
-    onQuery,
-    isLoading,
-}: SelectRecipientModalProps) {
-    const onQueryRef = useCallbackRef(onQuery);
-
-    const [keyword, setKeyword] = useState('');
-    const setDebouncedKeyword = useDebounceCallback(setKeyword, 500);
-
-    useEffect(() => {
-        onQueryRef.current?.(keyword);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [keyword]);
-
+export function SelectRecipientModal({ open, onClose, onSelect, ...props }: SelectRecipientModalProps) {
     const [chooseWalletRecipients, setChooseWalletRecipients] = useState<RecipientItemProps[]>([]);
     const [isOpenChooseWalletModal, setIsOpenChooseWalletModal] = useState(false);
 
@@ -66,63 +48,88 @@ export function SelectRecipientModal({
                             <Trans>Recipient</Trans>
                         </span>
                     </DialogTitle>
-                    <div className="flex min-h-0 flex-1 flex-col">
-                        <div className="flex w-full items-center rounded-lg border border-transparent bg-lightBg px-3 transition-all focus-within:border-highlight">
-                            <SearchIcon width={18} height={18} className="mr-2 shrink-0 text-second" />
-                            <input
-                                className="h-10 w-full border-0 bg-transparent px-0 py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
-                                placeholder={t`Address, ENS, or social handle`}
-                                onChange={(e) => setDebouncedKeyword(e.target.value)}
-                            />
-                        </div>
-                        {isLoading && !recipients?.length ? (
-                            <div className="flex w-full flex-1 items-center justify-center">
-                                <LoadingIcon />
-                            </div>
-                        ) : recipients?.length ? (
-                            <div className="mt-2 flex w-full flex-1 flex-col space-y-2 overflow-y-auto">
-                                {recipients?.map((recipient, i) => {
-                                    if (Array.isArray(recipient)) {
-                                        if (!recipient[0]) return null;
-                                        return (
-                                            <div
-                                                role="button"
-                                                tabIndex={0}
-                                                key={i}
-                                                className="w-full cursor-pointer rounded-lg px-3 py-2 hover:bg-bg"
-                                                onClick={() => {
-                                                    setChooseWalletRecipients(recipient);
-                                                    setIsOpenChooseWalletModal(true);
-                                                }}
-                                            >
-                                                <RecipientItem {...recipient[0]} explorerLink showSources />
-                                            </div>
-                                        );
-                                    }
-                                    return (
-                                        <div
-                                            role="button"
-                                            tabIndex={0}
-                                            key={i}
-                                            className="w-full cursor-pointer rounded-lg px-3 py-2 hover:bg-bg"
-                                            onClick={() => onSelect?.(recipient)}
-                                        >
-                                            <RecipientItem {...recipient} explorerLink showSources />
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        ) : keyword ? (
-                            <BaseNotFound className="!border-0">
-                                <div className="mt-11 text-sm font-bold">
-                                    <Trans>The address could not be found.</Trans>
-                                </div>
-                            </BaseNotFound>
-                        ) : null}
-                    </div>
+                    <ModalContent
+                        {...props}
+                        onSelect={onSelect}
+                        setChooseWalletRecipients={setChooseWalletRecipients}
+                        setIsOpenChooseWalletModal={setIsOpenChooseWalletModal}
+                    />
                 </div>
             </Modal>
         </>
+    );
+}
+
+function ModalContent({
+    recipients,
+    onSelect,
+    onQuery,
+    isLoading,
+    initialKeyword = '',
+    setChooseWalletRecipients,
+    setIsOpenChooseWalletModal,
+}: Omit<SelectRecipientModalProps, 'open' | 'onClose'> & {
+    setChooseWalletRecipients: (items: RecipientItemProps[]) => void;
+    setIsOpenChooseWalletModal: (state: boolean) => void;
+}) {
+    const [keyword, setKeyword] = useState(initialKeyword);
+
+    return (
+        <div className="flex min-h-0 flex-1 flex-col">
+            <div className="flex w-full items-center rounded-lg border border-transparent bg-lightBg px-3 transition-all focus-within:border-highlight">
+                <SearchIcon width={18} height={18} className="mr-2 shrink-0 text-second" />
+                <input
+                    className="h-10 w-full border-0 bg-transparent px-0 py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
+                    placeholder={t`Address, ENS, or social handle`}
+                    value={keyword}
+                    onChange={(e) => setKeyword(e.target.value)}
+                />
+            </div>
+            {isLoading && !recipients?.length ? (
+                <div className="flex w-full flex-1 items-center justify-center">
+                    <LoadingIcon />
+                </div>
+            ) : recipients?.length ? (
+                <div className="mt-2 flex w-full flex-1 flex-col space-y-2 overflow-y-auto">
+                    {recipients?.map((recipient, i) => {
+                        if (Array.isArray(recipient)) {
+                            if (!recipient[0]) return null;
+                            return (
+                                <div
+                                    role="button"
+                                    tabIndex={0}
+                                    key={i}
+                                    className="w-full cursor-pointer rounded-lg px-3 py-2 hover:bg-bg"
+                                    onClick={() => {
+                                        setChooseWalletRecipients(recipient);
+                                        setIsOpenChooseWalletModal(true);
+                                    }}
+                                >
+                                    <RecipientItem {...recipient[0]} explorerLink showSources />
+                                </div>
+                            );
+                        }
+                        return (
+                            <div
+                                role="button"
+                                tabIndex={0}
+                                key={i}
+                                className="w-full cursor-pointer rounded-lg px-3 py-2 hover:bg-bg"
+                                onClick={() => onSelect?.(recipient)}
+                            >
+                                <RecipientItem {...recipient} explorerLink showSources />
+                            </div>
+                        );
+                    })}
+                </div>
+            ) : keyword ? (
+                <BaseNotFound className="!border-0">
+                    <div className="mt-11 text-sm font-bold">
+                        <Trans>The address could not be found.</Trans>
+                    </div>
+                </BaseNotFound>
+            ) : null}
+        </div>
     );
 }
 
