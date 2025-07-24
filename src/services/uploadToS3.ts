@@ -1,5 +1,3 @@
-import { type PutObjectCommandInput, S3 } from '@aws-sdk/client-s3';
-import { Upload } from '@aws-sdk/lib-storage';
 import urlcat from 'urlcat';
 
 import { SUFFIX_NAMES } from '@/constants/index.js';
@@ -16,7 +14,7 @@ async function getS3UploadMediaToken() {
     return resolveFireflyResponseData(response);
 }
 
-export async function uploadToDirectory(
+async function uploadToDirectory(
     file: File,
     directory: string,
     nameGenerator = (file: File) => `${crypto.randomUUID()}.${SUFFIX_NAMES[file.type as keyof typeof SUFFIX_NAMES]}`,
@@ -25,6 +23,12 @@ export async function uploadToDirectory(
     if (typeof hit === 'string' || hit instanceof Promise) return hit;
     const promise = new Promise<string>(async (resolve, reject) => {
         try {
+            // Dynamically import S3 and Upload modules
+            const [{ S3 }, { Upload }] = await Promise.all([
+                import('@aws-sdk/client-s3'),
+                import('@aws-sdk/lib-storage'),
+            ]);
+
             const mediaToken = await getS3UploadMediaToken();
             const client = new S3({
                 credentials: {
@@ -36,7 +40,7 @@ export async function uploadToDirectory(
                 maxAttempts: 5,
             });
 
-            const params: PutObjectCommandInput = {
+            const params = {
                 Bucket: mediaToken.bucket,
                 Key: `${directory}/${nameGenerator(file)}`,
                 Body: file,
