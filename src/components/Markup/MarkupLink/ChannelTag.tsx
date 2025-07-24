@@ -29,9 +29,9 @@ export const ChannelTag = memo<ChannelTagProps>(function ChannelTag({ title, sou
     const [enabled, setEnabled] = useState(false);
 
     useEffect(() => {
-        if (!title) return;
+        if (!title || !viewed) return;
         router.prefetch(resolveChannelUrl(title.trim().slice(1), source));
-    }, [title, router, source]);
+    }, [title, router, source, viewed]);
 
     const data = useQuery({
         enabled: !!channelId && !!source && viewed,

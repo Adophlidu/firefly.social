@@ -79,7 +79,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                             onClick={handleNavigateToDetail}
                             className="cursor-pointer overflow-auto truncate text-lg font-bold text-lightMain"
                         >
-                            {channel?.name}
+                            {channel.name}
                         </span>
                         <SocialSourceIcon source={channel.source} className="shrink-0" size={18} />
                     </div>
@@ -94,7 +94,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                                 </span>
                             ) : null
                         ) : (
-                            <span className="min-w-0 truncate whitespace-nowrap">/{channel?.id}</span>
+                            <span className="min-w-0 truncate whitespace-nowrap">/{channel.id}</span>
                         )}
                         <div className="flex items-center gap-2">
                             {!isBsky ? <UserIcon width={18} height={18} /> : <LikeIcon className="text-secondary" />}
