@@ -118,6 +118,8 @@ export interface Profile {
     // related social profiles
     related_profiles?: Profile[];
     special?: boolean;
+    // firefly account uid
+    uid?: string;
 }
 
 export interface UsersData {

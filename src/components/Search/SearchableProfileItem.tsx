@@ -33,6 +33,10 @@ function fireflyPlatformToSource<T extends Source[]>(platform: FireflyPlatform, 
 
 function getProfileUrlWithAccount(profile: Profile, related: Profile[], source: ProfilePageSource | Source.Firefly) {
     if (source === Source.Firefly) {
+        if (profile.uid) {
+            return getProfileUrl({ source, profileId: profile.uid });
+        }
+
         const firstRelated = first(related);
         if (!firstRelated) return '';
 
@@ -66,12 +70,11 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
             enabled: autoQueryEnsAvatar && source === Source.Wallet && !!profile.handle,
         },
     });
-    // TODO: Stamp doesn't support firefly account, so we use the first related profile's avatar
     const avatar =
         source === Source.Firefly
             ? getStampAvatarByProfileId(
-                  fireflyPlatformToSource(related[0].platform, [Source.Wallet]),
-                  related[0].platform_id,
+                  profile.uid ? source : fireflyPlatformToSource(related[0].platform, [Source.Wallet]),
+                  profile.uid || related[0].platform_id,
               )
             : profile.avatar || data || getStampAvatarByProfileId(source, profile.platform_id);
 
@@ -87,7 +90,7 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
             <Avatar alt={profile.handle} className="size-7 rounded-full" src={avatar} size={44} />
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-x-1">
-                    <span className="truncate text-lg font-bold leading-6 text-lightMain">{displayName}</span>
+                    <span className="truncate text-lg font-bold leading-6 text-lightMain">{displayName || '-'}</span>
                     {sortedRelated.map((x) =>
                         x.platform === FireflyPlatform.Wallet ? (
                             <WalletIcon
@@ -107,9 +110,9 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
                         ),
                     )}
                 </div>
-                <div className="text-lightSecond truncate text-medium leading-[22px]">
-                    {source === Source.Wallet ? '' : '@'}
-                    {profile.handle}
+                <div className="truncate text-medium leading-[22px] text-second">
+                    {source === Source.Wallet || source === Source.Firefly ? '' : '@'}
+                    {source === Source.Firefly && profile.uid ? profile.uid : profile.handle}
                 </div>
             </div>
         </Link>

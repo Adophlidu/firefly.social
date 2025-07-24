@@ -1,3 +1,5 @@
+import urlcat from 'urlcat';
+
 import { type ProfileCategory, type ProfilePageSource, Source } from '@/constants/enum.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
@@ -11,7 +13,7 @@ import { safeUnreachable } from '@/helpers/unreachable.js';
  * @returns The profile URL as a string.
  */
 export function getProfileUrl(
-    profile: { source: ProfilePageSource; profileId?: string; handle?: string },
+    profile: { source: ProfilePageSource | Source.Firefly; profileId?: string; handle?: string },
     category?: ProfileCategory,
     isCurrentProfile?: boolean,
 ) {
@@ -26,6 +28,9 @@ export function getProfileUrl(
         case Source.WalletMix:
             if (!profile.profileId) return '';
             return resolveProfileUrl(profile.source, profile.profileId, category, isCurrentProfile);
+        case Source.Firefly:
+            if (!profile.profileId) return '';
+            return urlcat('/profile/:uid', { uid: profile.profileId });
         default:
             safeUnreachable(profile.source);
             return '';
