@@ -30,7 +30,8 @@ export function SwapModal({ ref }: Props) {
     });
 
     return (
-        <Modal open={open} onClose={() => dispatch?.close()}>
+        // Fixed to dark mode since the OKX widget fails to response to config changes
+        <Modal open={open} onClose={() => dispatch?.close()} dialogClassName="dark">
             <div className="relative z-10 h-[591px] w-[calc(100%-40px)] max-w-[400px] overflow-hidden rounded-2xl bg-white dark:bg-black">
                 {mounted ? <SwapModalContent props={props} open={open} onClose={() => dispatch?.close()} /> : null}
             </div>

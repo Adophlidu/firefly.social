@@ -27,7 +27,10 @@ export function captureSwapEvent(
 ) {
     return runInSafeAsync(async () => {
         const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
-        if (!fireflySession) return;
+        if (!fireflySession) {
+            console.warn('No firefly session to capture swap event');
+            return;
+        }
 
         return TelemetryProvider.captureEvent(eventId, {
             firefly_account_id: `${fireflySession.accountIdForEvent}`,

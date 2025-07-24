@@ -70,10 +70,9 @@ interface SwapModalContentProps {
     open: boolean;
     onClose: () => void;
     props?: SwapModalOpenProps;
-    setProps?: React.Dispatch<React.SetStateAction<SwapModalOpenProps | null>>;
 }
 
-export function SwapModalContent({ open, onClose, props, setProps }: SwapModalContentProps) {
+export function SwapModalContent({ open, onClose, props }: SwapModalContentProps) {
     const [widgetRef, setWidgetRef] = useState<HTMLDivElement | null>(null);
 
     const locale = useLocale();
@@ -131,18 +130,22 @@ export function SwapModalContent({ open, onClose, props, setProps }: SwapModalCo
                     },
                 },
                 {
-                    event: OkxEvents.ON_FULFILLED_ORDER,
-                    handler: async (params) => {
-                        const { chainId, order } = params;
-                        captureSwapEvent(EventId.EVENT_SWAP_SUCCESS, {
-                            chain_id: params.chainId as number,
-                            chain_name: resolveWagmiChain(chainId)?.name,
-                            wallet_type: isEvm ? 'evm' : 'solana',
-                            wallet_name: getConnectWalletName(isEvm) || 'Unknown',
-                            wallet_address: isEvm ? evmProvider.selectedAddress : solanaProvider.publicKey?.toString(),
-                            amount: order.buyAmount,
-                            time: order.creationDate,
-                        });
+                    event: OkxEvents.ON_SUBMIT_TX,
+                    handler: (params) => {
+                        const { chainId, txType, txHash } = params.data;
+                        if (txType === 'SWAP') {
+                            captureSwapEvent(EventId.EVENT_SWAP_SUCCESS, {
+                                chain_id: chainId as number,
+                                chain_name: resolveWagmiChain(chainId)?.name,
+                                wallet_type: isEvm ? 'evm' : 'solana',
+                                wallet_name: getConnectWalletName(isEvm) || 'Unknown',
+                                wallet_address: isEvm
+                                    ? evmProvider.selectedAddress
+                                    : solanaProvider.publicKey?.toString(),
+                                time: new Date().toISOString(),
+                                tx_hash: txHash,
+                            });
+                        }
                     },
                 },
             ],

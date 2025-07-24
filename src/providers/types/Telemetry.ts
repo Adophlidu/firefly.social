@@ -1246,8 +1246,9 @@ export interface Events extends Record<EventId, Event> {
             chain_id?: number;
             chain_name?: string;
             wallet_type: string;
-            wallet_name?: string;
+            wallet_name: string;
             time: string;
+            tx_hash?: string;
         };
     };
 
