@@ -1,0 +1,44 @@
+import { compact, uniq } from 'lodash-es';
+
+import { type SocialSource } from '@/constants/enum.js';
+import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import type { GetBookmarksResponse } from '@/providers/types/Firefly.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+
+function fillBookmarkStatus(post: Post, bookmarkData: Required<GetBookmarksResponse>['data']['list']): Post {
+    return {
+        ...post,
+        hasBookmarked: bookmarkData.some((bookmark) => bookmark.post_id === post.postId && !!bookmark.has_book_marked),
+    };
+}
+
+export async function fillBookmarkStatusForPosts(posts: Post[], source: SocialSource) {
+    const postIds = uniq(
+        posts.flatMap((p) =>
+            compact([p.postId, p.root?.postId, p.commentOn?.postId].concat(p.comments?.map((p) => p.postId) || [])),
+        ),
+    );
+    if (!postIds.length) return posts;
+
+    const bookmarkData =
+        (await runInSafeAsync(() =>
+            FireflySocialMediaProvider.getBookmarksByIds(resolveFireflyPlatformFromSocialSource(source), postIds),
+        )) || [];
+
+    return posts.map((post) => {
+        const newPost = fillBookmarkStatus(post, bookmarkData);
+        if (newPost.root) {
+            newPost.root = fillBookmarkStatus(newPost.root, bookmarkData);
+        }
+        if (newPost.commentOn) {
+            newPost.commentOn = fillBookmarkStatus(newPost.commentOn, bookmarkData);
+        }
+        if (newPost.comments?.length) {
+            newPost.comments = newPost.comments.map((p) => fillBookmarkStatus(p, bookmarkData));
+        }
+
+        return newPost;
+    });
+}

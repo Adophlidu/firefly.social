@@ -1,27 +1,7 @@
-import { BookmarkType, type SocialSource } from '@/constants/enum.js';
-import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { Post, Provider } from '@/providers/types/SocialMedia.js';
+import { type SocialSource } from '@/constants/enum.js';
+import type { Provider } from '@/providers/types/SocialMedia.js';
+import { fillBookmarkStatusForPosts } from '@/services/fillBookmarkStatusForPosts.js';
 import type { ClassType } from '@/types/index.js';
-
-async function fillBookmarkDataForPosts(posts: Post[], source: SocialSource) {
-    const ids = posts.map((x) => x.postId);
-    if (!ids.length) return posts;
-
-    const bookmarks = await runInSafeAsync(() =>
-        FireflySocialMediaProvider.getBookmarksByIds(
-            resolveFireflyPlatformFromSocialSource(source),
-            ids,
-            BookmarkType.Text,
-        ),
-    );
-
-    return posts.map((post) => ({
-        ...post,
-        hasBookmarked: bookmarks?.find((x) => x.post_id === post.postId)?.has_book_marked ?? false,
-    }));
-}
 
 const METHODS_BE_OVERRIDDEN = [
     'getCommentsById',
@@ -41,7 +21,7 @@ export function AddBookmarkStatusForPosts(source: SocialSource) {
                     const result = await m.call(target.prototype, ...args);
 
                     if (result.data?.length) {
-                        const posts = await fillBookmarkDataForPosts(result.data, source);
+                        const posts = await fillBookmarkStatusForPosts(result.data, source);
                         result.data = posts;
                     }
 
