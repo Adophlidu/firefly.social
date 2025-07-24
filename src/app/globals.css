@@ -943,3 +943,8 @@ body.not-support .fixed.inset-y-0 {
 
     @apply flex items-center justify-center bg-primaryBottom;
 }
+
+/* okx dex widget iframe */
+.okx-widget-container [class^='specified-widget-iframe'] {
+    width: 100%;
+}

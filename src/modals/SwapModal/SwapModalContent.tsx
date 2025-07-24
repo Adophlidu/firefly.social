@@ -109,7 +109,7 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
             tradeType: TradeType.SWAP,
             lang: LangMap[locale] || 'en_us',
             theme,
-            width: 400,
+            width: window.innerWidth < 440 ? window.innerWidth - 40 : 400,
             providerType: resolveProviderType(computedProviderType),
             chainIds: props?.chainIds,
             tokenPair,
@@ -170,7 +170,7 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
                 ) : null}
             </div>
             <div
-                className="min-h-[550px]"
+                className="okx-widget-container min-h-[550px]"
                 ref={(ref) => {
                     setWidgetRef(ref);
                 }}
