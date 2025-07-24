@@ -5,7 +5,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
 export async function getPostById(source: SocialSource, postId: string) {
-    const provider = resolveSocialMediaProvider(source, { [Source.Twitter]: 'twitter' });
+    const provider = resolveSocialMediaProvider(source);
     return runInSafeAsync(() => {
         if (source === Source.Lens && isLensV2PostId(postId)) {
             return LensSocialMediaProvider.getPostById(postId, true);

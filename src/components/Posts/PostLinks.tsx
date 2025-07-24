@@ -101,9 +101,7 @@ export const PostLinks = memo(function PostLinks({ post, isInCompose = false }: 
             ) : null}
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
             {data.action ? <ActionContainer action={data.action} url={url} /> : null}
-            {data.oembed && !post.quoteOn ? (
-                <OembedLayout data={data.oembed} post={post} isInCompose={isInCompose} />
-            ) : null}
+            {data.oembed ? <OembedLayout data={data.oembed} post={post} isInCompose={isInCompose} /> : null}
             {data.spaceId ? <TweetSpace spaceId={data.spaceId} /> : null}
             {data?.nft ? <NFTPreviewer nft={data.nft} /> : null}
             {data?.collection && !isInContent ? <CollectionPreviewer collection={data.collection} /> : null}

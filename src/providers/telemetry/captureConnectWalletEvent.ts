@@ -35,7 +35,7 @@ export function captureConnectWalletEvent(
     return runInSafeAsync(async () => {
         const evmAddress = options.address?.startsWith('eip155') ? options.address.split(':')[2] : undefined;
         const solanaAddress = options.address?.startsWith('solana') ? options.address.split(':').pop() : undefined;
-        const wallet_address = evmAddress || solanaAddress || '0x0';
+        const wallet_address = evmAddress?.toLowerCase() || solanaAddress || '0x0';
         const wallet_type = evmAddress ? 'evm' : solanaAddress ? 'solana' : 'unknown';
         const event = {
             click_location: options.origin ?? ClickOrigin.Others,

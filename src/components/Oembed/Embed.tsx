@@ -35,7 +35,7 @@ export function Embed({ og }: EmbedProps) {
                 <div className="rounded-xl border border-line bg-white text-main dark:bg-black">
                     {og.isLarge && imageProps ? (
                         <Image
-                            className="divider aspect-2 w-full rounded-t-xl object-cover"
+                            className="divider aspect-[16/9] w-full rounded-t-xl object-cover"
                             unoptimized
                             {...imageProps}
                             alt=""
