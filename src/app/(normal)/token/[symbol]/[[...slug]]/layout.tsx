@@ -8,12 +8,14 @@ import { WrapTokenMarketData } from '@/app/(normal)/token/[symbol]/[[...slug]]/W
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { KeyType } from '@/constants/enum.js';
 import { createMetadataToken } from '@/helpers/createMetadataToken.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import type { GetTokenOptions } from '@/providers/types/Firefly.js';
 import { searchToken } from '@/services/searchToken.js';
 import type { NextPageProps } from '@/types/index.js';
 
@@ -62,12 +64,15 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     const token = await runInSafeAsync(async () => {
         const isAddress = isValidAddressEthereum(paramSymbol) || isValidAddressSolana(paramSymbol);
         const isCoinId = search?.get('isCoinId') === 'true';
-        return searchToken({
+        const options: GetTokenOptions = {
             token_symbol: isAddress || isCoinId ? undefined : paramSymbol,
             coingecko_id: isCoinId ? paramSymbol : undefined,
-            address: isAddress ? paramSymbol : search?.get('address') || undefined,
             chain_id: search?.get('chainId') ? Number(search.get('chainId')) : undefined,
-        });
+            address: isAddress ? paramSymbol : search?.get('address') || undefined,
+        };
+        const token = await searchToken(options);
+        queryClient.setQueryData(['token', options], token);
+        return token;
     });
 
     if (!token) notFound();
