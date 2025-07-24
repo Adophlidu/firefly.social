@@ -120,7 +120,7 @@ export const TokenMarketData = memo(function TokenMarketData({
     const firstContract = first(contracts);
     const chainId = propChainId || token.chainId || firstContract?.chainId;
     const contract = (chainId ? contracts?.find((x) => x.chainId === chainId) : null) || firstContract;
-    const address = propAddress ?? token.address ?? contract?.address;
+    const address = runtimeAddress || contract?.address;
     const { data: security } = useTokenSecurity(chainId, address);
     const tradeInfo = useTradeInfo(token);
     const tradeChainId = chainId || tradeInfo.chainId;

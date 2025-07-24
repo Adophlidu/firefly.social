@@ -91,4 +91,4 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
     }
 }
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';

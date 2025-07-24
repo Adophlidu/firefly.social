@@ -49,7 +49,7 @@ export const WrapTokenMarketData = memo(function WrapTokenMarketData(props: Toke
     const { tradeRecords } = useContext(TokenContext);
 
     const chainId = search.get('chainId') ? Number(search.get('chainId')) : undefined;
-    const address = props.address || props.token.address;
+    const address = search.get('address') || props.address || props.token.address;
 
     const followingTraderCount = useFollowingTraderCount(props.token.id, chainId, address);
 
@@ -57,6 +57,7 @@ export const WrapTokenMarketData = memo(function WrapTokenMarketData(props: Toke
         <TokenMarketData
             tradeRecords={tradeRecords}
             chainId={chainId || props.token.chainId}
+            address={address}
             traderCount={followingTraderCount}
             range={search.get('range')}
             activeTradeHash={search.get('trade')}

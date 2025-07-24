@@ -117,6 +117,8 @@ export const Overview = memo<TokenOverviewProps>(function Overview({ coinId, cha
         return <DexCoinOverview chainId={chainId} address={address} {...rest} />;
     }
 
+    const selectedAddress = address || contracts[0].address;
+
     return (
         <div {...rest}>
             <h2 className="font-inter font-bold text-main">
@@ -242,17 +244,17 @@ export const Overview = memo<TokenOverviewProps>(function Overview({ coinId, cha
                                 <Tooltip
                                     content={
                                         <div className="max-w-[200px] whitespace-normal text-wrap break-words text-center">
-                                            {contracts[0].address}
+                                            {selectedAddress}
                                         </div>
                                     }
                                     placement="top"
                                     touch
                                 >
                                     <span className="truncate text-medium font-bold text-main">
-                                        {formatAddress(contracts[0].address, 4)}
+                                        {formatAddress(selectedAddress, 4)}
                                     </span>
                                 </Tooltip>
-                                <CopyTextButton notification="toast" text={contracts[0].address} />
+                                <CopyTextButton notification="toast" text={selectedAddress} />
                                 {contracts.length > 1 ? <ContractList contracts={contracts} /> : null}
                             </div>
                         }
