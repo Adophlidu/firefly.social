@@ -34,11 +34,7 @@ function MainTitle() {
 
 const mainRoute = createRoute({
     getParentRoute: () => rootRoute,
-    component: lazyRouteComponent(
-        () => import('./MultipleChainView.js'),
-        undefined,
-        () => false,
-    ),
+    component: WalletListView,
     path: '/main',
     beforeLoad: () => {
         return {
