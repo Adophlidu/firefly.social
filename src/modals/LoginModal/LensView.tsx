@@ -63,7 +63,7 @@ export const LensView = memo(function LensView() {
 
     const { data: profiles = EMPTY_LIST, isLoading } = useQuery({
         retry: false,
-        enabled: !!account.isConnected,
+        enabled: !!account.address,
         queryKey: ['lens', 'profiles', account.address],
         queryFn: async () => {
             try {

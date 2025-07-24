@@ -1,4 +1,5 @@
 'use client';
+import type { AccessToken, IdToken, RefreshToken } from '@lens-protocol/client';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
@@ -13,6 +14,8 @@ import { InvalidOrbPermissionError, InvalidResultError } from '@/constants/error
 import { ORB_REPLY_COUNTDOWN, SEVEN_DAYS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { ensureLensResult } from '@/helpers/ensureLensResult.js';
+import { updateCredentialsStorage } from '@/helpers/getLensCredentialsFromStorage.js';
 import { resolveCurrentFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { retry } from '@/helpers/retry.js';
@@ -98,11 +101,21 @@ export function OrbView() {
                 },
                 {
                     signal: controller.current.signal,
+                    skipSyncAccounts: !result.refreshToken,
                 },
             );
 
             if (done) {
+                updateCredentialsStorage({
+                    accessToken: result.accessToken as AccessToken,
+                    refreshToken: result.refreshToken as RefreshToken,
+                    idToken: result.idToken as IdToken,
+                });
                 lensSessionHolder.resumeSession(session);
+                const sessionClient = await ensureLensResult(lensSessionHolder.sdk.resumeSession());
+
+                if (sessionClient) lensSessionHolder.setSessionClient(sessionClient);
+
                 enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected`);
                 TelemetryProvider.captureEvent(EventId.ORB_LOGIN_IN_SUCCESS, {
                     firefly_account_id: await resolveCurrentFireflyAccountId(),
