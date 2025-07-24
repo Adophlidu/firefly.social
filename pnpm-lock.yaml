@@ -50,6 +50,9 @@ patchedDependencies:
   react-use@17.5.1:
     hash: jdgfodh3ixpexpgf3fwrwvcmtq
     path: patches/react-use@17.5.1.patch
+  twitter-text@3.1.0:
+    hash: pb247chqhjl5b5xlo4i7mpxnni
+    path: patches/twitter-text@3.1.0.patch
   urlcat@3.1.0:
     hash: 5r5xyq4zgcnqugwsrx4lxq2i4e
     path: patches/urlcat@3.1.0.patch
@@ -563,7 +566,7 @@ devDependencies:
     version: 0.6.0(tailwindcss@3.4.17)
   twitter-text:
     specifier: ^3.1.0
-    version: 3.1.0
+    version: 3.1.0(patch_hash=pb247chqhjl5b5xlo4i7mpxnni)
   vite:
     specifier: ^6.3.5
     version: 6.3.5(@types/node@22.10.7)
@@ -20683,7 +20686,7 @@ packages:
     resolution: {integrity: sha512-m0CGXmfGwUhWBOOTVCIXIoSEXwGCQV3Es9yraCwUxaVrjJT2CQcqDrQsQTpBhtiAvVL2HS1cCEGsotNjfX9log==}
     dev: false
 
-  /twitter-text@3.1.0:
+  /twitter-text@3.1.0(patch_hash=pb247chqhjl5b5xlo4i7mpxnni):
     resolution: {integrity: sha512-nulfUi3FN6z0LUjYipJid+eiwXvOLb8Ass7Jy/6zsXmZK3URte043m8fL3FyDzrK+WLpyqhHuR/TcARTN/iuGQ==}
     dependencies:
       '@babel/runtime': 7.27.0
@@ -20691,6 +20694,7 @@ packages:
       punycode: 1.4.1
       twemoji-parser: 11.0.2
     dev: true
+    patched: true
 
   /type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}

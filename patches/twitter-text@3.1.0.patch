@@ -1,0 +1,413 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+deleted file mode 100644
+index c6cf76229e55338d5aac3a71c87efca8fecbfaa5..0000000000000000000000000000000000000000
+diff --git a/dist/esm/autoLinkEntities.js b/dist/esm/autoLinkEntities.js
+index 9431a1c88bbacbe574e7b9ac9ce9efc1a64ad8a5..c46addf6090b8c9fb197ddaae5189be4e050e0b8 100644
+--- a/dist/esm/autoLinkEntities.js
++++ b/dist/esm/autoLinkEntities.js
+@@ -1,4 +1,3 @@
+-import "core-js/modules/es6.array.sort";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/convertUnicodeIndices.js b/dist/esm/convertUnicodeIndices.js
+index 9e2225692f2c71bbe7188e1acc4ca40a4c81ff5a..306ddcacbc05c4c29dd49838e322ff27dd94fffd 100644
+--- a/dist/esm/convertUnicodeIndices.js
++++ b/dist/esm/convertUnicodeIndices.js
+@@ -1,4 +1,3 @@
+-import "core-js/modules/es6.array.sort";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/extractCashtagsWithIndices.js b/dist/esm/extractCashtagsWithIndices.js
+index 3a0b40b714d1c49238f46ec0328182d3578270cc..16bcc8516577de18f9cb662b7a1ed4b3ea1e3827 100755
+--- a/dist/esm/extractCashtagsWithIndices.js
++++ b/dist/esm/extractCashtagsWithIndices.js
+@@ -1,5 +1,3 @@
+-import "core-js/modules/es6.regexp.replace";
+-import "core-js/modules/es6.array.index-of";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/extractHashtagsWithIndices.js b/dist/esm/extractHashtagsWithIndices.js
+index 4e6e1b584d85213b362b6a7d71658e34f1187f58..656750d4c8a8152e875215ed7416df3e2d204f4a 100755
+--- a/dist/esm/extractHashtagsWithIndices.js
++++ b/dist/esm/extractHashtagsWithIndices.js
+@@ -1,5 +1,3 @@
+-import "core-js/modules/es6.regexp.replace";
+-import "core-js/modules/es6.regexp.match";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/extractMentionsOrListsWithIndices.js b/dist/esm/extractMentionsOrListsWithIndices.js
+index 7401d4dfff175e51a08e7074c09df9a7f86ba6eb..4630447b899bb7b0cadbfa89213c1fd1c2fd5197 100755
+--- a/dist/esm/extractMentionsOrListsWithIndices.js
++++ b/dist/esm/extractMentionsOrListsWithIndices.js
+@@ -1,5 +1,3 @@
+-import "core-js/modules/es6.regexp.replace";
+-import "core-js/modules/es6.regexp.match";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/extractReplies.js b/dist/esm/extractReplies.js
+index 0d0da27cabc26841759d40b3d29f74a4217c47e9..ab56b29bc2a7f5f7eb3d1acc9917e53c00554642 100644
+--- a/dist/esm/extractReplies.js
++++ b/dist/esm/extractReplies.js
+@@ -1,5 +1,3 @@
+-import "core-js/modules/es6.regexp.constructor";
+-import "core-js/modules/es6.regexp.match";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/extractUrlsWithIndices.js b/dist/esm/extractUrlsWithIndices.js
+index fc35825770ffc707edc7e849e8a8994b365cc673..fafa024d5a694d6eaee37fc6c2aedb142a2c4b67 100755
+--- a/dist/esm/extractUrlsWithIndices.js
++++ b/dist/esm/extractUrlsWithIndices.js
+@@ -1,7 +1,3 @@
+-import "core-js/modules/es6.array.index-of";
+-import "core-js/modules/es6.regexp.replace";
+-import "core-js/modules/es6.regexp.constructor";
+-import "core-js/modules/es6.regexp.match";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/getUnicodeTextLength.js b/dist/esm/getUnicodeTextLength.js
+index 2c908b2db188255a0a0dcaaffafc7380e33e55fe..5f0f5ae6d70b561eba4006c3399219909ea8281b 100755
+--- a/dist/esm/getUnicodeTextLength.js
++++ b/dist/esm/getUnicodeTextLength.js
+@@ -1,4 +1,3 @@
+-import "core-js/modules/es6.regexp.replace";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/htmlEscape.js b/dist/esm/htmlEscape.js
+index 227cafbde73823ea73c333dabe37d0640b37c66e..ce26983d9d74c18bd0e2742a2ba174821157f539 100644
+--- a/dist/esm/htmlEscape.js
++++ b/dist/esm/htmlEscape.js
+@@ -1,4 +1,3 @@
+-import "core-js/modules/es6.regexp.replace";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/index.js b/dist/esm/index.js
+index 4914f5d8ff4b27d3fa928062e1ee1b43db0556d9..154f31ff23edfc22989adb35837e4edbee04e238 100644
+--- a/dist/esm/index.js
++++ b/dist/esm/index.js
+@@ -1,99 +1,7 @@
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+-import autoLink from './autoLink';
+-import autoLinkCashtags from './autoLinkCashtags';
+-import autoLinkEntities from './autoLinkEntities';
+-import autoLinkHashtags from './autoLinkHashtags';
+-import autoLinkUrlsCustom from './autoLinkUrlsCustom';
+-import autoLinkUsernamesOrLists from './autoLinkUsernamesOrLists';
+-import autoLinkWithJSON from './autoLinkWithJSON';
+-import configs from './configs';
+-import convertUnicodeIndices from './convertUnicodeIndices';
+-import extractCashtags from './extractCashtags';
+-import extractCashtagsWithIndices from './extractCashtagsWithIndices';
+-import extractEntitiesWithIndices from './extractEntitiesWithIndices';
+-import extractHashtags from './extractHashtags';
+-import extractHashtagsWithIndices from './extractHashtagsWithIndices';
+-import extractHtmlAttrsFromOptions from './extractHtmlAttrsFromOptions';
+-import extractMentions from './extractMentions';
+-import extractMentionsOrListsWithIndices from './extractMentionsOrListsWithIndices';
+-import extractMentionsWithIndices from './extractMentionsWithIndices';
+-import extractReplies from './extractReplies';
+-import extractUrls from './extractUrls';
+-import extractUrlsWithIndices from './extractUrlsWithIndices';
+-import getTweetLength from './getTweetLength';
+-import getUnicodeTextLength from './getUnicodeTextLength';
+-import hasInvalidCharacters from './hasInvalidCharacters';
+-import hitHighlight from './hitHighlight';
+-import htmlEscape from './htmlEscape';
+-import isInvalidTweet from './isInvalidTweet';
+-import isValidHashtag from './isValidHashtag';
+-import isValidList from './isValidList';
+-import isValidTweetText from './isValidTweetText';
+-import isValidUrl from './isValidUrl';
+-import isValidUsername from './isValidUsername';
+-import linkTextWithEntity from './linkTextWithEntity';
+-import linkToCashtag from './linkToCashtag';
+-import linkToHashtag from './linkToHashtag';
+-import linkToMentionAndList from './linkToMentionAndList';
+-import linkToText from './linkToText';
+-import linkToTextWithSymbol from './linkToTextWithSymbol';
+-import linkToUrl from './linkToUrl';
+-import modifyIndicesFromUTF16ToUnicode from './modifyIndicesFromUTF16ToUnicode';
+-import modifyIndicesFromUnicodeToUTF16 from './modifyIndicesFromUnicodeToUTF16';
+-import regexen from './regexp/index';
+-import removeOverlappingEntities from './removeOverlappingEntities';
+ import parseTweet from './parseTweet';
+-import splitTags from './splitTags';
+-import standardizeIndices from './standardizeIndices';
+-import tagAttrs from './tagAttrs';
+ export default {
+-  autoLink: autoLink,
+-  autoLinkCashtags: autoLinkCashtags,
+-  autoLinkEntities: autoLinkEntities,
+-  autoLinkHashtags: autoLinkHashtags,
+-  autoLinkUrlsCustom: autoLinkUrlsCustom,
+-  autoLinkUsernamesOrLists: autoLinkUsernamesOrLists,
+-  autoLinkWithJSON: autoLinkWithJSON,
+-  configs: configs,
+-  convertUnicodeIndices: convertUnicodeIndices,
+-  extractCashtags: extractCashtags,
+-  extractCashtagsWithIndices: extractCashtagsWithIndices,
+-  extractEntitiesWithIndices: extractEntitiesWithIndices,
+-  extractHashtags: extractHashtags,
+-  extractHashtagsWithIndices: extractHashtagsWithIndices,
+-  extractHtmlAttrsFromOptions: extractHtmlAttrsFromOptions,
+-  extractMentions: extractMentions,
+-  extractMentionsOrListsWithIndices: extractMentionsOrListsWithIndices,
+-  extractMentionsWithIndices: extractMentionsWithIndices,
+-  extractReplies: extractReplies,
+-  extractUrls: extractUrls,
+-  extractUrlsWithIndices: extractUrlsWithIndices,
+-  getTweetLength: getTweetLength,
+-  getUnicodeTextLength: getUnicodeTextLength,
+-  hasInvalidCharacters: hasInvalidCharacters,
+-  hitHighlight: hitHighlight,
+-  htmlEscape: htmlEscape,
+-  isInvalidTweet: isInvalidTweet,
+-  isValidHashtag: isValidHashtag,
+-  isValidList: isValidList,
+-  isValidTweetText: isValidTweetText,
+-  isValidUrl: isValidUrl,
+-  isValidUsername: isValidUsername,
+-  linkTextWithEntity: linkTextWithEntity,
+-  linkToCashtag: linkToCashtag,
+-  linkToHashtag: linkToHashtag,
+-  linkToMentionAndList: linkToMentionAndList,
+-  linkToText: linkToText,
+-  linkToTextWithSymbol: linkToTextWithSymbol,
+-  linkToUrl: linkToUrl,
+-  modifyIndicesFromUTF16ToUnicode: modifyIndicesFromUTF16ToUnicode,
+-  modifyIndicesFromUnicodeToUTF16: modifyIndicesFromUnicodeToUTF16,
+-  regexen: regexen,
+-  removeOverlappingEntities: removeOverlappingEntities,
+   parseTweet: parseTweet,
+-  splitTags: splitTags,
+-  standardizeIndices: standardizeIndices,
+-  tagAttrs: tagAttrs
+ };
+\ No newline at end of file
+diff --git a/dist/esm/isInvalidTweet.js b/dist/esm/isInvalidTweet.js
+index 4d10da2844eddb85920ef97a3178dcd31436ed56..203dfa277a1bc0b24e6eb6d3eec99e93a8db7173 100755
+--- a/dist/esm/isInvalidTweet.js
++++ b/dist/esm/isInvalidTweet.js
+@@ -1,13 +1,3 @@
+-import "core-js/modules/es6.object.define-property";
+-import "core-js/modules/es6.object.define-properties";
+-import "core-js/modules/es7.object.get-own-property-descriptors";
+-import "core-js/modules/es6.array.for-each";
+-import "core-js/modules/es6.array.filter";
+-import "core-js/modules/es6.symbol";
+-import "core-js/modules/web.dom.iterable";
+-import "core-js/modules/es6.array.iterator";
+-import "core-js/modules/es6.object.to-string";
+-import "core-js/modules/es6.object.keys";
+ import _defineProperty from "@babel/runtime/helpers/defineProperty";
+ 
+ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+diff --git a/dist/esm/isValidList.js b/dist/esm/isValidList.js
+index 6bb580b814131a99067e4c56285fb0fdabb697da..1c551238a4604052bd8ba748970d6110450bc973 100644
+--- a/dist/esm/isValidList.js
++++ b/dist/esm/isValidList.js
+@@ -1,4 +1,3 @@
+-import "core-js/modules/es6.regexp.match";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/isValidUrl.js b/dist/esm/isValidUrl.js
+index c8e8e585a6393fc65ecd205e9d50d3a7d50efff0..36eeb5448d7c828b70158c06b2c88d0a7fdc5a12 100644
+--- a/dist/esm/isValidUrl.js
++++ b/dist/esm/isValidUrl.js
+@@ -1,5 +1,3 @@
+-import "core-js/modules/es6.regexp.constructor";
+-import "core-js/modules/es6.regexp.match";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/lib/convertUnicodeIndices.js b/dist/esm/lib/convertUnicodeIndices.js
+index 141f4efa1be3ebadc088401adb56a14c303b50ef..711e4edf330cbbc0ce552d7368eecd0bb051e74d 100755
+--- a/dist/esm/lib/convertUnicodeIndices.js
++++ b/dist/esm/lib/convertUnicodeIndices.js
+@@ -1,5 +1,3 @@
+-import "core-js/modules/es6.array.sort";
+-
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/lib/getCharacterWeight.js b/dist/esm/lib/getCharacterWeight.js
+index 260aca17e3a00aed77daba786ea68648ebb87a80..1a946c6040a8e1c50fff73802d9919f8cc9f604b 100644
+--- a/dist/esm/lib/getCharacterWeight.js
++++ b/dist/esm/lib/getCharacterWeight.js
+@@ -1,5 +1,3 @@
+-import "core-js/modules/es6.array.is-array";
+-
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/lib/idna.js b/dist/esm/lib/idna.js
+index 4e44babd790390c57ccb19b4c6d4879ca01f9df5..07f715b9e2eaa7ce6c64b9c9aa2ad988533008f5 100644
+--- a/dist/esm/lib/idna.js
++++ b/dist/esm/lib/idna.js
+@@ -1,5 +1,3 @@
+-import "core-js/modules/es6.regexp.split";
+-import "core-js/modules/es6.regexp.match";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/lib/objectAssignPolyfill.js b/dist/esm/lib/objectAssignPolyfill.js
+index 44c336b996dcf0005297723839d9392779b8c8d5..38567b155c2dfc89c6d0ca75bdbb3961295b745f 100644
+--- a/dist/esm/lib/objectAssignPolyfill.js
++++ b/dist/esm/lib/objectAssignPolyfill.js
+@@ -1,6 +1,3 @@
+-import "core-js/modules/es6.object.define-property";
+-import "core-js/modules/es6.object.assign";
+-
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/lib/regexSupplant.js b/dist/esm/lib/regexSupplant.js
+index e7e382c08cd10180536b06759b938ad8e093f637..a8d3a4ae4452ce5b477a3de5794c10cb3b65d70a 100755
+--- a/dist/esm/lib/regexSupplant.js
++++ b/dist/esm/lib/regexSupplant.js
+@@ -1,6 +1,3 @@
+-import "core-js/modules/es6.regexp.replace";
+-import "core-js/modules/es6.regexp.constructor";
+-import "core-js/modules/es6.array.index-of";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/lib/stringSupplant.js b/dist/esm/lib/stringSupplant.js
+index 802bf77a8f616bedf036bafaecfcc5b85d82ff4e..c0828cd68e23e05c2f60b90514db40d4d4184e47 100755
+--- a/dist/esm/lib/stringSupplant.js
++++ b/dist/esm/lib/stringSupplant.js
+@@ -1,4 +1,3 @@
+-import "core-js/modules/es6.regexp.replace";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/linkTextWithEntity.js b/dist/esm/linkTextWithEntity.js
+index e09131af8fc57f14ba2bc622b531e39c2182019a..bfdecfd10803ab7d4b8a0f1dce827d5bc377af0c 100644
+--- a/dist/esm/linkTextWithEntity.js
++++ b/dist/esm/linkTextWithEntity.js
+@@ -1,6 +1,3 @@
+-import "core-js/modules/es6.regexp.match";
+-import "core-js/modules/es6.array.index-of";
+-import "core-js/modules/es6.regexp.replace";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/linkToHashtag.js b/dist/esm/linkToHashtag.js
+index 35d8413f33d32598f3eb6f81d1162f62d14b5bbf..f7310994fed7132ddb914448af965aca1ab0a7a6 100644
+--- a/dist/esm/linkToHashtag.js
++++ b/dist/esm/linkToHashtag.js
+@@ -1,4 +1,3 @@
+-import "core-js/modules/es6.regexp.match";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/linkToTextWithSymbol.js b/dist/esm/linkToTextWithSymbol.js
+index 6a038e031a6cc9aa9641b0ff6b1de88afa091c79..38ce44fa7537fd2dacb9824b203334a4f87db2a1 100644
+--- a/dist/esm/linkToTextWithSymbol.js
++++ b/dist/esm/linkToTextWithSymbol.js
+@@ -1,4 +1,3 @@
+-import "core-js/modules/es6.regexp.match";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/linkToUrl.js b/dist/esm/linkToUrl.js
+index 6f174e85e62bdf857d81e3f47bda1ec7221afb90..b61eb916f4896d7d75eb12c0e1d5bdd36c0da7db 100644
+--- a/dist/esm/linkToUrl.js
++++ b/dist/esm/linkToUrl.js
+@@ -1,4 +1,3 @@
+-import "core-js/modules/es6.regexp.match";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/parseTweet.js b/dist/esm/parseTweet.js
+index 2edf4a7bd355487778569dcc9cb2aac3008985ee..e9e5dda879f153b3d9ac15479bd25a1c9e1b5e27 100644
+--- a/dist/esm/parseTweet.js
++++ b/dist/esm/parseTweet.js
+@@ -1,8 +1,3 @@
+-import "core-js/modules/es6.array.reduce";
+-import "core-js/modules/web.dom.iterable";
+-import "core-js/modules/es6.array.iterator";
+-import "core-js/modules/es6.object.to-string";
+-import "core-js/modules/es6.object.keys";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+@@ -10,10 +5,8 @@ import configs from './configs';
+ import extractUrlsWithIndices from './extractUrlsWithIndices';
+ import getCharacterWeight from './lib/getCharacterWeight';
+ import hasInvalidCharacters from './hasInvalidCharacters';
+-import modifyIndicesFromUTF16ToUnicode from './modifyIndicesFromUTF16ToUnicode'; // TODO: WEB-19861 Replace with public package after it is open sourced
+ 
+ import { parse as extractEmojiWithIndices } from 'twemoji-parser';
+-import urlHasHttps from './regexp/urlHasHttps';
+ /**
+  * [parseTweet description]
+  * @param  {string} text tweet text to parse
+diff --git a/dist/esm/regexp/validCCTLD.js b/dist/esm/regexp/validCCTLD.js
+index 4cbebc5876e2ce42a34b0b11a508b441d7d03e48..a338b089809a100ba374c920fa10825f5826b401 100755
+--- a/dist/esm/regexp/validCCTLD.js
++++ b/dist/esm/regexp/validCCTLD.js
+@@ -1,4 +1,3 @@
+-import "core-js/modules/es6.regexp.constructor";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/regexp/validGTLD.js b/dist/esm/regexp/validGTLD.js
+index ba619cfbc101fef00768b6f921e28dc319844853..15759ca69262c7038c11b3c826f968d3d2e90dc5 100755
+--- a/dist/esm/regexp/validGTLD.js
++++ b/dist/esm/regexp/validGTLD.js
+@@ -1,4 +1,3 @@
+-import "core-js/modules/es6.regexp.constructor";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/removeOverlappingEntities.js b/dist/esm/removeOverlappingEntities.js
+index c8755d4c82fa41b8234621dfe46b90a0cf255f6a..1c6f8051dbee71a3a8c960858cb3d6382722c406 100755
+--- a/dist/esm/removeOverlappingEntities.js
++++ b/dist/esm/removeOverlappingEntities.js
+@@ -1,4 +1,3 @@
+-import "core-js/modules/es6.array.sort";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/splitTags.js b/dist/esm/splitTags.js
+index 17d7cb6b5846a11c13f723872cfdd876e9583894..e9e7057d95fbad6ab400544c05f6d069ceda371a 100644
+--- a/dist/esm/splitTags.js
++++ b/dist/esm/splitTags.js
+@@ -1,4 +1,3 @@
+-import "core-js/modules/es6.regexp.split";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
+diff --git a/dist/esm/standardizeIndices.js b/dist/esm/standardizeIndices.js
+index ccb8689d993818a2cc09a8e0d939af7400029801..930c7ff7a071aa2d44aa726755cd117231b35f82 100644
+--- a/dist/esm/standardizeIndices.js
++++ b/dist/esm/standardizeIndices.js
+@@ -1,5 +1,3 @@
+-import "core-js/modules/es6.string.iterator";
+-import "core-js/modules/es6.array.from";
+ import getUnicodeTextLength from './getUnicodeTextLength';
+ export default function standardizeIndices(text, startIndex, endIndex) {
+   var totalUnicodeTextLength = getUnicodeTextLength(text);
+diff --git a/dist/esm/tagAttrs.js b/dist/esm/tagAttrs.js
+index 6a209a076f642a38fa742a915a9ffe4efc63d4f5..35d0756f406c6b62665989538a1aea27b0b1de60 100644
+--- a/dist/esm/tagAttrs.js
++++ b/dist/esm/tagAttrs.js
+@@ -1,6 +1,3 @@
+-import "core-js/modules/es6.regexp.to-string";
+-import "core-js/modules/es6.date.to-string";
+-import "core-js/modules/es6.object.to-string";
+ // Copyright 2018 Twitter, Inc.
+ // Licensed under the Apache License, Version 2.0
+ // http://www.apache.org/licenses/LICENSE-2.0
