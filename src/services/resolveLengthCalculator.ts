@@ -1,4 +1,4 @@
-import twitter from 'twitter-text';
+import twitterText from 'twitter-text';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
@@ -24,7 +24,7 @@ function calculateLengthForLens(text: string) {
 
 // learn more: https://github.com/twitter/twitter-text/tree/master/js
 function calculateLengthForTwitter(text: string) {
-    const { weightedLength } = twitter.parseTweet(text);
+    const { weightedLength } = twitterText.parseTweet(text);
     return weightedLength;
 }
 

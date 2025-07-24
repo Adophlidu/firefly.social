@@ -263,9 +263,6 @@ msgstr ""
 msgid "{0} listening"
 msgstr ""
 
-msgid "Post Link Validator"
-msgstr ""
-
 msgid "<0>Connect wallet</0> to sign in<1/>if you registered your Farcaster account on Firefly"
 msgstr ""
 
@@ -1117,9 +1114,6 @@ msgstr ""
 msgid "Phishing activities found."
 msgstr ""
 
-msgid "LinkDigest Validator"
-msgstr ""
-
 msgid "Drop type"
 msgstr ""
 
@@ -1243,9 +1237,6 @@ msgid "Lucky drop for {0} is coming soon."
 msgstr ""
 
 msgid "No fake KYC involved."
-msgstr ""
-
-msgid "Session Validator"
 msgstr ""
 
 msgid "THREAD POST"
@@ -2180,9 +2171,6 @@ msgstr ""
 msgid "Phishing activities."
 msgstr ""
 
-msgid "Telemetry"
-msgstr ""
-
 msgid "Show more tokens with small balances"
 msgstr ""
 
@@ -2931,9 +2919,6 @@ msgid "My Wallets"
 msgstr ""
 
 msgid "Please switch to the wallet consistent with this action"
-msgstr ""
-
-msgid "Upload to S3"
 msgstr ""
 
 msgid "Follow Pending"
@@ -4078,9 +4063,6 @@ msgstr ""
 msgid "Unmute"
 msgstr ""
 
-msgid "Firefly Bridge"
-msgstr ""
-
 msgid "Congratulations!"
 msgstr ""
 
@@ -4394,9 +4376,6 @@ msgstr ""
 #. placeholder {1}: rank ? ( <span className="inline-flex h-[14px] items-center text-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
 #. placeholder {1}: rank ? ( <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
 msgid "<0>{0}</0><1>MC</1>{1}"
-msgstr ""
-
-msgid "Ethereum JSON RPC"
 msgstr ""
 
 msgid "Last sale"

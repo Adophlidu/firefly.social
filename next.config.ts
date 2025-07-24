@@ -313,7 +313,7 @@ const withStatoscope = createStatoscope({
     saveOnlyStats: true,
     additionalStats: [],
     watchMode: false,
-    compressor: false,
+    compressor: 'gzip',
     extensions: [],
 });
 

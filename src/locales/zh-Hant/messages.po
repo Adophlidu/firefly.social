@@ -268,9 +268,6 @@ msgstr "我們未發現任何阻止代幣銷售的代碼。"
 msgid "{0} listening"
 msgstr "{0} 位正在收聽"
 
-msgid "Post Link Validator"
-msgstr "貼文連結校驗工具"
-
 msgid "<0>Connect wallet</0> to sign in<1/>if you registered your Farcaster account on Firefly"
 msgstr "若您透過 Firefly 註冊了 Farcaster 帳戶，請<0>連接錢包</0>登入<1/>"
 
@@ -1122,9 +1119,6 @@ msgstr "持有者"
 msgid "Phishing activities found."
 msgstr "發現釣魚活動。"
 
-msgid "LinkDigest Validator"
-msgstr "連結摘要驗證器"
-
 msgid "Drop type"
 msgstr "紅包類型"
 
@@ -1249,9 +1243,6 @@ msgstr "{0} 的紅包功能即將推出。"
 
 msgid "No fake KYC involved."
 msgstr "未涉及虛假 KYC。"
-
-msgid "Session Validator"
-msgstr "登入狀態驗證器"
 
 msgid "THREAD POST"
 msgstr "貼文串"
@@ -2193,9 +2184,6 @@ msgstr ""
 msgid "Phishing activities."
 msgstr "釣魚活動。"
 
-msgid "Telemetry"
-msgstr "遙測數據"
-
 msgid "Show more tokens with small balances"
 msgstr "顯示更多小額代幣"
 
@@ -2950,9 +2938,6 @@ msgstr "我的錢包"
 
 msgid "Please switch to the wallet consistent with this action"
 msgstr "請切換至符合此操作的錢包"
-
-msgid "Upload to S3"
-msgstr "上傳至 S3"
 
 msgid "Follow Pending"
 msgstr "等待追蹤請求通過"
@@ -4099,9 +4084,6 @@ msgstr "小費"
 msgid "Unmute"
 msgstr "取消隱藏"
 
-msgid "Firefly Bridge"
-msgstr "Firefly Bridge"
-
 msgid "Congratulations!"
 msgstr "恭喜！"
 
@@ -4418,9 +4400,6 @@ msgstr "GIF"
 #. placeholder {1}: rank ? ( <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
 msgid "<0>{0}</0><1>MC</1>{1}"
 msgstr "<0>{0}</0><1>市值</1>{1}"
-
-msgid "Ethereum JSON RPC"
-msgstr "以太坊 JSON RPC"
 
 msgid "Last sale"
 msgstr "最新售價"

@@ -263,9 +263,6 @@ msgstr "We are not aware of any code that prevents the sale of tokens."
 msgid "{0} listening"
 msgstr "{0} listening"
 
-msgid "Post Link Validator"
-msgstr "Post Link Validator"
-
 msgid "<0>Connect wallet</0> to sign in<1/>if you registered your Farcaster account on Firefly"
 msgstr "<0>Connect wallet</0> to sign in<1/>if you registered your Farcaster account on Firefly"
 
@@ -1117,9 +1114,6 @@ msgstr "Owners"
 msgid "Phishing activities found."
 msgstr "Phishing activities found."
 
-msgid "LinkDigest Validator"
-msgstr "LinkDigest Validator"
-
 msgid "Drop type"
 msgstr "Drop type"
 
@@ -1244,9 +1238,6 @@ msgstr "Lucky drop for {0} is coming soon."
 
 msgid "No fake KYC involved."
 msgstr "No fake KYC involved."
-
-msgid "Session Validator"
-msgstr "Session Validator"
 
 msgid "THREAD POST"
 msgstr "THREAD POST"
@@ -2188,9 +2179,6 @@ msgstr "OR"
 msgid "Phishing activities."
 msgstr "Phishing activities."
 
-msgid "Telemetry"
-msgstr "Telemetry"
-
 msgid "Show more tokens with small balances"
 msgstr "Show more tokens with small balances"
 
@@ -2945,9 +2933,6 @@ msgstr "My Wallets"
 
 msgid "Please switch to the wallet consistent with this action"
 msgstr "Please switch to the wallet consistent with this action"
-
-msgid "Upload to S3"
-msgstr "Upload to S3"
 
 msgid "Follow Pending"
 msgstr "Follow Pending"
@@ -4094,9 +4079,6 @@ msgstr "Tip"
 msgid "Unmute"
 msgstr "Unmute"
 
-msgid "Firefly Bridge"
-msgstr "Firefly Bridge"
-
 msgid "Congratulations!"
 msgstr "Congratulations!"
 
@@ -4411,9 +4393,6 @@ msgstr "GIF"
 #. placeholder {1}: rank ? ( <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
 msgid "<0>{0}</0><1>MC</1>{1}"
 msgstr "<0>{0}</0><1>MC</1>{1}"
-
-msgid "Ethereum JSON RPC"
-msgstr "Ethereum JSON RPC"
 
 msgid "Last sale"
 msgstr "Last sale"
