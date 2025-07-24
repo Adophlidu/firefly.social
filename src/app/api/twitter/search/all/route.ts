@@ -47,7 +47,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         });
         if (errors?.length) console.error('[twitter] v2.search', errors);
 
-        result.data = await patchTweetsClientToFirefly(result.data);
+        result.data = await patchTweetsClientToFirefly(result.data ?? []);
         return createSuccessResponseJSON(result);
     },
 );
