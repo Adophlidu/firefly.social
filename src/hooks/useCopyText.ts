@@ -6,14 +6,14 @@ import { useCopyToClipboard } from 'usehooks-ts';
 
 import { enqueueSuccessMessage, type MessageOptions } from '@/helpers/enqueueMessage.js';
 
-interface Options {
+export interface ImmediateOptions {
     enqueueSuccessMessage?: boolean;
     messageOptions?: MessageOptions;
 }
 
 export function useCopyText(
     text: string,
-    options: Pick<Options, 'enqueueSuccessMessage'> = { enqueueSuccessMessage: true },
+    options: Pick<ImmediateOptions, 'enqueueSuccessMessage'> = { enqueueSuccessMessage: true },
 ) {
     const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
@@ -21,7 +21,7 @@ export function useCopyText(
     const [, copyToClipboard] = useCopyToClipboard();
 
     const handleCopy = useCallback(
-        (immediateText?: string, immediateOptions?: Options) => {
+        (immediateText?: string, immediateOptions?: ImmediateOptions) => {
             copyToClipboard(immediateText ?? text);
             setCopied(true);
             clearTimeout(timerRef.current);

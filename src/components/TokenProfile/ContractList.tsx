@@ -79,7 +79,10 @@ function ContractItem({ contract, ...rest }: ContractItemProps) {
             )}
             <div className="min-w-[100px] flex-grow p-1 leading-4">
                 <div className="text-[12px] font-bold capitalize text-main">{name}</div>
-                <div className="max-w-[160px] overflow-hidden text-ellipsis whitespace-nowrap text-[12px] font-bold text-main">
+                <div
+                    className="max-w-[160px] overflow-hidden text-ellipsis whitespace-nowrap text-[12px] font-bold text-main"
+                    data-address={contract.address}
+                >
                     {formatAddress(contract.address, 4)}
                 </div>
             </div>

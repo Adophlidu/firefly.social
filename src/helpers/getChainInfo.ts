@@ -48,7 +48,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'arbitrum-one',
         name: 'Arbitrum-One',
-        icon: new URL('../assets/chains/arbitrum-one.png', import.meta.url).href,
+        icon: new URL('../assets/chains/arbitrum.png', import.meta.url).href,
     },
     {
         runtime: 'polygon-pos',

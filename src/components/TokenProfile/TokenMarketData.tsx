@@ -36,7 +36,7 @@ import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
-import { useCopyText } from '@/hooks/useCopyText.js';
+import { type ImmediateOptions, useCopyText } from '@/hooks/useCopyText.js';
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
 import { useSingleCoin } from '@/hooks/useSingleCoin.js';
 import { useTokenPrice } from '@/hooks/useTokenPrice.js';
@@ -83,8 +83,9 @@ const copyOptions = {
     enqueueSuccessMessage: true,
     messageOptions: {
         anchorOrigin: { vertical: 'top', horizontal: 'center' },
+        autoHideDuration: 3000,
     },
-} as const;
+} satisfies ImmediateOptions;
 export const TokenMarketData = memo(function TokenMarketData({
     chainId: propChainId,
     address: propAddress,
@@ -201,7 +202,13 @@ export const TokenMarketData = memo(function TokenMarketData({
     const [, handleCopy] = useCopyText('');
     const contractSelect =
         chainId && address ? (
-            <div className="mt-0.5 inline-flex h-[30px] w-auto cursor-pointer items-center gap-1 rounded-full border border-lightLineSecond bg-bg02 px-2 text-sm text-main">
+            <div
+                className="mt-0.5 inline-flex h-[30px] w-auto cursor-pointer items-center gap-1 rounded-full border border-lightLineSecond bg-bg02 px-2 text-sm text-main"
+                data-address={address}
+                onClick={() => {
+                    handleCopy(address, copyOptions);
+                }}
+            >
                 <ChainIcon size={14} chainId={chainId} />
                 {address ? formatAddress(address, 4) : null}
                 {contracts.length > 1 ? <ArrowDownIcon width={14} height={14} className="text-second" /> : null}
@@ -280,7 +287,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                         <div
                             className="ml-[52px] self-start"
                             onClick={() => {
-                                if (contracts.length === 1) handleCopy(address, copyOptions);
+                                handleCopy(address, copyOptions);
                             }}
                         >
                             {contracts.length === 1 ? (

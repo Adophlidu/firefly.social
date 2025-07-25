@@ -249,7 +249,10 @@ export const Overview = memo<TokenOverviewProps>(function Overview({ coinId, cha
                                     placement="top"
                                     touch
                                 >
-                                    <span className="truncate text-medium font-bold text-main">
+                                    <span
+                                        className="truncate text-medium font-bold text-main"
+                                        data-address={selectedAddress}
+                                    >
                                         {formatAddress(selectedAddress, 4)}
                                     </span>
                                 </Tooltip>
@@ -453,7 +456,10 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                                 placement="top"
                                 touch
                             >
-                                <span className="overflow-hidden text-ellipsis text-medium font-bold text-main">
+                                <span
+                                    className="overflow-hidden text-ellipsis text-medium font-bold text-main"
+                                    data-address={address}
+                                >
                                     {formatAddress(address, 4)}
                                 </span>
                             </Tooltip>
