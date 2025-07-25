@@ -2,7 +2,7 @@ import { FarcasterNetwork, HashScheme, Message, MessageData, SignatureScheme, to
 import { blake3 } from '@noble/hashes/blake3';
 import { bytesToHex, hexToBytes } from 'viem';
 
-import { getPublicKeyInHexFromPrivateKey, signMessageWithPrivateKey } from '@/helpers/ed25519.js';
+import { getPublicKeyInHexFromPrivateKey, signMessageWithPrivateKey } from '@/providers/farcaster/ed25519.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { PartialWith } from '@/types/index.js';
 

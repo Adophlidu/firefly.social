@@ -11,11 +11,11 @@ import { FarcasterInvalidSignerKey, NotImplementedError } from '@/constants/erro
 import { NEYNAR_URL } from '@/constants/index.js';
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { URL_REGEX } from '@/constants/regexp.js';
-import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchNeynarJSON } from '@/helpers/fetchNeynar.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isYouTubeUrl } from '@/helpers/isYouTubeUrl.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
+import { encodeMessageData } from '@/providers/farcaster/encodeMessageData.js';
 import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHash.js';
 import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
 import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';

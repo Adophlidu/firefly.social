@@ -1,6 +1,6 @@
 import { MessageType, toFarcasterTime } from '@farcaster/core';
 
-import { encodeMessageData } from '@/helpers/encodeMessageData.js';
+import { encodeMessageData } from '@/providers/farcaster/encodeMessageData.js';
 import type { SignaturePacket } from '@/providers/types/Hubble.js';
 
 export async function generateSignaturePacket(): Promise<SignaturePacket> {

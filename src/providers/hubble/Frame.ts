@@ -1,8 +1,8 @@
 import { MessageType } from '@farcaster/core';
 import { toBytes } from 'viem';
 
-import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { omitEmptyParams } from '@/helpers/omitEmptyParams.js';
+import { encodeMessageData } from '@/providers/farcaster/encodeMessageData.js';
 import type { Provider } from '@/providers/types/Frame.js';
 import type { FrameSignaturePacket } from '@/providers/types/Hubble.js';
 import type { Index } from '@/types/frame.js';

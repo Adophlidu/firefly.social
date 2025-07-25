@@ -27,7 +27,6 @@ import {
 } from '@/decorators/SetQueryDataForDeleteWallet.js';
 import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
 import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
-import { getPublicKeyInHexFromPrivateKey } from '@/helpers/ed25519.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { formatFireflyConnections } from '@/helpers/formatFireflyConnections.js';
@@ -58,6 +57,7 @@ import { resolveValue } from '@/helpers/resolveValue.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { convertBskyHandleToDid } from '@/providers/bsky/convertBskyHandleToDid.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
 import { formatFarcasterProfileFromSuggestedFollow } from '@/providers/farcaster/formatFarcasterProfileFromSuggestedFollow.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

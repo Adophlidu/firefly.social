@@ -4,7 +4,7 @@ import { readContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { FarcasterInvalidSignerKey, MalformedError } from '@/constants/error.js';
-import { getPublicKeyInHexFromPrivateKey } from '@/helpers/ed25519.js';
+import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 

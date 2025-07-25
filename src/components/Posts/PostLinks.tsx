@@ -135,7 +135,7 @@ export function PostLinksInCompose({
             ...createDummyPost(source, content, oembedUrl, oembedUrls),
             quoteOn: type === 'quote' ? (parentPost ?? undefined) : undefined,
         } satisfies Post;
-    }, [chars, parentPost, source, type]);
+    }, [chars, urls, parentPost, source, type]);
 
     return <PostLinks post={post} isInCompose />;
 }

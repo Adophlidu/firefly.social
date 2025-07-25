@@ -7,7 +7,6 @@ import { Source, SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SEVEN_DAYS } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { getPublicKeyInHexFromPrivateKey } from '@/helpers/ed25519.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getAllAccounts } from '@/helpers/getAllProfiles.js';
@@ -17,6 +16,7 @@ import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionH
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
+import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { LensSession } from '@/providers/lens/Session.js';

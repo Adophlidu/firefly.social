@@ -10,7 +10,7 @@ export function useReportFeedback(
 
     const [{ loading }, handleReport] = useAsyncFn(async () => {
         return;
-    }, [name, comments, options.enqueueSuccessMessage]);
+    }, []);
 
     return [reported, loading, handleReport] as const;
 }

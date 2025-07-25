@@ -25,7 +25,7 @@ import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
 import { EMPTY_LIST, TRACING_RUNTIME_LIST } from '@/constants/index.js';
-import { assert } from '@/helpers/assertion.js';
+import { assert } from '@/helpers/assert.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';

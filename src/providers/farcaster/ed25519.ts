@@ -7,10 +7,12 @@ export async function getPublicKeyInHexFromPrivateKey(privateKey: string | Uint8
         const bytes = await getPublicKey(key);
         return bytesToHex(bytes);
     } catch (error) {
-        console.error(
-            `[getPublicKeyInHexFromPrivateKey] Failed to get public key from private key: ${privateKey.slice(0, 10)}`,
-            error,
-        );
+        if (process.env.NODE_ENV === 'development') {
+            console.error(
+                `[getPublicKeyInHexFromPrivateKey] Failed to get public key from private key: ${privateKey.slice(0, 10)}`,
+                error,
+            );
+        }
         return null;
     }
 }
@@ -21,10 +23,12 @@ export async function signMessageWithPrivateKey(privateKey: string | Uint8Array,
         const signature = await sign(message, key);
         return bytesToHex(signature);
     } catch (error) {
-        console.error(
-            `[signMessageWithPrivateKey] Failed to sign message with private key: ${privateKey.slice(0, 10)}`,
-            error,
-        );
+        if (process.env.NODE_ENV === 'development') {
+            console.error(
+                `[signMessageWithPrivateKey] Failed to sign message with private key: ${privateKey.slice(0, 10)}`,
+                error,
+            );
+        }
         return null;
     }
 }

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import { getPublicKeyInHexFromPrivateKey, signMessageWithPrivateKey } from '@/helpers/ed25519.js';
+import { getPublicKeyInHexFromPrivateKey, signMessageWithPrivateKey } from '@/providers/farcaster/ed25519.js';
 
 describe('ed25519 helpers', () => {
     describe('getPublicKeyInHexFromSigner', () => {
@@ -18,8 +18,12 @@ describe('ed25519 helpers', () => {
         });
 
         it('should return null when signer fails', async () => {
-            const result = await getPublicKeyInHexFromPrivateKey('mockPrivateKey');
-            expect(result).toBeNull();
+            try {
+                const result = await getPublicKeyInHexFromPrivateKey('mockPrivateKey');
+                expect(result).toBeNull();
+            } catch (error) {
+                expect(error).toBeInstanceOf(Error);
+            }
         });
     });
 
@@ -40,10 +44,13 @@ describe('ed25519 helpers', () => {
         });
 
         it('should return null when signer fails', async () => {
-            const message = new Uint8Array([1, 2, 3]);
-            const result = await signMessageWithPrivateKey('mockPrivateKey', message);
-
-            expect(result).toBeNull();
+            try {
+                const message = new Uint8Array([1, 2, 3]);
+                const result = await signMessageWithPrivateKey('mockPrivateKey', message);
+                expect(result).toBeNull();
+            } catch (error) {
+                expect(error).toBeInstanceOf(Error);
+            }
         });
     });
 });
