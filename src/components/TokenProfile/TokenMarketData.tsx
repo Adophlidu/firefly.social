@@ -25,6 +25,7 @@ import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
 import { EMPTY_LIST, TRACING_RUNTIME_LIST } from '@/constants/index.js';
+import { assert } from '@/helpers/assertion.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
@@ -289,6 +290,12 @@ export const TokenMarketData = memo(function TokenMarketData({
                                     contracts={contracts ?? EMPTY_LIST}
                                     onSelect={(contract) => {
                                         handleCopy(contract.address, copyOptions);
+                                        if (process.env.NODE_ENV === 'development') {
+                                            assert(
+                                                contract.chainId,
+                                                'ChainId is required, it should be patched at runtime.',
+                                            );
+                                        }
                                         onContractChange?.(contract);
                                     }}
                                     menuAnchor="bottom"

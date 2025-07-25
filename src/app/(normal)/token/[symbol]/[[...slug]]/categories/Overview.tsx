@@ -24,7 +24,6 @@ import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { formatDate } from '@/helpers/formatTimestamp.js';
 import { getChainInfo } from '@/helpers/getChainInfo.js';
-import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useDetectToken } from '@/hooks/useDetectToken.js';
@@ -108,9 +107,7 @@ export const Overview = memo<TokenOverviewProps>(function Overview({ coinId, cha
         }
         return EMPTY_LIST;
     }, [detected, trending?.contracts]);
-    const contract =
-        contracts.find((x) => x.chainId === chainId || resolveCoinGeckoChainId(x.runtime) === chainId) ||
-        first(contracts);
+    const contract = contracts.find((x) => x.chainId === chainId || x.chainId === chainId) || first(contracts);
     const chain = getChainInfo(contract?.runtime, contract?.chainId);
 
     const total_supply = market?.total_supply ?? attributes?.normalized_total_supply;

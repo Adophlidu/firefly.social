@@ -12,10 +12,10 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getChainInfo } from '@/helpers/getChainInfo.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
-import type { Contract, Trending } from '@/providers/types/Trending.js';
+import type { Contract } from '@/providers/types/Trending.js';
 
 interface Props extends PropsWithChildren {
-    contracts: NonNullable<Trending['contracts']>;
+    contracts: Contract[];
     onSelect?: (contract: Contract) => void;
     menuAnchor?: MenuItemsProps['anchor'];
 }
@@ -39,19 +39,16 @@ export const ContractList = memo<Props>(function ContractList({
         >
             <MenuItems
                 style={{ '--anchor-max-height': '225px' } as CSSProperties}
-                className="backdrop-filter-[blur(8px)] z-[1000] flex max-h-[225px] w-max flex-col gap-2 overflow-auto rounded-2xl border border-line bg-primaryBottom p-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)]"
+                className="backdrop-filter-[blur(8px)] z-[1000] flex max-h-[225px] w-max flex-col gap-2 overflow-auto rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)]"
                 data-hide-scrollbar
                 onClick={stopEvent}
                 anchor={menuAnchor}
             >
-                {contracts.map((contract, index) => (
+                {contracts.map((contract) => (
                     <MenuItem key={contract.address}>
                         {({ close }) => (
                             <ContractItem
-                                className={classNames({
-                                    'border-b border-line': index < contracts.length - 1,
-                                    'cursor-pointer': !!onSelect,
-                                })}
+                                className="cursor-pointer rounded border-b border-line px-3 last-of-type:border-0 hover:bg-bg02"
                                 contract={contract}
                                 onClick={() => {
                                     onSelect?.(contract);

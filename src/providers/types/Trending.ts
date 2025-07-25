@@ -72,6 +72,7 @@ export type Runtime =
 
 export interface Contract {
     runtime: Runtime;
+    /** patched at runtime */
     chainId?: number;
     address: string;
     icon_url?: string;
