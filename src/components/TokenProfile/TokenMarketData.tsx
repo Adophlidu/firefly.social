@@ -30,7 +30,6 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isZero } from '@/helpers/number.js';
 import { resolveCoinGeckoChain } from '@/helpers/resolveCoinGeckoChain.js';
-import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import { resolveDexScreenerUrl } from '@/helpers/resolveDexScreenerUrl.js';
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
@@ -74,7 +73,7 @@ export interface TokenMarketDataProps extends HTMLProps<HTMLDivElement> {
     range?: string | null;
     traderCount?: number;
     activeTradeHash?: string | null;
-    onContractChange?: (chainId: number | undefined, address: string) => void;
+    onContractChange?: (contract: Contract) => void;
     onRangeChange?: (range: string) => void;
     onTradeSelect?: (tradeHash: string) => void;
 }
@@ -290,7 +289,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                                     contracts={contracts ?? EMPTY_LIST}
                                     onSelect={(contract) => {
                                         handleCopy(contract.address, copyOptions);
-                                        onContractChange?.(resolveCoinGeckoChainId(contract.runtime), contract.address);
+                                        onContractChange?.(contract);
                                     }}
                                     menuAnchor="bottom"
                                 >

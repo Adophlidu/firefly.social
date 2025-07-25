@@ -2,6 +2,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { memo, useContext, useMemo } from 'react';
 
+import { useUpdateContractParams } from '@/app/(normal)/token/[symbol]/[[...slug]]/useUpdateContractParams.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { TokenMarketData, type TokenMarketDataProps } from '@/components/TokenProfile/TokenMarketData.js';
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
@@ -53,6 +54,8 @@ export const WrapTokenMarketData = memo(function WrapTokenMarketData(props: Toke
 
     const followingTraderCount = useFollowingTraderCount(props.token.id, chainId, address);
 
+    const updateContractParams = useUpdateContractParams();
+
     return (
         <TokenMarketData
             tradeRecords={tradeRecords}
@@ -61,16 +64,7 @@ export const WrapTokenMarketData = memo(function WrapTokenMarketData(props: Toke
             traderCount={followingTraderCount}
             range={search.get('range')}
             activeTradeHash={search.get('trade')}
-            onContractChange={(chainId, address) => {
-                const params = new URLSearchParams(search);
-                if (chainId) {
-                    params.set('chainId', String(chainId));
-                } else {
-                    params.delete('chainId');
-                }
-                params.set('address', address);
-                router.replace(`${pathname}?${params.toString()}`);
-            }}
+            onContractChange={updateContractParams}
             onRangeChange={(range) => {
                 const params = new URLSearchParams(search);
                 params.set('range', range);

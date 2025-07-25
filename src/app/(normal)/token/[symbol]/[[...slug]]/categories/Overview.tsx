@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { first, isNumber } from 'lodash-es';
 import { type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
+import { useUpdateContractParams } from '@/app/(normal)/token/[symbol]/[[...slug]]/useUpdateContractParams.js';
 import LinkIcon from '@/assets/link-square.svg';
 import QuestionIcon from '@/assets/question.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
@@ -90,6 +91,7 @@ export const Overview = memo<TokenOverviewProps>(function Overview({ coinId, cha
     const { market, coin } = trending ?? {};
     const { data: detected } = useDetectToken(address, !trending);
     const attributes = detected?.contract_info?.attributes;
+    const updateContractParams = useUpdateContractParams();
 
     const contracts = useMemo(() => {
         if (trending?.contracts) {
@@ -117,7 +119,7 @@ export const Overview = memo<TokenOverviewProps>(function Overview({ coinId, cha
         return <DexCoinOverview chainId={chainId} address={address} {...rest} />;
     }
 
-    const selectedAddress = address || contracts[0].address;
+    const selectedAddress = address || contracts[0]?.address;
 
     return (
         <div {...rest}>
@@ -255,7 +257,9 @@ export const Overview = memo<TokenOverviewProps>(function Overview({ coinId, cha
                                     </span>
                                 </Tooltip>
                                 <CopyTextButton notification="toast" text={selectedAddress} />
-                                {contracts.length > 1 ? <ContractList contracts={contracts} /> : null}
+                                {contracts.length > 1 ? (
+                                    <ContractList contracts={contracts} onSelect={updateContractParams} />
+                                ) : null}
                             </div>
                         }
                     />

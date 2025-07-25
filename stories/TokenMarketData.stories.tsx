@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 
 import { TokenMarketData, type TokenMarketDataProps } from '@/components/TokenProfile/TokenMarketData.js';
+import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 
 interface Props extends Pick<TokenMarketDataProps, 'tradeRecords' | 'range' | 'traderCount'> {
@@ -22,9 +23,10 @@ function WrapTokenMarketData({ symbol, ...rest }: Props) {
             {...rest}
             chainId={chainId}
             address={address}
-            onContractChange={(chainId, address) => {
+            onContractChange={(contract) => {
+                const chainId = resolveCoinGeckoChainId(contract.runtime);
                 setChainId(chainId);
-                setAddress(address);
+                setAddress(contract.address);
             }}
             activeTradeHash={tradeHash}
             onTradeSelect={setTradeHash}

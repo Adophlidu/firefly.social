@@ -5,6 +5,7 @@ import { type HTMLProps, memo, useState } from 'react';
 import { useFollowingTraderCount } from '@/app/(normal)/token/[symbol]/[[...slug]]/WrapTokenMarketData.js';
 import { TokenMarketData, type TokenMarketDataProps } from '@/components/TokenProfile/TokenMarketData.js';
 import { COINGECKO_SOL_COIN_ID, EMPTY_LIST, SWAP_SOL_NATIVE_ADDRESS } from '@/constants/index.js';
+import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import { swapActivityToTradeRecord } from '@/helpers/swapActivityToTradeRecord.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
@@ -52,9 +53,10 @@ export const FeaturedToken = memo<FeaturedTokenProps>(function FeaturedToken({ t
             linkable
             chainId={chainId}
             address={address}
-            onContractChange={(chainId, address) => {
+            onContractChange={(contract) => {
+                const chainId = resolveCoinGeckoChainId(contract.runtime);
                 setChainId(chainId);
-                setAddress(address);
+                setAddress(contract.address);
             }}
         />
     );
