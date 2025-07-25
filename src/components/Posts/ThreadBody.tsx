@@ -98,7 +98,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                         'md:-mt-[14px]': !isDetailPage || !isLast,
                     })}
                 >
-                    <PostBody post={post} disablePadding showTranslate={showTranslate} />
+                    <PostBody post={post} disablePadding showTranslate={showTranslate} isDetail={isDetail} />
                     <NoSSR>
                         {showAction ? (
                             isDetail && isLast ? null : (
