@@ -19,7 +19,6 @@
         "build:scripts": "node scripts/build-scripts.mjs",
         "build:logs": "scripts/build-logs.sh",
         "build:polyfills": "scripts/build-polyfills.sh",
-        "build:sitemap": "scripts/build-sitemap.sh",
         "start": "next start",
         "lint": "next lint",
         "test": "vitest",
