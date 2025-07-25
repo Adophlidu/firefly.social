@@ -289,7 +289,6 @@ export const TokenMarketData = memo(function TokenMarketData({
                                 <ContractList
                                     contracts={contracts ?? EMPTY_LIST}
                                     onSelect={(contract) => {
-                                        handleCopy(contract.address, copyOptions);
                                         if (process.env.NODE_ENV === 'development') {
                                             assert(
                                                 contract.chainId,
