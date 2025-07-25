@@ -205,12 +205,17 @@ export const TokenMarketData = memo(function TokenMarketData({
             <div
                 className="mt-0.5 inline-flex h-[30px] w-auto cursor-pointer items-center gap-1 rounded-full border border-lightLineSecond bg-bg02 px-2 text-sm text-main"
                 data-address={address}
-                onClick={() => {
-                    handleCopy(address, copyOptions);
-                }}
             >
-                <ChainIcon size={14} chainId={chainId} />
-                {address ? formatAddress(address, 4) : null}
+                <div
+                    className="inline-flex items-center gap-1"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        handleCopy(address, copyOptions);
+                    }}
+                >
+                    <ChainIcon size={14} chainId={chainId} />
+                    {address ? formatAddress(address, 4) : null}
+                </div>
                 {contracts.length > 1 ? <ArrowDownIcon width={14} height={14} className="text-second" /> : null}
             </div>
         ) : null;
@@ -284,12 +289,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                     {isTrendingPending && !contractSelect ? (
                         <div className="ml-[52px] mt-0.5 h-[30px] w-[122px] self-start rounded-full bg-bg02" />
                     ) : contractSelect ? (
-                        <div
-                            className="ml-[52px] self-start"
-                            onClick={() => {
-                                handleCopy(address, copyOptions);
-                            }}
-                        >
+                        <div className="ml-[52px] self-start">
                             {contracts.length === 1 ? (
                                 contractSelect
                             ) : (
