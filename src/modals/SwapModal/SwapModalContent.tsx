@@ -10,6 +10,7 @@ import {
     TradeType,
 } from '@okxweb3/dex-widget';
 import { CoreChainController } from '@reown/appkit';
+import { uniq } from 'lodash-es';
 import { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 import { mainnet } from 'viem/chains';
@@ -111,7 +112,7 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
             theme,
             width: window.innerWidth < 440 ? window.innerWidth - 40 : 400,
             providerType: resolveProviderType(computedProviderType),
-            chainIds: props?.chainIds,
+            chainIds: props?.chainIds ? uniq([...props.chainIds, chainId.toString()]) : [],
             tokenPair,
         };
 

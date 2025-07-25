@@ -268,9 +268,9 @@ export const TokenMarketData = memo(function TokenMarketData({
                             <SwapButton
                                 className="ml-auto sm:hidden md:inline-flex"
                                 swapProps={
-                                    tradeChainId && tradeInfo.address
+                                    tradeChainId
                                         ? {
-                                              toToken: tradeInfo.address,
+                                              toToken: address || tradeInfo.address,
                                               chainId: tradeChainId,
                                               chainIds: tradeInfo.supportedChainIds.map((x) => x.toString()),
                                           }
