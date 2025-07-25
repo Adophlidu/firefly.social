@@ -17,7 +17,7 @@ interface ComposeContentProps {
 export function ComposeContent(props: ComposeContentProps) {
     const { type, cursor } = useComposeStateStore();
 
-    const { id, parentPost, images, poll, availableSources, chars } = props.post;
+    const { id, parentPost, images, urls, poll, availableSources, chars } = props.post;
 
     // in reply and quote mode, there could be only one parent post
     const [, post] =
@@ -55,6 +55,7 @@ export function ComposeContent(props: ComposeContentProps) {
             {type === 'quote' && post ? <Quote post={post} className="text-left" /> : null}
 
             <PostLinksInCompose
+                urls={urls}
                 chars={chars}
                 parentPost={post}
                 source={post?.source ?? availableSources[0]}

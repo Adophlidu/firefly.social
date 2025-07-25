@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { last } from 'lodash-es';
+import { last, uniq } from 'lodash-es';
 import { memo, useEffect, useMemo } from 'react';
 
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
@@ -112,12 +112,14 @@ export const PostLinks = memo(function PostLinks({ post, isInCompose = false }: 
 export function PostLinksInCompose({
     type,
     chars,
+    urls,
     source,
     parentPost,
 }: {
+    type: ComposeType;
+    urls: string[];
     chars: Chars;
     source: SocialSource;
-    type: ComposeType;
     parentPost?: Post | null;
 }) {
     const post = useMemo(() => {
@@ -127,7 +129,7 @@ export function PostLinksInCompose({
             if (['@'].includes(content[index - 1]) && !url.startsWith('http')) return false;
             return true;
         });
-        const oembedUrl = last(oembedUrls);
+        const oembedUrl = last(uniq([...oembedUrls, ...urls]));
 
         return {
             ...createDummyPost(source, content, oembedUrl, oembedUrls),
