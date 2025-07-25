@@ -137,7 +137,7 @@ export const LensView = memo(function LensView() {
     return (
         <div className="flex flex-col p-6 pt-0 md:w-[400px]">
             <div
-                className="flex cursor-pointer items-center gap-2 rounded-lg border border-lightHighlight p-2"
+                className="flex cursor-pointer items-center gap-2 rounded-lg border border-lightHighlight p-2 max-md:hidden"
                 onClick={async () => {
                     history.replace('/orb');
                     TelemetryProvider.captureEvent(EventId.ORB_LOGIN_IN_CLICK, {
@@ -156,7 +156,7 @@ export const LensView = memo(function LensView() {
                 </div>
                 <ScanIcon className="size-[20px]" />
             </div>
-            <div className="my-3 px-2 text-center text-[14px] leading-[14px]">
+            <div className="my-3 px-2 text-center text-[14px] leading-[14px] max-md:hidden">
                 {account.isConnected ? (
                     <Trans>
                         Or select account on
@@ -174,9 +174,9 @@ export const LensView = memo(function LensView() {
                 )}
             </div>
 
-            {account.isConnected ? (
+            {account.address ? (
                 profiles.length > 0 ? (
-                    <div className="no-scrollbar flex max-h-[278px] flex-col gap-2 overflow-auto">
+                    <div className="no-scrollbar flex max-h-[278px] flex-col gap-2 overflow-auto max-md:max-h-[calc(100vh_-_136px)]">
                         {profiles.map((profile) => {
                             return (
                                 <div
@@ -203,7 +203,7 @@ export const LensView = memo(function LensView() {
                         })}
                     </div>
                 ) : (
-                    <div className="flex h-[228px] flex-col items-center justify-center gap-1">
+                    <div className="flex h-[228px] flex-col items-center justify-center gap-1 max-md:max-h-[calc(100vh_-_136px)]">
                         {isLoading ? (
                             <LoadingIcon />
                         ) : (
@@ -220,25 +220,27 @@ export const LensView = memo(function LensView() {
                 )
             ) : null}
 
-            {account.isConnected && currentProfile ? (
-                <ClickableButton
-                    disabled={!currentProfile}
-                    loading={loading}
-                    onClick={() => login()}
-                    className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
-                >
-                    {loading ? <Trans>Signing transaction</Trans> : <Trans>Sign to Confirm</Trans>}
-                </ClickableButton>
-            ) : (
-                <ClickableButton
-                    className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
-                    onClick={() => {
-                        WalletConnectModalRef.open();
-                    }}
-                >
-                    <Trans>Connect Wallet</Trans>
-                </ClickableButton>
-            )}
+            {!isLoading ? (
+                account.address && currentProfile ? (
+                    <ClickableButton
+                        disabled={!currentProfile}
+                        loading={loading}
+                        onClick={() => login()}
+                        className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
+                    >
+                        {loading ? <Trans>Signing transaction</Trans> : <Trans>Sign to Confirm</Trans>}
+                    </ClickableButton>
+                ) : (
+                    <ClickableButton
+                        className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
+                        onClick={() => {
+                            WalletConnectModalRef.open();
+                        }}
+                    >
+                        <Trans>Connect Wallet</Trans>
+                    </ClickableButton>
+                )
+            ) : null}
         </div>
     );
 });
