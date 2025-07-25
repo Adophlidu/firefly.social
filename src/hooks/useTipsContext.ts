@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { createContainer } from 'unstated-next';
+import { useDebounceValue } from 'usehooks-ts';
 
 import { type NetworkType, Source } from '@/constants/enum.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
@@ -54,12 +55,12 @@ function createEmptyContext(): TipsContext {
 function useTipsContext(initialState?: TipsContext) {
     const [value, setValue] = useState<TipsContext>(initialState ?? createEmptyContext());
 
-    const tokenAmount = useMemo(() => {
+    const [tokenAmount] = useDebounceValue(() => {
         if (!value.token || value.amount) return value.amount;
         if (!value.token.price || !value.selectedUsdtValue) return value.amount;
 
         return dividedBy(value.selectedUsdtValue, value.token.price).toString();
-    }, [value.amount, value.token, value.selectedUsdtValue]);
+    }, 400);
 
     return {
         ...value,
