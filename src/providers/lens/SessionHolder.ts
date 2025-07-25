@@ -1,11 +1,11 @@
 import { AuthenticationError, PublicClient, SessionClient } from '@lens-protocol/client';
 import { refresh } from '@lens-protocol/client/actions';
 
-import { createLensSDK, LocalStorageProvider, removeLensCredentials } from '@/helpers/createLensSDK.js';
-import { ensureLensResult } from '@/helpers/ensureLensResult.js';
-import { updateCredentialsStorage } from '@/helpers/getLensCredentialsFromStorage.js';
-import { refreshLensSession } from '@/helpers/refreshLensSession.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
+import { createLensSDK, LocalStorageProvider, removeLensCredentials } from '@/providers/lens/createLensSDK.js';
+import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
+import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
+import { refreshLensSession } from '@/providers/lens/refreshLensSession.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import type { LensCredentials } from '@/providers/types/Lens.js';
 

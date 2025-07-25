@@ -4,10 +4,10 @@ import { z } from 'zod';
 import { MalformedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
+import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
+import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 
 const AppendMediaSchema = z.object({
     media_id: z.string(),

@@ -1,8 +1,4 @@
 /* cspell:disable */
-
-import { chains } from '@lens-chain/sdk/viem';
-import { evmAddress } from '@lens-protocol/client';
-
 import {
     type BookmarkSource,
     ChannelTabType,
@@ -322,9 +318,9 @@ export const LENS_MEDIA_SNAPSHOT_URL = 'https://ik.imagekit.io/lens/media-snapsh
 export const HEY_URL = 'https://hey.xyz';
 export const HEY_API_URL = 'https://api.hey.xyz';
 export const HEY_IMAGEKIT_URL = 'https://ik.imagekit.io/lensterimg';
-export const LENS_CHAIN_ID = chains.mainnet.id;
+export const LENS_CHAIN_ID = 232;
 // TODO: create lens app for firefly
-export const FIREFLY_LENS_V3_APP = evmAddress('0xaC19aa2402b3AC3f9Fe471D4783EC68595432465');
+export const FIREFLY_LENS_V3_APP = '0xaC19aa2402b3AC3f9Fe471D4783EC68595432465';
 export const LENS_TOKEN_STORAGE_KEY = 'lens.mainnet.credentials';
 export const LENS_API_URL = 'https://api.lens.xyz/graphql';
 

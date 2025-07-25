@@ -1,10 +1,8 @@
-/* cspell:disable */
-
 import { PUBLIC_SERVICE_URL } from '@/constants/bsky.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { createAgentOnce } from '@/providers/bsky/createBskyAgent.js';
+import { createBskyAgentAndResume } from '@/providers/bsky/createBskyAgentAndResume.js';
 import { BskySession } from '@/providers/bsky/Session.js';
-import { createBskyAgentAndResume } from '@/services/createBskyAgentAndResume.js';
 
 class BskySessionHolder extends SessionHolder<BskySession> {
     private _agent = createAgentOnce(PUBLIC_SERVICE_URL);

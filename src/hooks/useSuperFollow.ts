@@ -4,9 +4,9 @@ import { type Address, erc20Abi, formatUnits } from 'viem';
 import { useAccount, useReadContract } from 'wagmi';
 
 import { Source } from '@/constants/enum.js';
-import { ensureLensResult } from '@/helpers/ensureLensResult.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

@@ -5,7 +5,7 @@ import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/cr
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { once } from '@/helpers/once.js';
-import { getLensThreadByPostId } from '@/services/getLensThreadByPostId.js';
+import { getLensThreadByPostId } from '@/providers/lens/getLensThreadByPostId.js';
 
 const getThreadByPostId = memoizeWithRedis(getLensThreadByPostId, {
     key: KeyType.GetLensThreadByPostId,

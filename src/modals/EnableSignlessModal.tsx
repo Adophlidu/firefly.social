@@ -11,8 +11,8 @@ import { enqueueInfoMessage, enqueueMessageFromError } from '@/helpers/enqueueMe
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { enableSignlessForManaged } from '@/providers/lens/enableSignlessForManaged.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { enableSignlessForManaged } from '@/services/lensV3/enableSignlessForManaged.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 
 type Props = {

@@ -13,8 +13,8 @@ import { X3_PRO_URL } from '@/constants/index.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { getBskySuggestedUsers } from '@/providers/bsky/getBskySuggestedUsers.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { getBskySuggestedUsers } from '@/services/getBskySuggestedUsers.js';
 import { getSuggestedFollowsInPage } from '@/services/getSuggestedFollows.js';
 
 interface Props {

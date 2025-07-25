@@ -12,12 +12,12 @@ import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { Source } from '@/constants/enum.js';
-import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { isToday } from '@/helpers/isToday.js';
 import { isTomorrow } from '@/helpers/isTomorrow.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { formatTwitterProfile } from '@/providers/twitter/formatTwitterProfile.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
 interface Tag {

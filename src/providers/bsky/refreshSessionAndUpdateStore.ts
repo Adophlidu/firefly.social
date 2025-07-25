@@ -1,4 +1,4 @@
-import { isBskyTokenExpired } from '@/helpers/isBskyTokenExpired.js';
+import { isBskyTokenExpired } from '@/providers/bsky/isBskyTokenExpired.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { useBskyStateStore } from '@/store/useProfileStore.js';

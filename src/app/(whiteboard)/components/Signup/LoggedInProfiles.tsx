@@ -4,8 +4,8 @@ import { Fragment } from 'react';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { formatThirdPartyProfileName } from '@/helpers/formatThirdPartyProfileName.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
+import { formatThirdPartyProfileName } from '@/providers/lens/formatThirdPartyProfileName.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 interface LoggedInProfilesProps {

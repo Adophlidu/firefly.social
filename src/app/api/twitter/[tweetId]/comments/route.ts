@@ -5,10 +5,10 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { createAppOnlyTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
+import { createAppOnlyTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
+import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import { Pageable } from '@/schemas/index.js';
 import type { NextRequestContext } from '@/types/index.js';
 

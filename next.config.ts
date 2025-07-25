@@ -5,7 +5,7 @@ import { createRequire } from 'module';
 import type { NextConfig } from 'next';
 import createBundleAnalyzer from '@next/bundle-analyzer';
 import createStatoscope from 'next-statoscope';
-import path from 'path';
+import { resolve } from 'path';
 
 const require = createRequire(import.meta.url);
 
@@ -231,8 +231,8 @@ const config: NextConfig = {
             perf_hooks: false,
         };
 
-        const parseHTMLServer = path.resolve(__dirname, 'src/helpers/parseHtml.ts');
-        const parseHTMLClient = path.resolve(__dirname, 'src/helpers/parseHtmlNative.ts');
+        const parseHTMLServer = resolve(__dirname, 'src/helpers/parseHtml.ts');
+        const parseHTMLClient = resolve(__dirname, 'src/helpers/parseHtmlNative.ts');
         if (!context.isServer) {
             config.resolve.alias[parseHTMLServer] = parseHTMLClient;
         } else {

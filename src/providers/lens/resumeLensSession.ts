@@ -2,10 +2,13 @@ import { refresh } from '@lens-protocol/client/actions';
 
 import { sentryClient } from '@/configs/sentryClient.js';
 import { FetchError } from '@/constants/error.js';
-import { ensureLensResult, ensureLensResultSync } from '@/helpers/ensureLensResult.js';
-import { getLensCredentialsFromStorage, updateCredentialsStorage } from '@/helpers/getLensCredentialsFromStorage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { parseLensAccessToken } from '@/helpers/parseLensAccessToken.js';
+import { ensureLensResult, ensureLensResultSync } from '@/providers/lens/ensureLensResult.js';
+import {
+    getLensCredentialsFromStorage,
+    updateCredentialsStorage,
+} from '@/providers/lens/getLensCredentialsFromStorage.js';
+import { parseLensAccessToken } from '@/providers/lens/parseLensAccessToken.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';

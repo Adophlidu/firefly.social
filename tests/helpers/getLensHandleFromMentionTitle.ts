@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
+import { getLensHandleFromMentionTitle } from '@/providers/lens/getLensHandleFromMentionTitle.js';
 
 describe('getLensHandleFromMentionTitle', () => {
     test('should return lens handle', () => {

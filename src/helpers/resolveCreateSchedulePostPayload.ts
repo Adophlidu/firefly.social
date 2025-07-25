@@ -4,12 +4,15 @@ import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.j
 import {
     createFarcasterSchedulePostPayload,
     type FarcasterSchedulePostPayload,
-} from '@/services/createFarcasterSchedulePostPayload.js';
-import { createLensSchedulePostPayload, type LensSchedulePayload } from '@/services/createLensSchedulePostPayload.js';
+} from '@/providers/farcaster/createFarcasterSchedulePostPayload.js';
+import {
+    createLensSchedulePostPayload,
+    type LensSchedulePayload,
+} from '@/providers/lens/createLensSchedulePostPayload.js';
 import {
     createTwitterSchedulePostPayload,
     type TwitterSchedulePostPayload,
-} from '@/services/createTwitterSchedulePostPayload.js';
+} from '@/providers/twitter/createTwitterSchedulePostPayload.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 

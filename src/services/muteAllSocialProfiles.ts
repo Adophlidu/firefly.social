@@ -1,13 +1,13 @@
 import { fetchAccountsBulk } from '@lens-protocol/client/actions';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { ensureLensResult } from '@/helpers/ensureLensResult.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';

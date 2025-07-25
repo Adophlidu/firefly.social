@@ -1,7 +1,7 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { isLensV2PostId } from '@/helpers/isLensV2PostId.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { isLensV2PostId } from '@/providers/lens/isLensV2PostId.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
 export async function getPostById(source: SocialSource, postId: string) {

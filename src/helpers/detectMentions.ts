@@ -3,7 +3,7 @@ import { fetchAccountsBulk } from '@lens-protocol/client/actions';
 import { FireflyPlatform } from '@/constants/enum.js';
 import { MENTION_REGEX } from '@/constants/regexp.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
-import { ensureLensResult } from '@/helpers/ensureLensResult.js';
+import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 
 export async function detectMentionsForLens(chars: Chars) {

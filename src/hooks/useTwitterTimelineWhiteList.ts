@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getTwitterTimelineWhitelist } from '@/services/getTwitterTimelineWhitelist.js';
+import { getTwitterTimelineWhitelist } from '@/providers/twitter/getTwitterTimelineWhitelist.js';
 
 export function useTwitterTimelineWhitelist() {
     return useQuery({

@@ -3,8 +3,6 @@ import urlcat from 'urlcat';
 import { NotImplementedError } from '@/constants/error.js';
 import { WARPCAST_ROOT_URL_V1 } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatFarcasterChannelFromWarpcast } from '@/helpers/formatFarcasterChannelFromWarpcast.js';
-import { getFarcasterAuthToken } from '@/helpers/getFarcasterAuthToken.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -13,6 +11,8 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { formatFarcasterChannelFromWarpcast } from '@/providers/farcaster/formatFarcasterChannelFromWarpcast.js';
+import { getFarcasterAuthToken } from '@/providers/farcaster/getFarcasterAuthToken.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';

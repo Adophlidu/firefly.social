@@ -38,11 +38,11 @@ import {
     captureAccountLogoutEvent,
 } from '@/providers/telemetry/captureAccountEvent.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
+import { getTwitterTimelineWhitelist } from '@/providers/twitter/getTwitterTimelineWhitelist.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
-import { getTwitterTimelineWhitelist } from '@/services/getTwitterTimelineWhitelist.js';
 import { downloadAccounts, mergeMetrics, uploadMetrics } from '@/services/metrics.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';

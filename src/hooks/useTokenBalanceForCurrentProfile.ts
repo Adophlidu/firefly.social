@@ -3,9 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { ensureLensResult } from '@/helpers/ensureLensResult.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 
 export function useTokenBalanceForLoggedInLensProfile(tokenAddress?: string, enabled = true) {

@@ -5,9 +5,9 @@ import { Embed } from '@/components/Oembed/Embed.js';
 import { Player } from '@/components/Oembed/Player.js';
 import { PostEmbed } from '@/components/Oembed/Post.js';
 import { Quote } from '@/components/Posts/Quote.js';
-import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
+import { formatFarcasterPost } from '@/providers/farcaster/formatFarcasterPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostOembed } from '@/services/getPostLinks.js';
 import { type LinkDigested, type OpenGraph, PayloadType } from '@/types/og.js';
@@ -41,7 +41,7 @@ export const OembedLayout = memo<{ data: LinkDigested; post?: Post; isInCompose?
 
         switch (type) {
             case PayloadType.Farcaster:
-                return <Quote post={formatWarpcastPost(payload.cast)} />;
+                return <Quote post={formatFarcasterPost(payload.cast)} />;
             case PayloadType.Post:
                 return (
                     <Suspense fallback={null}>

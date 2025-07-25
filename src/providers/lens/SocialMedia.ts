@@ -78,20 +78,8 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
-import { ensureLensResult, ensurePostToLensResult } from '@/helpers/ensureLensResult.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatLensChannelFromGroup } from '@/helpers/formatLensChannel.js';
-import {
-    filterFeedsV3,
-    formatLensPostByFeedV3,
-    formatLensPostV3,
-    formatLensQuoteOrCommentV3,
-} from '@/helpers/formatLensPost.js';
-import { formatLensPostRules } from '@/helpers/formatLensPostRules.js';
-import { formatLensProfileV3 } from '@/helpers/formatLensProfile.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
-import { getLensProfileBySession } from '@/helpers/getLensProfileBySession.js';
-import { handleOperationWithLensChain } from '@/helpers/handleOperationWithLensChain.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
@@ -109,7 +97,21 @@ import { unreachable } from '@/helpers/unreachable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
+import { ensureLensResult, ensurePostToLensResult } from '@/providers/lens/ensureLensResult.js';
 import { filterNotifications } from '@/providers/lens/filterNotifications.js';
+import { formatLensChannelFromGroup } from '@/providers/lens/formatLensChannel.js';
+import {
+    filterFeedsV3,
+    formatLensPostByFeedV3,
+    formatLensPostV3,
+    formatLensQuoteOrCommentV3,
+} from '@/providers/lens/formatLensPost.js';
+import { formatLensPostRules } from '@/providers/lens/formatLensPostRules.js';
+import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
+import { getAccountWithStatsByHandle, getAccountWithStatsById } from '@/providers/lens/getAccountWithStats.js';
+import { getGroupWithMemberCount, getGroupWithOwner } from '@/providers/lens/getFullGroup.js';
+import { getLensProfileBySession } from '@/providers/lens/getLensProfileBySession.js';
+import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWithLensChain.js';
 import {
     isAccountActionExecutedNotification,
     isCommentNotification,
@@ -124,6 +126,7 @@ import {
 } from '@/providers/lens/isNotification.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.js';
 import {
     NotificationPlatform,
     NotificationPushType,
@@ -144,9 +147,6 @@ import {
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { getAccountWithStatsByHandle, getAccountWithStatsById } from '@/services/lensV3/getAccountWithStats.js';
-import { getGroupWithMemberCount, getGroupWithOwner } from '@/services/lensV3/getFullGroup.js';
-import { uploadLensMetadataToS3 } from '@/services/uploadLensMetadataToS3.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 function getClient() {

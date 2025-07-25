@@ -2,8 +2,8 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { getBskySuggestedUsers } from '@/providers/bsky/getBskySuggestedUsers.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { getBskySuggestedUsers } from '@/services/getBskySuggestedUsers.js';
 
 async function getProfilesWithFixedTotal(
     queryCallback: (indicator?: PageIndicator) => Promise<Pageable<Profile>>,

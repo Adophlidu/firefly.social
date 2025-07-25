@@ -3,11 +3,11 @@ import { useAsyncFn } from 'react-use';
 
 import { type SocialSource } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
-import { checkFarcasterInvalidSignerKey } from '@/helpers/checkFarcasterInvalidSignerKey.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useComeBack } from '@/hooks/useComeback.js';
+import { checkFarcasterInvalidSignerKey } from '@/providers/farcaster/checkFarcasterInvalidSignerKey.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

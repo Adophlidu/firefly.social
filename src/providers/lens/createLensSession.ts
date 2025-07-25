@@ -1,8 +1,8 @@
 import type { SessionClient } from '@lens-protocol/client';
 
 import { SEVEN_DAYS } from '@/constants/index.js';
-import { ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
+import { ensureLensResultSync } from '@/providers/lens/ensureLensResult.js';
 import { LensSession } from '@/providers/lens/Session.js';
 
 export function createLensSession(profileId: string, sessionClient: SessionClient) {

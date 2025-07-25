@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
+import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 
 export const POST = compose<(request: NextRequest) => Promise<Response>>(
     withTwitterRequestErrorHandler,

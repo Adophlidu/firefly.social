@@ -15,11 +15,11 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Source, SourceInURL, type ThirdPartySource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
-import { formatThirdPartyProfileName } from '@/helpers/formatThirdPartyProfileName.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { formatThirdPartyProfileName } from '@/providers/lens/formatThirdPartyProfileName.js';
 import type { Account } from '@/providers/types/Account.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 

@@ -15,9 +15,9 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
-import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { getFarcasterSessionType } from '@/providers/farcaster/getFarcasterSessionType.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';

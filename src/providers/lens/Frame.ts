@@ -4,10 +4,10 @@ import dayjs from 'dayjs';
 
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_LENS_V3_APP } from '@/constants/index.js';
-import { ensureLensResult, ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
+import { ensureLensResult, ensureLensResultSync } from '@/providers/lens/ensureLensResult.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Additional, Provider } from '@/providers/types/Frame.js';
 import type { FrameSignaturePacket } from '@/providers/types/Lens.js';
@@ -34,7 +34,7 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
                 inputText: input ?? '',
                 account: safeEvmAddress(currentProfile.profileId),
                 post: formatPostId(postId),
-                app: FIREFLY_LENS_V3_APP,
+                app: safeEvmAddress(FIREFLY_LENS_V3_APP),
                 specVersion: '1.1.0',
                 url: frameUrl,
                 state: additional?.state ?? '',

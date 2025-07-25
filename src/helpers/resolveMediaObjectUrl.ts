@@ -1,5 +1,3 @@
-import type { BlobRef } from '@atproto/api';
-
 import { FileMimeType, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { SORTED_MEDIA_SOURCES } from '@/constants/index.js';
@@ -63,20 +61,6 @@ export function createTwitterMediaObject(twitterRes: TwitterMediaResponse, media
         uploadIds: {
             [MediaSource.Twimg]: twitterRes.media_id_string,
         },
-    };
-}
-
-export function createBskyMediaObject(
-    media: MediaObject,
-    blobRef: BlobRef,
-    width?: number,
-    height?: number,
-): MediaObject {
-    return {
-        ...media,
-        blobRef,
-        width,
-        height,
     };
 }
 

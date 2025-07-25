@@ -1,10 +1,10 @@
 import { type ChallengeRequest, SessionClient } from '@lens-protocol/client';
 
 import { env } from '@/constants/env.js';
-import { createLensSDK, LocalStorageProvider, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
-import { getWalletClientForLensChain } from '@/helpers/getWalletClientForLensChain.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
+import { createLensSDK, LocalStorageProvider, MemoryStorageProvider } from '@/providers/lens/createLensSDK.js';
 import { createLensSession } from '@/providers/lens/createLensSession.js';
+import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';

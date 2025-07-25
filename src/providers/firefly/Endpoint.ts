@@ -29,11 +29,9 @@ import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWal
 import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
 import { getPublicKeyInHexFromPrivateKey } from '@/helpers/ed25519.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatFarcasterProfileFromSuggestedFollow } from '@/helpers/formatFarcasterProfileFromSuggestedFollow.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { formatFireflyConnections } from '@/helpers/formatFireflyConnections.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
-import { formatLensProfileFromSuggestedFollow } from '@/helpers/formatLensProfile.js';
 import { formatNFTsTimelineResponse } from '@/helpers/formatNFTsTimelineResponse.js';
 import { formatPostsFromTruthSocial } from '@/helpers/formatPostsFromTruthSocial.js';
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
@@ -58,10 +56,13 @@ import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { convertBskyHandleToDid } from '@/providers/bsky/convertBskyHandleToDid.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { formatFarcasterProfileFromSuggestedFollow } from '@/providers/farcaster/formatFarcasterProfileFromSuggestedFollow.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { formatLensProfileFromSuggestedFollow } from '@/providers/lens/formatLensProfile.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import type { Article, ArticlePlatform } from '@/providers/types/Article.js';
@@ -155,7 +156,6 @@ import type {
     PoapResponse,
 } from '@/providers/types/NFTs.js';
 import { NotificationType, type Post } from '@/providers/types/SocialMedia.js';
-import { convertBskyHandleToDid } from '@/services/convertBskyHandleToDid.js';
 import { encryptPasscode } from '@/services/crypto.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { muteAllSocialProfiles } from '@/services/muteAllSocialProfiles.js';

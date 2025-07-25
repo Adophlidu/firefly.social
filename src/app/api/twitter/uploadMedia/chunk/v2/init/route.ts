@@ -3,10 +3,10 @@ import { z } from 'zod';
 
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
+import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
+import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import type { UploadMediaResponseV2 } from '@/types/twitter.js';
 
 const InitMediaSchema = z.object({

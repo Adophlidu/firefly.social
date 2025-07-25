@@ -6,9 +6,9 @@ import { compose } from '@/helpers/compose.js';
 import { createRedirectResponse } from '@/helpers/createRedirectResponse.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { getTwitterProfileByOG } from '@/providers/twitter/getTwitterProfileByOG.js';
 import { NitterAPIProvider } from '@/providers/twitter/Nitter.js';
 import { NitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
-import { getTwitterProfileByOG } from '@/services/getTwitterProfileByOG.js';
 import type { NextRequestContext } from '@/types/index.js';
 
 const getTwitterAvatarById = memoizeWithRedis(

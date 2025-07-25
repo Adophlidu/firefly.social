@@ -30,7 +30,6 @@ import { classNames } from '@/helpers/classNames.js';
 import { delay } from '@/helpers/delay.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
-import { formatThirdPartyProfileName } from '@/helpers/formatThirdPartyProfileName.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -56,6 +55,7 @@ import {
 } from '@/modals/controls.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { formatThirdPartyProfileName } from '@/providers/lens/formatThirdPartyProfileName.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import {
     captureMobileQrLoginClickEvent,

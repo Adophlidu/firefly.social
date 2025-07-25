@@ -5,10 +5,10 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { FarcasterSignType } from '@/constants/enum.js';
-import { resolveFarcasterDefaultSignType } from '@/helpers/resolveFarcasterDefaultSignType.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { resolveFarcasterDefaultSignType } from '@/providers/farcaster/resolveFarcasterDefaultSignType.js';
 
 export const FarcasterViewBeforeLoad = () => {
     return {

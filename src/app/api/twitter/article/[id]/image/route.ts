@@ -6,8 +6,8 @@ import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js'
 import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
 import { parseHtml } from '@/helpers/parseHtml.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import { getImageUrl } from '@/providers/og/readers/metadata.js';
+import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import type { NextRequestContext } from '@/types/index.js';
 
 export const GET = compose(

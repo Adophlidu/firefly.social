@@ -24,11 +24,7 @@ import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollow
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
-import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
-import { formatTwitterProfile, formatTwitterProfilePage } from '@/helpers/formatTwitterProfile.js';
-import { formatTwitterProfileFromX3Pro } from '@/helpers/formatTwitterProfileFromX3Pro.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { getTwitterProfileHandleFromUrl } from '@/helpers/getTwitterProfileHandleFromUrl.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import {
     createIndicator,
@@ -38,10 +34,14 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { resolveTcoLink } from '@/helpers/resolveTcoLink.js';
-import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
-import { resolveTwitterResponseData } from '@/helpers/resolveTwitterResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { formatTweetsPage } from '@/providers/twitter/formatTwitterPost.js';
+import { formatTwitterProfile, formatTwitterProfilePage } from '@/providers/twitter/formatTwitterProfile.js';
+import { formatTwitterProfileFromX3Pro } from '@/providers/twitter/formatTwitterProfileFromX3Pro.js';
+import { getTwitterProfileHandleFromUrl } from '@/providers/twitter/getTwitterProfileHandleFromUrl.js';
+import { resolveTwitterReplyRestriction } from '@/providers/twitter/resolveTwitterReplyRestriction.js';
+import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import {

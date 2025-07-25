@@ -5,10 +5,10 @@ import { z } from 'zod';
 import { POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
-import { createTwitterErrorResponseJSON } from '@/helpers/createTwitterErrorResponse.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
+import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
+import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
+import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 
 const TweetSchema = z.object({
     text: z.string(),

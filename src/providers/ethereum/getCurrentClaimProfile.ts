@@ -1,10 +1,10 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
-import { ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { ProfileIdentifier } from '@/mask/index.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import { ensureLensResultSync } from '@/providers/lens/ensureLensResult.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { generateSignaturePacket } from '@/services/generateSignaturePacket.js';

@@ -16,7 +16,6 @@ import { PostMoreAction } from '@/components/TrumpTruthSocial/PostMoreAction.js'
 import { PageRoute, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getLennyUrl } from '@/helpers/getLennyUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -24,6 +23,7 @@ import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { getLennyUrl } from '@/providers/lens/getLennyUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostHeaderProps {

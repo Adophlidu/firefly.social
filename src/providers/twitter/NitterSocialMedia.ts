@@ -6,9 +6,6 @@ import urlcat from 'urlcat';
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
-import { tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
-import { formatTwitterPostFromNitter } from '@/helpers/formatTwitterPostFromNitter.js';
-import { formatTwitterProfileFromNitter } from '@/helpers/formatTwitterProfileFromNitter.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import {
     createIndicator,
@@ -21,10 +18,13 @@ import {
     patchPostClientToFirefly,
     patchPostsClientToFirefly,
     patchTweetsClientToFirefly,
-} from '@/helpers/post/patchPostClientToFirefly.js';
-import { resolveTwitterResponseData } from '@/helpers/resolveTwitterResponseData.js';
+} from '@/helpers/patchPostClientToFirefly.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { tweetV2ToPost } from '@/providers/twitter/formatTwitterPost.js';
+import { formatTwitterPostFromNitter } from '@/providers/twitter/formatTwitterPostFromNitter.js';
+import { formatTwitterProfileFromNitter } from '@/providers/twitter/formatTwitterProfileFromNitter.js';
 import { NitterAPIProvider } from '@/providers/twitter/Nitter.js';
+import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { NotificationSettings } from '@/providers/types/Firefly.js';

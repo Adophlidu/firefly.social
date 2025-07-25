@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import type { GetPostMetaData } from '@/services/postToLens.js';
+import type { GetPostMetaData } from '@/providers/lens/postToLens.js';
 import { settings } from '@/settings/index.js';
 
 interface IUploadToArweaveResponse {

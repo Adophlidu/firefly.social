@@ -14,13 +14,13 @@ import { InvalidOrbPermissionError, InvalidResultError } from '@/constants/error
 import { ORB_REPLY_COUNTDOWN, SEVEN_DAYS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { ensureLensResult } from '@/helpers/ensureLensResult.js';
-import { updateCredentialsStorage } from '@/helpers/getLensCredentialsFromStorage.js';
 import { resolveCurrentFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { retry } from '@/helpers/retry.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
+import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';

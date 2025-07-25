@@ -3,10 +3,10 @@ import { NextRequest } from 'next/server.js';
 import { TWITTER_USER_OPTIONS } from '@/constants/twitter.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
+import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
+import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import { Pageable } from '@/schemas/index.js';
 
 export const GET = compose<(request: NextRequest) => Promise<Response>>(

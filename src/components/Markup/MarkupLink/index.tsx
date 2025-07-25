@@ -27,13 +27,13 @@ import {
     SPECIAL_TOKEN_SYMBOLS,
 } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { isTcoLink } from '@/helpers/resolveTcoLink.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
+import { getLensHandleFromMentionTitle } from '@/providers/lens/getLensHandleFromMentionTitle.js';
 
 function unpaddings(text: string) {
     const start = text.match(/(^\s)/)?.[0] || null;

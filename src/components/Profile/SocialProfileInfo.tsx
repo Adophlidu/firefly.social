@@ -14,10 +14,10 @@ import { FollowCategory, Source } from '@/constants/enum.js';
 import { ENABLED_FOLLOWING_LIST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { getLargeTwitterAvatar } from '@/helpers/getLargeTwitterAvatar.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
+import { getLargeTwitterAvatar } from '@/providers/twitter/getLargeTwitterAvatar.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps {

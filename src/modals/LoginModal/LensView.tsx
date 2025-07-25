@@ -21,8 +21,6 @@ import { Source } from '@/constants/enum.js';
 import { AbortError, FireflyAlreadyBoundError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { ensureLensResultSync } from '@/helpers/ensureLensResult.js';
-import { updateCredentialsStorage } from '@/helpers/getLensCredentialsFromStorage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveCurrentFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
@@ -30,13 +28,15 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
+import { enableSignlessForManaged } from '@/providers/lens/enableSignlessForManaged.js';
+import { ensureLensResultSync } from '@/providers/lens/ensureLensResult.js';
+import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { addAccount } from '@/services/account.js';
-import { enableSignlessForManaged } from '@/services/lensV3/enableSignlessForManaged.js';
 
 export const LensViewBeforeLoad = () => {
     return {

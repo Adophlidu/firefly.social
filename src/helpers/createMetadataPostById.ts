@@ -13,8 +13,8 @@ import { resolveSocialSource, resolveSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
+import { extractTwitterProfileByOpengraphTitle } from '@/providers/twitter/getTwitterProfileByOG.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { extractTwitterProfileByOpengraphTitle } from '@/services/getTwitterProfileByOG.js';
 
 async function createMetadataForTwitter(pathname: string, postId: string) {
     const timeout = AbortSignal.timeout(60_000);

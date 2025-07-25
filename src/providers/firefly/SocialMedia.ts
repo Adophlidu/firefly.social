@@ -7,13 +7,6 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForBookmarkNFT } from '@/decorators/SetQueryDataForBookmarkNFT.js';
 import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import {
-    formatBriefChannelFromFirefly,
-    formatChannelFromFirefly,
-    formatFireflyFarcasterProfile,
-} from '@/helpers/formatFarcasterChannelFromFirefly.js';
-import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
-import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
 import { getCurrentProfile, getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
@@ -32,6 +25,13 @@ import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
+import {
+    formatBriefChannelFromFirefly,
+    formatChannelFromFirefly,
+    formatFireflyFarcasterProfile,
+} from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
+import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';
+import { formatFarcasterProfileFromFirefly } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

@@ -2,10 +2,10 @@ import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
 import { Source } from '@/constants/enum.js';
-import { checkFarcasterInvalidSignerKey } from '@/helpers/checkFarcasterInvalidSignerKey.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { checkFarcasterInvalidSignerKey } from '@/providers/farcaster/checkFarcasterInvalidSignerKey.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';

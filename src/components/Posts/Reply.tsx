@@ -10,11 +10,11 @@ import { PostBody } from '@/components/Posts/PostBody.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST, ENABLED_REPLY_SOURCES } from '@/constants/index.js';
-import { getLennyUrl } from '@/helpers/getLennyUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentAvailableProfile } from '@/hooks/useCurrentProfile.js';
+import { getLennyUrl } from '@/providers/lens/getLennyUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 

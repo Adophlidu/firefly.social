@@ -1,7 +1,7 @@
 import { TwitterApi } from 'twitter-api-v2';
 
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
-import { patchTweetsClientToFirefly } from '@/helpers/post/patchPostClientToFirefly.js';
+import { patchTweetsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 
 async function getThreadTweetIds(client: TwitterApi, id: string, result = []): Promise<string[]> {
     const data = await client.v2.singleTweet(id, {

@@ -1,10 +1,10 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { postToBsky } from '@/services/postToBsky.js';
-import { postToFarcaster } from '@/services/postToFarcaster.js';
-import { postToLens } from '@/services/postToLens.js';
-import { postToTwitter } from '@/services/postToTwitter.js';
+import { postToBsky } from '@/providers/bsky/postToBsky.js';
+import { postToFarcaster } from '@/providers/farcaster/postToFarcaster.js';
+import { postToLens } from '@/providers/lens/postToLens.js';
+import { postToTwitter } from '@/providers/twitter/postToTwitter.js';
 
 export const resolvePostTo = createLookupTableResolver<SocialSource, typeof postToLens>(
     {

@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { waitForSignedKeyRequest } from '@/helpers/waitForSignedKeyRequest.js';
+import { waitForSignedKeyRequest } from '@/providers/farcaster/waitForSignedKeyRequest.js';
 
 const Schema = z.object({
     token: z.string(),
