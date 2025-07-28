@@ -1,9 +1,10 @@
 /* cspell:disable */
 import { last } from 'lodash-es';
 
+import { X3_PRO_AVATAR_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
-import { formatX3Id, formatX3ProPost, X3_PRO_AVATAR_HOST } from '@/providers/x3pro/helpers.js';
+import { formatX3Id, formatX3ProPost } from '@/providers/x3pro/helpers.js';
 import {
     type KolList,
     type MentionUsersRespone,
@@ -43,7 +44,7 @@ class X3Pro {
         });
         const token = resolveX3ProResponse(res);
         token.mentionUsers.forEach((user) => {
-            user.avatar = `${X3_PRO_AVATAR_HOST}/${user.avatar}`;
+            user.avatar = `${X3_PRO_AVATAR_URL}/${user.avatar}`;
             user.twitterId = formatX3Id(user.id);
         });
 
@@ -57,7 +58,7 @@ class X3Pro {
         const mention = resolveX3ProResponse(res);
         mention.mentionUsers.forEach((user) => {
             if (!user.avatar.match(/^https?:\/\//)) {
-                user.avatar = `${X3_PRO_AVATAR_HOST}/${user.avatar}`;
+                user.avatar = `${X3_PRO_AVATAR_URL}/${user.avatar}`;
             }
             user.twitterId = formatX3Id(user.id);
         });

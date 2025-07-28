@@ -5,19 +5,22 @@ import { X3_PRO_AVATAR_URL } from '@/constants/index.js';
 import { TWITTER_MENTION_REGEX } from '@/constants/regexp.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { ProfileStatus } from '@/providers/types/SocialMedia.js';
+import { formatX3Id } from '@/providers/x3pro/helpers.js';
 import type { Profile as X3ProProfile } from '@/providers/x3pro/types.js';
 
 export function formatTwitterProfileFromX3Pro(user: X3ProProfile): Profile<X3ProProfile> {
-    const idPrefix = 'x_';
-    const profileId = user.id.startsWith(idPrefix) ? user.id.substring(idPrefix.length) : user.id;
+    const bio = user.introLinks.reduce(
+        (b, interLink) => b.replace(interLink.shortUrl, interLink.realUrl),
+        user.introduction,
+    );
     return {
-        profileId,
+        profileId: formatX3Id(user.id),
         profileSource: Source.Twitter,
         displayName: user.name,
         handle: user.screenName,
         fullHandle: user.screenName,
         pfp: urlcat(X3_PRO_AVATAR_URL, user.avatar),
-        bio: user.introduction,
+        bio,
         bioContext: {
             mentions: [...user.introduction?.matchAll(TWITTER_MENTION_REGEX)].map((x) => ({
                 source: Source.Twitter,

@@ -1,33 +1,17 @@
-import { Source } from '@/constants/enum.js';
-import { type Post, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
-import type { Post as X3ProPost, Profile as X3ProProfile } from '@/providers/x3pro/types.js';
+import urlcat from 'urlcat';
 
-export const X3_PRO_AVATAR_HOST = 'https://x3-media-pro-3.oss-cn-hongkong.aliyuncs.com/';
+import { Source } from '@/constants/enum.js';
+import { X3_PRO_AVATAR_URL } from '@/constants/index.js';
+import { formatTwitterProfileFromX3Pro } from '@/providers/twitter/formatTwitterProfileFromX3Pro.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
+import type { Post as X3ProPost } from '@/providers/x3pro/types.js';
 
 /**
  * remove x_ prefix from post id or profile id
  */
 export function formatX3Id(id: string) {
-    return id.startsWith('x_') ? id.slice(2) : id;
-}
-
-function formatX3Profile(user: X3ProProfile): Profile {
-    return {
-        verified: false,
-        status: ProfileStatus.Active,
-        source: Source.Twitter,
-        profileSource: Source.Twitter,
-        fullHandle: user.screenName,
-        profileId: formatX3Id(user.id),
-        handle: user.screenName,
-        displayName: user.name,
-        pfp: `${X3_PRO_AVATAR_HOST}/${user.avatar}`,
-        bio: user.introduction,
-        followerCount: user.fanCount,
-        followingCount: user.focusCount,
-        viewerContext: {},
-        isPowerUser: false,
-    };
+    const idPrefix = 'x_';
+    return id.startsWith(idPrefix) ? id.slice(idPrefix.length) : id;
 }
 
 export function formatX3ProPost(origin: X3ProPost, parent?: X3ProPost): Post {
@@ -37,9 +21,9 @@ export function formatX3ProPost(origin: X3ProPost, parent?: X3ProPost): Post {
         type: origin.originPost ? 'Quote' : 'Post',
         postId,
         parentPostId: parent?.id ? formatX3Id(parent.id) : undefined,
-        parentAuthor: parent?.author ? formatX3Profile(parent.author) : undefined,
+        parentAuthor: parent?.author ? formatTwitterProfileFromX3Pro(parent.author) : undefined,
         timestamp: origin.createTime * 1000,
-        author: formatX3Profile(origin.author),
+        author: formatTwitterProfileFromX3Pro(origin.author),
         isHidden: false,
         metadata: {
             locale: origin.lang,
@@ -50,7 +34,7 @@ export function formatX3ProPost(origin: X3ProPost, parent?: X3ProPost): Post {
                     ?.filter((x) => x.type === 1)
                     .map((media) => ({
                         type: media.type === 1 ? 'Image' : 'Unknown',
-                        uri: `${X3_PRO_AVATAR_HOST}/${media.path}`,
+                        uri: urlcat(X3_PRO_AVATAR_URL, media.path),
                     })),
             },
         },
