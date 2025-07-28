@@ -6,7 +6,7 @@ import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { FarcasterSignType } from '@/constants/enum.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
+import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { resolveFarcasterDefaultSignType } from '@/providers/farcaster/resolveFarcasterDefaultSignType.js';
 
@@ -23,11 +23,11 @@ function useSignType() {
     };
     const returnSignType = signType || expectedSignType;
     const isLoginFirefly = useIsLoginFirefly();
-    const { data: allConnectionsFormattedWithProfiles, isLoading } = useAllConnectionsFormattedWithProfiles({
+    const { data, isLoading } = useAllConnections({
         enabled: isLoginFirefly && !returnSignType,
     });
     const defaultSignType = !IS_MOBILE_DEVICE
-        ? resolveFarcasterDefaultSignType(allConnectionsFormattedWithProfiles?.social.Farcaster.connected.length)
+        ? resolveFarcasterDefaultSignType(data?.social.Farcaster.connected.length)
         : null;
 
     return {

@@ -10,14 +10,14 @@ import TrashIcon from '@/assets/trash.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
+import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useDeleteFireflyAccount } from '@/hooks/useDeleteFireflyAccount.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { EditFireflyProfileModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 
 export function FireflyAccountCard() {
-    const { data, isLoading, error } = useAllConnectionsFormattedWithProfiles();
+    const { data, isLoading, error } = useAllConnections();
 
     const account = data?.fireflyAccount;
     const [, deleteFireflyAccount] = useDeleteFireflyAccount();

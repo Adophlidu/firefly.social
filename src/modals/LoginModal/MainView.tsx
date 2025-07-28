@@ -39,7 +39,7 @@ import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
+import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
@@ -271,7 +271,7 @@ export function MainView() {
     const profileStore = useProfileStoreAll();
     const profilesAll = useCurrentProfilesAll();
 
-    const { data, isLoading } = useAllConnectionsFormattedWithProfiles();
+    const { data, isLoading } = useAllConnections();
 
     const pathname = usePathname();
     const updateParams = useUpdateParams();

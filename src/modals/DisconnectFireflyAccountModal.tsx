@@ -48,16 +48,16 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
             );
             await removeAccountByProfileId(source, account.profile.profileId);
             captureAccountDisconnectEvent(account);
+
+            await queryClient.refetchQueries({
+                queryKey: ['allConnections'],
+            });
+
+            await queryClient.invalidateQueries({
+                queryKey: ['allConnections'],
+            });
+
             enqueueSuccessMessage(t`Disconnected from your social graph`);
-
-            queryClient.refetchQueries({
-                queryKey: ['allConnections'],
-            });
-
-            queryClient.invalidateQueries({
-                queryKey: ['allConnections'],
-            });
-
             dispatch?.close();
         } catch (error) {
             if (error instanceof Error && error.message.includes('Please leave at least 1 account')) {

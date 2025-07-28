@@ -1,0 +1,14 @@
+import { NetworkType } from '@/constants/enum.js';
+import { UnreachableError } from '@/constants/error.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import type { ChainNamespace } from '@/types/index.js';
+
+export const resolveNamespace = createLookupTableResolver<NetworkType, ChainNamespace>(
+    {
+        [NetworkType.Ethereum]: 'eip155',
+        [NetworkType.Solana]: 'solana',
+    },
+    (networkType) => {
+        throw new UnreachableError('networkType)', networkType);
+    },
+);

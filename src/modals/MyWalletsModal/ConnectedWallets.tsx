@@ -19,6 +19,10 @@ import { appkit } from '@/configs/wagmiClient.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { getAddressType } from '@/helpers/getAddressType.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { resolveNamespace } from '@/helpers/resolveNamespace.js';
+import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useEnsNameCached } from '@/hooks/useEnsNameCached.js';
 import { useIsSetupPrivyWallet } from '@/hooks/useIsSetupPrivyWallet.js';
 import { ConnectionSource, useWalletConnections } from '@/hooks/useWalletConnections.js';
@@ -111,13 +115,13 @@ function ConnectedItem({
 }
 
 function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
-    const allConnections = useWalletConnections();
+    const allWalletConnections = useWalletConnections();
+    const { isLoading: isLoadingAllConnections } = useAllConnections();
 
-    const { isSetupPrivyWallet, isLoading } = useIsSetupPrivyWallet();
-    if (isLoading) return <div className="mb-2 h-[122px] w-full animate-pulse rounded-lg bg-bg" />;
+    const { isLoading } = useIsSetupPrivyWallet();
+    if (isLoadingAllConnections) return <div className="mb-2 h-[122px] w-full animate-pulse rounded-lg bg-bg" />;
+    const privyConnections = allWalletConnections.filter((x) => x.source === 'privy');
 
-    const privyConnections = allConnections.filter((x) => x.source === 'privy');
-    if (!isSetupPrivyWallet) return null;
     return (
         <div className="mb-2 h-[122px] overflow-hidden rounded-lg border border-secondaryLine">
             <Link
@@ -136,24 +140,29 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
                     <Trans>Firefly wallets</Trans>
                 </span>
                 <span className="text-right text-sm">
-                    <Trans>Open</Trans>
+                    {isLoading ? <LoadingIcon size={20} /> : <Trans>Open</Trans>}
                 </span>
             </Link>
-            {!privyConnections.length ? (
+            {!privyConnections?.length ? (
                 <div className="flex h-10 items-center justify-center text-sm text-secondary">
                     <Trans>No connected wallet.</Trans>
                 </div>
             ) : (
                 privyConnections.map((connection) => {
+                    const walletConnection = allWalletConnections.find((x) =>
+                        isSameAddress(x.address, connection.address),
+                    );
+                    const networkType = getAddressType(connection.address);
+                    if (!networkType) return null;
                     return (
                         <ConnectedItem
-                            key={`${connection.address}:${connection.connector?.id}:${connection.connected}`}
-                            connected={connection.connected}
-                            namespace={connection.namespace}
+                            key={connection.address}
+                            connected={!!walletConnection?.connected}
+                            namespace={resolveNamespace(networkType)}
                             address={connection.address}
-                            connector={connection.connector}
-                            chainId={connection.chainId}
-                            source={connection.source}
+                            connector={walletConnection?.connector}
+                            chainId={walletConnection?.chainId}
+                            source={ConnectionSource.Privy}
                         />
                     );
                 })
@@ -168,7 +177,7 @@ export interface ConnectedWalletsProps {
 
 export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }: ConnectedWalletsProps) {
     const allConnections = useWalletConnections();
-    const connections = allConnections.filter((x) => x.source !== 'privy');
+    const connections = allConnections.filter((x) => x.source === ConnectionSource.Appkit);
 
     return (
         <div>

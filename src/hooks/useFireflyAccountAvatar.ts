@@ -2,12 +2,18 @@ import { compact, first } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { Source } from '@/constants/enum.js';
-import { EMPTY_LIST, SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE } from '@/constants/index.js';
+import { SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE } from '@/constants/index.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
+import { useAllConnections } from '@/hooks/useAllConnections.js';
+import type {
+    BskyConnection,
+    FarcasterConnection,
+    LensConnection,
+    TwitterConnection,
+} from '@/providers/types/Firefly.js';
 
 export function useFireflyAccountAvatar() {
-    const { data } = useAllConnectionsFormattedWithProfiles();
+    const { data } = useAllConnections();
 
     return useMemo(() => {
         if (data?.fireflyAccount?.avatar && !data?.fireflyAccount.avatar.includes('stamp.firefly.land')) {
@@ -15,20 +21,18 @@ export function useFireflyAccountAvatar() {
         }
 
         const accountAvatars = compact(
-            SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE.flatMap((source) => {
-                const result = data?.socialConnections
-                    .filter((x) => x.source === source)
-                    .flatMap((account) => {
-                        const items = account.items;
-                        return items.map((item) => ({
-                            source,
-                            account,
-                            profile: item.profile,
-                        }));
-                    });
-
-                return result ?? EMPTY_LIST;
-            }).map(({ profile }) => profile.pfp),
+            SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE.map((source) => {
+                const connections =
+                    source === Source.Lens
+                        ? data?.social.Lens.connected.flatMap((x) => x.lens)
+                        : (data?.social[source].connected.sort((a, b) =>
+                              b.isDefault === a.isDefault ? 0 : b.isDefault ? -1 : 1,
+                          ) as Array<FarcasterConnection | BskyConnection | TwitterConnection | LensConnection>);
+                if (!connections) return null;
+                const connection = first(connections);
+                if (!connection) return null;
+                return getStampAvatarByProfileId(source, `${connection.id}`);
+            }),
         );
 
         const socialAvatar = first(accountAvatars);

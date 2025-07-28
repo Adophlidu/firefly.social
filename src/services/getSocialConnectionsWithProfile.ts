@@ -1,5 +1,3 @@
-import { compact } from 'lodash-es';
-
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { flatLenConnections } from '@/helpers/formatWalletConnection.js';
@@ -17,11 +15,27 @@ export interface SocialConnections {
     [Source.Bsky]: AllConnections['bsky'];
 }
 
+export function getProfileIdsFromSocialConnections(source: SocialSource, social: SocialConnections) {
+    switch (source) {
+        case Source.Farcaster:
+        case Source.Twitter:
+        case Source.Bsky: {
+            const connections = [...social[source].connected, ...social[source].unconnected];
+            return connections.map((x) => `${x.id}`);
+        }
+        case Source.Lens:
+            const connections = flatLenConnections([...social[source].connected, ...social[source].unconnected]);
+            return connections.map((x) => x.id);
+        default:
+            unreachable(source);
+    }
+}
+
 export async function getSocialConnectionsWithProfile(source: SocialSource, social: SocialConnections) {
     switch (source) {
         case Source.Farcaster: {
             const connections = [...social[source].connected, ...social[source].unconnected];
-            const ids = connections.map((x) => `${x.id}`);
+            const ids = getProfileIdsFromSocialConnections(source, social);
             if (!ids.length) return EMPTY_LIST;
             const profiles = await NeynarSocialMediaProvider.getProfilesByIds(ids);
             return profiles
@@ -34,7 +48,7 @@ export async function getSocialConnectionsWithProfile(source: SocialSource, soci
         case Source.Twitter:
         case Source.Bsky: {
             const connections = [...social[source].connected, ...social[source].unconnected];
-            const ids = compact(connections.map((x) => x.id));
+            const ids = getProfileIdsFromSocialConnections(source, social);
             if (!ids.length) return EMPTY_LIST;
             const profiles = await resolveSocialMediaProvider(source).getProfilesByIds(ids);
             return profiles
@@ -46,7 +60,7 @@ export async function getSocialConnectionsWithProfile(source: SocialSource, soci
         }
         case Source.Lens:
             const connections = flatLenConnections([...social[source].connected, ...social[source].unconnected]);
-            const ids = connections.map((x) => x.id);
+            const ids = getProfileIdsFromSocialConnections(source, social);
             if (!ids.length) return EMPTY_LIST;
             const profiles = await LensSocialMediaProvider.getProfilesByIds(connections.map((x) => x.id));
             return profiles

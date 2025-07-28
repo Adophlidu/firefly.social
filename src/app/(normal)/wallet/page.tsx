@@ -165,7 +165,12 @@ function FireflyWallet() {
     }, [ethereum.address, solana.address]);
 
     if (!address) {
-        return <Loading />;
+        return (
+            <>
+                <NavigationBar />
+                <Loading />
+            </>
+        );
     }
 
     return (
