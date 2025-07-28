@@ -49,8 +49,8 @@ export interface SwapModalOpenProps {
 function getConnectWalletName(isEvm: boolean) {
     if (isEvm) {
         const connections = getConnections(config);
-        const currentConnectionId = getWagmiCurrentConnectionId();
-        return connections.find((x) => x.connector.id === currentConnectionId)?.connector.name;
+        const id = getWagmiCurrentConnectionId();
+        return connections.find((x) => x.connector.id === id || x.connector.uid === id)?.connector.name;
     }
     const info = CoreChainController.state.chains.get('solana')?.accountState?.connectedWalletInfo;
     return info?.name;
@@ -116,19 +116,20 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
             tokenPair,
         };
 
+        const connectWallet = () => {
+            if (isEvm) {
+                evmProvider.enable();
+            } else {
+                solanaProvider.connect();
+            }
+        };
         const instance = createOkxSwapWidget(widgetRef, {
             params,
             provider: provider as EthereumProvider,
             listeners: [
                 {
                     event: OkxEvents.ON_CONNECT_WALLET,
-                    handler: () => {
-                        if (isEvm) {
-                            evmProvider.enable();
-                        } else {
-                            solanaProvider.connect();
-                        }
-                    },
+                    handler: connectWallet,
                 },
                 {
                     event: OkxEvents.ON_SUBMIT_TX,
@@ -151,6 +152,7 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
                 },
             ],
         });
+        connectWallet();
         instanceRef.current = instance;
 
         return () => {
