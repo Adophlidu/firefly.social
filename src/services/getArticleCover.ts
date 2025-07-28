@@ -14,6 +14,8 @@ export async function getArticleCover(article: Article): Promise<string | null> 
             urlcat(FIREFLY_WORKER_HOST, '/oembed', {
                 link: article.origin,
             }),
+            undefined,
+            { noStrictOK: true },
         );
         if (payload.success && payload.data.payload?.type === PayloadType.Mirror) {
             return payload.data.payload.cover || null;
