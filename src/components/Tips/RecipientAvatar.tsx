@@ -16,7 +16,7 @@ interface RecipientAvatarProps {
 }
 
 export const RecipientAvatar = memo<RecipientAvatarProps>(function RecipientAvatar({ recipient }) {
-    const ensAvatar = recipient.avatar;
+    const ensAvatar = recipient.ens ? recipient.avatar : null;
     const isEvm = recipient.networkType === NetworkType.Ethereum;
 
     return (
@@ -45,7 +45,7 @@ export const RecipientAvatar = memo<RecipientAvatarProps>(function RecipientAvat
             </div>
             <div
                 className={classNames(
-                    'absolute -right-1 bottom-0 z-1 h-[18px] w-[18px] rounded-full border-2 border-white',
+                    'absolute -right-1 bottom-0 z-1 h-[16px] w-[16px] rounded-full border border-white',
                     isEvm ? 'bg-[#312B37]' : '',
                 )}
             >
