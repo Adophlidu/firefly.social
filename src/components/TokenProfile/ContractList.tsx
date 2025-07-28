@@ -39,7 +39,7 @@ export const ContractList = memo<Props>(function ContractList({
         >
             <MenuItems
                 style={{ '--anchor-max-height': '225px' } as CSSProperties}
-                className="backdrop-filter-[blur(8px)] z-[1000] flex max-h-[225px] w-max flex-col gap-2 overflow-auto rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)]"
+                className="z-[1000] flex max-h-[225px] w-max flex-col overflow-auto rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)] backdrop-blur-[8px]"
                 data-hide-scrollbar
                 onClick={stopEvent}
                 anchor={menuAnchor}
