@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { NEYNAR_URL } from '@/constants/index.js';
-import { fetchNeynarStream } from '@/helpers/fetchNeynar.js';
+import { fetchNeynarStream } from '@/helpers/fetchNeynarJson.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 
 async function validateFarcasterMessage(messageBytes: string): Promise<boolean> {

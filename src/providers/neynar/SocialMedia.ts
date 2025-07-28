@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST, NEYNAR_URL } from '@/constants/index.js';
-import { fetchNeynarJSON } from '@/helpers/fetchNeynar.js';
+import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterChannelFromNeynar } from '@/providers/farcaster/formatFarcasterChannelFromNeynar.js';
@@ -15,15 +15,16 @@ import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,
-    NetworkType,
     type Notification,
     type Post,
     type Profile,
     type ProfileBadge,
     type ProfileEditable,
     type Provider,
+    NetworkType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.js';
 
 class NeynarSocialMedia implements Provider {
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -106,11 +107,9 @@ class NeynarSocialMedia implements Provider {
                 viewer_fid: session?.profileId,
             });
 
-            const data = await fetchNeynarJSON<{ channel: NeynarChannel }>(url, {
-                method: 'GET',
-            });
-
-            return formatFarcasterChannelFromNeynar(data.channel);
+            const response = await fetchNeynarJson<{ channel: NeynarChannel }>(url);
+            const { channel } = resolveNeynarResponseData(response);
+            return formatFarcasterChannelFromNeynar(channel);
         });
     }
 
@@ -331,10 +330,10 @@ class NeynarSocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
-        const result = await this.getProfilesByIds([profileId]);
+        const response = await this.getProfilesByIds([profileId]);
+        const result = resolveNeynarResponseData(response);
         const data = first(result);
-
-        if (!data) throw new Error("Can't get the profile");
+        if (!data) throw new Error('Failed to get the profile from neynar');
         return data;
     }
 
@@ -347,11 +346,9 @@ class NeynarSocialMedia implements Provider {
                 viewer_fid: session?.profileId,
             });
 
-            const data = await fetchNeynarJSON<{ users: NeynarProfile[] }>(url, {
-                method: 'GET',
-            });
-
-            return data.users.map(formatFarcasterProfileFromNeynar);
+            const response = await fetchNeynarJson<{ users: NeynarProfile[] }>(url);
+            const { users } = resolveNeynarResponseData(response);
+            return users.map(formatFarcasterProfileFromNeynar);
         });
     }
 
@@ -364,10 +361,8 @@ class NeynarSocialMedia implements Provider {
                 viewer_fid: session?.profileId,
             });
 
-            const data = await fetchNeynarJSON<{ channels: FireflyChannel[] }>(url, {
-                method: 'GET',
-            });
-
+            const response = await fetchNeynarJson<{ channels: FireflyChannel[] }>(url);
+            const data = resolveNeynarResponseData(response);
             return data.channels.map(formatChannelFromFirefly);
         });
     }
@@ -379,12 +374,10 @@ class NeynarSocialMedia implements Provider {
                 viewer_fid: session?.profileId || 0,
             });
 
-            const data = await fetchNeynarJSON<{ result: { users: NeynarProfile[] } }>(url, {
-                method: 'GET',
-            });
-
-            const result = data.result.users.map(formatFarcasterProfileFromNeynar);
-            return createPageable(result, createIndicator(indicator));
+            const response = await fetchNeynarJson<{ result: { users: NeynarProfile[] } }>(url);
+            const { result } = resolveNeynarResponseData(response);
+            const profiles = result.users.map(formatFarcasterProfileFromNeynar);
+            return createPageable(profiles, createIndicator(indicator));
         });
     }
 

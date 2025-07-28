@@ -11,7 +11,7 @@ import { FarcasterInvalidSignerKey, NotImplementedError } from '@/constants/erro
 import { NEYNAR_URL } from '@/constants/index.js';
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { URL_REGEX } from '@/constants/regexp.js';
-import { fetchNeynarJSON } from '@/helpers/fetchNeynar.js';
+import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isYouTubeUrl } from '@/helpers/isYouTubeUrl.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
@@ -311,7 +311,7 @@ class HubbleSocialMedia implements Provider {
 
     private async publishMessage<T>(messageJson: unknown) {
         const url = urlcat(NEYNAR_URL, '/v2/farcaster/message');
-        const response = await fetchNeynarJSON<Response<T>>(url, {
+        const response = await fetchNeynarJson<Response<T>>(url, {
             method: 'POST',
             body: JSON.stringify(messageJson),
         });

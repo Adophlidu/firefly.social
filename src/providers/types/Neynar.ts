@@ -1,5 +1,14 @@
 import type { ProfileStatus } from '@/providers/types/SocialMedia.js';
 
+export type NeynarResponse<T> =
+    | {
+          code: string;
+          message: string;
+          property: string;
+          status: number;
+      }
+    | T;
+
 export enum NeynarProStatus {
     Subscribed = 'subscribed',
     Unsubscribed = 'unsubscribed',
