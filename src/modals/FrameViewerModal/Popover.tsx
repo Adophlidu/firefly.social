@@ -21,7 +21,7 @@ export const Popover = memo(function Popover({ frame, open, onClose, title, cont
 
     return (
         <Transition appear show={open} as="div">
-            <div className="absolute inset-0 flex min-h-full flex-col items-center justify-end overflow-auto">
+            <div className="absolute inset-0 top-[60px] flex min-h-full flex-col items-center justify-end overflow-auto">
                 <Transition.Child
                     as="div"
                     enter="ease-out duration-300"
