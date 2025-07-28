@@ -3,6 +3,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
+import { first } from 'lodash-es';
 import {
     type HTMLProps,
     type PropsWithChildren,
@@ -23,7 +24,7 @@ import WalletIcon from '@/assets/wallet-bold.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type ProfilePageSource, Source, STATUS } from '@/constants/enum.js';
+import { type ProfilePageSource, type SocialSource, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { usePathname } from '@/esm/navigation.js';
@@ -37,8 +38,7 @@ import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
-import { sortFireflyProfiles } from '@/helpers/sortFireflyProfiles.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfile, useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
@@ -407,6 +407,19 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
     );
 }
 
+function useSortFireflyProfiles() {
+    const profileAll = useCurrentProfilesAll();
+    return useCallback(
+        (source: ProfilePageSource, identity: FireflyIdentity, a: FireflyProfile, b: FireflyProfile) => {
+            if (profileAll?.[source as SocialSource]?.profileId === a.identity.id) return 2;
+            const priorityA = isSameFireflyIdentity(a.identity, identity) ? 3 : a.isDefault ? 1 : 0;
+            const priorityB = isSameFireflyIdentity(b.identity, identity) ? 3 : b.isDefault ? 1 : 0;
+            return priorityB - priorityA;
+        },
+        [profileAll],
+    );
+}
+
 export function ProfileSourceTabs({
     profiles: initialProfiles,
     identity,
@@ -437,6 +450,7 @@ export function ProfileSourceTabs({
     });
 
     const profiles = data || initialProfiles;
+    const sortFireflyProfiles = useSortFireflyProfiles();
 
     if (profiles.length <= 1) return null;
     const sources = SORTED_PROFILE_SOURCES.filter(
@@ -448,8 +462,8 @@ export function ProfileSourceTabs({
                 const isLast = sources.length - 1 === i;
                 const currentSourceProfiles = profiles
                     .filter((profile) => profile.identity.source === source)
-                    .sort((a, b) => sortFireflyProfiles(identity, a, b));
-                const defaultProfile = currentSourceProfiles.find((x) => x.isDefault) ?? currentSourceProfiles[0];
+                    .sort((a, b) => sortFireflyProfiles(source, identity, a, b));
+                const defaultProfile = first(currentSourceProfiles);
                 const currentProfile = currentSourceProfiles.find((profile) =>
                     isSameFireflyIdentity(profile.identity, identity),
                 );
@@ -458,6 +472,7 @@ export function ProfileSourceTabs({
                     identity.source === source || (source === Source.Wallet && identity.source === Source.WalletMix);
                 const isWalletProfile = source === Source.Wallet;
                 const topProfile = currentProfile ?? defaultProfile;
+                console.log(`${source} topProfile: `, topProfile, identity, currentProfile, currentSourceProfiles);
 
                 if (currentSourceProfiles.length === 1) {
                     return (

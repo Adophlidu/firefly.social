@@ -30,6 +30,7 @@ interface Props extends NextPageProps<{ id: string; source: ProfileSourceInURL }
 function fixIdentity(identity: FireflyIdentity, profiles: FireflyProfile[]) {
     switch (identity.source) {
         case Source.Farcaster:
+        case Source.Twitter:
             const profile = profiles.find(
                 (p) => p.identity.source === identity.source && p.displayName === identity.id,
             );
