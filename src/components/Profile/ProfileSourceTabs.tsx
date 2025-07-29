@@ -472,7 +472,6 @@ export function ProfileSourceTabs({
                     identity.source === source || (source === Source.Wallet && identity.source === Source.WalletMix);
                 const isWalletProfile = source === Source.Wallet;
                 const topProfile = currentProfile ?? defaultProfile;
-                console.log(`${source} topProfile: `, topProfile, identity, currentProfile, currentSourceProfiles);
 
                 if (currentSourceProfiles.length === 1) {
                     return (

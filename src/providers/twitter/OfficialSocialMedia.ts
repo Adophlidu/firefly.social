@@ -24,6 +24,7 @@ import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollow
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import {
@@ -78,6 +79,7 @@ export
 @SetQueryDataForActPost(Source.Twitter)
 @AddLikeStatusToTwitterPosts()
 @SetQueryDataForPosts
+@WithMutedProfilesQuery()
 class OfficialSocialMedia implements Provider {
     get type() {
         return SessionType.Twitter;

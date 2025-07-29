@@ -78,6 +78,7 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
+import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
@@ -162,6 +163,7 @@ function getClient() {
     }
 }
 
+@WithMutedProfilesQuery()
 @SetQueryDataForLikePost(Source.Lens)
 @SetQueryDataForBookmarkPost(Source.Lens)
 @SetQueryDataForMirrorPost(Source.Lens)

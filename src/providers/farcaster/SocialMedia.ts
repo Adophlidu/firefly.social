@@ -14,6 +14,7 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
+import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -43,6 +44,7 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
+@WithMutedProfilesQuery()
 @SetQueryDataForLikePost(Source.Farcaster)
 @SetQueryDataForBookmarkPost(Source.Farcaster)
 @SetQueryDataForBookmarkPost(Source.Article)

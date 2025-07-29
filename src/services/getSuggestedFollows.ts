@@ -4,6 +4,7 @@ import { createIndicator, createPageable, type Pageable, type PageIndicator } fr
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { getBskySuggestedUsers } from '@/providers/bsky/getBskySuggestedUsers.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 
 async function getProfilesWithFixedTotal(
     queryCallback: (indicator?: PageIndicator) => Promise<Pageable<Profile>>,
@@ -46,7 +47,7 @@ export async function getSuggestedFollowsInCard(source: SocialSource) {
             ].slice(0, 50),
         50,
     );
-
+    await queryMutedProfiles(result.data.map((x) => ({ source: x.source, id: x.profileId })));
     return result.data ?? [];
 }
 

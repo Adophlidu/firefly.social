@@ -19,6 +19,7 @@ import { SetQueryDataForJoinChannel } from '@/decorators/SetQueryDataForJoinChan
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
 import { fetchBlob } from '@/helpers/fetchBlob.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { isZero } from '@/helpers/number.js';
@@ -87,6 +88,7 @@ async function getSinglePost(uri: string) {
 @SetQueryDataForPosts
 @SetQueryDataForJoinChannel(Source.Bsky)
 @AddBookmarkStatusForPosts(Source.Bsky)
+@WithMutedProfilesQuery()
 class BskySocialMedia implements Provider {
     get type() {
         return SessionType.Bsky;
@@ -405,6 +407,7 @@ class BskySocialMedia implements Provider {
         await bskySessionHolder.agent.deleteFollow(followUri);
         return true;
     }
+
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const response = await bskySessionHolder.agent.getFollowers({
             actor: profileId,
@@ -418,6 +421,7 @@ class BskySocialMedia implements Provider {
             response.data.cursor ? createNextIndicator(indicator, response.data.cursor) : undefined,
         );
     }
+
     async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const response = await bskySessionHolder.agent.getFollows({
             actor: profileId,
@@ -431,6 +435,7 @@ class BskySocialMedia implements Provider {
             response.data.cursor ? createNextIndicator(indicator, response.data.cursor) : undefined,
         );
     }
+
     async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const response = await bskySessionHolder.agent.app.bsky.graph.getKnownFollowers({
             actor: profileId,
@@ -609,6 +614,7 @@ class BskySocialMedia implements Provider {
             response.data.cursor ? createNextIndicator(indicator, response.data.cursor) : undefined,
         );
     }
+
     async searchProfiles(q: string, indicator?: PageIndicator, limit = 25): Promise<Pageable<Profile, PageIndicator>> {
         const response = await bskySessionHolder.agent.searchActors({
             q,

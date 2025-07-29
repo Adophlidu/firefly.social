@@ -71,7 +71,6 @@ import {
     type BindWalletResponse,
     type BlockedUsersResponse,
     type BlockFields,
-    type BlockRelationResponse,
     type BlockUserResponse,
     type CollectArticleResponse,
     type CollectionItemsResponse,
@@ -157,6 +156,7 @@ import type {
 } from '@/providers/types/NFTs.js';
 import { NotificationType, type Post } from '@/providers/types/SocialMedia.js';
 import { encryptPasscode } from '@/services/crypto.js';
+import { getBlockRelation } from '@/services/getBlockRelation.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { muteAllSocialProfiles } from '@/services/muteAllSocialProfiles.js';
 import { settings } from '@/settings/index.js';
@@ -629,18 +629,8 @@ class FireflyEndpoint {
         return formatNFTsTimelineResponse(response, indicator);
     }
 
-    async getBlockRelation(conditions: Array<{ snsPlatform: FireflyPlatform; snsId: string }>) {
-        return fireflySessionHolder.withSession(async (session) => {
-            if (!session) return [];
-            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/muteRelation');
-            const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
-                method: 'POST',
-                body: JSON.stringify({
-                    conditions,
-                }),
-            });
-            return response.data ?? [];
-        });
+    getBlockRelation(conditions: Array<{ snsPlatform: FireflyPlatform; snsId: string }>) {
+        return getBlockRelation(conditions);
     }
 
     async disconnectAccount(connectionId: string, connectionPlatform: ConnectionPlatform) {
