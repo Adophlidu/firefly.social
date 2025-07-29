@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server.js';
 
 import { UnauthorizedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterSessionBeforeLogin } from '@/providers/twitter/createTwitterSessionPayload.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
@@ -24,6 +24,6 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
                 access_token_secret: payload.accessTokenSecret,
             }),
         );
-        return createSuccessResponseJSON(data);
+        return createSuccessResponseJson(data);
     },
 );

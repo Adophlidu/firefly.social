@@ -2,7 +2,7 @@ import type { NextRequest } from 'next/server.js';
 import { ZodError } from 'zod';
 
 import { ContentTypeError, MalformedError, NotFoundError, UnauthorizedError } from '@/constants/error.js';
-import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import type { NextRequestContext } from '@/types/index.js';
 
 function handleZodErrorMessage(error: ZodError) {
@@ -20,32 +20,32 @@ export function withRequestErrorHandler<P>(options?: { throwError?: boolean }) {
                 return await handler(request, context);
             } catch (error) {
                 if (error instanceof ContentTypeError) {
-                    return createErrorResponseJSON(error.message, {
+                    return createErrorResponseJson(error.message, {
                         status: 400,
                     });
                 }
                 if (error instanceof ZodError) {
-                    return createErrorResponseJSON(handleZodErrorMessage(error), {
+                    return createErrorResponseJson(handleZodErrorMessage(error), {
                         status: 400,
                     });
                 }
                 if (error instanceof MalformedError) {
-                    return createErrorResponseJSON(error.message, {
+                    return createErrorResponseJson(error.message, {
                         status: 400,
                     });
                 }
                 if (error instanceof UnauthorizedError) {
-                    return createErrorResponseJSON(error.message, {
+                    return createErrorResponseJson(error.message, {
                         status: 401,
                     });
                 }
                 if (error instanceof NotFoundError) {
-                    return createErrorResponseJSON(error.message, {
+                    return createErrorResponseJson(error.message, {
                         status: 404,
                     });
                 }
                 if (!throwError) {
-                    return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
+                    return createErrorResponseJson(error instanceof Error ? error.message : 'Internal Server Error', {
                         status: 500,
                     });
                 }

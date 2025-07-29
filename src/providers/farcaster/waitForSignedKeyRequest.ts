@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { AbortError } from '@/constants/error.js';
 import { WARPCAST_ROOT_URL_V2 } from '@/constants/index.js';
 import { delay } from '@/helpers/delay.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 
 /**
@@ -29,7 +29,7 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
             await delay(ms);
 
             // Fetch the signed key request status from the server
-            const response = await fetchJSON<SignedKeyRequestResponse>(
+            const response = await fetchJson<SignedKeyRequestResponse>(
                 urlcat(WARPCAST_ROOT_URL_V2, '/signed-key-request', {
                     token,
                 }),

@@ -3,7 +3,7 @@
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import type { Event, EventDatesResponse, EventProvider, EventResponse, ParsedEvent } from '@/types/calendar.js';
 
@@ -64,7 +64,7 @@ function fixEvent(event: Event): ParsedEvent {
 
 export class CalendarProvider {
     static async getNewsList(startDate: number, endDate?: number, indicator?: PageIndicator) {
-        const response = await fetchJSON<EventResponse>(
+        const response = await fetchJson<EventResponse>(
             urlcat(BASE_URL, 'crypto_event_list', {
                 provider_type: 'coincarp',
                 size: 100,
@@ -84,7 +84,7 @@ export class CalendarProvider {
     }
 
     static async getEventList(start_date: number, end_date: number, indicator?: PageIndicator) {
-        const response = await fetchJSON<EventResponse>(
+        const response = await fetchJson<EventResponse>(
             urlcat(BASE_URL, 'crypto_event_list', {
                 provider_type: 'luma',
                 size: 100,
@@ -105,7 +105,7 @@ export class CalendarProvider {
     }
 
     static async getAvailableDates(type: EventProvider, start_date: number, end_date: number) {
-        const response = await fetchJSON<EventDatesResponse>(
+        const response = await fetchJson<EventDatesResponse>(
             urlcat(BASE_URL, 'crypto_event_date_list', {
                 provider_type: type,
                 start_date: start_date / 1000,

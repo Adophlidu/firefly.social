@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server.js';
 
 import { KeyType, PageRoute } from '@/constants/enum.js';
 import { compose } from '@/helpers/compose.js';
-import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { matchPath } from '@/helpers/matchPath.js';
 import { resolveRedisFieldKey } from '@/helpers/memoizeWithRedis.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
@@ -67,10 +67,10 @@ function getOgCacheKey(url: string): { fieldKey: string; key: KeyType; result: R
 export const DELETE = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const url = HttpUrl.parse(request.nextUrl.searchParams.get('url'));
     const path = parseUrl(url)?.pathname;
-    if (!path) return createErrorResponseJSON(`valid url: ${url}`);
+    if (!path) return createErrorResponseJson(`valid url: ${url}`);
     const result = getOgCacheKey(path);
     if (result) {
         await kv.hdel(result.key, result.fieldKey);
     }
-    return createSuccessResponseJSON({});
+    return createSuccessResponseJson({});
 });

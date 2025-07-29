@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import { TWITTER_USER_OPTIONS } from '@/constants/twitter.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
@@ -41,6 +41,6 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         const client = await createTwitterClientV2();
         const data: UserV2TimelineResult = await client.v2.get(url);
 
-        return createSuccessResponseJSON(data);
+        return createSuccessResponseJson(data);
     },
 );

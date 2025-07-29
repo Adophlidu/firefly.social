@@ -4,8 +4,8 @@ import { z } from 'zod';
 
 import { WARPCAST_ROOT_URL_V1 } from '@/constants/index.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { ChannelFollowersResponse } from '@/providers/types/Warpcast.js';
@@ -21,7 +21,7 @@ const Schema = z.object({
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const { channelId, fid, limit, cursor } = getSearchParamsFromRequestWithZodObject(request, Schema);
 
-    const response = await fetchJSON<ChannelFollowersResponse>(
+    const response = await fetchJson<ChannelFollowersResponse>(
         urlcat(WARPCAST_ROOT_URL_V1, '/channel-followers', {
             channelId,
             limit,
@@ -34,14 +34,14 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
 
     const fids = response.result?.users?.map((user) => user.fid);
     if (!fids?.length) {
-        return createSuccessResponseJSON({
+        return createSuccessResponseJson({
             followers: [],
         });
     }
 
     const profiles = await fetchProfilesFromNeynar(fids, fid);
 
-    return createSuccessResponseJSON({
+    return createSuccessResponseJson({
         followers: profiles,
         cursor: response.next?.cursor,
     });

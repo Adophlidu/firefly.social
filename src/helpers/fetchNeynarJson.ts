@@ -1,4 +1,4 @@
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 import type { NeynarResponse } from '@/providers/types/Neynar.js';
 
@@ -7,7 +7,7 @@ export function fetchNeynarJson<T>(
     init?: RequestInit,
     options?: NextFetchersOptions,
 ): Promise<NeynarResponse<T>> {
-    return fetchJSON(
+    return fetchJson(
         url,
         {
             ...init,
@@ -26,7 +26,7 @@ export function fetchNeynarStream<T>(
     init?: RequestInit,
     options?: NextFetchersOptions,
 ): Promise<NeynarResponse<T>> {
-    return fetchJSON(
+    return fetchJson(
         url,
         {
             ...init,

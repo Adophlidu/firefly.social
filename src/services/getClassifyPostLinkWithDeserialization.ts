@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import type { GetClassifyPostLinkOnActionResult } from '@/app/api/post-link/getClassifyPostLink.js';
 import { bom } from '@/helpers/bom.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import type { ActionGetResponse } from '@/providers/types/Blink.js';
 import type { ResponseJson } from '@/types/index.js';
@@ -44,7 +44,7 @@ export async function deserializeClassifyPostLinkResult(
 }
 
 export async function getClassifyPostLinkWithDeserialization(url: string): Promise<ClassifyPostLinkResult | null> {
-    const response = await fetchJSON<ResponseJson<GetClassifyPostLinkOnActionResult>>(
+    const response = await fetchJson<ResponseJson<GetClassifyPostLinkOnActionResult>>(
         urlcat(`/api/post-link`, {
             url,
         }),

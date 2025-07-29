@@ -8,7 +8,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { MIRROR_COLLECT_FEE, MIRROR_COLLECT_FEE_IN_POLYGON, MIRROR_OLD_FACTOR_ADDRESSES } from '@/constants/index.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { rightShift } from '@/helpers/number.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
@@ -30,7 +30,7 @@ class Mirror implements Provider {
     }
 
     async getArticleCollectableByDigest(digest: string): Promise<ArticleCollectable> {
-        const response = await fetchJSON<MirrorArticleDetail>(urlcat(location.origin, '/api/mirror'), {
+        const response = await fetchJson<MirrorArticleDetail>(urlcat(location.origin, '/api/mirror'), {
             method: 'POST',
             body: JSON.stringify({
                 ...WritingNFTQuery,

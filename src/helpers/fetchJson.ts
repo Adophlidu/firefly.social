@@ -3,7 +3,7 @@ import { Duration } from '@/helpers/fetchCached.js';
 import { Expiration } from '@/helpers/fetchSquashed.js';
 import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 
-export async function fetchJSON<T = unknown>(
+export async function fetchJson<T = unknown>(
     input: RequestInfo | URL,
     init?: RequestInit,
     options?: NextFetchersOptions,
@@ -31,7 +31,7 @@ export async function fetchSquashedJSON<T = unknown>(
     init?: RequestInit,
     options?: NextFetchersOptions,
 ): Promise<T> {
-    return fetchJSON<T>(input, init, {
+    return fetchJson<T>(input, init, {
         squashExpiration: Expiration.ONE_SECOND,
         ...options,
     });
@@ -42,7 +42,7 @@ export async function fetchCachedJSON<T = unknown>(
     init?: RequestInit,
     options?: NextFetchersOptions,
 ): Promise<T> {
-    return fetchJSON<T>(input, init, {
+    return fetchJson<T>(input, init, {
         squashExpiration: Expiration.ONE_SECOND,
         cacheDuration: Duration.ONE_MINUTE,
         ...options,

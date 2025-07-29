@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import { LoginEmailError, NotAllowedError, TimeoutError, UnreachableError } from '@/constants/error.js';
 import { NOT_DEPEND_SECRET, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
@@ -25,7 +25,7 @@ import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterRe
 
 async function restoreFireflySessionFromLens(session: LensSession, signal?: AbortSignal) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/lens/login');
-    const response = await fetchJSON<LoginResponse>(url, {
+    const response = await fetchJson<LoginResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
             accessToken: session.token,
@@ -71,7 +71,7 @@ async function restoreFireflySessionFromFarcaster(session: FarcasterSession, sig
 }
 
 async function restoreFireflySessionFromTwitter(session: TwitterSession, signal?: AbortSignal) {
-    const encryptedResponse = await fetchJSON<ResponseJson<string>>('/api/twitter/auth', {
+    const encryptedResponse = await fetchJson<ResponseJson<string>>('/api/twitter/auth', {
         method: 'POST',
         headers: TwitterSession.payloadToHeaders(session.payload),
         signal,
@@ -82,7 +82,7 @@ async function restoreFireflySessionFromTwitter(session: TwitterSession, signal?
     );
 
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/exchange/twitter');
-    const response = await fetchJSON<LoginResponse>(url, {
+    const response = await fetchJson<LoginResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
             data: encrypted,
@@ -96,7 +96,7 @@ async function restoreFireflySessionFromTwitter(session: TwitterSession, signal?
 
 async function restoreFireflySessionFromBsky(session: BskySession, signal?: AbortSignal) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/bsky/login');
-    const response = await fetchJSON<LoginResponse>(url, {
+    const response = await fetchJson<LoginResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
             did: session.did,
@@ -112,7 +112,7 @@ async function restoreFireflySessionFromBsky(session: BskySession, signal?: Abor
 
 async function restoreFireflySessionFromApple(session: ThirdPartySession, signal?: AbortSignal) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/apple/login');
-    const response = await fetchJSON<LoginResponse>(url, {
+    const response = await fetchJson<LoginResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
             authorizationToken: session.token,
@@ -126,7 +126,7 @@ async function restoreFireflySessionFromApple(session: ThirdPartySession, signal
 
 async function restoreFireflySessionFromGoogle(session: ThirdPartySession, signal?: AbortSignal) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/google/login');
-    const response = await fetchJSON<LoginResponse>(url, {
+    const response = await fetchJson<LoginResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
             idToken: session.token,
@@ -146,7 +146,7 @@ async function restoreFireflySessionFromTelegram(session: ThirdPartySession, sig
 async function restoreFireflySessionFromEmail(session: ThirdPartySession, signal?: AbortSignal) {
     if (!session.payload?.email || !session.payload?.passcode) throw new Error('Email and passcode are required.');
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/email/login');
-    const response = await fetchJSON<LoginResponse>(
+    const response = await fetchJson<LoginResponse>(
         url,
         {
             method: 'POST',

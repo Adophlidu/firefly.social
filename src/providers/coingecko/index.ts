@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 
 import { TrendingType } from '@/constants/enum.js';
 import { COINGECKO_ROOT_URL, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { getClubLink } from '@/helpers/getCommunityLink.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
@@ -66,12 +66,12 @@ function formatGainsOrLoser(info: CoinGeckoGainsLoserInfo): TokenWithMarket {
 export class CoinGecko {
     static getTokens() {
         const url = urlcat(DSEARCH_BASE_URL, '/fungible-tokens/coingecko.json');
-        return fetchJSON<CoinGeckoToken[]>(`${CORS_HOST}?${encodeURIComponent(url)}`, { mode: 'cors' });
+        return fetchJson<CoinGeckoToken[]>(`${CORS_HOST}?${encodeURIComponent(url)}`, { mode: 'cors' });
     }
 
     static async getTokenPrice(coinId: string): Promise<number | undefined> {
         const url = urlcat(COINGECKO_ROOT_URL, '/simple/price', { ids: coinId, vs_currencies: 'usd' });
-        const price = await fetchJSON<Record<string, Record<string, number>>>(url);
+        const price = await fetchJson<Record<string, Record<string, number>>>(url);
         return price[coinId]?.usd;
     }
 
@@ -103,7 +103,7 @@ export class CoinGecko {
             vs_currencies: 'usd',
         });
 
-        return fetchJSON<Record<string, Price>>(url);
+        return fetchJson<Record<string, Price>>(url);
     }
 
     /** @deprecated use FireflyEndpoint.getTokenPriceStats */
@@ -113,7 +113,7 @@ export class CoinGecko {
             vs_currency: 'usd',
             days: days || 11430,
         });
-        return fetchJSON<{
+        return fetchJson<{
             market_caps: Stat[];
             prices: Stat[];
             total_volumes: Stat[];
@@ -124,7 +124,7 @@ export class CoinGecko {
         if (coinId.trim().includes(' ')) {
             throw new Error('Invalid coinId');
         }
-        return fetchJSON<
+        return fetchJson<
             | CoinGeckoCoinInfo
             | {
                   error: string;
@@ -138,7 +138,7 @@ export class CoinGecko {
         );
     }
     private static async getSupportedPlatforms() {
-        const response = await fetchJSON<CoinGeckoPlatform[]>(`${COINGECKO_ROOT_URL}/asset_platforms`);
+        const response = await fetchJson<CoinGeckoPlatform[]>(`${COINGECKO_ROOT_URL}/asset_platforms`);
         return response.filter((x) => x.id && x.chain_identifier) ?? [];
     }
 
@@ -215,7 +215,7 @@ export class CoinGecko {
     }
 
     static async getCoinsByIds(coinIds: string[]) {
-        return fetchJSON<CoinGeckoCoinMarketInfo[]>(
+        return fetchJson<CoinGeckoCoinMarketInfo[]>(
             urlcat(COINGECKO_ROOT_URL, '/coins/markets', {
                 ids: coinIds.join(','),
                 vs_currency: 'usd',
@@ -228,7 +228,7 @@ export class CoinGecko {
     static async getTopGainersOrLosers(
         type: TrendingType.TopGainers | TrendingType.TopLosers,
     ): Promise<TokenWithMarket[]> {
-        const response = await fetchJSON<{
+        const response = await fetchJson<{
             top_gainers: CoinGeckoGainsLoserInfo[];
             top_losers: CoinGeckoGainsLoserInfo[];
         }>(urlcat(COINGECKO_ROOT_URL, '/coins/top_gainers_losers', { vs_currency: 'usd' }));
@@ -238,7 +238,7 @@ export class CoinGecko {
     }
 
     static async getTopTrendingCoins() {
-        const response = await fetchJSON<{ coins: Array<{ item: CoinGeckoCoinTrending }> }>(
+        const response = await fetchJson<{ coins: Array<{ item: CoinGeckoCoinTrending }> }>(
             urlcat(COINGECKO_ROOT_URL, '/search/trending'),
         );
 
@@ -260,7 +260,7 @@ export class CoinGecko {
     }
 
     static async getTopMemeCoins() {
-        const response = await fetchJSON<CoinGeckoMemeCoinTrending[]>(
+        const response = await fetchJson<CoinGeckoMemeCoinTrending[]>(
             urlcat(COINGECKO_ROOT_URL, '/coins/markets', {
                 vs_currency: 'usd',
                 category: 'meme-token',
@@ -304,7 +304,7 @@ export class CoinGecko {
             network,
         });
 
-        const response = await fetchJSON<{ data: CoinGeckoAsset }>(url, {
+        const response = await fetchJson<{ data: CoinGeckoAsset }>(url, {
             signal,
         });
 
@@ -317,7 +317,7 @@ export class CoinGecko {
             network,
         });
 
-        const response = await fetchJSON<{ data: CoinGeckoAsset[] }>(url, {
+        const response = await fetchJson<{ data: CoinGeckoAsset[] }>(url, {
             signal,
         });
 

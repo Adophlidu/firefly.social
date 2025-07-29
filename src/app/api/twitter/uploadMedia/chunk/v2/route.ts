@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
@@ -24,7 +24,7 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
         const client = await createTwitterClientV2();
         const { data } = await client.v2.post<{ data: FinishUploadResponseV2 }>(`media/upload/${media_id}/finalize`);
 
-        return createSuccessResponseJSON(data);
+        return createSuccessResponseJson(data);
     },
 );
 
@@ -40,6 +40,6 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
             urlcat('media/upload', { media_id, command: 'STATUS' }),
         );
 
-        return createSuccessResponseJSON(data);
+        return createSuccessResponseJson(data);
     },
 );

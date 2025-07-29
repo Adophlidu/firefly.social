@@ -1,7 +1,7 @@
 import { first, isEmpty } from 'lodash-es';
 
 import { FetchError } from '@/constants/error.js';
-import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { parseHtml } from '@/helpers/parseHtml.js';
 import { parseJson } from '@/helpers/parseJson.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
@@ -70,7 +70,7 @@ class Processor {
         if (isEmpty(data?.props.pageProps.collectible)) {
             const target = first(data?.props.pageProps.initialState.notes.allNotes);
             if (!target)
-                return createErrorResponseJSON(`Failed to parse state from document = ${documentUrl}.`, {
+                return createErrorResponseJson(`Failed to parse state from document = ${documentUrl}.`, {
                     status: 500,
                 });
 
@@ -93,7 +93,7 @@ class Processor {
                 referrerAddress: data?.props.pageProps.initialState.blog.blog.user.referrerWalletAddress,
             };
 
-            return createSuccessResponseJSON(result);
+            return createSuccessResponseJson(result);
         }
 
         const result = {
@@ -102,7 +102,7 @@ class Processor {
             referrerAddress: data?.props.pageProps.initialState.blog.blog.user.referrerWalletAddress,
         };
 
-        return createSuccessResponseJSON(result);
+        return createSuccessResponseJson(result);
     }
 }
 

@@ -1,4 +1,4 @@
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -14,7 +14,7 @@ class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
         const authToken = fireflyBridgeProvider.supported
             ? await fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {})
             : this.sessionRequired.token;
-        return fetchJSON<T>(
+        return fetchJson<T>(
             url,
             {
                 ...init,
@@ -25,7 +25,7 @@ class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
     }
 
     override fetchWithoutSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
-        return fetchJSON<T>(url, init, options);
+        return fetchJson<T>(url, init, options);
     }
 }
 

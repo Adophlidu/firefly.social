@@ -6,7 +6,7 @@ import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForBookmarkNFT } from '@/decorators/SetQueryDataForBookmarkNFT.js';
 import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
 import { getCurrentProfile, getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
@@ -258,7 +258,7 @@ class FireflySocialMedia implements Provider {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/active_channels', {
             fid: profileId,
         });
-        const response = await fetchJSON<ChannelsResponse>(url, {
+        const response = await fetchJson<ChannelsResponse>(url, {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
@@ -312,7 +312,7 @@ class FireflySocialMedia implements Provider {
             size: 20,
             cursor: indicator?.id,
         });
-        const response = await fetchJSON<SearchChannelsResponse>(url, {
+        const response = await fetchJson<SearchChannelsResponse>(url, {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
@@ -861,7 +861,7 @@ class FireflySocialMedia implements Provider {
     async getFriendship(profileId: string) {
         return farcasterSessionHolder.withSession(async (session) => {
             if (!session) return null;
-            const response = await fetchJSON<FriendshipResponse>(
+            const response = await fetchJson<FriendshipResponse>(
                 urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/friendship', {
                     sourceFid: session?.profileId,
                     destFid: profileId,

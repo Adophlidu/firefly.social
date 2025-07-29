@@ -1,13 +1,13 @@
 import type { NextRequest } from 'next/server.js';
 
 import { SiteCookies } from '@/constants/enum.js';
-import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 
 export async function POST(request: NextRequest) {
     const rootClass = request.nextUrl.searchParams.get('root_class');
-    if (!rootClass) return createErrorResponseJSON('Missing parameter', { status: 400 });
+    if (!rootClass) return createErrorResponseJson('Missing parameter', { status: 400 });
 
-    return createSuccessResponseJSON(null, {
+    return createSuccessResponseJson(null, {
         headers: {
             'Set-Cookie': `${SiteCookies.FireflyRootClass}=${rootClass}; path=/; Max-Age=315360000; SameSite=Lax; Secure;`,
         },

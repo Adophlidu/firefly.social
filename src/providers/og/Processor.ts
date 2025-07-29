@@ -10,7 +10,7 @@ import {
     WARPCAST_CONVERSATIONS_REGEX,
     WARPCAST_THREAD_REGEX,
 } from '@/constants/regexp.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { getFarcasterPayload, getMirrorPayload } from '@/providers/og/readers/payload.js';
 import type { ResponseJson } from '@/types/index.js';
@@ -21,7 +21,7 @@ class Processor {
         const url = parseUrl(documentUrl);
         if (!url) return null;
 
-        const response = await fetchJSON<ResponseJson<{ og: OpenGraph }>>(
+        const response = await fetchJson<ResponseJson<{ og: OpenGraph }>>(
             urlcat(FIREFLY_WORKER_HOST, '/oembed', {
                 link: url.toString(),
             }),

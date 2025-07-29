@@ -4,7 +4,7 @@ import { MalformedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createAppOnlyTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
@@ -29,7 +29,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         });
         if (errors?.length) console.error('[twitter] v2.search', errors);
 
-        return createSuccessResponseJSON({
+        return createSuccessResponseJson({
             ...data,
             data:
                 data?.data?.filter((item) =>

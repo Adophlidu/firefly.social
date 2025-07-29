@@ -1,4 +1,4 @@
-export function createResponseJSON(data: unknown, init?: ResponseInit) {
+export function createResponseJson(data: unknown, init?: ResponseInit) {
     const status = init?.status ?? 200;
 
     return Response.json(data, {
@@ -11,8 +11,8 @@ export enum ServerErrorCodes {
     UNKNOWN = 40001,
 }
 
-export function createErrorResponseJSON(message: string, init?: Omit<ResponseInit, 'headers'>) {
-    return createResponseJSON(
+export function createErrorResponseJson(message: string, init?: Omit<ResponseInit, 'headers'>) {
+    return createResponseJson(
         {
             success: false,
             error: {
@@ -27,8 +27,8 @@ export function createErrorResponseJSON(message: string, init?: Omit<ResponseIni
     );
 }
 
-export function createSuccessResponseJSON(data: unknown, init?: ResponseInit) {
-    return createResponseJSON(
+export function createSuccessResponseJson(data: unknown, init?: ResponseInit) {
+    return createResponseJson(
         {
             success: true,
             data,

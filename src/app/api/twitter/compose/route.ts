@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
@@ -89,6 +89,6 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
             return createTwitterErrorResponseJSON(errors);
         }
 
-        return createSuccessResponseJSON(data);
+        return createSuccessResponseJson(data);
     },
 );

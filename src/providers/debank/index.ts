@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { DEBANK_OPEN_API } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import type { GasPrice, UserTotalBalanceResponse } from '@/providers/types/Debank.js';
 
 export class Debank {
@@ -10,7 +10,7 @@ export class Debank {
             chain_id: chain,
         });
 
-        return await fetchJSON<GasPrice[]>(url);
+        return await fetchJson<GasPrice[]>(url);
     }
 
     /**
@@ -20,7 +20,7 @@ export class Debank {
         const url = urlcat(DEBANK_OPEN_API, '/v1/user/total_balance', {
             id,
         });
-        const res = await fetchJSON<UserTotalBalanceResponse>(url);
+        const res = await fetchJson<UserTotalBalanceResponse>(url);
         return res.total_usd_value;
     }
 }

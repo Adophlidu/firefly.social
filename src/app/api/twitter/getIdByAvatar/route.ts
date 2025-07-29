@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server.js';
 
-import { createErrorResponseJSON, createResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createErrorResponseJson, createResponseJson } from '@/helpers/createResponseJson.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 
 export async function GET(request: NextRequest) {
@@ -17,15 +17,15 @@ export async function GET(request: NextRequest) {
             if (!location) return new Response('Missing location', { status: 400 });
             const twitterId = new URL(location).searchParams.get('twitterId');
 
-            return createResponseJSON({
+            return createResponseJson({
                 twitterId,
             });
         }
-        return createErrorResponseJSON('Not Found', {
+        return createErrorResponseJson('Not Found', {
             status: 404,
         });
     } catch (error) {
-        return createErrorResponseJSON(getGatewayErrorMessage(error, 'Failed to get twitter avatar'), {
+        return createErrorResponseJson(getGatewayErrorMessage(error, 'Failed to get twitter avatar'), {
             status: 400,
         });
     }

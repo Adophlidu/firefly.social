@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server.js';
 
 import { KeyType } from '@/constants/enum.js';
-import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { once } from '@/helpers/once.js';
@@ -24,21 +24,21 @@ const refreshThreadByPostId = once(
 
 export async function GET(request: NextRequest) {
     const id = request.nextUrl.searchParams.get('id');
-    if (!id) return createErrorResponseJSON('Missing id', { status: 400 });
+    if (!id) return createErrorResponseJson('Missing id', { status: 400 });
 
     const thread = await getThreadByPostId(id);
-    return createSuccessResponseJSON(thread);
+    return createSuccessResponseJson(thread);
 }
 
 export async function PUT(request: NextRequest) {
     const id = request.nextUrl.searchParams.get('id');
-    if (!id) return createErrorResponseJSON('Missing id', { status: 400 });
+    if (!id) return createErrorResponseJson('Missing id', { status: 400 });
 
     try {
         await refreshThreadByPostId(id);
-        return createSuccessResponseJSON(null);
+        return createSuccessResponseJson(null);
     } catch (error) {
-        return createErrorResponseJSON(getGatewayErrorMessage(error, 'Failed to revalidate thread.'), {
+        return createErrorResponseJson(getGatewayErrorMessage(error, 'Failed to revalidate thread.'), {
             status: 502,
         });
     }

@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { OKX_HOST } from '@/constants/okx.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import type { SupportedChainResponse, TotalValueResponse } from '@/providers/okx/types.js';
 
 /** request okx official API, and normalize the code */
@@ -11,7 +11,7 @@ async function fetchFromOKX<T extends { code: number }>(input: RequestInfo | URL
             console.warn('Do you forget to convert to okx native address?', input);
         }
     }
-    const response = await fetchJSON<T>(input, init);
+    const response = await fetchJson<T>(input, init);
     return {
         ...response,
         code: +response.code,

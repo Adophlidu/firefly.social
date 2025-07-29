@@ -2,7 +2,7 @@ import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { env } from '@/constants/env.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { MediaSource } from '@/types/compose.js';
 import type { IGif } from '@/types/giphy.js';
 
@@ -90,7 +90,7 @@ export async function fetchTenorGifs({ cursor, q, limit = 20 }: FetchTenorGifsOp
     data: IGif[];
     cursor: string;
 }> {
-    const response = await fetchJSON<{
+    const response = await fetchJson<{
         results: TenorGif[];
         next: string;
     }>(

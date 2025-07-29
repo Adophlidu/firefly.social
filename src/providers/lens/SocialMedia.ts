@@ -79,7 +79,7 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
@@ -1123,8 +1123,9 @@ class LensSocialMedia implements Provider {
     }
 
     async getThreadByPostId(postId: string) {
-        const response = await fetchJSON<ResponseJson<string[]>>(urlcat('/api/thread', { id: postId }));
+        const response = await fetchJson<ResponseJson<string[]>>(urlcat('/api/thread', { id: postId }));
         if (!response.success) return EMPTY_LIST;
+
         const posts = await ensureLensResult(
             fetchPosts(getClient(), {
                 pageSize: PageSize.Fifty,

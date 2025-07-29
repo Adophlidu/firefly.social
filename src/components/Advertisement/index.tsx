@@ -1,7 +1,7 @@
 import { AdvertisementSkeleton } from '@/components/Advertisement/AdvertisementSkeleton.js';
 import { ADVERTISEMENT_JSON_URL } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import type { Advertisement } from '@/types/advertisement.js';
 
 const AdvertisementSwiper = dynamic(
@@ -14,7 +14,7 @@ const AdvertisementSwiper = dynamic(
 
 export async function Advertisement() {
     try {
-        const response = await fetchJSON<{ advertisements: Advertisement[] }>(ADVERTISEMENT_JSON_URL, {
+        const response = await fetchJson<{ advertisements: Advertisement[] }>(ADVERTISEMENT_JSON_URL, {
             next: {
                 // 12 hours
                 revalidate: 60 * 60 * 12,

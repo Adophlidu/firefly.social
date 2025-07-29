@@ -13,7 +13,7 @@ import { Source } from '@/constants/enum.js';
 import { FARCASTER_REPLY_URL, SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
@@ -67,7 +67,7 @@ export function RelayConfirmationPopover({ ref }: Props) {
             const u = parseUrl(url);
             if (!u) throw new Error(`Invalid URL: ${props.frame.x_url}`);
 
-            const response = await fetchJSON<{
+            const response = await fetchJson<{
                 url: string;
                 channelToken: string;
             }>(urlcat(FARCASTER_REPLY_URL, '/v1/channel'), {

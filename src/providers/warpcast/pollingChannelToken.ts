@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { InvalidResultError } from '@/constants/error.js';
 import { FARCASTER_REPLY_URL } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { retry } from '@/helpers/retry.js';
 
 interface ChannelStatusResponse {
@@ -40,7 +40,7 @@ interface ChannelCompleteResponse extends ChannelStatusResponse {
 export async function pollingChannelToken(token: string, signal?: AbortSignal) {
     const result = await retry(
         async () => {
-            const signed = await fetchJSON<ChannelPendingResponse | ChannelCompleteResponse>(
+            const signed = await fetchJson<ChannelPendingResponse | ChannelCompleteResponse>(
                 urlcat(FARCASTER_REPLY_URL, '/v1/channel/status'),
                 {
                     method: 'GET',

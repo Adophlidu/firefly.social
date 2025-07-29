@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import { env } from '@/constants/env.js';
 import { compose } from '@/helpers/compose.js';
-import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { JWTGenerator } from '@/libs/JWTGenerator.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -17,7 +17,7 @@ const BodySchema = z.object({
 
 export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const parsed = BodySchema.safeParse(await request.json());
-    if (!parsed.success) return createErrorResponseJSON(parsed.error.message, { status: 400 });
+    if (!parsed.success) return createErrorResponseJson(parsed.error.message, { status: 400 });
 
     const deadline = dayjs(Date.now()).add(1, 'y').unix();
 
@@ -33,7 +33,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     const { sponsorSignature, signedKeyRequestSignature, requestFid } =
         await FireflyEndpointProvider.generateFarcasterSignatures(publicKey, deadline, jwt, request.signal);
 
-    return createSuccessResponseJSON({
+    return createSuccessResponseJson({
         body: {
             key: publicKey,
             signature: signedKeyRequestSignature,

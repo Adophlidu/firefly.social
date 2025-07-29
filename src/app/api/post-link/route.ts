@@ -6,14 +6,14 @@ import {
     getClassifyPostLinkWithRedis,
 } from '@/app/api/post-link/getClassifyPostLink.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const url = request.nextUrl.searchParams.get('url');
     if (url) {
         const result = await getClassifyPostLinkWithRedis(url).catch(() => null);
-        return createSuccessResponseJSON(result);
+        return createSuccessResponseJson(result);
     }
     const urls = request.nextUrl.searchParams.get('cache-urls')?.split(',');
     if (urls) {
@@ -29,16 +29,16 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
                 )
                 .filter((x) => x?.result),
         );
-        return createSuccessResponseJSON(results);
+        return createSuccessResponseJson(results);
     }
-    return createSuccessResponseJSON(null);
+    return createSuccessResponseJson(null);
 });
 
 export const DELETE = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const url = request.nextUrl.searchParams.get('url');
     if (url) {
         await getClassifyPostLinkWithRedis.cache.delete(url);
-        return createSuccessResponseJSON(true);
+        return createSuccessResponseJson(true);
     }
-    return createSuccessResponseJSON(false);
+    return createSuccessResponseJson(false);
 });

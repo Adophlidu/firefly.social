@@ -3,7 +3,7 @@ import { NextRequest } from 'next/server.js';
 import { MalformedError, NotFoundError } from '@/constants/error.js';
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
@@ -47,6 +47,6 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
             throw new NotFoundError();
         }
 
-        return createSuccessResponseJSON(tweetV2ToPost(data, includes));
+        return createSuccessResponseJson(tweetV2ToPost(data, includes));
     },
 );

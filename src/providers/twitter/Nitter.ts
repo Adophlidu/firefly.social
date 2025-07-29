@@ -4,7 +4,7 @@ import { FIREFLY_NITTER_URL } from '@/constants/index.js';
 import { LimitConcurrency } from '@/decorators/LimitConcurrency.js';
 import { MemoizePromise } from '@/decorators/MemoizePromise.js';
 import { bom } from '@/helpers/bom.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import {
     type GetProfileResponse,
     type GetTweetStatusResponse,
@@ -32,7 +32,7 @@ class NitterAPI {
             cursor?: string;
         },
     ) {
-        const res = await fetchJSON<GetTweetStatusResponse>(
+        const res = await fetchJson<GetTweetStatusResponse>(
             urlcat(FIREFLY_NITTER_URL, '/api/:name/status/:id', {
                 name,
                 id,
@@ -49,7 +49,7 @@ class NitterAPI {
 
     @MemoizePromise((id) => id)
     async convertUserIdToHandle(id: string) {
-        const res = await fetchJSON<Response<{ username: string }>>(
+        const res = await fetchJson<Response<{ username: string }>>(
             urlcat(FIREFLY_NITTER_URL, '/api/i/user/:id', {
                 id,
             }),
@@ -62,7 +62,7 @@ class NitterAPI {
 
     @MemoizePromise((handle) => handle)
     async getProfileByHandle(handle: string) {
-        const res = await fetchJSON<GetProfileResponse>(
+        const res = await fetchJson<GetProfileResponse>(
             urlcat(FIREFLY_NITTER_URL, '/api/:handle/profile', {
                 handle,
             }),
@@ -92,7 +92,7 @@ class NitterAPI {
                   handle,
                   cursor: options?.cursor,
               });
-        const res = await fetchJSON<GetUserTimelineResponse>(url, {
+        const res = await fetchJson<GetUserTimelineResponse>(url, {
             next: {
                 revalidate: 1,
             },
@@ -113,7 +113,7 @@ class NitterAPI {
             cursor: options?.cursor,
             f: options?.type,
         });
-        const res = await fetchJSON<SearchResponse>(url, {
+        const res = await fetchJson<SearchResponse>(url, {
             next: {
                 revalidate: 1,
             },

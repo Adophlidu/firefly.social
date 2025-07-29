@@ -8,7 +8,7 @@ import {
     UnreachableError,
 } from '@/constants/error.js';
 import { NOT_DEPEND_SECRET } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
@@ -91,7 +91,7 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
 }
 
 async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: AbortSignal) {
-    const encryptedResponse = await fetchJSON<ResponseJson<string>>('/api/twitter/auth', {
+    const encryptedResponse = await fetchJson<ResponseJson<string>>('/api/twitter/auth', {
         method: 'POST',
         headers: TwitterSession.payloadToHeaders(session.payload),
         signal,

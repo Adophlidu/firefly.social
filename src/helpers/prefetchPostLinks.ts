@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import type { GetClassifyPostLinkOnActionResult } from '@/app/api/post-link/getClassifyPostLink.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { deserializeClassifyPostLinkResult } from '@/services/getClassifyPostLinkWithDeserialization.js';
 import type { ResponseJson } from '@/types/index.js';
@@ -15,7 +15,7 @@ export async function prefetchPostLinks(urls: string[]) {
             return !data;
         });
         if (notCachedUrls.length <= 0) return;
-        const response = await fetchJSON<
+        const response = await fetchJson<
             ResponseJson<Array<{ url: string; result: GetClassifyPostLinkOnActionResult }>>
         >(
             urlcat(`/api/post-link`, {

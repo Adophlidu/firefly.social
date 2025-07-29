@@ -6,7 +6,7 @@ import { readContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { FARCASTER_REPLY_URL, SITE_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
@@ -95,7 +95,7 @@ export async function signInWithRelayService(
     const u = parseUrl(url);
     if (!u) throw new Error(`Invalid URL: ${url}`);
 
-    const response = await fetchJSON<{
+    const response = await fetchJson<{
         url: string;
         channelToken: string;
     }>(urlcat(FARCASTER_REPLY_URL, '/v1/channel'), {
@@ -174,7 +174,7 @@ export async function signInWithRemoteFarcaster(frame: FrameV2, fid: string, non
     const message = await createSiwfMessage(url, fid, nonce);
 
     // Assume we have a BE api endpoint that can sign the message
-    const siwf = await fetchJSON<{
+    const siwf = await fetchJson<{
         result: {
             token: string;
         };

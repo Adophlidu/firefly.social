@@ -8,7 +8,7 @@ import { env } from '@/constants/env.js';
 import { SEVEN_DAYS } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { getAllAccounts } from '@/helpers/getAllProfiles.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
@@ -98,7 +98,7 @@ async function getMetricsDataToUpload(account: Account, passcode: string) {
         }
         case Source.Twitter: {
             const twitterSession = account.session as TwitterSession;
-            const encodedMetricsData = await fetchJSON<ResponseJson<string>>(
+            const encodedMetricsData = await fetchJson<ResponseJson<string>>(
                 urlcat('/api/twitter/encrypt-session', {
                     profileId: account.profile.profileId,
                     encryptKey: sha256(passcode),
@@ -293,7 +293,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                 break;
             }
             case Source.Twitter: {
-                const payloadResponse = await fetchJSON<ResponseJson<SessionPayload>>(
+                const payloadResponse = await fetchJson<ResponseJson<SessionPayload>>(
                     urlcat('/api/twitter/decrypt-session', {
                         ciphertext,
                         encryptKey: sha256(passcode),

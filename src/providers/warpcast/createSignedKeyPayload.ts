@@ -1,6 +1,6 @@
 import { encodeAbiParameters } from 'viem';
 
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import type { SignedKeyRequestBody } from '@/providers/warpcast/createSignedKey.js';
 import type { ResponseJson } from '@/types/index.js';
 import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
@@ -18,7 +18,7 @@ type SignedBody = ResponseJson<{
  * @returns
  */
 export async function createSignedKeyPayloadWithAddressVerification(address: `0x${string}`, signal?: AbortSignal) {
-    const response = await fetchJSON<SignedBody>('/api/warpcast/signed-key-request', {
+    const response = await fetchJson<SignedBody>('/api/warpcast/signed-key-request', {
         method: 'POST',
         body: JSON.stringify({
             key: encodeAbiParameters([{ name: 'auth_address', type: 'address' }], [address]),
@@ -36,7 +36,7 @@ export async function createSignedKeyPayloadWithAddressVerification(address: `0x
  * @returns
  */
 export async function createSignedKeyPayloadWithPublicKey(key: string, signal?: AbortSignal) {
-    const response = await fetchJSON<SignedBody>('/api/warpcast/signed-key-request', {
+    const response = await fetchJson<SignedBody>('/api/warpcast/signed-key-request', {
         method: 'POST',
         body: JSON.stringify({
             key,
@@ -54,7 +54,7 @@ export async function createSignedKeyPayloadWithPublicKey(key: string, signal?: 
  * @returns
  */
 export async function createSignedKeyPayloadWithSponsorship(key: string, signal?: AbortSignal) {
-    const response = await fetchJSON<SignedBody>('/api/firefly/sponsorship', {
+    const response = await fetchJson<SignedBody>('/api/firefly/sponsorship', {
         method: 'POST',
         signal,
         body: JSON.stringify({

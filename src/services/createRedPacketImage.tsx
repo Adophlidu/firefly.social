@@ -6,7 +6,7 @@ import { RedPacketCover } from '@/components/RedPacket/Cover.js';
 import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
 import { Locale } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { loadTwemojiUrls } from '@/helpers/loadTwemojiUrls.js';
 import { removeVS16s } from '@/helpers/removeVS16s.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
@@ -50,7 +50,7 @@ async function getTheme(themeId: string, signal?: AbortSignal) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/themeById', {
         themeId,
     });
-    const response = await fetchJSON<FireflyRedPacketAPI.ThemeByIdResponse>(url, {
+    const response = await fetchJson<FireflyRedPacketAPI.ThemeByIdResponse>(url, {
         next: {
             // revalidate at most every hour
             revalidate: 60 * 60,

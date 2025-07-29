@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server.js';
 import { z } from 'zod';
 
 import { compose } from '@/helpers/compose.js';
-import { createResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 
@@ -43,7 +43,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
             'Content-Type': 'application/json',
         },
     });
-    return createResponseJSON(await response.json(), {
+    return createResponseJson(await response.json(), {
         status: response.status,
     });
 });

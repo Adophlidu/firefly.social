@@ -2,7 +2,7 @@ import type { ConnectorControllerState } from '@reown/appkit';
 import type { PropsWithChildren, ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 
-import { ServerErrorCodes } from '@/helpers/createResponseJSON.js';
+import { ServerErrorCodes } from '@/helpers/createResponseJson.js';
 
 export type Pluggable = NonNullable<Parameters<typeof ReactMarkdown>[0]['remarkPlugins']>[number];
 

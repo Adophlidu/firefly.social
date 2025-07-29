@@ -2,7 +2,7 @@
 
 import urlcat from 'urlcat';
 
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { settings } from '@/settings/index.js';
 
 // Learn more supported languages here:
@@ -174,7 +174,7 @@ export async function translateLanguage(
     translations: Translation[];
 }> {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/translate');
-    const { data } = await fetchJSON<TranslationResponse>(url, {
+    const { data } = await fetchJson<TranslationResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
             toLanguage: to,

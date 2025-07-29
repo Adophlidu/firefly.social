@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { FileMimeType, Source } from '@/constants/enum.js';
 import { BSKY_VIDEO_ENDPOINT } from '@/constants/index.js';
 import { delay } from '@/helpers/delay.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveExtFromMimeType } from '@/helpers/resolveExtFromMimeType.js';
@@ -66,7 +66,7 @@ async function checkUploadLimits(file: File, signal?: AbortSignal) {
         },
         signal,
     );
-    const limits = await fetchJSON<UploadLimits>(urlcat(BSKY_VIDEO_ENDPOINT, '/app.bsky.video.getUploadLimits'), {
+    const limits = await fetchJson<UploadLimits>(urlcat(BSKY_VIDEO_ENDPOINT, '/app.bsky.video.getUploadLimits'), {
         headers: { Authorization: `Bearer ${getLimitsAuthToken}` },
         signal,
     });
@@ -90,7 +90,7 @@ async function setupUploadJob(file: File, bskyProfile: Profile, signal?: AbortSi
         },
         signal,
     );
-    const job = await fetchJSON<UploadJob>(
+    const job = await fetchJson<UploadJob>(
         urlcat(BSKY_VIDEO_ENDPOINT, '/app.bsky.video.uploadVideo', {
             did: bskyProfile.profileId,
             name: `${crypto.randomUUID()}.${resolveExtFromMimeType(file.type as FileMimeType)}`,
@@ -121,7 +121,7 @@ async function waitForJobCompletion(jobId: string, signal?: AbortSignal) {
     });
 
     while (retryCount > 0) {
-        const { jobStatus } = await fetchJSON<UploadJobStatus>(
+        const { jobStatus } = await fetchJson<UploadJobStatus>(
             urlcat(BSKY_VIDEO_ENDPOINT, '/app.bsky.video.getJobStatus', { jobId }),
             { signal },
         );

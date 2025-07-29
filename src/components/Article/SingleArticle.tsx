@@ -14,7 +14,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -44,7 +44,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
         queryFn: async () => {
             if (article.coverUrl) return article.coverUrl;
             if (article.platform === ArticlePlatform.Mirror && article.origin) {
-                const payload = await fetchJSON<ResponseJson<LinkDigested>>(
+                const payload = await fetchJson<ResponseJson<LinkDigested>>(
                     urlcat(FIREFLY_WORKER_HOST, '/oembed', {
                         link: article.origin,
                     }),

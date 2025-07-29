@@ -2,14 +2,14 @@ import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 
 import { HEY_API_URL, HEY_URL } from '@/constants/index.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 
 const impressionsEndpoint = urlcat(HEY_API_URL, '/leafwatch/impressions');
 
 export async function POST(request: NextRequest) {
     const body = await request.json();
-    await fetchJSON(impressionsEndpoint, {
+    await fetchJson(impressionsEndpoint, {
         method: 'POST',
         body: JSON.stringify(body),
         keepalive: true,
@@ -20,5 +20,5 @@ export async function POST(request: NextRequest) {
         signal: request.signal,
     });
 
-    return createSuccessResponseJSON({});
+    return createSuccessResponseJson({});
 }

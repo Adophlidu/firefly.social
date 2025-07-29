@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { TWITTER_UPLOAD_MEDIA_URL } from '@/constants/index.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
@@ -27,7 +27,7 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
             urlcat(TWITTER_UPLOAD_MEDIA_URL, { ...queryParams, command: 'FINALIZE' }),
         );
 
-        return createSuccessResponseJSON(data);
+        return createSuccessResponseJson(data);
     },
 );
 
@@ -43,6 +43,6 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
             urlcat(TWITTER_UPLOAD_MEDIA_URL, { ...queryParams, command: 'STATUS' }),
         );
 
-        return createSuccessResponseJSON(data);
+        return createSuccessResponseJson(data);
     },
 );

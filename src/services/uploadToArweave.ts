@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import type { GetPostMetaData } from '@/providers/lens/postToLens.js';
 import { settings } from '@/settings/index.js';
 
@@ -21,7 +21,7 @@ export async function uploadToArweave(data: GetPostMetaData, token: string): Pro
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/lens/public_metadata');
     const {
         data: { arweaveTxId },
-    } = await fetchJSON<IUploadToArweaveResponse>(url, {
+    } = await fetchJson<IUploadToArweaveResponse>(url, {
         method: 'POST',
         headers: {
             'x-access-token': token,

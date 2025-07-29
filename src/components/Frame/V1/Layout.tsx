@@ -13,7 +13,7 @@ import { env } from '@/constants/env.js';
 import { MalformedError, TransactionSimulationError } from '@/constants/error.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
@@ -127,7 +127,7 @@ async function getNextFrame(
             target: button.target,
             'post-url': button.postUrl || frame.postUrl,
         });
-        return fetchJSON<ResponseJson<T>>(url, {
+        return fetchJson<ResponseJson<T>>(url, {
             method: 'POST',
             body: JSON.stringify(packet),
         });

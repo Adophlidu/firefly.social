@@ -4,7 +4,7 @@ import type { Address } from 'viem';
 import { config } from '@/configs/wagmiClient.js';
 import { SnapshotState } from '@/constants/enum.js';
 import { SNAPSHOT_GRAPHQL_URL, SNAPSHOT_RELAY_URL, SNAPSHOT_SCORES_URL, SNAPSHOT_SEQ_URL } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { plus } from '@/helpers/number.js';
@@ -70,7 +70,7 @@ export class Snapshot {
     }
 
     static async getProposals(ids: string[], address?: string) {
-        const response = await fetchJSON<{ data: { proposals: SnapshotProposal[] } }>(SNAPSHOT_GRAPHQL_URL, {
+        const response = await fetchJson<{ data: { proposals: SnapshotProposal[] } }>(SNAPSHOT_GRAPHQL_URL, {
             method: 'POST',
             body: JSON.stringify({
                 ...ProposalsQuery,
@@ -100,7 +100,7 @@ export class Snapshot {
     }
 
     static async getVotesById(id: string, indicator?: PageIndicator) {
-        const votesResponse = await fetchJSON<SnapshotVotes>(SNAPSHOT_GRAPHQL_URL, {
+        const votesResponse = await fetchJson<SnapshotVotes>(SNAPSHOT_GRAPHQL_URL, {
             method: 'POST',
             body: JSON.stringify({
                 ...VotesQuery,
@@ -116,7 +116,7 @@ export class Snapshot {
 
         const votes = votesResponse.data.votes;
 
-        const usersResponse = await fetchJSON<SnapshotUsers>(SNAPSHOT_GRAPHQL_URL, {
+        const usersResponse = await fetchJson<SnapshotUsers>(SNAPSHOT_GRAPHQL_URL, {
             method: 'POST',
             body: JSON.stringify({
                 ...UsersQuery,
@@ -142,7 +142,7 @@ export class Snapshot {
     }
 
     static async pathQueryVoteResultsByVoter(ids: string[], voter: string, indicator?: PageIndicator) {
-        const votesResponse = await fetchJSON<SnapshotVotes>(SNAPSHOT_GRAPHQL_URL, {
+        const votesResponse = await fetchJson<SnapshotVotes>(SNAPSHOT_GRAPHQL_URL, {
             method: 'POST',
             body: JSON.stringify({
                 ...VotesQuery,
@@ -172,7 +172,7 @@ export class Snapshot {
         space: string,
         delegation: boolean,
     ) {
-        const response = await fetchJSON<{ result: { vp: number; vp_by_strategy: number[]; vp_state: string } }>(
+        const response = await fetchJson<{ result: { vp: number; vp_by_strategy: number[]; vp_state: string } }>(
             SNAPSHOT_SCORES_URL,
             {
                 method: 'POST',
@@ -243,7 +243,7 @@ export class Snapshot {
             message: messageData,
         });
 
-        const response = await fetchJSON<{ id?: string; ipfs?: string; error_description?: string }>(
+        const response = await fetchJson<{ id?: string; ipfs?: string; error_description?: string }>(
             signedTypedData === '0x' ? SNAPSHOT_RELAY_URL : SNAPSHOT_SEQ_URL,
             {
                 method: 'POST',

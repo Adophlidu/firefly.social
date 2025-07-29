@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import type { ResponseJson } from '@/types/index.js';
 
@@ -18,7 +18,7 @@ export function isTcoLink(u: string) {
 async function resolver(u: string): Promise<string | null> {
     if (!isTcoLink(u)) return null;
     if (cache.has(u)) return cache.get(u) ?? null;
-    const response = await fetchJSON<TcoResponse>(
+    const response = await fetchJson<TcoResponse>(
         urlcat(FIREFLY_WORKER_HOST, '/tco', {
             link: u,
         }),

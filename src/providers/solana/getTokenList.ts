@@ -3,7 +3,7 @@ import { compact } from 'lodash-es';
 
 import { NetworkType, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
@@ -20,7 +20,7 @@ import { getCoinGeckoConstants, SolanaChainId } from '#masknet/web3-shared-solan
 
 export const getAllSolanaTokens = memoizePromise(
     async () => {
-        const result = await fetchJSON<{ data: SplToken[] }>('/api/rp/solana-tokens', { cache: 'force-cache' });
+        const result = await fetchJson<{ data: SplToken[] }>('/api/rp/solana-tokens', { cache: 'force-cache' });
         return result.data;
     },
     () => 'solana-all-tokens',

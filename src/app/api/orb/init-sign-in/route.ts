@@ -3,14 +3,14 @@ import urlcat from 'urlcat';
 
 import { env } from '@/constants/env.js';
 import { ORB_API_URL, SITE_URL } from '@/constants/index.js';
-import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import type { ORBSignInResponse } from '@/providers/orb/type.js';
 
 export async function GET(request: NextRequest) {
     const url = urlcat(ORB_API_URL, '/init-sign-in');
 
-    const response = await fetchJSON<ORBSignInResponse>(url, {
+    const response = await fetchJson<ORBSignInResponse>(url, {
         headers: {
             'web-access-token': env.internal.ORB_API_KEY,
             origin: SITE_URL,
@@ -18,10 +18,10 @@ export async function GET(request: NextRequest) {
     });
 
     if (response.status !== 'SUCCESS') {
-        return createErrorResponseJSON('Failed to init sign in orb', {
+        return createErrorResponseJson('Failed to init sign in orb', {
             status: 502,
         });
     }
 
-    return createSuccessResponseJSON(response.data);
+    return createSuccessResponseJson(response.data);
 }

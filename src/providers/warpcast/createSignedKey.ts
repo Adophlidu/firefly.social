@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 import type { Hex } from 'viem';
 
 import { WARPCAST_ROOT_URL_V2 } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 
 export interface SignedKeyRequestBody {
@@ -20,7 +20,7 @@ export interface SignedKeyRequestBody {
 
 export async function createSignedKey(body: SignedKeyRequestBody, signal?: AbortSignal) {
     const url = urlcat(WARPCAST_ROOT_URL_V2, '/signed-key-requests');
-    const response = await fetchJSON<SignedKeyRequestResponse>(url, {
+    const response = await fetchJson<SignedKeyRequestResponse>(url, {
         method: 'POST',
         body: JSON.stringify(body),
         signal,

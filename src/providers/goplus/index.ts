@@ -2,7 +2,7 @@ import { first, isEmpty } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { GO_PLUS_LABS_ROOT_URL } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { createSecurityResult } from '@/providers/goplus/createSecurityResult.js';
@@ -31,7 +31,7 @@ export class GoPlus {
             contract_addresses: address.toLowerCase(),
         });
 
-        const res = await fetchJSON<GoPlusResponse<Record<string, TokenContractSecurity>>>(url);
+        const res = await fetchJson<GoPlusResponse<Record<string, TokenContractSecurity>>>(url);
         if (isEmpty(res.result)) return;
 
         const entity = first(Object.entries(res.result));
@@ -46,7 +46,7 @@ export class GoPlus {
             chain_id: chainId,
         });
 
-        const res = await fetchJSON<GoPlusResponse<AddressSecurity>>(url);
+        const res = await fetchJson<GoPlusResponse<AddressSecurity>>(url);
         if (isEmpty(res.result)) return;
 
         const security = { ...res.result, address, chainId };
@@ -57,7 +57,7 @@ export class GoPlus {
             url: siteUrl,
         });
 
-        const res = await fetchJSON<GoPlusResponse<SiteSecurity>>(url);
+        const res = await fetchJson<GoPlusResponse<SiteSecurity>>(url);
         if (isEmpty(res.result)) return;
 
         const security = { ...res.result, siteUrl };
@@ -70,7 +70,7 @@ export class GoPlus {
             token_id: tokenId,
         });
 
-        const res = await fetchJSON<GoPlusResponse<NFTSecurity>>(url);
+        const res = await fetchJson<GoPlusResponse<NFTSecurity>>(url);
         if (isEmpty(res.result)) return;
 
         const security = { ...res.result, address, chainId, tokenId };

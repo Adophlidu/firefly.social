@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server.js';
 
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { patchTweetsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
@@ -27,6 +27,6 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
         }
 
         result.data = await patchTweetsClientToFirefly(result.data);
-        return createSuccessResponseJSON(result);
+        return createSuccessResponseJson(result);
     },
 );

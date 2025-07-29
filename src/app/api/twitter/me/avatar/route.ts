@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { ContentTypeError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { convertTwitterAvatar } from '@/providers/twitter/formatTwitterProfile.js';
@@ -28,7 +28,7 @@ export const PUT = compose<(request: NextRequest, context?: NextRequestContext) 
         });
         const user = await client.v1.updateAccountProfileImage(Buffer.from(await file.arrayBuffer()));
 
-        return createSuccessResponseJSON({
+        return createSuccessResponseJson({
             pfp: convertTwitterAvatar(user.profile_image_url_https),
         });
     },

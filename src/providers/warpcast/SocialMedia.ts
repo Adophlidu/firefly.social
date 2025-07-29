@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { NotImplementedError } from '@/constants/error.js';
 import { WARPCAST_ROOT_URL_V1 } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -135,7 +135,7 @@ class WarpcastSocialMedia implements Provider {
                 cursor: indicator?.id,
                 fid: session?.profileId,
             });
-            const response = await fetchJSON<ResponseJson<{ members: Profile[]; cursor?: string }>>(url, {
+            const response = await fetchJson<ResponseJson<{ members: Profile[]; cursor?: string }>>(url, {
                 method: 'GET',
             });
             const data = resolveResponseData(response);
@@ -156,7 +156,7 @@ class WarpcastSocialMedia implements Provider {
                 cursor: indicator?.id,
                 fid: session?.profileId,
             });
-            const response = await fetchJSON<ResponseJson<{ followers: Profile[]; cursor?: string }>>(url, {
+            const response = await fetchJson<ResponseJson<{ followers: Profile[]; cursor?: string }>>(url, {
                 method: 'GET',
             });
             const data = resolveResponseData(response);
@@ -173,7 +173,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async getChannelFollowStatus(channelId: string, fid: string): Promise<boolean> {
-        const response = await fetchJSON<ResponseJson<{ following: boolean }>>(
+        const response = await fetchJson<ResponseJson<{ following: boolean }>>(
             urlcat('/api/warpcast/channel/follow/status', {
                 channelId,
                 fid,

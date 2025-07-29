@@ -2,14 +2,14 @@ import type { NextRequest } from 'next/server.js';
 
 import { LensHubABI } from '@/abis/LensHub.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, LENS_HUB_PROXY_ADDRESS } from '@/constants/index.js';
-import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export async function GET(request: NextRequest) {
     const id = request.nextUrl.searchParams.get('id');
-    if (!id) return createErrorResponseJSON('Missing id', { status: 400 });
+    if (!id) return createErrorResponseJson('Missing id', { status: 400 });
 
     try {
         const client = createWagmiPublicClient(EthereumChainId.Polygon);
@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
             },
         });
     } catch (error) {
-        return createErrorResponseJSON(getGatewayErrorMessage(error, 'Failed to read tokenURI'), {
+        return createErrorResponseJson(getGatewayErrorMessage(error, 'Failed to read tokenURI'), {
             status: 400,
         });
     }

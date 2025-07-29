@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
-import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { waitForSignedKeyRequest } from '@/providers/farcaster/waitForSignedKeyRequest.js';
 
 const Schema = z.object({
@@ -16,9 +16,9 @@ export async function GET(request: NextRequest) {
             token: request.nextUrl.searchParams.get('token'),
         });
         const result = await waitForSignedKeyRequest(request.signal)(token);
-        return createSuccessResponseJSON(result);
+        return createSuccessResponseJson(result);
     } catch (error) {
-        if (error instanceof Error) return createErrorResponseJSON(error.message);
-        return createErrorResponseJSON('Unknown error');
+        if (error instanceof Error) return createErrorResponseJson(error.message);
+        return createErrorResponseJson('Unknown error');
     }
 }

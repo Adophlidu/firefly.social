@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { env } from '@/constants/env.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { TwitterMetricsData } from '@/providers/types/Firefly.js';
@@ -31,5 +31,5 @@ export async function GET(request: NextRequest) {
         consumerSecret: data.consumer_secret,
     });
 
-    return createSuccessResponseJSON(await TwitterSessionPayload.concealPayload(payload));
+    return createSuccessResponseJson(await TwitterSessionPayload.concealPayload(payload));
 }

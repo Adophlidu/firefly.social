@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { compose } from '@/helpers/compose.js';
-import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterSessionAfterLogin } from '@/providers/twitter/createTwitterSessionPayload.js';
@@ -25,7 +25,7 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
 
         const payload = await createTwitterSessionAfterLogin();
         if (!payload) {
-            return createErrorResponseJSON('Twitter session not found', { status: 401 });
+            return createErrorResponseJson('Twitter session not found', { status: 401 });
         }
 
         const twitterMetricsData: TwitterMetricsData = {
@@ -45,6 +45,6 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
             env.external.NEXT_PUBLIC_PASSCODE_IV,
         );
 
-        return createSuccessResponseJSON(encryptData);
+        return createSuccessResponseJson(encryptData);
     },
 );

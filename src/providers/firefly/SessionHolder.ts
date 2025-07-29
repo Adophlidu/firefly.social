@@ -1,4 +1,4 @@
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
@@ -8,7 +8,7 @@ import { SupportedMethod } from '@/types/bridge.js';
 class FireflySessionHolder extends SessionHolder<FireflySession> {
     fetchWithSessionGiven(session: FireflySession) {
         return <T>(url: string, init?: RequestInit) => {
-            return fetchJSON<T>(url, {
+            return fetchJson<T>(url, {
                 ...init,
                 headers: { ...init?.headers, Authorization: `Bearer ${session.token}` },
             });
@@ -20,7 +20,7 @@ class FireflySessionHolder extends SessionHolder<FireflySession> {
             ? await fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {})
             : this.sessionRequired.token;
 
-        return fetchJSON<T>(
+        return fetchJson<T>(
             url,
             {
                 ...init,
@@ -31,7 +31,7 @@ class FireflySessionHolder extends SessionHolder<FireflySession> {
     }
 
     override fetchWithoutSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
-        return fetchJSON<T>(url, init, options);
+        return fetchJson<T>(url, init, options);
     }
 }
 

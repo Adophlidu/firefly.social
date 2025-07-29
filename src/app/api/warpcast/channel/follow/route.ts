@@ -4,8 +4,8 @@ import { z } from 'zod';
 
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 
@@ -18,7 +18,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     const token = request.headers.get('X-Token');
     if (!token) throw new Error('Missing farcaster token');
 
-    await fetchJSON(urlcat(WARPCAST_ROOT_URL, '/fc/channel-follows'), {
+    await fetchJson(urlcat(WARPCAST_ROOT_URL, '/fc/channel-follows'), {
         method: 'POST',
         body: JSON.stringify({ channelId }),
         headers: {
@@ -27,7 +27,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         },
     });
 
-    return createSuccessResponseJSON({
+    return createSuccessResponseJson({
         following: true,
     });
 });
@@ -37,7 +37,7 @@ export const DELETE = compose(withRequestErrorHandler(), async (request: NextReq
     const token = request.headers.get('X-Token');
     if (!token) throw new Error('Missing farcaster token');
 
-    await fetchJSON(urlcat(WARPCAST_ROOT_URL, '/fc/channel-follows'), {
+    await fetchJson(urlcat(WARPCAST_ROOT_URL, '/fc/channel-follows'), {
         method: 'DELETE',
         body: JSON.stringify({ channelId }),
         headers: {
@@ -46,7 +46,7 @@ export const DELETE = compose(withRequestErrorHandler(), async (request: NextReq
         },
     });
 
-    return createSuccessResponseJSON({
+    return createSuccessResponseJson({
         following: false,
     });
 });

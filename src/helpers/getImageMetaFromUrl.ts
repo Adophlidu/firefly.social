@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import type { ResponseJson } from '@/types/index.js';
 
 interface ImageDigested {
@@ -10,7 +10,7 @@ interface ImageDigested {
 }
 
 export async function getImageMetaFromUrl(url: string): Promise<ImageDigested | null> {
-    const response = await fetchJSON<ResponseJson<ImageDigested>>(
+    const response = await fetchJson<ResponseJson<ImageDigested>>(
         urlcat(FIREFLY_WORKER_HOST, '/sizeof', {
             link: url,
         }),

@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { MalformedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
@@ -34,6 +34,6 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
             { forceBodyMode: 'form-data' },
         );
 
-        return createSuccessResponseJSON({ media_id: queryParams.media_id, index: queryParams.segment_index });
+        return createSuccessResponseJson({ media_id: queryParams.media_id, index: queryParams.segment_index });
     },
 );

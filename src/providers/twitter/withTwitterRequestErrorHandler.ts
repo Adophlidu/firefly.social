@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server.js';
 
-import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { getTwitterErrorMessage } from '@/providers/twitter/getTwitterErrorMessage.js';
 import type { NextRequestContext } from '@/types/index.js';
 
@@ -12,7 +12,7 @@ export function withTwitterRequestErrorHandler(
             return await handler(request, context);
         } catch (error) {
             const { status, message } = getTwitterErrorMessage(error);
-            return createErrorResponseJSON(message, {
+            return createErrorResponseJson(message, {
                 status: status ?? 500,
             });
         }

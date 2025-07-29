@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
@@ -44,7 +44,7 @@ export const getPostOembed = memoizePromise(
         if (env.external.NEXT_PUBLIC_OPENGRAPH !== STATUS.Enabled) return null;
         if (!url || !isValidPostLink(url)) return null;
         if (post?.quoteOn) return null;
-        const linkDigested = await fetchJSON<ResponseJson<LinkDigested>>(
+        const linkDigested = await fetchJson<ResponseJson<LinkDigested>>(
             urlcat(FIREFLY_WORKER_HOST, '/oembed', {
                 link: url,
             }),

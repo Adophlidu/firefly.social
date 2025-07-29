@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server.js';
 
 import { TWITTER_USER_OPTIONS } from '@/constants/twitter.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
@@ -26,6 +26,6 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
         });
         if (muteErrors?.length) console.error('[twitter] v2.userMutingUsers', muteErrors);
 
-        return createSuccessResponseJSON(data);
+        return createSuccessResponseJson(data);
     },
 );

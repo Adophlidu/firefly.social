@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
@@ -24,7 +24,7 @@ export const PUT = compose<(request: NextRequest, context?: NextRequestContext) 
             return createTwitterErrorResponseJSON(errors);
         }
 
-        return createSuccessResponseJSON(true);
+        return createSuccessResponseJson(true);
     },
 );
 
@@ -43,6 +43,6 @@ export const DELETE = compose<(request: NextRequest, context?: NextRequestContex
             return createTwitterErrorResponseJSON(errors);
         }
 
-        return createSuccessResponseJSON(true);
+        return createSuccessResponseJson(true);
     },
 );

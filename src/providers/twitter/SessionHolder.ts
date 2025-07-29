@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import { SITE_URL } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
@@ -21,7 +21,7 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
     override fetchWithSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
         const input = bom.window ? url : urlcat(SITE_URL, url);
 
-        return fetchJSON<T>(
+        return fetchJson<T>(
             input,
             {
                 ...init,
@@ -38,7 +38,7 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
     override fetchWithoutSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
         const input = bom.window ? url : urlcat(SITE_URL, url);
 
-        return fetchJSON<T>(input, init, {
+        return fetchJson<T>(input, init, {
             noDefaultContentType: true,
             noStrictOK: true,
             ...options,

@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { anySignal } from '@/helpers/anySignal.js';
-import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
+import { fetchCachedJSON } from '@/helpers/fetchJson.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { BaseLoader } from '@/providers/base/Loader.js';
 import type { ResponseJson } from '@/types/index.js';

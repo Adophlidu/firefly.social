@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { SUFFIX_NAMES } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import type { UploadMediaTokenResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
@@ -10,7 +10,7 @@ const uploadedCache = new WeakMap<File, string | Promise<string>>();
 
 async function getS3UploadMediaToken() {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/uploadMediaToken');
-    const response = await fetchJSON<UploadMediaTokenResponse>(url);
+    const response = await fetchJson<UploadMediaTokenResponse>(url);
     return resolveFireflyResponseData(response);
 }
 

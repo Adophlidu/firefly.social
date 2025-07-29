@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server.js';
 import { MalformedError } from '@/constants/error.js';
 import { SPACE_OPTIONS } from '@/constants/twitter.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createAppOnlyTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
@@ -19,6 +19,6 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         const space = await client.v2.space(spaceId, {
             ...SPACE_OPTIONS,
         });
-        return createSuccessResponseJSON(space);
+        return createSuccessResponseJson(space);
     },
 );

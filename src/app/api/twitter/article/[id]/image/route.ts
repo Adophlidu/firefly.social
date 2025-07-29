@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server.js';
 import { MalformedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
-import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { parseHtml } from '@/helpers/parseHtml.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getImageUrl } from '@/providers/og/readers/metadata.js';
@@ -25,14 +25,14 @@ export const GET = compose(
         });
 
         if (!response.ok || (response.status >= 500 && response.status < 600)) {
-            return createErrorResponseJSON('article not found');
+            return createErrorResponseJson('article not found');
         }
 
         const html = await response.text();
         const document = parseHtml(html);
         const imageUrl = getImageUrl(document);
         if (!imageUrl) {
-            return createErrorResponseJSON('article not found');
+            return createErrorResponseJson('article not found');
         }
         return createProxyImageResponse(imageUrl);
     },

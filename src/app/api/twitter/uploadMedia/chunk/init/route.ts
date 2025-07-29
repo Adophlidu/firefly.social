@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { TWITTER_UPLOAD_MEDIA_URL } from '@/constants/index.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
@@ -32,6 +32,6 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
             }),
         );
 
-        return createSuccessResponseJSON({ media_id: media_id_string, media_id_string });
+        return createSuccessResponseJson({ media_id: media_id_string, media_id_string });
     },
 );

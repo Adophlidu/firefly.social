@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server.js';
 
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getJsonBodyFromRequestWithZodObject } from '@/helpers/getJsonBodyFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
@@ -20,12 +20,12 @@ export const GET = compose<RequestFn>(withTwitterRequestErrorHandler, withReques
         return createTwitterErrorResponseJSON(errors);
     }
 
-    return createSuccessResponseJSON(data);
+    return createSuccessResponseJson(data);
 });
 
 export const PUT = compose<RequestFn>(withTwitterRequestErrorHandler, withRequestErrorHandler(), async (request) => {
     const params = await getJsonBodyFromRequestWithZodObject(request, TwitterEditProfile);
     const client = await createTwitterClientV2();
     await client.v1.updateAccountProfile(params);
-    return createSuccessResponseJSON(null);
+    return createSuccessResponseJson(null);
 });

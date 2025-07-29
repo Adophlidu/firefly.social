@@ -5,7 +5,7 @@ import { type SocialSource, Source, STATUS, WalletSource } from '@/constants/enu
 import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatFireflyConnections } from '@/helpers/formatFireflyConnections.js';
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import {
@@ -69,7 +69,7 @@ class FireflyActivity implements Provider {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/activity/info', {
             name,
         });
-        const response = await fetchJSON<ActivityInfoResponse>(url);
+        const response = await fetchJson<ActivityInfoResponse>(url);
         return resolveFireflyResponseData(response);
     }
 
@@ -78,7 +78,7 @@ class FireflyActivity implements Provider {
             cursor: indicator?.id,
             size,
         });
-        const response = await fetchJSON<ActivityListResponse>(url);
+        const response = await fetchJson<ActivityListResponse>(url);
         const data = resolveFireflyResponseData(response);
         if (!data.list) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
@@ -116,7 +116,7 @@ class FireflyActivity implements Provider {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/activity/info', {
             name,
         });
-        const response = await fetchJSON<ActivityInfoResponse>(url);
+        const response = await fetchJson<ActivityInfoResponse>(url);
         return resolveFireflyResponseData(response);
     }
 
@@ -128,7 +128,7 @@ class FireflyActivity implements Provider {
             cursor: indicator?.id,
             size,
         });
-        const response = await fetchJSON<ActivityListResponse>(url);
+        const response = await fetchJson<ActivityListResponse>(url);
         const data = resolveFireflyResponseData(response);
         if (!data.list) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
@@ -161,7 +161,7 @@ class FireflyActivity implements Provider {
     async getVotingResults() {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/elex24/activity/ratio');
 
-        const response = await fetchJSON<VotingResultResponse>(url);
+        const response = await fetchJson<VotingResultResponse>(url);
         return resolveFireflyResponseData(response);
     }
 

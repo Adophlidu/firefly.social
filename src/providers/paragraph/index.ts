@@ -9,7 +9,7 @@ import { NotImplementedError, UnreachableError } from '@/constants/error.js';
 import { PARAGRAPH_COLLECT_FEE, PARAGRAPH_COLLECT_FEE_IN_POLYGON } from '@/constants/index.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { rightShift } from '@/helpers/number.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { resolveParagraphMintContract } from '@/helpers/resolveParagraphMintContract.js';
@@ -45,7 +45,7 @@ class Paragraph implements Provider {
     }
 
     async getArticleCollectableByDigest(digestLink: string): Promise<ArticleCollectable> {
-        const response = await fetchJSON<{ data: ParagraphArticleDetail }>(
+        const response = await fetchJson<{ data: ParagraphArticleDetail }>(
             urlcat(location.origin, '/api/paragraph', { link: digestLink }),
             {
                 method: 'GET',
@@ -268,7 +268,7 @@ class Paragraph implements Provider {
     }
 
     async addArticleMetadata(metadata: ParagraphMintMetadata) {
-        const response = await fetchJSON<{ success: true; id: string }>('https://api.paragraph.xyz/collectibles', {
+        const response = await fetchJson<{ success: true; id: string }>('https://api.paragraph.xyz/collectibles', {
             method: 'POST',
             body: JSON.stringify(metadata),
         });

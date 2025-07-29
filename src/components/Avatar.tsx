@@ -10,7 +10,7 @@ import { env } from '@/constants/env.js';
 import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL } from '@/constants/index.js';
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
 import { useDefaultFireflyAvatar } from '@/hooks/useDefaultFireflyAvatar.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
@@ -46,7 +46,7 @@ export function useResolveAvatarFallbackUrl(src: string | undefined) {
             });
 
             if (response.type === 'opaqueredirect') {
-                const result = await fetchJSON<{ twitterId: string }>(
+                const result = await fetchJson<{ twitterId: string }>(
                     urlcat('/api/twitter/getIdByAvatar', { target: src }),
                 );
                 const twitterId = result?.twitterId;

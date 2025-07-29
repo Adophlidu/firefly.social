@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { MalformedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { parseJson } from '@/helpers/parseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
@@ -40,6 +40,6 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
             mimeType: file.type,
             ...(parsedOptions ? parsedOptions.data : {}),
         });
-        return createSuccessResponseJSON({ media_id: response, media_id_string: response });
+        return createSuccessResponseJson({ media_id: response, media_id_string: response });
     },
 );

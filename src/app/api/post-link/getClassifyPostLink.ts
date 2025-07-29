@@ -5,7 +5,7 @@ import { env } from '@/constants/env.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { TWEET_SPACE_REGEX } from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { isBlinkBlocklist } from '@/helpers/isBlinkBlocklist.js';
 import { isBlinkWhitelist } from '@/helpers/isBlinkWhitelist.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
@@ -106,7 +106,7 @@ export async function getClassifyPostLink(url: string) {
             async () => {
                 if (env.external.NEXT_PUBLIC_FRAME !== STATUS.Enabled) return null;
                 if (!url || !isValidPostLink(url, true)) return null;
-                const response = await fetchJSON<ResponseJson<LinkDigestedResponse>>(
+                const response = await fetchJson<ResponseJson<LinkDigestedResponse>>(
                     urlcat(FIREFLY_WORKER_HOST, '/frame', {
                         link: url,
                     }),
@@ -118,7 +118,7 @@ export async function getClassifyPostLink(url: string) {
                 if (env.external.NEXT_PUBLIC_BLINK !== STATUS.Enabled) return null;
                 if (!url || !isValidPostLink(url) || isBlinkBlocklist(url)) return null;
                 if (!(await isBlinkWhitelist(url))) return null;
-                const response = await fetchJSON<FireflyBlinkParserBlinkResponse>(
+                const response = await fetchJson<FireflyBlinkParserBlinkResponse>(
                     urlcat(settings.FIREFLY_ROOT_URL, '/v1/solana/blinks/parse'),
                     {
                         method: 'POST',

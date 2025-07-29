@@ -4,7 +4,7 @@ import type { Hex } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
 
 import { env } from '@/constants/env.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { HexStringSchema } from '@/schemas/index.js';
 
 const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
         },
     });
 
-    return createSuccessResponseJSON({
+    return createSuccessResponseJson({
         body: {
             key: publicKey,
             keyType: 'auth-address',

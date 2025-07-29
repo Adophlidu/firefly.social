@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { NotAllowedError } from '@/constants/error.js';
 import { WARPCAST_ROOT_URL_V2 } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -48,7 +48,7 @@ export class FarcasterSession extends BaseSession implements Session {
 
     async destroy(): Promise<void> {
         const url = urlcat(WARPCAST_ROOT_URL_V2, '/auth');
-        const response = await fetchJSON<{
+        const response = await fetchJson<{
             result: {
                 success: boolean;
             };

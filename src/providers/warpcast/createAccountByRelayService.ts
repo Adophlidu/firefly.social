@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { FARCASTER_REPLY_URL, NOT_DEPEND_SECRET, SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -20,7 +20,7 @@ interface FarcasterReplyResponse {
 
 async function createSession(signal?: AbortSignal) {
     const url = urlcat(FARCASTER_REPLY_URL, '/v1/channel');
-    const response = await fetchJSON<FarcasterReplyResponse>(url, {
+    const response = await fetchJson<FarcasterReplyResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
             siweUri: SITE_URL,

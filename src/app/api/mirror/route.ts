@@ -1,13 +1,13 @@
 import { NextRequest } from 'next/server.js';
 
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 
 const MIRROR_GRAPHQL_URL = 'https://mirror.xyz/api/graphql';
 
 export async function POST(request: NextRequest) {
     const body = await request.json();
-    const response = await fetchJSON(MIRROR_GRAPHQL_URL, {
+    const response = await fetchJson(MIRROR_GRAPHQL_URL, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
@@ -17,5 +17,5 @@ export async function POST(request: NextRequest) {
         signal: request.signal,
     });
 
-    return createSuccessResponseJSON(response);
+    return createSuccessResponseJson(response);
 }

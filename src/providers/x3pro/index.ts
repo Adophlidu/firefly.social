@@ -2,7 +2,7 @@
 import { last } from 'lodash-es';
 
 import { X3_PRO_AVATAR_URL } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { formatX3Id, formatX3ProPost } from '@/providers/x3pro/helpers.js';
 import {
@@ -31,14 +31,14 @@ class X3Pro {
         },
     ) {
         const { pageNo = 1, pageSize = 20 } = options || {};
-        const res = await fetchJSON<Response<KolList>>('/api/x3pro/scraper/kol/kolPage', {
+        const res = await fetchJson<Response<KolList>>('/api/x3pro/scraper/kol/kolPage', {
             method: 'POST',
             body: JSON.stringify({ label, orderType, pageNo, pageSize }),
         });
         return resolveX3ProResponse(res);
     }
     async getTokenByAddress(address: string) {
-        const res = await fetchJSON<TokenResult>('/api/x3pro/scraper/post/getTokenByAddress', {
+        const res = await fetchJson<TokenResult>('/api/x3pro/scraper/post/getTokenByAddress', {
             method: 'POST',
             body: JSON.stringify({ address }),
         });
@@ -51,7 +51,7 @@ class X3Pro {
         return token;
     }
     async getTokenMention(address: string) {
-        const res = await fetchJSON<MentionUsersRespone>('/api/x3pro/external/getMentionByCa', {
+        const res = await fetchJson<MentionUsersRespone>('/api/x3pro/external/getMentionByCa', {
             method: 'POST',
             body: JSON.stringify({ address }),
         });
@@ -66,7 +66,7 @@ class X3Pro {
     }
     async searchPosts(address: string, indicator?: PageIndicator, orderType: PostOrderType = PostOrderType.DESC) {
         const [lastId, lastTime] = indicator?.id ? indicator.id.split(',') : [];
-        const res = await fetchJSON<PostListResponse>('/api/x3pro/scraper/post/postFlow', {
+        const res = await fetchJson<PostListResponse>('/api/x3pro/scraper/post/postFlow', {
             method: 'POST',
             body: JSON.stringify({
                 address,

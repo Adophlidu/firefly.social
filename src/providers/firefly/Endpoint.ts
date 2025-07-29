@@ -27,7 +27,7 @@ import {
 } from '@/decorators/SetQueryDataForDeleteWallet.js';
 import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
 import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { formatFireflyConnections } from '@/helpers/formatFireflyConnections.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
@@ -732,7 +732,7 @@ class FireflyEndpoint {
 
     async getAllConnectionsFromAuthToken(authToken: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
-        const response = await fetchJSON<GetAllConnectionsResponse>(url, {
+        const response = await fetchJson<GetAllConnectionsResponse>(url, {
             headers: { Authorization: `Bearer ${authToken}` },
         });
         return formatFireflyConnections(response);
@@ -773,7 +773,7 @@ class FireflyEndpoint {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/twitter/userinfo', {
             screenName,
         });
-        const response = await fetchJSON<TwitterUserInfoResponse>(url, {
+        const response = await fetchJson<TwitterUserInfoResponse>(url, {
             method: 'GET',
         });
         return resolveFireflyResponseData(response);
@@ -784,7 +784,7 @@ class FireflyEndpoint {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/api/twitter/user/:userId', {
             userId,
         });
-        const response = await fetchJSON<TwitterUserV2Response>(url);
+        const response = await fetchJson<TwitterUserV2Response>(url);
         return resolveFireflyResponseData(response);
     }
 
@@ -1077,7 +1077,7 @@ class FireflyEndpoint {
     }
 
     async generateFarcasterSignatures(key: Hex, deadline: number, jwt: string, signal?: AbortSignal) {
-        const response = await fetchJSON<GenerateFarcasterSignatureResponse>(
+        const response = await fetchJson<GenerateFarcasterSignatureResponse>(
             urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/v1/farcaster/generate-signatures'),
             {
                 method: 'POST',
@@ -1092,7 +1092,7 @@ class FireflyEndpoint {
     }
 
     async getTelegramLoginUrl() {
-        const response = await fetchJSON<TelegramLoginBotResponse>(
+        const response = await fetchJson<TelegramLoginBotResponse>(
             urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/get/telegram/bot/url', { os: 'web' }),
         );
         const data = resolveFireflyResponseData(response);
@@ -1100,7 +1100,7 @@ class FireflyEndpoint {
     }
 
     async loginTelegram(telegramToken: string) {
-        const response = await fetchJSON<LoginResponse>(urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/telegram/login'), {
+        const response = await fetchJson<LoginResponse>(urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/telegram/login'), {
             method: 'POST',
             body: JSON.stringify({ telegramToken }),
         });
@@ -1110,7 +1110,7 @@ class FireflyEndpoint {
     }
 
     async linkDigest(link: string) {
-        const response = await fetchJSON<LinkDigestResponse>(urlcat(settings.FIREFLY_ROOT_URL, '/v2/misc/linkDigest'), {
+        const response = await fetchJson<LinkDigestResponse>(urlcat(settings.FIREFLY_ROOT_URL, '/v2/misc/linkDigest'), {
             method: 'POST',
             body: JSON.stringify({ link }),
         });
@@ -1188,7 +1188,7 @@ class FireflyEndpoint {
             days: 1,
             language: locale === Locale.en ? 'en' : 'cn',
         });
-        const response = await fetchJSON<ProjectResponse>(url, { method: 'GET' });
+        const response = await fetchJson<ProjectResponse>(url, { method: 'GET' });
 
         return resolveFireflyResponseData(response);
     }
@@ -1224,7 +1224,7 @@ class FireflyEndpoint {
     async getTakoExternalHostedData(ipfs: string) {
         const cid = extractIpfsCID(ipfs);
         const url = urlcat(settings.FIREFLY_ROOT_URL, `v2/farcaster-hub/ipfs/${cid}`);
-        const response = await fetchJSON<TakoExternalHostedData>(url);
+        const response = await fetchJson<TakoExternalHostedData>(url);
         return response.data;
     }
 
@@ -1265,7 +1265,7 @@ class FireflyEndpoint {
 
     async generateEmailOTP(email: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/email/generateOTP');
-        const response = await fetchJSON<GenerateOTPResponse>(
+        const response = await fetchJson<GenerateOTPResponse>(
             url,
             {
                 method: 'POST',
@@ -1316,7 +1316,7 @@ class FireflyEndpoint {
             walletAddress,
             walletType,
         });
-        const response = await fetchJSON<WalletRelationResponse>(url);
+        const response = await fetchJson<WalletRelationResponse>(url);
         return resolveFireflyResponseData(response);
     }
 
@@ -1346,7 +1346,7 @@ class FireflyEndpoint {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/wallet/poap', {
             walletAddress: wallet,
         });
-        const response = await fetchJSON<PoapResponse>(url);
+        const response = await fetchJson<PoapResponse>(url);
         return response.data;
     }
     async getPOAP(tokenId: string) {
@@ -1354,7 +1354,7 @@ class FireflyEndpoint {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/poap/detail_by_tokenid', {
             tokenId,
         });
-        const response = await fetchJSON<PoapDetailResponse>(url);
+        const response = await fetchJson<PoapDetailResponse>(url);
         return response.data;
     }
 
@@ -1364,7 +1364,7 @@ class FireflyEndpoint {
             limit: 20,
             offset: indicator?.id || undefined,
         });
-        const response = await fetchJSON<PoapHoldersResponse>(url);
+        const response = await fetchJson<PoapHoldersResponse>(url);
         const nextOffset = response.data.tokens.length ? response.data.limit + response.data.offset : undefined;
         return createPageable(
             response.data.tokens,
@@ -1376,14 +1376,14 @@ class FireflyEndpoint {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/poap/holder', {
             eventId,
         });
-        const response = await fetchJSON<PoapHoldersResponse>(url);
+        const response = await fetchJson<PoapHoldersResponse>(url);
         return response.data.total;
     }
 
     async getNFTDetails(chainId: number, list: Array<{ contract_address: string; token_id: string }>) {
         if (!list.length || !NFTSCAN_CHAIN_IDS.includes(chainId)) return [];
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/detail');
-        const response = await fetchJSON<NFTDetailResponse>(url, {
+        const response = await fetchJson<NFTDetailResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
                 chainId,
@@ -1403,7 +1403,7 @@ class FireflyEndpoint {
             chainId,
             contractAddress,
         });
-        const response = await fetchJSON<CollectionResponse>(url);
+        const response = await fetchJson<CollectionResponse>(url);
         if (!response.data) return null;
         if ('chain_id' in response.data && Object.keys(response.data).length <= 1) return null;
         return fixCollection(response.data);
@@ -1413,7 +1413,7 @@ class FireflyEndpoint {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/detect', {
             address,
         });
-        const response = await fetchJSON<CollectionResponse>(url);
+        const response = await fetchJson<CollectionResponse>(url);
         if (!response.data) return null;
         return fixCollection(response.data);
     }
@@ -1424,7 +1424,7 @@ class FireflyEndpoint {
             contractAddress,
             cursor: indicator?.id,
         });
-        const response = await fetchJSON<CollectionItemsResponse>(url);
+        const response = await fetchJson<CollectionItemsResponse>(url);
         const list = (response.data?.content || []).map(adjustAssetUris);
         return createPageable(
             list,
@@ -1447,7 +1447,7 @@ class FireflyEndpoint {
             walletAddress,
             cursor: indicator?.id,
         });
-        const response = await fetchJSON<CollectionsResponse>(url);
+        const response = await fetchJson<CollectionsResponse>(url);
         const collections = (response.data?.collections || []).map(fixCollection);
         return createPageable(
             collections,
@@ -1470,7 +1470,7 @@ class FireflyEndpoint {
             contractAddress,
             cursor: indicator?.id,
         });
-        const response = await fetchJSON<NFTDetailsResponse>(url);
+        const response = await fetchJson<NFTDetailsResponse>(url);
         const list = (response.data?.nfts || []).map(adjustAssetUris);
         return createPageable(
             list,
@@ -1485,7 +1485,7 @@ class FireflyEndpoint {
             contractAddress,
             size: 100,
         });
-        const response = await fetchJSON<HoldersResponse>(url);
+        const response = await fetchJson<HoldersResponse>(url);
         return response.data || EMPTY_LIST;
     }
 
@@ -1494,7 +1494,7 @@ class FireflyEndpoint {
             chainId,
             contractAddress,
         });
-        const response = await fetchJSON<CollectionStatisticsResponse>(url);
+        const response = await fetchJson<CollectionStatisticsResponse>(url);
         return response.data;
     }
 
@@ -1559,13 +1559,13 @@ class FireflyEndpoint {
 
     async getDesktopLinkInfo() {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/desktop/linkInfo');
-        const response = await fetchJSON<DesktopLinkInfoResponse>(url);
+        const response = await fetchJson<DesktopLinkInfoResponse>(url);
         return resolveFireflyResponseData(response);
     }
 
     async getDesktopStatus(session: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/desktop/statusV2');
-        const response = await fetchJSON<DesktopLinkInfoStatusResponse>(url, {
+        const response = await fetchJson<DesktopLinkInfoStatusResponse>(url, {
             method: 'POST',
             body: JSON.stringify({ session }),
         });

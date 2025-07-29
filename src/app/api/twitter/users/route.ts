@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { TWITTER_USER_OPTIONS } from '@/constants/twitter.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
@@ -27,6 +27,6 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
         });
         if (errors?.length) console.error('[twitter] v2.users', errors);
 
-        return createSuccessResponseJSON(data);
+        return createSuccessResponseJson(data);
     },
 );
