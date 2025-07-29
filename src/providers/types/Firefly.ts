@@ -573,6 +573,7 @@ export interface FireflyFarcasterProfile {
     pfp: string;
     isFollowing: boolean;
     isFollowedBack: boolean;
+    isProUser?: boolean;
 }
 
 export type FireflyFarcasterProfileResponse = Response<FireflyFarcasterProfile>;

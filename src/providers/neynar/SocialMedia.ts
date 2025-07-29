@@ -1,4 +1,3 @@
-import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { NotImplementedError } from '@/constants/error.js';
@@ -25,6 +24,7 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { fetchProfilesFromNeynar } from '@/services/fetchProfilesFromNeynar.js';
 
 class NeynarSocialMedia implements Provider {
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -330,26 +330,13 @@ class NeynarSocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
-        const response = await this.getProfilesByIds([profileId]);
-        const result = resolveNeynarResponseData(response);
-        const data = first(result);
-        if (!data) throw new Error('Failed to get the profile from neynar');
-        return data;
+        throw new NotImplementedError();
     }
 
     async getProfilesByIds(ids: string[]) {
         if (!ids.length) return EMPTY_LIST;
 
-        return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/bulk', {
-                fids: ids.join(','),
-                viewer_fid: session?.profileId,
-            });
-
-            const response = await fetchNeynarJson<{ users: NeynarProfile[] }>(url);
-            const { users } = resolveNeynarResponseData(response);
-            return users.map(formatFarcasterProfileFromNeynar);
-        });
+        return farcasterSessionHolder.withSession(async (session) => fetchProfilesFromNeynar(ids, session?.profileId));
     }
 
     async getChannelsByIds(ids: string[]): Promise<Channel[]> {

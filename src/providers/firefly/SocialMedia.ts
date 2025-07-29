@@ -23,7 +23,6 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import {
     formatBriefChannelFromFirefly,
@@ -93,22 +92,13 @@ import {
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 import { settings } from '@/settings/index.js';
 
+/**
+ * TODO: finish this if we have a way to query profile stats
+ */
 async function ensureFollowersIsNotEmpty(users?: User[]) {
     if (!Array.isArray(users)) return [];
 
-    const ids = users.map((x) => x.fid);
-    const profiles = ids.length
-        ? await runInSafeAsync(() => NeynarSocialMediaProvider.getProfilesByIds(ids))
-        : EMPTY_LIST;
-
-    return users.map((user) => {
-        const profile = profiles?.find((p) => p.profileId === user.fid.toString());
-        return formatFarcasterProfileFromFirefly({
-            ...user,
-            followers: profile?.followerCount ?? user.followers,
-            following: profile?.followingCount ?? user.following,
-        });
-    });
+    return users.map(formatFarcasterProfileFromFirefly);
 }
 
 type ParamTuple = [chainId: number, address: string, tokenId: string];
@@ -368,11 +358,7 @@ class FireflySocialMedia implements Provider {
             if (!response.data) {
                 throw new Error(`Profile ${handle} doesn't exist.`);
             }
-            const neynarProfile = await NeynarSocialMediaProvider.getProfileById(response.data.fid.toString());
-            return {
-                ...formatFireflyFarcasterProfile(response.data),
-                isProUser: neynarProfile.isProUser,
-            };
+            return formatFireflyFarcasterProfile(response.data);
         });
     }
 

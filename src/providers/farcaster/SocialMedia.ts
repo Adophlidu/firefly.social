@@ -291,12 +291,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        const response = await FireflyEndpointProvider.getFarcasterSuggestFollows(indicator);
-        // get full profiles
-        response.data = await NeynarSocialMediaProvider.getProfilesByIds(
-            response.data.map((profile) => `${profile.profileId}`),
-        );
-        return response;
+        return FireflyEndpointProvider.getFarcasterSuggestFollows(indicator);
     }
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {

@@ -96,7 +96,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                                     @{profile.handle}
                                 </Link>
                             ) : null}
-                            {profile.source === Source.Lens ? null : (
+                            {[Source.Lens, Source.Farcaster].includes(profile.source) ? null : (
                                 <>
                                     <span className="mx-1 leading-[22px] text-secondary">·</span>
                                     <Link

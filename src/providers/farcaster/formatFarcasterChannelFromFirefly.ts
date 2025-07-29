@@ -132,6 +132,7 @@ export function formatFireflyFarcasterProfile(profile: FireflyFarcasterProfile):
             following: profile.isFollowing,
             followedBy: profile.isFollowedBack,
         },
+        isProUser: profile.isProUser ?? false,
         __original__: profile,
     };
 }

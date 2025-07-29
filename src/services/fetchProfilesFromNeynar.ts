@@ -6,7 +6,7 @@ import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.j
 import { formatFarcasterProfileFromNeynar } from '@/providers/farcaster/formatFarcasterProfileFromNeynar.js';
 import type { Profile } from '@/providers/types/Neynar.js';
 
-export async function fetchProfilesFromNeynar(ids: number[], viewerId?: string) {
+export async function fetchProfilesFromNeynar(ids: number[] | string[], viewerId?: string) {
     if (!ids.length) return [];
 
     const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/bulk', {
