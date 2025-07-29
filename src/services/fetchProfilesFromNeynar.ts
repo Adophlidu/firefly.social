@@ -2,6 +2,7 @@ import urlcat from 'urlcat';
 
 import { NEYNAR_URL } from '@/constants/index.js';
 import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
+import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.js';
 import { formatFarcasterProfileFromNeynar } from '@/providers/farcaster/formatFarcasterProfileFromNeynar.js';
 import type { Profile } from '@/providers/types/Neynar.js';
 
@@ -13,9 +14,10 @@ export async function fetchProfilesFromNeynar(ids: number[], viewerId?: string) 
         viewer_fid: viewerId,
     });
 
-    const data = await fetchNeynarJson<{ users: Profile[] }>(url, {
+    const response = await fetchNeynarJson<{ users: Profile[] }>(url, {
         method: 'GET',
     });
+    const data = resolveNeynarResponseData(response);
 
     return data.users.map(formatFarcasterProfileFromNeynar);
 }
