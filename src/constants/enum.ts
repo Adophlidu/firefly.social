@@ -250,7 +250,6 @@ export enum KeyType {
     CreateMetadataToken = '/v2/createMetadataToken',
     CreateMetadataTx = '/v1/createMetadataTx',
     CreateMetadataPostById = '/v2/createPageMetadataById',
-    CreateMetadataArticleById = '/v2/createMetadataArticleById',
     CreateMetadataProfileById = '/v3/createMetadataProfileById',
     CreateMetadataChannelById = '/v2/createMetadataChannelById',
     CreateMetadataEvent = '/v2/createMetadataEvent',

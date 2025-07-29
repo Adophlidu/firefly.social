@@ -4,7 +4,16 @@ import '@/assets/css/paragraph.css';
 import { ArticleDetailContent } from '@/components/Article/ArticleDetailContent.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
-import { getArticleCover } from '@/services/getArticleCover.js';
+import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import type { Article } from '@/providers/types/Article.js';
+import { first } from 'lodash-es';
+
+async function getArticleCoverUrl(article: Article): Promise<string | null> {
+    if (article.coverUrl) return article.coverUrl;
+
+    const metadata = await FireflyMetadataProvider.createArticleMetadata(article.id, `/article/${article.id}`);
+    return first(metadata.openGraph?.images as string[]) ?? null;
+}
 
 interface PageProps {
     id: string;
@@ -16,6 +25,6 @@ export async function ArticleDetailPage({ id: articleId }: PageProps) {
     const article = await FireflyArticleProvider.getArticleById(articleId);
     if (!article) notFound();
 
-    const cover = await getArticleCover(article);
-    return <ArticleDetailContent article={article} cover={cover} />;
+    const coverUrl = await getArticleCoverUrl(article);
+    return <ArticleDetailContent article={article} cover={coverUrl} />;
 }
