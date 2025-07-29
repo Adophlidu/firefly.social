@@ -9,7 +9,7 @@ export type Pluggable = NonNullable<Parameters<typeof ReactMarkdown>[0]['remarkP
 export type ConnectorWithProvider = ConnectorControllerState['connectors'][0];
 export type ChainNamespace = Required<ConnectorWithProvider>['connectors'][0]['chain'];
 
-export type ResponseJSON<T> =
+export type ResponseJson<T> =
     | {
           success: true;
           data: T;

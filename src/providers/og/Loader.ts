@@ -5,21 +5,22 @@ import { anySignal } from '@/helpers/anySignal.js';
 import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { BaseLoader } from '@/providers/base/Loader.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
 import type { LinkDigested, OpenGraph } from '@/types/og.js';
+import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 
 class Loader extends BaseLoader<OpenGraph> {
     protected override fetch(url: string, signal?: AbortSignal) {
         return requestIdleCallbackAsync(async () => {
             const timeout = AbortSignal.timeout(30_000);
-            const response = await fetchCachedJSON<ResponseJSON<LinkDigested>>(
+            const response = await fetchCachedJSON<ResponseJson<LinkDigested>>(
                 urlcat(FIREFLY_WORKER_HOST, '/oembed', { link: url }),
                 {
                     signal: signal ? anySignal(timeout, signal) : timeout,
                 },
             );
-            if (!response.success) throw new Error(response.error.message);
-            return response.data.og;
+            const data = resolveResponseData(response);
+            return data.og;
         });
     }
 }

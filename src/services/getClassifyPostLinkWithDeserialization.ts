@@ -6,7 +6,7 @@ import { bom } from '@/helpers/bom.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import type { ActionGetResponse } from '@/providers/types/Blink.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
 
 export interface ClassifyPostLinkResult extends Omit<GetClassifyPostLinkOnActionResult, 'action'> {
     action?: Action;
@@ -44,7 +44,7 @@ export async function deserializeClassifyPostLinkResult(
 }
 
 export async function getClassifyPostLinkWithDeserialization(url: string): Promise<ClassifyPostLinkResult | null> {
-    const response = await fetchJSON<ResponseJSON<GetClassifyPostLinkOnActionResult>>(
+    const response = await fetchJSON<ResponseJson<GetClassifyPostLinkOnActionResult>>(
         urlcat(`/api/post-link`, {
             url,
         }),

@@ -6,20 +6,21 @@ import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { BaseLoader } from '@/providers/base/Loader.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
+import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 
 class Loader extends BaseLoader<Frame> {
     protected override fetch(url: string, signal?: AbortSignal) {
         return requestIdleCallbackAsync(async () => {
             const timeout = AbortSignal.timeout(30_000);
-            const response = await fetchCachedJSON<ResponseJSON<LinkDigestedResponse>>(
+            const response = await fetchCachedJSON<ResponseJson<LinkDigestedResponse>>(
                 urlcat(FIREFLY_WORKER_HOST, '/frame', { link: url }),
                 {
                     signal: signal ? anySignal(timeout, signal) : timeout,
                 },
             );
-            if (!response.success) throw new Error(response.error.message);
-            return response.data.frame;
+            const data = resolveResponseData(response);
+            return data.frame;
         });
     }
 }

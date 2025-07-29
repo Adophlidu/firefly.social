@@ -2,9 +2,10 @@ import { encodeAbiParameters } from 'viem';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { SignedKeyRequestBody } from '@/providers/warpcast/createSignedKey.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
+import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 
-type SignedBody = ResponseJSON<{
+type SignedBody = ResponseJson<{
     body: SignedKeyRequestBody;
     timestamp: number;
     expiresAt: number;
@@ -24,8 +25,8 @@ export async function createSignedKeyPayloadWithAddressVerification(address: `0x
         }),
         signal,
     });
-    if (!response.success) throw new Error(response.error.message);
-    return response.data;
+    const data = resolveResponseData(response);
+    return data;
 }
 
 /**
@@ -42,8 +43,8 @@ export async function createSignedKeyPayloadWithPublicKey(key: string, signal?: 
         }),
         signal,
     });
-    if (!response.success) throw new Error(response.error.message);
-    return response.data;
+    const data = resolveResponseData(response);
+    return data;
 }
 
 /**
@@ -60,6 +61,6 @@ export async function createSignedKeyPayloadWithSponsorship(key: string, signal?
             key,
         }),
     });
-    if (!response.success) throw new Error(response.error.message);
-    return response.data;
+    const data = resolveResponseData(response);
+    return data;
 }

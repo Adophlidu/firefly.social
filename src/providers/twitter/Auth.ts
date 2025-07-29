@@ -3,15 +3,15 @@ import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { Provider } from '@/providers/types/Auth.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
 
 class TwitterAuth implements Provider<SessionPayload> {
     async login(noSession = false): Promise<SessionPayload | null> {
         const response = noSession
-            ? await twitterSessionHolder.fetchWithoutSession<ResponseJSON<SessionPayload>>('/api/twitter/login', {
+            ? await twitterSessionHolder.fetchWithoutSession<ResponseJson<SessionPayload>>('/api/twitter/login', {
                   method: 'POST',
               })
-            : await twitterSessionHolder.fetch<ResponseJSON<SessionPayload>>('/api/twitter/login', {
+            : await twitterSessionHolder.fetch<ResponseJson<SessionPayload>>('/api/twitter/login', {
                   method: 'POST',
               });
         if (!response.success) return null;
@@ -19,7 +19,7 @@ class TwitterAuth implements Provider<SessionPayload> {
     }
 
     async logout(): Promise<void> {
-        await twitterSessionHolder.fetch<ResponseJSON<SessionPayload>>('/api/twitter/logout', {
+        await twitterSessionHolder.fetch<ResponseJson<SessionPayload>>('/api/twitter/logout', {
             method: 'POST',
         });
     }

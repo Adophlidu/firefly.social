@@ -20,7 +20,8 @@ import type { LoginResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
+import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 
 async function restoreFireflySessionFromLens(session: LensSession, signal?: AbortSignal) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/lens/login');
@@ -70,20 +71,21 @@ async function restoreFireflySessionFromFarcaster(session: FarcasterSession, sig
 }
 
 async function restoreFireflySessionFromTwitter(session: TwitterSession, signal?: AbortSignal) {
-    // encrypt twitter session
-    const encrypted = await fetchJSON<ResponseJSON<string>>('/api/twitter/auth', {
+    const encryptedResponse = await fetchJSON<ResponseJson<string>>('/api/twitter/auth', {
         method: 'POST',
         headers: TwitterSession.payloadToHeaders(session.payload),
         signal,
     });
-    if (!encrypted.success)
-        throw new Error(`[restoreFireflySession] Failed to encrypt twitter session: ${encrypted.error.message}.`);
+    const encrypted = resolveTwitterResponseData(
+        encryptedResponse,
+        '[restoreFireflySession] Failed to encrypt twitter session.',
+    );
 
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/exchange/twitter');
     const response = await fetchJSON<LoginResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
-            data: encrypted.data,
+            data: encrypted,
         }),
         signal,
     });

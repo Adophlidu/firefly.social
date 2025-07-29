@@ -6,7 +6,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { deserializeClassifyPostLinkResult } from '@/services/getClassifyPostLinkWithDeserialization.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
 
 export async function prefetchPostLinks(urls: string[]) {
     return runInSafeAsync(async () => {
@@ -16,7 +16,7 @@ export async function prefetchPostLinks(urls: string[]) {
         });
         if (notCachedUrls.length <= 0) return;
         const response = await fetchJSON<
-            ResponseJSON<Array<{ url: string; result: GetClassifyPostLinkOnActionResult }>>
+            ResponseJson<Array<{ url: string; result: GetClassifyPostLinkOnActionResult }>>
         >(
             urlcat(`/api/post-link`, {
                 'cache-urls': notCachedUrls.join(','),

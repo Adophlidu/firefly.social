@@ -40,7 +40,7 @@ import {
     MethodType,
     type RedirectUrlResponse,
 } from '@/types/frame.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
 
 const TransactionSchema = z.object({
     // a CAIP-2 chain ID to identify the tx network
@@ -127,7 +127,7 @@ async function getNextFrame(
             target: button.target,
             'post-url': button.postUrl || frame.postUrl,
         });
-        return fetchJSON<ResponseJSON<T>>(url, {
+        return fetchJSON<ResponseJson<T>>(url, {
             method: 'POST',
             body: JSON.stringify(packet),
         });

@@ -18,7 +18,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
 import { type LinkDigested, PayloadType } from '@/types/og.js';
 
 export interface SingleArticleProps {
@@ -44,7 +44,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
         queryFn: async () => {
             if (article.coverUrl) return article.coverUrl;
             if (article.platform === ArticlePlatform.Mirror && article.origin) {
-                const payload = await fetchJSON<ResponseJSON<LinkDigested>>(
+                const payload = await fetchJSON<ResponseJson<LinkDigested>>(
                     urlcat(FIREFLY_WORKER_HOST, '/oembed', {
                         link: article.origin,
                     }),

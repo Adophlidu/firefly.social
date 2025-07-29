@@ -66,7 +66,7 @@ import {
 import { X3ProProvider } from '@/providers/x3pro/index.js';
 import { X3ProKolListLabel, X3ProOrderType } from '@/providers/x3pro/types.js';
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
-import type { PartialWith, ResponseJSON } from '@/types/index.js';
+import type { PartialWith, ResponseJson } from '@/types/index.js';
 
 export
 @SetQueryDataForLikePost(Source.Twitter)
@@ -184,7 +184,7 @@ class OfficialSocialMedia implements Provider {
             cursor: indicator?.id,
             signal,
         });
-        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJson<TweetV2PaginableTimelineResult>>(url);
         const data = resolveTwitterResponseData(response);
         return formatTweetsPage(data, indicator);
     }
@@ -210,7 +210,7 @@ class OfficialSocialMedia implements Provider {
                 cursor: indicator?.id,
                 query: q,
             });
-            const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<UserV2TimelineResult>>(url);
+            const response = await twitterSessionHolder.fetchWithSession<ResponseJson<UserV2TimelineResult>>(url);
             const data = resolveTwitterResponseData(response);
             return formatTwitterProfilePage(data, indicator);
         });
@@ -271,14 +271,14 @@ class OfficialSocialMedia implements Provider {
     }
 
     async unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unretweet/${postId}`, {
+        const response = await twitterSessionHolder.fetch<ResponseJson<void>>(`/api/twitter/unretweet/${postId}`, {
             method: 'POST',
         });
         const data = resolveTwitterResponseData(response);
     }
 
     async mirrorPost(postId: string): Promise<string> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/retweet/${postId}`, {
+        const response = await twitterSessionHolder.fetch<ResponseJson<void>>(`/api/twitter/retweet/${postId}`, {
             method: 'POST',
         });
         const data = resolveTwitterResponseData(response);
@@ -286,7 +286,7 @@ class OfficialSocialMedia implements Provider {
     }
 
     async getProfilesByIds(ids: string[]): Promise<Profile[]> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2[]>>('/api/twitter/users', {
+        const response = await twitterSessionHolder.fetch<ResponseJson<UserV2[]>>('/api/twitter/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -302,7 +302,7 @@ class OfficialSocialMedia implements Provider {
     }
 
     async follow(profileId: string): Promise<boolean> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/follow/${profileId}`, {
+        const response = await twitterSessionHolder.fetch<ResponseJson<void>>(`/api/twitter/follow/${profileId}`, {
             method: 'POST',
         });
         const data = resolveTwitterResponseData(response);
@@ -310,7 +310,7 @@ class OfficialSocialMedia implements Provider {
     }
 
     async unfollow(profileId: string): Promise<boolean> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unfollow/${profileId}`, {
+        const response = await twitterSessionHolder.fetch<ResponseJson<void>>(`/api/twitter/unfollow/${profileId}`, {
             method: 'POST',
         });
         const data = resolveTwitterResponseData(response);
@@ -322,20 +322,20 @@ class OfficialSocialMedia implements Provider {
     }
 
     async getPostById(postId: string): Promise<Post> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<Post>>(`/api/twitter/${postId}`);
+        const response = await twitterSessionHolder.fetch<ResponseJson<Post>>(`/api/twitter/${postId}`);
         const data = resolveTwitterResponseData(response);
         return data;
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
+        const response = await twitterSessionHolder.fetch<ResponseJson<UserV2>>(`/api/twitter/user/${profileId}`);
         const data = resolveTwitterResponseData(response);
         data.url = data.url && !isServer ? ((await resolveTcoLink(data.url)) ?? data.url) : data.url;
         return formatTwitterProfile(data);
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
+        const response = await twitterSessionHolder.fetch<ResponseJson<UserV2>>(`/api/twitter/username/${handle}`);
         const data = resolveTwitterResponseData(response);
         data.url = data.url && !isServer ? ((await resolveTcoLink(data.url)) ?? data.url) : data.url;
         return formatTwitterProfile(data);
@@ -352,7 +352,7 @@ class OfficialSocialMedia implements Provider {
 
     async getProfileBySession(session: Session): Promise<Profile> {
         const { profileId, payload } = session as TwitterSession;
-        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`, {
+        const response = await twitterSessionHolder.fetch<ResponseJson<UserV2>>(`/api/twitter/user/${profileId}`, {
             headers: TwitterSession.payloadToHeaders(payload),
         });
         const data = resolveTwitterResponseData(response);
@@ -369,7 +369,7 @@ class OfficialSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJson<TweetV2PaginableTimelineResult>>(url);
         const data = resolveTwitterResponseData(response);
         return formatTweetsPage(data, indicator);
     }
@@ -382,7 +382,7 @@ class OfficialSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJson<TweetV2PaginableTimelineResult>>(url);
         const data = resolveTwitterResponseData(response);
         const postWithPageable = formatTweetsPage(data, indicator);
         return { ...postWithPageable, data: postWithPageable.data.map((post) => ({ ...post, hasLiked: true })) };
@@ -396,7 +396,7 @@ class OfficialSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJson<TweetV2PaginableTimelineResult>>(url);
         const data = resolveTwitterResponseData(response);
         return formatTweetsPage(data, indicator);
     }
@@ -406,13 +406,13 @@ class OfficialSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJson<TweetV2PaginableTimelineResult>>(url);
         const data = resolveTwitterResponseData(response);
         return formatTweetsPage(data, indicator);
     }
 
     async getThreadByPostId(postId: string): Promise<Post[]> {
-        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<Post[]>>(
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJson<Post[]>>(
             `/api/twitter/threadTweets/${postId}`,
         );
         const data = resolveTwitterResponseData(response);
@@ -420,7 +420,7 @@ class OfficialSocialMedia implements Provider {
     }
 
     async upvotePost(postId: string): Promise<void> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/like/${postId}`, {
+        const response = await twitterSessionHolder.fetch<ResponseJson<void>>(`/api/twitter/like/${postId}`, {
             method: 'POST',
         });
         const data = resolveTwitterResponseData(response);
@@ -431,7 +431,7 @@ class OfficialSocialMedia implements Provider {
     }
 
     async unvotePost(postId: string): Promise<void> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unlike/${postId}`, {
+        const response = await twitterSessionHolder.fetch<ResponseJson<void>>(`/api/twitter/unlike/${postId}`, {
             method: 'POST',
         });
         const data = resolveTwitterResponseData(response);
@@ -449,7 +449,7 @@ class OfficialSocialMedia implements Provider {
                 cursor: indicator?.id,
                 query: q,
             });
-            const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<Tweetv2TimelineResult>>(url);
+            const response = await twitterSessionHolder.fetchWithSession<ResponseJson<Tweetv2TimelineResult>>(url);
             const data = resolveTwitterResponseData(response);
             return formatTweetsPage(data, indicator);
         });
@@ -457,7 +457,7 @@ class OfficialSocialMedia implements Provider {
 
     async quotePost(postId: string, post: Post): Promise<{ postId: string }> {
         const response = await twitterSessionHolder.fetch<
-            ResponseJSON<{
+            ResponseJson<{
                 id: string;
             }>
         >('/api/twitter/compose', {
@@ -486,7 +486,7 @@ class OfficialSocialMedia implements Provider {
         } = {},
     ): Promise<{ postId: string }> {
         const response = await twitterSessionHolder.fetch<
-            ResponseJSON<{
+            ResponseJson<{
                 id: string;
             }>
         >('/api/twitter/compose', {
@@ -517,7 +517,7 @@ class OfficialSocialMedia implements Provider {
 
     async deletePost(tweetId: string): Promise<boolean> {
         const response = await twitterSessionHolder.fetch<
-            ResponseJSON<{
+            ResponseJson<{
                 deleted: boolean;
             }>
         >(`/api/twitter/${tweetId}`, {
@@ -531,7 +531,7 @@ class OfficialSocialMedia implements Provider {
         return data.deleted;
     }
     async blockProfile(profileId: string): Promise<boolean> {
-        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<UserV2MuteResult['data']>>(
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJson<UserV2MuteResult['data']>>(
             `/api/twitter/mute/${profileId}`,
             {
                 method: 'POST',
@@ -543,7 +543,7 @@ class OfficialSocialMedia implements Provider {
         return response.data?.muting === true;
     }
     async unblockProfile(profileId: string): Promise<boolean> {
-        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<UserV2MuteResult['data']>>(
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJson<UserV2MuteResult['data']>>(
             `/api/twitter/mute/${profileId}`,
             {
                 method: 'DELETE',
@@ -566,7 +566,7 @@ class OfficialSocialMedia implements Provider {
                 cursor: indicator?.id,
             });
             const response =
-                await twitterSessionHolder.fetchWithSession<ResponseJSON<PartialWith<UserV2TimelineResult, 'data'>>>(
+                await twitterSessionHolder.fetchWithSession<ResponseJson<PartialWith<UserV2TimelineResult, 'data'>>>(
                     url,
                 );
             if (!response.success) throw new Error(response.error.message);
@@ -581,7 +581,7 @@ class OfficialSocialMedia implements Provider {
     }
 
     async bookmark(tweetId: string): Promise<boolean> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<boolean>>(`/api/twitter/bookmark/${tweetId}`, {
+        const response = await twitterSessionHolder.fetch<ResponseJson<boolean>>(`/api/twitter/bookmark/${tweetId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -592,7 +592,7 @@ class OfficialSocialMedia implements Provider {
         return data;
     }
     async unbookmark(tweetId: string): Promise<boolean> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<boolean>>(`/api/twitter/bookmark/${tweetId}`, {
+        const response = await twitterSessionHolder.fetch<ResponseJson<boolean>>(`/api/twitter/bookmark/${tweetId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -607,7 +607,7 @@ class OfficialSocialMedia implements Provider {
             cursor: indicator?.id || undefined,
             limit: 25,
         });
-        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        const response = await twitterSessionHolder.fetch<ResponseJson<TweetV2PaginableTimelineResult>>(url);
         const data = resolveTwitterResponseData(response, 'Failed to fetch bookmarks.');
         return formatTweetsPage(data, indicator);
     }
@@ -620,7 +620,7 @@ class OfficialSocialMedia implements Provider {
     async uploadProfileAvatar(file: File) {
         const formData = new FormData();
         formData.set('file', file);
-        const res = await twitterSessionHolder.fetch<ResponseJSON<{ pfp: string }>>('/api/twitter/me/avatar', {
+        const res = await twitterSessionHolder.fetch<ResponseJson<{ pfp: string }>>('/api/twitter/me/avatar', {
             method: 'PUT',
             body: formData,
         });
@@ -628,7 +628,7 @@ class OfficialSocialMedia implements Provider {
         return res.data.pfp;
     }
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
-        const res = await twitterSessionHolder.fetch<ResponseJSON<{}>>('/api/twitter/me', {
+        const res = await twitterSessionHolder.fetch<ResponseJson<{}>>('/api/twitter/me', {
             method: 'PUT',
             body: JSON.stringify({
                 name: profile.displayName,
@@ -671,7 +671,7 @@ class OfficialSocialMedia implements Provider {
     }
 
     async getSpace(id: string) {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<SpaceV2SingleResult>>(
+        const response = await twitterSessionHolder.fetch<ResponseJson<SpaceV2SingleResult>>(
             urlcat('/api/twitter/space/:id', { id }),
         );
         const data = resolveTwitterResponseData(response, `Failed to fetch space "${id}".`);
@@ -687,7 +687,7 @@ class OfficialSocialMedia implements Provider {
     }
 
     async getPinnedPost(profileId: string): Promise<Post | null> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<Post>>(`/api/twitter/user/${profileId}/pinned`);
+        const response = await twitterSessionHolder.fetch<ResponseJson<Post>>(`/api/twitter/user/${profileId}/pinned`);
         const data = resolveTwitterResponseData(response);
         return data;
     }

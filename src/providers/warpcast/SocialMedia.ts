@@ -29,7 +29,8 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { type Channel as WarpcastChannel } from '@/providers/types/Warpcast.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
+import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 
 class WarpcastSocialMedia implements Provider {
     blockWallet(address: string, networkType?: NetworkType): Promise<boolean> {
@@ -134,13 +135,15 @@ class WarpcastSocialMedia implements Provider {
                 cursor: indicator?.id,
                 fid: session?.profileId,
             });
-            const data = await fetchJSON<ResponseJSON<{ members: Profile[]; cursor?: string }>>(url, { method: 'GET' });
-            if (!data.success) throw new Error(data.error.message);
+            const response = await fetchJSON<ResponseJson<{ members: Profile[]; cursor?: string }>>(url, {
+                method: 'GET',
+            });
+            const data = resolveResponseData(response);
 
             return createPageable(
-                data.data.members,
+                data.members,
                 createIndicator(indicator),
-                data.data.cursor ? createNextIndicator(indicator, data.data.cursor) : undefined,
+                data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
             );
         });
     }
@@ -153,15 +156,14 @@ class WarpcastSocialMedia implements Provider {
                 cursor: indicator?.id,
                 fid: session?.profileId,
             });
-            const data = await fetchJSON<ResponseJSON<{ followers: Profile[]; cursor?: string }>>(url, {
+            const response = await fetchJSON<ResponseJson<{ followers: Profile[]; cursor?: string }>>(url, {
                 method: 'GET',
             });
-            if (!data.success) throw new Error(data.error.message);
-
+            const data = resolveResponseData(response);
             return createPageable(
-                data.data.followers,
+                data.followers,
                 createIndicator(indicator),
-                data.data.cursor ? createNextIndicator(indicator, data.data.cursor) : undefined,
+                data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
             );
         });
     }
@@ -171,15 +173,14 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async getChannelFollowStatus(channelId: string, fid: string): Promise<boolean> {
-        const result = await fetchJSON<ResponseJSON<{ following: boolean }>>(
+        const response = await fetchJSON<ResponseJson<{ following: boolean }>>(
             urlcat('/api/warpcast/channel/follow/status', {
                 channelId,
                 fid,
             }),
         );
-        if (!result.success) throw new Error(result.error.message);
-
-        return result.data.following;
+        const data = resolveResponseData(response);
+        return data.following;
     }
 
     getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {

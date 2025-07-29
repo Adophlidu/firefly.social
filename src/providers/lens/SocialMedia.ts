@@ -148,7 +148,7 @@ import {
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
 
 function getClient() {
     if (isServer) return lensSessionHolder.sdk;
@@ -1123,7 +1123,7 @@ class LensSocialMedia implements Provider {
     }
 
     async getThreadByPostId(postId: string) {
-        const response = await fetchJSON<ResponseJSON<string[]>>(urlcat('/api/thread', { id: postId }));
+        const response = await fetchJSON<ResponseJson<string[]>>(urlcat('/api/thread', { id: postId }));
         if (!response.success) return EMPTY_LIST;
         const posts = await ensureLensResult(
             fetchPosts(getClient(), {

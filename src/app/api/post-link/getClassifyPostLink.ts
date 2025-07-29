@@ -27,7 +27,7 @@ import { getTruthSocialPostFromUrl } from '@/services/getTruthSocialPostFromUrl.
 import { settings } from '@/settings/index.js';
 import type { FireflyBlinkParserBlinkResponse, FireflyBlinkParserBlinkResponseData } from '@/types/blink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
 
 const IGNORE_HOSTS = [/^.+\.firefly\.social$/, 'localhost:3000', 'x.com'];
@@ -106,7 +106,7 @@ export async function getClassifyPostLink(url: string) {
             async () => {
                 if (env.external.NEXT_PUBLIC_FRAME !== STATUS.Enabled) return null;
                 if (!url || !isValidPostLink(url, true)) return null;
-                const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
+                const response = await fetchJSON<ResponseJson<LinkDigestedResponse>>(
                     urlcat(FIREFLY_WORKER_HOST, '/frame', {
                         link: url,
                     }),

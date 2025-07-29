@@ -36,7 +36,8 @@ import type {
 } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { encryptMetricsData } from '@/services/encryptMetricsData.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
+import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 
 function sha256(message: string) {
     return webCrypto.createHash('sha256').update(message, 'utf8').digest('hex');
@@ -97,7 +98,7 @@ async function getMetricsDataToUpload(account: Account, passcode: string) {
         }
         case Source.Twitter: {
             const twitterSession = account.session as TwitterSession;
-            const encodedMetricsData = await fetchJSON<ResponseJSON<string>>(
+            const encodedMetricsData = await fetchJSON<ResponseJson<string>>(
                 urlcat('/api/twitter/encrypt-session', {
                     profileId: account.profile.profileId,
                     encryptKey: sha256(passcode),
@@ -292,18 +293,13 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                 break;
             }
             case Source.Twitter: {
-                const payloadResponse = await fetchJSON<ResponseJSON<SessionPayload>>(
+                const payloadResponse = await fetchJSON<ResponseJson<SessionPayload>>(
                     urlcat('/api/twitter/decrypt-session', {
                         ciphertext,
                         encryptKey: sha256(passcode),
                     }),
                 );
-
-                if (!payloadResponse.success) {
-                    throw new Error(payloadResponse.error.message);
-                }
-
-                const payload = payloadResponse.data;
+                const payload = resolveResponseData(payloadResponse);
                 const session = new TwitterSession(profileId, '', now, now, payload);
 
                 if (!currentProfile) {

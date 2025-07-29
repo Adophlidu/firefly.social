@@ -41,11 +41,11 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
 
 async function withFullStatusTimeline(timeline: Tweet[]) {
     const tweetIds = uniq(timeline.map((x) => x.id).filter((x) => x && x !== '0')).join(',');
-    const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2LookupResult>>(
+    const response = await twitterSessionHolder.fetchWithSession<ResponseJson<TweetV2LookupResult>>(
         urlcat(`/api/twitter/tweets/:tweetIds`, {
             tweetIds,
         }),
@@ -83,7 +83,7 @@ async function withReplyPostsToTimeline(timeline: Tweet[]) {
     const tweetIds = uniq(
         [...timeline.map((x) => x.replyId), ...timeline.map((x) => x.id)].filter((x) => x && x !== '0').join(','),
     );
-    const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2LookupResult>>(
+    const response = await twitterSessionHolder.fetchWithSession<ResponseJson<TweetV2LookupResult>>(
         urlcat(`/api/twitter/tweets/:tweetIds`, {
             tweetIds,
         }),

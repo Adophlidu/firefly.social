@@ -4,13 +4,13 @@ import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
 
-type LookupResponse = ResponseJSON<{
+type LookupResponse = ResponseJson<{
     address: string | null;
 }>;
 
-type ReverseResponse = ResponseJSON<{
+type ReverseResponse = ResponseJson<{
     domain: string | null;
 }>;
 

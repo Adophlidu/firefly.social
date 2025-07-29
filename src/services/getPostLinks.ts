@@ -9,7 +9,7 @@ import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
 
 // We are confident that these hosts will not be used for frame links
@@ -44,7 +44,7 @@ export const getPostOembed = memoizePromise(
         if (env.external.NEXT_PUBLIC_OPENGRAPH !== STATUS.Enabled) return null;
         if (!url || !isValidPostLink(url)) return null;
         if (post?.quoteOn) return null;
-        const linkDigested = await fetchJSON<ResponseJSON<LinkDigested>>(
+        const linkDigested = await fetchJSON<ResponseJson<LinkDigested>>(
             urlcat(FIREFLY_WORKER_HOST, '/oembed', {
                 link: url,
             }),

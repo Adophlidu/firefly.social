@@ -13,7 +13,7 @@ import {
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { getFarcasterPayload, getMirrorPayload } from '@/providers/og/readers/payload.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
 import { type LinkDigested, type OpenGraph, PayloadType } from '@/types/og.js';
 
 class Processor {
@@ -21,7 +21,7 @@ class Processor {
         const url = parseUrl(documentUrl);
         if (!url) return null;
 
-        const response = await fetchJSON<ResponseJSON<{ og: OpenGraph }>>(
+        const response = await fetchJSON<ResponseJson<{ og: OpenGraph }>>(
             urlcat(FIREFLY_WORKER_HOST, '/oembed', {
                 link: url.toString(),
             }),

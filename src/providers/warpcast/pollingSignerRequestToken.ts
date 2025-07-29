@@ -3,11 +3,12 @@ import urlcat from 'urlcat';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { retry } from '@/helpers/retry.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { ResponseJson } from '@/types/index.js';
+import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 
 export async function pollingSignerRequestToken(token: string, signal?: AbortSignal) {
     const query = async () => {
-        const signed = await fetchJSON<ResponseJSON<SignedKeyRequestResponse>>(
+        const response = await fetchJSON<ResponseJson<SignedKeyRequestResponse>>(
             // CORS issue workaround: use a proxy or server-side function to handle the request
             urlcat('/api/warpcast/signed-key', {
                 token,
@@ -16,8 +17,8 @@ export async function pollingSignerRequestToken(token: string, signal?: AbortSig
                 signal,
             },
         );
-        if (!signed.success) throw new Error(signed.error.message);
-        return signed.data;
+        const data = resolveResponseData(response);
+        return data;
     };
 
     const result = await retry(query, {
