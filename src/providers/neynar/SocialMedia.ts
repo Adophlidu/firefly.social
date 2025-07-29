@@ -5,6 +5,7 @@ import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST, NEYNAR_URL } from '@/constants/index.js';
 import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterChannelFromNeynar } from '@/providers/farcaster/formatFarcasterChannelFromNeynar.js';
 import { formatFarcasterProfileFromNeynar } from '@/providers/farcaster/formatFarcasterProfileFromNeynar.js';
@@ -15,16 +16,15 @@ import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,
+    NetworkType,
     type Notification,
     type Post,
     type Profile,
     type ProfileBadge,
     type ProfileEditable,
     type Provider,
-    NetworkType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.js';
 
 class NeynarSocialMedia implements Provider {
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

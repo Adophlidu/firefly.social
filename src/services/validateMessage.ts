@@ -13,8 +13,7 @@ async function validateFarcasterMessage(messageBytes: string): Promise<boolean> 
         body: Buffer.from(messageBytes, 'hex'),
     });
     const { valid } = resolveNeynarResponseData(response);
-    if (valid) return true;
-    return false;
+    return valid;
 }
 
 export async function validateMessage(messageBytes: string, source: SocialSource): Promise<boolean> {

@@ -11,11 +11,11 @@ import { getProfileById } from '@/helpers/getProfileById.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { ComposeModalRef } from '@/modals/controls.js';
+import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { signInWithFarcaster } from '@/providers/warpcast/signInWithFarcaster.js';
-import { signInWithRelay } from '@/providers/warpcast/signInWithRelay.js';
 import type { FrameV2 } from '@/types/frame.js';
 
 export class FarcasterFrameHost implements MiniAppHost {
@@ -81,8 +81,13 @@ export class FarcasterFrameHost implements MiniAppHost {
             const checked = await FireflyEndpointProvider.checkCustodyWallet(fid);
             if (checked) return await signInWithFarcaster(frame, fid, options);
 
-            // sign in with relay server
-            return await signInWithRelay(frame, options);
+            // sign in with auth wallet or relay server
+            const signed = await RelayConfirmationPopoverRef.openAndWaitForClose({
+                frame,
+                options,
+            });
+            if (!signed) throw new Error('Failed to sign in farcaster');
+            return signed;
         } catch (error) {
             console.log('DEBUG: [frame host]: signIn error', error);
             throw error;

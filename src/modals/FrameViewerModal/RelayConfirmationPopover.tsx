@@ -1,3 +1,4 @@
+import type { SignInOptions } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -9,11 +10,12 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { Source } from '@/constants/enum.js';
-import { FARCASTER_REPLY_URL } from '@/constants/index.js';
+import { FARCASTER_REPLY_URL, SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -25,11 +27,8 @@ import { pollingChannelToken } from '@/providers/warpcast/pollingChannelToken.js
 import type { FrameV2 } from '@/types/frame.js';
 
 export interface RelayConfirmationPopoverOpenProps {
-    siweUri: string;
-    domain: string;
-    nonce: string;
-    acceptAuthAddress?: boolean;
     frame: FrameV2;
+    options: SignInOptions;
 }
 
 export type RelayConfirmationPopoverCloseProps = {
@@ -56,12 +55,17 @@ export function RelayConfirmationPopover({ ref }: Props) {
         },
     });
     const { isLoading, isRefetching, isError, data, refetch } = useQuery({
-        queryKey: ['farcaster-relay-channel', props?.siweUri, props?.domain, props?.nonce],
+        queryKey: ['farcaster-relay-channel', props?.frame, props?.options],
         queryFn: async () => {
             if (!props) return;
 
             // Abort the previous request if it exists
             controller.current.renew();
+
+            const url = props.frame.x_url || SITE_URL;
+
+            const u = parseUrl(url);
+            if (!u) throw new Error(`Invalid URL: ${props.frame.x_url}`);
 
             const response = await fetchJSON<{
                 url: string;
@@ -69,10 +73,9 @@ export function RelayConfirmationPopover({ ref }: Props) {
             }>(urlcat(FARCASTER_REPLY_URL, '/v1/channel'), {
                 method: 'POST',
                 body: JSON.stringify({
-                    nonce: props.nonce,
-                    domain: props.domain,
-                    siweUri: props.siweUri,
-                    acceptAuthAddress: props.acceptAuthAddress,
+                    nonce: props.options.nonce,
+                    domain: u.hostname,
+                    siweUri: url,
                 }),
             });
 

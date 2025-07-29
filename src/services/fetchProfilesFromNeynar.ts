@@ -17,7 +17,6 @@ export async function fetchProfilesFromNeynar(ids: number[], viewerId?: string) 
     const response = await fetchNeynarJson<{ users: Profile[] }>(url, {
         method: 'GET',
     });
-    const data = resolveNeynarResponseData(response);
-
-    return data.users.map(formatFarcasterProfileFromNeynar);
+    const { users } = resolveNeynarResponseData(response);
+    return users.map(formatFarcasterProfileFromNeynar);
 }
