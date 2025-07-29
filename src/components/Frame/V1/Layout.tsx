@@ -8,9 +8,8 @@ import { z } from 'zod';
 
 import { Card } from '@/components/Frame/V1/Card.js';
 import { config } from '@/configs/wagmiClient.js';
-import { NODE_ENV, SimulateType, type SocialSource, Source } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
-import { MalformedError, TransactionSimulationError } from '@/constants/error.js';
+import { SimulateType, type SocialSource, Source } from '@/constants/enum.js';
+import { TransactionSimulationError } from '@/constants/error.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
@@ -31,7 +30,6 @@ import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActio
 import type { Additional } from '@/providers/types/Frame.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getFrameMintTransaction } from '@/services/getFrameMintTransaction.js';
-import { validateMessage } from '@/services/validateMessage.js';
 import {
     ActionType,
     type FrameButton,
@@ -113,14 +111,6 @@ async function getNextFrame(
             enqueueErrorMessage(t`Failed to generate signature packet with source = ${source}.`);
             throw new Error('Failed to generate signature packet.');
         }
-
-        // validate the signature packet in development
-        if (env.shared.NODE_ENV === NODE_ENV.Development) {
-            const valid = await validateMessage(packet.trustedData.messageBytes, source);
-            if (valid === true) console.log('[frame] valid signature packet:', packet);
-            else throw new MalformedError('Invalid frame packet.');
-        }
-
         const url = urlcat(FIREFLY_WORKER_HOST, '/frame', {
             url: frame.url,
             action: button.action,
