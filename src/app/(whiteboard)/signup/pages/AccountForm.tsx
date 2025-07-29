@@ -11,18 +11,16 @@ import { LoadingBar } from '@/app/(whiteboard)/components/Signup/LoadingBar.js';
 import { LoggedInSources } from '@/app/(whiteboard)/components/Signup/LoggedInSources.js';
 import { ShadowInAndOut } from '@/app/(whiteboard)/components/Signup/ShadowInAndOut.js';
 import { SquareButton } from '@/app/(whiteboard)/components/Signup/SquareButton.js';
-import { playSignupAudio } from '@/app/(whiteboard)/signup/pages/audio.js';
 import ShadowLeftArrow from '@/assets/left-arrow-shadow.svg';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SignupStep, Source } from '@/constants/enum.js';
 import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
-import { delay } from '@/helpers/delay.js';
 import { downloadUrlWithProxy } from '@/helpers/downloadMediaObjects.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { trimify } from '@/helpers/trimify.js';
-import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
+import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
@@ -50,7 +48,7 @@ function checkNickname(nickname: string) {
 }
 
 export function AccountForm({ changeStep }: AccountFormProps) {
-    const isSyncing = useAsyncStatusAll();
+    const { isLoading } = useCheckFireflyAccount();
     const profilesAll = useCurrentProfilesAll();
     const availableProfiles = useMemo(
         () =>
@@ -102,9 +100,6 @@ export function AccountForm({ changeStep }: AccountFormProps) {
                 nickname: encodeURIComponent(nickname),
                 avatar: encodeURIComponent(s3Url),
             });
-
-            await delay(500);
-            playSignupAudio();
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to create Firefly profile.`);
             throw error;
@@ -119,7 +114,7 @@ export function AccountForm({ changeStep }: AccountFormProps) {
     return (
         <ShadowInAndOut className="absolute inset-0 z-1 flex items-center justify-center">
             <Card>
-                {loading || isSyncing ? (
+                {loading || isLoading ? (
                     <div className="absolute inset-0 z-10 flex items-center justify-center">
                         {loading ? <LoadingBar /> : <LoadingIcon />}
                     </div>

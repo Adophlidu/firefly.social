@@ -6,7 +6,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
-export function useCheckFireflyAccount(withSyncing = true) {
+export function useCheckFireflyAccount(withSyncing = true, forceQuery = false) {
     const isSyncing = useAsyncStatusAll();
     const { preferences, rehydrating, setPreference } = usePreferencesState();
     const { currentProfileSession } = useFireflyStateStore();
@@ -37,12 +37,12 @@ export function useCheckFireflyAccount(withSyncing = true) {
             };
         },
         staleTime: 1000 * 60 * 30, // 30 minutes
-        enabled: !!accountId && !hasChecked,
+        enabled: !!accountId && (!hasChecked || forceQuery),
     });
 
     return {
-        hasFireflyAccount: hasChecked ? true : (data?.hasFireflyAccount ?? false),
-        isLoading: hasChecked ? false : isLoading || (withSyncing && isSyncing) || rehydrating,
+        hasFireflyAccount: hasChecked && !forceQuery ? true : (data?.hasFireflyAccount ?? false),
+        isLoading: hasChecked && !forceQuery ? false : isLoading || (withSyncing && isSyncing) || rehydrating,
         displayName: data?.displayName,
         avatar: data?.avatar,
     };

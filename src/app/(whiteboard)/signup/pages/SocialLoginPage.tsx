@@ -13,7 +13,7 @@ import ShadowLeftArrow from '@/assets/left-arrow-shadow.svg';
 import QrScan from '@/assets/qr-scan.svg';
 import { SignupStep, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
+import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useIsLogin, useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { SignInWithFireflyAppModalRef } from '@/modals/controls.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
@@ -26,7 +26,7 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
     const isLogin = useIsLogin();
     const isLoginFirefly = useIsLoginFirefly();
     const { accounts } = useThirdPartyStateStore();
-    const isLoading = useAsyncStatusAll();
+    const { isLoading } = useCheckFireflyAccount();
 
     const canGoNext = isLogin || accounts.length > 0;
 

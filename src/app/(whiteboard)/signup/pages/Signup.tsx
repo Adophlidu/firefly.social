@@ -6,6 +6,7 @@ import { AnimatePresence } from 'framer-motion';
 import { useCallback, useRef, useState } from 'react';
 
 import { AccountForm } from '@/app/(whiteboard)/signup/pages/AccountForm.js';
+import { playSignupAudio } from '@/app/(whiteboard)/signup/pages/audio.js';
 import { GuidePage } from '@/app/(whiteboard)/signup/pages/GuidePage.js';
 import { PageBackground } from '@/app/(whiteboard)/signup/pages/PageBackground.js';
 import { SocialLoginPage } from '@/app/(whiteboard)/signup/pages/SocialLoginPage.js';
@@ -15,8 +16,10 @@ import { queryClient } from '@/configs/queryClient.js';
 import { PageRoute, SignupStep } from '@/constants/enum.js';
 import { SIGNUP_AUDIO_ID } from '@/constants/index.js';
 import { redirect, RedirectType } from '@/esm/navigation.js';
+import { delay } from '@/helpers/delay.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
@@ -51,7 +54,7 @@ interface SignupProps {
 
 export function Signup({ initialStep }: SignupProps) {
     const [step, setStep] = useState<SignupStep>(initialStep || SignupStep.Welcome);
-    const { hasFireflyAccount, isLoading, displayName, avatar } = useCheckFireflyAccount(false);
+    const { hasFireflyAccount, isLoading, displayName, avatar } = useCheckFireflyAccount(false, true);
     const { setPreference } = usePreferencesState();
     const { currentProfileSession } = useFireflyStateStore();
     const hasFinished = useRef<boolean>(false);
@@ -77,14 +80,21 @@ export function Signup({ initialStep }: SignupProps) {
                         ...prev,
                         [accountId]: true,
                     }));
-                    queryClient.setQueryData(['check-firefly-account', accountId], true);
+                    queryClient.setQueryData(['check-firefly-account', accountId], {
+                        hasFireflyAccount: true,
+                        displayName: params?.nickname,
+                        avatar: params?.avatar,
+                    });
+                    delay(500).then(() => {
+                        playSignupAudio();
+                    });
                 }
             }
         },
         [currentProfileSession?.profileId, setPreference, setStep],
     );
 
-    if (isLoading) {
+    if (isLoading && ![SignupStep.LoginSocialPlatform, SignupStep.CreateAccountForm].includes(step)) {
         return (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
                 <FireflyMiniLogo width={85} height={208} />
@@ -94,6 +104,7 @@ export function Signup({ initialStep }: SignupProps) {
 
     if (hasFireflyAccount && !hasFinished.current) {
         if (displayName) {
+            LoginModalRef.close();
             changeStep(SignupStep.Success, {
                 nickname: encodeURIComponent(displayName),
                 avatar: avatar ? encodeURIComponent(avatar) : '',
