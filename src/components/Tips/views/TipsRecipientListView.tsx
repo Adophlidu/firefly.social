@@ -28,8 +28,8 @@ export function TipsRecipientListView() {
 
     return (
         <>
-            <div className="flex h-[262px] flex-col md:h-[272px]">
-                <div className="no-scrollbar min-h-0 flex-1 space-y-2 overflow-y-auto">
+            <div className="no-scrollbar h-full overflow-y-auto">
+                <div className="space-y-2">
                     {recipientList.map((recipient) => {
                         return (
                             <ClickableButton
@@ -73,7 +73,7 @@ export function TipsRecipientListView() {
                         );
                     })}
                 </div>
-                <div className="mt-4 flex shrink-0 items-center gap-3 rounded-2xl border border-warn p-3 text-warn">
+                <div className="mt-4 flex items-center gap-3 rounded-2xl border border-warn p-3 text-warn">
                     <WarnIcon width={24} height={24} className="shrink-0" />
                     <p className="text-left text-[13px] font-medium leading-5">
                         <Trans>
