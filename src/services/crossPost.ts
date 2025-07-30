@@ -4,7 +4,7 @@ import { compact, difference, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
+import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import {
     COMPOSE_ERROR_NOTIFICATION_KEY,
@@ -131,7 +131,7 @@ async function setQueryDataForComment(post: CompositePost, updatedPost: Composit
             });
         });
     }
-    await queryClient.refetchQueries({ queryKey });
+    if (![Source.Twitter].includes(source)) await queryClient.refetchQueries({ queryKey });
 }
 
 async function setQueryDataForQuote(post: CompositePost) {

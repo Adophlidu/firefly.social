@@ -24,6 +24,7 @@ import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollow
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { UndoRepostStatusToTwitterPosts } from '@/decorators/UndoRepostStatusToTwitterPosts.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
@@ -66,6 +67,7 @@ import {
 import { X3ProProvider } from '@/providers/x3pro/index.js';
 import { X3ProKolListLabel, X3ProOrderType } from '@/providers/x3pro/types.js';
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
+import { useTwitterRetweetStore } from '@/store/useTwitterRetweetStore.js';
 import type { PartialWith, ResponseJson } from '@/types/index.js';
 
 export
@@ -77,6 +79,7 @@ export
 @SetQueryDataForFollowProfile(Source.Twitter)
 @SetQueryDataForBlockProfile(Source.Twitter)
 @SetQueryDataForActPost(Source.Twitter)
+@UndoRepostStatusToTwitterPosts()
 @AddLikeStatusToTwitterPosts()
 @SetQueryDataForPosts
 @WithMutedProfilesQuery()
@@ -274,7 +277,11 @@ class OfficialSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJson<void>>(`/api/twitter/unretweet/${postId}`, {
             method: 'POST',
         });
-        const data = resolveTwitterResponseData(response);
+        resolveTwitterResponseData(response);
+        const session = twitterSessionHolder.session;
+        if (session?.profileId) {
+            useTwitterRetweetStore.getState().undoRepost(session.profileId, postId);
+        }
     }
 
     async mirrorPost(postId: string): Promise<string> {
