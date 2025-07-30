@@ -10,7 +10,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterSessionAfterLogin } from '@/providers/twitter/createTwitterSessionPayload.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import type { TwitterMetricsData } from '@/providers/types/Firefly.js';
-import { encryptMetricsData } from '@/services/encryptMetricsData.js';
+import { encryptAes256 } from '@/services/crypto.js';
 
 const SearchPageable = z.object({
     profileId: z.string(),
@@ -39,7 +39,7 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
             consumer_secret: payload.consumerSecret,
         };
 
-        const encryptData = encryptMetricsData(
+        const encryptData = encryptAes256(
             JSON.stringify(twitterMetricsData),
             queryParams.encryptKey,
             env.external.NEXT_PUBLIC_PASSCODE_IV,

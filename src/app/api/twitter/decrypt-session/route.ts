@@ -6,7 +6,7 @@ import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { TwitterMetricsData } from '@/providers/types/Firefly.js';
-import { decryptMetricsData } from '@/services/encryptMetricsData.js';
+import { decryptAes256 } from '@/services/crypto.js';
 
 const SearchPageable = z.object({
     encryptKey: z.string(),
@@ -16,7 +16,7 @@ const SearchPageable = z.object({
 export async function GET(request: NextRequest) {
     const queryParams = getSearchParamsFromRequestWithZodObject(request, SearchPageable);
 
-    const decrypted = decryptMetricsData(
+    const decrypted = decryptAes256(
         queryParams.ciphertext,
         queryParams.encryptKey,
         env.external.NEXT_PUBLIC_PASSCODE_IV,

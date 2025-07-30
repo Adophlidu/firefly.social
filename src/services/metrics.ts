@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro';
-import webCrypto from 'crypto';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
+import { sha256, toHex } from 'viem';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -16,6 +16,7 @@ import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionH
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
+import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -35,37 +36,22 @@ import type {
     MetricsMetaInfo,
 } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { encryptMetricsData } from '@/services/encryptMetricsData.js';
+import { decryptAes256, encryptAes256 } from '@/services/crypto.js';
 import type { ResponseJson } from '@/types/index.js';
-import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
-
-function sha256(message: string) {
-    return webCrypto.createHash('sha256').update(message, 'utf8').digest('hex');
-}
 
 function encryptCipherText(passcode: string, text: string) {
-    const key = sha256(passcode);
-    const encryptData = encryptMetricsData(text, key, env.external.NEXT_PUBLIC_PASSCODE_IV);
-    return encryptData;
+    const key = sha256(toHex(passcode));
+    return encryptAes256(text, key, env.external.NEXT_PUBLIC_PASSCODE_IV);
 }
 
 function decryptCipherText(passcode: string, text: string) {
-    const key = sha256(passcode);
-    const decipher = webCrypto.createDecipheriv(
-        'aes-256-cbc',
-        Buffer.from(key, 'hex'),
-        Buffer.from(env.external.NEXT_PUBLIC_PASSCODE_IV, 'hex'),
-    );
-    let decrypted = decipher.update(text, 'hex', 'utf-8');
-    decrypted += decipher.final('utf-8');
-    return decrypted;
+    const key = sha256(toHex(passcode));
+    return decryptAes256(text, key, env.external.NEXT_PUBLIC_PASSCODE_IV);
 }
 
 async function getMetricsDataToUpload(account: Account, passcode: string) {
     const platform = resolveSocialSourceInUrl(account.profile.source);
-    if (platform === SourceInURL.Bsky) {
-        return null;
-    }
+    if (platform === SourceInURL.Bsky) return null;
 
     const commonData: CommonMetricsData = {
         platform,
@@ -101,7 +87,7 @@ async function getMetricsDataToUpload(account: Account, passcode: string) {
             const encodedMetricsData = await fetchJson<ResponseJson<string>>(
                 urlcat('/api/twitter/encrypt-session', {
                     profileId: account.profile.profileId,
-                    encryptKey: sha256(passcode),
+                    encryptKey: sha256(toHex(passcode)),
                 }),
                 {
                     headers: TwitterSession.payloadToHeaders(twitterSession.payload),
@@ -296,7 +282,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                 const payloadResponse = await fetchJson<ResponseJson<SessionPayload>>(
                     urlcat('/api/twitter/decrypt-session', {
                         ciphertext,
-                        encryptKey: sha256(passcode),
+                        encryptKey: sha256(toHex(passcode)),
                     }),
                 );
                 const payload = resolveResponseData(payloadResponse);

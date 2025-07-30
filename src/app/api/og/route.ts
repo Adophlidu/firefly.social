@@ -32,16 +32,6 @@ function getOgCacheKey(url: string): { fieldKey: string; key: KeyType; result: R
         }
     }
     {
-        const result = matchPath(PageRoute.Article, url);
-        if (result) {
-            return {
-                key: KeyType.CreateMetadataArticleById,
-                fieldKey: resolveRedisFieldKey(result.id),
-                result,
-            };
-        }
-    }
-    {
         const result = matchPath(PageRoute.ProfileDetail, url);
         if (result) {
             return {

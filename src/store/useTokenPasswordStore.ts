@@ -5,7 +5,8 @@ import { immer } from 'zustand/middleware/immer';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { parseJson } from '@/helpers/parseJson.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
-import { decryptPassword, encryptPassword } from '@/services/tokenPassword.js';
+import { decryptPassword, encryptPassword } from '@/services/crypto.js';
+import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 interface TokenPasswordState {
     password: string | null;
@@ -64,6 +65,10 @@ const useTokenPasswordStoreBase = create<
                     };
                 },
                 setItem: (name, value) => {
+                    const fireflySession = useFireflyStateStore.getState().currentProfileSession;
+                    const accountId = fireflySession?.profileId;
+                    if (!accountId) return;
+
                     const state = value.state;
                     localStorage.setItem(
                         name,
@@ -71,7 +76,7 @@ const useTokenPasswordStoreBase = create<
                             ...value,
                             state: {
                                 ...state,
-                                password: state.password ? encryptPassword(state.password) : null,
+                                password: state.password ? encryptPassword(state.password, String(accountId)) : null,
                             },
                         }),
                     );
