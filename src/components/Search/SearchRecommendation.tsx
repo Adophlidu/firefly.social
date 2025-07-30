@@ -56,7 +56,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     );
 
     const isSymbol = debouncedKeyword?.startsWith('$');
-    if (keyword && !isSearchPage) {
+    if (keyword) {
         return (
             <div className={containerClasses}>
                 <h2 className="p-3 pb-0 text-sm font-bold leading-[18px]">

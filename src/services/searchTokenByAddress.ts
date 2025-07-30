@@ -1,5 +1,6 @@
 /* cspell:disable */
 
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/types.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -10,14 +11,14 @@ export const searchTokenByAddress = memoizePromise(
         const token = detected?.list.find((x) => x.address_type === 'contract');
         if (!token?.contract_info) return null;
 
-        const contractType = token?.contract_type;
+        const contractType = token.contract_type;
         if (contractType !== 'ERC20' && contractType !== 'token') return null;
-        if (token?.chain === 'solana') {
+        if (token.chain === 'solana') {
             token.contract_info.attributes.chain_id = SolanaChainId.Mainnet;
             return { ...token.contract_info, chain_id: SolanaChainId.Mainnet };
         }
         token.contract_info.attributes.chain_id = +token.chain_id;
         return token.contract_info;
     },
-    (address) => address,
+    (address) => (isValidAddressEthereum(address) ? address.toLowerCase() : address),
 );

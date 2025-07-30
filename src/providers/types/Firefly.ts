@@ -1217,16 +1217,25 @@ export type SearchNFTResponse = Response<{
 }>;
 
 export type SearchableToken = {
+    /** only search by keyword has platform_type */
+    platform_type?: TokenPlatformType;
     api_symbol: string;
     id: string;
     chainId?: number;
     address?: string;
-    /** large image */
+    /**
+     * large image
+     * TODO rename to largeLogo
+     */
     large: string;
     market_cap_rank?: number;
     name: string;
     symbol: string;
+    /**
+     * TODO rename to thumbnail
+     */
     thumb: string;
+    fdv?: number;
 };
 
 export type SearchTokenResponse = Response<{

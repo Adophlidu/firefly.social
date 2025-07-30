@@ -1027,6 +1027,14 @@ class FireflyEndpoint {
 
         return createPageable(data.coins ?? EMPTY_LIST, createIndicator(undefined));
     }
+    async searchTokenInfos(keyword: string, fuzzy = false) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/token/search', {
+            query: keyword,
+            full: fuzzy ? 0 : 1,
+        });
+        const response = await fireflySessionHolder.fetch<SearchTokenInfosResponse>(url);
+        return resolveFireflyResponseData(response);
+    }
 
     async getSingleCoin(options: GetTokenOptions) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, 'v2/token/single_token', options);
@@ -1201,15 +1209,6 @@ class FireflyEndpoint {
         });
         const response = await fireflySessionHolder.fetch<DetectAddressResponse>(url, { method: 'GET' });
 
-        return resolveFireflyResponseData(response);
-    }
-
-    async searchTokenInfos(keyword: string, fuzzy = false) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/token/search', {
-            query: keyword,
-            full: fuzzy ? 0 : 1,
-        });
-        const response = await fireflySessionHolder.fetch<SearchTokenInfosResponse>(url);
         return resolveFireflyResponseData(response);
     }
 

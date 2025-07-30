@@ -16,11 +16,11 @@ interface SuggestTokenListProps {
 
 export const SuggestTokenList = memo<SuggestTokenListProps>(function SuggestTokenList({ query, onSelect }) {
     const { data: tokens, isLoading } = useQuery({
-        queryKey: ['search-suggest', 'tokens', query],
+        queryKey: ['search-tokens', query],
         staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: async () => {
             const data = await searchTokens(query);
-            return data.data;
+            return data;
         },
         enabled: !!query,
     });

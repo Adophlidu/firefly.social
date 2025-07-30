@@ -1,60 +1,94 @@
 'use client';
 
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
+import { Trans } from '@lingui/react/macro';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
-import { FeaturedToken } from '@/app/(normal)/search/[...slug]/pages/FeaturedToken.js';
-import { ListInPage } from '@/components/ListInPage.js';
+import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
-import { ScrollListKey } from '@/constants/enum.js';
-import { formatMarketToken } from '@/helpers/formatMarketToken.js';
+import { TokenPlatformType } from '@/providers/types/Firefly.js';
 import { searchTokens, type TokenWithMarket } from '@/services/searchTokens.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
-const getSearchItemContent = (token: TokenWithMarket) => {
-    return token.hit ? (
-        <FeaturedToken token={formatMarketToken(token)} />
-    ) : (
-        <SearchableTokenItem key={token.id} token={token} />
-    );
-};
-
 export function SearchTokenContent() {
-    const { searchKeyword, searchType, source } = useSearchStateStore();
+    const { searchKeyword } = useSearchStateStore();
+    const [expandMap, setExpandMap] = useState<Partial<Record<TokenPlatformType | 'unknown', boolean>>>({});
 
-    const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['search', searchType, searchKeyword, source],
+    const { data: groups } = useSuspenseQuery({
+        queryKey: ['search-tokens', searchKeyword],
         queryFn: async () => {
             if (!searchKeyword) return;
-
             return searchTokens(searchKeyword);
         },
-        initialPageParam: '',
-        getNextPageParam: (lastPage) => {
-            if (lastPage?.data.length === 0) return;
-            return lastPage?.nextIndicator?.id;
-        },
-        select(data) {
-            return compact(data.pages.flatMap((x) => x?.data ?? []));
+        select(tokens) {
+            if (!tokens) return [];
+            const cexCoins: TokenWithMarket[] = [];
+            const dexCoins: TokenWithMarket[] = [];
+            const normalCoins: TokenWithMarket[] = [];
+            const groups: Array<{ group: TokenPlatformType | 'unknown'; tokens: TokenWithMarket[] }> = [];
+
+            tokens.forEach((token) => {
+                if (token.platform_type === TokenPlatformType.Cex) {
+                    cexCoins.push(token);
+                } else if (token.platform_type === TokenPlatformType.Dex) {
+                    dexCoins.push(token);
+                } else {
+                    normalCoins.push(token);
+                }
+            });
+            if (cexCoins.length)
+                groups.push({
+                    group: TokenPlatformType.Cex,
+                    tokens: cexCoins,
+                });
+
+            if (dexCoins.length)
+                groups.push({
+                    group: TokenPlatformType.Dex,
+                    tokens: dexCoins,
+                });
+
+            if (normalCoins.length)
+                groups.push({
+                    group: 'unknown',
+                    tokens: normalCoins,
+                });
+            return groups;
         },
     });
 
-    const listKey = `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${source}`;
+    if (!groups.length) return <NoResultsFallback message={<Empty keyword={searchKeyword} />} />;
 
     return (
-        <ListInPage
-            source={source}
-            key={listKey}
-            queryResult={queryResult}
-            VirtualListProps={{
-                listKey,
-                computeItemKey: (index, token) => `${token.id}_${index}`,
-                itemContent: (_, token) => getSearchItemContent(token),
-            }}
-            NoResultsFallbackProps={{
-                message: <Empty keyword={searchKeyword} />,
-            }}
-        />
+        <>
+            {groups.map(({ group, tokens }) => {
+                return (
+                    <div key={group}>
+                        {group !== 'unknown' ? (
+                            <h2 className="flex h-10 items-center border-line px-4 text-sm font-bold">
+                                {group === TokenPlatformType.Cex ? <Trans>Coins</Trans> : <Trans>Dex</Trans>}
+                            </h2>
+                        ) : null}
+                        {(expandMap[group] ? tokens : tokens.slice(0, 5)).map((token) => (
+                            <SearchableTokenItem key={token.id} token={token} />
+                        ))}
+                        {tokens.length > 5 ? (
+                            <div
+                                className="font-xs flex h-6 cursor-pointer text-center text-xs font-bold leading-6 text-highlight"
+                                onClick={() => {
+                                    setExpandMap((map) => ({
+                                        ...map,
+                                        [group]: !map[group],
+                                    }));
+                                }}
+                            >
+                                {expandMap.cex ? <Trans>Show less</Trans> : <Trans>Show more</Trans>}
+                            </div>
+                        ) : null}
+                    </div>
+                );
+            })}
+        </>
     );
 }

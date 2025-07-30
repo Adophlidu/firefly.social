@@ -1,11 +1,11 @@
 import { Trans } from '@lingui/react/macro';
 import type { HTMLProps } from 'react';
 
-import PriceArrow from '@/assets/price-arrow.svg';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
+import { isValidAddress } from '@/helpers/isValidAddress.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
 
@@ -20,7 +20,11 @@ export function SearchableTokenItem({ token, className, showRate = true, onClick
     return (
         <Link
             className={classNames('flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg', className)}
-            href={resolveTokenPageUrl({ identity: token.id, isCoinId: true })}
+            href={
+                isValidAddress(token.id)
+                    ? resolveTokenPageUrl({ identity: token.id, chainId: token.chainId })
+                    : resolveTokenPageUrl({ identity: token.id, isCoinId: true })
+            }
             onClick={onClick}
         >
             <Image
@@ -40,28 +44,28 @@ export function SearchableTokenItem({ token, className, showRate = true, onClick
                         </span>
                     ) : null}
                 </div>
-                <div className="text-lg leading-[22px] text-lightMain">
-                    ${renderShrankPrice(formatPrice(token.market?.current_price) ?? '')}
-                </div>
+                <div className="text-sm leading-[20px] text-second">{token.symbol}</div>
             </div>
-            {showRate ? (
-                <data
-                    className={classNames(
-                        'box-border flex h-8 shrink-0 items-center justify-center gap-x-1 rounded px-1 text-medium font-bold max-md:h-[30px] max-md:w-auto max-md:min-w-[60px] max-md:px-2 max-md:py-1 max-md:text-[15px] max-md:leading-[15px]',
-                        priceChange >= 0 ? 'text-success' : 'text-danger',
+            <div className="flex flex-col justify-end">
+                <div className="text-right font-inter text-base font-semibold leading-[24px] text-lightMain">
+                    {token.market?.current_price ? (
+                        <>${renderShrankPrice(formatPrice(token.market?.current_price) ?? '')}</>
+                    ) : (
+                        '--'
                     )}
-                >
-                    {priceChange !== 0 ? (
-                        <PriceArrow
-                            className={classNames(
-                                'size-5 max-md:h-[12px] max-md:w-[12px]',
-                                priceChange < 0 ? 'rotate-180' : '',
-                            )}
-                        />
-                    ) : null}
-                    {priceChange.toFixed(1).replace('-', '')}%
-                </data>
-            ) : null}
+                </div>
+                {showRate ? (
+                    <data
+                        className={classNames(
+                            'flex h-8 shrink-0 items-center justify-center gap-1 font-inter text-sm font-medium max-md:h-[30px] max-md:w-auto max-md:min-w-[60px] max-md:px-2 max-md:text-[15px] max-md:leading-[15px]',
+                            priceChange >= 0 ? 'text-success' : 'text-danger',
+                        )}
+                    >
+                        {priceChange !== 0 ? (priceChange > 0 ? '↑ ' : '↓ ') : null}
+                        {priceChange.toFixed(1).replace('-', '')}%
+                    </data>
+                ) : null}
+            </div>
         </Link>
     );
 }

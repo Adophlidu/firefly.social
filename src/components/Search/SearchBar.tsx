@@ -1,5 +1,6 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import { type HTMLProps, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
@@ -14,12 +15,21 @@ import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';
 import { useComeBack } from '@/hooks/useComeback.js';
+import { searchTokens } from '@/services/searchTokens.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
 interface SearchBarProps extends HTMLProps<HTMLDivElement> {
     slot: 'header' | 'secondary';
     autoSearchType?: boolean;
+}
+
+function useIsTokenAddress(address: string) {
+    return useQuery({
+        queryKey: ['search-tokens', address],
+        queryFn: () => searchTokens(address),
+        select: (data) => data.length > 0,
+    });
 }
 
 function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchBarProps) {
@@ -52,6 +62,7 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
     }, [searchKeyword]);
 
     const closeRecommendation = useCallback(() => setShowRecommendation(false), []);
+    const { data: isTokenAddress } = useIsTokenAddress(inputText);
 
     if (slot === 'header' && !isSearchPage && !isExplorePage) return null;
     if (slot === 'secondary' && (isSearchPage || isExplorePage)) return null;
@@ -83,7 +94,7 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
                         ev.preventDefault();
                         handleInputSubmit({
                             q: inputText,
-                            type: autoSearchType ? resolveSearchTypeFromQuery(inputText) : undefined,
+                            type: autoSearchType ? resolveSearchTypeFromQuery(inputText, isTokenAddress) : undefined,
                         });
                     }}
                 >
