@@ -21,6 +21,21 @@ class FireflyMetadata {
             return createSiteMetadata(pathname);
         }
     }
+
+    async createEventMetadata(eventName: string, pathname: string) {
+        try {
+            const response = await fetchJson<ResponseJson<Metadata>>(
+                urlcat(FIREFLY_WORKER_HOST, '/metadata/event', {
+                    name: eventName,
+                    pathname,
+                }),
+            );
+            const metadata = resolveResponseData(response);
+            return metadata;
+        } catch (error) {
+            return createSiteMetadata(pathname);
+        }
+    }
 }
 
 export const FireflyMetadataProvider = new FireflyMetadata();

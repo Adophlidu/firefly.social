@@ -252,7 +252,6 @@ export enum KeyType {
     CreateMetadataPostById = '/v2/createPageMetadataById',
     CreateMetadataProfileById = '/v3/createMetadataProfileById',
     CreateMetadataChannelById = '/v2/createMetadataChannelById',
-    CreateMetadataEvent = '/v2/createMetadataEvent',
 
     TwitterHandleToUid = 'twitterHandleToUid',
     TwitterUidToHandle = 'twitterUidToHandle',

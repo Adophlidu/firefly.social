@@ -41,16 +41,6 @@ function getOgCacheKey(url: string): { fieldKey: string; key: KeyType; result: R
             };
         }
     }
-    {
-        const result = matchPath(PageRoute.Event, url);
-        if (result) {
-            return {
-                key: KeyType.CreateMetadataEvent,
-                fieldKey: resolveRedisFieldKey(result.name),
-                result,
-            };
-        }
-    }
     return null;
 }
 
