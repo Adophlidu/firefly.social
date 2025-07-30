@@ -65,6 +65,7 @@ interface PromoteLinkChars extends Segment {
 interface PostLinkChars extends Segment {
     tag: CHAR_TAG.POST_LINK;
     content: string;
+    source: SocialSource;
 }
 
 export type ComplexChars = RP_Chars | MentionChars | FrameChars | PromoteLinkChars | PostLinkChars | PostLinkChars;
@@ -126,6 +127,7 @@ export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisibl
 
                     return promoteLink && specifiedUrl ? result.replace(promoteLink, specifiedUrl) : result;
                 case CHAR_TAG.POST_LINK:
+                    if (source && x.source === source) return '';
                     return `\n ${x.content}`;
                 default:
                     safeUnreachable(x);

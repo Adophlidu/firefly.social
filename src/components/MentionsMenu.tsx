@@ -65,6 +65,8 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
             {({ close }) => (
                 <>
                     <MenuButton
+                        data-focus={false}
+                        data-autofocus={false}
                         as="span"
                         className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-secondaryLine bg-white py-1 pl-1 pr-[6px] leading-4 text-highlight dark:bg-black"
                         onMouseEnter={(e) => e.currentTarget.click()}

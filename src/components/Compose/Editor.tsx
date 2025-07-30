@@ -106,7 +106,7 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                         .map((x) => x.node as MentionNode);
                     // avoid empty content with paragraph node
                     const newChars: Chars = compact(
-                        (markdown.replace('\n', '') === '' ? '' : markdown)
+                        (markdown.replace('\n', '') === '' ? '' : markdown.replace(/\n$/, ''))
                             .split(/(@[^\s()@:%+~#?&=,!?']+)/g)
                             .filter(Boolean)
                             .map((x) => {

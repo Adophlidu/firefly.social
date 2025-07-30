@@ -1,19 +1,13 @@
 import { t } from '@lingui/core/macro';
 import { produce } from 'immer';
 import { compact, difference, first } from 'lodash-es';
-import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import {
-    COMPOSE_ERROR_NOTIFICATION_KEY,
-    SITE_URL,
-    SORTED_SOCIAL_SOURCES,
-    SUPPORTED_FRAME_SOURCES,
-} from '@/constants/index.js';
+import { COMPOSE_ERROR_NOTIFICATION_KEY, SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { SupportedMetaKeys } from '@/constants/rp.js';
-import { CHAR_TAG, readChars } from '@/helpers/chars.js';
+import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
@@ -21,7 +15,6 @@ import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getPostFailedAt } from '@/helpers/getPostFailedAt.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
-import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
@@ -211,24 +204,11 @@ export async function crossPost(
                 const updatedCompositePost = getCompositePost(compositePost.id);
                 if (!updatedCompositePost) throw new Error(`Post not found with id: ${compositePost.id}`);
 
-                let chars = updatedCompositePost.chars;
-                if (type === 'quote' && parentPost && parentPost.source !== source) {
-                    chars = [
-                        ...chars,
-                        {
-                            tag: CHAR_TAG.POST_LINK,
-                            content: urlcat(SITE_URL, resolvePostUrl(parentPost.source, parentPost.postId)),
-                            visible: false,
-                            sortNo: 15,
-                        },
-                    ];
-                }
-
                 const result = await resolvePostTo(source)(
                     type === 'quote' && parentPost && parentPost.source !== source ? 'compose' : type,
                     {
                         ...compositePost,
-                        chars,
+                        chars: updatedCompositePost.chars,
                         poll: updatedCompositePost.poll,
                     },
                     signal,

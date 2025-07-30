@@ -40,12 +40,12 @@ import { decryptAes256, encryptAes256 } from '@/services/crypto.js';
 import type { ResponseJson } from '@/types/index.js';
 
 function encryptCipherText(passcode: string, text: string) {
-    const key = sha256(toHex(passcode));
+    const key = sha256(toHex(passcode)).replace(/^0x/, '');
     return encryptAes256(text, key, env.external.NEXT_PUBLIC_PASSCODE_IV);
 }
 
 function decryptCipherText(passcode: string, text: string) {
-    const key = sha256(toHex(passcode));
+    const key = sha256(toHex(passcode)).replace(/^0x/, '');
     return decryptAes256(text, key, env.external.NEXT_PUBLIC_PASSCODE_IV);
 }
 
@@ -87,7 +87,7 @@ async function getMetricsDataToUpload(account: Account, passcode: string) {
             const encodedMetricsData = await fetchJson<ResponseJson<string>>(
                 urlcat('/api/twitter/encrypt-session', {
                     profileId: account.profile.profileId,
-                    encryptKey: sha256(toHex(passcode)),
+                    encryptKey: sha256(toHex(passcode)).replace(/^0x/, ''),
                 }),
                 {
                     headers: TwitterSession.payloadToHeaders(twitterSession.payload),
@@ -282,7 +282,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                 const payloadResponse = await fetchJson<ResponseJson<SessionPayload>>(
                     urlcat('/api/twitter/decrypt-session', {
                         ciphertext,
-                        encryptKey: sha256(toHex(passcode)),
+                        encryptKey: sha256(toHex(passcode)).replace(/^0x/, ''),
                     }),
                 );
                 const payload = resolveResponseData(payloadResponse);

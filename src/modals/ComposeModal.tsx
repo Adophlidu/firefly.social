@@ -33,6 +33,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
+import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -291,6 +292,27 @@ function ComposeModalUI({ ref }: Props) {
         addImage,
         updateTypedMessage,
     ]);
+
+    useUpdateEffect(() => {
+        if (!open) return;
+        const { cursor } = useComposeStateStore.getState();
+        const compositePost = getCompositePost(cursor);
+        if (!compositePost) return;
+        const parentPost = Object.values(compositePost.parentPost).find((x) => x);
+        if (!parentPost) return;
+        const chars: Chars = [
+            ...compositePost.chars,
+            {
+                tag: CHAR_TAG.POST_LINK,
+                content: urlcat(SITE_URL, resolvePostUrl(parentPost.source, parentPost.postId)),
+                source: parentPost.source,
+                visible: false,
+                sortNo: 15,
+            },
+        ];
+        updateChars(chars);
+        setEditorContent(chars);
+    }, [open]);
 
     useUpdateEffect(() => {
         if (!contentRef.current || !posts.length) return;
