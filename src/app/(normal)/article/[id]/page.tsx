@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 
 import { ArticleDetailPage } from '@/app/(normal)/article/[id]/pages/DetailPage.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import type { NextPageProps } from '@/types/index.js';
 import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import type { NextPageProps } from '@/types/index.js';
 
 interface Props extends NextPageProps<{ id: string }> {}
 

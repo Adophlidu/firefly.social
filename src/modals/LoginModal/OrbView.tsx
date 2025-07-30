@@ -14,7 +14,6 @@ import { InvalidOrbPermissionError, InvalidResultError } from '@/constants/error
 import { ORB_REPLY_COUNTDOWN, SEVEN_DAYS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { resolveCurrentFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { retry } from '@/helpers/retry.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
@@ -114,13 +113,12 @@ export function OrbView() {
                     idToken: result.idToken as IdToken,
                 });
                 lensSessionHolder.resumeSession(session);
-                const sessionClient = await ensureLensResult(lensSessionHolder.sdk.resumeSession());
 
+                const sessionClient = await ensureLensResult(lensSessionHolder.sdk.resumeSession());
                 if (sessionClient) lensSessionHolder.setSessionClient(sessionClient);
 
                 enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected`);
                 TelemetryProvider.captureEvent(EventId.ORB_LOGIN_IN_SUCCESS, {
-                    firefly_account_id: await resolveCurrentFireflyAccountId(),
                     lens_accounts: getAccountPairs(Source.Lens),
                 });
             }

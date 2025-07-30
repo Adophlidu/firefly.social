@@ -1,12 +1,13 @@
 import '@/assets/css/limo.css';
 import '@/assets/css/paragraph.css';
 
+import { first } from 'lodash-es';
+
 import { ArticleDetailContent } from '@/components/Article/ArticleDetailContent.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
 import type { Article } from '@/providers/types/Article.js';
-import { first } from 'lodash-es';
 
 async function getArticleCoverUrl(article: Article): Promise<string | null> {
     if (article.coverUrl) return article.coverUrl;

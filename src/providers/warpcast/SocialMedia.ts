@@ -11,6 +11,7 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 import { formatFarcasterChannelFromWarpcast } from '@/providers/farcaster/formatFarcasterChannelFromWarpcast.js';
 import { getFarcasterAuthToken } from '@/providers/farcaster/getFarcasterAuthToken.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
@@ -30,7 +31,6 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { type Channel as WarpcastChannel } from '@/providers/types/Warpcast.js';
 import type { ResponseJson } from '@/types/index.js';
-import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 
 class WarpcastSocialMedia implements Provider {
     blockWallet(address: string, networkType?: NetworkType): Promise<boolean> {

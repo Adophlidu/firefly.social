@@ -2,9 +2,9 @@ import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { retry } from '@/helpers/retry.js';
+import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 import type { ResponseJson } from '@/types/index.js';
-import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 
 export async function pollingSignerRequestToken(token: string, signal?: AbortSignal) {
     const query = async () => {

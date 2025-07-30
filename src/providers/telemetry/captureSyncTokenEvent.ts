@@ -6,33 +6,19 @@ import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 export async function captureTokenSyncYesEvent() {
     return runInSafeAsync(async () => {
-        const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
-        if (!fireflySession) return;
-
-        return TelemetryProvider.captureEvent(EventId.TOKEN_SYNC_USE_YES, {
-            firefly_account_id: `${fireflySession.accountIdForEvent}`,
-        });
+        return TelemetryProvider.captureEvent(EventId.TOKEN_SYNC_USE_YES, {});
     });
 }
 
 export async function captureTokenSyncNoEvent() {
     return runInSafeAsync(async () => {
-        const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
-        if (!fireflySession) return;
-
-        return TelemetryProvider.captureEvent(EventId.TOKEN_SYNC_USE_NO, {
-            firefly_account_id: `${fireflySession.accountIdForEvent}`,
-        });
+        return TelemetryProvider.captureEvent(EventId.TOKEN_SYNC_USE_NO, {});
     });
 }
 
 export async function captureAccountConflictYesEvent(conflict_firefly_account_id: string) {
     return runInSafeAsync(async () => {
-        const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
-        if (!fireflySession) return;
-
         return TelemetryProvider.captureEvent(EventId.ACCOUNT_CONFLICT_USE_YES, {
-            firefly_account_id: `${fireflySession.accountIdForEvent}`,
             conflict_firefly_account_id,
         });
     });
@@ -40,11 +26,7 @@ export async function captureAccountConflictYesEvent(conflict_firefly_account_id
 
 export async function captureAccountConflictNoEvent(conflict_firefly_account_id: string) {
     return runInSafeAsync(async () => {
-        const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
-        if (!fireflySession) return;
-
         return TelemetryProvider.captureEvent(EventId.ACCOUNT_CONFLICT_USE_NO, {
-            firefly_account_id: `${fireflySession.accountIdForEvent}`,
             conflict_firefly_account_id,
         });
     });
@@ -52,12 +34,7 @@ export async function captureAccountConflictNoEvent(conflict_firefly_account_id:
 
 export async function captureMobileQrLoginClickEvent() {
     return runInSafeAsync(async () => {
-        const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
-        if (!fireflySession) return;
-
-        return TelemetryProvider.captureEvent(EventId.MOBILE_QR_LOGIN_CLICK, {
-            firefly_account_id: `${fireflySession.accountIdForEvent}`,
-        });
+        return TelemetryProvider.captureEvent(EventId.MOBILE_QR_LOGIN_CLICK, {});
     });
 }
 
@@ -66,8 +43,6 @@ export async function captureMultiDeviceLoginClickEvent() {
         const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
         if (!fireflySession) return;
 
-        return TelemetryProvider.captureEvent(EventId.MULTI_DEVICE_LOGIN_CLICK, {
-            firefly_account_id: `${fireflySession.accountIdForEvent}`,
-        });
+        return TelemetryProvider.captureEvent(EventId.MULTI_DEVICE_LOGIN_CLICK, {});
     });
 }

@@ -191,10 +191,9 @@ export function captureAccountLogoutAllEvent(accounts: Account[]) {
     });
 }
 
-export function captureAccountConflictEvent(accountId: string, conflictAccountId: string, confirmed: boolean) {
+export function captureAccountConflictEvent(conflictAccountId: string, confirmed: boolean) {
     return runInSafeAsync(() => {
         return TelemetryProvider.captureEvent(EventId.ACCOUNT_CONFLICT, {
-            firefly_account_id: accountId,
             conflict_firefly_account_id: conflictAccountId,
             continue_login: confirmed,
         });

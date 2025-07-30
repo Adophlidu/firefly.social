@@ -1,10 +1,11 @@
+import type { Metadata } from 'next';
+import urlcat from 'urlcat';
+
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 import type { ResponseJson } from '@/types/index.js';
-import type { Metadata } from 'next';
-import urlcat from 'urlcat';
 
 class FireflyMetadata {
     async createArticleMetadata(articleId: string, pathname: string) {

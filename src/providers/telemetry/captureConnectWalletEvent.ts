@@ -1,9 +1,7 @@
 import { ClickOrigin } from '@/constants/enum.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import type { FireflySession } from '@/providers/firefly/Session.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import { EventId, type WalletEventBaseParameters } from '@/providers/types/Telemetry.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 function resolveEventId(name_: string) {
     const name = name_.toLowerCase();
@@ -52,21 +50,15 @@ export function captureConnectWalletEvent(
 
         TelemetryProvider.captureEvent(EventId.CONNECT_WALLET_SUCCESS, event);
 
-        const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
-        const fireflyAccountId = fireflySession?.accountIdForEvent;
-        if (!fireflyAccountId) return;
-
         const eventId = resolveEventId(options.name ?? '');
         if (!eventId) return;
 
-        const parameters: WalletEventBaseParameters = {
+        TelemetryProvider.captureEvent(eventId, {
             ...event,
-            firefly_account_id: fireflyAccountId,
             wallet_type,
             wallet_address,
             wallet_app_name:
                 eventId === EventId.CONNECT_WALLET_SUCCESS_WALLET_CONNECT ? (options.name ?? 'unknown') : undefined,
-        };
-        TelemetryProvider.captureEvent(eventId, parameters);
+        });
     });
 }

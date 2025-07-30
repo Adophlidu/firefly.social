@@ -23,7 +23,6 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveCurrentFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef, WalletConnectModalRef } from '@/modals/controls.js';
@@ -138,11 +137,9 @@ export const LensView = memo(function LensView() {
         <div className="flex flex-col p-6 pt-0 md:w-[400px]">
             <div
                 className="flex cursor-pointer items-center gap-2 rounded-lg border border-lightHighlight p-2 max-md:hidden"
-                onClick={async () => {
+                onClick={() => {
                     history.replace('/orb');
-                    TelemetryProvider.captureEvent(EventId.ORB_LOGIN_IN_CLICK, {
-                        firefly_account_id: await resolveCurrentFireflyAccountId(),
-                    });
+                    TelemetryProvider.captureEvent(EventId.ORB_LOGIN_IN_CLICK, {});
                 }}
             >
                 <OrbIcon />

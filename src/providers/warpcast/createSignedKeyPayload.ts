@@ -1,9 +1,9 @@
 import { encodeAbiParameters } from 'viem';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
+import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 import type { SignedKeyRequestBody } from '@/providers/warpcast/createSignedKey.js';
 import type { ResponseJson } from '@/types/index.js';
-import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 
 type SignedBody = ResponseJson<{
     body: SignedKeyRequestBody;

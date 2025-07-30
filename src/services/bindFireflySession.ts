@@ -18,13 +18,13 @@ import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
+import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { BindResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJson } from '@/types/index.js';
-import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 
 async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<BindResponse>(

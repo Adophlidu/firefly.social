@@ -246,11 +246,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         });
 
         if (currentFireflySession?.profileId) {
-            captureAccountConflictEvent(
-                currentFireflySession.accountIdForEvent,
-                fireflySession.accountIdForEvent,
-                confirmed,
-            );
+            captureAccountConflictEvent(fireflySession.accountIdForEvent, confirmed);
         }
 
         if (confirmed) {

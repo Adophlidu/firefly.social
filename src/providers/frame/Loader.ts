@@ -5,9 +5,9 @@ import { anySignal } from '@/helpers/anySignal.js';
 import { fetchCachedJSON } from '@/helpers/fetchJson.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { BaseLoader } from '@/providers/base/Loader.js';
+import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJson } from '@/types/index.js';
-import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 
 class Loader extends BaseLoader<Frame> {
     protected override fetch(url: string, signal?: AbortSignal) {

@@ -8,7 +8,6 @@ import { getPostEventId, getPostEventParameters } from '@/providers/telemetry/ge
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
 function getTimeParameters(date = new Date()) {
@@ -146,10 +145,6 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
 
 export function captureComposeCrossAtEvent(eventId: EventId.COMPOSE_CROSS_AT_EDIT_SUCCESS) {
     return runInSafeAsync(async () => {
-        const accountId = useFireflyStateStore.getState().currentProfileSession?.profileId;
-        if (!accountId) return;
-        return TelemetryProvider.captureEvent(eventId, {
-            firefly_account_id: `${accountId}`,
-        });
+        return TelemetryProvider.captureEvent(eventId, {});
     });
 }
