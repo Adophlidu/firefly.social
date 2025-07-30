@@ -58,25 +58,19 @@ export function useWalletConnections() {
         const solanaWalletIcon = chainState.get('solana')?.accountState?.connectedWalletInfo?.icon;
         return uniqBy(
             compact([
-                ...(ethereum.isConnected
-                    ? connections.map((x) => {
-                          return {
-                              address: x.accounts[0],
-                              namespace: 'eip155' as ChainNamespace,
-                              connected: currentConnectionId
-                                  ? currentConnectionId === x.connector.uid
-                                  : x.accounts.some((address) => isSameAddress(address, ethereum.address)),
-                              connector: x.connector,
-                              chainId: x.chainId,
-                              walletIcon: x.connector.icon,
-                              source:
-                                  x.connector?.id === 'network.privy'
-                                      ? ConnectionSource.Privy
-                                      : ConnectionSource.Appkit,
-                          };
-                      })
-                    : []
-                ).sort((a) => (a.connected ? -1 : 1)),
+                ...connections.map((x) => {
+                    return {
+                        address: x.accounts[0],
+                        namespace: 'eip155' as ChainNamespace,
+                        connected: currentConnectionId
+                            ? currentConnectionId === x.connector.uid
+                            : x.accounts.some((address) => isSameAddress(address, ethereum.address)),
+                        connector: x.connector,
+                        chainId: x.chainId,
+                        walletIcon: x.connector.icon,
+                        source: x.connector?.id === 'network.privy' ? ConnectionSource.Privy : ConnectionSource.Appkit,
+                    };
+                }),
                 solanaAddress
                     ? {
                           address: solanaAddress,
@@ -98,7 +92,7 @@ export function useWalletConnections() {
                       }
                     : null,
                 ...(allFireflyConnections?.connected.map((connection) => {
-                    if (connection.source === WalletSource.Privy) return null;
+                    if (connection.source !== WalletSource.Privy) return null;
                     const networkType = getAddressType(connection.address);
                     if (!networkType) return null;
                     return {
@@ -111,12 +105,11 @@ export function useWalletConnections() {
                     };
                 }) ?? []),
             ]),
-            (x) => `${x.namespace}:${x.address}`,
+            (x) => `${x.namespace}:${x.namespace === 'eip155' ? x.address?.toLowerCase() : x.address}`,
         );
     }, [
         solanaWallets,
         chainState,
-        ethereum.isConnected,
         ethereum.address,
         connections,
         allFireflyConnections?.connected,
