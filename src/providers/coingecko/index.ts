@@ -52,10 +52,10 @@ function formatGainsOrLoser(info: CoinGeckoGainsLoserInfo): TokenWithMarket {
         api_symbol: info.symbol,
         id: info.id,
         name: info.name,
-        large: info.image,
+        largeLogo: info.image,
         market_cap_rank: info.market_cap_rank,
         symbol: info.symbol,
-        thumb: info.image,
+        thumbnail: info.image,
         market: {
             current_price: info.usd,
             price_change_percentage_24h: info.usd_24h_change,
@@ -247,15 +247,15 @@ export class CoinGecko {
                 api_symbol: info.symbol,
                 id: info.id,
                 name: info.name,
-                large: info.large,
+                largeLogo: info.large,
                 market_cap_rank: info.market_cap_rank,
                 symbol: info.symbol,
-                thumb: info.thumb,
+                thumbnail: info.thumb,
                 market: {
                     current_price: info.data.price,
                     price_change_percentage_24h: info.data.price_change_percentage_24h.usd,
                 },
-            };
+            } satisfies TokenWithMarket;
         });
     }
 
@@ -273,15 +273,15 @@ export class CoinGecko {
                 api_symbol: x.symbol,
                 id: x.id,
                 name: x.name,
-                large: x.image,
+                largeLogo: x.image,
                 market_cap_rank: x.market_cap_rank,
                 symbol: x.symbol,
-                thumb: x.image,
+                thumbnail: x.image,
                 market: {
                     current_price: x.current_price,
                     price_change_percentage_24h: x.price_change_percentage_24h,
                 },
-            };
+            } satisfies TokenWithMarket;
         });
     }
 

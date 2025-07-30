@@ -31,7 +31,7 @@ export function SearchableTokenItem({ token, className, showRate = true, onClick
                 className="size-11 shrink-0 rounded-full"
                 width={44}
                 height={44}
-                src={token.large}
+                src={token.largeLogo}
                 alt={token.symbol}
             />
             <div className="min-w-0 flex-1">

@@ -25,10 +25,10 @@ async function searchByAddress(address: string): Promise<SearchableToken[]> {
                 id: attributes.coingecko_coin_id,
                 chainId: token.attributes.chain_id || token.chain_id,
                 address: token.attributes.address,
-                large: attributes.image_url,
+                largeLogo: attributes.image_url,
                 name: attributes.name,
                 symbol: attributes.symbol,
-                thumb: attributes.image_url,
+                thumbnail: attributes.image_url,
             } satisfies SearchableToken;
         });
     } catch {
@@ -46,9 +46,9 @@ async function searchByKeyword(keyword: string): Promise<SearchableToken[]> {
             id: info.id || info.contract_address,
             chainId: info.chain_id,
             address: info.contract_address,
-            large: info.image.large,
+            largeLogo: info.image.large,
             name: info.name,
-            thumb: info.image.thumb,
+            thumbnail: info.image.thumb,
             fdv: info.market_data?.fully_diluted_valuation,
         } satisfies SearchableToken;
     });

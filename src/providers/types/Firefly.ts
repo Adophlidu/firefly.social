@@ -1223,18 +1223,11 @@ export type SearchableToken = {
     id: string;
     chainId?: number;
     address?: string;
-    /**
-     * large image
-     * TODO rename to largeLogo
-     */
-    large: string;
+    largeLogo: string;
     market_cap_rank?: number;
     name: string;
     symbol: string;
-    /**
-     * TODO rename to thumbnail
-     */
-    thumb: string;
+    thumbnail: string;
     fdv?: number;
 };
 

@@ -12,7 +12,7 @@ export const formatMarketToken = memoize(function formatMarketToken(token: Searc
         name: token.name,
         source: '',
         type: 'FungibleToken',
-        logoURL: token.large,
+        logoURL: token.largeLogo,
         rank: token.market_cap_rank,
         socialLinks: {
             website: '',

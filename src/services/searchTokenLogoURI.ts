@@ -14,7 +14,7 @@ export async function searchTokenLogoURI({
     for (const query of [address, symbol, name]) {
         if (!query) continue;
         const logoURI = await FireflyEndpointProvider.searchTokens(query)
-            .then((x) => x.data[0]?.large)
+            .then((x) => x.data[0]?.largeLogo)
             .catch(() => null);
         if (logoURI) return logoURI;
     }
