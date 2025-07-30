@@ -15,11 +15,14 @@ export function formatAddress(address: string, size?: number, offset?: Offset, s
     return address;
 }
 
-export const formatAddressSolana: Formatter = memoize(function format(address, size = 0, offset = 0, strict = true) {
-    if (!isValidAddressSolana(address, strict)) return address;
-    if (size === 0 || size >= 22) return address;
-    return `${address.slice(0, Math.max(0, offset + size))}...${address.slice(-size)}`;
-}, resolver);
+export const formatAddressSolana: Formatter = memoize(
+    function format(address, size = 0, offset = 0, strict = true) {
+        if (!isValidAddressSolana(address, strict)) return address;
+        if (size === 0 || size >= 22) return address;
+        return `${address.slice(0, Math.max(0, offset + size))}...${address.slice(-size)}`;
+    },
+    (address: string, size = 0, offset = 0, strict = true) => `${address}.${size}.${offset}.${strict}`,
+);
 
 export const formatAddressEthereum: Formatter = memoize(function formatEthereumAddress(
     address: string,

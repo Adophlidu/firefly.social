@@ -36,7 +36,7 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
     const identity = useFireflyIdentity(Source.Wallet, profile.address);
     const isMyWallet = useIsMyRelatedProfile(identity.source, identity.id);
 
-    const ensOrAddress = profile.primary_ens || ens || formatAddress(profile.address, 4);
+    const ensOrAddress = profile.primary_ens || ens || formatAddress(profile.address, 4, undefined, false);
 
     return (
         <MoreActionMenu

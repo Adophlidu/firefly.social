@@ -27,7 +27,7 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
     if (isMyWallets && isMPCWallet(profile)) {
         const type = isValidAddressEthereum(profile.address)
             ? NetworkType.Ethereum
-            : isValidAddressSolana(profile.address)
+            : isValidAddressSolana(profile.address, false)
               ? NetworkType.Solana
               : undefined;
         return (

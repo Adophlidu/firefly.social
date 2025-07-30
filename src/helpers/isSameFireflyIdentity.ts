@@ -7,7 +7,8 @@ export function isSameFireflyIdentity(identity?: FireflyIdentity, otherIdentity?
 
     if (identity.source === Source.Wallet || otherIdentity.source === Source.Wallet) {
         return (
-            isSameEthereumAddress(identity.id, otherIdentity.id) || isSameSolanaAddress(identity.id, otherIdentity.id)
+            isSameEthereumAddress(identity.id, otherIdentity.id) ||
+            isSameSolanaAddress(identity.id, otherIdentity.id, false)
         );
     }
 

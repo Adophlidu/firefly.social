@@ -44,7 +44,7 @@ export const WatchButton = memo(function WatchButton({
     const [seen, ref] = useEverSeen<HTMLButtonElement>();
     const [hovering, setHovering] = useState(false);
     const { data: isFollowing } = useIsFollowingWallet(address, seen);
-    const identity = ens || formatAddress(address, 4);
+    const identity = ens || formatAddress(address, 4, undefined, false);
     const mutation = useToggleWatchWallet({ handleOrEnsOrAddress: identity, address, following: !!isFollowing });
 
     const loading = mutation.isPending;

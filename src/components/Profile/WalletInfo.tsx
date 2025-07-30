@@ -83,7 +83,7 @@ function FireflyWalletText({ dataSource }: { dataSource: WalletProfileDataSource
 
 export function WalletInfo({ profile }: WalletInfoProps) {
     const avatar = profile.avatar ?? getStampAvatarByProfileId(Source.Wallet, profile.address);
-    const networkType = getAddressType(profile.address);
+    const networkType = getAddressType(profile.address, false);
 
     const addressLink =
         networkType === NetworkType.Ethereum
@@ -95,7 +95,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
         isMPC && profile.dataSource ? (
             <FireflyWalletText dataSource={profile.dataSource} />
         ) : (
-            profile.primary_ens || formatAddress(profile.address, 4)
+            profile.primary_ens || formatAddress(profile.address, 4, undefined, false)
         );
 
     const { data: walletRelation, isLoading: isLoadingWalletRelation } = useQuery({

@@ -255,7 +255,8 @@ function NavigationBar({
 }) {
     const isLogin = useIsLogin(narrowToSocialSource(identity.source));
     const title = useMemo(() => {
-        if (walletProfile) return walletProfile.primary_ens ?? formatAddress(walletProfile.address, 4);
+        if (walletProfile)
+            return walletProfile.primary_ens ?? formatAddress(walletProfile.address, 4, undefined, false);
         if (isRequestedLoginSource(identity.source) && !isLogin) return <Trans>Sign in to unlock</Trans>;
         return socialProfile?.displayName;
     }, [walletProfile, identity.source, isLogin, socialProfile?.displayName]);

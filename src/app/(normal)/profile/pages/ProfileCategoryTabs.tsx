@@ -52,7 +52,7 @@ export function ProfileCategoryTabs({
         [],
     );
 
-    const addressType = getAddressType(id);
+    const addressType = getAddressType(id, false);
     const categories = useMemo(() => {
         if (source === Source.Wallet || source === Source.WalletMix) {
             const tabs =

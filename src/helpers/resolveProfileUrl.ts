@@ -8,7 +8,7 @@ import { resolveProfileSourceInURL } from '@/helpers/resolveSourceInUrl.js';
 
 function getDefaultProfileCategory(source: ProfilePageSource, handle?: string, isCurrentProfile = false) {
     if (source === Source.Wallet || source === Source.WalletMix) {
-        return getAddressType(handle || '') === NetworkType.Solana
+        return getAddressType(handle || '', false) === NetworkType.Solana
             ? WALLET_PROFILE_TAB_TYPES.solana[0]
             : WALLET_PROFILE_TAB_TYPES.ethereum[0];
     }
@@ -26,7 +26,7 @@ function resolveProfileCategory(
 
     const supportedCategories: string[] =
         source === Source.Wallet || source === Source.WalletMix
-            ? getAddressType(handle || '') === NetworkType.Solana
+            ? getAddressType(handle || '', false) === NetworkType.Solana
                 ? WALLET_PROFILE_TAB_TYPES.solana
                 : WALLET_PROFILE_TAB_TYPES.ethereum
             : (isCurrentProfile ? LOGIN_SORTED_PROFILE_TAB_TYPE : SORTED_PROFILE_TAB_TYPE)[source];

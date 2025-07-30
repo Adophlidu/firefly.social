@@ -287,7 +287,7 @@ class FireflyEndpoint {
                     return /^\d+$/.test(identity.id) && !forceHandle ? 'twitterId' : 'twitterHandle';
                 case Source.Wallet:
                 case Source.WalletMix:
-                    switch (getAddressType(identity.id)) {
+                    switch (getAddressType(identity.id, false)) {
                         case NetworkType.Ethereum:
                             return 'walletAddress';
                         case NetworkType.Solana:
