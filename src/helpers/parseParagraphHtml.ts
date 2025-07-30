@@ -40,7 +40,5 @@ export function parseParagraphHtml(htmlString: string, jsonString: string) {
         });
     });
 
-    // This document is returned by LinkedIn, and can be used with toString.
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    return document.toString();
+    return document.documentElement.innerHTML;
 }

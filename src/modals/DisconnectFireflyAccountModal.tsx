@@ -17,6 +17,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
+import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -34,6 +35,7 @@ type Props = {
 export function DisconnectFireflyAccountModal({ ref }: Props) {
     const [props, setProps] = useState<DisconnectFireflyAccountModalProps | void>();
     const account = props?.account;
+    const avatar = useFireflyAccountAvatar();
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => setProps(props),
     });
@@ -111,6 +113,7 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
                                         profileAvatarProps={{
                                             enableSourceIcon: !isThirdPartyAccount,
                                             enableDefaultAvatar: true,
+                                            fallbackUrl: avatar,
                                         }}
                                     />
                                 </div>

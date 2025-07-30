@@ -6,6 +6,7 @@ import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { createDummyProfileFromFireflySession } from '@/helpers/createDummyProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConfirmFireflyModalRef, ConfirmModalRef } from '@/modals/controls.js';
@@ -25,6 +26,7 @@ type Props = {
 };
 
 export function ConfirmFireflyModal({ ref }: Props) {
+    const avatar = useFireflyAccountAvatar();
     useSingletonModal(ref, {
         onOpen: async ({ account }) => {
             const fireflyProfile = account.fireflySession
@@ -56,6 +58,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                                     viewProfile={account.profile}
                                     profileAvatarProps={{
                                         enableSourceIcon: false,
+                                        fallbackUrl: avatar,
                                     }}
                                 />
                             </menu>
