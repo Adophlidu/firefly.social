@@ -1,17 +1,12 @@
 import { SwapDetail } from '@/components/Swap/SwapDetail.js';
 import { TipsDetail } from '@/components/Tips/TipsDetail.js';
-import { KeyType, TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
+import { TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { createMetadataTx } from '@/helpers/createMetadataTx.js';
 import { isValidTxId } from '@/helpers/isValidTxId.js';
-import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
 import type { NextPageProps } from '@/types/index.js';
-
-const createPageMetadata = memoizeWithRedis(createMetadataTx, {
-    key: KeyType.CreateMetadataTx,
-});
 
 interface Props
     extends NextPageProps<
@@ -23,9 +18,11 @@ interface Props
 
 export async function generateMetadata(props: Props) {
     const { chain_id, hash } = await props.params;
-    const searchParams = await props.searchParams;
-    const view = searchParams?.view ?? TipsDetailViewType.Sender;
-    return createPageMetadata(`/tx/${chain_id}/${hash}`, hash, Number(chain_id));
+    return FireflyMetadataProvider.createTransactionMetadata(
+        Number.parseInt(chain_id, 10),
+        hash,
+        `/tx/${chain_id}/${hash}`,
+    );
 }
 
 export default async function Page(props: Props) {
@@ -40,14 +37,10 @@ export default async function Page(props: Props) {
     const tipsData = await runInSafeAsync(() =>
         FireflyEndpointProvider.getTipsTransactionDetail(hash, TipsNotificationType.Tip),
     );
-    if (tipsData) {
-        return <TipsDetail tipsData={tipsData} view={view} />;
-    }
+    if (tipsData) return <TipsDetail tipsData={tipsData} view={view} />;
 
     const swapData = await runInSafeAsync(() => FireflyEndpointProvider.getSwapActivityByHash(hash, chainId));
-    if (swapData) {
-        return <SwapDetail activity={swapData} />;
-    }
+    if (swapData) return <SwapDetail activity={swapData} />;
 
     notFound();
 }

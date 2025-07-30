@@ -409,11 +409,7 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
                 account: accounts[0]!,
             });
             if (currentFireflySession?.profileId) {
-                captureAccountConflictEvent(
-                    currentFireflySession.accountIdForEvent,
-                    fireflySession.accountIdForEvent,
-                    confirmed,
-                );
+                captureAccountConflictEvent(fireflySession.accountIdForEvent, confirmed);
             }
             if (!confirmed) return false;
             await updateState(accounts, {

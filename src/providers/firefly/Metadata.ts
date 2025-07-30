@@ -37,6 +37,22 @@ class FireflyMetadata {
             return createSiteMetadata(pathname);
         }
     }
+
+    async createTransactionMetadata(chainId: number, hash: string, pathname: string) {
+        try {
+            const response = await fetchJson<ResponseJson<Metadata>>(
+                urlcat(FIREFLY_WORKER_HOST, '/metadata/transaction', {
+                    chainId,
+                    hash,
+                    pathname,
+                }),
+            );
+            const metadata = resolveResponseData(response);
+            return metadata;
+        } catch (error) {
+            return createSiteMetadata(pathname);
+        }
+    }
 }
 
 export const FireflyMetadataProvider = new FireflyMetadata();
