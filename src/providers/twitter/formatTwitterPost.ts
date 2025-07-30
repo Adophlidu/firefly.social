@@ -185,7 +185,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     }
 
     entitiesUrls?.forEach((url) => {
-        content = content.replaceAll(url.url, url.expanded_url);
+        content = content.replaceAll(url.url, url.media_key ? '' : url.expanded_url);
     });
     let oembedUrls = getEmbedUrls(content, []);
 
