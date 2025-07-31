@@ -344,6 +344,9 @@ export async function syncMetrics(account: Account) {
         );
     });
 
+    const isOrbTemporyAccount =
+        account.profile.source === Source.Lens && !(account.session as LensSession).refreshToken;
+
     if (profilesToSync.length > 0) {
         LoginModalRef.close();
         const confirmed = await ConfirmSyncSessionModalRef.openAndWaitForClose({
@@ -354,7 +357,7 @@ export async function syncMetrics(account: Account) {
             const password = await verifyAndGetPassword(true);
             if (password) mergeMetrics(password);
         }
-    } else if (profilesToUpload.length > 0) {
+    } else if (profilesToUpload.length > 0 && !isOrbTemporyAccount) {
         const passcode = await verifyAndGetPassword();
         if (passcode) uploadMetrics(passcode);
     }

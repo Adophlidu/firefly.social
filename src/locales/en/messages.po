@@ -68,9 +68,6 @@ msgstr "Scan this QR code if you’ve used Farcaster to sign in before.<0/><1>Fi
 msgid "FAILED THREAD POST"
 msgstr "FAILED THREAD POST"
 
-msgid "Or select account on<0>current wallet</0>"
-msgstr "Or select account on<0>current wallet</0>"
-
 msgid "Connecting wallets"
 msgstr "Connecting wallets"
 
@@ -106,6 +103,9 @@ msgstr "Posts"
 
 msgid "Show assets < 1 USD"
 msgstr "Show assets < 1 USD"
+
+msgid "please<0>change</0>to another wallet."
+msgstr "please<0>change</0>to another wallet."
 
 msgid "Metadata not frozen."
 msgstr "Metadata not frozen."
@@ -722,9 +722,6 @@ msgstr "[Video]"
 msgid "The author is muted by you."
 msgstr "The author is muted by you."
 
-msgid "please change to another wallet."
-msgstr "please change to another wallet."
-
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}"
 msgstr "Failed to report @{0}"
@@ -939,6 +936,9 @@ msgstr "<0>Note:</0> If you cross-post a Lucky Drop to multiple social platforms
 #. placeholder {0}: profile.handle
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "Failed to unfollow @{0} on {sourceName}."
+
+msgid "Or select an account from your<0>current wallet</0>"
+msgstr "Or select an account from your<0>current wallet</0>"
 
 msgid "Muted {walletHandle}."
 msgstr "Muted {walletHandle}."

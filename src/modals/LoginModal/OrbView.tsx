@@ -28,6 +28,7 @@ import { getAccountPairs } from '@/providers/telemetry/captureAccountEvent.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { addAccount } from '@/services/account.js';
+import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
 export const OrbViewBeforeLoad = () => {
     return {
@@ -69,7 +70,7 @@ export function OrbView() {
                     return pollResult;
                 },
                 {
-                    times: 30,
+                    times: 20,
                     signal: controller.current.signal,
                 },
             );
@@ -99,31 +100,29 @@ export function OrbView() {
                 {
                     profile,
                     session,
+                    fireflySession: await bindOrRestoreFireflySession(session, controller.current.signal),
                 },
                 {
                     signal: controller.current.signal,
-                    skipSyncAccounts: !result.refreshToken,
                 },
             );
 
-            if (done) {
-                updateCredentialsStorage({
-                    accessToken: result.accessToken as AccessToken,
-                    refreshToken: result.refreshToken as RefreshToken,
-                    idToken: result.idToken as IdToken,
-                });
-                lensSessionHolder.resumeSession(session);
+            if (!done) return;
+            updateCredentialsStorage({
+                accessToken: result.accessToken as AccessToken,
+                refreshToken: result.refreshToken as RefreshToken,
+                idToken: result.idToken as IdToken,
+            });
+            lensSessionHolder.resumeSession(session);
 
-                const sessionClient = await ensureLensResult(lensSessionHolder.sdk.resumeSession());
-                if (sessionClient) lensSessionHolder.setSessionClient(sessionClient);
-
-                enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected`);
-                TelemetryProvider.captureEvent(EventId.ORB_LOGIN_IN_SUCCESS, {
-                    lens_accounts: getAccountPairs(Source.Lens),
-                });
-            }
+            const sessionClient = await ensureLensResult(lensSessionHolder.sdk.resumeSession());
+            if (sessionClient) lensSessionHolder.setSessionClient(sessionClient);
 
             LoginModalRef.close();
+            enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected`);
+            TelemetryProvider.captureEvent(EventId.ORB_LOGIN_IN_SUCCESS, {
+                lens_accounts: getAccountPairs(Source.Lens),
+            });
         } catch (error) {
             if (error instanceof InvalidResultError) {
                 enqueueWarningMessage(

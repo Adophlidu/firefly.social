@@ -68,9 +68,6 @@ msgstr ""
 msgid "FAILED THREAD POST"
 msgstr ""
 
-msgid "Or select account on<0>current wallet</0>"
-msgstr ""
-
 msgid "Connecting wallets"
 msgstr ""
 
@@ -105,6 +102,9 @@ msgid "Posts"
 msgstr ""
 
 msgid "Show assets < 1 USD"
+msgstr ""
+
+msgid "please<0>change</0>to another wallet."
 msgstr ""
 
 msgid "Metadata not frozen."
@@ -722,9 +722,6 @@ msgstr ""
 msgid "The author is muted by you."
 msgstr ""
 
-msgid "please change to another wallet."
-msgstr ""
-
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}"
 msgstr ""
@@ -938,6 +935,9 @@ msgstr ""
 
 #. placeholder {0}: profile.handle
 msgid "Failed to unfollow @{0} on {sourceName}."
+msgstr ""
+
+msgid "Or select an account from your<0>current wallet</0>"
 msgstr ""
 
 msgid "Muted {walletHandle}."

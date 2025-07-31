@@ -156,7 +156,7 @@ export const LensView = memo(function LensView() {
             <div className="my-3 px-2 text-center text-[14px] leading-[14px] max-md:hidden">
                 {account.isConnected ? (
                     <Trans>
-                        Or select account on
+                        Or select an account from your
                         <span
                             className="ml-1 cursor-pointer text-highlight"
                             onClick={() => {
@@ -200,7 +200,7 @@ export const LensView = memo(function LensView() {
                         })}
                     </div>
                 ) : (
-                    <div className="flex h-[228px] flex-col items-center justify-center gap-1 max-md:max-h-[calc(100vh_-_136px)]">
+                    <div className="flex h-[228px] flex-col items-center justify-center gap-1 text-[14px] leading-6 text-second max-md:max-h-[calc(100vh_-_136px)]">
                         {isLoading ? (
                             <LoadingIcon />
                         ) : (
@@ -209,7 +209,18 @@ export const LensView = memo(function LensView() {
                                     <Trans>No Lens profile found,</Trans>
                                 </span>
                                 <span>
-                                    <Trans>please change to another wallet.</Trans>
+                                    <Trans>
+                                        please
+                                        <span
+                                            className="ml-1 cursor-pointer text-highlight"
+                                            onClick={() => {
+                                                WalletConnectModalRef.open();
+                                            }}
+                                        >
+                                            change
+                                        </span>
+                                        to another wallet.
+                                    </Trans>
                                 </span>
                             </>
                         )}

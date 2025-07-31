@@ -17,6 +17,7 @@ import {
     FarcasterPatchSignerError,
     FireflyAccountAbsentError,
     FireflyAlreadyBoundError,
+    FireflyBindTimeoutError,
     NotAllowedError,
     TimeoutError,
 } from '@/constants/error.js';
@@ -55,7 +56,7 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
         if (AbortError.is(error)) return;
 
         // if login timed out, let the user refresh the QR code
-        if (error instanceof TimeoutError) return;
+        if (error instanceof TimeoutError || error instanceof FireflyBindTimeoutError) return;
 
         // user rejected request
         if (error instanceof UserRejectedRequestError) return;

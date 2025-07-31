@@ -73,9 +73,6 @@ msgstr "如果曾使用过 Farcaster 登录，请扫描此二维码。<0/><1>首
 msgid "FAILED THREAD POST"
 msgstr "发送帖子串失败"
 
-msgid "Or select account on<0>current wallet</0>"
-msgstr ""
-
 msgid "Connecting wallets"
 msgstr "连接中钱包"
 
@@ -111,6 +108,9 @@ msgstr "帖子"
 
 msgid "Show assets < 1 USD"
 msgstr "展示少于 1 美元的资产"
+
+msgid "please<0>change</0>to another wallet."
+msgstr ""
 
 msgid "Metadata not frozen."
 msgstr "元数据未冻结。"
@@ -727,9 +727,6 @@ msgstr "[视频]"
 msgid "The author is muted by you."
 msgstr "您已隐藏此作者。"
 
-msgid "please change to another wallet."
-msgstr ""
-
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}"
 msgstr "举报 @{0} 失败"
@@ -944,6 +941,9 @@ msgstr "<0>注意：</0>如果你将红包同时发布到多个社交平台，�
 #. placeholder {0}: profile.handle
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
+
+msgid "Or select an account from your<0>current wallet</0>"
+msgstr ""
 
 msgid "Muted {walletHandle}."
 msgstr "已隐藏 {walletHandle}。"
