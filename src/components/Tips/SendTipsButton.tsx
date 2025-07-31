@@ -17,6 +17,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isUserRejectErrorInWallet } from '@/helpers/isUserRejectErrorInWallet.js';
 import { isZero, ZERO } from '@/helpers/number.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { trimify } from '@/helpers/trimify.js';
@@ -126,6 +127,8 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             router.navigate({ to: TipsRoutePath.SUCCESS });
             update((prev) => ({ ...prev, isSending: false, hasError: false }));
         } catch (error) {
+            if (isUserRejectErrorInWallet(error)) return;
+
             update((prev) => ({ ...prev, hasError: true, isSending: false, hash: null }));
             enqueueMessageFromError(error, t`Failed to send tip.`);
             throw error;

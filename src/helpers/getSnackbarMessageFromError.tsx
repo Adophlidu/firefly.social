@@ -2,17 +2,13 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import type { SnackbarMessage } from 'notistack';
-import { EstimateGasExecutionError, UserRejectedRequestError } from 'viem';
+import { EstimateGasExecutionError } from 'viem';
 import { z } from 'zod';
 
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 import { DecryptionError, FarcasterInvalidSignerKey, FetchError, UserRejectionError } from '@/constants/error.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
-
-interface SolanaError {
-    code: number;
-    message: string;
-}
+import { isUserRejectErrorInWallet } from '@/helpers/isUserRejectErrorInWallet.js';
 
 const ClientErrorSchema = z.object({
     response: z.object({
@@ -24,32 +20,9 @@ const ClientErrorSchema = z.object({
     }),
 });
 
-function isRejectedMessage(message: string) {
-    return !message
-        ? false
-        : ['user rejected the request', 'user denied request'].some((m) => message.toLowerCase().includes(m));
-}
-
 export function getWarningMessageFromError(error: unknown, fallback?: string) {
-    let currentError = error;
-    const visited = new Set();
-
-    // For solana wallet adapter
-    if (
-        error instanceof Error &&
-        (isRejectedMessage(error.message) ||
-            ('error' in error && isRejectedMessage((error.error as SolanaError)?.message)))
-    ) {
+    if (isUserRejectErrorInWallet(error)) {
         return t`The user rejected the request.`;
-    }
-
-    // UserRejectedRequestError from viem
-    while (currentError instanceof Error && !visited.has(currentError)) {
-        visited.add(currentError);
-        if (currentError instanceof UserRejectedRequestError) {
-            return t`The user rejected the request.`;
-        }
-        currentError = currentError.cause;
     }
 
     return fallback;
