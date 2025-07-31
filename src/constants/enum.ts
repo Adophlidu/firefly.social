@@ -247,7 +247,6 @@ export enum KeyType {
     GetBlink = '/v2/getBlink',
     GetClassifyPostLinkWithRedis = '/v1/getClassifyPostLinkWithRedis',
 
-    CreateMetadataToken = '/v2/createMetadataToken',
     CreateMetadataPostById = '/v2/createPageMetadataById',
     CreateMetadataProfileById = '/v3/createMetadataProfileById',
     CreateMetadataChannelById = '/v2/createMetadataChannelById',

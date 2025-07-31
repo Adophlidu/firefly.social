@@ -53,6 +53,30 @@ class FireflyMetadata {
             return createSiteMetadata(pathname);
         }
     }
+
+    async createTokenMetadata(
+        keyword: string,
+        pathname: string,
+        options?: {
+            chainId?: number;
+            address?: string;
+            isCoinId?: boolean;
+        },
+    ) {
+        try {
+            const response = await fetchJson<ResponseJson<Metadata>>(
+                urlcat(FIREFLY_WORKER_HOST, '/metadata/token', {
+                    keyword,
+                    pathname,
+                    ...options,
+                }),
+            );
+            const metadata = resolveResponseData(response);
+            return metadata;
+        } catch (error) {
+            return createSiteMetadata(pathname);
+        }
+    }
 }
 
 export const FireflyMetadataProvider = new FireflyMetadata();

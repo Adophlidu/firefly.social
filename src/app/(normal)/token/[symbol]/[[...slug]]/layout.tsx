@@ -9,12 +9,10 @@ import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { KeyType } from '@/constants/enum.js';
-import { createMetadataToken } from '@/helpers/createMetadataToken.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
-import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
 import type { GetTokenOptions } from '@/providers/types/Firefly.js';
 import { searchToken } from '@/services/searchToken.js';
 import type { NextPageProps } from '@/types/index.js';
@@ -27,10 +25,6 @@ interface Props
         },
         TokenPageSearch
     > {}
-
-const createPageMetadata = memoizeWithRedis(createMetadataToken, {
-    key: KeyType.CreateMetadataToken,
-});
 
 export async function generateMetadata(props: Props) {
     const params = await props.params;
@@ -45,9 +39,10 @@ export async function generateMetadata(props: Props) {
             chainId: z.coerce.number().int().optional(),
         })
         .safeParse(searchParams).data;
-    return createPageMetadata(
-        params.slug ? `/token/${params.symbol}/${params.slug.join('/')}` : `/token/${params.symbol}`,
+
+    return FireflyMetadataProvider.createTokenMetadata(
         params.symbol,
+        params.slug ? `/token/${params.symbol}/${params.slug.join('/')}` : `/token/${params.symbol}`,
         options,
     );
 }

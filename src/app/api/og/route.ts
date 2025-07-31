@@ -12,16 +12,6 @@ import { HttpUrl } from '@/schemas/index.js';
 
 function getOgCacheKey(url: string): { fieldKey: string; key: KeyType; result: Record<string, string> } | null {
     {
-        const result = matchPath(PageRoute.Token, url);
-        if (result) {
-            return {
-                key: KeyType.CreateMetadataToken,
-                fieldKey: resolveRedisFieldKey(result.symbol),
-                result,
-            };
-        }
-    }
-    {
         const result = matchPath(PageRoute.PostDetail, url);
         if (result) {
             return {
