@@ -1,6 +1,7 @@
 import { memo, useMemo } from 'react';
 
 import ColorfulLensIcon from '@/assets/lens-circle-small.svg';
+import XSquareLightIcon from '@/assets/x-square-light.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -34,6 +35,8 @@ export const LoggedInSources = memo(function LoggedInSources() {
                             width={22}
                             height={22}
                         />
+                    ) : source === Source.Twitter ? (
+                        <XSquareLightIcon width={22} height={22} />
                     ) : (
                         <SocialSourceIcon square size={22} source={source} />
                     )}
