@@ -1,5 +1,20 @@
 import { SIGNUP_AUDIO_ID } from '@/constants/index.js';
 
+let audioTimer: NodeJS.Timeout | null = null;
+let lastVolume = 0.01;
+
+function updateAudioVolume() {
+    const audio = document.getElementById(SIGNUP_AUDIO_ID) as HTMLAudioElement | null;
+    if (!audio) return;
+
+    const currentVolume = audio.volume;
+    if (currentVolume >= 0.3) return;
+
+    lastVolume = currentVolume + 0.01;
+    audio.volume = currentVolume + 0.01;
+    audioTimer = setTimeout(updateAudioVolume, 200);
+}
+
 export function playSignupAudio() {
     const audio = document.getElementById(SIGNUP_AUDIO_ID) as HTMLAudioElement | null;
     if (!audio) {
@@ -9,13 +24,18 @@ export function playSignupAudio() {
     audio.loop = true;
     audio.muted = false; // Ensure audio is not muted
     audio.currentTime = 0; // Reset to the beginning
-    audio.volume = 0.5; // Set volume to a reasonable level
+    audio.volume = lastVolume; // Set volume to a reasonable level
     audio.play().catch((error) => {
         console.error('Failed to play signup audio:', error);
     });
+    updateAudioVolume();
 }
 
 export function stopSignupAudio() {
+    if (audioTimer) {
+        clearTimeout(audioTimer);
+        audioTimer = null;
+    }
     const audio = document.getElementById(SIGNUP_AUDIO_ID) as HTMLAudioElement | null;
     if (audio) {
         audio.pause();
