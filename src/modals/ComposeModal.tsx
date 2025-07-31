@@ -105,6 +105,7 @@ function ComposeModalUI({ ref }: Props) {
         posts,
         addUrl,
         addImage,
+        type,
         updateType,
         updateAvailableSources,
         updateParentPost,
@@ -294,7 +295,7 @@ function ComposeModalUI({ ref }: Props) {
     ]);
 
     useUpdateEffect(() => {
-        if (!open) return;
+        if (type !== 'quote') return;
         const { cursor } = useComposeStateStore.getState();
         const compositePost = getCompositePost(cursor);
         if (!compositePost) return;
@@ -312,7 +313,7 @@ function ComposeModalUI({ ref }: Props) {
         ];
         updateChars(chars);
         setEditorContent(chars);
-    }, [open]);
+    }, [type]);
 
     useUpdateEffect(() => {
         if (!contentRef.current || !posts.length) return;
