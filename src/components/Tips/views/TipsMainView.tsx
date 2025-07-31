@@ -17,11 +17,7 @@ function LoadingView() {
                 <Trans>Sending</Trans>
             </p>
             <p className="text-sm text-second">
-                <Trans>
-                    The transaction is in progress.
-                    <br />
-                    You can check its status in history.
-                </Trans>
+                <Trans>The transaction is in progress.</Trans>
             </p>
         </div>
     );

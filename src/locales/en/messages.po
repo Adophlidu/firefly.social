@@ -3220,6 +3220,9 @@ msgstr "Post removed from your Bookmarks"
 msgid "Something went wrong. Please try again."
 msgstr "Something went wrong. Please try again."
 
+msgid "The transaction is in progress."
+msgstr "The transaction is in progress."
+
 msgid "Received"
 msgstr "Received"
 
@@ -3929,9 +3932,6 @@ msgstr "Not Found"
 #. placeholder {0}: isSendFromFirefly(post) ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "Posted via {0} <0>{sendFrom}</0>"
-
-msgid "The transaction is in progress.<0/>You can check its status in history."
-msgstr "The transaction is in progress.<0/>You can check its status in history."
 
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr "The contract owner has no restrictions on personal slippage."

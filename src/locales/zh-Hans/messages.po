@@ -3225,6 +3225,9 @@ msgstr "帖子已从收藏夹移除"
 msgid "Something went wrong. Please try again."
 msgstr "出现错误，请重试。"
 
+msgid "The transaction is in progress."
+msgstr ""
+
 msgid "Received"
 msgstr "收到"
 
@@ -3934,9 +3937,6 @@ msgstr "未发现内容"
 #. placeholder {0}: isSendFromFirefly(post) ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "发布于 {0} <0>{sendFrom}</0>"
-
-msgid "The transaction is in progress.<0/>You can check its status in history."
-msgstr "交易进行中。<0/>您可以在历史记录中查看其状态。"
 
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr "合约所有者对个人滑点没有限制。"

@@ -3225,6 +3225,9 @@ msgstr "貼文已從書籤移除"
 msgid "Something went wrong. Please try again."
 msgstr "發生錯誤，請稍後再試。"
 
+msgid "The transaction is in progress."
+msgstr ""
+
 msgid "Received"
 msgstr "收到"
 
@@ -3934,9 +3937,6 @@ msgstr "找不到內容"
 #. placeholder {0}: isSendFromFirefly(post) ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "透過 {0} <0>{sendFrom}</0> 發布"
-
-msgid "The transaction is in progress.<0/>You can check its status in history."
-msgstr "交易進行中。<0/>您可以在歷史記錄中查看其狀態。"
 
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr "合約持有者未設定個人滑點限制。"

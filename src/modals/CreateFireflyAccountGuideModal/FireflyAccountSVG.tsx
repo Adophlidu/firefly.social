@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 
+import BskyLogo from '@/assets/bsky-circle-logo.svg';
 import FarcasterLogo from '@/assets/farcaster-logo.svg';
 import FireflyAccountBg from '@/assets/firefly-account-bg.svg';
 import LensLogo from '@/assets/lens-logo.svg';
@@ -82,6 +83,22 @@ export function FireflyAccountSVG({ className }: FireflyAccountSVGProps) {
                 }}
             >
                 <MessageLogo width="100%" height="100%" />
+            </motion.div>
+            <motion.div
+                className="absolute left-[25.7%] top-[13.42%] w-[20.28%]"
+                style={{ aspectRatio: '1 / 1' }}
+                animate={{
+                    y: [0, -8, 0],
+                }}
+                transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    repeatType: 'reverse',
+                    ease: 'easeInOut',
+                    times: [0, 0.5, 1],
+                }}
+            >
+                <BskyLogo width="100%" height="100%" />
             </motion.div>
         </div>
     );

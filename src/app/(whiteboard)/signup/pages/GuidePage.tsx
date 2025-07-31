@@ -20,7 +20,7 @@ export function GuidePage({ changeStep }: GuidePageProps) {
                 <FireflyAccountSVG />
             </ShadowInAndOut>
             <ShadowInAndOut className="w-full px-5 text-black md:w-[29.2%] md:px-0">
-                <h1 className={`text-[40px] font-bold uppercase ${bedStead.className}`}>
+                <h1 className={`text-[40px] font-bold uppercase leading-[40px] ${bedStead.className}`}>
                     <Trans>Everything app for Web3 natives</Trans>
                 </h1>
                 <p className="mt-4 text-lg font-bold !leading-6">
