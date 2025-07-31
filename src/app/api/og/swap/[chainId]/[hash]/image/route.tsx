@@ -81,15 +81,6 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                         {first(swap.from_token?.symbol)}
                     </div>
                 )}
-                {chainIcon ? (
-                    <Image
-                        src={chainIcon}
-                        alt="chain-icon"
-                        style={{ bottom: '-12px', right: '-12px', position: 'absolute' }}
-                        width={48}
-                        height={48}
-                    />
-                ) : null}
             </div>
 
             <div
@@ -132,15 +123,6 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                         {first(swap.to_token?.symbol)}
                     </div>
                 )}
-                {chainIcon ? (
-                    <Image
-                        src={chainIcon}
-                        alt="chain-icon"
-                        style={{ bottom: '-12px', right: '-12px', position: 'absolute' }}
-                        width={48}
-                        height={48}
-                    />
-                ) : null}
             </div>
 
             <div
@@ -193,14 +175,15 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                 ) : null}
                 <span>
                     {' '}
-                    {swap.displayInfo?.ensHandle ? (
-                        <span>
-                            {swap.displayInfo.ensHandle.split('.')[0]}
-                            <span className="text-second">.{swap.displayInfo.ensHandle.split('.')[1]}</span>
-                        </span>
-                    ) : (
-                        formatAddress(swap.owner, 4)
-                    )}
+                    {swap.displayInfo?.fireflyName ||
+                        (swap.displayInfo?.ensHandle ? (
+                            <span>
+                                {swap.displayInfo.ensHandle.split('.')[0]}
+                                <span className="text-second">.{swap.displayInfo.ensHandle.split('.')[1]}</span>
+                            </span>
+                        ) : (
+                            formatAddress(swap.owner, 4)
+                        ))}
                 </span>
             </div>
 

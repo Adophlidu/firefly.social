@@ -76,7 +76,7 @@ export function isTrustedUrl(href: LinkProps['href']) {
     const parsed = parseUrl(href);
     return parsed
         ? trustedHosts.some((host) => {
-              return typeof host === 'string' ? host === parsed.host : host.test(parsed.host);
+              return typeof host === 'string' ? parsed.host.includes(host) : host.test(parsed.host);
           })
         : true;
 }
