@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { skipToken, useQuery } from '@tanstack/react-query';
 import { type HTMLProps, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
@@ -27,7 +27,7 @@ interface SearchBarProps extends HTMLProps<HTMLDivElement> {
 function useIsTokenAddress(address: string) {
     return useQuery({
         queryKey: ['search-tokens', address],
-        queryFn: () => searchTokens(address),
+        queryFn: address ? () => searchTokens(address) : skipToken,
         select: (data) => data.length > 0,
     });
 }

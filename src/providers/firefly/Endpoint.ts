@@ -1030,6 +1030,9 @@ class FireflyEndpoint {
         return createPageable(data.coins ?? EMPTY_LIST, createIndicator(undefined));
     }
     async searchTokenInfos(keyword: string, fuzzy = false) {
+        if (process.env.NODE_ENV === 'development') {
+            console.assert(keyword, 'keyword is required');
+        }
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/token/search', {
             query: keyword,
             full: fuzzy ? 0 : 1,
