@@ -1,4 +1,5 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { deletePostFromQueryData } from '@/helpers/deletePostFromQueryData.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { updateQueryForPosts } from '@/helpers/updateQueryForPosts.js';
@@ -19,6 +20,10 @@ function patchPostStats(stats: Post['stats'], status: boolean) {
 }
 
 function toggleMirror(source: SocialSource, postId: string, status: boolean, key?: string) {
+    if (!status) {
+        deletePostFromQueryData(source, postId);
+        return;
+    }
     patchPostQueryData(source, postId, (draft) => {
         // Since lens only supports mirror and can mirror many times, rollback when the status is false.
         if (source === Source.Lens && key) {
