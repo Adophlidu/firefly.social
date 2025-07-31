@@ -38,7 +38,7 @@ export const TokenSelectorView = memo(function TokenSelectorView() {
     return (
         <>
             {address && recipient?.networkType ? (
-                <div className="h-[50vh] md:h-[526px]">
+                <div className="h-full">
                     <SearchTokenPanel
                         networkType={recipient.networkType}
                         address={address}

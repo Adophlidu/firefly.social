@@ -37,9 +37,9 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         tokenAmount: amount,
         update,
         identity,
-        hasError,
-        hash,
         amount: customAmount,
+        showLoadingView,
+        showFailedView,
     } = TipsContext.useContainer();
 
     const {
@@ -135,7 +135,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
     const isValidating = isLoading || isRefetching;
     const disabled = !connected ? false : isValidating || isSending || !!value?.disabled;
 
-    if (isSending && !hasError && hash) {
+    if (showLoadingView) {
         return (
             <motion.button
                 className="mt-4 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-lightMain font-bold text-lightBottom dark:text-darkBottom"
@@ -149,12 +149,14 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         );
     }
 
-    if (!isSending && hasError) {
+    if (showFailedView) {
         return (
             <motion.button
                 className="mt-4 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-lightMain font-bold text-lightBottom dark:text-darkBottom"
                 whileTap={{ scale: 0.98 }}
-                onClick={handleSendTips}
+                onClick={() => {
+                    update((prev) => ({ ...prev, hash: null, hasError: false }));
+                }}
             >
                 <Trans>Try again</Trans>
             </motion.button>

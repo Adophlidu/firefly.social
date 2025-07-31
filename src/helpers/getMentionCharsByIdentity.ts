@@ -2,39 +2,37 @@ import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, type MentionChars } from '@/helpers/chars.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 
-export async function getMentionCharsByIdentity(identity: FireflyIdentity, onlyLoggedInSources = true) {
+function getMatchedMentionProfile(fireflyProfiles: FireflyProfile[], source: SocialSource) {
+    const defaultProfile = fireflyProfiles.find((profile) => profile.identity.source === source && profile.isDefault);
+    if (defaultProfile) return defaultProfile;
+
+    return fireflyProfiles.find((profile) => profile.identity.source === source) || null;
+}
+
+export async function getMentionCharsByIdentity(identity: FireflyIdentity, targetSource?: SocialSource) {
+    const loggedInSources = getCurrentAvailableSources();
+    if (!loggedInSources.length) return null;
+    if (targetSource && !loggedInSources.includes(targetSource)) return null;
+
     const fireflyProfiles = await queryClient.fetchQuery<FireflyProfile[]>({
         queryKey: ['related-profiles', identity.source, identity.id],
         staleTime: 1000 * 60 * 60, // 1 hour
         queryFn: () => FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false),
     });
 
-    let mentionProfiles = compact(
-        SORTED_SOCIAL_SOURCES.map((x) => {
-            const defaultProfile = fireflyProfiles.find(
-                (profile) => profile.identity.source === x && profile.isDefault,
-            );
-            if (defaultProfile) return defaultProfile;
-
-            return fireflyProfiles.find((profile) => profile.identity.source === x) || null;
-        }),
-    );
-    if (!mentionProfiles.length) return null;
-
-    if (onlyLoggedInSources) {
-        const sources = getCurrentAvailableSources();
-        mentionProfiles = mentionProfiles.filter((profile) =>
-            sources.includes(profile.identity.source as SocialSource),
-        );
-        if (!mentionProfiles.length) return null;
+    let mentionProfiles: FireflyProfile[] = [];
+    if (targetSource) {
+        mentionProfiles = compact([getMatchedMentionProfile(fireflyProfiles, targetSource)]);
+    } else {
+        mentionProfiles = compact(loggedInSources.map((x) => getMatchedMentionProfile(fireflyProfiles, x)));
     }
+    if (!mentionProfiles.length) return null;
 
     return {
         tag: CHAR_TAG.MENTION,

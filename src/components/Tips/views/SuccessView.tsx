@@ -37,26 +37,26 @@ export function SuccessView() {
                 return;
             }
 
-            const mentionChars = await getMentionCharsByIdentity(identity);
-            const mentionNode = mentionChars || recipient.ens || formatAddress(recipient.address, 4);
-
-            ComposeModalRef.openAndWaitForClose({
-                type: post ? 'reply' : 'compose',
-                post,
-                source: post?.source,
-                channel: post ? null : currentChannel,
-                chars: [
-                    'Hi ',
-                    mentionNode,
-                    ` , sent you some $${token?.symbol} via `,
-                    FIREFLY_MENTION,
-                    ' ✨ Keep shinning! \r\n',
-                    hash && token?.chainId ? RouteResolver.tx(token.chainId, hash) : '',
-                ],
-            }).then((res) => {
-                if (!res?.post || !hash) return;
-                captureTipsSharePostEvent(identity, hash);
-            });
+            const mentionChars = await getMentionCharsByIdentity(identity, post?.source);
+            if (mentionChars) {
+                ComposeModalRef.openAndWaitForClose({
+                    type: post ? 'reply' : 'compose',
+                    post,
+                    source: post?.source,
+                    channel: post ? null : currentChannel,
+                    chars: [
+                        'Hi ',
+                        mentionChars,
+                        ` , sent you some $${token?.symbol} via `,
+                        FIREFLY_MENTION,
+                        ' ✨ Keep shinning! \r\n',
+                        hash && token?.chainId ? RouteResolver.tx(token.chainId, hash) : '',
+                    ],
+                }).then((res) => {
+                    if (!res?.post || !hash) return;
+                    captureTipsSharePostEvent(identity, hash);
+                });
+            }
 
             context.onClose();
         } catch (error) {

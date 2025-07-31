@@ -11,7 +11,7 @@ import { TipsContext } from '@/hooks/useTipsContext.js';
 
 function LoadingView() {
     return (
-        <div className="absolute inset-x-0 top-0 z-1 flex h-[calc(100%_-_40px)] flex-col items-center gap-4 bg-lightBottom dark:bg-darkBottom">
+        <div className="flex flex-col items-center gap-4 bg-lightBottom dark:bg-darkBottom">
             <LoadingIcon size={54} className="text-highlight" />
             <p className="text-2xl font-semibold text-main">
                 <Trans>Sending</Trans>
@@ -29,9 +29,9 @@ function LoadingView() {
 
 function FailedView() {
     return (
-        <div className="absolute inset-x-0 top-0 z-1 flex h-[calc(100%_-_40px)] flex-col items-center gap-4 bg-lightBottom dark:bg-darkBottom">
+        <div className="flex flex-col items-center gap-4 bg-lightBottom dark:bg-darkBottom">
             <ErrorIcon width={64} height={64} />
-            <p className="mt-4 text-2xl font-semibold text-main">
+            <p className="text-2xl font-semibold text-main">
                 <Trans>Transaction failed</Trans>
             </p>
         </div>
@@ -39,25 +39,43 @@ function FailedView() {
 }
 
 export function TipsMainView() {
-    const { recipient, isSending, hash, hasError } = TipsContext.useContainer();
+    const { recipient, showLoadingView, showFailedView } = TipsContext.useContainer();
 
     if (!recipient) return null;
 
+    const button = recipient ? (
+        recipient.networkType === NetworkType.Ethereum ? (
+            <SendWithEVM />
+        ) : (
+            <SendWithSolana />
+        )
+    ) : null;
+
+    if (showLoadingView) {
+        return (
+            <div className="flex h-full w-full flex-col justify-between pt-6">
+                <LoadingView />
+                {button}
+            </div>
+        );
+    }
+
+    if (showFailedView) {
+        return (
+            <div className="flex h-full w-full flex-col justify-between pt-6">
+                <FailedView />
+                {button}
+            </div>
+        );
+    }
+
     return (
         <>
-            <div className="relative h-[262px] md:h-[272px]">
+            <div className="relative h-full">
                 <TipsRecipient />
                 <TokenAmountInput />
                 <TipsTokenInput />
-                {recipient ? (
-                    recipient.networkType === NetworkType.Ethereum ? (
-                        <SendWithEVM />
-                    ) : (
-                        <SendWithSolana />
-                    )
-                ) : null}
-                {isSending && !hasError && hash ? <LoadingView /> : null}
-                {!isSending && hasError ? <FailedView /> : null}
+                {button}
             </div>
         </>
     );

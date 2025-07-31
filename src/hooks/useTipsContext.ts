@@ -65,6 +65,8 @@ function useTipsContext(initialState?: TipsContext) {
     return {
         ...value,
         tokenAmount,
+        showLoadingView: value.isSending && !value.hasError && !!value.hash,
+        showFailedView: !value.isSending && value.hasError,
         update: setValue,
         reset: () => setValue(createEmptyContext()),
     };

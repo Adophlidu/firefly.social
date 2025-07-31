@@ -1,12 +1,11 @@
 import { Trans } from '@lingui/react/macro';
-import { BigNumber } from 'bignumber.js';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { formatTokenItemAmount } from '@/components/Tips/formatTokenItemAmount.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { classNames } from '@/helpers/classNames.js';
-import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { isGreaterThan, multipliedBy } from '@/helpers/number.js';
+import { multipliedBy } from '@/helpers/number.js';
 import type { Token as RawToken } from '@/hooks/useCustomFungibleTokens.js';
 
 export type Token = Pick<
@@ -64,11 +63,4 @@ export function TokenItem({ className, token, disableChainIcon, ...props }: Toke
             </div>
         </ClickableButton>
     );
-}
-
-function formatTokenItemAmount(value: BigNumber.Value) {
-    if (isGreaterThan(value, 1)) {
-        return removeTrailingZeros(BigNumber(value).toFormat(2, BigNumber.ROUND_DOWN));
-    }
-    return removeTrailingZeros(BigNumber(value).toFormat(8, BigNumber.ROUND_DOWN));
 }
