@@ -1,6 +1,6 @@
 import { CoreChainController } from '@reown/appkit';
-import { useAppKitProvider } from '@reown/appkit/react';
-import type { Provider } from '@reown/appkit-adapter-solana';
+import type { ChainAdapter } from '@reown/appkit/react';
+import { useAppKitAccount } from '@reown/appkit/react';
 import { compact, first, uniqBy } from 'lodash-es';
 import { useEffect, useMemo, useState } from 'react';
 import { type Connector, useConnections } from 'wagmi';
@@ -10,11 +10,10 @@ import { getAddressType } from '@/helpers/getAddressType.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { parseJson } from '@/helpers/parseJson.js';
 import { resolveNamespace } from '@/helpers/resolveNamespace.js';
-import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
+import { useSolanaAccount, useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { restoreDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
-import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 import type { ChainNamespace } from '@/types/index.js';
 
 function getWagmiCurrentConnectionId() {
@@ -24,6 +23,10 @@ function getWagmiCurrentConnectionId() {
     const wagmiStore = parseJson<{ state: { current: string } }>(storage);
 
     return wagmiStore?.state?.current;
+}
+
+function getWalletIcon(namespace: ChainNamespace, chainState: Map<ChainNamespace, ChainAdapter>) {
+    return chainState.get(namespace)?.accountState?.connectedWalletInfo?.icon;
 }
 
 export enum ConnectionSource {
@@ -41,13 +44,22 @@ interface Connection {
     walletIcon?: string;
 }
 
+function useAppkitConnectedSolanaWalletIcon() {
+    const [icon, setIcon] = useState(getWalletIcon('solana', CoreChainController.state.chains));
+    useEffect(() => {
+        return CoreChainController.subscribe(({ chains }) => {
+            setIcon(getWalletIcon('solana', chains));
+        });
+    }, []);
+    return icon;
+}
+
 export function useWalletConnections() {
     const connections = useConnections();
     const { ethereum } = useWalletAccountAll();
-    const [chainState, setChainState] = useState(CoreChainController.state.chains);
-    const { walletProvider } = useAppKitProvider<Provider | undefined>('solana');
-    const solanaAddress = walletProvider?.publicKey?.toBase58();
-    const activeSolanaNetwork = useSolanaActiveNetworkStore((s) => s.activeNetwork);
+    const solanaWalletIcon = useAppkitConnectedSolanaWalletIcon();
+    const { address: solanaAddress } = useAppKitAccount({ namespace: 'solana' });
+    const solanaAccount = useSolanaAccount();
     const solanaWallets = usePrivyWalletStore((state) => state.wallets[NetworkType.Solana]);
 
     const { data: allFireflyConnections } = useAllConnections();
@@ -55,7 +67,6 @@ export function useWalletConnections() {
     const allConnections = useMemo<Connection[]>(() => {
         const currentConnectionId = getWagmiCurrentConnectionId();
         const privySolanaAddress = first(solanaWallets)?.address;
-        const solanaWalletIcon = chainState.get('solana')?.accountState?.connectedWalletInfo?.icon;
         return uniqBy(
             compact([
                 ...connections.map((x) => {
@@ -75,7 +86,7 @@ export function useWalletConnections() {
                     ? {
                           address: solanaAddress,
                           namespace: 'solana' as ChainNamespace,
-                          connected: activeSolanaNetwork === SolanaNetworkType.Appkit,
+                          connected: isSameAddress(solanaAddress, solanaAccount.address),
                           connector: undefined,
                           walletIcon: solanaWalletIcon,
                           source: ConnectionSource.Appkit,
@@ -85,7 +96,7 @@ export function useWalletConnections() {
                     ? {
                           address: privySolanaAddress,
                           namespace: 'solana' as ChainNamespace,
-                          connected: activeSolanaNetwork === SolanaNetworkType.Privy,
+                          connected: isSameAddress(privySolanaAddress, solanaAccount.address),
                           connector: undefined,
                           walletIcon: solanaWalletIcon,
                           source: ConnectionSource.Privy,
@@ -109,23 +120,16 @@ export function useWalletConnections() {
         );
     }, [
         solanaWallets,
-        chainState,
-        ethereum.address,
         connections,
-        allFireflyConnections?.connected,
         solanaAddress,
-        activeSolanaNetwork,
+        solanaAccount.address,
+        solanaWalletIcon,
+        allFireflyConnections?.connected,
+        ethereum.address,
     ]);
 
     useEffect(() => {
-        const unsubscribe = CoreChainController.subscribeKey('chains', (chains) => {
-            setChainState(chains);
-        });
-
-        return () => {
-            unsubscribe();
-            restoreDisconnectMethod();
-        };
+        return restoreDisconnectMethod;
     }, []);
 
     return allConnections;

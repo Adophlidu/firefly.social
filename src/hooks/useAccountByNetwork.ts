@@ -1,3 +1,4 @@
+import { useAppKitAccount } from '@reown/appkit/react';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { first } from 'lodash-es';
 import { useMemo } from 'react';
@@ -5,7 +6,7 @@ import { useAccount } from 'wagmi';
 
 import { PrivySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { NetworkType } from '@/constants/enum.js';
-import { safeUnreachable, unreachable } from '@/helpers/unreachable.js';
+import { unreachable } from '@/helpers/unreachable.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
@@ -36,36 +37,33 @@ export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
 }
 
 export function useSolanaAccount() {
-    const walletProvider = useSolanaWalletProvider();
-    const solanaAddress = walletProvider?.publicKey?.toBase58();
+    const { address: solanaAddress } = useAppKitAccount({ namespace: 'solana' });
     const { connection } = useAppKitConnection();
     const solanaWallets = usePrivyWalletStore((state) => state.wallets[NetworkType.Solana]);
     const { activeNetwork } = useSolanaActiveNetworkStore();
     return useMemo(() => {
-        switch (activeNetwork) {
-            case SolanaNetworkType.Appkit:
-                return {
-                    address: solanaAddress ?? '',
-                    chainId: SolanaChainId.Mainnet,
-                    isConnected: !!connection && !!solanaAddress,
-                    connect: () => WalletConnectModalRef.open({ networkType: NetworkType.Solana }),
-                };
-            case SolanaNetworkType.Privy:
-                return {
-                    address: first(solanaWallets)?.address,
-                    chainId: SolanaChainId.Mainnet,
-                    isConnected: true,
-                    connect: () => console.info('Connected to privy already'),
-                };
-            default:
-                safeUnreachable(activeNetwork);
-                return {
-                    address: solanaAddress ?? '',
-                    chainId: SolanaChainId.Mainnet,
-                    isConnected: !!connection && !!solanaAddress,
-                    connect: () => WalletConnectModalRef.open({ networkType: NetworkType.Solana }),
-                };
-        }
+        const connections = [
+            {
+                address: solanaAddress ?? '',
+                chainId: SolanaChainId.Mainnet,
+                isConnected: !!connection && !!solanaAddress,
+                connect: () => WalletConnectModalRef.open({ networkType: NetworkType.Solana }),
+                type: SolanaNetworkType.Appkit,
+            },
+            {
+                address: first(solanaWallets)?.address,
+                chainId: SolanaChainId.Mainnet,
+                isConnected: !!first(solanaWallets),
+                connect: () => console.info('Connected to privy already'),
+                type: SolanaNetworkType.Privy,
+            },
+        ];
+        const filteredConnections = connections.filter((x) => x.isConnected);
+        return (
+            filteredConnections.find((x) => x.type === activeNetwork) ??
+            first(filteredConnections) ??
+            first(connections)!
+        );
     }, [activeNetwork, connection, solanaAddress, solanaWallets]);
 }
 

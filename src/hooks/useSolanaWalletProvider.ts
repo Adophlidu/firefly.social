@@ -1,5 +1,6 @@
 import { useAppKitProvider } from '@reown/appkit/react';
 import type { Provider } from '@reown/appkit-adapter-solana';
+import { compact, first } from 'lodash-es';
 
 import { PrivySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { NetworkType } from '@/constants/enum.js';
@@ -13,9 +14,9 @@ export function useSolanaWalletProvider() {
     usePrivyWalletStore((state) => state.wallets[NetworkType.Solana]); // will rerender when privy wallet change
     switch (activeNetwork) {
         case SolanaNetworkType.Appkit:
-            return walletProvider;
+            return first(compact([walletProvider, PrivySolanaProvider]));
         case SolanaNetworkType.Privy:
-            return PrivySolanaProvider;
+            return first(compact([PrivySolanaProvider.publicKey ? PrivySolanaProvider : undefined, walletProvider]));
         default:
             safeUnreachable(activeNetwork);
             return walletProvider;
