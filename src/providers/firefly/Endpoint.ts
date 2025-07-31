@@ -298,6 +298,8 @@ class FireflyEndpoint {
                 case Source.Bsky:
                     if (identity.id.startsWith('did:plc:')) return 'bskyDid';
                     return 'bskyHandle';
+                case Source.Firefly:
+                    return 'uid';
                 default:
                     return '';
             }

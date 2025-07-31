@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import type { ProfileCategory, ProfilePageSource, SignupStep, TipsDetailViewType } from '@/constants/enum.js';
+import type { ProfileCategory, ProfilePageSource, SignupStep, Source, TipsDetailViewType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 
@@ -21,7 +21,7 @@ export class RouteResolver {
 
     static swap() {}
     static profile(
-        profile: { source: ProfilePageSource; profileId?: string; handle?: string },
+        profile: { source: ProfilePageSource | Source.Firefly; profileId?: string; handle?: string },
         category?: ProfileCategory,
         isCurrentProfile?: boolean,
     ) {

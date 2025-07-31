@@ -41,6 +41,8 @@ interface TipsTransactionActionsProps extends HTMLProps<HTMLDivElement> {
     tokenSymbol: string;
     fromAddress: string;
     toAddress: string;
+    fromAccountId?: string;
+    toAccountId?: string;
     chainId: number;
     autoQuery?: boolean;
     liked?: boolean;
@@ -94,6 +96,8 @@ export function TipsTransactionActions({
     tokenSymbol,
     fromAddress,
     toAddress,
+    fromAccountId,
+    toAccountId,
     chainId,
     autoQuery = false,
     className,
@@ -118,38 +122,45 @@ export function TipsTransactionActions({
     });
 
     const addressForMention = view === TipsDetailViewType.Receiver ? fromAddress : toAddress;
-    const [{ loading }, handleSharePost] = useAsyncFn(async () => {
-        if (!isLogin) {
-            openLoginModal();
-            return;
-        }
+    const accountIdForMention = view === TipsDetailViewType.Receiver ? fromAccountId : toAccountId;
 
-        const mentionChars = await getMentionCharsByIdentity({
-            source: Source.Wallet,
-            id: addressForMention,
-        });
-        const success = await sharePost(
-            {
-                txHash,
-                tokenSymbol,
-                view,
-                chainId,
-            },
-            addressForMention,
-            mentionChars,
-        );
-        if (success) {
-            runInSafeAsync(() =>
-                FireflyEndpointProvider.createTxReaction(
-                    TxReactionType.ShareTip,
-                    chainId.toString(),
+    const [{ loading }, handleSharePost] = useAsyncFn(
+        async (event: React.MouseEvent) => {
+            event.stopPropagation();
+
+            if (!isLogin) {
+                openLoginModal();
+                return;
+            }
+
+            const mentionChars = await getMentionCharsByIdentity({
+                source: accountIdForMention ? Source.Firefly : Source.Wallet,
+                id: accountIdForMention || addressForMention,
+            });
+            const success = await sharePost(
+                {
                     txHash,
-                    fromAddress,
-                ),
+                    tokenSymbol,
+                    view,
+                    chainId,
+                },
+                addressForMention,
+                mentionChars,
             );
-            updateTipsReactionStatus(txHash, TxReactionType.ShareTip, true);
-        }
-    }, [txHash, tokenSymbol, isLogin, addressForMention, view, chainId, fromAddress]);
+            if (success) {
+                runInSafeAsync(() =>
+                    FireflyEndpointProvider.createTxReaction(
+                        TxReactionType.ShareTip,
+                        chainId.toString(),
+                        txHash,
+                        fromAddress,
+                    ),
+                );
+                updateTipsReactionStatus(txHash, TxReactionType.ShareTip, true);
+            }
+        },
+        [txHash, tokenSymbol, isLogin, addressForMention, view, chainId, fromAddress, accountIdForMention],
+    );
 
     return (
         <div className={classNames('flex items-center justify-between', className)}>
@@ -170,7 +181,9 @@ export function TipsTransactionActions({
                     disabled={isLoading || isPending}
                     whileTap={{ scale: 0.9 }}
                     className="flex h-7 w-7 items-center justify-center"
-                    onClick={async () => {
+                    onClick={async (event) => {
+                        event.stopPropagation();
+
                         if (!isLogin) {
                             openLoginModal();
                             return;

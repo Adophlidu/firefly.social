@@ -11,6 +11,7 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { TipsTransactionActions } from '@/components/Tips/TipsTransactionActions.js';
+import { WalletEnsName } from '@/components/Tips/WalletEnsName.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source, TipsDetailViewType } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
@@ -43,8 +44,8 @@ function formatTipsAccount(address: string, accountInfo?: TipsAccountInfo) {
         address,
         displayName,
         link: RouteResolver.profile({
-            source: Source.Wallet,
-            profileId: address,
+            source: accountInfo?.firefly_uid ? Source.Firefly : Source.Wallet,
+            profileId: accountInfo?.firefly_uid || address,
         }),
     };
 }
@@ -118,6 +119,9 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                     <div className="min-w-0 flex-1">
                         <Link href={maintainAccountInfo.link} className="break-all text-base font-semibold text-main">
                             {maintainAccountInfo.displayName}
+                            <NoSSR>
+                                <WalletEnsName address={maintainAccountInfo.address} />
+                            </NoSSR>
                         </Link>
                     </div>
                 </div>
@@ -165,7 +169,7 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                                 <span className="text-sm text-second">{tipsData.token_symbol}</span>
                             </div>
                         </Link>
-                        <div className="flex flex-col">
+                        <div className="flex flex-col text-right">
                             <span
                                 className={classNames(
                                     'text-base font-semibold',
@@ -191,6 +195,8 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                             chainId={tipsData.chain_id}
                             fromAddress={tipsData.from_address}
                             toAddress={tipsData.to_address}
+                            fromAccountId={tipsData.from_account?.firefly_uid}
+                            toAccountId={tipsData.to_account?.firefly_uid}
                             liked={tipsData.has_liked}
                             reposted={tipsData.has_reposted}
                             autoQuery
@@ -209,12 +215,14 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                                 '--'
                             )}
                         </div>
-                        <div className="flex items-center justify-between">
-                            <span className="text-sm text-second">
-                                <Trans>Block</Trans>
-                            </span>
-                            <span className="text-sm font-medium text-main">{tipsData.height}</span>
-                        </div>
+                        {tipsData.height ? (
+                            <div className="flex items-center justify-between">
+                                <span className="text-sm text-second">
+                                    <Trans>Block</Trans>
+                                </span>
+                                <span className="text-sm font-medium text-main">{tipsData.height}</span>
+                            </div>
+                        ) : null}
                         <div className="flex items-center justify-between">
                             <span className="text-sm text-second">
                                 <Trans>Status</Trans>

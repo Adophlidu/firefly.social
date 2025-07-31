@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
-import urlcat from 'urlcat';
 import type { Address } from 'viem';
 
 import FireflyRoundIcon from '@/assets/firefly.round.svg';
@@ -10,9 +9,9 @@ import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { TipsTransactionActions } from '@/components/Tips/TipsTransactionActions.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source, TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
+import { useRouter } from '@/esm/navigation.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { getChainName } from '@/helpers/getChainName.js';
@@ -49,7 +48,7 @@ function getAccountInfo(data: TipsNotificationData) {
                 avatar: avatar || null,
                 displayName: displayName || null,
                 link: data.liker_account_info?.account_uid
-                    ? urlcat(SITE_URL, '/profile/:accountId', { accountId: data.liker_account_info.account_uid })
+                    ? RouteResolver.profile({ source: Source.Firefly, profileId: data.liker_account_info.account_uid })
                     : null,
             };
         }
@@ -68,6 +67,7 @@ function TipsNotificationMoreAction({ data }: { data: TipsNotificationData }) {
 }
 
 export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
+    const router = useRouter();
     const defaultAvatarUrl = useDefaultFireflyAvatar();
     const fromAccountInfo = getAccountInfo(data);
 
@@ -88,11 +88,33 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
             exit={{ opacity: 0 }}
             className="border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
         >
-            <div className="flex w-full items-start gap-4">
+            <div
+                className="flex w-full cursor-pointer items-start gap-4"
+                onClick={() => {
+                    const selection = window.getSelection();
+                    if (selection && selection.toString().length !== 0) return;
+
+                    router.push(
+                        RouteResolver.tx(
+                            data.chain_id,
+                            data.tx_hash,
+                            data.notification_type === TipsNotificationType.Tip
+                                ? TipsDetailViewType.Receiver
+                                : TipsDetailViewType.Sender,
+                        ),
+                    );
+                }}
+            >
                 <TipIcon className="shrink-0 text-secondary" width={24} height={24} />
                 <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between">
-                        {fromAccountInfo?.link ? <Link href={fromAccountInfo.link}>{fromAvatar}</Link> : fromAvatar}
+                        {fromAccountInfo?.link ? (
+                            <Link onClick={stopPropagation} href={fromAccountInfo.link}>
+                                {fromAvatar}
+                            </Link>
+                        ) : (
+                            fromAvatar
+                        )}
                         <div className="flex items-center space-x-2">
                             <FireflyRoundIcon fontSize={15} width={15} height={15} />
                             {data.timestamp ? (
@@ -103,16 +125,7 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
                             <TipsNotificationMoreAction data={data} />
                         </div>
                     </div>
-                    <Link
-                        href={RouteResolver.tx(
-                            data.chain_id,
-                            data.tx_hash,
-                            data.notification_type === TipsNotificationType.Tip
-                                ? TipsDetailViewType.Receiver
-                                : TipsDetailViewType.Sender,
-                        )}
-                        className="mt-2 text-medium font-medium text-main"
-                    >
+                    <div className="mt-2 text-medium font-medium text-main">
                         {data.notification_type === TipsNotificationType.Tip ? (
                             <Trans>
                                 {fromAccountInfo?.link ? (
@@ -128,6 +141,7 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
                                 )}{' '}
                                 tipped you{' '}
                                 <Link
+                                    onClick={stopPropagation}
                                     href={resolveTokenPageUrl({
                                         identity: data.token_symbol,
                                         chainId: data.chain_id,
@@ -152,7 +166,7 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
                                 liked your <span className="font-bold">tip</span>
                             </Trans>
                         )}
-                    </Link>
+                    </div>
                     {data.notification_type === TipsNotificationType.Tip ? (
                         <NoSSR>
                             <TipsTransactionActions
@@ -162,6 +176,8 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
                                 reposted={data.has_reposted}
                                 fromAddress={data.fromAddress}
                                 toAddress={data.toAddress}
+                                fromAccountId={data.from_account_info?.account_uid}
+                                toAccountId={data.to_account_info?.account_uid}
                                 tokenSymbol={data.token_symbol}
                                 chainId={data.chain_id}
                                 view={
