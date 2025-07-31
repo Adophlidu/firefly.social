@@ -2175,6 +2175,9 @@ msgstr "该邮箱已绑定其他 Firefly 账户。"
 msgid "Fully Diluted Valuation"
 msgstr "完全稀释估值"
 
+msgid "This QR code is longer valid. Please scan a new one to continue."
+msgstr ""
+
 msgid "Verified by Farcaster"
 msgstr "由 Farcaster 验证"
 

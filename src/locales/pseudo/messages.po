@@ -2162,6 +2162,9 @@ msgstr ""
 msgid "Fully Diluted Valuation"
 msgstr ""
 
+msgid "This QR code is longer valid. Please scan a new one to continue."
+msgstr ""
+
 msgid "Verified by Farcaster"
 msgstr ""
 

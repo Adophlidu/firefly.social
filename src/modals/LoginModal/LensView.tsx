@@ -212,7 +212,7 @@ export const LensView = memo(function LensView() {
                                     <Trans>
                                         please
                                         <span
-                                            className="ml-1 cursor-pointer text-highlight"
+                                            className="mx-1 cursor-pointer text-highlight"
                                             onClick={() => {
                                                 WalletConnectModalRef.open();
                                             }}

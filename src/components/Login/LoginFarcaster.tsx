@@ -56,7 +56,10 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
         if (AbortError.is(error)) return;
 
         // if login timed out, let the user refresh the QR code
-        if (error instanceof TimeoutError || error instanceof FireflyBindTimeoutError) return;
+        if (error instanceof TimeoutError || error instanceof FireflyBindTimeoutError) {
+            enqueueWarningMessage(t`This QR code is longer valid. Please scan a new one to continue.`);
+            return;
+        }
 
         // user rejected request
         if (error instanceof UserRejectedRequestError) return;
@@ -360,6 +363,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     if (scanned) return;
                                     controller.current.abort();
                                     resetCountdown();
+                                    setUrl('');
                                     onClick(signType);
                                 }}
                             >

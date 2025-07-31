@@ -2170,6 +2170,9 @@ msgstr "This Email is already linked to another Firefly account."
 msgid "Fully Diluted Valuation"
 msgstr "Fully Diluted Valuation"
 
+msgid "This QR code is longer valid. Please scan a new one to continue."
+msgstr "This QR code is longer valid. Please scan a new one to continue."
+
 msgid "Verified by Farcaster"
 msgstr "Verified by Farcaster"
 
