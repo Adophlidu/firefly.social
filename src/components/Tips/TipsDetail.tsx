@@ -14,63 +14,19 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { TipsTransactionActions } from '@/components/Tips/TipsTransactionActions.js';
 import { WalletEnsName } from '@/components/Tips/WalletEnsName.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
-import { Source, TipsDetailViewType } from '@/constants/enum.js';
+import { TipsDetailViewType } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
-import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { getMaintainAccountInfo } from '@/helpers/getMaintainAccountInfo.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import { RouteResolver } from '@/helpers/RouteResolver.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
-import type { TipsAccountInfo, TipsDetail as TipsDetailType } from '@/providers/types/Firefly.js';
+import type { TipsDetail as TipsDetailType } from '@/providers/types/Firefly.js';
 
 interface TipsDetailProps {
     tipsData: TipsDetailType;
     view: TipsDetailViewType;
-}
-
-function formatTipsAccount(address: string, accountInfo?: TipsAccountInfo) {
-    const avatar =
-        accountInfo?.firefly_avatar ||
-        (accountInfo?.firefly_uuid
-            ? getStampAvatarByProfileId(Source.Firefly, accountInfo.firefly_uuid)
-            : getStampAvatarByProfileId(Source.Wallet, address));
-    const displayName = accountInfo?.firefly_name || formatAddress(address, 6, 2, false);
-
-    return {
-        avatar,
-        address,
-        displayName,
-        link: RouteResolver.profile({
-            source: accountInfo?.firefly_uid ? Source.Firefly : Source.Wallet,
-            profileId: accountInfo?.firefly_uid || address,
-        }),
-    };
-}
-
-export function getMaintainAccountInfo(data: TipsDetailType, view: TipsDetailViewType) {
-    switch (view) {
-        case TipsDetailViewType.Sender:
-        case TipsDetailViewType.Receiver: {
-            const isReceiver = view === TipsDetailViewType.Receiver;
-
-            const maintainAccount = isReceiver ? data.to_account : data.from_account;
-            const maintainAddress = isReceiver ? data.to_address : data.from_address;
-            const targetAccount = isReceiver ? data.from_account : data.to_account;
-            const targetAddress = isReceiver ? data.from_address : data.to_address;
-
-            return {
-                maintainAccountInfo: formatTipsAccount(maintainAddress, maintainAccount),
-                targetAccountInfo: formatTipsAccount(targetAddress, targetAccount),
-            };
-        }
-        default:
-            safeUnreachable(view);
-            return null;
-    }
 }
 
 export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, view }) {

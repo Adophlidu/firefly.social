@@ -12,7 +12,6 @@ import RightBottomTickerbitSVG from '@/assets/right-bottom-tickerbit.svg?url';
 import RightTopTickerbitSVG from '@/assets/right-top-tickerbit.svg?url';
 import TipOGBackgroundSVG from '@/assets/tip-og-background.svg?url';
 import { ShrankPrice } from '@/components/ShrankPrice.js';
-import { getMaintainAccountInfo } from '@/components/Tips/TipsDetail.js';
 import { TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
 import { compose } from '@/helpers/compose.js';
@@ -20,6 +19,7 @@ import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js'
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
+import { getMaintainAccountInfo } from '@/helpers/getMaintainAccountInfo.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
