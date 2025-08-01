@@ -233,7 +233,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                             <Trans>Contract</Trans>
                         </span>
                         <div className="flex items-center gap-1">
-                            <Link href={contractLink ?? ''} className="text-highlight">
+                            <Link href={contractLink ?? ''} className="text-highlight" target="_blank">
                                 {formatAddress(activity.router_address, 4)}
                             </Link>
                             {activity.dex_logo ? (
