@@ -10,6 +10,12 @@ export function parseProfileUrl(pathname: string) {
     const [, , sourceInUrl, id, category] = pathname.split('/');
     const source = resolveSourceFromUrlNoFallback(sourceInUrl);
     if (!source) return null;
+    if (!category) {
+        return {
+            id,
+            source,
+        };
+    }
     const isSocialProfile = isSocialSource(source) && isSocialProfileCategory(source, category);
     const isWalletProfile =
         (source === Source.Wallet || source === Source.WalletMix) && isWalletProfileCategory(category);
