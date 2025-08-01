@@ -195,6 +195,7 @@ class FireflySocialMedia implements Provider {
     publishPost(post: Post): Promise<{ postId: string }> {
         throw new NotImplementedError();
     }
+
     deletePost(postId: string): Promise<boolean> {
         throw new NotImplementedError();
     }

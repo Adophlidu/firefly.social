@@ -77,6 +77,8 @@ import {
     type CollectionResponse,
     type CollectionsResponse,
     type CollectionStatisticsResponse,
+    type CreateAnonymousPostOptions,
+    type CreateAnonymousPostResponse,
     type DebankTokensResponse,
     type DesktopLinkInfoResponse,
     type DesktopLinkInfoStatusResponse,
@@ -91,6 +93,7 @@ import {
     type GenerateFarcasterSignatureResponse,
     type GenerateOTPResponse,
     type GetAllConnectionsResponse,
+    type GetAnonymousPostResponse,
     type GetCollectStatusResponse,
     type GetFarcasterSuggestedFollowUserResponse,
     type GetFollowingCountByNFTParams,
@@ -114,6 +117,7 @@ import {
     type NFTMintingResponse,
     type PlatformIdentityKey,
     type PolymarketActivityTimeline,
+    type PostByAnonymousRateLimitsResponse,
     type PrivyWalletResponse,
     type ProjectResponse,
     type RelationResponse,
@@ -1733,6 +1737,30 @@ class FireflyEndpoint {
             createIndicator(),
             result.cursor ? createNextIndicator(undefined, result.cursor) : undefined,
         );
+    }
+
+    async getPostByAnonymousRateLimits() {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/post/anonymous/availability');
+        const response = await fireflySessionHolder.fetch<PostByAnonymousRateLimitsResponse>(url);
+
+        return resolveFireflyResponseData(response);
+    }
+
+    async createAnonymousPost(options: CreateAnonymousPostOptions) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/post/anonymous');
+        const response = await fireflySessionHolder.fetch<CreateAnonymousPostResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify(options),
+        });
+        return resolveFireflyResponseData(response);
+    }
+
+    async getAnonymousPostById(id: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/post/anonymous/post', {
+            postId: id,
+        });
+        const response = await fireflySessionHolder.fetch<GetAnonymousPostResponse>(url);
+        return resolveFireflyResponseData(response);
     }
 }
 

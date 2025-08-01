@@ -156,6 +156,10 @@ msgstr "铸造收集文章失败。"
 msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 msgstr "<0>通过参与，你确认您已满 18 岁，并且居住在允许此类促销活动的法域内。此促销活动在法律禁止的地方无效。</0><1>参与或获胜无需购买或付款，且此类行为不会影响您获胜的机会。获胜者将通过透明的过程随机选出。参赛作品必须在2025年1月23日之前提交。</1><2>参与者有责任确保遵守适用的法律。我们不对因参与而产生的任何损失承担责任。通过参与，您在法律允许的最大范围内解除我们的一切责任。</2>"
 
+#. placeholder {0}: resolveSourceName(source)
+msgid "Failed to quote on {0}."
+msgstr ""
+
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "稍等！满足以下任一条件以解锁优质 NFT："
 
@@ -292,6 +296,9 @@ msgstr "你已超过最大尝试次数，请稍后再试。"
 
 msgid "FDV"
 msgstr "FDV"
+
+msgid "The task is still in progress, you can check on <0>this page</0> later"
+msgstr ""
 
 msgid "Receive Failed"
 msgstr "接收失败"
@@ -1147,6 +1154,9 @@ msgstr "已关闭"
 msgid "Non-sanctioned address found."
 msgstr "非黑名单地址。"
 
+msgid "Anonymous"
+msgstr ""
+
 msgid "Feed"
 msgstr "帖子"
 
@@ -1271,6 +1281,10 @@ msgstr "没有可显示的数据"
 msgid "Follow System"
 msgstr "跟随系统"
 
+#. placeholder {0}: resolveSourceName(source)
+msgid "🎭 Replied on {0}."
+msgstr ""
+
 msgid "Unknown"
 msgstr "未知"
 
@@ -1292,6 +1306,10 @@ msgstr "域名"
 #. placeholder {0}: profile.handle
 msgid "Failed to follow @{0} on Lens"
 msgstr "在 Lens 上关注 @{0} 失败"
+
+#. placeholder {0}: resolveSourceName(source)
+msgid "🎭 Quoted on {0}."
+msgstr ""
 
 msgid "Check Eligibility"
 msgstr "检查资格"
@@ -1379,6 +1397,9 @@ msgstr "使用你的X账户登录以查看"
 msgid "Login to Firefly"
 msgstr "登录 Firefly"
 
+msgid "Content will be lost when leaving this page in anonymous mode."
+msgstr ""
+
 msgid "Approve Failed"
 msgstr "授权失败"
 
@@ -1387,6 +1408,9 @@ msgstr "已取消"
 
 msgid "No content for the last two weeks."
 msgstr "最近两周没有内容。"
+
+msgid "Discard Post"
+msgstr ""
 
 msgid "Participate Now"
 msgstr "立即参加"
@@ -1553,6 +1577,10 @@ msgstr "黑名单功能"
 msgid "Up to 7 days can be set as the scheduled time. Please reset it"
 msgstr "发布时间最多可设置 7 天内。请重新设置"
 
+#. placeholder {0}: resolveSourceName(source)
+msgid "🎭 Your post was sent to {0}."
+msgstr ""
+
 msgid "Posted to Lens on <0>Phaver</0>"
 msgstr "用<0>Phaver</0>发送过 Lens 帖子"
 
@@ -1590,6 +1618,11 @@ msgstr "退款"
 
 msgid "Connecting..."
 msgstr "正在连接…"
+
+#. placeholder {0}: data.daily_limit
+#. placeholder {1}: data.wait_seconds
+msgid "Limits: <0>{0} posts/day</0> with {1}-second intervals (applies to posts, replies, and quotes)."
+msgstr ""
 
 msgid "Enter amount"
 msgstr "输入数额"
@@ -1713,6 +1746,9 @@ msgstr "自 2024 年 8 月 1 日起，使用以下应用程序发布过帖子；
 msgid "More details"
 msgstr "详细信息"
 
+msgid "Failed to create anonymous post"
+msgstr ""
+
 #. placeholder {0}: result.amount
 msgid "Claimed lucky drop with {0} {symbol} successfully"
 msgstr "成功领取 {0}{symbol} 红包"
@@ -1771,6 +1807,11 @@ msgstr "收集者"
 
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查你的权限。"
+
+#. placeholder {0}: data.daily_limit
+#. placeholder {1}: data.wait_minutes
+msgid "Limits: <0>{0} posts/day</0> with {1}-minute intervals (applies to posts, replies, and quotes)."
+msgstr ""
 
 msgid "No mint function"
 msgstr "没有铸造功能"
@@ -2092,6 +2133,11 @@ msgstr "过滤小于$100的交易"
 
 msgid "Sorry, the passcode you entered is invalid"
 msgstr "抱歉，您输入的验证码无效"
+
+#. placeholder {0}: data.daily_limit
+#. placeholder {1}: data.wait_minutes
+msgid "Your post will be shared anonymously through:<0/>X (Twitter): <1>@anoncast_</1><2/>Farcaster: <3>@anoncast</3> / <4>@anonworld</4><5>Limits: <6>{0} posts/day</6> with {1}-minute intervals (applies to posts, replies, and quotes).</5><7>Posts are anonymized using secure algorithms (takes a few minutes). Do not share sensitive content.</7>"
+msgstr ""
 
 msgid "Circulating Supply"
 msgstr "流通供应量"
@@ -2801,6 +2847,10 @@ msgstr "创建定时帖子串失败。"
 
 msgid "This NFT contract has a proxy contract."
 msgstr "该 NFT 合约有代理合约。"
+
+#. placeholder {0}: resolveSourceName(source)
+msgid "Failed to send your post to {0}."
+msgstr ""
 
 msgid "Top Collectors"
 msgstr "铸造收集者"
@@ -3738,6 +3788,10 @@ msgstr "分享图片"
 
 msgid "Download Wallet"
 msgstr "下载钱包"
+
+#. placeholder {0}: resolveSourceName(source)
+msgid "Failed to reply on {0}."
+msgstr ""
 
 msgid "Post details"
 msgstr "帖子明细"

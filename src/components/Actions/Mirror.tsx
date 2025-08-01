@@ -24,6 +24,7 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useMirror } from '@/hooks/useMirror.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { postFeatures } from '@/settings/post.js';
 
 interface MirrorProps {
     shares?: number;
@@ -47,12 +48,14 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, di
     const quoteDisabled =
         post.canQuote === false && !!profile && (post.source !== Source.Bsky || !isSameProfile(post.author, profile));
     const allDisabled = mirrorDisabled && quoteDisabled;
+    const anonymousPostEnabled = postFeatures.anonymousPost(source);
+
     const onClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault();
         event.stopPropagation();
         if (allDisabled) return;
 
-        if (!isLogin && !loading) {
+        if (!isLogin && !loading && !anonymousPostEnabled) {
             openLoginModal({ source: post.source });
             return;
         }
@@ -67,6 +70,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, di
             post,
             source,
             channel: post.channel,
+            isAnonymous: anonymousPostEnabled,
         });
     };
     return (

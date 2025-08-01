@@ -75,6 +75,7 @@ export interface ComposeModalOpenProps {
     typedMessage?: TypedMessageTextV1 | null;
     channel?: Channel | null;
     initialPath?: string;
+    isAnonymous?: boolean;
 }
 
 export enum CloseAction {
@@ -112,6 +113,8 @@ function ComposeModalUI({ ref }: Props) {
         updateChars,
         updateTypedMessage,
         updateChannel,
+        toggleAnonymous,
+        updateSealedSource,
         clear,
     } = useComposeStateStore();
     const { clearScheduleTime } = useComposeScheduleStateStore();
@@ -121,17 +124,21 @@ function ComposeModalUI({ ref }: Props) {
 
     const setEditorContent = useSetEditorContent();
     const [open, dispatch] = useSingletonModal(ref, {
-        onOpen: ({ type, source, typedMessage, post, chars, channel, embeds, initialPath }) => {
+        onOpen: ({ type, source, typedMessage, post, chars, channel, embeds, initialPath, isAnonymous }) => {
             controller.current.abort();
-            updateType(type || 'compose');
+            const newType = type || 'compose';
+
+            updateType(newType);
             updateAvailableSources(source ? (Array.isArray(source) ? source : [source]) : getCurrentAvailableSources());
             if (typedMessage) updateTypedMessage(typedMessage);
             if (post) updateParentPost(post.source, post);
+            if (post && newType !== 'compose') updateSealedSource(post.source);
             if (chars) {
                 updateChars(chars);
                 setEditorContent(chars);
             }
             if (channel) updateChannel(channel);
+            if (isAnonymous) toggleAnonymous(true);
             if (initialPath) router.navigate({ to: initialPath });
             embeds?.forEach((embedUrl) => addUrl(embedUrl));
         },
@@ -156,10 +163,10 @@ function ComposeModalUI({ ref }: Props) {
 
     const onClose = useCallback(async () => {
         const { addDraft } = useComposeDraftStateStore.getState();
-        const { posts, cursor, currentDraftId, type } = useComposeStateStore.getState();
+        const { posts, cursor, currentDraftId, type, sealedSource } = useComposeStateStore.getState();
         const { scheduleTime } = useComposeScheduleStateStore.getState();
         const compositePost = getCompositePost(cursor);
-        const { availableSources = EMPTY_LIST } = compositePost ?? {};
+        const { availableSources = EMPTY_LIST, isAnonymous } = compositePost ?? {};
         if (posts.some((x) => !isEmptyPost(x))) {
             const errorsSource = [
                 ...new Set(
@@ -174,10 +181,18 @@ function ComposeModalUI({ ref }: Props) {
 
             const sources = hasError ? errorsSource : availableSources;
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                title: hasError ? <Trans>Save failed post?</Trans> : <Trans>Save Post?</Trans>,
+                title: isAnonymous ? (
+                    <Trans>Discard Post</Trans>
+                ) : hasError ? (
+                    <Trans>Save failed post?</Trans>
+                ) : (
+                    <Trans>Save Post?</Trans>
+                ),
                 content: (
                     <div className="text-[15px] text-main md:text-base">
-                        {hasError ? (
+                        {isAnonymous ? (
+                            <Trans>Content will be lost when leaving this page in anonymous mode.</Trans>
+                        ) : hasError ? (
                             <Trans>You can save the failed parts of posts and send them later from your Drafts.</Trans>
                         ) : (
                             <Trans>You can save this to send later from your drafts.</Trans>
@@ -187,10 +202,10 @@ function ComposeModalUI({ ref }: Props) {
                 enableCloseButton: !isSmall,
                 enableCancelButton: true,
                 cancelButtonText: <Trans>Discard</Trans>,
-                confirmButtonText: <Trans>Save</Trans>,
+                confirmButtonText: isAnonymous ? <Trans>Cancel</Trans> : <Trans>Save</Trans>,
                 variant: 'normal',
             });
-            if (confirmed === null) return CloseAction.None;
+            if (confirmed === null || (confirmed && isAnonymous)) return CloseAction.None;
 
             if (confirmed) {
                 const draft = {
@@ -201,6 +216,7 @@ function ComposeModalUI({ ref }: Props) {
                     type,
                     availableProfiles: compact(values(profilesAll)).filter((x) => sources.includes(x.source)),
                     scheduleTime,
+                    sealedSource,
                 };
 
                 addDraft(draft);

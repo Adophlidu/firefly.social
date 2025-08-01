@@ -57,6 +57,8 @@ export interface CompositePost {
     availableSources: SocialSource[];
     channel: Record<SocialSource, Channel | null>;
     typedMessage: TypedMessageTextV1 | null;
+    // Anonymous post
+    isAnonymous: boolean;
 
     // media objects
     video: MediaObject | null;
@@ -76,6 +78,7 @@ export interface CompositePost {
 
 export interface ComposeBaseState {
     type: ComposeType;
+    sealedSource: SocialSource | null;
     posts: CompositePost[];
 
     // tracking the current editable post
@@ -106,11 +109,15 @@ interface ComposeState extends ComposeBaseState {
     // switch to the current editable post
     updateCursor: (cursor: Cursor) => void;
 
+    // for quote/comment, seal the parent post source
+    updateSealedSource: (source: SocialSource) => void;
+
     // operations upon all posts
     enableSource: (source: SocialSource) => void;
     disableSource: (source: SocialSource) => void;
     updateRestriction: (restriction: RestrictionType) => void;
     updateChannel: (channel: Channel) => void;
+    toggleAnonymous: (isAnonymous: boolean) => void;
 
     // operations upon the current editable post
     updatePostId: (source: SocialSource, postId: string, cursor?: Cursor) => void;
@@ -161,6 +168,7 @@ export function createInitSinglePostState(cursor: Cursor): CompositePost {
         postContentURI: createInitPostState(),
         availableSources: getCurrentAvailableSources(),
         restriction: RestrictionType.Everyone,
+        isAnonymous: false,
         chars: '',
         typedMessage: null,
         urls: EMPTY_LIST,
@@ -193,6 +201,7 @@ const initialPostCursor = crypto.randomUUID();
 const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
     immer((set, get) => ({
         type: 'compose',
+        sealedSource: null,
         cursor: initialPostCursor,
         focused: false,
         posts: [createInitSinglePostState(initialPostCursor)],
@@ -266,6 +275,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         updateType: (type) =>
             set((state) => {
                 state.type = type;
+            }),
+        updateSealedSource: (source) =>
+            set((state) => {
+                state.sealedSource = source;
             }),
         enableSource: (source) =>
             set((state) => ({
@@ -344,6 +357,14 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 posts: state.posts.map((x) => ({
                     ...x,
                     restriction,
+                })),
+            })),
+        toggleAnonymous: (isAnonymous) =>
+            set((state) => ({
+                ...state,
+                posts: state.posts.map((x) => ({
+                    ...x,
+                    isAnonymous,
                 })),
             })),
         updateChannel: (channel) =>
@@ -641,6 +662,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 const id = crypto.randomUUID();
                 const nextState = {
+                    sealedSource: null,
                     type: 'compose',
                     cursor: id,
                     currentDraftId: undefined,

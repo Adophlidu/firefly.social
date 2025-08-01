@@ -12,6 +12,7 @@ import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { postFeatures } from '@/settings/post.js';
 
 export function useCommentPost(post: Post, disabled = false) {
     const { source, author, restrictions, mentions } = post;
@@ -67,9 +68,10 @@ export function useCommentPost(post: Post, disabled = false) {
         authorProfile?.viewerContext?.following,
         authorProfile?.viewerContext?.followedBy,
     ]);
+    const anonymousPostEnabled = postFeatures.anonymousPost(source);
 
     const handleClick = useCallback(async () => {
-        if (!isLogin) {
+        if (!isLogin && !anonymousPostEnabled) {
             openLoginModal({ source });
             return;
         }
@@ -79,11 +81,12 @@ export function useCommentPost(post: Post, disabled = false) {
                 post,
                 source,
                 channel: post.channel,
+                isAnonymous: anonymousPostEnabled,
             });
         } else {
             enqueueErrorMessage(t`You cannot reply to @${author.handle} on ${resolveSourceName(source)}.`);
         }
-    }, [isLogin, commentDisabled, source, post, author.handle]);
+    }, [isLogin, commentDisabled, source, post, author.handle, anonymousPostEnabled]);
 
     return {
         buttonDisabled: !isLogin ? disabled : commentDisabled,

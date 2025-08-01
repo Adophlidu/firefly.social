@@ -151,6 +151,10 @@ msgstr "Failed to collect article."
 msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 msgstr "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 
+#. placeholder {0}: resolveSourceName(source)
+msgid "Failed to quote on {0}."
+msgstr "Failed to quote on {0}."
+
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "Hold on! Meet any of the following to unlock a premium collectible:"
 
@@ -287,6 +291,9 @@ msgstr "You have exceeded the maximum number of attempts. Please try again later
 
 msgid "FDV"
 msgstr "FDV"
+
+msgid "The task is still in progress, you can check on <0>this page</0> later"
+msgstr "The task is still in progress, you can check on <0>this page</0> later"
 
 msgid "Receive Failed"
 msgstr "Receive Failed"
@@ -1142,6 +1149,9 @@ msgstr "Closed"
 msgid "Non-sanctioned address found."
 msgstr "Non-sanctioned address found."
 
+msgid "Anonymous"
+msgstr "Anonymous"
+
 msgid "Feed"
 msgstr "Feed"
 
@@ -1266,6 +1276,10 @@ msgstr "There is no data available to display"
 msgid "Follow System"
 msgstr "Follow System"
 
+#. placeholder {0}: resolveSourceName(source)
+msgid "🎭 Replied on {0}."
+msgstr "🎭 Replied on {0}."
+
 msgid "Unknown"
 msgstr "Unknown"
 
@@ -1287,6 +1301,10 @@ msgstr "Domain"
 #. placeholder {0}: profile.handle
 msgid "Failed to follow @{0} on Lens"
 msgstr "Failed to follow @{0} on Lens"
+
+#. placeholder {0}: resolveSourceName(source)
+msgid "🎭 Quoted on {0}."
+msgstr "🎭 Quoted on {0}."
 
 msgid "Check Eligibility"
 msgstr "Check Eligibility"
@@ -1374,6 +1392,9 @@ msgstr "Log in with your X account to view"
 msgid "Login to Firefly"
 msgstr "Login to Firefly"
 
+msgid "Content will be lost when leaving this page in anonymous mode."
+msgstr "Content will be lost when leaving this page in anonymous mode."
+
 msgid "Approve Failed"
 msgstr "Approve Failed"
 
@@ -1382,6 +1403,9 @@ msgstr "Canceled"
 
 msgid "No content for the last two weeks."
 msgstr "No content for the last two weeks."
+
+msgid "Discard Post"
+msgstr "Discard Post"
 
 msgid "Participate Now"
 msgstr "Participate Now"
@@ -1548,6 +1572,10 @@ msgstr "Blacklist function"
 msgid "Up to 7 days can be set as the scheduled time. Please reset it"
 msgstr "Up to 7 days can be set as the scheduled time. Please reset it"
 
+#. placeholder {0}: resolveSourceName(source)
+msgid "🎭 Your post was sent to {0}."
+msgstr "🎭 Your post was sent to {0}."
+
 msgid "Posted to Lens on <0>Phaver</0>"
 msgstr "Posted to Lens on <0>Phaver</0>"
 
@@ -1585,6 +1613,11 @@ msgstr "Refund"
 
 msgid "Connecting..."
 msgstr "Connecting..."
+
+#. placeholder {0}: data.daily_limit
+#. placeholder {1}: data.wait_seconds
+msgid "Limits: <0>{0} posts/day</0> with {1}-second intervals (applies to posts, replies, and quotes)."
+msgstr "Limits: <0>{0} posts/day</0> with {1}-second intervals (applies to posts, replies, and quotes)."
 
 msgid "Enter amount"
 msgstr "Enter amount"
@@ -1708,6 +1741,9 @@ msgstr "Posted on the following apps since August 1, 2024, and new Firefly users
 msgid "More details"
 msgstr "More details"
 
+msgid "Failed to create anonymous post"
+msgstr "Failed to create anonymous post"
+
 #. placeholder {0}: result.amount
 msgid "Claimed lucky drop with {0} {symbol} successfully"
 msgstr "Claimed lucky drop with {0} {symbol} successfully"
@@ -1766,6 +1802,11 @@ msgstr "Collected by"
 
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
+
+#. placeholder {0}: data.daily_limit
+#. placeholder {1}: data.wait_minutes
+msgid "Limits: <0>{0} posts/day</0> with {1}-minute intervals (applies to posts, replies, and quotes)."
+msgstr "Limits: <0>{0} posts/day</0> with {1}-minute intervals (applies to posts, replies, and quotes)."
 
 msgid "No mint function"
 msgstr "No mint function"
@@ -2087,6 +2128,11 @@ msgstr "Block transactions under $100"
 
 msgid "Sorry, the passcode you entered is invalid"
 msgstr "Sorry, the passcode you entered is invalid"
+
+#. placeholder {0}: data.daily_limit
+#. placeholder {1}: data.wait_minutes
+msgid "Your post will be shared anonymously through:<0/>X (Twitter): <1>@anoncast_</1><2/>Farcaster: <3>@anoncast</3> / <4>@anonworld</4><5>Limits: <6>{0} posts/day</6> with {1}-minute intervals (applies to posts, replies, and quotes).</5><7>Posts are anonymized using secure algorithms (takes a few minutes). Do not share sensitive content.</7>"
+msgstr "Your post will be shared anonymously through:<0/>X (Twitter): <1>@anoncast_</1><2/>Farcaster: <3>@anoncast</3> / <4>@anonworld</4><5>Limits: <6>{0} posts/day</6> with {1}-minute intervals (applies to posts, replies, and quotes).</5><7>Posts are anonymized using secure algorithms (takes a few minutes). Do not share sensitive content.</7>"
 
 msgid "Circulating Supply"
 msgstr "Circulating Supply"
@@ -2796,6 +2842,10 @@ msgstr "Failed to create schedule thread posts."
 
 msgid "This NFT contract has a proxy contract."
 msgstr "This NFT contract has a proxy contract."
+
+#. placeholder {0}: resolveSourceName(source)
+msgid "Failed to send your post to {0}."
+msgstr "Failed to send your post to {0}."
 
 msgid "Top Collectors"
 msgstr "Top Collectors"
@@ -3733,6 +3783,10 @@ msgstr "Share image"
 
 msgid "Download Wallet"
 msgstr "Download Wallet"
+
+#. placeholder {0}: resolveSourceName(source)
+msgid "Failed to reply on {0}."
+msgstr "Failed to reply on {0}."
 
 msgid "Post details"
 msgstr "Post details"

@@ -3,7 +3,9 @@ import { useAsyncFn } from 'react-use';
 
 import { Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { checkFarcasterInvalidSignerKey } from '@/providers/farcaster/checkFarcasterInvalidSignerKey.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -14,10 +16,15 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useMirror(post: Post) {
     const { postId, source, hasMirrored } = post;
+    const isLogin = useIsLogin(source);
 
     return useAsyncFn(
         async (unmirror?: boolean) => {
             if (!postId) return;
+            if (!isLogin) {
+                openLoginModal({ source });
+                return;
+            }
 
             const mirrorOrUnmirror = async () => {
                 switch (source) {
@@ -83,6 +90,6 @@ export function useMirror(post: Post) {
                 throw error;
             }
         },
-        [postId, source, hasMirrored, post],
+        [postId, source, hasMirrored, post, isLogin],
     );
 }

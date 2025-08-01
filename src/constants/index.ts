@@ -263,6 +263,7 @@ export const REQUIRE_LOGIN_SOURCES: RequestedLoginSource[] =
     env.external.NEXT_PUBLIC_NITTER === STATUS.Enabled ? [] : [Source.Twitter];
 export const REQUIRE_LOGIN_SOURCES_IN_SEARCH: SocialSource[] =
     env.external.NEXT_PUBLIC_NITTER === STATUS.Enabled ? [Source.Bsky] : [Source.Twitter, Source.Bsky];
+export const SUPPORTED_ANONYMOUS_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Twitter];
 
 export const EXPLORE_TYPES: ExploreType[] =
     env.external.NEXT_PUBLIC_TRUTH_SOCIAL === STATUS.Enabled

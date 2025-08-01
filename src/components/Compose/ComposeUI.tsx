@@ -17,6 +17,7 @@ import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { isValidPostImage, isValidPostVideo } from '@/helpers/validatePostFile.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useKeyboardHeight } from '@/hooks/useKeyboardHeight.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
@@ -40,6 +41,7 @@ export function Title() {
 
 export const ComposeUI = memo(function ComposeUI() {
     const isMedium = useIsMedium();
+    const isDark = useIsDarkMode();
     const { type, posts, updateVideo, updateImages } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
 
@@ -87,12 +89,26 @@ export const ComposeUI = memo(function ComposeUI() {
                     'flex min-h-[318px] flex-col overflow-auto px-4 pb-4',
                     isMedium ? 'h-full' : available ? 'flex-1' : 'max-h-[300px] min-h-[300px]',
                 )}
-                style={{ maxHeight: isMedium ? 'calc(100vh - 184px)' : undefined }}
+                style={{
+                    maxHeight: isMedium ? 'calc(100vh - 184px)' : undefined,
+                }}
             >
                 <UploadDropArea
                     className="flex h-full flex-1 flex-col overflow-y-auto overflow-x-hidden rounded-lg border bg-bg p-[14px]"
                     loading={loading}
                     onDropFiles={handleDropFiles}
+                    style={
+                        compositePost.isAnonymous
+                            ? {
+                                  backgroundImage: isDark
+                                      ? "url('/image/ghost-dark.png')"
+                                      : "url('/image/ghost-light.png')",
+                                  backgroundRepeat: 'no-repeat',
+                                  backgroundPosition: 'center center',
+                                  backgroundSize: '80px 80px',
+                              }
+                            : undefined
+                    }
                 >
                     {scheduleTime && env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled ? (
                         <SchedulePostEntryButton showText />

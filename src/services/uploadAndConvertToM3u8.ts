@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { S3ConvertStatus, type SocialSourceInURL } from '@/constants/enum.js';
+import { S3ConvertStatus, SourceInURL } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { delay } from '@/helpers/delay.js';
 import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
@@ -45,7 +45,7 @@ async function waitForConvertJob(jobId: string, signal?: AbortSignal) {
     }
 }
 
-export async function uploadAndConvertToM3u8(file: File, source: SocialSourceInURL, signal?: AbortSignal) {
+export async function uploadAndConvertToM3u8(file: File, source: SourceInURL, signal?: AbortSignal) {
     const s3Url = await uploadToS3(file, source);
 
     const parsedUrl = parseUrl(s3Url);

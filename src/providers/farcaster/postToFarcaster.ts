@@ -1,13 +1,10 @@
-import { uniqBy } from 'lodash-es';
-
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
-import { isFrameV1 } from '@/helpers/frame.js';
-import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isHomeChannel } from '@/helpers/isSameChannel.js';
 import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { getFarcasterMediaObjects } from '@/providers/farcaster/getFarcasterMediaObjects.js';
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -22,7 +19,7 @@ import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
-    const { chars, parentPost, urls, images, video, frames, openGraphs, postId, channel, poll } = compositePost;
+    const { chars, parentPost, images, video, postId, channel, poll } = compositePost;
 
     const farcasterPostId = postId.Farcaster;
     const farcasterParentPost = parentPost.Farcaster;
@@ -45,6 +42,11 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         }
 
         const currentChannel = channel[Source.Farcaster];
+        const mediaObjects = getFarcasterMediaObjects(compositePost, {
+            images,
+            videos,
+            polls: polls || [],
+        });
 
         return {
             publicationId: '',
@@ -58,27 +60,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     content: readChars(chars, 'both', Source.Farcaster),
                 },
             },
-            mediaObjects: uniqBy(
-                [
-                    ...images.map((media) => ({
-                        url: resolveImageUrl(Source.Farcaster, media),
-                        mimeType: media.mimeType,
-                    })),
-                    ...frames.filter(isFrameV1).map((frame) => ({ title: frame.title, url: frame.url })),
-                    ...openGraphs.map((openGraph) => ({ title: openGraph.title!, url: openGraph.url })),
-                    ...(polls ?? []).map((poll) => ({
-                        url: getPollFrameUrl(poll.id, Source.Farcaster),
-                    })),
-                    ...videos.map((media) => ({
-                        url: resolveVideoUrl(Source.Farcaster, media),
-                        mimeType: media.mimeType,
-                    })),
-                    ...urls.map((url) => ({
-                        url,
-                    })),
-                ],
-                (x) => x.url.toLowerCase(),
-            ).slice(0, maxImageConfig[Source.Farcaster]),
+            mediaObjects: mediaObjects.slice(0, maxImageConfig[Source.Farcaster]),
             commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,
             parentChannelKey: isHomeChannel(currentChannel) ? undefined : currentChannel?.id,
             parentChannelUrl: isHomeChannel(currentChannel) ? undefined : currentChannel?.parentUrl,

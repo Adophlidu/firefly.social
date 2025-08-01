@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
+import type { SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 import { createSelectors } from '@/helpers/createSelector.js';
@@ -19,6 +20,7 @@ export interface Draft {
     posts: CompositePost[];
     // tracking the currently editing post
     cursor: string;
+    sealedSource?: SocialSource | null;
 }
 
 interface ComposeDraftState {

@@ -2076,4 +2076,58 @@ export type WalletHistoryTransactionsResponse = Response<{
     cursor?: string;
 }>;
 
+export type PostByAnonymousRateLimitsResponse = Response<{
+    anon_post_x_blue: boolean;
+    can_post: boolean;
+    daily_limit: string;
+    daily_remaining: number;
+    is_blue_x_user: boolean;
+    limit_type: null;
+    wait_minutes: number;
+    wait_seconds: number;
+}>;
+
+export interface CreateAnonymousPostOptions {
+    text: string;
+    embeds: string[];
+    // cast hash for farcaster, full url for twitter
+    quote: string | null;
+    // cast hash for farcaster, full url for twitter
+    parent: string | null;
+    postToTwitter: boolean;
+    /**
+     * @deprecated
+     */
+    channel: string | null;
+}
+
+export type CreateAnonymousPostResponse = Response<{
+    daily_limit: string;
+    daily_remaining: number;
+    message: string;
+    post_id: string;
+    success: boolean;
+}>;
+
+export type GetAnonymousPostResponse = Response<{
+    uuid: string;
+    accountId: string;
+    accountRawId: string;
+    text: string;
+    embeds: string[];
+    quote: string | null;
+    channel: string | null;
+    parent: string | null;
+    status: 'queued' | 'generating_proof' | 'proof_failed' | 'sent' | 'failed';
+    error?: string;
+    createdAt: string;
+    updatedAt: string;
+    cast_hashs: Array<{
+        community: string;
+        hash: string;
+        tweetId?: string;
+    }>;
+    postToTwitter: boolean;
+}>;
+
 export type GetProfilesResponse = Response<FarcasterProfile[]>;

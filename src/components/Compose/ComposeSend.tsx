@@ -19,6 +19,7 @@ import { useCheckPostMedias } from '@/hooks/useCheckPostMedias.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { ComposeModalRef } from '@/modals/controls.js';
+import { createAnonymousPost } from '@/services/createAnonymousPost.js';
 import { crossPost } from '@/services/crossPost.js';
 import { crossPostThread } from '@/services/crossPostThread.js';
 import { crossSchedulePost } from '@/services/crossSchedulePost.js';
@@ -60,12 +61,16 @@ export function ComposeSend(props: ComposeSendProps) {
                               signal: controller.current.signal,
                           });
                 } else {
-                    scheduleTime
-                        ? await crossSchedulePost(type, post, scheduleTime, controller.current.signal)
-                        : (postResult = await crossPost(type, post, {
-                              isRetry,
-                              signal: controller.current.signal,
-                          }));
+                    if (post.isAnonymous) {
+                        await createAnonymousPost(type, post, controller.current.signal);
+                    } else {
+                        scheduleTime
+                            ? await crossSchedulePost(type, post, scheduleTime, controller.current.signal)
+                            : (postResult = await crossPost(type, post, {
+                                  isRetry,
+                                  signal: controller.current.signal,
+                              }));
+                    }
                 }
                 await delay(300);
                 // If the draft is applied and sent successfully, remove the draft.
@@ -123,7 +128,7 @@ export function ComposeSend(props: ComposeSendProps) {
 
     return (
         <div className="flex items-center justify-end gap-4">
-            <AddThread />
+            {!post.isAnonymous ? <AddThread /> : null}
 
             <InteractiveTippy
                 className="tippy-card"

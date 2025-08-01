@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
 import { memo, useMemo, useState } from 'react';
 
+import AnonymousAvatar from '@/assets/anonymous-avatar.svg';
 import { Editor } from '@/components/Compose/Editor.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ExcludeReplyUserListModal } from '@/components/Posts/ExcludeReplyUserList.js';
@@ -14,6 +15,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentAvailableProfile } from '@/hooks/useCurrentProfile.js';
+import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { getLennyUrl } from '@/providers/lens/getLennyUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -24,6 +26,7 @@ interface ReplyProps {
 }
 
 export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
+    const isLarge = useIsLarge();
     const currentProfile = useCurrentAvailableProfile(post.source);
 
     const [open, setOpen] = useState(false);
@@ -126,7 +129,9 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
                 </div>
             </div>
             <div className="relative flex flex-1 gap-3">
-                {currentProfile ? (
+                {compositePost.isAnonymous ? (
+                    <AnonymousAvatar width={isLarge ? 40 : 36} height={isLarge ? 40 : 36} />
+                ) : currentProfile ? (
                     <ProfileAvatar profile={currentProfile} enableSourceIcon={false} fallbackUrl={avatarFallbackUrl} />
                 ) : null}
                 <div className="flex flex-1 pt-2">

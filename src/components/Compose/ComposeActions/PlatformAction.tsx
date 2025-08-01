@@ -7,10 +7,11 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES, SUPPORTED_ANONYMOUS_POST_SOURCES } from '@/constants/index.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { postFeatures } from '@/settings/post.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ActionProps {
@@ -18,13 +19,18 @@ interface ActionProps {
 }
 
 export const PlatformAction = memo(function PlatformAction({ hasError }: ActionProps) {
-    const post = useCompositePost();
-    const { type } = useComposeStateStore();
-    const { availableSources, parentPost } = post;
+    const { availableSources, parentPost, isAnonymous } = useCompositePost();
+    const { type, sealedSource } = useComposeStateStore();
     const profilesAll = useCurrentProfilesAll();
 
     const [open, setOpen] = useState(false);
     const isMedium = useIsMedium();
+
+    const disabled =
+        (type !== 'quote' &&
+            (sealedSource && postFeatures.anonymousPost(sealedSource) ? type !== 'reply' : true) &&
+            availableSources.some((x) => !!parentPost[x])) ||
+        hasError;
 
     const buttonContent = (
         <>
@@ -33,18 +39,18 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
             </div>
             <span className="flex items-center gap-x-1 font-bold">
                 {availableSources
-                    .filter((x) => !!profilesAll[x] && SORTED_SOCIAL_SOURCES.includes(x))
+                    .filter(
+                        (x) =>
+                            (!!profilesAll[x] || (isAnonymous && SUPPORTED_ANONYMOUS_POST_SOURCES.includes(x))) &&
+                            SORTED_SOCIAL_SOURCES.includes(x),
+                    )
                     .map((y) => (
                         <SocialSourceIcon key={y} source={y} size={14} />
                     ))}
             </span>
-            {(type === 'compose' || type === 'quote') && !hasError ? (
-                <ChevronDownIcon className="size-4 text-secondary" aria-hidden="true" />
-            ) : null}
+            {!disabled ? <ChevronDownIcon className="size-4 text-secondary" aria-hidden="true" /> : null}
         </>
     );
-
-    const disabled = (type !== 'quote' && availableSources.some((x) => !!parentPost[x])) || hasError;
 
     if (isMedium)
         return (

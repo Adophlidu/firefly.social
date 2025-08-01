@@ -186,9 +186,12 @@ export const DraftList = memo(function DraftList() {
             const availableProfiles = draft.availableProfiles.filter((x) =>
                 profiles.some((profile) => isSameProfile(profile, x)),
             );
+            const availableSource =
+                draft.type !== 'compose' ? draft.sealedSource || first(draft.posts)?.availableSources?.[0] : null;
             apply({
                 ...draft,
                 focused,
+                sealedSource: availableSource || null,
                 posts: draft.posts.map((x) => ({
                     ...x,
                     ...(full

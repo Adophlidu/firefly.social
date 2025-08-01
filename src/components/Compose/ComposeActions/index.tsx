@@ -24,7 +24,7 @@ export function ComposeActions() {
     const isMedium = useIsMedium();
     const { type, posts } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
-    const { availableSources, images, video, poll, rpPayload } = useCompositePost();
+    const { availableSources, images, video, poll, rpPayload, isAnonymous } = useCompositePost();
 
     const hasError = useMemo(() => {
         return posts.some((x) => !!compact(values(x.postError)).length);
@@ -47,9 +47,9 @@ export function ComposeActions() {
                 <div className="flex items-center gap-x-1 rounded-[6px] border border-secondaryLine p-2">
                     <PlatformAction hasError={hasError} />
                 </div>
-                {showReplyScope ? <ReplyRestrictionAction hasError={hasError} /> : null}
+                {showReplyScope && !isAnonymous ? <ReplyRestrictionAction hasError={hasError} /> : null}
 
-                {showFarcasterChannel ? (
+                {showFarcasterChannel && !isAnonymous ? (
                     <div className="rounded-[6px] border border-secondaryLine p-2">
                         <ChooseChannelAction source={Source.Farcaster} hasError={hasError} />
                     </div>
@@ -69,13 +69,17 @@ export function ComposeActions() {
                     ) : null}
                     <EmojiAction />
 
-                    {type === 'compose' && env.external.NEXT_PUBLIC_POLL === STATUS.Enabled ? <PollButton /> : null}
+                    {type === 'compose' && env.external.NEXT_PUBLIC_POLL === STATUS.Enabled && !isAnonymous ? (
+                        <PollButton />
+                    ) : null}
 
-                    <SchedulePostEntryButton className="text-main" disabled />
-                    {!scheduleTime && !mediaDisabled && isMedium ? <RedPacketAction disabled={mediaDisabled} /> : null}
+                    {!isAnonymous ? <SchedulePostEntryButton className="text-main" disabled /> : null}
+                    {!scheduleTime && !mediaDisabled && isMedium && !isAnonymous ? (
+                        <RedPacketAction disabled={mediaDisabled} />
+                    ) : null}
                 </div>
 
-                {isMedium ? <ComposeSend /> : <AddThread />}
+                {isMedium ? <ComposeSend /> : !isAnonymous ? <AddThread /> : null}
             </div>
         </div>
     );

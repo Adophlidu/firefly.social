@@ -3,6 +3,7 @@ import { t } from '@lingui/core/macro';
 import { uniq } from 'lodash-es';
 import { Fragment, useMemo } from 'react';
 
+import { PostByAnonymous } from '@/components/Compose/PostByAnonymous.js';
 import { PostByItem } from '@/components/Compose/PostByItem.js';
 import { FileMimeType } from '@/constants/enum.js';
 import {
@@ -18,16 +19,28 @@ import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { validateVideoDuration } from '@/helpers/validateVideo.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { postFeatures } from '@/settings/post.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function PostBy() {
     const { poll, availableSources, images, rpPayload, video } = useCompositePost();
-    const { type } = useComposeStateStore();
+    const { type, sealedSource } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
 
     const postByDisabled = useMemo(() => {
         return SORTED_SOCIAL_SOURCES.map((source) => {
+            if (
+                type !== 'compose' &&
+                sealedSource &&
+                postFeatures.anonymousPost(sealedSource) &&
+                sealedSource !== source
+            ) {
+                return {
+                    disabled: true,
+                };
+            }
+
             if (poll && !SORTED_POLL_SOURCES.includes(source))
                 return {
                     disabled: true,
@@ -85,13 +98,25 @@ export function PostBy() {
 
             return { disabled: false };
         });
-    }, [availableSources, images, poll, type, scheduleTime, rpPayload, video?.width, video?.height, video?.duration]);
+    }, [
+        availableSources,
+        images,
+        poll,
+        type,
+        scheduleTime,
+        rpPayload,
+        video?.width,
+        video?.height,
+        video?.duration,
+        sealedSource,
+    ]);
 
     const content = (
         <div className="no-scrollbar flex max-h-[156px] flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[188px]">
             {SORTED_SOCIAL_SOURCES.map((source, index) => (
                 <PostByItem key={source} source={source} {...postByDisabled[index]} />
             ))}
+            {postFeatures.anonymousPost(sealedSource) ? <PostByAnonymous /> : null}
         </div>
     );
 
@@ -113,7 +138,7 @@ export function PostBy() {
                     portal
                     modal
                     static
-                    className="absolute bottom-full right-0 z-10 !min-h-0 w-[280px] -translate-y-3 [--anchor-max-height:156px] md:[--anchor-max-height:188px]"
+                    className="absolute bottom-full right-0 z-10 !min-h-0 w-[280px] -translate-y-3 rounded-lg [--anchor-max-height:156px] md:[--anchor-max-height:188px]"
                 >
                     {content}
                 </PopoverPanel>

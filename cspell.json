@@ -413,6 +413,9 @@
         "napi",
         "Userid",
         "xrpc",
+        "anoncast",
+        "anonworld",
+        "hashs",
         "farcasterinfo"
     ],
     "flagWords": [],

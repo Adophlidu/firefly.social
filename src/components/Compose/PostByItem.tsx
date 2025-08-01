@@ -27,6 +27,7 @@ import { ComposeModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { switchAccount } from '@/services/account.js';
+import { postFeatures } from '@/settings/post.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface PostByItemProps {
@@ -40,8 +41,9 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
     const accounts = useAccounts(source);
     const currentProfile = useCurrentProfile(source);
 
-    const { enableSource, disableSource, updateRestriction } = useComposeStateStore();
-    const { availableSources, images } = useCompositePost();
+    const { type, sealedSource, enableSource, disableSource, updateRestriction, toggleAnonymous } =
+        useComposeStateStore();
+    const { availableSources, images, isAnonymous } = useCompositePost();
 
     const [{ loading }, login] = useAsyncFn(async (account: Account) => {
         try {
@@ -56,55 +58,83 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
     const toggleSource = useCallback(
         (profile: Profile) => {
             if (!isSameProfile(currentProfile, profile) || disabled || !currentProfile) return;
-            if (availableSources.includes(currentProfile.source)) {
+            if (availableSources.includes(currentProfile.source) && !isAnonymous) {
                 disableSource(currentProfile.source);
             } else {
+                if (isAnonymous) {
+                    availableSources.forEach((x) => {
+                        if (x !== currentProfile.source) {
+                            disableSource(x);
+                        }
+                    });
+                }
                 enableSource(currentProfile.source);
+                toggleAnonymous(false);
                 if (!ENABLED_REPLY_SETTINGS_POST_SOURCES.includes(currentProfile.source)) {
                     updateRestriction(RestrictionType.Everyone);
                 }
             }
         },
-        [availableSources, currentProfile, disabled, disableSource, enableSource, updateRestriction],
+        [
+            availableSources,
+            currentProfile,
+            disabled,
+            isAnonymous,
+            disableSource,
+            enableSource,
+            updateRestriction,
+            toggleAnonymous,
+        ],
     );
+
+    const signInDisabled =
+        type !== 'compose' && !!sealedSource && source !== sealedSource && postFeatures.anonymousPost(sealedSource);
 
     if (!currentProfile || !accounts?.length)
         return (
-            <div className="shrink-0">
-                <div className="box-content flex h-8 items-center justify-between px-3 hover:bg-bg">
+            <ClickableButton
+                className="w-full shrink-0"
+                disabled={signInDisabled}
+                onClick={async () => {
+                    if (source === Source.Farcaster && images.length > 2) {
+                        enqueueErrorMessage(t`Only up to 2 images can be chosen.`);
+                        return;
+                    }
+
+                    if (routeContext.onClose && typeof routeContext.onClose === 'function') {
+                        const closeAction = await routeContext.onClose();
+                        if (closeAction === CloseAction.None) return;
+                    } else {
+                        ComposeModalRef.close();
+                    }
+                    await delay(300);
+                    openLoginModal({
+                        source,
+                    });
+                }}
+            >
+                <div
+                    className={classNames(
+                        'box-content flex h-8 items-center justify-between px-3',
+                        signInDisabled ? '' : 'hover:bg-bg',
+                    )}
+                >
                     <div className="flex items-center gap-2 text-main">
                         <SocialSourceIcon size={24} source={source} />
-                        <span className="font-bold text-main">{resolveSourceName(source)}</span>
+                        <span className={classNames('font-bold', signInDisabled ? 'text-secondary' : 'text-main')}>
+                            {resolveSourceName(source)}
+                        </span>
                     </div>
 
-                    <ClickableButton
-                        className="font-bold text-highlight"
-                        onClick={async () => {
-                            if (source === Source.Farcaster && images.length > 2) {
-                                enqueueErrorMessage(t`Only up to 2 images can be chosen.`);
-                                return;
-                            }
-
-                            if (routeContext.onClose && typeof routeContext.onClose === 'function') {
-                                const closeAction = await routeContext.onClose();
-                                if (closeAction === CloseAction.None) return;
-                            } else {
-                                ComposeModalRef.close();
-                            }
-                            await delay(300);
-                            openLoginModal({
-                                source,
-                            });
-                        }}
-                    >
+                    <span className="font-bold text-highlight">
                         <Trans>Sign In</Trans>
-                    </ClickableButton>
+                    </span>
                 </div>
-            </div>
+            </ClickableButton>
         );
 
     return accounts.map(({ profile, session }) => {
-        const checked = availableSources.includes(currentProfile.source);
+        const checked = availableSources.includes(currentProfile.source) && !isAnonymous;
 
         return (
             <div className="shrink-0" key={profile.profileId} onClick={() => toggleSource(profile)}>

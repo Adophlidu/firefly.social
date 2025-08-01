@@ -1,15 +1,14 @@
-import { toInteger, uniqBy } from 'lodash-es';
+import { toInteger } from 'lodash-es';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
-import { isFrameV1 } from '@/helpers/frame.js';
-import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isHomeChannel } from '@/helpers/isSameChannel.js';
-import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
+import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHash.js';
 import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
+import { getFarcasterMediaObjects } from '@/providers/farcaster/getFarcasterMediaObjects.js';
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
@@ -33,7 +32,7 @@ export async function createFarcasterSchedulePostPayload(
     isThread = false,
     signal?: AbortSignal,
 ): Promise<FarcasterSchedulePostPayload> {
-    const { chars, parentPost, images, frames, openGraphs, video, channel, poll } = compositePost;
+    const { chars, parentPost, images, video, channel, poll } = compositePost;
 
     const sourceName = resolveSourceName(Source.Farcaster);
     const farcasterParentPost = parentPost.Farcaster;
@@ -63,24 +62,11 @@ export async function createFarcasterSchedulePostPayload(
 
     const result = await getAllMentionsForFarcaster(content);
 
-    const mediaObjects = uniqBy(
-        [
-            ...imageResults.map((media) => ({
-                url: resolveImageUrl(Source.Farcaster, media),
-                mimeType: media.mimeType,
-            })),
-            ...videoResults.map((media) => ({
-                url: resolveVideoUrl(Source.Farcaster, media),
-                mimeType: media.mimeType,
-            })),
-            ...frames.filter(isFrameV1).map((frame) => ({ title: frame.title, url: frame.url })),
-            ...openGraphs.map((openGraph) => ({ title: openGraph.title!, url: openGraph.url })),
-            ...pollResults.map((poll) => ({
-                url: getPollFrameUrl(poll.id, Source.Farcaster),
-            })),
-        ],
-        (x) => x.url.toLowerCase(),
-    ).slice(0, MAX_IMAGE_SIZE_PER_POST[Source.Farcaster]);
+    const mediaObjects = getFarcasterMediaObjects(compositePost, {
+        images: imageResults,
+        videos: videoResults,
+        polls: pollResults,
+    }).slice(0, MAX_IMAGE_SIZE_PER_POST[Source.Farcaster]);
 
     const embeds = mediaObjects?.map((v) => ({ url: v.url })) ?? [];
     const payload = {
