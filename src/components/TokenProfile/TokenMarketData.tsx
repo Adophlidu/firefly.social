@@ -123,7 +123,7 @@ export const TokenMarketData = memo(function TokenMarketData({
     const contract = (chainId ? contracts?.find((x) => x.chainId === chainId) : null) || firstContract;
     const address = runtimeAddress || contract?.address;
     const { data: security } = useTokenSecurity(chainId, address);
-    const tradeInfo = useTradeInfo(token);
+    const tradeInfo = useTradeInfo(token, chainId, address);
     const tradeChainId = chainId || tradeInfo.chainId;
 
     const { preferences, setPreference } = usePreferencesState();
