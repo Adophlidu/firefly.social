@@ -1,4 +1,6 @@
 import { Trans } from '@lingui/react/macro';
+import { useMemo } from 'react';
+import { useWindowSize } from 'usehooks-ts';
 
 import { ShadowInAndOut } from '@/app/(whiteboard)/components/Signup/ShadowInAndOut.js';
 import { SquareButton } from '@/app/(whiteboard)/components/Signup/SquareButton.js';
@@ -14,21 +16,42 @@ interface GuidePageProps {
 }
 
 export function GuidePage({ changeStep }: GuidePageProps) {
+    const { width } = useWindowSize({
+        debounceDelay: 100,
+    });
+
+    const { titleFontSize, tipFontSize } = useMemo(() => {
+        return {
+            titleFontSize: Math.max(20, Math.min(40, (40 / 1920) * width)),
+            tipFontSize: Math.max(14, Math.min(18, (18 / 1920) * width)),
+        };
+    }, [width]);
+
     return (
         <div className="no-scrollbar absolute inset-0 z-1 flex flex-col items-center justify-center gap-[6.875%] md:flex-row">
             <ShadowInAndOut className="hidden [--card-face-color:#FFF9F5] md:block">
-                <FireflyAccountSVG />
+                <FireflyAccountSVG width={'26.46vw'} className="ml-auto max-w-[508px]" />
             </ShadowInAndOut>
-            <ShadowInAndOut className="w-full px-5 text-black md:w-[29.2%] md:px-0">
-                <h1 className={`text-[40px] font-bold uppercase leading-[40px] ${bedStead.className}`}>
+            <ShadowInAndOut className="w-full max-w-[560px] px-5 text-black md:px-0 md:pt-[8vw]">
+                <h1
+                    className={`font-bold uppercase leading-[100%] ${bedStead.className}`}
+                    style={{
+                        fontSize: titleFontSize,
+                    }}
+                >
                     <Trans>Everything app for Web3 natives</Trans>
                 </h1>
-                <p className="mt-4 text-lg font-bold !leading-6">
+                <p
+                    className="mt-4 font-bold leading-[100%]"
+                    style={{
+                        fontSize: tipFontSize,
+                    }}
+                >
                     <Trans>
                         Cross-post to multiple platforms, track friends&apos; trades, uncover alpha in social posts
                     </Trans>
                 </p>
-                <div className="mt-16 flex flex-wrap gap-[32px] font-medium">
+                <div className="mt-[3.3vw] flex flex-wrap gap-[32px] font-medium">
                     <SquareButton
                         className="text-white"
                         colorMode="dark"

@@ -8,14 +8,19 @@ import MessageLogo from '@/assets/message-logo.svg';
 import TwitterLogo from '@/assets/x-logo.svg';
 import { classNames } from '@/helpers/classNames.js';
 
-interface FireflyAccountSVGProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface FireflyAccountSVGProps extends React.HTMLAttributes<HTMLDivElement> {
+    width?: number | string;
+    height?: number | string;
+}
 
-export function FireflyAccountSVG({ className }: FireflyAccountSVGProps) {
+export function FireflyAccountSVG({ className, width, height }: FireflyAccountSVGProps) {
     return (
         <div
-            className={classNames('relative max-h-[350px] max-w-[286px]', className)}
+            className={classNames('relative', className)}
             style={{
                 aspectRatio: '286 / 350',
+                width,
+                height,
             }}
         >
             <FireflyAccountBg width="100%" height="100%" />
