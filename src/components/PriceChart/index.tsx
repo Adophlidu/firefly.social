@@ -71,9 +71,16 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
         const activeTrade = activeTradeHash ? tradeRecords.find((x) => x.hash === activeTradeHash) : null;
         const trade = activeDate ? tradeRecords.find((x) => x.date === activeDate) || activeTrade : activeTrade;
 
-        if (!trade?.date || !dotMap[trade.date]) return;
+        if (!trade?.date) return;
+        const dateMatchedState = dotMap[trade.date];
+        if (!dateMatchedState) return;
+
+        // prefer active trade if exists
+        const activeTradeState = activeTrade ? dotMap[activeTrade.date] : null;
+        if (activeTradeState?.x === dateMatchedState.x) return { ...activeTradeState, trade: activeTrade! };
+
         return {
-            ...dotMap[trade.date],
+            ...dateMatchedState,
             trade,
         };
     }, [activeDate, activeTradeHash, dotMap, tradeRecords]);
