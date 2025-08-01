@@ -4,8 +4,8 @@ import { flatLenConnections } from '@/helpers/formatWalletConnection.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { unreachable } from '@/helpers/unreachable.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import type { AllConnections } from '@/providers/types/Firefly.js';
 
 export interface SocialConnections {
@@ -37,7 +37,7 @@ export async function getSocialConnectionsWithProfile(source: SocialSource, soci
             const connections = [...social[source].connected, ...social[source].unconnected];
             const ids = getProfileIdsFromSocialConnections(source, social);
             if (!ids.length) return EMPTY_LIST;
-            const profiles = await NeynarSocialMediaProvider.getProfilesByIds(ids);
+            const profiles = await FarcasterSocialMediaProvider.getProfilesByIds(ids);
             return profiles
                 .map((profile) => ({
                     profile,

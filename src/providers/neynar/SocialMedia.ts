@@ -24,7 +24,6 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { fetchProfilesFromNeynar } from '@/services/fetchProfilesFromNeynar.js';
 
 class NeynarSocialMedia implements Provider {
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -333,10 +332,8 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async getProfilesByIds(ids: string[]) {
-        if (!ids.length) return EMPTY_LIST;
-
-        return farcasterSessionHolder.withSession(async (session) => fetchProfilesFromNeynar(ids, session?.profileId));
+    async getProfilesByIds(ids: string[]): Promise<Profile[]> {
+        throw new NotImplementedError();
     }
 
     async getChannelsByIds(ids: string[]): Promise<Channel[]> {

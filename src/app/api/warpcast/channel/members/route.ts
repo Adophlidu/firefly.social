@@ -8,8 +8,8 @@ import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { ChannelMembersResponse } from '@/providers/types/Warpcast.js';
-import { fetchProfilesFromNeynar } from '@/services/fetchProfilesFromNeynar.js';
 
 const Schema = z.object({
     channelId: z.string(),
@@ -32,14 +32,14 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
         throw new Error(`Warpcast API error: ${response.errors[0].message}`);
     }
 
-    const fids = response.result?.members?.map((user) => user.fid);
+    const fids = response.result?.members?.map((user) => `${user.fid}`);
     if (!fids?.length) {
         return createSuccessResponseJson({
             members: [],
         });
     }
 
-    const profiles = await fetchProfilesFromNeynar(fids, fid);
+    const profiles = await FarcasterSocialMediaProvider.getProfilesByIds(fids, fid);
 
     return createSuccessResponseJson({
         members: profiles,

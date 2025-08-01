@@ -30,7 +30,10 @@ import {
     formatFireflyFarcasterProfile,
 } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';
-import { formatFarcasterProfileFromFirefly } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
+import {
+    formatFarcasterProfileFromFirefly,
+    formatFarcasterProfileFromFireflyCache,
+} from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -57,6 +60,7 @@ import {
     type FollowingSnapshotActivity,
     type FriendshipResponse,
     type GetBookmarksResponse,
+    type GetProfilesResponse,
     type MutualFollowersResponse,
     type NFTBookmarkContent,
     type NFTDetail,
@@ -151,8 +155,17 @@ class FireflySocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getProfilesByIds(ids: string[]): Promise<Profile[]> {
-        throw new NotImplementedError();
+    async getProfilesByIds(ids: string[]): Promise<Profile[]> {
+        if (!ids.length) return EMPTY_LIST;
+
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/farcasterinfo/list');
+        const response = await fireflySessionHolder.fetch<GetProfilesResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({ fid: ids }),
+        });
+        const data = resolveFireflyResponseData(response);
+
+        return data.map(formatFarcasterProfileFromFireflyCache);
     }
 
     getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -820,7 +833,7 @@ class FireflySocialMedia implements Provider {
         });
         const data = resolveFireflyResponseData(response);
         const fids = compact((data.list || []).flatMap((x) => x.farcaster).map((x) => x?.platform_id));
-        const result = await NeynarSocialMediaProvider.getProfilesByIds(fids);
+        const result = await FireflySocialMediaProvider.getProfilesByIds(fids);
 
         return createPageable(
             result,

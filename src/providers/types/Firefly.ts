@@ -551,6 +551,7 @@ export interface FarcasterProfile {
     username: string;
     display_name: string;
     isPowerUser: boolean;
+    isProUser?: boolean;
     raw_data: string;
     signer_address: string;
     addresses: string[];
@@ -2072,3 +2073,5 @@ export type WalletHistoryTransactionsResponse = Response<{
     list: TransactionHistoryItem[];
     cursor?: string;
 }>;
+
+export type GetProfilesResponse = Response<FarcasterProfile[]>;
