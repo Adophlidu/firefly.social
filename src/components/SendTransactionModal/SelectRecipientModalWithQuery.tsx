@@ -130,7 +130,7 @@ export function SelectRecipientModalWithQuery({
             };
         },
         select(data) {
-            return uniqBy(compact(data.pages.flatMap((x) => x?.data ?? [])), ({ profile }) =>
+            const recipients = uniqBy(compact(data.pages.flatMap((x) => x?.data ?? [])), ({ profile }) =>
                 toFireflyPlatformId(profile),
             )
                 .filter(
@@ -156,6 +156,7 @@ export function SelectRecipientModalWithQuery({
                     return recipients.length === 1 ? recipients[0] : recipients;
                 })
                 .filter((x) => (Array.isArray(x) ? x.length : getAddressType(x.address) === networkType));
+            return uniqBy(recipients, (x) => (Array.isArray(x) ? x : x.address.toLowerCase()));
         },
         enabled: props.open,
     });

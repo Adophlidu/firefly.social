@@ -1,7 +1,7 @@
 import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import SearchIcon from '@/assets/search.svg';
 import { BaseNotFound } from '@/components/BaseNotFound.js';
@@ -73,6 +73,9 @@ function ModalContent({
     setIsOpenChooseWalletModal: (state: boolean) => void;
 }) {
     const [keyword, setKeyword] = useState(initialKeyword);
+    useEffect(() => {
+        onQuery?.(keyword);
+    }, [keyword, onQuery]);
 
     return (
         <div className="flex min-h-0 flex-1 flex-col">
