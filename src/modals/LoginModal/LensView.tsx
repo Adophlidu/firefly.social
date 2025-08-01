@@ -229,7 +229,7 @@ export const LensView = memo(function LensView() {
             ) : null}
 
             {!isLoading ? (
-                account.address && currentProfile ? (
+                account.address ? (
                     <ClickableButton
                         disabled={!currentProfile || !profiles.length}
                         loading={loading}

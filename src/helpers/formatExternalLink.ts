@@ -1,5 +1,5 @@
 import { ExternalSiteDomain, type SocialSource, Source } from '@/constants/enum.js';
-import { TWEET_REGEX } from '@/constants/regexp.js';
+import { FARCASTER_DETAIL_REGEX, TWEET_REGEX } from '@/constants/regexp.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getUrlSiteType } from '@/helpers/interceptExternalUrl.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
@@ -7,6 +7,7 @@ import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { trimify } from '@/helpers/trimify.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 async function captureProfileUrl(url: URL, regex: RegExp, source: SocialSource) {
     const { pathname } = url;
@@ -20,7 +21,7 @@ async function captureProfileUrl(url: URL, regex: RegExp, source: SocialSource) 
     return;
 }
 
-async function captureClubUrl(url: URL, regex: RegExp, source: SocialSource) {
+async function captureChannelUrl(url: URL, regex: RegExp, source: SocialSource) {
     const { pathname } = url;
     const matched = regex.exec(pathname);
     if (source === Source.Bsky) {
@@ -40,16 +41,41 @@ async function captureClubUrl(url: URL, regex: RegExp, source: SocialSource) {
     return;
 }
 
+async function capturePostUrl(url: URL, regex: RegExp, source: SocialSource) {
+    const { pathname } = url;
+    const matched = regex.exec(pathname);
+    const postId = trimify(matched?.[1] ?? '');
+    if (source === Source.Farcaster) {
+        const handle = trimify(matched?.[1] ?? '');
+        const shortId = trimify(matched?.[2] ?? '');
+        if (!handle || !shortId) return;
+        const post = await FireflySocialMediaProvider.getPostByShortId(shortId, handle);
+        if (!post) return;
+        return resolvePostUrl(source, post.postId);
+    }
+    if (postId) {
+        return resolvePostUrl(source, postId);
+    }
+    return;
+}
+
 async function formatFarcasterUrl(url: URL) {
-    if (url.pathname.includes('/club')) {
-        return captureClubUrl(url, /^\/~\/channel\/([^/]+)$/u, Source.Farcaster);
+    if (url.pathname.includes('/channel')) {
+        return captureChannelUrl(url, /^\/~\/channel\/([^/]+)$/u, Source.Farcaster);
+    }
+
+    if (FARCASTER_DETAIL_REGEX.test(url.href)) {
+        return capturePostUrl(url, /^\/([^/]+)\/([^/]+)$/u, Source.Farcaster);
     }
     return captureProfileUrl(url, /^\/([^/]+)$/u, Source.Farcaster);
 }
 
 function formatHeyUrl(url: URL) {
     if (url.pathname.includes('/g/')) {
-        return captureProfileUrl(url, /^\/g\/([^/]+)$/u, Source.Lens);
+        return captureChannelUrl(url, /^\/g\/([^/]+)$/u, Source.Lens);
+    }
+    if (url.pathname.includes('/posts/')) {
+        return capturePostUrl(url, /^\/posts\/([^/]+)$/u, Source.Lens);
     }
     return captureProfileUrl(url, /^\/u\/([^/]+)$/u, Source.Lens);
 }
@@ -69,7 +95,10 @@ async function formatTwitterUrl(url: URL) {
 
 async function formatBskyUrl(url: URL) {
     if (url.pathname.includes('/profile') && url.pathname.includes('/feed')) {
-        return captureClubUrl(url, /^\/profile\/([^/]+)\/feed\/([^/]+)$/u, Source.Bsky);
+        return captureChannelUrl(url, /^\/profile\/([^/]+)\/feed\/([^/]+)$/u, Source.Bsky);
+    }
+    if (url.pathname.includes('/profile') && url.pathname.includes('/post/')) {
+        return capturePostUrl(url, /^\/profile\/([^/]+)\/post\/([^/]+)$/u, Source.Bsky);
     }
     return captureProfileUrl(url, /^\/profile\/([^/]+)$/u, Source.Bsky);
 }

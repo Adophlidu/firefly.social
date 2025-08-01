@@ -70,6 +70,8 @@ const trustedHosts = [
     'linkedin.com',
     'x3.pro',
     'discord.com',
+    'pump.fun',
+    'polymarket.com',
 
     /^([a-zA-Z0-9-]+\.)*firefly\.land$/,
     /^([a-zA-Z0-9-]+\.)*firefly\.social$/,

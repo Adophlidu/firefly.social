@@ -4,6 +4,7 @@ import { useCallback } from 'react';
 
 import { Link as OriginalLink } from '@/esm/Link.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
+import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import { isTrustedUrl } from '@/helpers/isTrustedUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useInternalLink } from '@/hooks/useInternalLink.js';
@@ -36,6 +37,7 @@ export function Link({ href, ref, onClick, ...rest }: LinkProps) {
     return (
         <OriginalLink
             {...rest}
+            target={internalLink ? (!isSelfReference(internalLink) ? '_blank' : '_self') : rest.target}
             href={internalLink || href}
             data-prevent-progress={openConfirmModal}
             ref={ref}
