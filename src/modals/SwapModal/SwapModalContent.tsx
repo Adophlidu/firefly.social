@@ -173,7 +173,7 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
                 ) : null}
             </div>
             <div
-                className="okx-widget-container min-h-[550px]"
+                className="okx-widget-container no-scrollbar max-h-[90vh] min-h-[550px]"
                 ref={(ref) => {
                     setWidgetRef(ref);
                 }}
