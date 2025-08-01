@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 import urlcat from 'urlcat';
 
-import { SourceInURL } from '@/constants/enum.js';
+import { ChannelTabType, SocialProfileCategory, SourceInURL } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
+import { isProfilePageSource } from '@/helpers/isSource.js';
+import { parseClubUrl } from '@/helpers/parseClubUrl.js';
 import { parseOldDiscoverUrl } from '@/helpers/parseDiscoverUrl.js';
 import { parseOldEngagementUrl } from '@/helpers/parseEngagementUrl.js';
 import { parseOldBookmarkUrl } from '@/helpers/parseOldBookmarkUrl.js';
@@ -25,7 +27,7 @@ import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
-import { resolveProfileSourceInURL } from '@/helpers/resolveSourceInUrl.js';
+import { resolveProfileSourceInURL, resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 
 export async function middleware(request: NextRequest) {
@@ -103,6 +105,45 @@ export async function middleware(request: NextRequest) {
             request,
         });
     }
+
+    if (
+        parsedProfileUrl?.category &&
+        parsedProfileUrl.category === SocialProfileCategory.Feed &&
+        isProfilePageSource(parsedProfileUrl.source) &&
+        !request.nextUrl.searchParams.has('_internal')
+    ) {
+        const destination = new URL(
+            urlcat(`/profile/:source/:id`, {
+                source: resolveProfileSourceInURL(parsedProfileUrl.source),
+                id: parsedProfileUrl.id,
+            }),
+            request.url,
+        );
+        return NextResponse.redirect(destination, {
+            status: 302,
+        });
+    }
+
+    if (
+        !parsedProfileUrl?.category &&
+        !!parsedProfileUrl?.source &&
+        !!parsedProfileUrl.id &&
+        isProfilePageSource(parsedProfileUrl.source)
+    ) {
+        const destination = new URL(
+            urlcat(`/profile/:source/:id/:category`, {
+                source: resolveProfileSourceInURL(parsedProfileUrl.source),
+                id: parsedProfileUrl.id,
+                category: SocialProfileCategory.Feed,
+            }),
+            request.url,
+        );
+        destination.searchParams.set('_internal', 'true');
+        return NextResponse.rewrite(destination, {
+            request,
+        });
+    }
+
     const parsedOldExploreUrl = parseOldExploreUrl(request.nextUrl);
     if (parsedOldExploreUrl) {
         const destination = request.nextUrl.clone();
@@ -177,6 +218,40 @@ export async function middleware(request: NextRequest) {
             parsedOldCommunityUrl.type,
         );
         return NextResponse.redirect(destination);
+    }
+
+    const parsedClubUrl = parseClubUrl(request.nextUrl);
+
+    if (
+        parsedClubUrl?.type &&
+        parsedClubUrl.type === ChannelTabType.Posts &&
+        !request.nextUrl.searchParams.has('_internal')
+    ) {
+        const destination = new URL(
+            urlcat(`/club/:source/:id`, {
+                source: resolveSourceInUrl(parsedClubUrl.source),
+                id: parsedClubUrl.id,
+            }),
+            request.url,
+        );
+        return NextResponse.redirect(destination, {
+            status: 302,
+        });
+    }
+
+    if (!parsedClubUrl?.type && !!parsedClubUrl?.source && !!parsedClubUrl.id) {
+        const destination = new URL(
+            urlcat(`/club/:source/:id/:type`, {
+                source: resolveSourceInUrl(parsedClubUrl.source),
+                id: parsedClubUrl.id,
+                type: ChannelTabType.Posts,
+            }),
+            request.url,
+        );
+        destination.searchParams.set('_internal', 'true');
+        return NextResponse.rewrite(destination, {
+            request,
+        });
     }
 
     if (pathname.startsWith('/profile/lens/')) {

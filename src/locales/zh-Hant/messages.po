@@ -4417,9 +4417,6 @@ msgstr "立即領取"
 msgid "Members"
 msgstr "成員"
 
-msgid "Failed to query the orb sign in status after several attempts. Please try again later."
-msgstr ""
-
 #. placeholder {0}: collectModule.amount
 #. placeholder {1}: collectModule.currency
 msgid "Collect for {0} {1}"

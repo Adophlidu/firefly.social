@@ -59,6 +59,7 @@ const trustedHosts = [
     'instagram.com',
     'youtube.com',
     'orb.club',
+    'solscan.io',
 
     // mask community
     'mask.io',

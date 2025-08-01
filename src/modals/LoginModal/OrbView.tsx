@@ -125,9 +125,7 @@ export function OrbView() {
             });
         } catch (error) {
             if (error instanceof InvalidResultError) {
-                enqueueWarningMessage(
-                    t`Failed to query the orb sign in status after several attempts. Please try again later.`,
-                );
+                enqueueWarningMessage(t`This QR code is no longer valid. Please scan a new one to continue.`);
                 setPollError(error);
                 return;
             }
@@ -153,7 +151,7 @@ export function OrbView() {
                     <div className="text-center text-xs leading-4 text-second">
                         <Trans>
                             Scan the QR code with the <span className="font-bold">Camera app</span> and give
-                            <span className="font-bold">edit permission</span> to sign in instantly
+                            <span className="mx-1 font-bold">edit permission</span> to sign in instantly
                         </Trans>
                     </div>
                     <div
@@ -181,7 +179,7 @@ export function OrbView() {
                     </div>
                     <div className="mt-4 text-center text-xs leading-4 text-second">
                         <Trans>Powered by</Trans>
-                        <Link href="https://orb.club/" className="mx-[2px] text-highlight">
+                        <Link href="https://orb.club/" className="mx-[2px] font-bold text-highlight">
                             Orb
                         </Link>
                     </div>

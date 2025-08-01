@@ -4394,9 +4394,6 @@ msgstr ""
 msgid "Members"
 msgstr ""
 
-msgid "Failed to query the orb sign in status after several attempts. Please try again later."
-msgstr ""
-
 #. placeholder {0}: collectModule.amount
 #. placeholder {1}: collectModule.currency
 msgid "Collect for {0} {1}"
