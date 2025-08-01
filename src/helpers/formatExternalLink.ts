@@ -90,7 +90,7 @@ async function formatTwitterUrl(url: URL) {
     const matched = url.href.match(TWEET_REGEX);
     const tweetId = trimify(matched?.[3] ?? '');
     if (tweetId) {
-        return resolvePostUrl(Source.Twitter, tweetId);
+        return urlcat(SITE_URL, resolvePostUrl(Source.Twitter, tweetId));
     }
 
     return;
