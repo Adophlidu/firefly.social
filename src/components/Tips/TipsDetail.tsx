@@ -14,7 +14,7 @@ import { TipsTransactionActions } from '@/components/Tips/TipsTransactionActions
 import { WalletEnsName } from '@/components/Tips/WalletEnsName.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source, TipsDetailViewType } from '@/constants/enum.js';
-import { notFound } from '@/esm/navigation/server.js';
+import { notFound } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';

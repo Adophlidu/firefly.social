@@ -641,7 +641,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 const id = crypto.randomUUID();
                 const nextState = {
-                    type: state.type,
+                    type: 'compose',
                     cursor: id,
                     currentDraftId: undefined,
                     focused: false,

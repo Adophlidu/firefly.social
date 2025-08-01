@@ -118,6 +118,7 @@ async function TipOpenGraphImage({
                     alignItems: 'center',
                     justifyContent: 'center',
                     position: 'absolute',
+                    gap: '12px',
                     top: 302,
                     width: '100%',
                 }}
