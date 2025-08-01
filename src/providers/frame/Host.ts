@@ -1,4 +1,10 @@
-import type { Context, MiniAppHost, ReadyOptions, SetPrimaryButton } from '@farcaster/miniapp-host';
+import {
+    miniAppHostCapabilityList,
+    type Context,
+    type MiniAppHost,
+    type ReadyOptions,
+    type SetPrimaryButton,
+} from '@farcaster/miniapp-host';
 import { t } from '@lingui/core/macro';
 import urlcat from 'urlcat';
 
@@ -197,7 +203,27 @@ export class FarcasterFrameHost implements MiniAppHost {
 
     getCapabilities: MiniAppHost['getCapabilities'] = () => {
         console.warn('[frame host]: getCapabilities');
-        throw new NotImplementedError();
+        return Promise.resolve([
+            'wallet.getEthereumProvider',
+            'wallet.getSolanaProvider',
+            'actions.ready',
+            'actions.openUrl',
+            'actions.close',
+            'actions.setPrimaryButton',
+            // 'actions.addMiniApp',
+            'actions.signIn',
+            'actions.viewCast',
+            'actions.viewProfile',
+            'actions.composeCast',
+            'actions.viewToken',
+            // 'actions.sendToken',
+            // 'actions.swapToken',
+            // 'actions.openMiniApp',
+            // 'haptics.impactOccurred',
+            // 'haptics.notificationOccurred',
+            // 'haptics.selectionChanged',
+            // 'back',
+        ]);
     };
 
     getChains: MiniAppHost['getChains'] = () => {
