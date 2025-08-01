@@ -557,6 +557,8 @@ export interface FarcasterProfile {
     addresses: string[];
     id: number;
     isDefault?: boolean;
+    following?: boolean;
+    followedBy?: boolean;
 }
 
 // TODO: bluesky profile

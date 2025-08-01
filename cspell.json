@@ -412,7 +412,8 @@
         "Tickerbit",
         "napi",
         "Userid",
-        "xrpc"
+        "xrpc",
+        "farcasterinfo"
     ],
     "flagWords": [],
     "ignorePaths": [

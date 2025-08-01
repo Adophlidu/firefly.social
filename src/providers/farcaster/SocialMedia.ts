@@ -81,7 +81,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     getProfilesByIds(ids: string[], viewer?: string): Promise<Profile[]> {
-        return FireflySocialMediaProvider.getProfilesByIds(ids);
+        return FireflySocialMediaProvider.getProfilesByIds(ids, viewer);
     }
 
     getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {

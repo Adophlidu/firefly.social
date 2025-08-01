@@ -42,7 +42,7 @@ export function formatFarcasterProfileFromFirefly(user: User): Profile {
     };
 }
 
-export function formatFarcasterProfileFromFireflyCache(user: FarcasterProfile) {
+export function formatFarcasterProfileFromFireflyCache(user: FarcasterProfile): Profile {
     return {
         ...createDummyProfile(Source.Farcaster),
         fullHandle: user.username || user.display_name,
@@ -57,5 +57,9 @@ export function formatFarcasterProfileFromFireflyCache(user: FarcasterProfile) {
         followingCount: user.followingCount,
         isPowerUser: user.isPowerUser ?? false,
         isProUser: user.isProUser ?? false,
+        viewerContext: {
+            following: user.following,
+            followedBy: user.followedBy,
+        },
     };
 }
