@@ -55,6 +55,14 @@ async function capturePostUrl(url: URL, regex: RegExp, source: SocialSource) {
         const post = await FireflySocialMediaProvider.getPostByShortId(shortId, handle);
         if (!post) return;
         return urlcat(SITE_URL, resolvePostUrl(source, post.postId));
+    } else if (source === Source.Bsky) {
+        const author = trimify(matched?.[1] ?? '');
+        const postDid = trimify(matched?.[2] ?? '');
+        if (!author || !postDid) return;
+        const profile = await BskySocialMediaProvider.getProfileByHandle(author);
+        if (!profile) return;
+        const postId = `${profile.profileId.replace('did:plc:', '')}_${postDid}`;
+        return urlcat(SITE_URL, resolvePostUrl(source, postId));
     }
     if (postId) {
         return urlcat(SITE_URL, resolvePostUrl(source, postId));

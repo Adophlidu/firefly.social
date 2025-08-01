@@ -1,3 +1,4 @@
+'use client';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { type Address } from 'viem';
