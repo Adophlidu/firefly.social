@@ -630,9 +630,6 @@ msgstr "Confirm to log out your Firefly account?"
 msgid "Copied"
 msgstr "Copied"
 
-msgid "Scan the QR code with the<0>Orb mobile app</0><1/>or <2>Camera app</2> to sign in instantly"
-msgstr "Scan the QR code with the<0>Orb mobile app</0><1/>or <2>Camera app</2> to sign in instantly"
-
 msgid "Failed to vote."
 msgstr "Failed to vote."
 
@@ -1110,6 +1107,9 @@ msgstr "Save failed post?"
 
 msgid "Owners"
 msgstr "Owners"
+
+msgid "Sorry, give edit permission from Orb is necessary to continue."
+msgstr "Sorry, give edit permission from Orb is necessary to continue."
 
 msgid "Phishing activities found."
 msgstr "Phishing activities found."
@@ -3725,6 +3725,9 @@ msgstr ""
 "\n"
 "Claim here {shareUrl}"
 
+msgid "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1> to sign in instantly"
+msgstr "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1> to sign in instantly"
+
 msgid "Share image"
 msgstr "Share image"
 
@@ -4287,9 +4290,6 @@ msgstr "Scheduled posts are only available on {0}."
 
 msgid "Download App"
 msgstr "Download App"
-
-msgid "Sorry, stay signed in & edit permission from Orb is necessary to continue."
-msgstr "Sorry, stay signed in & edit permission from Orb is necessary to continue."
 
 msgid "Profile"
 msgstr "Profile"

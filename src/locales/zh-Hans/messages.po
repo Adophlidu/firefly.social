@@ -635,9 +635,6 @@ msgstr "确认登出你的 Firefly 账户吗？"
 msgid "Copied"
 msgstr "已复制"
 
-msgid "Scan the QR code with the<0>Orb mobile app</0><1/>or <2>Camera app</2> to sign in instantly"
-msgstr ""
-
 msgid "Failed to vote."
 msgstr "投票失败。"
 
@@ -1115,6 +1112,9 @@ msgstr "保存发送失败的帖子？"
 
 msgid "Owners"
 msgstr "拥有者"
+
+msgid "Sorry, give edit permission from Orb is necessary to continue."
+msgstr ""
 
 msgid "Phishing activities found."
 msgstr "发现钓鱼活动。"
@@ -3730,6 +3730,9 @@ msgstr ""
 "\n"
 "点击这里领取：{shareUrl}"
 
+msgid "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1> to sign in instantly"
+msgstr ""
+
 msgid "Share image"
 msgstr "分享图片"
 
@@ -4292,9 +4295,6 @@ msgstr "定时贴仅在 {0} 支持。"
 
 msgid "Download App"
 msgstr "下载 App"
-
-msgid "Sorry, stay signed in & edit permission from Orb is necessary to continue."
-msgstr ""
 
 msgid "Profile"
 msgstr "个人资料"

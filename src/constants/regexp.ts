@@ -32,6 +32,9 @@ export const WARPCAST_THREAD_REGEX = /^https:\/\/warpcast\.com\/([^/]+)\/([^/]+)
 export const WARPCAST_CONVERSATIONS_REGEX = /^https:\/\/warpcast\.com\/~\/conversations\/0x[a-fA-F0-9]+$/;
 
 export const LENS_DETAIL_REGEX = /^https:\/\/hey\.xyz\/posts\/.*$/;
+export const FARCASTER_DETAIL_REGEX = /^https:\/\/farcaster\.xyz\/[^/]+\/0x[a-fA-F0-9]+$/;
+
+export const FIREFLY_DETAIL_REGEX = /^https:\/\/([^/]+\.)?firefly\.social\/post\/([^/]+)\/(0x[a-fA-F0-9]+)$/;
 
 export const BIO_TWITTER_PROFILE_REGEX = /([^\s]+)\.twitter/;
 // cspell: disable-next-line

@@ -3,6 +3,8 @@ import urlcat from 'urlcat';
 import { SourceInURL } from '@/constants/enum.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import {
+    FARCASTER_DETAIL_REGEX,
+    FIREFLY_DETAIL_REGEX,
     LENS_DETAIL_REGEX,
     MIRROR_HOSTNAME_REGEXP,
     TWEET_REGEX,
@@ -12,6 +14,8 @@ import {
 } from '@/constants/regexp.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { resolveSocialSourceFromUrl } from '@/helpers/resolveSource.js';
+import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { getFarcasterPayload, getMirrorPayload } from '@/providers/og/readers/payload.js';
 import type { ResponseJson } from '@/types/index.js';
 import { type LinkDigested, type OpenGraph, PayloadType } from '@/types/og.js';
@@ -82,6 +86,34 @@ class Processor {
                     type: PayloadType.Post,
                     id,
                     source: SourceInURL.Lens,
+                },
+            };
+        }
+        if (FARCASTER_DETAIL_REGEX.test(documentUrl)) {
+            const match = documentUrl.match(FARCASTER_DETAIL_REGEX);
+            const id = match ? match[2] : null;
+            if (!id) return { og };
+            return {
+                og,
+                payload: {
+                    type: PayloadType.Post,
+                    id,
+                    source: SourceInURL.Farcaster,
+                },
+            };
+        }
+
+        if (FIREFLY_DETAIL_REGEX.test(documentUrl)) {
+            const match = documentUrl.match(FIREFLY_DETAIL_REGEX);
+            const source = match ? match[2] : null;
+            const id = match ? match[3] : null;
+            if (!id || !source) return { og };
+            return {
+                og,
+                payload: {
+                    type: PayloadType.Post,
+                    id,
+                    source: resolveSocialSourceInUrl(resolveSocialSourceFromUrl(source)),
                 },
             };
         }

@@ -231,7 +231,7 @@ export const LensView = memo(function LensView() {
             {!isLoading ? (
                 account.address && currentProfile ? (
                     <ClickableButton
-                        disabled={!currentProfile}
+                        disabled={!currentProfile || !profiles.length}
                         loading={loading}
                         onClick={() => login()}
                         className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"

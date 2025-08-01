@@ -49,6 +49,14 @@ export const resolveSourceFromUrl = (source: SourceInURL | string) => {
     }
 };
 
+export const resolveSocialSourceFromUrl = (source: SourceInURL | string) => {
+    try {
+        return resolveSocialSource(source as SocialSourceInURL);
+    } catch {
+        return Source.Farcaster;
+    }
+};
+
 export const resolveSourceFromUrlNoFallback = (source?: SourceInURL | string | null) => {
     try {
         return resolveSource(source as SourceInURL);

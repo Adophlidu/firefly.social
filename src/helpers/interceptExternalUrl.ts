@@ -58,6 +58,7 @@ export async function interceptExternalUrl(url: string) {
         case ExternalSiteDomain.Twitter:
         case ExternalSiteDomain.X:
         case ExternalSiteDomain.Hey:
+        case ExternalSiteDomain.Bsky:
             return false;
         default:
             safeUnreachable(siteType);

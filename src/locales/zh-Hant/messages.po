@@ -635,9 +635,6 @@ msgstr "確認登出您的 Firefly 帳戶嗎？"
 msgid "Copied"
 msgstr "已複製"
 
-msgid "Scan the QR code with the<0>Orb mobile app</0><1/>or <2>Camera app</2> to sign in instantly"
-msgstr ""
-
 msgid "Failed to vote."
 msgstr "投票失敗。"
 
@@ -1115,6 +1112,9 @@ msgstr "儲存失敗貼文？"
 
 msgid "Owners"
 msgstr "持有者"
+
+msgid "Sorry, give edit permission from Orb is necessary to continue."
+msgstr ""
 
 msgid "Phishing activities found."
 msgstr "發現釣魚活動。"
@@ -3730,6 +3730,9 @@ msgstr ""
 "\n"
 "立即領取 {shareUrl}"
 
+msgid "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1> to sign in instantly"
+msgstr ""
+
 msgid "Share image"
 msgstr "分享圖片"
 
@@ -4292,9 +4295,6 @@ msgstr "預約貼文僅在 {0} 支持。"
 
 msgid "Download App"
 msgstr "下載 App"
-
-msgid "Sorry, stay signed in & edit permission from Orb is necessary to continue."
-msgstr ""
 
 msgid "Profile"
 msgstr "個人檔案"

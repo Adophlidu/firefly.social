@@ -483,6 +483,7 @@ export enum ExternalSiteDomain {
     Hey = 'hey.xyz',
     Twitter = 'twitter.com',
     X = 'x.com',
+    Bsky = 'bsky.app',
 }
 
 export enum SnapshotState {

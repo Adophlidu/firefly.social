@@ -164,7 +164,7 @@ class OfficialSocialMedia implements Provider {
         const data = res.list.map((x) => formatTwitterProfileFromX3Pro(x));
         const nextIndicator = res.hasNextPage ? createNextIndicator(indicator, `${res.nextPage}`) : undefined;
         if (twitterSessionHolder.session) {
-            const profiles = await this.getProfilesByIds(data.map((x) => x.profileId));
+            const profiles = await OfficialSocialMediaProvider.getProfilesByIds(data.map((x) => x.profileId));
             return createPageable(
                 data.map((x) => {
                     const profile = profiles.find(({ profileId }) => profileId === x.profileId);

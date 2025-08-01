@@ -132,7 +132,7 @@ export function OrbView() {
                 return;
             }
             if (error instanceof InvalidOrbPermissionError) {
-                enqueueWarningMessage(t`Sorry, stay signed in & edit permission from Orb is necessary to continue.`);
+                enqueueWarningMessage(t`Sorry, give edit permission from Orb is necessary to continue.`);
                 setPollError(error);
                 throw error;
             }
@@ -152,12 +152,8 @@ export function OrbView() {
                 <>
                     <div className="text-center text-xs leading-4 text-second">
                         <Trans>
-                            Scan the QR code with the
-                            <Link href="https://orb.club/" className="mx-[2px] text-highlight">
-                                Orb mobile app
-                            </Link>
-                            <br />
-                            or <span className="font-bold">Camera app</span> to sign in instantly
+                            Scan the QR code with the <span className="font-bold">Camera app</span> and give
+                            <span className="font-bold">edit permission</span> to sign in instantly
                         </Trans>
                     </div>
                     <div
@@ -182,6 +178,12 @@ export function OrbView() {
                                 <LoadingIcon />
                             </div>
                         ) : null}
+                    </div>
+                    <div className="mt-4 text-center text-xs leading-4 text-second">
+                        <Trans>Powered by</Trans>
+                        <Link href="https://orb.club/" className="mx-[2px] text-highlight">
+                            Orb
+                        </Link>
                     </div>
                 </>
             ) : (

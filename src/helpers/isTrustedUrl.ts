@@ -54,6 +54,11 @@ const trustedHosts = [
     'explorer.linea.build',
     'explorer.lens.xyz',
     'explorer.solana.com',
+    'dexscreener.com',
+    'tiktok.com',
+    'instagram.com',
+    'youtube.com',
+    'orb.club',
 
     // mask community
     'mask.io',
@@ -65,6 +70,7 @@ const trustedHosts = [
     'linkedin.com',
     'x3.pro',
     'discord.com',
+
     /^([a-zA-Z0-9-]+\.)*firefly\.land$/,
     /^([a-zA-Z0-9-]+\.)*firefly\.social$/,
     /^([a-zA-Z0-9-]+\.)*mask\.social$/,
