@@ -262,7 +262,7 @@ async function TipOpenGraphImage({
                                 overflow: 'hidden',
                                 whiteSpace: 'pre-line',
                                 fontSize: 40,
-                                lineHeight: '40px',
+                                lineHeight: '48px',
                                 fontWeight: 500,
                             }}
                         >
@@ -287,7 +287,7 @@ async function TipOpenGraphImage({
                         <div
                             style={{
                                 fontSize: 40,
-                                lineHeight: '40px',
+                                lineHeight: '48px',
                                 fontWeight: 500,
                                 color: '#171717',
                                 maxWidth: '360px',
