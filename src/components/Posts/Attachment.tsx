@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/react/macro';
+import { first } from 'lodash-es';
 import { memo, type SyntheticEvent, useCallback } from 'react';
 
 import LinkIcon from '@/assets/link.svg';
@@ -8,9 +9,14 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { SingleImage } from '@/components/Posts/SingleImage.js';
 import { VideoAsset } from '@/components/Posts/VideoAsset.js';
+import { VideoSwiper } from '@/components/Posts/VideoSwiper.js';
 import { WithPreviewLink } from '@/components/Posts/WithPreviewLink.js';
 import { Source } from '@/constants/enum.js';
-import { IMAGE_KIT_ATTACHMENT, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/index.js';
+import {
+    IMAGE_KIT_ATTACHMENT,
+    SUPPORTED_MULTIPLE_EMBED_SOURCES,
+    SUPPORTED_PREVIEW_MEDIA_TYPES,
+} from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
@@ -61,7 +67,8 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
     isDetail = false,
     minimal = false,
 }) {
-    const video: Attachment | undefined = attachments.find((a) => a.type === 'Video');
+    const videos = attachments.filter((a) => a.type === 'Video');
+    const video: Attachment | undefined = first(videos);
     const gifAttachments = attachments.filter((a) => a.type === 'AnimatedGif');
     const imageAttachments = attachments.filter((x) => {
         if (video || gifAttachments.length > 1) return ['Image', 'AnimatedGif'].includes(x.type);
@@ -257,9 +264,13 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                 </div>
             ) : null}
             {video && !minimal ? (
-                <div className="w-full overflow-hidden rounded-lg">
-                    <VideoAsset asset={video} minimal={minimal} source={post.source} />
-                </div>
+                videos.length > 1 && SUPPORTED_MULTIPLE_EMBED_SOURCES.includes(post.source) ? (
+                    <VideoSwiper videos={videos} source={post.source} />
+                ) : (
+                    <div className="w-full overflow-hidden rounded-lg">
+                        <VideoAsset asset={video} minimal={minimal} source={post.source} />
+                    </div>
+                )
             ) : null}
             {!video && gifAttachments.length === 1 && !minimal ? (
                 <div className="w-full overflow-hidden rounded-lg">

@@ -24,7 +24,12 @@ import { TruthSocialPostMarkup } from '@/components/TrumpTruthSocial/TruthSocial
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { PageRoute, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { EMPTY_LIST, MIN_CHAR_LENGTH_TO_TRANSLATE, RP_HASH_TAG } from '@/constants/index.js';
+import {
+    EMPTY_LIST,
+    MIN_CHAR_LENGTH_TO_TRANSLATE,
+    RP_HASH_TAG,
+    SUPPORTED_MULTIPLE_EMBED_SOURCES,
+} from '@/constants/index.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
@@ -149,7 +154,11 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
         );
     }
 
-    const LinksContent = !hasEncryptedPayload && !decodingImage && !pollId ? <PostLinks post={post} /> : null;
+    const supportMultipleEmbeds = SUPPORTED_MULTIPLE_EMBED_SOURCES.includes(post.source);
+    const LinksContent =
+        !decodingImage && (supportMultipleEmbeds || (!hasEncryptedPayload && !pollId)) ? (
+            <PostLinks hasRpPayload={!!hasEncryptedPayload} post={post} />
+        ) : null;
 
     if (isQuote) {
         return (
@@ -229,7 +238,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
             {EncryptedContent}
 
             {/* Poll */}
-            {!hasEncryptedPayload && !decodingImage ? (
+            {!decodingImage && (!hasEncryptedPayload || supportMultipleEmbeds) ? (
                 pollId && oembedUrl ? (
                     <FramePoll post={post} pollId={pollId} frameUrl={oembedUrl} />
                 ) : post.poll ? (

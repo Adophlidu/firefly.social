@@ -1,30 +1,21 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { last, uniq } from 'lodash-es';
+import { compact, last, uniq } from 'lodash-es';
 import { memo, useEffect, useMemo } from 'react';
 
-import { ArticleBody } from '@/components/Article/ArticleBody.js';
-import { ActionContainer } from '@/components/Blink/ActionContainer.js';
-import { FrameLayout } from '@/components/Frame/Layout.js';
-import { CollectionPreviewer, NFTPreviewer } from '@/components/NFTs/NFTPreview.js';
-import { OembedLayout } from '@/components/Oembed/index.js';
-import { Player } from '@/components/Oembed/Player.js';
-import { Quote } from '@/components/Posts/Quote.js';
-import { TweetSpace } from '@/components/Posts/TweetSpace.js';
-import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
+import { FrameSwiper } from '@/components/Posts/FrameSwiper.js';
+import { PostLinkContent } from '@/components/Posts/PostLinkContent.js';
 import { type SocialSource } from '@/constants/enum.js';
+import { SUPPORTED_MULTIPLE_EMBED_SOURCES } from '@/constants/index.js';
 import { LINK_MARK_RE } from '@/constants/linkRegExp.js';
-import { useRouter } from '@/esm/navigation.js';
 import type { Chars } from '@/helpers/chars.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
-import { getArticleUrl } from '@/helpers/getArticleUrl.js';
-import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
-import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
-import { useClassifyPostLink } from '@/hooks/useClassifyPostLink.js';
+import { resolveAllOembedUrls, resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
+import { useClassifyPostLink, useClassifyPostLinkMultiple } from '@/hooks/useClassifyPostLink.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -32,10 +23,10 @@ import type { ComposeType } from '@/types/compose.js';
 interface Props {
     post: Post;
     isInCompose?: boolean;
+    hasRpPayload?: boolean;
 }
 
-export const PostLinks = memo(function PostLinks({ post, isInCompose = false }: Props) {
-    const router = useRouter();
+function PostLinksSingle({ post, isInCompose = false }: Props) {
     const url = resolveOembedUrl(post);
     const { isLoading, error, data } = useClassifyPostLink(url);
 
@@ -71,42 +62,57 @@ export const PostLinks = memo(function PostLinks({ post, isInCompose = false }: 
 
     if (!url || isLoading || error || !data) return null;
 
-    // If the url occurs in the content, it might be rendered as an embed card as well.
-    const isInContent = !!post.metadata.content?.content?.includes(url);
+    return (
+        <PostLinkContent data={data} url={url} post={post} article={article || undefined} isInCompose={isInCompose} />
+    );
+}
+
+function PostLinksMultiple({ post, isInCompose = false, hasRpPayload = false }: Props) {
+    const urls = resolveAllOembedUrls(post);
+    const { isLoading, data } = useClassifyPostLinkMultiple(urls);
+
+    if (isLoading || !data?.length) return null;
+
+    const frames = data.filter((x) => !!x.result.frame);
+    const openGraphs = data.filter((x) => !!x.result.oembed);
+    const lastOpenGraph = hasRpPayload ? null : last(openGraphs);
+    const otherLinks =
+        frames.length > 1
+            ? data.filter((x) => !x.result.oembed && !x.result.frame)
+            : data.filter((x) => !x.result.oembed);
+
+    if ((frames.length >= 1 || otherLinks.length >= 1) && lastOpenGraph?.result?.oembed?.og) {
+        lastOpenGraph.result.oembed.og = {
+            ...lastOpenGraph.result.oembed.og,
+            isLarge: false,
+        };
+    }
 
     return (
         <>
-            {article ? (
-                <ArticleBody
-                    article={article}
-                    onClick={() => {
-                        if (!article || article.author.isMuted) return;
-
-                        const selection = window.getSelection();
-                        if (selection && selection.toString().length !== 0) return;
-
-                        if (isInCompose) return;
-
-                        router.push(getArticleUrl(article));
-                        return;
-                    }}
+            {frames.length > 1 ? (
+                <FrameSwiper
+                    frames={frames.map((x) => ({
+                        frame: x.result.frame!,
+                        url: x.url,
+                    }))}
+                    post={post}
                 />
             ) : null}
-            {data.quote ? <Quote post={data.quote} /> : null}
-            {data.snapshot && !isInCompose ? (
-                <SnapshotBody snapshot={data.snapshot} link={url} postId={post.postId} />
-            ) : null}
-            {data.html ? (
-                <Player html={data.html} isSpotify={isLinkMatchingHost(url, 'open.spotify.com', false)} />
-            ) : null}
-            {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
-            {data.action ? <ActionContainer action={data.action} url={url} /> : null}
-            {data.oembed ? <OembedLayout data={data.oembed} post={post} isInCompose={isInCompose} /> : null}
-            {data.spaceId ? <TweetSpace spaceId={data.spaceId} /> : null}
-            {data?.nft ? <NFTPreviewer nft={data.nft} /> : null}
-            {data?.collection && !isInContent ? <CollectionPreviewer collection={data.collection} /> : null}
+            {compact([...otherLinks, lastOpenGraph]).map((x) => (
+                <PostLinkContent key={x.url} data={x.result} url={x.url} post={post} isInCompose={isInCompose} />
+            ))}
         </>
     );
+}
+
+export const PostLinks = memo(function PostLinks({ post, isInCompose = false, hasRpPayload }: Props) {
+    const urls = resolveAllOembedUrls(post);
+    if (urls.length > 1 && SUPPORTED_MULTIPLE_EMBED_SOURCES.includes(post.source)) {
+        return <PostLinksMultiple post={post} isInCompose={isInCompose} hasRpPayload={hasRpPayload} />;
+    }
+
+    return <PostLinksSingle post={post} isInCompose={isInCompose} hasRpPayload={hasRpPayload} />;
 });
 
 export function PostLinksInCompose({

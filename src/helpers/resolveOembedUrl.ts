@@ -1,3 +1,5 @@
+import { uniq } from 'lodash-es';
+
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function resolveOembedUrl(post: Pick<Post, 'metadata'>) {
@@ -15,4 +17,12 @@ export function resolveOembedUrl(post: Pick<Post, 'metadata'>) {
         if (!attachmentsUrls.includes(url)) return url;
     }
     return post.metadata.content.oembedUrl;
+}
+
+export function resolveAllOembedUrls(post: Pick<Post, 'metadata'>) {
+    const oembedUrls = post.metadata.content?.oembedUrls;
+    const attachmentsUrls = post.metadata.content?.attachments?.map((x) => x.uri);
+    if (!oembedUrls?.length || !attachmentsUrls?.length) return oembedUrls || [];
+
+    return uniq(oembedUrls.filter((url) => !attachmentsUrls.includes(url)));
 }
