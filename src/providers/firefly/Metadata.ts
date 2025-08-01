@@ -5,12 +5,23 @@ import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
+import { settings } from '@/settings/index.js';
 import type { ResponseJson } from '@/types/index.js';
+
+function fetchWithDevelopmentApi(url: string, init?: RequestInit) {
+    return fetchJson<ResponseJson<Metadata>>(url, {
+        ...init,
+        headers: {
+            ...init?.headers,
+            'X-DEVELOPMENT-API': settings.dev ? 'true' : 'false',
+        },
+    });
+}
 
 class FireflyMetadata {
     async createArticleMetadata(articleId: string, pathname: string) {
         try {
-            const response = await fetchJson<ResponseJson<Metadata>>(
+            const response = await fetchWithDevelopmentApi(
                 urlcat(FIREFLY_WORKER_HOST, '/metadata/article', {
                     id: articleId,
                     pathname,
@@ -25,7 +36,7 @@ class FireflyMetadata {
 
     async createEventMetadata(eventName: string, pathname: string) {
         try {
-            const response = await fetchJson<ResponseJson<Metadata>>(
+            const response = await fetchWithDevelopmentApi(
                 urlcat(FIREFLY_WORKER_HOST, '/metadata/event', {
                     name: eventName,
                     pathname,
@@ -40,7 +51,7 @@ class FireflyMetadata {
 
     async createTransactionMetadata(chainId: number, hash: string, pathname: string) {
         try {
-            const response = await fetchJson<ResponseJson<Metadata>>(
+            const response = await fetchWithDevelopmentApi(
                 urlcat(FIREFLY_WORKER_HOST, '/metadata/transaction', {
                     chainId,
                     hash,
@@ -64,7 +75,7 @@ class FireflyMetadata {
         },
     ) {
         try {
-            const response = await fetchJson<ResponseJson<Metadata>>(
+            const response = await fetchWithDevelopmentApi(
                 urlcat(FIREFLY_WORKER_HOST, '/metadata/token', {
                     keyword,
                     pathname,
