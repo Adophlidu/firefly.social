@@ -1,4 +1,7 @@
+import urlcat from 'urlcat';
+
 import { ExternalSiteDomain, type SocialSource, Source } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/index.js';
 import { FARCASTER_DETAIL_REGEX, TWEET_REGEX } from '@/constants/regexp.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getUrlSiteType } from '@/helpers/interceptExternalUrl.js';
@@ -15,7 +18,7 @@ async function captureProfileUrl(url: URL, regex: RegExp, source: SocialSource) 
     const matched = regex.exec(pathname);
     const handle = trimify(matched?.[1] ?? '');
     if (handle) {
-        return getProfileUrl({ source, handle });
+        return urlcat(SITE_URL, getProfileUrl({ source, handle }));
     }
 
     return;
@@ -30,12 +33,12 @@ async function captureChannelUrl(url: URL, regex: RegExp, source: SocialSource) 
         const profile = await BskySocialMediaProvider.getProfileByHandle(author);
         if (!profile) return;
         const channelDid = `${profile.profileId.replace('did:plc:', '')}_${feedName}`;
-        return resolveChannelUrl(channelDid, source);
+        return urlcat(SITE_URL, resolveChannelUrl(channelDid, source));
     }
 
     const handle = trimify(matched?.[1] ?? '');
     if (handle) {
-        return resolveChannelUrl(handle, source);
+        return urlcat(SITE_URL, resolveChannelUrl(handle, source));
     }
 
     return;
@@ -51,10 +54,10 @@ async function capturePostUrl(url: URL, regex: RegExp, source: SocialSource) {
         if (!handle || !shortId) return;
         const post = await FireflySocialMediaProvider.getPostByShortId(shortId, handle);
         if (!post) return;
-        return resolvePostUrl(source, post.postId);
+        return urlcat(SITE_URL, resolvePostUrl(source, post.postId));
     }
     if (postId) {
-        return resolvePostUrl(source, postId);
+        return urlcat(SITE_URL, resolvePostUrl(source, postId));
     }
     return;
 }
