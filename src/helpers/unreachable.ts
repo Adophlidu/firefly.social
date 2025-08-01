@@ -10,11 +10,3 @@ export function unreachable(value: never): never {
 export function safeUnreachable(value: never) {
     console.error('Unhandled value: ', value);
 }
-
-export function unimplemented(): never {
-    throw new Error('Not implemented');
-}
-
-export function todo(message: string): never {
-    throw new Error('Not implemented: ' + message);
-}

@@ -1,14 +1,12 @@
 import { NFTCollectionPage } from '@/app/(normal)/nft/pages/NFTCollectionPage.js';
 import { NFTDetailPage } from '@/app/(normal)/nft/pages/NFTDetailPage.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { createMetadataNFT, createMetadataNFTCollection } from '@/helpers/createMetadataNFT.js';
-import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isValidChainIdEthereum, isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { parseChainId } from '@/helpers/parseChainId.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
 import type { NextPageProps } from '@/types/index.js';
 
 interface Props extends NextPageProps<{ addressOrTokenId: string; chainIdOrCollectionId: string }> {}
@@ -21,22 +19,11 @@ function isNFTDetailPage(chainIdOrCollectionId: string, addressOrTokenId: string
 export async function generateMetadata(props: Props) {
     const { addressOrTokenId, chainIdOrCollectionId } = await props.params;
 
-    const chainId = parseChainId(chainIdOrCollectionId);
-    if (isNFTDetailPage(chainIdOrCollectionId, addressOrTokenId) && chainId) {
-        const collection = await runInSafeAsync(() => FireflyEndpointProvider.getCollection(chainId, addressOrTokenId));
-        if (collection) {
-            const { contract_address: address, chain_id: chainId } = collection;
-            return createMetadataNFT(
-                `/nft/${chainId}/${address}/${addressOrTokenId}`,
-                +chainId,
-                address,
-                addressOrTokenId,
-            );
-        }
-    }
-    if (chainId) return createMetadataNFTCollection(`/nft/${chainId}/${addressOrTokenId}`, chainId, addressOrTokenId);
-
-    return createSiteMetadata(`/nft/${chainIdOrCollectionId}/${addressOrTokenId}`);
+    return FireflyMetadataProvider.createNftCollectionMetadata(
+        chainIdOrCollectionId,
+        addressOrTokenId,
+        `/nft/${chainIdOrCollectionId}/${addressOrTokenId}`,
+    );
 }
 
 export default async function Page(props: Props) {

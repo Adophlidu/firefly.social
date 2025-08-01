@@ -88,6 +88,44 @@ class FireflyMetadata {
             return createSiteMetadata(pathname);
         }
     }
+
+    async createNftMetadata(
+        addressOrTokenId: string,
+        chainIdOrCollectionId: string,
+        tokenId: string,
+        pathname: string,
+    ) {
+        try {
+            const response = await fetchWithDevelopmentApi(
+                urlcat(FIREFLY_WORKER_HOST, '/metadata/nft', {
+                    chainIdOrCollectionId,
+                    addressOrTokenId,
+                    tokenId,
+                    pathname,
+                }),
+            );
+            const metadata = resolveResponseData(response);
+            return metadata;
+        } catch (error) {
+            return createSiteMetadata(pathname);
+        }
+    }
+
+    async createNftCollectionMetadata(chainIdOrCollectionId: string, addressOrTokenId: string, pathname: string) {
+        try {
+            const response = await fetchWithDevelopmentApi(
+                urlcat(FIREFLY_WORKER_HOST, '/metadata/nft-collection', {
+                    chainIdOrCollectionId,
+                    addressOrTokenId,
+                    pathname,
+                }),
+            );
+            const metadata = resolveResponseData(response);
+            return metadata;
+        } catch (error) {
+            return createSiteMetadata(pathname);
+        }
+    }
 }
 
 export const FireflyMetadataProvider = new FireflyMetadata();

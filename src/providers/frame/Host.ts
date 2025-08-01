@@ -1,10 +1,4 @@
-import {
-    miniAppHostCapabilityList,
-    type Context,
-    type MiniAppHost,
-    type ReadyOptions,
-    type SetPrimaryButton,
-} from '@farcaster/miniapp-host';
+import { type Context, type MiniAppHost, type ReadyOptions, type SetPrimaryButton } from '@farcaster/miniapp-host';
 import { t } from '@lingui/core/macro';
 import urlcat from 'urlcat';
 

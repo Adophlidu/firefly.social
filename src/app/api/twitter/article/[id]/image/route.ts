@@ -6,7 +6,7 @@ import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js'
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { parseHtml } from '@/helpers/parseHtml.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { getImageUrl } from '@/providers/og/readers/metadata.js';
+import { getImageUrl } from '@/providers/og/readers/getImageUrl.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import type { NextRequestContext } from '@/types/index.js';
 

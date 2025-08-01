@@ -217,13 +217,3 @@ export interface EventPayload {
     };
     [SupportedEvent.WEBVIEW_DID_FINISH_LOAD]: {};
 }
-
-export type MethodItem<T extends SupportedMethod = SupportedMethod> = {
-    type: 'method';
-    name: T;
-};
-
-export type EventItem<T extends SupportedEvent = SupportedEvent> = {
-    type: 'event';
-    name: T;
-};
