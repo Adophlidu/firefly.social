@@ -2907,6 +2907,9 @@ msgstr "该代币无 Gas 滥用问题。"
 msgid "Failed to fetch profiles."
 msgstr "未能获取个人资料。"
 
+msgid "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1>to sign in instantly"
+msgstr ""
+
 msgid "Post is decrypting..."
 msgstr "帖子解密中..."
 
@@ -3729,9 +3732,6 @@ msgstr ""
 "刚刚通过铸造 {fireflyMention} 的 Inviting Yup & Phaver frens🌟 收藏品获得了 $MASK 代币。\n"
 "\n"
 "点击这里领取：{shareUrl}"
-
-msgid "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1> to sign in instantly"
-msgstr ""
 
 msgid "Share image"
 msgstr "分享图片"
