@@ -2944,6 +2944,9 @@ msgstr ""
 msgid "Failed to fetch profiles."
 msgstr ""
 
+msgid "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1>to sign in instantly"
+msgstr ""
+
 msgid "Post is decrypting..."
 msgstr ""
 
@@ -3762,9 +3765,6 @@ msgid ""
 "Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n"
 "\n"
 "Claim here {shareUrl}"
-msgstr ""
-
-msgid "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1> to sign in instantly"
 msgstr ""
 
 msgid "Share image"

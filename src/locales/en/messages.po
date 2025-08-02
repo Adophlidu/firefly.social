@@ -2952,6 +2952,9 @@ msgstr "This token is not a gas abuser."
 msgid "Failed to fetch profiles."
 msgstr "Failed to fetch profiles."
 
+msgid "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1>to sign in instantly"
+msgstr "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1>to sign in instantly"
+
 msgid "Post is decrypting..."
 msgstr "Post is decrypting..."
 
@@ -3774,9 +3777,6 @@ msgstr ""
 "Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n"
 "\n"
 "Claim here {shareUrl}"
-
-msgid "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1> to sign in instantly"
-msgstr "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1> to sign in instantly"
 
 msgid "Share image"
 msgstr "Share image"
