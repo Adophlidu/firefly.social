@@ -2305,6 +2305,9 @@ msgstr "此操作不可逆，並且預約發布任務將被取消。"
 msgid "NFT Mint"
 msgstr "NFT 鑄造"
 
+msgid "Scan the QR code with the <0>Camera app</0> <1/>and give<2>edit permission</2>to sign in instantly"
+msgstr ""
+
 msgid "Lens"
 msgstr "Lens"
 
@@ -2956,9 +2959,6 @@ msgstr "此代幣無 Gas 濫用問題。"
 
 msgid "Failed to fetch profiles."
 msgstr "取得個人檔案失敗。"
-
-msgid "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1>to sign in instantly"
-msgstr ""
 
 msgid "Post is decrypting..."
 msgstr "貼文解密中..."

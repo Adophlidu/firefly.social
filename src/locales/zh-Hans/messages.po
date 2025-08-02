@@ -2305,6 +2305,9 @@ msgstr "操作无法回滚，并且定时发布任务将会被取消。"
 msgid "NFT Mint"
 msgstr "NFT 铸造"
 
+msgid "Scan the QR code with the <0>Camera app</0> <1/>and give<2>edit permission</2>to sign in instantly"
+msgstr ""
+
 msgid "Lens"
 msgstr "Lens"
 
@@ -2956,9 +2959,6 @@ msgstr "该代币无 Gas 滥用问题。"
 
 msgid "Failed to fetch profiles."
 msgstr "未能获取个人资料。"
-
-msgid "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1>to sign in instantly"
-msgstr ""
 
 msgid "Post is decrypting..."
 msgstr "帖子解密中..."
