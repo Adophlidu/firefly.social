@@ -2254,6 +2254,9 @@ msgstr "This can’t be undone, and the scheduled send will be canceled."
 msgid "NFT Mint"
 msgstr "NFT Mint"
 
+msgid "Scan the QR code with the <0>Camera app</0> <1/>and give<2>edit permission</2>to sign in instantly"
+msgstr "Scan the QR code with the <0>Camera app</0> <1/>and give<2>edit permission</2>to sign in instantly"
+
 msgid "Lens"
 msgstr "Lens"
 
@@ -3724,9 +3727,6 @@ msgstr ""
 "Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n"
 "\n"
 "Claim here {shareUrl}"
-
-msgid "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1> to sign in instantly"
-msgstr "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1> to sign in instantly"
 
 msgid "Share image"
 msgstr "Share image"

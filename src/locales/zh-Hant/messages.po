@@ -2259,6 +2259,9 @@ msgstr "此操作不可逆，並且預約發布任務將被取消。"
 msgid "NFT Mint"
 msgstr "NFT 鑄造"
 
+msgid "Scan the QR code with the <0>Camera app</0> <1/>and give<2>edit permission</2>to sign in instantly"
+msgstr ""
+
 msgid "Lens"
 msgstr "Lens"
 
@@ -3729,9 +3732,6 @@ msgstr ""
 "剛透過鑄造 {fireflyMention} 的「邀請 Yup & Phaver 好友🌟」收藏品賺取 $MASK\n"
 "\n"
 "立即領取 {shareUrl}"
-
-msgid "Scan the QR code with the <0>Camera app</0> and give<1>edit permission</1> to sign in instantly"
-msgstr ""
 
 msgid "Share image"
 msgstr "分享圖片"
