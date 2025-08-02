@@ -151,7 +151,7 @@ export function OrbView() {
                     <div className="text-center text-xs leading-4 text-second">
                         <Trans>
                             Scan the QR code with the <span className="font-bold">Camera app</span> and give
-                            <span className="mx-1 font-bold">edit permission</span> to sign in instantly
+                            <span className="mx-1 font-bold">edit permission</span>to sign in instantly
                         </Trans>
                     </div>
                     <div

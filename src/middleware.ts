@@ -106,6 +106,10 @@ export async function middleware(request: NextRequest) {
         });
     }
 
+    /**
+     * /profile/lens/123/feed -> /profile/lens/123
+     * Not redirect if searchParams has _internal
+     */
     if (
         parsedProfileUrl?.category &&
         parsedProfileUrl.category === SocialProfileCategory.Feed &&
@@ -124,6 +128,10 @@ export async function middleware(request: NextRequest) {
         });
     }
 
+    /**
+     * /profile/lens/123 -> /profile/lens/123/feed
+     * Rewrite and set `_internal` to true
+     */
     if (
         !parsedProfileUrl?.category &&
         !!parsedProfileUrl?.source &&
@@ -222,6 +230,10 @@ export async function middleware(request: NextRequest) {
 
     const parsedClubUrl = parseClubUrl(request.nextUrl);
 
+    /**
+     * /club/lens/123/posts -> /club/lens/123
+     * Not redirect if searchParams has _internal
+     */
     if (
         parsedClubUrl?.type &&
         parsedClubUrl.type === ChannelTabType.Posts &&
@@ -239,6 +251,10 @@ export async function middleware(request: NextRequest) {
         });
     }
 
+    /**
+     * /club/lens/123 -> /club/lens/123/posts
+     * Rewrite and set `_internal` to true
+     */
     if (!parsedClubUrl?.type && !!parsedClubUrl?.source && !!parsedClubUrl.id) {
         const destination = new URL(
             urlcat(`/club/:source/:id/:type`, {
