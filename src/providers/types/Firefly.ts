@@ -561,9 +561,6 @@ export interface FarcasterProfile {
     followedBy?: boolean;
 }
 
-// TODO: bluesky profile
-export interface BskyProfile {}
-
 export interface FireflyFarcasterProfile {
     addresses: Address[];
     followers: number;
