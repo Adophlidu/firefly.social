@@ -2305,9 +2305,6 @@ msgstr "操作无法回滚，并且定时发布任务将会被取消。"
 msgid "NFT Mint"
 msgstr "NFT 铸造"
 
-msgid "Scan the QR code with the <0>Camera app</0> <1/>and give<2>edit permission</2>to sign in instantly"
-msgstr ""
-
 msgid "Lens"
 msgstr "Lens"
 
@@ -2402,6 +2399,9 @@ msgstr ""
 
 msgid "Submit a wallet to receive a collectible and $MASK airdrop"
 msgstr "提交钱包地址，领取收藏品和 $MASK 空投"
+
+msgid "Scan the QR code with the <0>Camera app</0> <1/>and give <2>edit permission</2> to sign in instantly"
+msgstr ""
 
 msgid "Standard"
 msgstr "标准"
