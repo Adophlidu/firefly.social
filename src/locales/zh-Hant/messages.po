@@ -2354,6 +2354,9 @@ msgstr ""
 msgid "Submit a wallet to receive a collectible and $MASK airdrop"
 msgstr "提交錢包地址以獲取收藏品和 $MASK 空投"
 
+msgid "Scan the QR code with the <0>Camera app</0> <1/>and give <2>edit permission</2> to sign in instantly"
+msgstr ""
+
 msgid "Standard"
 msgstr "標準"
 

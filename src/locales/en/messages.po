@@ -2349,6 +2349,9 @@ msgstr "Signing transaction"
 msgid "Submit a wallet to receive a collectible and $MASK airdrop"
 msgstr "Submit a wallet to receive a collectible and $MASK airdrop"
 
+msgid "Scan the QR code with the <0>Camera app</0> <1/>and give <2>edit permission</2> to sign in instantly"
+msgstr "Scan the QR code with the <0>Camera app</0> <1/>and give <2>edit permission</2> to sign in instantly"
+
 msgid "Standard"
 msgstr "Standard"
 
