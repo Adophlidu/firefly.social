@@ -3248,6 +3248,9 @@ msgstr "轉發或引用"
 msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr "抱歉，找不到 {0} 的關聯錢包。"
 
+msgid "Draft"
+msgstr ""
+
 msgid "Wallets"
 msgstr "錢包"
 

@@ -3230,6 +3230,9 @@ msgstr ""
 msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr ""
 
+msgid "Draft"
+msgstr ""
+
 msgid "Wallets"
 msgstr ""
 

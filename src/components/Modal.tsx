@@ -2,12 +2,20 @@ import { Dialog, Transition } from '@headlessui/react';
 import { noop } from 'lodash-es';
 import { Fragment, type ReactNode, useRef } from 'react';
 
+import { ModalBody } from '@/components/ModalBody.js';
+import { ModalTitle } from '@/components/ModalTitle.js';
 import { classNames } from '@/helpers/classNames.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 
 export interface ModalProps {
+    className?: string;
     open: boolean;
+    size?: 'xs' | 'sm' | 'md' | 'lg';
     onClose: () => void;
     children?: ReactNode;
+    title?: ReactNode;
+    enableClose?: boolean;
+    enableBack?: boolean;
     enableBackdrop?: boolean;
     disableScrollLock?: boolean;
     /**
@@ -22,9 +30,14 @@ export interface ModalProps {
 }
 
 export function Modal({
+    className,
     open,
     onClose,
     children,
+    title,
+    size,
+    enableClose = false,
+    enableBack = false,
     enableBackdrop = true,
     disableScrollLock = true,
     disableDialogClose = true,
@@ -42,7 +55,7 @@ export function Modal({
                 onClose={disableDialogClose ? noop : onClose}
                 disableScrollLock={disableScrollLock}
             >
-                <Dialog.Panel className="fixed inset-0 overflow-y-auto">
+                <div className="fixed inset-0 overflow-y-auto">
                     <div
                         className={classNames(
                             'flex min-h-full items-center justify-center overflow-auto p-0 text-center md:p-4',
@@ -80,10 +93,36 @@ export function Modal({
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                         >
-                            {children}
+                            <div
+                                className={classNames(
+                                    'relative z-10 flex flex-col rounded-md bg-lightBottom dark:bg-darkBottom md:rounded-xl',
+                                    className,
+                                    {
+                                        'w-[520px]': size === 'lg',
+                                        'w-[485px]': size === 'md',
+                                        'w-[448px]': size === 'sm',
+                                        'w-[355px]': size === 'xs',
+                                    },
+                                )}
+                                onClick={stopPropagation}
+                            >
+                                {title ? (
+                                    <>
+                                        <ModalTitle
+                                            title={title}
+                                            enableClose={enableClose}
+                                            enableBack={enableBack}
+                                            onClose={onClose}
+                                        />
+                                        <ModalBody>{children}</ModalBody>
+                                    </>
+                                ) : (
+                                    children
+                                )}
+                            </div>
                         </Transition.Child>
                     </div>
-                </Dialog.Panel>
+                </div>
             </Dialog>
         </Transition>
     );
