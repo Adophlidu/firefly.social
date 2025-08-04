@@ -161,6 +161,7 @@ export const Transactions = memo<Props>(function Transactions({
                     <SwapTimeline
                         address={trader}
                         {...timelineProps}
+                        listSubScope={`${chainId}-${tokenAddress}-${trader}`}
                         NoResultsFallbackProps={{
                             icon: null,
                             message: <Trans>No trade records</Trans>,

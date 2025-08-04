@@ -29,6 +29,7 @@ export type SwapTimelineProps = {
     NoResultsFallbackProps?: ListInPageProps['NoResultsFallbackProps'];
     chainId?: number;
     tokenAddress?: string;
+    listSubScope?: string; // to isolate among lists
     onActivitiesUpdate?: (data: SwapActivity[]) => void;
 } & (
     | {
@@ -46,6 +47,7 @@ export function SwapTimeline({
     address,
     chainId: propChainId,
     tokenAddress,
+    listSubScope = '',
     NoResultsFallbackProps,
     onActivitiesUpdate,
 }: SwapTimelineProps) {
@@ -119,7 +121,7 @@ export function SwapTimeline({
                 ...NoResultsFallbackProps,
             }}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Swap}:${isFollowing ? 'following' : 'profile'}`,
+                listKey: `${ScrollListKey.Swap}:${listSubScope}:${isFollowing ? 'following' : 'profile'}`,
                 computeItemKey: (index, item) => `${item.hash}-${index}`,
                 itemContent: (index, item) => getSwapActivityItemContent(index, item),
             }}
