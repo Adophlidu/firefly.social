@@ -213,6 +213,7 @@ export enum ExploreType {
     TopProfiles = 'users',
     TopChannels = 'clubs',
     TruthSocial = 'truth-social',
+    NFTs = 'nfts',
 }
 
 export enum TrendingType {

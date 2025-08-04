@@ -294,6 +294,11 @@ msgstr "開啟"
 msgid "You have exceeded the maximum number of attempts. Please try again later."
 msgstr "您已超過最大嘗試次數，請稍後再試。"
 
+#. placeholder {0}: collection.volume_1d
+#. placeholder {1}: collection.price_symbol
+msgid "{0} {1} <0>Vol</0>"
+msgstr ""
+
 msgid "FDV"
 msgstr "FDV"
 
@@ -1565,6 +1570,11 @@ msgstr "在 X 追蹤 @fireflyappcn"
 msgid "Cost"
 msgstr "成本"
 
+#. placeholder {0}: collection.floor_price
+#. placeholder {1}: collection.price_symbol
+msgid "{0}{1} <0>Floor</0>"
+msgstr ""
+
 msgid "Insufficient Gas"
 msgstr "Gas 不足"
 
@@ -2370,10 +2380,6 @@ msgstr "UID: {0}"
 
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "擁有者可以為每個指定地址設定不同的稅率。"
-
-#. placeholder {0}: nFormatter(collection.items_total || 0)
-msgid "{0}<0> Items</0>"
-msgstr "{0}<0> 項</0>"
 
 #. placeholder {0}: notification.comment.commentOn.type
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
@@ -3226,11 +3232,6 @@ msgstr "用戶已拒絕了請求。"
 msgid "👉 To stay updated on trades, enable notifications in your browser settings."
 msgstr "👉 為了隨時掌握交易動態，請在瀏覽器設定中開啟通知。"
 
-#. placeholder {0}: collection.floor_price
-#. placeholder {1}: collection.price_symbol
-msgid "{0}{1}<0> Floor</0>"
-msgstr "{0}{1}<0> 地板價 </0>"
-
 msgid "Claimed lucky drop successfully"
 msgstr "紅包領取成功"
 
@@ -4071,6 +4072,11 @@ msgstr "主要帳號"
 msgid "Hide tokens with small balances"
 msgstr "隱藏小額代幣"
 
+#. placeholder {0}: collection.floor_price
+#. placeholder {1}: collection.price_symbol
+msgid "{0} {1} <0>Floor</0>"
+msgstr ""
+
 msgid "Welcome back to Firefly!"
 msgstr "歡迎回到 Firefly！"
 
@@ -4362,6 +4368,10 @@ msgstr "引用"
 msgid "Swap"
 msgstr "兌換"
 
+#. placeholder {0}: nFormatter(collection.items_total || 0)
+msgid "{0} <0> Items</0>"
+msgstr ""
+
 msgid "Collect"
 msgstr "收集"
 
@@ -4467,6 +4477,10 @@ msgstr "在 Lens 上追蹤了 @{0}"
 
 msgid "Claim Now"
 msgstr "立即領取"
+
+#. placeholder {0}: nFormatter(collection.items_total || 0)
+msgid "{0} <0>Items</0>"
+msgstr ""
 
 msgid "Members"
 msgstr "成員"

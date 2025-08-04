@@ -294,6 +294,11 @@ msgstr ""
 msgid "You have exceeded the maximum number of attempts. Please try again later."
 msgstr ""
 
+#. placeholder {0}: collection.volume_1d
+#. placeholder {1}: collection.price_symbol
+msgid "{0} {1} <0>Vol</0>"
+msgstr ""
+
 msgid "FDV"
 msgstr ""
 
@@ -1565,6 +1570,11 @@ msgstr ""
 msgid "Cost"
 msgstr ""
 
+#. placeholder {0}: collection.floor_price
+#. placeholder {1}: collection.price_symbol
+msgid "{0}{1} <0>Floor</0>"
+msgstr ""
+
 msgid "Insufficient Gas"
 msgstr ""
 
@@ -2361,10 +2371,6 @@ msgid "UID: {0}"
 msgstr ""
 
 msgid "Owner can set a different tax rate for every assigned address."
-msgstr ""
-
-#. placeholder {0}: nFormatter(collection.items_total || 0)
-msgid "{0}<0> Items</0>"
 msgstr ""
 
 #. placeholder {0}: notification.comment.commentOn.type
@@ -3213,11 +3219,6 @@ msgstr ""
 msgid "👉 To stay updated on trades, enable notifications in your browser settings."
 msgstr ""
 
-#. placeholder {0}: collection.floor_price
-#. placeholder {1}: collection.price_symbol
-msgid "{0}{1}<0> Floor</0>"
-msgstr ""
-
 msgid "Claimed lucky drop successfully"
 msgstr ""
 
@@ -4055,6 +4056,11 @@ msgstr ""
 msgid "Hide tokens with small balances"
 msgstr ""
 
+#. placeholder {0}: collection.floor_price
+#. placeholder {1}: collection.price_symbol
+msgid "{0} {1} <0>Floor</0>"
+msgstr ""
+
 msgid "Welcome back to Firefly!"
 msgstr ""
 
@@ -4346,6 +4352,10 @@ msgstr ""
 msgid "Swap"
 msgstr ""
 
+#. placeholder {0}: nFormatter(collection.items_total || 0)
+msgid "{0} <0> Items</0>"
+msgstr ""
+
 msgid "Collect"
 msgstr ""
 
@@ -4448,6 +4458,10 @@ msgid "Followed @{0} on Lens"
 msgstr ""
 
 msgid "Claim Now"
+msgstr ""
+
+#. placeholder {0}: nFormatter(collection.items_total || 0)
+msgid "{0} <0>Items</0>"
 msgstr ""
 
 msgid "Members"

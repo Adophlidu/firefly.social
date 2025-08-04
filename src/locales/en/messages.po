@@ -289,6 +289,11 @@ msgstr "Open"
 msgid "You have exceeded the maximum number of attempts. Please try again later."
 msgstr "You have exceeded the maximum number of attempts. Please try again later."
 
+#. placeholder {0}: collection.volume_1d
+#. placeholder {1}: collection.price_symbol
+msgid "{0} {1} <0>Vol</0>"
+msgstr "{0} {1} <0>Vol</0>"
+
 msgid "FDV"
 msgstr "FDV"
 
@@ -1560,6 +1565,11 @@ msgstr "Follow @fireflyappcn on X"
 msgid "Cost"
 msgstr "Cost"
 
+#. placeholder {0}: collection.floor_price
+#. placeholder {1}: collection.price_symbol
+msgid "{0}{1} <0>Floor</0>"
+msgstr "{0}{1} <0>Floor</0>"
+
 msgid "Insufficient Gas"
 msgstr "Insufficient Gas"
 
@@ -2365,10 +2375,6 @@ msgstr "UID: {0}"
 
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "Owner can set a different tax rate for every assigned address."
-
-#. placeholder {0}: nFormatter(collection.items_total || 0)
-msgid "{0}<0> Items</0>"
-msgstr "{0}<0> Items</0>"
 
 #. placeholder {0}: notification.comment.commentOn.type
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
@@ -3221,11 +3227,6 @@ msgstr "The user rejected the request."
 msgid "👉 To stay updated on trades, enable notifications in your browser settings."
 msgstr "👉 To stay updated on trades, enable notifications in your browser settings."
 
-#. placeholder {0}: collection.floor_price
-#. placeholder {1}: collection.price_symbol
-msgid "{0}{1}<0> Floor</0>"
-msgstr "{0}{1}<0> Floor</0>"
-
 msgid "Claimed lucky drop successfully"
 msgstr "Claimed lucky drop successfully"
 
@@ -4066,6 +4067,11 @@ msgstr "Primary account"
 msgid "Hide tokens with small balances"
 msgstr "Hide tokens with small balances"
 
+#. placeholder {0}: collection.floor_price
+#. placeholder {1}: collection.price_symbol
+msgid "{0} {1} <0>Floor</0>"
+msgstr "{0} {1} <0>Floor</0>"
+
 msgid "Welcome back to Firefly!"
 msgstr "Welcome back to Firefly!"
 
@@ -4357,6 +4363,10 @@ msgstr "QUOTE"
 msgid "Swap"
 msgstr "Swap"
 
+#. placeholder {0}: nFormatter(collection.items_total || 0)
+msgid "{0} <0> Items</0>"
+msgstr "{0} <0> Items</0>"
+
 msgid "Collect"
 msgstr "Collect"
 
@@ -4460,6 +4470,10 @@ msgstr "Followed @{0} on Lens"
 
 msgid "Claim Now"
 msgstr "Claim Now"
+
+#. placeholder {0}: nFormatter(collection.items_total || 0)
+msgid "{0} <0>Items</0>"
+msgstr "{0} <0>Items</0>"
 
 msgid "Members"
 msgstr "Members"

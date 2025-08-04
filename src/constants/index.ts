@@ -270,11 +270,18 @@ export const EXPLORE_TYPES: ExploreType[] =
         ? [
               ExploreType.TopProfiles,
               ExploreType.TruthSocial,
-              ExploreType.Projects,
               ExploreType.CryptoTrends,
+              ExploreType.NFTs,
               ExploreType.TopChannels,
+              ExploreType.Projects,
           ]
-        : [ExploreType.TopProfiles, ExploreType.Projects, ExploreType.CryptoTrends, ExploreType.TopChannels];
+        : [
+              ExploreType.TopProfiles,
+              ExploreType.CryptoTrends,
+              ExploreType.NFTs,
+              ExploreType.TopChannels,
+              ExploreType.Projects,
+          ];
 
 export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
     [ExploreType.TopProfiles]: [Source.Twitter, Source.Farcaster, Source.Lens, Source.Bsky],
@@ -293,6 +300,7 @@ export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource | undefin
     [ExploreType.TruthSocial]: undefined,
     [ExploreType.CryptoTrends]: TrendingType.Trending,
     [ExploreType.TopChannels]: Source.Farcaster,
+    [ExploreType.NFTs]: TrendingType.Trending,
 };
 
 export const BOOKMARK_SOURCES: BookmarkSource[] = [

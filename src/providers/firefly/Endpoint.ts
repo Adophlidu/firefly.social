@@ -137,6 +137,7 @@ import {
     type TokenPriceStatsOptions,
     type TokenPriceStatsResponse,
     type TokenWithMarketData,
+    type TrendingNFTsResponse,
     type TrumpTruthSocialPostsResponse,
     type TruthSocialPostResponse,
     type TwitterUserInfoResponse,
@@ -1504,6 +1505,12 @@ class FireflyEndpoint {
         });
         const response = await fetchJson<CollectionStatisticsResponse>(url);
         return response.data;
+    }
+
+    async getTrendingNFTs(size = 20) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/trending', { size });
+        const response = await fetchJson<TrendingNFTsResponse>(url);
+        return resolveFireflyResponseData(response);
     }
 
     async loginFarcasterWithWallet(

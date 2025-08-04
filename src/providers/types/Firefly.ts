@@ -2045,6 +2045,45 @@ export interface TransactionHistoryNFTAction {
     sender: string;
 }
 
+export interface TrendingNFT {
+    contract_address: string;
+    contract_name: string;
+    symbol: string;
+    logo_url: string;
+    banner_url: string;
+    items_total: number;
+    owners_total: number;
+    verified: boolean;
+    opensea_verified: boolean;
+    sales_1d: number;
+    sales_7d: number;
+    sales_30d: number;
+    sales_total: number;
+    sales_change_1d: string;
+    sales_change_7d: string;
+    sales_change_30d: string;
+    volume_1d: number;
+    volume_7d: number;
+    volume_30d: number;
+    volume_total: number;
+    floor_price: number;
+    average_price_1d: number;
+    average_price_7d: number;
+    average_price_30d: number;
+    average_price_total: number;
+    average_price_change_1d: string;
+    average_price_change_7d: string;
+    average_price_change_30d: string;
+    volume_change_1d: string;
+    volume_change_7d: string;
+    volume_change_30d: string;
+    market_cap: number;
+    chain_id: number;
+    price_symbol: string;
+}
+
+export type TrendingNFTsResponse = Response<TrendingNFT[]>;
+
 export interface TransactionHistoryToken {
     address: string;
     symbol: string;
