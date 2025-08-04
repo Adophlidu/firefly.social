@@ -1,16 +1,12 @@
-import { Dialog } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { Outlet, rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
 
-import DraftIcon from '@/assets/draft.svg';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
-import { BackButton, CloseButton } from '@/components/IconButton.js';
-import { Tooltip } from '@/components/Tooltip.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { DraftButton } from '@/components/IconButton.js';
+import { ModalTitle } from '@/components/ModalTitle.js';
 import { captureDraftClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 
 export function ComposeRouteRoot() {
-    const isMedium = useIsMedium();
     const { history, state } = useRouter();
     const { context } = useMatch({ from: rootRouteId });
 
@@ -19,51 +15,34 @@ export function ComposeRouteRoot() {
     const isDraft = pathname === '/draft';
     const isGif = pathname === '/gif';
 
-    const modalTitle = [...state.matches].reverse().find((x) => x.context.title)?.context.title;
-
     return (
         <>
-            <Dialog.Title as="h3" className="relative h-14 shrink-0 pt-safe">
-                {isDraft || isGif ? (
-                    <BackButton
-                        onClick={() => history.replace('/')}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
-                    />
-                ) : (
-                    <CloseButton
-                        className="absolute left-4 top-1/2 -translate-y-1/2 text-fourMain"
-                        onClick={context.onClose}
-                    />
-                )}
-
-                <span className="flex h-full w-full items-center justify-center gap-x-1 text-lg font-bold capitalize text-fourMain">
-                    {modalTitle ?? <Trans>Compose</Trans>}
-                    {!isMedium && !isDraft && !isGif ? (
-                        <DraftIcon
-                            width={18}
-                            height={18}
-                            className="cursor-pointer text-fourMain"
-                            onClick={() => {
-                                history.push('/draft');
-                                captureDraftClickEvent();
-                            }}
-                        />
-                    ) : null}
-                </span>
-
-                {isMedium && !isDraft && !isGif ? (
-                    <Tooltip content={<Trans>Drafts</Trans>} placement="top">
-                        <DraftIcon
-                            className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
-                            onClick={() => {
-                                history.push('/draft');
-                                captureDraftClickEvent();
-                            }}
-                        />
-                    </Tooltip>
-                ) : null}
-                {isMedium || isDraft || isGif ? null : <ComposeSend />}
-            </Dialog.Title>
+            <div className="relative flex shrink-0 items-center justify-between pt-safe">
+                <ModalTitle
+                    title={
+                        [...state.matches].reverse().find((x) => x.context.title)?.context.title ?? (
+                            <Trans>Compose</Trans>
+                        )
+                    }
+                    actions={
+                        !isDraft && !isGif ? (
+                            <DraftButton
+                                className="cursor-pointer text-fourMain"
+                                onClick={() => {
+                                    history.push('/draft');
+                                    captureDraftClickEvent();
+                                }}
+                            />
+                        ) : (
+                            <ComposeSend />
+                        )
+                    }
+                    enableClose={!isDraft && !isGif}
+                    enableBack={isDraft || isGif}
+                    onBack={() => history.replace('/')}
+                    onClose={context.onClose}
+                />
+            </div>
             <Outlet />
         </>
     );

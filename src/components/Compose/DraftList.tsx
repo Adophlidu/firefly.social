@@ -225,7 +225,7 @@ export const DraftList = memo(function DraftList() {
 
     if (!drafts.length) {
         return (
-            <div className="flex min-h-[477px] flex-col justify-center">
+            <div className="flex min-h-[478px] flex-col justify-center">
                 <NoResultsFallback className="h-full" />
             </div>
         );
