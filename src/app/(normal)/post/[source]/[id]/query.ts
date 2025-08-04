@@ -1,4 +1,3 @@
-import { isServer } from '@tanstack/react-query';
 
 import type { SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
