@@ -4145,6 +4145,9 @@ msgstr "Your post was sent"
 msgid "Remove"
 msgstr "Remove"
 
+msgid "Associated wallet may be outdated or inaccurate. Please verify before sending."
+msgstr "Associated wallet may be outdated or inaccurate. Please verify before sending."
+
 #. placeholder {0}: author.handle
 msgid "Follow @{0}"
 msgstr "Follow @{0}"

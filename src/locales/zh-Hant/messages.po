@@ -4150,6 +4150,9 @@ msgstr "你的貼文已發布"
 msgid "Remove"
 msgstr "移除"
 
+msgid "Associated wallet may be outdated or inaccurate. Please verify before sending."
+msgstr ""
+
 #. placeholder {0}: author.handle
 msgid "Follow @{0}"
 msgstr "追蹤 @{0}"
