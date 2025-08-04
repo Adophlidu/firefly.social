@@ -67,7 +67,8 @@ class LensSessionHolder extends SessionHolder<LensSession> {
 
                     const refreshedCredentials = refreshedCredentialsResult.value;
                     if (refreshedCredentials.__typename === 'ForbiddenError') {
-                        throw new Error('Refresh token is invalid');
+                        // revoked or expired
+                        throw new TokenExpiredError('ForbiddenError');
                     }
                     updateCredentialsStorage(refreshedCredentials);
                     const sessionClient = await ensureLensResult(this.lensClientSDK.resumeSession());
