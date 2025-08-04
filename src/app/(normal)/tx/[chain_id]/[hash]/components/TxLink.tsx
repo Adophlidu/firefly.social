@@ -27,7 +27,12 @@ export function TxLink({ chainId, hash }: TxLinkProps) {
 
     if (txLink) {
         return (
-            <Link href={txLink} className={classNames('text-sm font-medium text-highlight', bedStead.className)}>
+            <Link
+                target="_blank"
+                rel="noreferrer"
+                href={txLink}
+                className={classNames('text-sm font-medium text-highlight', bedStead.className)}
+            >
                 {hash.slice(0, 6)}...{hash.slice(-4)}
             </Link>
         );
