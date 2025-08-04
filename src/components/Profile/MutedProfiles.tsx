@@ -18,6 +18,7 @@ const getProfileItemContent = (index: number, profile: Profile, listKey: string)
 export function MutedProfiles({ source }: MutedProfilesProps) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['profiles', source, 'muted-list'],
+        staleTime: 0,
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
