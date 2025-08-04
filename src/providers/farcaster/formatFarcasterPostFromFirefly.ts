@@ -28,6 +28,13 @@ async function formatContent(cast: Cast): Promise<Post['metadata']['content']> {
         ? cast.embed_urls
         : cast.embeds;
 
+    const attachments = embedUrls.filter((x) => {
+        if (!x.url) return false;
+        const type = resolveEmbedMediaType(x.url, x.type);
+        if (!type) return false;
+        return true;
+    });
+
     const oembedUrls = (
         await Promise.all(
             getEmbedUrls(
@@ -39,16 +46,9 @@ async function formatContent(cast: Cast): Promise<Post['metadata']['content']> {
                 ),
             ),
         )
-    ).filter((x) => isTopLevelDomain(x));
+    ).filter((x) => isTopLevelDomain(x) && !attachments.some((a) => a.url === x));
 
     const defaultContent = { content: cast.text, oembedUrl: last(oembedUrls), oembedUrls };
-
-    const attachments = embedUrls.filter((x) => {
-        if (!x.url) return false;
-        const type = resolveEmbedMediaType(x.url, x.type);
-        if (!type) return false;
-        return true;
-    });
 
     if (attachments.length) {
         const lastAsset = last(attachments);
