@@ -1,10 +1,14 @@
 import { Trans } from '@lingui/react/macro';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 
-import { PostDetailPage } from '@/app/(normal)/post/[source]/[id]/pages/DetailPage.js';
+import { PageDetail } from '@/app/(normal)/post/[source]/[id]/client.js';
+import LoadingPage from '@/app/(normal)/post/[source]/[id]/loading.js';
+import { getPostDetailQuery, getPostThreadQuery } from '@/app/(normal)/post/[source]/[id]/query.js';
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
+import { queryClientConfig } from '@/configs/queryClient.js';
 import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
@@ -13,10 +17,7 @@ import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { getPostById } from '@/services/getPostById.js';
-import { getThreads } from '@/services/getThreads.js';
 import type { NextPageProps } from '@/types/index.js';
 
 export const revalidate = 60;
@@ -41,9 +42,8 @@ export default async function Page(props: Props) {
 
     const source = resolveSocialSource(params.source);
 
-    const queryClient = new QueryClient();
-    const post = await getPostById(source, params.id);
-
+    const queryClient = new QueryClient(queryClientConfig);
+    const post = await queryClient.ensureQueryData(getPostDetailQuery(source, params.id));
     if (!post) {
         if (isRequestedLoginSource(source)) {
             return (
@@ -59,13 +59,13 @@ export default async function Page(props: Props) {
             );
         }
     }
-    const threadResult = post ? await runInSafeAsync(() => getThreads(post, source)) : undefined;
-    if (post) await queryClient.setQueryData([source, 'post-detail', params.id], post);
-    if (threadResult) await queryClient.setQueryData([source, 'post-thread', params.id], threadResult);
+    await queryClient.prefetchQuery(getPostThreadQuery(source, params.id, post));
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
-            <PostDetailPage id={params.id} source={source} initialPost={post} initialThreads={threadResult} />
+            <Suspense fallback={<LoadingPage />}>
+                <PageDetail id={params.id} source={source} />
+            </Suspense>
         </HydrationBoundary>
     );
 }

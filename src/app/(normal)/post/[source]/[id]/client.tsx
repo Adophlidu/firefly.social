@@ -1,8 +1,11 @@
 'use client';
+
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense } from 'react';
 
+import LoadingPage from '@/app/(normal)/post/[source]/[id]/loading.js';
+import { getPostDetailQuery, getPostThreadQuery } from '@/app/(normal)/post/[source]/[id]/query.js';
 import { PostActionsWithGrid } from '@/components/Actions/index.js';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { QuickReply } from '@/components/Actions/QuickReply.js';
@@ -18,48 +21,22 @@ import { Section } from '@/components/Semantic/Section.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation.js';
-import type { Pageable } from '@/helpers/pageable.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
-import { getPostById } from '@/services/getPostById.js';
-import { getThreads } from '@/services/getThreads.js';
 
 interface Props {
     id: string;
     source: SocialSource;
-    initialPost?: Post;
-    initialThreads?: Pageable<Post, undefined>;
 }
 
-export function PostDetailPage({ id: postId, source, initialPost, initialThreads }: Props) {
+export function PageDetail({ id: postId, source }: Props) {
     if (!postId) notFound();
-
-    const {
-        data: post,
-        isLoading,
-        isRefetching,
-    } = useQuery({
-        queryKey: [source, 'post-detail', postId],
-        queryFn: async () => {
-            return getPostById(source, postId);
-        },
-        initialData: initialPost,
-    });
-
+    const { data: post, isLoading, isRefetching } = useSuspenseQuery(getPostDetailQuery(source, postId));
     const {
         data: threads,
         isLoading: threadLoading,
         isRefetching: threadRefetching,
-    } = useQuery({
-        queryKey: [source, 'post-thread', postId],
-        enabled: !!post,
-        queryFn: async () => {
-            if (!post) return { data: EMPTY_LIST };
-            return getThreads(post, source);
-        },
-        initialData: initialThreads,
-    });
+    } = useSuspenseQuery(getPostThreadQuery(source, postId, post));
 
-    if ((isLoading || isRefetching || threadLoading || threadRefetching) && !post) return <Loading />;
+    if ((isLoading || isRefetching || threadLoading || threadRefetching) && !post) return <LoadingPage />;
     if (!post) notFound();
 
     const allPosts = threads?.data || EMPTY_LIST;
