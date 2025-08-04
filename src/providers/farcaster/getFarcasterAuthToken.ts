@@ -1,4 +1,6 @@
-import { getPublicKeyInHexFromPrivateKey, signMessageWithPrivateKey } from '@/providers/farcaster/ed25519.js';
+import { NobleEd25519Signer } from '@farcaster/core';
+import { bytesToHex, toBytes } from 'viem';
+
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 
 function bufferToBase64Url(buffer: Buffer) {
@@ -8,9 +10,11 @@ function bufferToBase64Url(buffer: Buffer) {
 
 export async function getFarcasterAuthToken() {
     const { token, profileId } = farcasterSessionHolder.sessionRequired;
-
-    const publicKey = await getPublicKeyInHexFromPrivateKey(token);
     const fid = Number.parseInt(profileId, 10);
+
+    const signer = new NobleEd25519Signer(toBytes(token));
+    const publicKey = await signer.getSignerKey();
+    if (publicKey.isErr()) throw new Error('Failed to get signer key.');
 
     const payload = { exp: Math.floor(Date.now() / 1000) + 300 }; // 5 minutes
     const encodedPayload = bufferToBase64Url(Buffer.from(JSON.stringify(payload)));
@@ -19,16 +23,13 @@ export async function getFarcasterAuthToken() {
             JSON.stringify({
                 fid,
                 type: 'app_key',
-                key: publicKey,
+                key: bytesToHex(publicKey.value),
             }),
         ),
     );
-    const signature = await signMessageWithPrivateKey(
-        token,
-        Buffer.from(`${encodedHeader}.${encodedPayload}`, 'utf-8'),
-    );
-    if (!signature) throw new Error('Failed to sign message');
+    const signatureResult = await signer.signMessageHash(Buffer.from(`${encodedHeader}.${encodedPayload}`, 'utf-8'));
+    if (signatureResult.isErr()) throw new Error('Failed to sign message');
 
-    const encodedSignature = bufferToBase64Url(Buffer.from(signature));
+    const encodedSignature = bufferToBase64Url(Buffer.from(signatureResult.value));
     return [encodedHeader, encodedPayload, encodedSignature].join('.');
 }
