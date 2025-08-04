@@ -2815,7 +2815,7 @@ msgstr ""
 msgid "View engagements"
 msgstr ""
 
-#. placeholder {0}: token.balance ? formatTokenItemAmount(token.balance) : '-'
+#. placeholder {0}: token.amount ? formatTokenItemAmount(token.amount) : '-'
 #. placeholder {0}: token.balance || '0'
 #. placeholder {1}: token.symbol?.toUpperCase()
 #. placeholder {1}: token.symbol || '-'

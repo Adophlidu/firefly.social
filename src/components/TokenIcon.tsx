@@ -21,6 +21,7 @@ export interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
     size?: number;
     badgeSize?: number;
     disableBadge?: boolean;
+    badgeClassName?: string;
 }
 
 export const TokenIcon = memo(function TokenIcon({
@@ -35,6 +36,7 @@ export const TokenIcon = memo(function TokenIcon({
     badgeSize = 12,
     disableBadge = false,
     className,
+    badgeClassName,
     ...rest
 }: TokenIconProps) {
     const defaultBadgeSize = Math.max(24, Math.floor(size / 2));
@@ -81,7 +83,10 @@ export const TokenIcon = memo(function TokenIcon({
             )}
             {!disableBadge ? (
                 <span
-                    className="absolute -bottom-[1px] overflow-hidden rounded-full bg-lightBottom p-[1px]"
+                    className={classNames(
+                        'absolute -bottom-[1px] overflow-hidden rounded-full bg-lightBottom p-[1px]',
+                        badgeClassName,
+                    )}
                     style={{
                         right: -badgeSize / 2,
                     }}

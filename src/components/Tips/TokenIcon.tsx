@@ -1,16 +1,17 @@
-import { TokenIcon as GenericTokenIcon } from '@/components/TokenIcon.js';
+import { TokenIcon as GenericTokenIcon, type TokenIconProps } from '@/components/TokenIcon.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
-interface TokenIconProps {
+interface Props extends TokenIconProps {
     token: Pick<Token, 'id' | 'chainId' | 'name' | 'logo_url' | 'chainLogoUrl'>;
     tokenSize?: number;
     chainSize?: number;
     disableChainIcon?: boolean;
 }
 
-export function TokenIcon({ token, tokenSize = 30, chainSize = 12, disableChainIcon = false }: TokenIconProps) {
+export function TokenIcon({ token, tokenSize = 30, chainSize = 12, disableChainIcon = false, ...rest }: Props) {
     return (
         <GenericTokenIcon
+            {...rest}
             key={token.id}
             chainId={token.chainId}
             name={token.name}

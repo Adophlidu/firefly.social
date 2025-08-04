@@ -43,7 +43,7 @@ export function TokenItem({ className, token, disableChainIcon, ...props }: Toke
             {...props}
         >
             <div className="flex items-center gap-x-4">
-                <TokenIcon disableChainIcon={disableChainIcon} token={token} />
+                <TokenIcon badgeClassName="bg-white" disableChainIcon={disableChainIcon} token={token} />
                 <div className="text-left">
                     <div className="h-5 w-full leading-5">
                         <span>{token.name}</span>
