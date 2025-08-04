@@ -1,16 +1,14 @@
 'use client';
 
-import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense } from 'react';
 
-import LoadingPage from '@/app/(normal)/post/[source]/[id]/loading.js';
-import { getPostDetailQuery, getPostThreadQuery } from '@/app/(normal)/post/[source]/[id]/query.js';
+import LoadingPage from '@/app/(normal)/post/[source]/[id]/(detail)/loading.js';
+import { getPostDetailQuery, getPostThreadQuery } from '@/app/(normal)/post/[source]/[id]/(detail)/query.js';
 import { PostActionsWithGrid } from '@/components/Actions/index.js';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { QuickReply } from '@/components/Actions/QuickReply.js';
 import { ChannelInfo } from '@/components/Channel/ChannelInfo.js';
-import { Comeback } from '@/components/Comeback.js';
 import { CommentList } from '@/components/Comments/index.js';
 import { Loading } from '@/components/Loading.js';
 import { NoSSR } from '@/components/NoSSR.js';
@@ -42,13 +40,7 @@ export function PageDetail({ id: postId, source }: Props) {
     const allPosts = threads?.data || EMPTY_LIST;
 
     return (
-        <article className="min-h-screen">
-            <header className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
-                <Comeback className="mr-8" />
-                <h2 className="text-xl font-black leading-6">
-                    <Trans>Details</Trans>
-                </h2>
-            </header>
+        <article className="min-h-svh">
             {post.channel?.name ? (
                 <Section title="Post Channel">
                     <ChannelInfo channel={post.channel} source={post.source} className="border-b border-line p-3" />

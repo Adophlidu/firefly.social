@@ -3,9 +3,9 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 
-import { PageDetail } from '@/app/(normal)/post/[source]/[id]/client.js';
-import LoadingPage from '@/app/(normal)/post/[source]/[id]/loading.js';
-import { getPostDetailQuery, getPostThreadQuery } from '@/app/(normal)/post/[source]/[id]/query.js';
+import { PageDetail } from '@/app/(normal)/post/[source]/[id]/(detail)/client.js';
+import LoadingPage from '@/app/(normal)/post/[source]/[id]/(detail)/loading.js';
+import { getPostDetailQuery, getPostThreadQuery } from '@/app/(normal)/post/[source]/[id]/(detail)/query.js';
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { queryClientConfig } from '@/configs/queryClient.js';
