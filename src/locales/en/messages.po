@@ -201,6 +201,9 @@ msgstr "{followerCount, plural, one {Follower} other {Followers}}"
 msgid "Delete post"
 msgstr "Delete post"
 
+msgid "This account has expired, please log in again."
+msgstr "This account has expired, please log in again."
+
 msgid "Turning off Multi-device login will clear all previously encrypted login sessions. A new password is required to re-enable."
 msgstr "Turning off Multi-device login will clear all previously encrypted login sessions. A new password is required to re-enable."
 

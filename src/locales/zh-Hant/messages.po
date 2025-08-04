@@ -206,6 +206,9 @@ msgstr "{followerCount, plural, one {追蹤者} other {追蹤者}}"
 msgid "Delete post"
 msgstr "刪除貼文"
 
+msgid "This account has expired, please log in again."
+msgstr ""
+
 msgid "Turning off Multi-device login will clear all previously encrypted login sessions. A new password is required to re-enable."
 msgstr "關閉多裝置登入功能將清除所有已加密的登入授權。重新啟用需設定新密碼。"
 

@@ -24,12 +24,14 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { PageRoute, PasswordWorkflow, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
+import { TokenExpiredError } from '@/constants/error.js';
 import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@/constants/index.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { delay } from '@/helpers/delay.js';
-import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -354,6 +356,14 @@ export function MainView() {
 
                 enqueueSuccessMessage(t`Switch Done!`);
             } catch (error) {
+                if (error instanceof TokenExpiredError) {
+                    const state = getProfileState(account.profile.profileSource);
+                    state.removeAccount(account);
+
+                    enqueueWarningMessage(t`This account has expired, please log in again.`);
+                    return;
+                }
+
                 enqueueMessageFromError(error, t`Failed to switch.`);
                 throw error;
             }

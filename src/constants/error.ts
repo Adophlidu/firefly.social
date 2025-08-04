@@ -307,3 +307,11 @@ export class BskySessionExpiredError extends Error {
         super(message ?? 'Bsky session expired.');
     }
 }
+
+export class TokenExpiredError extends Error {
+    override name = 'TokenExpiredError';
+
+    constructor(message?: string) {
+        super(message ?? 'Token has been expired.');
+    }
+}
