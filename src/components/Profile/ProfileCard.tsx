@@ -30,8 +30,9 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
     const { id, source } = identity;
 
     const myProfile = useCurrentProfile(narrowToSocialSource(source));
+    const queryKey = source === Source.Lens ? ['profile', source, id, 'tippy'] : ['profile', source, id];
     const { data: profile, isLoading } = useQuery({
-        queryKey: ['profile', source, id],
+        queryKey,
         staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: async () => {
             if (!id || !source) return;
