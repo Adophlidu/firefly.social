@@ -1,3 +1,6 @@
+'use client';
+
+import { AnimatePresence } from 'framer-motion';
 import { memo, type ReactNode } from 'react';
 
 import { WalletItem } from '@/app/(settings)/components/WalletItem.js';
@@ -31,13 +34,15 @@ export const WalletGroup = memo<WalletGroupProps>(function WalletGroup({
                 ) : null}
             </p>
             <div className="mt-[22px] flex w-full flex-col gap-[22px]">
-                {connections.map((connection) => (
-                    <WalletItem
-                        key={connection.address}
-                        connection={connection}
-                        noAction={!connection.canReport && related}
-                    />
-                ))}
+                <AnimatePresence mode="wait">
+                    {connections.map((connection) => (
+                        <WalletItem
+                            key={connection.address}
+                            connection={connection}
+                            noAction={!connection.canReport && related}
+                        />
+                    ))}
+                </AnimatePresence>
             </div>
         </div>
     );

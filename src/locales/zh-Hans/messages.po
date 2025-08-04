@@ -1706,6 +1706,9 @@ msgstr "[红包]"
 msgid "Group"
 msgstr "小组"
 
+msgid "Set {formattedAddress} as primary Solana wallet"
+msgstr ""
+
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
 msgstr "选项 {0}"
@@ -1715,6 +1718,9 @@ msgstr "自 2024 年 8 月 1 日起，使用以下应用程序发布过帖子；
 
 msgid "More details"
 msgstr "详细信息"
+
+msgid "Set {formattedAddress} as primary EVM wallet"
+msgstr ""
 
 #. placeholder {0}: result.amount
 msgid "Claimed lucky drop with {0} {symbol} successfully"
@@ -2432,6 +2438,10 @@ msgstr "字体颜色"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "使用 Firefly 的红包功能，提升你的粉丝数与互动率！"
+
+#. placeholder {0}: profile.handle
+msgid "Set @{0} as primary account"
+msgstr ""
 
 #. placeholder {0}: item.project_name
 msgid "on {0}"

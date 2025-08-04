@@ -1701,6 +1701,9 @@ msgstr "[LuckyDrop]"
 msgid "Group"
 msgstr "Group"
 
+msgid "Set {formattedAddress} as primary Solana wallet"
+msgstr "Set {formattedAddress} as primary Solana wallet"
+
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
 msgstr "Choice {0}"
@@ -1710,6 +1713,9 @@ msgstr "Posted on the following apps since August 1, 2024, and new Firefly users
 
 msgid "More details"
 msgstr "More details"
+
+msgid "Set {formattedAddress} as primary EVM wallet"
+msgstr "Set {formattedAddress} as primary EVM wallet"
 
 #. placeholder {0}: result.amount
 msgid "Claimed lucky drop with {0} {symbol} successfully"
@@ -2427,6 +2433,10 @@ msgstr "Font Color"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Grow your followers and engagement with Lucky Drop on Firefly!"
+
+#. placeholder {0}: profile.handle
+msgid "Set @{0} as primary account"
+msgstr "Set @{0} as primary account"
 
 #. placeholder {0}: item.project_name
 msgid "on {0}"

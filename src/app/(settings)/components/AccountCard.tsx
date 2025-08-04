@@ -2,6 +2,7 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useAsyncFn } from 'react-use';
 
 import { PrimaryButton } from '@/app/(settings)/components/PrimaryButton.js';
@@ -9,12 +10,12 @@ import DisconnectIcon from '@/assets/disconnect.svg';
 import InfoIcon from '@/assets/info-outline.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorHandler } from '@/components/ErrorHandler.js';
+import { Loading } from '@/components/Loading.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
@@ -78,19 +79,14 @@ function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'ori
 export function AccountCards() {
     const { data, isLoading, error, refetch } = useAllConnectionsFormattedWithProfiles();
 
+    if (isLoading) {
+        return <Loading />;
+    }
+
     if (!data) {
-        if (error || isLoading) {
+        if (error) {
             return (
                 <div className="relative w-full">
-                    <div
-                        className={classNames('flex w-full flex-col gap-3', {
-                            'opacity-0': !isLoading && !!error,
-                        })}
-                    >
-                        {new Array(4).fill(0).map((_, i) => (
-                            <div className="h-[63px] w-full animate-pulse rounded-lg bg-bg" key={i} />
-                        ))}
-                    </div>
                     {!isLoading && error ? (
                         <ErrorHandler reset={refetch} error={error} className="absolute left-0 top-0 !h-full w-full" />
                     ) : null}
@@ -112,57 +108,61 @@ export function AccountCards() {
                                     {resolveSourceName(source)}
                                 </span>
                             </div>
-                            {items.map(({ connection, profile, account }) => {
-                                const isConnected =
-                                    ('connectedAt' in connection && connection.connectedAt) ||
-                                    ('connected' in connection && connection.connected);
-                                return (
-                                    <div
-                                        key={profile.profileId}
-                                        className="inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg border border-line bg-white bg-bottom px-3 py-2 backdrop-blur dark:bg-bg"
-                                    >
-                                        {isConnected ? (
-                                            <PrimaryButton
-                                                platformId={connection.id}
-                                                platform={resolveConnectionPlatform(source)}
-                                                isDefault={connection.isDefault}
-                                                tooltipContent={
-                                                    connection.isDefault ? (
-                                                        <Trans>Primary account</Trans>
-                                                    ) : (
-                                                        <Trans>Set as primary account</Trans>
-                                                    )
-                                                }
-                                            />
-                                        ) : (
-                                            <Tooltip
-                                                placement="top"
-                                                content={
-                                                    <Trans>
-                                                        It is related account retrieved from connected wallets. Please
-                                                        sign in to set as primary account.
-                                                    </Trans>
-                                                }
-                                            >
-                                                <InfoIcon
-                                                    width={20}
-                                                    height={20}
-                                                    className="size-5 shrink-0 text-second"
+                            <AnimatePresence mode="wait">
+                                {items.map(({ connection, profile, account }) => {
+                                    const isConnected =
+                                        ('connectedAt' in connection && connection.connectedAt) ||
+                                        ('connected' in connection && connection.connected);
+                                    return (
+                                        <motion.div
+                                            key={profile.profileId}
+                                            layoutId={profile.profileId}
+                                            className="inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg border border-line bg-white bg-bottom px-3 py-2 backdrop-blur dark:bg-bg"
+                                        >
+                                            {isConnected ? (
+                                                <PrimaryButton
+                                                    platformId={connection.id}
+                                                    platform={resolveConnectionPlatform(source)}
+                                                    isDefault={connection.isDefault}
+                                                    profile={profile}
+                                                    tooltipContent={
+                                                        connection.isDefault ? (
+                                                            <Trans>Primary account</Trans>
+                                                        ) : (
+                                                            <Trans>Set as primary account</Trans>
+                                                        )
+                                                    }
                                                 />
-                                            </Tooltip>
-                                        )}
-                                        <ProfileAvatar
-                                            profile={profile}
-                                            size={36}
-                                            enableDefaultAvatar={profile.source === Source.Lens}
-                                        />
-                                        <ProfileName profile={profile} />
-                                        {isConnected ? (
-                                            <DisconnectButton account={{ profile, origin: account?.origin }} />
-                                        ) : null}
-                                    </div>
-                                );
-                            })}
+                                            ) : (
+                                                <Tooltip
+                                                    placement="top"
+                                                    content={
+                                                        <Trans>
+                                                            It is related account retrieved from connected wallets.
+                                                            Please sign in to set as primary account.
+                                                        </Trans>
+                                                    }
+                                                >
+                                                    <InfoIcon
+                                                        width={20}
+                                                        height={20}
+                                                        className="size-5 shrink-0 text-second"
+                                                    />
+                                                </Tooltip>
+                                            )}
+                                            <ProfileAvatar
+                                                profile={profile}
+                                                size={36}
+                                                enableDefaultAvatar={profile.source === Source.Lens}
+                                            />
+                                            <ProfileName profile={profile} />
+                                            {isConnected ? (
+                                                <DisconnectButton account={{ profile, origin: account?.origin }} />
+                                            ) : null}
+                                        </motion.div>
+                                    );
+                                })}
+                            </AnimatePresence>
                         </div>
                     );
                 })}

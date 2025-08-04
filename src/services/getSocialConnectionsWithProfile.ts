@@ -1,7 +1,6 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { flatLenConnections } from '@/helpers/formatWalletConnection.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { unreachable } from '@/helpers/unreachable.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -31,44 +30,37 @@ export function getProfileIdsFromSocialConnections(source: SocialSource, social:
     }
 }
 
-export async function getSocialConnectionsWithProfile(source: SocialSource, social: SocialConnections) {
+export async function getProfileFromSocialConnections(source: SocialSource, social: SocialConnections) {
     switch (source) {
         case Source.Farcaster: {
-            const connections = [...social[source].connected, ...social[source].unconnected];
             const ids = getProfileIdsFromSocialConnections(source, social);
             if (!ids.length) return EMPTY_LIST;
-            const profiles = await FarcasterSocialMediaProvider.getProfilesByIds(ids);
-            return profiles
-                .map((profile) => ({
-                    profile,
-                    connection: connections.find((x) => `${x.id}` === profile.profileId)!,
-                }))
-                .filter((x) => x.connection);
+            return FarcasterSocialMediaProvider.getProfilesByIds(ids);
         }
         case Source.Twitter:
         case Source.Bsky: {
-            const connections = [...social[source].connected, ...social[source].unconnected];
             const ids = getProfileIdsFromSocialConnections(source, social);
             if (!ids.length) return EMPTY_LIST;
-            const profiles = await resolveSocialMediaProvider(source).getProfilesByIds(ids);
-            return profiles
-                .map((profile) => ({
-                    profile,
-                    connection: connections.find((x) => x.id === profile.profileId)!,
-                }))
-                .filter((x) => x.connection);
+            return resolveSocialMediaProvider(source).getProfilesByIds(ids);
         }
         case Source.Lens:
             const connections = flatLenConnections([...social[source].connected, ...social[source].unconnected]);
             const ids = getProfileIdsFromSocialConnections(source, social);
             if (!ids.length) return EMPTY_LIST;
-            const profiles = await LensSocialMediaProvider.getProfilesByIds(connections.map((x) => x.id));
-            return profiles
-                .map((profile) => ({
-                    profile,
-                    connection: connections.find((x) => isSameAddress(x.id, profile.profileId))!,
-                }))
-                .filter((x) => x.connection);
+            return LensSocialMediaProvider.getProfilesByIds(connections.map((x) => x.id));
+        default:
+            unreachable(source);
+    }
+}
+
+export function getConnections(source: SocialSource, social: SocialConnections) {
+    switch (source) {
+        case Source.Farcaster:
+        case Source.Twitter:
+        case Source.Bsky:
+            return [...social[source].connected, ...social[source].unconnected];
+        case Source.Lens:
+            return flatLenConnections([...social[source].connected, ...social[source].unconnected]);
         default:
             unreachable(source);
     }

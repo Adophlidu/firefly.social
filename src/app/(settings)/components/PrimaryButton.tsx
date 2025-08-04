@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from '@lingui/react/macro';
 import { useQueryClient } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -11,25 +12,48 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import type { ConnectionPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { formatAddressEthereum, formatAddressSolana } from '@/helpers/formatAddress.js';
+import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function PrimaryButton({
     platform,
     isDefault,
     platformId,
     tooltipContent,
+    profile,
 }: {
     platform: ConnectionPlatform;
     platformId: string | number;
     isDefault?: boolean;
     tooltipContent: ReactNode;
+    profile?: Profile;
 }) {
     const queryClient = useQueryClient();
     const [{ loading }, onSetPrimary] = useAsyncFn(async () => {
         await FireflyEndpointProvider.updateDefaultConnection(platformId, platform);
         await queryClient.refetchQueries({ queryKey: ['my-wallet-connections'] });
         await queryClient.refetchQueries({ queryKey: ['all-profiles'] });
-    }, [platformId, platform, queryClient]);
+        await queryClient.refetchQueries({ queryKey: ['allConnections'] });
+        if (profile?.handle) {
+            enqueueSuccessMessage(<Trans>Set @{profile.handle} as primary account</Trans>);
+            return;
+        }
+        if (typeof platformId === 'string') {
+            if (isValidAddressEthereum(platformId)) {
+                const formattedAddress = formatAddressEthereum(platformId, 4);
+                enqueueSuccessMessage(<Trans>Set {formattedAddress} as primary EVM wallet</Trans>);
+                return;
+            }
+            if (isValidAddressSolana(platformId)) {
+                const formattedAddress = formatAddressSolana(platformId, 4);
+                enqueueSuccessMessage(<Trans>Set {formattedAddress} as primary Solana wallet</Trans>);
+                return;
+            }
+        }
+    }, [platformId, platform, queryClient, profile?.handle]);
 
     return (
         <Tooltip content={tooltipContent} placement="top">
