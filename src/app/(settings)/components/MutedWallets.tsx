@@ -14,6 +14,7 @@ const getMutedWalletItem = (index: number, profile: WalletProfile, listKey: stri
 export function MutedWallets() {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['wallets', 'muted-list'],
+        staleTime: 0,
         queryFn: async ({ pageParam }) => {
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
             return await FireflyEndpointProvider.getBlockedWallets(indicator);

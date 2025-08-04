@@ -1,6 +1,7 @@
-import { AuthenticationError, PublicClient, SessionClient } from '@lens-protocol/client';
+import { AuthenticationError, InvariantError, PublicClient, SessionClient } from '@lens-protocol/client';
 import { refresh } from '@lens-protocol/client/actions';
 
+import { TokenExpiredError } from '@/constants/error.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { createLensSDK, LocalStorageProvider, removeLensCredentials } from '@/providers/lens/createLensSDK.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
@@ -47,36 +48,44 @@ class LensSessionHolder extends SessionHolder<LensSession> {
     }
 
     override async resumeSession(session: LensSession, refreshSession = false): Promise<LensCredentials | undefined> {
-        if (refreshSession && !session.refreshToken) {
-            throw new Error('No refresh token found in Lens session holder');
-        }
-        if (session.refreshToken) {
-            const storage = new LocalStorageProvider();
-
-            // renew the sdk instance, since it could possess the old credentials
-            this.lensClientSDK = createLensSDK(storage);
-            if (refreshSession) {
-                const refreshedCredentialsResult = await refresh(this.lensClientSDK, {
-                    refreshToken: session.refreshToken,
-                });
-                if (!refreshedCredentialsResult.isOk()) {
-                    throw refreshedCredentialsResult.error;
-                }
-
-                const refreshedCredentials = refreshedCredentialsResult.value;
-                if (refreshedCredentials.__typename === 'ForbiddenError') {
-                    throw new Error('Refresh token is invalid');
-                }
-                updateCredentialsStorage(refreshedCredentials);
-                const sessionClient = await ensureLensResult(this.lensClientSDK.resumeSession());
-                this.setSessionClient(sessionClient);
-
-                return refreshedCredentials;
+        try {
+            if (refreshSession && !session.refreshToken) {
+                throw new Error('No refresh token found in Lens session holder');
             }
-        }
-        super.resumeSession(session);
+            if (session.refreshToken) {
+                const storage = new LocalStorageProvider();
 
-        return;
+                // renew the sdk instance, since it could possess the old credentials
+                this.lensClientSDK = createLensSDK(storage);
+                if (refreshSession) {
+                    const refreshedCredentialsResult = await refresh(this.lensClientSDK, {
+                        refreshToken: session.refreshToken,
+                    });
+                    if (!refreshedCredentialsResult.isOk()) {
+                        throw refreshedCredentialsResult.error;
+                    }
+
+                    const refreshedCredentials = refreshedCredentialsResult.value;
+                    if (refreshedCredentials.__typename === 'ForbiddenError') {
+                        // revoked or expired
+                        throw new TokenExpiredError('ForbiddenError');
+                    }
+                    updateCredentialsStorage(refreshedCredentials);
+                    const sessionClient = await ensureLensResult(this.lensClientSDK.resumeSession());
+                    this.setSessionClient(sessionClient);
+
+                    return refreshedCredentials;
+                }
+            }
+            super.resumeSession(session);
+
+            return;
+        } catch (error) {
+            if (error instanceof InvariantError && error.message?.includes('ExpiredSignature')) {
+                throw new TokenExpiredError();
+            }
+            throw error;
+        }
     }
 
     override removeSession(): void {

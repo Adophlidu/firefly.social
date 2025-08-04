@@ -57,10 +57,10 @@ export const TipsTokenInput = memo(function TipsTokenInput() {
                                 />
                             </div>
                             {token.chainLogoUrl ? (
-                                <div className="absolute -right-1 bottom-0 z-1 h-[18px] w-[18px] rounded-full border-2 border-white bg-white">
+                                <div className="absolute -right-1 bottom-0 z-1 h-[18px] w-[18px] rounded-full border border-white bg-white">
                                     <Image
-                                        width={14}
-                                        height={14}
+                                        width={16}
+                                        height={16}
                                         className="h-full w-full"
                                         alt={token.chain}
                                         src={token.chainLogoUrl}
@@ -74,7 +74,7 @@ export const TipsTokenInput = memo(function TipsTokenInput() {
                         <span className="text-[13px] text-second">
                             <Trans>
                                 Balance:{' '}
-                                {`${token.balance ? formatTokenItemAmount(token.balance) : '-'} ${token.symbol?.toUpperCase()}`}
+                                {`${token.amount ? formatTokenItemAmount(token.amount) : '-'} ${token.symbol?.toUpperCase()}`}
                             </Trans>
                         </span>
                     </div>

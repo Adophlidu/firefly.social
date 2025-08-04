@@ -205,6 +205,9 @@ msgstr ""
 msgid "Delete post"
 msgstr ""
 
+msgid "This account has expired, please log in again."
+msgstr ""
+
 msgid "Turning off Multi-device login will clear all previously encrypted login sessions. A new password is required to re-enable."
 msgstr ""
 
@@ -2871,7 +2874,7 @@ msgstr ""
 msgid "View engagements"
 msgstr ""
 
-#. placeholder {0}: token.balance ? formatTokenItemAmount(token.balance) : '-'
+#. placeholder {0}: token.amount ? formatTokenItemAmount(token.amount) : '-'
 #. placeholder {0}: token.balance || '0'
 #. placeholder {1}: token.symbol?.toUpperCase()
 #. placeholder {1}: token.symbol || '-'
@@ -4187,6 +4190,9 @@ msgid "Your post was sent"
 msgstr ""
 
 msgid "Remove"
+msgstr ""
+
+msgid "Associated wallet may be outdated or inaccurate. Please verify before sending."
 msgstr ""
 
 #. placeholder {0}: author.handle

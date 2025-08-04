@@ -41,7 +41,12 @@ import { resolveValue } from '@/helpers/resolveValue.js';
 import { useCurrentProfile, useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
-import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
+import {
+    type FireflyIdentity,
+    type FireflyProfile,
+    type WalletProfile,
+    WalletProfileDataSource,
+} from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
 
@@ -411,10 +416,14 @@ function useSortFireflyProfiles() {
     const profileAll = useCurrentProfilesAll();
     return useCallback(
         (source: ProfilePageSource, identity: FireflyIdentity, a: FireflyProfile, b: FireflyProfile) => {
-            if (profileAll?.[source as SocialSource]?.profileId === a.identity.id) return 2;
-            const priorityA = isSameFireflyIdentity(a.identity, identity) ? 3 : a.isDefault ? 1 : 0;
-            const priorityB = isSameFireflyIdentity(b.identity, identity) ? 3 : b.isDefault ? 1 : 0;
-            return priorityB - priorityA;
+            const getSortLevel = (profile: FireflyProfile) => {
+                if (isSameFireflyIdentity(profile.identity, identity)) return 4;
+                if (profileAll?.[source as SocialSource]?.profileId === profile.identity.id) return 3;
+                if (profile?.isDefault) return 2;
+                if ((profile?.__origin__ as WalletProfile)?.dataSource === WalletProfileDataSource.Privy) return 1;
+                return 0;
+            };
+            return getSortLevel(b) - getSortLevel(a);
         },
         [profileAll],
     );
@@ -464,14 +473,11 @@ export function ProfileSourceTabs({
                     .filter((profile) => profile.identity.source === source)
                     .sort((a, b) => sortFireflyProfiles(source, identity, a, b));
                 const defaultProfile = first(currentSourceProfiles);
-                const currentProfile = currentSourceProfiles.find((profile) =>
-                    isSameFireflyIdentity(profile.identity, identity),
-                );
                 if (!defaultProfile) return null;
                 const isCurrentSource =
                     identity.source === source || (source === Source.Wallet && identity.source === Source.WalletMix);
                 const isWalletProfile = source === Source.Wallet;
-                const topProfile = currentProfile ?? defaultProfile;
+                const topProfile = defaultProfile;
 
                 if (currentSourceProfiles.length === 1) {
                     return (

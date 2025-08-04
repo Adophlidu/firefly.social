@@ -149,7 +149,7 @@ export function SuccessView() {
                         )}
                     </div>
                 </div>
-                <div className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border-2 border-white bg-bg">
+                <div className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border-2 border-bg bg-lightBottom">
                     <ArrowDownIcon className="text-main" width={24} height={24} />
                 </div>
             </div>

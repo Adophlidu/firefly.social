@@ -29,7 +29,13 @@ export function TipsRecipientListView() {
     return (
         <>
             <div className="no-scrollbar h-full overflow-y-auto">
-                <div className="space-y-2">
+                <div className="flex items-center gap-3 rounded-2xl border border-warn p-3 text-warn">
+                    <WarnIcon width={24} height={24} className="shrink-0" />
+                    <p className="text-left text-[13px] font-medium leading-5">
+                        <Trans>Associated wallet may be outdated or inaccurate. Please verify before sending.</Trans>
+                    </p>
+                </div>
+                <div className="mt-4 space-y-2">
                     {recipientList.map((recipient) => {
                         return (
                             <ClickableButton
@@ -72,15 +78,6 @@ export function TipsRecipientListView() {
                             </ClickableButton>
                         );
                     })}
-                </div>
-                <div className="mt-4 flex items-center gap-3 rounded-2xl border border-warn p-3 text-warn">
-                    <WarnIcon width={24} height={24} className="shrink-0" />
-                    <p className="text-left text-[13px] font-medium leading-5">
-                        <Trans>
-                            Please note that the wallet address related to social account may be inaccurate or subject
-                            to change. Be sure to verify the address before sending.
-                        </Trans>
-                    </p>
                 </div>
             </div>
         </>

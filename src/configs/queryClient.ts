@@ -4,7 +4,11 @@ export const queryClientConfig: QueryClientConfig = {
     defaultOptions: {
         queries: {
             refetchOnWindowFocus: false,
-            staleTime: 60_000,
+            staleTime: (query) => {
+                const primaryScope = query.queryKey[0];
+                if (primaryScope === 'firefly-profile' || primaryScope === 'profile') return 0;
+                return 60_000;
+            },
         },
     },
 };
