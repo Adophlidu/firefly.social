@@ -35,48 +35,49 @@ export function useAllConnectionsFormattedWithProfiles(options?: { enabled?: boo
         combine(result) {
             const isLoading = result.some((x) => x.isLoading);
             const error = first(compact(result.map((x) => x.error)));
-            const data = {
-                ...connections,
-                socialConnections: compact(
-                    result.map((query) => {
-                        if (!query.data) return null;
-                        const source = first(query.data)?.source;
-                        if (!source) return null;
-                        if (!connections?.social) return null;
-                        return {
-                            source,
-                            items: query.data
-                                .map((profile) => ({
-                                    profile,
-                                    connection: getConnections(source, connections.social).find((x) => {
-                                        switch (source) {
-                                            case Source.Lens:
-                                                return isSameAddress((x as LensConnection).id, profile.profileId);
-                                            case Source.Bsky:
-                                            case Source.Farcaster:
-                                            case Source.Twitter:
-                                                return `${x.id}` === profile.profileId;
-                                            default:
-                                                unreachable(source);
-                                        }
-                                    })!,
-                                    account: accounts.find((account) => isSameProfile(profile, account.profile)),
-                                }))
-                                .filter((x) => x.connection)
-                                .sort((a, b) => {
-                                    function getPriority<
-                                        T extends {
-                                            connection: { isDefault?: boolean };
-                                        },
-                                    >({ connection }: T) {
-                                        return connection.isDefault ? 1 : 0;
-                                    }
-                                    return getPriority(b) - getPriority(a);
-                                }),
-                        };
-                    }),
-                ),
-            };
+            const data = connections
+                ? {
+                      ...connections,
+                      socialConnections: compact(
+                          result.map((query) => {
+                              if (!query.data) return null;
+                              const source = first(query.data)?.source;
+                              if (!source) return null;
+                              return {
+                                  source,
+                                  items: query.data
+                                      .map((profile) => ({
+                                          profile,
+                                          connection: getConnections(source, connections.social).find((x) => {
+                                              switch (source) {
+                                                  case Source.Lens:
+                                                      return isSameAddress((x as LensConnection).id, profile.profileId);
+                                                  case Source.Bsky:
+                                                  case Source.Farcaster:
+                                                  case Source.Twitter:
+                                                      return `${x.id}` === profile.profileId;
+                                                  default:
+                                                      unreachable(source);
+                                              }
+                                          })!,
+                                          account: accounts.find((account) => isSameProfile(profile, account.profile)),
+                                      }))
+                                      .filter((x) => x.connection)
+                                      .sort((a, b) => {
+                                          function getPriority<
+                                              T extends {
+                                                  connection: { isDefault?: boolean };
+                                              },
+                                          >({ connection }: T) {
+                                              return connection.isDefault ? 1 : 0;
+                                          }
+                                          return getPriority(b) - getPriority(a);
+                                      }),
+                              };
+                          }),
+                      ),
+                  }
+                : undefined;
             return {
                 isLoading,
                 error,
@@ -84,7 +85,6 @@ export function useAllConnectionsFormattedWithProfiles(options?: { enabled?: boo
             };
         },
     });
-    console.log(query.data);
     return {
         ...query,
         refetch,

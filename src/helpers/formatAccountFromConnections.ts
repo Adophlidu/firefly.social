@@ -51,7 +51,7 @@ export function formatAccountFromConnections(
             } satisfies Account;
         }
         case SourceInURL.Email: {
-            const connection = allConnections.email.connected?.[0];
+            const connection = allConnections.email?.connected?.[0];
 
             if (!connection) return;
             return {
