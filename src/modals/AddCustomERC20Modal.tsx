@@ -25,12 +25,13 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { ConnectionSource, useWalletConnections } from '@/hooks/useWalletConnections.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import { searchTokenLogoURI } from '@/services/searchTokenLogoURI.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 
 export interface AddCustomERC20ModalContentProps {
     onClose: () => void;
-    initialChainId: number;
+    initialChainId?: number;
 }
 
 function useVisibleChainIds() {
@@ -42,7 +43,10 @@ function useVisibleChainIds() {
     return chainIds;
 }
 
-function AddCustomERC20ModalContent({ onClose, initialChainId }: AddCustomERC20ModalContentProps) {
+function AddCustomERC20ModalContent({
+    onClose,
+    initialChainId = EthereumChainId.Mainnet,
+}: AddCustomERC20ModalContentProps) {
     const account = useAccount();
     const isMedium = useIsMedium('max');
 
@@ -113,7 +117,7 @@ function AddCustomERC20ModalContent({ onClose, initialChainId }: AddCustomERC20M
             addCustomToken({
                 type: CustomTokenType.ERC20,
                 logoURI: logoURI || '',
-                chainId: selectedChain,
+                chainId: selectedChain!,
                 address,
                 name,
                 symbol,

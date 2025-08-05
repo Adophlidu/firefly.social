@@ -28,10 +28,17 @@ import type { AddCustomERC20ModalOpenProps } from '@/modals/AddCustomERC20Modal.
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
-import { EthereumSchemaType } from '#masknet/web3-shared-evm';
+import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 const CHAIN_IDS = NFTSCAN_CHAIN_IDS.filter((id) => chains.some((chain) => chain.id === id));
-function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => void; initialChainId: number }) {
+
+function AddCustomERC721Content({
+    onClose,
+    initialChainId = EthereumChainId.Mainnet,
+}: {
+    onClose: () => void;
+    initialChainId?: number;
+}) {
     const account = useAccount();
     const isMedium = useIsMedium('max');
     const getChainItem = useCallback(

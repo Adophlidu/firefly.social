@@ -9,7 +9,6 @@ import { Suspense, useMemo, useRef, useState } from 'react';
 import { type Address } from 'viem';
 
 import AddIcon from '@/assets/add-circle.svg';
-import ComeBack from '@/assets/comeback.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { FireflyWalletChainSelectorWithNetworkType } from '@/components/FireflyWallet/FireflyWalletChainSelectorWithNetworkType.js';
 import { FireflyWalletHomePageUI } from '@/components/FireflyWallet/FireflyWalletHomePageUI.js';
@@ -30,7 +29,6 @@ import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
-import { useComeBack } from '@/hooks/useComeback.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsSetupPrivyWallet } from '@/hooks/useIsSetupPrivyWallet.js';
 import { useMixesTokens } from '@/hooks/useMixesTokens.js';
@@ -65,21 +63,11 @@ export default function Wallet() {
     }
 
     if (!isLoginFirefly) {
-        return (
-            <>
-                <NavigationBar />
-                <NotLoginFallback source={Source.NFTs} />
-            </>
-        );
+        return <NotLoginFallback source={Source.NFTs} />;
     }
 
     if (!ready || isLoading) {
-        return (
-            <>
-                <NavigationBar />
-                <Loading />
-            </>
-        );
+        return <Loading />;
     }
 
     if (error) {
@@ -165,136 +153,116 @@ function FireflyWallet() {
     }, [ethereum.address, solana.address]);
 
     if (!address) {
-        return (
-            <>
-                <NavigationBar />
-                <Loading />
-            </>
-        );
+        return <Loading />;
     }
 
     return (
-        <>
-            <NavigationBar />
-            <FireflyWalletHomePageUI
-                balance={totalBalance ?? '0'}
-                onSend={() => {
-                    captureFireflyWalletEvent(EventId.FIREFLY_WALLET_SEND_CLICK, {});
-                    transferModalRef.current?.onOpen();
-                }}
-                onReceive={() => {
-                    captureFireflyWalletEvent(EventId.FIREFLY_WALLET_RECEIVE_CLICK, {});
-                    setOpenReceiveModal(true);
-                }}
-                onSwap={() => {
-                    captureFireflyWalletEvent(EventId.FIREFLY_WALLET_SWAP_CLICK, {});
-                    SwapModalRef.open({
-                        providerSwitchable: true,
-                    });
-                }}
-            >
-                <TransferModal ref={transferModalRef} />
-                <ReceiveModal open={openReceiveModal} onClose={() => setOpenReceiveModal(false)} items={receiveItems} />
-                <div className="flex w-full flex-col">
-                    <div className="relative flex items-center justify-between">
-                        <Tabs
-                            variant="subtle"
-                            onChange={(x) => {
-                                switch (x) {
-                                    case TabType.Token:
-                                        captureFireflyWalletEvent(EventId.FIREFLY_WALLET_TOKENS_TAB_CLICK, {});
-                                        break;
-                                    case TabType.NFT:
-                                        captureFireflyWalletEvent(EventId.FIREFLY_WALLET_NFTS_TAB_CLICK, {});
-                                        break;
-                                    case TabType.Transactions:
-                                        captureFireflyWalletEvent(EventId.FIREFLY_WALLET_TRANSACTIONS_TAB_CLICK, {});
-                                        break;
-                                }
-                                setTabType(x);
-                            }}
-                            value={tabType}
-                        >
-                            <Tab value={TabType.Token}>
-                                <Trans>Token</Trans>
-                            </Tab>
-                            <Tab value={TabType.NFT}>
-                                <Trans>NFT</Trans>
-                            </Tab>
-                            <Tab value={TabType.Transactions}>
-                                <Trans>Transactions</Trans>
-                            </Tab>
-                        </Tabs>
-                        <div className="absolute right-0 top-1/2 flex -translate-y-1/2 items-center">
-                            {tabType === TabType.Token && [NetworkType.Ethereum].includes(networkType) ? (
-                                <ClickableButton
-                                    className="text-md flex cursor-pointer items-center space-x-2 text-main"
-                                    onClick={() => {
-                                        AddCustomERC20ModalRef.open({
-                                            initialChainId: EthereumChainId.Mainnet,
-                                        });
-                                    }}
-                                >
-                                    <AddIcon width={24} height={24} className="size-6 shrink-0 text-highlight" />
-                                </ClickableButton>
-                            ) : null}
-                            {tabType === TabType.Transactions ? (
-                                <FireflyWalletChainSelectorWithNetworkType
-                                    selectedChain={networkType}
-                                    onSelectChain={(x) => {
-                                        captureFireflyWalletEvent(EventId.FIREFLY_WALLET_CHAIN_FILTER_CLICK, {
-                                            chain_type: x === NetworkType.Ethereum ? 'EVM' : 'Sol',
-                                        });
-                                        setNetworkType(x);
-                                    }}
-                                />
-                            ) : null}
-                        </div>
-                    </div>
-                    {tabType === TabType.Token ? (
-                        <FireflyWalletTokenList
-                            tokens={tokens}
-                            isLoading={isLoadingTokens}
-                            onClickToken={(token) => {
-                                const url = resolveTokenPageUrl({
-                                    chainId: token.chainId,
-                                    identity: token.symbol,
-                                });
-                                router.push(url);
-                            }}
-                        />
-                    ) : null}
-                    {tabType === TabType.NFT ? (
-                        <Suspense fallback={<Loading />}>
-                            <NFTs address={address} addresses={compact([ethereum.address, solana.address])} />
-                        </Suspense>
-                    ) : null}
-                    {tabType === TabType.Transactions ? (
-                        <Suspense fallback={<Loading />}>
-                            <TransactionHistory
-                                address={address}
-                                chains={
-                                    networkType === NetworkType.Ethereum
-                                        ? EVM_TRANSACTION_CHAIN_IDS
-                                        : SOLANA_TRANSACTION_CHAIN_IDS
-                                }
+        <FireflyWalletHomePageUI
+            balance={totalBalance ?? '0'}
+            onSend={() => {
+                captureFireflyWalletEvent(EventId.FIREFLY_WALLET_SEND_CLICK, {});
+                transferModalRef.current?.onOpen();
+            }}
+            onReceive={() => {
+                captureFireflyWalletEvent(EventId.FIREFLY_WALLET_RECEIVE_CLICK, {});
+                setOpenReceiveModal(true);
+            }}
+            onSwap={() => {
+                captureFireflyWalletEvent(EventId.FIREFLY_WALLET_SWAP_CLICK, {});
+                SwapModalRef.open({
+                    providerSwitchable: true,
+                });
+            }}
+        >
+            <TransferModal ref={transferModalRef} />
+            <ReceiveModal open={openReceiveModal} onClose={() => setOpenReceiveModal(false)} items={receiveItems} />
+            <div className="flex w-full flex-col">
+                <div className="relative flex items-center justify-between">
+                    <Tabs
+                        variant="subtle"
+                        onChange={(x) => {
+                            switch (x) {
+                                case TabType.Token:
+                                    captureFireflyWalletEvent(EventId.FIREFLY_WALLET_TOKENS_TAB_CLICK, {});
+                                    break;
+                                case TabType.NFT:
+                                    captureFireflyWalletEvent(EventId.FIREFLY_WALLET_NFTS_TAB_CLICK, {});
+                                    break;
+                                case TabType.Transactions:
+                                    captureFireflyWalletEvent(EventId.FIREFLY_WALLET_TRANSACTIONS_TAB_CLICK, {});
+                                    break;
+                            }
+                            setTabType(x);
+                        }}
+                        value={tabType}
+                    >
+                        <Tab value={TabType.Token}>
+                            <Trans>Token</Trans>
+                        </Tab>
+                        <Tab value={TabType.NFT}>
+                            <Trans>NFT</Trans>
+                        </Tab>
+                        <Tab value={TabType.Transactions}>
+                            <Trans>Transactions</Trans>
+                        </Tab>
+                    </Tabs>
+                    <div className="absolute right-0 top-1/2 flex -translate-y-1/2 items-center">
+                        {tabType === TabType.Token && [NetworkType.Ethereum].includes(networkType) ? (
+                            <ClickableButton
+                                className="text-md flex cursor-pointer items-center space-x-2 text-main"
+                                onClick={() => {
+                                    AddCustomERC20ModalRef.open({
+                                        initialChainId: EthereumChainId.Mainnet,
+                                    });
+                                }}
+                            >
+                                <AddIcon width={24} height={24} className="size-6 shrink-0 text-highlight" />
+                            </ClickableButton>
+                        ) : null}
+                        {tabType === TabType.Transactions ? (
+                            <FireflyWalletChainSelectorWithNetworkType
+                                selectedChain={networkType}
+                                onSelectChain={(x) => {
+                                    captureFireflyWalletEvent(EventId.FIREFLY_WALLET_CHAIN_FILTER_CLICK, {
+                                        chain_type: x === NetworkType.Ethereum ? 'EVM' : 'Sol',
+                                    });
+                                    setNetworkType(x);
+                                }}
                             />
-                        </Suspense>
-                    ) : null}
+                        ) : null}
+                    </div>
                 </div>
-            </FireflyWalletHomePageUI>
-        </>
-    );
-}
-
-export function NavigationBar() {
-    const comeback = useComeBack();
-    return (
-        <div className="sticky top-0 z-40 flex items-center bg-primaryBottom px-4 pb-3 pt-6">
-            <ComeBack width={24} height={24} className="mr-2 cursor-pointer" onClick={comeback} />
-            <h2 className="min-w-0 truncate text-xl font-black leading-6">
-                <Trans>Firefly Wallet</Trans>
-            </h2>
-        </div>
+                {tabType === TabType.Token ? (
+                    <FireflyWalletTokenList
+                        tokens={tokens}
+                        isLoading={isLoadingTokens}
+                        onClickToken={(token) => {
+                            const url = resolveTokenPageUrl({
+                                chainId: token.chainId,
+                                identity: token.symbol,
+                            });
+                            router.push(url);
+                        }}
+                    />
+                ) : null}
+                {tabType === TabType.NFT ? (
+                    <Suspense fallback={<Loading />}>
+                        <NFTs address={address} addresses={compact([ethereum.address, solana.address])} />
+                    </Suspense>
+                ) : null}
+                {tabType === TabType.Transactions ? (
+                    <Suspense fallback={<Loading />}>
+                        <TransactionHistory
+                            address={address}
+                            chains={
+                                networkType === NetworkType.Ethereum
+                                    ? EVM_TRANSACTION_CHAIN_IDS
+                                    : SOLANA_TRANSACTION_CHAIN_IDS
+                            }
+                        />
+                    </Suspense>
+                ) : null}
+            </div>
+        </FireflyWalletHomePageUI>
     );
 }

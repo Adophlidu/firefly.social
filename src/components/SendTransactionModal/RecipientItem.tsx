@@ -1,3 +1,4 @@
+import { omitBy } from 'lodash-es';
 import type { HTMLProps } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
@@ -22,6 +23,8 @@ export interface RecipientItemProps extends Pick<HTMLProps<'div'>, 'className'> 
     explorerLink?: boolean;
     showSources?: boolean;
     fireflyId?: string;
+    id?: string;
+    forceAddress?: boolean;
 }
 
 export function RecipientItem({
@@ -35,19 +38,20 @@ export function RecipientItem({
     className,
     explorerLink,
     showSources = false,
+    forceAddress = false,
     ...props
 }: RecipientItemProps) {
     return (
         <div className={classNames('flex w-full flex-row text-left', className)} {...props}>
             <div className="relative mr-3 size-9">
-                {avatar ? (
+                {!forceAddress && avatar ? (
                     <Avatar src={avatar} alt={address} size={36} />
                 ) : (
                     <div className="border-line2 flex size-9 items-center justify-center rounded-lg border bg-primaryBottom">
                         <WalletIcon width={24} height={24} className="text-third" />
                     </div>
                 )}
-                {source ? (
+                {!forceAddress && source ? (
                     <SocialSourceIcon
                         source={source}
                         size={15}
@@ -55,7 +59,7 @@ export function RecipientItem({
                     />
                 ) : null}
             </div>
-            {!username && !ens ? (
+            {forceAddress || (!username && !ens) ? (
                 <div className="flex w-full flex-col items-center justify-center space-y-1 text-[13px]">
                     <div className="break-word line-clamp-2 w-full whitespace-pre-wrap pr-9 font-bold leading-[18px]">
                         {address}
@@ -69,7 +73,7 @@ export function RecipientItem({
                     </div>
                 </div>
             )}
-            {showSources && sources?.length ? (
+            {!forceAddress && showSources && sources?.length ? (
                 <div className="ml-auto flex flex-row items-center -space-x-1">
                     {sources?.map((source) => (
                         <SocialSourceIcon
@@ -96,4 +100,12 @@ function ExplorerLink({ address }: { address: string }) {
             <LinkIcon width={20} height={20} />
         </Link>
     );
+}
+
+export function isOnlyAddress(recipient: RecipientItemProps) {
+    return Object.keys(omitBy(recipient, (x) => x === undefined || x === null)).length === 1 && 'address' in recipient;
+}
+
+export function isSocialRecipient(recipient: RecipientItemProps | undefined) {
+    return !!recipient?.source;
 }

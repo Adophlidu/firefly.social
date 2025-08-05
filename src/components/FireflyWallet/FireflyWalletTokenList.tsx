@@ -4,9 +4,9 @@ import LineArrowUp from '@/assets/line-arrow-up.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { useExpandableTokens } from '@/components/SendTransactionModal/SelectTokenModal.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';
 import type { Token } from '@/hooks/useCustomFungibleTokens.js';
+import { useExpandableTokens } from '@/hooks/useExpandableTokens.js';
 
 interface Props {
     tokens: Token[];

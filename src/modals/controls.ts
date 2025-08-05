@@ -1,4 +1,3 @@
-import type { RecipientItemProps } from '@/components/SendTransactionModal/RecipientItem.js';
 import { SingletonModal } from '@/libs/SingletonModal.js';
 import type { AddCustomERC20ModalOpenProps } from '@/modals/AddCustomERC20Modal.js';
 import type { AddCustomERC721ModalOpenProps } from '@/modals/AddCustomERC721Modal.js';
@@ -33,7 +32,6 @@ import type { PasswordModalOpenProps } from '@/modals/PasswordModal/index.js';
 import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
 import type { RedPacketModalOpenProps } from '@/modals/RedPacketModal/index.js';
 import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
-import type { SearchRecipientModalOpenProps } from '@/modals/SearchRecipientModal.js';
 import type { ShareImageModalOpenProps } from '@/modals/ShareImageModal/index.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
 import type { SwapModalOpenProps } from '@/modals/SwapModal/SwapModalContent.js';
@@ -86,4 +84,3 @@ export const ConfirmSyncSessionModalRef = new SingletonModal<
 >();
 export const CreateFireflyAccountGuideModalRef = new SingletonModal<void, void>();
 export const ShareImageModalRef = new SingletonModal<ShareImageModalOpenProps, void>();
-export const SearchRecipientModalRef = new SingletonModal<SearchRecipientModalOpenProps | void, RecipientItemProps>();

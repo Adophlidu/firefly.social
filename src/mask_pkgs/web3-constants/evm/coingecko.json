@@ -39,6 +39,8 @@
         "BitTorrent": "bittorrent",
         "Boba": "boba-network",
         "Metis": "metis-token",
-        "Scroll": "ethereum"
+        "Scroll": "ethereum",
+        "Linea": "ethereum",
+        "ZksyncEra": "ethereum"
     }
 }

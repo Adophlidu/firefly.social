@@ -207,7 +207,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
         chainId: EthereumChainId.Celo,
         type: EthereumNetworkType.Celo,
         icon: new URL('../assets/celo.png', import.meta.url).href,
-        iconColor: '#3059AE',
+        iconColor: '#FCFF52',
         name: 'Celo',
         isMainnet: true,
         averageBlockDelay: 10,

@@ -99,7 +99,6 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
             const url = resolveExplorerLink(collectParams.chainId, hash, 'tx');
             if (url) {
                 setTxUrl(url);
-                openWindow(url);
             }
             queryClient.setQueryData<typeof data>(['article-collect-status', article.platform, article.id], (data) => {
                 if (!data) return;
@@ -202,18 +201,18 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                 />
             ) : null}
 
-            <ChainGuardButton
-                targetChainId={collectParams?.chainId}
-                className={classNames(
-                    'mt-6 inline-flex w-full gap-1 max-md:mt-4',
-                    disabled ? 'cursor-not-allowed opacity-50' : '',
-                )}
-                loading={loading}
-                onlyLoading={!collectLoading}
-                onClick={disabled ? undefined : handleCollect}
-            >
-                {buttonText}
-                {txUrl ? (
+            {txUrl ? (
+                <ChainGuardButton
+                    targetChainId={collectParams?.chainId}
+                    className="mt-6 inline-flex w-full gap-1 max-md:mt-4"
+                    loading={loading}
+                    onlyLoading={!collectLoading}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        openWindow(txUrl);
+                    }}
+                >
+                    {buttonText}
                     <LinkIcon
                         width={18}
                         height={18}
@@ -223,8 +222,21 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                             openWindow(txUrl);
                         }}
                     />
-                ) : null}
-            </ChainGuardButton>
+                </ChainGuardButton>
+            ) : (
+                <ChainGuardButton
+                    targetChainId={collectParams?.chainId}
+                    className={classNames(
+                        'mt-6 inline-flex w-full gap-1 max-md:mt-4',
+                        disabled ? 'cursor-not-allowed opacity-50' : '',
+                    )}
+                    loading={loading}
+                    onlyLoading={!collectLoading}
+                    onClick={disabled ? undefined : handleCollect}
+                >
+                    {buttonText}
+                </ChainGuardButton>
+            )}
         </div>
     );
 }
