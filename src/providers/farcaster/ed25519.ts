@@ -20,8 +20,7 @@ export async function getPublicKeyInHexFromPrivateKey(privateKey: string | Uint8
 export async function signMessageWithPrivateKey(privateKey: string | Uint8Array, message: Uint8Array) {
     try {
         const key = typeof privateKey === 'string' ? hexToBytes(privateKey as `0x${string}`) : privateKey;
-        const signature = await sign(message, key);
-        return bytesToHex(signature);
+        return sign(message, key);
     } catch (error) {
         if (process.env.NODE_ENV === 'development') {
             console.error(
