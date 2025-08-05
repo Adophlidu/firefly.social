@@ -15,7 +15,7 @@ const resolveMuteTitle = createLookupTableResolver<string, MessageDescriptor>(
         [`${SourceInURL.Farcaster}_${MuteType.Profile}`]: msg`${resolveSourceName(Source.Farcaster)} Users`,
         [`${SourceInURL.Farcaster}_${MuteType.Channel}`]: msg`${resolveSourceName(Source.Farcaster)} Channels`,
         [`${SourceInURL.Lens}_${MuteType.Profile}`]: msg`${resolveSourceName(Source.Lens)} Users`,
-        [`${SourceInURL.Twitter}_${MuteType.Profile}`]: msg`${resolveSourceName(Source.Twitter)} Users`,
+        [`${SourceInURL.X}_${MuteType.Profile}`]: msg`${resolveSourceName(Source.Twitter)} Users`,
         [`${SourceInURL.Firefly}_${MuteType.Wallet}`]: msg`Wallets`,
         [`${SourceInURL.Bsky}_${MuteType.Profile}`]: msg`${resolveSourceName(Source.Bsky)} Users`,
     },
