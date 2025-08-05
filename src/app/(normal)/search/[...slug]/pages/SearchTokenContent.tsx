@@ -19,7 +19,7 @@ export function SearchTokenContent() {
         queryKey: ['search-tokens', searchKeyword],
         queryFn: async () => {
             if (!searchKeyword) return;
-            return searchTokens(searchKeyword);
+            return searchTokens(searchKeyword, true);
         },
         select(tokens) {
             if (!tokens) return [];
@@ -74,16 +74,18 @@ export function SearchTokenContent() {
                             <SearchableTokenItem key={token.id} token={token} />
                         ))}
                         {tokens.length > 5 ? (
-                            <div
-                                className="font-xs flex h-6 cursor-pointer text-center text-xs font-bold leading-6 text-highlight"
-                                onClick={() => {
-                                    setExpandMap((map) => ({
-                                        ...map,
-                                        [group]: !map[group],
-                                    }));
-                                }}
-                            >
-                                {expandMap.cex ? <Trans>Show less</Trans> : <Trans>Show more</Trans>}
+                            <div className="flex w-full items-center justify-center">
+                                <div
+                                    className="font-xs w-full cursor-pointer text-center text-xs font-bold leading-6 text-highlight"
+                                    onClick={() => {
+                                        setExpandMap((map) => ({
+                                            ...map,
+                                            [group]: !map[group],
+                                        }));
+                                    }}
+                                >
+                                    {expandMap.cex ? <Trans>Show less</Trans> : <Trans>Show more</Trans>}
+                                </div>
                             </div>
                         ) : null}
                     </div>

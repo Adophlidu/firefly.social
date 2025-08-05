@@ -1,4 +1,4 @@
-import { compact, sortBy } from 'lodash-es';
+import { compact } from 'lodash-es';
 
 import { isValidAddress } from '@/helpers/isValidAddress.js';
 import { trimify } from '@/helpers/trimify.js';
@@ -36,8 +36,8 @@ async function searchByAddress(address: string): Promise<SearchableToken[]> {
     }
 }
 
-async function searchByKeyword(keyword: string): Promise<SearchableToken[]> {
-    const infos = await FireflyEndpointProvider.searchTokenInfos(keyword);
+async function searchByKeyword(keyword: string, fuzzy?: boolean): Promise<SearchableToken[]> {
+    const infos = await FireflyEndpointProvider.searchTokenInfos(keyword, fuzzy);
     const tokens = infos.map((info) => {
         return {
             platform_type: info.platform_type,
@@ -52,15 +52,17 @@ async function searchByKeyword(keyword: string): Promise<SearchableToken[]> {
             fdv: info.market_data?.fully_diluted_valuation,
         } satisfies SearchableToken;
     });
-    return sortBy(tokens, (x) => (x.fdv === undefined ? 1 : -x.fdv));
+    return tokens;
 }
 
 /**
  * Search by keyword or address
  */
-export async function searchTokens(searchKeyword: string): Promise<TokenWithMarket[]> {
+export async function searchTokens(searchKeyword: string, fuzzy?: boolean): Promise<TokenWithMarket[]> {
     const trimmed = trimify(searchKeyword);
-    const tokens = isValidAddress(trimmed) ? await searchByAddress(trimmed) : await searchByKeyword(searchKeyword);
+    const tokens = isValidAddress(trimmed)
+        ? await searchByAddress(trimmed)
+        : await searchByKeyword(searchKeyword, fuzzy);
     const ids = compact(tokens.map((x) => x.id));
     const marketData = ids.length ? await CoinGecko.getCoinsByIds(ids) : [];
 
