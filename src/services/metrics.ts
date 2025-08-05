@@ -5,6 +5,7 @@ import { sha256, toHex } from 'viem';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { TokenExpiredError } from '@/constants/error.js';
 import { SEVEN_DAYS } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -247,7 +248,14 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                 } satisfies Account;
 
                 if (!currentProfile) {
-                    await lensSessionHolder.resumeSession(session, true);
+                    try {
+                        await lensSessionHolder.resumeSession(session, true);
+                    } catch (error) {
+                        if (error instanceof TokenExpiredError) {
+                            continue;
+                        }
+                        throw error;
+                    }
                 }
 
                 profileState.addAccount(account, !currentProfile);
