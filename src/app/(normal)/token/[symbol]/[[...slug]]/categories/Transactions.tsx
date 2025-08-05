@@ -136,6 +136,8 @@ export const Transactions = memo<Props>(function Transactions({
                     <SwapTimeline
                         isFollowing
                         {...timelineProps}
+                        listSubScope={`${chainId}-${tokenAddress}-${trader}`}
+                        disableScrollRestore
                         NoResultsFallbackProps={{
                             icon: null,
                             message: <Trans>No one you follow has traded this token.</Trans>,
@@ -146,6 +148,8 @@ export const Transactions = memo<Props>(function Transactions({
                         <SwapTimeline
                             address={account}
                             {...timelineProps}
+                            listSubScope={`${chainId}-${tokenAddress}-${trader}`}
+                            disableScrollRestore
                             NoResultsFallbackProps={{
                                 icon: null,
                                 message: <Trans>You haven&apos;t traded this token.</Trans>,
@@ -162,6 +166,7 @@ export const Transactions = memo<Props>(function Transactions({
                         address={trader}
                         {...timelineProps}
                         listSubScope={`${chainId}-${tokenAddress}-${trader}`}
+                        disableScrollRestore
                         NoResultsFallbackProps={{
                             icon: null,
                             message: <Trans>No trade records</Trans>,
