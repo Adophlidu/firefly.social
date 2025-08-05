@@ -100,7 +100,7 @@ export function Modal({
                                     {
                                         'w-[520px]': size === 'lg',
                                         'w-[485px]': size === 'md',
-                                        'w-[448px]': size === 'sm',
+                                        'w-[400px]': size === 'sm',
                                         'w-[355px]': size === 'xs',
                                     },
                                 )}
