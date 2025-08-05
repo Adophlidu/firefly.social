@@ -31,11 +31,12 @@ export async function encodeMessageData(
         throw new Error('Invalid signer key or signature.');
     }
 
+    const signatureInHex = bytesToHex(signature);
     const message = Message.create({
         data: messageData,
         hash: messageDataHash,
         hashScheme: HashScheme.BLAKE3,
-        signature: hexToBytes(signature),
+        signature: hexToBytes(signatureInHex),
         signatureScheme: SignatureScheme.ED25519,
         signer: hexToBytes(publicKey),
         dataBytes: messageDataBytes,
@@ -47,6 +48,6 @@ export async function encodeMessageData(
         messageJson: Message.toJSON(message),
         messageBytes: Message.encode(message).finish(),
         messageDataHash: bytesToHex(messageDataHash),
-        messageDataSignature: signature,
+        messageDataSignature: signatureInHex,
     } as const;
 }

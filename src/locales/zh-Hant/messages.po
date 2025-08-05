@@ -1749,6 +1749,9 @@ msgstr "[紅包]"
 msgid "Group"
 msgstr "群組"
 
+msgid "Set {formattedAddress} as primary Solana wallet"
+msgstr ""
+
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
 msgstr "選項 {0}"
@@ -1760,6 +1763,9 @@ msgid "More details"
 msgstr "更多詳情"
 
 msgid "Failed to create anonymous post"
+msgstr ""
+
+msgid "Set {formattedAddress} as primary EVM wallet"
 msgstr ""
 
 #. placeholder {0}: result.amount
@@ -2484,6 +2490,10 @@ msgstr "字体颜色"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "透過 Firefly 的紅包功能，提升你的粉絲數與互動率！"
+
+#. placeholder {0}: profile.handle
+msgid "Set @{0} as primary account"
+msgstr ""
 
 #. placeholder {0}: item.project_name
 msgid "on {0}"

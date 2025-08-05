@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
+import { motion } from 'framer-motion';
 
 import { DisconnectBindAddressButton } from '@/app/(settings)/components/DisconnectBindAddressButton.js';
 import { PrimaryButton } from '@/app/(settings)/components/PrimaryButton.js';
@@ -39,7 +40,11 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
           : WalletIcon;
 
     return (
-        <div className="inline-flex h-[63px] w-full items-center justify-start gap-2 rounded-lg border border-line bg-white bg-bottom px-3 py-2 text-medium backdrop-blur dark:bg-bg">
+        <motion.div
+            key={`${connection.platform}-${connection.address}`}
+            layoutId={`${connection.platform}-${connection.address}`}
+            className="inline-flex h-[63px] w-full items-center justify-start gap-2 rounded-lg border border-line bg-white bg-bottom px-3 py-2 text-medium backdrop-blur dark:bg-bg"
+        >
             {!noAction ? (
                 <>
                     {isConnected ? (
@@ -105,6 +110,6 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
                     )}
                 </>
             )}
-        </div>
+        </motion.div>
     );
 }

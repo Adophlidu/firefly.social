@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'vitest';
+import { bytesToHex } from 'viem';
+import { describe, expect, it } from 'vitest';
 
 import { getPublicKeyInHexFromPrivateKey, signMessageWithPrivateKey } from '@/providers/farcaster/ed25519.js';
 
@@ -35,12 +36,13 @@ describe('ed25519 helpers', () => {
 
             const message = new Uint8Array([9, 10, 11, 12]);
             const result = await signMessageWithPrivateKey(privateKey, message);
+            const resultInHex = bytesToHex(result);
 
-            expect(result).toBeTruthy();
-            expect(result).toMatchInlineSnapshot(
+            expect(resultInHex).toBeTruthy();
+            expect(resultInHex).toMatchInlineSnapshot(
                 `"0x90a0c873074788e8748a4554018dd6734a8888e46c3a2340076aba603ffc6b210fb564bfe2710463aeade0c353f142a3058b8e247145e49e6037aef23e0f170e"`,
             );
-            expect(result).toHaveLength(130); // 0x + 128 hex chars
+            expect(resultInHex).toHaveLength(130); // 0x + 128 hex chars
         });
 
         it('should return null when signer fails', async () => {

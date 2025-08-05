@@ -20,10 +20,12 @@ export function useWithinRangeRecords(records: PriceRecord[], tradeRecords: Trad
         const patched = filtered.map((x) => {
             const i = merged.findIndex((y) => y.date === x.date);
             const leftHalf = merged.slice(0, i);
-            const record = records.find((y) => y.date === x.date);
+            const recordDate = (leftHalf.findLast((x) => x.value !== undefined) || records[0]).date;
+            const record = records.find((y) => y.date === recordDate);
+
             return {
                 ...x,
-                date: (leftHalf.findLast((x) => x.value !== undefined) || merged[0]).date,
+                date: recordDate,
                 value: record?.value,
             };
         });

@@ -30,10 +30,7 @@ import {
     formatFireflyFarcasterProfile,
 } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';
-import {
-    formatFarcasterProfileFromFirefly,
-    formatFarcasterProfileFromFireflyCache,
-} from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
+import { formatFarcasterProfileFromFirefly } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -60,7 +57,6 @@ import {
     type FollowingSnapshotActivity,
     type FriendshipResponse,
     type GetBookmarksResponse,
-    type GetProfilesResponse,
     type MutualFollowersResponse,
     type NFTBookmarkContent,
     type NFTDetail,
@@ -93,6 +89,7 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { fetchProfilesFromNeynar } from '@/services/fetchProfilesFromNeynar.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 import { settings } from '@/settings/index.js';
 
@@ -158,14 +155,16 @@ class FireflySocialMedia implements Provider {
     async getProfilesByIds(ids: string[], sourceId?: string): Promise<Profile[]> {
         if (!ids.length) return EMPTY_LIST;
 
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/farcasterinfo/list');
-        const response = await fireflySessionHolder.fetch<GetProfilesResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({ fid: ids, sourceId: sourceId || null }),
-        });
-        const data = resolveFireflyResponseData(response);
+        return fetchProfilesFromNeynar(ids, sourceId);
 
-        return data.map(formatFarcasterProfileFromFireflyCache);
+        // const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/farcasterinfo/list');
+        // const response = await fireflySessionHolder.fetch<GetProfilesResponse>(url, {
+        //     method: 'POST',
+        //     body: JSON.stringify({ fid: ids, sourceId: sourceId || null }),
+        // });
+        // const data = resolveFireflyResponseData(response);
+
+        // return data.map(formatFarcasterProfileFromFireflyCache);
     }
 
     getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

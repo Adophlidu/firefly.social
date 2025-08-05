@@ -66,6 +66,7 @@ export function TraderLayer(props: any) {
         const map: Record<string, TooltipState> = {};
         sortedRecords.forEach((record) => {
             const index = data.findIndex((x) => x.date === record.date);
+            if (index === -1) return;
 
             const x = xScaleRef.current(index);
             const y = yScaleRef.current(data[index].value);
@@ -102,6 +103,7 @@ export function TraderLayer(props: any) {
             {sortedRecords.map((record) => {
                 const offset = tradeRecords.findIndex((x) => x === record);
                 const index = data.findIndex((x) => x.date === record.date);
+                if (index === -1) return null;
 
                 const cx = xScaleRef.current(index);
                 const cy = yScaleRef.current(data[index].value);

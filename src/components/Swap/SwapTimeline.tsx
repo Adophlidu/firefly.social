@@ -21,14 +21,16 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 import { useSwapStateStore } from '@/store/useSwapStore.js';
 
-function getSwapActivityItemContent(index: number, activity: SwapActivity) {
-    return <SwapActivityItem activity={activity} />;
+function getSwapActivityItemContent(index: number, activity: SwapActivity, disableScrollRestore?: boolean) {
+    return <SwapActivityItem activity={activity} disableScrollRestore={disableScrollRestore} />;
 }
 
 export type SwapTimelineProps = {
     NoResultsFallbackProps?: ListInPageProps['NoResultsFallbackProps'];
     chainId?: number;
     tokenAddress?: string;
+    listSubScope?: string; // to isolate among lists
+    disableScrollRestore?: boolean;
     onActivitiesUpdate?: (data: SwapActivity[]) => void;
 } & (
     | {
@@ -46,6 +48,8 @@ export function SwapTimeline({
     address,
     chainId: propChainId,
     tokenAddress,
+    listSubScope = '',
+    disableScrollRestore,
     NoResultsFallbackProps,
     onActivitiesUpdate,
 }: SwapTimelineProps) {
@@ -119,9 +123,9 @@ export function SwapTimeline({
                 ...NoResultsFallbackProps,
             }}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Swap}:${isFollowing ? 'following' : 'profile'}`,
+                listKey: `${ScrollListKey.Swap}:${listSubScope}:${isFollowing ? 'following' : 'profile'}`,
                 computeItemKey: (index, item) => `${item.hash}-${index}`,
-                itemContent: (index, item) => getSwapActivityItemContent(index, item),
+                itemContent: (index, item) => getSwapActivityItemContent(index, item, disableScrollRestore),
             }}
         />
     );

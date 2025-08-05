@@ -37,9 +37,15 @@ interface SwapActivityItemProps {
     activity: SwapActivity;
     listKey?: string;
     index?: number;
+    disableScrollRestore?: boolean;
 }
 
-export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivityItem({ activity, listKey, index }) {
+export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivityItem({
+    activity,
+    listKey,
+    index,
+    disableScrollRestore,
+}) {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const router = useRouter();
     const addressName = formatAddress(activity.owner, 4);
@@ -55,7 +61,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
             onClick={() => {
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
-                if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+                if (listKey && !isUndefined(index) && !disableScrollRestore) setScrollIndex(listKey, index);
 
                 if (detailUrl) {
                     captureSwapEvent(EventId.EVENT_SWAP_DETAIL_CLICK);

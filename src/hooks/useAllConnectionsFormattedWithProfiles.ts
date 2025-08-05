@@ -1,12 +1,17 @@
 import { useQueries } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
 
+import { Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { unreachable } from '@/helpers/unreachable.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
+import type { LensConnection } from '@/providers/types/Firefly.js';
 import {
+    getConnections,
+    getProfileFromSocialConnections,
     getProfileIdsFromSocialConnections,
-    getSocialConnectionsWithProfile,
 } from '@/services/getSocialConnectionsWithProfile.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
@@ -19,12 +24,9 @@ export function useAllConnectionsFormattedWithProfiles(options?: { enabled?: boo
                 if (!connections?.social) return;
                 const ids = getProfileIdsFromSocialConnections(source, connections?.social);
                 return {
-                    queryKey: ['profiles', source, ids],
+                    queryKey: ['profiles', source, ids.sort()],
                     async queryFn() {
-                        return {
-                            connectionsWithProfile: await getSocialConnectionsWithProfile(source, connections.social),
-                            source,
-                        };
+                        return getProfileFromSocialConnections(source, connections.social);
                     },
                     enabled: options?.enabled && !!connections?.social?.[source],
                 };
@@ -33,21 +35,49 @@ export function useAllConnectionsFormattedWithProfiles(options?: { enabled?: boo
         combine(result) {
             const isLoading = result.some((x) => x.isLoading);
             const error = first(compact(result.map((x) => x.error)));
-            const data = {
-                ...connections,
-                socialConnections: compact(
-                    result.map((query) => {
-                        if (!query.data) return null;
-                        return {
-                            source: query.data.source,
-                            items: query.data.connectionsWithProfile.map((x) => ({
-                                ...x,
-                                account: accounts.find((account) => isSameProfile(x.profile, account.profile)),
-                            })),
-                        };
-                    }),
-                ),
-            };
+            const data = connections
+                ? {
+                      ...connections,
+                      socialConnections: compact(
+                          result.map((query) => {
+                              if (!query.data) return null;
+                              const source = first(query.data)?.source;
+                              if (!source) return null;
+                              return {
+                                  source,
+                                  items: query.data
+                                      .map((profile) => ({
+                                          profile,
+                                          connection: getConnections(source, connections.social).find((x) => {
+                                              switch (source) {
+                                                  case Source.Lens:
+                                                      return isSameAddress((x as LensConnection).id, profile.profileId);
+                                                  case Source.Bsky:
+                                                  case Source.Farcaster:
+                                                  case Source.Twitter:
+                                                      return `${x.id}` === profile.profileId;
+                                                  default:
+                                                      unreachable(source);
+                                              }
+                                          })!,
+                                          account: accounts.find((account) => isSameProfile(profile, account.profile)),
+                                      }))
+                                      .filter((x) => x.connection)
+                                      .sort((a, b) => {
+                                          function getPriority<
+                                              T extends {
+                                                  connection: { isDefault?: boolean };
+                                              },
+                                          >({ connection }: T) {
+                                              return connection.isDefault ? 1 : 0;
+                                          }
+                                          return getPriority(b) - getPriority(a);
+                                      }),
+                              };
+                          }),
+                      ),
+                  }
+                : undefined;
             return {
                 isLoading,
                 error,

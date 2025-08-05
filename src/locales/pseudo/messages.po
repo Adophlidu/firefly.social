@@ -1744,6 +1744,9 @@ msgstr ""
 msgid "Group"
 msgstr ""
 
+msgid "Set {formattedAddress} as primary Solana wallet"
+msgstr ""
+
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
 msgstr ""
@@ -1755,6 +1758,9 @@ msgid "More details"
 msgstr ""
 
 msgid "Failed to create anonymous post"
+msgstr ""
+
+msgid "Set {formattedAddress} as primary EVM wallet"
 msgstr ""
 
 #. placeholder {0}: result.amount
@@ -2470,6 +2476,10 @@ msgid "Font Color"
 msgstr ""
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
+msgstr ""
+
+#. placeholder {0}: profile.handle
+msgid "Set @{0} as primary account"
 msgstr ""
 
 #. placeholder {0}: item.project_name
