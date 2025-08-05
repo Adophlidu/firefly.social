@@ -22,7 +22,10 @@ export async function createSignedKey(body: SignedKeyRequestBody, signal?: Abort
     const url = urlcat(WARPCAST_ROOT_URL_V2, '/signed-key-requests');
     const response = await fetchJson<SignedKeyRequestResponse>(url, {
         method: 'POST',
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+            ...body,
+            keyType: undefined,
+        }),
         signal,
     });
     if (response.errors?.length) {
