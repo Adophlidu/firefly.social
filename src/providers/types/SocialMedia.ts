@@ -127,6 +127,12 @@ export interface Profile<O = unknown> {
     __original__?: O;
 }
 
+export interface ProfileLike {
+    source: SocialSource;
+    profileId: string;
+    handle: string;
+}
+
 export type ProfileEditable = Partial<Pick<Profile, 'pfp' | 'bio' | 'location' | 'website' | 'displayName'>>;
 
 export interface MediaObject {

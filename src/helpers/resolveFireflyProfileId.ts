@@ -1,14 +1,12 @@
 import { Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
+import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
-import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
-import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
+import type { ProfileLike } from '@/providers/types/SocialMedia.js';
 
-export function resolveFireflyProfileId(profile: Pick<Profile, 'handle' | 'profileId' | 'source'> | null) {
+export function resolveFireflyProfileId(profile: ProfileLike | null) {
     if (!profile) return;
 
     switch (profile.source) {
@@ -26,7 +24,7 @@ export function resolveFireflyProfileId(profile: Pick<Profile, 'handle' | 'profi
     }
 }
 
-export function resolveFireflyIdentity(profile: Profile | null): FireflyIdentity | null {
+export function resolveFireflyIdentity(profile: ProfileLike | null): FireflyIdentity | null {
     if (!profile) return null;
 
     const profileId = resolveFireflyProfileId(profile);
@@ -40,9 +38,9 @@ export function resolveFireflyIdentity(profile: Profile | null): FireflyIdentity
 
 export function resolveCurrentFireflyAccountId() {
     const profile =
-        useLensProfileStore.getState().currentProfile ||
-        useFarcasterProfileStore.getState().currentProfile ||
-        useTwitterProfileStore.getState().currentProfile;
+        getProfileFromStorage(Source.Lens) ||
+        getProfileFromStorage(Source.Farcaster) ||
+        getProfileFromStorage(Source.Twitter);
 
     const identity = resolveFireflyIdentity(profile);
     if (!identity) return;

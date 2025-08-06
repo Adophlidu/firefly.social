@@ -1,23 +1,27 @@
 import { getAccount } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { Source } from '@/constants/enum.js';
 import { bom } from '@/helpers/bom.js';
+import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
-import type { FireflySession } from '@/providers/firefly/Session.js';
 import { getWalletAdapter } from '@/providers/solana/getWalletAdapter.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
-import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
-import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
-import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
-import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
-import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 export function getPublicParameters(eventId: string, previousEventId: string | null) {
     const evmAccount = runInSafe(() => getAccount(wagmiConfig));
     const solanaAdaptor = runInSafe(() => getWalletAdapter());
 
-    const fireflySession = useFireflyProfileStore.getState().currentProfileSession as FireflySession | null;
+    const fireflySession = getSessionFromStorage(SessionType.Firefly);
+
+    const lensProfile = getProfileFromStorage(Source.Lens);
+    const farcasterProfile = getProfileFromStorage(Source.Farcaster);
+    const xProfile = getProfileFromStorage(Source.Twitter);
+    const bskyProfile = getProfileFromStorage(Source.Bsky);
+
     const developmentAPI = useDeveloperSettingsState.getState().developmentAPI;
 
     return {
@@ -59,10 +63,10 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
         firefly_account_id: fireflySession?.accountIdForEvent,
 
         // safary social login
-        twitter_username: useTwitterProfileStore.getState().currentProfile?.handle,
-        lens_handle: useLensProfileStore.getState().currentProfile?.handle,
-        farcaster_id: useFarcasterProfileStore.getState().currentProfile?.profileId,
-        bsky_id: useBskyProfileStore.getState().currentProfile?.profileId,
+        twitter_username: xProfile?.handle,
+        lens_handle: lensProfile?.handle,
+        farcaster_id: farcasterProfile?.profileId,
+        bsky_id: bskyProfile?.profileId,
 
         activity:
             bom.location?.pathname?.startsWith('/events') || bom.location?.pathname?.startsWith('/event/')

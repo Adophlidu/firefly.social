@@ -7,6 +7,7 @@ import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
+import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
@@ -14,7 +15,6 @@ import { FrameViewerModalRef } from '@/modals/FrameViewerModal/FrameViewerModal.
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
 import { type Post, type Profile, SessionType } from '@/providers/types/SocialMedia.js';
-import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 import type { FrameV2 } from '@/types/frame.js';
 
 interface CardProps {
@@ -28,7 +28,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
     const [primaryButton, setPrimaryButton] = useState<Parameters<SetPrimaryButton>[0] | null>(null);
 
     const [frameHost] = useState(() => {
-        const profile = useFarcasterProfileStore.getState().currentProfile;
+        const profile = getProfileFromStorage(Source.Farcaster);
         const fid = Number.parseInt(profile?.profileId ?? '0', 10);
         const context = {
             user: {

@@ -1,11 +1,11 @@
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { AllConnections } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
 
 export function formatAccountFromConnections(
     platform: SourceInURL.Google | SourceInURL.Telegram | SourceInURL.Apple | SourceInURL.Email,
@@ -13,7 +13,7 @@ export function formatAccountFromConnections(
 ): Account | undefined {
     if (!allConnections) return;
 
-    const session = useThirdPartyProfileStore.getState().currentProfileSession;
+    const session = getSessionFromStorage(SessionType.Apple);
     const now = Date.now();
     switch (platform) {
         case SourceInURL.Google:

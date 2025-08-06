@@ -1,16 +1,15 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import type { FireflySession } from '@/providers/firefly/Session.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 import {
     type BskyEventParameters,
     type FarcasterEventParameters,
     type LensEventParameters,
     type TwitterEventParameters,
 } from '@/providers/types/Telemetry.js';
-import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export function getSelfProfileEventParameters(source: SocialSource) {
     const selfProfile = getProfileFromStorage(source);
@@ -44,7 +43,7 @@ export function getSelfProfileEventParameters(source: SocialSource) {
 }
 
 export function getProfileEventParameters(profile: Profile) {
-    const fireflySession = useFireflyProfileStore.getState().currentProfileSession as FireflySession | null;
+    const fireflySession = getSessionFromStorage(SessionType.Firefly);
     if (!fireflySession) throw new Error('Firefly account id is missing.');
 
     const source = profile.source;

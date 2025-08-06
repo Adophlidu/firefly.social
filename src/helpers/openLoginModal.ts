@@ -2,11 +2,12 @@ import { PageRoute, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { bom } from '@/helpers/bom.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { CreateFireflyAccountGuideModalRef } from '@/modals/CreateFireflyAccountGuideModal/index.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
-import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export function isPathnameForceRedirect(pathname: string): boolean {
     return [PageRoute.Home, PageRoute.FollowingPosts, PageRoute.DiscoverPosts].includes(pathname as PageRoute);
@@ -19,11 +20,10 @@ export function openLoginModal(props: LoginModalOpenProps | void) {
     }
 
     const pathname = bom?.location?.pathname;
-    const { currentProfileSession } = useFireflyProfileStore.getState();
     const { preferences } = usePreferencesState.getState();
     const sources = getCurrentAvailableSources();
 
-    const accountId = currentProfileSession?.profileId;
+    const accountId = getSessionFromStorage(SessionType.Firefly)?.profileId;
     const hasChecked = preferences.FIREFLY_ACCOUNT_CHECKED_MAP[accountId || ''];
 
     if (hasChecked || sources.length || !pathname || isPathnameForceRedirect(pathname)) {

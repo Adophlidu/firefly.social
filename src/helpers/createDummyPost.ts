@@ -3,7 +3,6 @@ import { compact } from 'lodash-es';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -30,7 +29,6 @@ export function createDummyCommentPost(source: SocialSource, compositePost: Comp
     const parentPost = compositePost.parentPost[source];
     const postId = compositePost.postId[source];
     if (!parentPost || !postId) return null;
-    const profile = getProfileFromStorage(source);
     return {
         publicationId: crypto.randomUUID(),
         type: 'Comment',
@@ -39,7 +37,7 @@ export function createDummyCommentPost(source: SocialSource, compositePost: Comp
         parentPostId: parentPost.postId,
         parentAuthor: parentPost.author,
         timestamp: Date.now(),
-        author: createDummyProfile(profile?.source ?? source),
+        author: createDummyProfile(source),
         mediaObjects: compact([compositePost.video, ...compositePost.images, ...compositePost.images]).map((x) => ({
             title: x.file.name,
             mimeType: x.mimeType,

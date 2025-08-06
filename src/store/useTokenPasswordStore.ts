@@ -3,10 +3,11 @@ import { persist, type PersistStorage } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { createSelectors } from '@/helpers/createSelector.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { parseJson } from '@/helpers/parseJson.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { decryptPassword, encryptPassword } from '@/services/crypto.js';
-import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 interface TokenPasswordState {
     password: string | null;
@@ -65,8 +66,7 @@ const useTokenPasswordStoreBase = create<
                     };
                 },
                 setItem: (name, value) => {
-                    const fireflySession = useFireflyProfileStore.getState().currentProfileSession;
-                    const accountId = fireflySession?.profileId;
+                    const accountId = getSessionFromStorage(SessionType.Firefly)?.profileId;
                     if (!accountId) return;
 
                     const state = value.state;

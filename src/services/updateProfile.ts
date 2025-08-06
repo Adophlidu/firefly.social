@@ -10,13 +10,13 @@ import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
-import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
+import type { Profile, ProfileEditable, ProfileLike } from '@/providers/types/SocialMedia.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
 import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
-function setCurrentProfileInPosts(profile: Pick<Profile, 'profileId' | 'source'>, params: ProfileEditable) {
+function setCurrentProfileInPosts(profile: ProfileLike, params: ProfileEditable) {
     if (!profile) return;
     const matcher: Matcher = (post) => post?.author.profileId === profile.profileId;
     patchPostQueryData(profile.source, matcher, (draft) => {

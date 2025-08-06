@@ -8,6 +8,7 @@ import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getAllProfiles } from '@/helpers/getAllProfiles.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
@@ -63,10 +64,10 @@ function getFireflySession(account: Account) {
     return account.fireflySession;
 }
 
-function hasAnySocialProfile() {
+function hasAnyProfile() {
     return (
         SORTED_SOCIAL_SOURCES.some((x) => !!getProfileState(x).currentProfile) ||
-        useThirdPartyProfileStore.getState().currentProfile
+        getSessionFromStorage(SessionType.Apple)
     );
 }
 
@@ -176,7 +177,7 @@ async function resumeFireflySession(account: Account, signal?: AbortSignal): Pro
  * @returns
  */
 async function removeFireflyAccountIfNeeded() {
-    if (hasAnySocialProfile()) return;
+    if (hasAnyProfile()) return;
     useFireflyProfileStore.getState().clear();
     usePreferencesState.getState().resetPreferences();
     fireflySessionHolder.removeSession();
@@ -217,7 +218,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     // check if the account belongs to the current firefly session
     const belongsTo =
-        skipBelongsToCheck || !fireflySession || !currentFireflySession || !hasAnySocialProfile()
+        skipBelongsToCheck || !fireflySession || !currentFireflySession || !hasAnyProfile()
             ? true
             : isSameSession(currentFireflySession, fireflySession);
 
@@ -403,7 +404,7 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
         }
 
         const belongsTo =
-            skipBelongsToCheck || !fireflySession || !currentFireflySession || !hasAnySocialProfile()
+            skipBelongsToCheck || !fireflySession || !currentFireflySession || !hasAnyProfile()
                 ? true
                 : isSameSession(fireflySession, currentFireflySession);
         if (!belongsTo) {

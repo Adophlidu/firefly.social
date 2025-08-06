@@ -2,14 +2,11 @@ import { compact } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_POLL_SOURCES } from '@/constants/index.js';
+import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { getRpMetadata } from '@/helpers/rpPayload.js';
 import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
-import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
-import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
-import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
-import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 export interface Options {
     draftId?: string;
@@ -24,10 +21,10 @@ export function getComposeEventParameters(
     post: CompositePost,
     { draftId, scheduleId, thread = [post], availableSources = [], isCrossQuote = false }: Options = {},
 ): Omit<ComposeEventParameters, 'firefly_account_id'> {
-    const lensProfile = useLensProfileStore.getState().currentProfile;
-    const farcasterProfile = useFarcasterProfileStore.getState().currentProfile;
-    const xProfile = useTwitterProfileStore.getState().currentProfile;
-    const bskyProfile = useBskyProfileStore.getState().currentProfile;
+    const lensProfile = getProfileFromStorage(Source.Lens);
+    const farcasterProfile = getProfileFromStorage(Source.Farcaster);
+    const xProfile = getProfileFromStorage(Source.Twitter);
+    const bskyProfile = getProfileFromStorage(Source.Bsky);
 
     const hasLens = availableSources.includes(Source.Lens);
     const hasFarcaster = availableSources.includes(Source.Farcaster);

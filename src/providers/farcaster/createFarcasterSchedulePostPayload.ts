@@ -3,6 +3,7 @@ import { toInteger } from 'lodash-es';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isHomeChannel } from '@/helpers/isSameChannel.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -10,10 +11,10 @@ import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHa
 import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
 import { getFarcasterMediaObjects } from '@/providers/farcaster/getFarcasterMediaObjects.js';
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
-import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 import { type ComposeType } from '@/types/compose.js';
 
 export interface FarcasterSchedulePostPayload {
@@ -36,9 +37,10 @@ export async function createFarcasterSchedulePostPayload(
 
     const sourceName = resolveSourceName(Source.Farcaster);
     const farcasterParentPost = parentPost.Farcaster;
+
     // login required
-    const { currentProfile } = useFarcasterProfileStore.getState();
-    if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
+    const session = getSessionFromStorage(SessionType.Farcaster);
+    if (!session?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
     const imageResults = await Promise.all(
         images.map(async (media) => {

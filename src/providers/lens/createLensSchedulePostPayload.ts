@@ -2,6 +2,7 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { CreateScheduleError, SignlessRequireError } from '@/constants/error.js';
 import { readChars } from '@/helpers/chars.js';
+import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
@@ -13,7 +14,6 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
-import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 import { type ComposeType } from '@/types/compose.js';
 
 export interface LensSchedulePayload {
@@ -50,7 +50,7 @@ export async function createLensSchedulePostPayload(
         ? createS3MediaObject(await uploadAndConvertToM3u8(video.file, SourceInURL.Lens, signal), video)
         : null;
 
-    const { currentProfile } = useLensProfileStore.getState();
+    const currentProfile = getProfileFromStorage(Source.Lens);
     if (!currentProfile?.profileId) throw new Error(`Login required to schedule post on ${sourceName}`);
 
     // Request the user settings

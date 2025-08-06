@@ -10,24 +10,32 @@ const Schema = z.object({
             .object({
                 profileId: z.string(),
                 handle: z.string(),
-                source: z.nativeEnum(Source),
+                source: z.union([
+                    z.literal(Source.Farcaster),
+                    z.literal(Source.Lens),
+                    z.literal(Source.Twitter),
+                    z.literal(Source.Bsky),
+                ]),
+                displayName: z.string().optional(),
+                pfp: z.string().optional(),
+                ownedBy: z
+                    .object({
+                        address: z.string().optional(),
+                    })
+                    .optional(),
             })
             .nullable(),
     }),
 });
 
-interface Profile {
-    source: SocialSource;
-    profileId: string;
-    handle: string;
-}
+type Profile = z.infer<typeof Schema>['state']['currentProfile'];
 
 const resolveStorageKey = createLookupTableResolver<SocialSource, string>(
     {
         [Source.Bsky]: 'bsky-state',
+        [Source.Twitter]: 'twitter-state',
         [Source.Farcaster]: 'farcaster-state',
         [Source.Lens]: 'lens-state',
-        [Source.Twitter]: 'twitter-state',
     },
     (source) => {
         throw new Error(`Unknown profile source: ${source}`);

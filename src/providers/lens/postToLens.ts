@@ -15,6 +15,7 @@ import { RestrictionType, Source, SourceInURL } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { detectMentionsForLens } from '@/helpers/detectMentions.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -25,13 +26,12 @@ import { GroveStorageProvider } from '@/providers/lens/Grove.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { type Channel, SessionType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
-import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
 interface BaseMetadata {
@@ -297,8 +297,8 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
     if (lensPostId) return;
 
     // login required
-    const { currentProfile } = useLensProfileStore.getState();
-    if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
+    const session = getSessionFromStorage(SessionType.Lens);
+    if (!session?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
     const newChars = (await runInSafeAsync(() => detectMentionsForLens(chars))) || chars;
 
@@ -330,7 +330,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         compose(images, videos) {
             const video = first(videos) ?? null;
             return publishPostForLens(
-                currentProfile.profileId,
+                session.profileId,
                 readChars(newChars, 'both', Source.Lens),
                 images,
                 video,
@@ -342,7 +342,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             if (!lensParentPost) throw new Error('No parent post found.');
             const video = first(videos) ?? null;
             return commentPostForLens(
-                currentProfile.profileId,
+                session.profileId,
                 lensParentPost.postId,
                 readChars(newChars, 'both', Source.Lens),
                 images,
@@ -354,7 +354,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             if (!lensParentPost) throw new Error('No parent post found.');
             const video = first(videos) ?? null;
             return quotePostForLens(
-                currentProfile.profileId,
+                session.profileId,
                 lensParentPost.postId,
                 readChars(newChars, 'both', Source.Lens),
                 images,

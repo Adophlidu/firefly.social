@@ -1,8 +1,8 @@
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import type { FireflySession } from '@/providers/firefly/Session.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export async function captureTokenSyncYesEvent() {
     return runInSafeAsync(async () => {
@@ -40,7 +40,7 @@ export async function captureMobileQrLoginClickEvent() {
 
 export async function captureMultiDeviceLoginClickEvent() {
     return runInSafeAsync(async () => {
-        const fireflySession = useFireflyProfileStore.getState().currentProfileSession as FireflySession | null;
+        const fireflySession = getSessionFromStorage(SessionType.Firefly);
         if (!fireflySession) return;
 
         return TelemetryProvider.captureEvent(EventId.MULTI_DEVICE_LOGIN_CLICK, {});
