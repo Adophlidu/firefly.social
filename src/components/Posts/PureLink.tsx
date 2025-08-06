@@ -9,10 +9,11 @@ import { stopPropagation } from '@/helpers/stopEvent.js';
 interface PureLinkProps {
     url: string;
     title?: string;
+    description?: string;
     className?: string;
 }
 
-export function PureLink({ url, title, className }: PureLinkProps) {
+export function PureLink({ url, title, description, className }: PureLinkProps) {
     const domain = parseUrl(url)?.hostname;
     const siteTitle = title || first(domain?.split('.'));
 
@@ -36,7 +37,9 @@ export function PureLink({ url, title, className }: PureLinkProps) {
                         {siteTitle}
                     </h1>
                 ) : null}
-                <div className="line-clamp-2 max-w-full text-sm font-medium text-highlight">{domain || url}</div>
+                <div className="line-clamp-2 max-w-full text-sm font-medium text-highlight">
+                    {description || domain || url}
+                </div>
             </div>
         </Link>
     );

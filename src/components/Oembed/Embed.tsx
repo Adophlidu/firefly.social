@@ -1,8 +1,6 @@
-import { LinkIcon } from '@heroicons/react/24/outline';
-
 import { Link } from '@/components/Link.js';
+import { PureLink } from '@/components/Posts/PureLink.js';
 import { Image } from '@/esm/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
@@ -24,6 +22,10 @@ export function Embed({ og }: EmbedProps) {
           }
         : null;
 
+    if (!imageProps) {
+        return <PureLink url={og.url} title={og.title || u.host} description={og.description || u.hostname} />;
+    }
+
     return (
         <article className="mt-4 max-w-full text-sm">
             <Link
@@ -33,7 +35,7 @@ export function Embed({ og }: EmbedProps) {
                 rel="noreferrer noopener"
             >
                 <div className="rounded-xl border border-line bg-white text-main dark:bg-black">
-                    {og.isLarge && imageProps ? (
+                    {og.isLarge ? (
                         <Image
                             className="divider aspect-[16/9] w-full rounded-t-xl object-cover"
                             unoptimized
@@ -43,36 +45,17 @@ export function Embed({ og }: EmbedProps) {
                     ) : null}
                     <div className="flex items-center">
                         {!og.isLarge ? (
-                            <div
-                                className={classNames(
-                                    'relative flex aspect-square h-[90px] shrink-0 items-center justify-center',
-                                    {
-                                        'md:h-36': !!imageProps, // card
-                                        'md:h-24': !imageProps, // link
-                                    },
-                                )}
-                            >
-                                {imageProps ? (
-                                    <Image
-                                        className="dark:border-gray-70 aspect-square h-[144px] rounded-l-xl border-r object-cover"
-                                        layout="fill"
-                                        src={imageProps.src}
-                                        unoptimized
-                                        alt=""
-                                    />
-                                ) : (
-                                    <div className="flex size-[72px] items-center justify-center rounded-md bg-bg">
-                                        <LinkIcon className="size-6 text-gray-500" />
-                                    </div>
-                                )}
+                            <div className="relative flex aspect-square h-[90px] shrink-0 items-center justify-center md:h-36">
+                                <Image
+                                    className="dark:border-gray-70 aspect-square h-[144px] rounded-l-xl border-r object-cover"
+                                    layout="fill"
+                                    src={imageProps.src}
+                                    unoptimized
+                                    alt=""
+                                />
                             </div>
                         ) : null}
-                        <div
-                            className={classNames('truncate p-2 text-left text-second', {
-                                'md:p-5': !!imageProps, // card
-                                'md:px-3 md:py-5': !imageProps, // link
-                            })}
-                        >
+                        <div className="truncate p-2 text-left text-second md:p-5">
                             <div className="space-y-1.5">
                                 <div className="truncate font-bold">{og.title || u.host}</div>
                                 {og.description || u.hostname ? (

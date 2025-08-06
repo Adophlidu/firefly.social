@@ -74,14 +74,19 @@ function PostLinksMultiple({ post, isInCompose = false, hasRpPayload = false }: 
     if (isLoading || !data?.length) return null;
 
     const frames = data.filter((x) => !!x.result.frame);
-    const openGraphs = data.filter((x) => !!x.result.oembed);
+    const openGraphs = compact(
+        urls.map((url) => {
+            const matched = data.find((x) => x.url === url);
+            if (matched?.result.oembed) return { url, result: matched.result };
+
+            return !matched ? { url, result: null } : null;
+        }),
+    );
     const lastOpenGraph = hasRpPayload ? null : last(openGraphs);
     const otherLinks =
         frames.length > 1
             ? data.filter((x) => !x.result.oembed && !x.result.frame)
             : data.filter((x) => !x.result.oembed);
-    const unResolvedLinks = urls.filter((url) => !data.find((x) => x.url === url));
-    const lastUnResolvedLink = last(unResolvedLinks);
 
     if ((frames.length >= 1 || otherLinks.length >= 1) && lastOpenGraph?.result?.oembed?.og) {
         lastOpenGraph.result.oembed.og = {
@@ -101,11 +106,7 @@ function PostLinksMultiple({ post, isInCompose = false, hasRpPayload = false }: 
                     post={post}
                 />
             ) : null}
-            {compact([
-                ...otherLinks,
-                lastOpenGraph,
-                lastUnResolvedLink ? { url: lastUnResolvedLink, result: null } : null,
-            ]).map((x) => (
+            {compact([...otherLinks, lastOpenGraph]).map((x) => (
                 <PostLinkContent key={x.url} data={x.result} url={x.url} post={post} isInCompose={isInCompose} />
             ))}
         </>
