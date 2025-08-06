@@ -1,19 +1,19 @@
 import type { Notification as LensNotification } from '@lens-protocol/client';
 
-import { Source } from '@/constants/enum.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 
 // filter thread notifications created by the current profile
 export function filterNotifications(notifications: readonly LensNotification[]) {
-    const profile = getCurrentProfile(Source.Lens);
-    if (!profile) return [];
+    const session = getSessionFromStorage(SessionType.Lens);
+    if (!session) return [];
 
     let lastCommentId: string | undefined;
     return notifications.reduce<LensNotification[]>((acc, item, index) => {
         if (
             item.__typename !== 'CommentNotification' ||
-            !isSameEthereumAddress(item.comment.author.address, profile.profileId)
+            !isSameEthereumAddress(item.comment.author.address, session.profileId)
         ) {
             lastCommentId = undefined;
             return acc.concat(item);
@@ -25,7 +25,7 @@ export function filterNotifications(notifications: readonly LensNotification[]) 
             if (
                 next &&
                 next.__typename === 'CommentNotification' &&
-                isSameEthereumAddress(next.comment.author.address, profile.profileId) &&
+                isSameEthereumAddress(next.comment.author.address, session.profileId) &&
                 next.comment.id === parentId
             ) {
                 lastCommentId = parentId;

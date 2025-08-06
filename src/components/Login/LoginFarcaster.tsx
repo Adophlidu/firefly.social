@@ -32,7 +32,8 @@ import {
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { DraggablePopoverRef, LoginModalRef } from '@/modals/controls.js';
+import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
+import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import type { Account } from '@/providers/types/Account.js';
 import { createAccountByFireflySponsorship } from '@/providers/warpcast/createAccountByFireflySponsorship.js';
 import { createAccountByGrantPermission } from '@/providers/warpcast/createAccountByGrantPermission.js';

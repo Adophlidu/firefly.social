@@ -11,13 +11,13 @@ import { ActivityPremiumListContext } from '@/components/Activity/ActivityPremiu
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
-import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { captureActivityClaimEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
+import type { Chars } from '@/types/chars.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface Props {

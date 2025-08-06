@@ -4,7 +4,7 @@ import { erc20Abi } from 'viem';
 import { useAccount } from 'wagmi';
 import { multicall } from 'wagmi/actions';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { formatCustomTokenToTipsToken } from '@/helpers/formatCustomTokenToTipsToken.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { leftShift } from '@/helpers/number.js';
@@ -38,7 +38,7 @@ export function useCustomFungibleTokens(chainId?: EthereumChainId) {
                             args: [account.address!],
                         };
                     });
-                    const result = await multicall(config, {
+                    const result = await multicall(wagmiConfig, {
                         contracts,
                         chainId,
                     });

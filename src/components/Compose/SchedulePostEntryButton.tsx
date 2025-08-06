@@ -11,7 +11,8 @@ import { ENABLED_SCHEDULE_POST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { DraggablePopoverRef, SchedulePostModalRef } from '@/modals/controls.js';
+import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
+import { SchedulePostModalRef } from '@/modals/SchedulePostModal.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 
 interface SchedulePostEntryButtonProps extends HTMLProps<HTMLDivElement> {

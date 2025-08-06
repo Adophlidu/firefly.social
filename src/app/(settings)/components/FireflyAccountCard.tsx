@@ -13,7 +13,8 @@ import { classNames } from '@/helpers/classNames.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useDeleteFireflyAccount } from '@/hooks/useDeleteFireflyAccount.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
-import { EditFireflyProfileModalRef, LogoutModalRef } from '@/modals/controls.js';
+import { EditFireflyProfileModalRef } from '@/modals/EditFireflyProfileModal/EditFireflyProfileModal.js';
+import { LogoutModalRef } from '@/modals/LogoutModal.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 
 export function FireflyAccountCard() {

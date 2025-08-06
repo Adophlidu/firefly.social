@@ -10,11 +10,12 @@ import WebsiteIcon from '@/assets/website-circle.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { chains } from '@/configs/wagmiClient.js';
+import { chains } from '@/configs/chains.js';
 import { MintStatus, NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
-import { FreeMintModalRef, WalletConnectModalRef } from '@/modals/controls.js';
+import { FreeMintModalRef } from '@/modals/FreeMintModal/index.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { captureNFTMintClickEvent, captureNFTViewWebsiteClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import type { SponsorMintOptions } from '@/providers/types/Firefly.js';
 

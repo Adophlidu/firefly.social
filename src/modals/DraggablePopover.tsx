@@ -4,7 +4,7 @@ import { type ReactNode, useRef, useState } from 'react';
 
 import { Popover } from '@/components/Popover.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export interface DraggablePopoverProps {
     backdrop?: boolean;
@@ -50,3 +50,5 @@ export function DraggablePopover({ ref }: Props) {
         </Popover>
     );
 }
+
+export const DraggablePopoverRef = new SingletonModal<DraggablePopoverProps>();

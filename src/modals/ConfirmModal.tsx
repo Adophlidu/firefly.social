@@ -8,7 +8,7 @@ import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export interface ConfirmModalOpenProps {
     title?: ReactNode;
@@ -143,3 +143,5 @@ export function ConfirmModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const ConfirmModalRef = new SingletonModal<ConfirmModalOpenProps, ConfirmModalCloseResult>();

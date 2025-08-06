@@ -19,7 +19,7 @@ import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.j
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureAccountDisconnectEvent } from '@/providers/telemetry/captureAccountEvent.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -134,3 +134,5 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const DisconnectFireflyAccountModalRef = new SingletonModal<DisconnectFireflyAccountModalProps>();

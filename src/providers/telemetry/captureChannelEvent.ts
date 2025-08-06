@@ -1,5 +1,5 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
@@ -25,7 +25,7 @@ function getEventId(source: SocialSource, type: 'follow' | 'unfollow') {
 
 function getEventParameters(channel: Channel) {
     const { source } = channel;
-    const profile = getCurrentProfile(source);
+    const profile = getProfileFromStorage(source);
 
     switch (source) {
         case Source.Farcaster:

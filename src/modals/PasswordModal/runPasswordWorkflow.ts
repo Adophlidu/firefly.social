@@ -6,7 +6,7 @@ import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeUnreachable, unreachable } from '@/helpers/unreachable.js';
-import { PasswordModalRef } from '@/modals/controls.js';
+import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
 import { isStrongDigitPassword, isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { mergeMetrics, uploadMetrics } from '@/services/metrics.js';

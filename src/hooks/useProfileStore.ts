@@ -1,37 +1,35 @@
 import { useMemo } from 'react';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import {
-    useBskyStateStore,
-    useFarcasterStateStore,
-    useLensStateStore,
-    useTwitterStateStore,
-} from '@/store/useProfileStore.js';
+import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
+import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
+import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 export function useProfileStoreAll() {
-    const lensStatus = useLensStateStore.use.status();
-    const lensAccounts = useLensStateStore.use.accounts();
-    const currentLensProfile = useLensStateStore.use.currentProfile();
-    const currentLensProfileSession = useLensStateStore.use.currentProfileSession();
-    const clearLens = useLensStateStore.use.clear();
+    const lensStatus = useLensProfileStore.use.status();
+    const lensAccounts = useLensProfileStore.use.accounts();
+    const currentLensProfile = useLensProfileStore.use.currentProfile();
+    const currentLensProfileSession = useLensProfileStore.use.currentProfileSession();
+    const clearLens = useLensProfileStore.use.clear();
 
-    const farcasterStatus = useFarcasterStateStore.use.status();
-    const farcasterAccounts = useFarcasterStateStore.use.accounts();
-    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-    const currentFarcasterProfileSession = useFarcasterStateStore.use.currentProfileSession();
-    const clearFarcaster = useFarcasterStateStore.use.clear();
+    const farcasterStatus = useFarcasterProfileStore.use.status();
+    const farcasterAccounts = useFarcasterProfileStore.use.accounts();
+    const currentFarcasterProfile = useFarcasterProfileStore.use.currentProfile();
+    const currentFarcasterProfileSession = useFarcasterProfileStore.use.currentProfileSession();
+    const clearFarcaster = useFarcasterProfileStore.use.clear();
 
-    const twitterStatus = useTwitterStateStore.use.status();
-    const twitterAccounts = useTwitterStateStore.use.accounts();
-    const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
-    const currentTwitterProfileSession = useTwitterStateStore.use.currentProfileSession();
-    const clearTwitter = useTwitterStateStore.use.clear();
+    const twitterStatus = useTwitterProfileStore.use.status();
+    const twitterAccounts = useTwitterProfileStore.use.accounts();
+    const currentTwitterProfile = useTwitterProfileStore.use.currentProfile();
+    const currentTwitterProfileSession = useTwitterProfileStore.use.currentProfileSession();
+    const clearTwitter = useTwitterProfileStore.use.clear();
 
-    const bskyStatus = useBskyStateStore.use.status();
-    const bskyAccounts = useBskyStateStore.use.accounts();
-    const currentBskyProfile = useBskyStateStore.use.currentProfile();
-    const currentBskyProfileSession = useBskyStateStore.use.currentProfileSession();
-    const clearBsky = useBskyStateStore.use.clear();
+    const bskyStatus = useBskyProfileStore.use.status();
+    const bskyAccounts = useBskyProfileStore.use.accounts();
+    const currentBskyProfile = useBskyProfileStore.use.currentProfile();
+    const currentBskyProfileSession = useBskyProfileStore.use.currentProfileSession();
+    const clearBsky = useBskyProfileStore.use.clear();
 
     return useMemo(() => {
         const store = {

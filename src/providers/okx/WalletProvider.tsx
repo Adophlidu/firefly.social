@@ -3,7 +3,7 @@ import type { EthereumProvider, JsonRpcRequest, SolanaProvider } from '@okxweb3/
 import type { Provider } from '@reown/appkit-adapter-solana';
 import { type GetWalletClientReturnType, watchAccount } from 'wagmi/actions';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { getWalletAdaptorRequired } from '@/providers/solana/getWalletAdapter.js';
@@ -18,7 +18,7 @@ export class EthereumWalletProvider implements EthereumProvider {
 
     async getWalletClient(): Promise<Exclude<GetWalletClientReturnType, null>> {
         if (this.#walletClient) return this.#walletClient;
-        const walletClient = await getWalletClientRequired(config);
+        const walletClient = await getWalletClientRequired(wagmiConfig);
         this.#walletClient = walletClient;
         return walletClient;
     }
@@ -37,7 +37,7 @@ export class EthereumWalletProvider implements EthereumProvider {
     #setupWatcher(event: string) {
         switch (event) {
             case 'accountsChanged':
-                const unwatchAcc = watchAccount(config, {
+                const unwatchAcc = watchAccount(wagmiConfig, {
                     onChange: async (account) => {
                         const address = account.address ?? '';
                         this.selectedAddress = address;
@@ -49,7 +49,7 @@ export class EthereumWalletProvider implements EthereumProvider {
                 break;
 
             case 'chainChanged':
-                const unwatchNet = watchAccount(config, {
+                const unwatchNet = watchAccount(wagmiConfig, {
                     onChange: (account, prevAccount) => {
                         if (account.chainId !== prevAccount.chainId) {
                             this.#emit('chainChanged', account.chainId?.toString(16));

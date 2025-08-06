@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 
-import { type Chars } from '@/helpers/chars.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { type Mention, type RequestArguments, SupportedMethod } from '@/types/bridge.js';
+import { type Chars } from '@/types/chars.js';
 
 export function useActivityCompose() {
     return useCallback((chars: Chars) => {

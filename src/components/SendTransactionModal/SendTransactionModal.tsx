@@ -46,7 +46,7 @@ import {
 import { SearchRecipient } from '@/components/SendTransactionModal/SearchRecipient.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';
-import { chains } from '@/configs/wagmiClient.js';
+import { chains } from '@/configs/chains.js';
 import { NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -65,7 +65,7 @@ import { useExpandableTokens } from '@/hooks/useExpandableTokens.js';
 import { useMixesTokens } from '@/hooks/useMixesTokens.js';
 import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
-import { AddCustomERC20ModalRef } from '@/modals/controls.js';
+import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
 import { SolanaTransfer } from '@/providers/solana/Transfer.js';

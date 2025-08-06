@@ -30,8 +30,9 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useSelectFiles } from '@/hooks/useSelectFiles.js';
-import { ImageEditorModalRef, RedPacketModalRef } from '@/modals/controls.js';
+import { ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
 import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/common.js';
+import { RedPacketModalRef } from '@/modals/RedPacketModal/index.js';
 import {
     RedPacketContext,
     redPacketCoverTabs,

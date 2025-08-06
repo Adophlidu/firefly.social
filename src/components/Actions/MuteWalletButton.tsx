@@ -12,7 +12,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';

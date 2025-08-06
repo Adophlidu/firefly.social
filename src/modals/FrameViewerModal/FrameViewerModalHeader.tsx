@@ -6,9 +6,9 @@ import { Image } from '@/components/Image.js';
 import { NetworkType } from '@/constants/enum.js';
 import { delay } from '@/helpers/delay.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
-import { WalletConnectModalRef } from '@/modals/controls.js';
 import type { FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 
 interface FrameViewerModalHeaderProps {
     onClose?: () => void;

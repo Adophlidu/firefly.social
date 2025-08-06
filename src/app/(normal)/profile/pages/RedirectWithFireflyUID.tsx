@@ -5,11 +5,11 @@ import type { SocialSource } from '@/constants/enum.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getAllRelatedProfileInfo } from '@/providers/firefly/getAllRelatedProfileInfo.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 
 export async function RedirectWithFireflyUID({ uid }: { uid: string }): Promise<ReactNode | never> {
-    const relatedProfile = await FireflyEndpointProvider.getAllRelatedProfileInfo({ uid }, false);
+    const relatedProfile = await getAllRelatedProfileInfo({ uid }, false);
     if (!relatedProfile) notFound();
     const profiles = formatFireflyProfilesFromWalletProfiles(relatedProfile) as FireflyProfile[];
     const sortProfilesWithSource = SORTED_PROFILE_SOURCES.map((source) => {

@@ -4,7 +4,7 @@ import { SquareButton } from '@/app/(whiteboard)/components/Signup/SquareButton.
 import { Modal } from '@/components/Modal.js';
 import { PageRoute } from '@/constants/enum.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { FireflyAccountSVG } from '@/modals/CreateFireflyAccountGuideModal/FireflyAccountSVG.js';
 
 type Props = {
@@ -47,3 +47,5 @@ export function CreateFireflyAccountGuideModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const CreateFireflyAccountGuideModalRef = new SingletonModal<void, void>();

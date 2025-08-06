@@ -20,7 +20,7 @@ import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { captureTipsSharePostEvent } from '@/providers/telemetry/captureTipsEvent.js';
 
 export function SuccessView() {

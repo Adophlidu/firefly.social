@@ -7,10 +7,10 @@ import bs58 from 'bs58';
 import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
 
-import { chains } from '@/configs/wagmiClient.js';
+import { chains } from '@/configs/chains.js';
 import { decodeBase64 } from '@/helpers/decodeBase64.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
-import { WalletConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
 import {
     captureBlinkActionEvent,

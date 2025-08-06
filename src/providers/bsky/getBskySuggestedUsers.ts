@@ -3,13 +3,13 @@ import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 
 export async function getBskySuggestedUsers(
     indicator?: PageIndicator,
@@ -23,13 +23,11 @@ export async function getBskySuggestedUsers(
         queryStats?: boolean;
     } = {},
 ): Promise<Pageable<Profile, PageIndicator | undefined>> {
-    const bskyProfile = getCurrentProfile(Source.Bsky);
-    if (!bskyProfile || !bskySessionHolder.session) {
-        return createPageable([], indicator);
-    }
+    const session = getSessionFromStorage(SessionType.Bsky);
+    if (!session || !bskySessionHolder.session) return createPageable([], indicator);
 
     const preferences = await queryClient.fetchQuery({
-        queryKey: ['preferences', Source.Bsky, bskyProfile.profileId],
+        queryKey: ['preferences', Source.Bsky, session.profileId],
         queryFn: () => bskySessionHolder.agent.getPreferences(),
         staleTime: 1000 * 60 * 30, // 30 minutes
     });

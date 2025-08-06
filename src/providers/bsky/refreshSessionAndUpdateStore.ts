@@ -1,10 +1,10 @@
 import { isBskyTokenExpired } from '@/providers/bsky/isBskyTokenExpired.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { useBskyStateStore } from '@/store/useProfileStore.js';
+import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
 
 export async function refreshSessionAndUpdateStore(force = false) {
-    const currentProfileSession = useBskyStateStore.getState().currentProfileSession;
+    const currentProfileSession = useBskyProfileStore.getState().currentProfileSession;
     if (!currentProfileSession) {
         throw new Error('No current profile session found.');
     }
@@ -21,7 +21,7 @@ export async function refreshSessionAndUpdateStore(force = false) {
         const newSessionPayload = bskySessionHolder.agent.sessionManager.session;
         if (!newSessionPayload) return;
 
-        const profile = useBskyStateStore.getState().currentProfile;
+        const profile = useBskyProfileStore.getState().currentProfile;
         if (!profile) return;
 
         const newBskySession = bskySession;
@@ -29,7 +29,7 @@ export async function refreshSessionAndUpdateStore(force = false) {
             ...sessionPayload,
             ...newSessionPayload,
         };
-        useBskyStateStore.getState().updateCurrentAccount({
+        useBskyProfileStore.getState().updateCurrentAccount({
             profile,
             session: newBskySession,
         });

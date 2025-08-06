@@ -8,7 +8,7 @@ import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export type ImageEditorOpenProps = Omit<ImageEditorContentProps, 'open' | 'onSave' | 'onClose'>;
 export type ImageEditorCloseProps = File | null;
@@ -48,3 +48,5 @@ export function ImageEditorModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const ImageEditorModalRef = new SingletonModal<ImageEditorOpenProps, ImageEditorCloseProps>();

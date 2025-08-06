@@ -1,29 +1,31 @@
 import { fetchAccountsBulk } from '@lens-protocol/client/actions';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getAllPlatformProfileByIdentity } from '@/providers/firefly/getAllPlatformProfileByIdentity.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export async function muteAllSocialProfiles(identity: FireflyIdentity) {
-    const twitterProfile = getCurrentProfile(Source.Twitter);
-    const lensProfile = getCurrentProfile(Source.Lens);
-    const bskyProfile = getCurrentProfile(Source.Bsky);
+    const twitterSession = getSessionFromStorage(SessionType.Twitter);
+    const lensSession = getSessionFromStorage(SessionType.Lens);
+    const bskySession = getSessionFromStorage(SessionType.Bsky);
 
     const results = [{ snsId: identity.id, snsPlatform: resolveSourceInUrlForApi(identity.source) }];
-    if (!twitterProfile && !lensProfile && !bskyProfile) return results;
+    if (!twitterSession && !lensSession && !bskySession) return results;
 
-    const socialProfiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
+    const socialProfiles = await getAllPlatformProfileByIdentity(identity, false);
 
-    if (twitterProfile) {
+    if (twitterSession) {
         const twitterProfiles = socialProfiles.filter((profile) => profile.identity.source === Source.Twitter);
         await runInSafeAsync(() =>
             Promise.allSettled(
@@ -38,7 +40,7 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
         );
     }
 
-    if (lensProfile) {
+    if (lensSession) {
         const lensNames = socialProfiles
             .filter((profile) => profile.identity.source === Source.Lens)
             .map((profile) => profile.identity.id);
@@ -62,7 +64,7 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
         });
     }
 
-    if (bskyProfile) {
+    if (bskySession) {
         const bskyProfiles = socialProfiles.filter((profile) => profile.identity.source === Source.Bsky);
         await runInSafeAsync(() =>
             Promise.allSettled(

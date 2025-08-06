@@ -8,7 +8,7 @@ import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.j
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityLoginEventBySocialSource } from '@/providers/telemetry/captureActivityEvent.js';
 import { SupportedMethod } from '@/types/bridge.js';

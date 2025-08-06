@@ -8,7 +8,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 export interface AddWalletModalProps {
@@ -80,3 +80,5 @@ export function AddWalletModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const AddWalletModalRef = new SingletonModal<AddWalletModalProps, AddWalletModalCloseProps>();

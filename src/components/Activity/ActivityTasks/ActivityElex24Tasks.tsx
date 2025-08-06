@@ -21,11 +21,11 @@ import { Link } from '@/components/Activity/Link.js';
 import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { FIREFLY_MENTION, FIREFLY_TWITTER_PROFILE } from '@/constants/mentions.js';
-import { type Chars } from '@/helpers/chars.js';
 import { ReferralAccountPlatform, resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
 import { ActivityElex24VoteOption } from '@/providers/types/Activity.js';
 import { Level } from '@/providers/types/CZ.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
+import { type Chars } from '@/types/chars.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {

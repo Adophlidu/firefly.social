@@ -19,9 +19,9 @@ import { redirect, RedirectType } from '@/esm/navigation.js';
 import { delay } from '@/helpers/delay.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 interface SignupContentProps {
     step: SignupStep;
@@ -56,7 +56,7 @@ export function Signup({ initialStep }: SignupProps) {
     const [step, setStep] = useState<SignupStep>(initialStep || SignupStep.Welcome);
     const { hasFireflyAccount, isLoading, displayName, avatar } = useCheckFireflyAccount(false, true);
     const { setPreference } = usePreferencesState();
-    const { currentProfileSession } = useFireflyStateStore();
+    const { currentProfileSession } = useFireflyProfileStore();
     const hasFinished = useRef<boolean>(false);
 
     const changeStep = useCallback(

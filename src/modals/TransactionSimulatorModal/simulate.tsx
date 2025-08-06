@@ -1,6 +1,7 @@
 import { TransactionSimulationError } from '@/constants/error.js';
 import { dynamic } from '@/esm/dynamic.js';
-import { DraggablePopoverRef, TransactionSimulatorModalRef } from '@/modals/controls.js';
+import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
+import { TransactionSimulatorModalRef } from '@/modals/TransactionSimulatorModal/TransactionSimulatorModal.js';
 import { type TransactionSimulatorModalOpenProps } from '@/modals/TransactionSimulatorModal/TransactionSimulatorModal.js';
 
 const TransactionSimulatorContent = dynamic(() => import('@/modals/TransactionSimulatorModal/SimulatorContent.js'), {

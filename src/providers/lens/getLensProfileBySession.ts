@@ -1,4 +1,5 @@
-import { ensureLensResult, ensureLensResultSync } from '@/providers/lens/ensureLensResult.js';
+import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
+import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { refreshLensSession } from '@/providers/lens/refreshLensSession.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';

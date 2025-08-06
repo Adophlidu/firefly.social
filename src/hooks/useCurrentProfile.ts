@@ -4,18 +4,16 @@ import { useMemo } from 'react';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import {
-    useBskyStateStore,
-    useFarcasterStateStore,
-    useLensStateStore,
-    useTwitterStateStore,
-} from '@/store/useProfileStore.js';
+import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
+import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
+import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 export function useCurrentProfilesAll() {
-    const currentLensProfile = useLensStateStore.use.currentProfile();
-    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-    const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
-    const currentBskyProfile = useBskyStateStore.use.currentProfile();
+    const currentLensProfile = useLensProfileStore.use.currentProfile();
+    const currentFarcasterProfile = useFarcasterProfileStore.use.currentProfile();
+    const currentTwitterProfile = useTwitterProfileStore.use.currentProfile();
+    const currentBskyProfile = useBskyProfileStore.use.currentProfile();
 
     return useMemo<Record<SocialSource, Profile | null>>(
         () => ({

@@ -33,7 +33,8 @@ import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 import { useChangeSwapLikeStatus } from '@/hooks/useChangeSwapLikeStatus.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/ComposeModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 

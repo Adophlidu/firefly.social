@@ -12,7 +12,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { MintStatus } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -81,7 +81,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
             }
             if (!isFree || !hasBalance) {
                 if (account.address) captureArticleCollectEvent(article.id, account.address, isFree);
-                const confirmation = await sendTransaction(config, {
+                const confirmation = await sendTransaction(wagmiConfig, {
                     to: collectParams.txData.to as `0x${string}`,
                     value: BigInt(collectParams.txData.value),
                     data: collectParams.txData.inputData as `0x${string}`,

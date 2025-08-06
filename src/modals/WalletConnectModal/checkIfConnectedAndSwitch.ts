@@ -1,9 +1,9 @@
 import { getConnectors, switchAccount } from 'wagmi/actions';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import type { NetworkType } from '@/constants/enum.js';
 import { networkTypeToChainNamespace } from '@/helpers/networkTypeToChainNamespace.js';
-import { WalletConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import type { ConnectorWithProvider } from '@/types/index.js';
 
 export async function checkIfConnectedAndSwitch(
@@ -20,10 +20,10 @@ export async function checkIfConnectedAndSwitch(
     if (!connectedRecord) return false;
 
     if (connector.chain === 'eip155') {
-        const wagmiConnectors = getConnectors(config);
+        const wagmiConnectors = getConnectors(wagmiConfig);
         const wagmiConnector = wagmiConnectors.find((x) => x.id === connectedRecord.id);
         if (wagmiConnector) {
-            await switchAccount(config, { connector: wagmiConnector });
+            await switchAccount(wagmiConfig, { connector: wagmiConnector });
         }
     }
 

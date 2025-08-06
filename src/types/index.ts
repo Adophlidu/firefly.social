@@ -4,6 +4,8 @@ import ReactMarkdown from 'react-markdown';
 
 import { ServerErrorCodes } from '@/helpers/createResponseJson.js';
 
+export type Fetcher<T = Response> = (input: RequestInfo | URL, init?: RequestInit, next?: Fetcher) => Promise<T>;
+
 export type Pluggable = NonNullable<Parameters<typeof ReactMarkdown>[0]['remarkPlugins']>[number];
 
 export type ConnectorWithProvider = ConnectorControllerState['connectors'][0];

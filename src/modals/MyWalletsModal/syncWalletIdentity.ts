@@ -1,7 +1,7 @@
 import { AccountController } from '@reown/appkit';
 import { mainnet } from 'viem/chains';
 
-import { appkit } from '@/configs/wagmiClient.js';
+import { appkit } from '@/configs/appkit.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import type { ChainNamespace } from '@/types/index.js';
 

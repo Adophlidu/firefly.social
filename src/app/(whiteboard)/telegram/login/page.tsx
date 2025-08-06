@@ -19,7 +19,7 @@ import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
-import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
+import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
 import { DeviceType } from '@/types/device.js';
 import type { NextPageProps } from '@/types/index.js';
 
@@ -48,7 +48,7 @@ export default function Page(props: Props) {
                     dayjs(Date.now()).add(1, 'y').unix(),
                 );
 
-                const accounts = useThirdPartyStateStore.getState().accounts;
+                const accounts = useThirdPartyProfileStore.getState().accounts;
                 const foundNewSessionFromServer = !accounts.some((x) =>
                     isSameSession(session, x.session as ThirdPartySession),
                 );

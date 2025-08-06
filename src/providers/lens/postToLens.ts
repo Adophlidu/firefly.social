@@ -20,7 +20,7 @@ import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
-import { ensureLensResultSync } from '@/providers/lens/ensureLensResult.js';
+import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
@@ -31,7 +31,7 @@ import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
-import { useLensStateStore } from '@/store/useProfileStore.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
 interface BaseMetadata {
@@ -297,7 +297,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
     if (lensPostId) return;
 
     // login required
-    const { currentProfile } = useLensStateStore.getState();
+    const { currentProfile } = useLensProfileStore.getState();
     if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
     const newChars = (await runInSafeAsync(() => detectMentionsForLens(chars))) || chars;

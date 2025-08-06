@@ -5,7 +5,6 @@ import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import { ComposeModalRef } from '@/modals/controls.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 
 function parseSiteType(url: string) {
@@ -27,6 +26,10 @@ async function formatFarcasterUrl(parsedURL: URL) {
         case '/~/compose': {
             const embeds = parsedURL.searchParams.get('embeds[]');
             const text = parsedURL.searchParams.get('text');
+
+            // dynamic import to avoid circular dependency
+            const { ComposeModalRef } = await import('@/modals/ComposeModal.js');
+
             ComposeModalRef.open({
                 type: 'compose',
                 chars: [compact([text, embeds]).join('\n')],

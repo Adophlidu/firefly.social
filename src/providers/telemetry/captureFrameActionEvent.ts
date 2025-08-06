@@ -1,6 +1,6 @@
 import { getAccount } from 'wagmi/actions';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { isFrameV1, isFrameV2 } from '@/helpers/frame.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -26,7 +26,7 @@ const resolveEventId = (action: FrameActionType) => {
 
 export function captureFrameActionEvent(action: FrameActionType, frame?: Frame, address?: string) {
     return runInSafeAsync(async () => {
-        const walletAddress = address || getAccount(config)?.address || ETH_ZERO_ADDRESS;
+        const walletAddress = address || getAccount(wagmiConfig)?.address || ETH_ZERO_ADDRESS;
         return TelemetryProvider.captureEvent(resolveEventId(action), {
             frame_action: action,
             frame_version: (frame?.version ?? 'unknown') as string,

@@ -14,7 +14,8 @@ import { PasswordWorkflow } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { ConfirmModalRef, PasswordModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureRemovePasscodeEvent } from '@/providers/telemetry/capturePasscodeEvent.js';
 

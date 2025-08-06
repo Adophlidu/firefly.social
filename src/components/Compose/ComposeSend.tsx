@@ -18,7 +18,7 @@ import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCheckPostMedias } from '@/hooks/useCheckPostMedias.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { createAnonymousPost } from '@/services/createAnonymousPost.js';
 import { crossPost } from '@/services/crossPost.js';
 import { crossPostThread } from '@/services/crossPostThread.js';

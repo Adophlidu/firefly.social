@@ -7,8 +7,8 @@ import type { Provider } from '@reown/appkit-adapter-solana';
 import { PrivySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { NetworkType } from '@/constants/enum.js';
 import { unreachable } from '@/helpers/unreachable.js';
-import { WalletConnectModalRef } from '@/modals/controls.js';
 import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 
 export class WalletNotConnectedError extends Error {

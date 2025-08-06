@@ -11,8 +11,8 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getAllAccounts } from '@/helpers/getAllProfiles.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
+import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
@@ -212,7 +212,6 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
 
         const source = resolveSocialSource(platform);
         if (!source) continue;
-        const currentProfile = getCurrentProfile(source);
 
         const decryptedData =
             source !== Source.Twitter
@@ -228,6 +227,8 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
             displayName: name,
             pfp: avatar,
         } satisfies Profile;
+
+        const currentSession = getSessionFromStorageBySource(source);
 
         switch (source) {
             case Source.Lens: {
@@ -247,7 +248,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                     origin: 'sync',
                 } satisfies Account;
 
-                if (!currentProfile) {
+                if (!currentSession) {
                     try {
                         await lensSessionHolder.resumeSession(session, true);
                     } catch (error) {
@@ -258,7 +259,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                     }
                 }
 
-                profileState.addAccount(account, !currentProfile);
+                profileState.addAccount(account, !currentSession);
                 captureAccountLoginEvent(account);
                 break;
             }
@@ -277,12 +278,12 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                     session,
                     origin: 'sync',
                 } satisfies Account;
-                if (!currentProfile) {
+                if (!currentSession) {
                     sessionHolder.resumeSession(session);
                 }
                 captureAccountLoginEvent(account);
 
-                profileState.addAccount(account, !currentProfile);
+                profileState.addAccount(account, !currentSession);
 
                 break;
             }
@@ -296,7 +297,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                 const payload = resolveResponseData(payloadResponse);
                 const session = new TwitterSession(profileId, '', now, now, payload);
 
-                if (!currentProfile) {
+                if (!currentSession) {
                     sessionHolder.resumeSession(session);
                     await TwitterAuthProvider.login();
                 }

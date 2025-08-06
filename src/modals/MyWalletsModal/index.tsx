@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 
 import { Modal } from '@/components/Modal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConnectedWallets } from '@/modals/MyWalletsModal/ConnectedWallets.js';
 
 type Props = {
@@ -32,3 +32,5 @@ export function MyWalletsModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const MyWalletsModalRef = new SingletonModal();

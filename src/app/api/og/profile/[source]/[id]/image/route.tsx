@@ -34,7 +34,7 @@ import { resolveSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getAllRelatedProfileInfo } from '@/providers/firefly/getAllRelatedProfileInfo.js';
 import type { WalletProfiles } from '@/providers/types/Firefly.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
 import type { NextRequestContext } from '@/types/index.js';
@@ -275,7 +275,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const debug = z.boolean().safeParse(request.nextUrl.searchParams.has('debug')).data;
 
     if (source === Source.Firefly) {
-        const profiles = await FireflyEndpointProvider.getAllRelatedProfileInfo({ uid: id });
+        const profiles = await getAllRelatedProfileInfo({ uid: id });
         if (!profiles.account) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
         const avatar = walletProfilesToAvatar(profiles) ?? OG_FALLBACK_AVATAR;
         return createProfileOpenGraphImageResponse({

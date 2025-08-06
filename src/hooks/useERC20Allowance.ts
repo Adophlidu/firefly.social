@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { readContract } from 'wagmi/actions';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
@@ -21,7 +21,7 @@ export function useERC20TokenAllowance(
         queryFn: async () => {
             if (!account || !address || !spender || isNativeToken) return undefined;
 
-            return readContract(config, {
+            return readContract(wagmiConfig, {
                 chainId,
                 abi: getTokenAbiForWagmi(chainId, address),
                 functionName: 'allowance',

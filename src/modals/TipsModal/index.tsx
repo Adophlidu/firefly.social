@@ -13,7 +13,7 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { TipsModalContentSkeleton } from '@/modals/TipsModal/TipsModalContentSkeleton.js';
 import type { FireflyIdentity, FireflyProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -152,3 +152,5 @@ export function TipsModal({ ref, ...props }: Props) {
         </TipsContext.Provider>
     );
 }
+
+export const TipsModalRef = new SingletonModal<TipsModalOpenProps, TipsModalCloseProps>();

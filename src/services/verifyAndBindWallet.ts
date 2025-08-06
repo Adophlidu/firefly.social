@@ -1,7 +1,7 @@
 import bs58 from 'bs58';
 import { type Address } from 'viem';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { ClickOrigin, NetworkType } from '@/constants/enum.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -10,7 +10,7 @@ import { getWalletAdaptorRequired, WalletNotConnectedError } from '@/providers/s
 export async function verifyAndBindWallet(network: NetworkType, checkExistedConnection?: (address: string) => boolean) {
     switch (network) {
         case NetworkType.Ethereum: {
-            const walletClient = await getWalletClientRequired(config, undefined, {
+            const walletClient = await getWalletClientRequired(wagmiConfig, undefined, {
                 origin: ClickOrigin.Settings,
             });
             const address = walletClient.account.address;

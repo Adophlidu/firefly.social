@@ -18,8 +18,8 @@ import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { TipsModalRef } from '@/modals/controls.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { TipsModalRef } from '@/modals/TipsModal/index.js';
+import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -60,7 +60,7 @@ export function Tips({
             const fireflyProfiles = await queryClient.fetchQuery({
                 queryKey: ['firefly-profile', identity.source, identity.id],
                 staleTime: 1000 * 60 * 10, // 10 minutes
-                queryFn: () => FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, isAuthRequired),
+                queryFn: () => getAllPlatformProfileFromFirefly(identity, isAuthRequired),
             });
             const relatedProfiles = formatFireflyProfilesFromWalletProfiles(fireflyProfiles) as FireflyProfile[];
             if (!relatedProfiles?.some((profile) => profile.identity.source === Source.Wallet)) {

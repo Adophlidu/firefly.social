@@ -12,8 +12,8 @@ import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { AddCustomERC721ModalRef } from '@/modals/controls.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { AddCustomERC721ModalRef } from '@/modals/AddCustomERC721Modal.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 
 export interface NonFungibleCollectionSelectModalOpenProps {
@@ -94,3 +94,8 @@ export function NonFungibleCollectionSelectModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const NonFungibleTokenCollectionSelectModalRef = new SingletonModal<
+    NonFungibleCollectionSelectModalOpenProps,
+    NonFungibleCollectionSelectModalCloseProps
+>();

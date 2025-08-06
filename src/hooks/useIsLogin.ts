@@ -2,7 +2,7 @@ import { HomeTab, type NotificationSource, type SocialSource, Source } from '@/c
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useSocialDiscoverSourcesWithWhitelist } from '@/hooks/useSocialDiscoverSourcesWithWhitelist.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export function useIsLogin(source?: SocialSource) {
     const profilesAll = useCurrentProfilesAll();
@@ -12,13 +12,13 @@ export function useIsLogin(source?: SocialSource) {
 }
 
 export function useIsLoginFirefly() {
-    const { currentProfileSession } = useFireflyStateStore();
+    const { currentProfileSession } = useFireflyProfileStore();
     return !!currentProfileSession;
 }
 
 export function useIsLoginNotifications(source: NotificationSource) {
     const profilesAll = useCurrentProfilesAll();
-    const { currentProfileSession } = useFireflyStateStore();
+    const { currentProfileSession } = useFireflyProfileStore();
 
     if (source === Source.Notifications) return !!currentProfileSession;
     return !!profilesAll[source]?.profileId;

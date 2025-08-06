@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { connect, getConnectors } from '@wagmi/core';
 import { useAccount } from 'wagmi';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { getPrivyBridge, PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { NetworkType } from '@/constants/enum.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
@@ -22,9 +22,9 @@ export function usePollingSetupPrivyWallet() {
         async queryFn() {
             if (!enabled) return;
             getPrivyBridge()?.reload();
-            const connectors = getConnectors(config);
+            const connectors = getConnectors(wagmiConfig);
             const connector = connectors.find((x) => x.id === PRIVY_CONNECTOR_ID);
-            if (connector) await connect(config, { connector });
+            if (connector) await connect(wagmiConfig, { connector });
         },
         refetchInterval() {
             if (account.connector?.id === PRIVY_CONNECTOR_ID) return;

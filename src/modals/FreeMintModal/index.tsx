@@ -6,7 +6,7 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { MintMetadata, SponsorMintOptions } from '@/providers/types/Firefly.js';
 
 export interface FreeMintModalOpenProps {
@@ -49,3 +49,5 @@ export function FreeMintModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const FreeMintModalRef = new SingletonModal<FreeMintModalOpenProps>();

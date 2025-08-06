@@ -8,7 +8,7 @@ import { parseUrl } from '@/helpers/parseUrl.js';
 import { ReferralAccountPlatform } from '@/helpers/resolveActivityUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getAllRelatedProfileInfo } from '@/providers/firefly/getAllRelatedProfileInfo.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
@@ -28,7 +28,7 @@ const resolveActivityLoginEventId = createLookupTableResolver<SocialSource, Even
 
 const getFireflyWalletProfile = memoizePromise(
     async function getFireflyWalletProfile() {
-        return FireflyEndpointProvider.getAllRelatedProfileInfo(undefined, true);
+        return getAllRelatedProfileInfo(undefined, true);
     },
     () => 'firefly-wallet-profile',
 );

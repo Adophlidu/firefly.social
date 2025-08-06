@@ -7,7 +7,7 @@ import { Modal } from '@/components/Modal.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { captureTokenSyncNoEvent, captureTokenSyncYesEvent } from '@/providers/telemetry/captureSyncTokenEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -98,3 +98,8 @@ export function ConfirmSyncSessionModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const ConfirmSyncSessionModalRef = new SingletonModal<
+    ConfirmSyncSessionModalOpenProps,
+    ConfirmSyncSessionModalCloseProps
+>();

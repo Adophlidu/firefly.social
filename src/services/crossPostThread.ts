@@ -8,13 +8,13 @@ import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMe
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import { SnackbarRef } from '@/modals/controls.js';
+import { SnackbarRef } from '@/modals/Snackbar.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
-import { useFarcasterStateStore } from '@/store/useProfileStore.js';
+import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 
 interface CrossPostThreadOptions {
     progressCallback?: (progress: number) => void;
@@ -38,7 +38,7 @@ async function getParentPostById(source: SocialSource, postId: string, contentUR
             // the hub might be delay in updating the post
             const mock = { postId, author: {} } as unknown as Post;
 
-            const profileId = useFarcasterStateStore.getState().currentProfile?.profileId;
+            const profileId = useFarcasterProfileStore.getState().currentProfile?.profileId;
             if (!profileId) throw new Error('Farcaster profileId is missing.');
 
             // fc should have profileId for replying

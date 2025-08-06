@@ -8,7 +8,7 @@ import type { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getErrorMessageFromError, getWarningMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { SnackbarRef } from '@/modals/controls.js';
+import { SnackbarRef } from '@/modals/Snackbar.js';
 
 export interface MessageOptions extends OptionsObject {
     version?: string;

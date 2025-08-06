@@ -11,12 +11,10 @@ import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
-import {
-    useBskyStateStore,
-    useFarcasterStateStore,
-    useLensStateStore,
-    useTwitterStateStore,
-} from '@/store/useProfileStore.js';
+import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
+import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
+import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 function setCurrentProfileInPosts(profile: Pick<Profile, 'profileId' | 'source'>, params: ProfileEditable) {
     if (!profile) return;
@@ -32,10 +30,10 @@ function setCurrentProfileInPosts(profile: Pick<Profile, 'profileId' | 'source'>
 
 function updateCurrentProfileInState(source: SocialSource, params: ProfileEditable) {
     const stateStore = {
-        [Source.Farcaster]: useFarcasterStateStore,
-        [Source.Lens]: useLensStateStore,
-        [Source.Twitter]: useTwitterStateStore,
-        [Source.Bsky]: useBskyStateStore,
+        [Source.Farcaster]: useFarcasterProfileStore,
+        [Source.Lens]: useLensProfileStore,
+        [Source.Twitter]: useTwitterProfileStore,
+        [Source.Bsky]: useBskyProfileStore,
     }[source];
     stateStore.getState().updateCurrentProfile(params);
 }

@@ -3,7 +3,7 @@ import { useAsyncFn } from 'react-use';
 import type { Address, Hex } from 'viem';
 import { sendTransaction, waitForTransactionReceipt } from 'wagmi/actions';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { MintStatus } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -57,12 +57,12 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
                     mintTarget.contractAddress,
                     true,
                 );
-                const hash = await sendTransaction(config, {
+                const hash = await sendTransaction(wagmiConfig, {
                     data: latestParams.txData.inputData as Hex,
                     to: latestParams.txData.to as Address,
                     value: BigInt(latestParams.txData.value),
                 });
-                await waitForTransactionReceipt(config, { hash });
+                await waitForTransactionReceipt(wagmiConfig, { hash });
             }
 
             enqueueSuccessMessage(t`NFT minted successfully!`);

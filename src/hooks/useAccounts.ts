@@ -2,12 +2,10 @@ import { useMemo } from 'react';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import type { Account } from '@/providers/types/Account.js';
-import {
-    useBskyStateStore,
-    useFarcasterStateStore,
-    useLensStateStore,
-    useTwitterStateStore,
-} from '@/store/useProfileStore.js';
+import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
+import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
+import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 export function useAccounts(source: SocialSource) {
     const all = useAccountsAll();
@@ -15,10 +13,10 @@ export function useAccounts(source: SocialSource) {
 }
 
 export function useAccountsAll() {
-    const lensAccounts = useLensStateStore.use.accounts();
-    const farcasterAccounts = useFarcasterStateStore.use.accounts();
-    const twitterAccounts = useTwitterStateStore.use.accounts();
-    const bskyAccounts = useBskyStateStore.use.accounts();
+    const lensAccounts = useLensProfileStore.use.accounts();
+    const farcasterAccounts = useFarcasterProfileStore.use.accounts();
+    const twitterAccounts = useTwitterProfileStore.use.accounts();
+    const bskyAccounts = useBskyProfileStore.use.accounts();
 
     return useMemo<Record<SocialSource, Account[]>>(
         () => ({

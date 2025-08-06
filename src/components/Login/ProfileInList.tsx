@@ -2,9 +2,9 @@ import { Trans } from '@lingui/react/macro';
 
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { Link } from '@/components/Link.js';
 import { ProfileAvatar, type ProfileAvatarProps } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
+import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

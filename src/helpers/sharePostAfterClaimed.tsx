@@ -5,7 +5,8 @@ import urlcat from 'urlcat';
 import CircleSuccessIcon from '@/assets/circle-success.svg';
 import { SITE_URL } from '@/constants/index.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/ComposeModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function sharePostAfterClaimed(post: Post, amount: string, symbol?: string) {

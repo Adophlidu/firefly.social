@@ -12,7 +12,7 @@ import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
-import { AddCustomERC20ModalRef } from '@/modals/controls.js';
+import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
 
 interface TipsModalHeaderProps {
     title?: ReactNode;

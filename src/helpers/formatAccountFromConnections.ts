@@ -5,7 +5,7 @@ import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { AllConnections } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
+import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
 
 export function formatAccountFromConnections(
     platform: SourceInURL.Google | SourceInURL.Telegram | SourceInURL.Apple | SourceInURL.Email,
@@ -13,7 +13,7 @@ export function formatAccountFromConnections(
 ): Account | undefined {
     if (!allConnections) return;
 
-    const session = useThirdPartyStateStore.getState().currentProfileSession;
+    const session = useThirdPartyProfileStore.getState().currentProfileSession;
     const now = Date.now();
     switch (platform) {
         case SourceInURL.Google:

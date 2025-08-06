@@ -2,10 +2,11 @@ import { PageRoute, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { bom } from '@/helpers/bom.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
-import { CreateFireflyAccountGuideModalRef, LoginModalRef } from '@/modals/controls.js';
+import { CreateFireflyAccountGuideModalRef } from '@/modals/CreateFireflyAccountGuideModal/index.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
+import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export function isPathnameForceRedirect(pathname: string): boolean {
     return [PageRoute.Home, PageRoute.FollowingPosts, PageRoute.DiscoverPosts].includes(pathname as PageRoute);
@@ -18,7 +19,7 @@ export function openLoginModal(props: LoginModalOpenProps | void) {
     }
 
     const pathname = bom?.location?.pathname;
-    const { currentProfileSession } = useFireflyStateStore.getState();
+    const { currentProfileSession } = useFireflyProfileStore.getState();
     const { preferences } = usePreferencesState.getState();
     const sources = getCurrentAvailableSources();
 

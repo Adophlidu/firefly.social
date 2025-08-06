@@ -1,7 +1,6 @@
 import type { ProfileSource } from '@/constants/enum.js';
 import { parseHtml } from '@/helpers/parseHtml.js';
 import { parseJson } from '@/helpers/parseJson.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 export class AbortError extends Error {
     override name = 'AbortError';
@@ -127,7 +126,7 @@ export class FarcasterInvalidSignerKey extends Error {
 export class FireflyAccountAbsentError extends Error {
     override name = 'FireflyAccountAbsentError';
     constructor(public source: ProfileSource) {
-        super(`This ${resolveSourceName(source)} account does not exists.`);
+        super(`This ${source} account does not exists.`);
     }
 }
 
@@ -135,14 +134,14 @@ export class FireflyAlreadyBoundError extends Error {
     override name = 'FireflyAlreadyBoundError';
 
     constructor(public source: ProfileSource) {
-        super(`This ${resolveSourceName(source)} account has already bound to another Firefly account.`);
+        super(`This ${source} account has already bound to another Firefly account.`);
     }
 }
 
 export class FireflyBindTimeoutError extends Error {
     override name = 'FireflyBindTimeoutError';
     constructor(public source: ProfileSource) {
-        super(`Bind ${resolveSourceName(source)} account to Firefly timeout.`);
+        super(`Bind ${source} account to Firefly timeout.`);
     }
 }
 

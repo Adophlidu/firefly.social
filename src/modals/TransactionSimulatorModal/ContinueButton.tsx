@@ -5,7 +5,7 @@ import { useAccount } from 'wagmi';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { NetworkType, SimulateStatus } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { WalletConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 
 interface ContinueButtonProps extends Omit<ClickableButtonProps, 'children'> {
     status: SimulateStatus;

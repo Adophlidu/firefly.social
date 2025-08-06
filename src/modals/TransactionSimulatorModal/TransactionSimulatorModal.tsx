@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { SimulationOptions } from '@/providers/types/Tenderly.js';
 
 export type TransactionSimulatorModalOpenProps = SimulationOptions & {
@@ -46,3 +46,5 @@ export function TransactionSimulatorModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const TransactionSimulatorModalRef = new SingletonModal<TransactionSimulatorModalOpenProps>();

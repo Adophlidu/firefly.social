@@ -3,17 +3,16 @@
 import { compact } from 'lodash-es';
 import { useEffect } from 'react';
 
-import { FireflyPlatform } from '@/constants/enum.js';
+import { CharTag, FireflyPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
-import { CHAR_TAG } from '@/helpers/chars.js';
 import { formatSearchProfile } from '@/helpers/formatSearchProfile.js';
-import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
+import { getProfileAllFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
@@ -24,7 +23,7 @@ export interface ShareLinkProps {
 }
 
 const fireflyMention = {
-    tag: CHAR_TAG.MENTION,
+    tag: CharTag.MENTION,
     visible: true,
     content: `@thefireflyapp`,
     profiles: [
@@ -66,7 +65,7 @@ async function openCompose(props: ShareLinkProps, onFinished: () => void) {
     const query = trimify(props.via || '').replace(/^@/, '');
     const identities = query ? await searchIdentities(query) : [];
 
-    const currentProfiles = getCurrentProfileAll();
+    const currentProfiles = getProfileAllFromStorage();
     const matchedIdentity = identities.find((x) => x.profile.handle === query);
 
     const isLogin = Object.values(currentProfiles).some((x) => !!x?.profileId);
@@ -91,14 +90,14 @@ async function openCompose(props: ShareLinkProps, onFinished: () => void) {
             `${props.url || SITE_URL_OFFICIAL} via `,
             query
                 ? {
-                      tag: CHAR_TAG.MENTION,
+                      tag: CharTag.MENTION,
                       visible: true,
                       content: `@${query}`,
                       profiles: matchedIdentity?.related || EMPTY_LIST,
                   }
                 : {
                       ...fireflyMention,
-                      tag: CHAR_TAG.MENTION,
+                      tag: CharTag.MENTION,
                   },
         ],
     });

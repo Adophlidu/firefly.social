@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 
 import { NetworkType, type ProfilePageSource, Source } from '@/constants/enum.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
 import type { WalletProfile, WalletProfiles } from '@/providers/types/Firefly.js';
 
 function isEmpty(profiles: WalletProfiles) {
@@ -17,7 +17,7 @@ function isEmpty(profiles: WalletProfiles) {
 }
 
 export async function getAllRelatedProfilesWithDefault(identity: { source: ProfilePageSource; id: string }) {
-    const result = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false, true);
+    const result = await getAllPlatformProfileFromFirefly(identity, false, true);
 
     const networkType = isValidAddressEthereum(identity.id)
         ? NetworkType.Ethereum

@@ -3,8 +3,8 @@ import { Trans } from '@lingui/react/macro';
 import { SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { ConfirmLeavingModalRef, ConfirmModalRef } from '@/modals/controls.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 
 const WHITELIST: Array<string | ((url: string) => boolean)> = [
     (url) => isSameOriginUrl(url, location.origin),
@@ -54,3 +54,5 @@ export function ConfirmLeavingModal({ ref }: Props) {
 
     return null;
 }
+
+export const ConfirmLeavingModalRef = new SingletonModal<ConfirmLeavingModalOpenProps, ConfirmLeavingModalCloseProps>();

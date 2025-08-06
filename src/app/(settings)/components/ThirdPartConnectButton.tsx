@@ -9,7 +9,7 @@ import { Source, type ThirdPartySource } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface Props {

@@ -7,7 +7,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { routeTree } from '@/modals/RedPacketModal/routes.js';
 
 function PendingComponent() {
@@ -62,3 +62,5 @@ export function RedPacketModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const RedPacketModalRef = new SingletonModal<RedPacketModalOpenProps | void>();

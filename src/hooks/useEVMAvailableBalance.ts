@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import { useBalance, useEstimateFeesPerGas } from 'wagmi';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import { isGreaterThan, multipliedBy, ZERO } from '@/helpers/number.js';
@@ -20,21 +20,21 @@ export function useEVMAvailableBalance(
 
     const { data: nativeBalance } = useBalance({
         address: account as `0x${string}`,
-        config,
+        config: wagmiConfig,
         chainId,
         query: { enabled },
     });
     const { data: balance } = useBalance({
         token: !isNativeToken ? address : undefined,
         address: account as `0x${string}`,
-        config,
+        config: wagmiConfig,
         chainId,
         query: { enabled },
     });
 
     const { data } = useEstimateFeesPerGas({
         chainId,
-        config,
+        config: wagmiConfig,
         type: isEIP1559 ? 'eip1559' : 'legacy',
         query: { enabled },
     });

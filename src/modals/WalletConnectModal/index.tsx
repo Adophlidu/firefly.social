@@ -1,6 +1,7 @@
+'use client';
+
 import { useAppKitTheme } from '@reown/appkit/react';
 import { RouterProvider } from '@tanstack/react-router';
-import { useEffect } from 'react';
 
 import { Modal } from '@/components/Modal.js';
 import { ClickOrigin, type NetworkType } from '@/constants/enum.js';
@@ -8,7 +9,7 @@ import { delay } from '@/helpers/delay.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 
 export interface WalletConnectModalOpenProps {
@@ -30,6 +31,7 @@ function WalletConnectModalRoot({ ref }: Props) {
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
+            setThemeMode(isDark ? 'dark' : 'light');
             setNetworkType(props?.networkType ? props.networkType : undefined);
             setOrigin(props?.origin ?? ClickOrigin.Others);
             setCustomTitle(props?.customTitle || null);
@@ -41,10 +43,6 @@ function WalletConnectModalRoot({ ref }: Props) {
             walletRouter.navigate({ to: '/main', replace: true });
         },
     });
-
-    useEffect(() => {
-        setThemeMode(isDark ? 'dark' : 'light');
-    }, [isDark, setThemeMode]);
 
     return (
         <Modal open={open} onClose={() => dispatch?.close()}>
@@ -62,3 +60,8 @@ export function WalletConnectModal({ ref, ...props }: Props) {
         </WalletConnectContext.Provider>
     );
 }
+
+export const WalletConnectModalRef = new SingletonModal<
+    WalletConnectModalOpenProps | void,
+    WalletConnectModalCloseProps | void
+>();

@@ -1,6 +1,6 @@
 import { compact, first, sortBy } from 'lodash-es';
 import urlcat from 'urlcat';
-import { type Address, type Hex, isHex } from 'viem';
+import { type Address, type Hex } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
 import {
@@ -19,8 +19,7 @@ import { OTPExceededMaximumLimit } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
-import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
-import { SetQueryDataForBlockWallet, SetQueryDataForMuteAllWallets } from '@/decorators/SetQueryDataForBlockWallet.js';
+import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
 import {
     SetQueryDataForDeleteWallet,
     SetQueryDataForReportAndDeleteWallet,
@@ -30,10 +29,8 @@ import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { formatFireflyConnections } from '@/helpers/formatFireflyConnections.js';
-import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { formatPostsFromTruthSocial } from '@/helpers/formatPostsFromTruthSocial.js';
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
-import { getAddressType } from '@/helpers/getAddressType.js';
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { extractIpfsCID } from '@/helpers/isIpfsCID.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
@@ -51,14 +48,13 @@ import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
-import { resolveValue } from '@/helpers/resolveValue.js';
-import { convertBskyHandleToDid } from '@/providers/bsky/convertBskyHandleToDid.js';
-import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
 import { formatFarcasterProfileFromSuggestedFollow } from '@/providers/farcaster/formatFarcasterProfileFromSuggestedFollow.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { getWalletProfileByAddressOrEns } from '@/providers/firefly/getWalletProfileByAddressOrEns.js';
+import { isFireflyProfileMuted } from '@/providers/firefly/isFireflyProfileMuted.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { formatLensProfileFromSuggestedFollow } from '@/providers/lens/formatLensProfile.js';
+import { formatLensProfileFromSuggestedFollow } from '@/providers/lens/formatLensProfileFromSuggestedFollow.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import type { Article, ArticlePlatform } from '@/providers/types/Article.js';
@@ -82,7 +78,6 @@ import {
     type DexCoinDetailResponse,
     type EmptyResponse,
     type FireflyIdentity,
-    type FireflyProfile,
     type FireflyProfileUpdateParams,
     type FireflyWalletConnection,
     type FollowingTraderCountResponse,
@@ -111,7 +106,6 @@ import {
     type MuteAllResponse,
     type NFTDetailsResponse,
     type NFTMintingResponse,
-    type PlatformIdentityKey,
     type PolymarketActivityTimeline,
     type PostByAnonymousRateLimitsResponse,
     type PrivyWalletResponse,
@@ -140,8 +134,6 @@ import {
     type TwitterUserV2Response,
     type WalletHistoryTransactionsResponse,
     type WalletProfile,
-    type WalletProfileResponse,
-    type WalletProfiles,
     type WalletRelationResponse,
     type WalletsFollowStatusResponse,
     type WalletsStatusResponse,
@@ -158,8 +150,6 @@ import type {
 import { NotificationType, type Post } from '@/providers/types/SocialMedia.js';
 import { encryptPasscode } from '@/services/crypto.js';
 import { getBlockRelation } from '@/services/getBlockRelation.js';
-import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
-import { muteAllSocialProfiles } from '@/services/muteAllSocialProfiles.js';
 import { settings } from '@/settings/index.js';
 
 async function block(field: BlockFields, profileId: string): Promise<boolean> {
@@ -192,15 +182,12 @@ function fixCollection(collection: EVM.Collection): EVM.Collection {
         chain_id: +collection.chain_id,
     };
 }
-const DAY_RANGES = [1, 7, 30, 365, undefined];
 
 @SetQueryDataForBlockWallet()
 @SetQueryDataForAddWallet()
 @SetQueryDataForDeleteWallet()
 @SetQueryDataForReportAndDeleteWallet()
 @SetQueryDataForWatchWallet()
-@SetQueryDataForMuteAllProfiles()
-@SetQueryDataForMuteAllWallets()
 class FireflyEndpoint {
     async muteNFT(collectionId: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/mute/collection');
@@ -276,44 +263,6 @@ class FireflyEndpoint {
         });
     }
 
-    async getAllPlatformProfileFromFirefly(identity: FireflyIdentity, isAuthRequired: boolean, forceHandle = false) {
-        const queryKey = resolveValue(() => {
-            switch (identity.source) {
-                case Source.Lens:
-                    if (isHex(identity.id) && !forceHandle) return 'lensProfileId';
-                    return 'lensHandle';
-                case Source.Farcaster:
-                    return forceHandle ? 'farcasterUsername' : 'fid';
-                case Source.Twitter:
-                    return /^\d+$/.test(identity.id) && !forceHandle ? 'twitterId' : 'twitterHandle';
-                case Source.Wallet:
-                case Source.WalletMix:
-                    switch (getAddressType(identity.id, false)) {
-                        case NetworkType.Ethereum:
-                            return 'walletAddress';
-                        case NetworkType.Solana:
-                            return 'solanaAddress';
-                        default:
-                            return 'walletAddress';
-                    }
-                case Source.Bsky:
-                    if (identity.id.startsWith('did:plc:')) return 'bskyDid';
-                    return 'bskyHandle';
-                case Source.Firefly:
-                    return 'uid';
-                default:
-                    return '';
-            }
-        });
-
-        return FireflyEndpointProvider.getAllRelatedProfileInfo(
-            {
-                [`${queryKey}`]: identity.id,
-            },
-            isAuthRequired,
-        );
-    }
-
     async getAllTokenList(address: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/misc/all_token_list', {
             address,
@@ -384,64 +333,6 @@ class FireflyEndpoint {
         if (!message) throw new Error('Failed to get message to sign');
 
         return message;
-    }
-
-    async getAllPlatformProfileByIdentity(
-        identity: FireflyIdentity,
-        isAuthRequired: boolean,
-    ): Promise<FireflyProfile[]> {
-        const profiles = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, isAuthRequired);
-        return formatFireflyProfilesFromWalletProfiles(profiles) as FireflyProfile[];
-    }
-
-    /**
-     * Backend does not support using bsky handle directly, so we convert it to a bsky DID for compatibility.
-     */
-    private async resolveRelatedProfileParams(options?: Partial<Record<PlatformIdentityKey, string>>) {
-        if (options?.bskyHandle) {
-            const did = await convertBskyHandleToDid(options.bskyHandle);
-            if (did) options.bskyDid = did;
-        }
-        return options || {};
-    }
-
-    private async getWalletProfileWithHacked(profiles: WalletProfile[]) {
-        const walletsStatus = await this.getWalletsStatus(profiles.map((x) => x.address));
-        return profiles.map<WalletProfile>((profile) => ({
-            ...profile,
-            hacked: walletsStatus.some((x) => isSameAddress(x.address, profile.address) && x.is_hack),
-        }));
-    }
-
-    async getAllRelatedProfileInfo(options?: Partial<Record<PlatformIdentityKey, string>>, isAuthRequired?: boolean) {
-        const params = await this.resolveRelatedProfileParams(options);
-        // cspell: disable-next-line
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profileinfo', params);
-        const response = await fireflySessionHolder.fetch<WalletProfileResponse>(
-            url,
-            {
-                method: 'GET',
-                next: {
-                    revalidate: 1,
-                },
-            },
-            {
-                withSession: isAuthRequired,
-            },
-        );
-        const data =
-            resolveFireflyResponseData(response) ||
-            ({
-                walletProfiles: [],
-                lensProfilesV3: [],
-                farcasterProfiles: [],
-                twitterProfiles: [],
-                solanaWalletProfiles: [],
-                bskyProfiles: [],
-            } satisfies WalletProfiles);
-        if (data.walletProfiles.length)
-            data.walletProfiles = await this.getWalletProfileWithHacked(data.walletProfiles);
-        return data;
     }
 
     async getNextIDRelations(platform: string, identity: string) {
@@ -671,18 +562,7 @@ class FireflyEndpoint {
     }
 
     async isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
-        // TODO firefly doesn't support bsky
-        if (platform === FireflyPlatform.Bsky) {
-            const profile = await BskySocialMediaProvider.getProfileById(profileId);
-            return !!profile.viewerContext?.blocking;
-        }
-        const blockRelationList = await this.getBlockRelation([
-            {
-                snsPlatform: platform,
-                snsId: profileId,
-            },
-        ]);
-        return !!blockRelationList.find((x) => x.snsId === profileId)?.blocked;
+        return isFireflyProfileMuted(platform, profileId);
     }
 
     async isProfileMutedAll(source: ProfilePageSource, id: string) {
@@ -711,20 +591,17 @@ class FireflyEndpoint {
     }
 
     async muteProfileAll(identity: FireflyIdentity) {
-        if (identity.source !== Source.Bsky) {
-            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/muteAll', {
+        if (identity.source === Source.Bsky) return;
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/muteAll', {
+            [getPlatformQueryKey(identity.source)]: identity.id,
+        });
+
+        await fireflySessionHolder.fetch<MuteAllResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
                 [getPlatformQueryKey(identity.source)]: identity.id,
-            });
-
-            await fireflySessionHolder.fetch<MuteAllResponse>(url, {
-                method: 'POST',
-                body: JSON.stringify({
-                    [getPlatformQueryKey(identity.source)]: identity.id,
-                }),
-            });
-        }
-
-        return await muteAllSocialProfiles(identity);
+            }),
+        });
     }
 
     async getAllConnections() {

@@ -23,7 +23,6 @@ import { IS_ANDROID } from '@/constants/browser.js';
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_TELEGRAM_URL } from '@/constants/index.js';
 import { FIREFLY_MENTION, FIREFLY_TWITTER_PROFILE, TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
-import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
@@ -33,6 +32,7 @@ import { safeUnreachable } from '@/helpers/unreachable.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { Level } from '@/providers/types/CZ.js';
 import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
+import type { Chars } from '@/types/chars.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 import { SolanaChainId as SolChainId } from '#masknet/web3-shared-solana';
 

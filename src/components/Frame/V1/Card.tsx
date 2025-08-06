@@ -5,7 +5,7 @@ import { Button } from '@/components/Frame/V1/Button.js';
 import { Input } from '@/components/Frame/V1/Input.js';
 import { Image } from '@/components/Image.js';
 import { type SocialSource } from '@/constants/enum.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { ActionType, type FrameButton, type FrameV1 } from '@/types/frame.js';
 
@@ -59,8 +59,8 @@ export function Card({ frame, source, readonly = false, loading = false, onButto
                                     if (readonly || loading) return;
 
                                     if (button.action === ActionType.Post) {
-                                        const profile = getCurrentProfile(source);
-                                        if (!profile) {
+                                        const session = getSessionFromStorageBySource(source);
+                                        if (!session) {
                                             openLoginModal({ source });
                                             return;
                                         }

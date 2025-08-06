@@ -12,7 +12,7 @@ import WarningIcon from '@/assets/warning.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { SimulateStatus, SimulateType } from '@/constants/enum.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { leftShift } from '@/helpers/number.js';
@@ -59,7 +59,9 @@ function formatAsset(asset?: AssetChange) {
 
 function formatPayOrReceive(simulation: SimulateResponse['data'], field: 'to' | 'from') {
     return formatAsset(
-        simulation?.assetChanges?.find((asset) => isSameEthereumAddress(getAccount(config)?.address, asset[field])),
+        simulation?.assetChanges?.find((asset) =>
+            isSameEthereumAddress(getAccount(wagmiConfig)?.address, asset[field]),
+        ),
     );
 }
 

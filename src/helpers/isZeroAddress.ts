@@ -10,3 +10,7 @@ export function isZeroAddressEthereum(address?: string): address is typeof ETH_Z
 export function isZeroAddressSolana(address?: string): address is typeof SOL_ZERO_ADDRESS {
     return isSameSolanaAddress(address, SOL_ZERO_ADDRESS);
 }
+
+export function isZeroAddress(address?: string): boolean {
+    return isZeroAddressEthereum(address) || isZeroAddressSolana(address);
+}

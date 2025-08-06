@@ -5,11 +5,10 @@ import { Source } from '@/constants/enum.js';
 import { isSameAddress, isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { patchActivitiesQuery } from '@/helpers/patchActivitiesQuery.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
-import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import type { Article } from '@/providers/types/Article.js';
-import type { FireflyIdentity, PolymarketActivity, WalletProfile } from '@/providers/types/Firefly.js';
+import type { WalletProfile } from '@/providers/types/Firefly.js';
 import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/index.js';
 
@@ -22,15 +21,11 @@ interface WalletProfilePagesData {
     pages: Array<{ data: WalletProfile[] }>;
 }
 
-interface PolymarketPagesData {
-    pages: Array<{ data: PolymarketActivity[] }>;
-}
-
 interface DAOPagesData {
     pages: Array<{ data: SnapshotActivity[] }>;
 }
 
-function toggleBlock(address: string, status: boolean) {
+export function setWalletBlockStatus(address: string, status: boolean) {
     const patcher = (old: Draft<PagesData> | undefined) => {
         if (!old) return old;
         return produce(old, (draft) => {
@@ -113,7 +108,6 @@ function toggleBlock(address: string, status: boolean) {
 }
 
 const METHODS_BE_OVERRIDDEN = ['blockWallet', 'unblockWallet'] as const;
-const METHODS_BE_OVERRIDDEN_MUTE_ALL = ['muteProfileAll'] as const;
 
 export function SetQueryDataForBlockWallet() {
     return function decorator<T extends ClassType<FireflyEndpoint>>(target: T): T {
@@ -126,11 +120,11 @@ export function SetQueryDataForBlockWallet() {
                     const status = key === 'blockWallet';
                     try {
                         const result = await m.call(target.prototype, address);
-                        toggleBlock(address, status);
+                        setWalletBlockStatus(address, status);
                         return result;
                     } catch (error) {
                         // rolling back
-                        toggleBlock(address, !status);
+                        setWalletBlockStatus(address, !status);
                         throw error;
                     }
                 },
@@ -139,36 +133,6 @@ export function SetQueryDataForBlockWallet() {
 
         METHODS_BE_OVERRIDDEN.forEach(overrideMethod);
 
-        return target;
-    };
-}
-
-export function SetQueryDataForMuteAllWallets() {
-    return function decorator<T extends ClassType<FireflyEndpoint>>(target: T): T {
-        function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN_MUTE_ALL)[number]>(key: K) {
-            const method = target.prototype[key] as FireflyEndpoint[K];
-
-            Object.defineProperty(target.prototype, key, {
-                value: async (identity: FireflyIdentity) => {
-                    const m = method as (identity: FireflyIdentity) => ReturnType<FireflyEndpoint[K]>;
-                    const relationships = await m.call(target.prototype, identity);
-                    [...relationships, { snsId: identity.id, snsPlatform: identity.source }].forEach(
-                        ({ snsId, snsPlatform }) => {
-                            const source = resolveSourceFromUrl(snsPlatform);
-                            queryClient.setQueryData(['profile', 'mute-all', source, snsId], true);
-
-                            if (source === Source.Wallet) {
-                                toggleBlock(snsId, true);
-                            }
-                        },
-                    );
-
-                    return relationships;
-                },
-            });
-        }
-
-        METHODS_BE_OVERRIDDEN_MUTE_ALL.forEach(overrideMethod);
         return target;
     };
 }

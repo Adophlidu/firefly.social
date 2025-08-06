@@ -5,7 +5,7 @@ import { useMount } from 'react-use';
 import { useSearchParams } from '@/esm/navigation.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/ComposeModal.js';
 
 export const ComposeWatcher = memo(function ComposeWatcher() {
     const search = useSearchParams();

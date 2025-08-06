@@ -302,7 +302,8 @@ const config: NextConfig = {
 
 const withBundleAnalyzer = createBundleAnalyzer({
     enabled: process.env.ANALYZE === 'true',
-    analyzerMode: 'json',
+    openAnalyzer: true,
+    analyzerMode: 'static',
 });
 
 const withStatoscope = createStatoscope({

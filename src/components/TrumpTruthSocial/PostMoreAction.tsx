@@ -15,7 +15,7 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps {

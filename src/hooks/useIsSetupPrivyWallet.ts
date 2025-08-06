@@ -2,11 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export function useIsSetupPrivyWallet() {
     const isLoginFirefly = useIsLoginFirefly();
-    const { currentProfileSession } = useFireflyStateStore();
+    const { currentProfileSession } = useFireflyProfileStore();
     const { data, isLoading, error } = useQuery({
         queryKey: ['privy-wallet', currentProfileSession?.profileId],
         queryFn() {

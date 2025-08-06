@@ -1,9 +1,11 @@
 import { refresh } from '@lens-protocol/client/actions';
+import { noop } from 'lodash-es';
 
 import { sentryClient } from '@/configs/sentryClient.js';
 import { FetchError } from '@/constants/error.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { ensureLensResult, ensureLensResultSync } from '@/providers/lens/ensureLensResult.js';
+import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
+import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import {
     getLensCredentialsFromStorage,
     updateCredentialsStorage,
@@ -11,17 +13,10 @@ import {
 import { parseLensAccessToken } from '@/providers/lens/parseLensAccessToken.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
-import { useLensStateStore } from '@/store/useProfileStore.js';
 
 let resumeTask: Promise<string | undefined> | null = null;
 
-async function runResumeTask(
-    currentProfileId?: string,
-    retryCount = 0,
-    onResumeFailure = () => {
-        useLensStateStore.getState().clear();
-    },
-) {
+async function runResumeTask(currentProfileId?: string, retryCount = 0, onResumeFailure = noop) {
     try {
         if (retryCount > 5) {
             console.warn('[resume lens] too many retries, clean the lens store');

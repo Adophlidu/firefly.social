@@ -1,4 +1,4 @@
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { CreateScheduleError, SignlessRequireError } from '@/constants/error.js';
 import { readChars } from '@/helpers/chars.js';
@@ -13,7 +13,7 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
-import { useLensStateStore } from '@/store/useProfileStore.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 import { type ComposeType } from '@/types/compose.js';
 
 export interface LensSchedulePayload {
@@ -50,14 +50,14 @@ export async function createLensSchedulePostPayload(
         ? createS3MediaObject(await uploadAndConvertToM3u8(video.file, SourceInURL.Lens, signal), video)
         : null;
 
-    const { currentProfile } = useLensStateStore.getState();
+    const { currentProfile } = useLensProfileStore.getState();
     if (!currentProfile?.profileId) throw new Error(`Login required to schedule post on ${sourceName}`);
 
     // Request the user settings
     const { signless } = await LensSocialMediaProvider.getProfileById(currentProfile?.profileId);
 
     if (!signless) {
-        const { account } = await getWalletClientRequired(config);
+        const { account } = await getWalletClientRequired(wagmiConfig);
         if (!isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address)) {
             throw new CreateScheduleError('Please switch to the wallet consistent with this action');
         }

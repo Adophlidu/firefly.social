@@ -4,7 +4,7 @@ import { type PropsWithChildren, useEffect, useRef } from 'react';
 import { useSwitchAccount } from 'wagmi';
 
 import { Loading } from '@/components/Loading.js';
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
@@ -24,7 +24,7 @@ export function SelectPrivyWalletGuard({ children }: PropsWithChildren) {
 
     // watching evm account
     useEffect(() => {
-        return watchAccount(config, {
+        return watchAccount(wagmiConfig, {
             onChange(account) {
                 if (!isSameAddress(wallet?.address, account.address)) {
                     router.push('/');

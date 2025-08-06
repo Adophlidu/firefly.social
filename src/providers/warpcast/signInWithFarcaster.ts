@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { type Address, checksumAddress, parseUnits, toHex } from 'viem';
 import { readContract } from 'wagmi/actions';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { FARCASTER_REPLY_URL, SITE_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -24,7 +24,7 @@ import type { FrameV2 } from '@/types/frame.js';
  * @returns
  */
 async function custodyOf(fid: string): Promise<string> {
-    const address = await readContract(config, {
+    const address = await readContract(wagmiConfig, {
         abi: idRegistryABI,
         address: '0x00000000fc6c5f01fc30151999387bb99a9f489b',
         functionName: 'custodyOf',
@@ -137,7 +137,7 @@ export async function signInWithAuthWallet(
 
     const message = await createSiwfMessage(url, fid, options.nonce);
 
-    const client = await getWalletClientRequired(config);
+    const client = await getWalletClientRequired(wagmiConfig);
 
     // TODO: check if the client wallet is registered as a auth address
     // TODO: if not, register it

@@ -48,14 +48,11 @@ import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
-import {
-    EditFireflyProfileModalRef,
-    LoginModalRef,
-    LogoutModalRef,
-    PasswordModalRef,
-    SignInWithFireflyAppModalRef,
-} from '@/modals/controls.js';
-import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
+import { EditFireflyProfileModalRef } from '@/modals/EditFireflyProfileModal/EditFireflyProfileModal.js';
+import { type LoginModalOpenProps, LoginModalRef } from '@/modals/LoginModal/index.js';
+import { LogoutModalRef } from '@/modals/LogoutModal.js';
+import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
+import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { formatThirdPartyProfileName } from '@/providers/lens/formatThirdPartyProfileName.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';

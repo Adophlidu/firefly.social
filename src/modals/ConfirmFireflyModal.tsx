@@ -1,15 +1,15 @@
 import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { Link } from '@/components/Link.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
+import { Link } from '@/esm/Link.js';
 import { createDummyProfileFromFireflySession } from '@/helpers/createDummyProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { ConfirmFireflyModalRef, ConfirmModalRef } from '@/modals/controls.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import {
     captureAccountConflictNoEvent,
     captureAccountConflictYesEvent,
@@ -100,3 +100,5 @@ export function ConfirmFireflyModal({ ref }: Props) {
 
     return null;
 }
+
+export const ConfirmFireflyModalRef = new SingletonModal<ConfirmFireflyModalOpenProps, ConfirmFireflyModalCloseProps>();

@@ -12,9 +12,9 @@ import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivi
 import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShareUrl.js';
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
-import { type Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
+import { type Chars } from '@/types/chars.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export function ActivityFrensgivingTasks({

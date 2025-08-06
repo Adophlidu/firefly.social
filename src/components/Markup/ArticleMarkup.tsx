@@ -15,7 +15,7 @@ import { Source } from '@/constants/enum.js';
 import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { trimify } from '@/helpers/trimify.js';
-import { PreviewMediaModalRef } from '@/modals/controls.js';
+import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
 import type { Pluggable } from '@/types/index.js';
 
 const PLUGINS: Pluggable[] = [

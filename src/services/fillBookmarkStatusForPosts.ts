@@ -3,7 +3,7 @@ import { compact, uniq } from 'lodash-es';
 import { type SocialSource } from '@/constants/enum.js';
 import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { getFireflyBookmarksByIds } from '@/providers/firefly/getFireflyBookmarkIds.js';
 import type { GetBookmarksResponse } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -24,7 +24,7 @@ export async function fillBookmarkStatusForPosts(posts: Post[], source: SocialSo
 
     const bookmarkData =
         (await runInSafeAsync(() =>
-            FireflySocialMediaProvider.getBookmarksByIds(resolveFireflyPlatformFromSocialSource(source), postIds),
+            getFireflyBookmarksByIds(resolveFireflyPlatformFromSocialSource(source), postIds),
         )) || [];
 
     return posts.map((post) => {

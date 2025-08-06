@@ -23,7 +23,7 @@ import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage }
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { createBskyAgent } from '@/providers/bsky/createBskyAgent.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { retryOnBskyWhenNetworkError } from '@/providers/bsky/retryOnBskyWhenNetworkError.js';

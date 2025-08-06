@@ -10,8 +10,8 @@ import { classNames } from '@/helpers/classNames.js';
 import { delay } from '@/helpers/delay.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import type { Account } from '@/providers/types/Account.js';
 import { removeAllAccounts, removeCurrentAccount } from '@/services/account.js';
 
@@ -94,3 +94,5 @@ export function LogoutModal({ ref }: Props) {
 
     return null;
 }
+
+export const LogoutModalRef = new SingletonModal<LogoutModalProps | void>();

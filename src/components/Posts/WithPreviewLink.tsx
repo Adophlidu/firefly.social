@@ -6,7 +6,7 @@ import { usePathname } from '@/esm/navigation.js';
 import { getPostImageUrl } from '@/helpers/getPostImageUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import { PreviewMediaModalRef } from '@/modals/controls.js';
+import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface WithPreviewLinkProps {

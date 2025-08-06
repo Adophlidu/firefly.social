@@ -1,9 +1,6 @@
-import { immutable, lensAccountOnly, type Resource, StorageClient } from '@lens-chain/storage-client';
-import { getWalletClient } from 'wagmi/actions';
+import { immutable, type Resource, StorageClient } from '@lens-chain/storage-client';
 
-import { config } from '@/configs/wagmiClient.js';
 import { LENS_CHAIN_ID } from '@/constants/index.js';
-import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 
 class Grove {
     private lensStorageClient: StorageClient | null = null;
@@ -52,19 +49,6 @@ class Grove {
         });
 
         return result.files;
-    }
-
-    async editSingleFile(
-        lensAccountAddress: string, // Lens Account Address
-        oldUri: string, // the uri of the file to be edited
-        file: File,
-    ) {
-        const acl = lensAccountOnly(safeEvmAddress(lensAccountAddress), LENS_CHAIN_ID);
-
-        const walletClient = await getWalletClient(config, { chainId: LENS_CHAIN_ID });
-        const result = await GroveStorageProvider.storageClient.editFile(oldUri, file, walletClient, { acl });
-
-        return result;
     }
 }
 

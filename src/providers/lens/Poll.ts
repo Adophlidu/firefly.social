@@ -1,10 +1,11 @@
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { commitPoll, vote } from '@/services/poll.js';
 import type { Index } from '@/types/frame.js';
 
@@ -33,13 +34,14 @@ class LensPoll implements Provider {
         frameUrl: string;
         option: PollOption;
     }): Promise<VoteResponseData> {
-        const profile = getCurrentProfile(Source.Lens);
-        if (!profile) throw new Error('Profile not found');
+        const session = getSessionFromStorage(SessionType.Lens);
+        if (!session) throw new Error('Lens session not found');
+
         const packet = await LensFrameProvider.generateSignaturePacket(postId, frameUrl, +option.id as Index);
         return await vote({
             poll_id: pollId,
             platform: SourceInURL.Lens,
-            platform_id: profile.profileId,
+            platform_id: session.profileId,
             choices: [+option.id],
             lens_token: packet.untrustedData.identityToken,
             farcaster_signature: '',

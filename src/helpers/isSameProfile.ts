@@ -1,9 +1,9 @@
 import type { FireflyIdentity, Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-type PickedProfile = Pick<Profile, 'profileId' | 'source'> | null | undefined;
+type ProfileLike = Pick<Profile, 'profileId' | 'source'> | null | undefined;
 
-export function isSameProfile(profile: PickedProfile, otherProfile: PickedProfile) {
+export function isSameProfile(profile: ProfileLike, otherProfile: ProfileLike) {
     if (!profile || !otherProfile) return false;
     return profile.source === otherProfile.source && profile.profileId === otherProfile.profileId;
 }

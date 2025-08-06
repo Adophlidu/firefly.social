@@ -6,7 +6,7 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
 
 export interface SchedulePostModalOpenProps {
@@ -50,3 +50,5 @@ export function SchedulePostModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const SchedulePostModalRef = new SingletonModal<SchedulePostModalOpenProps>();

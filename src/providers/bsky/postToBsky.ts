@@ -16,7 +16,7 @@ import type { Poll } from '@/providers/types/Poll.js';
 import type { Post, PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
-import { useBskyStateStore } from '@/store/useProfileStore.js';
+import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
 export async function postToBsky(
@@ -44,7 +44,7 @@ export async function postToBsky(
 
     if (bskyPostId) return;
 
-    const { currentProfile } = useBskyStateStore.getState();
+    const { currentProfile } = useBskyProfileStore.getState();
     if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
     const composeDraft = async (postType: PostType, images: MediaObject[], videos: MediaObject[], polls?: Poll[]) => {

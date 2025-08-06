@@ -6,12 +6,10 @@ import { getRpMetadata } from '@/helpers/rpPayload.js';
 import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
-import {
-    useBskyStateStore,
-    useFarcasterStateStore,
-    useLensStateStore,
-    useTwitterStateStore,
-} from '@/store/useProfileStore.js';
+import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
+import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
+import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 export interface Options {
     draftId?: string;
@@ -26,10 +24,10 @@ export function getComposeEventParameters(
     post: CompositePost,
     { draftId, scheduleId, thread = [post], availableSources = [], isCrossQuote = false }: Options = {},
 ): Omit<ComposeEventParameters, 'firefly_account_id'> {
-    const lensProfile = useLensStateStore.getState().currentProfile;
-    const farcasterProfile = useFarcasterStateStore.getState().currentProfile;
-    const xProfile = useTwitterStateStore.getState().currentProfile;
-    const bskyProfile = useBskyStateStore.getState().currentProfile;
+    const lensProfile = useLensProfileStore.getState().currentProfile;
+    const farcasterProfile = useFarcasterProfileStore.getState().currentProfile;
+    const xProfile = useTwitterProfileStore.getState().currentProfile;
+    const bskyProfile = useBskyProfileStore.getState().currentProfile;
 
     const hasLens = availableSources.includes(Source.Lens);
     const hasFarcaster = availableSources.includes(Source.Farcaster);

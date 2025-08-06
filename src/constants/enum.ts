@@ -107,6 +107,14 @@ export enum SourceInURL {
     Activities = 'activities',
 }
 
+export const enum CharTag {
+    FIREFLY_RP = 'ff_rp',
+    MENTION = 'mention_tag',
+    FRAME = 'frame_tag',
+    PROMOTE_LINK = 'promote_link',
+    POST_LINK = 'post_link',
+}
+
 export enum Agent {
     FarcasterFrame = 'farcaster_frame',
     FireflyApp = 'firefly_app',

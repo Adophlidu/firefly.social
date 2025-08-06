@@ -16,7 +16,7 @@ import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFirefly
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { captureComposeCrossAtEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -195,3 +195,5 @@ export function EditCrossAtModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const EditCrossAtModalRef = new SingletonModal<EditCrossAtModalOpenProps, EditCrossAtModalCloseProps>();

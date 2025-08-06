@@ -7,7 +7,7 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useTwitterStateStore } from '@/store/useProfileStore.js';
+import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 interface BaseToggleFollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
@@ -25,7 +25,7 @@ export const BaseToggleFollowButton = memo(function BaseToggleFollowButton({
     const isLogin = useIsLogin(profile.source);
 
     const following = !!profile.viewerContext?.following;
-    const isMyTwitterProfilePending = useTwitterStateStore((state) => state.status === AsyncStatus.Pending);
+    const isMyTwitterProfilePending = useTwitterProfileStore((state) => state.status === AsyncStatus.Pending);
 
     const showSuperFollow = false;
     const showLoading = loading || (profile.source === Source.Twitter && isMyTwitterProfilePending);

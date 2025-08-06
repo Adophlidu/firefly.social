@@ -8,18 +8,24 @@ import { useEnsName } from 'wagmi';
 import MuteIcon from '@/assets/mute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
+import { setBlockStatus } from '@/decorators/SetQueryDataForBlockProfile.js';
+import { setWalletBlockStatus } from '@/decorators/SetQueryDataForBlockWallet.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
+import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { muteAllSocialProfiles } from '@/services/muteAllSocialProfiles.js';
 
 interface MuteAllProfileBaseProps extends HTMLProps<'button'> {
     identity: FireflyIdentity;
@@ -50,7 +56,24 @@ function MuteAllProfileBase({ identity, onClose, className }: MuteAllProfileBase
             const source = identity.source;
             if (!isProfilePageSource(source)) return;
             const isMutedAll = await FireflyEndpointProvider.isProfileMutedAll(source, identity.id);
-            if (!isMutedAll) await FireflyEndpointProvider.muteProfileAll(identity);
+            if (!isMutedAll) {
+                await FireflyEndpointProvider.muteProfileAll(identity);
+
+                const mutedIdentities = await muteAllSocialProfiles(identity);
+                const relationships = [...mutedIdentities, { snsId: identity.id, snsPlatform: identity.source }];
+
+                relationships.forEach(({ snsId, snsPlatform }) => {
+                    const source = resolveSourceFromUrl(snsPlatform);
+                    const platformId = source === Source.Farcaster && typeof snsId === 'number' ? `${snsId}` : snsId;
+                    queryClient.setQueryData(['profile', 'mute-all', source, platformId], true);
+
+                    if (source === Source.Wallet) {
+                        setWalletBlockStatus(snsId, true);
+                    } else {
+                        setBlockStatus(narrowToSocialSource(source), platformId, true);
+                    }
+                });
+            }
             enqueueSuccessMessage(t`All wallets and accounts are muted.`);
             captureMuteEvent(EventId.MUTE_ALL_SUCCESS, identity);
         } catch (error) {

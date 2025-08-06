@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
 import { signMessage } from 'wagmi/actions';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { FireflyAccountAbsentError, FireflyAlreadyBoundError } from '@/constants/error.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -14,9 +14,9 @@ import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
 import { createSignedKeyPayloadWithPublicKey } from '@/providers/warpcast/createSignedKeyPayload.js';
 
 async function createAccount(signal?: AbortSignal) {
-    const { account } = await getWalletClientRequired(config);
+    const { account } = await getWalletClientRequired(wagmiConfig);
     const originalMessage = `firefly sign message ${dayjs().unix()}`;
-    const signatureMessage = await signMessage(config, {
+    const signatureMessage = await signMessage(wagmiConfig, {
         message: originalMessage,
         account: account.address,
     });
@@ -46,7 +46,7 @@ async function createAccount(signal?: AbortSignal) {
         loginResponse.isNew,
         loginResponse,
     );
-    const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
+    const profile = await getFarcasterProfileById(session.profileId);
     return {
         session,
         profile,

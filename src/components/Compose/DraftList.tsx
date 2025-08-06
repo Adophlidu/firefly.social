@@ -18,7 +18,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { type Draft, useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';

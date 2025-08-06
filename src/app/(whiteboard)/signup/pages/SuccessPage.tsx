@@ -12,12 +12,12 @@ import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { levelUp } from '@/fonts/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { ComposeModalRef } from '@/modals/controls.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { ComposeModalRef } from '@/modals/ComposeModal.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export function SuccessPage() {
     const searchParams = useSearchParams();
-    const { currentProfileSession } = useFireflyStateStore();
+    const { currentProfileSession } = useFireflyProfileStore();
 
     const nickname = searchParams.get('nickname') || '';
     const avatar = searchParams.get('avatar');

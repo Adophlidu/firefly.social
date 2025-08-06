@@ -56,7 +56,6 @@ import {
     unmuteAccount,
 } from '@lens-protocol/client/actions';
 import { account, type MetadataAttribute, MetadataAttributeType } from '@lens-protocol/metadata';
-import { isServer } from '@tanstack/react-query';
 import { compact, first, flatMap, uniqBy, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -69,18 +68,16 @@ import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockPr
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
-import {
-    SetQueryDataForFollowProfile,
-    SetQueryDataForSuperFollowProfile,
-} from '@/decorators/SetQueryDataForFollowProfile.js';
+import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollowProfile.js';
 import { SetQueryDataForJoinChannel } from '@/decorators/SetQueryDataForJoinChannel.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
+import { SetQueryDataForSuperFollowProfile } from '@/decorators/SetQueryDataForSuperFollowProfile.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
@@ -98,7 +95,8 @@ import { unreachable } from '@/helpers/unreachable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
-import { ensureLensResult, ensurePostToLensResult } from '@/providers/lens/ensureLensResult.js';
+import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
+import { ensurePostToLensResult } from '@/providers/lens/ensurePostToLensResult.js';
 import { filterNotifications } from '@/providers/lens/filterNotifications.js';
 import { formatLensChannelFromGroup } from '@/providers/lens/formatLensChannel.js';
 import {
@@ -109,8 +107,12 @@ import {
 } from '@/providers/lens/formatLensPost.js';
 import { formatLensPostRules } from '@/providers/lens/formatLensPostRules.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
-import { getAccountWithStatsByHandle, getAccountWithStatsById } from '@/providers/lens/getAccountWithStats.js';
+import { getAccountWithStatsById } from '@/providers/lens/getAccountWithStats.js';
 import { getGroupWithMemberCount, getGroupWithOwner } from '@/providers/lens/getFullGroup.js';
+import { getLensClient } from '@/providers/lens/getLensClient.js';
+import { getLensCommentsById } from '@/providers/lens/getLensCommentsById.js';
+import { getLensPostById } from '@/providers/lens/getLensPostById.js';
+import { getLensProfileByHandle } from '@/providers/lens/getLensProfileByHandle.js';
 import { getLensProfileBySession } from '@/providers/lens/getLensProfileBySession.js';
 import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWithLensChain.js';
 import {
@@ -149,19 +151,6 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJson } from '@/types/index.js';
-
-function getClient() {
-    if (isServer) return lensSessionHolder.sdk;
-
-    const profile = getCurrentProfile(Source.Lens);
-    if (!profile) return lensSessionHolder.sdk;
-
-    try {
-        return lensSessionHolder.sessionClient;
-    } catch {
-        return lensSessionHolder.sdk;
-    }
-}
 
 @WithMutedProfilesQuery()
 @SetQueryDataForLikePost(Source.Lens)
@@ -211,7 +200,7 @@ class LensSocialMedia implements Provider {
         indicator?: PageIndicator,
     ): Promise<Pageable<Channel, PageIndicator>> {
         const result = await ensureLensResult(
-            fetchGroups(getClient(), {
+            fetchGroups(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 orderBy: GroupsOrderBy.Alphabetical,
@@ -235,7 +224,7 @@ class LensSocialMedia implements Provider {
 
     async getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await ensureLensResult(
-            fetchPosts(getClient(), {
+            fetchPosts(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 filter: {
@@ -258,7 +247,7 @@ class LensSocialMedia implements Provider {
 
     async searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         const result = await ensureLensResult(
-            fetchGroups(getClient(), {
+            fetchGroups(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 orderBy: GroupsOrderBy.LatestFirst,
@@ -287,7 +276,7 @@ class LensSocialMedia implements Provider {
 
     async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const result = await ensureLensResult(
-            fetchGroupMembers(getClient(), {
+            fetchGroupMembers(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 group: safeEvmAddress(channelId),
@@ -453,7 +442,7 @@ class LensSocialMedia implements Provider {
         if (includeGraphStats) {
             return getAccountWithStatsById(profileId);
         }
-        const result = await ensureLensResult(fetchAccount(getClient(), { address: safeEvmAddress(profileId) }));
+        const result = await ensureLensResult(fetchAccount(getLensClient(), { address: safeEvmAddress(profileId) }));
         if (!result) throw new Error('No profile found');
 
         return formatLensProfileV3(result);
@@ -462,7 +451,7 @@ class LensSocialMedia implements Provider {
     async getProfilesByIds(ids: string[]): Promise<Profile[]> {
         if (!ids.length) return [];
         const result = await ensureLensResult(
-            fetchAccountsBulk(getClient(), {
+            fetchAccountsBulk(getLensClient(), {
                 addresses: ids.map(safeEvmAddress),
             }),
         );
@@ -472,13 +461,7 @@ class LensSocialMedia implements Provider {
     }
 
     async getProfileByHandle(handle: string, includeGraphStats?: boolean): Promise<Profile> {
-        if (includeGraphStats) {
-            return getAccountWithStatsByHandle(handle);
-        }
-        const result = await ensureLensResult(fetchAccount(getClient(), { username: { localName: handle } }));
-        if (!result) throw new Error('No profile found');
-
-        return formatLensProfileV3(result);
+        return getLensProfileByHandle(handle, includeGraphStats);
     }
 
     async getProfileBySession(session: Session): Promise<Profile> {
@@ -491,17 +474,12 @@ class LensSocialMedia implements Provider {
     }
 
     async getPostById(postId: string, isLegacy = false): Promise<Post> {
-        const result = await ensureLensResult(
-            fetchPost(getClient(), isLegacy ? { legacyId: postId } : { post: postId }),
-        );
-        if (!result) throw new Error('No post found');
-
-        return formatLensPostV3(result);
+        return getLensPostById(postId, isLegacy);
     }
 
     async getPostByTxHashWithPolling(txHash: string): Promise<Post> {
         const getPostByTxHash = async (txHash: string): Promise<Post> => {
-            const result = await ensureLensResult(fetchPost(getClient(), { txHash }));
+            const result = await ensureLensResult(fetchPost(getLensClient(), { txHash }));
             if (!result) {
                 throw new InvalidResultError();
             }
@@ -516,27 +494,12 @@ class LensSocialMedia implements Provider {
         indicator?: PageIndicator,
         hasFilter = true,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchPostReferences(getClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                referencedPost: postId,
-                referenceTypes: [PostReferenceType.CommentOn],
-                relevancyFilter: hasFilter ? ReferenceRelevancyFilter.Relevant : ReferenceRelevancyFilter.All,
-                visibilityFilter: hasFilter ? PostVisibilityFilter.Visible : PostVisibilityFilter.All,
-            }),
-        );
-
-        return createPageable(
-            await Promise.all(result.items.map(formatLensPostV3)),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getLensCommentsById(postId, indicator, hasFilter);
     }
 
     async getCommentsByProfileId(postId: string, profileId: string, indicator?: PageIndicator) {
         const result = await ensureLensResult(
-            fetchPostReferences(getClient(), {
+            fetchPostReferences(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 referencedPost: postId,
@@ -555,7 +518,7 @@ class LensSocialMedia implements Provider {
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await ensureLensResult(
-            fetchPostsToExplore(getClient(), {
+            fetchPostsToExplore(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
             }),
@@ -596,7 +559,7 @@ class LensSocialMedia implements Provider {
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
         const result = await ensureLensResult(
-            fetchPosts(getClient(), {
+            fetchPosts(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 filter: {
@@ -617,7 +580,7 @@ class LensSocialMedia implements Provider {
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await ensureLensResult(
-            fetchPosts(getClient(), {
+            fetchPosts(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 filter: {
@@ -640,7 +603,7 @@ class LensSocialMedia implements Provider {
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
         const result = await ensureLensResult(
-            fetchPosts(getClient(), {
+            fetchPosts(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 filter: {
@@ -663,7 +626,7 @@ class LensSocialMedia implements Provider {
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
         const result = await ensureLensResult(
-            fetchPosts(getClient(), {
+            fetchPosts(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 filter: {
@@ -686,7 +649,7 @@ class LensSocialMedia implements Provider {
     // TODO: Invalid
     async getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
         const result = await ensureLensResult(
-            fetchPosts(getClient(), {
+            fetchPosts(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 filter: {
@@ -709,7 +672,7 @@ class LensSocialMedia implements Provider {
 
     async getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
         const result = await ensureLensResult(
-            fetchPosts(getClient(), {
+            fetchPosts(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 filter: {
@@ -729,7 +692,7 @@ class LensSocialMedia implements Provider {
 
     async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
         const result = await ensureLensResult(
-            fetchPostReferences(getClient(), {
+            fetchPostReferences(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 referencedPost: postId,
@@ -766,7 +729,7 @@ class LensSocialMedia implements Provider {
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         const result = await ensureLensResult(
-            fetchFollowers(getClient(), {
+            fetchFollowers(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 account: safeEvmAddress(profileId),
@@ -782,7 +745,7 @@ class LensSocialMedia implements Provider {
 
     async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         const result = await ensureLensResult(
-            fetchFollowing(getClient(), {
+            fetchFollowing(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 account: safeEvmAddress(profileId),
@@ -796,16 +759,16 @@ class LensSocialMedia implements Provider {
         );
     }
     async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const profile = getCurrentProfile(Source.Lens);
+        const session = getSessionFromStorage(SessionType.Lens);
 
-        if (!profile?.profileId || isSameEthereumAddress(profile.profileId, profileId))
+        if (!session?.profileId || isSameEthereumAddress(session.profileId, profileId))
             return createPageable([], createIndicator(indicator));
 
         const result = await ensureLensResult(
-            fetchFollowersYouKnow(getClient(), {
+            fetchFollowersYouKnow(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
-                observer: profile.profileId,
+                observer: session.profileId,
                 target: safeEvmAddress(profileId),
             }),
         );
@@ -818,15 +781,15 @@ class LensSocialMedia implements Provider {
     }
 
     async isFollowedByMe(profileId: string): Promise<boolean> {
-        const profile = getCurrentProfile(Source.Lens);
-        if (!profile) return false;
+        const session = getSessionFromStorage(SessionType.Lens);
+        if (!session) return false;
 
         const result = await ensureLensResult(
-            fetchFollowStatus(getClient(), {
+            fetchFollowStatus(getLensClient(), {
                 pairs: [
                     {
                         account: safeEvmAddress(profileId),
-                        follower: safeEvmAddress(profile.profileId),
+                        follower: safeEvmAddress(session.profileId),
                     },
                 ],
             }),
@@ -836,14 +799,14 @@ class LensSocialMedia implements Provider {
     }
 
     async isFollowingMe(profileId: string): Promise<boolean> {
-        const profile = getCurrentProfile(Source.Lens);
-        if (!profile) return false;
+        const session = getSessionFromStorage(SessionType.Lens);
+        if (!session) return false;
 
         const result = await ensureLensResult(
-            fetchFollowStatus(getClient(), {
+            fetchFollowStatus(getLensClient(), {
                 pairs: [
                     {
-                        account: safeEvmAddress(profile.profileId),
+                        account: safeEvmAddress(session.profileId),
                         follower: safeEvmAddress(profileId),
                     },
                 ],
@@ -1064,15 +1027,15 @@ class LensSocialMedia implements Provider {
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        const profile = getCurrentProfile(Source.Lens);
+        const session = getSessionFromStorage(SessionType.Lens);
         const result = await ensureLensResult(
-            profile
-                ? fetchAccountRecommendations(getClient(), {
+            session
+                ? fetchAccountRecommendations(getLensClient(), {
                       cursor: ensureCursor(indicator),
                       pageSize: PageSize.Fifty,
-                      account: safeEvmAddress(profile.profileId),
+                      account: safeEvmAddress(session.profileId),
                   })
-                : fetchAccounts(getClient(), {
+                : fetchAccounts(getLensClient(), {
                       cursor: ensureCursor(indicator),
                       pageSize: PageSize.Fifty,
                       orderBy: AccountsOrderBy.AccountScore,
@@ -1088,7 +1051,7 @@ class LensSocialMedia implements Provider {
 
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const result = await ensureLensResult(
-            fetchAccounts(getClient(), {
+            fetchAccounts(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 orderBy: AccountsOrderBy.BestMatch,
@@ -1106,7 +1069,7 @@ class LensSocialMedia implements Provider {
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await ensureLensResult(
-            fetchPosts(getClient(), {
+            fetchPosts(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 filter: {
@@ -1127,7 +1090,7 @@ class LensSocialMedia implements Provider {
         if (!response.success) return EMPTY_LIST;
 
         const posts = await ensureLensResult(
-            fetchPosts(getClient(), {
+            fetchPosts(getLensClient(), {
                 pageSize: PageSize.Fifty,
                 filter: {
                     metadata: {
@@ -1162,7 +1125,7 @@ class LensSocialMedia implements Provider {
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
         const result = await ensureLensResult(
-            fetchPostReactions(getClient(), {
+            fetchPostReactions(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 post: postId,
@@ -1181,7 +1144,7 @@ class LensSocialMedia implements Provider {
     }
     async getRepostReactors(postId: string, indicator?: PageIndicator) {
         const result = await ensureLensResult(
-            fetchWhoReferencedPost(getClient(), {
+            fetchWhoReferencedPost(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 post: postId,
@@ -1199,7 +1162,7 @@ class LensSocialMedia implements Provider {
 
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator) {
         const result = await ensureLensResult(
-            fetchPostReferences(getClient(), {
+            fetchPostReferences(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 referencedPost: postId,
@@ -1249,7 +1212,7 @@ class LensSocialMedia implements Provider {
 
     async getHiddenComments(postId: string, indicator?: PageIndicator) {
         const result = await ensureLensResult(
-            fetchPostReferences(getClient(), {
+            fetchPostReferences(getLensClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 referenceTypes: [PostReferenceType.CommentOn],
@@ -1360,7 +1323,7 @@ class LensSocialMedia implements Provider {
 
     async getGroupMembersCount(groupId: string): Promise<number> {
         const result = await ensureLensResult(
-            fetchGroupStats(getClient(), {
+            fetchGroupStats(getLensClient(), {
                 group: safeEvmAddress(groupId),
             }),
         );

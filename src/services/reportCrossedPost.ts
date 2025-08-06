@@ -6,7 +6,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
+import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ReportCrossPostResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
@@ -40,14 +40,13 @@ const resolvePlatform = createLookupTableResolver<SocialSource, string>(
 async function report(post: CompositePost) {
     // a post shared across multiple platforms will have the same relation ID
     const relationId = crypto.randomUUID();
-    const currentProfileAll = getCurrentProfileAll();
 
     const reports = compact(
         SORTED_SOCIAL_SOURCES.map<Report | null>((x) => {
             const postId = post.postId[x];
             if (!postId) return null;
 
-            const profileId = currentProfileAll[x]?.profileId;
+            const profileId = getProfileFromStorage(x)?.profileId;
             if (!profileId) return null;
 
             return {

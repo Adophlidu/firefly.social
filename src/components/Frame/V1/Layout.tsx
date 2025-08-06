@@ -7,13 +7,13 @@ import { getAccount } from 'wagmi/actions';
 import { z } from 'zod';
 
 import { Card } from '@/components/Frame/V1/Card.js';
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { SimulateType, type SocialSource, Source } from '@/constants/enum.js';
 import { TransactionSimulationError } from '@/constants/error.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorage, getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
@@ -22,13 +22,13 @@ import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
-import { ConfirmLeavingModalRef } from '@/modals/controls.js';
+import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal.js';
 import { simulate } from '@/modals/TransactionSimulatorModal/simulate.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
 import type { Additional } from '@/providers/types/Frame.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post, SessionType } from '@/providers/types/SocialMedia.js';
 import { getFrameMintTransaction } from '@/services/getFrameMintTransaction.js';
 import {
     ActionType,
@@ -123,7 +123,7 @@ async function getNextFrame(
         });
     }
 
-    const address = getAccount(config)?.address;
+    const address = getAccount(wagmiConfig)?.address;
     await captureFrameActionEvent('others', frame, address);
 
     try {
@@ -172,7 +172,7 @@ async function getNextFrame(
                 const mintTx = await getFrameMintTransaction(frame, button);
                 if (mintTx && button.target) {
                     const { chainId } = parseCAIP10(button.target);
-                    const client = await getWalletClientRequired(config, {
+                    const client = await getWalletClientRequired(wagmiConfig, {
                         chainId,
                     });
                     if (client.chain.id !== chainId) throw new Error('The chainId mismatch.');
@@ -191,7 +191,7 @@ async function getNextFrame(
             }
             case ActionType.Transaction:
                 if (!address) {
-                    await getWalletClientRequired(config);
+                    await getWalletClientRequired(wagmiConfig);
                     return null;
                 }
                 const walletAction = await postAction<z.infer<typeof WalletActionSchema>>({
@@ -199,12 +199,12 @@ async function getNextFrame(
                 });
                 if (!walletAction.success) throw new Error('Failed to parse transaction.');
 
-                const profile = getCurrentProfile(Source.Farcaster);
-                if (!profile) throw new Error('Profile not found');
+                const session = getSessionFromStorage(SessionType.Farcaster);
+                if (!session) throw new Error('Profile not found');
 
                 const action = WalletActionSchema.parse(walletAction.data);
                 const { chainId } = parseCAIP10(action.chainId);
-                const client = await getWalletClientRequired(config, {
+                const client = await getWalletClientRequired(wagmiConfig, {
                     chainId,
                 });
                 if (client.chain.id !== chainId) throw new Error('The chainId mismatch.');
@@ -216,7 +216,7 @@ async function getNextFrame(
                             to: action.params.to as Hex,
                             data: (action.params.data ||
                                 (action.attribution !== false
-                                    ? encodePacked(['byte1', 'uint32'], [0xfc, Number.parseInt(profile.profileId, 10)])
+                                    ? encodePacked(['byte1', 'uint32'], [0xfc, Number.parseInt(session.profileId, 10)])
                                     : undefined)) as Hex | undefined,
                             value: action.params.value ? BigInt(action.params.value) : BigInt(0),
                         };
@@ -272,7 +272,7 @@ export const FrameLayout = memo<FrameLayoutProps>(function FrameLayout({ childre
         async (button: FrameButton, input?: string) => {
             if (!frame) return;
 
-            if (![ActionType.Link, ActionType.Mint].includes(button.action) && !getCurrentProfile(source)) {
+            if (![ActionType.Link, ActionType.Mint].includes(button.action) && !getSessionFromStorageBySource(source)) {
                 openLoginModal({
                     source,
                 });

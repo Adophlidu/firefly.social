@@ -7,10 +7,10 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getFireflyProfileURL } from '@/helpers/getFireflyProfileURL.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getAllRelatedProfileInfo } from '@/providers/firefly/getAllRelatedProfileInfo.js';
 
 export async function createMetadataProfileByFireflyUid(pathname: string, uid: string) {
-    const relatedProfile = await runInSafeAsync(() => FireflyEndpointProvider.getAllRelatedProfileInfo({ uid }));
+    const relatedProfile = await runInSafeAsync(() => getAllRelatedProfileInfo({ uid }));
     if (!relatedProfile?.account) return createSiteMetadata(pathname);
 
     const images = [

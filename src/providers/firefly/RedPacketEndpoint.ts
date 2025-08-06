@@ -14,7 +14,7 @@ import {
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 import type { EthereumChainId } from '#masknet/web3-shared-evm';
 
 const SITE_URL = bom.location?.origin ?? '';
@@ -252,7 +252,7 @@ export class FireflyRedPacketEndpoint {
         txHash: string,
     ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/finishClaiming');
-        const currentFireflyProfile = useFireflyStateStore.getState().currentProfile;
+        const currentFireflyProfile = useFireflyProfileStore.getState().currentProfile;
         const accountId = currentFireflyProfile?.profileId
             ? `${settings.FIREFLY_ROOT_URL === FIREFLY_DEV_ROOT_URL ? 'dev' : 'prod'}:${currentFireflyProfile.profileId}`
             : undefined;

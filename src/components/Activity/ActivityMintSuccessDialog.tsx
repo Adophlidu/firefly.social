@@ -8,10 +8,10 @@ import { Link } from '@/components/Activity/Link.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
-import type { Chars } from '@/helpers/chars.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import type { Chars } from '@/types/chars.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface Props {

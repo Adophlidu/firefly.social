@@ -2,8 +2,8 @@ import { Trans } from '@lingui/react/macro';
 import { Outlet, rootRouteId, useMatch, useRouter, useRouterState } from '@tanstack/react-router';
 
 import { BackButton, CloseButton } from '@/components/IconButton.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
+import { LoginModalRef } from '@/modals/LoginModal/index.js';
 
 export function RootView() {
     const router = useRouter();

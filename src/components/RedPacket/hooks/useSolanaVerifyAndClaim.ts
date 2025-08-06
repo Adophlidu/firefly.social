@@ -12,7 +12,7 @@ import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { resolveSolanaAccountId } from '@/helpers/resolveSolanaAccountId.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
-import { WalletConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { type ClaimNativeTokenContext, SolanaRedPacket } from '@/providers/solana/RedPacket.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

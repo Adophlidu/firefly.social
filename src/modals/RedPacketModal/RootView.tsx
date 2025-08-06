@@ -5,7 +5,7 @@ import HistoryIcon from '@/assets/history.svg';
 import QuestionIcon from '@/assets/question.svg';
 import { BackButton, CloseButton } from '@/components/IconButton.js';
 import { classNames } from '@/helpers/classNames.js';
-import { RedPacketModalRef } from '@/modals/controls.js';
+import { RedPacketModalRef } from '@/modals/RedPacketModal/index.js';
 import { RedPacketProvider } from '@/modals/RedPacketModal/RedPacketContext.js';
 
 export function RootView() {

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { ReceiveModal } from '@/components/ReceiveModal/index.js';
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NetworkPluginID } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 
@@ -17,7 +17,7 @@ export const Default: StoryObj<typeof ReceiveModal> = {
         return (
             <ReceiveModal
                 open
-                items={config.chains.map((x) => {
+                items={wagmiConfig.chains.map((x) => {
                     return {
                         avatar: getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, x.id)?.icon ?? '',
                         name: x.name,

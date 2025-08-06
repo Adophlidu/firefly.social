@@ -4,7 +4,8 @@ import { base, optimism, polygon, zora } from 'viem/chains';
 import { getAccount, readContracts, waitForTransactionReceipt, writeContract } from 'wagmi/actions';
 
 import { ParagraphABI, ParagraphMintABI } from '@/abis/Paragraph.js';
-import { chains, config } from '@/configs/wagmiClient.js';
+import { chains } from '@/configs/chains.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NotImplementedError, UnreachableError } from '@/constants/error.js';
 import { PARAGRAPH_COLLECT_FEE, PARAGRAPH_COLLECT_FEE_IN_POLYGON } from '@/constants/index.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
@@ -63,8 +64,8 @@ class Paragraph implements Provider {
 
         if (data.contractAddress) {
             try {
-                const account = getAccount(config);
-                const [totalSupply, balance] = await readContracts(config, {
+                const account = getAccount(wagmiConfig);
+                const [totalSupply, balance] = await readContracts(wagmiConfig, {
                     contracts: [
                         {
                             abi: ParagraphABI,
@@ -111,7 +112,7 @@ class Paragraph implements Provider {
     }
 
     async estimateCollectGas(article: ArticleCollectable) {
-        const account = getAccount(config);
+        const account = getAccount(wagmiConfig);
         const chain = chains.find((x) => x.id === article.chainId);
         if (!chain) throw new Error(`Unsupported chain: ${article.chainId}`);
 
@@ -190,7 +191,7 @@ class Paragraph implements Provider {
     }
 
     async collect(article: ArticleCollectable) {
-        const account = getAccount(config);
+        const account = getAccount(wagmiConfig);
         const chain = chains.find((x) => x.id === article.chainId);
         if (!chain) throw new Error(`Unsupported chain: ${article.chainId}`);
 
@@ -202,7 +203,7 @@ class Paragraph implements Provider {
 
         // factory contract has been deployed
         if (article.contractAddress) {
-            const hash = await writeContract(config, {
+            const hash = await writeContract(wagmiConfig, {
                 address: article.contractAddress as Address,
                 abi: ParagraphABI,
                 functionName: 'mintWithReferrer',
@@ -210,11 +211,11 @@ class Paragraph implements Provider {
                 value,
             });
 
-            return waitForTransactionReceipt(config, { hash });
+            return waitForTransactionReceipt(wagmiConfig, { hash });
         }
 
         try {
-            const hash = await writeContract(config, {
+            const hash = await writeContract(wagmiConfig, {
                 address: address as Address,
                 abi: ParagraphMintABI,
                 functionName: 'createAndMint',
@@ -236,10 +237,10 @@ class Paragraph implements Provider {
                 value,
             });
 
-            return await waitForTransactionReceipt(config, { hash });
+            return await waitForTransactionReceipt(wagmiConfig, { hash });
         } catch (error) {
             if (error instanceof Error && error.message.toLowerCase().includes('nft already exists')) {
-                const hash = await writeContract(config, {
+                const hash = await writeContract(wagmiConfig, {
                     address: address as Address,
                     abi: ParagraphMintABI,
                     functionName: 'createAndMint',
@@ -261,7 +262,7 @@ class Paragraph implements Provider {
                     value,
                 });
 
-                return await waitForTransactionReceipt(config, { hash });
+                return await waitForTransactionReceipt(wagmiConfig, { hash });
             }
             throw error;
         }

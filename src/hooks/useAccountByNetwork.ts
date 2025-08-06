@@ -8,7 +8,7 @@ import { PrivySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { NetworkType } from '@/constants/enum.js';
 import { unreachable } from '@/helpers/unreachable.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
-import { WalletConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 import { SolanaChainId } from '#masknet/web3-shared-solana';

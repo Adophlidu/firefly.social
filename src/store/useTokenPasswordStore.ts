@@ -6,7 +6,7 @@ import { createSelectors } from '@/helpers/createSelector.js';
 import { parseJson } from '@/helpers/parseJson.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { decryptPassword, encryptPassword } from '@/services/crypto.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 interface TokenPasswordState {
     password: string | null;
@@ -65,7 +65,7 @@ const useTokenPasswordStoreBase = create<
                     };
                 },
                 setItem: (name, value) => {
-                    const fireflySession = useFireflyStateStore.getState().currentProfileSession;
+                    const fireflySession = useFireflyProfileStore.getState().currentProfileSession;
                     const accountId = fireflySession?.profileId;
                     if (!accountId) return;
 

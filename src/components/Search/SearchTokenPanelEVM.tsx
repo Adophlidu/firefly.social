@@ -8,7 +8,7 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';
-import { chains, visibleChains } from '@/configs/wagmiClient.js';
+import { chains, visibleChains } from '@/configs/chains.js';
 import { isGreaterThan, isLessThan } from '@/helpers/number.js';
 import { type Token, useCustomFungibleTokens } from '@/hooks/useCustomFungibleTokens.js';
 import { useEvmTokens } from '@/hooks/useEvmTokens.js';

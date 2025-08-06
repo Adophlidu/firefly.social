@@ -15,7 +15,8 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
-import { config, privyVisibleChains, visibleChains } from '@/configs/wagmiClient.js';
+import { privyVisibleChains, visibleChains } from '@/configs/chains.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { delay } from '@/helpers/delay.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
@@ -24,7 +25,7 @@ import { useEvmTokens } from '@/hooks/useEvmTokens.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { ConnectionSource, useWalletConnections } from '@/hooks/useWalletConnections.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import { searchTokenLogoURI } from '@/services/searchTokenLogoURI.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
@@ -88,7 +89,7 @@ function AddCustomERC20ModalContent({
                 abi: erc20Abi,
                 address,
             };
-            const result = await readContracts(config, {
+            const result = await readContracts(wagmiConfig, {
                 contracts: [
                     {
                         ...erc20Contracts,
@@ -204,3 +205,5 @@ export function AddCustomERC20Modal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const AddCustomERC20ModalRef = new SingletonModal<AddCustomERC20ModalOpenProps>();

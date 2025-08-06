@@ -1,7 +1,7 @@
 import type { Address } from 'viem';
 import { getEnsAvatar, getEnsName } from 'wagmi/actions';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { FireflyPlatform } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
@@ -15,10 +15,10 @@ export async function searchWalletAddress(address: string): Promise<FireflyProfi
 
     if (isValidAddressEthereum(trimmed)) {
         const ensName = await runInSafeAsync(() =>
-            getEnsName(config, { address: trimmed.toLowerCase() as Address, chainId: EthereumChainId.Mainnet }),
+            getEnsName(wagmiConfig, { address: trimmed.toLowerCase() as Address, chainId: EthereumChainId.Mainnet }),
         );
         const ensAvatar = ensName
-            ? await runInSafeAsync(() => getEnsAvatar(config, { name: ensName, chainId: EthereumChainId.Mainnet }))
+            ? await runInSafeAsync(() => getEnsAvatar(wagmiConfig, { name: ensName, chainId: EthereumChainId.Mainnet }))
             : undefined;
 
         return {

@@ -5,7 +5,7 @@ import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { PreviewMediaModalContentProps } from '@/modals/PreviewMediaModal/PreviewMediaModalContent.js';
 
 export interface PreviewMediaModalOpenProps extends Omit<PreviewMediaModalContentProps, 'open' | 'onClose'> {}
@@ -44,3 +44,5 @@ export function PreviewMediaModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const PreviewMediaModalRef = new SingletonModal<PreviewMediaModalOpenProps>();

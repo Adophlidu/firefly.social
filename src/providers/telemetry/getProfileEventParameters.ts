@@ -1,6 +1,6 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
+import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -10,10 +10,10 @@ import {
     type LensEventParameters,
     type TwitterEventParameters,
 } from '@/providers/types/Telemetry.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export function getSelfProfileEventParameters(source: SocialSource) {
-    const selfProfile = getCurrentProfileAll()[source];
+    const selfProfile = getProfileFromStorage(source);
     if (!selfProfile) throw new Error(`Not profile found, source = ${source}.`);
 
     switch (source) {
@@ -44,13 +44,13 @@ export function getSelfProfileEventParameters(source: SocialSource) {
 }
 
 export function getProfileEventParameters(profile: Profile) {
-    const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
+    const fireflySession = useFireflyProfileStore.getState().currentProfileSession as FireflySession | null;
     if (!fireflySession) throw new Error('Firefly account id is missing.');
 
     const source = profile.source;
     if (!source) throw new Error(`Not source found, source = ${source}.`);
 
-    const selfProfile = getCurrentProfileAll()[source];
+    const selfProfile = getProfileFromStorage(source);
     if (!selfProfile) throw new Error(`Not profile found, source = ${source}.`);
 
     switch (source) {

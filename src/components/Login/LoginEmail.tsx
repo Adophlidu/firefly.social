@@ -14,7 +14,7 @@ import { AbortError, FireflyAlreadyBoundError } from '@/constants/error.js';
 import { EMAIL_REGEX } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { createAccountByPasscode } from '@/providers/email/createAccountByPasscode.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.js';

@@ -1,7 +1,7 @@
 import { last, omit } from 'lodash-es';
 import type { Address } from 'viem';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { SnapshotState } from '@/constants/enum.js';
 import { SNAPSHOT_GRAPHQL_URL, SNAPSHOT_RELAY_URL, SNAPSHOT_SCORES_URL, SNAPSHOT_SEQ_URL } from '@/constants/index.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
@@ -232,8 +232,8 @@ export class Snapshot {
             metadata: message.metadata ?? '{}',
         };
 
-        const walletClient = await getWalletClientRequired(config);
-        const signedTypedData = await walletClient.signTypedData({
+        const client = await getWalletClientRequired(wagmiConfig);
+        const signedTypedData = await client.signTypedData({
             domain: {
                 name: NAME,
                 version: VERSION,

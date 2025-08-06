@@ -13,9 +13,10 @@ import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
-import { AddCustomERC20ModalRef, WalletConnectModalRef } from '@/modals/controls.js';
+import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
@@ -114,3 +115,5 @@ export function TokenSelectorModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const TokenSelectorModalRef = new SingletonModal<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>();

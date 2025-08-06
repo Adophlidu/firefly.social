@@ -3,8 +3,8 @@ import urlcat from 'urlcat';
 import { FARCASTER_REPLY_URL, NOT_DEPEND_SECRET, SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
@@ -55,7 +55,7 @@ export async function createAccountByRelayService(callback?: (url: string) => vo
     const fireflySession = await bindOrRestoreFireflySession(session, signal);
 
     // profile id is available after the session is ready
-    const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
+    const profile = await getFarcasterProfileById(session.profileId);
 
     return {
         origin: 'sync',

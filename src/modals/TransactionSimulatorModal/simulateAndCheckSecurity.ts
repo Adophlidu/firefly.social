@@ -2,7 +2,8 @@ import { multiply } from 'lodash-es';
 import { type Address, formatUnits } from 'viem';
 import { getAccount } from 'wagmi/actions';
 
-import { chains, config } from '@/configs/wagmiClient.js';
+import { chains } from '@/configs/chains.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP } from '@/constants/chain.js';
 import { SimulateStatus } from '@/constants/enum.js';
 import { Debank } from '@/providers/debank/index.js';
@@ -34,7 +35,7 @@ async function getNetworkFee(chainId: number, gasUsed: number) {
 
 export async function simulateAndCheckSecurity({ url, chainId, transaction: data }: SimulationOptions) {
     try {
-        const account = getAccount(config).address;
+        const account = getAccount(wagmiConfig).address;
         const txData = data
             ? {
                   chain_id: chainId,

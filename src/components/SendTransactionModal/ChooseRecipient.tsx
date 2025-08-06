@@ -4,7 +4,7 @@ import { Loading } from '@/components/Loading.js';
 import { RecipientItem, type RecipientItemProps } from '@/components/SendTransactionModal/RecipientItem.js';
 import { NetworkType, type ProfilePageSource, Source } from '@/constants/enum.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 
 export function ChooseRecipient({
@@ -20,7 +20,7 @@ export function ChooseRecipient({
         queryKey: ['logged-in-firefly-profiles', recipient.source, recipient.id],
         queryFn: async () => {
             try {
-                const relatedProfiles = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(
+                const relatedProfiles = await getAllPlatformProfileFromFirefly(
                     {
                         source: recipient.source as ProfilePageSource,
                         id: recipient.id!,

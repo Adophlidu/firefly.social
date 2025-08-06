@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 import { useAccount, useChainId } from 'wagmi';
 
 import { Image } from '@/components/Image.js';
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { EIP6963_PROVIDER_DESCRIPTION, IS_DEVELOPMENT } from '@/constants/index.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
@@ -61,7 +61,7 @@ export function FrameViewerModal({ open, onClose, props, setProps }: Props) {
             ethProvider: createEIP1193Provider(async (parameters) => {
                 const { method, params } = parameters;
 
-                const client = await getWalletClientRequired(config);
+                const client = await getWalletClientRequired(wagmiConfig);
 
                 switch (method) {
                     case EthereumMethodType.ETH_REQUEST_ACCOUNTS:

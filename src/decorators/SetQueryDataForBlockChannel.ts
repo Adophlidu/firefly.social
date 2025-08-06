@@ -2,7 +2,7 @@ import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SearchType, type SocialSource } from '@/constants/enum.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { type Channel, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
@@ -24,7 +24,8 @@ function setBlockStatus(source: SocialSource, channelId: string, status: boolean
         });
     };
 
-    const profile = getCurrentProfile(source);
+    const profile = getSessionFromStorageBySource(source);
+
     queryClient.setQueriesData<Channel>({ queryKey: ['channels'] }, updater);
     queryClient.setQueriesData<Channel>({ queryKey: ['search', SearchType.Clubs] }, updater);
     queryClient.setQueryData<Channel>(['channel', source, channelId, profile?.profileId], updater);

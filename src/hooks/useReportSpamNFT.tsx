@@ -8,7 +8,7 @@ import { Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';

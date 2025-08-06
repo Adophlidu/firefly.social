@@ -4,12 +4,8 @@ import { first, uniqBy } from 'lodash-es';
 import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { toProfileId } from '@/helpers/isSameProfile.js';
-import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
-import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { type Notification, NotificationType, type Profile, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
@@ -17,7 +13,7 @@ interface PagesData {
     pages: Array<{ data: Profile[] }>;
 }
 
-function setBlockStatus(source: SocialSource, profileId: string, status: boolean) {
+export function setBlockStatus(source: SocialSource, profileId: string, status: boolean) {
     const matcher: Matcher = (post) => post?.author.profileId === profileId;
     patchPostQueryData(source, matcher, (draft) => {
         draft.author.viewerContext = {
@@ -114,7 +110,6 @@ function setBlockStatus(source: SocialSource, profileId: string, status: boolean
 }
 
 const METHODS_BE_OVERRIDDEN = ['blockProfile', 'unblockProfile'] as const;
-const METHODS_BE_OVERRIDDEN_MUTE_ALL = ['muteProfileAll'] as const;
 
 export function SetQueryDataForBlockProfile(source: SocialSource) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
@@ -144,38 +139,6 @@ export function SetQueryDataForBlockProfile(source: SocialSource) {
         }
 
         METHODS_BE_OVERRIDDEN.forEach(overrideMethod);
-        return target;
-    };
-}
-
-export function SetQueryDataForMuteAllProfiles() {
-    return function decorator<T extends ClassType<FireflyEndpoint>>(target: T): T {
-        function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN_MUTE_ALL)[number]>(key: K) {
-            const method = target.prototype[key] as FireflyEndpoint[K];
-
-            Object.defineProperty(target.prototype, key, {
-                value: async (identity: FireflyIdentity) => {
-                    const m = method as (identity: FireflyIdentity) => ReturnType<FireflyEndpoint[K]>;
-                    const relationships = await m.call(target.prototype, identity);
-                    [...relationships, { snsId: identity.id, snsPlatform: identity.source }].forEach(
-                        ({ snsId, snsPlatform }) => {
-                            const source = resolveSourceFromUrl(snsPlatform);
-                            const platformId =
-                                source === Source.Farcaster && typeof snsId === 'number' ? `${snsId}` : snsId;
-                            queryClient.setQueryData(['profile', 'mute-all', source, platformId], true);
-
-                            if (source !== Source.Wallet) {
-                                setBlockStatus(narrowToSocialSource(source), platformId, true);
-                            }
-                        },
-                    );
-
-                    return relationships;
-                },
-            });
-        }
-
-        METHODS_BE_OVERRIDDEN_MUTE_ALL.forEach(overrideMethod);
         return target;
     };
 }

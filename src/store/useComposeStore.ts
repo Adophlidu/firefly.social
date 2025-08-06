@@ -5,7 +5,7 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { HOME_CHANNEL, HOME_CLUB } from '@/constants/channel.js';
-import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
+import { CharTag, RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
 import {
     EMPTY_LIST,
     MAX_FRAME_SIZE_PER_POST,
@@ -13,7 +13,7 @@ import {
     SORTED_SOCIAL_SOURCES,
     SUPPORTED_FRAME_SOURCES,
 } from '@/constants/index.js';
-import { CHAR_TAG, type Chars, readChars } from '@/helpers/chars.js';
+import { readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
@@ -25,6 +25,7 @@ import { OpenGraphLoader } from '@/providers/og/Loader.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import type { Action } from '@/types/blink.js';
+import { type Chars } from '@/types/chars.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
 import type { OpenGraph } from '@/types/og.js';
@@ -571,7 +572,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                             ...(Array.isArray(post.chars) ? post.chars : [post.chars]),
                             {
                                 id: `poll-${crypto.randomUUID()}`,
-                                tag: CHAR_TAG.FRAME,
+                                tag: CharTag.FRAME,
                                 visible: false,
                                 content: '' as never,
                                 sortNo: 10,
@@ -590,7 +591,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                         poll,
                         chars: !poll
                             ? (Array.isArray(post.chars) ? post.chars : [post.chars]).filter(
-                                  (x) => typeof x === 'string' || x.tag !== CHAR_TAG.FRAME,
+                                  (x) => typeof x === 'string' || x.tag !== CharTag.FRAME,
                               )
                             : post.chars,
                     }),
@@ -604,7 +605,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     (post) => ({
                         ...post,
                         chars: (Array.isArray(post.chars) ? post.chars : [post.chars]).map((x) => {
-                            if (typeof x !== 'string' && x.tag === CHAR_TAG.FRAME) {
+                            if (typeof x !== 'string' && x.tag === CharTag.FRAME) {
                                 return { ...x, id: pollId };
                             }
                             return x;

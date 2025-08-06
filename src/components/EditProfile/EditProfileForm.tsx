@@ -25,7 +25,7 @@ import { URL_INPUT_REGEX } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import { ImageEditorModalRef } from '@/modals/controls.js';
+import { ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import { updateProfile } from '@/services/updateProfile.js';

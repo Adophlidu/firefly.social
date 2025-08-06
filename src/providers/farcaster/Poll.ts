@@ -1,10 +1,11 @@
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { commitPoll, vote } from '@/services/poll.js';
 import type { Index } from '@/types/frame.js';
 
@@ -33,13 +34,13 @@ class FarcasterPoll implements Provider {
         frameUrl: string;
         option: PollOption;
     }): Promise<VoteResponseData> {
-        const profile = getCurrentProfile(Source.Farcaster);
-        if (!profile) throw new Error('Profile not found');
+        const session = getSessionFromStorage(SessionType.Farcaster);
+        if (!session) throw new Error('Profile not found');
         const packet = await HubbleFrameProvider.generateSignaturePacket(postId, frameUrl, +option.id as Index);
         return await vote({
             poll_id: pollId,
             platform: SourceInURL.Farcaster,
-            platform_id: profile.profileId,
+            platform_id: session.profileId,
             choices: [+option.id],
             lens_token: '',
             farcaster_signature: packet.trustedData.messageBytes,

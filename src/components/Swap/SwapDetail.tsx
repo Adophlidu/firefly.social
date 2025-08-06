@@ -15,7 +15,7 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { SwapActions } from '@/components/Swap/SwapActions.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
-import { chains } from '@/configs/wagmiClient.js';
+import { chains } from '@/configs/chains.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';

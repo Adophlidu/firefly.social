@@ -5,7 +5,7 @@ import { Popover } from '@/components/Popover.js';
 import type { PasswordWorkflow } from '@/constants/enum.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { PasswordModalContent } from '@/modals/PasswordModal/PasswordModalContent.js';
 
 export interface PasswordModalOpenProps {
@@ -47,3 +47,5 @@ export function PasswordModal({ ref }: Props) {
         </Popover>
     );
 }
+
+export const PasswordModalRef = new SingletonModal<PasswordModalOpenProps, boolean | void>();

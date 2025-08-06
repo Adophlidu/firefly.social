@@ -12,7 +12,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { RedPacketModalRef } from '@/modals/controls.js';
+import { RedPacketModalRef } from '@/modals/RedPacketModal/index.js';
 
 interface RedPacketActionProps extends ClickableButtonProps {}
 

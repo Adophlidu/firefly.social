@@ -15,8 +15,8 @@ import { SignupStep, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useIsLogin, useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { SignInWithFireflyAppModalRef } from '@/modals/controls.js';
-import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
+import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal.js';
+import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
 
 interface SocialLoginPageProps {
     changeStep: (step: SignupStep) => void;
@@ -25,7 +25,7 @@ interface SocialLoginPageProps {
 export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
     const isLogin = useIsLogin();
     const isLoginFirefly = useIsLoginFirefly();
-    const { accounts } = useThirdPartyStateStore();
+    const { accounts } = useThirdPartyProfileStore();
     const { isLoading } = useCheckFireflyAccount();
 
     const canGoNext = isLogin || accounts.length > 0;

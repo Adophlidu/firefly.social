@@ -17,11 +17,11 @@ import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShar
 import { IS_ANDROID } from '@/constants/browser.js';
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
-import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
+import type { Chars } from '@/types/chars.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export function ActivityButtrflyTasks({

@@ -15,9 +15,11 @@ import { useDebounce } from 'react-use';
 import { $isMentionNode, MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
 import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlugin.js';
-import { CHAR_TAG, type Chars, type ComplexChars, writeChars } from '@/helpers/chars.js';
+import { CharTag } from '@/constants/enum.js';
+import { writeChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { type Chars, type ComplexChars } from '@/types/chars.js';
 
 function extractTextFromNode(node: LexicalNode): string {
     if ($isMentionNode(node)) {
@@ -113,7 +115,7 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                                 const targetMentionNode = mentionNodes.find((node) => node.__text === x);
                                 if (targetMentionNode)
                                     return {
-                                        tag: CHAR_TAG.MENTION,
+                                        tag: CharTag.MENTION,
                                         visible: true,
                                         content: x,
                                         profiles: targetMentionNode.__profiles,

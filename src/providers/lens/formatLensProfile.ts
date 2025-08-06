@@ -7,7 +7,6 @@ import { formatGroveImage } from '@/helpers/formatGroveImage.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
-import type { LensV3Profile } from '@/providers/types/Firefly.js';
 import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 function getAvatar(profile: Account, namedTransform = IMAGE_KIT_AVATAR) {
@@ -66,16 +65,6 @@ export function formatLensProfileV3(result: Account): Profile {
         source: Source.Lens,
         website: result.metadata?.attributes?.find((x) => x.key === 'website')?.value,
         location: result.metadata?.attributes?.find((x) => x.key === 'location')?.value,
-    };
-}
-
-export function formatLensProfileFromSuggestedFollow(result: LensV3Profile): Profile {
-    return {
-        ...createDummyProfile(Source.Lens),
-        profileId: result.id,
-        displayName: result.localName || '',
-        handle: result.localName || '',
-        fullHandle: result.fullHandle || '',
     };
 }
 

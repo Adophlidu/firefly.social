@@ -10,7 +10,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { postFeatures } from '@/settings/post.js';
 

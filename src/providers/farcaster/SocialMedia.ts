@@ -15,11 +15,13 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { getFarcasterSessionType } from '@/providers/farcaster/getFarcasterSessionType.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
@@ -105,11 +107,11 @@ class FarcasterSocialMedia implements Provider {
         const channel = await FireflySocialMediaProvider.getChannelByHandle(channelId);
         if (!includeFollowingStatus) return channel;
 
-        const profile = getCurrentProfile(Source.Farcaster);
-        if (!profile?.profileId) return channel;
+        const session = getSessionFromStorage(SessionType.Farcaster);
+        if (!session?.profileId) return channel;
 
         const following = await runInSafeAsync(() =>
-            WarpcastSocialMediaProvider.getChannelFollowStatus(channelId, profile.profileId),
+            WarpcastSocialMediaProvider.getChannelFollowStatus(channelId, session.profileId),
         );
         channel.isMember = following ?? false;
 
@@ -195,7 +197,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string) {
-        return FireflySocialMediaProvider.getProfileById(profileId);
+        return farcasterSessionHolder.withSession((session) => getFarcasterProfileById(profileId, session?.profileId));
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {

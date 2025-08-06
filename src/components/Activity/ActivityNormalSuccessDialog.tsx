@@ -7,9 +7,9 @@ import { useActivityCompose } from '@/components/Activity/hooks/useActivityCompo
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
-import type { Chars } from '@/helpers/chars.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import type { Chars } from '@/types/chars.js';
 
 interface Props {
     open: boolean;

@@ -18,7 +18,7 @@ import { useDefaultCreateGas } from '@/components/RedPacket/hooks/useDefaultCrea
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { TokenValue } from '@/components/TokenValue.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
 import { RED_PACKET_CONTRACT_VERSION, RED_PACKET_DURATION, RED_PACKET_MIN_SHARES } from '@/constants/rp.js';
 import { createAccount } from '@/helpers/createAccount.js';
@@ -204,15 +204,15 @@ export default function MainView() {
     ]);
 
     const [{ loading: interactionLoading }, handleClick] = useAsyncFn(async () => {
-        const globalChainId = getChainId(config);
+        const globalChainId = getChainId(wagmiConfig);
         if (!originBalance || isZero(originBalance.value.toString())) return;
 
         if (isEVM && globalChainId !== chainId) {
-            await switchChain(config, { chainId });
+            await switchChain(wagmiConfig, { chainId });
         }
 
         if (isEVM && isNotEnoughAllowance) {
-            const result = await writeContract(config, {
+            const result = await writeContract(wagmiConfig, {
                 chainId,
                 abi: getTokenAbiForWagmi(chainId, token.address as Address),
                 address: token.address as Address,

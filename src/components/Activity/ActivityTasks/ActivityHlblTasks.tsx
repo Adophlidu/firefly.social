@@ -21,9 +21,9 @@ import {
     FIREFLY_MENTION,
     FIREFLY_TWITTER_PROFILE,
 } from '@/constants/mentions.js';
-import { type Chars } from '@/helpers/chars.js';
 import { Level } from '@/providers/types/CZ.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
+import { type Chars } from '@/types/chars.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {

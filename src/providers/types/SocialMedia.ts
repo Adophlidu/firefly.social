@@ -20,6 +20,7 @@ import type { Session } from '@/providers/types/Session.js';
 // Strictly match the ProfileSource
 export enum SessionType {
     Apple = 'Apple',
+    Email = 'Email',
     Google = 'Google',
     Telegram = 'Telegram',
     Twitter = 'Twitter',
@@ -27,7 +28,6 @@ export enum SessionType {
     Farcaster = 'Farcaster',
     Firefly = 'Firefly',
     Bsky = 'Bsky',
-    Email = 'Email',
 }
 
 export enum NetworkType {

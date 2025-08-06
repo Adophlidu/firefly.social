@@ -1,9 +1,9 @@
 import { getPublicKey, utils } from '@noble/ed25519';
 import { bytesToHex, toHex } from 'viem';
 
+import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { FarcasterSession, FarcasterSponsorship } from '@/providers/farcaster/Session.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import type { Account } from '@/providers/types/Account.js';
+import { type Account } from '@/providers/types/Account.js';
 import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
 import { createSignedKeyPayloadWithSponsorship } from '@/providers/warpcast/createSignedKeyPayload.js';
 import { pollingSignerRequestToken } from '@/providers/warpcast/pollingSignerRequestToken.js';
@@ -62,7 +62,7 @@ export async function createAccountByFireflySponsorship(callback?: (url: string)
     const fireflySession = await bindOrRestoreFireflySession(session, signal);
 
     // profile id is available after the session is ready
-    const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
+    const profile = await getFarcasterProfileById(session.profileId);
 
     return {
         session,

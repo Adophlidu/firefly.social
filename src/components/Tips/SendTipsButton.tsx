@@ -22,7 +22,7 @@ import { isZero, ZERO } from '@/helpers/number.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { trimify } from '@/helpers/trimify.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
-import { WalletConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { reportAndCaptureTipEvent } from '@/services/reportAndCaptureTipEvent.js';
 
 interface SendTipsButtonProps {

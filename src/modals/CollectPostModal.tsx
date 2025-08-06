@@ -7,7 +7,7 @@ import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 const PostCollect = dynamic(() => import('@/components/Posts/PostCollect.js').then((m) => m.PostCollect), {
@@ -51,3 +51,5 @@ export function CollectPostModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const CollectPostModalRef = new SingletonModal<CollectPostModalOpenProps>();

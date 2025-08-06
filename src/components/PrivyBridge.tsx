@@ -22,13 +22,13 @@ import { createRef, type Ref, useCallback, useEffect, useImperativeHandle } from
 import { createRoot, type Root } from 'react-dom/client';
 
 import { FireflyLoginRequired } from '@/components/FireflyLoginRequired.js';
-import { chains } from '@/configs/wagmiClient.js';
+import { chains } from '@/configs/chains.js';
 import { NetworkType } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 interface PrivyBridgeHandle {
     getWallets: () => {
@@ -75,7 +75,7 @@ function PrivyBridge({ ref }: { ref: Ref<PrivyBridgeHandle> }) {
     );
     const isLoginFirefly = useIsLoginFirefly();
     const subscribe = useCallback((onJwtAuthStateChange: () => void) => {
-        return useFireflyStateStore.subscribe(onJwtAuthStateChange);
+        return useFireflyProfileStore.subscribe(onJwtAuthStateChange);
     }, []);
     const getExternalJwt = useCallback(async () => {
         return fireflySessionHolder.session?.token;

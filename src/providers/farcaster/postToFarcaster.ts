@@ -15,7 +15,7 @@ import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
-import { useFarcasterStateStore } from '@/store/useProfileStore.js';
+import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
@@ -29,7 +29,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     if (farcasterPostId) return;
 
     // login required
-    const { currentProfile } = useFarcasterStateStore.getState();
+    const { currentProfile } = useFarcasterProfileStore.getState();
     if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
     const maxImageConfig = currentProfile.isProUser ? MAX_IMAGE_SIZE_PRO_PER_POST : MAX_IMAGE_SIZE_PER_POST;

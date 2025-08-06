@@ -1,10 +1,12 @@
 import { Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
+import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
+import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 export function resolveFireflyProfileId(profile: Pick<Profile, 'handle' | 'profileId' | 'source'> | null) {
     if (!profile) return;
@@ -38,9 +40,9 @@ export function resolveFireflyIdentity(profile: Profile | null): FireflyIdentity
 
 export function resolveCurrentFireflyAccountId() {
     const profile =
-        useLensStateStore.getState().currentProfile ||
-        useFarcasterStateStore.getState().currentProfile ||
-        useTwitterStateStore.getState().currentProfile;
+        useLensProfileStore.getState().currentProfile ||
+        useFarcasterProfileStore.getState().currentProfile ||
+        useTwitterProfileStore.getState().currentProfile;
 
     const identity = resolveFireflyIdentity(profile);
     if (!identity) return;
@@ -52,7 +54,7 @@ export async function resolveFireflyAccountId(identity: FireflyIdentity | null) 
     if (!identity) return;
 
     try {
-        const all = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
+        const all = await getAllPlatformProfileFromFirefly(identity, false);
         return all.fireflyAccountId;
     } catch (error) {
         console.error('[resolveFireflyAccountId] Error fetching Firefly account ID:', error);

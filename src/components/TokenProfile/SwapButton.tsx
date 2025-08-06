@@ -8,7 +8,7 @@ import { switchChain } from 'wagmi/actions';
 import SwapIcon from '@/assets/swap.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupportedChains.js';
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/chain.js';
 import { NetworkType, OkxProviderType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -16,8 +16,9 @@ import { classNames } from '@/helpers/classNames.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { SwapModalRef, WalletConnectModalRef } from '@/modals/controls.js';
+import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
 import type { SwapModalOpenProps } from '@/modals/SwapModal/SwapModalContent.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
@@ -54,7 +55,7 @@ export const SwapButton = memo<Props>(function SwapButton({
             });
             return;
         }
-        if (chainId && providerType === OkxProviderType.EVM) await switchChain(config, { chainId });
+        if (chainId && providerType === OkxProviderType.EVM) await switchChain(wagmiConfig, { chainId });
         captureSwapEvent(EventId.EVENT_SWAP_COPY_TRADE_CLICK);
         SwapModalRef.open({
             ...swapPropsFromProps,

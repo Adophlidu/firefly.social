@@ -28,7 +28,7 @@ import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { useBskyStateStore } from '@/store/useProfileStore.js';
+import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
 
 const getSuggestedFollowersCached = memoizePromise(
     async (source: SocialSource, profileId?: string) => {
@@ -42,7 +42,7 @@ export function SuggestedFollowsCard() {
     const currentSource = useGlobalState.use.currentSource();
     const profileAll = useCurrentProfilesAll();
     const asyncStatusAll = useAsyncStatusAll();
-    const bskySession = useBskyStateStore.use.currentProfileSession();
+    const bskySession = useBskyProfileStore.use.currentProfileSession();
 
     const commonKeys = [...SORTED_SOCIAL_SOURCES.map((x) => profileAll[x]?.profileId), asyncStatusAll, bskySession];
     const { data: suggestedFollows, isLoading } = useQuery({

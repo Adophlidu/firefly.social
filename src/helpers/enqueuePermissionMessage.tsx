@@ -1,7 +1,7 @@
 import type { SnackbarKey } from 'notistack';
 
 import { PermissionSnackbar } from '@/components/PermissionSnackbar.js';
-import { SnackbarRef } from '@/modals/controls.js';
+import { SnackbarRef } from '@/modals/Snackbar.js';
 
 export function enqueuePermissionMessage(rejected: boolean, onEnable?: () => void) {
     SnackbarRef.open({

@@ -11,14 +11,14 @@ import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
-import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getPostFailedAt } from '@/helpers/getPostFailedAt.js';
+import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
-import { SnackbarRef } from '@/modals/controls.js';
+import { SnackbarRef } from '@/modals/Snackbar.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { capturePollEvent } from '@/providers/telemetry/capturePollEvent.js';
@@ -30,13 +30,13 @@ import { type CompositePost, useComposeStateStore } from '@/store/useComposeStor
 import type { ComposeType } from '@/types/compose.js';
 
 async function refreshProfileFeed(source: SocialSource) {
-    const currentProfileAll = getCurrentProfileAll();
+    const currentProfile = getProfileFromStorage(source);
 
     await queryClient.invalidateQueries({
-        queryKey: ['posts', source, 'posts-of', currentProfileAll[source]?.profileId],
+        queryKey: ['posts', source, 'posts-of', currentProfile?.profileId],
     });
     await queryClient.refetchQueries({
-        queryKey: ['posts', source, 'posts-of', currentProfileAll[source]?.profileId],
+        queryKey: ['posts', source, 'posts-of', currentProfile?.profileId],
         stale: true,
         type: 'active',
     });
@@ -57,8 +57,6 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
         rpPayload?.publicKey &&
         !!rpMetaKey
     ) {
-        const currentProfileAll = getCurrentProfileAll();
-
         const rpPayloadFromMeta = typedMessage?.meta?.get(rpMetaKey) as RedPacketJSONPayload;
 
         const reactions = compact(
@@ -75,7 +73,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
 
         const claimPlatforms = compact(
             SORTED_SOCIAL_SOURCES.map((x) => {
-                const currentProfile = currentProfileAll[x];
+                const currentProfile = getProfileFromStorage(x);
                 return postId[x] && currentProfile
                     ? {
                           platformId: currentProfile.profileId,
@@ -86,7 +84,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
         );
         const postOn: FireflyRedPacketAPI.PostOn[] = compact(
             SORTED_SOCIAL_SOURCES.map((x) => {
-                const currentProfile = currentProfileAll[x];
+                const currentProfile = getProfileFromStorage(x);
                 return postId[x] && currentProfile
                     ? {
                           platform: resolveRedPacketPlatformType(x),

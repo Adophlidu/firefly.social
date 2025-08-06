@@ -20,10 +20,9 @@ import { router } from '@/components/Compose/ComposeRouter.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
-import { FileMimeType, type SocialSource } from '@/constants/enum.js';
+import { CharTag, FileMimeType, type SocialSource } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { EMPTY_LIST, RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import { delay } from '@/helpers/delay.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
@@ -41,9 +40,9 @@ import { useCurrentProfile, useCurrentProfilesAll } from '@/hooks/useCurrentProf
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ProfileIdentifier } from '@/mask/index.js';
-import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -52,6 +51,7 @@ import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { type Chars } from '@/types/chars.js';
 import type { ComposeType } from '@/types/compose.js';
 
 const initialConfig = {
@@ -276,14 +276,14 @@ function ComposeModalUI({ ref }: Props) {
 
             const chars: Chars = [
                 {
-                    tag: CHAR_TAG.FIREFLY_RP,
+                    tag: CharTag.FIREFLY_RP,
                     content: RP_HASH_TAG,
                     visible: false,
                 },
                 ...(compositePost ? compositePost.chars : []),
                 t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop!`,
                 {
-                    tag: CHAR_TAG.PROMOTE_LINK,
+                    tag: CharTag.PROMOTE_LINK,
                     content: promoteLink,
                     visible: false,
                     sortNo: 5,
@@ -320,7 +320,7 @@ function ComposeModalUI({ ref }: Props) {
         const chars: Chars = [
             ...compositePost.chars,
             {
-                tag: CHAR_TAG.POST_LINK,
+                tag: CharTag.POST_LINK,
                 content: urlcat(SITE_URL, resolvePostUrl(parentPost.source, parentPost.postId)),
                 source: parentPost.source,
                 visible: false,
@@ -365,3 +365,5 @@ export function ComposeModal({ ref, ...props }: Props) {
         </LexicalComposer>
     );
 }
+
+export const ComposeModalRef = new SingletonModal<ComposeModalOpenProps, ComposeModalCloseProps>();

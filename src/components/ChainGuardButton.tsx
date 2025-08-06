@@ -4,11 +4,11 @@ import { useAsyncFn } from 'react-use';
 import { switchChain } from 'wagmi/actions';
 
 import { ActionButton, type ActionButtonProps } from '@/components/ActionButton.js';
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
 import { unreachable } from '@/helpers/unreachable.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
-import { WalletConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 
 interface ChainGuardButtonProps extends ActionButtonProps {
     targetChainId?: number;
@@ -29,7 +29,7 @@ export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBounda
             switch (networkType) {
                 case NetworkType.Ethereum:
                     if (targetChainId && account.chainId !== targetChainId) {
-                        await switchChain(config, { chainId: targetChainId });
+                        await switchChain(wagmiConfig, { chainId: targetChainId });
                     }
                     onClick?.(event);
                     break;

@@ -5,7 +5,7 @@ import { BackButton, CloseButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { classNames } from '@/helpers/classNames.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
-import { WalletConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 
 export function RootView() {
     const router = useRouter();

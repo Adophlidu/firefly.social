@@ -9,7 +9,7 @@ import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useMounted } from '@/hooks/useMounted.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/ComposeModal.js';
 
 interface PostProps {
     collapsed?: boolean;

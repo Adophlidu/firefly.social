@@ -3,7 +3,7 @@ import { useAsyncFn } from 'react-use';
 import DisconnectIcon from '@/assets/disconnect.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { DisconnectFireflyAccountModalRef } from '@/modals/controls.js';
+import { DisconnectFireflyAccountModalRef } from '@/modals/DisconnectFireflyAccountModal.js';
 import type { Account } from '@/providers/types/Account.js';
 
 interface Props {

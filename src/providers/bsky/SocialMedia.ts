@@ -21,7 +21,7 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
 import { fetchBlob } from '@/helpers/fetchBlob.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -206,8 +206,8 @@ class BskySocialMedia implements Provider {
         const channel = formatBskyChannel(data.view);
         if (isServer) return channel;
 
-        const profile = getCurrentProfile(Source.Bsky);
-        if (profile?.profileId && includeFollowingStatus) {
+        const session = getSessionFromStorage(SessionType.Bsky);
+        if (session?.profileId && includeFollowingStatus) {
             const response = await runInSafeAsync(() => bskySessionHolder.agent.getPreferences());
             channel.isMember = response?.savedFeeds.some((x) => x.value === channel.url);
         }

@@ -2,10 +2,10 @@ import { useMemo } from 'react';
 
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export function useCurrentFireflyAccountUID(): string | undefined {
-    const accounts = useFireflyStateStore((state) => state.accounts);
+    const accounts = useFireflyProfileStore((state) => state.accounts);
     return useMemo(() => {
         for (const account of accounts) {
             if (account.session.type !== SessionType.Firefly) continue;

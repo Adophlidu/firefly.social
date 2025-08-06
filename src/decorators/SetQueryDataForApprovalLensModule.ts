@@ -1,8 +1,8 @@
 import { queryClient } from '@/configs/queryClient.js';
-import { Source } from '@/constants/enum.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 const METHODS_BE_OVERRIDDEN = ['approveModuleAllowance'] as const;
@@ -17,7 +17,7 @@ export function SetQueryDataForApprovalLensModule<T extends ClassType<LensSocial
                 const m = method as (...args: Parameters<LensSocialMedia[K]>) => Promise<void>;
                 const result = await m.apply(target.prototype, args);
 
-                const currentProfile = getCurrentProfile(Source.Lens);
+                const currentProfile = getSessionFromStorage(SessionType.Lens);
                 const contract = args[2] ?? args[0].allowance.asset.contract.address;
                 queryClient.setQueryData(
                     ['approved', contract, currentProfile?.profileId],

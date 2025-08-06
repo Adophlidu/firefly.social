@@ -1,7 +1,7 @@
 import { type OptionsObject, type SnackbarKey, type SnackbarMessage, useSnackbar } from 'notistack';
 
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export type SnackbarOpenProps =
     | {
@@ -34,3 +34,5 @@ export function Snackbar({ ref }: Props) {
 
     return null;
 }
+
+export const SnackbarRef = new SingletonModal<SnackbarOpenProps, SnackbarCloseProps>();

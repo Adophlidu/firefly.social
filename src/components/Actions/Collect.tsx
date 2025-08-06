@@ -9,7 +9,8 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { CollectPostModalRef, DraggablePopoverRef } from '@/modals/controls.js';
+import { CollectPostModalRef } from '@/modals/CollectPostModal.js';
+import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface CollectProps {

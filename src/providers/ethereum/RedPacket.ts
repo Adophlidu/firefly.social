@@ -4,7 +4,7 @@ import { estimateContractGas } from 'viem/actions';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import type { NetworkType, SocialSource } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
@@ -147,8 +147,8 @@ class Provider {
         const chainIdByName = EVMChainResolver.chainId('network' in payload ? payload.network! : '');
         const chainId = payloadChainId || chainIdByName || contextChainId;
 
-        const globalChainId = getChainId(config);
-        if (globalChainId !== chainId) await switchChain(config, { chainId });
+        const globalChainId = getChainId(wagmiConfig);
+        if (globalChainId !== chainId) await switchChain(wagmiConfig, { chainId });
 
         const claimWithSponsorHash = await runInSafeAsync(async () => {
             const me = await getCurrentClaimProfile(source);
@@ -167,7 +167,7 @@ class Provider {
         });
         if (claimWithSponsorHash) return claimWithSponsorHash;
 
-        const hash = await writeContract(config, {
+        const hash = await writeContract(wagmiConfig, {
             abi: RED_PACKET_ABI,
             functionName: 'claim',
             args: [payload.rpid, await signClaimMessage(context), account],

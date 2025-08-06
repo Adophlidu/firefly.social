@@ -1,5 +1,5 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { getBskySuggestedUsers } from '@/providers/bsky/getBskySuggestedUsers.js';
@@ -31,7 +31,7 @@ async function getProfilesWithFixedTotal(
 
 export async function getSuggestedFollowsInCard(source: SocialSource) {
     const provider = resolveSocialMediaProvider(source, { [Source.Twitter]: 'twitter' });
-    const currentProfile = getCurrentProfile(source);
+    const session = getSessionFromStorageBySource(source);
     const result = await getProfilesWithFixedTotal(
         source === Source.Bsky ? getBskySuggestedUsers : provider.getSuggestedFollows.bind(provider),
         (oldData, newData) =>
@@ -41,7 +41,7 @@ export async function getSuggestedFollowsInCard(source: SocialSource) {
                     return (
                         !item.viewerContext?.blocking &&
                         !item.viewerContext?.following &&
-                        currentProfile?.profileId !== item.profileId
+                        session?.profileId !== item.profileId
                     );
                 }),
             ].slice(0, 50),
@@ -52,17 +52,14 @@ export async function getSuggestedFollowsInCard(source: SocialSource) {
 }
 
 export async function getSuggestedFollowsInPage(source: SocialSource, indicator?: PageIndicator) {
-    const currentProfile = getCurrentProfile(source);
+    const session = getSessionFromStorageBySource(source);
     const provider = resolveSocialMediaProvider(source);
     return getProfilesWithFixedTotal(
         provider.getSuggestedFollows.bind(provider),
         (oldData, newData) => [
             ...oldData,
             ...newData.filter(
-                (x) =>
-                    !x.viewerContext?.blocking &&
-                    !x.viewerContext?.following &&
-                    currentProfile?.profileId !== x.profileId,
+                (x) => !x.viewerContext?.blocking && !x.viewerContext?.following && session?.profileId !== x.profileId,
             ),
         ],
         1,

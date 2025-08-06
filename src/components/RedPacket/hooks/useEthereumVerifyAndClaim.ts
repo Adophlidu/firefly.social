@@ -9,7 +9,7 @@ import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { useClaimCallback } from '@/components/RedPacket/hooks/useClaimCallback.js';
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
@@ -52,7 +52,7 @@ export function useEthereumVerifyAndClaim(
             }),
         ]);
 
-        const availability = (await readContract(config, {
+        const availability = (await readContract(wagmiConfig, {
             abi: RED_PACKET_ABI,
             functionName: 'check_availability',
             address: getRedPacketContractAddress(payload.chainId!),

@@ -5,6 +5,7 @@ import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import { PrivySolanaWalletAdapter } from '@/connectors/PrivySolanaWalletAdapter.js';
 
 const privySolanaWalletAdapter = new PrivySolanaWalletAdapter() as unknown as BaseWalletAdapter;
+
 export const solanaAdapter = new SolanaAdapter({
     wallets: [new PhantomWalletAdapter() as unknown as BaseWalletAdapter, privySolanaWalletAdapter],
 });

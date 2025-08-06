@@ -2,7 +2,7 @@ import type { SessionClient } from '@lens-protocol/client';
 
 import { SEVEN_DAYS } from '@/constants/index.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
-import { ensureLensResultSync } from '@/providers/lens/ensureLensResult.js';
+import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { LensSession } from '@/providers/lens/Session.js';
 
 export async function refreshLensSession(sdk: SessionClient) {

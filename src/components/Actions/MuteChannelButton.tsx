@@ -5,7 +5,7 @@ import MuteIcon from '@/assets/mute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children' | 'onToggle'> {

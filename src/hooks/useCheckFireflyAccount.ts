@@ -4,12 +4,12 @@ import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/for
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export function useCheckFireflyAccount(withSyncing = true, forceQuery = false) {
     const isSyncing = useAsyncStatusAll();
     const { preferences, rehydrating, setPreference } = usePreferencesState();
-    const { currentProfileSession } = useFireflyStateStore();
+    const { currentProfileSession } = useFireflyProfileStore();
 
     const accountId = currentProfileSession?.profileId;
     const hasChecked = preferences.FIREFLY_ACCOUNT_CHECKED_MAP[accountId || ''] ?? false;

@@ -16,7 +16,7 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { AbortError, FireflyAlreadyBoundError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -25,10 +25,11 @@ import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { LoginModalRef, WalletConnectModalRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/LoginModal/index.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
 import { enableSignlessForManaged } from '@/providers/lens/enableSignlessForManaged.js';
-import { ensureLensResultSync } from '@/providers/lens/ensureLensResult.js';
+import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -66,7 +67,7 @@ export const LensView = memo(function LensView() {
         queryKey: ['lens', 'profiles', account.address],
         queryFn: async () => {
             try {
-                const { account } = await getWalletClient(config);
+                const { account } = await getWalletClient(wagmiConfig);
                 if (!account) return EMPTY_LIST;
                 const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
                 return uniqBy(profiles ?? EMPTY_LIST, (x) => x.profileId);

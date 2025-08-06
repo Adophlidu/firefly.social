@@ -1,15 +1,15 @@
 import type { BlobRef } from '@atproto/api';
 import urlcat from 'urlcat';
 
-import { FileMimeType, Source } from '@/constants/enum.js';
+import { FileMimeType } from '@/constants/enum.js';
 import { BSKY_VIDEO_ENDPOINT } from '@/constants/index.js';
 import { delay } from '@/helpers/delay.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveExtFromMimeType } from '@/helpers/resolveExtFromMimeType.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 
 interface UploadLimits {
     canUpload: boolean;
@@ -82,7 +82,7 @@ async function checkUploadLimits(file: File, signal?: AbortSignal) {
     }
 }
 
-async function setupUploadJob(file: File, bskyProfile: Profile, signal?: AbortSignal) {
+async function setupUploadJob(profileId: string, file: File, signal?: AbortSignal) {
     const uploadAuthToken = await getServiceAuthToken(
         {
             lxm: 'com.atproto.repo.uploadBlob',
@@ -92,7 +92,7 @@ async function setupUploadJob(file: File, bskyProfile: Profile, signal?: AbortSi
     );
     const job = await fetchJson<UploadJob>(
         urlcat(BSKY_VIDEO_ENDPOINT, '/app.bsky.video.uploadVideo', {
-            did: bskyProfile.profileId,
+            did: profileId,
             name: `${crypto.randomUUID()}.${resolveExtFromMimeType(file.type as FileMimeType)}`,
         }),
         {
@@ -140,13 +140,11 @@ async function waitForJobCompletion(jobId: string, signal?: AbortSignal) {
 }
 
 export async function uploadVideoToBsky(file: File, signal?: AbortSignal) {
-    const bskyProfile = getCurrentProfile(Source.Bsky);
-    if (!bskyProfile) {
-        throw new Error('No Bsky profile found');
-    }
+    const session = getSessionFromStorage(SessionType.Bsky);
+    if (!session) throw new Error('No Bsky profile found');
 
     await checkUploadLimits(file, signal);
 
-    const jobId = await setupUploadJob(file, bskyProfile, signal);
+    const jobId = await setupUploadJob(session.profileId, file, signal);
     return waitForJobCompletion(jobId, signal);
 }

@@ -6,7 +6,7 @@ import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { SwapModalOpenProps } from '@/modals/SwapModal/SwapModalContent.js';
 
 const SwapModalContent = dynamic(
@@ -37,3 +37,5 @@ export function SwapModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const SwapModalRef = new SingletonModal<SwapModalOpenProps>();

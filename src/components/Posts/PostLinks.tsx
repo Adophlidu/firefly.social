@@ -9,7 +9,6 @@ import { PostLinkContent } from '@/components/Posts/PostLinkContent.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { SUPPORTED_MULTIPLE_EMBED_SOURCES } from '@/constants/index.js';
 import { LINK_MARK_RE } from '@/constants/linkRegExp.js';
-import type { Chars } from '@/helpers/chars.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
@@ -18,6 +17,7 @@ import { resolveAllOembedUrls, resolveOembedUrl } from '@/helpers/resolveOembedU
 import { useClassifyPostLink, useClassifyPostLinkMultiple } from '@/hooks/useClassifyPostLink.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Chars } from '@/types/chars.js';
 import type { ComposeType } from '@/types/compose.js';
 
 interface Props {

@@ -14,7 +14,7 @@ import { FARCASTER_REPLY_URL, SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -22,7 +22,7 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { Popover } from '@/modals/FrameViewerModal/Popover.js';
 import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 import { pollingChannelToken } from '@/providers/warpcast/pollingChannelToken.js';
 import type { FrameV2 } from '@/types/frame.js';
 
@@ -94,11 +94,11 @@ export function RelayConfirmationPopover({ ref }: Props) {
             if (!data?.channelToken) return;
 
             const signed = await pollingChannelToken(data.channelToken, controller.current.signal);
-            const currentProfile = getCurrentProfile(Source.Farcaster);
+            const session = getSessionFromStorage(SessionType.Farcaster);
 
             captureFrameSignInEvent('siwf', props.frame);
 
-            if (currentProfile && `${signed.fid}` === currentProfile.profileId) {
+            if (session && `${signed.fid}` === session.profileId) {
                 dispatch?.close({
                     authMethod: 'custody',
                     message: signed.message,

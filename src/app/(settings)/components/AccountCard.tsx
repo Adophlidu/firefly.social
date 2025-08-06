@@ -22,7 +22,7 @@ import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.j
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
-import { DisconnectFireflyAccountModalRef } from '@/modals/controls.js';
+import { DisconnectFireflyAccountModalRef } from '@/modals/DisconnectFireflyAccountModal.js';
 import type { Account } from '@/providers/types/Account.js';
 
 function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'origin'> }) {

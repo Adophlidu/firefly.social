@@ -6,7 +6,7 @@ import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { isTrustedUrl } from '@/helpers/isTrustedUrl.js';
 import { openUrl } from '@/helpers/openUrl.js';
 import { useInternalLink } from '@/hooks/useInternalLink.js';
-import { ConfirmLeavingModalRef } from '@/modals/controls.js';
+import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal.js';
 
 type Props = PropsWithChildren<Omit<LinkProps, 'href'>> &
     Pick<HTMLProps<HTMLAnchorElement>, 'className' | 'target' | 'ref'> & { href: string };

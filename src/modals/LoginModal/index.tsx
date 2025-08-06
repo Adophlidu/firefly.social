@@ -8,7 +8,7 @@ import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { MainView } from '@/modals/LoginModal/MainView.js';
 import { routeTree } from '@/modals/LoginModal/routes.js';
 
@@ -91,3 +91,5 @@ export function LoginModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const LoginModalRef = new SingletonModal<LoginModalOpenProps | void>();

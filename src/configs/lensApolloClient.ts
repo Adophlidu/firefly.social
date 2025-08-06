@@ -2,15 +2,13 @@ import { ApolloClient, ApolloLink, from, fromPromise, HttpLink, InMemoryCache, t
 import { RetryLink } from '@apollo/client/link/retry';
 import { isServer } from '@tanstack/react-query';
 
-import { Source } from '@/constants/enum.js';
 import { LENS_API_URL } from '@/constants/index.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { getLensCredentialsFromStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
 import { parseLensAccessToken } from '@/providers/lens/parseLensAccessToken.js';
 import { resumeLensSession } from '@/providers/lens/resumeLensSession.js';
-import type { LensSession } from '@/providers/lens/Session.js';
-import { useLensStateStore } from '@/store/useProfileStore.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 
 const httpLink = new HttpLink({
     uri: LENS_API_URL,
@@ -26,12 +24,11 @@ const retryLink = new RetryLink({
 const authLink = new ApolloLink((operation, next) => {
     if (isServer) return next(operation);
 
-    const profile = getCurrentProfile(Source.Lens);
-    if (!profile) return next(operation);
+    const lensSession = getSessionFromStorage(SessionType.Lens);
+    if (!lensSession) return next(operation);
 
     const credentials = runInSafe(() => {
         const localCredentials = getLensCredentialsFromStorage();
-        const lensSession = useLensStateStore.getState().currentProfileSession as LensSession | null;
         return {
             accessToken: localCredentials?.data.accessToken || lensSession?.token,
             refreshToken: localCredentials?.data.refreshToken || lensSession?.refreshToken,
@@ -51,7 +48,7 @@ const authLink = new ApolloLink((operation, next) => {
     }
 
     return fromPromise(
-        resumeLensSession(profile.profileId)
+        resumeLensSession(lensSession.profileId)
             .then((newToken) => {
                 if (!newToken) return toPromise(next(operation));
 

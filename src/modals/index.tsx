@@ -3,81 +3,95 @@
 import { memo } from 'react';
 
 import { NoSSR } from '@/components/NoSSR.js';
-import { AddCustomERC20Modal } from '@/modals/AddCustomERC20Modal.js';
-import { AddCustomERC721Modal } from '@/modals/AddCustomERC721Modal.js';
-import { AddWalletModal } from '@/modals/AddWalletModal/index.js';
-import { CollectArticleModal } from '@/modals/CollectArticleModal.js';
-import { CollectPostModal } from '@/modals/CollectPostModal.js';
-import { ComposeModal } from '@/modals/ComposeModal.js';
-import { ConfirmFireflyModal } from '@/modals/ConfirmFireflyModal.js';
-import { ConfirmLeavingModal } from '@/modals/ConfirmLeavingModal.js';
-import { ConfirmModal } from '@/modals/ConfirmModal.js';
-import { ConfirmSyncSessionModal } from '@/modals/ConfirmSyncSessionModal.js';
-import * as controls from '@/modals/controls.js';
-import { CreateFireflyAccountGuideModal } from '@/modals/CreateFireflyAccountGuideModal/index.js';
-import { DisconnectFireflyAccountModal } from '@/modals/DisconnectFireflyAccountModal.js';
-import { DraggablePopover } from '@/modals/DraggablePopover.js';
-import { EditCrossAtModal } from '@/modals/EditCrossAtModal.js';
-import { EditFireflyProfileModal } from '@/modals/EditFireflyProfileModal/EditFireflyProfileModal.js';
-import { EnableSignlessModal } from '@/modals/EnableSignlessModal.js';
-import { FrameViewerModal } from '@/modals/FrameViewerModal/FrameViewerModal.js';
-import { FreeMintModal } from '@/modals/FreeMintModal/index.js';
-import { ImageEditorModal } from '@/modals/ImageEditorModal.js';
-import { LoginModal } from '@/modals/LoginModal/index.js';
-import { LogoutModal } from '@/modals/LogoutModal.js';
-import { MyWalletsModal } from '@/modals/MyWalletsModal/index.js';
-import { NonFungibleCollectionSelectModal } from '@/modals/NonFungibleCollectionSelectModal/index.js';
-import { PasswordModal } from '@/modals/PasswordModal/index.js';
-import { PreviewMediaModal } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
-import { RedPacketModal } from '@/modals/RedPacketModal/index.js';
-import { SchedulePostModal } from '@/modals/SchedulePostModal.js';
-import { ShareImageModal } from '@/modals/ShareImageModal/index.js';
-import { SignInWithFireflyAppModal } from '@/modals/SignInWithFireflyAppModal.js';
-import { Snackbar } from '@/modals/Snackbar.js';
-import { SwapModal } from '@/modals/SwapModal/SwapModal.js';
-import { TipsModal } from '@/modals/TipsModal/index.js';
-import { TokenSelectorModal } from '@/modals/TokenSelectorModal.js';
-import { TransactionSimulatorModal } from '@/modals/TransactionSimulatorModal/TransactionSimulatorModal.js';
-import { WalletConnectModal } from '@/modals/WalletConnectModal/index.js';
+import { AddCustomERC20Modal, AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
+import { AddCustomERC721Modal, AddCustomERC721ModalRef } from '@/modals/AddCustomERC721Modal.js';
+import { AddWalletModal, AddWalletModalRef } from '@/modals/AddWalletModal/index.js';
+import { CollectArticleModal, CollectArticleModalRef } from '@/modals/CollectArticleModal.js';
+import { CollectPostModal, CollectPostModalRef } from '@/modals/CollectPostModal.js';
+import { ComposeModal, ComposeModalRef } from '@/modals/ComposeModal.js';
+import { ConfirmFireflyModal, ConfirmFireflyModalRef } from '@/modals/ConfirmFireflyModal.js';
+import { ConfirmLeavingModal, ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal.js';
+import { ConfirmModal, ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { ConfirmSyncSessionModal, ConfirmSyncSessionModalRef } from '@/modals/ConfirmSyncSessionModal.js';
+import {
+    CreateFireflyAccountGuideModal,
+    CreateFireflyAccountGuideModalRef,
+} from '@/modals/CreateFireflyAccountGuideModal/index.js';
+import {
+    DisconnectFireflyAccountModal,
+    DisconnectFireflyAccountModalRef,
+} from '@/modals/DisconnectFireflyAccountModal.js';
+import { DraggablePopover, DraggablePopoverRef } from '@/modals/DraggablePopover.js';
+import { EditCrossAtModal, EditCrossAtModalRef } from '@/modals/EditCrossAtModal.js';
+import {
+    EditFireflyProfileModal,
+    EditFireflyProfileModalRef,
+} from '@/modals/EditFireflyProfileModal/EditFireflyProfileModal.js';
+import { EnableSignlessModal, EnableSignlessModalRef } from '@/modals/EnableSignlessModal.js';
+import { FrameViewerModal, FrameViewerModalRef } from '@/modals/FrameViewerModal/FrameViewerModal.js';
+import { FreeMintModal, FreeMintModalRef } from '@/modals/FreeMintModal/index.js';
+import { ImageEditorModal, ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
+import { LoginModal, LoginModalRef } from '@/modals/LoginModal/index.js';
+import { LogoutModal, LogoutModalRef } from '@/modals/LogoutModal.js';
+import { MyWalletsModal, MyWalletsModalRef } from '@/modals/MyWalletsModal/index.js';
+import {
+    NonFungibleCollectionSelectModal,
+    NonFungibleTokenCollectionSelectModalRef,
+} from '@/modals/NonFungibleCollectionSelectModal/index.js';
+import { PasswordModal, PasswordModalRef } from '@/modals/PasswordModal/index.js';
+import { PreviewMediaModal, PreviewMediaModalRef } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
+import { RedPacketModal, RedPacketModalRef } from '@/modals/RedPacketModal/index.js';
+import { SchedulePostModal, SchedulePostModalRef } from '@/modals/SchedulePostModal.js';
+import { ShareImageModal, ShareImageModalRef } from '@/modals/ShareImageModal/index.js';
+import { SignInWithFireflyAppModal, SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal.js';
+import { Snackbar, SnackbarRef } from '@/modals/Snackbar.js';
+import { SwapModal, SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
+import { TipsModal, TipsModalRef } from '@/modals/TipsModal/index.js';
+import { TokenSelectorModal, TokenSelectorModalRef } from '@/modals/TokenSelectorModal.js';
+import {
+    TransactionSimulatorModal,
+    TransactionSimulatorModalRef,
+} from '@/modals/TransactionSimulatorModal/TransactionSimulatorModal.js';
+import { WalletConnectModal, WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 
 export const Modals = memo(function Modals() {
     return (
         <NoSSR>
-            <LoginModal ref={controls.LoginModalRef.register} />
-            <LogoutModal ref={controls.LogoutModalRef.register} />
-            <ComposeModal ref={controls.ComposeModalRef.register} />
-            <ConfirmModal ref={controls.ConfirmModalRef.register} />
-            <ConfirmFireflyModal ref={controls.ConfirmFireflyModalRef.register} />
-            <ConfirmLeavingModal ref={controls.ConfirmLeavingModalRef.register} />
-            <DraggablePopover ref={controls.DraggablePopoverRef.register} />
-            <Snackbar ref={controls.SnackbarRef.register} />
-            <TipsModal ref={controls.TipsModalRef.register} />
-            <PreviewMediaModal ref={controls.PreviewMediaModalRef.register} />
-            <SchedulePostModal ref={controls.SchedulePostModalRef.register} />
-            <CollectArticleModal ref={controls.CollectArticleModalRef.register} />
-            <EnableSignlessModal ref={controls.EnableSignlessModalRef.register} />
-            <CollectPostModal ref={controls.CollectPostModalRef.register} />
-            <AddWalletModal ref={controls.AddWalletModalRef.register} />
-            <TransactionSimulatorModal ref={controls.TransactionSimulatorModalRef.register} />
-            <DisconnectFireflyAccountModal ref={controls.DisconnectFireflyAccountModalRef.register} />
-            <TokenSelectorModal ref={controls.TokenSelectorModalRef.register} />
-            <RedPacketModal ref={controls.RedPacketModalRef.register} />
-            <NonFungibleCollectionSelectModal ref={controls.NonFungibleTokenCollectionSelectModalRef.register} />
-            <ImageEditorModal ref={controls.ImageEditorModalRef.register} />
-            <FreeMintModal ref={controls.FreeMintModalRef.register} />
-            <FrameViewerModal ref={controls.FrameViewerModalRef.register} />
-            <AddCustomERC20Modal ref={controls.AddCustomERC20ModalRef.register} />
-            <AddCustomERC721Modal ref={controls.AddCustomERC721ModalRef.register} />
-            <WalletConnectModal ref={controls.WalletConnectModalRef.register} />
-            <MyWalletsModal ref={controls.MyWalletsModalRef.register} />
-            <EditFireflyProfileModal ref={controls.EditFireflyProfileModalRef.register} />
-            <SwapModal ref={controls.SwapModalRef.register} />
-            <SignInWithFireflyAppModal ref={controls.SignInWithFireflyAppModalRef.register} />
-            <PasswordModal ref={controls.PasswordModalRef.register} />
-            <EditCrossAtModal ref={controls.EditCrossAtModalRef.register} />
-            <ConfirmSyncSessionModal ref={controls.ConfirmSyncSessionModalRef.register} />
-            <CreateFireflyAccountGuideModal ref={controls.CreateFireflyAccountGuideModalRef.register} />
-            <ShareImageModal ref={controls.ShareImageModalRef.register} />
+            <LoginModal ref={LoginModalRef.register} />
+            <LogoutModal ref={LogoutModalRef.register} />
+            <ComposeModal ref={ComposeModalRef.register} />
+            <ConfirmModal ref={ConfirmModalRef.register} />
+            <ConfirmFireflyModal ref={ConfirmFireflyModalRef.register} />
+            <ConfirmLeavingModal ref={ConfirmLeavingModalRef.register} />
+            <DraggablePopover ref={DraggablePopoverRef.register} />
+            <Snackbar ref={SnackbarRef.register} />
+            <TipsModal ref={TipsModalRef.register} />
+            <PreviewMediaModal ref={PreviewMediaModalRef.register} />
+            <SchedulePostModal ref={SchedulePostModalRef.register} />
+            <CollectArticleModal ref={CollectArticleModalRef.register} />
+            <EnableSignlessModal ref={EnableSignlessModalRef.register} />
+            <CollectPostModal ref={CollectPostModalRef.register} />
+            <AddWalletModal ref={AddWalletModalRef.register} />
+            <TransactionSimulatorModal ref={TransactionSimulatorModalRef.register} />
+            <DisconnectFireflyAccountModal ref={DisconnectFireflyAccountModalRef.register} />
+            <TokenSelectorModal ref={TokenSelectorModalRef.register} />
+            <RedPacketModal ref={RedPacketModalRef.register} />
+            <NonFungibleCollectionSelectModal ref={NonFungibleTokenCollectionSelectModalRef.register} />
+            <ImageEditorModal ref={ImageEditorModalRef.register} />
+            <FreeMintModal ref={FreeMintModalRef.register} />
+            <FrameViewerModal ref={FrameViewerModalRef.register} />
+            <AddCustomERC20Modal ref={AddCustomERC20ModalRef.register} />
+            <AddCustomERC721Modal ref={AddCustomERC721ModalRef.register} />
+            <WalletConnectModal ref={WalletConnectModalRef.register} />
+            <MyWalletsModal ref={MyWalletsModalRef.register} />
+            <EditFireflyProfileModal ref={EditFireflyProfileModalRef.register} />
+            <SwapModal ref={SwapModalRef.register} />
+            <SignInWithFireflyAppModal ref={SignInWithFireflyAppModalRef.register} />
+            <PasswordModal ref={PasswordModalRef.register} />
+            <EditCrossAtModal ref={EditCrossAtModalRef.register} />
+            <ConfirmSyncSessionModal ref={ConfirmSyncSessionModalRef.register} />
+            <CreateFireflyAccountGuideModal ref={CreateFireflyAccountGuideModalRef.register} />
+            <ShareImageModal ref={ShareImageModalRef.register} />
         </NoSSR>
     );
 });

@@ -13,7 +13,7 @@ import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
-import { useFarcasterStateStore } from '@/store/useProfileStore.js';
+import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 import { type ComposeType } from '@/types/compose.js';
 
 export interface FarcasterSchedulePostPayload {
@@ -37,7 +37,7 @@ export async function createFarcasterSchedulePostPayload(
     const sourceName = resolveSourceName(Source.Farcaster);
     const farcasterParentPost = parentPost.Farcaster;
     // login required
-    const { currentProfile } = useFarcasterStateStore.getState();
+    const { currentProfile } = useFarcasterProfileStore.getState();
     if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
     const imageResults = await Promise.all(

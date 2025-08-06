@@ -11,11 +11,11 @@ import urlcat from 'urlcat';
 
 import ReloadIcon from '@/assets/reload.svg';
 import { CloseButton } from '@/components/IconButton.js';
-import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { SITE_URL, SITE_URL_OFFICIAL } from '@/constants/index.js';
+import { Link } from '@/esm/Link.js';
 import { bom } from '@/helpers/bom.js';
 import { classNames } from '@/helpers/classNames.js';
 import { delay } from '@/helpers/delay.js';
@@ -23,7 +23,7 @@ import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openAppSchemes } from '@/helpers/openAppSchemes.js';
 import { usePollingAppScanLogin } from '@/hooks/usePollingAppScanLogin.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { DeviceType } from '@/types/device.js';
 
@@ -215,3 +215,5 @@ function SchemaLink({ url, session, otp }: { url: string; otp: string; session: 
         </div>
     );
 }
+
+export const SignInWithFireflyAppModalRef = new SingletonModal();

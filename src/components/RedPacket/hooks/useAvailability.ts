@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 import { readContract } from 'wagmi/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { type EthereumChainId } from '#masknet/web3-shared-evm';
 
@@ -23,7 +23,7 @@ export function useAvailability(
         enabled,
         queryFn: async () => {
             if (!id) return null;
-            const data = await readContract(config, {
+            const data = await readContract(wagmiConfig, {
                 abi: RED_PACKET_ABI,
                 functionName: 'check_availability',
                 address: getRedPacketContractAddress(chainId),

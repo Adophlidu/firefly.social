@@ -22,7 +22,9 @@ import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
-import { CollectArticleModalRef, DraggablePopoverRef, WalletConnectModalRef } from '@/modals/controls.js';
+import { CollectArticleModalRef } from '@/modals/CollectArticleModal.js';
+import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 

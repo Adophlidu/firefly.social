@@ -10,10 +10,10 @@ import { Modal } from '@/components/Modal.js';
 import { enqueueInfoMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { enableSignlessForManaged } from '@/providers/lens/enableSignlessForManaged.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { useLensStateStore } from '@/store/useProfileStore.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<void, boolean>>;
@@ -21,8 +21,8 @@ type Props = {
 
 export function EnableSignlessModal({ ref }: Props) {
     const account = useAccount();
-    const currentProfile = useLensStateStore.use.currentProfile();
-    const currentProfileSession = useLensStateStore.use.currentProfileSession();
+    const currentProfile = useLensProfileStore.use.currentProfile();
+    const currentProfileSession = useLensProfileStore.use.currentProfileSession();
 
     const [open, dispatch] = useSingletonModal(ref);
 
@@ -83,3 +83,5 @@ export function EnableSignlessModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const EnableSignlessModalRef = new SingletonModal<void, boolean>();

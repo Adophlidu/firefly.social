@@ -8,7 +8,7 @@ import { getTransactionReceipt, writeContract } from 'wagmi/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { EMPTY_LIST, SITE_URL } from '@/constants/index.js';
 import {
     DEFAULT_THEME_ID,
@@ -111,7 +111,7 @@ export function useEthereumCreateRedPacketCallback(
 
             const value = toFixed(params.params.token?.schema === EthereumSchemaType.Native ? total : 0);
 
-            const result = await writeContract(config, {
+            const result = await writeContract(wagmiConfig, {
                 address: getRedPacketContractAddress(chainId),
                 abi: RED_PACKET_ABI,
                 functionName: 'create_red_packet',
@@ -134,7 +134,7 @@ export function useEthereumCreateRedPacketCallback(
             if (!result) return;
 
             await waitForEthereumTransaction(chainId, result);
-            const receipt = await getTransactionReceipt(config, {
+            const receipt = await getTransactionReceipt(wagmiConfig, {
                 hash: result,
                 chainId,
             });

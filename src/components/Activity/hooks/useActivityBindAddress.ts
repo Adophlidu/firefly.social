@@ -10,7 +10,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { AddWalletModalRef } from '@/modals/controls.js';
+import { AddWalletModalRef } from '@/modals/AddWalletModal/index.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityConnectWalletEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { Network, SupportedMethod } from '@/types/bridge.js';

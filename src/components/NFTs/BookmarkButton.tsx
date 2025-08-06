@@ -11,7 +11,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useHasBookmarked } from '@/hooks/useHasBookmarked.js';
 import { useToggleNFTBookmark } from '@/hooks/useToggleNFTBookmark.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 
 interface BookmarkButtonProps extends Omit<ClickableButtonProps, 'children'> {
     nftId: string;

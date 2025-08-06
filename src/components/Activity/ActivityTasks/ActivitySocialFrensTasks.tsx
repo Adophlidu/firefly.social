@@ -15,13 +15,13 @@ import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/use
 import { IS_ANDROID } from '@/constants/browser.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
-import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
 import { resolveActivityShareUrl } from '@/helpers/resolveActivityUrl.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
+import type { Chars } from '@/types/chars.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 const sources: SocialSource[] = [Source.Lens, Source.Farcaster];

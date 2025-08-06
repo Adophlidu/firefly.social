@@ -16,12 +16,10 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import {
-    ConfirmFireflyModalRef,
-    ConfirmSyncSessionModalRef,
-    LoginModalRef,
-    PasswordModalRef,
-} from '@/modals/controls.js';
+import { ConfirmFireflyModalRef } from '@/modals/ConfirmFireflyModal.js';
+import { ConfirmSyncSessionModalRef } from '@/modals/ConfirmSyncSessionModal.js';
+import { LoginModalRef } from '@/modals/LoginModal/index.js';
+import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
 import { getBskySessionStorage } from '@/providers/bsky/createBskyAgent.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
@@ -46,7 +44,8 @@ import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 import { downloadAccounts, mergeMetrics, uploadMetrics } from '@/services/metrics.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
-import { useFireflyStateStore, useThirdPartyStateStore } from '@/store/useProfileStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
+import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
 import { useTokenPasswordStore } from '@/store/useTokenPasswordStore.js';
 
 function getContext(source: ProfileSource) {
@@ -67,7 +66,7 @@ function getFireflySession(account: Account) {
 function hasAnySocialProfile() {
     return (
         SORTED_SOCIAL_SOURCES.some((x) => !!getProfileState(x).currentProfile) ||
-        useThirdPartyStateStore.getState().currentProfile
+        useThirdPartyProfileStore.getState().currentProfile
     );
 }
 
@@ -96,7 +95,7 @@ async function updateState(accounts: Account[], { setAsCurrent = true, overwrite
             }),
         );
 
-        const thirdPartyState = useThirdPartyStateStore.getState();
+        const thirdPartyState = useThirdPartyProfileStore.getState();
         const thirdPartyAccounts = thirdPartyState.accounts;
 
         if (thirdPartyAccounts.length) {
@@ -178,7 +177,7 @@ async function resumeFireflySession(account: Account, signal?: AbortSignal): Pro
  */
 async function removeFireflyAccountIfNeeded() {
     if (hasAnySocialProfile()) return;
-    useFireflyStateStore.getState().clear();
+    useFireflyProfileStore.getState().clear();
     usePreferencesState.getState().resetPreferences();
     fireflySessionHolder.removeSession();
 }
@@ -685,7 +684,7 @@ export async function removeAllAccounts() {
     });
 
     SORTED_THIRD_PARTY_SOURCES.forEach(async (x) => {
-        const state = useThirdPartyStateStore.getState();
+        const state = useThirdPartyProfileStore.getState();
         if (!state.accounts.length) return;
 
         state.clear();

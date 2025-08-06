@@ -1,7 +1,8 @@
 import { CoreChainController, CoreStorageUtil } from '@reown/appkit';
 import { disconnect, getAccount, getChainId, getConnections } from 'wagmi/actions';
 
-import { appkit, config } from '@/configs/wagmiClient.js';
+import { appkit } from '@/configs/appkit.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { switchNetwork } from '@/modals/MyWalletsModal/switchNetwork.js';
 import type { ChainNamespace } from '@/types/index.js';
 
@@ -16,7 +17,7 @@ export function rewriteDisconnectMethod(namespace: ChainNamespace, connectorId?:
 
             const chains = CoreChainController.state.chains;
             const adapter = chains.get(namespace);
-            const connections = getConnections(config);
+            const connections = getConnections(wagmiConfig);
             const connectedChains = Array.from(chains.values()).filter(
                 (x) => x.accountState?.status === 'connected' && x.accountState.address,
             );
@@ -34,11 +35,11 @@ export function rewriteDisconnectMethod(namespace: ChainNamespace, connectorId?:
             // for evm, disconnect the specified connector and recover the next connected chain
             if (namespace === 'eip155') {
                 const connector = connections.find((x) => x.connector.id === connectorId)?.connector;
-                await disconnect(config, {
+                await disconnect(wagmiConfig, {
                     connector,
                 });
-                const address = getAccount(config)?.address;
-                const chainId = getChainId(config);
+                const address = getAccount(wagmiConfig)?.address;
+                const chainId = getChainId(wagmiConfig);
                 if (address && chainId) {
                     appkit.setCaipAddress(`eip155:${chainId}:${address}`, namespace);
                     pendingNamespace.delete(namespace);
@@ -59,7 +60,7 @@ export function rewriteDisconnectMethod(namespace: ChainNamespace, connectorId?:
             );
             if (!connected) return;
             appkit.setStatus('connected', connected[0]);
-            const chainId = getChainId(config);
+            const chainId = getChainId(wagmiConfig);
             await switchNetwork(connected[0], chainId);
         } catch (error) {
             pendingNamespace.delete(namespace);

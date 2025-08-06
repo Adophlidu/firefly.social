@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useAccount } from 'wagmi';
 import { estimateFeesPerGas, getBalance } from 'wagmi/actions';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { isGreaterThan, multipliedBy, plus, ZERO } from '@/helpers/number.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -22,13 +22,13 @@ export function useArticleCollectStatus(article: Article) {
                     article.platform,
                 );
 
-                const balance = await getBalance(config, {
+                const balance = await getBalance(wagmiConfig, {
                     address: account.address,
                     chainId: data.chainId,
                 });
 
                 const isEIP1559 = EVMChainResolver.isFeatureSupported(data.chainId, 'EIP1559');
-                const { gasPrice, maxFeePerGas } = await estimateFeesPerGas(config, {
+                const { gasPrice, maxFeePerGas } = await estimateFeesPerGas(wagmiConfig, {
                     chainId: data.chainId,
                     type: isEIP1559 ? 'eip1559' : 'legacy',
                 });

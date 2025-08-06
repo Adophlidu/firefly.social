@@ -23,7 +23,7 @@ import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import { ImageEditorModalRef } from '@/modals/controls.js';
+import { ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export type AvatarType = 'pfp' | 'random' | 'custom';

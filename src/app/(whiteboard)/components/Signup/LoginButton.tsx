@@ -6,7 +6,7 @@ import MenuIcon from '@/assets/menu-white.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/LoginModal/index.js';
 
 interface LoginButtonProps {
     source: SocialSource | 'other';

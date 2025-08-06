@@ -1,12 +1,12 @@
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
-import { CHAR_TAG, type MentionChars } from '@/helpers/chars.js';
+import { CharTag, FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getAllPlatformProfileByIdentity } from '@/providers/firefly/getAllPlatformProfileByIdentity.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
+import { type MentionChars } from '@/types/chars.js';
 
 function getMatchedMentionProfile(fireflyProfiles: FireflyProfile[], source: SocialSource) {
     const defaultProfile = fireflyProfiles.find((profile) => profile.identity.source === source && profile.isDefault);
@@ -23,7 +23,7 @@ export async function getMentionCharsByIdentity(identity: FireflyIdentity, targe
     const fireflyProfiles = await queryClient.fetchQuery<FireflyProfile[]>({
         queryKey: ['related-profiles', identity.source, identity.id],
         staleTime: 1000 * 60 * 60, // 1 hour
-        queryFn: () => FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false),
+        queryFn: () => getAllPlatformProfileByIdentity(identity, false),
     });
 
     let mentionProfiles: FireflyProfile[] = [];
@@ -35,7 +35,7 @@ export async function getMentionCharsByIdentity(identity: FireflyIdentity, targe
     if (!mentionProfiles.length) return null;
 
     return {
-        tag: CHAR_TAG.MENTION,
+        tag: CharTag.MENTION,
         visible: true,
         content: `@${mentionProfiles[0].displayName}`,
         profiles: compact(

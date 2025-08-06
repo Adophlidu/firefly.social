@@ -2,7 +2,7 @@ import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import type { SocialSource } from '@/constants/enum.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import type { Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
 import type { ClassType } from '@/types/index.js';
 
@@ -10,7 +10,7 @@ const METHODS_BE_OVERRIDDEN = ['vote'] as const;
 
 function updatePollFromQueryData(data: VoteResponseData, source: SocialSource, pollId: string) {
     if (!data?.is_success) return;
-    const profile = getCurrentProfile(source);
+    const profile = getSessionFromStorageBySource(source);
     queryClient.setQueriesData<Poll>(
         {
             queryKey: ['poll', source, pollId, profile?.profileId],

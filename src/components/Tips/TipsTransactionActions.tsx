@@ -22,7 +22,6 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { Source, TipsDetailViewType, TipsNotificationType, TxReactionType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
-import { type MentionChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.js';
@@ -32,9 +31,10 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useToggleTipLikeStatus } from '@/hooks/useToggleTipLikeStatus.js';
-import type { ComposeModalOpenProps } from '@/modals/ComposeModal.js';
-import { ComposeModalRef, ShareImageModalRef } from '@/modals/controls.js';
+import { type ComposeModalOpenProps, ComposeModalRef } from '@/modals/ComposeModal.js';
+import { ShareImageModalRef } from '@/modals/ShareImageModal/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { type MentionChars } from '@/types/chars.js';
 
 interface TipsTransactionActionsProps extends HTMLProps<HTMLDivElement> {
     txHash: string;

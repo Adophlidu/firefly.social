@@ -8,7 +8,8 @@ import { SetQueryDataForBookmarkNFT } from '@/decorators/SetQueryDataForBookmark
 import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
-import { getCurrentProfile, getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
+import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import { isZero } from '@/helpers/number.js';
 import { omitEmptyParams } from '@/helpers/omitEmptyParams.js';
@@ -31,8 +32,11 @@ import {
 } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
+import { getFarcasterFriendship } from '@/providers/farcaster/getFarcasterFriendship.js';
+import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getFireflyBookmarksByIds } from '@/providers/firefly/getFireflyBookmarkIds.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
@@ -55,8 +59,6 @@ import {
     type FireflyFarcasterProfileResponse,
     type FireflySnapshotActivity,
     type FollowingSnapshotActivity,
-    type FriendshipResponse,
-    type GetBookmarksResponse,
     type MutualFollowersResponse,
     type NFTBookmarkContent,
     type NFTDetail,
@@ -73,13 +75,11 @@ import {
     type SetNotificationPushSwitchParams,
     type ThreadResponse,
     type User,
-    type UserResponse,
     type UsersResponse,
 } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
-    type Friendship,
     type Notification,
     NotificationType,
     type Post,
@@ -330,7 +330,7 @@ class FireflySocialMedia implements Provider {
 
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
-            const profile = getCurrentProfile(Source.Farcaster);
+            const profile = getProfileFromStorage(Source.Farcaster);
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/trending_casts', {
                 channelUrl: channel.url,
                 channelHandle: channel.id,
@@ -443,20 +443,9 @@ class FireflySocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
-        return farcasterSessionHolder.withSession(async (session) => {
-            const response = await fireflySessionHolder.fetch<UserResponse>(
-                urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', {
-                    fid: profileId,
-                    sourceFid: session?.profileId,
-                }),
-                {
-                    method: 'GET',
-                },
-            );
-            const user = resolveFireflyResponseData(response);
-            const friendship = await this.getFriendship(profileId);
-            return formatFarcasterProfileFromFirefly({ ...user, ...friendship });
-        });
+        return farcasterSessionHolder.withSession(async (session) =>
+            getFarcasterProfileById(profileId, session?.profileId),
+        );
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -876,19 +865,9 @@ class FireflySocialMedia implements Provider {
     }
 
     async getFriendship(profileId: string) {
-        return farcasterSessionHolder.withSession(async (session) => {
-            if (!session) return null;
-            const response = await fetchJson<FriendshipResponse>(
-                urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/friendship', {
-                    sourceFid: session?.profileId,
-                    destFid: profileId,
-                }),
-                {
-                    method: 'GET',
-                },
-            );
-            return resolveFireflyResponseData<Friendship>(response);
-        });
+        return farcasterSessionHolder.withSession((session) =>
+            session ? getFarcasterFriendship(session.profileId, profileId) : null,
+        );
     }
 
     async getThreadByPostId(postId: string, localPost?: Post) {
@@ -1255,13 +1234,13 @@ class FireflySocialMedia implements Provider {
             PageIndicator
         >
     > {
-        const profile = getCurrentProfile(Source.Farcaster);
+        const session = getSessionFromStorage(SessionType.Farcaster);
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
             post_type: BookmarkType.All,
             platforms: 'nft',
             limit: 25,
             cursor: indicator?.id || undefined,
-            fid: profile?.profileId,
+            fid: session?.profileId,
         });
 
         const response = await fireflySessionHolder.fetch<BookmarkResponse<NFTBookmarkContent>>(url);
@@ -1294,22 +1273,7 @@ class FireflySocialMedia implements Provider {
     }
 
     async getBookmarksByIds(platform: FireflyPlatform, ids: string[], postType = BookmarkType.All) {
-        const profiles = getCurrentProfileAll();
-        if (!Object.values(profiles).some((x) => !!x?.profileId)) return EMPTY_LIST;
-
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/query/ids');
-
-        const response = await fireflySessionHolder.fetch<GetBookmarksResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                post_ids: ids,
-                platform: platform === FireflyPlatform.NFTs ? 'nft' : platform,
-                post_type: postType,
-            }),
-        });
-        const data = resolveFireflyResponseData(response);
-
-        return data.list;
+        return getFireflyBookmarksByIds(platform, ids, postType);
     }
 
     async decryptPost(post: Post): Promise<Post> {

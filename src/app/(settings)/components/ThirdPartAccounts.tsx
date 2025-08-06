@@ -21,7 +21,7 @@ import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { formatThirdPartyProfileName } from '@/providers/lens/formatThirdPartyProfileName.js';
 import type { Account } from '@/providers/types/Account.js';
-import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
+import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
 
 interface ThirdPartItemProps {
     source: ThirdPartySource | Source.Email;
@@ -106,7 +106,7 @@ const platforms = [
 ] as const;
 
 export function ThirdPartAccounts() {
-    const { accounts } = useThirdPartyStateStore();
+    const { accounts } = useThirdPartyProfileStore();
     const profileIds = useCurrentProfileIds();
 
     const allProfileIds = useMemo(() => {

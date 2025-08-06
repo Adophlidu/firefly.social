@@ -13,7 +13,7 @@ import type { Poll } from '@/providers/types/Poll.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
-import { useTwitterStateStore } from '@/store/useProfileStore.js';
+import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
 export async function postToTwitter(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
@@ -27,7 +27,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
     if (twitterPostId) return;
 
     // login required
-    const { currentProfile } = useTwitterStateStore.getState();
+    const { currentProfile } = useTwitterProfileStore.getState();
     if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
     const composeDraft = (postType: PostType, images: MediaObject[], videos: MediaObject[], polls?: Poll[]) => {

@@ -24,7 +24,6 @@ import {
     TRUE_PENGU_NFT_ADDRESS,
 } from '@/constants/index.js';
 import { FIREFLY_MENTION, FIREFLY_TWITTER_PROFILE, PUDGY_PENGUINS_TWITTER_PROFILE } from '@/constants/mentions.js';
-import { type Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
@@ -32,6 +31,7 @@ import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
+import { type Chars } from '@/types/chars.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 import { SolanaChainId as SolChainId } from '#masknet/web3-shared-solana';
 

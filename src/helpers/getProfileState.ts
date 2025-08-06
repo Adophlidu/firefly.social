@@ -1,24 +1,22 @@
 import { type ProfileSource, Source } from '@/constants/enum.js';
-import {
-    useBskyStateStore,
-    useFarcasterStateStore,
-    useFireflyStateStore,
-    useLensStateStore,
-    useThirdPartyStateStore,
-    useTwitterStateStore,
-} from '@/store/useProfileStore.js';
+import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
+import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
+import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
+import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 export function getProfileState(source: ProfileSource) {
     const store = {
-        [Source.Farcaster]: useFarcasterStateStore,
-        [Source.Lens]: useLensStateStore,
-        [Source.Twitter]: useTwitterStateStore,
-        [Source.Bsky]: useBskyStateStore,
-        [Source.Firefly]: useFireflyStateStore,
-        [Source.Google]: useThirdPartyStateStore,
-        [Source.Apple]: useThirdPartyStateStore,
-        [Source.Telegram]: useThirdPartyStateStore,
-        [Source.Email]: useThirdPartyStateStore,
+        [Source.Farcaster]: useFarcasterProfileStore,
+        [Source.Lens]: useLensProfileStore,
+        [Source.Twitter]: useTwitterProfileStore,
+        [Source.Bsky]: useBskyProfileStore,
+        [Source.Firefly]: useFireflyProfileStore,
+        [Source.Google]: useThirdPartyProfileStore,
+        [Source.Apple]: useThirdPartyProfileStore,
+        [Source.Telegram]: useThirdPartyProfileStore,
+        [Source.Email]: useThirdPartyProfileStore,
     }[source];
 
     // throw an error for invalid source

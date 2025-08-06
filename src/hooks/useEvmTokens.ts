@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
-import { chains } from '@/configs/wagmiClient.js';
+import { chains } from '@/configs/chains.js';
 import { NetworkType } from '@/constants/enum.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isGreaterThan, multipliedBy } from '@/helpers/number.js';

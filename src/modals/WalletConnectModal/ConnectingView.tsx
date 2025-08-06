@@ -4,7 +4,7 @@ import { memo, useEffect, useState } from 'react';
 
 import { getNetworkTypeFromCaipAddress } from '@/helpers/getNetworkTypeFromCaipAddress.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
-import { WalletConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { captureConnectWalletEvent } from '@/providers/telemetry/captureConnectWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 

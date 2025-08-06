@@ -7,7 +7,7 @@ import { Modal } from '@/components/Modal.js';
 import { delay } from '@/helpers/delay.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { type Article } from '@/providers/types/Article.js';
 
 export interface CollectArticleModalOpenProps {
@@ -52,3 +52,5 @@ export function CollectArticleModal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const CollectArticleModalRef = new SingletonModal<CollectArticleModalOpenProps>();

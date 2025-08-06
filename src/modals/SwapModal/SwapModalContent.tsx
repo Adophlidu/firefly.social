@@ -18,7 +18,7 @@ import { getConnections } from 'wagmi/actions';
 
 import { FireflyWalletChainSelectorWithOkxProviderType } from '@/components/FireflyWallet/FireflyWalletChainSelectorWithOkxProviderType.js';
 import { CloseButton } from '@/components/IconButton.js';
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { SOLANA_CHAIN_ID_IN_FIREFLY, SOLANA_CHAIN_ID_IN_OKX } from '@/constants/chain.js';
 import { Locale, OkxProviderType } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
@@ -48,7 +48,7 @@ export interface SwapModalOpenProps {
 
 function getConnectWalletName(isEvm: boolean) {
     if (isEvm) {
-        const connections = getConnections(config);
+        const connections = getConnections(wagmiConfig);
         const id = getWagmiCurrentConnectionId();
         return connections.find((x) => x.connector.id === id || x.connector.uid === id)?.connector.name;
     }

@@ -28,7 +28,7 @@ import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
 import type {
     FireflyAccountProfile,
     FireflyIdentity,
@@ -50,7 +50,7 @@ export function FireflyAccountInfo({ walletProfile, socialProfile, identity, rel
     const { data } = useQuery({
         queryKey: ['firefly-profile', identity],
         async queryFn() {
-            return FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
+            return getAllPlatformProfileFromFirefly(identity, false);
         },
         initialData: relatedProfile,
     });

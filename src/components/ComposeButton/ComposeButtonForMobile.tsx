@@ -10,7 +10,7 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function ComposeButtonForMobile() {

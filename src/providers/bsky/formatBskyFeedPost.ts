@@ -15,11 +15,11 @@ import { compact, first, isUndefined, omitBy } from 'lodash-es';
 import { RestrictionType, Source } from '@/constants/enum.js';
 import { TENOR_GIF_REGEXP } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
-import { type Attachment, type Post, type Profile } from '@/providers/types/SocialMedia.js';
+import { type Attachment, type Post, type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 
 function parseBskyGifUri(uri: string): boolean {
     const parsedURL = parseUrl(uri);
@@ -259,7 +259,7 @@ export function formatBskyFeedPost(original: AppBskyFeedDefs.FeedViewPost | AppB
         post.mirrorOn = formatBskyPostView(original.post);
         if (AppBskyFeedDefs.isReasonRepost(original.reason)) {
             post.reporter = formatBskyProfile(original.reason.by);
-            post.hasMirrored = post.reporter.profileId === getCurrentProfile(Source.Bsky)?.profileId;
+            post.hasMirrored = post.reporter.profileId === getSessionFromStorage(SessionType.Bsky)?.profileId;
         }
     }
     if (AppBskyEmbedRecord.isView(original.post.embed) && AppBskyEmbedRecord.isViewRecord(original.post.embed.record)) {

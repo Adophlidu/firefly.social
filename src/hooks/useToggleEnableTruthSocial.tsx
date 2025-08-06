@@ -2,7 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
 
 import { Link } from '@/esm/Link.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
 export function useToggleEnableTruthSocial(showAlert = false) {

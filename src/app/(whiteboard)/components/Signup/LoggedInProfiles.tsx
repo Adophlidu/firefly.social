@@ -6,7 +6,7 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { formatThirdPartyProfileName } from '@/providers/lens/formatThirdPartyProfileName.js';
-import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
+import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
 
 interface LoggedInProfilesProps {
     source: SocialSource;
@@ -43,7 +43,7 @@ export function LoggedInProfiles({ source }: LoggedInProfilesProps) {
 }
 
 export function LoggedInProfilesThirdParty() {
-    const { accounts } = useThirdPartyStateStore();
+    const { accounts } = useThirdPartyProfileStore();
 
     if (!accounts.length) return null;
 

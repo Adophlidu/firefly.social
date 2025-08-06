@@ -10,7 +10,7 @@ import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileById } from '@/helpers/getProfileById.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';

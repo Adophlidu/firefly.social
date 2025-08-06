@@ -2,15 +2,16 @@ import { postId as formatPostId } from '@lens-protocol/client';
 import { signFrameAction } from '@lens-protocol/client/actions';
 import dayjs from 'dayjs';
 
-import { Source } from '@/constants/enum.js';
 import { FIREFLY_LENS_V3_APP } from '@/constants/index.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
-import { ensureLensResult, ensureLensResultSync } from '@/providers/lens/ensureLensResult.js';
+import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
+import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Additional, Provider } from '@/providers/types/Frame.js';
 import type { FrameSignaturePacket } from '@/providers/types/Lens.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import type { Index } from '@/types/frame.js';
 
 class FrameProvider implements Provider<FrameSignaturePacket> {
@@ -21,8 +22,8 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
         input?: string,
         additional?: Additional,
     ): Promise<FrameSignaturePacket> {
-        const currentProfile = getCurrentProfile(Source.Lens);
-        if (!currentProfile) throw new Error('Profile not found');
+        const session = getSessionFromStorage(SessionType.Lens);
+        if (!session) throw new Error('Profile not found');
 
         const credentials = ensureLensResultSync(lensSessionHolder.sessionClient.getCredentials());
         if (!credentials) throw new Error('Credentials not found');
@@ -32,7 +33,7 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
                 transactionId: ETH_ZERO_ADDRESS,
                 buttonIndex: index,
                 inputText: input ?? '',
-                account: safeEvmAddress(currentProfile.profileId),
+                account: safeEvmAddress(session.profileId),
                 post: formatPostId(postId),
                 app: safeEvmAddress(FIREFLY_LENS_V3_APP),
                 specVersion: '1.1.0',

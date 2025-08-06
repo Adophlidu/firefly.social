@@ -3,23 +3,24 @@ import { $createParagraphNode, $createTextNode, $getRoot, ParagraphNode } from '
 import { useCallback } from 'react';
 
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
-import { CHAR_TAG, type Chars, type ComplexChars } from '@/helpers/chars.js';
+import { CharTag } from '@/constants/enum.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
+import { type Chars, type ComplexChars } from '@/types/chars.js';
 
 function updateParagraphNode(paragraphNode: ParagraphNode, chars: ComplexChars) {
     const { tag, visible } = chars;
     if (!visible) return;
     switch (tag) {
-        case CHAR_TAG.FIREFLY_RP:
+        case CharTag.FIREFLY_RP:
             paragraphNode.append($createTextNode(`${chars.content}\n`));
             break;
-        case CHAR_TAG.FRAME:
+        case CharTag.FRAME:
             break;
-        case CHAR_TAG.MENTION:
+        case CharTag.MENTION:
             paragraphNode.append($createMentionNode(chars.content, chars.profiles));
             break;
-        case CHAR_TAG.PROMOTE_LINK:
-        case CHAR_TAG.POST_LINK:
+        case CharTag.PROMOTE_LINK:
+        case CharTag.POST_LINK:
             paragraphNode.append($createTextNode(chars.content));
             break;
         default:

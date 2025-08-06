@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
 import type { FireflyIdentity, WalletProfiles } from '@/providers/types/Firefly.js';
 
 export function useFireflyProfileByIdentity(
@@ -14,7 +14,7 @@ export function useFireflyProfileByIdentity(
     return useQuery({
         queryKey: ['firefly-profile', identity.source, identity.id],
         async queryFn() {
-            return FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
+            return getAllPlatformProfileFromFirefly(identity, false);
         },
         refetchOnMount: false,
         refetchOnWindowFocus: false,

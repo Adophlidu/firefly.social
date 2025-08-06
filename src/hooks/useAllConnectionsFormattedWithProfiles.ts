@@ -13,10 +13,10 @@ import {
     getProfileFromSocialConnections,
     getProfileIdsFromSocialConnections,
 } from '@/services/getSocialConnectionsWithProfile.js';
-import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
+import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
 
 export function useAllConnectionsFormattedWithProfiles(options?: { enabled?: boolean }) {
-    const { accounts } = useThirdPartyStateStore();
+    const { accounts } = useThirdPartyProfileStore();
     const { data: connections, refetch } = useAllConnections({ enabled: options?.enabled });
     const query = useQueries({
         queries: compact(

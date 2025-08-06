@@ -6,7 +6,7 @@ import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { getBlockRelation } from '@/services/getBlockRelation.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export async function queryMutedProfiles(identities: FireflyIdentity[]) {
     const bskyIdentities = identities.filter((x) => x.source === Source.Bsky);
@@ -18,7 +18,7 @@ export async function queryMutedProfiles(identities: FireflyIdentity[]) {
         });
     }
 
-    const currentFireflyProfileSession = useFireflyStateStore.getState().currentProfileSession;
+    const currentFireflyProfileSession = useFireflyProfileStore.getState().currentProfileSession;
     if (!currentFireflyProfileSession) return;
     const conditions = identities
         .filter((x) => x.source !== Source.Bsky)

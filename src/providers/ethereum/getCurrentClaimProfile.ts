@@ -4,7 +4,7 @@ import { getProfileState } from '@/helpers/getProfileState.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { ProfileIdentifier } from '@/mask/index.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { ensureLensResultSync } from '@/providers/lens/ensureLensResult.js';
+import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { generateSignaturePacket } from '@/services/generateSignaturePacket.js';

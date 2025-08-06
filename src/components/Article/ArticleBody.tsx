@@ -14,7 +14,7 @@ import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { PreviewMediaModalRef } from '@/modals/controls.js';
+import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 interface Props {

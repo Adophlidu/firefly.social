@@ -1,7 +1,7 @@
 import { type Address, parseUnits } from 'viem';
 import { estimateFeesPerGas } from 'wagmi/actions';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { multipliedBy, ZERO } from '@/helpers/number.js';
@@ -53,7 +53,7 @@ async function estimateGasForNativeToken(
 
 export async function getDefaultGas({ token, to, amount }: GetDefaultGasOptions<EthereumChainId, Address>) {
     const isEIP1559 = EVMChainResolver.isFeatureSupported(token.chainId, 'EIP1559');
-    const { gasPrice, maxFeePerGas, maxPriorityFeePerGas } = await estimateFeesPerGas(config, {
+    const { gasPrice, maxFeePerGas, maxPriorityFeePerGas } = await estimateFeesPerGas(wagmiConfig, {
         chainId: token.chainId,
         type: isEIP1559 ? 'eip1559' : 'legacy',
     });

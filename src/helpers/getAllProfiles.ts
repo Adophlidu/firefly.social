@@ -1,9 +1,7 @@
-import {
-    useBskyStateStore,
-    useFarcasterStateStore,
-    useLensStateStore,
-    useTwitterStateStore,
-} from '@/store/useProfileStore.js';
+import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
+import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
+import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 export function getAllProfiles() {
     const allAccounts = getAllAccounts();
@@ -11,10 +9,10 @@ export function getAllProfiles() {
 }
 
 export function getAllAccounts() {
-    const { accounts: lensAccounts } = useLensStateStore.getState();
-    const { accounts: farcasterAccounts } = useFarcasterStateStore.getState();
-    const { accounts: twitterAccounts } = useTwitterStateStore.getState();
-    const { accounts: bskyAccounts } = useBskyStateStore.getState();
+    const { accounts: lensAccounts } = useLensProfileStore.getState();
+    const { accounts: farcasterAccounts } = useFarcasterProfileStore.getState();
+    const { accounts: twitterAccounts } = useTwitterProfileStore.getState();
+    const { accounts: bskyAccounts } = useBskyProfileStore.getState();
 
     return [...lensAccounts, ...farcasterAccounts, ...twitterAccounts, ...bskyAccounts];
 }

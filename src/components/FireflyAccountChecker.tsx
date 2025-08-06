@@ -6,28 +6,30 @@ import { useTimeoutFn } from 'react-use';
 import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { bom } from '@/helpers/bom.js';
-import { finishLoadFont, finishSignupCheck } from '@/helpers/finishGlobalLoading.js';
 import { isPathnameForceRedirect } from '@/helpers/openLoginModal.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
-import { CreateFireflyAccountGuideModalRef } from '@/modals/controls.js';
-import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
+import { CreateFireflyAccountGuideModalRef } from '@/modals/CreateFireflyAccountGuideModal/index.js';
+import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
+
+function removeGlobalLoading() {
+    const globalLoading = document.getElementById('global-loading');
+    if (globalLoading) {
+        globalLoading.style.display = 'none';
+    }
+}
 
 export function FireflyAccountChecker() {
     const isSyncing = useAsyncStatusAll();
     const { hasFireflyAccount, isLoading } = useCheckFireflyAccount();
     const profiles = useCurrentProfiles();
-    const { accounts } = useThirdPartyStateStore();
+    const { accounts } = useThirdPartyProfileStore();
     const pathname = usePathname();
     const isForceRedirect = isPathnameForceRedirect(pathname);
     const hasLoggedIn = profiles.length > 0 || accounts.length > 0;
 
-    useTimeoutFn(() => {
-        // Remove the global loading indicator after 3 seconds
-        finishLoadFont();
-        finishSignupCheck();
-    }, 3000);
+    useTimeoutFn(removeGlobalLoading, 4000);
 
     useEffect(() => {
         if (!bom?.location) return;
@@ -45,8 +47,7 @@ export function FireflyAccountChecker() {
 
     const showLoading = (((!hasFireflyAccount && !hasLoggedIn) || isLoading) && isForceRedirect) || isSyncing;
     if (!showLoading) {
-        finishLoadFont();
-        finishSignupCheck();
+        removeGlobalLoading();
     }
 
     return null;

@@ -44,7 +44,7 @@ import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPollIdFromLink } from '@/services/getPostLinks.js';
-import { useTwitterStateStore } from '@/store/useProfileStore.js';
+import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 export interface PostBodyContentProps {
     post: Post;
@@ -78,7 +78,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
     } = props;
 
     const router = useRouter();
-    const currentTwitterProfileSession = useTwitterStateStore.use.currentProfileSession();
+    const currentTwitterProfileSession = useTwitterProfileStore.use.currentProfileSession();
     const { metadata, author } = post;
     const postRawContent = metadata.content?.content;
     // ! liteRawContent is used for reply and quote, only shows the first 2000 characters, because the text is foldable

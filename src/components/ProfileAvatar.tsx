@@ -1,9 +1,9 @@
 import type { HTMLProps } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
-import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

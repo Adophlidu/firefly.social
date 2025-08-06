@@ -14,7 +14,7 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
-import { chains } from '@/configs/wagmiClient.js';
+import { chains } from '@/configs/chains.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { delay } from '@/helpers/delay.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -23,7 +23,7 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useNFTCollections } from '@/hooks/useNFTCollections.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { AddCustomERC20ModalOpenProps } from '@/modals/AddCustomERC20Modal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
@@ -172,3 +172,5 @@ export function AddCustomERC721Modal({ ref }: Props) {
         </Modal>
     );
 }
+
+export const AddCustomERC721ModalRef = new SingletonModal<AddCustomERC721ModalOpenProps>();

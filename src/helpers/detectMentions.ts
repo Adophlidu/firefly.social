@@ -1,15 +1,15 @@
 import { fetchAccountsBulk } from '@lens-protocol/client/actions';
 
-import { FireflyPlatform } from '@/constants/enum.js';
+import { CharTag, FireflyPlatform } from '@/constants/enum.js';
 import { MENTION_REGEX } from '@/constants/regexp.js';
-import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { type Chars } from '@/types/chars.js';
 
 export async function detectMentionsForLens(chars: Chars) {
     const list = (Array.isArray(chars) ? chars : [chars]).slice();
 
-    const existedMentions = list.filter((item) => typeof item !== 'string' && item.tag === CHAR_TAG.MENTION);
+    const existedMentions = list.filter((item) => typeof item !== 'string' && item.tag === CharTag.MENTION);
     const mentions = list.reduce<string[]>((acc, item) => {
         if (typeof item !== 'string') return acc;
 

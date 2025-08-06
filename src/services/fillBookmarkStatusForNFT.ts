@@ -1,15 +1,14 @@
 import { FireflyPlatform } from '@/constants/enum.js';
 import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { getFireflyBookmarksByIds } from '@/providers/firefly/getFireflyBookmarkIds.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 
 export async function fillBookmarkStatusForNonFungibleAssets(assets: EVM.Asset[]) {
     const nftIds = assets.map((item) => resolveNFTIdFromAsset(item));
     if (!nftIds.length) return assets;
 
-    const bookmarkData =
-        (await runInSafeAsync(() => FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.NFTs, nftIds))) || [];
+    const bookmarkData = (await runInSafeAsync(() => getFireflyBookmarksByIds(FireflyPlatform.NFTs, nftIds))) || [];
 
     return assets.map((item) => ({
         ...item,

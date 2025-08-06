@@ -11,18 +11,19 @@ import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
-import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
+import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
 import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { ComposeModalRef, EnableSignlessModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/ComposeModal.js';
+import { EnableSignlessModalRef } from '@/modals/EnableSignlessModal.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { capturePollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { commitPoll } from '@/services/poll.js';
 import { schedulePost } from '@/services/post.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
-import { useLensStateStore } from '@/store/useProfileStore.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
 export async function createSchedulePostsPayload(
@@ -41,13 +42,12 @@ export async function createSchedulePostsPayload(
         capturePollEvent(pollId);
     }
 
-    const allProfiles = getCurrentProfileAll();
     const updatedCompositePost = getCompositePost(compositePost.id);
     if (!updatedCompositePost) throw new Error(`Post not found with id: ${compositePost.id}`);
 
     return Promise.all(
         availableSources.map(async (x) => {
-            const profile = allProfiles[x];
+            const profile = getProfileFromStorage(x);
             if (!profile) throw new UnauthorizedError();
             const payload = await resolveCreateSchedulePostPayload(x)(type, updatedCompositePost, isThread, signal);
 
@@ -71,7 +71,7 @@ export async function crossSchedulePost(
 
         const posts = await createSchedulePostsPayload(type, compositePost, false, signal);
 
-        await useLensStateStore.getState().refreshCurrentAccount();
+        await useLensProfileStore.getState().refreshCurrentAccount();
 
         const result = await schedulePost(
             scheduleTime,

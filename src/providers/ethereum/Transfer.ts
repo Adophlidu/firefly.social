@@ -1,7 +1,7 @@
 import { type Address, type Hash, parseUnits } from 'viem';
 import { getBalance, sendTransaction, writeContract } from 'wagmi/actions';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isGreaterThan, isLessThan, leftShift, minus, multipliedBy, rightShift } from '@/helpers/number.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
@@ -39,7 +39,7 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
     async validateGas(options: TransactionOptions<EthereumChainId, Address>) {
         const { token } = options;
         const account = await EthereumNetwork.getAccount();
-        const nativeBalance = await getBalance(config, {
+        const nativeBalance = await getBalance(wagmiConfig, {
             address: account,
             chainId: token.chainId,
         });
@@ -74,13 +74,13 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
         } as const;
 
         if (isEIP1559) {
-            return sendTransaction(config, {
+            return sendTransaction(wagmiConfig, {
                 ...parameters,
                 type: 'eip1559',
                 maxFeePerGas,
             });
         }
-        return sendTransaction(config, {
+        return sendTransaction(wagmiConfig, {
             ...parameters,
             type: 'legacy',
             gasPrice,
@@ -101,13 +101,13 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
         } as const;
 
         if (isEIP1559) {
-            return writeContract(config, {
+            return writeContract(wagmiConfig, {
                 ...parameters,
                 type: 'eip1559',
                 maxFeePerGas,
             });
         }
-        return writeContract(config, {
+        return writeContract(wagmiConfig, {
             ...parameters,
             type: 'legacy',
             gasPrice,

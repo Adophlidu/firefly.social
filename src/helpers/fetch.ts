@@ -5,10 +5,9 @@ import { FetchError, NetworkError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { getNextFetchers, type NextFetchersOptions } from '@/helpers/getNextFetchers.js';
+import type { Fetcher } from '@/types/index.js';
 
 const { fetch: originalFetch } = globalThis;
-
-export type Fetcher<T = Response> = (input: RequestInfo | URL, init?: RequestInit, next?: Fetcher) => Promise<T>;
 
 function defaultFetcher(input: RequestInfo | URL, init?: RequestInit | undefined) {
     return originalFetch(input, {

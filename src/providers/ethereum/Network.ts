@@ -1,7 +1,7 @@
 import { type Address, type Hash } from 'viem';
 import { getAccount, getChainId } from 'wagmi/actions';
 
-import { config } from '@/configs/wagmiClient.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { EVMExplorerResolver } from '@/mask/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
@@ -14,7 +14,7 @@ class Provider implements NetworkProvider<EthereumChainId, Address, Hash> {
     }
 
     async getAccount(): Promise<Address> {
-        const account = getAccount(config);
+        const account = getAccount(wagmiConfig);
         if (!account.address) {
             throw new Error('Wallet not connected');
         }
@@ -22,7 +22,7 @@ class Provider implements NetworkProvider<EthereumChainId, Address, Hash> {
     }
 
     getChainId(): EthereumChainId {
-        return getChainId(config);
+        return getChainId(wagmiConfig);
     }
 
     getAddressUrl(chainId: EthereumChainId, address: Address): string | undefined {
