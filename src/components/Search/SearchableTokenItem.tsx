@@ -57,7 +57,7 @@ export function SearchableTokenItem({ token, className, showRate = true, onClick
                 {showRate ? (
                     <data
                         className={classNames(
-                            'flex h-8 shrink-0 items-center justify-center gap-1 font-inter text-sm font-medium max-md:h-[30px] max-md:w-auto max-md:min-w-[60px] max-md:px-2 max-md:text-[15px] max-md:leading-[15px]',
+                            'flex h-8 shrink-0 items-center justify-end gap-1 text-right font-inter text-sm font-medium max-md:h-[30px] max-md:w-auto max-md:min-w-[60px] max-md:px-2 max-md:text-[15px] max-md:leading-[15px]',
                             priceChange >= 0 ? 'text-success' : 'text-danger',
                         )}
                     >

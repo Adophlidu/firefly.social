@@ -13,6 +13,7 @@ import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { isValidAddress } from '@/helpers/isValidAddress.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { searchTokens } from '@/services/searchTokens.js';
@@ -92,9 +93,14 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
                     className="w-full flex-1"
                     onSubmit={(ev) => {
                         ev.preventDefault();
+                        const autoRouting = autoSearchType || isValidAddress(inputText);
+                        const searchType = autoRouting
+                            ? resolveSearchTypeFromQuery(inputText, isTokenAddress)
+                            : undefined;
+
                         handleInputSubmit({
                             q: inputText,
-                            type: autoSearchType ? resolveSearchTypeFromQuery(inputText, isTokenAddress) : undefined,
+                            type: searchType,
                         });
                     }}
                 >

@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
+import { sortBy, uniqBy } from 'lodash-es';
 import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';
@@ -7,6 +8,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
 import { SearchType } from '@/constants/enum.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
+import { TokenPlatformType } from '@/providers/types/Firefly.js';
 import { searchTokens } from '@/services/searchTokens.js';
 
 interface SuggestTokenListProps {
@@ -15,15 +17,26 @@ interface SuggestTokenListProps {
 }
 
 export const SuggestTokenList = memo<SuggestTokenListProps>(function SuggestTokenList({ query, onSelect }) {
-    const { data: tokens, isLoading } = useQuery({
+    const { data: tokens = [], isLoading } = useQuery({
         queryKey: ['search-tokens', query],
         staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: async () => {
-            const data = await searchTokens(query);
+            const data = await searchTokens(query, true);
             return data;
+        },
+        select: (data) => {
+            // prefer cex coins
+            return uniqBy(
+                sortBy(data, (x) => (x.platform_type === TokenPlatformType.Cex ? -1 : 0)),
+                (x) => x.address,
+            );
         },
         enabled: !!query,
     });
+
+    if (!isLoading && !tokens.length) {
+        return null;
+    }
 
     return (
         <div>
@@ -37,7 +50,7 @@ export const SuggestTokenList = memo<SuggestTokenListProps>(function SuggestToke
                         <Trans>Searching tokens</Trans>
                     </div>
                 </div>
-            ) : tokens?.length ? (
+            ) : tokens.length ? (
                 <div>
                     {tokens.slice(0, 5).map((token) => (
                         <SearchableTokenItem
@@ -56,14 +69,17 @@ export const SuggestTokenList = memo<SuggestTokenListProps>(function SuggestToke
                     </div>
                 </div>
             )}
-            <div className="px-3 pb-4 pt-2">
-                <Link
-                    className="text-sm leading-[18px] text-secondary"
-                    href={resolveSearchUrl(query, SearchType.Tokens)}
-                >
-                    <Trans>Show more tokens</Trans>
-                </Link>
-            </div>
+            {tokens.length > 5 ? (
+                <div className="px-3 pb-4 pt-2">
+                    <Link
+                        className="text-sm leading-[18px] text-secondary"
+                        href={resolveSearchUrl(query, SearchType.Tokens)}
+                        onClick={() => onSelect?.()}
+                    >
+                        <Trans>Show more tokens</Trans>
+                    </Link>
+                </div>
+            ) : null}
         </div>
     );
 });
