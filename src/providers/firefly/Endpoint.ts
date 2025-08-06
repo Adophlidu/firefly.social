@@ -31,7 +31,6 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { formatFireflyConnections } from '@/helpers/formatFireflyConnections.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
-import { formatNFTsTimelineResponse } from '@/helpers/formatNFTsTimelineResponse.js';
 import { formatPostsFromTruthSocial } from '@/helpers/formatPostsFromTruthSocial.js';
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
@@ -50,18 +49,15 @@ import {
 } from '@/helpers/pageable.js';
 import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { convertBskyHandleToDid } from '@/providers/bsky/convertBskyHandleToDid.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
 import { formatFarcasterProfileFromSuggestedFollow } from '@/providers/farcaster/formatFarcasterProfileFromSuggestedFollow.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { formatLensProfileFromSuggestedFollow } from '@/providers/lens/formatLensProfile.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
@@ -578,28 +574,17 @@ class FireflyEndpoint {
             chainId,
             cursor: indicator?.id,
         });
-        const response = await fireflySessionHolder.fetchWithoutSession<DiscoverNFTResponseV3>(url, {
+        const response = await fireflySessionHolder.fetch<DiscoverNFTResponseV3>(url, {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
-        const nftIds = data.result.map((feed) => resolveNFTId(feed.chain_id, feed.contract_address, feed.token_id));
-        const bookmarks = nftIds.length
-            ? await runInSafeAsync(() => FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.NFTs, nftIds))
-            : [];
-        const bookmarksMap = new Map<string, boolean>(
-            (bookmarks || []).map((x) => [x.post_id.toLowerCase(), x.has_book_marked]),
-        );
-        const feeds = bookmarksMap.size
-            ? data.result.map<NFTFeedV3>((feed) => {
-                  const id = resolveNFTId(feed.chain_id, feed.contract_address, feed.token_id);
-                  return {
-                      ...feed,
-                      bookmarked: bookmarksMap.get(id.toLowerCase()),
-                  };
-              })
-            : data.result;
+        const feeds = data.result.map<NFTFeedV3>((feed) => ({
+            ...feed,
+            bookmarked: feed.has_bookmarked,
+            detail: feed.detail ? adjustAssetUris(feed.detail) : null,
+        }));
         return createPageable(
-            feeds.map((x) => ({ ...x, detail: x.detail ? adjustAssetUris(x.detail) : null })),
+            feeds,
             createIndicator(indicator),
             data.cursor ? createIndicator(undefined, data.cursor) : undefined,
         );
@@ -628,12 +613,25 @@ class FireflyEndpoint {
                     walletAddress,
                 }),
             },
-            {
-                withSession: !walletAddress,
-            },
+            !walletAddress
+                ? {
+                      withSession: true,
+                  }
+                : undefined,
         );
 
-        return formatNFTsTimelineResponse(response, indicator);
+        const data = response.data.result.map<NFTFeedV3>((x) => {
+            return {
+                ...x,
+                bookmarked: x.has_bookmarked,
+                detail: x.detail ? adjustAssetUris(x.detail) : null,
+            };
+        });
+        return createPageable(
+            data,
+            createIndicator(indicator),
+            response.data.cursor && data.length > 0 ? createNextIndicator(undefined, response.data.cursor) : undefined,
+        );
     }
 
     getBlockRelation(conditions: Array<{ snsPlatform: FireflyPlatform; snsId: string }>) {
