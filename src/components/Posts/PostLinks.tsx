@@ -28,7 +28,7 @@ interface Props {
 
 function PostLinksSingle({ post, isInCompose = false }: Props) {
     const url = resolveOembedUrl(post);
-    const { isLoading, error, data } = useClassifyPostLink(url);
+    const { isLoading, error, data = null } = useClassifyPostLink(url);
 
     const { data: article } = useQuery({
         enabled: !!data?.articleId,
@@ -60,7 +60,7 @@ function PostLinksSingle({ post, isInCompose = false }: Props) {
         }
     }, [data, url, content, post.source, post.postId, isLoading]);
 
-    if (!url || isLoading || error || !data) return null;
+    if (!url || isLoading || error) return null;
 
     return (
         <PostLinkContent data={data} url={url} post={post} article={article || undefined} isInCompose={isInCompose} />
@@ -80,6 +80,8 @@ function PostLinksMultiple({ post, isInCompose = false, hasRpPayload = false }: 
         frames.length > 1
             ? data.filter((x) => !x.result.oembed && !x.result.frame)
             : data.filter((x) => !x.result.oembed);
+    const unResolvedLinks = urls.filter((url) => !data.find((x) => x.url === url));
+    const lastUnResolvedLink = last(unResolvedLinks);
 
     if ((frames.length >= 1 || otherLinks.length >= 1) && lastOpenGraph?.result?.oembed?.og) {
         lastOpenGraph.result.oembed.og = {
@@ -99,7 +101,11 @@ function PostLinksMultiple({ post, isInCompose = false, hasRpPayload = false }: 
                     post={post}
                 />
             ) : null}
-            {compact([...otherLinks, lastOpenGraph]).map((x) => (
+            {compact([
+                ...otherLinks,
+                lastOpenGraph,
+                lastUnResolvedLink ? { url: lastUnResolvedLink, result: null } : null,
+            ]).map((x) => (
                 <PostLinkContent key={x.url} data={x.result} url={x.url} post={post} isInCompose={isInCompose} />
             ))}
         </>

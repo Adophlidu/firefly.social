@@ -4,6 +4,7 @@ import { FrameLayout } from '@/components/Frame/Layout.js';
 import { CollectionPreviewer, NFTPreviewer } from '@/components/NFTs/NFTPreview.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
 import { Player } from '@/components/Oembed/Player.js';
+import { PureLink } from '@/components/Posts/PureLink.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { TweetSpace } from '@/components/Posts/TweetSpace.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
@@ -15,7 +16,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 import type { ClassifyPostLinkResult } from '@/services/getClassifyPostLinkWithDeserialization.js';
 
 interface PostLinkContentProps {
-    data: ClassifyPostLinkResult;
+    data: ClassifyPostLinkResult | null;
     url: string;
     post: Post;
     article?: Article;
@@ -24,6 +25,8 @@ interface PostLinkContentProps {
 
 export function PostLinkContent({ data, url, post, article, isInCompose }: PostLinkContentProps) {
     const router = useRouter();
+
+    if (!data) return <PureLink url={url} className="mt-2" />;
 
     // If the url occurs in the content, it might be rendered as an embed card as well.
     const isInContent = !!post.metadata.content?.content?.includes(url);
