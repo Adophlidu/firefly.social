@@ -5,15 +5,15 @@ import NotificationIcon from '@/assets/notification.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { NOTIFICATION_PERMISSION_KEY } from '@/constants/index.js';
-import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
 
 interface PermissionSnackbarProps {
     id: number | string;
     rejected: boolean;
     ref?: React.ForwardedRef<HTMLDivElement>;
+    onEnable?: () => void;
 }
 
-export function PermissionSnackbar({ id, rejected, ref }: PermissionSnackbarProps) {
+export function PermissionSnackbar({ id, rejected, ref, onEnable }: PermissionSnackbarProps) {
     const { closeSnackbar } = useSnackbar();
 
     return (
@@ -45,7 +45,7 @@ export function PermissionSnackbar({ id, rejected, ref }: PermissionSnackbarProp
                                 <ClickableButton
                                     className="h-8 flex-1 rounded-full bg-main text-center leading-8 text-primaryBottom"
                                     onClick={() => {
-                                        setupFirebaseFcmConnection({ showUi: false });
+                                        onEnable?.();
                                         closeSnackbar(id);
                                     }}
                                 >

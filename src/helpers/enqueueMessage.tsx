@@ -3,7 +3,6 @@ import type { OptionsObject, SnackbarKey, SnackbarMessage } from 'notistack';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
-import { PermissionSnackbar } from '@/components/PermissionSnackbar.js';
 import { WarnSnackbar } from '@/components/WarnSnackbar.js';
 import type { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -151,16 +150,4 @@ export function enqueueMessageFromError(error: unknown, fallback: string, option
 
     // fallback message
     enqueueErrorMessage(fallback, options_);
-}
-
-export function enqueuePermissionMessage(rejected: boolean) {
-    SnackbarRef.open({
-        message: `Notification permission - ${rejected ? 'Denied' : 'Granted'}`,
-        options: {
-            preventDuplicate: true,
-            autoHideDuration: null,
-            variant: 'info',
-            content: (key: SnackbarKey) => <PermissionSnackbar id={key} rejected={rejected} />,
-        },
-    });
 }

@@ -3,7 +3,7 @@ import { getToken } from 'firebase/messaging';
 import { firebaseClient } from '@/configs/firebaseClient.js';
 import { env } from '@/constants/env.js';
 import { NOTIFICATION_PERMISSION_KEY } from '@/constants/index.js';
-import { enqueuePermissionMessage } from '@/helpers/enqueueMessage.js';
+import { enqueuePermissionMessage } from '@/helpers/enqueuePermissionMessage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
@@ -15,27 +15,29 @@ interface Options {
 }
 const ONE_DAY = 1000 * 60 * 60 * 24;
 
-async function askNotificationPermission(options?: Options) {
+async function askNotificationPermission(options?: Options): Promise<{
+    granted: boolean;
+    rejected?: boolean;
+    showAlert?: boolean;
+}> {
     try {
-        if (!window || !('Notification' in window)) return false;
-        if (Notification.permission === 'granted') return true;
+        if (!window || !('Notification' in window)) return { granted: false };
+        if (Notification.permission === 'granted') return { granted: true };
         if (Notification.permission === 'denied') {
-            enqueuePermissionMessage(true);
-            return false;
+            return { granted: false, rejected: true, showAlert: true };
         }
         if (options?.showUi) {
             const lastTime = localStorage.getItem(NOTIFICATION_PERMISSION_KEY);
             if (lastTime && !Number.isNaN(lastTime) && Date.now() - Number(lastTime) < ONE_DAY && !options.force)
-                return false;
+                return { granted: false };
 
-            enqueuePermissionMessage(false);
-            return false;
+            return { granted: false, showAlert: true };
         }
 
         const permission = await Notification.requestPermission();
-        return permission === 'granted';
+        return { granted: permission === 'granted' };
     } catch {
-        return false;
+        return { granted: false };
     }
 }
 
@@ -51,7 +53,12 @@ export async function setupFirebaseFcmConnection(
     if (!fireflySession) return;
 
     const permission = await askNotificationPermission(options);
-    if (!permission) return;
+    if (permission.showAlert) {
+        enqueuePermissionMessage(permission.rejected ?? false, () => {
+            setupFirebaseFcmConnection({ showUi: false });
+        });
+    }
+    if (!permission.granted) return;
 
     await runInSafeAsync(async () => {
         firebaseClient.init();
