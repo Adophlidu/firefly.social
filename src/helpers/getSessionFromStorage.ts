@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { bom } from '@/helpers/bom.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
@@ -9,6 +11,12 @@ import type { LensSession } from '@/providers/lens/Session.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+
+const Schema = z.object({
+    state: z.object({
+        currentProfileSession: z.string().nullable(),
+    }),
+});
 
 type SessionTypes = {
     [SessionType.Bsky]: BskySession;
@@ -57,8 +65,17 @@ export function getSessionFromStorage<T extends SessionType>(sessionType: T) {
     const state = bom.localStorage.getItem(resolveStorageKey(sessionType));
     if (!state) return null;
 
+    const parsed = Schema.safeParse(JSON.parse(state));
+    if (!parsed.success) {
+        console.error('Failed to parse session state from storage', parsed.error);
+        return null;
+    }
+
+    // No session found
+    if (!parsed.data.state.currentProfileSession) return null;
+
     try {
-        const session = SessionFactory.createSession(state);
+        const session = SessionFactory.createSession(parsed.data.state.currentProfileSession);
         return session as SessionTypes[typeof sessionType];
     } catch (error) {
         console.error(`Failed to create session from storage for type ${sessionType}:`, error);

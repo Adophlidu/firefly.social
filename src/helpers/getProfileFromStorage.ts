@@ -42,7 +42,7 @@ const resolveStorageKey = createLookupTableResolver<SocialSource, string>(
     },
 );
 
-export function getProfileFromStorage<T extends SocialSource>(source: T): Profile | null {
+export function getProfileFromStorage<T extends SocialSource>(source: T) {
     if (!bom.localStorage) return null;
 
     const state = bom.localStorage.getItem(resolveStorageKey(source));
@@ -53,6 +53,9 @@ export function getProfileFromStorage<T extends SocialSource>(source: T): Profil
         console.error('Failed to parse profile state from storage', parsed.error);
         return null;
     }
+
+    // No profile found
+    if (!parsed.data.state.currentProfile) return null;
 
     return parsed.data.state.currentProfile as Profile;
 }
