@@ -4,12 +4,8 @@ import dayjs from 'dayjs';
 import { memo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import CalendarIcon from '@/assets/calendar.svg';
-import TimerIcon from '@/assets/timer.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { DatePicker } from '@/components/DatePicker.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { TimePicker } from '@/components/TimePicker.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { CreateScheduleError } from '@/constants/error.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
@@ -74,37 +70,12 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                 <Trans>The scheduled time to send this post can be set up to 7 days in advance.</Trans>
             </div>
             <div className="flex gap-2 pt-3 md:gap-4">
-                <DatePicker
-                    className="flex w-full cursor-pointer gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
-                    minDate={dayjs()}
-                    maxDate={dayjs().add(7, 'day')}
-                    value={dayjs(value)}
-                    containerClassName="flex-1"
-                    onChange={(value) => {
-                        setValue(value.toDate());
+                <input
+                    type="datetime-local"
+                    onChange={(ev) => {
+                        setValue(new Date(ev.currentTarget.value));
                     }}
-                    panelClassName="translate-y-[0%]"
-                >
-                    <CalendarIcon />
-                    <span className="max-md:text-sm">{dayjs(value).format('MMM D')}</span>
-                </DatePicker>
-
-                <TimePicker
-                    value={dayjs(value)}
-                    ampm={false}
-                    timeSteps={{ minutes: 1 }}
-                    containerClassName="flex-1"
-                    className="flex w-full cursor-pointer gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
-                    panelClassName="translate-y-[0%]"
-                    onChange={(value) => {
-                        setValue((prev) => {
-                            return dayjs(prev).hour(value.get('hour')).minute(value.get('minute')).toDate();
-                        });
-                    }}
-                >
-                    <TimerIcon className="pointer-events-none text-main" />
-                    <span className="max-md:text-sm">{dayjs(value).format('hh:mm A')}</span>
-                </TimePicker>
+                />
             </div>
 
             <div className="flex gap-[6px] pt-3 max-md:flex-col">
