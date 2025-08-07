@@ -33,7 +33,7 @@ export function LayoutBody({ children }: { children: ReactNode }) {
                 >
                     <IfPathname isOneOf={['/signup']}>{children}</IfPathname>
                     <IfPathname isNotOneOf={['/signup']}>
-                        <div className="m-auto flex w-full md:min-h-screen group-[.not-support]:md:min-h-[calc(100vh_-_38px)] lg:w-[1265px]">
+                        <div className="m-auto flex w-full md:min-h-screen lg:w-[1265px]">
                             {children}
                             <IfPathname
                                 isNotOneOf={[

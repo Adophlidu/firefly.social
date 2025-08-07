@@ -655,19 +655,6 @@ body {
     display: none;
 }
 
-body.not-support {
-    padding-top: 38px;
-}
-
-body.not-support .sticky.top-0,
-body.not-support .sticky.inset-0,
-body.not-support .sticky.inset-y-0,
-body.not-support .fixed.top-0,
-body.not-support .fixed.inset-0,
-body.not-support .fixed.inset-y-0 {
-    top: 38px;
-}
-
 /* reset giphy search bar css */
 .ff-giphy-search-bar {
     height: 36px !important;

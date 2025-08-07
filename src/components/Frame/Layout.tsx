@@ -21,7 +21,7 @@ export function FrameLayout({ frame, post, children }: FrameLayoutProps) {
         case Source.Farcaster:
             break;
         case Source.Lens:
-            if (!(isFrameV1(frame) && frame.protocol === FrameProtocol.OpenFrame)) return <Oembed post={post} />;
+            if (!isFrameV1(frame) || frame.protocol !== FrameProtocol.OpenFrame) return <Oembed post={post} />;
             break;
         case Source.Twitter:
             return <Oembed post={post} />;
@@ -33,11 +33,7 @@ export function FrameLayout({ frame, post, children }: FrameLayoutProps) {
     }
 
     if (isFrameV2(frame) && env.external.NEXT_PUBLIC_FRAME_V2 === STATUS.Enabled) {
-        return (
-            <FrameLayoutV2 frame={frame} post={post}>
-                {children}
-            </FrameLayoutV2>
-        );
+        return <FrameLayoutV2 frame={frame} post={post} />;
     }
 
     if (isFrameV1(frame) && env.external.NEXT_PUBLIC_FRAME_V1 === STATUS.Enabled) {
