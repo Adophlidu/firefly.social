@@ -1,7 +1,5 @@
 'use client';
 
-import 'client-only';
-
 import type { WritableDraft } from 'immer';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';

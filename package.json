@@ -109,7 +109,6 @@
         "lodash-es": "^4.17.21",
         "next": "^15.4.1",
         "next-auth": "^4.24.11",
-        "notistack": "2.0.8",
         "plyr-react": "^5.3.0",
         "punycode": "^2.3.1",
         "react": "19.0.0",

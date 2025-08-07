@@ -2,17 +2,17 @@
 
 import { BugAntIcon, ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Trans } from '@lingui/react/macro';
-import { SnackbarContent, type SnackbarMessage, useSnackbar } from 'notistack';
 import { type ForwardedRef, type ReactNode, useCallback, useState } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { SnackbarContent, type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
 import { env } from '@/constants/env.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useReportFeedback } from '@/hooks/useReportFeedback.js';
 
 export interface ErrorReportSnackbarProps {
-    id: number | string;
+    id: string;
     detail?: string | ReactNode;
     noReport?: boolean;
     message: SnackbarMessage;

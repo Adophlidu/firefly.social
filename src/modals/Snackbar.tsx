@@ -1,5 +1,4 @@
-import { type OptionsObject, type SnackbarKey, type SnackbarMessage, useSnackbar } from 'notistack';
-
+import { type OptionsObject, type SnackbarKey, type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 

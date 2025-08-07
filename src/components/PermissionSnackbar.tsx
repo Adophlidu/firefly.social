@@ -1,13 +1,13 @@
 import { Trans } from '@lingui/react/macro';
-import { SnackbarContent, useSnackbar } from 'notistack';
 
 import NotificationIcon from '@/assets/notification.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
+import { SnackbarContent, useSnackbar } from '@/components/Snackbar.js';
 import { NOTIFICATION_PERMISSION_KEY } from '@/constants/index.js';
 
 interface PermissionSnackbarProps {
-    id: number | string;
+    id: string;
     rejected: boolean;
     ref?: React.ForwardedRef<HTMLDivElement>;
     onEnable?: () => void;

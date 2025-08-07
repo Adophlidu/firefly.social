@@ -2,10 +2,10 @@
 
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
 import { isServer } from '@tanstack/react-query';
-import { SnackbarProvider } from 'notistack';
 import { memo, type ReactNode, useEffect, useLayoutEffect, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 
+import { SnackbarProvider } from '@/components/Snackbar.js';
 import { sentryClient } from '@/configs/sentryClient.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -74,7 +74,7 @@ export const InitialProviders = memo(function Providers(props: { children: React
 
     return (
         <SnackbarProvider
-            maxSnack={30}
+            maxSnack={10}
             anchorOrigin={{ vertical: 'top', horizontal: isMedium ? 'right' : 'center' }}
             autoHideDuration={3000}
             classes={{

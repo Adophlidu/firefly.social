@@ -86,6 +86,7 @@ const copyOptions = {
         autoHideDuration: 3000,
     },
 } satisfies ImmediateOptions;
+
 export const TokenMarketData = memo(function TokenMarketData({
     chainId: propChainId,
     address: propAddress,

@@ -292,9 +292,6 @@ dependencies:
   next-auth:
     specifier: ^4.24.11
     version: 4.24.11(next@15.4.1)(react-dom@19.0.0)(react@19.0.0)
-  notistack:
-    specifier: 2.0.8
-    version: 2.0.8(@emotion/react@11.14.0)(@emotion/styled@11.14.0)(@mui/material@5.17.1)(react-dom@19.0.0)(react@19.0.0)
   plyr-react:
     specifier: ^5.3.0
     version: 5.3.0(plyr@3.7.8)(react@19.0.0)
@@ -17840,29 +17837,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /notistack@2.0.8(@emotion/react@11.14.0)(@emotion/styled@11.14.0)(@mui/material@5.17.1)(react-dom@19.0.0)(react@19.0.0):
-    resolution: {integrity: sha512-/IY14wkFp5qjPgKNvAdfL5Jp6q90+MjgKTPh4c81r/lW70KeuX6b9pE/4f8L4FG31cNudbN9siiFS5ql1aSLRw==}
-    peerDependencies:
-      '@emotion/react': ^11.4.1
-      '@emotion/styled': ^11.3.0
-      '@mui/material': ^5.0.0
-      react: 19.0.0
-      react-dom: 19.0.0
-    peerDependenciesMeta:
-      '@emotion/react':
-        optional: true
-      '@emotion/styled':
-        optional: true
-    dependencies:
-      '@emotion/react': 11.14.0(@types/react@19.0.2)(react@19.0.0)
-      '@emotion/styled': 11.14.0(@emotion/react@11.14.0)(@types/react@19.0.2)(react@19.0.0)
-      '@mui/material': 5.17.1(@emotion/react@11.14.0)(@emotion/styled@11.14.0)(@types/react@19.0.2)(react-dom@19.0.0)(react@19.0.0)
-      clsx: 1.2.1
-      hoist-non-react-statics: 3.3.2
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-    dev: false
-
   /nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
     dependencies:
@@ -22197,7 +22171,6 @@ time:
   /next-auth@4.24.11: '2024-12-06T18:11:39.458Z'
   /next-statoscope@1.0.1: '2023-05-22T18:00:03.974Z'
   /next@15.4.1: '2025-07-14T21:34:23.159Z'
-  /notistack@2.0.8: '2022-10-16T13:58:55.665Z'
   /plyr-react@5.3.0: '2023-06-12T22:50:21.153Z'
   /postcss@8.5.3: '2025-02-19T13:45:44.840Z'
   /prettier-plugin-tailwindcss@0.6.11: '2025-01-23T18:06:16.580Z'

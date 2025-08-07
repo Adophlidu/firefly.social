@@ -2,15 +2,15 @@
 
 import { ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Trans } from '@lingui/react/macro';
-import { SnackbarContent, type SnackbarMessage, useSnackbar } from 'notistack';
 import { type ReactNode, useCallback, useState } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { SnackbarContent, type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 
 interface ErrorReportSnackbarProps {
-    id: number | string;
+    id: string;
     detail?: string | ReactNode;
     message: SnackbarMessage;
     ref?: React.ForwardedRef<HTMLDivElement>;

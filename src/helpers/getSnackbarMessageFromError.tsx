@@ -1,10 +1,10 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
-import type { SnackbarMessage } from 'notistack';
 import { EstimateGasExecutionError } from 'viem';
 import { z } from 'zod';
 
+import type { SnackbarMessage } from '@/components/Snackbar.js';
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 import { DecryptionError, FarcasterInvalidSignerKey, FetchError, UserRejectionError } from '@/constants/error.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';

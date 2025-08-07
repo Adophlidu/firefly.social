@@ -1,8 +1,8 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import type { OptionsObject, SnackbarKey, SnackbarMessage } from 'notistack';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
+import type { OptionsObject, SnackbarKey, SnackbarMessage } from '@/components/Snackbar.js';
 import { WarnSnackbar } from '@/components/WarnSnackbar.js';
 import type { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
