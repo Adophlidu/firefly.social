@@ -48,7 +48,7 @@ export function useToggleNFTBookmark(options: { owner: string; nftId: string; st
                     error instanceof FetchError &&
                     error.text?.includes('Bookmark not exist')
                 ) {
-                    enqueueErrorMessage('Bookmark not exist, please try going to the detail page and un-bookmark it.');
+                    enqueueErrorMessage(t`Bookmark not exist, please try going to the detail page and un-bookmark it.`);
                     return;
                 }
                 enqueueMessageFromError(

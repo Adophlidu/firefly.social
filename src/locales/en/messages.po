@@ -1297,6 +1297,9 @@ msgstr "🎭 Replied on {0}."
 msgid "Unknown"
 msgstr "Unknown"
 
+msgid "Bookmark not exist, please try going to the detail page and un-bookmark it."
+msgstr "Bookmark not exist, please try going to the detail page and un-bookmark it."
+
 msgid "The contract owner has restrictions on buying."
 msgstr "The contract owner has restrictions on buying."
 

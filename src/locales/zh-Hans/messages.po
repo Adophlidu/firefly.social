@@ -1302,6 +1302,9 @@ msgstr ""
 msgid "Unknown"
 msgstr "未知"
 
+msgid "Bookmark not exist, please try going to the detail page and un-bookmark it."
+msgstr ""
+
 msgid "The contract owner has restrictions on buying."
 msgstr "合约所有者对购买有限制。"
 

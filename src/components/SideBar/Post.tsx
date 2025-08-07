@@ -5,7 +5,6 @@ import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -46,11 +45,10 @@ export function Post({ collapsed = false }: PostProps) {
                 <ClickableButton
                     className="mt-6 hidden w-full rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
                     onClick={() => {
-                        enqueueMessageFromError(new Error('Post button clicked'), 'Error Message');
-                        // ComposeModalRef.open({
-                        //     type: 'compose',
-                        //     channel: currentChannel,
-                        // });
+                        ComposeModalRef.open({
+                            type: 'compose',
+                            channel: currentChannel,
+                        });
                     }}
                 >
                     <Trans>Post</Trans>
