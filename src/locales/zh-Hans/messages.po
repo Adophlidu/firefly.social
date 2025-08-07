@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-07-17 12:01\n"
+"PO-Revision-Date: 2025-08-05 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -938,7 +938,7 @@ msgstr "该代币可能是陷阱。"
 
 #. placeholder {0}: renderShrankPrice(formatPrice(price) ?? '-')
 msgid "<0>today</0><1>${0}</1>"
-msgstr "<0>今日</0><1>${0}</1>"
+msgstr "<0>今天</0><1>${0}</1>"
 
 msgid "Other accounts"
 msgstr "其他账号"
@@ -983,7 +983,7 @@ msgstr "不安全：交易存在风险"
 
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
 msgid "{0, plural, one {# day} other {# days}}"
-msgstr "{0, plural, one {# 天} other {# 天}}"
+msgstr "{0, plural, one {# 日} other {# 日}}"
 
 msgid "Suspected malicious address."
 msgstr "发现疑似恶意地址。"
@@ -998,7 +998,7 @@ msgstr "Firefly版权所有。若有任何疑问，请<0>联系我们。</0>"
 #. placeholder {0}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
 #. placeholder {1}: activity.dex_name || formatAddress(activity.router_address, 4)
 msgid "<0><1/><2>Swapped</2></0><3>on</3>{0}<4>{1}</4>"
-msgstr "<0><1/><2>已兑换</2></0><3>在</3>{0}<4>{1}</4>"
+msgstr ""
 
 msgid "Failed to enable Multi-device login. Please try again later."
 msgstr "无法开启多设备登录功能，请稍后重试。"
@@ -2913,7 +2913,7 @@ msgstr "查看互动"
 #. placeholder {1}: token.symbol?.toUpperCase()
 #. placeholder {1}: token.symbol || '-'
 msgid "Balance: {0} {1}"
-msgstr "余额：{0} {1}"
+msgstr "余额： {0} {1}"
 
 msgid "This wallet address is invalid"
 msgstr "这个钱包地址无效"
