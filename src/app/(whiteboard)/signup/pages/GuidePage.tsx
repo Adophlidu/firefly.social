@@ -8,8 +8,8 @@ import AppleIcon from '@/assets/apple-small.svg';
 import GoogleStoreIcon from '@/assets/google-store.svg';
 import { SignupStep } from '@/constants/enum.js';
 import { bedStead } from '@/fonts/index.js';
-import { openWindow } from '@/helpers/openWindow.js';
 import { FireflyAccountSVG } from '@/modals/CreateFireflyAccountGuideModal/FireflyAccountSVG.js';
+import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';
 
 interface GuidePageProps {
     changeStep: (step: SignupStep) => void;
@@ -65,7 +65,7 @@ export function GuidePage({ changeStep }: GuidePageProps) {
                         className="text-black"
                         colorMode="light"
                         onClick={() => {
-                            openWindow('https://firefly.social/about');
+                            DownloadMobileAppModalRef.open();
                         }}
                     >
                         <Trans>Download App</Trans>

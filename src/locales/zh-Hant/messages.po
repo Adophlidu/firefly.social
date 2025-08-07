@@ -1073,6 +1073,9 @@ msgstr "連接 EVM 相容錢包"
 msgid "<0/>EVM wallets"
 msgstr "<0/>EVM 錢包"
 
+msgid "or"
+msgstr ""
+
 msgid "Items"
 msgstr "項"
 
@@ -4259,6 +4262,9 @@ msgstr "檢舉垃圾 NFT 失敗"
 
 msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr "取消追蹤 {handleOrEnsOrAddress}"
+
+msgid "Scan the QR code with your phone to download the app"
+msgstr ""
 
 msgid "Sorry, there is no wallet address available for tipping."
 msgstr "抱歉，未找到相關地址用於發送小費。"

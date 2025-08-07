@@ -30,6 +30,7 @@ export function SquareButton({
             <ButtonBg
                 width={'100%'}
                 height={'100%'}
+                preserveAspectRatio="none"
                 className={colorMode === 'auto' ? 'text-main' : colorMode === 'light' ? 'text-white' : 'text-[#171717]'}
             />
             <div className="absolute inset-0 z-1 flex items-center justify-center gap-3">

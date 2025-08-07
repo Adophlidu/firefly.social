@@ -1068,6 +1068,9 @@ msgstr "Connect Ethereum Wallet"
 msgid "<0/>EVM wallets"
 msgstr "<0/>EVM wallets"
 
+msgid "or"
+msgstr "or"
+
 msgid "Items"
 msgstr "Items"
 
@@ -4254,6 +4257,9 @@ msgstr "Failed to report spam NFT."
 
 msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr "Unfollow {handleOrEnsOrAddress}"
+
+msgid "Scan the QR code with your phone to download the app"
+msgstr "Scan the QR code with your phone to download the app"
 
 msgid "Sorry, there is no wallet address available for tipping."
 msgstr "Sorry, there is no wallet address available for tipping."
