@@ -1,5 +1,5 @@
 import { omitBy } from 'lodash-es';
-import type { HTMLProps } from 'react';
+import type { HTMLProps, ReactNode } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
 import WalletIcon from '@/assets/wallet.fill.svg';
@@ -25,6 +25,7 @@ export interface RecipientItemProps extends Pick<HTMLProps<'div'>, 'className'> 
     fireflyId?: string;
     id?: string;
     forceAddress?: boolean;
+    tag?: ReactNode;
 }
 
 export function RecipientItem({
@@ -39,6 +40,7 @@ export function RecipientItem({
     explorerLink,
     showSources = false,
     forceAddress = false,
+    tag,
     ...props
 }: RecipientItemProps) {
     return (
@@ -61,7 +63,7 @@ export function RecipientItem({
             </div>
             {forceAddress || (!username && !ens) ? (
                 <div className="flex w-full flex-col items-center justify-center space-y-1 text-[13px]">
-                    <div className="break-word line-clamp-2 w-full whitespace-pre-wrap pr-9 font-bold leading-[18px]">
+                    <div className="break-word line-clamp-2 w-full whitespace-pre-wrap pr-3 font-bold leading-[18px]">
                         {address}
                     </div>
                 </div>
@@ -73,21 +75,28 @@ export function RecipientItem({
                     </div>
                 </div>
             )}
-            {!forceAddress && showSources && sources?.length ? (
-                <div className="ml-auto flex flex-row items-center -space-x-1">
-                    {sources?.map((source) => (
-                        <SocialSourceIcon
-                            source={source}
-                            key={source}
-                            width={20}
-                            height={20}
-                            className="flex-shrink-0"
-                        />
-                    ))}
-                </div>
-            ) : explorerLink ? (
-                <ExplorerLink address={address} />
-            ) : null}
+            <div className="ml-auto flex items-center space-x-2">
+                {tag ? (
+                    <div className="h-6 rounded bg-walletBg px-2 text-[13px] font-medium leading-6 text-highlight">
+                        {tag}
+                    </div>
+                ) : null}
+                {!forceAddress && showSources && sources?.length ? (
+                    <div className="flex flex-row items-center -space-x-1">
+                        {sources?.map((source) => (
+                            <SocialSourceIcon
+                                source={source}
+                                key={source}
+                                width={20}
+                                height={20}
+                                className="flex-shrink-0"
+                            />
+                        ))}
+                    </div>
+                ) : explorerLink ? (
+                    <ExplorerLink address={address} />
+                ) : null}
+            </div>
         </div>
     );
 }

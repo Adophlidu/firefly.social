@@ -75,7 +75,7 @@ import type { Token as TipsToken, Token } from '@/providers/types/Transfer.js';
 
 export function SendTransactionModal({ onClose, open }: { onClose: () => void; open: boolean }) {
     return (
-        <Modal open={open} onClose={() => onClose()} className="w-[600px] max-md:w-[calc(100%-40px)]">
+        <Modal open={open} onClose={() => onClose()} className="w-auto max-md:w-[calc(100%-40px)]">
             <SendTransactionModalRouter onClose={onClose} />
         </Modal>
     );
@@ -175,6 +175,7 @@ function FormView() {
         control,
         formState: { isSubmitting, isValid },
         register,
+        setValue,
     } = useFormContext<FormValues>();
     const { ethereum, solana } = useWalletAccountAll();
     const onSubmit = async (values: FormValues) => {
@@ -333,12 +334,13 @@ function FormView() {
 
     const [{ loading: isSettingMaxAmount }, onSetMaxAmount] = useAsyncFn(async () => {
         const transfer = resolveTransferProvider(networkType);
-        return await transfer.getAvailableBalance({
+        const amount = await transfer.getAvailableBalance({
             to: ETH_ZERO_ADDRESS,
             token,
             amount: '0',
         });
-    }, [networkType, token]);
+        setValue('amount', amount);
+    }, [networkType, setValue, token]);
 
     if (!token) {
         return <Navigate to={RoutePath.SelectToken} />;
@@ -382,7 +384,7 @@ function FormView() {
                                 },
                             )}
                         >
-                            <RecipientItem {...(omit(recipient, 'handle') as RecipientItemProps)} />
+                            <RecipientItem {...(omit(recipient, 'handle', 'tag') as RecipientItemProps)} />
                         </div>
                     ) : null}
                     <label
@@ -466,7 +468,7 @@ function FormView() {
                         </ClickableButton>
                     </label>
                 </div>
-                <div className="flex h-[18px] w-full flex-row justify-between text-sm leading-[18px]">
+                <div className="flex h-[18px] w-full flex-row justify-between whitespace-nowrap text-sm leading-[18px]">
                     {estimatedGas ? (
                         <>
                             <div className="font-normal text-second">
@@ -555,9 +557,10 @@ function SelectTokenView() {
     const onSelectedToken = useCallback(
         (token: Token) => {
             setValue('token', token);
+            setValue('amount', '');
             router.navigate({ to: RoutePath.Form });
         },
-        [setValue],
+        [router, setValue],
     );
 
     return (

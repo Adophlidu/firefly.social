@@ -81,7 +81,11 @@ function getTransactionHistoryItem(
 
 function TransactionHistoryItem({ item }: { item: TransactionHistoryItem }) {
     return (
-        <div className="my-1 flex items-center rounded-lg p-2 hover:bg-bg">
+        <Link
+            href={`/tx/${item.chain_id}/${item.hash}`}
+            className="my-1 flex items-center rounded-lg p-2 hover:bg-bg"
+            prefetch={false}
+        >
             <div className="flex items-center space-x-5">
                 <TransactionHistoryTokenItem item={item} />
                 <div>
@@ -96,7 +100,7 @@ function TransactionHistoryItem({ item }: { item: TransactionHistoryItem }) {
                 </div>
             </div>
             <ItemEnd item={item} />
-        </div>
+        </Link>
     );
 }
 

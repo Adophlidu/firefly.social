@@ -5,7 +5,7 @@ import { RecipientItem, type RecipientItemProps } from '@/components/SendTransac
 import { NetworkType, type ProfilePageSource, Source } from '@/constants/enum.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
-import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
+import { type FireflyProfile, type WalletProfile, WalletProfileDataSource } from '@/providers/types/Firefly.js';
 
 export function ChooseRecipient({
     recipient,
@@ -38,10 +38,14 @@ export function ChooseRecipient({
             (item) =>
                 item.identity.source === Source.Wallet && (item.__origin__ as WalletProfile).blockchain === networkType,
         )
-        .map((x) => ({
-            ...recipient,
-            address: (x.__origin__ as WalletProfile).address,
-        }));
+        .map((x) => {
+            const walletProfile = x.__origin__ as WalletProfile;
+            return {
+                ...recipient,
+                address: walletProfile.address,
+                tag: walletProfile.dataSource === WalletProfileDataSource.Privy ? 'Privy' : undefined,
+            };
+        });
 
     if (isLoading) {
         return <Loading minHeight={370} />;

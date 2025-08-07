@@ -2,7 +2,6 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { useQuery } from '@tanstack/react-query';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
@@ -21,6 +20,7 @@ import { isUserRejectErrorInWallet } from '@/helpers/isUserRejectErrorInWallet.j
 import { isZero, ZERO } from '@/helpers/number.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { trimify } from '@/helpers/trimify.js';
+import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { reportAndCaptureTipEvent } from '@/services/reportAndCaptureTipEvent.js';
@@ -203,11 +203,11 @@ export function SendWithEVM() {
 }
 
 export function SendWithSolana() {
-    const { connection } = useAppKitConnection();
+    const provider = useSolanaWalletProvider();
 
     const onConnect = useCallback(() => {
         WalletConnectModalRef.open({ networkType: NetworkType.Solana });
     }, []);
 
-    return <SendTipsButton connected={!!connection} onConnect={onConnect} />;
+    return <SendTipsButton connected={!!provider?.publicKey} onConnect={onConnect} />;
 }
