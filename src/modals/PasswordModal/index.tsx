@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
+import { IS_IOS } from '@/constants/browser.js';
 import type { PasswordWorkflow } from '@/constants/enum.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -29,10 +30,10 @@ export function PasswordModal({ ref }: Props) {
 
     if (!props) return null;
 
-    if (isMedium) {
+    if (isMedium || IS_IOS) {
         return (
             <Modal open={open} onClose={onClose}>
-                <div className="max-h-[70vh] w-[80vw] max-w-[400px]">
+                <div className="max-h-[70vh] w-[90vw] max-w-[400px]">
                     <PasswordModalContent {...props} onClose={onClose} />
                 </div>
             </Modal>
