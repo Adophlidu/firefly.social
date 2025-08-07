@@ -673,6 +673,9 @@ msgstr "折疊"
 msgid "Follow <0>@{handle}</0> on {0}"
 msgstr "在 {0} 上追蹤 <0>@{handle}</0>"
 
+msgid "Scan and Get Firefly Mobile App"
+msgstr ""
+
 msgid "Undo repost"
 msgstr "取消轉發"
 

@@ -668,6 +668,9 @@ msgstr ""
 msgid "Follow <0>@{handle}</0> on {0}"
 msgstr ""
 
+msgid "Scan and Get Firefly Mobile App"
+msgstr ""
+
 msgid "Undo repost"
 msgstr ""
 

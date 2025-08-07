@@ -668,6 +668,9 @@ msgstr "Show less"
 msgid "Follow <0>@{handle}</0> on {0}"
 msgstr "Follow <0>@{handle}</0> on {0}"
 
+msgid "Scan and Get Firefly Mobile App"
+msgstr "Scan and Get Firefly Mobile App"
+
 msgid "Undo repost"
 msgstr "Undo repost"
 

@@ -21,6 +21,7 @@ import {
     DisconnectFireflyAccountModal,
     DisconnectFireflyAccountModalRef,
 } from '@/modals/DisconnectFireflyAccountModal.js';
+import { DownloadMobileAppModal, DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';
 import { DraggablePopover, DraggablePopoverRef } from '@/modals/DraggablePopover.js';
 import { EditCrossAtModal, EditCrossAtModalRef } from '@/modals/EditCrossAtModal.js';
 import {
@@ -92,6 +93,7 @@ export const Modals = memo(function Modals() {
             <ConfirmSyncSessionModal ref={ConfirmSyncSessionModalRef.register} />
             <CreateFireflyAccountGuideModal ref={CreateFireflyAccountGuideModalRef.register} />
             <ShareImageModal ref={ShareImageModalRef.register} />
+            <DownloadMobileAppModal ref={DownloadMobileAppModalRef.register} />
         </NoSSR>
     );
 });

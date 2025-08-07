@@ -673,6 +673,9 @@ msgstr "收起"
 msgid "Follow <0>@{handle}</0> on {0}"
 msgstr "在 {0} 上关注 <0>@{handle}</0>"
 
+msgid "Scan and Get Firefly Mobile App"
+msgstr ""
+
 msgid "Undo repost"
 msgstr "取消转发"
 
