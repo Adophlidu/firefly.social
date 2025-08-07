@@ -4,6 +4,7 @@ import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import type { TipsProfile } from '@/hooks/useTipsContext.js';
 import { captureTipsSendEvent } from '@/providers/telemetry/captureTipsEvent.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import { reportTokenTips, UploadTokenTipsToken } from '@/services/reportTokenTips.js';
 
@@ -39,7 +40,7 @@ export async function reportAndCaptureTipEvent(
             tip_memos: '',
             tx_hash: hash,
         });
-        captureTipsSendEvent({
+        captureTipsSendEvent(EventId.TIPS_SEND_SUCCESS, {
             wallet_address: address,
             target_wallet_address: recipient.address,
             target_firefly_account_id: toAccountId ?? '',

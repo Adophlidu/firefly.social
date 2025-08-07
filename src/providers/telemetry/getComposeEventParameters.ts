@@ -1,7 +1,9 @@
+import type { TypedMessage } from '@masknet/typed-message';
 import { compact } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_POLL_SOURCES } from '@/constants/index.js';
+import type { SupportedMetaKeys } from '@/constants/rp.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { getRpMetadata } from '@/helpers/rpPayload.js';
 import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';
@@ -35,7 +37,7 @@ export function getComposeEventParameters(
     // but only schedule id indicates that the post is scheduled and saved
     const scheduleTime = useComposeScheduleStateStore.getState().scheduleTime;
 
-    const rp = post.typedMessage?.meta ? getRpMetadata(post.typedMessage) : null;
+    const rp = post.typedMessage?.meta ? getRpMetadata(post.typedMessage as TypedMessage<SupportedMetaKeys>) : null;
 
     return {
         include_lens_post: hasLens,

@@ -8,8 +8,11 @@ export function hasRpPayload(message: TypedMessage | null) {
     return SupportedMetaKeys.some((key) => !!message?.meta?.get(key));
 }
 
-export function getRpMetadata(message: TypedMessage | null) {
-    const metadata = first(SupportedMetaKeys.map((key) => message?.meta?.get(key)).filter(Boolean)) ?? null;
+export function getRpMetadata<K extends SupportedMetaKeys>(message: TypedMessage<K>): RedPacketMetadata;
+export function getRpMetadata<K extends string>(message: TypedMessage<K>): null;
+
+export function getRpMetadata<K extends string | SupportedMetaKeys>(message: TypedMessage<K>) {
+    const metadata = first(SupportedMetaKeys.map((key) => message.meta?.get(key as K)).filter(Boolean)) ?? null;
     return metadata as RedPacketMetadata | null;
 }
 

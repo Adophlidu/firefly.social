@@ -30,3 +30,15 @@ export interface RedPacketMetadata {
     token: { decimals: number; symbol: string; address: string; chainId: number };
     total: string;
 }
+
+export interface RedPacketCreationSuccessEventArgs {
+    creation_time: string;
+    creator: string;
+    id: string;
+    token_address: string;
+    total: bigint;
+    name: string;
+    message: string;
+    duration: number;
+    ifrandom: boolean;
+}

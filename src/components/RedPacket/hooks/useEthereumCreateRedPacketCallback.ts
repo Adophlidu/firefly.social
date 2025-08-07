@@ -1,4 +1,5 @@
 import { t } from '@lingui/core/macro';
+import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { first, omit, pick } from 'lodash-es';
 import { useContext, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -31,6 +32,7 @@ import { EthereumRedPacket } from '@/providers/ethereum/RedPacket.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import type { RedPacketCreationSuccessEventArgs } from '@/types/rp.js';
 import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 function reduceUselessPayloadInfo(payload: RedPacketJSONPayload): RedPacketJSONPayload {
@@ -93,7 +95,7 @@ export function useEthereumCreateRedPacketCallback(
                 token.schema === EthereumSchemaType.Native ? getEvmNativeTokenAddress(chainId) : token.address;
             if (!tokenAddress) return;
 
-            const params = await EthereumRedPacket.createRedPacketParams({
+            const redpacketParams = await EthereumRedPacket.createRedPacketParams({
                 creator: account,
                 duration,
                 isRandom,
@@ -107,25 +109,26 @@ export function useEthereumCreateRedPacketCallback(
                 publicKey,
                 networkType,
             });
-            if (!params) return;
+            if (!redpacketParams) return;
+            const { params, methodParams } = redpacketParams;
 
-            const value = toFixed(params.params.token?.schema === EthereumSchemaType.Native ? total : 0);
+            const value = toFixed(params.token?.schema === EthereumSchemaType.Native ? total : 0);
 
             const result = await writeContract(wagmiConfig, {
                 address: getRedPacketContractAddress(chainId),
                 abi: RED_PACKET_ABI,
                 functionName: 'create_red_packet',
                 args: [
-                    params.methodParams.publicKey,
-                    params.methodParams.shares,
-                    params.methodParams.isRandom,
-                    params.methodParams.duration,
-                    params.methodParams.seed,
-                    params.methodParams.message,
-                    params.methodParams.name,
-                    params.methodParams.tokenType,
-                    params.methodParams.tokenAddress,
-                    params.methodParams.total,
+                    methodParams.publicKey,
+                    methodParams.shares,
+                    methodParams.isRandom,
+                    methodParams.duration,
+                    methodParams.seed,
+                    methodParams.message,
+                    methodParams.name,
+                    methodParams.tokenType,
+                    methodParams.tokenAddress,
+                    methodParams.total,
                 ],
                 value: BigInt(value),
                 account: account as Address,
@@ -133,6 +136,33 @@ export function useEthereumCreateRedPacketCallback(
             });
             if (!result) return;
 
+            const payload = {
+                sender: {
+                    address: account,
+                    name: methodParams.name,
+                    message: methodParams.message,
+                },
+                is_random: methodParams.isRandom,
+                shares: methodParams.shares,
+                password: '',
+                rpid: '',
+                total: methodParams.total,
+                duration: methodParams.duration,
+                creation_time: Date.now(),
+                token,
+                network: EVMChainResolver.chainName(chainId),
+                contract_address: getRedPacketContractAddress(chainId),
+                contract_version: RED_PACKET_CONTRACT_VERSION,
+                txid: '',
+            };
+
+            captureLuckyDropEvent('pre-create', {
+                metadata: getRpMetadata(
+                    getTypedMessageRedPacket({
+                        [RedPacketMetaKey]: reduceUselessPayloadInfo(payload),
+                    }),
+                ),
+            });
             await waitForEthereumTransaction(chainId, result);
             const receipt = await getTransactionReceipt(wagmiConfig, {
                 hash: result,
@@ -155,46 +185,14 @@ export function useEthereumCreateRedPacketCallback(
             });
             if (!args) return;
 
-            const {
-                total: _total,
-                id,
-                name: _name,
-                message: _message,
-                duration: _duration,
-                creation_time,
-                ifrandom: _isRandom,
-            } = args as unknown as {
-                creation_time: string;
-                creator: string;
-                id: string;
-                token_address: string;
-                total: bigint;
-                name: string;
-                message: string;
-                duration: number;
-                ifrandom: boolean;
-            };
+            const { id, creation_time } = args as unknown as RedPacketCreationSuccessEventArgs;
             if (!id) return;
 
-            const payload = {
-                sender: {
-                    address: account,
-                    name: _name as string,
-                    message: _message as string,
-                },
-                is_random: _isRandom,
-                shares,
-                password: '',
+            Object.assign(payload, {
                 rpid: id as string,
-                total: _total.toString(),
-                duration: Number(_duration) as number,
                 creation_time: Number.parseInt(creation_time, 10) * 1000,
-                token,
-                network: EVMChainResolver.chainName(chainId),
-                contract_address: getRedPacketContractAddress(chainId),
-                contract_version: RED_PACKET_CONTRACT_VERSION,
                 txid: receipt.transactionHash,
-            };
+            });
 
             const typedMessage = getTypedMessageRedPacket({
                 [RedPacketMetaKey]: reduceUselessPayloadInfo(payload),
@@ -202,13 +200,12 @@ export function useEthereumCreateRedPacketCallback(
 
             const { updateTypedMessage, updateRpPayload } = useComposeStateStore.getState();
 
-            updateTypedMessage(typedMessage);
+            updateTypedMessage(typedMessage as TypedMessageTextV1);
 
             const metadata = getRpMetadata(typedMessage);
-            if (metadata)
-                captureLuckyDropEvent('create', {
-                    metadata,
-                });
+            captureLuckyDropEvent('create', {
+                metadata,
+            });
 
             if (coverImage) {
                 updateRpPayload({

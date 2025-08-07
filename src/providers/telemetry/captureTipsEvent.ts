@@ -36,13 +36,14 @@ export function captureTipsSharePostEvent(identity: FireflyIdentity, hash: strin
 }
 
 export function captureTipsSendEvent(
+    eventId: EventId.TIPS_SEND_SUBMIT | EventId.TIPS_SEND_SUCCESS,
     parameters: Omit<
         Events[EventId.TIPS_SEND_SUCCESS]['parameters'],
         'firefly_account_id' | 'wallet_name' | 'wallet_type'
     >,
 ) {
     return runInSafeAsync(() => {
-        return TelemetryProvider.captureEvent(EventId.TIPS_SEND_SUCCESS, {
+        return TelemetryProvider.captureEvent(eventId, {
             ...parameters,
             ...getWalletEventParameters(parameters.wallet_address),
         });

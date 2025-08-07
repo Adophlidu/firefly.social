@@ -14,6 +14,7 @@ export const SolanaRedPacketMetaKey = `${PluginID.RedPacket}_solana:1`;
 export const RedPacketEncryptedKey = `${RedPacketMetaKey}:encrypted`;
 
 export const SupportedMetaKeys = [RedPacketMetaKey, SolanaRedPacketMetaKey];
+export type SupportedMetaKeys = typeof SolanaRedPacketMetaKey | typeof RedPacketMetaKey;
 
 export const MESSAGE_MAX_LENGTH = 40;
 export const MESSAGE_MAX_LENGTH_SOLANA = 40;

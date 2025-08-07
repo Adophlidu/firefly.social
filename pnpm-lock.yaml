@@ -41,6 +41,9 @@ patchedDependencies:
   '@livepeer/core@3.2.7':
     hash: 7x6iztm46opvgqs5ezn5wyvnvi
     path: patches/@livepeer__core@3.2.7.patch
+  '@masknet/typed-message@0.2.0':
+    hash: wqofus3h6qqc243il6nyihlhy4
+    path: patches/@masknet__typed-message@0.2.0.patch
   '@privy-io/react-auth@2.16.0':
     hash: rgdentndkrqibpew3vhhmtuktu
     path: patches/@privy-io__react-auth@2.16.0.patch
@@ -165,7 +168,7 @@ dependencies:
     version: 0.4.2
   '@masknet/typed-message':
     specifier: ^0.2.0
-    version: 0.2.0
+    version: 0.2.0(patch_hash=wqofus3h6qqc243il6nyihlhy4)
   '@masknet/typed-message-react':
     specifier: ^0.2.2
     version: 0.2.2(react@19.0.0)
@@ -5900,7 +5903,7 @@ packages:
       '@masknet/base': 0.3.1
       '@masknet/secp256k1-webcrypto': 1.0.1
       '@masknet/stego-js': 0.14.2
-      '@masknet/typed-message': 0.2.0
+      '@masknet/typed-message': 0.2.0(patch_hash=wqofus3h6qqc243il6nyihlhy4)
       '@msgpack/msgpack': 3.1.1
     dev: false
 
@@ -5934,13 +5937,13 @@ packages:
     peerDependencies:
       react: 19.0.0
     dependencies:
-      '@masknet/typed-message': 0.2.0
+      '@masknet/typed-message': 0.2.0(patch_hash=wqofus3h6qqc243il6nyihlhy4)
       immer: 10.1.1
       react: 19.0.0
       z-schema: 6.0.2
     dev: false
 
-  /@masknet/typed-message@0.2.0:
+  /@masknet/typed-message@0.2.0(patch_hash=wqofus3h6qqc243il6nyihlhy4):
     resolution: {integrity: sha512-w1SmczmtRKphKSb0AXQIkbOMrvQsAoEdGeeOfLrUsbF/kyhVFe88BQd2OFdTUip7zpXzbKjNN5tNYtylluS1iA==}
     dependencies:
       '@msgpack/msgpack': 3.1.1
@@ -5948,6 +5951,7 @@ packages:
       lodash-es: 4.17.21
       ts-results-es: 4.2.0
     dev: false
+    patched: true
 
   /@mdx-js/react@3.1.0(@types/react@19.0.2)(react@19.0.0):
     resolution: {integrity: sha512-QjHtSaoameoalGnKDT3FoIl4+9RwyTmo9ZJGBdLOks/YOiWHoRDI3PUwEzOE7kEmGcV3AFcp9K6dYu9rEuKLAQ==}

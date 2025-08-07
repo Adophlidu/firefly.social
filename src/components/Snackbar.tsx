@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react';
-import { CheckCircleIcon, ExclamationCircleIcon, InformationCircleIcon,XCircleIcon } from '@heroicons/react/24/solid';
+import { CheckCircleIcon, ExclamationCircleIcon, InformationCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import {
     createContext,
     forwardRef,

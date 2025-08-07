@@ -64,6 +64,7 @@ export enum EventId {
     UNMUTE_SUCCESS = 'unmute_success', // ✅
 
     // tips
+    TIPS_SEND_SUBMIT = 'tips_send_submit', // ✅
     TIPS_SEND_SUCCESS = 'tips_send_success', // ✅
     TIPS_SWITCH_RECIPIENT = 'tips_change_wallet_click', // ✅
     TIPS_SHARE_POST_SUCCESS = 'tips_share_success', // ✅
@@ -72,8 +73,11 @@ export enum EventId {
     POLL_CREATE_SUCCESS = 'poll_create_success', // ✅
 
     // lucky drop
+    LUCKY_DROP_CREATE_SUBMIT = 'lucky_drop_create_submit', // ✅
     LUCKY_DROP_CREATE_SUCCESS = 'lucky_drop_create_success', // ✅
+    LUCKY_DROP_REFUND_SUBMIT = 'lucky_drop_refund_submit', // ✅
     LUCKY_DROP_REFUND_SUCCESS = 'lucky_drop_refund_success', // ✅
+    LUCKY_DROP_CLAIM_SUBMIT = 'lucky_drop_claim_submit', // ✅
     LUCKY_DROP_CLAIM_SUCCESS = 'lucky_drop_claim_success', // ✅
 
     // blink
@@ -83,6 +87,7 @@ export enum EventId {
 
     // frame
     POST_FRAME_ACTION_CLICK = 'post_mini_app_click', // ✅
+    POST_FRAME_ACTION_SUBMIT = 'post_frame_action_submit', // ✅
     POST_FRAME_ACTION_SUCCESS = 'post_frame_action_success', // ✅
 
     // miniapps
@@ -90,9 +95,11 @@ export enum EventId {
     MINI_APP_FARCASTER_SIGN_IN_SUCCESS = 'mini_app_far_sign_in_success',
 
     // article
+    ARTICLE_COLLECT_SUBMIT = 'article_collect_submit', // ✅
     ARTICLE_COLLECT_SUCCESS = 'article_collect_success', // ✅
 
     // snapshot
+    SNAPSHOT_VOTE_SUBMIT = 'snapshot_vote_submit', // ✅
     SNAPSHOT_VOTE_SUCCESS = 'snapshot_vote_success', // ✅
 
     // mint
@@ -106,6 +113,7 @@ export enum EventId {
     PROFILE_CHANGE_ACCOUNT_CLICK = 'profile_change_account_click',
 
     // connect wallet
+    CONNECT_WALLET_SUBMIT = 'connect_wallet_submit', // ✅
     CONNECT_WALLET_SUCCESS = 'connect_wallet_success', // ✅
     CONNECT_WALLET_SUCCESS_METAMASK = 'metamask_connect_wallet_success', // ✅
     CONNECT_WALLET_SUCCESS_RABBY = 'rabby_connect_wallet_success', // ✅
@@ -153,9 +161,11 @@ export enum EventId {
     LENS_POST_SHARE_SUCCESS = 'lens_post_share_success', // ✅
     LENS_POST_BOOKMARK_SUCCESS = 'lens_post_bookmark_success', // ✅
     LENS_POST_UNBOOKMARK_SUCCESS = 'lens_post_unbookmark_success', // ✅
+    LENS_POST_COLLECT_SUBMIT = 'lens_post_collect_submit', // ✅
     LENS_POST_COLLECT_SUCCESS = 'lens_post_collect_success', // ✅
     LENS_PROFILE_FOLLOW_SUCCESS = 'lens_follow_success', // ✅
     LENS_PROFILE_UNFOLLOW_SUCCESS = 'lens_unfollow_success', // ✅
+    LENS_PROFILE_SUPER_FOLLOW_SUBMIT = 'lens_superfollow_submit', // ✅
     LENS_PROFILE_SUPER_FOLLOW_SUCCESS = 'lens_superfollow_success', // ✅
 
     // x
@@ -241,6 +251,7 @@ export enum EventId {
     EVENT_LIKE_SWAP_CLICK = 'swap_like_success',
     EVENT_SWAP_DETAIL_CLICK = 'swap_detail_click',
     EVENT_SWAP_COPY_TRADE_CLICK = 'swap_copy_trade_click',
+    EVENT_SWAP_SUBMIT = 'swap_submit',
     EVENT_SWAP_SUCCESS = 'swap_success',
 
     // channel
@@ -536,6 +547,10 @@ export interface Events extends Record<EventId, Event> {
         };
     };
 
+    [EventId.CONNECT_WALLET_SUBMIT]: {
+        type: EventType.Interact;
+        parameters: ConnectWalletEventParameters;
+    };
     [EventId.CONNECT_WALLET_SUCCESS]: {
         type: EventType.Interact;
         parameters: ConnectWalletEventParameters;
@@ -637,6 +652,19 @@ export interface Events extends Record<EventId, Event> {
             firefly_account_id: string;
         };
     };
+    [EventId.TIPS_SEND_SUBMIT]: {
+        type: EventType.Interact;
+        parameters: {
+            target_wallet_address: string; // address all lowercased
+            target_firefly_account_id?: string;
+            amount: string;
+            currency: string;
+            amount_usd?: number;
+            chain_id: number;
+            chain_name: string;
+            is_custom_amount: boolean;
+        } & WalletEventParameters;
+    };
     [EventId.TIPS_SEND_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
@@ -664,13 +692,25 @@ export interface Events extends Record<EventId, Event> {
             transaction_id: string;
         };
     };
+    [EventId.LUCKY_DROP_CREATE_SUBMIT]: {
+        type: EventType.Interact;
+        parameters: LuckyDropEventParameters;
+    };
     [EventId.LUCKY_DROP_CREATE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: LuckyDropEventParameters;
+    };
+    [EventId.LUCKY_DROP_CLAIM_SUBMIT]: {
         type: EventType.Interact;
         parameters: LuckyDropEventParameters;
     };
     [EventId.LUCKY_DROP_CLAIM_SUCCESS]: {
         type: EventType.Interact;
         parameters: LuckyDropEventParameters;
+    };
+    [EventId.LUCKY_DROP_REFUND_SUBMIT]: {
+        type: EventType.Interact;
+        parameters: WalletEventParameters;
     };
     [EventId.LUCKY_DROP_REFUND_SUCCESS]: {
         type: EventType.Interact;
@@ -682,6 +722,10 @@ export interface Events extends Record<EventId, Event> {
             firefly_account_id: string;
             poll_id: string;
         };
+    };
+    [EventId.SNAPSHOT_VOTE_SUBMIT]: {
+        type: EventType.Interact;
+        parameters: WalletEventParameters;
     };
     [EventId.SNAPSHOT_VOTE_SUCCESS]: {
         type: EventType.Interact;
@@ -711,6 +755,13 @@ export interface Events extends Record<EventId, Event> {
             nft_ca: string;
         };
     };
+    [EventId.ARTICLE_COLLECT_SUBMIT]: {
+        type: EventType.Interact;
+        parameters: {
+            article_id: string;
+            free_mint: boolean;
+        } & WalletEventParameters;
+    };
     [EventId.ARTICLE_COLLECT_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
@@ -719,6 +770,14 @@ export interface Events extends Record<EventId, Event> {
         } & WalletEventParameters;
     };
     [EventId.POST_FRAME_ACTION_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            frame_action: FrameActionType;
+            frame_version: string;
+            frame_url: string;
+        } & WalletEventParameters;
+    };
+    [EventId.POST_FRAME_ACTION_SUBMIT]: {
         type: EventType.Interact;
         parameters: {
             frame_action: FrameActionType;
@@ -933,6 +992,10 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: LensPostEventParameters;
     };
+    [EventId.LENS_POST_COLLECT_SUBMIT]: {
+        type: EventType.Interact;
+        parameters: LensPostEventParameters;
+    };
     [EventId.LENS_POST_COLLECT_SUCCESS]: {
         type: EventType.Interact;
         parameters: LensPostEventParameters;
@@ -944,6 +1007,10 @@ export interface Events extends Record<EventId, Event> {
     [EventId.LENS_PROFILE_UNFOLLOW_SUCCESS]: {
         type: EventType.Interact;
         parameters: LensEventParameters;
+    };
+    [EventId.LENS_PROFILE_SUPER_FOLLOW_SUBMIT]: {
+        type: EventType.Interact;
+        parameters: LensEventParameters & WalletEventParameters;
     };
     [EventId.LENS_PROFILE_SUPER_FOLLOW_SUCCESS]: {
         type: EventType.Interact;
@@ -1236,6 +1303,21 @@ export interface Events extends Record<EventId, Event> {
     // ----------------
     // swap
     // ----------------
+    [EventId.EVENT_SWAP_SUBMIT]: {
+        type: EventType.Interact;
+        parameters: {
+            wallet_address: string;
+            amount?: string;
+            currency?: string;
+            amount_usd?: string;
+            chain_id?: number;
+            chain_name?: string;
+            wallet_type: string;
+            wallet_name: string;
+            time: string;
+            tx_hash?: string;
+        };
+    };
     [EventId.EVENT_SWAP_SUCCESS]: {
         type: EventType.Interact;
         parameters: {

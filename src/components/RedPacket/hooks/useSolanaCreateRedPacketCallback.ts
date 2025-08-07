@@ -1,5 +1,6 @@
 import { web3 } from '@coral-xyz/anchor';
 import { t } from '@lingui/core/macro';
+import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { BigNumber } from 'bignumber.js';
 import { omit, pick } from 'lodash-es';
 import { useContext } from 'react';
@@ -133,7 +134,7 @@ export function useSolanaCreateRedPacketCallback(
 
             const { updateTypedMessage, updateRpPayload } = useComposeStateStore.getState();
 
-            updateTypedMessage(typedMessage);
+            updateTypedMessage(typedMessage as TypedMessageTextV1);
 
             const metadata = getRpMetadata(typedMessage);
             if (metadata)

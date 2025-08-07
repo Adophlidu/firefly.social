@@ -30,8 +30,8 @@ function getLuckyDropParametersFromPayload(payload: RedPacketJSONPayload) {
     } as const;
 }
 
-export function captureLuckyDropEvent(
-    action: 'create' | 'claim' | 'refund',
+export function captureLuckyDropEvent<Action extends 'create' | 'claim' | 'refund'>(
+    action: Action | `pre-${Action}`,
     options: {
         payload?: RedPacketJSONPayload;
         metadata?: RedPacketMetadata;
@@ -42,26 +42,38 @@ export function captureLuckyDropEvent(
     return runInSafeAsync(async () => {
         switch (action) {
             case 'create':
+            case 'pre-create':
                 if (!options.metadata) throw new Error('metadata is required');
-                await TelemetryProvider.captureEvent(EventId.LUCKY_DROP_CREATE_SUCCESS, {
-                    ...getLuckyDropParametersFromMetadata(options.metadata),
-                    ...getWalletEventParameters(options.metadata.sender.address),
-                    free_gas: false,
-                });
+                await TelemetryProvider.captureEvent(
+                    action === 'pre-create' ? EventId.LUCKY_DROP_CREATE_SUBMIT : EventId.LUCKY_DROP_CREATE_SUCCESS,
+                    {
+                        ...getLuckyDropParametersFromMetadata(options.metadata),
+                        ...getWalletEventParameters(options.metadata.sender.address),
+                        free_gas: false,
+                    },
+                );
                 return;
             case 'claim':
+            case 'pre-claim':
                 if (!options.payload || !options.claimer) throw new Error('payload and claimer is required');
-                await TelemetryProvider.captureEvent(EventId.LUCKY_DROP_CLAIM_SUCCESS, {
-                    ...getLuckyDropParametersFromPayload(options.payload),
-                    ...getWalletEventParameters(options.claimer),
-                    free_gas: options.free ?? false,
-                });
+                await TelemetryProvider.captureEvent(
+                    action === 'pre-claim' ? EventId.LUCKY_DROP_CLAIM_SUBMIT : EventId.LUCKY_DROP_CLAIM_SUCCESS,
+                    {
+                        ...getLuckyDropParametersFromPayload(options.payload),
+                        ...getWalletEventParameters(options.claimer),
+                        free_gas: options.free ?? false,
+                    },
+                );
                 return;
             case 'refund':
+            case 'pre-refund':
                 if (!options.claimer) throw new Error('claimer is required');
-                await TelemetryProvider.captureEvent(EventId.LUCKY_DROP_REFUND_SUCCESS, {
-                    ...getWalletEventParameters(options.claimer),
-                });
+                await TelemetryProvider.captureEvent(
+                    action === 'pre-refund' ? EventId.LUCKY_DROP_REFUND_SUBMIT : EventId.LUCKY_DROP_REFUND_SUCCESS,
+                    {
+                        ...getWalletEventParameters(options.claimer),
+                    },
+                );
                 return;
             default:
                 safeUnreachable(action);
