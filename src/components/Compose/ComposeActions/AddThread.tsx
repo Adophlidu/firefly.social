@@ -19,7 +19,7 @@ export const AddThread = memo(function AddThread() {
 
     const setEditorContent = useSetEditorContent();
 
-    const hasThread = (post.images.length > 0 || usedLength) && type === 'compose';
+    const hasThread = (post.images.length > 0 || usedLength) && type === 'compose' && !post.isAnonymous;
 
     return (
         <>

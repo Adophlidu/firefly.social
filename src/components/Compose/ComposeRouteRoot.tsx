@@ -4,9 +4,11 @@ import { Outlet, rootRouteId, useMatch, useRouter } from '@tanstack/react-router
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { DraftButton } from '@/components/IconButton.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { captureDraftClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 
 export function ComposeRouteRoot() {
+    const isMedium = useIsMedium();
     const { history, state } = useRouter();
     const { context } = useMatch({ from: rootRouteId });
 
@@ -14,31 +16,34 @@ export function ComposeRouteRoot() {
 
     const isDraft = pathname === '/draft';
     const isGif = pathname === '/gif';
+    const enableBack = isDraft || isGif;
+
+    const draftButton = (
+        <DraftButton
+            size={isMedium ? 24 : 18}
+            className="cursor-pointer text-fourMain"
+            onClick={() => {
+                history.push('/draft');
+                captureDraftClickEvent();
+            }}
+        />
+    );
 
     return (
         <>
             <div className="relative flex shrink-0 items-center justify-between pt-safe">
                 <ModalTitle
                     title={
-                        [...state.matches].reverse().find((x) => x.context.title)?.context.title ?? (
-                            <Trans>Compose</Trans>
-                        )
+                        <div className="flex w-full items-center justify-center gap-1">
+                            {[...state.matches].reverse().find((x) => x.context.title)?.context.title ?? (
+                                <Trans>Compose</Trans>
+                            )}
+                            {!isMedium && !isDraft && !isGif ? draftButton : null}
+                        </div>
                     }
-                    actions={
-                        !isDraft && !isGif ? (
-                            <DraftButton
-                                className="cursor-pointer text-fourMain"
-                                onClick={() => {
-                                    history.push('/draft');
-                                    captureDraftClickEvent();
-                                }}
-                            />
-                        ) : (
-                            <ComposeSend />
-                        )
-                    }
-                    enableClose={!isDraft && !isGif}
-                    enableBack={isDraft || isGif}
+                    actions={enableBack ? null : isMedium ? draftButton : <ComposeSend />}
+                    enableClose={!enableBack}
+                    enableBack={enableBack}
                     onBack={() => history.replace('/')}
                     onClose={context.onClose}
                 />

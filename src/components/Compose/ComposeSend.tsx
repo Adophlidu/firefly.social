@@ -128,7 +128,7 @@ export function ComposeSend(props: ComposeSendProps) {
 
     return (
         <div className="flex items-center justify-end gap-4">
-            {!post.isAnonymous ? <AddThread /> : null}
+            <AddThread />
 
             <InteractiveTippy
                 className="tippy-card"

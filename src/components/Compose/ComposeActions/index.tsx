@@ -79,7 +79,7 @@ export function ComposeActions() {
                     ) : null}
                 </div>
 
-                {isMedium ? <ComposeSend /> : !isAnonymous ? <AddThread /> : null}
+                {isMedium ? <ComposeSend /> : <AddThread />}
             </div>
         </div>
     );
