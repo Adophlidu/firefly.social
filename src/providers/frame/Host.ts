@@ -103,8 +103,7 @@ export class FarcasterFrameHost implements MiniAppHost {
         const token = AssetId.parse(options.token);
 
         if (typeof token.assetName === 'string') {
-            console.warn('Unsupported token type for token', token);
-            return;
+            throw new Error(`Unsupported token type of token = ${token.assetName}`);
         }
 
         const chainId = typeof token.chainId === 'string' ? token.chainId : token.chainId.reference;
@@ -118,7 +117,7 @@ export class FarcasterFrameHost implements MiniAppHost {
                 );
                 break;
             default:
-                console.warn('Unsupported token type of token', token);
+                throw new Error(`Unsupported token type of namespace = ${token.assetName.namespace}`);
         }
     };
 
