@@ -2,7 +2,6 @@
 
 'use client';
 
-import { chains as LensChains } from '@lens-chain/sdk/viem';
 import {
     type AppKitNetwork,
     arbitrum,
@@ -15,6 +14,8 @@ import {
     confluxESpace,
     fantom,
     gnosis,
+    lens,
+    lensTestnet,
     linea,
     mainnet,
     metis,
@@ -48,8 +49,8 @@ export const wagmiNetworks = [
     metis,
     zora,
     scroll,
-    LensChains.mainnet,
-    LensChains.testnet,
+    lens,
+    lensTestnet,
     celo,
     zkSync,
     linea,

@@ -2,7 +2,6 @@
 
 'use client';
 
-import { chains as LensChains } from '@lens-chain/sdk/viem';
 import {
     arbitrum as wagmiArbitrum,
     aurora as wagmiAurora,
@@ -14,6 +13,8 @@ import {
     confluxESpace as wagmiConfluxESpace,
     fantom as wagmiFantom,
     gnosis as wagmiGnosis,
+    lens as wagmiLens,
+    lensTestnet as wagmiLensTestnet,
     linea as wagmiLinea,
     mainnet as wagmiMainnet,
     metis as wagmiMetis,
@@ -45,8 +46,8 @@ export const chains = [
     wagmiLinea,
     wagmiZkSync,
     wagmiCelo,
-    LensChains.mainnet,
-    LensChains.testnet,
+    wagmiLens,
+    wagmiLensTestnet,
 ] as const;
 
 export const visibleChains = [
@@ -68,7 +69,7 @@ export const visibleChains = [
     wagmiLinea,
     wagmiZkSync,
     wagmiCelo,
-    LensChains.mainnet,
+    wagmiLens,
 ] as const satisfies ReadonlyArray<(typeof chains)[number]>;
 
 // privy wallet currently only supports these 10 chains
