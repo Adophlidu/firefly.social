@@ -24,6 +24,8 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
+import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 
 interface PostActionsWithGridProps extends HTMLProps<HTMLDivElement> {
     disablePadding?: boolean;
@@ -38,10 +40,11 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
     disabled = false,
     disablePadding = false,
 }) {
+    const asyncStatus = useAsyncStatus(initialPost.source);
     const postId = initialPost.postId;
 
     const { data: post = initialPost } = useQuery({
-        queryKey: [initialPost.source, 'post-detail', 'actions', initialPost.postId],
+        queryKey: [initialPost.source, 'post-detail', 'actions', initialPost.postId, asyncStatus],
         queryFn: async () => {
             if (!postId) return;
 
