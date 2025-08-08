@@ -2,7 +2,12 @@ import { compact } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { formatAddressEthereum, formatAddressSolana } from '@/helpers/formatAddress.js';
-import { RelatedWalletSource, type WalletProfile, type WalletProfiles } from '@/providers/types/Firefly.js';
+import {
+    RelatedWalletSource,
+    type WalletProfile,
+    WalletProfileDataSource,
+    type WalletProfiles,
+} from '@/providers/types/Firefly.js';
 
 function patchWalletProfile(profile: WalletProfile) {
     profile.verifiedSources.forEach((source) => {
@@ -13,8 +18,13 @@ function patchWalletProfile(profile: WalletProfile) {
     return profile;
 }
 
-export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles) {
-    return compact(
+export function formatFireflyProfilesFromWalletProfiles(
+    profiles: WalletProfiles,
+    options?: {
+        ignoreParticle?: boolean;
+    },
+) {
+    const fireflyProfiles = compact(
         [
             ...profiles.walletProfiles.map((x) => ({
                 identity: {
@@ -76,4 +86,13 @@ export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles
             }) ?? []),
         ].filter((x) => x.identity.id),
     );
+    if (options?.ignoreParticle) {
+        return fireflyProfiles.filter(
+            (profile) =>
+                profile.identity.source !== Source.Wallet ||
+                (profile.__origin__ as WalletProfile | null)?.dataSource !== WalletProfileDataSource.Particle,
+        );
+    }
+
+    return fireflyProfiles;
 }

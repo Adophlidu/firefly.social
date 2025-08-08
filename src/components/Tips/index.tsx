@@ -62,7 +62,9 @@ export function Tips({
                 staleTime: 1000 * 60 * 10, // 10 minutes
                 queryFn: () => getAllPlatformProfileFromFirefly(identity, isAuthRequired),
             });
-            const relatedProfiles = formatFireflyProfilesFromWalletProfiles(fireflyProfiles) as FireflyProfile[];
+            const relatedProfiles = formatFireflyProfilesFromWalletProfiles(fireflyProfiles, {
+                ignoreParticle: true,
+            }) as FireflyProfile[];
             if (!relatedProfiles?.some((profile) => profile.identity.source === Source.Wallet)) {
                 const fireflyAccountName = fireflyProfiles.account?.displayName;
                 const displayName = fireflyAccountName || (handle ? `@${handle}` : identity.id);

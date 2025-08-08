@@ -189,7 +189,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
     const loading = followLoading || collectLoading || queryBalanceLoading || queryProfileLoading || clickLoading;
 
-    const disabled = post.hasActed || isSoldOut || isTimeout || !hasEnoughBalance;
+    const disabled = isLogin && (post.hasActed || isSoldOut || isTimeout || !hasEnoughBalance);
 
     return (
         <div className="overflow-x-hidden px-6 pb-6 max-md:px-0 max-md:pb-4">

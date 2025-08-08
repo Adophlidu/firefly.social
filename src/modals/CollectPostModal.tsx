@@ -12,7 +12,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 
 const PostCollect = dynamic(() => import('@/components/Posts/PostCollect.js').then((m) => m.PostCollect), {
     ssr: false,
-    loading: () => <Loading minHeight={216} />,
+    loading: () => <Loading minHeight={236} />,
 });
 
 export interface CollectPostModalOpenProps {
