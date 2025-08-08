@@ -1492,10 +1492,6 @@ msgstr ""
 msgid "Unmute /{0}"
 msgstr ""
 
-#. placeholder {0}: resolveSourceName(Source.Farcaster)
-msgid "{0} Channels"
-msgstr ""
-
 msgid "Report spam"
 msgstr ""
 
@@ -4279,12 +4275,6 @@ msgid "Events"
 msgstr ""
 
 msgid "Quote posts disabled"
-msgstr ""
-
-#. placeholder {0}: resolveSourceName(Source.Farcaster)
-#. placeholder {0}: resolveSourceName(Source.Lens)
-#. placeholder {0}: resolveSourceName(Source.Twitter)
-msgid "{0} Users"
 msgstr ""
 
 msgid "Choose Wallet"

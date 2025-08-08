@@ -1492,10 +1492,6 @@ msgstr "未找到 {0} 的連接器"
 msgid "Unmute /{0}"
 msgstr "取消隱藏 /{0}"
 
-#. placeholder {0}: resolveSourceName(Source.Farcaster)
-msgid "{0} Channels"
-msgstr "{0} 群組"
-
 msgid "Report spam"
 msgstr "檢舉垃圾訊息"
 
@@ -4296,12 +4292,6 @@ msgstr "活動"
 
 msgid "Quote posts disabled"
 msgstr "無法轉發"
-
-#. placeholder {0}: resolveSourceName(Source.Farcaster)
-#. placeholder {0}: resolveSourceName(Source.Lens)
-#. placeholder {0}: resolveSourceName(Source.Twitter)
-msgid "{0} Users"
-msgstr "{0} 用戶"
 
 msgid "Choose Wallet"
 msgstr "選擇錢包"

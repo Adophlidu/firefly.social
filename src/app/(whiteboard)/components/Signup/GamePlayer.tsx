@@ -60,7 +60,7 @@ export const GamePlayer = memo<GamePlayerProps>(function GamePlayer({ avatar, ni
             ) : null}
             <div
                 className={classNames(
-                    'absolute inset-x-0 top-[54.2%] -translate-x-2 truncate px-6 text-center text-[29px] font-bold uppercase tracking-[0.07em] text-black md:text-[38px]',
+                    'absolute inset-x-0 top-[54.2%] -translate-x-2 truncate px-6 text-center text-[29px] font-bold tracking-[0.07em] text-black md:text-[38px]',
                     bedStead.className,
                 )}
             >
