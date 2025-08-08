@@ -6,9 +6,9 @@ export function enqueuePermissionMessage(rejected: boolean, onEnable?: () => voi
     SnackbarRef.open({
         message: `Notification permission - ${rejected ? 'Denied' : 'Granted'}`,
         options: {
+            key: `notification-${rejected ? 'denied' : 'granted'}`,
+            autoHide: false,
             preventDuplicate: true,
-            autoHideDuration: null,
-            variant: 'info',
             content: (key: SnackbarKey) => <PermissionSnackbar id={key} rejected={rejected} onEnable={onEnable} />,
         },
     });

@@ -83,7 +83,7 @@ const copyOptions = {
     enqueueSuccessMessage: true,
     messageOptions: {
         anchorOrigin: { vertical: 'top', horizontal: 'center' },
-        autoHideDuration: 3000,
+        duration: 3000,
     },
 } satisfies ImmediateOptions;
 

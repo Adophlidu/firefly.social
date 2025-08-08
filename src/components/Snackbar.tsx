@@ -24,7 +24,6 @@ export type OptionsObject = Omit<Snackbar, 'id' | 'message'>;
 interface Snackbar {
     id: string;
     message: SnackbarMessage;
-    autoHideDuration?: number | null;
     key?: SnackbarKey;
     preventDuplicate?: boolean;
     action?: (key: SnackbarKey) => JSX.Element;
@@ -36,8 +35,10 @@ interface Snackbar {
         vertical: 'top' | 'bottom';
         horizontal: 'left' | 'center' | 'right';
     };
+    autoHide?: boolean;
     isClosing?: boolean;
     isMoving?: boolean;
+    isCustom?: boolean;
 }
 
 interface SnackbarContextType {
@@ -64,7 +65,7 @@ interface SnackbarProviderProps {
     children: ReactNode;
 }
 
-export function SnackbarProvider({ maxSnack, children }: SnackbarProviderProps) {
+export function SnackbarProvider({ maxSnack, autoHideDuration, children }: SnackbarProviderProps) {
     const [items, setItems] = useState<Snackbar[]>([]);
     const timers = useRef<Record<string, NodeJS.Timeout>>({});
     const pausedTimers = useRef<Record<string, { remainingTime: number; startTime: number }>>({});
@@ -134,18 +135,37 @@ export function SnackbarProvider({ maxSnack, children }: SnackbarProviderProps) 
 
     const enqueueSnackbar = useCallback(
         (message: SnackbarMessage, options: OptionsObject = {}) => {
+            if (options.preventDuplicate && options.key) {
+                const existing = items.find((item) => item.key === options.key);
+                if (existing) {
+                    // If a snackbar with the same key already exists, update it
+                    setItems((prev) =>
+                        prev.map((item) =>
+                            item.key === options.key
+                                ? { ...item, message: options.content?.(item.id, message) || message }
+                                : item,
+                        ),
+                    );
+                    return existing.id;
+                }
+            }
+
             const id = crypto.randomUUID();
+            const isCustom = typeof options.content === 'function';
             const snackbar: Snackbar = {
                 id,
-                message,
+                isCustom,
+                key: options.key,
+                message: isCustom ? options.content?.(id) : message,
                 variant: options.variant || 'default',
-                duration: options.duration ?? 10000,
+                duration: options.duration ?? autoHideDuration ?? 10000,
+                autoHide: options.autoHide ?? true,
                 isClosing: false,
                 isMoving: false,
             };
             setItems((prev) => [...prev, snackbar]);
 
-            if (snackbar.duration !== null && snackbar.duration !== undefined) {
+            if (snackbar.duration !== null && snackbar.duration !== undefined && snackbar.autoHide) {
                 timers.current[id] = setTimeout(() => closeSnackbar(id), snackbar.duration);
                 // Store the start time for pause/resume functionality
                 pausedTimers.current[id] = {
@@ -156,7 +176,7 @@ export function SnackbarProvider({ maxSnack, children }: SnackbarProviderProps) 
 
             return id;
         },
-        [closeSnackbar],
+        [autoHideDuration, items, closeSnackbar],
     );
 
     const snackbarContent = useMemo(() => {
@@ -194,14 +214,23 @@ export function SnackbarProvider({ maxSnack, children }: SnackbarProviderProps) 
                                 }
                             }}
                         >
-                            <SnackbarContent
-                                variant={snack.variant}
-                                onClose={() => closeSnackbar(snack.id)}
-                                onMouseEnter={() => pauseTimer(snack.id)}
-                                onMouseLeave={() => resumeTimer(snack.id)}
-                            >
-                                {snack.message}
-                            </SnackbarContent>
+                            {snack.isCustom ? (
+                                <div
+                                    onMouseEnter={() => pauseTimer(snack.id)}
+                                    onMouseLeave={() => resumeTimer(snack.id)}
+                                >
+                                    {snack.message}
+                                </div>
+                            ) : (
+                                <SnackbarContent
+                                    variant={snack.variant}
+                                    onClose={() => closeSnackbar(snack.id)}
+                                    onMouseEnter={() => pauseTimer(snack.id)}
+                                    onMouseLeave={() => resumeTimer(snack.id)}
+                                >
+                                    {snack.message}
+                                </SnackbarContent>
+                            )}
                         </div>
                     </Transition>
                 ))}
