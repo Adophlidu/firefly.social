@@ -3,7 +3,9 @@ import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
+import { bedStead } from '@/fonts/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isValidAddress } from '@/helpers/isValidAddress.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
@@ -44,7 +46,17 @@ export function SearchableTokenItem({ token, className, showRate = true, onClick
                         </span>
                     ) : null}
                 </div>
-                <div className="text-sm leading-[20px] text-second">{token.symbol}</div>
+                <div className="flex gap-2">
+                    <div className="text-sm leading-[20px] text-second">{token.symbol}</div>
+                    {token.address ? (
+                        <span
+                            className={classNames('text-sm leading-[20px] text-third', bedStead.className)}
+                            title={token.address}
+                        >
+                            {formatAddress(token.address, 4)}
+                        </span>
+                    ) : null}
+                </div>
             </div>
             <div className="flex flex-col justify-end">
                 <div className="text-right font-inter text-base font-semibold leading-[24px] text-lightMain">
