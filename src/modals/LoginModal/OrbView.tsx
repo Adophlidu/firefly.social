@@ -92,7 +92,7 @@ export function OrbView() {
                 result.accessToken,
                 Date.now(),
                 Date.now() + SEVEN_DAYS,
-                result.refreshToken || '',
+                result.refreshToken || 'FAKE_LENS_REFRESH_TOKEN',
                 profile.address,
             );
 
@@ -110,7 +110,7 @@ export function OrbView() {
             if (!done) return;
             updateCredentialsStorage({
                 accessToken: result.accessToken as AccessToken,
-                refreshToken: result.refreshToken as RefreshToken,
+                refreshToken: (result.refreshToken || 'FAKE_LENS_REFRESH_TOKEN') as RefreshToken,
                 idToken: result.idToken as IdToken,
             });
             lensSessionHolder.resumeSession(session);
