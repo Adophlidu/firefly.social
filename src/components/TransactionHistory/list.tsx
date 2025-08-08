@@ -80,12 +80,9 @@ function getTransactionHistoryItem(
 }
 
 function TransactionHistoryItem({ item }: { item: TransactionHistoryItem }) {
-    return (
-        <Link
-            href={`/tx/${item.chain_id}/${item.hash}`}
-            className="my-1 flex items-center rounded-lg p-2 hover:bg-bg"
-            prefetch={false}
-        >
+    const href = resolveExplorerLink(item.chain_id, item.hash, 'tx');
+    const content = (
+        <>
             <div className="flex items-center space-x-5">
                 <TransactionHistoryTokenItem item={item} />
                 <div>
@@ -100,8 +97,16 @@ function TransactionHistoryItem({ item }: { item: TransactionHistoryItem }) {
                 </div>
             </div>
             <ItemEnd item={item} />
-        </Link>
+        </>
     );
+    if (href) {
+        return (
+            <Link href={href} target="_blank" className="my-1 flex items-center rounded-lg p-2 hover:bg-bg">
+                {content}
+            </Link>
+        );
+    }
+    return <div className="my-1 flex items-center rounded-lg p-2 hover:bg-bg">{content}</div>;
 }
 
 function Category({ category, state }: { category: TransactionHistoryCategory; state: TransactionState }) {

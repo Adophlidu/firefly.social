@@ -822,6 +822,7 @@ export interface WalletConnection {
     platform: 'eth' | 'solana';
     provider: string;
     source: WalletSource;
+    dataSource?: WalletProfileDataSource;
     sources: WalletProfile['verifiedSources'];
     twitterId: string;
     isDefault?: boolean;

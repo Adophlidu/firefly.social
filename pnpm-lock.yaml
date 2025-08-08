@@ -41,12 +41,12 @@ patchedDependencies:
   '@livepeer/core@3.2.7':
     hash: 7x6iztm46opvgqs5ezn5wyvnvi
     path: patches/@livepeer__core@3.2.7.patch
-  '@masknet/typed-message@0.2.0':
-    hash: wqofus3h6qqc243il6nyihlhy4
-    path: patches/@masknet__typed-message@0.2.0.patch
   '@privy-io/react-auth@2.16.0':
     hash: rgdentndkrqibpew3vhhmtuktu
     path: patches/@privy-io__react-auth@2.16.0.patch
+  '@masknet/typed-message@0.2.0':
+    hash: wqofus3h6qqc243il6nyihlhy4
+    path: patches/@masknet__typed-message@0.2.0.patch
   '@reown/appkit@1.7.6':
     hash: 3hauhekaezdxvp5v64wgmncyga
     path: patches/@reown__appkit@1.7.6.patch

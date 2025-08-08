@@ -67,6 +67,20 @@ export function useWalletConnections() {
     const allConnections = useMemo<Connection[]>(() => {
         const currentConnectionId = getWagmiCurrentConnectionId();
         const privySolanaAddress = first(solanaWallets)?.address;
+        const fireflyConnectedAddress =
+            allFireflyConnections?.connected.map((connection) => {
+                if (connection.source !== WalletSource.Privy) return null;
+                const networkType = getAddressType(connection.address);
+                if (!networkType) return null;
+                return {
+                    address: connection.address,
+                    namespace: resolveNamespace(networkType),
+                    connector: undefined,
+                    connected: false,
+                    walletIcon: networkType === NetworkType.Solana ? solanaWalletIcon : undefined,
+                    source: ConnectionSource.Privy,
+                };
+            }) ?? [];
         return uniqBy(
             compact([
                 ...connections.map((x) => {
@@ -102,19 +116,7 @@ export function useWalletConnections() {
                           source: ConnectionSource.Privy,
                       }
                     : null,
-                ...(allFireflyConnections?.connected.map((connection) => {
-                    if (connection.source !== WalletSource.Privy) return null;
-                    const networkType = getAddressType(connection.address);
-                    if (!networkType) return null;
-                    return {
-                        address: connection.address,
-                        namespace: resolveNamespace(networkType),
-                        connector: undefined,
-                        connected: false,
-                        walletIcon: networkType === NetworkType.Solana ? solanaWalletIcon : undefined,
-                        source: ConnectionSource.Privy,
-                    };
-                }) ?? []),
+                ...fireflyConnectedAddress,
             ]),
             (x) => `${x.namespace}:${x.namespace === 'eip155' ? x.address?.toLowerCase() : x.address}`,
         );

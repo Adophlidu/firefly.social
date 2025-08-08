@@ -16,17 +16,23 @@ export function MyWalletsModal({ ref }: Props) {
     const onClose = useCallback(() => dispatch?.close(), [dispatch]);
 
     return (
-        <Modal size="sm" open={open} onClose={onClose} enableClose title={<Trans>My Wallets</Trans>}>
-            <div className="max-md:h-[100vh] max-md:w-[100vw]">
-                <div className="relative flex max-h-[70vh] w-full flex-col bg-lightBottom text-medium text-lightMain transition-all dark:bg-darkBottom max-md:h-full max-md:max-h-full max-md:w-full max-md:max-w-full">
-                    <div className="no-scrollbar relative min-h-0 flex-1 overflow-y-auto">
-                        <p className="pb-2 text-sm text-secondary max-md:text-left">
-                            <Trans>
-                                Please select one EVM wallet and one Solana wallet for onchain features in Firefly.
-                            </Trans>
-                        </p>
-                        <ConnectedWallets onOpenWallets={() => onClose()} />
-                    </div>
+        <Modal
+            size="sm"
+            open={open}
+            onClose={onClose}
+            enableClose
+            title={<Trans>My Wallets</Trans>}
+            disableScrollLock={false}
+            className="max-md:h-svh"
+        >
+            <div className="relative flex max-h-[70vh] w-full flex-col bg-lightBottom text-medium text-lightMain transition-all dark:bg-darkBottom max-md:h-full max-md:max-h-full max-md:w-full max-md:max-w-full">
+                <div className="no-scrollbar relative min-h-0 flex-1 overflow-y-auto">
+                    <p className="pb-2 text-sm text-secondary max-md:text-left">
+                        <Trans>
+                            Please select one EVM wallet and one Solana wallet for onchain features in Firefly.
+                        </Trans>
+                    </p>
+                    <ConnectedWallets onOpenWallets={() => onClose()} />
                 </div>
             </div>
         </Modal>

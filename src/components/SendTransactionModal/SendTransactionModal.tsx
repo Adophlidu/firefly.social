@@ -55,7 +55,7 @@ import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
-import { ETH_ZERO_ADDRESS, SOL_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
+import { ETH_ZERO_ADDRESS, isZeroAddressEthereum, SOL_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
@@ -75,7 +75,12 @@ import type { Token as TipsToken, Token } from '@/providers/types/Transfer.js';
 
 export function SendTransactionModal({ onClose, open }: { onClose: () => void; open: boolean }) {
     return (
-        <Modal open={open} onClose={() => onClose()} className="w-auto max-md:w-[calc(100%-40px)]">
+        <Modal
+            open={open}
+            onClose={() => onClose()}
+            className="w-auto max-md:w-[calc(100%-40px)]"
+            disableScrollLock={false}
+        >
             <SendTransactionModalRouter onClose={onClose} />
         </Modal>
     );
@@ -123,7 +128,7 @@ function Header() {
                 {location.pathname === RoutePath.Form ? <Trans>Send</Trans> : null}
                 {location.pathname === RoutePath.SelectToken ? <Trans>Select Token</Trans> : null}
                 {location.pathname === RoutePath.SearchRecipients ? <Trans>Recipient</Trans> : null}
-                {location.pathname === RoutePath.ChooseRecipient ? <Trans>Recipient</Trans> : null}
+                {location.pathname === RoutePath.ChooseRecipient ? <Trans>Choose Wallet</Trans> : null}
             </span>
         </DialogTitle>
     );
@@ -339,7 +344,9 @@ function FormView() {
             token,
             amount: '0',
         });
-        setValue('amount', amount);
+        setValue('amount', amount, {
+            shouldValidate: true,
+        });
     }, [networkType, setValue, token]);
 
     if (!token) {
@@ -446,7 +453,6 @@ function FormView() {
                             type="number"
                             {...register('amount', {
                                 required: true,
-                                min: 0,
                             })}
                             autoComplete="off"
                             autoCorrect="off"
@@ -543,7 +549,7 @@ function SelectTokenView() {
                             chainId={chainId}
                             networkType={isSolana ? NetworkType.Solana : NetworkType.Ethereum}
                         />
-                        {isTag ? null : <span>{isSolana ? <Trans>Solana</Trans> : chain?.name}</span>}
+                        {isTag ? null : <span>{isSolana ? 'Solana' : chain?.name}</span>}
                     </>
                 ) : (
                     `${chainId}`
@@ -557,7 +563,9 @@ function SelectTokenView() {
     const onSelectedToken = useCallback(
         (token: Token) => {
             setValue('token', token);
-            setValue('amount', '');
+            setValue('amount', '', {
+                shouldValidate: true,
+            });
             router.navigate({ to: RoutePath.Form });
         },
         [router, setValue],
@@ -612,7 +620,7 @@ function SelectTokenView() {
 
 function SearchRecipientView() {
     const { search } = useLocation();
-    const { control } = useFormContext<FormValues>();
+    const { control, setValue } = useFormContext<FormValues>();
     const token = useWatch({ control, name: 'token' });
     const router = useRouter();
     return (
@@ -620,9 +628,20 @@ function SearchRecipientView() {
             networkType={token.networkType}
             initialKeyword={search.keyword}
             onClick={(recipient) => {
+                if (isZeroAddressEthereum(recipient.address)) {
+                    router.navigate({
+                        to: RoutePath.ChooseRecipient,
+                        state: { recipient } as unknown as HistoryState,
+                    });
+                    return;
+                }
+                setValue('recipient', recipient);
+                setValue('to', recipient.address, {
+                    shouldValidate: true,
+                });
                 router.navigate({
-                    to: RoutePath.ChooseRecipient,
-                    state: { recipient } as unknown as HistoryState,
+                    to: RoutePath.Form,
+                    replace: true,
                 });
             }}
         />

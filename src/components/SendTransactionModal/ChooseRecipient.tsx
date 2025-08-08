@@ -1,3 +1,4 @@
+import { t } from '@lingui/core/macro';
 import { useQuery } from '@tanstack/react-query';
 
 import { Loading } from '@/components/Loading.js';
@@ -5,7 +6,7 @@ import { RecipientItem, type RecipientItemProps } from '@/components/SendTransac
 import { NetworkType, type ProfilePageSource, Source } from '@/constants/enum.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
-import { type FireflyProfile, type WalletProfile, WalletProfileDataSource } from '@/providers/types/Firefly.js';
+import { type FireflyProfile, type WalletProfile } from '@/providers/types/Firefly.js';
 
 export function ChooseRecipient({
     recipient,
@@ -43,7 +44,7 @@ export function ChooseRecipient({
             return {
                 ...recipient,
                 address: walletProfile.address,
-                tag: walletProfile.dataSource === WalletProfileDataSource.Privy ? 'Privy' : undefined,
+                tag: walletProfile.isDefault ? t`Primary` : undefined,
             };
         });
 

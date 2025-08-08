@@ -84,17 +84,20 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
     const computedProviderType = providerType ?? props?.providerType ?? OkxProviderType.EVM;
     const isEvm = computedProviderType === OkxProviderType.EVM;
     const isDark = useMediaQuery('(prefers-color-scheme: dark)');
-    const theme = isDark || mode === 'dark' ? THEME.DARK : THEME.LIGHT;
+    const theme = mode === 'default' ? (isDark ? THEME.DARK : THEME.LIGHT) : mode === 'dark' ? THEME.DARK : THEME.LIGHT;
 
     useEffect(() => {
         if (!instanceRef.current) return;
         instanceRef.current.updateParams({ theme });
     }, [theme]);
 
+    const evmProviderRef = useRef(new EthereumWalletProvider());
+    const solanaProviderRef = useRef(new SolanaWalletProvider());
+
     useEffect(() => {
         if (!widgetRef || !open) return;
-        const evmProvider = new EthereumWalletProvider();
-        const solanaProvider = new SolanaWalletProvider();
+        const evmProvider = evmProviderRef.current;
+        const solanaProvider = solanaProviderRef.current;
         const provider = isEvm ? evmProvider : solanaProvider;
 
         const chainId =
@@ -162,8 +165,8 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
     }, [props, locale, theme, open, widgetRef, computedProviderType, isEvm]);
 
     return (
-        <div className="relative z-10 w-full overflow-hidden rounded-2xl bg-white pt-6 dark:bg-black">
-            <div className="relative z-1 -mb-4 flex h-8 w-full items-center justify-between px-6">
+        <div className="relative z-10 w-full overflow-hidden rounded-2xl bg-white dark:bg-black">
+            <div className="relative z-1 -mb-4 flex h-14 w-full items-center justify-between bg-white px-6 pt-6 dark:bg-black">
                 <CloseButton className="text-main" onClick={onClose} />
                 {props?.providerSwitchable ? (
                     <FireflyWalletChainSelectorWithOkxProviderType
