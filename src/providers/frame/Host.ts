@@ -1,17 +1,22 @@
 import { type Context, type MiniAppHost, type ReadyOptions, type SetPrimaryButton } from '@farcaster/miniapp-host';
 import { t } from '@lingui/core/macro';
+import { AssetId } from 'caip';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
+import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/chain.js';
+import { OkxProviderType, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';
 import { createDummyChannel } from '@/helpers/createDummyChannel.js';
+import { delay } from '@/helpers/delay.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileById } from '@/helpers/getProfileById.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/controls.js';
+import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -94,14 +99,81 @@ export class FarcasterFrameHost implements MiniAppHost {
         }
     };
 
+    viewToken: MiniAppHost['viewToken'] = async (options) => {
+        const token = AssetId.parse(options.token);
+
+        if (typeof token.assetName === 'string') {
+            console.warn('Unsupported token type for token', token);
+            return;
+        }
+
+        const chainId = typeof token.chainId === 'string' ? token.chainId : token.chainId.reference;
+        switch (token.assetName.namespace) {
+            case 'erc20':
+                openWindow(`${SITE_URL}/token/${token.assetName.reference}?chainId=${chainId}`);
+                break;
+            case 'erc721':
+                openWindow(
+                    `${SITE_URL}/nft/${chainId}/${token.assetName.reference}${token.tokenId ? `/${token.tokenId}` : ''}`,
+                );
+                break;
+            default:
+                console.warn('Unsupported token type of token', token);
+        }
+    };
+
     sendToken: MiniAppHost['sendToken'] = async (options) => {
         console.warn('[frame host]: sendToken', options);
         throw new NotImplementedError();
     };
 
     swapToken: MiniAppHost['swapToken'] = async (options) => {
-        console.warn('[frame host]: swapToken', options);
-        throw new NotImplementedError();
+        const buyToken = options.buyToken ? AssetId.parse(options.buyToken) : undefined;
+        const sellToken = options.sellToken ? AssetId.parse(options.sellToken) : undefined;
+        if (!buyToken && !sellToken) {
+            console.warn('[frame host]: swapToken', options);
+            return { success: false, reason: 'swap_failed' };
+        }
+        if (typeof buyToken?.assetName === 'string') {
+            console.warn('Unsupported token type for buy token', buyToken);
+            return { success: false, reason: 'swap_failed' };
+        }
+        if (typeof sellToken?.assetName === 'string') {
+            console.warn('Unsupported token type for sell token', sellToken);
+            return { success: false, reason: 'swap_failed' };
+        }
+        const originChainId = buyToken?.chainId || sellToken?.chainId;
+        if (!originChainId) {
+            console.warn('No chain id', options);
+            return { success: false, reason: 'swap_failed' };
+        }
+        const chainId =
+            typeof originChainId === 'string' ? parseInt(originChainId, 10) : parseInt(originChainId.reference, 10);
+        const buyTokenAddress = buyToken?.assetName.reference;
+        const sellTokenAddress = sellToken?.assetName.reference;
+        const address = buyTokenAddress || sellTokenAddress;
+
+        const providerType =
+            chainId !== SOLANA_CHAIN_ID_IN_FIREFLY || isValidAddressEthereum(address)
+                ? OkxProviderType.EVM
+                : OkxProviderType.SOLANA;
+
+        // await for modal to register
+        await delay(1000);
+        SwapModalRef.open({
+            providerType,
+            chainId,
+            fromToken: sellTokenAddress || undefined,
+            toToken: buyTokenAddress,
+        });
+
+        // TODO We can't get the result of the swap from OKX widget yet.
+        return {
+            success: true,
+            swap: {
+                transactions: [],
+            },
+        };
     };
 
     viewCast: MiniAppHost['viewCast'] = async (options) => {
@@ -159,11 +231,6 @@ export class FarcasterFrameHost implements MiniAppHost {
         } else {
             openWindow(getProfileUrl(profile));
         }
-    };
-
-    viewToken: MiniAppHost['viewToken'] = (options) => {
-        console.warn('[frame host]: viewToken', options);
-        return Promise.resolve();
     };
 
     ethProviderRequest: MiniAppHost['ethProviderRequest'] = (payload) => {
