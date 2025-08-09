@@ -1,6 +1,5 @@
 import { type Context, type MiniAppHost, type ReadyOptions, type SetPrimaryButton } from '@farcaster/miniapp-host';
 import { t } from '@lingui/core/macro';
-import { AssetId } from 'caip';
 import urlcat from 'urlcat';
 
 import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/chain.js';
@@ -14,6 +13,7 @@ import { getProfileById } from '@/helpers/getProfileById.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { openWindow } from '@/helpers/openWindow.js';
+import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/controls.js';
 import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
@@ -100,24 +100,18 @@ export class FarcasterFrameHost implements MiniAppHost {
     };
 
     viewToken: MiniAppHost['viewToken'] = async (options) => {
-        const token = AssetId.parse(options.token);
+        const token = parseCAIP19(options.token);
 
-        if (typeof token.assetName === 'string') {
-            throw new Error(`Unsupported token type of token = ${token.assetName}`);
-        }
-
-        const chainId = typeof token.chainId === 'string' ? token.chainId : token.chainId.reference;
-        switch (token.assetName.namespace) {
+        const chainId = token.chainReference;
+        switch (token.namespace) {
             case 'erc20':
-                openWindow(`${SITE_URL}/token/${token.assetName.reference}?chainId=${chainId}`);
+                openWindow(`${SITE_URL}/token/${token.reference}?chainId=${chainId}`);
                 break;
             case 'erc721':
-                openWindow(
-                    `${SITE_URL}/nft/${chainId}/${token.assetName.reference}${token.tokenId ? `/${token.tokenId}` : ''}`,
-                );
+                openWindow(`${SITE_URL}/nft/${chainId}/${token.reference}${token.tokenId ? `/${token.tokenId}` : ''}`);
                 break;
             default:
-                throw new Error(`Unsupported token type of namespace = ${token.assetName.namespace}`);
+                throw new Error(`Unsupported token type of namespace = ${token.namespace}`);
         }
     };
 
@@ -127,29 +121,20 @@ export class FarcasterFrameHost implements MiniAppHost {
     };
 
     swapToken: MiniAppHost['swapToken'] = async (options) => {
-        const buyToken = options.buyToken ? AssetId.parse(options.buyToken) : undefined;
-        const sellToken = options.sellToken ? AssetId.parse(options.sellToken) : undefined;
+        const buyToken = options.buyToken ? parseCAIP19(options.buyToken) : undefined;
+        const sellToken = options.sellToken ? parseCAIP19(options.sellToken) : undefined;
         if (!buyToken && !sellToken) {
             console.warn('[frame host]: swapToken', options);
             return { success: false, reason: 'swap_failed' };
         }
-        if (typeof buyToken?.assetName === 'string') {
-            console.warn('Unsupported token type for buy token', buyToken);
-            return { success: false, reason: 'swap_failed' };
-        }
-        if (typeof sellToken?.assetName === 'string') {
-            console.warn('Unsupported token type for sell token', sellToken);
-            return { success: false, reason: 'swap_failed' };
-        }
-        const originChainId = buyToken?.chainId || sellToken?.chainId;
+        const originChainId = buyToken?.chainReference || sellToken?.chainReference;
         if (!originChainId) {
             console.warn('No chain id', options);
             return { success: false, reason: 'swap_failed' };
         }
-        const chainId =
-            typeof originChainId === 'string' ? parseInt(originChainId, 10) : parseInt(originChainId.reference, 10);
-        const buyTokenAddress = buyToken?.assetName.reference;
-        const sellTokenAddress = sellToken?.assetName.reference;
+        const chainId = parseInt(originChainId, 10);
+        const buyTokenAddress = buyToken?.reference;
+        const sellTokenAddress = sellToken?.reference;
         const address = buyTokenAddress || sellTokenAddress;
 
         const providerType =

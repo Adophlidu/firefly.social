@@ -223,9 +223,6 @@ dependencies:
   bs58:
     specifier: ^6.0.0
     version: 6.0.0
-  caip:
-    specifier: ^1.1.1
-    version: 1.1.1
   core-js:
     specifier: 3.42.0
     version: 3.42.0
@@ -12835,10 +12832,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /caip@1.1.1:
-    resolution: {integrity: sha512-a3v5lteUUOoyRI0U6qe5ayCCGkF2mCmJ5zQMDnOD2vRjgRg6sm9p8TsRC2h4D4beyqRN9RYniphAPnj/+jQC6g==}
-    dev: false
-
   /call-bind-apply-helpers@1.0.2:
     resolution: {integrity: sha512-Sp1ablJ0ivDkSzjcaJdxEunN5/XvksFJ2sMBFfq6x0ryhQV/2b/KwFe21cMpmHtPOSij8K99/wSfoEuTObmuMQ==}
     engines: {node: '>= 0.4'}
@@ -21678,7 +21671,6 @@ time:
   /bignumber.js@9.1.2: '2023-08-28T12:15:45.587Z'
   /bs58@6.0.0: '2024-06-24T10:53:43.455Z'
   /buffer@6.0.3: '2020-11-23T02:51:27.107Z'
-  /caip@1.1.1: '2024-03-20T11:35:04.825Z'
   /core-js-compat@3.42.0: '2025-04-29T18:04:00.682Z'
   /core-js@3.42.0: '2025-04-29T18:03:50.847Z'
   /cross-fetch@4.1.0: '2024-12-21T15:03:07.027Z'
