@@ -1,5 +1,3 @@
-import { Emitter } from '@servie/events';
-
 export type SingletonModalRefCreator<OpenProps = void, CloseProps = void> = (
     onOpen: (props: OpenProps) => void,
     onClose: (props: CloseProps) => void,
@@ -22,11 +20,6 @@ export class SingletonModal<
         this.abort = this.abort.bind(this);
         this.openAndWaitForClose = this.openAndWaitForClose.bind(this);
     }
-    readonly emitter = new Emitter<{
-        open: [OpenProps];
-        close: [CloseProps];
-        abort: [Error];
-    }>();
 
     protected onOpen: ReturnType<T>['open'] | undefined;
     protected onClose: ReturnType<T>['close'] | undefined;
@@ -52,15 +45,12 @@ export class SingletonModal<
         const ref = creator(
             (props) => {
                 this.onOpen?.(props);
-                this.emitter.emit('open', props);
             },
             (props) => {
                 this.onClose?.(props);
-                this.emitter.emit('close', props);
             },
             (error) => {
                 this.onAbort?.(error);
-                this.emitter.emit('abort', error);
             },
         );
         this.dispatchPeek = ref.peek;

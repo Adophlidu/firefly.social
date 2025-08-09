@@ -30,7 +30,7 @@ patchedDependencies:
     hash: ptpx3qttjiypitnumdwetbkgai
     path: patches/@bprogress__react@1.2.6.patch
   '@farcaster/core@0.18.4':
-    hash: 7untykfw2ufz5c3tlu72jtst6q
+    hash: hngiodc6uoegwmshm6epwtctuy
     path: patches/@farcaster__core@0.18.4.patch
   '@headlessui/react@2.1.10':
     hash: roq3pv4art7yqmupqbnd3ablue
@@ -41,12 +41,12 @@ patchedDependencies:
   '@livepeer/core@3.2.7':
     hash: 7x6iztm46opvgqs5ezn5wyvnvi
     path: patches/@livepeer__core@3.2.7.patch
-  '@privy-io/react-auth@2.16.0':
-    hash: rgdentndkrqibpew3vhhmtuktu
-    path: patches/@privy-io__react-auth@2.16.0.patch
   '@masknet/typed-message@0.2.0':
     hash: wqofus3h6qqc243il6nyihlhy4
     path: patches/@masknet__typed-message@0.2.0.patch
+  '@privy-io/react-auth@2.16.0':
+    hash: rgdentndkrqibpew3vhhmtuktu
+    path: patches/@privy-io__react-auth@2.16.0.patch
   '@reown/appkit@1.7.6':
     hash: 3hauhekaezdxvp5v64wgmncyga
     path: patches/@reown__appkit@1.7.6.patch
@@ -96,7 +96,7 @@ dependencies:
     version: 0.20.7(@solana/web3.js@1.98.2)(react@19.0.0)
   '@farcaster/core':
     specifier: ^0.18.4
-    version: 0.18.4(patch_hash=7untykfw2ufz5c3tlu72jtst6q)(typescript@5.7.3)(zod@3.24.2)
+    version: 0.18.4(patch_hash=hngiodc6uoegwmshm6epwtctuy)(typescript@5.7.3)(zod@3.24.2)
   '@farcaster/miniapp-host':
     specifier: ^0.2.4
     version: 0.2.4(react@19.0.0)(typescript@5.7.3)(zod@3.24.2)
@@ -187,9 +187,6 @@ dependencies:
   '@sentry/browser':
     specifier: ^7.120.3
     version: 7.120.3
-  '@servie/events':
-    specifier: ^3.0.0
-    version: 3.0.0
   '@solana/spl-token':
     specifier: ^0.4.13
     version: 0.4.13(@solana/web3.js@1.98.2)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)
@@ -4013,7 +4010,7 @@ packages:
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
     dev: false
 
-  /@farcaster/core@0.18.4(patch_hash=7untykfw2ufz5c3tlu72jtst6q)(typescript@5.7.3)(zod@3.24.2):
+  /@farcaster/core@0.18.4(patch_hash=hngiodc6uoegwmshm6epwtctuy)(typescript@5.7.3)(zod@3.24.2):
     resolution: {integrity: sha512-3DX0ZYX6tRzufXlAIbL7SezEeLUvZbzsLpx+/8vnGvJZw/f+dT8Rx5UG26Gzayi60DCb/uTOGk7B7VdSc/b0Vw==}
     dependencies:
       '@faker-js/faker': 7.6.0
@@ -8645,10 +8642,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       '@sentry/types': 7.120.3
-    dev: false
-
-  /@servie/events@3.0.0:
-    resolution: {integrity: sha512-Zd79bWhTuG8NvPgSiOcivorJIDg+goMw76TIqYTIR5ua5HOEkS29fmIh2VVSeDeabNF6z8ceTwzB0pSh/BhXyw==}
     dev: false
 
   /@shuding/opentype.js@1.4.0-beta.0:
@@ -21650,7 +21643,6 @@ time:
   /@rollup/plugin-commonjs@25.0.8: '2024-05-22T17:15:13.512Z'
   /@rollup/plugin-node-resolve@15.3.1: '2024-12-15T16:16:40.190Z'
   /@sentry/browser@7.120.3: '2025-01-10T08:46:36.155Z'
-  /@servie/events@3.0.0: '2021-04-13T22:43:08.067Z'
   /@solana/spl-token@0.4.13: '2025-03-04T18:16:51.879Z'
   /@solana/wallet-adapter-base@0.9.26: '2025-04-23T02:18:43.019Z'
   /@solana/wallet-adapter-phantom@0.9.25: '2025-03-17T23:05:58.120Z'

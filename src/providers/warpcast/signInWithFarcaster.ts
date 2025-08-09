@@ -1,4 +1,3 @@
-import { idRegistryABI } from '@farcaster/core';
 import type { SignInOptions } from '@farcaster/miniapp-host';
 import urlcat from 'urlcat';
 import { type Address, checksumAddress, parseUnits, toHex } from 'viem';
@@ -17,6 +16,28 @@ import { pollingChannelToken } from '@/providers/warpcast/pollingChannelToken.js
 import { pollingRemoteSiwfToken } from '@/providers/warpcast/pollingRemoteSiwfToken.js';
 import type { FrameV2 } from '@/types/frame.js';
 
+const ABI = [
+    {
+        inputs: [
+            {
+                internalType: 'uint256',
+                name: 'fid',
+                type: 'uint256',
+            },
+        ],
+        name: 'custodyOf',
+        outputs: [
+            {
+                internalType: 'address',
+                name: 'custody',
+                type: 'address',
+            },
+        ],
+        stateMutability: 'view',
+        type: 'function',
+    },
+] as const;
+
 /**
  * Returns the custody address of a Farcaster ID.
  * Learn more: https://docs.farcaster.xyz/learn/architecture/contracts
@@ -25,7 +46,7 @@ import type { FrameV2 } from '@/types/frame.js';
  */
 async function custodyOf(fid: string): Promise<string> {
     const address = await readContract(wagmiConfig, {
-        abi: idRegistryABI,
+        abi: ABI,
         address: '0x00000000fc6c5f01fc30151999387bb99a9f489b',
         functionName: 'custodyOf',
         args: [parseUnits(fid, 0)],

@@ -198,10 +198,5590 @@ index 73e8b3f0594a55d8b71d302c1dbb5a5bd9e5dcfd..e8307750a60310975db5c496a2ef9849
  );
  var Factories = {
 diff --git a/dist/index.mjs b/dist/index.mjs
-index 33270a7b2988f4180069e075a59a032ae33344f8..0f11bea713531b5d199a2750f9d495e8c97af1c5 100644
+index 33270a7b2988f4180069e075a59a032ae33344f8..19de9fa65f31adaf7cd32196ec14fac89764b723 100644
 --- a/dist/index.mjs
 +++ b/dist/index.mjs
-@@ -20430,7 +20430,6 @@ var storageRegistryABI = [
+@@ -14875,5562 +14875,34 @@ init_esm_shims();
+ 
+ // src/eth/contracts/abis/bundler.ts
+ init_esm_shims();
+-var bundlerABI = [
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "_idGateway",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "_keyGateway",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "nonpayable",
+-    type: "constructor"
+-  },
+-  {
+-    inputs: [],
+-    name: "CallFailed",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "Unauthorized",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidSignature",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "SignatureExpired",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidPayment",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidState",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "ExceedsMaximum",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidMetadata",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "VERSION",
+-    outputs: [
+-      {
+-        internalType: "string",
+-        name: "",
+-        type: "string"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "idGateway",
+-    outputs: [
+-      {
+-        internalType: "contract IIdGateway",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "keyGateway",
+-    outputs: [
+-      {
+-        internalType: "contract IKeyGateway",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "extraStorage",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "price",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        components: [
+-          {
+-            internalType: "address",
+-            name: "to",
+-            type: "address"
+-          },
+-          {
+-            internalType: "address",
+-            name: "recovery",
+-            type: "address"
+-          },
+-          {
+-            internalType: "uint256",
+-            name: "deadline",
+-            type: "uint256"
+-          },
+-          {
+-            internalType: "bytes",
+-            name: "sig",
+-            type: "bytes"
+-          }
+-        ],
+-        internalType: "struct IBundler.RegistrationParams",
+-        name: "registerParams",
+-        type: "tuple"
+-      },
+-      {
+-        components: [
+-          {
+-            internalType: "uint32",
+-            name: "keyType",
+-            type: "uint32"
+-          },
+-          {
+-            internalType: "bytes",
+-            name: "key",
+-            type: "bytes"
+-          },
+-          {
+-            internalType: "uint8",
+-            name: "metadataType",
+-            type: "uint8"
+-          },
+-          {
+-            internalType: "bytes",
+-            name: "metadata",
+-            type: "bytes"
+-          },
+-          {
+-            internalType: "uint256",
+-            name: "deadline",
+-            type: "uint256"
+-          },
+-          {
+-            internalType: "bytes",
+-            name: "sig",
+-            type: "bytes"
+-          }
+-        ],
+-        internalType: "struct IBundler.SignerParams[]",
+-        name: "signerParams",
+-        type: "tuple[]"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "extraStorage",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "register",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "payable",
+-    type: "function"
+-  },
+-  {
+-    stateMutability: "payable",
+-    type: "receive"
+-  }
+-];
+-
+-// src/eth/contracts/abis/idGateway.ts
+-init_esm_shims();
+-var idGatewayABI = [
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "_idRegistry",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "_storageRegistry",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "_initialOwner",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "nonpayable",
+-    type: "constructor"
+-  },
+-  {
+-    inputs: [],
+-    name: "CallFailed",
+-    type: "error"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "currentNonce",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "InvalidAccountNonce",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidShortString",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidSignature",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "OnlyGuardian",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "SignatureExpired",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidPayment",
+-    type: "error"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "string",
+-        name: "str",
+-        type: "string"
+-      }
+-    ],
+-    name: "StringTooLong",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "Unauthorized",
+-    type: "error"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "Add",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [],
+-    name: "EIP712DomainChanged",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "previousOwner",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "newOwner",
+-        type: "address"
+-      }
+-    ],
+-    name: "OwnershipTransferStarted",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "previousOwner",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "newOwner",
+-        type: "address"
+-      }
+-    ],
+-    name: "OwnershipTransferred",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      }
+-    ],
+-    name: "Paused",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "Remove",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "oldStorageRegistry",
+-        type: "address"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "newStorageRegistry",
+-        type: "address"
+-      }
+-    ],
+-    name: "SetStorageRegistry",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      }
+-    ],
+-    name: "Unpaused",
+-    type: "event"
+-  },
+-  {
+-    inputs: [],
+-    name: "REGISTER_TYPEHASH",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "VERSION",
+-    outputs: [
+-      {
+-        internalType: "string",
+-        name: "",
+-        type: "string"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "acceptOwnership",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "addGuardian",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "domainSeparatorV4",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "eip712Domain",
+-    outputs: [
+-      {
+-        internalType: "bytes1",
+-        name: "fields",
+-        type: "bytes1"
+-      },
+-      {
+-        internalType: "string",
+-        name: "name",
+-        type: "string"
+-      },
+-      {
+-        internalType: "string",
+-        name: "version",
+-        type: "string"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "chainId",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "address",
+-        name: "verifyingContract",
+-        type: "address"
+-      },
+-      {
+-        internalType: "bytes32",
+-        name: "salt",
+-        type: "bytes32"
+-      },
+-      {
+-        internalType: "uint256[]",
+-        name: "extensions",
+-        type: "uint256[]"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "guardians",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "isGuardian",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "structHash",
+-        type: "bytes32"
+-      }
+-    ],
+-    name: "hashTypedDataV4",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "idRegistry",
+-    outputs: [
+-      {
+-        internalType: "contract IIdRegistry",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "owner",
+-        type: "address"
+-      }
+-    ],
+-    name: "nonces",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "owner",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "pause",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "paused",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "pendingOwner",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "extraStorage",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "price",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "price",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "recovery",
+-        type: "address"
+-      }
+-    ],
+-    name: "register",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "payable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "recovery",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "extraStorage",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "register",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "overpayment",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "payable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "to",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "recovery",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "deadline",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "sig",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "registerFor",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "payable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "to",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "recovery",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "deadline",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "sig",
+-        type: "bytes"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "extraStorage",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "registerFor",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "overpayment",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "payable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "removeGuardian",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "renounceOwnership",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "_storageRegistry",
+-        type: "address"
+-      }
+-    ],
+-    name: "setStorageRegistry",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "storageRegistry",
+-    outputs: [
+-      {
+-        internalType: "contract IStorageRegistry",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "newOwner",
+-        type: "address"
+-      }
+-    ],
+-    name: "transferOwnership",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "unpause",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "useNonce",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    stateMutability: "payable",
+-    type: "receive"
+-  }
+-];
+-
+-// src/eth/contracts/abis/idRegistry.ts
+-init_esm_shims();
+-var idRegistryABI = [
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "_migrator",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "_initialOwner",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "nonpayable",
+-    type: "constructor"
+-  },
+-  {
+-    inputs: [],
+-    name: "AlreadyMigrated",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "GatewayFrozen",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "HasId",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "HasNoId",
+-    type: "error"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "currentNonce",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "InvalidAccountNonce",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidShortString",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidSignature",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "OnlyGuardian",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "OnlyMigrator",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "PermissionRevoked",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "SignatureExpired",
+-    type: "error"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "string",
+-        name: "str",
+-        type: "string"
+-      }
+-    ],
+-    name: "StringTooLong",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "Unauthorized",
+-    type: "error"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "Add",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "AdminReset",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "uint256",
+-        name: "id",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "recovery",
+-        type: "address"
+-      }
+-    ],
+-    name: "ChangeRecoveryAddress",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [],
+-    name: "EIP712DomainChanged",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "idGateway",
+-        type: "address"
+-      }
+-    ],
+-    name: "FreezeIdGateway",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "uint256",
+-        name: "migratedAt",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "Migrated",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "previousOwner",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "newOwner",
+-        type: "address"
+-      }
+-    ],
+-    name: "OwnershipTransferStarted",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "previousOwner",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "newOwner",
+-        type: "address"
+-      }
+-    ],
+-    name: "OwnershipTransferred",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      }
+-    ],
+-    name: "Paused",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "from",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "to",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "uint256",
+-        name: "id",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "Recover",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "to",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "uint256",
+-        name: "id",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "recovery",
+-        type: "address"
+-      }
+-    ],
+-    name: "Register",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "Remove",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "oldCounter",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "newCounter",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "SetIdCounter",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "oldIdGateway",
+-        type: "address"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "newIdGateway",
+-        type: "address"
+-      }
+-    ],
+-    name: "SetIdGateway",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "oldMigrator",
+-        type: "address"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "newMigrator",
+-        type: "address"
+-      }
+-    ],
+-    name: "SetMigrator",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "from",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "to",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "uint256",
+-        name: "id",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "Transfer",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      }
+-    ],
+-    name: "Unpaused",
+-    type: "event"
+-  },
+-  {
+-    inputs: [],
+-    name: "CHANGE_RECOVERY_ADDRESS_TYPEHASH",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "TRANSFER_AND_CHANGE_RECOVERY_TYPEHASH",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "TRANSFER_TYPEHASH",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "VERSION",
+-    outputs: [
+-      {
+-        internalType: "string",
+-        name: "",
+-        type: "string"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "acceptOwnership",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "addGuardian",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        components: [
+-          {
+-            internalType: "uint24",
+-            name: "fid",
+-            type: "uint24"
+-          },
+-          {
+-            internalType: "address",
+-            name: "custody",
+-            type: "address"
+-          },
+-          {
+-            internalType: "address",
+-            name: "recovery",
+-            type: "address"
+-          }
+-        ],
+-        internalType: "struct IIdRegistry.BulkRegisterData[]",
+-        name: "ids",
+-        type: "tuple[]"
+-      }
+-    ],
+-    name: "bulkRegisterIds",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        components: [
+-          {
+-            internalType: "uint24",
+-            name: "fid",
+-            type: "uint24"
+-          },
+-          {
+-            internalType: "address",
+-            name: "custody",
+-            type: "address"
+-          }
+-        ],
+-        internalType: "struct IIdRegistry.BulkRegisterDefaultRecoveryData[]",
+-        name: "ids",
+-        type: "tuple[]"
+-      },
+-      {
+-        internalType: "address",
+-        name: "recovery",
+-        type: "address"
+-      }
+-    ],
+-    name: "bulkRegisterIdsWithDefaultRecovery",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint24[]",
+-        name: "ids",
+-        type: "uint24[]"
+-      }
+-    ],
+-    name: "bulkResetIds",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "recovery",
+-        type: "address"
+-      }
+-    ],
+-    name: "changeRecoveryAddress",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "owner",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "recovery",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "deadline",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "sig",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "changeRecoveryAddressFor",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "custodyOf",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "custody",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "domainSeparatorV4",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "eip712Domain",
+-    outputs: [
+-      {
+-        internalType: "bytes1",
+-        name: "fields",
+-        type: "bytes1"
+-      },
+-      {
+-        internalType: "string",
+-        name: "name",
+-        type: "string"
+-      },
+-      {
+-        internalType: "string",
+-        name: "version",
+-        type: "string"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "chainId",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "address",
+-        name: "verifyingContract",
+-        type: "address"
+-      },
+-      {
+-        internalType: "bytes32",
+-        name: "salt",
+-        type: "bytes32"
+-      },
+-      {
+-        internalType: "uint256[]",
+-        name: "extensions",
+-        type: "uint256[]"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "freezeIdGateway",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "gatewayFrozen",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "gracePeriod",
+-    outputs: [
+-      {
+-        internalType: "uint24",
+-        name: "",
+-        type: "uint24"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "guardians",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "isGuardian",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "structHash",
+-        type: "bytes32"
+-      }
+-    ],
+-    name: "hashTypedDataV4",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "idCounter",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "idGateway",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "owner",
+-        type: "address"
+-      }
+-    ],
+-    name: "idOf",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "isMigrated",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "migrate",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "migratedAt",
+-    outputs: [
+-      {
+-        internalType: "uint40",
+-        name: "",
+-        type: "uint40"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "migrator",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "name",
+-    outputs: [
+-      {
+-        internalType: "string",
+-        name: "",
+-        type: "string"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "owner",
+-        type: "address"
+-      }
+-    ],
+-    name: "nonces",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "owner",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "pause",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "paused",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "pendingOwner",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "from",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "to",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "deadline",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "sig",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "recover",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "from",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "to",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "recoveryDeadline",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "recoverySig",
+-        type: "bytes"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "toDeadline",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "toSig",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "recoverFor",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "recoveryOf",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "recovery",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "to",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "recovery",
+-        type: "address"
+-      }
+-    ],
+-    name: "register",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "removeGuardian",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "renounceOwnership",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "_counter",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "setIdCounter",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "_idGateway",
+-        type: "address"
+-      }
+-    ],
+-    name: "setIdGateway",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "_migrator",
+-        type: "address"
+-      }
+-    ],
+-    name: "setMigrator",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "to",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "deadline",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "sig",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "transfer",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "to",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "recovery",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "deadline",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "sig",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "transferAndChangeRecovery",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "from",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "to",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "recovery",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "fromDeadline",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "fromSig",
+-        type: "bytes"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "toDeadline",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "toSig",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "transferAndChangeRecoveryFor",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "from",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "to",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "fromDeadline",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "fromSig",
+-        type: "bytes"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "toDeadline",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "toSig",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "transferFor",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "newOwner",
+-        type: "address"
+-      }
+-    ],
+-    name: "transferOwnership",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "unpause",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "useNonce",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "custodyAddress",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes32",
+-        name: "digest",
+-        type: "bytes32"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "sig",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "verifyFidSignature",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "isValid",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  }
+-];
+-
+-// src/eth/contracts/abis/keyGateway.ts
+-init_esm_shims();
+-var keyGatewayABI = [
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "_keyRegistry",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "_initialOwner",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "nonpayable",
+-    type: "constructor"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "currentNonce",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "InvalidAccountNonce",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidShortString",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidSignature",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "OnlyGuardian",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "SignatureExpired",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidMetadata",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "ExceedsMaximum",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidState",
+-    type: "error"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "string",
+-        name: "str",
+-        type: "string"
+-      }
+-    ],
+-    name: "StringTooLong",
+-    type: "error"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "Add",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [],
+-    name: "EIP712DomainChanged",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "previousOwner",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "newOwner",
+-        type: "address"
+-      }
+-    ],
+-    name: "OwnershipTransferStarted",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "previousOwner",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "newOwner",
+-        type: "address"
+-      }
+-    ],
+-    name: "OwnershipTransferred",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      }
+-    ],
+-    name: "Paused",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "Remove",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      }
+-    ],
+-    name: "Unpaused",
+-    type: "event"
+-  },
+-  {
+-    inputs: [],
+-    name: "ADD_TYPEHASH",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "VERSION",
+-    outputs: [
+-      {
+-        internalType: "string",
+-        name: "",
+-        type: "string"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "acceptOwnership",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint32",
+-        name: "keyType",
+-        type: "uint32"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "key",
+-        type: "bytes"
+-      },
+-      {
+-        internalType: "uint8",
+-        name: "metadataType",
+-        type: "uint8"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "metadata",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "add",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "fidOwner",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint32",
+-        name: "keyType",
+-        type: "uint32"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "key",
+-        type: "bytes"
+-      },
+-      {
+-        internalType: "uint8",
+-        name: "metadataType",
+-        type: "uint8"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "metadata",
+-        type: "bytes"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "deadline",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "sig",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "addFor",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "addGuardian",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "domainSeparatorV4",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "eip712Domain",
+-    outputs: [
+-      {
+-        internalType: "bytes1",
+-        name: "fields",
+-        type: "bytes1"
+-      },
+-      {
+-        internalType: "string",
+-        name: "name",
+-        type: "string"
+-      },
+-      {
+-        internalType: "string",
+-        name: "version",
+-        type: "string"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "chainId",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "address",
+-        name: "verifyingContract",
+-        type: "address"
+-      },
+-      {
+-        internalType: "bytes32",
+-        name: "salt",
+-        type: "bytes32"
+-      },
+-      {
+-        internalType: "uint256[]",
+-        name: "extensions",
+-        type: "uint256[]"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "guardians",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "isGuardian",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "structHash",
+-        type: "bytes32"
+-      }
+-    ],
+-    name: "hashTypedDataV4",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "keyRegistry",
+-    outputs: [
+-      {
+-        internalType: "contract IKeyRegistry",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "owner",
+-        type: "address"
+-      }
+-    ],
+-    name: "nonces",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "owner",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "pause",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "paused",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "pendingOwner",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "removeGuardian",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "renounceOwnership",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "newOwner",
+-        type: "address"
+-      }
+-    ],
+-    name: "transferOwnership",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "unpause",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "useNonce",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  }
+-];
+-
+-// src/eth/contracts/abis/keyRegistry.ts
+-init_esm_shims();
+-var keyRegistryABI = [
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "_idRegistry",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "_migrator",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "_initialOwner",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "_maxKeysPerFid",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "nonpayable",
+-    type: "constructor"
+-  },
+-  {
+-    inputs: [],
+-    name: "AlreadyMigrated",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "ExceedsMaximum",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "GatewayFrozen",
+-    type: "error"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "currentNonce",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "InvalidAccountNonce",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidKeyType",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidMaxKeys",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidMetadata",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidMetadataType",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidShortString",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidSignature",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidState",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "OnlyGuardian",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "OnlyMigrator",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "PermissionRevoked",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "SignatureExpired",
+-    type: "error"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "string",
+-        name: "str",
+-        type: "string"
+-      }
+-    ],
+-    name: "StringTooLong",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "Unauthorized",
+-    type: "error"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint32",
+-        name: "keyType",
+-        type: "uint32"
+-      },
+-      {
+-        internalType: "uint8",
+-        name: "metadataType",
+-        type: "uint8"
+-      }
+-    ],
+-    name: "ValidatorNotFound",
+-    type: "error"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "uint32",
+-        name: "keyType",
+-        type: "uint32"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "bytes",
+-        name: "key",
+-        type: "bytes"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "bytes",
+-        name: "keyBytes",
+-        type: "bytes"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "uint8",
+-        name: "metadataType",
+-        type: "uint8"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "bytes",
+-        name: "metadata",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "Add",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "Add",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "bytes",
+-        name: "key",
+-        type: "bytes"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "bytes",
+-        name: "keyBytes",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "AdminReset",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [],
+-    name: "EIP712DomainChanged",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "keyGateway",
+-        type: "address"
+-      }
+-    ],
+-    name: "FreezeKeyGateway",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "uint256",
+-        name: "migratedAt",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "Migrated",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "previousOwner",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "newOwner",
+-        type: "address"
+-      }
+-    ],
+-    name: "OwnershipTransferStarted",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "previousOwner",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "newOwner",
+-        type: "address"
+-      }
+-    ],
+-    name: "OwnershipTransferred",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      }
+-    ],
+-    name: "Paused",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "bytes",
+-        name: "key",
+-        type: "bytes"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "bytes",
+-        name: "keyBytes",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "Remove",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "Remove",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "oldIdRegistry",
+-        type: "address"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "newIdRegistry",
+-        type: "address"
+-      }
+-    ],
+-    name: "SetIdRegistry",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "oldKeyGateway",
+-        type: "address"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "newKeyGateway",
+-        type: "address"
+-      }
+-    ],
+-    name: "SetKeyGateway",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "oldMax",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "newMax",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "SetMaxKeysPerFid",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "oldMigrator",
+-        type: "address"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "newMigrator",
+-        type: "address"
+-      }
+-    ],
+-    name: "SetMigrator",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "uint32",
+-        name: "keyType",
+-        type: "uint32"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "uint8",
+-        name: "metadataType",
+-        type: "uint8"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "oldValidator",
+-        type: "address"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "newValidator",
+-        type: "address"
+-      }
+-    ],
+-    name: "SetValidator",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      }
+-    ],
+-    name: "Unpaused",
+-    type: "event"
+-  },
+-  {
+-    inputs: [],
+-    name: "REMOVE_TYPEHASH",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "VERSION",
+-    outputs: [
+-      {
+-        internalType: "string",
+-        name: "",
+-        type: "string"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "acceptOwnership",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "fidOwner",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint32",
+-        name: "keyType",
+-        type: "uint32"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "key",
+-        type: "bytes"
+-      },
+-      {
+-        internalType: "uint8",
+-        name: "metadataType",
+-        type: "uint8"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "metadata",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "add",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "addGuardian",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        components: [
+-          {
+-            internalType: "uint256",
+-            name: "fid",
+-            type: "uint256"
+-          },
+-          {
+-            components: [
+-              {
+-                internalType: "bytes",
+-                name: "key",
+-                type: "bytes"
+-              },
+-              {
+-                internalType: "bytes",
+-                name: "metadata",
+-                type: "bytes"
+-              }
+-            ],
+-            internalType: "struct IKeyRegistry.BulkAddKey[]",
+-            name: "keys",
+-            type: "tuple[]"
+-          }
+-        ],
+-        internalType: "struct IKeyRegistry.BulkAddData[]",
+-        name: "items",
+-        type: "tuple[]"
+-      }
+-    ],
+-    name: "bulkAddKeysForMigration",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        components: [
+-          {
+-            internalType: "uint256",
+-            name: "fid",
+-            type: "uint256"
+-          },
+-          {
+-            internalType: "bytes[]",
+-            name: "keys",
+-            type: "bytes[]"
+-          }
+-        ],
+-        internalType: "struct IKeyRegistry.BulkResetData[]",
+-        name: "items",
+-        type: "tuple[]"
+-      }
+-    ],
+-    name: "bulkResetKeysForMigration",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "domainSeparatorV4",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "eip712Domain",
+-    outputs: [
+-      {
+-        internalType: "bytes1",
+-        name: "fields",
+-        type: "bytes1"
+-      },
+-      {
+-        internalType: "string",
+-        name: "name",
+-        type: "string"
+-      },
+-      {
+-        internalType: "string",
+-        name: "version",
+-        type: "string"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "chainId",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "address",
+-        name: "verifyingContract",
+-        type: "address"
+-      },
+-      {
+-        internalType: "bytes32",
+-        name: "salt",
+-        type: "bytes32"
+-      },
+-      {
+-        internalType: "uint256[]",
+-        name: "extensions",
+-        type: "uint256[]"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "freezeKeyGateway",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "gatewayFrozen",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "gracePeriod",
+-    outputs: [
+-      {
+-        internalType: "uint24",
+-        name: "",
+-        type: "uint24"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "guardians",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "isGuardian",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "structHash",
+-        type: "bytes32"
+-      }
+-    ],
+-    name: "hashTypedDataV4",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "idRegistry",
+-    outputs: [
+-      {
+-        internalType: "contract IdRegistryLike",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "isMigrated",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "enum IKeyRegistry.KeyState",
+-        name: "state",
+-        type: "uint8"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "index",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "keyAt",
+-    outputs: [
+-      {
+-        internalType: "bytes",
+-        name: "",
+-        type: "bytes"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "key",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "keyDataOf",
+-    outputs: [
+-      {
+-        components: [
+-          {
+-            internalType: "enum IKeyRegistry.KeyState",
+-            name: "state",
+-            type: "uint8"
+-          },
+-          {
+-            internalType: "uint32",
+-            name: "keyType",
+-            type: "uint32"
+-          }
+-        ],
+-        internalType: "struct IKeyRegistry.KeyData",
+-        name: "",
+-        type: "tuple"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "keyGateway",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "key",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "keys",
+-    outputs: [
+-      {
+-        internalType: "enum IKeyRegistry.KeyState",
+-        name: "state",
+-        type: "uint8"
+-      },
+-      {
+-        internalType: "uint32",
+-        name: "keyType",
+-        type: "uint32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "enum IKeyRegistry.KeyState",
+-        name: "state",
+-        type: "uint8"
+-      }
+-    ],
+-    name: "keysOf",
+-    outputs: [
+-      {
+-        internalType: "bytes[]",
+-        name: "",
+-        type: "bytes[]"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "enum IKeyRegistry.KeyState",
+-        name: "state",
+-        type: "uint8"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "startIdx",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "batchSize",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "keysOf",
+-    outputs: [
+-      {
+-        internalType: "bytes[]",
+-        name: "page",
+-        type: "bytes[]"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "nextIdx",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "maxKeysPerFid",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "migrate",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "migratedAt",
+-    outputs: [
+-      {
+-        internalType: "uint40",
+-        name: "",
+-        type: "uint40"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "migrator",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "owner",
+-        type: "address"
+-      }
+-    ],
+-    name: "nonces",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "owner",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "pause",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "paused",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "pendingOwner",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "bytes",
+-        name: "key",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "remove",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "fidOwner",
+-        type: "address"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "key",
+-        type: "bytes"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "deadline",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "sig",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "removeFor",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "guardian",
+-        type: "address"
+-      }
+-    ],
+-    name: "removeGuardian",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "renounceOwnership",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "_idRegistry",
+-        type: "address"
+-      }
+-    ],
+-    name: "setIdRegistry",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "_keyGateway",
+-        type: "address"
+-      }
+-    ],
+-    name: "setKeyGateway",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "_maxKeysPerFid",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "setMaxKeysPerFid",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "_migrator",
+-        type: "address"
+-      }
+-    ],
+-    name: "setMigrator",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint32",
+-        name: "keyType",
+-        type: "uint32"
+-      },
+-      {
+-        internalType: "uint8",
+-        name: "metadataType",
+-        type: "uint8"
+-      },
+-      {
+-        internalType: "contract IMetadataValidator",
+-        name: "validator",
+-        type: "address"
+-      }
+-    ],
+-    name: "setValidator",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "enum IKeyRegistry.KeyState",
+-        name: "state",
+-        type: "uint8"
+-      }
+-    ],
+-    name: "totalKeys",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "newOwner",
+-        type: "address"
+-      }
+-    ],
+-    name: "transferOwnership",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "unpause",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "useNonce",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint32",
+-        name: "keyType",
+-        type: "uint32"
+-      },
+-      {
+-        internalType: "uint8",
+-        name: "metadataType",
+-        type: "uint8"
+-      }
+-    ],
+-    name: "validators",
+-    outputs: [
+-      {
+-        internalType: "contract IMetadataValidator",
+-        name: "validator",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  }
+-];
+-
+-// src/eth/contracts/abis/signedKeyRequestValidator.ts
+-init_esm_shims();
+-var signedKeyRequestValidatorABI = [
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "_idRegistry",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "_initialOwner",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "nonpayable",
+-    type: "constructor"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidShortString",
+-    type: "error"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "string",
+-        name: "str",
+-        type: "string"
+-      }
+-    ],
+-    name: "StringTooLong",
+-    type: "error"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [],
+-    name: "EIP712DomainChanged",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "previousOwner",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "newOwner",
+-        type: "address"
+-      }
+-    ],
+-    name: "OwnershipTransferStarted",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "previousOwner",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "newOwner",
+-        type: "address"
+-      }
+-    ],
+-    name: "OwnershipTransferred",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "oldIdRegistry",
+-        type: "address"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "newIdRegistry",
+-        type: "address"
+-      }
+-    ],
+-    name: "SetIdRegistry",
+-    type: "event"
+-  },
+-  {
+-    inputs: [],
+-    name: "METADATA_TYPEHASH",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "VERSION",
+-    outputs: [
+-      {
+-        internalType: "string",
+-        name: "",
+-        type: "string"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "acceptOwnership",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "domainSeparatorV4",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "eip712Domain",
+-    outputs: [
+-      {
+-        internalType: "bytes1",
+-        name: "fields",
+-        type: "bytes1"
+-      },
+-      {
+-        internalType: "string",
+-        name: "name",
+-        type: "string"
+-      },
+-      {
+-        internalType: "string",
+-        name: "version",
+-        type: "string"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "chainId",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "address",
+-        name: "verifyingContract",
+-        type: "address"
+-      },
+-      {
+-        internalType: "bytes32",
+-        name: "salt",
+-        type: "bytes32"
+-      },
+-      {
+-        internalType: "uint256[]",
+-        name: "extensions",
+-        type: "uint256[]"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        components: [
+-          {
+-            internalType: "uint256",
+-            name: "requestFid",
+-            type: "uint256"
+-          },
+-          {
+-            internalType: "address",
+-            name: "requestSigner",
+-            type: "address"
+-          },
+-          {
+-            internalType: "bytes",
+-            name: "signature",
+-            type: "bytes"
+-          },
+-          {
+-            internalType: "uint256",
+-            name: "deadline",
+-            type: "uint256"
+-          }
+-        ],
+-        internalType: "struct SignedKeyRequestValidator.SignedKeyRequestMetadata",
+-        name: "metadata",
+-        type: "tuple"
+-      }
+-    ],
+-    name: "encodeMetadata",
+-    outputs: [
+-      {
+-        internalType: "bytes",
+-        name: "",
+-        type: "bytes"
+-      }
+-    ],
+-    stateMutability: "pure",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "structHash",
+-        type: "bytes32"
+-      }
+-    ],
+-    name: "hashTypedDataV4",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "idRegistry",
+-    outputs: [
+-      {
+-        internalType: "contract IdRegistryLike",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "owner",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "pendingOwner",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "renounceOwnership",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "_idRegistry",
+-        type: "address"
+-      }
+-    ],
+-    name: "setIdRegistry",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "newOwner",
+-        type: "address"
+-      }
+-    ],
+-    name: "transferOwnership",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "key",
+-        type: "bytes"
+-      },
+-      {
+-        internalType: "bytes",
+-        name: "signedKeyRequestBytes",
+-        type: "bytes"
+-      }
+-    ],
+-    name: "validate",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  }
+-];
+-
+-// src/eth/contracts/abis/storageRegistry.ts
+-init_esm_shims();
+-var storageRegistryABI = [
+-  {
+-    inputs: [
+-      {
+-        internalType: "contract AggregatorV3Interface",
+-        name: "_priceFeed",
+-        type: "address"
+-      },
+-      {
+-        internalType: "contract AggregatorV3Interface",
+-        name: "_uptimeFeed",
+-        type: "address"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "_initialUsdUnitPrice",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "_initialMaxUnits",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "address",
+-        name: "_initialVault",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "_initialRoleAdmin",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "_initialOwner",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "_initialOperator",
+-        type: "address"
+-      },
+-      {
+-        internalType: "address",
+-        name: "_initialTreasurer",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "nonpayable",
+-    type: "constructor"
+-  },
+-  {
+-    inputs: [],
+-    name: "CallFailed",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "ContractDeprecated",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "ExceedsCapacity",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "GracePeriodNotOver",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "IncompleteRound",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidAddress",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidAmount",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidBatchInput",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidDeprecationTimestamp",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidFixedPrice",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidMaxAnswer",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidMinAnswer",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidPayment",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidPrice",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidRangeInput",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "InvalidRoundTimestamp",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "NotOperator",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "NotOwner",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "NotTreasurer",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "PriceOutOfBounds",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "SequencerDown",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "StaleAnswer",
+-    type: "error"
+-  },
+-  {
+-    inputs: [],
+-    name: "Unauthorized",
+-    type: "error"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      }
+-    ],
+-    name: "Paused",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "payer",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "units",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "Rent",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "bytes32",
+-        name: "role",
+-        type: "bytes32"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "bytes32",
+-        name: "previousAdminRole",
+-        type: "bytes32"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "bytes32",
+-        name: "newAdminRole",
+-        type: "bytes32"
+-      }
+-    ],
+-    name: "RoleAdminChanged",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "bytes32",
+-        name: "role",
+-        type: "bytes32"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "sender",
+-        type: "address"
+-      }
+-    ],
+-    name: "RoleGranted",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "bytes32",
+-        name: "role",
+-        type: "bytes32"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      },
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "sender",
+-        type: "address"
+-      }
+-    ],
+-    name: "RoleRevoked",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "oldDuration",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "newDuration",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "SetCacheDuration",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "oldTimestamp",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "newTimestamp",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "SetDeprecationTimestamp",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "oldPrice",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "newPrice",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "SetFixedEthUsdPrice",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "oldPeriod",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "newPeriod",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "SetGracePeriod",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "oldAge",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "newAge",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "SetMaxAge",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "oldPrice",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "newPrice",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "SetMaxAnswer",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "oldMax",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "newMax",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "SetMaxUnits",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "oldPrice",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "newPrice",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "SetMinAnswer",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "oldPrice",
+-        type: "uint256"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "newPrice",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "SetPrice",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "oldFeed",
+-        type: "address"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "newFeed",
+-        type: "address"
+-      }
+-    ],
+-    name: "SetPriceFeed",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "oldFeed",
+-        type: "address"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "newFeed",
+-        type: "address"
+-      }
+-    ],
+-    name: "SetUptimeFeed",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "oldVault",
+-        type: "address"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "newVault",
+-        type: "address"
+-      }
+-    ],
+-    name: "SetVault",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: false,
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      }
+-    ],
+-    name: "Unpaused",
+-    type: "event"
+-  },
+-  {
+-    anonymous: false,
+-    inputs: [
+-      {
+-        indexed: true,
+-        internalType: "address",
+-        name: "to",
+-        type: "address"
+-      },
+-      {
+-        indexed: false,
+-        internalType: "uint256",
+-        name: "amount",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "Withdraw",
+-    type: "event"
+-  },
+-  {
+-    inputs: [],
+-    name: "DEFAULT_ADMIN_ROLE",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "VERSION",
+-    outputs: [
+-      {
+-        internalType: "string",
+-        name: "",
+-        type: "string"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256[]",
+-        name: "fids",
+-        type: "uint256[]"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "units",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "batchCredit",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256[]",
+-        name: "fids",
+-        type: "uint256[]"
+-      },
+-      {
+-        internalType: "uint256[]",
+-        name: "units",
+-        type: "uint256[]"
+-      }
+-    ],
+-    name: "batchRent",
+-    outputs: [],
+-    stateMutability: "payable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "start",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "end",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "units",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "continuousCredit",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "units",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "credit",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "deprecationTimestamp",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "ethUsdPrice",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "fixedEthUsdPrice",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "role",
+-        type: "bytes32"
+-      }
+-    ],
+-    name: "getRoleAdmin",
+-    outputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "",
+-        type: "bytes32"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "role",
+-        type: "bytes32"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "index",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "getRoleMember",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "role",
+-        type: "bytes32"
+-      }
+-    ],
+-    name: "getRoleMemberCount",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "role",
+-        type: "bytes32"
+-      },
+-      {
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      }
+-    ],
+-    name: "grantRole",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "role",
+-        type: "bytes32"
+-      },
+-      {
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      }
+-    ],
+-    name: "hasRole",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "lastPriceFeedUpdateBlock",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "lastPriceFeedUpdateTime",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "maxUnits",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "pause",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "paused",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "prevEthUsdPrice",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "units",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "price",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "priceFeed",
+-    outputs: [
+-      {
+-        internalType: "contract AggregatorV3Interface",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "priceFeedCacheDuration",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "priceFeedMaxAge",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "priceFeedMaxAnswer",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "priceFeedMinAnswer",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "refreshPrice",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "role",
+-        type: "bytes32"
+-      },
+-      {
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      }
+-    ],
+-    name: "renounceRole",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "fid",
+-        type: "uint256"
+-      },
+-      {
+-        internalType: "uint256",
+-        name: "units",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "rent",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "overpayment",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "payable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "rentedUnits",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "bytes32",
+-        name: "role",
+-        type: "bytes32"
+-      },
+-      {
+-        internalType: "address",
+-        name: "account",
+-        type: "address"
+-      }
+-    ],
+-    name: "revokeRole",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "duration",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "setCacheDuration",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "timestamp",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "setDeprecationTimestamp",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "fixedPrice",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "setFixedEthUsdPrice",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "period",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "setGracePeriod",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "age",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "setMaxAge",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "maxPrice",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "setMaxAnswer",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "max",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "setMaxUnits",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "minPrice",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "setMinAnswer",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "usdPrice",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "setPrice",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "contract AggregatorV3Interface",
+-        name: "feed",
+-        type: "address"
+-      }
+-    ],
+-    name: "setPriceFeed",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "contract AggregatorV3Interface",
+-        name: "feed",
+-        type: "address"
+-      }
+-    ],
+-    name: "setUptimeFeed",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "address",
+-        name: "vaultAddr",
+-        type: "address"
+-      }
+-    ],
+-    name: "setVault",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "bytes4",
+-        name: "interfaceId",
+-        type: "bytes4"
+-      }
+-    ],
+-    name: "supportsInterface",
+-    outputs: [
+-      {
+-        internalType: "bool",
+-        name: "",
+-        type: "bool"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "unitPrice",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "unpause",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "uptimeFeed",
+-    outputs: [
+-      {
+-        internalType: "contract AggregatorV3Interface",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "uptimeFeedGracePeriod",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "usdUnitPrice",
+-    outputs: [
+-      {
+-        internalType: "uint256",
+-        name: "",
+-        type: "uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "vault",
+-    outputs: [
+-      {
+-        internalType: "address",
+-        name: "",
+-        type: "address"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        internalType: "uint256",
+-        name: "amount",
+-        type: "uint256"
+-      }
+-    ],
+-    name: "withdraw",
+-    outputs: [],
+-    stateMutability: "nonpayable",
+-    type: "function"
+-  }
+-];
++var bundlerABI = [];
++
++// src/eth/contracts/abis/idGateway.ts
++init_esm_shims();
++var idGatewayABI = [];
++
++// src/eth/contracts/abis/idRegistry.ts
++init_esm_shims();
++var idRegistryABI = [];
++
++// src/eth/contracts/abis/keyGateway.ts
++init_esm_shims();
++var keyGatewayABI = [];
++
++// src/eth/contracts/abis/keyRegistry.ts
++init_esm_shims();
++var keyRegistryABI = [];
++
++// src/eth/contracts/abis/signedKeyRequestValidator.ts
++init_esm_shims();
++var signedKeyRequestValidatorABI = [];
++
++// src/eth/contracts/abis/storageRegistry.ts
++init_esm_shims();
++var storageRegistryABI = [];
  
  // src/factories.ts
  init_esm_shims();
@@ -209,7 +5789,7 @@ index 33270a7b2988f4180069e075a59a032ae33344f8..0f11bea713531b5d199a2750f9d495e8
  
  // ../../node_modules/@farcaster/fishery/dist/fishery.mjs
  init_esm_shims();
-@@ -21685,45 +21684,20 @@ function toBigInt(value) {
+@@ -21685,45 +16157,20 @@ function toBigInt(value) {
  
  // src/factories.ts
  var FidFactory = Factory.define(() => {
@@ -260,7 +5840,7 @@ index 33270a7b2988f4180069e075a59a032ae33344f8..0f11bea713531b5d199a2750f9d495e8
  });
  var BlockHashFactory = Factory.define(() => {
    return BytesFactory.build({}, { transient: { length: 32 } });
-@@ -21765,34 +21739,16 @@ var CastIdFactory = Factory.define(() => {
+@@ -21765,34 +16212,16 @@ var CastIdFactory = Factory.define(() => {
    });
  });
  var FarcasterNetworkFactory = Factory.define(() => {
@@ -299,7 +5879,7 @@ index 33270a7b2988f4180069e075a59a032ae33344f8..0f11bea713531b5d199a2750f9d495e8
  });
  var MessageFactory = Factory.define(
    ({ onCreate, transientParams }) => {
-@@ -21834,21 +21790,13 @@ var CastIdEmbedFactory = Factory.define(() => {
+@@ -21834,21 +16263,13 @@ var CastIdEmbedFactory = Factory.define(() => {
    return Embed.create({ castId: CastIdFactory.build() });
  });
  var UrlEmbedFactory = Factory.define(() => {
@@ -324,7 +5904,7 @@ index 33270a7b2988f4180069e075a59a032ae33344f8..0f11bea713531b5d199a2750f9d495e8
  });
  var CastAddDataFactory = Factory.define(() => {
    return MessageDataFactory.build({
-@@ -22174,20 +22122,8 @@ var VerificationRemoveBodyFactory = Factory.define(({ params }) => {
+@@ -22174,20 +16595,8 @@ var VerificationRemoveBodyFactory = Factory.define(({ params }) => {
        throw new Error(`Unsupported protocol [found: ${params.protocol}]`);
    }
  });
@@ -346,7 +5926,7 @@ index 33270a7b2988f4180069e075a59a032ae33344f8..0f11bea713531b5d199a2750f9d495e8
  });
  var UserDataAddDataFactory = Factory.define(() => {
    return MessageDataFactory.build({
-@@ -22231,11 +22167,7 @@ var UsernameProofMessageFactory = Factory.define(
+@@ -22231,11 +16640,7 @@ var UsernameProofMessageFactory = Factory.define(
    }
  );
  var FrameActionBodyFactory = Factory.define(() => {
@@ -359,7 +5939,7 @@ index 33270a7b2988f4180069e075a59a032ae33344f8..0f11bea713531b5d199a2750f9d495e8
  });
  var FrameActionDataFactory = Factory.define(() => {
    return MessageDataFactory.build({
-@@ -22255,16 +22187,7 @@ var FrameActionMessageFactory = Factory.define(
+@@ -22255,16 +16660,7 @@ var FrameActionMessageFactory = Factory.define(
    }
  );
  var OnChainEventFactory = Factory.define(() => {
@@ -377,7 +5957,7 @@ index 33270a7b2988f4180069e075a59a032ae33344f8..0f11bea713531b5d199a2750f9d495e8
  });
  var UserNameProofFactory = Factory.define(() => {
    return UserNameProof.create({
-@@ -22315,26 +22238,11 @@ var SignerMigratedOnChainEventFactory = Factory.define(() => {
+@@ -22315,26 +16711,11 @@ var SignerMigratedOnChainEventFactory = Factory.define(() => {
    });
  });
  var StorageRentEventBodyFactory = Factory.define(() => {
@@ -406,7 +5986,7 @@ index 33270a7b2988f4180069e075a59a032ae33344f8..0f11bea713531b5d199a2750f9d495e8
    }
  );
  var Factories = {
-@@ -22390,8 +22298,6 @@ var Factories = {
+@@ -22390,8 +16771,6 @@ var Factories = {
    VerificationAddSolAddressData: VerificationAddSolAddressDataFactory,
    VerificationAddSolAddressMessage: VerificationAddSolAddressMessageFactory,
    VerificationRemoveBody: VerificationRemoveBodyFactory,

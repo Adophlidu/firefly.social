@@ -6,9 +6,7 @@ import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { getFarcasterMediaObjects } from '@/providers/farcaster/getFarcasterMediaObjects.js';
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
-import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { validateFarcasterSession } from '@/providers/farcaster/validateFarcasterSignerKey.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
@@ -67,8 +65,6 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         } satisfies Post;
     };
 
-    const validateSignerKey = () => validateFarcasterSession(farcasterSessionHolder.sessionRequired);
-
     const postTo = createPostTo(Source.Farcaster, {
         uploadImages: () => {
             return Promise.all(
@@ -94,17 +90,14 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             return [pollStub];
         },
         compose: async (images, videos, polls) => {
-            await validateSignerKey();
             return FarcasterSocialMediaProvider.publishPost(composeDraft('Post', images, videos, polls));
         },
         reply: async (images, videos, polls) => {
-            await validateSignerKey();
             if (!farcasterParentPost) throw new Error('No parent post found.');
             // for farcaster, post id is read from post.commentOn.postId
             return FarcasterSocialMediaProvider.commentPost('', composeDraft('Comment', images, videos, polls));
         },
         quote: async (images, videos, polls) => {
-            await validateSignerKey();
             if (!farcasterParentPost) throw new Error('No parent post found.');
             return FarcasterSocialMediaProvider.quotePost(
                 farcasterParentPost.postId,
