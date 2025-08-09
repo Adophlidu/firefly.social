@@ -1,14 +1,16 @@
-import { FarcasterNetwork, HashScheme, Message, MessageData, SignatureScheme, toFarcasterTime } from '@farcaster/core';
+import { Message, MessageData } from '@farcaster/core';
 import { blake3 } from '@noble/hashes/blake3';
 import { bytesToHex, hexToBytes } from 'viem';
 
+import { FarcasterNetwork, HashScheme, SignatureScheme } from '@/constants/farcaster.js';
+import { toFarcasterTime } from '@/helpers/toFarcasterTime.js';
 import { getPublicKeyInHexFromPrivateKey, signMessageWithPrivateKey } from '@/providers/farcaster/ed25519.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { PartialWith } from '@/types/index.js';
 
-export async function encodeMessageData(
-    withMessageData: (profileId: number) => PartialWith<MessageData, 'type' | 'fid' | 'timestamp' | 'network'>,
-) {
+export type WithMessageData = (fid: number) => PartialWith<MessageData, 'type' | 'fid' | 'timestamp' | 'network'>;
+
+export async function encodeMessageData(withMessageData: WithMessageData) {
     const { token, profileId } = farcasterSessionHolder.sessionRequired;
 
     // token is the private key of signer
@@ -18,7 +20,7 @@ export async function encodeMessageData(
     const messageData: MessageData = {
         fid,
         network: FarcasterNetwork.MAINNET,
-        timestamp: toFarcasterTime(Date.now())._unsafeUnwrap(),
+        timestamp: toFarcasterTime(Date.now()),
         ...withMessageData(fid),
     };
     const messageDataBytes = MessageData.encode(messageData).finish();

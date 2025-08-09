@@ -21,11 +21,10 @@ import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
-import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 
 interface PostActionsWithGridProps extends HTMLProps<HTMLDivElement> {
     disablePadding?: boolean;

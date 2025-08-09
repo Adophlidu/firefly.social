@@ -1,25 +1,21 @@
 /* cspell:disable */
 
-import { MessageType, ReactionType, UserDataType } from '@farcaster/core';
 import { sortBy, toInteger } from 'lodash-es';
-import urlcat from 'urlcat';
 import { toHex } from 'viem';
-import { z } from 'zod';
 
 import { Source } from '@/constants/enum.js';
-import { FarcasterInvalidSignerKey, NotImplementedError } from '@/constants/error.js';
-import { NEYNAR_URL } from '@/constants/index.js';
+import { NotImplementedError } from '@/constants/error.js';
+import { MessageType, ReactionType, UserDataType } from '@/constants/farcaster.js';
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { URL_REGEX } from '@/constants/regexp.js';
-import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isYouTubeUrl } from '@/helpers/isYouTubeUrl.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
-import { encodeMessageData } from '@/providers/farcaster/encodeMessageData.js';
 import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHash.js';
 import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
+import { publishMessage } from '@/providers/hubble/publishMessage.js';
 import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
-import type { CastResponse, Response } from '@/providers/types/Hubble.js';
+import type { CastResponse } from '@/providers/types/Hubble.js';
 import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
@@ -33,16 +29,6 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-
-const ErrorResponseSchema = z.custom<Response<never>>((response) => {
-    const error = response as Response<never>;
-    return (
-        typeof error.code === 'number' &&
-        typeof error.name === 'string' &&
-        typeof error.errCode === 'string' &&
-        typeof error.details === 'string'
-    );
-});
 
 class HubbleSocialMedia implements Provider {
     getChannelsByIds(ids: string[]): Promise<Channel[]> {
@@ -309,61 +295,37 @@ class HubbleSocialMedia implements Provider {
         return SessionType.Farcaster;
     }
 
-    private async publishMessage<T>(messageJson: unknown) {
-        const url = urlcat(NEYNAR_URL, '/v2/farcaster/message');
-        const response = await fetchNeynarJson<Response<T>>(url, {
-            method: 'POST',
-            body: JSON.stringify(messageJson),
-        });
-
-        const parsed = ErrorResponseSchema.safeParse(response);
-
-        if (parsed.success) {
-            // invalid signer: signer not found for fid
-            if (parsed.data.code === 3 && parsed.data.errCode === 'bad_request.validation_failure')
-                throw new FarcasterInvalidSignerKey('Invalid signer key.');
-
-            throw new Error(parsed.data.details);
-        } else {
-            return response as T;
-        }
-    }
-
     async quotePost(postId: string, post: Post, profileId?: string): Promise<{ postId: string }> {
         const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
         if (!postId || !post || !profileId) throw new Error('Failed to quote post.');
 
-        const { messageJson } = await encodeMessageData(() => {
-            return {
-                type: MessageType.CAST_ADD,
-                castAddBody: {
-                    ...result,
-                    embedsDeprecated: [],
-                    embeds: [
-                        {
-                            castId: {
-                                fid: toInteger(profileId),
-                                hash: farcasterPostIdToHash(postId),
-                            },
+        const { hash } = await publishMessage<CastResponse>(() => ({
+            type: MessageType.CAST_ADD,
+            castAddBody: {
+                ...result,
+                embedsDeprecated: [],
+                embeds: [
+                    {
+                        castId: {
+                            fid: toInteger(profileId),
+                            hash: farcasterPostIdToHash(postId),
                         },
-                        ...(post.mediaObjects?.map((v) => ({ url: v.url })) ?? []),
-                    ],
-                    parentCastId:
-                        post.commentOn?.postId && post.commentOn?.author.profileId
-                            ? {
-                                  fid: toInteger(post.commentOn.author.profileId),
-                                  hash: farcasterPostIdToHash(post.commentOn.postId),
-                              }
-                            : undefined,
-                    parentUrl:
-                        !(post.commentOn?.postId && post.commentOn?.author.profileId) && post.parentChannelUrl
-                            ? post.parentChannelUrl
-                            : undefined,
-                },
-            };
-        });
-
-        const { hash } = await this.publishMessage<CastResponse>(messageJson);
+                    },
+                    ...(post.mediaObjects?.map((v) => ({ url: v.url })) ?? []),
+                ],
+                parentCastId:
+                    post.commentOn?.postId && post.commentOn?.author.profileId
+                        ? {
+                              fid: toInteger(post.commentOn.author.profileId),
+                              hash: farcasterPostIdToHash(post.commentOn.postId),
+                          }
+                        : undefined,
+                parentUrl:
+                    !(post.commentOn?.postId && post.commentOn?.author.profileId) && post.parentChannelUrl
+                        ? post.parentChannelUrl
+                        : undefined,
+            },
+        }));
         return { postId: toHex(new Uint8Array(hash.data)) };
     }
 
@@ -381,52 +343,42 @@ class HubbleSocialMedia implements Provider {
             ? MAX_IMAGE_SIZE_PRO_PER_POST[Source.Farcaster]
             : MAX_IMAGE_SIZE_PER_POST[Source.Farcaster];
 
-        const { messageJson } = await encodeMessageData(() => {
-            return {
-                type: MessageType.CAST_ADD,
-                castAddBody: {
-                    ...result,
-                    embedsDeprecated: [],
-                    embeds: [...mediaUrls, ...contentUrls].slice(0, imageCountLimit),
-                    parentCastId:
-                        post.commentOn?.postId && post.commentOn?.author.profileId
-                            ? {
-                                  fid: toInteger(post.commentOn.author.profileId),
-                                  hash: farcasterPostIdToHash(post.commentOn.postId),
-                              }
-                            : undefined,
-                    parentUrl:
-                        !(post.commentOn?.postId && post.commentOn?.author.profileId) && post.parentChannelUrl
-                            ? post.parentChannelUrl
-                            : undefined,
-                },
-            };
-        });
-
-        const { hash } = await this.publishMessage<CastResponse>(messageJson);
+        const { hash } = await publishMessage<CastResponse>(() => ({
+            type: MessageType.CAST_ADD,
+            castAddBody: {
+                ...result,
+                embedsDeprecated: [],
+                embeds: [...mediaUrls, ...contentUrls].slice(0, imageCountLimit),
+                parentCastId:
+                    post.commentOn?.postId && post.commentOn?.author.profileId
+                        ? {
+                              fid: toInteger(post.commentOn.author.profileId),
+                              hash: farcasterPostIdToHash(post.commentOn.postId),
+                          }
+                        : undefined,
+                parentUrl:
+                    !(post.commentOn?.postId && post.commentOn?.author.profileId) && post.parentChannelUrl
+                        ? post.parentChannelUrl
+                        : undefined,
+            },
+        }));
         return { postId: toHex(new Uint8Array(hash.data)) };
     }
 
     async deletePost(postId: string): Promise<boolean> {
-        const { messageJson } = await encodeMessageData(() => {
-            const data = {
-                type: MessageType.CAST_REMOVE,
-                castRemoveBody: {
-                    targetHash: farcasterPostIdToHash(postId),
-                },
-            };
-
-            return data;
-        });
-
-        await this.publishMessage(messageJson);
+        await publishMessage(() => ({
+            type: MessageType.CAST_REMOVE,
+            castRemoveBody: {
+                targetHash: farcasterPostIdToHash(postId),
+            },
+        }));
         return true;
     }
 
     async upvotePost(postId: string, authorId?: number) {
         if (!authorId) throw new Error('Failed to upvote post.');
 
-        const { messageJson } = await encodeMessageData((fid) => ({
+        await publishMessage(() => ({
             type: MessageType.REACTION_ADD,
             reactionBody: {
                 type: ReactionType.LIKE,
@@ -436,14 +388,12 @@ class HubbleSocialMedia implements Provider {
                 },
             },
         }));
-
-        await this.publishMessage(messageJson);
     }
 
     async unvotePost(postId: string, authorId?: number) {
         if (!authorId) throw new Error('Failed to unvote post.');
 
-        const { messageJson } = await encodeMessageData((fid) => ({
+        await publishMessage(() => ({
             type: MessageType.REACTION_REMOVE,
             reactionBody: {
                 type: ReactionType.LIKE,
@@ -453,14 +403,12 @@ class HubbleSocialMedia implements Provider {
                 },
             },
         }));
-
-        await this.publishMessage(messageJson);
     }
 
     async mirrorPost(postId: string, authorId?: number) {
         if (!authorId) throw new Error('Failed to recast post');
 
-        const { messageJson } = await encodeMessageData((fid) => ({
+        await publishMessage(() => ({
             type: MessageType.REACTION_ADD,
             reactionBody: {
                 type: ReactionType.RECAST,
@@ -470,8 +418,6 @@ class HubbleSocialMedia implements Provider {
                 },
             },
         }));
-
-        await this.publishMessage(messageJson);
 
         // FIXME: should return post id here
         return null!;
@@ -480,7 +426,7 @@ class HubbleSocialMedia implements Provider {
     async unmirrorPost(postId: string, authorId?: number) {
         if (!authorId) throw new Error('Failed to unmirror post.');
 
-        const { messageJson } = await encodeMessageData((fid) => ({
+        await publishMessage(() => ({
             type: MessageType.REACTION_REMOVE,
             reactionBody: {
                 type: ReactionType.RECAST,
@@ -490,47 +436,38 @@ class HubbleSocialMedia implements Provider {
                 },
             },
         }));
-
-        await this.publishMessage(messageJson);
-
-        return;
     }
 
     async follow(profileId: string) {
-        const { messageJson } = await encodeMessageData(() => ({
+        await publishMessage(() => ({
             type: MessageType.LINK_ADD,
             linkBody: {
                 type: 'follow',
                 targetFid: Number(profileId),
             },
         }));
-
-        await this.publishMessage(messageJson);
         return true;
     }
 
     async unfollow(profileId: string) {
-        const { messageJson } = await encodeMessageData(() => ({
+        await publishMessage(() => ({
             type: MessageType.LINK_REMOVE,
             linkBody: {
                 type: 'follow',
                 targetFid: Number(profileId),
             },
         }));
-
-        await this.publishMessage(messageJson);
         return true;
     }
 
     async userDataAdd(type: UserDataType, value: string) {
-        const { messageJson } = await encodeMessageData(() => ({
+        await publishMessage(() => ({
             type: MessageType.USER_DATA_ADD,
             userDataBody: {
                 type,
                 value,
             },
         }));
-        await this.publishMessage(messageJson);
     }
 
     async updateProfile(profile: ProfileEditable): Promise<boolean> {

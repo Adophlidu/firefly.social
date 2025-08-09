@@ -1,7 +1,8 @@
 /* cspell:disable */
 
-import type { FarcasterNetwork } from '@farcaster/core';
 import type { Hex } from 'viem';
+
+import type { FarcasterNetwork } from '@/constants/farcaster.js';
 
 export type Response<T> =
     | {

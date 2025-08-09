@@ -1,7 +1,7 @@
-import { CastType } from '@farcaster/core';
 import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
+import { CastType } from '@/constants/farcaster.js';
 import { MENTION_REGEX } from '@/constants/regexp.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
