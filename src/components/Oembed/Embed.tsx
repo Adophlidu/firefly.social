@@ -47,7 +47,7 @@ export function Embed({ og }: EmbedProps) {
                         {!og.isLarge ? (
                             <div className="relative flex aspect-square h-[90px] shrink-0 items-center justify-center md:h-36">
                                 <Image
-                                    className="dark:border-gray-70 aspect-square h-[144px] rounded-l-xl border-r object-cover"
+                                    className="aspect-square h-[144px] rounded-l-xl border-r border-line object-cover"
                                     layout="fill"
                                     src={imageProps.src}
                                     unoptimized
