@@ -23,6 +23,7 @@ import { useAccounts } from '@/hooks/useAccounts.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { CloseAction, ComposeModalRef } from '@/modals/ComposeModal.js';
+import { captureShareToChangeClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { switchAccount } from '@/services/account.js';
@@ -73,6 +74,7 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
                     updateRestriction(RestrictionType.Everyone);
                 }
             }
+            captureShareToChangeClickEvent();
         },
         [
             availableSources,

@@ -280,6 +280,11 @@ msgstr "Rank #{0}"
 msgid "Mute {walletHandle}"
 msgstr "Mute {walletHandle}"
 
+#. placeholder {0}: sourceNames.slice(0, -1).join(', ')
+#. placeholder {1}: last(sourceNames) ?? ''
+msgid "{0} and {1}"
+msgstr "{0} and {1}"
+
 msgid "Malicious mining activities found."
 msgstr "Malicious mining activities found."
 
@@ -454,6 +459,9 @@ msgstr "Your {0} Address"
 
 msgid "FAILED POST"
 msgstr "FAILED POST"
+
+msgid "Published successfully on {sortedSourceNames}"
+msgstr "Published successfully on {sortedSourceNames}"
 
 #. placeholder {0}: channel.name
 msgid "Mute /${0}"
@@ -1111,6 +1119,9 @@ msgstr "Holders"
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr "The event has ended, but you can explore others in Exclusive Events."
 
+msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
+msgstr "Multi-device login is required for schedule post. Enter your password to confirm your identity."
+
 msgid "Block"
 msgstr "Block"
 
@@ -1440,6 +1451,9 @@ msgstr "REPLY to<0><1>@{0}</1></0>"
 msgid "Revoke"
 msgstr "Revoke"
 
+msgid "Failed Post"
+msgstr "Failed Post"
+
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 msgstr "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 
@@ -1661,9 +1675,6 @@ msgstr "The user canceled the operation."
 
 msgid "Your Farcaster account holds Power Badge"
 msgstr "Your Farcaster account holds Power Badge"
-
-msgid "Scheduled post will come back soon."
-msgstr "Scheduled post will come back soon."
 
 msgid "Owned By"
 msgstr "Owned By"
@@ -2459,6 +2470,9 @@ msgstr "Token ${symbol} could not be found."
 msgid "Poll for ${0} is coming soon."
 msgstr "Poll for ${0} is coming soon."
 
+msgid "Failed to publish on {sortedSourceNames}"
+msgstr "Failed to publish on {sortedSourceNames}"
+
 msgid "No cybercrime found."
 msgstr "No cybercrime found."
 
@@ -3069,6 +3083,9 @@ msgstr "Available Balance"
 msgid "Follow @thefireflyapp on X"
 msgstr "Follow @thefireflyapp on X"
 
+msgid "Multi-device login is required for schedule post. Set a 6-digit password to verify your identity."
+msgstr "Multi-device login is required for schedule post. Set a 6-digit password to verify your identity."
+
 msgid "Swapped 0.1 ETH for 253.97 Virtual."
 msgstr "Swapped 0.1 ETH for 253.97 Virtual."
 
@@ -3165,8 +3182,8 @@ msgstr "Your transaction will confirm shortly"
 msgid "Failed to un-bookmark snapshot."
 msgstr "Failed to un-bookmark snapshot."
 
-#. placeholder {0}: dayjs(task.publish_timestamp).format('ddd, MMM DD, YYYY')
-#. placeholder {1}: dayjs(task.publish_timestamp).format('hh:mm A')
+#. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
+#. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
 msgid "will send on {0} at {1}"
 msgstr "will send on {0} at {1}"
 
@@ -3385,6 +3402,9 @@ msgstr "Report"
 msgid "Failed to transfer"
 msgstr "Failed to transfer"
 
+msgid "Schedule"
+msgstr "Schedule"
+
 msgid "Cancel Repost"
 msgstr "Cancel Repost"
 
@@ -3580,8 +3600,8 @@ msgstr "New"
 msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 
-#. placeholder {0}: dayjs(task.created_at).format('ddd, MMM DD, YYYY')
-#. placeholder {1}: dayjs(task.created_at).format('hh:mm A')
+#. placeholder {0}: dayjs(createdAt).format('ddd, MMM DD, YYYY')
+#. placeholder {1}: dayjs(createdAt).format('hh:mm A')
 msgid "Saved on {0} at {1}"
 msgstr "Saved on {0} at {1}"
 
@@ -3680,6 +3700,9 @@ msgstr "Will send on <0>{0} at <1>{1}</1></0>"
 
 msgid "Reported"
 msgstr "Reported"
+
+msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts<0/> are sent as scheduled, please make sure that multi-device login remains turned on."
+msgstr "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts<0/> are sent as scheduled, please make sure that multi-device login remains turned on."
 
 msgid "Something went wrong."
 msgstr "Something went wrong."
@@ -4335,6 +4358,9 @@ msgstr "Hidden owner."
 msgid "Lucky drop is only available on {0}."
 msgstr "Lucky drop is only available on {0}."
 
+msgid "Scheduled Post"
+msgstr "Scheduled Post"
+
 msgid "Recasted"
 msgstr "Recasted"
 
@@ -4654,9 +4680,6 @@ msgstr "Post decrypted successfully!"
 
 msgid "Let’s go!"
 msgstr "Let’s go!"
-
-msgid "Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that your Firefly account remains logged in."
-msgstr "Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that your Firefly account remains logged in."
 
 msgid "Failed to create schedule post."
 msgstr "Failed to create schedule post."

@@ -11,8 +11,8 @@ import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
+import { getPostMediaTypes } from '@/helpers/getPostMediaTypes.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
-import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
 import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
@@ -80,8 +80,8 @@ export async function crossSchedulePost(
                 payload: JSON.stringify([x.payload]),
             })),
             {
-                content: getScheduleTaskContent(compositePost),
-                type,
+                content: readChars(compositePost?.chars ?? '', 'visible'),
+                media_type: getPostMediaTypes(compositePost),
             },
         );
         if (!result) return;

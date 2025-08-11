@@ -45,6 +45,7 @@ export function patchNotificationQueryDataOnPost(source: Source, patcher: PostPa
             case NotificationType.Mirror:
             case NotificationType.Reaction:
             case NotificationType.Tips:
+            case NotificationType.Schedule:
                 break;
             default:
                 safeUnreachable(type);
@@ -84,6 +85,9 @@ export function patchNotificationQueryDataOnAuthor(source: Source, patcher: Prof
                 break;
             case NotificationType.Tips:
                 target = undefined; // TODO: get author
+                break;
+            case NotificationType.Schedule:
+                target = undefined;
                 break;
             default:
                 safeUnreachable(type);

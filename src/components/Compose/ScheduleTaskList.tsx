@@ -2,7 +2,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { uniq } from 'lodash-es';
+import { first, uniq } from 'lodash-es';
 import { memo, useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -17,8 +17,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { ScrollListKey } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
+import { ScheduleTaskStatus, ScrollListKey } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -30,7 +29,7 @@ import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
 import { SchedulePostModalRef } from '@/modals/SchedulePostModal.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
-import type { SchedulePostDisplayInfo, ScheduleTask } from '@/providers/types/Firefly.js';
+import { PostMediaType, type SchedulePostDisplayInfo, type ScheduleTask } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { deleteScheduledPost, getScheduledPosts } from '@/services/post.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
@@ -51,16 +50,23 @@ function getTitle(displayInfo: SchedulePostDisplayInfo, isFailed: boolean) {
 }
 
 const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: ScheduleTask }) {
-    const displayInfo = task.display_info;
-    const isFailed = task.status === 'fail';
+    const isFailed = task.relation.some((x) => x.status === ScheduleTaskStatus.Failed);
 
-    const title = getTitle(displayInfo, isFailed);
     const isMedium = useIsMedium();
-    const content = displayInfo.content;
+
+    const content = first(task.relation)?.content;
+    const createdAt = first(task.relation)?.updated_at;
+    const mediaTypes = first(task.relation)
+        ?.media_type.map((x) => {
+            if (x === PostMediaType.Text) return;
+            return `[${x}]`;
+        })
+        .filter(Boolean)
+        .join('');
 
     const [{ loading: removeLoading }, handleRemove] = useAsyncFn(async () => {
         try {
-            if (!task.uuid) return;
+            if (!task.task_uuid) return;
 
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: <Trans>Delete</Trans>,
@@ -74,7 +80,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
             });
             if (!confirmed) return;
 
-            const result = await deleteScheduledPost(task.uuid);
+            const result = await deleteScheduledPost(task.task_uuid);
             if (!result) return;
 
             queryClient.refetchQueries({
@@ -82,25 +88,17 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
             });
 
             captureComposeSchedulePostEvent(EventId.COMPOSE_SCHEDULED_POST_DELETE_SUCCESS, null, {
-                scheduleId: task.uuid,
+                scheduleId: task.task_uuid,
             });
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to delete scheduled post.`);
             throw error;
         }
-    }, [task.uuid]);
+    }, [task.task_uuid]);
 
     return (
         <div className="border-b border-line p-3">
-            <div className="flex items-center justify-between">
-                <div
-                    className={classNames('text-[12px] font-bold', {
-                        'text-danger': isFailed,
-                        'text-secondary': !isFailed,
-                    })}
-                >
-                    {title}
-                </div>
+            <div className="flex items-center justify-end">
                 {removeLoading ? (
                     <LoadingIcon size={20} className="cursor-pointer text-secondary" />
                 ) : (
@@ -133,24 +131,29 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
             >
                 <div className="line-clamp-5 min-h-[24px] break-words text-left text-medium leading-[24px]">
                     {content}
+                    {mediaTypes?.length ? (
+                        <span>
+                            <br /> {mediaTypes}
+                        </span>
+                    ) : null}
                 </div>
             </div>
             <div className="flex gap-x-1">
                 <span className="flex items-center gap-x-1 font-bold">
-                    {uniq(task.platforms).map((platform, index) => (
+                    {uniq(task.relation.map((x) => x.platform)).map((platform, index) => (
                         <SocialSourceIcon key={index} source={resolveSocialSource(platform)} size={20} />
                     ))}
                 </span>
                 <span className="text-[13px] font-medium leading-[24px] text-secondary">
                     {isFailed ? (
                         <Trans>
-                            Saved on {dayjs(task.created_at).format('ddd, MMM DD, YYYY')} at{' '}
-                            {dayjs(task.created_at).format('hh:mm A')}
+                            Saved on {dayjs(createdAt).format('ddd, MMM DD, YYYY')} at{' '}
+                            {dayjs(createdAt).format('hh:mm A')}
                         </Trans>
                     ) : (
                         <Trans>
-                            will send on {dayjs(task.publish_timestamp).format('ddd, MMM DD, YYYY')} at{' '}
-                            {dayjs(task.publish_timestamp).format('hh:mm A')}
+                            will send on {dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')} at{' '}
+                            {dayjs(task.schedule_at).format('hh:mm A')}
                         </Trans>
                     )}
                 </span>
@@ -160,7 +163,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
 });
 
 function getScheduleTaskItemContent(task: ScheduleTask) {
-    return <ScheduleTaskItem key={task.uuid} task={task} />;
+    return <ScheduleTaskItem key={task.task_uuid} task={task} />;
 }
 
 export function ScheduleTaskList() {
@@ -172,7 +175,11 @@ export function ScheduleTaskList() {
             try {
                 if (!isLogin) return createPageable([], createIndicator());
 
-                return await getScheduledPosts(createIndicator(undefined, pageParam));
+                return await getScheduledPosts(createIndicator(undefined, pageParam), [
+                    ScheduleTaskStatus.Pending,
+                    ScheduleTaskStatus.Failed,
+                    ScheduleTaskStatus.Success,
+                ]);
             } catch {
                 return createPageable([], createIndicator());
             }
@@ -203,8 +210,8 @@ export function ScheduleTaskList() {
                     <Info width={20} height={20} className="shrink-0 text-main" />
                     <div className="text-left text-xs leading-4 text-main">
                         <Trans>
-                            Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled,
-                            please make sure that your Firefly account remains logged in.
+                            Turning off multi-device login will cause scheduled posts to fail. To ensure that posts
+                            <br /> are sent as scheduled, please make sure that multi-device login remains turned on.
                         </Trans>
                     </div>
                     <Close
@@ -225,7 +232,7 @@ export function ScheduleTaskList() {
                 }}
                 className="no-scrollbar schedule-task-list box-border h-full min-h-0 flex-1"
                 listKey={`$${ScrollListKey.SchedulePosts}`}
-                computeItemKey={(index, item) => item.uuid}
+                computeItemKey={(index, item) => item.task_uuid}
                 itemContent={(index, task) => getScheduleTaskItemContent(task)}
             />
         </div>

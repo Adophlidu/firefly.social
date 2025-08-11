@@ -697,6 +697,15 @@ export type DebankTokensResponse = Response<{
     list: DebankToken[];
 }>;
 
+export enum PostMediaType {
+    Text = 'text',
+    Image = 'image',
+    Video = 'video',
+    Audio = 'audio',
+    Vote = 'vote',
+    Redpacket = 'redpacket',
+    Other = 'other',
+}
 export interface SchedulePostPayload {
     platform: SocialSourceInURL;
     platformUserId: string;
@@ -708,28 +717,34 @@ export interface SchedulePostDisplayInfo {
     type: ComposeType;
 }
 
-export type ScheduleStatus = 'pending' | 'fail';
-export interface ScheduleTask {
-    uuid: string;
-    publish_timestamp: string;
-    status: ScheduleStatus;
+export enum ScheduleTaskStatus {
+    Pending = 'pending',
+    Failed = 'fail',
+    Success = 'success',
+}
+
+export type ScheduleRelation = {
+    content: string;
+    error?: string;
+    platform: SocialSourceInURL;
+    platform_id: string;
+    post_id: string | null;
+    relation_id: string;
+    status: ScheduleTaskStatus;
+    task_uuid: string;
     updated_at: string;
-    created_at: string;
-    account_id: number;
-    display_info: SchedulePostDisplayInfo;
-    schedulePosts: Array<{
-        uuid: string;
-        platform: SocialSourceInURL;
-        status: ScheduleStatus;
-        updated_at: string;
-        created_at: string;
-        job_id: string;
-    }>;
-    platforms: SocialSourceInURL[];
+    media_type: PostMediaType[];
+};
+
+export interface ScheduleTask {
+    task_uuid: string;
+    schedule_at: string;
+    relation_id: string;
+    relation: ScheduleRelation[];
 }
 
 export type ScheduleTasksResponse = Response<{
-    tasks: ScheduleTask[];
+    posts: ScheduleTask[];
     cursor: string | null;
 }>;
 
@@ -2168,3 +2183,41 @@ export type GetAnonymousPostResponse = Response<{
 }>;
 
 export type GetProfilesResponse = Response<FarcasterProfile[]>;
+
+export type ScheduleNotificationData = {
+    task_uuid: string;
+    display_info: {
+        content: string;
+        media_type: PostMediaType[];
+    };
+    posts: Array<{
+        account_id: number;
+        avatar_url: string;
+        credential: string;
+        display_info: {
+            content: string;
+            media_type: PostMediaType[];
+        };
+        platform: SocialSourceInURL;
+        post_id: string;
+        publish_timestamp: string;
+        status: ScheduleTaskStatus;
+        task_uuid: string;
+        uuid: string;
+        error?: string;
+    }>;
+};
+
+export type ScheduleNotificationsResponse = Response<{
+    notifications: ScheduleNotificationData[];
+    cursor?: string;
+}>;
+
+export type ScheduleNotification = {
+    source: Source.Firefly;
+    type: SocialNotificationType.Schedule;
+    data: ScheduleNotificationData;
+    timestamp: number;
+    notificationId: string;
+    status: ScheduleTaskStatus;
+};

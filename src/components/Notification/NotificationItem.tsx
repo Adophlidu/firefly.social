@@ -23,11 +23,11 @@ import { toProfileId } from '@/helpers/isSameProfile.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import type { TipsNotification } from '@/providers/types/Firefly.js';
+import type { ScheduleNotification, TipsNotification } from '@/providers/types/Firefly.js';
 import { type Notification, NotificationType } from '@/providers/types/SocialMedia.js';
 
 interface NotificationItemProps {
-    notification: Exclude<Notification, TipsNotification>;
+    notification: Exclude<Notification, TipsNotification | ScheduleNotification>;
 }
 
 export const NotificationItem = memo<NotificationItemProps>(function NotificationItem({ notification }) {

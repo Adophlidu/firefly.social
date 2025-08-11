@@ -638,6 +638,12 @@ export enum TxReactionType {
     ShareSwap = 'repost_swap',
 }
 
+export enum ScheduleTaskStatus {
+    Pending = 'pending',
+    Failed = 'fail',
+    Success = 'success',
+}
+
 export enum LensSignType {
     Lens = 'lens',
     OrbScan = 'orb_scan',

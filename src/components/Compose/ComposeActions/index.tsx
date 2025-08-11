@@ -73,7 +73,7 @@ export function ComposeActions() {
                         <PollButton />
                     ) : null}
 
-                    {!isAnonymous ? <SchedulePostEntryButton className="text-main" disabled /> : null}
+                    {!isAnonymous ? <SchedulePostEntryButton className="text-main" /> : null}
                     {!scheduleTime && !mediaDisabled && isMedium && !isAnonymous ? (
                         <RedPacketAction disabled={mediaDisabled} />
                     ) : null}

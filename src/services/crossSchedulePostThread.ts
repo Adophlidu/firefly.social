@@ -5,10 +5,11 @@ import { first } from 'lodash-es';
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { CreateScheduleError, SignlessRequireError } from '@/constants/error.js';
 import { COMPOSE_ERROR_NOTIFICATION_KEY } from '@/constants/index.js';
+import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { delay } from '@/helpers/delay.js';
 import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
+import { getPostMediaTypes } from '@/helpers/getPostMediaTypes.js';
 import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { EnableSignlessModalRef } from '@/modals/EnableSignlessModal.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
@@ -45,7 +46,7 @@ export async function crossPostScheduleThread(scheduleTime: Date, signal?: Abort
         const postsPayload = [...results.values()];
 
         const post = first(posts);
-        const content = getScheduleTaskContent(post);
+        const content = readChars(post?.chars ?? '', 'visible');
 
         await useLensProfileStore.getState().refreshCurrentAccount();
 
@@ -57,7 +58,7 @@ export async function crossPostScheduleThread(scheduleTime: Date, signal?: Abort
             })),
             {
                 content,
-                type,
+                media_type: getPostMediaTypes(post),
             },
         );
         if (!result) return;

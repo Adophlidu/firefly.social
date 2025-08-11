@@ -1,10 +1,12 @@
 'use client';
 
-import { use } from 'react';
+import { first } from 'lodash-es';
+import { use, useMemo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
 import { NotificationItem } from '@/components/Notification/NotificationItem.js';
+import { ScheduleNotificationItem } from '@/components/Notification/ScheduleNotificationItem.js';
 import { TipsNotificationItem } from '@/components/Notification/TipsNotificationItem.js';
 import { type NotificationSource, ScrollListKey, Source, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
@@ -25,6 +27,10 @@ const getNotificationItemContent = (index: number, notification: NotificationObj
         return <TipsNotificationItem key={notification.notificationId} data={notification.data} />;
     }
 
+    if (notification.type === NotificationType.Schedule) {
+        return <ScheduleNotificationItem key={notification.notificationId} data={notification} />;
+    }
+
     return <NotificationItem key={notification.notificationId} notification={notification} />;
 };
 
@@ -41,15 +47,27 @@ export default function Page(props: Props) {
 
     const { types, enableQualityFilter } = typesState[source];
 
-    const querySources =
-        source === Source.Notifications && types.length === 1 && types[0] === NotificationType.Tips
-            ? ([NotificationType.Tips] as const)
-            : ([...SOCIAL_DISCOVER_SOURCE, NotificationType.Tips] as const);
+    const querySources = useMemo(() => {
+        if (source === Source.Notifications) {
+            const firstType = first(types);
+            if (firstType && types.length === 1 && firstType === NotificationType.Tips) {
+                return [NotificationType.Tips] as const;
+            }
+
+            if (firstType && types.length === 1 && firstType === NotificationType.Schedule) {
+                return [NotificationType.Schedule] as const;
+            }
+        }
+
+        return [...SOCIAL_DISCOVER_SOURCE, NotificationType.Tips, NotificationType.Schedule] as const;
+    }, [source, types]);
+
     const queryResult = useMultiInfiniteQueryPageable(
         ['notifications', source, isLogin, enableQualityFilter, asyncStatusAll],
         querySources
             .filter((x) => {
-                if (source === Source.Notifications) return x === NotificationType.Tips ? isLogin : !!profilesAll[x];
+                if (source === Source.Notifications)
+                    return x === NotificationType.Tips || x === NotificationType.Schedule ? isLogin : !!profilesAll[x];
                 return x === source;
             })
             .map((x) => ({
@@ -60,6 +78,10 @@ export default function Page(props: Props) {
 
                     if (x === NotificationType.Tips) {
                         return FireflyEndpointProvider.getTipsNotifications(indicator);
+                    }
+
+                    if (x === NotificationType.Schedule) {
+                        return FireflyEndpointProvider.getScheduleNotifications(indicator);
                     }
 
                     return resolveSocialMediaProvider(x).getNotifications(indicator, enableQualityFilter);

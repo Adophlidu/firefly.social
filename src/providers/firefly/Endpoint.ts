@@ -112,6 +112,9 @@ import {
     type ProjectResponse,
     type RelationResponse,
     type Response,
+    type ScheduleNotification,
+    type ScheduleNotificationsResponse,
+    ScheduleTaskStatus,
     type SearchNFTResponse,
     type SearchProfileResponse,
     type SearchTokenInfosResponse,
@@ -1643,6 +1646,57 @@ class FireflyEndpoint {
         });
         const response = await fireflySessionHolder.fetch<GetAnonymousPostResponse>(url);
         return resolveFireflyResponseData(response);
+    }
+
+    async getScheduleNotifications(indicator?: PageIndicator) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/notification/schedule-posts', {
+            page: indicator?.id && indicator.id !== '0' ? indicator.id : undefined,
+            size: 20,
+        });
+        const response = await fireflySessionHolder.fetch<ScheduleNotificationsResponse>(url);
+
+        const data = resolveFireflyResponseData(response);
+        return createPageable(
+            compact(
+                data.notifications.map((x) => {
+                    const posts = x.posts.filter((post) => post.status !== ScheduleTaskStatus.Pending);
+                    if (!posts.length) return;
+                    const successPosts = posts.filter((post) => post.status === ScheduleTaskStatus.Success);
+                    const failedPosts = posts.filter((post) => post.status === ScheduleTaskStatus.Failed);
+                    const timestamp = first(successPosts)?.publish_timestamp;
+                    return compact([
+                        successPosts.length
+                            ? {
+                                  source: Source.Firefly,
+                                  type: NotificationType.Schedule,
+                                  data: {
+                                      ...x,
+                                      posts: successPosts,
+                                  },
+                                  timestamp: timestamp ? new Date(timestamp).getTime() : null,
+                                  notificationId: `${NotificationType.Schedule}-${x.task_uuid}-${ScheduleTaskStatus.Success}`,
+                                  status: ScheduleTaskStatus.Success,
+                              }
+                            : null,
+                        failedPosts.length
+                            ? {
+                                  source: Source.Firefly,
+                                  type: NotificationType.Schedule,
+                                  data: {
+                                      ...x,
+                                      posts: failedPosts,
+                                  },
+                                  timestamp: timestamp ? new Date(timestamp).getTime() : null,
+                                  notificationId: `${NotificationType.Schedule}-${x.task_uuid}-${ScheduleTaskStatus.Failed}`,
+                                  status: ScheduleTaskStatus.Failed,
+                              }
+                            : null,
+                    ]) as ScheduleNotification[];
+                }),
+            ).flat(),
+            createIndicator(),
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+        );
     }
 }
 

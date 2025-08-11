@@ -55,8 +55,21 @@ export enum EventId {
     COMPOSE_SCHEDULED_POST_UPDATE_SUCCESS = 'scheduled_post_update_success', // ✅
     COMPOSE_SCHEDULED_POST_DELETE_SUCCESS = 'scheduled_post_delete_success', // ✅
     COMPOSE_DRAFT_CREATE_SUCCESS = 'draft_create_success', // ✅
-    COMPOSE_DRAFT_BUTTON_CLICK = 'draft_button_click', // ✅
+    COMPOSE_DRAFT_BUTTON_CLICK = 'compose_drafts_click', // ✅
     COMPOSE_CROSS_AT_EDIT_SUCCESS = 'cross_at_edit_success', // ✅
+    COMPOSE_SCHEDULE_POST_CLICK = 'compose_schedule_post_click', // ✅
+    COMPOSE_RED_PACKET_CLICK = 'compose_red_packet_click', // ✅
+    COMPOSE_THREAD_CLICK = 'compose_thread_click', // ✅
+    COMPOSE_GIF_CLICK = 'compose_gif_click', // ✅
+    COMPOSE_EMOJI_CLICK = 'compose_emoji_click', // ✅
+    COMPOSE_IMAGE_ADD_CLICK = 'compose_image_add_click', // ✅
+    COMPOSE_VIDEO_ADD_CLICK = 'compose_video_add_click', // ✅
+    COMPOSE_SHARE_TO_CHANGE_SUCCESS = 'compose_share_to_change_success', // ✅
+    COMPOSE_REPLY_RESTRICTION_CHANGE_SUCCESS = 'compose_reply_restriction_change_success', // ✅
+    COMPOSE_FARCASTER_CHANNEL_CHANGE_SUCCESS = 'compose_farcaster_channel_change_success', // ✅
+    COMPOSE_LENS_CHANNEL_CHANGE_SUCCESS = 'compose_lens_club_change_success',
+    COMPOSE_SCHEDULE_TAB_CLICK = 'drafts_scheduled_tab_click',
+    COMPOSE_DRAFT_DELETE_SUCCESS = 'drafts_post_delete_success',
 
     // mute
     MUTE_ALL_SUCCESS = 'mute_all_success', // ✅

@@ -8,10 +8,12 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { PasswordModalContent } from '@/modals/PasswordModal/PasswordModalContent.js';
+import type { StepDescriptions } from '@/modals/PasswordModal/StepDescription.js';
 
 export interface PasswordModalOpenProps {
     workflow: PasswordWorkflow;
     autoUploadMetrics?: boolean;
+    descriptions?: StepDescriptions;
 }
 
 type Props = {

@@ -22,6 +22,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { isValidPostImage, isValidPostVideo } from '@/helpers/validatePostFile.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { captureImageAddClickEvent, captureVideoAddClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { MediaSource } from '@/types/compose.js';
 
@@ -58,6 +59,7 @@ export function Media({ close }: MediaProps) {
                         maxImageCount,
                     );
                 });
+                captureImageAddClickEvent();
             }
             close();
         },
@@ -78,6 +80,7 @@ export function Media({ close }: MediaProps) {
                 }
                 const metadata = await runInSafeAsync(() => getVideoMetadata(file));
                 updateVideo(createVideoMediaObject(file, metadata));
+                captureVideoAddClickEvent();
             }
             close();
         },

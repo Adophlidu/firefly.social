@@ -280,6 +280,11 @@ msgstr ""
 msgid "Mute {walletHandle}"
 msgstr ""
 
+#. placeholder {0}: sourceNames.slice(0, -1).join(', ')
+#. placeholder {1}: last(sourceNames) ?? ''
+msgid "{0} and {1}"
+msgstr ""
+
 msgid "Malicious mining activities found."
 msgstr ""
 
@@ -453,6 +458,9 @@ msgid "Your {0} Address"
 msgstr ""
 
 msgid "FAILED POST"
+msgstr ""
+
+msgid "Published successfully on {sortedSourceNames}"
 msgstr ""
 
 #. placeholder {0}: channel.name
@@ -1111,6 +1119,9 @@ msgstr ""
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr ""
 
+msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
+msgstr ""
+
 msgid "Block"
 msgstr ""
 
@@ -1440,6 +1451,9 @@ msgstr ""
 msgid "Revoke"
 msgstr ""
 
+msgid "Failed Post"
+msgstr ""
+
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 msgstr ""
 
@@ -1660,9 +1674,6 @@ msgid "The user canceled the operation."
 msgstr ""
 
 msgid "Your Farcaster account holds Power Badge"
-msgstr ""
-
-msgid "Scheduled post will come back soon."
 msgstr ""
 
 msgid "Owned By"
@@ -2451,6 +2462,9 @@ msgstr ""
 msgid "Poll for ${0} is coming soon."
 msgstr ""
 
+msgid "Failed to publish on {sortedSourceNames}"
+msgstr ""
+
 msgid "No cybercrime found."
 msgstr ""
 
@@ -3056,6 +3070,9 @@ msgstr ""
 msgid "Follow @thefireflyapp on X"
 msgstr ""
 
+msgid "Multi-device login is required for schedule post. Set a 6-digit password to verify your identity."
+msgstr ""
+
 msgid "Swapped 0.1 ETH for 253.97 Virtual."
 msgstr ""
 
@@ -3152,8 +3169,8 @@ msgstr ""
 msgid "Failed to un-bookmark snapshot."
 msgstr ""
 
-#. placeholder {0}: dayjs(task.publish_timestamp).format('ddd, MMM DD, YYYY')
-#. placeholder {1}: dayjs(task.publish_timestamp).format('hh:mm A')
+#. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
+#. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
 msgid "will send on {0} at {1}"
 msgstr ""
 
@@ -3372,6 +3389,9 @@ msgstr ""
 msgid "Failed to transfer"
 msgstr ""
 
+msgid "Schedule"
+msgstr ""
+
 msgid "Cancel Repost"
 msgstr ""
 
@@ -3567,8 +3587,8 @@ msgstr ""
 msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr ""
 
-#. placeholder {0}: dayjs(task.created_at).format('ddd, MMM DD, YYYY')
-#. placeholder {1}: dayjs(task.created_at).format('hh:mm A')
+#. placeholder {0}: dayjs(createdAt).format('ddd, MMM DD, YYYY')
+#. placeholder {1}: dayjs(createdAt).format('hh:mm A')
 msgid "Saved on {0} at {1}"
 msgstr ""
 
@@ -3666,6 +3686,9 @@ msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
 msgid "Reported"
+msgstr ""
+
+msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts<0/> are sent as scheduled, please make sure that multi-device login remains turned on."
 msgstr ""
 
 msgid "Something went wrong."
@@ -4319,6 +4342,9 @@ msgstr ""
 msgid "Lucky drop is only available on {0}."
 msgstr ""
 
+msgid "Scheduled Post"
+msgstr ""
+
 msgid "Recasted"
 msgstr ""
 
@@ -4637,9 +4663,6 @@ msgid "Post decrypted successfully!"
 msgstr ""
 
 msgid "Let’s go!"
-msgstr ""
-
-msgid "Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that your Firefly account remains logged in."
 msgstr ""
 
 msgid "Failed to create schedule post."

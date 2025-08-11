@@ -1,19 +1,24 @@
 import dayjs from 'dayjs';
 import urlcat from 'urlcat';
 
+import { ScheduleTaskStatus } from '@/constants/enum.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type Response, type SchedulePostPayload, type ScheduleTasksResponse } from '@/providers/types/Firefly.js';
+import {
+    PostMediaType,
+    type Response,
+    type SchedulePostPayload,
+    type ScheduleTasksResponse,
+} from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
-import type { ComposeType } from '@/types/compose.js';
 
 export async function schedulePost(
     scheduleTime: Date,
     posts: SchedulePostPayload[],
-    displayInfo: { content: string; type: ComposeType },
+    displayInfo: { content: string; media_type: PostMediaType[] },
 ) {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/post/schedule');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/post/schedule');
 
     const response = await fireflySessionHolder.fetch<Response<{ taskId: string }>>(
         url,
@@ -22,7 +27,7 @@ export async function schedulePost(
             body: JSON.stringify({
                 scheduleTime: dayjs(scheduleTime).toISOString(),
                 posts,
-                display_info: JSON.stringify(displayInfo),
+                display_info: displayInfo,
                 ua_type: 'web',
                 groupId: crypto.randomUUID(),
             }),
@@ -73,20 +78,21 @@ export async function deleteScheduledPost(id: string) {
     throw new Error('Failed to delete scheduled post.');
 }
 
-export async function getScheduledPosts(indicator?: PageIndicator) {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/tasks');
+export async function getScheduledPosts(indicator?: PageIndicator, status?: ScheduleTaskStatus[]) {
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/post/schedule/history');
     const response = await fireflySessionHolder.fetch<ScheduleTasksResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
             cursor: indicator?.id,
             size: 20,
+            status: status?.join(','),
         }),
     });
 
     const data = resolveFireflyResponseData(response);
 
     return createPageable(
-        data.tasks,
+        data.posts,
         createIndicator(indicator),
         data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
     );

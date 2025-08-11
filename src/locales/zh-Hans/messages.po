@@ -285,6 +285,11 @@ msgstr "排名 #{0}"
 msgid "Mute {walletHandle}"
 msgstr "隐藏 {walletHandle}"
 
+#. placeholder {0}: sourceNames.slice(0, -1).join(', ')
+#. placeholder {1}: last(sourceNames) ?? ''
+msgid "{0} and {1}"
+msgstr ""
+
 msgid "Malicious mining activities found."
 msgstr "发现恶意挖矿行为。"
 
@@ -459,6 +464,9 @@ msgstr "您的 {0} 地址"
 
 msgid "FAILED POST"
 msgstr "发帖失败"
+
+msgid "Published successfully on {sortedSourceNames}"
+msgstr ""
 
 #. placeholder {0}: channel.name
 msgid "Mute /${0}"
@@ -1116,6 +1124,9 @@ msgstr "持有者"
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr "活动已结束，但你可以在独家活动中探索其他活动。"
 
+msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
+msgstr ""
+
 msgid "Block"
 msgstr "区块"
 
@@ -1445,6 +1456,9 @@ msgstr "回复<0><1>@{0}</1></0>"
 msgid "Revoke"
 msgstr "撤销授权"
 
+msgid "Failed Post"
+msgstr ""
+
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 msgstr "扫描此二维码，并在 Farcaster 移动端应用中确认，即可开始使用你的账户。"
 
@@ -1666,9 +1680,6 @@ msgstr "用户已取消操作。"
 
 msgid "Your Farcaster account holds Power Badge"
 msgstr "你的 Farcaster 账户拥有 Power Badge"
-
-msgid "Scheduled post will come back soon."
-msgstr "定时发帖功能维护中。"
 
 msgid "Owned By"
 msgstr "属于"
@@ -2464,6 +2475,9 @@ msgstr "未找到代币 ${symbol} 。"
 msgid "Poll for ${0} is coming soon."
 msgstr "${0}投票即將回歸。"
 
+msgid "Failed to publish on {sortedSourceNames}"
+msgstr ""
+
 msgid "No cybercrime found."
 msgstr "不涉及网络犯罪。"
 
@@ -3074,6 +3088,9 @@ msgstr "可用余额"
 msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
 
+msgid "Multi-device login is required for schedule post. Set a 6-digit password to verify your identity."
+msgstr ""
+
 msgid "Swapped 0.1 ETH for 253.97 Virtual."
 msgstr "以 0.1 ETH 兑换了 253.97 Virtual。"
 
@@ -3170,8 +3187,8 @@ msgstr "您的交易将很快确认"
 msgid "Failed to un-bookmark snapshot."
 msgstr "取消收藏投票失败。"
 
-#. placeholder {0}: dayjs(task.publish_timestamp).format('ddd, MMM DD, YYYY')
-#. placeholder {1}: dayjs(task.publish_timestamp).format('hh:mm A')
+#. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
+#. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
 msgid "will send on {0} at {1}"
 msgstr "将在 {0} {1} 发布"
 
@@ -3390,6 +3407,9 @@ msgstr "举报"
 msgid "Failed to transfer"
 msgstr ""
 
+msgid "Schedule"
+msgstr ""
+
 msgid "Cancel Repost"
 msgstr "取消转发"
 
@@ -3585,8 +3605,8 @@ msgstr "新建"
 msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr "🤑 快来看看这个红包 #FireflyLuckyDrop 🧧💰✨ {postUrl}"
 
-#. placeholder {0}: dayjs(task.created_at).format('ddd, MMM DD, YYYY')
-#. placeholder {1}: dayjs(task.created_at).format('hh:mm A')
+#. placeholder {0}: dayjs(createdAt).format('ddd, MMM DD, YYYY')
+#. placeholder {1}: dayjs(createdAt).format('hh:mm A')
 msgid "Saved on {0} at {1}"
 msgstr "保存于 {1} {0}"
 
@@ -3685,6 +3705,9 @@ msgstr "将在 <0>{0} <1>{1}</1></0> 发布"
 
 msgid "Reported"
 msgstr "已举报"
+
+msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts<0/> are sent as scheduled, please make sure that multi-device login remains turned on."
+msgstr ""
 
 msgid "Something went wrong."
 msgstr "哎呀，出问题了。"
@@ -4340,6 +4363,9 @@ msgstr "隐蔽的所有者。"
 msgid "Lucky drop is only available on {0}."
 msgstr "红包功能仅支持于{0}。"
 
+msgid "Scheduled Post"
+msgstr ""
+
 msgid "Recasted"
 msgstr "已转发"
 
@@ -4661,9 +4687,6 @@ msgstr "帖子解密成功！"
 
 msgid "Let’s go!"
 msgstr "立即开始！"
-
-msgid "Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that your Firefly account remains logged in."
-msgstr "登出将导致定时发布的帖子失败。请确保你的 Firefly 账户保持登录状态，以确保帖子按计划发送。"
 
 msgid "Failed to create schedule post."
 msgstr "创建定时贴失败。"

@@ -67,7 +67,7 @@ export const PasswordModalContent = memo<
     PasswordModalOpenProps & {
         onClose: (success?: boolean) => void;
     }
->(function PasswordModalContent({ workflow: initialWorkflow, autoUploadMetrics, onClose }) {
+>(function PasswordModalContent({ workflow: initialWorkflow, autoUploadMetrics, onClose, descriptions }) {
     const [workflow, setWorkflow] = useState<PasswordWorkflow>(initialWorkflow);
     const [step, setStep] = useState<PasswordStep>(PasswordWorkflowConfig[initialWorkflow][0]);
 
@@ -136,7 +136,7 @@ export const PasswordModalContent = memo<
                 </h3>
                 <div className="mt-8 space-y-8">
                     <div className="space-y-4">
-                        <StepHeaderDescription workflow={workflow} step={step} />
+                        <StepHeaderDescription workflow={workflow} step={step} descriptions={descriptions} />
                         <PasswordInputPanel
                             password={passwords[step]}
                             onPasswordChange={onPasswordChange}

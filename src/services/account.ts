@@ -2,9 +2,8 @@ import { compact, first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { PasswordWorkflow, type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
+import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { SEVEN_DAYS, SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
-import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getAllProfiles } from '@/helpers/getAllProfiles.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
@@ -20,7 +19,6 @@ import { safeUnreachable } from '@/helpers/unreachable.js';
 import { ConfirmFireflyModalRef } from '@/modals/ConfirmFireflyModal.js';
 import { ConfirmSyncSessionModalRef } from '@/modals/ConfirmSyncSessionModal.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
-import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
 import { getBskySessionStorage } from '@/providers/bsky/createBskyAgent.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
@@ -44,10 +42,10 @@ import type { Account } from '@/providers/types/Account.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 import { downloadAccounts, mergeMetrics, uploadMetrics } from '@/services/metrics.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
+import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
-import { useTokenPasswordStore } from '@/store/useTokenPasswordStore.js';
 
 function getContext(source: ProfileSource) {
     return {
@@ -312,7 +310,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     return true;
 }
 
-export async function syncMetrics(account: Account) {
+export async function syncMetrics(account?: Account) {
     const remoteAccounts = await downloadAccounts();
     const remoteProfiles = compact(
         remoteAccounts.map(({ metaInfo }) => {
@@ -345,16 +343,18 @@ export async function syncMetrics(account: Account) {
     });
 
     const isOrbTemporaryAccount =
-        account.profile.source === Source.Lens && !(account.session as LensSession).refreshToken;
+        account?.profile.source === Source.Lens && !(account.session as LensSession).refreshToken;
 
     if (profilesToSync.length > 0) {
         LoginModalRef.close();
         const confirmed = await ConfirmSyncSessionModalRef.openAndWaitForClose({
-            profiles: profilesToSync.filter((x) => !isSameProfile(x, account.profile)),
+            profiles: profilesToSync.filter((x) => !isSameProfile(x, account?.profile)),
         });
 
         if (confirmed) {
-            const password = await verifyAndGetPassword(true);
+            const password = await verifyAndGetPassword({
+                skipCheck: true,
+            });
             if (password) mergeMetrics(password);
         }
     } else if (profilesToUpload.length > 0 && !isOrbTemporaryAccount) {
@@ -363,24 +363,6 @@ export async function syncMetrics(account: Account) {
     }
 
     return;
-}
-
-export async function verifyAndGetPassword(skipCheck = false, autoUploadMetrics = true) {
-    const localPassword = useTokenPasswordStore.getState().password;
-    const status = await FireflyEndpointProvider.getMetricsStatus();
-    if (!status.hasSetPasscode) return null;
-    if (localPassword && !skipCheck) {
-        const result = await FireflyEndpointProvider.checkPasscode(localPassword, true);
-        if (result?.code === FireflyResponseCode.SUCCESS) {
-            return localPassword;
-        }
-    }
-    const result = await PasswordModalRef.openAndWaitForClose({
-        workflow: PasswordWorkflow.Verify,
-        autoUploadMetrics,
-    });
-    if (!result) return null;
-    return useTokenPasswordStore.getState().password;
 }
 
 export async function addAccounts(fireflySession: FireflySession, accounts: Account[], options?: AccountOptions) {

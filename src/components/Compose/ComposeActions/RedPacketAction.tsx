@@ -13,6 +13,7 @@ import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { RedPacketModalRef } from '@/modals/RedPacketModal/index.js';
+import { captureRedPacketClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 
 interface RedPacketActionProps extends ClickableButtonProps {}
 
@@ -33,6 +34,7 @@ export const RedPacketAction = memo<RedPacketActionProps>(function RedPacketActi
         }
 
         RedPacketModalRef.open();
+        captureRedPacketClickEvent();
     }, [solana.address, ethereum, chainId, switchChainAsync]);
 
     const invalidSources = availableSources.filter((x) => !ENABLED_RP_SOURCES.includes(x));

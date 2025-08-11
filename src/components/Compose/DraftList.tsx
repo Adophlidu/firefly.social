@@ -19,6 +19,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { captureDraftDeleteClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { type Draft, useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -163,6 +164,7 @@ export const DraftList = memo(function DraftList() {
             if (!confirmed) return;
             if (currentDraftId) clear();
             removeDraft(id);
+            captureDraftDeleteClickEvent();
         },
         [removeDraft, currentDraftId, clear],
     );

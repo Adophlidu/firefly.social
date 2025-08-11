@@ -945,7 +945,7 @@ class LensSocialMedia implements Provider {
         // filter muted/blocked items
         const profileIds = compact(
             data.flatMap((x) => {
-                if (!x || x.type === NotificationType.Tips) return null;
+                if (!x || x.type === NotificationType.Tips || x.type === NotificationType.Schedule) return null;
                 if ('followers' in x) return x.followers.map((follower) => follower.profileId);
                 if ('mirrors' in x) return x.mirrors.map((mirror) => mirror.profileId);
                 if ('reactors' in x) return x.reactors.map((reactor) => reactor.profileId);

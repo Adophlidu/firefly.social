@@ -14,9 +14,18 @@ export interface DatePickerProps {
     allowedDates: string[];
     onChange: (date: Date) => void;
     onMonthChange: (date: Date) => void;
+    className?: string;
 }
 
-export function DatePicker({ date, onChange, open, onToggle, allowedDates, onMonthChange }: DatePickerProps) {
+export function DatePicker({
+    date,
+    onChange,
+    open,
+    onToggle,
+    allowedDates,
+    onMonthChange,
+    className,
+}: DatePickerProps) {
     const [currentDate, setCurrentDate] = useState(date);
     const monthStart = startOfMonth(currentDate);
     const startingDayOfWeek = monthStart.getDay();
@@ -107,7 +116,12 @@ export function DatePicker({ date, onChange, open, onToggle, allowedDates, onMon
     );
 
     return (
-        <div className="absolute right-[15px] top-12 z-50 flex w-[320px] flex-col gap-[6px] rounded-2xl border border-line bg-bgModal px-[6px] pt-[6px]">
+        <div
+            className={classNames(
+                'absolute right-[15px] top-12 z-50 flex w-[320px] flex-col gap-[6px] rounded-2xl border border-line bg-bgModal px-[6px] pt-[6px]',
+                className,
+            )}
+        >
             <div className="flex items-center justify-between">
                 <p className="pl-2 font-bold text-main">{format(currentDate, 'MMMM yyyy')}</p>
                 <div className="flex items-center">

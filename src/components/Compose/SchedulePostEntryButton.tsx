@@ -13,6 +13,7 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
 import { SchedulePostModalRef } from '@/modals/SchedulePostModal.js';
+import { captureSchedulePostClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 
 interface SchedulePostEntryButtonProps extends HTMLProps<HTMLDivElement> {
@@ -43,6 +44,7 @@ export function SchedulePostEntryButton({ className, showText, disabled = false,
                 enableOverflow: false,
             });
         }
+        captureSchedulePostClickEvent();
     }, [scheduleTime, isMedium, scheduleDisabled]);
 
     if (env.external.NEXT_PUBLIC_SCHEDULE_POST !== STATUS.Enabled) return null;
@@ -56,7 +58,7 @@ export function SchedulePostEntryButton({ className, showText, disabled = false,
             onClick={handleClick}
             ref={ref}
         >
-            <ScheduleIcon className={classNames('cursor-pointer', className)} />
+            <ScheduleIcon className={classNames('size-6 cursor-pointer', className)} />
             <span>
                 <Trans>
                     Will send on{' '}
@@ -70,18 +72,17 @@ export function SchedulePostEntryButton({ className, showText, disabled = false,
     ) : (
         <div className="flex items-center gap-[10px] text-[13px] text-second" ref={ref}>
             <ScheduleIcon
-                className={classNames(scheduleDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer', className)}
+                className={classNames(
+                    scheduleDisabled ? 'size-6 cursor-not-allowed opacity-50' : 'size-6 cursor-pointer',
+                    className,
+                )}
                 onClick={handleClick}
             />
         </div>
     );
 
     return (
-        <Tooltip
-            placement="top"
-            // TODO: change the tooltip after the schedule post is work
-            content={<Trans>Scheduled post will come back soon.</Trans>}
-        >
+        <Tooltip placement="top" content={!disabled ? <Trans>Schedule Post</Trans> : undefined}>
             {content}
         </Tooltip>
     );

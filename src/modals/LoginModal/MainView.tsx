@@ -62,8 +62,9 @@ import {
 } from '@/providers/telemetry/captureSyncTokenEvent.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { AllConnections, FireflyAccountProfile } from '@/providers/types/Firefly.js';
-import { switchAccount, verifyAndGetPassword } from '@/services/account.js';
+import { switchAccount } from '@/services/account.js';
 import { mergeMetrics } from '@/services/metrics.js';
+import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 function FireflyAccountLoadingSkeleton() {
@@ -100,7 +101,10 @@ function FireflyAccount({
         try {
             const status = await FireflyEndpointProvider.getMetricsStatus();
             if (status.hasSetPasscode) {
-                const password = await verifyAndGetPassword(true, false);
+                const password = await verifyAndGetPassword({
+                    skipCheck: true,
+                    autoUploadMetrics: false,
+                });
                 if (password) {
                     await mergeMetrics(password);
                 }

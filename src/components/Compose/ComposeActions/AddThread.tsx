@@ -9,6 +9,7 @@ import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
+import { captureThreadClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export const AddThread = memo(function AddThread() {
@@ -39,6 +40,7 @@ export const AddThread = memo(function AddThread() {
                     onClick={() => {
                         addPostInThread();
                         setEditorContent('');
+                        captureThreadClickEvent();
                     }}
                 >
                     {posts.length >= MAX_POST_SIZE_PER_THREAD ? (

@@ -8,6 +8,7 @@ import { DraftList } from '@/components/Compose/DraftList.js';
 import { ScheduleTaskList } from '@/components/Compose/ScheduleTaskList.js';
 import { Loading } from '@/components/Loading.js';
 import { classNames } from '@/helpers/classNames.js';
+import { captureScheduleTabClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 
 export enum DraftPageTab {
     Draft = 'Draft',
@@ -43,7 +44,12 @@ export const DraftPage = memo(function DraftPage() {
                                 'flex h-[46px] items-center justify-center whitespace-nowrap px-[14px] font-extrabold transition-all',
                                 currentTab === type ? 'text-main' : 'text-third hover:text-main',
                             )}
-                            onClick={() => setCurrentTab(type)}
+                            onClick={() => {
+                                setCurrentTab(type);
+                                if (type === DraftPageTab.Scheduled) {
+                                    captureScheduleTabClickEvent();
+                                }
+                            }}
                         >
                             {title}
                         </ClickableButton>

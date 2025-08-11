@@ -91,13 +91,20 @@ export function NotificationSettings({ source }: { source: NotificationSource })
                       text: <Trans>Collect</Trans>,
                       types: [NotificationType.Act],
                   },
-                  source === Source.Notifications
-                      ? {
-                            Icon: resolveNotificationIcon(NotificationType.Tips),
-                            text: <Trans>Tip</Trans>,
-                            types: [NotificationType.Tips],
-                        }
-                      : null,
+                  ...(source === Source.Notifications
+                      ? [
+                            {
+                                Icon: resolveNotificationIcon(NotificationType.Tips),
+                                text: <Trans>Tip</Trans>,
+                                types: [NotificationType.Tips],
+                            },
+                            {
+                                Icon: resolveNotificationIcon(NotificationType.Schedule),
+                                text: <Trans>Schedule</Trans>,
+                                types: [NotificationType.Schedule],
+                            },
+                        ]
+                      : []),
               ]);
     }, [source]);
 

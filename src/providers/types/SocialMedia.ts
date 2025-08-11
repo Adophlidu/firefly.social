@@ -11,6 +11,7 @@ import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type {
     FireflyIdentity,
     NotificationSettings,
+    ScheduleNotification,
     TipsNotification,
     WalletProfile,
 } from '@/providers/types/Firefly.js';
@@ -47,6 +48,7 @@ export enum NotificationType {
     Mention = 'mention',
     Act = 'act',
     Tips = 'tips',
+    Schedule = 'schedule',
 }
 
 export enum ProfileStatus {
@@ -402,7 +404,8 @@ export type Notification =
     | FollowNotification
     | MentionNotification
     | ActedNotification
-    | TipsNotification;
+    | TipsNotification
+    | ScheduleNotification;
 
 export interface Channel<T = unknown> {
     source: SocialSource;

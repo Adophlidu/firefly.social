@@ -7,6 +7,7 @@ import { RestrictionType } from '@/constants/enum.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useValidRestrictionTypes } from '@/hooks/useValidRestrictionTypes.js';
+import { captureReplyRestrictionChangeClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 
 interface ReplyRestrictionProps {
     restriction: RestrictionType;
@@ -27,6 +28,7 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
                     className="flex h-12 cursor-pointer items-center justify-between px-3 hover:bg-bg"
                     onClick={() => {
                         setRestriction(type);
+                        captureReplyRestrictionChangeClickEvent();
                     }}
                 >
                     <span className="mr-auto font-bold text-main">

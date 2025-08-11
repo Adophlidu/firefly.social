@@ -1,12 +1,18 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
-import { memo, useState } from 'react';
-import { useAsyncFn } from 'react-use';
+import { noop } from 'lodash-es';
+import { memo, useRef, useState } from 'react';
+import { useAsyncFn, useClickAway } from 'react-use';
 
+import CalendarIcon from '@/assets/calendar.svg';
+import TimerIcon from '@/assets/timer.svg';
+import { DatePicker } from '@/components/Calendar/DatePicker.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { TimePicker } from '@/components/TimePicker.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
 import { CreateScheduleError } from '@/constants/error.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueInfoMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
@@ -15,6 +21,7 @@ import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureCo
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { updateScheduledPost } from '@/services/post.js';
+import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 
 interface SchedulePostSettingsProps {
@@ -28,9 +35,17 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
     action,
     onClose,
 }) {
+    const [datePickerOpen, setDatePickerOpen] = useState(false);
+    const [timePickerOpen, setTimePickerOpen] = useState(false);
+    const datePickerRef = useRef<HTMLDivElement>(null);
+    const timePickerRef = useRef<HTMLDivElement>(null);
+
+    useClickAway(datePickerRef, () => setDatePickerOpen(false));
+    useClickAway(timePickerRef, () => setTimePickerOpen(false));
+
     const { updateScheduleTime, clearScheduleTime, scheduleTime } = useComposeScheduleStateStore();
 
-    const [value, setValue] = useState(task ? dayjs(task.publish_timestamp).toDate() : (scheduleTime ?? new Date()));
+    const [value, setValue] = useState(task ? dayjs(task.schedule_at).toDate() : (scheduleTime ?? new Date()));
 
     const [{ loading }, handleSet] = useAsyncFn(async () => {
         try {
@@ -39,15 +54,34 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                 return;
             }
 
+            const password = await verifyAndGetPassword({
+                requireSetPassword: true,
+                descriptions: {
+                    [`${PasswordWorkflow.Verify}-${PasswordStep.VerifyPassword}`]: (
+                        <Trans>
+                            Multi-device login is required for schedule post. Enter your password to confirm your
+                            identity.
+                        </Trans>
+                    ),
+                    [`${PasswordWorkflow.Set}-${PasswordStep.SetPassword}`]: (
+                        <Trans>
+                            Multi-device login is required for schedule post. Set a 6-digit password to verify your
+                            identity.
+                        </Trans>
+                    ),
+                },
+            });
+            if (!password) return;
+
             if (task) {
                 checkScheduleTime(value);
-                const result = await updateScheduledPost(task.uuid, value);
+                const result = await updateScheduledPost(task.task_uuid, value);
                 if (!result) return;
                 queryClient.refetchQueries({
                     queryKey: ['schedule-tasks', fireflySessionHolder.session?.profileId],
                 });
                 captureComposeSchedulePostEvent(EventId.COMPOSE_SCHEDULED_POST_UPDATE_SUCCESS, null, {
-                    scheduleId: task.uuid,
+                    scheduleId: task.task_uuid,
                 });
             } else {
                 updateScheduleTime(value);
@@ -70,12 +104,37 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                 <Trans>The scheduled time to send this post can be set up to 7 days in advance.</Trans>
             </div>
             <div className="flex gap-2 pt-3 md:gap-4">
-                <input
-                    type="datetime-local"
-                    onChange={(ev) => {
-                        setValue(new Date(ev.currentTarget.value));
-                    }}
-                />
+                <div ref={datePickerRef} className="flex w-full flex-1 items-center justify-center">
+                    <div
+                        className="flex w-full cursor-pointer gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
+                        onClick={() => setDatePickerOpen(!datePickerOpen)}
+                    >
+                        <CalendarIcon />
+                        <span className="max-md:text-sm">{dayjs(value).format('MMM D')}</span>
+                    </div>
+                    <DatePicker
+                        className="max-md:-top-[120px]"
+                        open={datePickerOpen}
+                        onToggle={setDatePickerOpen}
+                        date={value}
+                        onChange={(date) => setValue(date)}
+                        onMonthChange={noop}
+                        allowedDates={Array.from({ length: 8 }, (_, i) =>
+                            dayjs().add(i, 'day').toDate().toLocaleDateString(),
+                        )}
+                    />
+                </div>
+
+                <div ref={timePickerRef} className="flex w-full flex-1 items-center justify-center">
+                    <div
+                        className="flex w-full cursor-pointer gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
+                        onClick={() => setTimePickerOpen(!timePickerOpen)}
+                    >
+                        <TimerIcon />
+                        <span className="max-md:text-sm">{dayjs(value).format('hh:mm A')}</span>
+                    </div>
+                    <TimePicker open={timePickerOpen} onToggle={setTimePickerOpen} value={value} onChange={setValue} />
+                </div>
             </div>
 
             <div className="flex gap-[6px] pt-3 max-md:flex-col">
