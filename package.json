@@ -74,7 +74,7 @@
         "@reown/appkit-adapter-wagmi": "1.7.6",
         "@sentry/browser": "^7.120.3",
         "@solana/spl-token": "^0.4.13",
-        "@solana/wallet-adapter-base": "^0.9.26",
+        "@solana/wallet-adapter-base": "^0.9.27",
         "@solana/wallet-adapter-phantom": "^0.9.25",
         "@tanstack/react-query": "5.56.2",
         "@tanstack/react-query-next-experimental": "5.56.2",
