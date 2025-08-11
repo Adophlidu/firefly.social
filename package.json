@@ -74,8 +74,8 @@
         "@reown/appkit-adapter-wagmi": "1.7.6",
         "@sentry/browser": "^7.120.3",
         "@solana/spl-token": "^0.4.13",
-        "@solana/wallet-adapter-base": "^0.9.26",
-        "@solana/wallet-adapter-phantom": "^0.9.25",
+        "@solana/wallet-adapter-base": "^0.9.27",
+        "@solana/wallet-adapter-phantom": "^0.9.28",
         "@tanstack/react-query": "5.56.2",
         "@tanstack/react-query-next-experimental": "5.56.2",
         "@tanstack/react-ranger": "^0.0.4",
@@ -206,6 +206,7 @@
         "overrides": {
             "@floating-ui/react": "0.27.9",
             "@noble/curves": "1.9.2",
+            "@solana/wallet-adapter-base": "0.9.27",
             "@tanstack/react-query-next-experimental": "5.56.2",
             "@tanstack/react-query": "5.56.2",
             "@types/node": "22.10.7",
