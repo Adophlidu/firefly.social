@@ -15,6 +15,10 @@
                     "/login/desktop/*",
                     "/event/*",
                     "/wsegue/*",
+                    "/swap/*",
+                    "/tips/*",
+                    "/posted/*",
+                    "/tx/*",
                     "/*"
                 ],
                 "components": [
@@ -50,6 +54,22 @@
                     {
                         "/": "/wsegue/*",
                         "comment": "Matches any URL with a path that starts with /wsegue/."
+                    },
+                    {
+                        "/": "/swap/*",
+                        "comment": "Matches any URL with a path that starts with /swap/."
+                    },
+                    {
+                        "/": "/tips/*",
+                        "comment": "Matches any URL with a path that starts with /tips/."
+                    },
+                    {
+                        "/": "/posted/*",
+                        "comment": "Matches any URL with a path that starts with /posted/."
+                    },
+                    {
+                        "/": "/tx/*",
+                        "comment": "Matches any URL with a path that starts with /tx/."
                     }
                 ]
             }
