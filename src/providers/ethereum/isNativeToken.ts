@@ -1,4 +1,4 @@
-import { DEBANK_CHAIN_TO_CHAIN_ID_MAP } from '@/constants/chain.js';
+import { DEBANK_CHAIN_TO_CHAIN_ID_MAP } from '@/constants/debank.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import type { Token } from '@/providers/types/Transfer.js';

@@ -4,11 +4,9 @@ import { safeUnreachable } from '@/helpers/unreachable.js';
 export function resolveNetworkIcon(networkType: NetworkType, isDarkMode: boolean) {
     switch (networkType) {
         case NetworkType.Solana:
-            return new URL(`../assets/chains/solana.png`, import.meta.url).href;
+            return '/image/chains/solana.png';
         case NetworkType.Ethereum:
-            return isDarkMode
-                ? new URL('../assets/chains/ethereum.dark.png', import.meta.url).href
-                : new URL('../assets/chains/ethereum.light.png', import.meta.url).href;
+            return isDarkMode ? '/image/chains/ethereum.dark.png' : '/image/chains/ethereum.light.png';
         default:
             safeUnreachable(networkType);
             return null;

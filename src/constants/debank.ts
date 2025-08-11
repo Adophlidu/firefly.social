@@ -336,14 +336,14 @@ export const DEBANK_CHAINS = [
         community_id: 324,
         name: 'ZKsync Era',
         native_token_id: 'eth',
-        logo_url: new URL('../assets/chains/era.png', import.meta.url).href,
+        logo_url: '/image/chains/era.png',
     },
     {
         id: 'linea',
         community_id: 59_144,
         name: 'Linea',
         native_token_id: 'eth',
-        logo_url: new URL('../assets/chains/linea.png', import.meta.url).href,
+        logo_url: '/image/chains/linea.png',
     },
 ];
 

@@ -2,7 +2,7 @@ import { type Context, type MiniAppHost, type ReadyOptions, type SetPrimaryButto
 import { t } from '@lingui/core/macro';
 import urlcat from 'urlcat';
 
-import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/chain.js';
+import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/debank.js';
 import { OkxProviderType, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';

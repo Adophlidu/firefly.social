@@ -1,4 +1,4 @@
-import { DEBANK_CHAINS } from '@/constants/chain.js';
+import { DEBANK_CHAINS } from '@/constants/debank.js';
 
 export function resolveDebankChain(chainIdOrDebankChain: string | number | undefined) {
     if (!chainIdOrDebankChain) return;

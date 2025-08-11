@@ -19,7 +19,7 @@ import { getConnections } from 'wagmi/actions';
 import { FireflyWalletChainSelectorWithOkxProviderType } from '@/components/FireflyWallet/FireflyWalletChainSelectorWithOkxProviderType.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { SOLANA_CHAIN_ID_IN_FIREFLY, SOLANA_CHAIN_ID_IN_OKX } from '@/constants/chain.js';
+import { SOLANA_CHAIN_ID_IN_FIREFLY, SOLANA_CHAIN_ID_IN_OKX } from '@/constants/debank.js';
 import { Locale, OkxProviderType } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { NATIVE_SOLANA_TOKEN_ADDRESS, NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';

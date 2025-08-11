@@ -4,7 +4,7 @@ import { getAccount } from 'wagmi/actions';
 
 import { chains } from '@/configs/chains.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { DEBANK_CHAIN_TO_CHAIN_ID_MAP } from '@/constants/chain.js';
+import { DEBANK_CHAIN_TO_CHAIN_ID_MAP } from '@/constants/debank.js';
 import { SimulateStatus } from '@/constants/enum.js';
 import { Debank } from '@/providers/debank/index.js';
 import { GoPlus } from '@/providers/goplus/index.js';

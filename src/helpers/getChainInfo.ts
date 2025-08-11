@@ -13,7 +13,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'solana',
         name: 'Solana',
-        icon: new URL('../assets/chains/solana.png', import.meta.url).href,
+        icon: '/images/chains/solana.png',
     },
     {
         runtime: 'polkadot',
@@ -48,7 +48,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'arbitrum-one',
         name: 'Arbitrum-One',
-        icon: new URL('../assets/chains/arbitrum.png', import.meta.url).href,
+        icon: '/images/chains/arbitrum.png',
     },
     {
         runtime: 'polygon-pos',
@@ -58,7 +58,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'flow',
         name: 'Flow',
-        icon: new URL('../assets/chains/flow.png', import.meta.url).href,
+        icon: '/images/chains/flow.png',
     },
     {
         runtime: 'celo',
@@ -68,7 +68,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'the-open-network',
         name: 'Ton',
-        icon: new URL('../assets/chains/ton.png', import.meta.url).href,
+        icon: '/images/chains/ton.png',
     },
     {
         runtime: 'algorand',
@@ -78,17 +78,17 @@ const CHAINS: Chain[] = [
     {
         runtime: 'optimistic-ethereum',
         name: 'Optimistic-Ethereum',
-        icon: new URL('../assets/chains/optimism.png', import.meta.url).href,
+        icon: '/images/chains/optimism.png',
     },
     {
         runtime: 'avalanche',
         name: 'Avalanche',
-        icon: new URL('../assets/chains/avalanche.png', import.meta.url).href,
+        icon: '/images/chains/avalanche.png',
     },
     {
         runtime: 'base',
         name: 'Base',
-        icon: new URL('../assets/chains/base.png', import.meta.url).href,
+        icon: '/images/chains/base.png',
     },
     {
         runtime: 'kava',
@@ -98,7 +98,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'energi',
         name: 'Energi',
-        icon: new URL('../assets/chains/energi.png', import.meta.url).href,
+        icon: '/images/chains/energi.png',
     },
 ];
 
