@@ -7,19 +7,20 @@ settings:
 onlyBuiltDependencies: []
 
 overrides:
-  core-js-compat: 3.42.0
+  '@floating-ui/react': 0.27.9
+  '@noble/curves': 1.9.2
+  '@tanstack/react-query-next-experimental': 5.56.2
+  '@tanstack/react-query': 5.56.2
   '@types/node': 22.10.7
+  '@types/react-dom': 19.0.2
   '@types/react': 19.0.2
+  core-js-compat: 3.42.0
   crypto-js@<4.2.0: '>=4.2.0'
   elliptic: '>=6.6.1'
-  react: 19.0.0
+  isows: 1.0.7
   react-dom: 19.0.0
   react-use: 17.5.1
-  '@tanstack/react-query': 5.56.2
-  '@tanstack/react-query-next-experimental': 5.56.2
-  '@types/react-dom': 19.0.2
-  '@noble/curves': 1.9.2
-  isows: 1.0.7
+  react: 19.0.0
   uint8arrays: 3.1.1
   use-sync-external-store: 1.5.0
   viem: 2.31.4
@@ -50,6 +51,9 @@ patchedDependencies:
   '@reown/appkit@1.7.6':
     hash: 3hauhekaezdxvp5v64wgmncyga
     path: patches/@reown__appkit@1.7.6.patch
+  '@sentry/browser@7.120.3':
+    hash: q3jtvrbjgr6ukw2eq3ks4v5qdm
+    path: patches/@sentry__browser@7.120.3.patch
   dayjs-twitter@0.5.0:
     hash: cuhyqcffld3lmtt6xlopmlcac4
     path: patches/dayjs-twitter@0.5.0.patch
@@ -101,7 +105,7 @@ dependencies:
     specifier: ^0.2.4
     version: 0.2.4(react@19.0.0)(typescript@5.7.3)(zod@3.24.2)
   '@floating-ui/react':
-    specifier: ^0.27.9
+    specifier: 0.27.9
     version: 0.27.9(react-dom@19.0.0)(react@19.0.0)
   '@giphy/js-fetch-api':
     specifier: ^5.6.0
@@ -186,7 +190,7 @@ dependencies:
     version: 1.7.6(@types/react@19.0.2)(@vercel/kv@1.0.1)(@wagmi/core@2.16.7)(react@19.0.0)(typescript@5.7.3)(viem@2.31.4)(wagmi@2.14.16)(zod@3.24.2)
   '@sentry/browser':
     specifier: ^7.120.3
-    version: 7.120.3
+    version: 7.120.3(patch_hash=q3jtvrbjgr6ukw2eq3ks4v5qdm)
   '@solana/spl-token':
     specifier: ^0.4.13
     version: 0.4.13(@solana/web3.js@1.98.2)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)
@@ -4565,19 +4569,6 @@ packages:
       react-dom: 19.0.0(react@19.0.0)
     dev: false
 
-  /@floating-ui/react@0.26.28(react-dom@19.0.0)(react@19.0.0):
-    resolution: {integrity: sha512-yORQuuAtVpiRjpMhdc0wJj06b9JFjrYF4qp96j++v2NBpbi6SEGF7donUJ3TMieerQ6qVkAv1tgr7L4r5roTqw==}
-    peerDependencies:
-      react: 19.0.0
-      react-dom: 19.0.0
-    dependencies:
-      '@floating-ui/react-dom': 2.1.2(react-dom@19.0.0)(react@19.0.0)
-      '@floating-ui/utils': 0.2.9
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-      tabbable: 6.2.0
-    dev: false
-
   /@floating-ui/react@0.27.9(react-dom@19.0.0)(react@19.0.0):
     resolution: {integrity: sha512-Y0aCJBNtfVF6ikI1kVzA0WzSAhVBz79vFWOhvb5MLCRNODZ1ylGSLTuncchR7JsLyn9QzV6JD44DyZhhOtvpRw==}
     peerDependencies:
@@ -4711,7 +4702,7 @@ packages:
       react: 19.0.0
       react-dom: 19.0.0
     dependencies:
-      '@floating-ui/react': 0.26.28(react-dom@19.0.0)(react@19.0.0)
+      '@floating-ui/react': 0.27.9(react-dom@19.0.0)(react@19.0.0)
       '@react-aria/focus': 3.20.1(react-dom@19.0.0)(react@19.0.0)
       '@react-aria/interactions': 3.24.1(react-dom@19.0.0)(react@19.0.0)
       '@tanstack/react-virtual': 3.13.6(react-dom@19.0.0)(react@19.0.0)
@@ -4727,7 +4718,7 @@ packages:
       react: 19.0.0
       react-dom: 19.0.0
     dependencies:
-      '@floating-ui/react': 0.26.28(react-dom@19.0.0)(react@19.0.0)
+      '@floating-ui/react': 0.27.9(react-dom@19.0.0)(react@19.0.0)
       '@react-aria/focus': 3.20.5(react-dom@19.0.0)(react@19.0.0)
       '@react-aria/interactions': 3.25.3(react-dom@19.0.0)(react@19.0.0)
       '@tanstack/react-virtual': 3.13.10(react-dom@19.0.0)(react@19.0.0)
@@ -6720,7 +6711,7 @@ packages:
         optional: true
     dependencies:
       '@coinbase/wallet-sdk': 4.3.2
-      '@floating-ui/react': 0.26.28(react-dom@19.0.0)(react@19.0.0)
+      '@floating-ui/react': 0.27.9(react-dom@19.0.0)(react@19.0.0)
       '@headlessui/react': 2.2.4(react-dom@19.0.0)(react@19.0.0)
       '@heroicons/react': 2.2.0(react@19.0.0)
       '@marsidev/react-turnstile': 0.4.1(react-dom@19.0.0)(react@19.0.0)
@@ -8587,7 +8578,7 @@ packages:
       '@sentry/utils': 7.120.3
     dev: false
 
-  /@sentry/browser@7.120.3:
+  /@sentry/browser@7.120.3(patch_hash=q3jtvrbjgr6ukw2eq3ks4v5qdm):
     resolution: {integrity: sha512-i9vGcK9N8zZ/JQo1TCEfHHYZ2miidOvgOABRUc9zQKhYdcYQB2/LU1kqlj77Pxdxf4wOa9137d6rPrSn9iiBxg==}
     engines: {node: '>=8'}
     dependencies:
@@ -8600,6 +8591,7 @@ packages:
       '@sentry/types': 7.120.3
       '@sentry/utils': 7.120.3
     dev: false
+    patched: true
 
   /@sentry/core@7.120.3:
     resolution: {integrity: sha512-vyy11fCGpkGK3qI5DSXOjgIboBZTriw0YDx/0KyX5CjIjDDNgp5AGgpgFkfZyiYiaU2Ww3iFuKo4wHmBusz1uA==}
