@@ -93,20 +93,20 @@ export function Modal({
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                         >
-                            <div
-                                className={classNames(
-                                    'relative z-10 flex flex-col rounded-md bg-lightBottom dark:bg-darkBottom md:rounded-xl',
-                                    className,
-                                    {
-                                        'w-[520px]': size === 'lg',
-                                        'w-[485px]': size === 'md',
-                                        'w-[400px]': size === 'sm',
-                                        'w-[355px]': size === 'xs',
-                                    },
-                                )}
-                                onClick={stopPropagation}
-                            >
-                                {title ? (
+                            {title ? (
+                                <div
+                                    className={classNames(
+                                        'relative z-10 flex flex-col rounded-md bg-lightBottom dark:bg-darkBottom md:rounded-xl',
+                                        className,
+                                        {
+                                            'w-[520px]': size === 'lg',
+                                            'w-[485px]': size === 'md',
+                                            'w-[400px]': size === 'sm',
+                                            'w-[355px]': size === 'xs',
+                                        },
+                                    )}
+                                    onClick={stopPropagation}
+                                >
                                     <>
                                         <ModalTitle
                                             title={title}
@@ -116,10 +116,10 @@ export function Modal({
                                         />
                                         <ModalBody>{children}</ModalBody>
                                     </>
-                                ) : (
-                                    children
-                                )}
-                            </div>
+                                </div>
+                            ) : (
+                                children
+                            )}
                         </Transition.Child>
                     </div>
                 </div>
