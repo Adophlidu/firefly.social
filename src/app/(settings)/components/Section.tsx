@@ -4,12 +4,6 @@ import { PageHeader } from '@/app/(settings)/components/PageHeader.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 
-interface SectionProps extends HTMLProps<HTMLDivElement> {}
-
-export function Section({ className, children }: SectionProps) {
-    return <div className={classNames('flex w-full flex-col items-center gap-6 p-6', className)}>{children}</div>;
-}
-
 interface SettingsSectionProps extends Omit<HTMLProps<HTMLDivElement>, 'title'> {
     title: ReactNode;
     enableBack?: boolean;
