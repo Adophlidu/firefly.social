@@ -580,43 +580,6 @@ body {
     scrollbar-gutter: stable;
 }
 
-.SnackbarContainer-root {
-    max-width: 100% !important;
-}
-
-@media (min-width: 990px) {
-    .SnackbarContainer-root {
-        width: auto;
-        max-width: 400px !important;
-    }
-}
-
-.SnackbarContainer-root .SnackbarItem-message {
-    overflow: auto !important;
-    display: flex !important;
-}
-
-.SnackbarContainer-root .SnackbarContent-root {
-    display: flex !important;
-    align-items: center !important;
-    flex-wrap: nowrap !important;
-    border-radius: 12px !important;
-    min-width: 120px !important;
-}
-
-.SnackbarContainer-root .SnackbarItem-variantSuccess {
-    background-color: rgb(var(--color-success)) !important;
-    box-shadow: 0 6px 20px 0 rgb(var(--color-success) / 0.15) !important;
-}
-
-.SnackbarItem-action {
-    margin-left: auto !important;
-}
-
-.SnackbarItem-variantError {
-    background-color: #ff3545 !important;
-}
-
 .account-settings {
     background: none !important;
 }
@@ -710,67 +673,9 @@ body {
     min-width: 28px;
 }
 
-.schedule-time-picker .react-time-picker__wrapper {
-    border: none;
-    display: flex;
-}
-
-.schedule-time-picker input {
-    background-color: transparent !important;
-}
-
-.schedule-time-picker select {
-    background-color: transparent !important;
-}
-
-.react-time-picker__clock-button {
-    order: -1;
-}
-
-.react-time-picker__clock {
-    display: none !important;
-}
-
-.custom-date-picker {
-    background: var(--color-bg-modal);
-    border-radius: 0.5rem;
-}
-
-.custom-date-picker * {
-    color: rgb(var(--color-main)) !important;
-}
-
-.custom-date-picker button.Mui-disabled {
-    opacity: 0.5;
-}
-
 .schedule-task-list [data-test-id='virtuoso-item-list'] {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-}
-
-.custom-time-picker {
-    overflow: unset;
-    color: rgb(var(--color-main)) !important;
-}
-
-.custom-time-picker > * {
-    overflow-x: auto;
-    max-width: 100%;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-}
-
-.custom-time-picker > *::-webkit-scrollbar {
-    display: none;
-}
-
-.custom-time-picker .MuiMenuItem-root.Mui-selected {
-    border-radius: 8px;
-}
-
-.custom-time-picker > :first-child {
-    border-right: 1px solid var(--color-line2);
 }
 
 .livepeer-aspect-ratio-container {
@@ -874,13 +779,6 @@ body {
     margin-top: 1rem;
     margin-bottom: 1rem;
     color: rgb(var(--color-main));
-}
-
-.MuiInputBase-input {
-    background-color: transparent;
-}
-.MuiInputBase-input:focus {
-    box-shadow: none;
 }
 
 /* emoji picker */
