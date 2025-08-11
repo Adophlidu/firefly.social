@@ -637,3 +637,8 @@ export enum TxReactionType {
     ShareTip = 'repost_token_tips',
     ShareSwap = 'repost_swap',
 }
+
+export enum LensSignType {
+    Lens = 'lens',
+    OrbScan = 'orb_scan',
+}

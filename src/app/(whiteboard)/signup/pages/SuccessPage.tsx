@@ -10,7 +10,7 @@ import { PageRoute } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { useSearchParams } from '@/esm/navigation.js';
-import { levelUp } from '@/fonts/index.js';
+import { bedStead } from '@/fonts/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
@@ -33,7 +33,7 @@ export function SuccessPage() {
             />
             <div className="flex flex-col">
                 {nickname ? (
-                    <h1 className={classNames('text-[32px] text-white', levelUp.className)}>
+                    <h1 className={classNames('text-[32px] text-white', bedStead.className)}>
                         {decodeURIComponent(nickname)}
                     </h1>
                 ) : null}

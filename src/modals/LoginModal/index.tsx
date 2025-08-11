@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import urlcat from 'urlcat';
 
 import { Modal } from '@/components/Modal.js';
-import { type FarcasterSignType, type ProfileSource } from '@/constants/enum.js';
+import { type FarcasterSignType, LensSignType, type ProfileSource, Source } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -52,6 +52,8 @@ export interface LoginModalOpenProps {
         /** only keep google/tg/apple/email */
         hideSocialLogin?: boolean;
         noBackButton?: boolean;
+        /** open lens login modal with specified sign type */
+        expectedLensSignType?: LensSignType;
     };
 }
 type Props = {
@@ -68,7 +70,12 @@ export function LoginModal({ ref }: Props) {
         onOpen: (props) => {
             setProps(props || null);
             if (props?.source) {
-                const initialEntries = ['/main', urlcat(`/${resolveSourceInUrl(props.source)}`, props.options ?? {})];
+                const initialEntries = [
+                    '/main',
+                    props.source === Source.Lens && props.options?.expectedLensSignType === LensSignType.OrbScan
+                        ? '/orb'
+                        : urlcat(`/${resolveSourceInUrl(props.source)}`, props.options ?? {}),
+                ];
                 routerRef.current = createLoginRouter({
                     initialEntries,
                     initialIndex: 1,

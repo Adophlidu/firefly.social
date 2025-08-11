@@ -2,7 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 
 import AddIcon from '@/assets/add-small.svg';
-import MenuIcon from '@/assets/menu-white.svg';
+import OtherIcon from '@/assets/other.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -29,7 +29,7 @@ export function LoginButton({ source }: LoginButtonProps) {
         >
             {source === 'other' ? (
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#5E69FF]">
-                    <MenuIcon />
+                    <OtherIcon />
                 </span>
             ) : (
                 <SocialSourceIcon colorful source={source} />
