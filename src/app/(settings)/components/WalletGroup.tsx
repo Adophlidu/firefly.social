@@ -6,7 +6,7 @@ import { memo, type ReactNode } from 'react';
 import { WalletItem } from '@/app/(settings)/components/WalletItem.js';
 import QuestionIcon from '@/assets/question.svg';
 import { Tooltip } from '@/components/Tooltip.js';
-import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import { type FireflyWalletConnection, WalletProfileDataSource } from '@/providers/types/Firefly.js';
 
 interface WalletGroupProps {
     title: ReactNode;
@@ -35,13 +35,15 @@ export const WalletGroup = memo<WalletGroupProps>(function WalletGroup({
             </p>
             <div className="mt-[22px] flex w-full flex-col gap-[22px]">
                 <AnimatePresence mode="wait">
-                    {connections.map((connection) => (
-                        <WalletItem
-                            key={connection.address}
-                            connection={connection}
-                            noAction={!connection.canReport && related}
-                        />
-                    ))}
+                    {connections
+                        .filter((c) => c.dataSource !== WalletProfileDataSource.Particle)
+                        .map((connection) => (
+                            <WalletItem
+                                key={connection.address}
+                                connection={connection}
+                                noAction={!connection.canReport && related}
+                            />
+                        ))}
                 </AnimatePresence>
             </div>
         </div>

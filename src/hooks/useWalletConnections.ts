@@ -3,9 +3,10 @@ import type { ChainAdapter } from '@reown/appkit/react';
 import { useAppKitAccount } from '@reown/appkit/react';
 import { compact, first, uniqBy } from 'lodash-es';
 import { useEffect, useMemo, useState } from 'react';
-import { type Connector, useConnections } from 'wagmi';
+import { type Connector, useConnections, useConnectors } from 'wagmi';
 
-import { NetworkType, WalletSource } from '@/constants/enum.js';
+import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { NetworkType } from '@/constants/enum.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { parseJson } from '@/helpers/parseJson.js';
@@ -13,6 +14,7 @@ import { resolveNamespace } from '@/helpers/resolveNamespace.js';
 import { useSolanaAccount, useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { restoreDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
+import { WalletProfileDataSource } from '@/providers/types/Firefly.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 import type { ChainNamespace } from '@/types/index.js';
 
@@ -63,19 +65,23 @@ export function useWalletConnections() {
     const solanaWallets = usePrivyWalletStore((state) => state.wallets[NetworkType.Solana]);
 
     const { data: allFireflyConnections } = useAllConnections();
+    const connectors = useConnectors();
 
     const allConnections = useMemo<Connection[]>(() => {
         const currentConnectionId = getWagmiCurrentConnectionId();
         const privySolanaAddress = first(solanaWallets)?.address;
         const fireflyConnectedAddress =
             allFireflyConnections?.connected.map((connection) => {
-                if (connection.source !== WalletSource.Privy) return null;
+                if (connection.dataSource !== WalletProfileDataSource.Privy) return null;
                 const networkType = getAddressType(connection.address);
                 if (!networkType) return null;
                 return {
                     address: connection.address,
                     namespace: resolveNamespace(networkType),
-                    connector: undefined,
+                    connector:
+                        networkType === NetworkType.Ethereum
+                            ? connectors.find((c) => c.id === PRIVY_CONNECTOR_ID)
+                            : undefined,
                     connected: false,
                     walletIcon: networkType === NetworkType.Solana ? solanaWalletIcon : undefined,
                     source: ConnectionSource.Privy,
@@ -119,14 +125,19 @@ export function useWalletConnections() {
                 ...fireflyConnectedAddress,
             ]),
             (x) => `${x.namespace}:${x.namespace === 'eip155' ? x.address?.toLowerCase() : x.address}`,
-        );
+        ).sort((a, b) => {
+            if (a.namespace === 'eip155' && b.namespace !== 'eip155') return -1;
+            if (a.namespace !== 'eip155' && b.namespace === 'eip155') return 1;
+            return 0;
+        });
     }, [
         solanaWallets,
+        allFireflyConnections?.connected,
         connections,
         solanaAddress,
         solanaAccount.address,
         solanaWalletIcon,
-        allFireflyConnections?.connected,
+        connectors,
         ethereum.address,
     ]);
 

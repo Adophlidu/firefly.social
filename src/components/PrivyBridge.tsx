@@ -5,6 +5,7 @@ import {
     type ConnectedWallet,
     type PrivyClientConfig,
     PrivyProvider,
+    type SupportedSolanaTransaction,
     usePrivy,
     useSolanaWallets,
     useSyncJwtBasedAuthState,
@@ -39,6 +40,7 @@ interface PrivyBridgeHandle {
     sendTransactionWithSolana: UseSendTransactionInterface['sendTransaction'];
     signTransactionWithSolana: UseSignTransactionInterface['signTransaction'];
     signMessageWithSolana: UseSignMessageInterface['signMessage'];
+    signAllTransactionsWithSolana: (txs: SupportedSolanaTransaction[]) => Promise<SupportedSolanaTransaction[]>;
 }
 
 function PrivyBridge({ ref }: { ref: Ref<PrivyBridgeHandle> }) {
@@ -48,6 +50,7 @@ function PrivyBridge({ ref }: { ref: Ref<PrivyBridgeHandle> }) {
     const { sendTransaction: sendTransactionWithSolana } = useSendTransaction();
     const { signTransaction: signTransactionWithSolana } = useSignTransaction();
     const { signMessage: signMessageWithSolana } = useSignMessage();
+
     useImperativeHandle(
         ref,
         () => ({
@@ -63,6 +66,9 @@ function PrivyBridge({ ref }: { ref: Ref<PrivyBridgeHandle> }) {
             sendTransactionWithSolana,
             signTransactionWithSolana,
             signMessageWithSolana,
+            signAllTransactionsWithSolana(...args) {
+                return solanaWallets?.[0]?.signAllTransactions(...args);
+            },
         }),
         [
             authenticated,
@@ -144,6 +150,10 @@ export class PrivyBridgeElement extends HTMLElement implements PrivyBridgeHandle
 
     public signTransactionWithSolana(...args: Parameters<PrivyBridgeHandle['signTransactionWithSolana']>) {
         return this._ref.current!.signTransactionWithSolana(...args);
+    }
+
+    public signAllTransactionsWithSolana(...args: Parameters<PrivyBridgeHandle['signAllTransactionsWithSolana']>) {
+        return this._ref.current!.signAllTransactionsWithSolana(...args);
     }
 
     public signMessageWithSolana(...args: Parameters<PrivyBridgeHandle['signMessageWithSolana']>) {

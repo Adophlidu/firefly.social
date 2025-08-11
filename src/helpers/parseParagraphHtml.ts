@@ -7,9 +7,10 @@ import type { ParagraphJSONContent } from '@/providers/paragraph/type.js';
 export function parseParagraphHtml(htmlString: string, jsonString: string) {
     if (!htmlString || !jsonString) return;
 
-    const document = parseHtml(htmlString);
+    const document = parseHtml(`<div style="display:content">${htmlString}</div>`);
 
     const json = parseJson<{ content: ParagraphJSONContent[] }>(jsonString);
+    if (!json) return;
     const twitterEmbeds = json?.content.filter((x) => x.type === 'twitter');
 
     twitterEmbeds?.forEach((x) => {

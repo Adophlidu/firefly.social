@@ -22,6 +22,7 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { SOLANA_CHAIN_ID_IN_FIREFLY, SOLANA_CHAIN_ID_IN_OKX } from '@/constants/chain.js';
 import { Locale, OkxProviderType } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
+import { NATIVE_SOLANA_TOKEN_ADDRESS, NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { useLocale } from '@/helpers/getCookies.js';
 import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
@@ -101,11 +102,15 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
         const provider = isEvm ? evmProvider : solanaProvider;
 
         const chainId =
-            props?.chainId === SOLANA_CHAIN_ID_IN_FIREFLY ? SOLANA_CHAIN_ID_IN_OKX : (props?.chainId ?? mainnet.id);
+            props?.chainId === SOLANA_CHAIN_ID_IN_FIREFLY
+                ? SOLANA_CHAIN_ID_IN_OKX
+                : (props?.chainId ?? isEvm)
+                  ? mainnet.id
+                  : SOLANA_CHAIN_ID_IN_OKX;
         const tokenPair = {
             fromChain: chainId,
             toChain: chainId,
-            fromToken: props?.fromToken,
+            fromToken: props?.fromToken ?? (isEvm ? NATIVE_TOKEN_ADDRESS : NATIVE_SOLANA_TOKEN_ADDRESS),
             toToken: props?.toToken,
         };
 
@@ -176,7 +181,7 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
                 ) : null}
             </div>
             <div
-                className="okx-widget-container no-scrollbar max-h-[90vh] min-h-[550px]"
+                className="okx-widget-container no-scrollbar max-h-[90svh] min-h-[550px] overflow-auto"
                 ref={(ref) => {
                     setWidgetRef(ref);
                 }}

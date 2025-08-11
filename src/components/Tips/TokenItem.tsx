@@ -42,10 +42,15 @@ export function TokenItem({ className, token, disableChainIcon, ...props }: Toke
             enablePropagate
             {...props}
         >
-            <div className="flex items-center gap-x-4">
-                <TokenIcon badgeClassName="bg-white" disableChainIcon={disableChainIcon} token={token} />
-                <div className="text-left">
-                    <div className="h-5 w-full leading-5">
+            <div className="flex min-w-0 flex-1 items-center gap-x-4">
+                <TokenIcon
+                    className="flex-shrink-0"
+                    badgeClassName="bg-white"
+                    disableChainIcon={disableChainIcon}
+                    token={token}
+                />
+                <div className="w-full min-w-0 text-left">
+                    <div className="h-5 w-full truncate leading-5">
                         <span>{token.name}</span>
                         {token.custom ? (
                             <span className="ml-2.5 inline-block h-5 rounded bg-lightBg px-2 text-xs font-medium leading-5 text-second">

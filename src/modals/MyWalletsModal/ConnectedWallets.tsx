@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { mainnet } from '@reown/appkit/networks';
+import { useRouter } from 'next/navigation.js';
 import { type FunctionComponent, memo, type SVGAttributes } from 'react';
 import { useAsyncFn } from 'react-use';
 import { type Connector, useSwitchAccount } from 'wagmi';
@@ -44,7 +45,7 @@ const IconMap: Record<ChainNamespace, FunctionComponent<SVGAttributes<SVGElement
     cosmos: WalletIcon,
 };
 
-interface ConnectedItemProps extends ClickableButtonProps {
+interface ConnectedItemProps extends Omit<ClickableButtonProps, 'onClick'> {
     namespace: ChainNamespace;
     address: string;
     connected: boolean;
@@ -52,6 +53,7 @@ interface ConnectedItemProps extends ClickableButtonProps {
     chainId?: number;
     walletIconUrl?: string;
     source?: ConnectionSource;
+    onOpenPrivy?: () => void;
 }
 
 function ConnectedItem({
@@ -62,11 +64,13 @@ function ConnectedItem({
     chainId,
     walletIconUrl,
     source,
+    onOpenPrivy,
     ...rest
 }: ConnectedItemProps) {
     const { switchAccountAsync } = useSwitchAccount();
     const { data: ensName } = useEnsNameCached(address, undefined, namespace === 'eip155');
     const setActiveNetwork = useSolanaActiveNetworkStore((s) => s.setActiveNetwork);
+    const router = useRouter();
 
     const Icon = IconMap[namespace] || WalletIcon;
 
@@ -79,7 +83,11 @@ function ConnectedItem({
             return;
         }
         if (!connected) return;
-        if (source === ConnectionSource.Privy) return;
+        if (source === ConnectionSource.Privy) {
+            onOpenPrivy?.();
+            router.push('/wallet');
+            return;
+        }
 
         const targetNetwork = await switchNetwork(namespace, chainId);
         if (namespace === 'eip155') {
@@ -88,7 +96,18 @@ function ConnectedItem({
         rewriteDisconnectMethod(namespace, connector?.id);
         await syncWalletIdentity({ address, namespace });
         await appkit.open({ view: 'Account' });
-    }, [connected, connector, namespace, chainId, address, source, switchAccountAsync, setActiveNetwork]);
+    }, [
+        onOpenPrivy,
+        namespace,
+        connected,
+        connector,
+        source,
+        chainId,
+        address,
+        setActiveNetwork,
+        switchAccountAsync,
+        router,
+    ]);
 
     return (
         <ClickableButton
@@ -163,6 +182,9 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
                             connector={walletConnection?.connector}
                             chainId={walletConnection?.chainId}
                             source={ConnectionSource.Privy}
+                            onOpenPrivy={() => {
+                                onOpenWallets?.();
+                            }}
                         />
                     );
                 })

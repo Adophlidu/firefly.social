@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ReceiveModal } from '@/components/ReceiveModal/index.js';
+import { ReceiveModal } from '@/components/FireflyWallet/ReceiveModal/index.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NetworkPluginID } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';

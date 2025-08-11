@@ -32,21 +32,21 @@ import WalletIcon from '@/assets/wallet.fill.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { BackButton, CloseButton } from '@/components/IconButton.js';
-import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { Modal } from '@/components/Modal.js';
-import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
-import { ChooseRecipient } from '@/components/SendTransactionModal/ChooseRecipient.js';
+import { ChooseRecipient } from '@/components/FireflyWallet/SendTransactionModal/ChooseRecipient.js';
 import {
     isOnlyAddress,
     isSocialRecipient,
     RecipientItem,
     type RecipientItemProps,
-} from '@/components/SendTransactionModal/RecipientItem.js';
-import { SearchRecipient } from '@/components/SendTransactionModal/SearchRecipient.js';
+} from '@/components/FireflyWallet/SendTransactionModal/RecipientItem.js';
+import { SearchRecipient } from '@/components/FireflyWallet/SendTransactionModal/SearchRecipient.js';
+import { BackButton, CloseButton } from '@/components/IconButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { Modal } from '@/components/Modal.js';
+import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';
-import { chains } from '@/configs/chains.js';
+import { chains, privyVisibleChains } from '@/configs/chains.js';
 import { NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -574,7 +574,7 @@ function SelectTokenView() {
     return (
         <div className="min-h-0 flex-1">
             <ClickableButton
-                className="text-md absolute right-6 top-6 flex -translate-y-1/2 cursor-pointer items-center space-x-2 text-main"
+                className="text-md absolute right-6 top-8 flex cursor-pointer items-center space-x-2 text-main"
                 onClick={() => {
                     AddCustomERC20ModalRef.open({
                         initialChainId: chainId,
@@ -588,7 +588,7 @@ function SelectTokenView() {
                 placeholder={t`Search token`}
                 filterProps={{
                     placeholder: t`All chains`,
-                    data: chainIds,
+                    data: chainIds.length ? chainIds : privyVisibleChains.map((c) => c.id),
                     popoverClassName: 'w-[150px]',
                     itemRenderer: (chainId, isTag) => getChainItem(chainId, isTag),
                     isSelected: (item, current) => item === current,

@@ -3,7 +3,7 @@
 import { Trans } from '@lingui/react/macro';
 
 import EVMIcon from '@/assets/evm-chains.svg';
-import SolanaIcon from '@/assets/solana.svg';
+import SolanaIcon from '@/assets/solana.colored.svg';
 import {
     FireflyWalletChainSelector,
     type FireflyWalletChainSelectorProps,
@@ -17,7 +17,7 @@ const chains = [
         value: OkxProviderType.EVM,
     },
     {
-        icon: <SolanaIcon viewBox="3 3 14 14" />,
+        icon: <SolanaIcon />,
         label: <Trans>Solana</Trans>,
         value: OkxProviderType.SOLANA,
     },

@@ -125,7 +125,8 @@ export class SolanaWalletProvider implements SolanaProvider {
     }
 
     async signAllTransactions<T extends web3.Transaction | web3.VersionedTransaction>(transactions: T[]) {
-        return await Promise.all(transactions.map((tx) => this.signTransaction(tx)));
+        const provider = await this.getProvider();
+        return provider.signAllTransactions(transactions);
     }
 
     async signMessage(message: Uint8Array) {

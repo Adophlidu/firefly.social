@@ -5,7 +5,7 @@ import { useQueries } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { compact } from 'lodash-es';
 import { notFound, redirect } from 'next/navigation.js';
-import { Suspense, useMemo, useRef, useState } from 'react';
+import { Suspense, useMemo, useState } from 'react';
 import { type Address } from 'viem';
 
 import AddIcon from '@/assets/add-circle.svg';
@@ -13,12 +13,11 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { FireflyWalletChainSelectorWithNetworkType } from '@/components/FireflyWallet/FireflyWalletChainSelectorWithNetworkType.js';
 import { FireflyWalletHomePageUI } from '@/components/FireflyWallet/FireflyWalletHomePageUI.js';
 import { FireflyWalletTokenList } from '@/components/FireflyWallet/FireflyWalletTokenList.js';
+import { ReceiveModal } from '@/components/FireflyWallet/ReceiveModal/index.js';
 import { SelectPrivyWalletGuard } from '@/components/FireflyWallet/SelectPrivyWalletGuard.js';
-import type { TransferModalRef } from '@/components/FireflyWallet/TransferModal.js';
-import { TransferModal } from '@/components/FireflyWallet/TransferModal.js';
+import { SendTransactionModal } from '@/components/FireflyWallet/SendTransactionModal/SendTransactionModal.js';
 import { Loading } from '@/components/Loading.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { ReceiveModal } from '@/components/ReceiveModal/index.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { privyVisibleChains, visibleChains } from '@/configs/chains.js';
 import { NetworkPluginID, NetworkType, Source, STATUS } from '@/constants/enum.js';
@@ -105,7 +104,7 @@ function FireflyWallet() {
         }
     }, [ethereum, networkType, solana]);
 
-    const totalBalance = useQueries({
+    const { totalBalance, isLoadingTotalBalance } = useQueries({
         queries: [
             {
                 queryKey: ['wallet', 'total-balance', NetworkType.Ethereum, ethereum.address],
@@ -123,7 +122,12 @@ function FireflyWallet() {
             },
         ],
         combine(result) {
-            return result.reduce((acc, query) => acc.plus(query.data ? query.data : '0'), BigNumber(0)).toString();
+            return {
+                totalBalance: result
+                    .reduce((acc, query) => acc.plus(query.data ? query.data : '0'), BigNumber(0))
+                    .toString(),
+                isLoadingTotalBalance: result.some((x) => x.isLoading),
+            };
         },
     });
 
@@ -134,8 +138,7 @@ function FireflyWallet() {
 
     const [tabType, setTabType] = useState(TabType.Token);
     const [openReceiveModal, setOpenReceiveModal] = useState(false);
-
-    const transferModalRef = useRef<TransferModalRef>(null);
+    const [openSendTransactionModal, setOpenTransactionModal] = useState(false);
 
     const receiveItems = useMemo(() => {
         const items = privyVisibleChains.map((chain) => ({
@@ -159,10 +162,10 @@ function FireflyWallet() {
 
     return (
         <FireflyWalletHomePageUI
-            balance={totalBalance ?? '0'}
+            balance={isLoadingTotalBalance ? '0' : (totalBalance ?? '0')}
             onSend={() => {
                 captureFireflyWalletEvent(EventId.FIREFLY_WALLET_SEND_CLICK, {});
-                transferModalRef.current?.onOpen();
+                setOpenTransactionModal(true);
             }}
             onReceive={() => {
                 captureFireflyWalletEvent(EventId.FIREFLY_WALLET_RECEIVE_CLICK, {});
@@ -175,7 +178,7 @@ function FireflyWallet() {
                 });
             }}
         >
-            <TransferModal ref={transferModalRef} />
+            <SendTransactionModal open={openSendTransactionModal} onClose={() => setOpenTransactionModal(false)} />
             <ReceiveModal open={openReceiveModal} onClose={() => setOpenReceiveModal(false)} items={receiveItems} />
             <div className="flex w-full flex-col">
                 <div className="relative flex items-center justify-between">

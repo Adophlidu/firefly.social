@@ -18,7 +18,9 @@ import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { groupAndSortByDate } from '@/helpers/sortAndGroupByDate.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
+import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { SolanaNetwork } from '@/providers/solana/Network.js';
 import {
     TransactionHistoryCategory,
     type TransactionHistoryItem,
@@ -80,7 +82,10 @@ function getTransactionHistoryItem(
 }
 
 function TransactionHistoryItem({ item }: { item: TransactionHistoryItem }) {
-    const href = resolveExplorerLink(item.chain_id, item.hash, 'tx');
+    const href = (item.chain_id === SolanaChainId.Mainnet ? SolanaNetwork : EthereumNetwork).getTransactionUrl(
+        item.chain_id as never,
+        item.hash as `0x${string}`,
+    );
     const content = (
         <>
             <div className="flex items-center space-x-5">
@@ -161,7 +166,10 @@ function Category({ category, state }: { category: TransactionHistoryCategory; s
 }
 
 function ItemEnd({ item }: { item: TransactionHistoryItem }) {
-    if (item.category === TransactionHistoryCategory.TokenSwap) {
+    if (
+        item.category === TransactionHistoryCategory.TokenSwap ||
+        item.category === TransactionHistoryCategory.ContractInteraction
+    ) {
         return (
             <div className="ml-auto text-right text-sm font-medium">
                 {item.token_receives[0] ? (
@@ -171,7 +179,11 @@ function ItemEnd({ item }: { item: TransactionHistoryItem }) {
                     </div>
                 ) : null}
                 {item.token_sends[0] ? (
-                    <div className="text-xs font-normal">
+                    <div
+                        className={classNames('font-normal', {
+                            'text-xs': !!item.token_receives[0],
+                        })}
+                    >
                         -{renderShrankPrice(formatPrice(item.token_sends[0].amount) ?? '-')}{' '}
                         {item.token_sends[0].token.symbol}
                     </div>
@@ -250,40 +262,42 @@ function TransactionHistoryTokenItem({ item }: { item: TransactionHistoryItem })
         if (!token) return null;
         return <TokenIcon icon={token.logo} networkType={networkType} chainId={chainId} disableBadge={isSolana} />;
     }
-    if (item.category === TransactionHistoryCategory.TokenSwap && item.token_receives[0] && item.token_sends[0]) {
+    if (
+        [TransactionHistoryCategory.TokenSwap, TransactionHistoryCategory.ContractInteraction].includes(
+            item.category,
+        ) &&
+        item.token_receives[0] &&
+        item.token_sends[0]
+    ) {
         const tokenReceive = item.token_receives[0];
         const tokenSend = item.token_sends[0];
         return (
             <div className="relative size-8">
                 <TokenIcon
-                    icon={tokenReceive.token.logo}
+                    icon={tokenSend.token.logo}
                     networkType={networkType}
                     chainId={chainId}
-                    className="!absolute left-0 top-0"
+                    className="!absolute left-0 top-0 rounded-full bg-white"
                     size={24}
                     disableBadge
                 />
                 <TokenIcon
-                    icon={tokenSend.token.logo}
+                    icon={tokenReceive.token.logo}
                     networkType={networkType}
                     chainId={chainId}
                     size={24}
-                    className="!absolute bottom-0 right-0"
+                    className="!absolute bottom-0 right-0 rounded-full bg-white"
                     disableBadge
                 />
-                <ChainIcon
-                    size={12}
-                    networkType={networkType}
-                    chainId={chainId}
-                    allowEmpty
-                    className="absolute bottom-0 right-0 z-1"
-                />
+                <div className="absolute bottom-0 right-0 z-1 rounded-full bg-white p-[1px]">
+                    <ChainIcon size={12} networkType={networkType} chainId={chainId} allowEmpty />
+                </div>
             </div>
         );
     }
 
     const token = item.token_receives[0] || item.token_sends[0];
-    return <TokenIcon icon={token?.token?.logo} networkType={networkType} chainId={chainId} disableBadge={isSolana} />;
+    return <TokenIcon icon={token?.token?.logo} networkType={networkType} chainId={chainId} />;
 }
 
 function TransactionHistorySubTitle({ item }: { item: TransactionHistoryItem }) {

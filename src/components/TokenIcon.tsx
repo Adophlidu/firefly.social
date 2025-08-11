@@ -84,7 +84,7 @@ export const TokenIcon = memo(function TokenIcon({
             {!disableBadge ? (
                 <span
                     className={classNames(
-                        'absolute -bottom-[1px] overflow-hidden rounded-full bg-lightBottom p-[1px]',
+                        'absolute -bottom-[1px] overflow-hidden rounded-full bg-white p-[1px]',
                         badgeClassName,
                     )}
                     style={{

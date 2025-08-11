@@ -217,7 +217,7 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
         networkSupporterPluginID: PLUGIN_ID,
         chainId: EthereumChainId.ZksyncEra,
         type: EthereumNetworkType.ZksyncEra,
-        icon: 'https://static.debank.com/image/chain/logo_url/era/2cfcd0c8436b05d811b03935f6c1d7da.png',
+        icon: new URL('../assets/zksync.png', import.meta.url).href,
         iconColor: '#3059AE',
         name: 'Zksync Era',
         isMainnet: true,

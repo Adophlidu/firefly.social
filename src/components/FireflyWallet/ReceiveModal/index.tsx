@@ -5,9 +5,12 @@ import { type ReactNode, useState } from 'react';
 import QRCode from 'react-qr-code';
 
 import { ActionButton } from '@/components/ActionButton.js';
+import {
+    ReceiveChainItem,
+    type ReceiveChainItemProps,
+} from '@/components/FireflyWallet/ReceiveModal/ReceiveChainItem.js';
 import { BackButton, CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
-import { ReceiveChainItem, type ReceiveChainItemProps } from '@/components/ReceiveModal/ReceiveChainItem.js';
 import { delay } from '@/helpers/delay.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ReceiveChainItem } from '@/components/ReceiveModal/ReceiveChainItem.js';
+import { ReceiveChainItem } from '@/components/FireflyWallet/ReceiveModal/ReceiveChainItem.js';
 
 const meta = {
     title: 'FireflyWallet/ReceiveChainItem',

@@ -4,14 +4,19 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { compact, first, uniq } from 'lodash-es';
 import { useEffect, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
+import type { Address } from 'viem';
 
 import SearchIcon from '@/assets/search.svg';
 import { BaseNotFound } from '@/components/BaseNotFound.js';
+import {
+    RecipientItem,
+    type RecipientItemProps,
+} from '@/components/FireflyWallet/SendTransactionModal/RecipientItem.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { RecipientItem, type RecipientItemProps } from '@/components/SendTransactionModal/RecipientItem.js';
-import { NetworkType, Source } from '@/constants/enum.js';
+import { NetworkType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
@@ -77,7 +82,20 @@ export function SearchRecipient({
                         );
                         const profile = first(profiles);
                         if (!profile) return null;
-                        const source = resolveSourceFromFireflyPlatform(profile.platform);
+                        const source = resolveSourceFromFireflyPlatform(profile.platform) as SocialSource;
+                        const sources = uniq(
+                            profiles.map((profile) => resolveSourceFromFireflyPlatform(profile.platform)),
+                        ) as SocialSource[];
+                        if (item.ens?.[0] && isSameAddress(item.ens?.[0]?.resolved_address, debouncedKeyword)) {
+                            const ens = item.ens[0];
+                            return {
+                                address: ens.resolved_address as Address,
+                                ens: ens.handle,
+                                avatar: getStampAvatarByProfileId(Source.Wallet, ens.resolved_address!),
+                                sources,
+                                fireflyId: first(item.account)?.platform_id,
+                            } satisfies RecipientItemProps;
+                        }
                         return {
                             address: ETH_ZERO_ADDRESS,
                             avatar:
@@ -90,11 +108,9 @@ export function SearchRecipient({
                             handle: profile.handle,
                             source,
                             id: profile.platform_id,
-                            sources: uniq(
-                                profiles.map((profile) => resolveSourceFromFireflyPlatform(profile.platform)),
-                            ),
+                            sources,
                             fireflyId: first(item.account)?.platform_id,
-                        } as RecipientItemProps;
+                        } satisfies RecipientItemProps;
                     }),
             );
             return createPageable(data, res.indicator, res.nextIndicator);
@@ -121,7 +137,7 @@ export function SearchRecipient({
                     onChange={(e) => setKeyword(e.target.value)}
                 />
             </div>
-            {queryResult.isLoading && !recipients?.length ? (
+            {(queryResult.isLoading && !recipients?.length) || keyword !== debouncedKeyword ? (
                 <div className="flex w-full flex-1 items-center justify-center">
                     <LoadingIcon />
                 </div>

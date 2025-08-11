@@ -1,7 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
 import type { ConnectedSolanaWallet } from '@privy-io/react-auth';
 import type { RequestArguments } from '@reown/appkit';
-import type { Provider, ProviderEventEmitterMethods } from '@reown/appkit-adapter-solana';
+import type { AnyTransaction, Provider, ProviderEventEmitterMethods } from '@reown/appkit-adapter-solana';
 import {
     BaseWalletAdapter,
     scopePollingDetectionStrategy,
@@ -282,8 +282,13 @@ export class PrivySolanaWalletProvider implements Provider {
         return result.signature;
     }
 
-    signAllTransactions<T>(transactions: T): Promise<T> {
-        throw new Error('Not implemented');
+    async signAllTransactions<T extends AnyTransaction[]>(transactions: T): Promise<T> {
+        const wallet = getWallet();
+        const privyBridge = getPrivyBridge();
+        if (!wallet || !privyBridge) {
+            throw new WalletNotConnectedError();
+        }
+        return (await privyBridge.signAllTransactionsWithSolana(transactions)) as T;
     }
 
     async signAndSendTransaction<T extends web3.Transaction | web3.VersionedTransaction>(
