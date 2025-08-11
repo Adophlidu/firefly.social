@@ -169,17 +169,6 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
         averageBlockDelay: 10,
     },
     {
-        ID: `${PLUGIN_ID}_mantle`,
-        networkSupporterPluginID: PLUGIN_ID,
-        chainId: EthereumChainId.Mantle,
-        type: EthereumNetworkType.Mantle,
-        icon: new URL('../assets/mantle.webp', import.meta.url).href,
-        iconColor: 'rgb(255, 255, 255)',
-        name: 'Mantle',
-        isMainnet: true,
-        averageBlockDelay: 10,
-    },
-    {
         ID: `${PLUGIN_ID}_xlayer`,
         networkSupporterPluginID: PLUGIN_ID,
         chainId: EthereumChainId.XLayer,

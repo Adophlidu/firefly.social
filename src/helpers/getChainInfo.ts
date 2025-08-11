@@ -28,7 +28,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'near-protocol',
         name: 'Near',
-        icon: 'https://coin-images.coingecko.com/coins/images/20582/large/aurora.jpeg',
+        icon: 'https://assets.coingecko.com/coins/images/10365/standard/near.jpg?1696510367',
     },
     {
         runtime: 'hedera-hashgraph',
