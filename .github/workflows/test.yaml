@@ -2,6 +2,10 @@ name: Unit Tests
 
 on:
     push:
+        branches:
+            - '**'
+            - '!main'
+            - '!released'
 
 jobs:
     test:
