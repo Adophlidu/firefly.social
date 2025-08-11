@@ -1,4 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
+import { compact, first } from 'lodash-es';
 import type { LinkProps } from 'next/link.js';
 import { memo, type ReactNode } from 'react';
 
@@ -7,8 +8,7 @@ import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
+import { convertBskyHandleToDid } from '@/providers/bsky/convertBskyHandleToDid.js';
 
 interface Props extends Omit<LinkProps, 'href'> {
     handle: string;
@@ -26,44 +26,38 @@ export const MentionLinkWithQueryProfile = memo<Props>(function MentionLinkWithQ
     fallback = null,
     ...rest
 }) {
-    const { data: bskyHandle } = useQuery({
-        queryKey: ['bsky-handle', handle],
-        async queryFn() {
-            const didResponse = await bskySessionHolder.agent.resolveHandle({ handle });
-            const did = didResponse?.data?.did;
-            if (!did) return null;
-            return { source: Source.Bsky, profileId: did, handle } as const;
-        },
-        enabled: !!handle && [Source.Bsky].includes(source),
-        retry: false,
-        staleTime: 1000 * 60 * 60,
-        refetchOnReconnect: false,
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-    });
-    const { data } = useQuery({
-        queryKey: ['profile', source, handle],
-        async queryFn() {
-            return runInSafeAsync(async () => {
-                if (source === Source.Bsky) {
-                    const didResponse = await bskySessionHolder.agent.resolveHandle({ handle });
-                    const did = didResponse?.data?.did;
+    const profile = useQueries({
+        queries: [
+            {
+                queryKey: ['handle', Source.Bsky, handle],
+                async queryFn() {
+                    const did = await convertBskyHandleToDid(handle);
                     if (!did) return null;
-
                     return { source: Source.Bsky, profileId: did, handle } as const;
-                }
-
-                return resolveSocialMediaProvider(source).getProfileByIdOrHandle(handle);
-            });
+                },
+                enabled: source === Source.Bsky && !!handle,
+                staleTime: 1000 * 60 * 60,
+                refetchOnReconnect: false,
+                refetchOnWindowFocus: false,
+                refetchOnMount: false,
+            },
+            {
+                queryKey: ['profile', source, handle],
+                async queryFn() {
+                    return await resolveSocialMediaProvider(source).getProfileByIdOrHandle(handle);
+                },
+                enabled: !!handle && source !== Source.Bsky,
+                retry: false,
+                staleTime: 1000 * 60 * 60,
+                refetchOnReconnect: false,
+                refetchOnWindowFocus: false,
+                refetchOnMount: false,
+            },
+        ],
+        combine(queries) {
+            return first(compact(queries.map((query) => query.data)));
         },
-        enabled: !!handle && ![Source.Bsky].includes(source),
-        retry: false,
-        staleTime: 1000 * 60 * 60,
-        refetchOnReconnect: false,
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
     });
-    const profile = bskyHandle || data;
     if (!profile) return fallback;
     return (
         <ProfileTippy

@@ -33,6 +33,7 @@ import {
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { ChannelAtUri, PostAtUri } from '@/providers/bsky/AtUri.js';
+import { convertBskyHandleToDid } from '@/providers/bsky/convertBskyHandleToDid.js';
 import { formatBskyChannel } from '@/providers/bsky/formatBskyChannel.js';
 import { formatBskyFeedPost, formatBskyPost, formatBskyThreadPosts } from '@/providers/bsky/formatBskyFeedPost.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
@@ -184,8 +185,8 @@ class BskySocialMedia implements Provider {
         return formatBskyProfile(data);
     }
     async getProfileByHandle(handle: string): Promise<Profile> {
-        const didResponse = await bskySessionHolder.agent.resolveHandle({ handle });
-        return this.getProfileById(didResponse?.data?.did || handle);
+        const did = await convertBskyHandleToDid(handle);
+        return this.getProfileById(did || handle);
     }
     async getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
         return this.getProfileById(profileIdOrHandle);
