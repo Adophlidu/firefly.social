@@ -15,17 +15,10 @@ const InternalEnvSchema = z.object({
     APPLE_CLIENT_ID: z.string(),
     APPLE_CLIENT_SECRET: z.string(),
 
-    IMGUR_CLIENT_ID: z.string(),
-    IMGUR_CLIENT_SECRET: z.string(),
-
-    NEXTAUTH_URL: z.string().optional(),
     NEXTAUTH_SECRET: z.string(),
 
     SESSION_CIPHER_KEY: z.string(),
     SESSION_CIPHER_IV: z.string(),
-
-    VITE_ACCOUNT: z.string().regex(/^0x[0-9a-fA-F]+$/),
-    VITE_ACCOUNT_KEY: z.string().regex(/^0x[0-9a-fA-F]+$/),
 
     FARCASTER_SIGNER_FID: z.string(),
     FARCASTER_SIGNER_MNEMONIC: z.string(),
@@ -33,8 +26,6 @@ const InternalEnvSchema = z.object({
     FIREFLY_JWT_SECRET: z.string(),
 
     X3_PRO_API_TOKEN: z.string(),
-
-    PRIVY_APP_SECRET: z.string(),
 
     ORB_API_KEY: z.string(),
 });
@@ -46,7 +37,6 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.social'),
     NEXT_PUBLIC_SOLANA_RPC_URL: z.string().default('https://api.mainnet-beta.solana.com'),
     NEXT_PUBLIC_FIREFLY_NITTER_URL: z.string().default('https://nitter.r2d2.to'),
-    NEXT_PUBLIC_PRIVY_APP_ID: z.string(),
 
     // features
     NEXT_PUBLIC_POLL: z.nativeEnum(STATUS).default(STATUS.Disabled),
@@ -56,10 +46,8 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_BLINK: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_OPENGRAPH: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_SCHEDULE_POST: z.nativeEnum(STATUS).default(STATUS.Enabled),
-    NEXT_PUBLIC_REACT_DEV_TOOLS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_TIPS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_COMPOSE_GIF: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_CHANNEL_TRENDING: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_DEVELOPERS: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_TELEMETRY: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_TELEMETRY_DEBUG: z.nativeEnum(STATUS).default(STATUS.Disabled),
@@ -94,6 +82,9 @@ const ExternalEnvSchema = z.object({
 
     // w3m
     NEXT_PUBLIC_W3M_PROJECT_ID: z.string().default('invalid_w3m_project_id'),
+
+    // privy
+    NEXT_PUBLIC_PRIVY_APP_ID: z.string().default('invalid_privy_app_id'),
 
     // firebase
     NEXT_PUBLIC_FIREBASE_API_KEY: z.string().optional(),
@@ -136,10 +127,8 @@ export const env = {
         NEXT_PUBLIC_BLINK: process.env.NEXT_PUBLIC_BLINK,
         NEXT_PUBLIC_OPENGRAPH: process.env.NEXT_PUBLIC_OPENGRAPH,
         NEXT_PUBLIC_SCHEDULE_POST: process.env.NEXT_PUBLIC_SCHEDULE_POST,
-        NEXT_PUBLIC_REACT_DEV_TOOLS: process.env.NEXT_PUBLIC_REACT_DEV_TOOLS,
         NEXT_PUBLIC_TIPS: process.env.NEXT_PUBLIC_TIPS,
         NEXT_PUBLIC_COMPOSE_GIF: process.env.NEXT_PUBLIC_COMPOSE_GIF,
-        NEXT_PUBLIC_CHANNEL_TRENDING: process.env.NEXT_PUBLIC_CHANNEL_TRENDING,
         NEXT_PUBLIC_TELEMETRY: process.env.NEXT_PUBLIC_TELEMETRY,
         NEXT_PUBLIC_TELEMETRY_DEBUG: process.env.NEXT_PUBLIC_TELEMETRY_DEBUG,
         NEXT_PUBLIC_DEVELOPERS: process.env.NEXT_PUBLIC_DEVELOPERS,

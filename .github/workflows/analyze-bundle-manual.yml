@@ -1,0 +1,66 @@
+name: Manual Bundle Analysis
+
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - main
+            - released
+    pull_request:
+        branches:
+            - main
+            - released
+
+jobs:
+    analyze-bundle:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Authenticate NPM
+              uses: DimensionDev/github-token-action@latest
+              with:
+                  registry: true
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.node-version'
+
+            - name: Setup GitHub Actions
+              run: ./scripts/setup-gh-actions.sh
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Generate Statoscope report
+              run: ANALYZE_STATOSCOPE=true pnpm build
+              env:
+                  NODE_OPTIONS: --max_old_space_size=8192
+
+            - name: Generate webpack-bundle-analyzer report
+              run: ANALYZE=true pnpm build
+              env:
+                  NODE_OPTIONS: --max_old_space_size=8192
+
+            - name: Upload Statoscope report as artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: statoscope-report
+                  path: ./statoscope.json
+                  retention-days: 30
+
+            - name: Create analysis summary
+              run: |
+                  echo "## Bundle Analysis Reports Generated" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "### 📊 Statoscope Report" >> $GITHUB_STEP_SUMMARY
+                  echo "Generated: \`statoscope.json\`" >> $GITHUB_STEP_SUMMARY
+                  echo "View online at: https://statoscope.tech/" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "**Note:** Reports are available as workflow artifacts for 30 days."
