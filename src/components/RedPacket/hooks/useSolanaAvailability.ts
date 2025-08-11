@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { minus } from '@/helpers/number.js';
-import { resolveSolanaAccountId } from '@/helpers/resolveSolanaAccountId.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { SolanaRedPacket } from '@/providers/solana/RedPacket.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
@@ -16,7 +15,7 @@ export function useSolanaAvailability(payload: RedPacketJSONPayload, chainId: nu
         enabled,
         queryFn: async () => {
             try {
-                const accountId = resolveSolanaAccountId(payload.rpid, payload.accountId);
+                const accountId = payload.rpid;
 
                 const redPacket = await SolanaRedPacket.getRedPacket(new web3.PublicKey(accountId));
                 const claimedRecord = account

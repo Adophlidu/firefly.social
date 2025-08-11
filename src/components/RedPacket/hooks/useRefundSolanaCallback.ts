@@ -2,7 +2,6 @@ import { web3 } from '@coral-xyz/anchor';
 import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { resolveSolanaAccountId } from '@/helpers/resolveSolanaAccountId.js';
 import type { ChainContextOverrides } from '@/hooks/useChainContext.js';
 import { getTokenAccountByMint } from '@/providers/solana/getTokenAccountByMint.js';
 import { SolanaRedPacket } from '@/providers/solana/RedPacket.js';
@@ -10,12 +9,11 @@ import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 export function useRefundSolanaCallback(rpid?: string, overrides?: ChainContextOverrides) {
     const chainId = overrides?.chainId || SolanaChainId.Mainnet;
-    const rpAccountId = rpid ? resolveSolanaAccountId(rpid) : null;
 
     return useAsyncFn(async () => {
-        if (!rpAccountId) throw new Error('Failed to resolve red packet account id.');
+        if (!rpid) throw new Error('Failed to resolve red packet account id.');
 
-        const rpAccount = new web3.PublicKey(rpAccountId);
+        const rpAccount = new web3.PublicKey(rpid);
         const redPacket = await SolanaRedPacket.getRedPacket(rpAccount);
         if (redPacket.tokenType === 0) {
             await SolanaRedPacket.refundNativeToken(rpAccount);
@@ -38,5 +36,5 @@ export function useRefundSolanaCallback(rpid?: string, overrides?: ChainContextO
         await queryClient.refetchQueries({
             queryKey: ['red-packet', 'solana-availability', rpid],
         });
-    }, [rpid, chainId, rpAccountId]);
+    }, [rpid, chainId]);
 }

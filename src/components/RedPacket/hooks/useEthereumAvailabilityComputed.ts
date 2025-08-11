@@ -1,5 +1,5 @@
 import { type QueryObserverResult, type RefetchOptions, useQuery } from '@tanstack/react-query';
-import { compact, first } from 'lodash-es';
+import { compact } from 'lodash-es';
 import { useCallback } from 'react';
 
 import { useAvailability } from '@/components/RedPacket/hooks/useAvailability.js';
@@ -36,15 +36,7 @@ export function useEthereumAvailabilityComputed(payload: RedPacketJSONPayload, p
         enabled,
     );
 
-    const image = first(
-        compact(
-            post.metadata.content?.attachments
-                ?.filter((x) => x.type === 'Image')
-                .map((x) => x.uri)
-                .filter(Boolean) ?? EMPTY_LIST,
-        ),
-    );
-    const parsed = useParseRedPacket(account, post.source, image, enabled);
+    const { parsed } = useParseRedPacket(post.source, post, enabled);
 
     const checkAvailability = recheckAvailability as (
         options?: RefetchOptions,
@@ -78,13 +70,14 @@ export function useEthereumAvailabilityComputed(payload: RedPacketJSONPayload, p
 
     const { data: isSponsorable = false } = useCheckSponsorableGasFee(chainId, account, enabled);
 
+    const redpacket = parsed?.redpacket;
     if (!availability || (!payload.password && !data))
         return {
             chainId,
-            isEmpty: !!parsed?.redpacket?.isEmpty,
-            isClaimed: !!parsed?.redpacket?.isClaimed || !!parsed?.redpacket?.isFireflyClaimed,
-            isExpired: !!parsed?.redpacket?.isExpired,
-            isBlacklist: !!parsed?.redpacket?.isBlacklist,
+            isEmpty: !!redpacket?.isEmpty,
+            isClaimed: !!redpacket?.isClaimed || !!redpacket?.isFireflyClaimed,
+            isExpired: !!redpacket?.isExpired,
+            isBlacklist: !!redpacket?.isBlacklist,
             isSponsorable,
             availability,
             checkAvailability,
@@ -107,8 +100,7 @@ export function useEthereumAvailabilityComputed(payload: RedPacketJSONPayload, p
         };
     const isEmpty = availability.balance === '0';
     const isExpired = availability.expired;
-    const isClaimed =
-        parsed?.redpacket?.isClaimed || parsed?.redpacket?.isFireflyClaimed || availability.claimed_amount !== '0';
+    const isClaimed = redpacket?.isClaimed || redpacket?.isFireflyClaimed || availability.claimed_amount !== '0';
     const isRefunded = isEmpty && availability.claimed < availability.total;
     const isCreator = isSameEthereumAddress(payload?.sender.address ?? '', account);
     const isPasswordValid = !!(password && password !== 'PASSWORD INVALID');
@@ -122,7 +114,7 @@ export function useEthereumAvailabilityComputed(payload: RedPacketJSONPayload, p
         isEmpty,
         isSponsorable,
         isExpired,
-        isBlacklist: parsed?.redpacket?.isBlacklist,
+        isBlacklist: redpacket?.isBlacklist,
         availability,
         checkAvailability,
         claimStrategyStatus: data?.data,

@@ -10,7 +10,6 @@ import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import type { NetworkType } from '@/constants/enum.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { resolveSolanaAccountId } from '@/helpers/resolveSolanaAccountId.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
 import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
@@ -49,7 +48,7 @@ function HistoryDetail() {
         networkType: NetworkType;
     };
 
-    const { claimInfo, claimList, onEndReached } = useEthereumClaimedInfo(resolveSolanaAccountId(rpid));
+    const { claimInfo, claimList, onEndReached } = useEthereumClaimedInfo(rpid);
 
     return (
         <div className="flex w-[600px] flex-grow flex-col overflow-auto px-4 py-3">

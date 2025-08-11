@@ -20,15 +20,13 @@ export function useAvailabilityComputed(payload: RedPacketJSONPayload, post: Pos
     const evmChainId =
         payloadChainId ??
         (payload.network
-            ? EVMNetworkResolver.networkChainId(payload.network as EthereumNetworkType)
-            : EthereumChainId.Mainnet) ??
-        EthereumChainId.Mainnet;
+            ? EVMNetworkResolver.networkChainId(payload.network as EthereumNetworkType) || EthereumChainId.Mainnet
+            : EthereumChainId.Mainnet);
     const solanaChainId =
         payloadChainId ??
         (payload.network
-            ? SolanaNetworkResolver.networkChainId(payload.network as SolanaNetworkType)
-            : SolanaChainId.Mainnet) ??
-        SolanaChainId.Mainnet;
+            ? SolanaNetworkResolver.networkChainId(payload.network as SolanaNetworkType) || SolanaChainId.Mainnet
+            : SolanaChainId.Mainnet);
 
     const evmAvailability = useEthereumAvailabilityComputed(
         { ...payload, chainId: evmChainId },

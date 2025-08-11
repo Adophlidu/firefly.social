@@ -2,14 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 
 import { type SocialSource } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
-import { resolveSolanaAccountId } from '@/helpers/resolveSolanaAccountId.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
 export function useClaimStrategyStatus(payload: RedPacketJSONPayload, source: SocialSource, enabled = true) {
-    const rpid = resolveSolanaAccountId(payload.rpid, payload.accountId);
+    const rpid = payload.rpid;
 
     const { account } = useChainContext({
         chainId: payload.chainId,

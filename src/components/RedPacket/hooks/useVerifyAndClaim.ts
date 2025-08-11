@@ -6,7 +6,6 @@ import { useSolanaVerifyAndClaim } from '@/components/RedPacket/hooks/useSolanaV
 import { NetworkType, type SocialSource } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
-import { resolveSolanaAccountId } from '@/helpers/resolveSolanaAccountId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { sharePostAfterClaimed } from '@/helpers/sharePostAfterClaimed.js';
 import { unreachable } from '@/helpers/unreachable.js';
@@ -36,7 +35,7 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
             if (result.tx && profile?.profileId && profile.handle) {
                 await runInSafeAsync(() =>
                     FireflyRedPacketEndpoint.finishClaiming(
-                        resolveSolanaAccountId(payload.rpid),
+                        payload.rpid,
                         profile.platform,
                         profile.profileId || '',
                         profile.handle || '',

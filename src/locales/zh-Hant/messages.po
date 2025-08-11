@@ -874,9 +874,6 @@ msgstr "追蹤以鑄造收集"
 msgid "{0, plural, one {Like} other {Likes}}"
 msgstr "{0, plural, one {讚} other {讚}}"
 
-msgid "This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to you and decrypt it with Mask Network extension."
-msgstr "此訊息為端到端加密，僅在加密給您時可透過 Mask Network 擴充功能解密。"
-
 #. placeholder {0}: post.metadata.content.asset.type
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[圖片]} Video {[影片]} Audio {[音頻]} Poll {[投票]} other {}}"
@@ -4336,10 +4333,6 @@ msgstr "未檢測到勒索行為。"
 
 msgid "No Lens profile found,"
 msgstr ""
-
-#. placeholder {0}: error.message
-msgid "We encountered an error when try to decrypt this message: {0}"
-msgstr "我們在嘗試解密此訊息時遇到了錯誤：{0}"
 
 msgid "No one you follow has traded this token."
 msgstr "你追蹤的人中沒有人交易過此代幣。"

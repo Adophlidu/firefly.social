@@ -9,7 +9,6 @@ import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMes
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
-import { resolveSolanaAccountId } from '@/helpers/resolveSolanaAccountId.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
@@ -25,7 +24,7 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, post: Pos
     const { data, isFetching, refetch: recheckClaimStatus } = useClaimStrategyStatus(payload, post.source, enabled);
 
     const [{ loading }, handleClaim] = useAsyncFn(async () => {
-        const accountId = resolveSolanaAccountId(payload.rpid, payload.accountId);
+        const accountId = payload.rpid;
 
         if (!walletProvider?.publicKey) {
             WalletConnectModalRef.open({ networkType: NetworkType.Solana });

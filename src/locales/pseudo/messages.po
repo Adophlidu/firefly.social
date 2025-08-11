@@ -869,9 +869,6 @@ msgstr ""
 msgid "{0, plural, one {Like} other {Likes}}"
 msgstr ""
 
-msgid "This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to you and decrypt it with Mask Network extension."
-msgstr ""
-
 #. placeholder {0}: post.metadata.content.asset.type
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
@@ -4314,10 +4311,6 @@ msgid "No blackmail activities involved."
 msgstr ""
 
 msgid "No Lens profile found,"
-msgstr ""
-
-#. placeholder {0}: error.message
-msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr ""
 
 msgid "No one you follow has traded this token."

@@ -1,8 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';
@@ -19,7 +17,8 @@ import { ContentTranslator } from '@/components/Posts/ContentTranslator.js';
 import { PostBodyReplyContent } from '@/components/Posts/PostBodyReplyContent.js';
 import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
-import { RedPacketInspector } from '@/components/RedPacket/RedPacketInspector.js';
+import { useParseRedPacket } from '@/components/RedPacket/hooks/useParseRedPacket.js';
+import { RedPacketCard } from '@/components/RedPacket/RedPacketCard.js';
 import { TruthSocialPostMarkup } from '@/components/TrumpTruthSocial/TruthSocialPostMarkup.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { PageRoute, Source, STATUS } from '@/constants/enum.js';
@@ -32,7 +31,7 @@ import {
 } from '@/constants/index.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
+import { getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
@@ -42,6 +41,7 @@ import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useForkRef } from '@/hooks/useForkRef.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPollIdFromLink } from '@/services/getPostLinks.js';
 import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
@@ -59,10 +59,10 @@ export interface PostBodyContentProps {
     ref?: React.Ref<HTMLDivElement>;
 }
 
-function canSkipWaitingForPayload(post: Post) {
+function checkIfHasRedPacket(post: Post) {
     const content = post.metadata.content?.content;
 
-    return !(content?.includes(RP_HASH_TAG) || !!getEncryptedPayloadFromText(content));
+    return content?.includes(RP_HASH_TAG) || !!getEncryptedPayloadFromText(content);
 }
 
 export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
@@ -91,16 +91,6 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
     const mergedRef = useForkRef(ref, seenRef);
 
     const attachments = metadata.content?.attachments ?? EMPTY_LIST;
-    const { data: payloads, isLoading: decodingImage } = useQuery({
-        queryKey: ['payloads', postRawContent, attachments],
-        networkMode: 'always',
-        queryFn: async () => {
-            return {
-                payloadFromText: getEncryptedPayloadFromText(postRawContent),
-                payloadFromImageAttachment: await getEncryptedPayloadFromImageAttachment(attachments),
-            };
-        },
-    });
 
     const muted = useIsProfileMuted(author.source, author.profileId, author.viewerContext?.blocking, isDetail);
 
@@ -111,34 +101,30 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
     const isProfilePage = pathname === PageRoute.Profile || isRoutePathname(pathname, PageRoute.Profile);
     const isTokenPage = /^\/token\b/.test(pathname);
 
-    const payloadFromImageAttachment = payloads?.payloadFromImageAttachment;
-    const payloadImageUrl = payloadFromImageAttachment?.[2];
-    const hasEncryptedPayload = payloads?.payloadFromImageAttachment || payloads?.payloadFromText;
+    const hasRedpacket = checkIfHasRedPacket(post);
+    const { parsed, payloadImage, isLoading: isParsingRedPacket } = useParseRedPacket('', post, hasRedpacket);
 
     // if payload image attachment is available, we don't need to show the attachments
     const availableAttachments = useMemo(() => {
-        if (!payloadImageUrl) return attachments;
-        return attachments.filter((x) => x.uri !== payloadImageUrl);
-    }, [attachments, payloadImageUrl]);
+        if (!payloadImage) return attachments;
+        return attachments.filter((x) => x.uri !== payloadImage);
+    }, [attachments, payloadImage]);
 
     const showAttachments =
-        (availableAttachments.length > 0 || !!metadata.content?.asset) &&
-        (!decodingImage || canSkipWaitingForPayload(post));
+        (availableAttachments.length > 0 || !!metadata.content?.asset) && (!hasRedpacket || !isParsingRedPacket);
 
     const noLeftPadding = isDetail || isMedium || disablePadding;
 
     const oembedUrl = resolveOembedUrl(post);
     const pollId = oembedUrl ? getPollIdFromLink(oembedUrl) : undefined;
 
+    const hasEncryptedPayload = !!parsed?.redpacket?.payload;
     const EncryptedContent = useMemo(() => {
+        if (!seen || isInCompose || !parsed?.redpacket?.payload) return null;
         if (post.source === Source.Twitter && !currentTwitterProfileSession) return null;
 
-        if (seen && hasEncryptedPayload && !isInCompose) {
-            return <RedPacketInspector post={post} payloads={compact(Object.values(payloads))} />;
-        }
-
-        return null;
-    }, [post, currentTwitterProfileSession, seen, hasEncryptedPayload, payloads, isInCompose]);
+        return <RedPacketCard post={post} payload={parsed.redpacket.payload as RedPacketJSONPayload} />;
+    }, [parsed, post, currentTwitterProfileSession, seen, isInCompose]);
 
     if (post.isHidden || (muted && !isProfilePage)) {
         return (
@@ -156,7 +142,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
 
     const supportMultipleEmbeds = SUPPORTED_MULTIPLE_EMBED_SOURCES.includes(post.source);
     const LinksContent =
-        !decodingImage && (supportMultipleEmbeds || (!hasEncryptedPayload && !pollId)) ? (
+        !isParsingRedPacket && (supportMultipleEmbeds || (!hasEncryptedPayload && !pollId)) ? (
             <PostLinks hasRpPayload={!!hasEncryptedPayload} post={post} />
         ) : null;
 
@@ -238,7 +224,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
             {EncryptedContent}
 
             {/* Poll */}
-            {!decodingImage && (!hasEncryptedPayload || supportMultipleEmbeds) ? (
+            {!isParsingRedPacket && (!hasEncryptedPayload || supportMultipleEmbeds) ? (
                 pollId && oembedUrl ? (
                     <FramePoll post={post} pollId={pollId} frameUrl={oembedUrl} />
                 ) : post.poll ? (
