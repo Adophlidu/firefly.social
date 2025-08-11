@@ -12,13 +12,14 @@ import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { useDefaultFireflyAvatar } from '@/hooks/useDefaultFireflyAvatar.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 function resolveImgurUrl(url: string) {
-    if (!URL.canParse(url)) return;
+    const u = parseUrl(url);
+    if (!u) return;
 
-    const u = new URL(url);
     if (u.protocol !== 'https:') return;
     if (u.host !== 'i.imgur.com') return;
 

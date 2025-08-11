@@ -14,6 +14,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { XIcon } from '@/components/XIcon.js';
 import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { ClubUrl } from '@/providers/types/Trending.js';
@@ -41,8 +42,8 @@ export function ClubLink({ link, iconSize = 16 }: Props) {
     const isTwitterLogin = useIsLogin(Source.Twitter);
 
     const isTwitter = link.type === 'twitter';
-    const url = new URL(link.link);
-    const handle = isTwitter ? url.pathname.slice(1) : null;
+    const url = parseUrl(link.link);
+    const handle = isTwitter ? url?.pathname.slice(1) : null;
 
     const { data: fireflyTwitterLink } = useQuery({
         queryKey: ['twitter', 'profile-by-handle', handle],
@@ -57,7 +58,7 @@ export function ClubLink({ link, iconSize = 16 }: Props) {
     const PlatformIcon = brands[link.type];
 
     return (
-        <Tooltip content={fireflyTwitterLink ? `@${handle}` : url.host} placement="top">
+        <Tooltip content={fireflyTwitterLink ? `@${handle}` : url?.host} placement="top">
             <Link className="z-10" href={href} target={fireflyTwitterLink ? undefined : '_blank'}>
                 <PlatformIcon width={iconSize} height={iconSize} />
             </Link>

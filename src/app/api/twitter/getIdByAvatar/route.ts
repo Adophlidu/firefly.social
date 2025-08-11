@@ -15,10 +15,9 @@ export async function GET(request: NextRequest) {
         if (response.status === 302) {
             const location = response.headers.get('Location');
             if (!location) return new Response('Missing location', { status: 400 });
-            const twitterId = new URL(location).searchParams.get('twitterId');
 
             return createResponseJson({
-                twitterId,
+                twitterId: new URL(location).searchParams.get('twitterId'),
             });
         }
         return createErrorResponseJson('Not Found', {

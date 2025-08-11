@@ -14,6 +14,5 @@ export function matchDomainSuffix(url: string, domain: string) {
     }
 
     const { hostname } = new URL(url);
-
     return hostname === domain || hostname.endsWith('.' + domain);
 }

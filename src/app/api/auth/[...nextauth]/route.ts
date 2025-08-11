@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server.js';
+import urlcat from 'urlcat';
 
 import { authOptions } from '@/app/api/auth/[...nextauth]/options.js';
 import { DeleteCookieScript, MaskDelegateCookieName } from '@/app/api/mask/delegate-x-token/shared.js';
@@ -12,7 +13,12 @@ export { handler as POST };
 export async function GET(request: NextRequest, context: NextRequestContext<{}>) {
     if (request.nextUrl.pathname === '/api/auth/signin') {
         return NextResponse.redirect(
-            new URL(`/auth/error?error=${request.nextUrl.searchParams.get('error')}`, request.url),
+            new URL(
+                urlcat('/auth/error', {
+                    error: request.nextUrl.searchParams.get('error'),
+                }),
+                request.url,
+            ),
         );
     }
 

@@ -1,8 +1,10 @@
+import { parseUrl } from '@/helpers/parseUrl.js';
 import type { ClubUrl } from '@/providers/types/Trending.js';
 
 export function getClubLink(links: string[]): ClubUrl[] {
     return links.map((x) => {
-        const host = new URL(x).host;
+        const host = parseUrl(x)?.host;
+
         if (host === 'twitter.com' || host === 'x.com') return { type: 'twitter', link: x };
         if (host === 't.me' || host === 'telegram.org') return { type: 'telegram', link: x };
         if (host === 'facebook.com' || host === 'www.facebook.com') return { type: 'facebook', link: x };
