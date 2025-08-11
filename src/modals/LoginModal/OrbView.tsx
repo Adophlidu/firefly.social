@@ -6,10 +6,13 @@ import { useState } from 'react';
 import { useAsync, useAsyncRetry } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 
+import ReloadIcon from '@/assets/reload.svg';
+import { ClickableArea } from '@/components/ClickableArea.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { Source } from '@/constants/enum.js';
-import { InvalidOrbPermissionError, InvalidResultError } from '@/constants/error.js';
+import { AbortError, InvalidOrbPermissionError, InvalidResultError } from '@/constants/error.js';
 import { ORB_REPLY_COUNTDOWN, SEVEN_DAYS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -50,9 +53,7 @@ export function OrbView() {
         loading: initSignInLoading,
         value: initSignInData,
         retry: retryInitSignIn,
-    } = useAsyncRetry(async () => {
-        return await OrbProvider.initSignIn();
-    }, []);
+    } = useAsyncRetry(OrbProvider.initSignIn, []);
 
     useAsync(async () => {
         try {
@@ -62,8 +63,8 @@ export function OrbView() {
             resetCountdown();
             startCountdown();
             const result = await retry(
-                async () => {
-                    const pollResult = await OrbProvider.pollSignIn(initSignInData.secret);
+                async (signal) => {
+                    const pollResult = await OrbProvider.pollSignIn(initSignInData.secret, signal);
 
                     if (!pollResult.processed) throw new InvalidResultError();
 
@@ -124,6 +125,8 @@ export function OrbView() {
                 lens_accounts: getAccountPairs(Source.Lens),
             });
         } catch (error) {
+            if (error instanceof AbortError) return;
+
             if (error instanceof InvalidResultError) {
                 enqueueWarningMessage(t`This QR code is no longer valid. Please scan a new one to continue.`);
                 setPollError(error);
@@ -146,49 +149,54 @@ export function OrbView() {
 
     return (
         <div className="box-border flex flex-col rounded-xl p-6 pt-0 md:w-[500px]">
-            {!initSignInLoading && !!initSignInData ? (
-                <>
-                    <div className="text-center text-xs leading-4 text-second">
-                        <Trans>
-                            Scan the QR code with the <span className="font-bold">Camera app</span> <br />
-                            and give <span className="font-bold">edit permission</span> to sign in instantly
-                        </Trans>
-                    </div>
-                    <div
-                        className={classNames('relative mt-6 flex items-center justify-center', {
-                            'cursor-pointer': !scanned,
-                        })}
-                        onClick={() => {
-                            if (scanned) return;
-                            controller.current.abort();
+            <div className="text-center text-xs leading-4 text-second">
+                <Trans>
+                    Scan the QR code with the <span className="font-bold">Camera app</span> <br />
+                    and give <span className="font-bold">edit permission</span> to sign in instantly
+                </Trans>
+            </div>
+            <ClickableArea
+                disabled={scanned || initSignInLoading || !initSignInData}
+                className={classNames('relative mt-6 flex items-center justify-center', {
+                    'cursor-pointer': !scanned,
+                })}
+                onClick={() => {
+                    controller.current.abort();
 
-                            retryInitSignIn();
-                        }}
-                    >
-                        <ScannableQRCode
-                            url={initSignInData.deepLink}
-                            scanned={scanned}
-                            countdown={count}
-                            showReload={!!pollError}
-                        />
-                        {scanned ? (
-                            <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                <LoadingIcon />
-                            </div>
-                        ) : null}
+                    retryInitSignIn();
+                }}
+            >
+                {initSignInLoading || !initSignInData ? (
+                    <div className="flex h-[270px] w-[270px] items-center justify-center">
+                        {initSignInLoading ? (
+                            <LoadingIcon size={26} />
+                        ) : (
+                            <ClickableButton onClick={retryInitSignIn}>
+                                <ReloadIcon width={36} height={36} />
+                            </ClickableButton>
+                        )}
                     </div>
-                    <div className="mt-4 text-center text-xs leading-4 text-second">
-                        <Trans>Powered by</Trans>
-                        <Link href="https://orb.club/" className="mx-[2px] font-bold text-highlight">
-                            Orb
-                        </Link>
+                ) : (
+                    <ScannableQRCode
+                        size={238}
+                        url={initSignInData.deepLink}
+                        scanned={scanned}
+                        countdown={count}
+                        showReload={!!pollError}
+                    />
+                )}
+                {scanned ? (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        <LoadingIcon />
                     </div>
-                </>
-            ) : (
-                <div className="flex min-h-[200px] flex-col items-center justify-center">
-                    <LoadingIcon />
-                </div>
-            )}
+                ) : null}
+            </ClickableArea>
+            <div className="mt-4 text-center text-xs leading-4 text-second">
+                <Trans>Powered by</Trans>
+                <Link href="https://orb.club/" className="mx-[2px] font-bold text-highlight">
+                    Orb
+                </Link>
+            </div>
         </div>
     );
 }

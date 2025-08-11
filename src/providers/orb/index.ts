@@ -10,10 +10,11 @@ class Orb {
         return data;
     }
 
-    async pollSignIn(secret: string) {
+    async pollSignIn(secret: string, signal?: AbortSignal) {
         const response = await fetchJson<ResponseJson<ORBPollSignInResponseData>>('/api/orb/poll-sign-in', {
             method: 'POST',
             body: JSON.stringify({ secret }),
+            signal,
         });
         const data = resolveResponseData(response, 'Failed to poll sign in orb');
         return data;
