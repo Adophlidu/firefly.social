@@ -27,7 +27,7 @@ export const AccountConnectButton = memo<Props>(function AccountConnectButton({ 
         >
             {!profiles.length ? (
                 <>
-                    <DoubleUser />
+                    {isLoading ? <LoadingIcon size={20} /> : <DoubleUser />}
                     <Trans>My Accounts</Trans>
                 </>
             ) : (
