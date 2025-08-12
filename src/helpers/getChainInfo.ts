@@ -13,7 +13,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'solana',
         name: 'Solana',
-        icon: '/images/chains/solana.png',
+        icon: '/image/chains/solana.png',
     },
     {
         runtime: 'polkadot',
@@ -48,7 +48,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'arbitrum-one',
         name: 'Arbitrum-One',
-        icon: '/images/chains/arbitrum.png',
+        icon: '/image/chains/arbitrum.png',
     },
     {
         runtime: 'polygon-pos',
@@ -58,7 +58,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'flow',
         name: 'Flow',
-        icon: '/images/chains/flow.png',
+        icon: '/image/chains/flow.png',
     },
     {
         runtime: 'celo',
@@ -68,7 +68,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'the-open-network',
         name: 'Ton',
-        icon: '/images/chains/ton.png',
+        icon: '/image/chains/ton.png',
     },
     {
         runtime: 'algorand',
@@ -78,17 +78,17 @@ const CHAINS: Chain[] = [
     {
         runtime: 'optimistic-ethereum',
         name: 'Optimistic-Ethereum',
-        icon: '/images/chains/optimism.png',
+        icon: '/image/chains/optimism.png',
     },
     {
         runtime: 'avalanche',
         name: 'Avalanche',
-        icon: '/images/chains/avalanche.png',
+        icon: '/image/chains/avalanche.png',
     },
     {
         runtime: 'base',
         name: 'Base',
-        icon: '/images/chains/base.png',
+        icon: '/image/chains/base.png',
     },
     {
         runtime: 'kava',
@@ -98,7 +98,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'energi',
         name: 'Energi',
-        icon: '/images/chains/energi.png',
+        icon: '/image/chains/energi.png',
     },
 ];
 
