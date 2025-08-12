@@ -81,8 +81,11 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
     const [providerType, setProviderType] = useState<OkxProviderType>();
     const mode = useThemeModeStore.use.themeMode();
     const instanceRef = useRef<OkxSwapWidgetHandler | null>(null);
+    const propChainId = props?.chainId;
 
-    const computedProviderType = providerType ?? props?.providerType ?? OkxProviderType.EVM;
+    const isSolanaChainId = propChainId === SOLANA_CHAIN_ID_IN_FIREFLY || propChainId === SOLANA_CHAIN_ID_IN_OKX;
+    const computedProviderType =
+        providerType ?? props?.providerType ?? (isSolanaChainId ? OkxProviderType.SOLANA : OkxProviderType.EVM);
     const isEvm = computedProviderType === OkxProviderType.EVM;
     const isDark = useMediaQuery('(prefers-color-scheme: dark)');
     const theme = mode === 'default' ? (isDark ? THEME.DARK : THEME.LIGHT) : mode === 'dark' ? THEME.DARK : THEME.LIGHT;
@@ -100,13 +103,8 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
         const evmProvider = evmProviderRef.current;
         const solanaProvider = solanaProviderRef.current;
         const provider = isEvm ? evmProvider : solanaProvider;
+        const chainId = isEvm ? (props?.chainId ?? mainnet.id) : SOLANA_CHAIN_ID_IN_OKX;
 
-        const chainId =
-            props?.chainId === SOLANA_CHAIN_ID_IN_FIREFLY
-                ? SOLANA_CHAIN_ID_IN_OKX
-                : (props?.chainId ?? isEvm)
-                  ? mainnet.id
-                  : SOLANA_CHAIN_ID_IN_OKX;
         const tokenPair = {
             fromChain: chainId,
             toChain: chainId,
