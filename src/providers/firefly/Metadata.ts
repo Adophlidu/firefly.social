@@ -126,6 +126,21 @@ class FireflyMetadata {
             return createSiteMetadata(pathname);
         }
     }
+
+    async createFireflyProfileMetadata(source: string, pathname: string) {
+        try {
+            const response = await fetchWithDevelopmentApi(
+                urlcat(FIREFLY_WORKER_HOST, '/metadata/firefly-profile', {
+                    source,
+                    pathname,
+                }),
+            );
+            const metadata = resolveResponseData(response);
+            return metadata;
+        } catch (error) {
+            return createSiteMetadata(pathname);
+        }
+    }
 }
 
 export const FireflyMetadataProvider = new FireflyMetadata();

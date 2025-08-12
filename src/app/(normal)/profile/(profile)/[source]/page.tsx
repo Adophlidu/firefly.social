@@ -6,11 +6,11 @@ import { RedirectWithFireflyUID } from '@/app/(normal)/profile/pages/RedirectWit
 import { KeyType } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation.js';
 import { createMetadataProfileByFireflyUid } from '@/helpers/createMetadataProfileByFireflyUid.js';
-import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isNumericalProfileId as isUID } from '@/helpers/isNumericalProfileId.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
 import type { NextPageProps } from '@/types/index.js';
 
 const createPageMetadata = memoizeWithRedis(createMetadataProfileByFireflyUid, {
@@ -19,8 +19,7 @@ const createPageMetadata = memoizeWithRedis(createMetadataProfileByFireflyUid, {
 
 export async function generateMetadata(props: Props) {
     const { source } = await props.params;
-    if (isUID(source)) return createPageMetadata(`/profile/${source}`, source);
-    return createSiteMetadata(`/profile/${source}`);
+    return FireflyMetadataProvider.createFireflyProfileMetadata(source, `/profile/${source}`);
 }
 
 interface Props extends NextPageProps<{ source: string }> {}
