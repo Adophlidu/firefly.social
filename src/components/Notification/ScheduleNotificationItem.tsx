@@ -47,16 +47,17 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
 
     const firstPost = first(sortedPosts);
 
+    const display_info = firstPost?.display_info;
     const handleClickPost = useCallback(() => {
         if (data.status === ScheduleTaskStatus.Success && firstPost?.post_id) {
             router.push(resolvePostUrl(resolveSocialSource(firstPost.platform), firstPost.post_id));
         } else if (data.status === ScheduleTaskStatus.Failed) {
             ComposeModalRef.open({
-                chars: firstPost?.display_info.content,
+                chars: display_info?.content,
                 source: sortedPosts.map((x) => resolveSocialSource(x.platform)),
             });
         }
-    }, [data.status, firstPost?.display_info.content, firstPost?.post_id, router, sortedPosts]);
+    }, [data.status, display_info?.content, firstPost?.platform, firstPost?.post_id, router, sortedPosts]);
 
     return (
         <motion.div
@@ -93,11 +94,11 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
                                     <Avatar size={24} src={firstPost?.avatar_url} alt="avatar" />
                                 </div>
                                 <div className="line-clamp-5 break-words text-left text-medium leading-[24px]">
-                                    {firstPost?.display_info.content}
-                                    {firstPost?.display_info.media_type.length ? (
+                                    {display_info?.content}
+                                    {display_info?.media_type?.length ? (
                                         <span>
                                             <br />
-                                            {firstPost?.display_info.media_type
+                                            {display_info.media_type
                                                 .map((x) => {
                                                     if (x === PostMediaType.Text) return;
                                                     return `[${x}]`;

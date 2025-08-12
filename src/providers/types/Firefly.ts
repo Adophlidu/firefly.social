@@ -2196,8 +2196,8 @@ export type ScheduleNotificationData = {
         credential: string;
         display_info: {
             content: string;
-            media_type: PostMediaType[];
-        };
+            media_type?: PostMediaType[];
+        } | null;
         platform: SocialSourceInURL;
         post_id: string;
         publish_timestamp: string;
