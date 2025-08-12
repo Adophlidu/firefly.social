@@ -4,13 +4,12 @@ import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 
 import UndoSVG from '@/assets/undo.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { NFTListByContract } from '@/components/CollectionDetail/NFTListByContract.js';
+import { IconButton } from '@/components/IconButton.js';
 import { Image } from '@/components/Image.js';
 import { NFTCollectionList } from '@/components/Profile/NFTCollectionList.js';
 import { POAPList } from '@/components/Profile/POAPList.js';
 import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
-import { Tooltip } from '@/components/Tooltip.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
@@ -32,14 +31,13 @@ export function NFTs({ address, ...rest }: { address: string; addresses?: string
             {selectedCollection ? (
                 <>
                     <div className="mb-2 flex flex-row items-center">
-                        <ClickableButton
+                        <IconButton
+                            tooltip={<Trans>Back</Trans>}
                             className="mr-2 rounded-full bg-lightBg p-2"
                             onClick={() => setSelectedCollection(null)}
                         >
-                            <Tooltip content={<Trans>Back</Trans>}>
-                                <UndoSVG className="size-4" />
-                            </Tooltip>
-                        </ClickableButton>
+                            <UndoSVG className="size-4" />
+                        </IconButton>
                         {selectedCollection.collection.large_image_url ? (
                             <Image
                                 className="mr-2 size-6 rounded-full object-cover"
