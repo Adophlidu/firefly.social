@@ -26,12 +26,6 @@ export function captureThreadClickEvent() {
     });
 }
 
-export function captureEmojiClickEvent() {
-    return runInSafeAsync(async () => {
-        return TelemetryProvider.captureEvent(EventId.COMPOSE_EMOJI_CLICK, {});
-    });
-}
-
 export function captureGifClickEvent() {
     return runInSafeAsync(async () => {
         return TelemetryProvider.captureEvent(EventId.COMPOSE_GIF_CLICK, {});
@@ -65,12 +59,6 @@ export function captureReplyRestrictionChangeClickEvent() {
 export function captureFarcasterChannelChangeClickEvent() {
     return runInSafeAsync(async () => {
         return TelemetryProvider.captureEvent(EventId.COMPOSE_FARCASTER_CHANNEL_CHANGE_SUCCESS, {});
-    });
-}
-
-export function captureLensClubChangeClickEvent() {
-    return runInSafeAsync(async () => {
-        return TelemetryProvider.captureEvent(EventId.COMPOSE_LENS_CHANNEL_CHANGE_SUCCESS, {});
     });
 }
 
