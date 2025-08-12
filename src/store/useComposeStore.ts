@@ -19,12 +19,10 @@ import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources
 import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
 import { matchUrls } from '@/helpers/matchUrls.js';
 import { createPoll } from '@/helpers/polls.js';
-import { BlinkLoader } from '@/providers/blink/Loader.js';
 import { FrameLoader } from '@/providers/frame/Loader.js';
 import { OpenGraphLoader } from '@/providers/og/Loader.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
-import type { Action } from '@/types/blink.js';
 import { type Chars } from '@/types/chars.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
@@ -71,8 +69,6 @@ export interface CompositePost {
     frames: Frame[];
     // parsed open graphs from url in chars
     openGraphs: OpenGraph[];
-    // parsed solana blinks from url in chars
-    actions: Action[];
 
     excludeReplyProfileIds?: string[];
 }
@@ -135,7 +131,6 @@ interface ComposeState extends ComposeBaseState {
     addFrame: (frame: Frame, cursor?: Cursor) => void;
     removeFrame: (frame: Frame, cursor?: Cursor) => void;
     removeOpenGraph: (og: OpenGraph, cursor?: Cursor) => void;
-    removeBlink: (blinks: Action, cursor?: Cursor) => void;
     updateRpPayload: (value: RedPacketPayload, cursor?: Cursor) => void;
     loadComponentsFromChars: (cursor?: Cursor) => Promise<void>;
     createPoll: (cursor?: Cursor) => void;
@@ -176,7 +171,6 @@ export function createInitSinglePostState(cursor: Cursor): CompositePost {
         images: EMPTY_LIST,
         frames: EMPTY_LIST,
         openGraphs: EMPTY_LIST,
-        actions: EMPTY_LIST,
         video: null,
         rpPayload: null,
         channel: {
@@ -501,17 +495,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor,
                 ),
             ),
-        removeBlink: (target, cursor) =>
-            set((state) =>
-                next(
-                    state,
-                    (post) => ({
-                        ...post,
-                        actions: post.actions.filter((blink) => blink !== target),
-                    }),
-                    cursor,
-                ),
-            ),
         updateRpPayload: (payload, cursor) =>
             set((state) =>
                 next(
@@ -541,9 +524,8 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 
             const urls = matchUrls(content);
             const frames = await FrameLoader.occupancyLoad(urls);
-            const actions = await BlinkLoader.occupancyLoad(urls);
             const openGraphs = await OpenGraphLoader.occupancyLoad(
-                difference(urls.slice(-1), [...frames.map((x) => x.url), ...actions.map((x) => x.url)]),
+                difference(urls.slice(-1), [...frames.map((x) => x.url)]),
             );
 
             set((state) =>
@@ -553,7 +535,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                         ...post,
                         frames: frames.map((x) => x.value).slice(0, MAX_FRAME_SIZE_PER_POST),
                         openGraphs: openGraphs.map((x) => x.value).slice(0, 1),
-                        actions: actions.map((x) => x.value).slice(0, 1),
                     }),
                     cursor,
                 ),

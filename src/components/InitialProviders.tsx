@@ -1,6 +1,5 @@
 'use client';
 
-import { useActionsRegistryInterval } from '@dialectlabs/blinks';
 import { isServer } from '@tanstack/react-query';
 import { memo, type ReactNode, useEffect, useLayoutEffect, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
@@ -19,8 +18,6 @@ import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 export const InitialProviders = memo(function Providers(props: { children: ReactNode }) {
-    useActionsRegistryInterval();
-
     const isDarkMode = useIsDarkMode();
     const themeMode = useThemeModeStore.use.themeMode();
     useLayoutEffect(() => {

@@ -93,12 +93,6 @@ dependencies:
   '@coral-xyz/anchor':
     specifier: ^0.30.1
     version: 0.30.1(typescript@5.7.3)
-  '@dialectlabs/blinks':
-    specifier: ^0.22.5
-    version: 0.22.5(@solana/web3.js@1.98.2)(react-dom@19.0.0)(react@19.0.0)(viem@2.31.4)(wagmi@2.14.16)
-  '@dialectlabs/blinks-core':
-    specifier: ^0.20.7
-    version: 0.20.7(@solana/web3.js@1.98.2)(react@19.0.0)
   '@farcaster/core':
     specifier: ^0.18.4
     version: 0.18.4(patch_hash=hngiodc6uoegwmshm6epwtctuy)(typescript@5.7.3)(zod@3.24.2)
@@ -2977,53 +2971,6 @@ packages:
     resolution: {integrity: sha512-UJnjoFsmxfKUdNYdWgOB0mWUypuLvAfQPH1+pyvRJs6euowbFkFC6P13w1l8mJyi3vxYMxc9kld5jZEGRQs6bw==}
     engines: {node: '>=18'}
     dev: true
-
-  /@dialectlabs/blinks-core@0.20.7(@solana/web3.js@1.98.2)(react@19.0.0):
-    resolution: {integrity: sha512-WLDwQ0uqgQj4Z5bJt6qs+1McqcTtQHiTbr4CMPJ9CygvTMu2qcJ/z6D7cU8UkXIGwL8gHg5rgj3IIkgGgTWuug==}
-    peerDependencies:
-      '@solana/web3.js': ^1.95.3
-      react: 19.0.0
-    peerDependenciesMeta:
-      '@solana/web3.js':
-        optional: true
-    dependencies:
-      '@solana/web3.js': 1.98.2(typescript@5.7.3)
-      nanoid: 5.1.5
-      react: 19.0.0
-    dev: false
-
-  /@dialectlabs/blinks@0.22.5(@solana/web3.js@1.98.2)(react-dom@19.0.0)(react@19.0.0)(viem@2.31.4)(wagmi@2.14.16):
-    resolution: {integrity: sha512-9LH4W+WV1qF+xNQHxBV7Ou5CByF3rHlHOLbTboF9sbbTV6U6kdnzm3rarfJLF4H6niu8juY3i6ekenR66j3x9A==}
-    peerDependencies:
-      '@solana/wallet-adapter-react': ^0.15.0
-      '@solana/wallet-adapter-react-ui': ^0.9.0
-      '@solana/web3.js': ^1.95.3
-      react: 19.0.0
-      react-dom: 19.0.0
-      viem: 2.31.4
-      wagmi: ^2.x
-    peerDependenciesMeta:
-      '@solana/wallet-adapter-react':
-        optional: true
-      '@solana/wallet-adapter-react-ui':
-        optional: true
-      '@solana/web3.js':
-        optional: true
-      viem:
-        optional: true
-      wagmi:
-        optional: true
-    dependencies:
-      '@dialectlabs/blinks-core': 0.20.7(@solana/web3.js@1.98.2)(react@19.0.0)
-      '@solana/web3.js': 1.98.2(typescript@5.7.3)
-      bs58: 6.0.0
-      clsx: 2.1.1
-      markdown-to-jsx: 7.7.4(react@19.0.0)
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-      viem: 2.31.4(typescript@5.7.3)(zod@3.24.2)
-      wagmi: 2.14.16(@tanstack/react-query@5.56.2)(@types/react@19.0.2)(@vercel/kv@1.0.1)(immer@10.1.1)(react@19.0.0)(typescript@5.7.3)(viem@2.31.4)(zod@3.24.2)
-    dev: false
 
   /@discoveryjs/json-ext@0.5.7:
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
@@ -16625,15 +16572,6 @@ packages:
     resolution: {integrity: sha512-0aF7ZmVon1igznGI4VS30yugpduQW3y3GkcgGJOp7d8x8QrizhigUxjI/m2UojsXXto+jLAH3KSz+xOJTiORjg==}
     dev: true
 
-  /markdown-to-jsx@7.7.4(react@19.0.0):
-    resolution: {integrity: sha512-1bSfXyBKi+EYS3YY+e0Csuxf8oZ3decdfhOav/Z7Wrk89tjudyL5FOmwZQUoy0/qVXGUl+6Q3s2SWtpDEWITfQ==}
-    engines: {node: '>= 10'}
-    peerDependencies:
-      react: 19.0.0
-    dependencies:
-      react: 19.0.0
-    dev: false
-
   /math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
@@ -21563,8 +21501,6 @@ time:
   /@bprogress/next@3.2.11: '2025-04-10T09:35:12.548Z'
   /@coral-xyz/anchor@0.30.1: '2024-06-20T15:28:00.153Z'
   /@crowdin/cli@4.7.0: '2025-03-31T08:36:01.059Z'
-  /@dialectlabs/blinks-core@0.20.7: '2025-04-04T10:40:44.099Z'
-  /@dialectlabs/blinks@0.22.5: '2025-04-04T10:41:01.533Z'
   /@farcaster/core@0.18.4: '2025-07-12T16:14:38.184Z'
   /@farcaster/miniapp-host@0.2.4: '2025-07-07T20:11:49.280Z'
   /@floating-ui/react@0.27.9: '2025-05-26T03:31:17.104Z'

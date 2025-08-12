@@ -1,7 +1,6 @@
 /* cspell:disable */
 
 import '@/app/globals.css';
-import '@dialectlabs/blinks/index.css';
 
 import { headers } from 'next/headers.js';
 import type { ReactNode } from 'react';

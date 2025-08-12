@@ -6,12 +6,9 @@ import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { TWEET_SPACE_REGEX } from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { isBlinkBlocklist } from '@/helpers/isBlinkBlocklist.js';
-import { isBlinkWhitelist } from '@/helpers/isBlinkWhitelist.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
-import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { digestBskyPostLink } from '@/providers/bsky/digestBskyPostLink.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
@@ -24,8 +21,6 @@ import { getCollectionFromUrl } from '@/services/getCollectionFromUrl.js';
 import { getNFTFromUrl } from '@/services/getNFTFromUrl.js';
 import { getSnapshotByLink } from '@/services/getSnapshotByLink.js';
 import { getTruthSocialPostFromUrl } from '@/services/getTruthSocialPostFromUrl.js';
-import { settings } from '@/settings/index.js';
-import type { FireflyBlinkParserBlinkResponse, FireflyBlinkParserBlinkResponseData } from '@/types/blink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJson } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
@@ -55,7 +50,6 @@ function isValidPostLink(url: string, enableFilter = false) {
 export interface GetClassifyPostLinkOnActionResult {
     oembed?: LinkDigested;
     frame?: Frame;
-    action?: FireflyBlinkParserBlinkResponseData;
     html?: string;
     articleId?: string;
     spaceId?: string;
@@ -113,21 +107,6 @@ export async function getClassifyPostLink(url: string) {
                 );
                 if (!response.success) return null;
                 return response.data.frame ? { frame: response.data.frame } : null;
-            },
-            async () => {
-                if (env.external.NEXT_PUBLIC_BLINK !== STATUS.Enabled) return null;
-                if (!url || !isValidPostLink(url) || isBlinkBlocklist(url)) return null;
-                if (!(await isBlinkWhitelist(url))) return null;
-                const response = await fetchJson<FireflyBlinkParserBlinkResponse>(
-                    urlcat(settings.FIREFLY_ROOT_URL, '/v1/solana/blinks/parse'),
-                    {
-                        method: 'POST',
-                        body: JSON.stringify({ url }),
-                    },
-                );
-                if (!response.data) return null;
-                const action = resolveFireflyResponseData(response);
-                return action ? { action } : null;
             },
             async () => {
                 if (env.external.NEXT_PUBLIC_OPENGRAPH !== STATUS.Enabled) return null;

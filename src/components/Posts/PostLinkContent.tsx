@@ -1,5 +1,4 @@
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
-import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { FrameLayout } from '@/components/Frame/Layout.js';
 import { CollectionPreviewer, NFTPreviewer } from '@/components/NFTs/NFTPreview.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
@@ -57,7 +56,6 @@ export function PostLinkContent({ data, url, post, article, isInCompose }: PostL
                 <Player html={data.html} isSpotify={isLinkMatchingHost(url, 'open.spotify.com', false)} />
             ) : null}
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
-            {data.action ? <ActionContainer action={data.action} url={url} /> : null}
             {data.oembed ? <OembedLayout data={data.oembed} post={post} isInCompose={isInCompose} /> : null}
             {data.spaceId ? <TweetSpace spaceId={data.spaceId} /> : null}
             {data?.nft ? <NFTPreviewer nft={data.nft} /> : null}
