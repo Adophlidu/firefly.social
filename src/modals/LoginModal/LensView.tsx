@@ -1,10 +1,11 @@
 'use client';
 
+import { lastLoggedInAccount } from '@lens-protocol/client/actions';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useRouter } from '@tanstack/react-router';
-import { first, uniqBy } from 'lodash-es';
+import { compact, first, uniqBy } from 'lodash-es';
 import { memo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
@@ -22,13 +23,16 @@ import { AbortError, FireflyAlreadyBoundError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
 import { enableSignlessForManaged } from '@/providers/lens/enableSignlessForManaged.js';
+import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
@@ -70,7 +74,18 @@ export const LensView = memo(function LensView() {
                 const { account } = await getWalletClient(wagmiConfig);
                 if (!account) return EMPTY_LIST;
                 const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
-                return uniqBy(profiles ?? EMPTY_LIST, (x) => x.profileId);
+                const lastLoggedIn = await runInSafeAsync(() =>
+                    ensureLensResult(lastLoggedInAccount(lensSessionHolder.sdk, { address: account.address })),
+                );
+                return uniqBy(
+                    compact([
+                        lastLoggedIn
+                            ? profiles.find((x) => isSameEthereumAddress(x.profileId, lastLoggedIn.address))
+                            : null,
+                        ...(profiles || EMPTY_LIST),
+                    ]),
+                    (x) => x.profileId,
+                );
             } catch (error) {
                 enqueueMessageFromError(error, t`Failed to fetch profiles.`);
                 console.error('[login lens] Failed to fetch profiles', error);
