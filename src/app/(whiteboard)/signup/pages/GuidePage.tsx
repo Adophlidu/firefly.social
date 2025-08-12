@@ -68,9 +68,11 @@ export function GuidePage({ changeStep }: GuidePageProps) {
                             DownloadMobileAppModalRef.open();
                         }}
                     >
-                        <Trans>Download App</Trans>
-                        <AppleIcon width={24} height={24} />
-                        <GoogleStoreIcon className="mt-1" width={18} height={19} />
+                        <div className="flex h-full w-full items-center justify-center gap-3">
+                            <Trans>Download App</Trans>
+                            <AppleIcon width={24} height={24} />
+                            <GoogleStoreIcon className="mt-1" width={18} height={19} />
+                        </div>
                     </SquareButton>
                 </div>
             </ShadowInAndOut>

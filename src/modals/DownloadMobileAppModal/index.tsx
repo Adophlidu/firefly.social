@@ -26,13 +26,15 @@ export function DownloadMobileAppModal({ ref }: Props) {
 
     return (
         <Modal open={open} onClose={() => dispatch?.close()}>
-            <ModalTitle
-                enableClose
-                className="!p-6"
-                onClose={() => dispatch?.close()}
-                title={<Trans>Scan and Get Firefly Mobile App</Trans>}
-            />
-            {mounted ? <DownloadMobileAppContent /> : null}
+            <div className="w-[420px] max-w-[90vw] transform rounded-3xl bg-primaryBottom transition-all">
+                <ModalTitle
+                    enableClose
+                    className="!p-6"
+                    onClose={() => dispatch?.close()}
+                    title={<Trans>Scan and Get Firefly Mobile App</Trans>}
+                />
+                {mounted ? <DownloadMobileAppContent /> : null}
+            </div>
         </Modal>
     );
 }
