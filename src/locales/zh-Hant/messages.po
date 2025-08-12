@@ -302,11 +302,6 @@ msgstr "開啟"
 msgid "You have exceeded the maximum number of attempts. Please try again later."
 msgstr "您已超過最大嘗試次數，請稍後再試。"
 
-#. placeholder {0}: collection.volume_1d
-#. placeholder {1}: collection.price_symbol
-msgid "{0} {1} <0>Vol</0>"
-msgstr ""
-
 msgid "FDV"
 msgstr "FDV"
 
@@ -4023,6 +4018,11 @@ msgstr "禁止留言"
 
 msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
 msgstr "可設定一或多項規則，作為領取紅包的條件。"
+
+#. placeholder {0}: collection.volume_1d
+#. placeholder {1}: collection.price_symbol
+msgid "{0} {1} <0>24H Vol</0>"
+msgstr ""
 
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Bsky)

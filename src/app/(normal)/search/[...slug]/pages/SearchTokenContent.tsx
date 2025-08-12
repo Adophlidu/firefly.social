@@ -71,7 +71,7 @@ export function SearchTokenContent() {
                             </h2>
                         ) : null}
                         {(expandMap[group] ? tokens : tokens.slice(0, 5)).map((token) => (
-                            <SearchableTokenItem key={token.id} token={token} />
+                            <SearchableTokenItem key={`${token.id}-${token.address}`} token={token} />
                         ))}
                         {tokens.length > 5 ? (
                             <div className="flex w-full items-center justify-center">
@@ -84,7 +84,7 @@ export function SearchTokenContent() {
                                         }));
                                     }}
                                 >
-                                    {expandMap.cex ? <Trans>Show less</Trans> : <Trans>Show more</Trans>}
+                                    {expandMap[group] ? <Trans>Show less</Trans> : <Trans>Show more</Trans>}
                                 </div>
                             </div>
                         ) : null}

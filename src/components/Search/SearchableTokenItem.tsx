@@ -16,6 +16,10 @@ interface SearchableTokenItemProps extends HTMLProps<HTMLAnchorElement> {
     showRate?: boolean;
 }
 
+function formatTokenAddress(address: string) {
+    return isValidAddress(address) ? formatAddress(address, 4) : `${address.slice(0, 6)}...${address.slice(-4)}`;
+}
+
 export function SearchableTokenItem({ token, className, showRate = true, onClick }: SearchableTokenItemProps) {
     const priceChange = token.market?.price_change_percentage_24h ?? 0;
 
@@ -50,10 +54,10 @@ export function SearchableTokenItem({ token, className, showRate = true, onClick
                     <div className="text-sm leading-[20px] text-second">{token.symbol}</div>
                     {token.address ? (
                         <span
-                            className={classNames('text-sm leading-[20px] text-third', bedStead.className)}
+                            className={classNames('truncate text-sm leading-[20px] text-third', bedStead.className)}
                             title={token.address}
                         >
-                            {formatAddress(token.address, 4)}
+                            {formatTokenAddress(token.address)}
                         </span>
                     ) : null}
                 </div>

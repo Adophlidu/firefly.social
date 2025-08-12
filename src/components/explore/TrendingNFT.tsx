@@ -36,7 +36,7 @@ export function TrendingNFT({ collection, className, ...rest }: CollectionItemPr
                     <ChainIcon size={18} className="shrink-0" chainId={chainId} />
                 </div>
                 <div className="mt-1 flex grow items-center gap-2">
-                    <span className="text-medium font-bold leading-[22px] text-lightMain">
+                    <span className="whitespace-nowrap text-medium font-bold leading-[22px] text-lightMain">
                         <Trans>
                             {nFormatter(collection.items_total || 0)}{' '}
                             <span className="font-normal text-second"> Items</span>
@@ -45,7 +45,7 @@ export function TrendingNFT({ collection, className, ...rest }: CollectionItemPr
                     {collection.floor_price && collection.price_symbol ? (
                         <>
                             <span className="text-second">·</span>
-                            <span className="text-medium font-bold leading-[22px] text-lightMain">
+                            <span className="whitespace-nowrap text-medium font-bold leading-[22px] text-lightMain">
                                 <Trans>
                                     {collection.floor_price} {collection.price_symbol}{' '}
                                     <span className="font-normal text-second">Floor</span>
@@ -56,13 +56,24 @@ export function TrendingNFT({ collection, className, ...rest }: CollectionItemPr
                     {collection.volume_1d ? (
                         <>
                             <span className="text-second">·</span>
-                            <span className="text-medium font-bold leading-[22px] text-lightMain">
+                            <span className="whitespace-nowrap text-medium font-bold leading-[22px] text-lightMain">
                                 <Trans>
                                     {collection.volume_1d} {collection.price_symbol}{' '}
-                                    <span className="font-normal text-second">Vol</span>
+                                    <span className="font-normal text-second">24H Vol</span>
                                 </Trans>
                             </span>
                         </>
+                    ) : null}
+                    {collection.average_price_change_1d ? (
+                        <span
+                            className={classNames(
+                                'whitespace-nowrap text-medium font-bold leading-[22px]',
+                                collection.average_price_change_1d.startsWith('-') ? 'text-danger' : 'text-success',
+                            )}
+                        >
+                            {collection.average_price_change_1d.startsWith('-') ? '↓ ' : '↑ '}
+                            {collection.average_price_change_1d}
+                        </span>
                     ) : null}
                 </div>
             </div>

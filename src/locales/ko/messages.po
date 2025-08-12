@@ -302,11 +302,6 @@ msgstr ""
 msgid "You have exceeded the maximum number of attempts. Please try again later."
 msgstr ""
 
-#. placeholder {0}: collection.volume_1d
-#. placeholder {1}: collection.price_symbol
-msgid "{0} {1} <0>Vol</0>"
-msgstr ""
-
 msgid "FDV"
 msgstr ""
 
@@ -4006,6 +4001,11 @@ msgid "No one can reply"
 msgstr ""
 
 msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
+msgstr ""
+
+#. placeholder {0}: collection.volume_1d
+#. placeholder {1}: collection.price_symbol
+msgid "{0} {1} <0>24H Vol</0>"
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
