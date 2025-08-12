@@ -28,7 +28,7 @@ export const SwiperIndicator = memo<SwiperIndicatorProps>(function SwiperIndicat
             {Array.from({ length: total }).map((_, index) => (
                 <ClickableButton
                     key={index}
-                    className="box-content flex h-1 w-[60px] shrink-0 py-2"
+                    className="box-content flex h-1 w-[60px] min-w-4 py-2"
                     onClick={() => {
                         onChange(index);
                     }}
