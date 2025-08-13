@@ -31,6 +31,8 @@ export type SwapTimelineProps = {
     tokenAddress?: string;
     listSubScope?: string; // to isolate among lists
     disableScrollRestore?: boolean;
+    /** ignore filter options from SwapStateStore */
+    ignoreFilters?: boolean;
     onActivitiesUpdate?: (data: SwapActivity[]) => void;
 } & (
     | {
@@ -50,13 +52,14 @@ export function SwapTimeline({
     tokenAddress,
     listSubScope = '',
     disableScrollRestore,
+    ignoreFilters,
     NoResultsFallbackProps,
     onActivitiesUpdate,
 }: SwapTimelineProps) {
     const isLoginFirefly = useIsLoginFirefly();
     const profileIds = useCurrentProfileIds();
     const { selectedChainId } = useSwapStateStore();
-    const chainId = propChainId || selectedChainId;
+    const chainId = ignoreFilters ? propChainId : propChainId || selectedChainId;
     const router = useRouter();
     const queryKey = isFollowing
         ? ['swaps', 'following', profileIds, chainId, tokenAddress]

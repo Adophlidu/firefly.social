@@ -88,7 +88,7 @@ export const SuggestProfileList = memo<SuggestProfileListProps>(function Suggest
                     </div>
                 </div>
             )}
-            {profiles.length > MAX_RECOMMEND_PROFILE_SIZE ? (
+            {profiles.length ? (
                 <div className="px-3 pb-4 pt-2">
                     <Link
                         className="text-sm leading-[18px] text-secondary"
