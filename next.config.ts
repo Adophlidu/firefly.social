@@ -276,7 +276,7 @@ const config: NextConfig = {
 
         config.optimization.splitChunks = {
             chunks: 'all',
-            maxInitialRequests: 10,
+            maxInitialRequests: 5,
         };
 
         return config;
