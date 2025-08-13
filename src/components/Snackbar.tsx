@@ -13,7 +13,8 @@ import {
     useState,
 } from 'react';
 
-import { CloseButton } from '@/components/IconButton.js';
+import CloseIcon from '@/assets/close.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 
 export type SnackbarVariant = 'default' | 'success' | 'error' | 'warning' | 'info';
 
@@ -156,7 +157,7 @@ export function SnackbarProvider({ maxSnack, autoHideDuration, children }: Snack
                 id,
                 isCustom,
                 key: options.key,
-                message: isCustom ? options.content?.(id) : message,
+                message: isCustom ? options.content?.(id, message) : message,
                 variant: options.variant || 'default',
                 duration: options.duration ?? autoHideDuration ?? 10000,
                 autoHide: options.autoHide ?? true,
@@ -300,15 +301,16 @@ export const SnackbarContent = forwardRef<
                 <div className="flex-1">{children}</div>
             </div>
             {onClose ? (
-                <CloseButton
+                <ClickableButton
+                    className="ml-4 p-2"
                     onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
                         onClose();
                     }}
-                    size={16}
-                    className="ml-4 cursor-pointer text-inherit transition-opacity duration-150 hover:opacity-80 focus:outline-none"
-                />
+                >
+                    <CloseIcon width={16} height={16} />
+                </ClickableButton>
             ) : null}
         </div>
     );

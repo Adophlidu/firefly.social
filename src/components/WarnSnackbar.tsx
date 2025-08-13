@@ -6,7 +6,7 @@ import { type ReactNode, useCallback, useState } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { SnackbarContent, type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
+import { type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 
 interface ErrorReportSnackbarProps {
@@ -36,7 +36,7 @@ export function WarnSnackbar({ id, detail, message, ref }: ErrorReportSnackbarPr
     const [copied, handleCopy] = useCopyText(`${name}\n\n${description}`, { enqueueSuccessMessage: false });
 
     return (
-        <SnackbarContent ref={ref} className="rounded-[4px] bg-warn">
+        <div ref={ref} className="rounded-[4px] bg-warn">
             <div className="w-full text-sm">
                 <div className="p-2 pl-3">
                     <div className="flex max-w-[400px] text-white">
@@ -55,7 +55,7 @@ export function WarnSnackbar({ id, detail, message, ref }: ErrorReportSnackbarPr
                                 {message}
                             </div>
                         </div>
-                        <ClickableButton className="p-2" onClick={handleDismiss}>
+                        <ClickableButton className="ml-4 p-2" onClick={handleDismiss}>
                             <CloseIcon width={16} height={16} />
                         </ClickableButton>
                     </div>
@@ -92,6 +92,6 @@ export function WarnSnackbar({ id, detail, message, ref }: ErrorReportSnackbarPr
                     </div>
                 ) : null}
             </div>
-        </SnackbarContent>
+        </div>
     );
 }

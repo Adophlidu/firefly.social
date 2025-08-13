@@ -6,7 +6,7 @@ import { type ForwardedRef, type ReactNode, useCallback, useState } from 'react'
 
 import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { SnackbarContent, type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
+import { type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
 import { env } from '@/constants/env.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useReportFeedback } from '@/hooks/useReportFeedback.js';
@@ -54,7 +54,7 @@ export function ErrorReportSnackbar({ id, detail, noReport, message, ref }: Erro
     const [reported, loading, handleReport] = useReportFeedback(name, comments, { enqueueSuccessMessage: false });
 
     return (
-        <SnackbarContent ref={ref} className="rounded-[4px] bg-danger">
+        <div ref={ref} className="rounded-[4px] bg-danger">
             <div className="w-full text-sm">
                 <div className="p-2 pl-3">
                     <div className="flex max-w-[400px] text-white">
@@ -73,7 +73,7 @@ export function ErrorReportSnackbar({ id, detail, noReport, message, ref }: Erro
                                 {message}
                             </div>
                         </div>
-                        <ClickableButton className="p-2" onClick={handleDismiss}>
+                        <ClickableButton className="ml-4 p-2" onClick={handleDismiss}>
                             <CloseIcon width={16} height={16} />
                         </ClickableButton>
                     </div>
@@ -122,6 +122,6 @@ export function ErrorReportSnackbar({ id, detail, noReport, message, ref }: Erro
                     </div>
                 ) : null}
             </div>
-        </SnackbarContent>
+        </div>
     );
 }
