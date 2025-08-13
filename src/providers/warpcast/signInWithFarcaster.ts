@@ -9,8 +9,8 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { FrameV2 } from '@/types/frame.js';
 import { registerAuthAddress } from '@/providers/warpcast/registerSignedKey.js';
+import type { FrameV2 } from '@/types/frame.js';
 
 const ABI = [
     {

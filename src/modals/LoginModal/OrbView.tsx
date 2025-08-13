@@ -3,7 +3,7 @@ import type { AccessToken, IdToken, RefreshToken } from '@lens-protocol/client';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
-import { useAsync, useAsyncRetry } from 'react-use';
+import { useAsync, useAsyncRetry, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 
 import ReloadIcon from '@/assets/reload.svg';
@@ -146,6 +146,11 @@ export function OrbView() {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [initSignInData]);
+
+    useUnmount(() => {
+        stopCountdown();
+        controller.current.abort();
+    });
 
     return (
         <div className="box-border flex flex-col rounded-xl p-6 pt-0 md:w-[500px]">

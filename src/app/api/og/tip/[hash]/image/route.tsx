@@ -108,7 +108,7 @@ async function TipOpenGraphImage({
                     $
                     {tokenUSDValue.isGreaterThan(0.01)
                         ? renderShrankPrice(formatPrice(tokenUSDValue.toString()) || '')
-                        : '-'}
+                        : ''}
                 </span>
             </div>
 

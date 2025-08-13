@@ -1,13 +1,13 @@
 'use client';
 
 import { Menu, MenuButton as HeadlessMenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
-import { Fragment, memo, useMemo } from 'react';
 import { Plural, Trans } from '@lingui/react/macro';
-import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { Fragment, memo, useMemo } from 'react';
 
 import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
 import QuoteDownIcon from '@/assets/quote-down.svg';
+import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -15,8 +15,8 @@ import { classNames } from '@/helpers/classNames.js';
 import { humanize } from '@/helpers/formatCommentCounts.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
+import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useMirror } from '@/hooks/useMirror.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';

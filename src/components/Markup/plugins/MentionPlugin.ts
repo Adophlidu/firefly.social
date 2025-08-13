@@ -2,7 +2,12 @@ import type { Link, Root, Text } from 'mdast';
 import flatMap from 'unist-util-flatmap';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { BSKY_MENTION_REGEX, LENS_MENTION_REGEX, MENTION_REGEX, TWITTER_MENTION_REGEX } from '@/constants/regexp.js';
+import {
+    BSKY_MENTION_REGEX,
+    FARCASTER_MENTION_REGEX,
+    LENS_MENTION_REGEX,
+    TWITTER_MENTION_REGEX,
+} from '@/constants/regexp.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 
 type Node = Link | Text;
@@ -48,7 +53,7 @@ export function MentionPlugin(source?: SocialSource) {
             case Source.Twitter:
                 return TWITTER_MENTION_REGEX;
             default:
-                return MENTION_REGEX;
+                return new RegExp(FARCASTER_MENTION_REGEX);
         }
     });
     return () => {

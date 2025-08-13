@@ -2,7 +2,7 @@ import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { CastType } from '@/constants/farcaster.js';
-import { MENTION_REGEX } from '@/constants/regexp.js';
+import { FARCASTER_MENTION_REGEX } from '@/constants/regexp.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 
@@ -18,7 +18,7 @@ export async function getAllMentionsForFarcaster(text: string) {
         };
     }
     let match;
-    const regex = new RegExp(MENTION_REGEX);
+    const regex = new RegExp(FARCASTER_MENTION_REGEX);
     while ((match = regex.exec(text)) !== null) {
         try {
             let mentionTag = '';

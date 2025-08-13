@@ -11,6 +11,7 @@ import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
+import { PostBookmark } from '@/components/Actions/PostBookmark.js';
 import { ReportPostButton } from '@/components/Actions/ReportPostButton.js';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
@@ -34,7 +35,6 @@ import { useReportPost } from '@/hooks/useReportPost.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
-import { PostBookmark } from '@/components/Actions/PostBookmark.js';
 
 interface MoreProps {
     source: SocialSource;
