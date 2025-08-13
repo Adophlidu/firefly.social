@@ -9,18 +9,18 @@ import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
-interface BaseToggleFollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
+interface ToggleFollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
     children: (isSuperFollow: boolean, loading: boolean) => ReactNode;
 }
 
-export const BaseToggleFollowButton = memo(function BaseToggleFollowButton({
+export const ToggleFollowButton = memo(function ToggleFollowButton({
     ref,
     profile,
     onClick,
     children,
     ...rest
-}: BaseToggleFollowButtonProps) {
+}: ToggleFollowButtonProps) {
     const [loading, toggleFollow] = useToggleFollow(profile);
     const isLogin = useIsLogin(profile.source);
 

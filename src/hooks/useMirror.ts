@@ -29,32 +29,32 @@ export function useMirror(post: Post) {
             const mirrorOrUnmirror = async () => {
                 switch (source) {
                     case Source.Farcaster: {
-                        const result = await (hasMirrored
+                        await (hasMirrored
                             ? FarcasterSocialMediaProvider.unmirrorPost(postId, Number(post.author.profileId))
                             : FarcasterSocialMediaProvider.mirrorPost(postId, Number(post.author.profileId)));
                         enqueueSuccessMessage(hasMirrored ? t`Cancel recast successfully` : t`Recasted`);
-                        return result;
+                        return;
                     }
                     case Source.Lens: {
-                        const result = await (unmirror
+                        await (unmirror
                             ? LensSocialMediaProvider.unmirrorPost(post.publicationId)
                             : LensSocialMediaProvider.mirrorPost(postId));
                         enqueueSuccessMessage(unmirror ? t`Cancel repost successfully` : t`Reposted`);
-                        return result;
+                        return;
                     }
                     case Source.Twitter: {
-                        const result = await (hasMirrored
+                        await (hasMirrored
                             ? TwitterSocialMediaProxy.unmirrorPost(postId)
                             : TwitterSocialMediaProxy.mirrorPost(postId));
                         enqueueSuccessMessage(hasMirrored ? t`Cancel repost successfully` : t`Reposted`);
-                        return result;
+                        return;
                     }
                     case Source.Bsky: {
-                        const result = await (hasMirrored
+                        await (hasMirrored
                             ? BskySocialMediaProvider.unmirrorPost(postId)
                             : BskySocialMediaProvider.mirrorPost(postId));
                         enqueueSuccessMessage(hasMirrored ? t`Cancel repost successfully` : t`Reposted`);
-                        return result;
+                        return;
                     }
                     default:
                         safeUnreachable(source);

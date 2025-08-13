@@ -9,6 +9,7 @@ import { Comment } from '@/components/Actions/Comment.js';
 import { Like } from '@/components/Actions/Like.js';
 import { Mirror } from '@/components/Actions/Mirror.js';
 import { PostBookmark } from '@/components/Actions/PostBookmark.js';
+import { BookmarkMenuItem } from '@/components/Actions/BookmarkMenuItem.js';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { Share } from '@/components/Actions/Share.js';
 import { ClickableArea } from '@/components/ClickableArea.js';

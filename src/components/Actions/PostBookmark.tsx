@@ -1,6 +1,7 @@
 import { type HTMLProps, useCallback } from 'react';
 
 import { Bookmark } from '@/components/Actions/Bookmark.js';
+import { BookmarkMenuItem } from '@/components/Actions/BookmarkMenuItem.js';
 import { BookmarkType } from '@/constants/enum.js';
 import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { useHasBookmarked } from '@/hooks/useHasBookmarked.js';
@@ -29,16 +30,18 @@ export function PostBookmark({ post, disabled, onlyIcon = true, onClick }: PostB
         onClick?.();
     }, [mutation, post, data, onClick]);
 
-    return (
-        <Bookmark
-            hasBookmarked={hasBookmarked ?? data}
-            onClick={onToggle}
-            count={post.stats?.bookmarks}
-            disabled={disabled}
-            loading={isLoading}
-            onlyIcon={onlyIcon}
-            tooltip={onlyIcon}
-            hiddenCount
-        />
-    );
+    if (onlyIcon) {
+        return (
+            <Bookmark
+                hasBookmarked={hasBookmarked ?? data}
+                onClick={onToggle}
+                count={post.stats?.bookmarks}
+                disabled={disabled}
+                loading={isLoading}
+                hiddenCount
+            />
+        );
+    }
+
+    return <BookmarkMenuItem hasBookmarked={hasBookmarked ?? data} onClick={onToggle} loading={isLoading} />;
 }

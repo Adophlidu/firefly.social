@@ -418,7 +418,6 @@ class HubbleSocialMedia implements Provider {
                 },
             },
         }));
-
         // FIXME: should return post id here
         return null!;
     }

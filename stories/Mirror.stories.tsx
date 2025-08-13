@@ -21,7 +21,6 @@ const meta = {
 type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
     args: {
-        old: false,
         source: Source.Lens,
         postId: 'postId',
         canUndoMirror: true,
@@ -29,13 +28,11 @@ export const Primary: Story = {
         handleMirror: action('handleMirror'),
         handleQuote: action('handleQuote'),
         hasQuoted: true,
+        hasMirrored: false,
         mirrorDisabled: false,
-        mirrored: false,
         mirrorLoading: false,
         onClick: action('onClick'),
-        open: true,
         quoteDisabled: false,
-        setOpen: action('setOpen'),
         shares: 1,
     },
 };

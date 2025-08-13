@@ -11,13 +11,12 @@ import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
-import { PostBookmark } from '@/components/Actions/PostBookmark.js';
 import { ReportPostButton } from '@/components/Actions/ReportPostButton.js';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { BaseToggleFollowButton } from '@/components/Profile/BaseToggleFollowButton.js';
+import { ToggleFollowButton } from '@/components/Profile/ToggleFollowButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -35,6 +34,7 @@ import { useReportPost } from '@/hooks/useReportPost.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
+import { PostBookmark } from '@/components/Actions/PostBookmark.js';
 
 interface MoreProps {
     source: SocialSource;
@@ -141,14 +141,14 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
                             <>
                                 <MenuItem>
                                     {({ close }) => (
-                                        <BaseToggleFollowButton
+                                        <ToggleFollowButton
                                             className="flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
                                             onClick={close}
                                             profile={author}
                                             ref={ref}
                                         >
                                             {followButtonLabelRender}
-                                        </BaseToggleFollowButton>
+                                        </ToggleFollowButton>
                                     )}
                                 </MenuItem>
                                 {post && [Source.Lens, Source.Farcaster].includes(source) ? (
@@ -178,17 +178,11 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
                             </MenuItem>
                         ) : null}
                         {!isMyProfile ? (
-                            <>
-                                <MenuItem>
-                                    {({ close }) => (
-                                        <MuteProfileButton
-                                            profile={author}
-                                            onToggle={toggleMutedProfile}
-                                            onClick={close}
-                                        />
-                                    )}
-                                </MenuItem>
-                            </>
+                            <MenuItem>
+                                {({ close }) => (
+                                    <MuteProfileButton profile={author} onToggle={toggleMutedProfile} onClick={close} />
+                                )}
+                            </MenuItem>
                         ) : null}
                     </>
                 )}

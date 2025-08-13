@@ -10,7 +10,7 @@ import { ToggleMutedProfileButton } from '@/components/Actions/ToggleMutedProfil
 import { TwitterFollowButton } from '@/components/Actions/TwitterFollowButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { BaseToggleFollowButton } from '@/components/Profile/BaseToggleFollowButton.js';
+import { ToggleFollowButton } from '@/components/Profile/ToggleFollowButton.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
@@ -114,7 +114,7 @@ export const FollowButton = memo(function FollowButton({
           : State.Follow;
 
     return (
-        <BaseToggleFollowButton
+        <ToggleFollowButton
             profile={profile}
             className={classNames(
                 'flex h-8 items-center justify-center rounded-lg text-medium font-semibold transition-all',
@@ -135,6 +135,6 @@ export const FollowButton = memo(function FollowButton({
             onMouseLeave={() => setHovering(false)}
         >
             {buttonLabelRender}
-        </BaseToggleFollowButton>
+        </ToggleFollowButton>
     );
 });

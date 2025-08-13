@@ -16,8 +16,6 @@ interface BookmarkProps {
     hasBookmarked?: boolean;
     hiddenCount?: boolean;
     loading?: boolean;
-    onlyIcon?: boolean;
-    tooltip?: boolean;
     onClick: () => void;
 }
 
@@ -27,8 +25,6 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({
     hasBookmarked,
     hiddenCount = false,
     loading = false,
-    onlyIcon = true,
-    tooltip = true,
     onClick,
 }) {
     const content = hasBookmarked ? <Trans>Remove from Bookmarks</Trans> : <Trans>Bookmark</Trans>;
@@ -40,14 +36,11 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({
             })}
             onClick={onClick}
         >
-            <Tooltip disabled={disabled || !tooltip} placement="top" content={content}>
+            <Tooltip disabled={disabled} placement="top" content={content}>
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}
-                    className={classNames('inline-flex items-center', {
-                        'size-7 justify-center rounded-full hover:bg-warn/[.20] hover:text-warn': onlyIcon,
-                        'h-8 w-full gap-2 px-3 text-main hover:bg-bg': !onlyIcon,
-                    })}
+                    className="inline-flex size-7 items-center justify-center rounded-full hover:bg-warn/[.20] hover:text-warn"
                     aria-label="Bookmark"
                 >
                     {loading ? (
@@ -57,7 +50,6 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({
                     ) : (
                         <BookmarkIcon width={20} height={20} />
                     )}
-                    {!onlyIcon ? <span className="font-bold leading-[22px] text-main">{content}</span> : null}
                 </motion.button>
             </Tooltip>
             {!hiddenCount && count ? <span className="text-xs font-medium text-main">{nFormatter(count)}</span> : null}
