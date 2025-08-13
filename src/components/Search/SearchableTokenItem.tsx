@@ -3,7 +3,7 @@ import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-import { bedStead } from '@/fonts/index.js';
+import { bedStead } from '@/fonts/bedStead/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';

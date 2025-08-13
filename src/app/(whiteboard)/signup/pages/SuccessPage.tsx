@@ -10,7 +10,7 @@ import { PageRoute } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { useSearchParams } from '@/esm/navigation.js';
-import { bedStead } from '@/fonts/index.js';
+import { bedStead } from '@/fonts/bedStead/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';

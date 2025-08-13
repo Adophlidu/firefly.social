@@ -4,7 +4,7 @@ import { memo, useEffect, useRef, useState } from 'react';
 import { toggleSignupAudio } from '@/app/(whiteboard)/signup/pages/audio.js';
 import FireflyCard from '@/assets/firefly-card.svg';
 import { Image } from '@/esm/Image.js';
-import { bedStead } from '@/fonts/index.js';
+import { bedStead } from '@/fonts/bedStead/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 

@@ -7,7 +7,7 @@ import { SquareButton } from '@/app/(whiteboard)/components/Signup/SquareButton.
 import AppleIcon from '@/assets/apple-small.svg';
 import GoogleStoreIcon from '@/assets/google-store.svg';
 import { SignupStep } from '@/constants/enum.js';
-import { bedStead } from '@/fonts/index.js';
+import { bedStead } from '@/fonts/bedStead/index.js';
 import { FireflyAccountSVG } from '@/modals/CreateFireflyAccountGuideModal/FireflyAccountSVG.js';
 import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';
 

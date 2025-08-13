@@ -10,7 +10,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { SiteCookies } from '@/constants/enum.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { Script } from '@/esm/Script.js';
-import { inter } from '@/fonts/index.js';
+import { inter } from '@/fonts/inter.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getCookie } from '@/helpers/getCookies.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
