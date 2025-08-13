@@ -25,12 +25,14 @@ import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
 import { EMPTY_LIST, TRACING_RUNTIME_LIST } from '@/constants/index.js';
+import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { assert } from '@/helpers/assert.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isZero } from '@/helpers/number.js';
 import { resolveCoinGeckoChain } from '@/helpers/resolveCoinGeckoChain.js';
+import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChainId.js';
 import { resolveDexScreenerUrl } from '@/helpers/resolveDexScreenerUrl.js';
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
@@ -107,8 +109,21 @@ export const TokenMarketData = memo(function TokenMarketData({
     const { data: coin } = useSingleCoin(token.id, token.chainId, token.address);
     const { data: trending, isPending: isTrendingPending } = useCoinTrending(token.id);
     const runtimeAddress = propAddress || token.address;
+    const coinChainId = token.id ? resolveCoinGeckoCoinChainId(token.id) : undefined;
     const contracts = useMemo(() => {
-        if (trending?.contracts) return trending.contracts.filter((x) => TRACING_RUNTIME_LIST.includes(x.runtime));
+        if (trending?.contracts) {
+            const contracts = trending.contracts.filter((x) => TRACING_RUNTIME_LIST.includes(x.runtime));
+            if (coinChainId)
+                return [
+                    {
+                        runtime: resolveCoinGeckoChain(coinChainId),
+                        chainId: coinChainId,
+                        address: NATIVE_TOKEN_ADDRESS,
+                    } as Contract,
+                    ...contracts,
+                ];
+            return contracts;
+        }
         if (propChainId && runtimeAddress)
             return [
                 {
@@ -118,7 +133,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                 } as Contract,
             ];
         return EMPTY_LIST;
-    }, [propChainId, runtimeAddress, trending?.contracts]);
+    }, [coinChainId, propChainId, runtimeAddress, trending?.contracts]);
     const firstContract = first(contracts);
     const chainId = propChainId || token.chainId || firstContract?.chainId;
     const contract = (chainId ? contracts?.find((x) => x.chainId === chainId) : null) || firstContract;

@@ -17,6 +17,7 @@ import {
     TRACING_CHAINS,
 } from '@/constants/index.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
+import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChainId.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/types.js';
@@ -33,7 +34,7 @@ interface Props
 
 export default function TokenCategoryPage({ params, searchParams }: Props) {
     const { symbol, slug: slugs } = use(params);
-    const { chainId: paramChainId, isCoinId, trader, traderName, address } = use(searchParams);
+    const { chainId: paramChainId, isCoinId, trader, traderName, address: paramAddress } = use(searchParams);
     const isSolAddress = isValidAddressSolana(symbol);
     const isAddress = isValidAddressEthereum(symbol) || isSolAddress;
 
@@ -42,15 +43,21 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
         token_symbol: isAddress ? undefined : symbol,
         coingecko_id: isCoinId ? symbol : undefined,
         chain_id: chainId,
-        address: address || (isAddress ? symbol : undefined),
+        address: paramAddress || (isAddress ? symbol : undefined),
     });
     const tokenId = token?.id;
+    const coinChainId = tokenId ? resolveCoinGeckoCoinChainId(tokenId) : undefined;
     const { data: trending, isPending } = useCoinTrending(tokenId);
+    const firstContract = trending?.contracts?.[0];
 
-    const tokenAddress =
-        address ?? (isValidAddressEthereum(symbol) ? symbol : trending?.contracts?.[0]?.address) ?? token?.address;
+    const address =
+        paramAddress ??
+        (isValidAddressEthereum(symbol) ? symbol : coinChainId ? undefined : firstContract?.address) ??
+        token?.address;
+    const tokenAddress = tokenId === COINGECKO_SOL_COIN_ID ? SWAP_SOL_NATIVE_ADDRESS : address;
 
-    const updatedChainId = token?.chainId ?? chainId ?? trending?.coin.chainId ?? trending?.contracts?.[0]?.chainId;
+    const updatedChainId =
+        token?.chainId ?? chainId ?? trending?.coin.chainId ?? (coinChainId ? coinChainId : firstContract?.chainId);
     const isTracingChain = updatedChainId ? TRACING_CHAINS.includes(updatedChainId) : true;
     const isTracingPlatform = isArray(token?.platform_info)
         ? token.platform_info.some((x) => TRACING_CHAINS.includes(x.chain_id))
@@ -80,13 +87,10 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
         case TokenCategory.Transactions:
         default:
             if ((isTokenPending || tokenId) && isPending && !tokenAddress) return <TokenPageLoading />;
+            // Use explicit chain id for native token to distinguish between evm chains.
+            const txChainId = tokenId && !updatedChainId && !tokenAddress ? coinChainId : updatedChainId;
             return (
-                <Transactions
-                    chainId={updatedChainId}
-                    tokenAddress={tokenId === COINGECKO_SOL_COIN_ID ? SWAP_SOL_NATIVE_ADDRESS : tokenAddress}
-                    trader={trader}
-                    traderName={traderName}
-                />
+                <Transactions chainId={txChainId} tokenAddress={tokenAddress} trader={trader} traderName={traderName} />
             );
     }
 }
