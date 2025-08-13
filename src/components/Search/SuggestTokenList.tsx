@@ -34,9 +34,7 @@ export const SuggestTokenList = memo<SuggestTokenListProps>(function SuggestToke
         enabled: !!query,
     });
 
-    if (!isLoading && !tokens.length) {
-        return null;
-    }
+    if (!isLoading && !tokens.length) return null;
 
     return (
         <div>

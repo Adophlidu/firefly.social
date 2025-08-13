@@ -24,7 +24,7 @@ interface SuggestProfileListProps {
 
 export const SuggestProfileList = memo<SuggestProfileListProps>(function SuggestProfileList({ query, onSelect }) {
     const isTwitterLogin = useIsLogin(Source.Twitter);
-    const { data: profiles, isLoading } = useQuery({
+    const { data: profiles = [], isLoading } = useQuery({
         queryKey: ['search-suggest', 'profiles', query],
         staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: async () => {
@@ -54,6 +54,8 @@ export const SuggestProfileList = memo<SuggestProfileListProps>(function Suggest
         enabled: !!query,
     });
 
+    if (!isLoading && !profiles.length) return null;
+
     return (
         <div>
             <h2 className="border-t border-line p-3 pb-2 text-sm font-bold leading-[18px]">
@@ -66,7 +68,7 @@ export const SuggestProfileList = memo<SuggestProfileListProps>(function Suggest
                         <Trans>Searching users</Trans>
                     </div>
                 </div>
-            ) : profiles?.length ? (
+            ) : profiles.length ? (
                 <div>
                     {profiles.slice(0, MAX_RECOMMEND_PROFILE_SIZE).map(({ profile, related }) => (
                         <SearchableProfileItem
@@ -86,14 +88,16 @@ export const SuggestProfileList = memo<SuggestProfileListProps>(function Suggest
                     </div>
                 </div>
             )}
-            <div className="px-3 pb-4 pt-2">
-                <Link
-                    className="text-sm leading-[18px] text-secondary"
-                    href={resolveSearchUrl(query, SearchType.Profiles)}
-                >
-                    <Trans>Show more users</Trans>
-                </Link>
-            </div>
+            {profiles.length > MAX_RECOMMEND_PROFILE_SIZE ? (
+                <div className="px-3 pb-4 pt-2">
+                    <Link
+                        className="text-sm leading-[18px] text-secondary"
+                        href={resolveSearchUrl(query, SearchType.Profiles)}
+                    >
+                        <Trans>Show more users</Trans>
+                    </Link>
+                </div>
+            ) : null}
         </div>
     );
 });
