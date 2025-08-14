@@ -910,6 +910,9 @@ msgstr ""
 msgid "Video duration limit reached."
 msgstr ""
 
+msgid "See details"
+msgstr ""
+
 msgid "Limo"
 msgstr ""
 

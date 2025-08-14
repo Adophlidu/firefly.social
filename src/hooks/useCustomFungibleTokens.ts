@@ -4,10 +4,14 @@ import { erc20Abi } from 'viem';
 import { useAccount } from 'wagmi';
 import { multicall } from 'wagmi/actions';
 
+import { queryClient } from '@/configs/queryClient.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { formatCustomTokenToTipsToken } from '@/helpers/formatCustomTokenToTipsToken.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { leftShift } from '@/helpers/number.js';
+import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { CoinGecko } from '@/providers/coingecko/index.js';
 import type { Token as TipsToken } from '@/providers/types/Transfer.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
@@ -42,20 +46,36 @@ export function useCustomFungibleTokens(chainId?: EthereumChainId) {
                         contracts,
                         chainId,
                     });
-                    const formattedTokens = result.map((x, i) => {
+
+                    const chain = resolveWagmiChain(chainId);
+
+                    const formattedTokens = result.map(async (x, i) => {
                         const token = tokensByChainId[i];
                         if (!token || x.status !== 'success') return;
                         const balance = x.result as bigint;
                         const bigUnitBalance = leftShift(`${balance}`, token.decimals);
+                        let usdValue: number | undefined;
+                        await runInSafeAsync(async () => {
+                            if (chain) {
+                                const price = await queryClient.ensureQueryData({
+                                    queryKey: ['fungible', 'token-price', chainId, token.address],
+                                    queryFn: () => CoinGecko.getFungibleTokenPrice(chainId, token.address),
+                                });
+                                if (price) {
+                                    usdValue = bigUnitBalance.times(price).toNumber();
+                                }
+                            }
+                        });
                         return formatCustomTokenToTipsToken<Token>(token, {
-                            balance: bigUnitBalance.isZero() ? '' : removeTrailingZeros(bigUnitBalance.toFormat(4)),
+                            balance: removeTrailingZeros(bigUnitBalance.toFormat(4)),
                             amount: bigUnitBalance.toNumber(),
                             raw_amount: balance.toString(),
                             raw_amount_hex_str: balance.toString(16),
                             custom: true,
+                            usdValue,
                         });
                     });
-                    return compact(formattedTokens);
+                    return compact(await Promise.all(formattedTokens));
                 },
             };
         }),

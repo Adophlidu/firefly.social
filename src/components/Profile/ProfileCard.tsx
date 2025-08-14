@@ -30,7 +30,9 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
     const { id, source } = identity;
 
     const myProfile = useCurrentProfile(narrowToSocialSource(source));
-    const queryKey = source === Source.Lens ? ['profile', source, id, 'tippy'] : ['profile', source, id];
+    const queryKey = [Source.Lens, Source.Twitter].includes(source)
+        ? ['profile', source, id, 'tippy']
+        : ['profile', source, id];
     const { data: profile, isLoading } = useQuery({
         queryKey,
         staleTime: 1000 * 60 * 5, // 5 minutes
@@ -84,7 +86,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                         >
                             {profile.displayName}
                         </Link>
-                        <ProfileVerifyBadge profile={profile} />
+                        <ProfileVerifyBadge profile={profile} className="flex flex-shrink-0 items-center space-x-1" />
                         <SocialSourceIcon source={profile.source} className="ml-auto flex-shrink-0" size={18} />
                     </div>
 

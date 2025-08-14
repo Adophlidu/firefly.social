@@ -20,14 +20,15 @@ import {
 import { omit, uniq } from 'lodash-es';
 import { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { FormProvider, useForm, useFormContext, useWatch } from 'react-hook-form';
-import { useAsyncFn } from 'react-use';
 import { type Address, formatEther } from 'viem';
 
 import AddIcon from '@/assets/add-circle.svg';
 import ArrowDownIcon from '@/assets/arrow-line-down.svg';
+import ErrorIcon from '@/assets/error-circle.svg';
 import InfoIcon from '@/assets/info-outline.svg';
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import SearchIcon from '@/assets/search.svg';
+import SuccessIcon from '@/assets/success.svg';
 import WalletIcon from '@/assets/wallet.fill.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
@@ -47,6 +48,7 @@ import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';
 import { chains, privyVisibleChains } from '@/configs/chains.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -56,7 +58,7 @@ import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { ETH_ZERO_ADDRESS, isZeroAddressEthereum, SOL_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
-import { multipliedBy } from '@/helpers/number.js';
+import { isGreaterThanOrEqualTo, multipliedBy } from '@/helpers/number.js';
 import { resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
@@ -68,6 +70,8 @@ import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
 import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
+import { EthereumNetwork } from '@/providers/ethereum/Network.js';
+import { SolanaNetwork } from '@/providers/solana/Network.js';
 import { SolanaTransfer } from '@/providers/solana/Transfer.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -97,6 +101,8 @@ function SendTransactionModalRouter({ onClose }: { onClose: () => void }) {
             selectTokenRoute,
             searchRecipientRoute,
             chooseRecipientRoute,
+            failedRoute,
+            successRoute,
         ]);
         return createRouter({
             routeTree,
@@ -111,6 +117,9 @@ function Header() {
     const location = useLocation();
     const { context } = useMatch({ from: rootRouteId });
     const router = useRouter();
+    if (([RoutePath.Failed, RoutePath.Success] as string[]).includes(location.pathname)) {
+        return null;
+    }
     return (
         <DialogTitle as="h3" className="relative mb-4 h-10 shrink-0">
             {([RoutePath.ChooseRecipient, RoutePath.SearchRecipients] as string[]).includes(location.pathname) ? (
@@ -143,7 +152,7 @@ interface FormValues {
 
 function RootView() {
     const location = useLocation();
-    const pathname = location.pathname;
+    const pathname = location.pathname as RoutePath;
     const methods = useForm<FormValues>({
         defaultValues: {
             to: '',
@@ -154,15 +163,12 @@ function RootView() {
 
     return (
         <div
-            className={classNames(
-                'flex w-full flex-col p-6 transition-all will-change-contents',
-                pathname === RoutePath.SelectToken
-                    ? 'h-[482px] md:h-[620px] md:w-[600px]'
-                    : 'min-h-[482px] md:w-[432px]',
-                {
-                    'h-[482px]': pathname === RoutePath.SearchRecipients || pathname === RoutePath.ChooseRecipient,
-                },
-            )}
+            className={classNames('flex w-full flex-col p-6 transition-all will-change-contents', {
+                'h-[482px] md:w-[432px]': [RoutePath.SearchRecipients, RoutePath.ChooseRecipient].includes(pathname),
+                'h-[482px] md:h-[620px] md:w-[600px]': [RoutePath.SelectToken].includes(pathname),
+                'min-h-[482px] md:w-[432px]': [RoutePath.Form].includes(pathname),
+                'md:w-[432px]': [RoutePath.Failed, RoutePath.Success].includes(pathname),
+            })}
         >
             <Header />
             <FormProvider {...methods}>
@@ -174,7 +180,6 @@ function RootView() {
 
 function FormView() {
     const router = useRouter();
-    const { context } = useMatch({ from: rootRouteId });
     const {
         handleSubmit,
         control,
@@ -187,12 +192,15 @@ function FormView() {
         try {
             const to = values.to;
             const transfer = resolveTransferProvider(networkType);
-            await transfer.transfer({
-                token,
+            const hash = await transfer.transfer({
+                token: values.token,
                 to,
                 amount: values.amount,
             });
-            context.onClose?.();
+            router.navigate({
+                to: RoutePath.Success,
+                state: { ...values, hash } as unknown as HistoryState,
+            });
             let address: string | undefined;
             switch (networkType) {
                 case NetworkType.Ethereum:
@@ -217,6 +225,7 @@ function FormView() {
             });
         } catch (error) {
             enqueueErrorMessage(getErrorMessageFromError(error, t`Failed to transfer`));
+            router.navigate({ to: RoutePath.Failed, state: { error } as unknown as HistoryState });
             throw error;
         }
     };
@@ -230,10 +239,24 @@ function FormView() {
 
     const [isFocusingAddressInput, setIsFocusingAddressInput] = useState(false);
 
-    const { data: validatedResult, isLoading: isValidating } = useQuery({
-        queryKey: ['validate-transfer', to, amount, token],
+    const { data: availableBalance, isLoading: isLoadingAvailableBalance } = useQuery({
+        queryKey: ['token-available-balance', networkType, token, to],
+        enabled: !!token,
         async queryFn() {
-            if (!to || !amount || !token || !networkType) return;
+            if (!token || !networkType) return;
+            const transfer = resolveTransferProvider(networkType);
+            return await transfer.getAvailableBalance({
+                to: ETH_ZERO_ADDRESS,
+                token,
+                amount: '0',
+            });
+        },
+    });
+
+    const { data: validatedResult, isLoading: isValidating } = useQuery({
+        queryKey: ['validate-transfer', to, amount, token, availableBalance],
+        async queryFn() {
+            if (!to || !amount || !token || !networkType || !availableBalance) return;
             switch (networkType) {
                 case NetworkType.Ethereum:
                     if (!isValidAddressEthereum(to)) return { error: <Trans>This wallet address is invalid</Trans> };
@@ -245,11 +268,7 @@ function FormView() {
                     safeUnreachable(networkType);
             }
             const transfer = resolveTransferProvider(networkType);
-            const isBalanceValid = await transfer.validateBalance({
-                to,
-                token,
-                amount,
-            });
+            const isBalanceValid = isGreaterThanOrEqualTo(availableBalance, amount);
             if (!isBalanceValid) {
                 return { error: <Trans>Insufficient Balance</Trans> };
             }
@@ -261,11 +280,11 @@ function FormView() {
             if (isGasValid) return;
             return { error: <Trans>Insufficient Gas</Trans> };
         },
-        enabled: Boolean(to && amount && token && networkType),
+        enabled: Boolean(to && amount && token && networkType && availableBalance),
     });
 
     const { data: estimatedGas, isLoading: isEstimatingGas } = useQuery({
-        queryKey: ['estimateGas', token, networkType, watching.to, watching.amount],
+        queryKey: ['estimateGas', token, networkType, to, amount],
         async queryFn() {
             if (!to || !amount || !token || !networkType) return;
             switch (networkType) {
@@ -278,7 +297,10 @@ function FormView() {
                     });
                     const chain = resolveWagmiChain(token.chainId);
                     if (!chain) return;
-                    const price = await CoinGecko.getFungibleTokenPrice(chain.id, ETH_ZERO_ADDRESS);
+                    const price = await queryClient.ensureQueryData({
+                        queryKey: ['fungible', 'token-price', chain.id, ETH_ZERO_ADDRESS],
+                        queryFn: () => CoinGecko.getFungibleTokenPrice(chain.id, ETH_ZERO_ADDRESS),
+                    });
                     const formatAmount = formatEther(BigInt(gas.toString()));
                     const usd = multipliedBy(price ?? 0, formatAmount).toString();
                     return {
@@ -336,18 +358,6 @@ function FormView() {
             textareaEl.removeEventListener('blur', adjustTextareaHeight);
         };
     }, []);
-
-    const [{ loading: isSettingMaxAmount }, onSetMaxAmount] = useAsyncFn(async () => {
-        const transfer = resolveTransferProvider(networkType);
-        const amount = await transfer.getAvailableBalance({
-            to: ETH_ZERO_ADDRESS,
-            token,
-            amount: '0',
-        });
-        setValue('amount', amount, {
-            shouldValidate: true,
-        });
-    }, [networkType, setValue, token]);
 
     if (!token) {
         return <Navigate to={RoutePath.SelectToken} />;
@@ -464,8 +474,13 @@ function FormView() {
                             placeholder={t`Enter amount`}
                         />
                         <ClickableButton
-                            onClick={onSetMaxAmount}
-                            loading={isSettingMaxAmount}
+                            onClick={() => {
+                                if (!availableBalance) return;
+                                setValue('amount', availableBalance, {
+                                    shouldValidate: true,
+                                });
+                            }}
+                            loading={isLoadingAvailableBalance}
                             onlyLoading
                             type="button"
                             className="flex size-9 items-center justify-center text-medium font-semibold uppercase text-highlight"
@@ -475,26 +490,26 @@ function FormView() {
                     </label>
                 </div>
                 <div className="flex h-[18px] w-full flex-row justify-between whitespace-nowrap text-sm leading-[18px]">
-                    {estimatedGas ? (
+                    {estimatedGas || isEstimatingGas ? (
                         <>
                             <div className="font-normal text-second">
                                 <Trans>Network cost</Trans>
                             </div>
-                            {isEstimatingGas ? (
-                                <LoadingIcon size={16} />
-                            ) : (
-                                <div className="font-medium">
-                                    {estimatedGas ? (
-                                        <>
-                                            {renderShrankPrice(formatPrice(estimatedGas.amount) ?? '-')} $
-                                            {estimatedGas.symbol} ≈ $
-                                            {renderShrankPrice(formatPrice(estimatedGas.usd) ?? '-')}
-                                        </>
-                                    ) : (
-                                        '-'
-                                    )}
-                                </div>
-                            )}
+                            <div
+                                className={classNames('font-medium', {
+                                    'animate-pulse rounded bg-bg': isEstimatingGas,
+                                })}
+                            >
+                                {isEstimatingGas ? null : estimatedGas ? (
+                                    <>
+                                        {renderShrankPrice(formatPrice(estimatedGas.amount) ?? '-')} $
+                                        {estimatedGas.symbol} ≈ $
+                                        {renderShrankPrice(formatPrice(estimatedGas.usd) ?? '-')}
+                                    </>
+                                ) : (
+                                    '-'
+                                )}
+                            </div>
                         </>
                     ) : null}
                 </div>
@@ -604,7 +619,7 @@ function SelectTokenView() {
             >
                 {canExpand ? (
                     <ClickableButton
-                        className="mt-2 flex w-full items-center justify-center gap-0.5 rounded-lg py-2 text-sm font-bold text-highlight hover:bg-lightBg"
+                        className="mt-2 flex w-full items-center justify-center gap-0.5 rounded-lg py-2 text-sm font-bold text-highlight hover:scale-[0.98] hover:bg-lightBg"
                         onClick={() => setShowSmall((prev) => !prev)}
                     >
                         <span>
@@ -670,6 +685,96 @@ function ChooseRecipientView() {
     );
 }
 
+function FailedView() {
+    const router = useRouter();
+    return (
+        <div className="flex h-full w-full flex-col justify-between pt-6">
+            <div className="flex flex-col items-center gap-4 bg-lightBottom pb-6 dark:bg-darkBottom">
+                <ErrorIcon width={64} height={64} />
+                <p className="text-2xl font-semibold text-main">
+                    <Trans>Transaction failed</Trans>
+                </p>
+            </div>
+            <ActionButton
+                className="mt-12 h-10 w-full rounded-lg text-medium"
+                onClick={() => {
+                    router.navigate({ to: RoutePath.Form });
+                }}
+            >
+                <Trans>Try again</Trans>
+            </ActionButton>
+        </div>
+    );
+}
+
+function SuccessView() {
+    const { context } = useMatch({ from: rootRouteId });
+    const location = useLocation();
+    const state = location.state as unknown as FormValues & { hash: string };
+    if (!state.token) {
+        return <Navigate to={RoutePath.Form} />;
+    }
+    const { token, recipient, amount, to, hash } = state;
+    return (
+        <div className="flex h-full w-full flex-col justify-between pt-6">
+            <div className="flex flex-col items-center space-y-4 bg-lightBottom pb-6 dark:bg-darkBottom">
+                <SuccessIcon width={64} height={64} className="shrink-0" />
+                <p className="text-2xl font-semibold text-main">
+                    <Trans>Transaction completed!</Trans>
+                </p>
+            </div>
+            <div className="relative w-full">
+                <div className="mb-2 flex w-full items-center justify-between rounded-2xl bg-bg px-4 py-6">
+                    <div className="flex items-center gap-x-4">
+                        <TokenIcon token={token} tokenSize={36} />
+                        <div className="flex flex-col space-y-1 text-left">
+                            <span className="h-[18px] text-lg font-semibold leading-[18px]">{token.symbol}</span>
+                            <span className="h-3.5 text-sm leading-[14px] text-second">
+                                <Trans>Send</Trans>
+                            </span>
+                        </div>
+                    </div>
+                    <div className="flex flex-col items-end justify-center space-y-1">
+                        <div className="h-[18px] text-lg font-semibold leading-[18px]">{formatPrice(amount)}</div>
+                        <div className="text-sm text-second">${multipliedBy(token.price, amount).toFormat()}</div>
+                    </div>
+                </div>
+                <div className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border-2 border-primaryBottom bg-bg">
+                    <ArrowDownIcon className="text-main" width={24} height={24} />
+                </div>
+                <div className="w-full rounded-2xl bg-bg px-4 py-6">
+                    <RecipientItem
+                        {...(recipient ? (omit(recipient, 'handle', 'tag') as RecipientItemProps) : { address: to })}
+                    />
+                </div>
+            </div>
+
+            <div className="flex w-full space-x-2">
+                <ActionButton
+                    variant="secondary"
+                    className="mt-12 h-10 w-full rounded-lg border-none bg-secondaryLine text-medium"
+                    onClick={() => {
+                        const href = (
+                            token.chainId === SolanaChainId.Mainnet ? SolanaNetwork : EthereumNetwork
+                        ).getTransactionUrl(token.chainId as never, hash as `0x${string}`);
+                        window.open(href, '_blank');
+                    }}
+                >
+                    <Trans>See details</Trans>
+                </ActionButton>
+                <ActionButton
+                    className="mt-12 h-10 w-full rounded-lg text-medium"
+                    onClick={() => {
+                        context.onClose?.();
+                    }}
+                >
+                    <Trans>Done</Trans>
+                </ActionButton>
+            </div>
+        </div>
+    );
+}
+
 function getTokenItem(token: Token) {
     return <TokenItem key={token.id} token={token} />;
 }
@@ -679,6 +784,8 @@ enum RoutePath {
     SelectToken = '/tokens',
     SearchRecipients = '/recipients',
     ChooseRecipient = '/recipient/choose',
+    Failed = '/failed',
+    Success = '/success',
 }
 
 const rootRoute = createRootRoute({
@@ -707,4 +814,16 @@ const chooseRecipientRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: RoutePath.ChooseRecipient,
     component: ChooseRecipientView,
+});
+
+const failedRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: RoutePath.Failed,
+    component: FailedView,
+});
+
+const successRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: RoutePath.Success,
+    component: SuccessView,
 });

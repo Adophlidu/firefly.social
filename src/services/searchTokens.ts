@@ -22,7 +22,7 @@ async function searchByAddress(address: string): Promise<SearchableToken[]> {
             const attributes = token.attributes;
             return {
                 api_symbol: attributes.symbol,
-                id: attributes.coingecko_coin_id,
+                id: attributes.coingecko_coin_id || attributes.address,
                 chainId: token.attributes.chain_id || token.chain_id,
                 address: token.attributes.address,
                 largeLogo: attributes.image_url,

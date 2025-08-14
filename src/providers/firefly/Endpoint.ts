@@ -90,6 +90,7 @@ import {
     type GetFollowingCountByNFTParams,
     type GetFollowingCountByNFTResponse,
     type GetLensSuggestedFollowUserResponse,
+    type GetMultiChainTokenListResponse,
     type GetSponsorMintStatusResponse,
     type GetTokenOptions,
     type HexResponse,
@@ -127,6 +128,7 @@ import {
     type TipsDetailResponse,
     type TipsNotification,
     type TipsNotificationsResponse,
+    type TokenAsset,
     type TokenPriceStatsOptions,
     type TokenPriceStatsResponse,
     type TokenWithMarketData,
@@ -1622,6 +1624,18 @@ class FireflyEndpoint {
             createIndicator(),
             result.cursor ? createNextIndicator(undefined, result.cursor) : undefined,
         );
+    }
+
+    async getMultiChainTokenList(addresses: string[], chains: number[]) {
+        // cspell: disable-next-line
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/swap/wallet/asset/muti-chain', {
+            chains: chains.join(','),
+            addresses: addresses.join(','),
+        });
+        const response = await fetchJson<GetMultiChainTokenListResponse>(url, {
+            method: 'GET',
+        });
+        return (response.data?.data?.tokenAssets ?? EMPTY_LIST) as TokenAsset[];
     }
 
     async getPostByAnonymousRateLimits() {

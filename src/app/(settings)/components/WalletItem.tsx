@@ -13,11 +13,12 @@ import VerifiedDarkIcon from '@/assets/wallet-circle-verified.dark.svg';
 import VerifiedLightIcon from '@/assets/wallet-circle-verified.light.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { WalletSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum, formatAddressSolana } from '@/helpers/formatAddress.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
-import { type FireflyWalletConnection, WalletProfileDataSource } from '@/providers/types/Firefly.js';
+import { type FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface WalletItemProps {
     noAction?: boolean;
@@ -27,9 +28,7 @@ interface WalletItemProps {
 export function WalletItem({ connection, noAction = false }: WalletItemProps) {
     const isDark = useIsDarkMode();
 
-    const isMPCWallet =
-        connection.dataSource === WalletProfileDataSource.Particle ||
-        connection.dataSource === WalletProfileDataSource.Privy;
+    const isMPCWallet = connection.source === WalletSource.Particle || connection.source === WalletSource.Privy;
     const isConnected = 'isDefault' in connection && connection.isConnected;
 
     const Icon = isMPCWallet

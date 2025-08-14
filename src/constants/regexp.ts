@@ -52,7 +52,7 @@ export const TWEET_SPACE_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z0-9_]
 // https://www.lens.xyz/docs/best-practices/onboarding#choosing-a-handle
 export const LENS_HANDLE_REGEXP = /^[a-zA-Z_][a-zA-Z0-9_]{2,26}\.lens$/;
 
-export const ENS_REGEXP = /\b(([a-zA-Z0-9_-]{1,256}\.)+eth)\b/g;
+export const ENS_REGEXP = /(^|\s)(([a-zA-Z0-9_-]{1,256}\.)+eth)\b/g;
 export const FULL_ENS_REGEXP = /^(([a-zA-Z0-9_-]{1,256}\.)+eth)$/;
 
 export const NUMERIC_INPUT_REGEXP_PATTERN = '^[1-9]|^0(?![0-9])[.,。]?[0-9]*$';

@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useQueries } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { compact } from 'lodash-es';
 import { notFound, redirect } from 'next/navigation.js';
@@ -25,6 +24,7 @@ import { env } from '@/constants/env.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
+import { plus } from '@/helpers/number.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
@@ -35,8 +35,6 @@ import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
 import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
 import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
-import { Debank } from '@/providers/debank/index.js';
-import { OKX } from '@/providers/okx/index.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
@@ -104,37 +102,12 @@ function FireflyWallet() {
         }
     }, [ethereum, networkType, solana]);
 
-    const { totalBalance, isLoadingTotalBalance } = useQueries({
-        queries: [
-            {
-                queryKey: ['wallet', 'total-balance', NetworkType.Ethereum, ethereum.address],
-                async queryFn() {
-                    if (!ethereum.address) return '0';
-                    return Debank.getUserTotalBalance(ethereum.address);
-                },
-            },
-            {
-                queryKey: ['wallet', 'total-balance', NetworkType.Solana, solana.address],
-                async queryFn() {
-                    if (!solana.address) return '0';
-                    return OKX.getUserSolanaTotalValue(solana.address);
-                },
-            },
-        ],
-        combine(result) {
-            return {
-                totalBalance: result
-                    .reduce((acc, query) => acc.plus(query.data ? query.data : '0'), BigNumber(0))
-                    .toString(),
-                isLoadingTotalBalance: result.some((x) => x.isLoading),
-            };
-        },
-    });
-
     const { tokens, isLoading: isLoadingTokens } = useMixesTokens({
         evmAddress: ethereum.address as Address,
         solanaAddress: solana?.address,
     });
+
+    const totalBalance = tokens.reduce((acc, token) => plus(acc, token.usdValue), BigNumber('0'));
 
     const [tabType, setTabType] = useState(TabType.Token);
     const [openReceiveModal, setOpenReceiveModal] = useState(false);
@@ -162,7 +135,8 @@ function FireflyWallet() {
 
     return (
         <FireflyWalletHomePageUI
-            balance={isLoadingTotalBalance ? '0' : (totalBalance ?? '0')}
+            balance={totalBalance.toString() ?? '0'}
+            loadingBalance={isLoadingTokens}
             onSend={() => {
                 captureFireflyWalletEvent(EventId.FIREFLY_WALLET_SEND_CLICK, {});
                 setOpenTransactionModal(true);

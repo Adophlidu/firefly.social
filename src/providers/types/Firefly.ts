@@ -837,7 +837,6 @@ export interface WalletConnection {
     platform: 'eth' | 'solana';
     provider: string;
     source: WalletSource;
-    dataSource?: WalletProfileDataSource;
     sources: WalletProfile['verifiedSources'];
     twitterId: string;
     isDefault?: boolean;
@@ -1236,6 +1235,7 @@ export type SearchableToken = {
     /** only search by keyword has platform_type */
     platform_type?: TokenPlatformType;
     api_symbol: string;
+    /** coin id or address */
     id: string;
     chainId?: number;
     address?: string;
@@ -2127,6 +2127,22 @@ export type WalletHistoryTransactionsResponse = Response<{
     list: TransactionHistoryItem[];
     cursor?: string;
 }>;
+
+export interface TokenAsset {
+    chainIndex: string;
+    name: string;
+    symbol: string;
+    decimals: string;
+    tokenLogoUrl: string;
+    tokenAddress: string;
+    address: string;
+    balance: string;
+    tokenPrice: string;
+    tokenType: string;
+    isRiskToken: boolean;
+}
+
+export type GetMultiChainTokenListResponse = Response<Response<{ tokenAssets: TokenAsset[] }>>; // double layers from server response
 
 export type PostByAnonymousRateLimitsResponse = Response<{
     anon_post_x_blue: boolean;

@@ -10,7 +10,7 @@ import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';
 import { chains, visibleChains } from '@/configs/chains.js';
 import { isGreaterThan, isLessThan } from '@/helpers/number.js';
-import { type Token, useCustomFungibleTokens } from '@/hooks/useCustomFungibleTokens.js';
+import { type Token } from '@/hooks/useCustomFungibleTokens.js';
 import { useEvmTokens } from '@/hooks/useEvmTokens.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
@@ -61,17 +61,16 @@ export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTo
 
     const [chainId, setChainId] = useState<number>();
     const [keyword, setKeyword] = useState('');
-    const customTokens = useCustomFungibleTokens(chainId);
 
     const filteredTokens: Token[] = useMemo(() => {
         const kw = keyword.toLocaleLowerCase();
-        return [...customTokens, ...tokens].filter((token) => {
+        return tokens.filter((token) => {
             return (
                 [token.name, token.symbol, token.id].some((value) => value.toLowerCase().includes(kw)) &&
                 (!chainId || token.chainId === chainId)
             );
         });
-    }, [chainId, keyword, tokens, customTokens]);
+    }, [chainId, keyword, tokens]);
     const canExpand = useMemo(() => {
         return (
             filteredTokens.some((token) => isGreaterThan(token.usdValue, 1) && !token.custom) &&

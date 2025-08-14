@@ -8,6 +8,7 @@ import CopyIcon from '@/assets/copy-2.svg';
 import ReceiveIcon from '@/assets/qrcode.svg';
 import SendIcon from '@/assets/send2.svg';
 import SwapIcon from '@/assets/swap2.svg';
+import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
@@ -15,6 +16,7 @@ import { useCopyText } from '@/hooks/useCopyText.js';
 interface BaseProps {
     address?: string;
     balance: number | string;
+    loadingBalance?: boolean;
     onSend?: () => void;
     onReceive?: () => void;
     onSwap?: () => void;
@@ -33,6 +35,7 @@ export function FireflyWalletHomePageUI({
     onSwap,
     title,
     header,
+    loadingBalance,
 }: FireflyWalletHomePageUIProps) {
     return (
         <div className="flex flex-col items-center px-4 py-6">
@@ -41,7 +44,16 @@ export function FireflyWalletHomePageUI({
             <div className="mt-2 flex w-full flex-col space-y-8">
                 {address ? <AddressCopier address={address} /> : null}
                 <div className="flex flex-col space-y-2 text-center">
-                    <div className="truncate text-[32px] font-bold leading-8 text-main">{formatTokenUSD(balance)}</div>
+                    <div
+                        className={classNames(
+                            'mx-auto h-8 w-auto min-w-[100px] truncate text-[32px] font-bold leading-8 text-main',
+                            {
+                                'animate-pulse rounded-lg bg-bg': !!loadingBalance,
+                            },
+                        )}
+                    >
+                        {loadingBalance ? '' : formatTokenUSD(balance)}
+                    </div>
                     <div className="text-sm font-medium leading-[18px] text-second">
                         <Trans>TOTAL ASSETS (≈USD)</Trans>
                     </div>

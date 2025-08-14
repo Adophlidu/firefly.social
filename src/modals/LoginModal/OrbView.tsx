@@ -126,7 +126,6 @@ export function OrbView() {
             });
         } catch (error) {
             if (error instanceof AbortError) return;
-
             if (error instanceof InvalidResultError) {
                 enqueueWarningMessage(t`This QR code is no longer valid. Please scan a new one to continue.`);
                 setPollError(error);

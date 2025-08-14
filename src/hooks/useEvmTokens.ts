@@ -5,6 +5,7 @@ import { chains } from '@/configs/chains.js';
 import { NetworkType } from '@/constants/enum.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isGreaterThan, multipliedBy } from '@/helpers/number.js';
+import { useCustomFungibleTokens } from '@/hooks/useCustomFungibleTokens.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
@@ -21,6 +22,7 @@ export const useEvmTokens = (address?: string) => {
             return await FireflyEndpointProvider.getTokensByAddress(address);
         },
     });
+    const customTokens = useCustomFungibleTokens();
 
     const tokens = useMemo(() => {
         return sortTokensByUsdValue(
@@ -41,9 +43,10 @@ export const useEvmTokens = (address?: string) => {
                         },
                     ];
                 }, [])
-                .filter((token) => isGreaterThan(token.usdValue, 0)),
+                .filter((token) => isGreaterThan(token.usdValue, 0))
+                .concat(customTokens),
         );
-    }, [data]);
+    }, [customTokens, data]);
 
     return { tokens, isLoading };
 };

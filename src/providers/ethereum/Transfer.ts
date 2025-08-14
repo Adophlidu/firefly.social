@@ -3,7 +3,7 @@ import { getBalance, sendTransaction, writeContract } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
-import { isGreaterThan, isLessThan, leftShift, minus, multipliedBy, rightShift } from '@/helpers/number.js';
+import { isGreaterThan, isLessThan, leftShift, multipliedBy, rightShift } from '@/helpers/number.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { getAvailableBalance } from '@/providers/ethereum/getAvailableBalance.js';
@@ -32,7 +32,6 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
 
     async validateBalance(options: TransactionOptions<EthereumChainId, Address>): Promise<boolean> {
         const balance = await getAvailableBalance(options);
-
         return !isGreaterThan(rightShift(options.amount, options.token.decimals), balance);
     }
 
@@ -53,11 +52,7 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
 
     async getAvailableBalance(options: TransactionOptions<EthereumChainId, Address>): Promise<string> {
         const { token } = options;
-        let balance = await getAvailableBalance(options);
-        if (this.isNativeToken(token)) {
-            const { gas } = await getDefaultGas(options);
-            balance = minus(balance, gas).toString();
-        }
+        const balance = await getAvailableBalance(options);
         return leftShift(balance, token.decimals).toString();
     }
 

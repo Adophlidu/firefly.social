@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { type Connector, useConnections, useConnectors } from 'wagmi';
 
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
-import { NetworkType } from '@/constants/enum.js';
+import { NetworkType, WalletSource } from '@/constants/enum.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { parseJson } from '@/helpers/parseJson.js';
@@ -14,7 +14,6 @@ import { resolveNamespace } from '@/helpers/resolveNamespace.js';
 import { useSolanaAccount, useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { restoreDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
-import { WalletProfileDataSource } from '@/providers/types/Firefly.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 import type { ChainNamespace } from '@/types/index.js';
 
@@ -72,7 +71,7 @@ export function useWalletConnections() {
         const privySolanaAddress = first(solanaWallets)?.address;
         const fireflyConnectedAddress =
             allFireflyConnections?.connected.map((connection) => {
-                if (connection.dataSource !== WalletProfileDataSource.Privy) return null;
+                if (connection.source !== WalletSource.Privy) return null;
                 const networkType = getAddressType(connection.address);
                 if (!networkType) return null;
                 return {

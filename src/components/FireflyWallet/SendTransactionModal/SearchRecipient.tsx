@@ -78,7 +78,15 @@ export function SearchRecipient({
                     })
                     .map((item) => {
                         const profiles = compact(
-                            SORTED_SOCIAL_SOURCES.map((source) => first(item[resolveSocialSourceInUrl(source)])),
+                            SORTED_SOCIAL_SOURCES.map((source) => {
+                                return first(
+                                    item[resolveSocialSourceInUrl(source)]?.sort((a, b) => {
+                                        const aMatch = a.handle === debouncedKeyword ? 1 : 0;
+                                        const bMatch = b.handle === debouncedKeyword ? 1 : 0;
+                                        return bMatch - aMatch;
+                                    }),
+                                );
+                            }),
                         );
                         const profile = first(profiles);
                         if (!profile) return null;

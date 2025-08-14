@@ -1,10 +1,11 @@
+import { BigNumber } from 'bignumber.js';
 import { type Address, parseUnits } from 'viem';
 import { estimateFeesPerGas } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
-import { multipliedBy, ZERO } from '@/helpers/number.js';
+import { multipliedBy, toFixed, ZERO } from '@/helpers/number.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
@@ -78,7 +79,7 @@ export async function getDefaultGas({ token, to, amount }: GetDefaultGasOptions<
           : multipliedBy(gasPrice.toString(), gasLimit.toString());
 
     return {
-        gas: multipliedBy(gasFee, '1.3'),
+        gas: BigNumber(toFixed(multipliedBy(gasFee, '1.3'))),
         maxFeePerGas,
         maxPriorityFeePerGas,
         gasPrice,

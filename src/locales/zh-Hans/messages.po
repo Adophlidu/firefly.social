@@ -915,6 +915,9 @@ msgstr "发布中"
 msgid "Video duration limit reached."
 msgstr "视频尺寸超出最大限制。"
 
+msgid "See details"
+msgstr ""
+
 msgid "Limo"
 msgstr "Limo"
 

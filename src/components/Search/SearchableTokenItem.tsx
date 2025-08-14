@@ -22,15 +22,21 @@ function formatTokenAddress(address: string) {
 
 export function SearchableTokenItem({ token, className, showRate = true, onClick }: SearchableTokenItemProps) {
     const priceChange = token.market?.price_change_percentage_24h ?? 0;
+    const identityId = token.address || token.api_symbol || token.symbol;
+    if (!token.id && !identityId) return null;
+
+    const tokenPageUrl = resolveTokenPageUrl(
+        !token.id
+            ? { identity: identityId, chainId: token.chainId }
+            : isValidAddress(token.id)
+              ? { identity: token.id, chainId: token.chainId }
+              : { identity: token.id, isCoinId: true },
+    );
 
     return (
         <Link
             className={classNames('flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg', className)}
-            href={
-                isValidAddress(token.id)
-                    ? resolveTokenPageUrl({ identity: token.id, chainId: token.chainId })
-                    : resolveTokenPageUrl({ identity: token.id, isCoinId: true })
-            }
+            href={tokenPageUrl}
             onClick={onClick}
         >
             <Image

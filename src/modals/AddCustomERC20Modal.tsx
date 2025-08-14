@@ -189,8 +189,8 @@ export function AddCustomERC20Modal({ ref }: Props) {
     const onClose = () => dispatch?.close();
 
     return (
-        <Modal open={open} onClose={onClose} dialogClassName="z-50">
-            <div className="z-50 flex h-auto w-[calc(100%-40px)] flex-col rounded-md bg-lightBottom p-4 pt-0 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:w-[450px] md:rounded-xl">
+        <Modal open={open} onClose={onClose} className="z-50 w-[calc(100%-40px)] md:w-[450px]">
+            <div className="z-50 flex h-auto flex-col p-4 pt-0 text-medium text-lightMain shadow-popover">
                 <DialogTitle as="h3" className="relative h-14 shrink-0 pt-safe">
                     <CloseButton
                         onClick={onClose}

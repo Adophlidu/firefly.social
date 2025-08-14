@@ -9,7 +9,7 @@ export async function getDebankTokenBalance(
     token: Pick<Token<EthereumChainId, Address>, 'id' | 'chain' | 'decimals' | 'symbol'>,
     account: Address,
 ) {
-    const tokens = await queryClient.fetchQuery({
+    const tokens = await queryClient.ensureQueryData({
         queryKey: ['debank', 'tokens', account],
         queryFn: () => FireflyEndpointProvider.getAllTokenList(account),
         staleTime: 1000 * 60 * 1,
