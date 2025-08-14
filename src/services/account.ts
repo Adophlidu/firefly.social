@@ -1,7 +1,6 @@
 import { compact, first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
-import { queryClient } from '@/configs/queryClient.js';
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { SEVEN_DAYS, SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
@@ -35,7 +34,6 @@ import {
     captureAccountLogoutEvent,
 } from '@/providers/telemetry/captureAccountEvent.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
-import { getTwitterTimelineWhitelist } from '@/providers/twitter/getTwitterTimelineWhitelist.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -225,13 +223,6 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             account,
             fireflySession,
             currentFireflySession,
-        });
-    }
-
-    if (account.profile.source === Source.Twitter) {
-        await queryClient.prefetchQuery({
-            queryKey: ['twitter-timeline-white-list'],
-            queryFn: () => getTwitterTimelineWhitelist(),
         });
     }
 
