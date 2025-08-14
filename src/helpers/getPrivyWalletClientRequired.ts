@@ -1,8 +1,8 @@
 import type { Config } from '@wagmi/core';
-import dayjs from 'dayjs';
 import { getConnectors, getWalletClient } from 'wagmi/actions';
 
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { delay } from '@/helpers/delay.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
@@ -17,7 +17,7 @@ async function waitUntilReady(options?: { timeoutMs?: number; intervalMs?: numbe
         if (Date.now() - start > timeoutMs) {
             throw new Error('Timeout waiting for Privy to become ready');
         }
-        await dayjs(intervalMs);
+        await delay(intervalMs);
     }
 }
 
