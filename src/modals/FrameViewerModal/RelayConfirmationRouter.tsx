@@ -5,7 +5,7 @@ import {
     createRouter,
     RouterProvider,
 } from '@tanstack/react-router';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 import { AuthWalletSignIn } from '@/modals/FrameViewerModal/AuthWalletSignIn.js';
 import type {
@@ -30,16 +30,6 @@ const authWalletRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([relayServiceRoute, authWalletRoute]);
 
-const memoryHistory = createMemoryHistory({
-    initialEntries: ['/auth-wallet'],
-});
-
-const router = createRouter({
-    routeTree,
-    history: memoryHistory,
-    defaultPendingMinMs: 200,
-});
-
 export interface RelayConfirmationContext extends RelayConfirmationPopoverOpenProps {
     onClose: (props: RelayConfirmationPopoverCloseProps) => void;
 }
@@ -50,5 +40,17 @@ export const RelayConfirmationRouter = memo<RelayConfirmationContext>(function R
     options,
     onClose,
 }) {
+    const router = useMemo(() => {
+        const memoryHistory = createMemoryHistory({
+            initialEntries: [options.acceptAuthAddress ? '/auth-wallet' : '/relay-service'],
+        });
+
+        return createRouter({
+            routeTree,
+            history: memoryHistory,
+            defaultPendingMinMs: 200,
+        });
+    }, [options.acceptAuthAddress]);
+
     return <RouterProvider router={router} context={{ onClose, fid, frame, options }} />;
 });

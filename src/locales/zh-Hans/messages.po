@@ -1372,6 +1372,9 @@ msgstr "反鲸鱼（有限的交易次数）"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>点赞了你的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {帖子}}</5>"
 
+msgid "Failed to sign in with Firefly Wallet."
+msgstr ""
+
 msgid "The passwords you entered don’t match. Please try again."
 msgstr "密码错误，请重试。"
 
@@ -2053,6 +2056,9 @@ msgstr "已隐藏的钱包"
 
 msgid "Everything app for Web3 natives"
 msgstr "Web3 原住民的万能应用"
+
+msgid "Click \"Approve\" below to sign this miniapp with Firefly Wallet."
+msgstr ""
 
 msgid "All wallets and accounts are muted."
 msgstr "已隐藏所有的钱包和账号。"
@@ -3234,6 +3240,9 @@ msgstr "你的 Firefly 账户已连接"
 msgid "Legacy Firefly wallet"
 msgstr "旧版 Firefly 钱包"
 
+msgid "Use Firefly Wallet"
+msgstr ""
+
 msgid "Voted successfully."
 msgstr "投票成功。"
 
@@ -3289,6 +3298,9 @@ msgstr "满足以下任意条件即可解锁高级版本的NFT"
 
 msgid "Article"
 msgstr "文章"
+
+msgid "Authentication Failed"
+msgstr ""
 
 msgid "Attendance"
 msgstr "出席"

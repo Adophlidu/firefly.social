@@ -2,6 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { rootRouteId, useRouteContext } from '@tanstack/react-router';
 import { useState } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -11,6 +12,7 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
+import { InfoCard } from '@/modals/FrameViewerModal/InfoCard.js';
 import type { RelayConfirmationContext } from '@/modals/FrameViewerModal/RelayConfirmationRouter.js';
 import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
 import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
@@ -51,11 +53,6 @@ export function AuthWalletSignIn() {
                 controller.current.signal,
             );
 
-            console.log('Key:', {
-                key,
-                response,
-            });
-
             return {
                 key,
             };
@@ -63,23 +60,19 @@ export function AuthWalletSignIn() {
         enabled: !!fid,
     });
 
-    useQuery({
-        queryKey: ['auth-wallet-sign', data?.key],
-        queryFn: async () => {
-            if (data?.key?.token) {
-                await pollingSignerRequestToken(data.key.token, controller.current.signal);
-                setIsScanned(true);
-            }
+    const [{ loading: isSigning, error: signError }, sign] = useAsyncFn(async () => {
+        if (data?.key?.token) {
+            await pollingSignerRequestToken(data.key.token, controller.current.signal);
+            setIsScanned(true);
+        }
 
-            const signed = await signInWithAuthWallet(frame, `${fid}`, options);
-            console.log(`[AuthWalletSignIn] signed`, signed);
+        const signed = await signInWithAuthWallet(frame, `${fid}`, options);
+        console.log(`[AuthWalletSignIn] signed`, signed);
 
-            captureFrameSignInEvent('auth-wallet', frame);
+        captureFrameSignInEvent('auth-wallet', frame);
 
-            onClose(signed);
-        },
-        enabled: !!data,
-    });
+        onClose(signed);
+    }, [data?.key?.token, fid, frame, options, onClose]);
 
     return (
         <div className="relative flex flex-col items-center justify-center gap-2 py-2">
@@ -91,12 +84,12 @@ export function AuthWalletSignIn() {
                     </p>
                 </div>
             ) : isError ? (
-                <div className="flex h-[232px] w-full flex-col justify-center gap-2 px-4">
-                    <p>
-                        <Trans>Something went wrong, please try again.</Trans>
-                    </p>
+                <InfoCard
+                    title={<Trans>Authentication Failed</Trans>}
+                    description={<Trans>Something went wrong, please try again.</Trans>}
+                >
                     <ClickableButton
-                        className="mt-2"
+                        className="mt-6 rounded-2xl bg-main p-2 px-4 font-bold text-primaryBottom outline-none"
                         onClick={() => {
                             refetch();
                             setIsScanned(false);
@@ -104,14 +97,44 @@ export function AuthWalletSignIn() {
                     >
                         <Trans>Retry</Trans>
                     </ClickableButton>
-                </div>
+                </InfoCard>
             ) : isScanned || !data?.key?.deeplinkUrl ? (
-                <div className="flex h-[232px] w-full items-center justify-center gap-2 px-4">
-                    <LoadingIcon />
-                    <p>
-                        <Trans>Wait for signing...</Trans>
-                    </p>
-                </div>
+                <>
+                    {isSigning ? (
+                        <div className="flex h-[232px] w-full items-center justify-center gap-2 px-4">
+                            <LoadingIcon />
+                            <p>
+                                <Trans>Wait for signing...</Trans>
+                            </p>
+                        </div>
+                    ) : signError ? (
+                        <InfoCard
+                            title={<Trans>Authentication Failed</Trans>}
+                            description={<Trans>Failed to sign in with Firefly Wallet.</Trans>}
+                        >
+                            <ClickableButton
+                                className="mt-6 rounded-2xl bg-main p-2 px-4 font-bold text-primaryBottom outline-none"
+                                onClick={() => sign()}
+                            >
+                                <Trans>Retry</Trans>
+                            </ClickableButton>
+                        </InfoCard>
+                    ) : (
+                        <InfoCard
+                            title={<Trans>Use Firefly Wallet</Trans>}
+                            description={
+                                <Trans>Click &quot;Approve&quot; below to sign this miniapp with Firefly Wallet.</Trans>
+                            }
+                        >
+                            <ClickableButton
+                                className="mt-6 rounded-2xl bg-main p-2 px-4 font-bold text-primaryBottom outline-none"
+                                onClick={() => sign()}
+                            >
+                                <Trans>Approve</Trans>
+                            </ClickableButton>
+                        </InfoCard>
+                    )}
+                </>
             ) : (
                 <>
                     <ClickableArea

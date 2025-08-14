@@ -1367,6 +1367,9 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr ""
 
+msgid "Failed to sign in with Firefly Wallet."
+msgstr ""
+
 msgid "The passwords you entered don’t match. Please try again."
 msgstr ""
 
@@ -2047,6 +2050,9 @@ msgid "Muted wallets"
 msgstr ""
 
 msgid "Everything app for Web3 natives"
+msgstr ""
+
+msgid "Click \"Approve\" below to sign this miniapp with Firefly Wallet."
 msgstr ""
 
 msgid "All wallets and accounts are muted."
@@ -3216,6 +3222,9 @@ msgstr ""
 msgid "Legacy Firefly wallet"
 msgstr ""
 
+msgid "Use Firefly Wallet"
+msgstr ""
+
 msgid "Voted successfully."
 msgstr ""
 
@@ -3270,6 +3279,9 @@ msgid "Meet any of the following to unlock a premium collectible:"
 msgstr ""
 
 msgid "Article"
+msgstr ""
+
+msgid "Authentication Failed"
 msgstr ""
 
 msgid "Attendance"

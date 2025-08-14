@@ -1372,6 +1372,9 @@ msgstr "反巨鯨機制(交易次數限制)"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}} <4>讚了你的</4><5>{1, select, Post {貼文} Comment {留言} Quote {引用} Mirror {轉發} other {貼文}}</5>"
 
+msgid "Failed to sign in with Firefly Wallet."
+msgstr ""
+
 msgid "The passwords you entered don’t match. Please try again."
 msgstr "密碼錯誤，請重試。"
 
@@ -2053,6 +2056,9 @@ msgstr "已隱藏錢包"
 
 msgid "Everything app for Web3 natives"
 msgstr "Web3 原住民的萬能應用"
+
+msgid "Click \"Approve\" below to sign this miniapp with Firefly Wallet."
+msgstr ""
 
 msgid "All wallets and accounts are muted."
 msgstr "已隱藏所有錢包與帳號。"
@@ -3234,6 +3240,9 @@ msgstr "你的 Firefly 帳戶已連接"
 msgid "Legacy Firefly wallet"
 msgstr "舊版 Firefly 錢包"
 
+msgid "Use Firefly Wallet"
+msgstr ""
+
 msgid "Voted successfully."
 msgstr "已成功投票"
 
@@ -3289,6 +3298,9 @@ msgstr "滿足以下任一條件即可解鎖高級收藏品："
 
 msgid "Article"
 msgstr "文章"
+
+msgid "Authentication Failed"
+msgstr ""
 
 msgid "Attendance"
 msgstr "出席"
