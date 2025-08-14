@@ -70,7 +70,10 @@ export function extractEmbedResources(postRawContent: string | undefined, oembed
         ),
     );
 
-    const domains = uniqBy(Array.from(postRawContent.match(ENS_REGEXP) || []), (x) => x.trim().toLowerCase());
+    const domains = uniqBy(
+        Array.from(postRawContent.match(ENS_REGEXP) || [], (x) => x.trim()),
+        (x) => x.toLowerCase(),
+    );
 
     return { addresses, domains, ignoredLinks: ignored, links: keep };
 }
