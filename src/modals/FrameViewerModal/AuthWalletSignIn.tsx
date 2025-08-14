@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { rootRouteId, useRouteContext } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
+import { useAccount } from 'wagmi';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -26,11 +27,12 @@ export function AuthWalletSignIn() {
     const context = useRouteContext({ from: rootRouteId });
     const { fid, frame, options, onClose } = context as RelayConfirmationContext;
 
+    const account = useAccount();
     const [isScanned, setIsScanned] = useState(false);
 
     // Check if the current wallet is registered
-    const { isLoading, isRefetching, isError, error, data, refetch } = useQuery({
-        queryKey: ['auth-wallet-status', fid],
+    const { isLoading, isRefetching, isError, data, refetch } = useQuery({
+        queryKey: ['auth-wallet-status', fid, account.address],
         queryFn: async () => {
             setIsScanned(false);
             controller.current.renew();
