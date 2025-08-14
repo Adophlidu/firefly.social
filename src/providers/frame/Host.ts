@@ -74,8 +74,6 @@ export class FarcasterFrameHost implements MiniAppHost {
     };
 
     signIn: MiniAppHost['signIn'] = async (options) => {
-        console.log('DEBUG: [frame host]: signIn', JSON.stringify(options, null, 2));
-
         try {
             const frame = this.options?.frame?.();
             if (!frame) throw new Error('Frame is not available');
@@ -88,13 +86,13 @@ export class FarcasterFrameHost implements MiniAppHost {
 
             // sign in with auth wallet or relay server
             const signed = await RelayConfirmationPopoverRef.openAndWaitForClose({
+                fid: this.context.client.clientFid,
                 frame,
                 options,
             });
             if (!signed) throw new Error('Failed to sign in farcaster');
             return signed;
         } catch (error) {
-            console.log('DEBUG: [frame host]: signIn error', error);
             throw error;
         }
     };

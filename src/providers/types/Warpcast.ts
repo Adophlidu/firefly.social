@@ -16,6 +16,7 @@ export interface SignedKeyRequestResponse extends ErrorResponse {
             state: 'pending' | 'approved' | 'completed';
             // requested key to add
             key: string;
+            keyType?: string;
             requestFid: number;
             token: string;
             userFid: number;

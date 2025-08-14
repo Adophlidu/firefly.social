@@ -78,7 +78,6 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, post: Pos
         return { canClaim: true, amount, tx: result.signature };
     }, [
         payload.rpid,
-        payload.accountId,
         payload.token,
         payload.password,
         payload.tokenProgram,

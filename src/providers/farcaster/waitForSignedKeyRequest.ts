@@ -38,6 +38,8 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
                 },
             );
 
+            console.log(`[waitForSignedKeyRequest] ${token}`, response);
+
             // Continue the loop if there are errors in the response
             if (response.errors?.length) continue;
 

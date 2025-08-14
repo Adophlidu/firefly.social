@@ -869,6 +869,9 @@ msgstr ""
 msgid "{0, plural, one {Like} other {Likes}}"
 msgstr ""
 
+msgid "Scan this QR code and confirm on your Farcaster mobile app to register auth wallet."
+msgstr ""
+
 #. placeholder {0}: post.metadata.content.asset.type
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
@@ -3619,6 +3622,9 @@ msgstr ""
 msgid "{seconds, plural, one {# second left} other {# seconds left}}"
 msgstr ""
 
+msgid "Checking wallet status..."
+msgstr ""
+
 msgid "No matching token"
 msgstr ""
 
@@ -4516,6 +4522,9 @@ msgid "Search nft"
 msgstr ""
 
 msgid "Recast"
+msgstr ""
+
+msgid "Wait for signing..."
 msgstr ""
 
 msgid "Resetting your 6-digit password will clear all previously encrypted login sessions."

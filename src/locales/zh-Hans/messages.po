@@ -869,6 +869,9 @@ msgstr "关注以铸造收集"
 msgid "{0, plural, one {Like} other {Likes}}"
 msgstr "{0, plural, one {点赞} other {点赞}}"
 
+msgid "Scan this QR code and confirm on your Farcaster mobile app to register auth wallet."
+msgstr ""
+
 #. placeholder {0}: post.metadata.content.asset.type
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[图片]} Video {[视频]} Audio {[音频]} Poll {[投票]} other {}}"
@@ -3632,6 +3635,9 @@ msgstr "所有人可评论"
 msgid "{seconds, plural, one {# second left} other {# seconds left}}"
 msgstr "{seconds, plural, one {剩余 # 秒} other {剩余 # 秒}}"
 
+msgid "Checking wallet status..."
+msgstr ""
+
 msgid "No matching token"
 msgstr "未匹配到代币"
 
@@ -4535,6 +4541,9 @@ msgstr "搜索 NFT"
 
 msgid "Recast"
 msgstr "转发"
+
+msgid "Wait for signing..."
+msgstr ""
 
 msgid "Resetting your 6-digit password will clear all previously encrypted login sessions."
 msgstr "重置6位数字密码将清除所有已加密的登录授权。"

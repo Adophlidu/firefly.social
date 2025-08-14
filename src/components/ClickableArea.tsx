@@ -7,7 +7,7 @@ interface ClickableAreaProps extends HTMLProps<HTMLDivElement> {
     as?: keyof JSX.IntrinsicElements;
 }
 
-export function ClickableArea({ as = 'div', children, disabled, ref, onClick, ...props }: ClickableAreaProps) {
+export function ClickableArea({ as = 'div', children, ref, ...props }: ClickableAreaProps) {
     return createElement(
         as,
         {
@@ -16,8 +16,9 @@ export function ClickableArea({ as = 'div', children, disabled, ref, onClick, ..
             onClick: (ev: MouseEvent<HTMLDivElement>) => {
                 ev.preventDefault();
                 ev.stopPropagation();
-                if (disabled) return;
-                onClick?.(ev);
+
+                if (props.disabled) return;
+                props.onClick?.(ev);
             },
         },
         children,

@@ -1,4 +1,4 @@
-import { encodeAbiParameters } from 'viem';
+import { pad } from 'viem';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
@@ -18,10 +18,10 @@ type SignedBody = ResponseJson<{
  * @returns
  */
 export async function createSignedKeyPayloadWithAddressVerification(address: `0x${string}`, signal?: AbortSignal) {
-    const response = await fetchJson<SignedBody>('/api/warpcast/signed-key-request', {
+    const response = await fetchJson<SignedBody>('/api/firefly/sponsorship', {
         method: 'POST',
         body: JSON.stringify({
-            key: encodeAbiParameters([{ name: 'auth_address', type: 'address' }], [address]),
+            key: pad(address, { size: 32 }),
         }),
         signal,
     });

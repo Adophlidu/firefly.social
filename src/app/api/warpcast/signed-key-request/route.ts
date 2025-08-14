@@ -2,9 +2,10 @@ import dayjs from 'dayjs';
 import { NextRequest } from 'next/server.js';
 import type { Hex } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
+import { z } from 'zod';
 
 import { env } from '@/constants/env.js';
-import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { HexStringSchema } from '@/schemas/index.js';
 
 const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
@@ -15,14 +16,20 @@ const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
 } as const;
 
 const SIGNED_KEY_REQUEST_TYPE = [
-    { name: 'requestFid', type: 'uint256' },
     { name: 'key', type: 'bytes' },
+    { name: 'requestFid', type: 'uint256' },
     { name: 'deadline', type: 'uint256' },
 ] as const;
 
+const BodySchema = z.object({
+    key: HexStringSchema,
+});
+
 export async function POST(request: NextRequest) {
-    const { key } = (await request.json()) as { key: string };
-    const publicKey = HexStringSchema.parse(key) as Hex;
+    const parsed = BodySchema.safeParse(await request.json());
+    if (!parsed.success) return createErrorResponseJson(parsed.error.message, { status: 400 });
+
+    const key = parsed.data.key as Hex;
 
     const deadline = dayjs(Date.now()).add(1, 'y').unix();
     const account = mnemonicToAccount(env.internal.FARCASTER_SIGNER_MNEMONIC);
@@ -34,7 +41,7 @@ export async function POST(request: NextRequest) {
         },
         primaryType: 'SignedKeyRequest',
         message: {
-            key: publicKey,
+            key,
             deadline: BigInt(deadline),
             requestFid: BigInt(env.internal.FARCASTER_SIGNER_FID),
         },
@@ -42,8 +49,7 @@ export async function POST(request: NextRequest) {
 
     return createSuccessResponseJson({
         body: {
-            key: publicKey,
-            keyType: 'auth-address',
+            key,
             requestFid: Number.parseInt(env.internal.FARCASTER_SIGNER_FID, 10),
             signature,
             deadline,

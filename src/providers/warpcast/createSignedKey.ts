@@ -1,4 +1,3 @@
-import { omit } from 'lodash-es';
 import urlcat from 'urlcat';
 import type { Hex } from 'viem';
 
@@ -23,7 +22,7 @@ export async function createSignedKey(body: SignedKeyRequestBody, signal?: Abort
     const url = urlcat(WARPCAST_ROOT_URL_V2, '/signed-key-requests');
     const response = await fetchJson<SignedKeyRequestResponse>(url, {
         method: 'POST',
-        body: JSON.stringify(omit(body, 'keyType')),
+        body: JSON.stringify(body),
         signal,
     });
     if (response.errors?.length) {

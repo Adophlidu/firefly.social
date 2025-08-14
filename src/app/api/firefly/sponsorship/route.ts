@@ -29,13 +29,13 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         env.internal.FIREFLY_JWT_SECRET,
     );
 
-    const publicKey = parsed.data.key as Hex;
+    const key = parsed.data.key as Hex;
     const { sponsorSignature, signedKeyRequestSignature, requestFid } =
-        await FireflyEndpointProvider.generateFarcasterSignatures(publicKey, deadline, jwt, request.signal);
+        await FireflyEndpointProvider.generateFarcasterSignatures(key, deadline, jwt, request.signal);
 
     return createSuccessResponseJson({
         body: {
-            key: publicKey,
+            key,
             signature: signedKeyRequestSignature,
             deadline,
             requestFid,

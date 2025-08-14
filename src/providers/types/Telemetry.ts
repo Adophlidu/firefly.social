@@ -106,6 +106,7 @@ export enum EventId {
     // miniapps
     MINI_APP_FIREFLY_SIGN_IN_SUCCESS = 'mini_app_ff_sign_in_success',
     MINI_APP_FARCASTER_SIGN_IN_SUCCESS = 'mini_app_far_sign_in_success',
+    MINI_APP_AUTH_WALLET_SIGN_IN_SUCCESS = 'mini_app_auth_wallet_sign_in_success',
 
     // article
     ARTICLE_COLLECT_SUBMIT = 'article_collect_submit', // ✅
@@ -815,6 +816,14 @@ export interface Events extends Record<EventId, Event> {
         };
     };
     [EventId.MINI_APP_FARCASTER_SIGN_IN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            frame_version: string;
+            frame_url: string;
+            mini_app_name: string;
+        };
+    };
+    [EventId.MINI_APP_AUTH_WALLET_SIGN_IN_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
             frame_version: string;
