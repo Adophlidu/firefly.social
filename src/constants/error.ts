@@ -314,3 +314,11 @@ export class TokenExpiredError extends Error {
         super(message ?? 'Token has been expired.');
     }
 }
+
+export class AccountSuspendedError extends Error {
+    override name = 'AccountSuspendedError';
+
+    constructor(message?: string) {
+        super(message ?? 'Account suspended.');
+    }
+}

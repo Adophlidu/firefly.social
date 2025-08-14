@@ -1,10 +1,17 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
+import { useLayoutEffect } from 'react';
 
 import SuspendedSVG from '@/assets/suspended.svg';
+import { useBodyLock } from '@/hooks/useBodyLock.js';
 
 export function SuspendedAccountFallback() {
+    useLayoutEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    useBodyLock(true);
+
     return (
         <div className="relative flex h-screen w-full flex-col items-center justify-start pt-10">
             <div className="flex w-full flex-col items-center justify-center space-y-10 px-4 text-center">

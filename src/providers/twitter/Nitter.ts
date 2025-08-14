@@ -1,5 +1,6 @@
 import urlcat from 'urlcat';
 
+import { AccountSuspendedError } from '@/constants/error.js';
 import { FIREFLY_NITTER_URL } from '@/constants/index.js';
 import { LimitConcurrency } from '@/decorators/LimitConcurrency.js';
 import { MemoizePromise } from '@/decorators/MemoizePromise.js';
@@ -72,7 +73,11 @@ class NitterAPI {
                 },
             },
         );
-        return resolveNitterJsonResponse(res);
+        const data = resolveNitterJsonResponse(res);
+        if (data.user.suspended) {
+            throw new AccountSuspendedError();
+        }
+        return data;
     }
 
     async getUserTimelineByHandle(

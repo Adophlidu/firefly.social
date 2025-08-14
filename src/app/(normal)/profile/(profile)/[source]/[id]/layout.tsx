@@ -8,6 +8,7 @@ import { ProfileInfoCard } from '@/components/Profile/ProfileInfoCard.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { type LoginFallbackSource, type ProfileSourceInURL, Source } from '@/constants/enum.js';
+import { AccountSuspendedError } from '@/constants/error.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
@@ -68,47 +69,68 @@ export default async function Layout(props: Props) {
     }
 
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
-    const socialProfile =
-        identityFromUrl.id && !walletProfile
-            ? await resolveSocialMediaProvider(narrowToSocialSource(identity.source))
-                  .getProfileByHandle(identityFromUrl.id, true)
-                  .catch(() => notFound())
-            : null;
+    try {
+        const socialProfile =
+            identityFromUrl.id && !walletProfile
+                ? await resolveSocialMediaProvider(narrowToSocialSource(identity.source)).getProfileByHandle(
+                      identityFromUrl.id,
+                      true,
+                  )
+                : null;
 
-    if (socialProfile) {
-        queryClient.setQueryData(['profile', socialProfile.source, socialProfile.profileId], socialProfile);
-        queryClient.setQueryData(['profile', socialProfile.source, socialProfile.handle], socialProfile);
-        queryClient.setQueryData(['firefly-profile', socialProfile.source, socialProfile.profileId], relatedProfile);
-        queryClient.setQueryData(['firefly-profile', socialProfile.source, socialProfile.handle], relatedProfile);
-    }
+        if (socialProfile) {
+            queryClient.setQueryData(['profile', socialProfile.source, socialProfile.profileId], socialProfile);
+            queryClient.setQueryData(['profile', socialProfile.source, socialProfile.handle], socialProfile);
+            queryClient.setQueryData(
+                ['firefly-profile', socialProfile.source, socialProfile.profileId],
+                relatedProfile,
+            );
+            queryClient.setQueryData(['firefly-profile', socialProfile.source, socialProfile.handle], relatedProfile);
+        }
 
-    return (
-        <HydrationBoundary state={dehydrate(queryClient)}>
-            <FireflyAccountInfo
-                relatedProfile={relatedProfile}
-                identity={identity}
-                socialProfile={socialProfile}
-                walletProfile={walletProfile}
-            />
-            <ProfileSourceTabs
-                profiles={profiles}
-                identity={identity}
-                socialProfile={socialProfile}
-                identityFromUrl={identityFromUrl}
-            />
-            {!socialProfile && !walletProfile ? (
-                <SuspendedAccountFallback />
-            ) : (
-                <WalletProfileProvider profiles={profiles} identity={identity}>
-                    <ProfileInfoCard
-                        source={source}
-                        socialProfile={socialProfile}
+        return (
+            <HydrationBoundary state={dehydrate(queryClient)}>
+                <FireflyAccountInfo
+                    relatedProfile={relatedProfile}
+                    identity={identity}
+                    socialProfile={socialProfile}
+                    walletProfile={walletProfile}
+                />
+                <ProfileSourceTabs
+                    profiles={profiles}
+                    identity={identity}
+                    socialProfile={socialProfile}
+                    identityFromUrl={identityFromUrl}
+                />
+                {!socialProfile && !walletProfile ? (
+                    <SuspendedAccountFallback />
+                ) : (
+                    <WalletProfileProvider profiles={profiles} identity={identity}>
+                        <ProfileInfoCard
+                            source={source}
+                            socialProfile={socialProfile}
+                            walletProfile={walletProfile}
+                            profiles={profiles}
+                        />
+                        <NoSSR>{props.children}</NoSSR>
+                    </WalletProfileProvider>
+                )}
+            </HydrationBoundary>
+        );
+    } catch (error) {
+        if (error instanceof AccountSuspendedError) {
+            return (
+                <HydrationBoundary state={dehydrate(queryClient)}>
+                    <FireflyAccountInfo
+                        relatedProfile={relatedProfile}
+                        identity={identity}
                         walletProfile={walletProfile}
-                        profiles={profiles}
                     />
-                    <NoSSR>{props.children}</NoSSR>
-                </WalletProfileProvider>
-            )}
-        </HydrationBoundary>
-    );
+                    <ProfileSourceTabs profiles={profiles} identity={identity} identityFromUrl={identityFromUrl} />
+                    <SuspendedAccountFallback />
+                </HydrationBoundary>
+            );
+        }
+        notFound();
+    }
 }
