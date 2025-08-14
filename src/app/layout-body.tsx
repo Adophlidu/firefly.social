@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { type ReactNode, Suspense } from 'react';
 
 import { DynamicPrivyBridge } from '@/components/DynamicPrivyBridge.js';
 import { IfPathname } from '@/components/IfPathname.js';
@@ -18,6 +18,10 @@ const FireflyAccountChecker = dynamic(
     {
         ssr: false,
     },
+);
+const NotificationListener = dynamic(
+    () => import('@/components/NotificationListener.js').then((m) => m.NotificationListener),
+    { ssr: false },
 );
 
 export function LayoutBody({ children }: { children: ReactNode }) {
@@ -55,6 +59,10 @@ export function LayoutBody({ children }: { children: ReactNode }) {
                     {env.external.NEXT_PUBLIC_FORCE_SIGNUP === STATUS.Enabled ? <FireflyAccountChecker /> : null}
                 </RouteProgressBar>
                 {env.external.NEXT_PUBLIC_PRIVY === STATUS.Enabled ? <DynamicPrivyBridge /> : null}
+                {/* delay render */}
+                <Suspense>
+                    <NotificationListener />
+                </Suspense>
             </Providers>
             <BeforeUnload />
         </>

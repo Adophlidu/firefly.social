@@ -648,3 +648,11 @@ export enum LensSignType {
     Lens = 'lens',
     OrbScan = 'orb_scan',
 }
+
+export enum NotificationSourceType {
+    Tips = 'tips',
+    Schedule = 'schedule',
+    Farcaster = 'farcaster',
+    Lens = 'lens',
+    Bsky = 'bsky',
+}

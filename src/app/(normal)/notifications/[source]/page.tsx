@@ -19,7 +19,9 @@ import { useIsLoginNotifications } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { type Notification as NotificationObject, NotificationType } from '@/providers/types/SocialMedia.js';
+import { listenNotifications } from '@/services/listenNotifications.js';
 import { useNotificationStateStore } from '@/store/useNotificationStore.js';
+import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import type { NextPageProps } from '@/types/index.js';
 
 const getNotificationItemContent = (index: number, notification: NotificationObject) => {
@@ -33,6 +35,25 @@ const getNotificationItemContent = (index: number, notification: NotificationObj
 
     return <NotificationItem key={notification.notificationId} notification={notification} />;
 };
+
+function updateNotificationReadStatus() {
+    const { setPreference } = usePreferencesState.getState();
+
+    setPreference('NOTIFICATION_READ_RECORD', (prev) => {
+        const entries = Object.entries(prev || {}).map(([type, records]) => {
+            return [
+                type,
+                !Array.isArray(records)
+                    ? []
+                    : records.map((record) => ({
+                          ...record,
+                          hasNewNotification: false,
+                      })),
+            ];
+        });
+        return Object.fromEntries(entries);
+    });
+}
 
 interface Props extends NextPageProps<{ source: SourceInURL }> {}
 
@@ -88,6 +109,9 @@ export default function Page(props: Props) {
                 },
             })),
         (data) => {
+            updateNotificationReadStatus();
+            listenNotifications();
+
             const list = data.pages.flatMap((page) =>
                 page.data.concat().sort((a, b) => {
                     return (b.timestamp ?? 0) - (a.timestamp ?? 0);

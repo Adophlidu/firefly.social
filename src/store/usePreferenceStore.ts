@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
+import { NotificationSourceType } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { SearchTokenInfo } from '@/providers/types/Firefly.js';
 
@@ -15,6 +16,15 @@ interface Preferences {
     SHOW_TRUTH_SOCIAL_ALERT: boolean;
     TOKEN_PROFILE_COIN_ID_MAP: Record<string, StoredCoinInfo>;
     FIREFLY_ACCOUNT_CHECKED_MAP: Record<string, boolean>;
+    NOTIFICATION_READ_RECORD: Record<
+        NotificationSourceType,
+        Array<{
+            profileId: string;
+            latestNotificationId: string | null;
+            hasNewNotification: boolean;
+            isActive: boolean;
+        }>
+    >;
 }
 
 const defaultPreferences: Preferences = {
@@ -24,9 +34,16 @@ const defaultPreferences: Preferences = {
     SHOW_TRUTH_SOCIAL_ALERT: true,
     TOKEN_PROFILE_COIN_ID_MAP: {},
     FIREFLY_ACCOUNT_CHECKED_MAP: {},
+    NOTIFICATION_READ_RECORD: {
+        [NotificationSourceType.Tips]: [],
+        [NotificationSourceType.Schedule]: [],
+        [NotificationSourceType.Farcaster]: [],
+        [NotificationSourceType.Lens]: [],
+        [NotificationSourceType.Bsky]: [],
+    },
 };
 
-const STORE_VERSION = 1;
+const STORE_VERSION = 2;
 
 export interface PreferencesState {
     rehydrating: boolean;
@@ -77,6 +94,7 @@ const PreferencesState = create<PreferencesState, [['zustand/persist', unknown],
                             ...oldPreferences,
                             TOKEN_PROFILE_COIN_ID_MAP: oldPreferences?.TOKEN_PROFILE_COIN_ID_MAP || {},
                             FIREFLY_ACCOUNT_CHECKED_MAP: oldPreferences?.FIREFLY_ACCOUNT_CHECKED_MAP || {},
+                            NOTIFICATION_READ_RECORD: defaultPreferences.NOTIFICATION_READ_RECORD,
                         } as Preferences, // Reset to default preferences if version mismatch
                     };
                 }

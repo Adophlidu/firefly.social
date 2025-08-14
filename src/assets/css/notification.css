@@ -1,0 +1,26 @@
+.swing-animation {
+    animation: swing 2s ease both infinite;
+    transform-origin: top center;
+}
+
+@keyframes swing {
+    0%,
+    50% {
+        transform: rotate(0deg);
+    }
+    60% {
+        transform: rotate(15deg);
+    }
+    70% {
+        transform: rotate(-10deg);
+    }
+    80% {
+        transform: rotate(5deg);
+    }
+    90% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}

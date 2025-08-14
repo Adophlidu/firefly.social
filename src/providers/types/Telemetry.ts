@@ -296,6 +296,8 @@ export enum EventId {
     FIREFLY_WALLET_SEND_RECIPIENT_SELECT = 'Firefly_wallet_send_recipient_select',
     FIREFLY_WALLET_SEND_RECIPIENT_CHANGE_WALLET_CLICK = 'Firefly_wallet_send_recipient_change_wallet_click',
     FIREFLY_WALLET_SEND_RECIPIENT_WALLET_CHANGE = 'Firefly_wallet_send_recipient_wallet_change',
+
+    NEW_NOTIFICATION_CLICK = 'notification_update_click',
 }
 
 export enum ExceptionId {

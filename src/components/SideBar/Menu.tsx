@@ -19,6 +19,7 @@ import { Link } from '@/components/Link.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ExclusiveEvents } from '@/components/SideBar/ExclusiveEvents.js';
 import { HomeEntry } from '@/components/SideBar/HomeEntry.js';
+import { NotificationMenu } from '@/components/SideBar/NotificationMenu.js';
 import { Post } from '@/components/SideBar/Post.js';
 import { Profile } from '@/components/SideBar/Profile.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -31,6 +32,7 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
+import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 const Footer = dynamic(() => import('@/components/SideBar/Footer.js').then((x) => x.Footer), {
@@ -43,6 +45,7 @@ interface MenuProps {
 
 export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const pathname = usePathname();
+    const isDesktop = useIsLarge();
 
     return (
         <nav className="relative flex min-h-[658px] flex-1 flex-col">
@@ -85,7 +88,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 selectedIcon: ActivityIcon,
                             },
                             {
-                                href: PageRoute.Settings,
+                                href: isDesktop ? '/settings/general' : PageRoute.Settings,
                                 name: <Trans>Settings</Trans>,
                                 icon: SettingsIcon,
                                 selectedIcon: SettingsSelectedIcon,
@@ -106,28 +109,36 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                     {{
                                         [PageRoute.Events]: <ExclusiveEvents />,
                                         [PageRoute.Profile]: <Profile collapsed={collapsed} />,
-                                    }[item.href] ?? (
-                                        <Link
-                                            href={item.href}
-                                            className={classNames(
-                                                'sidebar-nav-link flex w-full text-lg leading-6 outline-none md:px-2',
-                                                { 'font-bold': isSelected },
-                                            )}
-                                        >
-                                            <span className="flex items-center gap-x-3 rounded-lg px-2 py-2 md:px-4">
-                                                {collapsed ? (
-                                                    <Tooltip content={item.name} placement="right">
-                                                        <Icon width={20} height={20} />
-                                                    </Tooltip>
-                                                ) : (
-                                                    <Icon width={20} height={20} />
+                                    }[item.href] ??
+                                        (isRoutePathname(item.href, PageRoute.Notifications) ? (
+                                            <NotificationMenu
+                                                path={item.href}
+                                                isSelected={isSelected}
+                                                collapsed={collapsed}
+                                                menuName={item.name}
+                                            />
+                                        ) : (
+                                            <Link
+                                                href={item.href}
+                                                className={classNames(
+                                                    'sidebar-nav-link flex w-full text-lg leading-6 outline-none md:px-2',
+                                                    { 'font-bold': isSelected },
                                                 )}
-                                                <span style={{ display: collapsed ? 'none' : 'inline' }}>
-                                                    {item.name}
+                                            >
+                                                <span className="flex items-center gap-x-3 rounded-lg px-2 py-2 md:px-4">
+                                                    {collapsed ? (
+                                                        <Tooltip content={item.name} placement="right">
+                                                            <Icon width={20} height={20} />
+                                                        </Tooltip>
+                                                    ) : (
+                                                        <Icon width={20} height={20} />
+                                                    )}
+                                                    <span style={{ display: collapsed ? 'none' : 'inline' }}>
+                                                        {item.name}
+                                                    </span>
                                                 </span>
-                                            </span>
-                                        </Link>
-                                    )}
+                                            </Link>
+                                        ))}
                                 </li>
                             );
                         })}
