@@ -1,4 +1,5 @@
 import { isHex } from 'viem';
+import { sendGAEvent } from '@next/third-parties/google';
 
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -33,12 +34,6 @@ async function getSafary(signal?: AbortSignal) {
             signal,
         },
     );
-}
-
-function sendGAEvent(..._args: unknown[]) {
-    if (typeof bom.window === 'undefined') throw new AbortError();
-    if (typeof bom.window?.dataLayer === 'undefined') throw new InvalidResultError();
-    return bom.window.dataLayer.push(..._args);
 }
 
 type CaptureParameters<T extends keyof Events> = [

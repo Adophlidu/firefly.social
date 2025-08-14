@@ -4,6 +4,7 @@ import '@/app/globals.css';
 
 import { headers } from 'next/headers.js';
 import type { ReactNode } from 'react';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
@@ -61,17 +62,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                     strategy="lazyOnload"
                     site-id="4e0dc4ab-2a63-4303-ad25-8aa14275d2d4"
                 />
-                <Script async src="https://www.googletagmanager.com/gtag/js?id=G-SHDRZ57LGE" />
-                <Script>
-                    {`
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){
-                            dataLayer.push(arguments);
-                        }
-                        gtag('js', new Date());
-                        gtag('config', 'G-SHDRZ57LGE');
-                    `}
-                </Script>
+                <GoogleAnalytics gaId="G-61NFDTK6LT" />
                 <meta name="theme-color" content="#ffffff" />
                 <meta name="googlebot" content="notranslate" />
                 {/* for ssr purpose */}
@@ -120,22 +111,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                                 />
                             </g>
                         </svg>
-                        {/* TODO: use animated loading indicator */}
-                        {/* <video
-                            id="global-loading-video"
-                            src="/webm/global-loading.webm"
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                            webkit-playsinline="true"
-                            width={size}
-                            height={size}
-                            disablePictureInPicture
-                            disableRemotePlayback
-                            style={{ width: size, height: size, opacity: 0 }}
-                            className="bg-primaryBottom"
-                        /> */}
                     </div>
                 </div>
             </body>

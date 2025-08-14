@@ -24,7 +24,6 @@ interface CustomWindow extends Window {
     _firebaseFcm: unknown;
 
     safary: Safary | undefined;
-    dataLayer?: unknown[];
 }
 
 export const bom = {
