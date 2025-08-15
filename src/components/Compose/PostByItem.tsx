@@ -12,10 +12,17 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
+import { TokenExpiredError } from '@/constants/error.js';
 import { ENABLED_REPLY_SETTINGS_POST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { delay } from '@/helpers/delay.js';
-import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import {
+    enqueueErrorMessage,
+    enqueueMessageFromError,
+    enqueueSuccessMessage,
+    enqueueWarningMessage,
+} from '@/helpers/enqueueMessage.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -50,6 +57,14 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
             await switchAccount(account);
             enqueueSuccessMessage(t`Your ${resolveSourceName(account.profile.source)} account is now connected.`);
         } catch (error) {
+            if (error instanceof TokenExpiredError) {
+                const state = getProfileState(account.profile.profileSource);
+                state.removeAccount(account);
+
+                enqueueWarningMessage(t`This account has expired, please log in again.`);
+                return;
+            }
+
             enqueueMessageFromError(error, t`Failed to sign in.`);
             throw error;
         }
