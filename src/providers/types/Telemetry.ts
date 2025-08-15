@@ -225,8 +225,8 @@ export enum EventId {
     BSKY_PROFILE_SUPER_FOLLOW_SUCCESS = 'bsky_superfollow_success', // ✅
 
     // orb
-    ORB_LOGIN_IN_CLICK = 'orb_login_in_click',
-    ORB_LOGIN_IN_SUCCESS = 'orb_login_in_success',
+    ORB_LOGIN_IN_CLICK = 'orb_log_in_click',
+    ORB_LOGIN_IN_SUCCESS = 'orb_log_in_success',
 
     // wallet
     WALLET_FOLLOW_SUCCESS = 'wallet_follow_success',
