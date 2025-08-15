@@ -1,7 +1,7 @@
 'use client';
 import { Trans } from '@lingui/react/macro';
 import { isArray } from 'lodash-es';
-import { ReadonlyURLSearchParams, useParams, useSearchParams } from 'next/navigation.js';
+import { ReadonlyURLSearchParams, usePathname, useSearchParams } from 'next/navigation.js';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 import urlcat from 'urlcat';
 
@@ -22,9 +22,9 @@ export interface TokenPageSearch {
     traderName?: string;
     address?: string;
     source?: string;
+    category?: TokenCategory;
 }
 interface Props extends HTMLProps<HTMLDivElement> {
-    slug?: string;
     token: CoinGeckoToken;
 }
 
@@ -34,18 +34,12 @@ const labels: Record<TokenCategory, ReactNode> = {
     [TokenCategory.Overview]: <Trans>Overview</Trans>,
 };
 
-const categoryUrlPatternMap: Record<TokenCategory, string> = {
-    [TokenCategory.Feeds]: `/token/:symbol/feeds`,
-    [TokenCategory.Overview]: '/token/:symbol/overview',
-    [TokenCategory.Transactions]: `/token/:symbol/transactions`,
-};
-
-function resolveTab(category: TokenCategory, params: ReadonlyURLSearchParams, symbol: string) {
-    return urlcat(categoryUrlPatternMap[category], { ...Object.fromEntries(params.entries()), symbol });
+function resolveTab(pathname: string, category: TokenCategory, params: ReadonlyURLSearchParams) {
+    return urlcat(pathname, { ...Object.fromEntries(params), category });
 }
-export const CategoryTabs = memo<Props>(function CategoryTabs({ slug, token, ...rest }) {
-    const { symbol } = useParams<{ symbol: string }>();
+export const CategoryTabs = memo<Props>(function CategoryTabs({ token, ...rest }) {
     const search = useSearchParams();
+    const pathname = usePathname();
 
     const tokenId = token.id;
     const isTracingChain = token?.chainId ? TRACING_CHAINS.includes(token.chainId) : true;
@@ -57,7 +51,8 @@ export const CategoryTabs = memo<Props>(function CategoryTabs({ slug, token, ...
         tokenId && (NO_TRACING_COINS.includes(tokenId) || !isTracingChain || !isTracingPlatform)
             ? [TokenCategory.Feeds, TokenCategory.Overview]
             : TOKEN_CATEGORIES;
-    const category = slug && categories.includes(slug as TokenCategory) ? slug : categories[0];
+    const current = search.get('category');
+    const category = current && categories.includes(current as TokenCategory) ? current : categories[0];
 
     return (
         <SourceTabs {...rest}>
@@ -65,8 +60,11 @@ export const CategoryTabs = memo<Props>(function CategoryTabs({ slug, token, ...
                 <SourceTab
                     className="whitespace-nowrap text-base md:!h-[45px] md:!px-4 md:!py-[10px]"
                     key={x}
-                    href={resolveTab(x, search, symbol)}
+                    href={resolveTab(pathname, x, search)}
                     isActive={x === category}
+                    replace
+                    prefetch={false}
+                    shallow
                 >
                     {labels[x]}
                 </SourceTab>

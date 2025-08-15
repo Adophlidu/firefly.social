@@ -4,7 +4,7 @@ import { compact } from 'lodash-es';
 import type { ReadonlyURLSearchParams } from 'next/navigation.js';
 import { type HTMLProps, memo, Suspense, useMemo, useState, useTransition } from 'react';
 
-import TokenPageLoading from '@/app/(normal)/token/[symbol]/[[...slug]]/loading.js';
+import TokenPageLoading from '@/app/(normal)/token/[exchange]/[[...slug]]/loading.js';
 import SortAscIcon from '@/assets/sort-asc.svg';
 import X3ProIcon from '@/assets/x3pro.svg';
 import { Empty } from '@/components/Search/Empty.js';

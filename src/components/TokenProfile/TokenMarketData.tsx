@@ -113,7 +113,7 @@ export const TokenMarketData = memo(function TokenMarketData({
     const contracts = useMemo(() => {
         if (trending?.contracts) {
             const contracts = trending.contracts.filter((x) => TRACING_RUNTIME_LIST.includes(x.runtime));
-            if (coinChainId)
+            if (coinChainId && contracts.length)
                 return [
                     {
                         runtime: resolveCoinGeckoChain(coinChainId),

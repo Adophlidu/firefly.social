@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import type { HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
@@ -26,13 +26,10 @@ export function SearchableTokenItem({ token, className, showRate = true, onClick
     if (!token.id && !identityId) return null;
 
     const tokenPageUrl = resolveTokenPageUrl(
-        !token.id
-            ? { identity: identityId, chainId: token.chainId }
-            : isValidAddress(token.id)
-              ? { identity: token.id, chainId: token.chainId }
-              : { identity: token.id, isCoinId: true },
+        isValidAddress(token.id)
+            ? { identity: token.id, chainId: token.chainId }
+            : { identity: token.id, isCoinId: true },
     );
-
     return (
         <Link
             className={classNames('flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg', className)}

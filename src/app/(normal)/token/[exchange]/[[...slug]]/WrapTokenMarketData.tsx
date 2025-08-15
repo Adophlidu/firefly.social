@@ -2,7 +2,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { memo, useContext, useMemo } from 'react';
 
-import { useUpdateContractParams } from '@/app/(normal)/token/[symbol]/[[...slug]]/useUpdateContractParams.js';
+import { useUpdateContractParams } from '@/app/(normal)/token/[exchange]/[[...slug]]/useUpdateContractParams.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { TokenMarketData, type TokenMarketDataProps } from '@/components/TokenProfile/TokenMarketData.js';
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';

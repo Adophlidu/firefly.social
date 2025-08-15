@@ -3,7 +3,7 @@ import { compact } from 'lodash-es';
 import type { ReadonlyURLSearchParams } from 'next/navigation.js';
 import { type HTMLProps, memo, Suspense, useCallback, useContext, useMemo, useState, useTransition } from 'react';
 
-import TokenPageLoading from '@/app/(normal)/token/[symbol]/[[...slug]]/loading.js';
+import TokenPageLoading from '@/app/(normal)/token/[exchange]/[[...slug]]/loading.js';
 import { Avatar } from '@/components/Avatar.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SwapTimeline, type SwapTimelineProps } from '@/components/Swap/SwapTimeline.js';

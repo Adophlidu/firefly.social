@@ -7,8 +7,9 @@ import { SearchType } from '@/constants/enum.js';
 import { useParams } from '@/esm/navigation.js';
 
 export default function NotFoundToken() {
-    const params = useParams<{ symbol: string }>();
-    const symbol = decodeURIComponent(params.symbol);
+    const params = useParams<{ exchange: string; slug: string[] }>();
+    const isCex = params.exchange === 'cex';
+    const symbol = decodeURIComponent(isCex ? params.slug[0] : params.slug[1]);
 
     return (
         <NotFound

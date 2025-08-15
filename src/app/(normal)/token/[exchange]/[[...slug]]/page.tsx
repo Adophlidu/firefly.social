@@ -3,11 +3,11 @@
 import { isArray } from 'lodash-es';
 import { use } from 'react';
 
-import { Feeds } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Feeds.js';
-import { Overview } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Overview.js';
-import { Transactions } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Transactions.js';
-import type { TokenPageSearch } from '@/app/(normal)/token/[symbol]/[[...slug]]/CategoryTabs.js';
-import TokenPageLoading from '@/app/(normal)/token/[symbol]/[[...slug]]/loading.js';
+import { Feeds } from '@/app/(normal)/token/[exchange]/[[...slug]]/categories/Feeds.js';
+import { Overview } from '@/app/(normal)/token/[exchange]/[[...slug]]/categories/Overview.js';
+import { Transactions } from '@/app/(normal)/token/[exchange]/[[...slug]]/categories/Transactions.js';
+import type { TokenPageSearch } from '@/app/(normal)/token/[exchange]/[[...slug]]/CategoryTabs.js';
+import TokenPageLoading from '@/app/(normal)/token/[exchange]/[[...slug]]/loading.js';
 import { TokenCategory } from '@/constants/enum.js';
 import {
     COINGECKO_SOL_COIN_ID,
@@ -26,24 +26,27 @@ import type { NextPageProps } from '@/types/index.js';
 interface Props
     extends NextPageProps<
         {
-            symbol: string;
-            slug: [category: string] | undefined;
+            exchange: string;
+            slug: [coingecko_id: string] | [chain_id: string, address: string];
         },
         TokenPageSearch
     > {}
 
 export default function TokenCategoryPage({ params, searchParams }: Props) {
-    const { symbol, slug: slugs } = use(params);
-    const { chainId: paramChainId, isCoinId, trader, traderName, address: paramAddress } = use(searchParams);
-    const isSolAddress = isValidAddressSolana(symbol);
-    const isAddress = isValidAddressEthereum(symbol) || isSolAddress;
+    const { exchange, slug } = use(params);
+    const isCex = exchange === 'cex';
+    const isDex = exchange === 'dex';
+    const { chainId: paramChainId, trader, traderName, address: paramAddress, category: current } = use(searchParams);
+    const addressSlug = slug[1];
+    const isSolAddress = isValidAddressSolana(addressSlug);
+    const isAddress = isValidAddressEthereum(addressSlug) || isSolAddress;
 
     const chainId = paramChainId ? +paramChainId : isSolAddress ? SolanaChainId.Mainnet : undefined;
     const { data: token, isPending: isTokenPending } = useTokenInfo({
-        token_symbol: isAddress ? undefined : symbol,
-        coingecko_id: isCoinId ? symbol : undefined,
+        token_symbol: isAddress ? undefined : exchange,
+        coingecko_id: isCex ? slug[0] : undefined,
         chain_id: chainId,
-        address: paramAddress || (isAddress ? symbol : undefined),
+        address: paramAddress || (isAddress ? exchange : undefined),
     });
     const tokenId = token?.id;
     const coinChainId = tokenId ? resolveCoinGeckoCoinChainId(tokenId) : undefined;
@@ -51,9 +54,7 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
     const firstContract = trending?.contracts?.[0];
 
     const address =
-        paramAddress ??
-        (isValidAddressEthereum(symbol) ? symbol : coinChainId ? undefined : firstContract?.address) ??
-        token?.address;
+        paramAddress ?? (isAddress ? addressSlug : coinChainId ? undefined : firstContract?.address) ?? token?.address;
     const tokenAddress = tokenId === COINGECKO_SOL_COIN_ID ? SWAP_SOL_NATIVE_ADDRESS : address;
 
     const updatedChainId =
@@ -67,8 +68,7 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
             ? [TokenCategory.Feeds, TokenCategory.Overview]
             : TOKEN_CATEGORIES;
 
-    const slug = slugs?.[0];
-    const category = slug && categories.includes(slug as TokenCategory) ? slug : categories[0];
+    const category = current && categories.includes(current as TokenCategory) ? current : categories[0];
 
     switch (category) {
         case TokenCategory.Feeds:
@@ -77,7 +77,7 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
                 <Feeds
                     chainId={updatedChainId}
                     address={tokenAddress}
-                    symbol={token?.symbol ?? symbol}
+                    symbol={token?.symbol || (isCex ? slug[0] : isDex ? addressSlug : undefined) || ''}
                     name={token?.name}
                 />
             );

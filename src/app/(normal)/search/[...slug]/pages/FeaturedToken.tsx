@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { type HTMLProps, memo, useState } from 'react';
 
-import { useFollowingTraderCount } from '@/app/(normal)/token/[symbol]/[[...slug]]/WrapTokenMarketData.js';
+import { useFollowingTraderCount } from '@/app/(normal)/token/[exchange]/[[...slug]]/WrapTokenMarketData.js';
 import { TokenMarketData, type TokenMarketDataProps } from '@/components/TokenProfile/TokenMarketData.js';
 import { COINGECKO_SOL_COIN_ID, EMPTY_LIST, SWAP_SOL_NATIVE_ADDRESS } from '@/constants/index.js';
 import { swapActivityToTradeRecord } from '@/helpers/swapActivityToTradeRecord.js';

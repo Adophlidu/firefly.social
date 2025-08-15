@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { first, isNumber } from 'lodash-es';
 import { type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
-import { useUpdateContractParams } from '@/app/(normal)/token/[symbol]/[[...slug]]/useUpdateContractParams.js';
+import { useUpdateContractParams } from '@/app/(normal)/token/[exchange]/[[...slug]]/useUpdateContractParams.js';
 import LinkIcon from '@/assets/link-square.svg';
 import QuestionIcon from '@/assets/question.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
