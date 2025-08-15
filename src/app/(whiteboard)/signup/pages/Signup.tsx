@@ -11,7 +11,6 @@ import { GuidePage } from '@/app/(whiteboard)/signup/pages/GuidePage.js';
 import { PageBackground } from '@/app/(whiteboard)/signup/pages/PageBackground.js';
 import { SocialLoginPage } from '@/app/(whiteboard)/signup/pages/SocialLoginPage.js';
 import { SuccessPage } from '@/app/(whiteboard)/signup/pages/SuccessPage.js';
-import FireflyMiniLogo from '@/assets/miniLogo.svg';
 import { queryClient } from '@/configs/queryClient.js';
 import { PageRoute, SignupStep } from '@/constants/enum.js';
 import { SIGNUP_AUDIO_ID } from '@/constants/index.js';
@@ -54,7 +53,7 @@ interface SignupProps {
 
 export function Signup({ initialStep }: SignupProps) {
     const [step, setStep] = useState<SignupStep>(initialStep || SignupStep.Welcome);
-    const { hasFireflyAccount, isLoading, displayName, avatar } = useCheckFireflyAccount(false, true);
+    const { hasFireflyAccount, displayName, avatar } = useCheckFireflyAccount(false, true);
     const { setPreference } = usePreferencesState();
     const { currentProfileSession } = useFireflyProfileStore();
     const hasFinished = useRef<boolean>(false);
@@ -93,14 +92,6 @@ export function Signup({ initialStep }: SignupProps) {
         },
         [currentProfileSession?.profileId, setPreference, setStep],
     );
-
-    if (isLoading && ![SignupStep.LoginSocialPlatform, SignupStep.CreateAccountForm].includes(step)) {
-        return (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
-                <FireflyMiniLogo width={85} height={208} />
-            </div>
-        );
-    }
 
     if (hasFireflyAccount && !hasFinished.current) {
         if (displayName) {

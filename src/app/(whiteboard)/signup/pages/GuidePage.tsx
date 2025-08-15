@@ -8,6 +8,7 @@ import AppleIcon from '@/assets/apple-small.svg';
 import GoogleStoreIcon from '@/assets/google-store.svg';
 import { SignupStep } from '@/constants/enum.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
+import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { FireflyAccountSVG } from '@/modals/CreateFireflyAccountGuideModal/FireflyAccountSVG.js';
 import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';
 
@@ -16,6 +17,7 @@ interface GuidePageProps {
 }
 
 export function GuidePage({ changeStep }: GuidePageProps) {
+    const { isLoading } = useCheckFireflyAccount(false, true);
     const { width } = useWindowSize({
         debounceDelay: 100,
     });
@@ -55,6 +57,7 @@ export function GuidePage({ changeStep }: GuidePageProps) {
                     <SquareButton
                         className="text-white"
                         colorMode="dark"
+                        loading={isLoading}
                         onClick={() => {
                             changeStep(SignupStep.LoginSocialPlatform);
                         }}
