@@ -142,7 +142,7 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
                     handler: (params) => {
                         const { chainId, txType, txHash } = params.data;
                         if (txType === 'SWAP') {
-                            captureSwapEvent(EventId.EVENT_SWAP_SUCCESS, {
+                            captureSwapEvent(EventId.EVENT_SWAP_SUBMIT, {
                                 chain_id: chainId as number,
                                 chain_name: resolveWagmiChain(chainId)?.name,
                                 wallet_type: isEvm ? 'evm' : 'solana',
@@ -154,6 +154,12 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
                                 tx_hash: txHash,
                             });
                         }
+                    },
+                },
+                {
+                    event: OkxEvents.ON_FULFILLED_ORDER,
+                    handler: (params) => {
+                        console.log('ON_FULFILLED_ORDER', params);
                     },
                 },
             ],

@@ -10,7 +10,7 @@ export function captureSwapEvent(
         | EventId.EVENT_SWAP_COPY_TRADE_CLICK,
 ): void;
 export function captureSwapEvent(
-    eventId: EventId.EVENT_SWAP_SUCCESS,
+    eventId: EventId.EVENT_SWAP_SUCCESS | EventId.EVENT_SWAP_SUBMIT,
     options: Events[EventId.EVENT_SWAP_SUCCESS]['parameters'],
 ): void;
 
@@ -20,7 +20,8 @@ export function captureSwapEvent(
         | EventId.EVENT_LIKE_SWAP_CLICK
         | EventId.EVENT_SWAP_DETAIL_CLICK
         | EventId.EVENT_SWAP_COPY_TRADE_CLICK
-        | EventId.EVENT_SWAP_SUCCESS,
+        | EventId.EVENT_SWAP_SUCCESS
+        | EventId.EVENT_SWAP_SUBMIT,
     options?: Events[EventId.EVENT_SWAP_SUCCESS]['parameters'],
 ) {
     return runInSafeAsync(async () => {

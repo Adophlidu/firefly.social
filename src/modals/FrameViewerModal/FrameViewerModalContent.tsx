@@ -77,8 +77,10 @@ export function FrameViewerModal({ open, onClose, props, setProps }: Props) {
                         }
                         return;
                     case EthereumMethodType.ETH_SEND_TRANSACTION: {
+                        await captureFrameActionEvent('others', props.frame, client.account.address, true);
+                        await client.request(parameters as Parameters<typeof client.request>[0]);
                         await captureFrameActionEvent('others', props.frame, client.account.address);
-                        return client.request(parameters as Parameters<typeof client.request>[0]);
+                        return;
                     }
                     default:
                         const result = await client.request(parameters as Parameters<typeof client.request>[0]);

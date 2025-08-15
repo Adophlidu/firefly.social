@@ -19,9 +19,10 @@ type PostActionType =
     | 'undo_repost'
     | 'bookmark'
     | 'unbookmark'
-    | 'collect';
+    | 'collect'
+    | 'submit_collect';
 
-const resolvePostActionEventIds = createLookupTableResolver<SocialSource, Record<PostActionType, EventId | null>>(
+const resolvePostActionEventIds = createLookupTableResolver<SocialSource, Partial<Record<PostActionType, EventId>>>(
     {
         [Source.Farcaster]: {
             like: EventId.FARCASTER_POST_LIKE_SUCCESS,
@@ -48,6 +49,7 @@ const resolvePostActionEventIds = createLookupTableResolver<SocialSource, Record
             bookmark: EventId.LENS_POST_BOOKMARK_SUCCESS,
             unbookmark: EventId.LENS_POST_UNBOOKMARK_SUCCESS,
             collect: EventId.LENS_POST_COLLECT_SUCCESS,
+            submit_collect: EventId.LENS_POST_COLLECT_SUBMIT,
         },
         [Source.Twitter]: {
             like: EventId.X_POST_LIKE_SUCCESS,

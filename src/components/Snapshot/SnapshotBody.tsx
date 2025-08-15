@@ -37,6 +37,7 @@ import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
 import { captureSnapshotVoteEvent } from '@/providers/telemetry/captureSnapshotVoteEvent.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 interface Props {
     activity?: SnapshotActivity;
@@ -254,7 +255,7 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
         try {
             if (!account.address || disabled || !selectedChoices) return;
 
-            captureSnapshotVoteEvent(account.address);
+            captureSnapshotVoteEvent(EventId.SNAPSHOT_VOTE_SUBMIT, account.address);
             const result = await Snapshot.vote({
                 from: account.address,
                 space: snapshot.space.id,
@@ -265,6 +266,7 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
                 app: 'snapshot',
                 reason: '',
             });
+            captureSnapshotVoteEvent(EventId.SNAPSHOT_VOTE_SUCCESS, account.address);
 
             if (!result) return;
 

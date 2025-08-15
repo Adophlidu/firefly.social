@@ -10,24 +10,29 @@ import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId, type FrameActionType } from '@/providers/types/Telemetry.js';
 import type { Frame } from '@/types/frame.js';
 
-const resolveEventId = (action: FrameActionType) => {
+const resolveEventId = (action: FrameActionType, justSubmitted?: boolean) => {
     switch (action) {
         case 'click':
             return EventId.POST_FRAME_ACTION_CLICK;
         case 'buy':
         case 'mint':
         case 'others':
-            return EventId.POST_FRAME_ACTION_SUCCESS;
+            return justSubmitted ? EventId.POST_FRAME_ACTION_SUBMIT : EventId.POST_FRAME_ACTION_SUCCESS;
         default:
             safeUnreachable(action);
-            return EventId.POST_FRAME_ACTION_SUCCESS; // Fallback to a default event ID
+            return justSubmitted ? EventId.POST_FRAME_ACTION_SUBMIT : EventId.POST_FRAME_ACTION_SUCCESS; // Fallback to a default event ID
     }
 };
 
-export function captureFrameActionEvent(action: FrameActionType, frame?: Frame, address?: string) {
+export function captureFrameActionEvent(
+    action: FrameActionType,
+    frame?: Frame,
+    address?: string,
+    justSubmitted?: boolean,
+) {
     return runInSafeAsync(async () => {
         const walletAddress = address || getAccount(wagmiConfig)?.address || ETH_ZERO_ADDRESS;
-        return TelemetryProvider.captureEvent(resolveEventId(action), {
+        return TelemetryProvider.captureEvent(resolveEventId(action, justSubmitted), {
             frame_action: action,
             frame_version: (frame?.version ?? 'unknown') as string,
             frame_url: frame ? (isFrameV1(frame) ? frame.url : isFrameV2(frame) ? frame.x_url : 'unknown') : 'unknown',

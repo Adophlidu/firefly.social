@@ -28,6 +28,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { ParagraphAPI } from '@/providers/paragraph/index.js';
 import { captureArticleCollectEvent } from '@/providers/telemetry/captureArticleCollectEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 interface ArticleCollectProps {
     article: Article;
@@ -80,12 +81,15 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                 }
             }
             if (!isFree || !hasBalance) {
-                if (account.address) captureArticleCollectEvent(article.id, account.address, isFree);
+                if (account.address)
+                    captureArticleCollectEvent(EventId.ARTICLE_COLLECT_SUBMIT, article.id, account.address, isFree);
                 const confirmation = await sendTransaction(wagmiConfig, {
                     to: collectParams.txData.to as `0x${string}`,
                     value: BigInt(collectParams.txData.value),
                     data: collectParams.txData.inputData as `0x${string}`,
                 });
+                if (account.address)
+                    captureArticleCollectEvent(EventId.ARTICLE_COLLECT_SUCCESS, article.id, account.address, isFree);
 
                 if (!confirmation) return;
                 hash = confirmation;

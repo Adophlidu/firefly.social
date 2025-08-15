@@ -3,8 +3,11 @@ import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventPa
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
-export function captureSnapshotVoteEvent(address: string) {
+export function captureSnapshotVoteEvent(
+    eventId: EventId.SNAPSHOT_VOTE_SUBMIT | EventId.SNAPSHOT_VOTE_SUCCESS,
+    address: string,
+) {
     return runInSafeAsync(() => {
-        return TelemetryProvider.captureEvent(EventId.SNAPSHOT_VOTE_SUCCESS, getWalletEventParameters(address));
+        return TelemetryProvider.captureEvent(eventId, getWalletEventParameters(address));
     });
 }

@@ -18,11 +18,13 @@ import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueu
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isUserRejectErrorInWallet } from '@/helpers/isUserRejectErrorInWallet.js';
 import { isZero, ZERO } from '@/helpers/number.js';
+import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { reportAndCaptureTipEvent } from '@/services/reportAndCaptureTipEvent.js';
 
 interface SendTipsButtonProps {
@@ -95,6 +97,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         },
     });
 
+    const isCustomAmount = !!customAmount;
     const [{ loading: isSending }, handleSendTips] = useAsyncFn(async () => {
         if (!connected) {
             onConnect();
@@ -111,17 +114,30 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                 token,
                 amount,
             });
-            update((prev) => ({ ...prev, hash }));
-            await transfer.waitForTransaction(hash, token.chainId);
-            reportAndCaptureTipEvent(
-                identity,
-                await network.getAccount(),
+
+            const [fromAccountId, toAccountId] = await Promise.all([
+                resolveCurrentFireflyAccountId(),
+                resolveFireflyAccountId(identity),
+            ]);
+            const reportOptions = {
+                eventId: EventId.TIPS_SEND_SUBMIT,
+                fromAccountId,
+                toAccountId,
+                address: await network.getAccount(),
                 recipient,
                 token,
                 amount,
                 hash,
-                !!customAmount,
-            );
+                isCustomAmount,
+            } as const;
+            await reportAndCaptureTipEvent(reportOptions);
+            update((prev) => ({ ...prev, hash }));
+            await transfer.waitForTransaction(hash, token.chainId);
+            // skip awaiting for reporting success
+            reportAndCaptureTipEvent({
+                ...reportOptions,
+                eventId: EventId.TIPS_SEND_SUCCESS,
+            });
 
             enqueueSuccessMessage(t`Tip sent successfully!`);
             router.navigate({ to: TipsRoutePath.SUCCESS });
@@ -133,7 +149,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             enqueueMessageFromError(error, t`Failed to send tip.`);
             throw error;
         }
-    }, [connected, onConnect, recipient, token, update, amount, identity, customAmount]);
+    }, [connected, onConnect, recipient, token, update, amount, identity, isCustomAmount]);
 
     const isValidating = isLoading || isRefetching;
     const disabled = !connected ? false : isValidating || isSending || !!value?.disabled;

@@ -124,7 +124,7 @@ async function getNextFrame(
     }
 
     const address = getAccount(wagmiConfig)?.address;
-    await captureFrameActionEvent('others', frame, address);
+    await captureFrameActionEvent('others', frame, address, true);
 
     try {
         switch (button.action) {
@@ -146,6 +146,7 @@ async function getNextFrame(
                     }
                 }
 
+                await captureFrameActionEvent('others', frame, address);
                 return nextFrame;
             }
             case ActionType.PostRedirect: {
@@ -157,6 +158,7 @@ async function getNextFrame(
                 }
 
                 if (await ConfirmLeavingModalRef.openAndWaitForClose(redirectUrl)) openWindow(redirectUrl, '_blank');
+                await captureFrameActionEvent('others', frame, address);
                 return null;
             }
             case ActionType.Link:
@@ -167,6 +169,7 @@ async function getNextFrame(
 
                 if (await ConfirmLeavingModalRef.openAndWaitForClose(button.target))
                     openWindow(button.target, '_blank');
+                await captureFrameActionEvent('others', frame, address);
                 return null;
             case ActionType.Mint: {
                 const mintTx = await getFrameMintTransaction(frame, button);
@@ -183,10 +186,13 @@ async function getNextFrame(
                         transaction: mintTx,
                     });
                     await client.sendTransaction(mintTx);
+                    await captureFrameActionEvent('others', frame, address);
                     return null;
                 }
 
-                if (await ConfirmLeavingModalRef.openAndWaitForClose(frame.url)) openWindow(frame.url, '_blank');
+                if (await ConfirmLeavingModalRef.openAndWaitForClose(frame.url)) {
+                    openWindow(frame.url, '_blank');
+                }
                 return null;
             }
             case ActionType.Transaction:
@@ -230,6 +236,7 @@ async function getNextFrame(
                             address,
                             transactionId,
                         });
+                        await captureFrameActionEvent('others', frame, address);
                         return response.success ? response.data.frame : null;
                     }
                     case MethodType.ETH_SIGN_TYPED_DATA_V4: {
@@ -239,6 +246,7 @@ async function getNextFrame(
                             address,
                             transactionId: signature,
                         });
+                        await captureFrameActionEvent('others', frame, address);
                         return response.success ? response.data.frame : null;
                     }
                     default:

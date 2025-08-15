@@ -82,12 +82,14 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
         try {
             if (!collectModule) return;
 
-            await LensSocialMediaProvider.actPost(post.postId);
-            enqueueSuccessMessage(t`Post collected successfully!`);
-            capturePostActionEvent('collect', post, {
+            const eventOptions = {
                 collectWalletAddress: account.address,
                 freeToCollect,
-            });
+            };
+            capturePostActionEvent('submit_collect', post, eventOptions);
+            await LensSocialMediaProvider.actPost(post.postId);
+            enqueueSuccessMessage(t`Post collected successfully!`);
+            capturePostActionEvent('collect', post, eventOptions);
             onClose?.();
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to collect post.`);

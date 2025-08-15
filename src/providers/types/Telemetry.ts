@@ -117,6 +117,7 @@ export enum EventId {
     SNAPSHOT_VOTE_SUCCESS = 'snapshot_vote_success', // ✅
 
     // mint
+    MINT_NFT_SUBMIT = 'nft_mint_submit', // ✅
     MINT_NFT_SUCCESS = 'nft_mint_success', // ✅
     NFT_MINT_CLICK = 'nft_mint_click',
     NFT_VIEW_WEBSITE_CLICK = 'nft_view_website_click',
@@ -158,6 +159,7 @@ export enum EventId {
     FARCASTER_POST_COLLECT_SUCCESS = 'farcaster_cast_collect_success', // ✅
     FARCASTER_PROFILE_FOLLOW_SUCCESS = 'farcaster_follow_success', // ✅
     FARCASTER_PROFILE_UNFOLLOW_SUCCESS = 'farcaster_unfollow_success', // ✅
+    FARCASTER_PROFILE_SUPER_FOLLOW_SUBMIT = 'farcaster_superfollow_submit', // ✅
     FARCASTER_PROFILE_SUPER_FOLLOW_SUCCESS = 'farcaster_superfollow_success', // ✅
 
     // lens
@@ -747,6 +749,14 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: WalletEventParameters;
     };
+    [EventId.MINT_NFT_SUBMIT]: {
+        type: EventType.Interact;
+        parameters: {
+            chain_id: string;
+            free_mint: boolean;
+            nft_ca: string;
+        } & WalletEventParameters;
+    };
     [EventId.MINT_NFT_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
@@ -935,6 +945,10 @@ export interface Events extends Record<EventId, Event> {
     [EventId.FARCASTER_PROFILE_UNFOLLOW_SUCCESS]: {
         type: EventType.Interact;
         parameters: FarcasterEventParameters;
+    };
+    [EventId.FARCASTER_PROFILE_SUPER_FOLLOW_SUBMIT]: {
+        type: EventType.Interact;
+        parameters: FarcasterEventParameters & WalletEventParameters;
     };
     [EventId.FARCASTER_PROFILE_SUPER_FOLLOW_SUCCESS]: {
         type: EventType.Interact;

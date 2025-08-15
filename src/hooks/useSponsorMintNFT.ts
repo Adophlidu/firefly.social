@@ -9,6 +9,7 @@ import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage }
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureMintNFTEvent } from '@/providers/telemetry/captureMintEvent.js';
 import type { SponsorMintOptions } from '@/providers/types/Firefly.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: number, onSuccess?: () => void) {
     return useAsyncFn(async () => {
@@ -32,15 +33,17 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
             }
 
             let hasBalance = true;
+            const eventOptions = [
+                options.walletAddress,
+                mintTarget.chainId.toString(),
+                mintTarget.contractAddress,
+                true,
+            ] as const;
             if (latestParams.gasStatus) {
                 try {
-                    captureMintNFTEvent(
-                        options.walletAddress,
-                        mintTarget.chainId.toString(),
-                        mintTarget.contractAddress,
-                        true,
-                    );
+                    captureMintNFTEvent(EventId.MINT_NFT_SUBMIT, ...eventOptions);
                     await FireflyEndpointProvider.mintNFTBySponsor(options);
+                    captureMintNFTEvent(EventId.MINT_NFT_SUCCESS, ...eventOptions);
                 } catch (error) {
                     if (error instanceof Error && error.message.includes('insufficient funds')) {
                         hasBalance = false;
@@ -51,18 +54,14 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
                 }
             }
             if (!latestParams.gasStatus || !hasBalance) {
-                captureMintNFTEvent(
-                    options.walletAddress,
-                    mintTarget.chainId.toString(),
-                    mintTarget.contractAddress,
-                    true,
-                );
+                captureMintNFTEvent(EventId.MINT_NFT_SUBMIT, ...eventOptions);
                 const hash = await sendTransaction(wagmiConfig, {
                     data: latestParams.txData.inputData as Hex,
                     to: latestParams.txData.to as Address,
                     value: BigInt(latestParams.txData.value),
                 });
                 await waitForTransactionReceipt(wagmiConfig, { hash });
+                captureMintNFTEvent(EventId.MINT_NFT_SUCCESS, ...eventOptions);
             }
 
             enqueueSuccessMessage(t`NFT minted successfully!`);
