@@ -18,9 +18,10 @@ import { resolveAppKitNetworkName } from '@/helpers/resolveAppKitNetworkName.js'
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
 import { checkIfConnectedAndSwitch } from '@/modals/WalletConnectModal/checkIfConnectedAndSwitch.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
+import { captureConnectWalletSubmit } from '@/providers/telemetry/captureConnectWalletSubmit.js';
 
 export default memo(function MultipleChainView() {
-    const { connectedId } = WalletConnectContext.useContainer();
+    const { connectedId, origin } = WalletConnectContext.useContainer();
 
     const connectorState = useSyncExternalStore(CoreConnectorController.subscribe, () => CoreConnectorController.state);
     const activeConnector = connectorState.activeConnector;
@@ -79,6 +80,12 @@ export default memo(function MultipleChainView() {
                             key={connector.chain}
                             onClick={() => {
                                 onConnect(connector);
+                                captureConnectWalletSubmit({
+                                    origin,
+                                    name: connector.name,
+                                    chain: connector.chain,
+                                    connect_time: Date.now(),
+                                });
                             }}
                         >
                             {chainImage ? (

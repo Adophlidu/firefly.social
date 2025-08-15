@@ -8,11 +8,11 @@ import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
-type ProfileActionType = 'follow' | 'unfollow' | 'super_follow';
+type ProfileActionType = 'follow' | 'unfollow' | 'super_follow' | 'super_follow_submit';
 
 const resolveProfileActionEventIds = createLookupTableResolver<
     SocialSource,
-    Record<ProfileActionType, EventId | undefined>
+    Partial<Record<ProfileActionType, EventId>>
 >(
     {
         [Source.Farcaster]: {
@@ -24,6 +24,7 @@ const resolveProfileActionEventIds = createLookupTableResolver<
             follow: EventId.LENS_PROFILE_FOLLOW_SUCCESS,
             unfollow: EventId.LENS_PROFILE_UNFOLLOW_SUCCESS,
             super_follow: EventId.LENS_PROFILE_SUPER_FOLLOW_SUCCESS,
+            super_follow_submit: EventId.LENS_PROFILE_SUPER_FOLLOW_SUBMIT,
         },
         [Source.Twitter]: {
             follow: EventId.X_PROFILE_FOLLOW_SUCCESS,

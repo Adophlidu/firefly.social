@@ -21,7 +21,7 @@ export function useRefundCallback(rpid?: string, overrides?: ChainContextOverrid
 
     return useAsyncFn(async () => {
         try {
-            captureLuckyDropEvent('refund', {
+            captureLuckyDropEvent('pre-refund', {
                 claimer: account,
             });
             switch (networkType) {
@@ -34,6 +34,9 @@ export function useRefundCallback(rpid?: string, overrides?: ChainContextOverrid
                 default:
                     unreachable(networkType);
             }
+            captureLuckyDropEvent('refund', {
+                claimer: account,
+            });
             queryClient.setQueriesData(
                 { queryKey: ['redpacket-history', account, FireflyRedPacketAPI.ActionType.Send] },
                 (

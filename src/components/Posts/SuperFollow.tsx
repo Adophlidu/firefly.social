@@ -51,6 +51,9 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
                 return;
             }
 
+            captureProfileActionEvent('super_follow_submit', profile, {
+                followerWalletAddress: account.address,
+            });
             await LensSocialMediaProvider.superFollow(profile.profileId);
             enqueueSuccessMessage(t`Followed @${profile.handle} on Lens`);
             captureProfileActionEvent('super_follow', profile, {

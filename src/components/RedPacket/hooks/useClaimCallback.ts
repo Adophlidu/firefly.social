@@ -21,7 +21,7 @@ export function useClaimCallback(
     });
 
     return useAsyncFn(async () => {
-        captureLuckyDropEvent('claim', {
+        captureLuckyDropEvent('pre-claim', {
             claimer: account,
             payload,
         });
@@ -29,6 +29,10 @@ export function useClaimCallback(
             contextChainId,
             account,
             source,
+            payload,
+        });
+        captureLuckyDropEvent('claim', {
+            claimer: account,
             payload,
         });
 

@@ -79,6 +79,36 @@ export function useSolanaCreateRedPacketCallback(
                 message,
                 authorDisplayName: shareFromName,
             };
+            const password = Buffer.from(claimer.secretKey).toString('hex');
+            const payload = {
+                sender: {
+                    address: account,
+                    name: shareFromName,
+                    message,
+                },
+                is_random: randomType === 'random',
+                shares,
+                password,
+                rpid: '',
+                total: total.toString(),
+                duration: baseParams.duration,
+                creation_time: Date.now(),
+                token,
+                network: env.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled ? 'devnet' : 'mainnet-beta',
+                contract_address: RedPacketIDL.address,
+                contract_version: RED_PACKET_CONTRACT_VERSION,
+                txid: '',
+                tokenProgram: '',
+                themeId,
+            };
+
+            captureLuckyDropEvent('pre-create', {
+                metadata: getRpMetadata(
+                    getTypedMessageRedPacket({
+                        [SolanaRedPacketMetaKey]: reduceUselessPayloadInfo(payload),
+                    }),
+                ),
+            });
 
             let result:
                 | {
@@ -105,28 +135,11 @@ export function useSolanaCreateRedPacketCallback(
 
             if (!result) throw new Error('Failed to create red packet.');
 
-            const password = Buffer.from(claimer.secretKey).toString('hex');
-            const payload = {
-                sender: {
-                    address: account,
-                    name: shareFromName,
-                    message,
-                },
-                is_random: randomType === 'random',
-                shares,
-                password,
+            Object.assign(payload, {
                 rpid: result.accountId.toBase58(),
-                total: total.toString(),
-                duration: baseParams.duration,
-                creation_time: Date.now(),
-                token,
-                network: env.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled ? 'devnet' : 'mainnet-beta',
-                contract_address: RedPacketIDL.address,
-                contract_version: RED_PACKET_CONTRACT_VERSION,
                 txid: result.signature,
                 tokenProgram: tokenProgram?.toBase58(),
-                themeId,
-            };
+            });
 
             const typedMessage = getTypedMessageRedPacket({
                 [SolanaRedPacketMetaKey]: reduceUselessPayloadInfo(payload),

@@ -114,28 +114,6 @@ export function useEthereumCreateRedPacketCallback(
 
             const value = toFixed(params.token?.schema === EthereumSchemaType.Native ? total : 0);
 
-            const result = await writeContract(wagmiConfig, {
-                address: getRedPacketContractAddress(chainId),
-                abi: RED_PACKET_ABI,
-                functionName: 'create_red_packet',
-                args: [
-                    methodParams.publicKey,
-                    methodParams.shares,
-                    methodParams.isRandom,
-                    methodParams.duration,
-                    methodParams.seed,
-                    methodParams.message,
-                    methodParams.name,
-                    methodParams.tokenType,
-                    methodParams.tokenAddress,
-                    methodParams.total,
-                ],
-                value: BigInt(value),
-                account: account as Address,
-                chainId,
-            });
-            if (!result) return;
-
             const payload = {
                 sender: {
                     address: account,
@@ -163,6 +141,29 @@ export function useEthereumCreateRedPacketCallback(
                     }),
                 ),
             });
+
+            const result = await writeContract(wagmiConfig, {
+                address: getRedPacketContractAddress(chainId),
+                abi: RED_PACKET_ABI,
+                functionName: 'create_red_packet',
+                args: [
+                    methodParams.publicKey,
+                    methodParams.shares,
+                    methodParams.isRandom,
+                    methodParams.duration,
+                    methodParams.seed,
+                    methodParams.message,
+                    methodParams.name,
+                    methodParams.tokenType,
+                    methodParams.tokenAddress,
+                    methodParams.total,
+                ],
+                value: BigInt(value),
+                account: account as Address,
+                chainId,
+            });
+            if (!result) return;
+
             await waitForEthereumTransaction(chainId, result);
             const receipt = await getTransactionReceipt(wagmiConfig, {
                 hash: result,

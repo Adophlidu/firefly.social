@@ -567,7 +567,7 @@ export interface Events extends Record<EventId, Event> {
 
     [EventId.CONNECT_WALLET_SUBMIT]: {
         type: EventType.Interact;
-        parameters: ConnectWalletEventParameters;
+        parameters: Omit<ConnectWalletEventParameters, 'wallet_address' | 'connect_success_time' | 'connect_duration'>;
     };
     [EventId.CONNECT_WALLET_SUCCESS]: {
         type: EventType.Interact;

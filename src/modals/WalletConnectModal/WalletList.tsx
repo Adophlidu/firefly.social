@@ -24,6 +24,7 @@ import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
 import { checkIfConnectedAndSwitch } from '@/modals/WalletConnectModal/checkIfConnectedAndSwitch.js';
 import { selectConnector, selectWallet } from '@/modals/WalletConnectModal/selectWallet.js';
 import { uniqueWallets } from '@/modals/WalletConnectModal/uniqueWallets.js';
+import { captureConnectWalletSubmit } from '@/providers/telemetry/captureConnectWalletSubmit.js';
 import type { ChainNamespace, ConnectorWithProvider } from '@/types/index.js';
 
 interface WalletItemProps extends ClickableButtonProps {
@@ -83,7 +84,7 @@ const WalletItem = memo<WalletItemProps>(function WalletItem({ icon, name, insta
 
 export const InjectedWallets = memo<ConnectedProps>(function InjectedWallets({ connectors }) {
     const { history } = useRouter();
-    const { connectedId } = WalletConnectContext.useContainer();
+    const { connectedId, origin } = WalletConnectContext.useContainer();
 
     const [{ loading }, onWalletClick] = useAsyncFn(
         async (connector: ConnectorWithProviders) => {
@@ -114,7 +115,15 @@ export const InjectedWallets = memo<ConnectedProps>(function InjectedWallets({ c
                 chains={connector.chain ? [connector.chain] : []}
                 installed
                 disabled={loading}
-                onClick={() => onWalletClick(connector)}
+                onClick={() => {
+                    captureConnectWalletSubmit({
+                        origin,
+                        name: connector.type,
+                        chain: connector.chain,
+                        connect_time: Date.now(),
+                    });
+                    return onWalletClick(connector);
+                }}
             />
         );
     });
@@ -122,6 +131,7 @@ export const InjectedWallets = memo<ConnectedProps>(function InjectedWallets({ c
 
 export const FeaturedWallets = memo<{ wallets: WcWallet[] }>(function FeaturedWallets({ wallets }) {
     const validWallets = useMemo(() => uniqueWallets(wallets), [wallets]);
+    const { origin } = WalletConnectContext.useContainer();
 
     return validWallets.map((wallet) => (
         <WalletItem
@@ -131,6 +141,13 @@ export const FeaturedWallets = memo<{ wallets: WcWallet[] }>(function FeaturedWa
             name={wallet.name}
             installed={false}
             onClick={() => {
+                const connector = CoreConnectorController.getConnector(wallet.id, wallet.rdns);
+                captureConnectWalletSubmit({
+                    origin,
+                    name: wallet.name,
+                    chain: connector?.chain,
+                    connect_time: Date.now(),
+                });
                 selectWallet(wallet);
             }}
         />
@@ -140,13 +157,20 @@ export const FeaturedWallets = memo<{ wallets: WcWallet[] }>(function FeaturedWa
 export const WalletConnect = memo<ConnectedProps>(function WalletConnect({ connectors }) {
     const { history } = useRouter();
     const [images, setImages] = useState(CoreAssetController.state?.connectorImages || {});
+    const { origin } = WalletConnectContext.useContainer();
 
     const connector = useMemo(() => connectors.find((x) => x.id === 'walletConnect'), [connectors]);
     const onConnect = useCallback(() => {
+        captureConnectWalletSubmit({
+            origin,
+            name: connector?.name,
+            chain: connector?.chain,
+            connect_time: Date.now(),
+        });
         CoreConnectorController.setActiveConnector(connector);
         CoreRouterController.state.data = { wallet: undefined };
         history.push(urlcat('/connecting-wc', { name: encodeURIComponent(connector?.name || '') }));
-    }, [connector, history]);
+    }, [connector, history, origin]);
 
     useEffect(
         () =>
