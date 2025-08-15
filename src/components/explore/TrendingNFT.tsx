@@ -64,17 +64,6 @@ export function TrendingNFT({ collection, className, ...rest }: CollectionItemPr
                             </span>
                         </>
                     ) : null}
-                    {collection.average_price_change_1d ? (
-                        <span
-                            className={classNames(
-                                'whitespace-nowrap text-medium font-bold leading-[22px]',
-                                collection.average_price_change_1d.startsWith('-') ? 'text-danger' : 'text-success',
-                            )}
-                        >
-                            {collection.average_price_change_1d.startsWith('-') ? '↓ ' : '↑ '}
-                            {collection.average_price_change_1d}
-                        </span>
-                    ) : null}
                 </div>
             </div>
         </Link>
