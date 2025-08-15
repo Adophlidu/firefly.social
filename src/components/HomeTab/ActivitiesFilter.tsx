@@ -59,7 +59,7 @@ export const ActivitiesFilter = memo<ActivitiesFilterProps>(function ActivitiesF
             {({ close }) => (
                 <div>
                     <MenuButton
-                        className="size-5 text-placeholder outline-none"
+                        className="size-6 text-placeholder outline-none"
                         onMouseEnter={(e) => e.currentTarget.click()}
                     >
                         {Icon}
