@@ -23,7 +23,14 @@ export function Embed({ og }: EmbedProps) {
         : null;
 
     if (!imageProps) {
-        return <PureLink url={og.url} title={og.title || u.host} description={og.description || u.hostname} />;
+        return (
+            <PureLink
+                url={og.url}
+                title={og.title || u.host}
+                description={og.description || u.hostname}
+                className="mt-2"
+            />
+        );
     }
 
     return (
