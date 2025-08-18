@@ -69,7 +69,6 @@ export function AuthWalletSignIn() {
         }
 
         const signed = await signInWithAuthWallet(frame, `${fid}`, options);
-        console.log(`[AuthWalletSignIn] signed`, signed);
 
         captureFrameSignInEvent('auth-wallet', frame);
 

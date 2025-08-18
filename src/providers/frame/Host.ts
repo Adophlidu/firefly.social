@@ -74,27 +74,23 @@ export class FarcasterFrameHost implements MiniAppHost {
     };
 
     signIn: MiniAppHost['signIn'] = async (options) => {
-        try {
-            const frame = this.options?.frame?.();
-            if (!frame) throw new Error('Frame is not available');
+        const frame = this.options?.frame?.();
+        if (!frame) throw new Error('Frame is not available');
 
-            const fid = `${this.context.client.clientFid}`;
+        const fid = `${this.context.client.clientFid}`;
 
-            // sign in with custody wallet
-            const checked = await FireflyEndpointProvider.checkCustodyWallet(fid);
-            if (checked) return await signInWithFarcaster(frame, fid, options);
+        // sign in with custody wallet
+        const checked = await FireflyEndpointProvider.checkCustodyWallet(fid);
+        if (checked) return await signInWithFarcaster(frame, fid, options);
 
-            // sign in with auth wallet or relay server
-            const signed = await RelayConfirmationPopoverRef.openAndWaitForClose({
-                fid: this.context.client.clientFid,
-                frame,
-                options,
-            });
-            if (!signed) throw new Error('Failed to sign in farcaster');
-            return signed;
-        } catch (error) {
-            throw error;
-        }
+        // sign in with auth wallet or relay server
+        const signed = await RelayConfirmationPopoverRef.openAndWaitForClose({
+            fid: this.context.client.clientFid,
+            frame,
+            options,
+        });
+        if (!signed) throw new Error('Failed to sign in farcaster');
+        return signed;
     };
 
     viewToken: MiniAppHost['viewToken'] = async (options) => {

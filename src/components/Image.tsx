@@ -47,7 +47,6 @@ export function Image({ onError, onLoad, fallback, fallbackClassName, ref, ...pr
 
     const isFailed = imageLoadFailed || !props.src;
 
-    // TODO: replace failed fallback image
     return (
         // Since next/image requires the domain of the image to be configured in next.config,
         // But we can't predict the origin of all images.
