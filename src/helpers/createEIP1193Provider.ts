@@ -5,7 +5,7 @@ import type { RequestArguments } from '@/types/ethereum.js';
 export function createEIP1193Provider(request: (requestArguments: RequestArguments) => Promise<unknown>) {
     return {
         async request<T>(parameters: unknown): Promise<T> {
-            const label = Math.random().toString(36).substring(7);
+            const label = crypto.randomUUID().substring(0, 7);
 
             try {
                 const requestArguments = parameters as RequestArguments;

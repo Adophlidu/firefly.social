@@ -8,7 +8,7 @@ import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import type { Article } from '@/providers/types/Article.js';
 import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
-import type { ClassType } from '@/types/index.js';
+import type { ClassType } from '@/types/utility.js';
 
 function patchPostStats(stats: Post['stats'], status: boolean) {
     return {

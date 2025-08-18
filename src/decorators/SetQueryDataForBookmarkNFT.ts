@@ -9,7 +9,7 @@ import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import type { FollowingNFT, NFTFeedV3, Poap } from '@/providers/types/NFTs.js';
-import type { ClassType } from '@/types/index.js';
+import type { ClassType } from '@/types/utility.js';
 
 const METHODS_BE_OVERRIDDEN = ['bookmarkNFT', 'unbookmarkNFT'] as const;
 

@@ -7,7 +7,7 @@ import { compose } from '@/helpers/compose.js';
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import type { NextRequestContext } from '@/types/index.js';
+import type { NextRequestContext } from '@/types/utility.js';
 
 interface X3ProErrorResponse {
     timestamp: string;

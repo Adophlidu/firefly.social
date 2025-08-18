@@ -2,6 +2,7 @@ import { BigNumber } from 'bignumber.js';
 
 import { CurrencyType } from '@/constants/enum.js';
 import { scale10 } from '@/helpers/number.js';
+import type { LiteralUnion } from '@/types/utility.js';
 
 export interface FormatterCurrencyOptions {
     onlyRemainTwoOrZeroDecimal?: boolean;

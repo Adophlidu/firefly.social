@@ -23,7 +23,7 @@ import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { Network, SupportedMethod, type Transaction } from '@/types/bridge.js';
 import type { RequestArguments } from '@/types/ethereum.js';
 import type { FrameV2 } from '@/types/frame.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 import { EthereumMethodType } from '#masknet/web3-shared-evm';
 
 const connectWalletSquashed = squashCallback(

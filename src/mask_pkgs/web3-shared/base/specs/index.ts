@@ -1,5 +1,6 @@
 import type { CurrencyType, NetworkPluginID, TokenType } from '@/constants/enum.js';
 import type { Color } from '@/types/color.js';
+import type { LiteralUnion } from '@/types/utility.js';
 
 export enum OrderSide {
     Buy = 0,

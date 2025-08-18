@@ -25,7 +25,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { TipsDetail } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
-import type { NextRequestContext } from '@/types/index.js';
+import type { NextRequestContext } from '@/types/utility.js';
 
 const OG_FONT_FAMILY = '"Inter", "NotoSans"';
 const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');

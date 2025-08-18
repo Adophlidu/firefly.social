@@ -21,7 +21,7 @@ import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChain
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/types.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
     extends NextPageProps<

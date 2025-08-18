@@ -8,7 +8,7 @@ import { patchTweetsClientToFirefly } from '@/helpers/patchPostClientToFirefly.j
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
-import type { NextRequestContext } from '@/types/index.js';
+import type { NextRequestContext } from '@/types/utility.js';
 
 export const GET = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
     withTwitterRequestErrorHandler,

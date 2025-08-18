@@ -6,7 +6,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 import { settings } from '@/settings/index.js';
-import type { ResponseJson } from '@/types/index.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 function fetchWithDevelopmentApi(url: string, init?: RequestInit) {
     return fetchJson<ResponseJson<Metadata>>(url, {

@@ -4,7 +4,7 @@ import { disconnect, getAccount, getChainId, getConnections } from 'wagmi/action
 import { appkit } from '@/configs/appkit.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { switchNetwork } from '@/modals/MyWalletsModal/switchNetwork.js';
-import type { ChainNamespace } from '@/types/index.js';
+import type { ChainNamespace } from '@/types/utility.js';
 
 const originalDisconnect = CoreChainController.disconnect;
 const pendingNamespace = new Set<ChainNamespace>();

@@ -2,7 +2,7 @@ import type { Context, ReadyOptions } from '@farcaster/miniapp-host';
 
 import type { FireflyPlatform } from '@/constants/enum.js';
 import type { FrameV2 } from '@/types/frame.js';
-import type { PartialWith } from '@/types/index.js';
+import type { PartialWith } from '@/types/utility.js';
 
 export enum Theme {
     Auto = 'auto',

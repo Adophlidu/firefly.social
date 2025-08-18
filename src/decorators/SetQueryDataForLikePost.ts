@@ -2,7 +2,7 @@ import type { SocialSource } from '@/constants/enum.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
-import type { ClassType } from '@/types/index.js';
+import type { ClassType } from '@/types/utility.js';
 
 function patchPostStats(stats: Post['stats'], status: boolean) {
     return {

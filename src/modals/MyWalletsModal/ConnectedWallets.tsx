@@ -35,7 +35,7 @@ import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyW
 import { WalletProfileDataSource } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
-import type { ChainNamespace } from '@/types/index.js';
+import type { ChainNamespace } from '@/types/utility.js';
 
 const IconMap: Record<ChainNamespace, FunctionComponent<SVGAttributes<SVGElement>>> = {
     eip155: EvmIcon,

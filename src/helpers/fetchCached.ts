@@ -1,6 +1,6 @@
 import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import type { Fetcher } from '@/types/index.js';
+import type { Fetcher } from '@/types/utility.js';
 
 const { fetch: originalFetch } = globalThis;
 

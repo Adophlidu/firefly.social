@@ -6,8 +6,8 @@ import { fetchCachedJSON } from '@/helpers/fetchJson.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { BaseLoader } from '@/providers/base/Loader.js';
 import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
-import type { ResponseJson } from '@/types/index.js';
 import type { LinkDigested, OpenGraph } from '@/types/og.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 class Loader extends BaseLoader<OpenGraph> {
     protected override fetch(url: string, signal?: AbortSignal) {

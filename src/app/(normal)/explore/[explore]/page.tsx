@@ -4,7 +4,7 @@ import { ExploreType, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { notFound, redirect, RedirectType } from '@/esm/navigation/server.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ explore: ExploreType }> {}
 

@@ -150,7 +150,7 @@ import {
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import type { ResponseJson } from '@/types/index.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 @WithMutedProfilesQuery()
 @SetQueryDataForLikePost(Source.Lens)
@@ -1278,15 +1278,15 @@ class LensSocialMedia implements Provider {
 
     async queryApprovedModuleAllowanceData(
         spender: string,
-        openAction?: any, // TODO: OpenActionModuleType
-        follow?: any, // TODO: FollowModuleType
-        reference?: any, // TODO: ReferenceModuleType
+        openAction?: unknown, // TODO: OpenActionModuleType
+        follow?: unknown, // TODO: FollowModuleType
+        reference?: unknown, // TODO: ReferenceModuleType
     ) {
         throw new NotImplementedError();
     }
 
     async approveModuleAllowance(
-        module: any, // TODO: ApprovedAllowanceAmountResultFragment
+        module: { allowance: { asset: { contract: { address: string } } } }, // TODO: ApprovedAllowanceAmountResultFragment
         amount: string,
         currencyAddress?: string,
     ) {

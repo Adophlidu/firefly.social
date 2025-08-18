@@ -1,7 +1,7 @@
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 import type { ORBPollSignInResponseData, ORBSignInResponseData } from '@/providers/orb/type.js';
-import type { ResponseJson } from '@/types/index.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 class Orb {
     async initSignIn() {

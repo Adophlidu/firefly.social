@@ -6,7 +6,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { deserializeClassifyPostLinkResult } from '@/services/getClassifyPostLinkWithDeserialization.js';
-import type { ResponseJson } from '@/types/index.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 export async function prefetchPostLinks(urls: string[]) {
     return runInSafeAsync(async () => {

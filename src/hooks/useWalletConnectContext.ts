@@ -13,7 +13,7 @@ import { useConnections } from 'wagmi';
 import { ClickOrigin, NetworkType } from '@/constants/enum.js';
 import { getFilteredConnectors } from '@/helpers/getFilteredConnectors.js';
 import { networkTypeToChainNamespace } from '@/helpers/networkTypeToChainNamespace.js';
-import type { ChainNamespace, ConnectorWithProvider } from '@/types/index.js';
+import type { ChainNamespace, ConnectorWithProvider } from '@/types/utility.js';
 
 interface WalletConnectState {
     connectors: ConnectorWithProvider[];

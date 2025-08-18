@@ -9,7 +9,7 @@ import { Loading } from '@/components/Loading.js';
 import { EngagementType, type SocialSource, type SocialSourceInURL } from '@/constants/enum.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface ContentListProps {
     postId: string;

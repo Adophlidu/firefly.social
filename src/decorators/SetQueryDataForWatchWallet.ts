@@ -8,7 +8,7 @@ import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { Article } from '@/providers/types/Article.js';
 import { type PolymarketActivity, WatchType } from '@/providers/types/Firefly.js';
-import type { ClassType } from '@/types/index.js';
+import type { ClassType } from '@/types/utility.js';
 
 type PagesData = { pages: Array<{ data: Article[] }> };
 type PolymarketPagesData = { pages: Array<{ data: PolymarketActivity[] }> };

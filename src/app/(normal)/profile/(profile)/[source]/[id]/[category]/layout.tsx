@@ -18,7 +18,7 @@ import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: ProfileSourceInURL }> {}
 

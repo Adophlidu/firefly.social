@@ -12,7 +12,7 @@ import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 const resolveSearchTypeTitle = createLookupTableResolver<SearchType, MessageDescriptor>(
     {

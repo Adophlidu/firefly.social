@@ -4,7 +4,7 @@ import { notFound } from '@/esm/navigation.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 const ActivityNavigationBar = dynamic(() => import('@/components/Activity/ActivityNavigationBar.js'), { ssr: false });
 const ActivityTasks = dynamic(() => import('@/components/Activity/ActivityTasks/index.js'), { ssr: false });

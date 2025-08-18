@@ -5,7 +5,7 @@ import { compose } from '@/helpers/compose.js';
 import { createRedirectResponse } from '@/helpers/createRedirectResponse.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getTwitterProfileByOG } from '@/providers/twitter/getTwitterProfileByOG.js';
-import type { NextRequestContext } from '@/types/index.js';
+import type { NextRequestContext } from '@/types/utility.js';
 
 type Handler = (request: NextRequest, context?: NextRequestContext<{ username: string }>) => Promise<Response>;
 

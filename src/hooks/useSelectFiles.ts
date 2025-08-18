@@ -8,7 +8,8 @@ export function useSelectFiles() {
         if (accept) input.accept = accept;
         return new Promise<FileList>((resolve) => {
             input.addEventListener('input', function onInput(event) {
-                resolve((event.currentTarget as any).files as FileList);
+                const target = event.currentTarget as HTMLInputElement;
+                resolve(target.files || new FileList());
                 input.removeEventListener('input', onInput);
                 document.body.removeChild(input);
             });

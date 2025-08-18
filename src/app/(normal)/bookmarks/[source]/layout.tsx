@@ -12,7 +12,7 @@ import { isBookmarkSource } from '@/helpers/isSource.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ source: string }> {}
 

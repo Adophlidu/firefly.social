@@ -1,3 +1,37 @@
+interface Navigator {
+    virtualKeyboard: {
+        boundingRect: DOMRect;
+        overlaysContent: boolean;
+        addEventListener: (type: string, listener: (event: { target: { boundingRect: DOMRect } }) => void) => void;
+        removeEventListener: (type: string, listener: (event: { target: { boundingRect: DOMRect } }) => void) => void;
+    };
+}
+
+namespace React {
+    namespace JSX {
+        import type { PrivyBridgeElement } from '@/components/PrivyBridge.js';
+
+        interface IntrinsicElements {
+            'w3m-connecting-wc-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+            'w3m-all-wallets-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+            'w3m-connecting-external-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+            'w3m-downloads-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+            'w3m-connecting-multi-chain-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+            'privy-bridge': PrivyBridgeElement;
+        }
+
+        // https://github.com/remarkjs/react-markdown/issues/877
+        interface IntrinsicElements {
+            a: React.JSX.IntrinsicElements['a'];
+            p: React.JSX.IntrinsicElements['p'];
+            br: React.JSX.IntrinsicElements['br'];
+            ol: React.JSX.IntrinsicElements['ol'];
+            img: React.JSX.IntrinsicElements['img'];
+            code: React.JSX.IntrinsicElements['code'];
+        }
+    }
+}
+
 declare module 'dompurify' {
     class DOMPurity {
         sanitize: (html: string) => string;
@@ -48,44 +82,6 @@ declare module '*.svg?url' {
     const content: string;
     export default content;
 }
-
-interface Navigator {
-    virtualKeyboard: {
-        boundingRect: DOMRect;
-        overlaysContent: boolean;
-        addEventListener: (type: string, listener: (event: { target: { boundingRect: DOMRect } }) => void) => void;
-        removeEventListener: (type: string, listener: (event: { target: { boundingRect: DOMRect } }) => void) => void;
-    };
-}
-
-namespace React {
-    namespace JSX {
-        import type { PrivyBridgeElement } from '@/components/PrivyBridge.js';
-
-        interface IntrinsicElements {
-            'w3m-connecting-wc-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
-            'w3m-all-wallets-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
-            'w3m-connecting-external-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
-            'w3m-downloads-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
-            'w3m-connecting-multi-chain-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
-            'privy-bridge': PrivyBridgeElement;
-        }
-
-        // https://github.com/remarkjs/react-markdown/issues/877
-        interface IntrinsicElements {
-            a: React.JSX.IntrinsicElements['a'];
-            p: React.JSX.IntrinsicElements['p'];
-            br: React.JSX.IntrinsicElements['br'];
-            ol: React.JSX.IntrinsicElements['ol'];
-            img: React.JSX.IntrinsicElements['img'];
-            code: React.JSX.IntrinsicElements['code'];
-        }
-    }
-}
-
-type LiteralUnion<U, T = U extends string ? string : U extends number ? number : never> = U | (T & Nothing);
-
-type HexString = `0x${string}`;
 
 declare module 'next/font/local' {
     type CssVariable = `--${string}`;

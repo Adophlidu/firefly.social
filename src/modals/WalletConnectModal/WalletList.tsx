@@ -25,7 +25,7 @@ import { checkIfConnectedAndSwitch } from '@/modals/WalletConnectModal/checkIfCo
 import { selectConnector, selectWallet } from '@/modals/WalletConnectModal/selectWallet.js';
 import { uniqueWallets } from '@/modals/WalletConnectModal/uniqueWallets.js';
 import { captureConnectWalletSubmit } from '@/providers/telemetry/captureConnectWalletSubmit.js';
-import type { ChainNamespace, ConnectorWithProvider } from '@/types/index.js';
+import type { ChainNamespace, ConnectorWithProvider } from '@/types/utility.js';
 
 interface WalletItemProps extends ClickableButtonProps {
     icon?: string;

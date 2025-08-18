@@ -75,7 +75,6 @@ export const FIREFLY_NITTER_URL = env.external.NEXT_PUBLIC_FIREFLY_NITTER_URL;
 export const X3_PRO_URL = 'https://x3.pro';
 export const X3_PRO_API_URL = `${X3_PRO_URL}/api/api`; // dual /api
 export const X3_PRO_AVATAR_URL = 'https://x3-media-pro-3.oss-cn-hongkong.aliyuncs.com';
-export const ACTIONS_BLINK_REGISTER_URL = 'https://actions-registry.dial.to/all';
 export const ORB_API_URL = 'https://orbapi.xyz';
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';

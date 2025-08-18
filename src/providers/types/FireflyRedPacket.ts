@@ -1,3 +1,5 @@
+import type { Hex } from 'viem';
+
 import type { NetworkType } from '@/constants/enum.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
@@ -164,9 +166,9 @@ export namespace FireflyRedPacketAPI {
         platform: PlatformType;
         profileId: string;
         lensToken?: string;
-        farcasterSignature?: HexString;
-        farcasterSigner?: HexString;
-        farcasterMessage?: HexString;
+        farcasterSignature?: Hex;
+        farcasterSigner?: Hex;
+        farcasterMessage?: Hex;
     }
 
     export interface PostOn {
@@ -190,8 +192,8 @@ export namespace FireflyRedPacketAPI {
         token_symbol: string;
         token_decimal: number;
         token_logo: string;
-        redpacket_id: HexString;
-        trans_hash: HexString;
+        redpacket_id: Hex;
+        trans_hash: Hex;
         log_idx: number;
         chain_id: string;
         redpacket_status: RedPacketStatus;
@@ -202,16 +204,16 @@ export namespace FireflyRedPacketAPI {
     }
 
     export interface RedPacketClaimedInfoItem {
-        redpacket_id: HexString;
+        redpacket_id: Hex;
         received_time: string;
         rp_msg: string;
         token_amounts: string;
         token_symbol: string;
         token_decimal: number;
         token_logo: string;
-        trans_hash: HexString;
+        trans_hash: Hex;
         log_idx: string;
-        creator: HexString;
+        creator: Hex;
         chain_id: string;
         redpacket_status: RedPacketStatus;
         ens_name: string;
@@ -291,11 +293,11 @@ export namespace FireflyRedPacketAPI {
     }
 
     export type PublicKeyResponse = Response<{
-        publicKey: HexString;
+        publicKey: Hex;
     }>;
 
     export type ClaimResponse = Response<{
-        signedMessage: HexString;
+        signedMessage: Hex;
     }>;
 
     export type HistoryResponse = Response<{
@@ -350,9 +352,9 @@ export namespace FireflyRedPacketAPI {
             profileId?: string;
             handle?: string;
             lensToken?: string;
-            farcasterSignature?: HexString;
-            farcasterSigner?: HexString;
-            farcasterMessage?: HexString;
+            farcasterSignature?: Hex;
+            farcasterSigner?: Hex;
+            farcasterMessage?: Hex;
         };
         wallet: {
             address: string;
@@ -390,7 +392,7 @@ export namespace FireflyRedPacketAPI {
                   nfts: {
                       /** instead of number, it's string */
                       chainId: string;
-                      contractAddress: HexString;
+                      contractAddress: Hex;
                       tokenIds: string[];
                   };
               };
@@ -404,7 +406,7 @@ export namespace FireflyRedPacketAPI {
                       hasPassed: boolean;
                       /** instead of number, it's string */
                       chainId: string;
-                      contractAddress: HexString;
+                      contractAddress: Hex;
                       decimals: number;
                       amount: string;
                   };

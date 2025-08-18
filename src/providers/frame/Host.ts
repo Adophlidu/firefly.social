@@ -274,4 +274,9 @@ export class FarcasterFrameHost implements MiniAppHost {
         console.warn('[frame host]: updateBackState');
         throw new NotImplementedError();
     };
+
+    requestCameraAndMicrophoneAccess: MiniAppHost['requestCameraAndMicrophoneAccess'] = () => {
+        console.warn('[frame host]: requestCameraAndMicrophoneAccess');
+        return Promise.resolve();
+    };
 }

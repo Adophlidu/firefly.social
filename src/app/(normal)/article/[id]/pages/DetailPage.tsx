@@ -16,11 +16,11 @@ async function getArticleCoverUrl(article: Article): Promise<string | null> {
     return first(metadata.openGraph?.images as string[]) ?? null;
 }
 
-interface PageProps {
+interface Props {
     id: string;
 }
 
-export async function ArticleDetailPage({ id: articleId }: PageProps) {
+export async function ArticleDetailPage({ id: articleId }: Props) {
     if (!articleId) notFound();
 
     const article = await FireflyArticleProvider.getArticleById(articleId);

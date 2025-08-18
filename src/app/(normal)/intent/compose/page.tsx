@@ -3,7 +3,7 @@ import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 import { redirect, RedirectType } from '@/esm/navigation/server.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { trimify } from '@/helpers/trimify.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{}, ShareLinkProps> {}
 

@@ -7,7 +7,7 @@ import { parseChainId } from '@/helpers/parseChainId.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ addressOrTokenId: string; chainIdOrCollectionId: string }> {}
 

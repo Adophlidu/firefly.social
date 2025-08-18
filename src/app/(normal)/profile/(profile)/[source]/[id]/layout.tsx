@@ -23,7 +23,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ id: string; source: ProfileSourceInURL }> {}
 

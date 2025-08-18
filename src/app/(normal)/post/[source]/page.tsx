@@ -8,7 +8,7 @@ import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 export const revalidate = 60;
 

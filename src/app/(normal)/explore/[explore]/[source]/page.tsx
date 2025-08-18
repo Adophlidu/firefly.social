@@ -5,7 +5,7 @@ import { use } from 'react';
 import { ExplorePage } from '@/app/(normal)/explore/pages/Explore.js';
 import { type ExploreSource, type ExploreSourceInURL, ExploreType, type TrendingType } from '@/constants/enum.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ source: ExploreSourceInURL; explore: ExploreType }> {}
 

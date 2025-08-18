@@ -33,7 +33,7 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
         useSuperFollowData(profile);
 
     const wrongAddress = !isSameEthereumAddress(address, account.address);
-    const feeAmount = parseFloat(followModule?.amount?.value || '0');
+    const feeAmount = Number.parseFloat(followModule?.amount?.value || '0');
     const feeSymbol = followModule?.amount?.asset.symbol;
 
     const [{ loading: isFollowing }, handleFollow] = useAsyncFn(async () => {

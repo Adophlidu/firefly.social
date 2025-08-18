@@ -10,7 +10,7 @@ import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
-import type { ClassType } from '@/types/index.js';
+import type { ClassType } from '@/types/utility.js';
 
 type PagesData = { pages: Array<{ data: Article[] }> };
 interface NFTPagesData {

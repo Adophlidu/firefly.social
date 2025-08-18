@@ -4,11 +4,11 @@ import { type Address, erc20Abi, formatUnits } from 'viem';
 import { useAccount, useReadContract } from 'wagmi';
 
 import { Source } from '@/constants/enum.js';
+import { NotImplementedError } from '@/constants/error.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function useSuperFollowModule(profile: Profile | null, disabled = false) {
@@ -25,9 +25,22 @@ export function useSuperFollowModule(profile: Profile | null, disabled = false) 
     });
 
     return {
-        followModule: (data?.operations?.canFollow.__typename !== 'AccountFollowOperationValidationPassed'
-            ? null
-            : null) as any, // TODO
+        followModule:
+            data?.operations?.canFollow.__typename !== 'AccountFollowOperationValidationPassed'
+                ? ({
+                      amount: {
+                          value: '0',
+                          asset: {
+                              contract: {
+                                  address: '' as Address,
+                                  chainId: 0,
+                              },
+                              symbol: '',
+                              decimals: 0,
+                          },
+                      },
+                  } as const)
+                : null,
         loading: isLoading,
     };
 }
@@ -38,21 +51,16 @@ export function useSuperFollowData(profile: Profile) {
 
     const { followModule, loading: isProfileLoading } = useSuperFollowModule(profile);
 
-    const followFee = parseFloat(followModule?.amount?.value || '0');
+    const followFee = Number.parseFloat(followModule?.amount?.value || '0');
     const feeTokenAddress = followModule?.amount?.asset?.contract.address as Address;
 
     const { data: { allowanceData, hasAllowance = false } = {}, isLoading: isAllowanceLoading } = useQuery({
         queryKey: ['approved', feeTokenAddress, currentProfile?.profileId],
         enabled: !!feeTokenAddress,
-        queryFn: async () => {
-            const allowanceData: any = await LensSocialMediaProvider.queryApprovedModuleAllowanceData(
-                feeTokenAddress,
-                undefined,
-                // TODO: FollowModuleType.FeeFollowModule,
+        queryFn: async (): Promise<{ allowanceData: any[]; hasAllowance: boolean }> => {
+            throw new NotImplementedError(
+                'Not implemented: LensSocialMediaProvider.queryApprovedModuleAllowanceData with feeTokenAddress',
             );
-            const hasAllowance = parseFloat(allowanceData?.[0]?.allowance.value || '0') > followFee;
-
-            return { allowanceData, hasAllowance };
         },
     });
 
@@ -74,7 +82,7 @@ export function useSuperFollowData(profile: Profile) {
         allowanceModule,
         hasAmount:
             !!balanceData &&
-            parseFloat(formatUnits(balanceData, followModule?.amount?.asset?.decimals as number)) > followFee,
+            Number.parseFloat(formatUnits(balanceData, followModule?.amount?.asset?.decimals ?? 0)) > followFee,
         hasAllowance,
     };
 }

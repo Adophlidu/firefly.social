@@ -1,5 +1,5 @@
 import { AuthenticationError } from '@/constants/error.js';
-import type { ResponseJson } from '@/types/index.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 export function resolveTwitterResponseData<T>(response: ResponseJson<T>, message?: string): T {
     if (response.success) return response.data;

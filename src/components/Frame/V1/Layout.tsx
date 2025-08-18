@@ -38,7 +38,7 @@ import {
     MethodType,
     type RedirectUrlResponse,
 } from '@/types/frame.js';
-import type { ResponseJson } from '@/types/index.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 const TransactionSchema = z.object({
     // a CAIP-2 chain ID to identify the tx network

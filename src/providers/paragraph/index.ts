@@ -1,5 +1,5 @@
 import urlcat from 'urlcat';
-import { type Address, zeroAddress } from 'viem';
+import { type Address, type Hex, zeroAddress } from 'viem';
 import { base, optimism, polygon, zora } from 'viem/chains';
 import { getAccount, readContracts, waitForTransactionReceipt, writeContract } from 'wagmi/actions';
 
@@ -127,7 +127,7 @@ class Paragraph implements Provider {
                 address: article.contractAddress as Address,
                 abi: ParagraphABI,
                 functionName: 'mintWithReferrer',
-                args: [account.address, article.referrerAddress ?? zeroAddress] as [HexString, HexString],
+                args: [account.address, article.referrerAddress ?? zeroAddress] as [Hex, Hex],
                 value,
             });
         }
@@ -207,7 +207,7 @@ class Paragraph implements Provider {
                 address: article.contractAddress as Address,
                 abi: ParagraphABI,
                 functionName: 'mintWithReferrer',
-                args: [account.address, article.referrerAddress ?? zeroAddress] as [HexString, HexString],
+                args: [account.address, article.referrerAddress ?? zeroAddress] as [Hex, Hex],
                 value,
             });
 

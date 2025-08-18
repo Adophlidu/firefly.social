@@ -13,7 +13,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PreviewMediaModalContent } from '@/modals/PreviewMediaModal/PreviewMediaModalContent.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
     extends NextPageProps<{

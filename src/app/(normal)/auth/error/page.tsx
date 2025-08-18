@@ -8,7 +8,7 @@ import { type LoginFallbackSource, Source } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 function getSourceFromError(error: string): LoginFallbackSource {
     return Source.Twitter;

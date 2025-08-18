@@ -26,7 +26,7 @@ import {
 import { isChannelSupported } from '@/helpers/isChannelSupported.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import type { Pluggable } from '@/types/index.js';
+import type { Pluggable } from '@/types/utility.js';
 
 interface BioMarkupProps extends MarkupProps {
     source?: SocialSource;

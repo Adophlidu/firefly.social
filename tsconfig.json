@@ -12,6 +12,11 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "allowSyntheticDefaultImports": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
         "plugins": [
             {
                 "name": "next"

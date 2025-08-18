@@ -5,7 +5,7 @@ import type { SocialSourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ id: string; index: string; source: SocialSourceInURL }> {}
 

@@ -38,7 +38,7 @@ import type {
 } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { decryptAes256, encryptAes256 } from '@/services/crypto.js';
-import type { ResponseJson } from '@/types/index.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 function encryptCipherText(passcode: string, text: string) {
     const key = sha256(toHex(passcode)).replace(/^0x/, '');

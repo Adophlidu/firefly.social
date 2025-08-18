@@ -5,7 +5,7 @@ import { FireflyPlatform, NetworkType, WalletSource } from '@/constants/enum.js'
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
-import type { ClassType } from '@/types/index.js';
+import type { ClassType } from '@/types/utility.js';
 
 type WalletsData = Record<'connected' | 'related', FireflyWalletConnection[]>;
 

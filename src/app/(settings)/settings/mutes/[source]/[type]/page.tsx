@@ -6,7 +6,7 @@ import { MutedListPage } from '@/app/(settings)/settings/mutes/[source]/[type]/p
 import type { MuteType, SourceInURL } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useMuteMenuList } from '@/hooks/useMuteMenuList.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ source: SourceInURL; type: MuteType }> {}
 

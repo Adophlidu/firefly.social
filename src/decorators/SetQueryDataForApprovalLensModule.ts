@@ -3,10 +3,30 @@ import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import type { ClassType } from '@/types/index.js';
+import type { ClassType } from '@/types/utility.js';
 
 const METHODS_BE_OVERRIDDEN = ['approveModuleAllowance'] as const;
-type ApprovedAllowanceAmountResultFragment = any; // TODO
+
+interface LensAssetContract {
+    address: string;
+}
+
+interface LensAsset {
+    contract: LensAssetContract;
+}
+
+interface LensAllowance {
+    asset: LensAsset;
+}
+
+interface ApprovedAllowanceAmountResultFragment {
+    allowance: LensAllowance;
+}
+
+interface ApprovedAllowanceAmountResult {
+    allowanceData: ApprovedAllowanceAmountResultFragment[];
+    hasAllowance: boolean;
+}
 
 export function SetQueryDataForApprovalLensModule<T extends ClassType<LensSocialMedia>>(target: T): T {
     function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
@@ -21,11 +41,7 @@ export function SetQueryDataForApprovalLensModule<T extends ClassType<LensSocial
                 const contract = args[2] ?? args[0].allowance.asset.contract.address;
                 queryClient.setQueryData(
                     ['approved', contract, currentProfile?.profileId],
-                    (
-                        old:
-                            | { allowanceData: ApprovedAllowanceAmountResultFragment[]; hasAllowance: boolean }
-                            | undefined,
-                    ) => {
+                    (old: ApprovedAllowanceAmountResult | undefined) => {
                         if (
                             isSameEthereumAddress(contract, old?.allowanceData?.[0]?.allowance?.asset.contract.address)
                         ) {

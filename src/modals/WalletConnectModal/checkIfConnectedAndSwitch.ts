@@ -4,7 +4,7 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import type { NetworkType } from '@/constants/enum.js';
 import { networkTypeToChainNamespace } from '@/helpers/networkTypeToChainNamespace.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
-import type { ConnectorWithProvider } from '@/types/index.js';
+import type { ConnectorWithProvider } from '@/types/utility.js';
 
 export async function checkIfConnectedAndSwitch(
     connector: ConnectorWithProvider,

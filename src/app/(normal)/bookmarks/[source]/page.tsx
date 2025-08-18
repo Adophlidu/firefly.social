@@ -11,7 +11,7 @@ import { type BookmarkSource, Source, SourceInURL } from '@/constants/enum.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useMounted } from '@/hooks/useMounted.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 function BookmarkListContent({ source }: { source: BookmarkSource }) {
     switch (source) {

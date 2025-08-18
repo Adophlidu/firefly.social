@@ -11,7 +11,7 @@ import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import { Pageable } from '@/schemas/index.js';
-import type { NextRequestContext } from '@/types/index.js';
+import type { NextRequestContext } from '@/types/utility.js';
 
 export const GET = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
     withTwitterRequestErrorHandler,

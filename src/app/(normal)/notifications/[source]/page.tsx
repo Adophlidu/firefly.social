@@ -22,7 +22,7 @@ import { type Notification as NotificationObject, NotificationType } from '@/pro
 import { listenNotifications } from '@/services/listenNotifications.js';
 import { useNotificationStateStore } from '@/store/useNotificationStore.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 const getNotificationItemContent = (index: number, notification: NotificationObject) => {
     if (notification.type === NotificationType.Tips) {

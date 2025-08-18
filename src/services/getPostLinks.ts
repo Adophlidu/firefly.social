@@ -9,8 +9,8 @@ import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { ResponseJson } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 // We are confident that these hosts will not be used for frame links
 const IGNORE_HOSTS = [/^.+\.mask\.social$/, 'localhost:3000', 'x.com'];

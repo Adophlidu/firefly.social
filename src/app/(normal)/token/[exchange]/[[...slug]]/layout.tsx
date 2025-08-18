@@ -15,7 +15,7 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
 import type { GetTokenOptions } from '@/providers/types/Firefly.js';
 import { searchToken } from '@/services/searchToken.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
     extends NextPageProps<

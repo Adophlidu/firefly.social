@@ -4,7 +4,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
-import type { ClassType } from '@/types/index.js';
+import type { ClassType } from '@/types/utility.js';
 
 const METHODS_BE_OVERRIDDEN = ['disconnectWallet', 'disconnectAccount'] as const;
 const METHODS_BE_OVERRIDDEN_FOR_REPORT = ['reportAndDeleteWallet'] as const;

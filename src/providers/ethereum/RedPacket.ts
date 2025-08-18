@@ -79,7 +79,7 @@ class Provider {
             shares,
             isRandom,
             duration,
-            seed: keccak256(Math.random().toString() as Hex),
+            seed: keccak256(crypto.getRandomValues(new Uint8Array(32)).toString() as Hex),
             message,
             name,
             tokenType: token?.schema === EthereumSchemaType.Native ? 0 : 1,
@@ -160,9 +160,9 @@ class Provider {
                 profileId: me.profileId,
                 handle: me.handle,
                 lensToken: me.lensToken,
-                farcasterMessage: me.farcasterMessage as HexString,
-                farcasterSigner: me.farcasterSigner as HexString,
-                farcasterSignature: me.farcasterSignature as HexString,
+                farcasterMessage: me.farcasterMessage as Hex,
+                farcasterSigner: me.farcasterSigner as Hex,
+                farcasterSignature: me.farcasterSignature as Hex,
             });
         });
         if (claimWithSponsorHash) return claimWithSponsorHash;

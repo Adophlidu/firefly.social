@@ -68,7 +68,7 @@ import { X3ProProvider } from '@/providers/x3pro/index.js';
 import { X3ProKolListLabel, X3ProOrderType } from '@/providers/x3pro/types.js';
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import { useTwitterRetweetStore } from '@/store/useTwitterRetweetStore.js';
-import type { PartialWith, ResponseJson } from '@/types/index.js';
+import type { PartialWith, ResponseJson } from '@/types/utility.js';
 
 export
 @SetQueryDataForLikePost(Source.Twitter)

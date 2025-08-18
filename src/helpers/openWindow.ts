@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import type { LiteralUnion } from '@/types/index.js';
+import type { LiteralUnion } from '@/types/utility.js';
 
 type WindowTarget = LiteralUnion<'_top' | '_self' | '_parent' | '_blank'>;
 

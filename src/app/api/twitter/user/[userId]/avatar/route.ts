@@ -9,7 +9,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getTwitterProfileByOG } from '@/providers/twitter/getTwitterProfileByOG.js';
 import { NitterAPIProvider } from '@/providers/twitter/Nitter.js';
 import { NitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
-import type { NextRequestContext } from '@/types/index.js';
+import type { NextRequestContext } from '@/types/utility.js';
 
 const getTwitterAvatarById = memoizeWithRedis(
     async (twitterId: string) => {

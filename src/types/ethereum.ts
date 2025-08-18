@@ -12,14 +12,14 @@ export interface RequestArguments {
 export interface JsonRpcPayload {
     jsonrpc: string;
     method: string;
-    params?: any[];
+    params?: unknown[];
     id?: string | number;
 }
 
-export interface JsonRpcResponse {
+export interface JsonRpcResponse<T = unknown> {
     jsonrpc: string;
     id: string | number;
-    result?: any;
+    result?: T;
     error?: {
         readonly code?: number;
         readonly data?: unknown;

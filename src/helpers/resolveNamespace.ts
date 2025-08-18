@@ -1,7 +1,7 @@
 import { NetworkType } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import type { ChainNamespace } from '@/types/index.js';
+import type { ChainNamespace } from '@/types/utility.js';
 
 export const resolveNamespace = createLookupTableResolver<NetworkType, ChainNamespace>(
     {

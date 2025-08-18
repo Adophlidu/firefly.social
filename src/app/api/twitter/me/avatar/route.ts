@@ -9,7 +9,7 @@ import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2
 import { convertTwitterAvatar } from '@/providers/twitter/formatTwitterProfile.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import { FileSchema } from '@/schemas/index.js';
-import type { NextRequestContext } from '@/types/index.js';
+import type { NextRequestContext } from '@/types/utility.js';
 
 const FormDataSchema = z.object({
     file: FileSchema,

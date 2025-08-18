@@ -6,7 +6,7 @@ import { FarcasterNetwork, HashScheme, SignatureScheme } from '@/constants/farca
 import { toFarcasterTime } from '@/helpers/toFarcasterTime.js';
 import { getPublicKeyInHexFromPrivateKey, signMessageWithPrivateKey } from '@/providers/farcaster/ed25519.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import type { PartialWith } from '@/types/index.js';
+import type { PartialWith } from '@/types/utility.js';
 
 export type WithMessageData = (fid: number) => PartialWith<MessageData, 'type' | 'fid' | 'timestamp' | 'network'>;
 

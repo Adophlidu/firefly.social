@@ -7,7 +7,7 @@ import { toProfileId } from '@/helpers/isSameProfile.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { type Notification, NotificationType, type Profile, type Provider } from '@/providers/types/SocialMedia.js';
-import type { ClassType } from '@/types/index.js';
+import type { ClassType } from '@/types/utility.js';
 
 interface PagesData {
     pages: Array<{ data: Profile[] }>;

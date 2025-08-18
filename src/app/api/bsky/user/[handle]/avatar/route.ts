@@ -5,7 +5,7 @@ import { compose } from '@/helpers/compose.js';
 import { createRedirectResponse } from '@/helpers/createRedirectResponse.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
-import type { NextRequestContext } from '@/types/index.js';
+import type { NextRequestContext } from '@/types/utility.js';
 
 type Handler = (request: NextRequest, context?: NextRequestContext<{ handle: string }>) => Promise<Response>;
 

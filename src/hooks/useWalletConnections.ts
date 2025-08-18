@@ -15,7 +15,7 @@ import { useSolanaAccount, useWalletAccountAll } from '@/hooks/useAccountByNetwo
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { restoreDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
-import type { ChainNamespace } from '@/types/index.js';
+import type { ChainNamespace } from '@/types/utility.js';
 
 function getWagmiCurrentConnectionId() {
     const storage = localStorage.getItem('wagmi.store');

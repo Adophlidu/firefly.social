@@ -8,7 +8,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 const createPageMetadata = memoizeWithRedis(createMetadataProfileById, {
     key: KeyType.CreateMetadataProfileById,

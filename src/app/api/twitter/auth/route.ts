@@ -8,7 +8,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterSessionBeforeLogin } from '@/providers/twitter/createTwitterSessionPayload.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import { encryptAes256 } from '@/services/crypto.js';
-import type { NextRequestContext } from '@/types/index.js';
+import type { NextRequestContext } from '@/types/utility.js';
 
 export const POST = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
     withTwitterRequestErrorHandler,

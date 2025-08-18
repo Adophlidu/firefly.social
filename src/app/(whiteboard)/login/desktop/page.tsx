@@ -7,7 +7,7 @@ import FullLogo from '@/assets/logo-full.svg';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { bom } from '@/helpers/bom.js';
 import { DeviceType } from '@/types/device.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
     extends NextPageProps<

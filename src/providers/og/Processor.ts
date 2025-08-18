@@ -17,8 +17,8 @@ import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveSocialSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { getFarcasterPayload, getMirrorPayload } from '@/providers/og/readers/payload.js';
-import type { ResponseJson } from '@/types/index.js';
 import { type LinkDigested, type OpenGraph, PayloadType } from '@/types/og.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 class Processor {
     digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigested | null> => {

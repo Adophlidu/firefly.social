@@ -5,7 +5,7 @@ import { Source } from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { prefetchPostLinks } from '@/helpers/prefetchPostLinks.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';
-import type { ClassType } from '@/types/index.js';
+import type { ClassType } from '@/types/utility.js';
 
 const METHODS_BE_OVERRIDDEN = [
     'searchPosts',

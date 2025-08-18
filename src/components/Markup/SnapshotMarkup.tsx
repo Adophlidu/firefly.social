@@ -12,7 +12,7 @@ import { BIO_TWITTER_PROFILE_REGEX, MENTION_REGEX, SYMBOL_REGEX, URL_REGEX } fro
 import { classNames } from '@/helpers/classNames.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { trimify } from '@/helpers/trimify.js';
-import type { Pluggable } from '@/types/index.js';
+import type { Pluggable } from '@/types/utility.js';
 
 const PLUGINS: Pluggable[] = [
     remarkBreaks,

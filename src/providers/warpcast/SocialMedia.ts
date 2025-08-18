@@ -30,7 +30,7 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { type Channel as WarpcastChannel } from '@/providers/types/Warpcast.js';
-import type { ResponseJson } from '@/types/index.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 class WarpcastSocialMedia implements Provider {
     blockWallet(address: string, networkType?: NetworkType): Promise<boolean> {

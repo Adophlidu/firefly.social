@@ -3,7 +3,7 @@ import { notFound, redirect, RedirectType } from '@/esm/navigation/server.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
     extends NextPageProps<{

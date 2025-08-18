@@ -1,4 +1,5 @@
 import urlcat from 'urlcat';
+import type { Hex } from 'viem';
 
 import { EMPTY_LIST, FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
@@ -147,7 +148,7 @@ export class FireflyRedPacketEndpoint {
         themeId: string,
         shareFrom: string,
         strategies: FireflyRedPacketAPI.ClaimStrategy[],
-    ): Promise<HexString> {
+    ): Promise<Hex> {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/redpacket/createPublicKey');
         const { data } = await fetchJson<FireflyRedPacketAPI.PublicKeyResponse>(url, {
             method: 'POST',
@@ -181,9 +182,7 @@ export class FireflyRedPacketEndpoint {
         });
     }
 
-    static async createClaimSignature(
-        options: FireflyRedPacketAPI.CheckClaimStrategyStatusOptions,
-    ): Promise<HexString> {
+    static async createClaimSignature(options: FireflyRedPacketAPI.CheckClaimStrategyStatusOptions): Promise<Hex> {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/claim');
         const { data } = await fetchJson<FireflyRedPacketAPI.ClaimResponse>(url, {
             method: 'POST',
@@ -199,7 +198,7 @@ export class FireflyRedPacketEndpoint {
             : FireflyRedPacketAPI.RedPacketSentInfo,
     >(
         actionType: T,
-        from: HexString,
+        from: Hex,
         platform: FireflyRedPacketAPI.SourceType,
         indicator?: PageIndicator,
     ): Promise<Pageable<R, PageIndicator>> {

@@ -1,7 +1,7 @@
 import { type SocialSource } from '@/constants/enum.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import { fillBookmarkStatusForPosts } from '@/services/fillBookmarkStatusForPosts.js';
-import type { ClassType } from '@/types/index.js';
+import type { ClassType } from '@/types/utility.js';
 
 const METHODS_BE_OVERRIDDEN = [
     'getCommentsById',

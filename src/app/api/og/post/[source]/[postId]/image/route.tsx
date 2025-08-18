@@ -21,7 +21,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
-import type { NextRequestContext } from '@/types/index.js';
+import type { NextRequestContext } from '@/types/utility.js';
 
 function resolveSourceIcon(source: SocialSource) {
     return {

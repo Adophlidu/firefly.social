@@ -3,7 +3,7 @@ import { ZodError } from 'zod';
 
 import { ContentTypeError, MalformedError, NotFoundError, UnauthorizedError } from '@/constants/error.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
-import type { NextRequestContext } from '@/types/index.js';
+import type { NextRequestContext } from '@/types/utility.js';
 
 function handleZodErrorMessage(error: ZodError) {
     return (

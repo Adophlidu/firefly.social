@@ -6,7 +6,7 @@ import { isValidTxId } from '@/helpers/isValidTxId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
-import type { NextPageProps } from '@/types/index.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
     extends NextPageProps<

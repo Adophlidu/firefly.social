@@ -24,7 +24,7 @@ import type { BindResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
-import type { ResponseJson } from '@/types/index.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<BindResponse>(

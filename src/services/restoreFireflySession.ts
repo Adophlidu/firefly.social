@@ -21,7 +21,7 @@ import type { LoginResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
-import type { ResponseJson } from '@/types/index.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 async function restoreFireflySessionFromLens(session: LensSession, signal?: AbortSignal) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/lens/login');

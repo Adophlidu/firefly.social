@@ -37,7 +37,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getAllRelatedProfileInfo } from '@/providers/firefly/getAllRelatedProfileInfo.js';
 import type { WalletProfiles } from '@/providers/types/Firefly.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
-import type { NextRequestContext } from '@/types/index.js';
+import type { NextRequestContext } from '@/types/utility.js';
 
 const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
 const OG_BACKGROUND = urlcat(SITE_URL, '/image/profile-og-background.png');

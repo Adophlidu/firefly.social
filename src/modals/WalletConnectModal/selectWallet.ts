@@ -9,7 +9,7 @@ import urlcat from 'urlcat';
 
 import { WalletId } from '@/constants/reown.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
-import type { ConnectorWithProvider } from '@/types/index.js';
+import type { ConnectorWithProvider } from '@/types/utility.js';
 
 function redirectSolanaLinkInNeed(walletId: WalletId) {
     if (CoreChainController.state?.activeChain !== 'solana') return;

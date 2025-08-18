@@ -5,7 +5,7 @@ import { SearchType, Source } from '@/constants/enum.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { type Notification, type Profile, type Provider } from '@/providers/types/SocialMedia.js';
-import type { ClassType } from '@/types/index.js';
+import type { ClassType } from '@/types/utility.js';
 
 export function setFollowStatus(source: Source, profileId: string, status: boolean) {
     const matcher: Matcher = (post) => post?.author.profileId === profileId;

@@ -41,7 +41,7 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import type { ResponseJson } from '@/types/index.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 async function withFullStatusTimeline(timeline: Tweet[]) {
     const tweetIds = uniq(timeline.map((x) => x.id).filter((x) => x && x !== '0')).join(',');

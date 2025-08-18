@@ -2,7 +2,7 @@ import { type AppKitNetwork, mainnet, solana } from '@reown/appkit/networks';
 
 import { appkit } from '@/configs/appkit.js';
 import { wagmiNetworks } from '@/configs/wagmiClient.js';
-import type { ChainNamespace } from '@/types/index.js';
+import type { ChainNamespace } from '@/types/utility.js';
 
 export async function switchNetwork(namespace: ChainNamespace, chainId?: number): Promise<AppKitNetwork | undefined> {
     const targetNetwork =

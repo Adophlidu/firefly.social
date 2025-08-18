@@ -1,6 +1,6 @@
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import type { ChainNamespace } from '@/types/index.js';
+import type { ChainNamespace } from '@/types/utility.js';
 
 export const resolveAppKitNetworkName = createLookupTableResolver<ChainNamespace, string>(
     {

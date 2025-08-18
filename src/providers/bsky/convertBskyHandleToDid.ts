@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import type { ResponseJson } from '@/types/index.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 export async function convertBskyHandleToDid(handle: string) {
     const response = await fetchJson<

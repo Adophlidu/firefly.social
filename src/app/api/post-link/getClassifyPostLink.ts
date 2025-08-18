@@ -22,8 +22,8 @@ import { getNFTFromUrl } from '@/services/getNFTFromUrl.js';
 import { getSnapshotByLink } from '@/services/getSnapshotByLink.js';
 import { getTruthSocialPostFromUrl } from '@/services/getTruthSocialPostFromUrl.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
-import type { ResponseJson } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 const IGNORE_HOSTS = [/^.+\.firefly\.social$/, 'localhost:3000', 'x.com'];
 

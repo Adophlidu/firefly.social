@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import type { GetClassifyPostLinkOnActionResult } from '@/app/api/post-link/getClassifyPostLink.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import type { ResponseJson } from '@/types/index.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 export type ClassifyPostLinkResult = GetClassifyPostLinkOnActionResult;
 

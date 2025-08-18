@@ -1,6 +1,6 @@
 import { NetworkType } from '@/constants/enum.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import type { ChainNamespace } from '@/types/index.js';
+import type { ChainNamespace } from '@/types/utility.js';
 
 export function networkTypeToChainNamespace(networkType: NetworkType): ChainNamespace | null {
     switch (networkType) {
