@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import { sortBy, toInteger } from 'lodash-es';
+import { sortBy, toInteger, uniqBy } from 'lodash-es';
 import { toHex } from 'viem';
 
 import { Source } from '@/constants/enum.js';
@@ -8,8 +8,10 @@ import { NotImplementedError } from '@/constants/error.js';
 import { MessageType, ReactionType, UserDataType } from '@/constants/farcaster.js';
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { URL_REGEX } from '@/constants/regexp.js';
+import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isYouTubeUrl } from '@/helpers/isYouTubeUrl.js';
+import { normalizeUrl } from '@/helpers/normalizeUrl.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHash.js';
 import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
@@ -334,7 +336,9 @@ class HubbleSocialMedia implements Provider {
 
         const urls = post.metadata.content?.content?.match(URL_REGEX) || [];
         const mediaUrls = post.mediaObjects?.map((v) => ({ url: v.url })) ?? [];
-        const contentUrls = sortBy(urls, (x) => (isYouTubeUrl(x) ? -1 : 0)).map((url) => ({ url }));
+        const contentUrls = sortBy(urls, (x) => (isYouTubeUrl(x) ? -1 : 0)).map((url) => ({
+            url: fixUrlProtocol(url),
+        }));
 
         // To refresh to pro status
         await getProfileState(Source.Farcaster).refreshCurrentAccount();
@@ -343,12 +347,17 @@ class HubbleSocialMedia implements Provider {
             ? MAX_IMAGE_SIZE_PRO_PER_POST[Source.Farcaster]
             : MAX_IMAGE_SIZE_PER_POST[Source.Farcaster];
 
+        // contentUrls might contain urls that already included in mediaUrls. see fw-5498
+        const embeds = uniqBy([...mediaUrls, ...contentUrls], (x) => normalizeUrl(x.url.toLowerCase())).slice(
+            0,
+            imageCountLimit,
+        );
         const { hash } = await publishMessage<CastResponse>(() => ({
             type: MessageType.CAST_ADD,
             castAddBody: {
                 ...result,
                 embedsDeprecated: [],
-                embeds: [...mediaUrls, ...contentUrls].slice(0, imageCountLimit),
+                embeds,
                 parentCastId:
                     post.commentOn?.postId && post.commentOn?.author.profileId
                         ? {
