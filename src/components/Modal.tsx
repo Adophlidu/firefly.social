@@ -12,6 +12,7 @@ export interface ModalProps {
     open: boolean;
     size?: 'xs' | 'sm' | 'md' | 'lg';
     onClose: () => void;
+    onBack?: () => void;
     children?: ReactNode;
     title?: ReactNode;
     enableClose?: boolean;
@@ -27,12 +28,15 @@ export interface ModalProps {
     disableBackdropClose?: boolean;
     dialogClassName?: string;
     dialogPanelClassName?: string;
+    titleClassName?: string;
+    panelClassName?: string;
 }
 
 export function Modal({
     className,
     open,
     onClose,
+    onBack,
     children,
     title,
     size,
@@ -44,6 +48,8 @@ export function Modal({
     disableBackdropClose = false,
     dialogClassName,
     dialogPanelClassName,
+    titleClassName,
+    panelClassName,
 }: ModalProps) {
     const ref = useRef<HTMLDivElement>(null);
 
@@ -113,8 +119,10 @@ export function Modal({
                                             enableClose={enableClose}
                                             enableBack={enableBack}
                                             onClose={onClose}
+                                            onBack={onBack}
+                                            className={titleClassName}
                                         />
-                                        <ModalBody>{children}</ModalBody>
+                                        <ModalBody className={panelClassName}>{children}</ModalBody>
                                     </>
                                 </div>
                             ) : (

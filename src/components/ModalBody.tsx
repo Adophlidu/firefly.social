@@ -1,8 +1,12 @@
 import { DialogPanel } from '@headlessui/react';
 import { memo, type PropsWithChildren } from 'react';
 
-interface ModalBodyProps extends PropsWithChildren {}
+import { classNames } from '@/helpers/classNames.js';
 
-export const ModalBody = memo(function ModalBody({ children }: ModalBodyProps) {
-    return <DialogPanel className="p-6 pt-0">{children}</DialogPanel>;
+interface ModalBodyProps extends PropsWithChildren {
+    className?: string;
+}
+
+export const ModalBody = memo(function ModalBody({ children, className }: ModalBodyProps) {
+    return <DialogPanel className={classNames('p-6 pt-0', className)}>{children}</DialogPanel>;
 });

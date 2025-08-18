@@ -85,7 +85,9 @@ export function SendTransactionModal({ onClose, open }: { onClose: () => void; o
             className="w-auto max-md:w-[calc(100%-40px)]"
             disableScrollLock={false}
         >
-            <SendTransactionModalRouter onClose={onClose} />
+            <div className="relative z-10 flex flex-col rounded-md bg-lightBottom dark:bg-darkBottom md:rounded-xl">
+                <SendTransactionModalRouter onClose={onClose} />
+            </div>
         </Modal>
     );
 }

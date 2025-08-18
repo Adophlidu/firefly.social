@@ -26,7 +26,7 @@ export const ModalTitle = memo(function ModalTitle({
     return (
         <DialogTitle
             as="div"
-            className={classNames('flex w-full items-center justify-center gap-2 rounded-t-[12px] p-4', className)}
+            className={classNames('flex w-full items-center justify-center gap-2 rounded-t-[12px] p-6', className)}
         >
             {enableClose ? (
                 <CloseButton onClick={() => onClose?.()} className="cursor-pointer text-main" />

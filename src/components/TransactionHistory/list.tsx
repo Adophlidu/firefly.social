@@ -171,16 +171,16 @@ function ItemEnd({ item }: { item: TransactionHistoryItem }) {
         item.category === TransactionHistoryCategory.ContractInteraction
     ) {
         return (
-            <div className="ml-auto text-right text-sm font-medium">
+            <div className="ml-auto min-w-0 text-right text-sm font-medium">
                 {item.token_receives[0] ? (
-                    <div className="text-success">
+                    <div className="truncate text-success">
                         +{renderShrankPrice(formatPrice(item.token_receives[0].amount) ?? '-')}{' '}
                         {item.token_receives[0].token.symbol}
                     </div>
                 ) : null}
                 {item.token_sends[0] ? (
                     <div
-                        className={classNames('font-normal', {
+                        className={classNames('truncate font-normal', {
                             'text-xs': !!item.token_receives[0],
                         })}
                     >
@@ -193,12 +193,12 @@ function ItemEnd({ item }: { item: TransactionHistoryItem }) {
     }
     if (item.category === TransactionHistoryCategory.TokenRevoke) {
         if (!item.token_approve) return null;
-        return <div className="ml-auto text-right text-sm font-medium">{item.token_approve.token.symbol}</div>;
+        return <div className="ml-auto truncate text-right text-sm font-medium">{item.token_approve.token.symbol}</div>;
     }
     if (item.category === TransactionHistoryCategory.TokenApprove) {
         if (!item.token_approve) return null;
         return (
-            <div className="ml-auto text-right text-sm font-medium">
+            <div className="ml-auto truncate text-right text-sm font-medium">
                 -{renderShrankPrice(formatPrice(item.token_approve.amount) ?? '-')} {item.token_approve.token.symbol}
             </div>
         );
@@ -207,14 +207,14 @@ function ItemEnd({ item }: { item: TransactionHistoryItem }) {
     if (!token) return null;
     if (item.category === TransactionHistoryCategory.TokenReceive) {
         return (
-            <div className="ml-auto text-right text-sm font-medium text-success">
+            <div className="ml-auto truncate text-right text-sm font-medium text-success">
                 +{renderShrankPrice(formatPrice(token.amount) ?? '-')} {token.token.symbol}
             </div>
         );
     }
     if (item.category === TransactionHistoryCategory.TokenSend) {
         return (
-            <div className="ml-auto text-right text-sm font-medium">
+            <div className="ml-auto truncate text-right text-sm font-medium">
                 -{renderShrankPrice(formatPrice(token.amount) ?? '-')} {token.token.symbol}
             </div>
         );
@@ -231,13 +231,13 @@ function ItemEnd({ item }: { item: TransactionHistoryItem }) {
         const link = resolveExplorerLink(item.chain_id, nft.nft.address, 'address');
         if (!link) return null;
         return (
-            <Link href={link} className="ml-auto text-right text-sm font-medium hover:underline">
+            <Link href={link} className="ml-auto truncate text-right text-sm font-medium hover:underline">
                 {nft.nft.symbol || <LinkIcon width={16} height={16} className="shrink-0 text-second" />}
             </Link>
         );
     }
     return (
-        <div className="ml-auto text-right text-sm font-medium">
+        <div className="ml-auto truncate text-right text-sm font-medium">
             {renderShrankPrice(formatPrice(token.amount) ?? '-')} {token.token.symbol}
         </div>
     );
@@ -286,10 +286,10 @@ function TransactionHistoryTokenItem({ item }: { item: TransactionHistoryItem })
                     networkType={networkType}
                     chainId={chainId}
                     size={24}
-                    className="!absolute bottom-0 right-0 rounded-full bg-white"
+                    className="!absolute left-2.5 top-2 rounded-full bg-white"
                     disableBadge
                 />
-                <div className="absolute bottom-0 right-0 z-1 rounded-full bg-white p-[1px]">
+                <div className="absolute -right-2 bottom-0 z-1 w-[14px] rounded-full bg-white p-[1px]">
                     <ChainIcon size={12} networkType={networkType} chainId={chainId} allowEmpty />
                 </div>
             </div>
@@ -313,7 +313,7 @@ function TransactionHistorySubTitle({ item }: { item: TransactionHistoryItem }) 
     if (item.category === TransactionHistoryCategory.TokenSwap) {
         return (
             <div className="text-[13px] font-medium leading-[18px] text-second">
-                <Trans>on {item.project_name}</Trans>
+                {item.project_name ? <Trans>on {item.project_name}</Trans> : formatAddress(item.to_address, 4)}
             </div>
         );
     }

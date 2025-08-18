@@ -1,4 +1,3 @@
-import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { AnimatePresence, motion } from 'framer-motion';
 import { type ReactNode, useState } from 'react';
@@ -9,8 +8,8 @@ import {
     ReceiveChainItem,
     type ReceiveChainItemProps,
 } from '@/components/FireflyWallet/ReceiveModal/ReceiveChainItem.js';
-import { BackButton, CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
+import { classNames } from '@/helpers/classNames.js';
 import { delay } from '@/helpers/delay.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 
@@ -30,25 +29,14 @@ export function ReceiveModal({ open, onClose, items }: Props) {
                 await delay(300);
                 setSelected(null);
             }}
+            enableBack={!!selected}
+            onBack={() => setSelected(null)}
+            enableClose={!selected}
             dialogClassName="z-50"
-            className="flex min-h-[404px] w-[calc(100%-40px)] max-w-[480px] flex-col pt-6"
+            className="w-[calc(100%-40px)] max-w-[480px]"
+            panelClassName={classNames('overflow-y-auto duration-100', selected ? 'md:h-[392px]' : 'md:h-[416px]')}
+            title={selected ? <Trans>Your {selected.name} Address</Trans> : <Trans>Receive</Trans>}
         >
-            <DialogTitle as="h3" className="relative h-10 shrink-0 px-6 pt-safe">
-                {selected ? (
-                    <BackButton
-                        onClick={() => setSelected(null)}
-                        className="absolute left-6 top-1/2 -translate-y-1/2 cursor-pointer text-main"
-                    />
-                ) : (
-                    <CloseButton
-                        onClick={() => onClose?.()}
-                        className="absolute left-6 top-1/2 -translate-y-1/2 cursor-pointer text-main"
-                    />
-                )}
-                <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
-                    {selected ? <Trans>Your {selected.name} Address</Trans> : <Trans>Receive</Trans>}
-                </span>
-            </DialogTitle>
             <AnimatePresence mode="wait" initial={false}>
                 {selected ? (
                     <motion.div
@@ -57,7 +45,7 @@ export function ReceiveModal({ open, onClose, items }: Props) {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.1 }}
-                        className="flex min-h-0 flex-1 flex-col items-center overflow-y-auto px-6 pb-6 pt-6 text-center"
+                        className="flex min-h-0 flex-1 flex-col items-center overflow-y-auto text-center"
                     >
                         <div className="size-[270px] rounded-2xl bg-white p-4">
                             <QRCode value={selected.address} size={238} />
@@ -76,7 +64,7 @@ export function ReceiveModal({ open, onClose, items }: Props) {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.1 }}
-                        className="flex min-h-0 flex-1 flex-col space-y-2 overflow-y-auto p-6 md:max-h-[416px]"
+                        className="flex min-h-0 flex-1 flex-col space-y-2"
                     >
                         {items.map((item, i) => (
                             <ReceiveChainItem
