@@ -9,7 +9,6 @@ import { compact, first, uniqBy } from 'lodash-es';
 import { memo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
-import { getWalletClient } from 'wagmi/actions';
 
 import OrbIcon from '@/assets/orb.svg';
 import ScanIcon from '@/assets/scan.svg';
@@ -17,7 +16,6 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
-import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { AbortError, FireflyAlreadyBoundError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -65,14 +63,19 @@ export const LensView = memo(function LensView() {
 
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
 
-    const { data: profiles = EMPTY_LIST, isLoading } = useQuery({
+    const {
+        data: profiles = EMPTY_LIST,
+        isLoading,
+        isRefetching,
+    } = useQuery({
         retry: false,
         enabled: !!account.address,
+        staleTime: 0,
         queryKey: ['lens', 'profiles', account.address],
         queryFn: async () => {
             try {
-                const { account } = await getWalletClient(wagmiConfig);
-                if (!account) return EMPTY_LIST;
+                if (!account.address) return EMPTY_LIST;
+
                 const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
                 const lastLoggedIn = await runInSafeAsync(() =>
                     ensureLensResult(lastLoggedInAccount(lensSessionHolder.sdk, { address: account.address })),
@@ -103,6 +106,7 @@ export const LensView = memo(function LensView() {
     });
 
     const currentProfile = selectedProfile || first(profiles);
+    const isFetching = isLoading || isRefetching;
 
     const [{ loading }, login] = useAsyncFn(async () => {
         if (!profiles.length || !currentProfile) return;
@@ -217,7 +221,7 @@ export const LensView = memo(function LensView() {
                     </div>
                 ) : (
                     <div className="flex h-[228px] flex-col items-center justify-center gap-1 text-[14px] leading-6 text-second max-md:max-h-[calc(100vh_-_136px)]">
-                        {isLoading ? (
+                        {isFetching ? (
                             <LoadingIcon />
                         ) : (
                             <>
@@ -244,7 +248,7 @@ export const LensView = memo(function LensView() {
                 )
             ) : null}
 
-            {!isLoading ? (
+            {!isFetching ? (
                 account.address ? (
                     <ClickableButton
                         disabled={!currentProfile || !profiles.length}

@@ -1,5 +1,5 @@
-import { isHex } from 'viem';
 import { sendGAEvent } from '@next/third-parties/google';
+import { isHex } from 'viem';
 
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';

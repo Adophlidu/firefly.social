@@ -2,9 +2,9 @@
 
 import '@/app/globals.css';
 
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { headers } from 'next/headers.js';
 import type { ReactNode } from 'react';
-import { GoogleAnalytics } from '@next/third-parties/google';
 
 import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
