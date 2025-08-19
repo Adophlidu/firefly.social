@@ -2,6 +2,8 @@ import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import Close from '@/assets/close.svg';
+import Info from '@/assets/info.svg';
 import { ComposeActions } from '@/components/Compose/ComposeActions/index.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.js';
@@ -42,7 +44,8 @@ export function Title() {
 export const ComposeUI = memo(function ComposeUI() {
     const isMedium = useIsMedium();
     const isDark = useIsDarkMode();
-    const { type, posts, updateVideo, updateImages } = useComposeStateStore();
+    const { type, posts, updateVideo, updateImages, isFailedSchedulePost, updateIsFailedSchedulePost } =
+        useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
 
     const compositePost = useCompositePost();
@@ -88,11 +91,32 @@ export const ComposeUI = memo(function ComposeUI() {
                 className={classNames(
                     'flex min-h-[318px] flex-col overflow-auto px-4 pb-4',
                     isMedium ? 'h-full' : available ? 'flex-1' : 'max-h-[300px] min-h-[300px]',
+                    isFailedSchedulePost ? 'min-h-[398px]' : '',
                 )}
                 style={{
                     maxHeight: isMedium ? 'calc(100vh - 184px)' : undefined,
                 }}
             >
+                {isFailedSchedulePost ? (
+                    <div className="mb-6 flex items-center gap-1.5 rounded-[4px] bg-bg p-3">
+                        <Info width={20} height={20} className="shrink-0 text-main" />
+                        <div className="text-left text-xs leading-4 text-main">
+                            <Trans>
+                                For a failed scheduled post, only the text content can be restored. Please redo the
+                                <br />
+                                cross @, media uploads, and other actions.
+                            </Trans>
+                        </div>
+                        <Close
+                            width={20}
+                            height={20}
+                            className="shrink-0 cursor-pointer text-main"
+                            onClick={() => {
+                                updateIsFailedSchedulePost(false);
+                            }}
+                        />
+                    </div>
+                ) : null}
                 <UploadDropArea
                     className="flex h-full flex-1 flex-col overflow-y-auto overflow-x-hidden rounded-lg border bg-bg p-[14px]"
                     loading={loading}

@@ -1,28 +1,27 @@
-import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { CreateScheduleError, SignlessRequireError } from '@/constants/error.js';
+import { createPostFragments } from '@/fragments/post/CreatePost.js';
 import { readChars } from '@/helpers/chars.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';
 import { createPayloadAttachments, createPostMetadata } from '@/providers/lens/postToLens.js';
-import { resolveLensOperationName, resolveLensQuery } from '@/providers/lens/resolveLensQuery.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { type ComposeType } from '@/types/compose.js';
 
 export interface LensSchedulePayload {
-    operationName: 'PostOnMomoka' | 'QuoteOnMomoka' | 'CommentOnMomoka';
+    operationName: 'CreatePost';
     variables: {
         request: {
-            contentURI: string;
-            quoteOn?: string;
-            commentOn?: string;
+            contentUri: string;
+            quoteOn?: {
+                post: string;
+            };
+            commentOn?: {
+                post: string;
+            };
         };
     };
     query: string;
@@ -34,7 +33,7 @@ export async function createLensSchedulePostPayload(
     isThread = false,
     signal?: AbortSignal,
 ): Promise<LensSchedulePayload> {
-    const { images, video, chars, parentPost, channel } = compositePost;
+    const { images, video, chars, parentPost } = compositePost;
 
     const lensParentPost = parentPost.Lens;
     const sourceName = resolveSourceName(Source.Lens);
@@ -52,17 +51,6 @@ export async function createLensSchedulePostPayload(
 
     const currentProfile = getProfileFromStorage(Source.Lens);
     if (!currentProfile?.profileId) throw new Error(`Login required to schedule post on ${sourceName}`);
-
-    // Request the user settings
-    const { signless } = await LensSocialMediaProvider.getProfileById(currentProfile?.profileId);
-
-    if (!signless) {
-        const { account } = await getWalletClientRequired(wagmiConfig);
-        if (!isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address)) {
-            throw new CreateScheduleError('Please switch to the wallet consistent with this action');
-        }
-        throw new SignlessRequireError('Signless required');
-    }
 
     const title = `Post by #${currentProfile.handle}`;
     const content = readChars(chars, 'both', Source.Lens);
@@ -86,14 +74,18 @@ export async function createLensSchedulePostPayload(
             : undefined;
 
     return {
-        operationName: resolveLensOperationName(type),
+        operationName: 'CreatePost',
         variables: {
             request: {
-                contentURI: contentURI.uri,
-                quoteOn: type === 'quote' && lensParentPost ? lensParentPost.postId : undefined,
-                commentOn,
+                contentUri: contentURI.uri,
+                quoteOn: type === 'quote' && lensParentPost ? { post: lensParentPost.postId } : undefined,
+                commentOn: commentOn
+                    ? {
+                          post: commentOn,
+                      }
+                    : undefined,
             },
         },
-        query: resolveLensQuery(type),
+        query: createPostFragments,
     };
 }

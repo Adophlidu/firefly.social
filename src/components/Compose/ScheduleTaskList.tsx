@@ -1,6 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useRouter } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { first, uniq } from 'lodash-es';
 import { memo, useCallback } from 'react';
@@ -18,6 +19,7 @@ import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { ScheduleTaskStatus, ScrollListKey } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -32,6 +34,7 @@ import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureCo
 import { PostMediaType, type SchedulePostDisplayInfo, type ScheduleTask } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { deleteScheduledPost, getScheduledPosts } from '@/services/post.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
 function getTitle(displayInfo: SchedulePostDisplayInfo, isFailed: boolean) {
@@ -50,6 +53,8 @@ function getTitle(displayInfo: SchedulePostDisplayInfo, isFailed: boolean) {
 }
 
 const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: ScheduleTask }) {
+    const { updateIsFailedSchedulePost } = useComposeStateStore();
+    const { history } = useRouter();
     const isFailed = task.relation.some((x) => x.status === ScheduleTaskStatus.Failed);
 
     const isMedium = useIsMedium();
@@ -57,7 +62,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
     const content = first(task.relation)?.content;
     const createdAt = first(task.relation)?.updated_at;
     const mediaTypes = first(task.relation)
-        ?.media_type.map((x) => {
+        ?.media_type?.map((x) => {
             if (x === PostMediaType.Text) return;
             return `[${x}]`;
         })
@@ -98,7 +103,17 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
 
     return (
         <div className="border-b border-line p-3">
-            <div className="flex items-center justify-end">
+            <div
+                className={classNames('flex items-center', {
+                    'justify-end': !isFailed,
+                    'justify-between': isFailed,
+                })}
+            >
+                {isFailed ? (
+                    <div className="text-[12px] font-bold text-danger">
+                        <Trans>FAILED POST</Trans>
+                    </div>
+                ) : null}
                 {removeLoading ? (
                     <LoadingIcon size={20} className="cursor-pointer text-secondary" />
                 ) : (
@@ -110,6 +125,11 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
             <div
                 className="my-2 cursor-pointer text-fourMain"
                 onClick={() => {
+                    if (isFailed) {
+                        updateIsFailedSchedulePost(true);
+                        history.push('/');
+                        return;
+                    }
                     if (isMedium) {
                         SchedulePostModalRef.open({
                             action: 'update',

@@ -85,6 +85,9 @@ export interface ComposeBaseState {
 
     // editor focus state
     focused: boolean;
+
+    // for failed schedule post, show the title
+    isFailedSchedulePost?: boolean;
 }
 
 interface ComposeState extends ComposeBaseState {
@@ -108,6 +111,9 @@ interface ComposeState extends ComposeBaseState {
 
     // for quote/comment, seal the parent post source
     updateSealedSource: (source: SocialSource) => void;
+
+    // for failed schedule post, show the title
+    updateIsFailedSchedulePost: (isFailedSchedulePost: boolean) => void;
 
     // operations upon all posts
     enableSource: (source: SocialSource) => void;
@@ -270,6 +276,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         updateType: (type) =>
             set((state) => {
                 state.type = type;
+            }),
+        updateIsFailedSchedulePost: (isFailedSchedulePost) =>
+            set((state) => {
+                state.isFailedSchedulePost = isFailedSchedulePost;
             }),
         updateSealedSource: (source) =>
             set((state) => {

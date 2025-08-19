@@ -500,9 +500,6 @@ msgstr "包含外部调用功能。项目所有者可能有能力控制合约。
 msgid "Search in profile"
 msgstr "在个人资料中搜索"
 
-msgid "Wrong wallet"
-msgstr "错误的钱包"
-
 msgid "Failed to un-bookmark article."
 msgstr "取消收藏文章失败。"
 
@@ -1556,9 +1553,6 @@ msgstr "🔥 在 Firefly 上探索聪明交易！一键跟单现已上线。#OnC
 msgid "1H"
 msgstr "1小时"
 
-msgid "Failed to enable signless"
-msgstr "未能启用无签名功能"
-
 msgid "Days"
 msgstr "天"
 
@@ -1822,6 +1816,9 @@ msgstr "{0, plural, one {发送} other {发送}}"
 
 msgid "<0>Revised</0><1>an article on <2/></1>"
 msgstr "<0>更新</0><1>一篇文章于 <2/></1>"
+
+msgid "For a failed scheduled post, only the text content can be restored. Please redo the<0/>cross @, media uploads, and other actions."
+msgstr ""
 
 msgid "Time"
 msgstr "时间"
@@ -2729,9 +2726,6 @@ msgstr "展示更多代币"
 msgid "<0/>Edit profile"
 msgstr "<0/>编辑个人资料"
 
-msgid "Delegate Signing"
-msgstr "代理签名"
-
 msgid "Failed to disconnect."
 msgstr "断开绑定失败。"
 
@@ -3033,9 +3027,6 @@ msgstr "7天"
 
 msgid "My Wallets"
 msgstr "我的钱包"
-
-msgid "Please switch to the wallet consistent with this action"
-msgstr "请切换到与此操作一致的钱包。"
 
 msgid "Follow Pending"
 msgstr "等待关注请求通过"
@@ -3731,9 +3722,6 @@ msgstr "提案已添加到收藏夹"
 #. placeholder {0}: Math.floor(span / YEAR_SPAN)
 msgid "{0, plural, one {# year} other {# years}}"
 msgstr "{0, plural, one {# 年} other {# 年}}"
-
-msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
-msgstr "无法继续。请允许 Lens Manager 执行操作，而无需对每笔交易进行签名。"
 
 msgid "We've detected logins available for sync."
 msgstr "我们检测到有可同步的登录账户。"
@@ -4470,9 +4458,6 @@ msgstr "忽略警告以继续"
 
 msgid "The contract owner has restrictions on trading cooldown."
 msgstr "合约所有者对交易冷却时间有限制。"
-
-msgid "Sign to enable signless"
-msgstr "签名以启用无签名功能"
 
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts, token_decimal ?? 18, { significant: 2, isPrecise: true, })

@@ -3,7 +3,7 @@ import { ConnectorNotConnectedError } from '@wagmi/core';
 import { first } from 'lodash-es';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
-import { CreateScheduleError, SignlessRequireError } from '@/constants/error.js';
+import { CreateScheduleError } from '@/constants/error.js';
 import { COMPOSE_ERROR_NOTIFICATION_KEY } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
@@ -11,7 +11,6 @@ import { delay } from '@/helpers/delay.js';
 import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getPostMediaTypes } from '@/helpers/getPostMediaTypes.js';
 import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
-import { EnableSignlessModalRef } from '@/modals/EnableSignlessModal.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { createSchedulePostsPayload } from '@/services/crossSchedulePost.js';
@@ -74,8 +73,6 @@ export async function crossPostScheduleThread(scheduleTime: Date, signal?: Abort
     } catch (error) {
         if (error instanceof CreateScheduleError) {
             enqueueInfoMessage(error.message);
-        } else if (error instanceof SignlessRequireError) {
-            EnableSignlessModalRef.open();
         } else {
             if (error instanceof ConnectorNotConnectedError) throw error;
             enqueueMessageFromError(error, t`Failed to create schedule thread posts.`, {

@@ -256,14 +256,6 @@ export class CreateScheduleError extends Error {
     }
 }
 
-export class SignlessRequireError extends Error {
-    override name = 'SignlessRequireError';
-
-    constructor(public override message: string) {
-        super(message);
-    }
-}
-
 export class TransactionSimulationError extends Error {
     override name = 'TransactionSimulationError';
 

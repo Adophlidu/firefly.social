@@ -169,6 +169,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                     address={activity.from_token.address}
                                     alt={activity.from_token.symbol}
                                     name={activity.from_token.symbol}
+                                    disableBadge
                                     size={32}
                                 />
                                 <div className="flex flex-1 flex-col">

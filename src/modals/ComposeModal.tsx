@@ -116,6 +116,7 @@ function ComposeModalUI({ ref }: Props) {
         toggleAnonymous,
         updateSealedSource,
         clear,
+        updateIsFailedSchedulePost,
     } = useComposeStateStore();
     const { clearScheduleTime } = useComposeScheduleStateStore();
     const { typedMessage, rpPayload, availableSources } = useCompositePost();

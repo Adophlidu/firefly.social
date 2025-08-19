@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import urlcat from 'urlcat';
 
 import { DraftPageTab } from '@/components/Compose/DraftPage.js';
-import { CreateScheduleError, SignlessRequireError, UnauthorizedError } from '@/constants/error.js';
+import { CreateScheduleError, UnauthorizedError } from '@/constants/error.js';
 import { SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
@@ -16,7 +16,6 @@ import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
-import { EnableSignlessModalRef } from '@/modals/EnableSignlessModal.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { capturePollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -111,8 +110,6 @@ export async function crossSchedulePost(
     } catch (error) {
         if (error instanceof CreateScheduleError) {
             enqueueInfoMessage(error.message);
-        } else if (error instanceof SignlessRequireError) {
-            EnableSignlessModalRef.open();
         } else {
             if (error instanceof ConnectorNotConnectedError) throw error;
             enqueueMessageFromError(error, t`Failed to create schedule post.`);

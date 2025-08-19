@@ -20,6 +20,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { uploadMetrics } from '@/services/metrics.js';
 import { updateScheduledPost } from '@/services/post.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
@@ -72,6 +73,8 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                 },
             });
             if (!password) return;
+
+            await uploadMetrics(password);
 
             if (task) {
                 checkScheduleTime(value);

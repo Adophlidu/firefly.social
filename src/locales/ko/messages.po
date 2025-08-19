@@ -500,9 +500,6 @@ msgstr ""
 msgid "Search in profile"
 msgstr ""
 
-msgid "Wrong wallet"
-msgstr ""
-
 msgid "Failed to un-bookmark article."
 msgstr ""
 
@@ -1556,9 +1553,6 @@ msgstr ""
 msgid "1H"
 msgstr ""
 
-msgid "Failed to enable signless"
-msgstr ""
-
 msgid "Days"
 msgstr ""
 
@@ -1821,6 +1815,9 @@ msgid "{0, plural, one {Send} other {Send}}"
 msgstr ""
 
 msgid "<0>Revised</0><1>an article on <2/></1>"
+msgstr ""
+
+msgid "For a failed scheduled post, only the text content can be restored. Please redo the<0/>cross @, media uploads, and other actions."
 msgstr ""
 
 msgid "Time"
@@ -2716,9 +2713,6 @@ msgstr ""
 msgid "<0/>Edit profile"
 msgstr ""
 
-msgid "Delegate Signing"
-msgstr ""
-
 msgid "Failed to disconnect."
 msgstr ""
 
@@ -3019,9 +3013,6 @@ msgid "7D"
 msgstr ""
 
 msgid "My Wallets"
-msgstr ""
-
-msgid "Please switch to the wallet consistent with this action"
 msgstr ""
 
 msgid "Follow Pending"
@@ -3717,9 +3708,6 @@ msgstr ""
 
 #. placeholder {0}: Math.floor(span / YEAR_SPAN)
 msgid "{0, plural, one {# year} other {# years}}"
-msgstr ""
-
-msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr ""
 
 msgid "We've detected logins available for sync."
@@ -4453,9 +4441,6 @@ msgid "Ignore the warnings to continue"
 msgstr ""
 
 msgid "The contract owner has restrictions on trading cooldown."
-msgstr ""
-
-msgid "Sign to enable signless"
 msgstr ""
 
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })

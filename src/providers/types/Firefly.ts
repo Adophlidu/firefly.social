@@ -733,7 +733,7 @@ export type ScheduleRelation = {
     status: ScheduleTaskStatus;
     task_uuid: string;
     updated_at: string;
-    media_type: PostMediaType[];
+    media_type?: PostMediaType[];
 };
 
 export interface ScheduleTask {

@@ -1,10 +1,12 @@
-import { toInteger } from 'lodash-es';
+import { sortBy, toInteger } from 'lodash-es';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
+import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
+import { URL_REGEX } from '@/constants/regexp.js';
 import { readChars } from '@/helpers/chars.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { isHomeChannel } from '@/helpers/isSameChannel.js';
+import { isYouTubeUrl } from '@/helpers/isYouTubeUrl.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHash.js';
@@ -70,7 +72,14 @@ export async function createFarcasterSchedulePostPayload(
         polls: pollResults,
     }).slice(0, MAX_IMAGE_SIZE_PER_POST[Source.Farcaster]);
 
-    const embeds = mediaObjects?.map((v) => ({ url: v.url })) ?? [];
+    const urls = content.match(URL_REGEX) || [];
+    const contentUrls = sortBy(urls, (x) => (isYouTubeUrl(x) ? -1 : 0)).map((url) => ({ url }));
+    const profile = getProfileState(Source.Farcaster).currentProfile;
+    const imageCountLimit = profile?.isProUser
+        ? MAX_IMAGE_SIZE_PRO_PER_POST[Source.Farcaster]
+        : MAX_IMAGE_SIZE_PER_POST[Source.Farcaster];
+
+    const embeds = [...(mediaObjects?.map((v) => ({ url: v.url })) ?? []), ...contentUrls].slice(0, imageCountLimit);
     const payload = {
         ...result,
         embedsDeprecated: [],
@@ -94,7 +103,10 @@ export async function createFarcasterSchedulePostPayload(
                   }
                 : undefined
             : undefined,
-        parentUrl: currentChannel && !isHomeChannel(currentChannel) ? currentChannel.parentUrl : undefined,
+        parentUrl:
+            !(type === 'reply' && farcasterParentPost) && currentChannel?.parentUrl
+                ? currentChannel.parentUrl
+                : undefined,
     };
 
     return payload;

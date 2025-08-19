@@ -28,7 +28,6 @@ import {
     EditFireflyProfileModal,
     EditFireflyProfileModalRef,
 } from '@/modals/EditFireflyProfileModal/EditFireflyProfileModal.js';
-import { EnableSignlessModal, EnableSignlessModalRef } from '@/modals/EnableSignlessModal.js';
 import { FrameViewerModal, FrameViewerModalRef } from '@/modals/FrameViewerModal/FrameViewerModal.js';
 import { FreeMintModal, FreeMintModalRef } from '@/modals/FreeMintModal/index.js';
 import { ImageEditorModal, ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
@@ -70,7 +69,6 @@ export const Modals = memo(function Modals() {
             <PreviewMediaModal ref={PreviewMediaModalRef.register} />
             <SchedulePostModal ref={SchedulePostModalRef.register} />
             <CollectArticleModal ref={CollectArticleModalRef.register} />
-            <EnableSignlessModal ref={EnableSignlessModalRef.register} />
             <CollectPostModal ref={CollectPostModalRef.register} />
             <AddWalletModal ref={AddWalletModalRef.register} />
             <TransactionSimulatorModal ref={TransactionSimulatorModalRef.register} />

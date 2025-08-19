@@ -6,7 +6,6 @@ import { useCallback } from 'react';
 
 import FireflyRoundIcon from '@/assets/firefly-pure.svg';
 import ScheduleIcon from '@/assets/schedule.svg';
-import { Avatar } from '@/components/Avatar.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SORTED_SCHEDULE_POST_SOURCES } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
@@ -89,26 +88,21 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
                         onClick={handleClickPost}
                     >
                         {data.status === ScheduleTaskStatus.Success ? (
-                            <>
-                                <div>
-                                    <Avatar size={24} src={firstPost?.avatar_url} alt="avatar" />
-                                </div>
-                                <div className="line-clamp-5 break-words text-left text-medium leading-[24px]">
-                                    {display_info?.content}
-                                    {display_info?.media_type?.length ? (
-                                        <span>
-                                            <br />
-                                            {display_info.media_type
-                                                .map((x) => {
-                                                    if (x === PostMediaType.Text) return;
-                                                    return `[${x}]`;
-                                                })
-                                                .filter(Boolean)
-                                                .join('')}
-                                        </span>
-                                    ) : null}
-                                </div>
-                            </>
+                            <div className="line-clamp-5 break-words text-left text-medium leading-[24px]">
+                                {display_info?.content}
+                                {display_info?.media_type?.length ? (
+                                    <span>
+                                        <br />
+                                        {display_info.media_type
+                                            .map((x) => {
+                                                if (x === PostMediaType.Text) return;
+                                                return `[${x}]`;
+                                            })
+                                            .filter(Boolean)
+                                            .join('')}
+                                    </span>
+                                ) : null}
+                            </div>
                         ) : (
                             <>
                                 <div className="text-[12px] font-bold leading-4 text-danger">
