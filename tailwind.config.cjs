@@ -107,7 +107,7 @@ module.exports = {
                 dangerCard: '4px 4px 4px 0px rgb(var(--color-danger))',
             },
             fontFamily: {
-                inter: ['var(--font-inter)', 'sans-serif'],
+                inter: ['var(--font-inter)'],
             },
             fontWeight: {
                 inherit: 'inherit',

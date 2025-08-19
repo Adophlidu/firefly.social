@@ -41,17 +41,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     ];
 
     return (
-        <html className={`${rootClass} ${inter.variable} font-inter`}>
+        <html className={`font-loading ${rootClass}`}>
             <head>
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
-                {/* fonts */}
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" />
-                {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-                    rel="stylesheet"
-                />
                 {IS_PRODUCTION ? <Script src="/js/safary.js" defer /> : null}
                 <Script>{VERCEL_REGION.join('\n')}</Script>
                 <Script
@@ -70,7 +62,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 <link rel="preload" href="/webm/global-loading.webm" as="video" type="video/webm" />
                 {IS_PRODUCTION ? null : <meta name="robots" content="noindex, nofollow" />}
             </head>
-            <body className="notranslate">
+            <body className={`${inter.variable} notranslate font-inter`}>
                 <ErrorBoundary>
                     <LayoutBody>{children}</LayoutBody>
                 </ErrorBoundary>
