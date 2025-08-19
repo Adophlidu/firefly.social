@@ -9,10 +9,10 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
+import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { postFeatures } from '@/settings/post.js';
 
 export function useCommentPost(post: Post, disabled = false) {
     const { source, author, restrictions, mentions } = post;
@@ -68,7 +68,9 @@ export function useCommentPost(post: Post, disabled = false) {
         authorProfile?.viewerContext?.following,
         authorProfile?.viewerContext?.followedBy,
     ]);
-    const anonymousPostEnabled = postFeatures.anonymousPost(source) && !isLogin;
+
+    const { canPost, sources } = useAnonymousPostAvailability();
+    const anonymousPostEnabled = !isLogin && canPost && sources.includes(source);
 
     const handleClick = useCallback(async () => {
         if (!isLogin && !anonymousPostEnabled) {

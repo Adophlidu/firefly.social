@@ -40,11 +40,12 @@ export function useAnonymousPostAvailability(): {
         data?.copyToAnoncast ? Source.Farcaster : null,
         data?.copyToTwitter ? Source.Twitter : null,
     ]).filter((x) => SUPPORTED_ANONYMOUS_POST_SOURCES.includes(x));
+    const loading = isLoading || isRefetching;
 
     return {
         data,
-        loading: isLoading || isRefetching,
-        canPost: !!data?.can_post && data.daily_remaining > 0 && sources.length > 0,
+        loading,
+        canPost: loading ? false : !!data?.can_post && data.daily_remaining > 0 && sources.length > 0,
         sources,
     };
 }

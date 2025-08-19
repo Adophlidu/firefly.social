@@ -17,11 +17,11 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
+import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useMirror } from '@/hooks/useMirror.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { postFeatures } from '@/settings/post.js';
 
 function getTooltipContent(source: SocialSource, shares: number) {
     if (shares === 0) {
@@ -232,11 +232,13 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, di
     const canUndoMirror = post.source === Source.Lens && mirrored && post.publicationId !== post.postId;
     const [{ loading, value }, handleMirror] = useMirror(post);
 
+    const { canPost, sources } = useAnonymousPostAvailability();
+    const anonymousPostEnabled = !isLogin && canPost && sources.includes(source);
+
     const mirrorDisabled = post.canMirror === false && !!profile;
     const quoteDisabled =
         post.canQuote === false && !!profile && (post.source !== Source.Bsky || !isSameProfile(post.author, profile));
     const allDisabled = mirrorDisabled && quoteDisabled;
-    const anonymousPostEnabled = postFeatures.anonymousPost(source);
 
     const onClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation();
