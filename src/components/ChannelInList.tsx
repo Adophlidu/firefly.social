@@ -1,6 +1,7 @@
 import { Plural, Trans } from '@lingui/react/macro';
 import { isUndefined } from 'lodash-es';
 import type { HTMLProps } from 'react';
+import { memo } from 'react';
 
 import { ToggleMutedChannelButton } from '@/components/Actions/ToggleMutedChannelButton.js';
 import { Avatar } from '@/components/Avatar.js';
@@ -33,7 +34,8 @@ const overrideComponents = {
     p: PlainParagraph,
     br: VoidLineBreak,
 };
-export function ChannelInList({
+
+export const ChannelInList = memo(function ChannelInList({
     channel,
     noFollowButton = true,
     noMuteButton = true,
@@ -154,4 +156,4 @@ export function ChannelInList({
             ) : null}
         </div>
     );
-}
+});

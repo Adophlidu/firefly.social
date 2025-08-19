@@ -1,4 +1,5 @@
 import type { HTMLProps } from 'react';
+import { memo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
@@ -22,7 +23,7 @@ export interface ProfileAvatarProps extends HTMLProps<HTMLElement> {
     fallbackUrl?: string;
 }
 
-export function ProfileAvatar({
+export const ProfileAvatar = memo(function ProfileAvatar({
     ref,
     profile,
     fallbackUrl,
@@ -88,4 +89,4 @@ export function ProfileAvatar({
             {content}
         </div>
     );
-}
+});

@@ -1,5 +1,7 @@
 'use client';
 
+import { memo } from 'react';
+
 import BskyIcon from '@/assets/bsky-circle.svg';
 import BskyFillIcon from '@/assets/bsky-fill.svg';
 import BskySquareIcon from '@/assets/bsky-square.svg';
@@ -64,7 +66,7 @@ const ColorfulMonoIconMap = {
     [Source.Bsky]: BskyFillIcon,
 };
 
-export function SocialSourceIcon({
+export const SocialSourceIcon = memo(function SocialSourceIcon({
     source,
     size = 20,
     mono,
@@ -87,4 +89,4 @@ export function SocialSourceIcon({
 
     if (!Icon) return null;
     return <Icon {...props} style={style} width={size} height={size} isDark={isDark} square={square} />;
-}
+});

@@ -2,7 +2,7 @@
 
 import type { ImageProps as NextImageProps } from 'next/image.js';
 import type { SyntheticEvent } from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -14,7 +14,7 @@ export interface ImageProps extends NextImageProps {
     ref?: React.ForwardedRef<HTMLImageElement>;
 }
 
-export function Image({ onError, onLoad, fallback, fallbackClassName, ref, ...props }: ImageProps) {
+export const Image = memo(function Image({ onError, onLoad, fallback, fallbackClassName, ref, ...props }: ImageProps) {
     const [imageLoadFailed, setImageLoadFailed] = useState(false);
     const isDarkMode = useIsDarkMode();
     const [loading, setLoading] = useState(true);
@@ -72,4 +72,4 @@ export function Image({ onError, onLoad, fallback, fallbackClassName, ref, ...pr
             ref={ref}
         />
     );
-}
+});

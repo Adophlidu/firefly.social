@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { noop } from 'lodash-es';
-import { Fragment, type ReactNode, useRef } from 'react';
+import { Fragment, memo, type ReactNode, useRef } from 'react';
 
 import { ModalBody } from '@/components/ModalBody.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
@@ -32,7 +32,7 @@ export interface ModalProps {
     panelClassName?: string;
 }
 
-export function Modal({
+export const Modal = memo(function Modal({
     className,
     open,
     onClose,
@@ -134,4 +134,4 @@ export function Modal({
             </Dialog>
         </Transition>
     );
-}
+});

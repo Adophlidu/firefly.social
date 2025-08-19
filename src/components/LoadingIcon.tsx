@@ -1,4 +1,5 @@
 import type { HTMLProps } from 'react';
+import { memo } from 'react';
 
 import Loading from '@/assets/loading.svg';
 import { classNames } from '@/helpers/classNames.js';
@@ -8,7 +9,12 @@ interface LoadingIconProps extends HTMLProps<SVGElement> {
     animate?: boolean;
 }
 
-export function LoadingIcon({ size = 24, animate = true, className, ...rest }: LoadingIconProps) {
+export const LoadingIcon = memo(function LoadingIcon({
+    size = 24,
+    animate = true,
+    className,
+    ...rest
+}: LoadingIconProps) {
     return (
         <Loading
             {...rest}
@@ -17,4 +23,4 @@ export function LoadingIcon({ size = 24, animate = true, className, ...rest }: L
             className={classNames('shrink-0', animate ? 'animate-spin' : '', className)}
         />
     );
-}
+});
