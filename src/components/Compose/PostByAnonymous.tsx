@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
 import { memo, useCallback } from 'react';
 
 import AnonymousAvatar from '@/assets/anonymous-avatar.svg';
@@ -9,11 +8,9 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
-import { SUPPORTED_ANONYMOUS_POST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -29,13 +26,7 @@ export const anonymousHandle: Record<SocialSource, string | null> = {
 };
 
 export const PostByAnonymous = memo<PostByAnonymousProps>(function PostByAnonymous({ disabled = false }) {
-    const isLoginFirefly = useIsLoginFirefly();
-    const { isLoading, isRefetching, data } = useQuery({
-        staleTime: 1000 * 60, // 1 minute
-        enabled: isLoginFirefly,
-        queryKey: ['rate-limits', 'post-by-anonymous'],
-        queryFn: () => FireflyEndpointProvider.getPostByAnonymousRateLimits(),
-    });
+    const { loading, data, canPost, sources } = useAnonymousPostAvailability();
 
     const { scheduleTime } = useComposeScheduleStateStore();
     const { availableSources, isAnonymous, poll, rpPayload } = useCompositePost();
@@ -47,7 +38,7 @@ export const PostByAnonymous = memo<PostByAnonymousProps>(function PostByAnonymo
             if (availableSources.includes(source) && isAnonymous) {
                 const newSources = availableSources.filter((x) => x !== source);
                 disableSource(source);
-                if (!newSources.length || newSources.every((x) => !SUPPORTED_ANONYMOUS_POST_SOURCES.includes(x))) {
+                if (!newSources.length || newSources.every((x) => !sources.includes(x))) {
                     toggleAnonymous(false);
                 }
             } else {
@@ -63,10 +54,10 @@ export const PostByAnonymous = memo<PostByAnonymousProps>(function PostByAnonymo
                 toggleAnonymous(true);
             }
         },
-        [availableSources, isAnonymous, disableSource, enableSource, toggleAnonymous, updateRestriction],
+        [availableSources, isAnonymous, sources, disableSource, enableSource, toggleAnonymous, updateRestriction],
     );
 
-    if (!isLoginFirefly || isLoading || isRefetching || !data?.can_post || data.daily_remaining <= 0) return null;
+    if (loading || !canPost || !data) return null;
 
     const hasConflictContent = !!poll || !!rpPayload || !!scheduleTime || posts.length > 1;
     const mustWait = data.wait_minutes > 0 || data.wait_seconds > 0;
@@ -110,7 +101,7 @@ export const PostByAnonymous = memo<PostByAnonymousProps>(function PostByAnonymo
                     {data.daily_remaining}/{data.daily_limit}
                 </span>
             </div>
-            {SUPPORTED_ANONYMOUS_POST_SOURCES.map((source) => {
+            {sources.map((source) => {
                 const checked = isAnonymous && availableSources.includes(source);
                 const handle = anonymousHandle[source];
                 const disabled = type !== 'compose' && sealedSource !== source;

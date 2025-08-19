@@ -2153,6 +2153,8 @@ export type PostByAnonymousRateLimitsResponse = Response<{
     limit_type: null;
     wait_minutes: number;
     wait_seconds: number;
+    copyToAnoncast: boolean;
+    copyToTwitter: boolean;
 }>;
 
 export interface CreateAnonymousPostOptions {
