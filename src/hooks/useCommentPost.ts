@@ -68,7 +68,7 @@ export function useCommentPost(post: Post, disabled = false) {
         authorProfile?.viewerContext?.following,
         authorProfile?.viewerContext?.followedBy,
     ]);
-    const anonymousPostEnabled = postFeatures.anonymousPost(source);
+    const anonymousPostEnabled = postFeatures.anonymousPost(source) && !isLogin;
 
     const handleClick = useCallback(async () => {
         if (!isLogin && !anonymousPostEnabled) {
