@@ -2057,9 +2057,6 @@ msgstr ""
 msgid "Everything app for Web3 natives"
 msgstr ""
 
-msgid "Click \"Approve\" below to sign this miniapp with Firefly Wallet."
-msgstr ""
-
 msgid "All wallets and accounts are muted."
 msgstr ""
 
@@ -3219,9 +3216,6 @@ msgid "Your Firefly Account is now connected"
 msgstr ""
 
 msgid "Legacy Firefly wallet"
-msgstr ""
-
-msgid "Use Firefly Wallet"
 msgstr ""
 
 msgid "Voted successfully."

@@ -1,19 +1,19 @@
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { rootRouteId, useRouteContext } from '@tanstack/react-router';
+import { isUndefined } from 'lodash-es';
 import { useState } from 'react';
-import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { getPrivyWalletClientRequired } from '@/helpers/getPrivyWalletClientRequired.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { InfoCard } from '@/modals/FrameViewerModal/InfoCard.js';
+import { LoadingCard } from '@/modals/FrameViewerModal/LoadingCard.js';
 import type { RelayConfirmationContext } from '@/modals/FrameViewerModal/RelayConfirmationRouter.js';
 import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
 import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
@@ -37,11 +37,11 @@ export function AuthWalletSignIn() {
             setIsScanned(false);
             controller.current.renew();
 
-            const client = await getWalletClientRequired(wagmiConfig);
+            const client = await getPrivyWalletClientRequired(wagmiConfig);
             const result = await keyDataOf(fid, client.account.address);
 
             // the address key has already registered
-            if (result.state === 1 && result.keyType === 2) return {};
+            if (result.state === 1 && result.keyType === 2) return null;
 
             const response = await createSignedKeyPayloadWithAddressVerification(
                 client.account.address,
@@ -55,35 +55,34 @@ export function AuthWalletSignIn() {
                 controller.current.signal,
             );
 
-            return {
-                key,
-            };
+            return key;
         },
         enabled: !!fid,
     });
 
-    const [{ loading: isSigning, error: signError }, sign] = useAsyncFn(async () => {
-        if (data?.key?.token) {
-            await pollingSignerRequestToken(data.key.token, controller.current.signal);
-            setIsScanned(true);
-        }
+    const { isError: signError, refetch: sign } = useQuery({
+        queryKey: ['auth-wallet-sign-in', data?.token, fid, frame, options],
+        enabled: !isLoading && !isRefetching && !isUndefined(data),
+        queryFn: async () => {
+            if (isUndefined(data)) return;
 
-        const signed = await signInWithAuthWallet(frame, `${fid}`, options);
+            if (data?.token) {
+                await pollingSignerRequestToken(data.token, controller.current.signal);
+                setIsScanned(true);
+            }
 
-        captureFrameSignInEvent('auth-wallet', frame);
+            const signed = await signInWithAuthWallet(frame, `${fid}`, options);
 
-        onClose(signed);
-    }, [data?.key?.token, fid, frame, options, onClose]);
+            captureFrameSignInEvent('auth-wallet', frame);
+
+            onClose(signed);
+        },
+    });
 
     return (
         <div className="relative flex flex-col items-center justify-center gap-2 py-2">
             {isLoading || isRefetching ? (
-                <div className="flex h-[232px] w-full items-center justify-center gap-2 px-4">
-                    <LoadingIcon />
-                    <p>
-                        <Trans>Checking wallet status...</Trans>
-                    </p>
-                </div>
+                <LoadingCard description={<Trans>Checking wallet status...</Trans>} />
             ) : isError ? (
                 <InfoCard
                     title={<Trans>Authentication Failed</Trans>}
@@ -99,16 +98,9 @@ export function AuthWalletSignIn() {
                         <Trans>Retry</Trans>
                     </ClickableButton>
                 </InfoCard>
-            ) : isScanned || !data?.key?.deeplinkUrl ? (
+            ) : isScanned || !data?.deeplinkUrl ? (
                 <>
-                    {isSigning ? (
-                        <div className="flex h-[232px] w-full items-center justify-center gap-2 px-4">
-                            <LoadingIcon />
-                            <p>
-                                <Trans>Wait for signing...</Trans>
-                            </p>
-                        </div>
-                    ) : signError ? (
+                    {signError ? (
                         <InfoCard
                             title={<Trans>Authentication Failed</Trans>}
                             description={<Trans>Failed to sign in with Firefly Wallet.</Trans>}
@@ -121,19 +113,7 @@ export function AuthWalletSignIn() {
                             </ClickableButton>
                         </InfoCard>
                     ) : (
-                        <InfoCard
-                            title={<Trans>Use Firefly Wallet</Trans>}
-                            description={
-                                <Trans>Click &quot;Approve&quot; below to sign this miniapp with Firefly Wallet.</Trans>
-                            }
-                        >
-                            <ClickableButton
-                                className="mt-6 rounded-2xl bg-main p-2 px-4 font-bold text-primaryBottom outline-none"
-                                onClick={() => sign()}
-                            >
-                                <Trans>Approve</Trans>
-                            </ClickableButton>
-                        </InfoCard>
+                        <LoadingCard description={<Trans>Wait for signing...</Trans>} />
                     )}
                 </>
             ) : (
@@ -149,7 +129,7 @@ export function AuthWalletSignIn() {
                         }}
                     >
                         <ScannableQRCode
-                            url={data.key.deeplinkUrl}
+                            url={data.deeplinkUrl}
                             scanned={isScanned}
                             countdown={isScanned ? 0 : Number.POSITIVE_INFINITY}
                             size={200}

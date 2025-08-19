@@ -2057,9 +2057,6 @@ msgstr "已隱藏錢包"
 msgid "Everything app for Web3 natives"
 msgstr "Web3 原住民的萬能應用"
 
-msgid "Click \"Approve\" below to sign this miniapp with Firefly Wallet."
-msgstr ""
-
 msgid "All wallets and accounts are muted."
 msgstr "已隱藏所有錢包與帳號。"
 
@@ -3233,9 +3230,6 @@ msgstr "你的 Firefly 帳戶已連接"
 
 msgid "Legacy Firefly wallet"
 msgstr "舊版 Firefly 錢包"
-
-msgid "Use Firefly Wallet"
-msgstr ""
 
 msgid "Voted successfully."
 msgstr "已成功投票"
