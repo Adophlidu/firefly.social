@@ -5,11 +5,13 @@ import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import type { SocialSource } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { POLL_CHOICE_TYPE } from '@/constants/poll.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolvePollProvider } from '@/helpers/resolvePollProvider.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import type { Poll, PollOption } from '@/providers/types/Poll.js';
 
 interface VoteButtonPanelProps {
@@ -19,12 +21,18 @@ interface VoteButtonPanelProps {
 }
 
 export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPanel({ source, postId, poll }) {
+    const isLogin = useIsLogin(source);
     const [selectedOptions, setSelectedOptions] = useState<PollOption[]>([]);
 
     const isMultiple = poll.type === POLL_CHOICE_TYPE.Multiple;
     const [{ loading }, handleVote] = useAsyncFn(
         async (option?: PollOption) => {
             try {
+                if (!isLogin) {
+                    openLoginModal({ source });
+                    return;
+                }
+
                 if (!option && !selectedOptions.length) return;
                 if (isMultiple && option) {
                     setSelectedOptions((prev) => {
@@ -54,7 +62,7 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
                 throw error;
             }
         },
-        [isMultiple, selectedOptions, poll.id, postId, source],
+        [isMultiple, selectedOptions, poll.id, postId, source, isLogin],
     );
 
     return (

@@ -35,17 +35,11 @@ class Orb {
         return data;
     }
 
-    async getPoll(postId: string) {
-        const credentials = ensureLensResultSync(lensSessionHolder.sessionClient.getCredentials());
-        if (!credentials?.accessToken) return null;
-
-        const url = urlcat('/api/orb/poll/get', { postId });
-        const response = await fetchJson<ResponseJson<OrbPoll>>(url, {
-            headers: {
-                'x-access-token': `Bearer ${credentials.accessToken}`,
-            },
-        });
+    async getPoll(postId: string, profileId?: string) {
+        const url = urlcat('/api/orb/poll/get', { postId, profileId });
+        const response = await fetchJson<ResponseJson<OrbPoll>>(url);
         const data = resolveResponseData(response, 'Failed to get poll.');
+
         return formatOrbPoll(data);
     }
 
