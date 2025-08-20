@@ -1,6 +1,6 @@
 import { Source } from '@/constants/enum.js';
 import { setFollowStatus } from '@/decorators/SetQueryDataForFollowProfile.js';
-import { type LensSocialMedia } from '@/providers/lens/SocialMedia.js';
+import type { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 import type { ClassType } from '@/types/utility.js';
 
 const OVERRIDDEN_METHODS = ['superFollow'] as const;

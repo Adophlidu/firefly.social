@@ -1,7 +1,7 @@
 import { queryClient } from '@/configs/queryClient.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
+import type { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/utility.js';
 
