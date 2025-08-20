@@ -15,7 +15,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
 import { CreateScheduleError } from '@/constants/error.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
-import { enqueueInfoMessage, enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
@@ -51,7 +51,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
     const [{ loading }, handleSet] = useAsyncFn(async () => {
         try {
             if (dayjs(value).isBefore(new Date(), 'minute')) {
-                enqueueInfoMessage(t`The scheduled time has passed.`);
+                enqueueWarningMessage(t`The scheduled time has passed. Please reset.`);
                 return;
             }
 

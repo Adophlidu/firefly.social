@@ -16,7 +16,7 @@ export interface LensSchedulePayload {
     variables: {
         request: {
             contentUri: string;
-            quoteOn?: {
+            quoteOf?: {
                 post: string;
             };
             commentOn?: {
@@ -78,7 +78,7 @@ export async function createLensSchedulePostPayload(
         variables: {
             request: {
                 contentUri: contentURI.uri,
-                quoteOn: type === 'quote' && lensParentPost ? { post: lensParentPost.postId } : undefined,
+                quoteOf: type === 'quote' && lensParentPost ? { post: lensParentPost.postId } : undefined,
                 commentOn: commentOn
                     ? {
                           post: commentOn,

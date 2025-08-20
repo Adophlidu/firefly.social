@@ -500,6 +500,9 @@ msgstr "包含外部调用功能。项目所有者可能有能力控制合约。
 msgid "Search in profile"
 msgstr "在个人资料中搜索"
 
+msgid "The scheduled time has passed. Please reset."
+msgstr ""
+
 msgid "Failed to un-bookmark article."
 msgstr "取消收藏文章失败。"
 
@@ -3075,9 +3078,6 @@ msgstr "您曾在 Polymarket 对 <0>Presidential Election Winner 2024</0> 进行
 msgid "Discard"
 msgstr "放弃"
 
-msgid "REPLY"
-msgstr "评论"
-
 msgid "Switch wallet"
 msgstr "切换钱包"
 
@@ -4270,9 +4270,6 @@ msgstr "关注 @{0}"
 
 msgid "Cancel Recast"
 msgstr "取消转发"
-
-msgid "The scheduled time has passed."
-msgstr "预定发布时间已过。"
 
 msgid "The connection has timed out. Please try again later."
 msgstr "连接已经超时。请稍后重试。"

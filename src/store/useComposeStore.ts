@@ -118,6 +118,7 @@ interface ComposeState extends ComposeBaseState {
     // operations upon all posts
     enableSource: (source: SocialSource) => void;
     disableSource: (source: SocialSource) => void;
+    updateSources: (sources: SocialSource[]) => void;
     updateRestriction: (restriction: RestrictionType) => void;
     updateChannel: (channel: Channel) => void;
     toggleAnonymous: (isAnonymous: boolean) => void;
@@ -309,6 +310,14 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                         availableSources: SORTED_SOCIAL_SOURCES.filter((x) => availableSources.includes(x)),
                     };
                 }),
+            })),
+        updateSources: (sources) =>
+            set((state) => ({
+                ...state,
+                posts: state.posts.map((x) => ({
+                    ...x,
+                    availableSources: SORTED_SOCIAL_SOURCES.filter((x) => sources.includes(x)),
+                })),
             })),
         updateParentPost: (source, parentPost, cursor) =>
             set((state) =>
@@ -660,6 +669,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     currentDraftId: undefined,
                     focused: false,
                     posts: [createInitSinglePostState(id)],
+                    isFailedSchedulePost: false,
                 } satisfies ComposeBaseState;
 
                 Object.assign(state, nextState);

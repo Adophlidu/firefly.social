@@ -88,30 +88,26 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
                         className="mt-3 cursor-pointer rounded-2xl border border-line bg-bg p-3"
                         onClick={handleClickPost}
                     >
-                        {data.status === ScheduleTaskStatus.Success ? (
-                            <div className="line-clamp-5 break-words text-left text-medium leading-[24px]">
-                                {display_info?.content}
-                                {display_info?.media_type?.length ? (
-                                    <span>
-                                        <br />
-                                        {display_info.media_type
-                                            .map((x) => {
-                                                if (x === PostMediaType.Text) return;
-                                                return `[${x}]`;
-                                            })
-                                            .filter(Boolean)
-                                            .join('')}
-                                    </span>
-                                ) : null}
+                        {data.status === ScheduleTaskStatus.Failed ? (
+                            <div className="text-[12px] font-bold leading-4 text-danger">
+                                <Trans>Failed Post</Trans>
                             </div>
-                        ) : (
-                            <>
-                                <div className="text-[12px] font-bold leading-4 text-danger">
-                                    <Trans>Failed Post</Trans>
-                                </div>
-                                <div className="text-left text-medium leading-[16px]">{failedPost?.error}</div>
-                            </>
-                        )}
+                        ) : null}
+                        <div className="line-clamp-5 break-words text-left text-medium leading-[24px]">
+                            {display_info?.content}
+                            {display_info?.media_type?.length ? (
+                                <span>
+                                    <br />
+                                    {display_info.media_type
+                                        .map((x) => {
+                                            if (x === PostMediaType.Text) return;
+                                            return `[${x}]`;
+                                        })
+                                        .filter(Boolean)
+                                        .join('')}
+                                </span>
+                            ) : null}
+                        </div>
                     </div>
                 </div>
             </div>

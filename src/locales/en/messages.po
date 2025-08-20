@@ -495,6 +495,9 @@ msgstr "The external call function is included. The project owner may have the a
 msgid "Search in profile"
 msgstr "Search in profile"
 
+msgid "The scheduled time has passed. Please reset."
+msgstr "The scheduled time has passed. Please reset."
+
 msgid "Failed to un-bookmark article."
 msgstr "Failed to un-bookmark article."
 
@@ -3070,9 +3073,6 @@ msgstr "Get involved in the <0>Presidential Election Winner 2024</0> on Polymark
 msgid "Discard"
 msgstr "Discard"
 
-msgid "REPLY"
-msgstr "REPLY"
-
 msgid "Switch wallet"
 msgstr "Switch wallet"
 
@@ -4265,9 +4265,6 @@ msgstr "Follow @{0}"
 
 msgid "Cancel Recast"
 msgstr "Cancel Recast"
-
-msgid "The scheduled time has passed."
-msgstr "The scheduled time has passed."
 
 msgid "The connection has timed out. Please try again later."
 msgstr "The connection has timed out. Please try again later."

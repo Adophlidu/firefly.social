@@ -18,7 +18,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { ScheduleTaskStatus, ScrollListKey } from '@/constants/enum.js';
+import { PasswordWorkflow, PasswordStep, ScheduleTaskStatus, ScrollListKey } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
@@ -31,30 +31,19 @@ import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
 import { SchedulePostModalRef } from '@/modals/SchedulePostModal.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
-import { PostMediaType, type SchedulePostDisplayInfo, type ScheduleTask } from '@/providers/types/Firefly.js';
+import { PostMediaType, type ScheduleTask } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { deleteScheduledPost, getScheduledPosts } from '@/services/post.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
-
-function getTitle(displayInfo: SchedulePostDisplayInfo, isFailed: boolean) {
-    if (!displayInfo) return;
-    switch (displayInfo.type) {
-        case 'compose':
-            return isFailed ? <Trans>FAILED POST</Trans> : <Trans>POST</Trans>;
-        case 'reply':
-            return <Trans>REPLY</Trans>;
-        case 'quote':
-            return <Trans>QUOTE</Trans>;
-        default:
-            safeUnreachable(displayInfo.type);
-            return;
-    }
-}
+import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
+import { uploadMetrics } from '@/services/metrics.js';
+import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 
 const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: ScheduleTask }) {
-    const { updateIsFailedSchedulePost } = useComposeStateStore();
+    const { updateIsFailedSchedulePost, updateSources } = useComposeStateStore();
     const { history } = useRouter();
+    const profilesAll = useCurrentProfilesAll();
     const isFailed = task.relation.some((x) => x.status === ScheduleTaskStatus.Failed);
 
     const isMedium = useIsMedium();
@@ -101,19 +90,64 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
         }
     }, [task.task_uuid]);
 
+    const [, handleUpdate] = useAsyncFn(async () => {
+        if (isFailed) {
+            updateIsFailedSchedulePost(true);
+            const sources = task.relation
+                .filter((x) => x.status === ScheduleTaskStatus.Failed)
+                .map((x) => resolveSocialSource(x.platform))
+                .filter((x) => !!profilesAll[x]);
+
+            if (sources) updateSources(sources);
+
+            history.push('/');
+            return;
+        }
+
+        const password = await verifyAndGetPassword({
+            requireSetPassword: true,
+            descriptions: {
+                [`${PasswordWorkflow.Verify}-${PasswordStep.VerifyPassword}`]: (
+                    <Trans>
+                        Multi-device login is required for schedule post. Enter your password to confirm your identity.
+                    </Trans>
+                ),
+                [`${PasswordWorkflow.Set}-${PasswordStep.SetPassword}`]: (
+                    <Trans>
+                        Multi-device login is required for schedule post. Set a 6-digit password to verify your
+                        identity.
+                    </Trans>
+                ),
+            },
+        });
+        if (!password) return;
+
+        await uploadMetrics(password);
+        if (isMedium) {
+            SchedulePostModalRef.open({
+                action: 'update',
+                task,
+            });
+        } else {
+            DraggablePopoverRef.open({
+                content: (
+                    <SchedulePostSettings action="update" task={task} onClose={() => DraggablePopoverRef.close()} />
+                ),
+                enableOverflow: false,
+            });
+        }
+    }, [task, isMedium, isFailed, updateIsFailedSchedulePost, history]);
+
     return (
         <div className="border-b border-line p-3">
-            <div
-                className={classNames('flex items-center', {
-                    'justify-end': !isFailed,
-                    'justify-between': isFailed,
-                })}
-            >
-                {isFailed ? (
-                    <div className="text-[12px] font-bold text-danger">
-                        <Trans>FAILED POST</Trans>
-                    </div>
-                ) : null}
+            <div className="flex items-center justify-between">
+                <div
+                    className={classNames('text-[12px] font-bold', {
+                        'text-danger': isFailed,
+                    })}
+                >
+                    {isFailed ? <Trans>FAILED POST</Trans> : <Trans>POST</Trans>}
+                </div>
                 {removeLoading ? (
                     <LoadingIcon size={20} className="cursor-pointer text-secondary" />
                 ) : (
@@ -122,33 +156,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
                     </Tooltip>
                 )}
             </div>
-            <div
-                className="my-2 cursor-pointer text-fourMain"
-                onClick={() => {
-                    if (isFailed) {
-                        updateIsFailedSchedulePost(true);
-                        history.push('/');
-                        return;
-                    }
-                    if (isMedium) {
-                        SchedulePostModalRef.open({
-                            action: 'update',
-                            task,
-                        });
-                    } else {
-                        DraggablePopoverRef.open({
-                            content: (
-                                <SchedulePostSettings
-                                    action="update"
-                                    task={task}
-                                    onClose={() => DraggablePopoverRef.close()}
-                                />
-                            ),
-                            enableOverflow: false,
-                        });
-                    }
-                }}
-            >
+            <div className="my-2 cursor-pointer text-fourMain" onClick={handleUpdate}>
                 <div className="line-clamp-5 min-h-[24px] break-words text-left text-medium leading-[24px]">
                     {content}
                     {mediaTypes?.length ? (
