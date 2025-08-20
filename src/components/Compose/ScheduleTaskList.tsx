@@ -39,9 +39,11 @@ import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 import { uploadMetrics } from '@/services/metrics.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
+import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 
 const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: ScheduleTask }) {
-    const { updateIsFailedSchedulePost, updateSources } = useComposeStateStore();
+    const { updateIsFailedSchedulePost, updateSources, updateChars } = useComposeStateStore();
+    const setEditorContent = useSetEditorContent();
     const { history } = useRouter();
     const profilesAll = useCurrentProfilesAll();
     const isFailed = task.relation.some((x) => x.status === ScheduleTaskStatus.Failed);
@@ -100,6 +102,8 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
 
             if (sources) updateSources(sources);
 
+            updateChars(first(task.relation)?.content ?? '');
+            setEditorContent(first(task.relation)?.content ?? '');
             history.push('/');
             return;
         }
@@ -144,6 +148,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
                 <div
                     className={classNames('text-[12px] font-bold', {
                         'text-danger': isFailed,
+                        'text-main': !isFailed,
                     })}
                 >
                     {isFailed ? <Trans>FAILED POST</Trans> : <Trans>POST</Trans>}

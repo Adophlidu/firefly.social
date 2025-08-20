@@ -51,7 +51,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
         }
         return compact([
             post?.source === Source.Lens
-                ? [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'list', 'listItem'] }]
+                ? [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'list', 'listItem', 'break'] }]
                 : null,
             remarkBreaks,
             linkifyRegex(TCO_URL_REGEX), // Make sure tco url is before email which is more aggressive
