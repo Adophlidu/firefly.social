@@ -9,8 +9,11 @@ import NotificationDotIcon from '@/assets/notification-dot.svg';
 import NotificationDotSelectedIcon from '@/assets/notification-dot-selected.svg';
 import { Link } from '@/components/Link.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { PageRoute } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { captureNotificationMenuClick } from '@/providers/telemetry/captureNotificationEvent.js';
 import { getIsActivated } from '@/services/listenNotifications.js';
@@ -35,7 +38,11 @@ export const NotificationMenu = memo<NotificationMenuProps>(function Notificatio
     const currentProfiles = useCurrentProfilesAll();
     const { preferences } = usePreferencesState();
     const { currentProfileSession } = useFireflyProfileStore();
+    const pathname = usePathname();
+
     const hasNewNotification = useMemo(() => {
+        if (isRoutePathname(pathname, PageRoute.Notifications)) return false;
+
         const allRecords = Object.values(preferences.NOTIFICATION_READ_RECORD || []).flat();
         if (!currentProfileSession?.profileId || !allRecords.length || !getIsActivated()) return false;
 
@@ -45,7 +52,7 @@ export const NotificationMenu = memo<NotificationMenuProps>(function Notificatio
         ]).some((profileId) => {
             return allRecords.some((record) => record.profileId === profileId && record.hasNewNotification);
         });
-    }, [currentProfileSession?.profileId, preferences, currentProfiles]);
+    }, [currentProfileSession?.profileId, preferences, currentProfiles, pathname]);
 
     const onLinkClick = useCallback(() => {
         if (hasNewNotification) {
