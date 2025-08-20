@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { type HTMLProps, useRef } from 'react';
+import { type HTMLProps, memo, useRef } from 'react';
 
 import { ClearButton } from '@/components/IconButton.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -11,7 +11,13 @@ interface SearchInputProps extends HTMLProps<HTMLInputElement> {
     iconClassName?: string;
 }
 
-export function SearchInput({ onClear, ref, placeholder, iconClassName, ...rest }: SearchInputProps) {
+export const SearchInput = memo(function SearchInput({
+    onClear,
+    ref,
+    placeholder,
+    iconClassName,
+    ...rest
+}: SearchInputProps) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
@@ -46,4 +52,4 @@ export function SearchInput({ onClear, ref, placeholder, iconClassName, ...rest 
             ) : null}
         </label>
     );
-}
+});

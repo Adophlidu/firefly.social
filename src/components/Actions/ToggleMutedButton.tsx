@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { useMemo, useRef } from 'react';
+import { memo, useMemo, useRef } from 'react';
 import { useHover } from 'usehooks-ts';
 
 import MuteIcon from '@/assets/mute.svg';
@@ -19,7 +19,7 @@ interface ToggleMutedButtonProps extends Omit<ClickableButtonProps, 'children'> 
     variant?: 'text' | 'icon';
 }
 
-export function ToggleMutedButton({
+export const ToggleMutedButton = memo(function ToggleMutedButton({
     loading,
     isMuted,
     className,
@@ -65,4 +65,4 @@ export function ToggleMutedButton({
             {buttonText}
         </ClickableButton>
     );
-}
+});

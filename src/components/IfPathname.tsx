@@ -1,6 +1,6 @@
 'use client';
 
-import { type ReactNode, useState } from 'react';
+import { memo, type ReactNode, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 
 import { PageRoute } from '@/constants/enum.js';
@@ -19,7 +19,7 @@ interface IfPathname {
     children: ReactNode;
 }
 
-export function IfPathname({ exact = false, isOneOf, isNotOneOf, children }: IfPathname) {
+export const IfPathname = memo(function IfPathname({ exact = false, isOneOf, isNotOneOf, children }: IfPathname) {
     const pathname = usePathname();
     const [lastPathname, setLastPathname] = useState(
         !isRoutePathname(pathname, '/post/:detail/photos/:index', true) ? pathname : '',
@@ -53,4 +53,4 @@ export function IfPathname({ exact = false, isOneOf, isNotOneOf, children }: IfP
     }
 
     return null;
-}
+});

@@ -1,4 +1,4 @@
-import { type HTMLProps, useCallback } from 'react';
+import { type HTMLProps, memo, useCallback } from 'react';
 
 import { Bookmark } from '@/components/Actions/Bookmark.js';
 import { BookmarkMenuItem } from '@/components/Actions/BookmarkMenuItem.js';
@@ -14,7 +14,12 @@ interface PostBookmarkProps extends HTMLProps<HTMLButtonElement> {
     onClick?: () => void;
 }
 
-export function PostBookmark({ post, disabled, onlyIcon = true, onClick }: PostBookmarkProps) {
+export const PostBookmark = memo(function PostBookmark({
+    post,
+    disabled,
+    onlyIcon = true,
+    onClick,
+}: PostBookmarkProps) {
     const { postId, source, hasBookmarked } = post;
 
     const { data, isLoading } = useHasBookmarked(
@@ -44,4 +49,4 @@ export function PostBookmark({ post, disabled, onlyIcon = true, onClick }: PostB
     }
 
     return <BookmarkMenuItem hasBookmarked={hasBookmarked ?? data} onClick={onToggle} loading={isLoading} />;
-}
+});

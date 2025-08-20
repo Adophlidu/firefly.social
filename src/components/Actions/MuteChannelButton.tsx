@@ -1,5 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { memo } from 'react';
 
 import MuteIcon from '@/assets/mute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
@@ -13,7 +14,7 @@ interface Props extends Omit<ClickableButtonProps, 'children' | 'onToggle'> {
     onToggle?(channel: Channel): Promise<boolean>;
 }
 
-export function MuteChannelButton({ channel, ref, onToggle, onClick, ...rest }: Props) {
+export const MuteChannelButton = memo(function MuteChannelButton({ channel, ref, onToggle, onClick, ...rest }: Props) {
     const muted = channel.blocked;
 
     return (
@@ -49,4 +50,4 @@ export function MuteChannelButton({ channel, ref, onToggle, onClick, ...rest }: 
             </span>
         </MenuButton>
     );
-}
+});

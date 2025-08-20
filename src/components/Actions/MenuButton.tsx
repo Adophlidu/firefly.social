@@ -1,8 +1,8 @@
-import { type HTMLProps } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 
-export function MenuButton(props: HTMLProps<HTMLButtonElement>) {
+export const MenuButton = memo(function MenuButton(props: HTMLProps<HTMLButtonElement>) {
     return (
         <button
             {...props}
@@ -18,4 +18,4 @@ export function MenuButton(props: HTMLProps<HTMLButtonElement>) {
             }}
         />
     );
-}
+});

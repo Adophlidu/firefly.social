@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { type HTMLProps } from 'react';
+import { type HTMLProps, memo } from 'react';
 import urlcat from 'urlcat';
 
 import LinkIcon from '@/assets/small-link.svg';
@@ -11,7 +11,7 @@ interface CopyLinkButtonProps extends HTMLProps<HTMLButtonElement> {
     onClick?: () => void;
 }
 
-export function CopyLinkButton({ link, children, ref, onClick }: CopyLinkButtonProps) {
+export const CopyLinkButton = memo(function CopyLinkButton({ link, children, ref, onClick }: CopyLinkButtonProps) {
     const url = link.startsWith('http') ? link : urlcat(location.origin, link);
     const [, handleCopy] = useCopyText(url);
 
@@ -27,4 +27,4 @@ export function CopyLinkButton({ link, children, ref, onClick }: CopyLinkButtonP
             <span className="font-bold leading-[22px] text-main">{children || <Trans>Copy link</Trans>}</span>
         </MenuButton>
     );
-}
+});

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 import { useMount } from 'react-use';
 
 import { classNames } from '@/helpers/classNames.js';
@@ -23,7 +23,7 @@ interface TimeColumnProps {
     className?: string;
 }
 
-function TimeColumn({ value, onChange, min, max, className }: TimeColumnProps) {
+const TimeColumn = memo(function TimeColumn({ value, onChange, min, max, className }: TimeColumnProps) {
     const numbers = Array.from({ length: max - min + 1 }, (_, i) => min + i);
     const containerRef = useRef<HTMLDivElement>(null);
     const selectedItemRef = useRef<HTMLDivElement>(null);
@@ -68,9 +68,9 @@ function TimeColumn({ value, onChange, min, max, className }: TimeColumnProps) {
             ))}
         </div>
     );
-}
+});
 
-export function TimePicker({ value, onChange, open, onToggle }: TimePickerProps) {
+export const TimePicker = memo(function TimePicker({ value, onChange, open, onToggle }: TimePickerProps) {
     const [currentValue, setCurrentValue] = useState(value);
 
     const handleTimeChange = (date: Date) => {
@@ -106,4 +106,4 @@ export function TimePicker({ value, onChange, open, onToggle }: TimePickerProps)
             </div>
         </div>
     );
-}
+});
