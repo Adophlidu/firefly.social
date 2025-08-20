@@ -11,7 +11,7 @@ export function formatFireflyPoll(poll: FireflyPoll, source: SocialSource): Poll
             label: choice.name,
             votes: choice.count,
             isVoted: choice.is_select,
-            percent: choice.percent,
+            percent: choice.percent || undefined,
         })),
         source,
         durationSeconds: poll.end_time - poll.created_time,

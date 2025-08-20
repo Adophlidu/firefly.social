@@ -813,6 +813,9 @@ msgstr "铸币功能是透明的或不存在的。隐藏的铸币功能可能会
 msgid "Added successfully"
 msgstr "添加成功"
 
+msgid "No selected choice."
+msgstr ""
+
 msgid "Honeypot related address."
 msgstr "诈骗相关地址。"
 

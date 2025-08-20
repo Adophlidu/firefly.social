@@ -56,7 +56,7 @@ type FireflyPollOption = {
     name: string;
     count: number;
     is_select: boolean;
-    percent: number;
+    percent: number | null;
 };
 
 export interface FireflyPoll {
@@ -119,7 +119,7 @@ export interface Provider {
         postId: string;
         pollId: string;
         frameUrl: string;
-        option: PollOption;
+        options: PollOption[];
     }) => Promise<VoteResponseData>;
 
     /**

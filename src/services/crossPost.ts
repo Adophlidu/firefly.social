@@ -21,7 +21,7 @@ import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { SnackbarRef } from '@/modals/Snackbar.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
-import { capturePollEvent } from '@/providers/telemetry/capturePollEvent.js';
+import { captureCreateFireflyPollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { commitPoll } from '@/services/poll.js';
@@ -178,7 +178,7 @@ export async function crossPost(
         const pollId = await commitPoll(poll, readChars(compositePost.chars));
 
         updatePollId(pollId);
-        capturePollEvent(pollId);
+        captureCreateFireflyPollEvent(pollId);
     }
 
     const parentPost = Object.values(compositePost.parentPost).find((x) => x);

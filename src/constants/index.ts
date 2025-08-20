@@ -212,7 +212,7 @@ export const SORTED_THIRD_PARTY_SOURCES_IN_URL = [
     SourceInURL.Email,
 ] as const;
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
-export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Twitter, Source.Farcaster];
+export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Twitter, Source.Farcaster, Source.Lens];
 export const SORTED_MEDIA_SOURCES: MediaSource[] = [
     MediaSource.Twimg,
     MediaSource.S3,
@@ -246,7 +246,7 @@ export const DEFAULT_LOCALE = Locale.en;
 
 export const SUPPORTED_MULTIPLE_EMBED_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
-export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
+export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SUPPORTED_VIDEO_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Bsky];
 export const SUPPORTED_MEDIA_CORS_SOURCES: Source[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 export const SUPPORTED_CHANNEL_SOURCES: Source[] = [Source.Farcaster, Source.Lens];

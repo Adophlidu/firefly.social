@@ -543,7 +543,8 @@
         "xinfin",
         "xrpc",
         "XSUSHI",
-        "Yumi"
+        "Yumi",
+        "Pubdata"
     ],
     "flagWords": [],
     "ignorePaths": [

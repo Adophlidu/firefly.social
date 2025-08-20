@@ -1,5 +1,7 @@
 import type { LoggedInPostOperations, PostAction, PostStats } from '@lens-protocol/client';
 
+import { ORB_POLL_CONTRACT } from '@/constants/poll.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function formatLensPostStats(stats: PostStats): Required<Post['stats']> {
@@ -30,15 +32,22 @@ export function formatLensPostOperations(
         | 'hasBookmarked'
         | 'canQuote'
         | 'hasReported'
+        | 'hasPoll'
     >
 > {
     const canAct = actions?.some((action) => action.__typename === 'SimpleCollectAction') || false;
+    const hasPoll =
+        !!actions?.length &&
+        actions.some(
+            (action) =>
+                action.__typename === 'UnknownPostAction' && isSameEthereumAddress(action.address, ORB_POLL_CONTRACT),
+        );
 
     if (!operations) {
         return {
             canComment: true,
             canMirror: true,
-            canDecrypt: false, // TODO
+            canDecrypt: false,
             canAct,
             canQuote: true,
 
@@ -48,6 +57,7 @@ export function formatLensPostOperations(
             hasLiked: false,
             hasBookmarked: false,
             hasReported: false,
+            hasPoll,
         };
     }
 
@@ -64,5 +74,6 @@ export function formatLensPostOperations(
         hasLiked: operations.hasUpvoted,
         hasBookmarked: operations.hasBookmarked,
         hasReported: operations.hasReported,
+        hasPoll,
     };
 }

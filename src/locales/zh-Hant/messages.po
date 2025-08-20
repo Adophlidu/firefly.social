@@ -813,6 +813,9 @@ msgstr "鑄造功能透明或不存在。隱藏鑄造功能可能增加流通量
 msgid "Added successfully"
 msgstr "新增成功"
 
+msgid "No selected choice."
+msgstr ""
+
 msgid "Honeypot related address."
 msgstr "詐騙相關地址。"
 

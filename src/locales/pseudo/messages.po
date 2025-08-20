@@ -808,6 +808,9 @@ msgstr ""
 msgid "Added successfully"
 msgstr ""
 
+msgid "No selected choice."
+msgstr ""
+
 msgid "Honeypot related address."
 msgstr ""
 

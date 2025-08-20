@@ -6,7 +6,12 @@ class BskyPoll implements Provider {
         throw new NotImplementedError();
     }
 
-    vote(options: { postId: string; pollId: string; frameUrl: string; option: PollOption }): Promise<VoteResponseData> {
+    vote(options: {
+        postId: string;
+        pollId: string;
+        frameUrl: string;
+        options: PollOption[];
+    }): Promise<VoteResponseData> {
         throw new NotImplementedError();
     }
 

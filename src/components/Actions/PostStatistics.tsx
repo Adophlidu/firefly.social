@@ -17,7 +17,7 @@ import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { resolvePostEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
-import type { Poll } from '@/providers/types/Poll.js';
+import { useRetrievePollFromPost } from '@/hooks/useRetrievePollFromPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -72,19 +72,29 @@ function getPollTimeLeft(endDatetime: string) {
     return <Trans>Final results</Trans>;
 }
 
-function PollVotes({ poll }: { poll: Poll }) {
-    const { timeLeft, totalVotes } = useMemo(
-        () => ({
-            timeLeft:
-                poll.votingStatus === 'closed' || (poll.endDatetime && dayjs(poll.endDatetime).isBefore(new Date())) ? (
-                    <Trans>Final results</Trans>
-                ) : poll.endDatetime ? (
-                    getPollTimeLeft(poll.endDatetime)
-                ) : null,
-            totalVotes: sumBy(poll.options, (option) => option.votes ?? 0),
-        }),
-        [poll.votingStatus, poll.endDatetime, poll.options],
+function PollVotes({ post }: { post: Post }) {
+    const { poll } = useRetrievePollFromPost(post);
+
+    const pollData = useMemo(
+        () =>
+            !poll
+                ? null
+                : {
+                      timeLeft:
+                          poll.votingStatus === 'closed' ||
+                          (poll.endDatetime && dayjs(poll.endDatetime).isBefore(new Date())) ? (
+                              <Trans>Final results</Trans>
+                          ) : poll.endDatetime ? (
+                              getPollTimeLeft(poll.endDatetime)
+                          ) : null,
+                      totalVotes: sumBy(poll.options, (option) => option.votes ?? 0),
+                  },
+        [poll],
     );
+
+    if (!poll || !pollData) return null;
+
+    const { timeLeft, totalVotes } = pollData;
 
     return (
         <>
@@ -168,7 +178,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
             <Plural value={viewCount} one="view" other="views" />
         </data>
     ) : null;
-    const pollVotes = post.poll ? <PollVotes poll={post.poll} /> : null;
+    const pollVotes = post.poll || post.hasPoll ? <PollVotes post={post} /> : null;
 
     const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
 

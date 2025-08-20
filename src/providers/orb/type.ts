@@ -1,3 +1,5 @@
+import type { Address, Hash, Hex } from 'viem';
+
 export interface ORBSignInResponseData {
     qrCode: string;
     secret: string;
@@ -22,4 +24,53 @@ export interface ORBPollSignInResponseData {
 export interface ORBPollSignInResponse {
     status: string;
     data: ORBPollSignInResponseData;
+}
+
+export interface OrbPollResponse<T> {
+    status: 'SUCCESS' | 'ERROR';
+    data: T;
+    msg?: string;
+}
+
+export interface OrbPollOption {
+    myVote: boolean;
+    option: string;
+    optionKey: number;
+    pageInfo: { next: null; prev: null };
+    voteCount: number;
+    votePercentage: number | null;
+    voters: unknown[];
+}
+
+export interface OrbPoll {
+    allowMultipleAnswers: boolean;
+    endTimestamp: number;
+    isActive: boolean;
+    totalVotes: number;
+    options: OrbPollOption[];
+}
+
+export interface VoteTransaction {
+    RPC: string;
+    amount: string;
+    chainId: number;
+    data: Hex;
+    gasLimit: number;
+    gasPerPubdata: string;
+    maxFeePerGas: string;
+    maxPriorityFeePerGas: string;
+    nonce: number;
+    paymaster: Address;
+    paymasterInput: Hex;
+    to: Address;
+}
+
+export interface VoteResult {
+    type: 'TRANSACTIONS';
+    transactions: VoteTransaction[];
+}
+
+export interface CreatePollResult {
+    type: 'HASH';
+    hash: Hash;
 }

@@ -85,6 +85,7 @@ export enum EventId {
 
     // poll
     POLL_CREATE_SUCCESS = 'poll_create_success', // ✅
+    CREATE_ORB_POLL_SUCCESS = 'orb_poll_create_success',
 
     // lucky drop
     LUCKY_DROP_CREATE_SUBMIT = 'lucky_drop_create_submit', // ✅
@@ -740,6 +741,13 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             firefly_account_id: string;
             poll_id: string;
+        };
+    };
+    [EventId.CREATE_ORB_POLL_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            post_id: string;
         };
     };
     [EventId.SNAPSHOT_VOTE_SUBMIT]: {

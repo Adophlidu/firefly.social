@@ -6,7 +6,6 @@ import {
     MAX_CHAR_SIZE_PRO_PER_POST,
     MAX_CHAR_SIZE_VERIFY_PER_POST,
 } from '@/constants/limitation.js';
-import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -64,8 +63,6 @@ export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisibl
                     }
                     return x.content;
                 case CharTag.FRAME:
-                    if (source === Source.Lens)
-                        return ` ${getPollFrameUrl(x.id || `poll-${crypto.randomUUID()}`, source)}\n`;
                     return '';
                 case CharTag.PROMOTE_LINK:
                     const result = `\n ${x.content}`;

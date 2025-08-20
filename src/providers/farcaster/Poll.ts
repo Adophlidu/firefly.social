@@ -1,3 +1,5 @@
+import { first } from 'lodash-es';
+
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
@@ -27,15 +29,21 @@ class FarcasterPoll implements Provider {
         postId,
         pollId,
         frameUrl,
-        option,
+        options,
     }: {
         postId: string;
         pollId: string;
         frameUrl: string;
-        option: PollOption;
+        options: PollOption[];
     }): Promise<VoteResponseData> {
         const session = getSessionFromStorage(SessionType.Farcaster);
         if (!session) throw new Error('Profile not found');
+
+        const option = first(options);
+        if (!option) {
+            throw new Error('No selected choice.');
+        }
+
         const packet = await HubbleFrameProvider.generateSignaturePacket(postId, frameUrl, +option.id as Index);
         return await vote({
             poll_id: pollId,

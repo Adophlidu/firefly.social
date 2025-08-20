@@ -808,6 +808,9 @@ msgstr "Mint function is transparent or non-existent. Hidden mint functions may 
 msgid "Added successfully"
 msgstr "Added successfully"
 
+msgid "No selected choice."
+msgstr "No selected choice."
+
 msgid "Honeypot related address."
 msgstr "Honeypot related address."
 

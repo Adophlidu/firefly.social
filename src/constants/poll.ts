@@ -1,5 +1,9 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 
+// https://github.com/orb-club/orb-on-lens/blob/main/polls/APIS.md
+export const ORB_POLL_CONTRACT = '0x0B9507487800F0c385A240199fDf1d79131E8e25';
+export const ORB_POLL_ENDPOINT = 'https://orbapi.xyz';
+
 // poll default options count
 export const POLL_OPTIONS_MIN_COUNT = 2;
 

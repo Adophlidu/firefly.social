@@ -1,11 +1,12 @@
 import { sumBy } from 'lodash-es';
-import { Fragment } from 'react';
 
-import { VoteButton } from '@/components/Poll/VoteButton.js';
+import { VoteButtonPanel } from '@/components/Poll/VoteButtonPanel.js';
 import { VoteResult } from '@/components/Poll/VoteResult.js';
+import { Source } from '@/constants/enum.js';
 import { POLL_ACTION_ENABLED } from '@/constants/poll.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useRetrievePollFromPost } from '@/hooks/useRetrievePollFromPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PollCardProps {
@@ -15,8 +16,8 @@ interface PollCardProps {
 
 export function PollCard({ post, frameUrl }: PollCardProps) {
     const profile = useCurrentProfile(post.source);
+    const { poll } = useRetrievePollFromPost(post);
 
-    const { poll } = post;
     if (!poll) return null;
 
     const totalVotes = sumBy(poll.options, (option) => option.votes ?? 0);
@@ -26,18 +27,21 @@ export function PollCard({ post, frameUrl }: PollCardProps) {
         !POLL_ACTION_ENABLED[post.source] ||
         poll.votingStatus === 'closed' ||
         poll.options.some((option) => option.isVoted) ||
-        isSameProfile(profile, post.author);
+        (post.source !== Source.Lens && isSameProfile(profile, post.author));
+
+    if (!showResultsOnly) {
+        return <VoteButtonPanel source={post.source} postId={post.postId} poll={poll} />;
+    }
 
     return (
         <div>
             {poll.options.map((option, index) => (
-                <Fragment key={index}>
-                    {showResultsOnly ? (
-                        <VoteResult option={option} totalVotes={totalVotes} maxPercent={maxPercent} />
-                    ) : (
-                        <VoteButton option={option} post={post} frameUrl={frameUrl} />
-                    )}
-                </Fragment>
+                <VoteResult
+                    key={`${option.id}-${index}`}
+                    option={option}
+                    totalVotes={totalVotes}
+                    maxPercent={maxPercent}
+                />
             ))}
         </div>
     );

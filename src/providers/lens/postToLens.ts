@@ -23,9 +23,10 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';
-import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { OrbProvider } from '@/providers/orb/index.js';
+import type { CompositePoll } from '@/providers/types/Poll.js';
 import { type Channel, SessionType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
@@ -194,8 +195,14 @@ async function publishPostForLens(
     images: MediaObject[],
     video: MediaObject | null,
     channel: Channel | null,
+    poll: CompositePoll | null,
     restrictions?: RestrictionType[],
 ) {
+    if (poll) {
+        const result = await OrbProvider.createPollPost(content, poll);
+        return result;
+    }
+
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
     const title = `Post by #${profile.handle}`;
     const metadata = createPostMetadata(
@@ -322,11 +329,6 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 }),
             );
         },
-        uploadPolls: async () => {
-            if (!poll) return [];
-            const pollStub = await LensPollProvider.createPoll(poll, readChars(newChars, 'both', Source.Lens));
-            return [pollStub];
-        },
         compose(images, videos) {
             const video = first(videos) ?? null;
             return publishPostForLens(
@@ -335,6 +337,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 images,
                 video,
                 channel[Source.Lens],
+                poll,
                 [restriction],
             );
         },
