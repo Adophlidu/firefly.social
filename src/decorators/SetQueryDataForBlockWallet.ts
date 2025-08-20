@@ -3,6 +3,7 @@ import { type Draft, produce } from 'immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { isSameAddress, isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { patchActivitiesQuery } from '@/helpers/patchActivitiesQuery.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
@@ -55,7 +56,10 @@ export function setWalletBlockStatus(address: string, status: boolean) {
         });
     });
     // Muted status in wallet profile
-    queryClient.setQueryData(['address-is-muted', address.toLowerCase()], status);
+    queryClient.setQueryData(
+        ['address-is-muted', isValidAddressEthereum(address) ? address.toLowerCase() : address],
+        status,
+    );
 
     const nftsPatcher = (old: Draft<NFTPagesData> | undefined) => {
         if (!old || !status) return old;
