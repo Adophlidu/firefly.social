@@ -198,7 +198,6 @@ export function ScheduleTaskList() {
                 return await getScheduledPosts(createIndicator(undefined, pageParam), [
                     ScheduleTaskStatus.Pending,
                     ScheduleTaskStatus.Failed,
-                    ScheduleTaskStatus.Success,
                 ]);
             } catch {
                 return createPageable([], createIndicator());

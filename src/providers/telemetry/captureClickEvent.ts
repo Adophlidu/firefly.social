@@ -62,6 +62,18 @@ export function captureFarcasterChannelChangeClickEvent() {
     });
 }
 
+export function captureLensClubChangeClickEvent() {
+    return runInSafeAsync(async () => {
+        return TelemetryProvider.captureEvent(EventId.COMPOSE_LENS_CLUB_CHANGE_SUCCESS, {});
+    });
+}
+
+export function captureEmojiClickEvent() {
+    return runInSafeAsync(async () => {
+        return TelemetryProvider.captureEvent(EventId.COMPOSE_EMOJI_CLICK, {});
+    });
+}
+
 export function captureScheduleTabClickEvent() {
     return runInSafeAsync(async () => {
         return TelemetryProvider.captureEvent(EventId.COMPOSE_SCHEDULE_TAB_CLICK, {});

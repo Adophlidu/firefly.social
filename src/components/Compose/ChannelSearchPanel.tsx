@@ -18,7 +18,10 @@ import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSearchChannels } from '@/hooks/useSearchChannel.js';
-import { captureFarcasterChannelChangeClickEvent } from '@/providers/telemetry/captureClickEvent.js';
+import {
+    captureFarcasterChannelChangeClickEvent,
+    captureLensClubChangeClickEvent,
+} from '@/providers/telemetry/captureClickEvent.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -82,7 +85,8 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
                                 onClick={() => {
                                     if (!isSelected) updateChannel(channel);
                                     onSelected?.();
-                                    captureFarcasterChannelChangeClickEvent();
+                                    if (channel.source === Source.Farcaster) captureFarcasterChannelChangeClickEvent();
+                                    if (channel.source === Source.Lens) captureLensClubChangeClickEvent();
                                 }}
                             >
                                 <div

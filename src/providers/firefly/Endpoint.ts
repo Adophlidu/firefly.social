@@ -1664,7 +1664,7 @@ class FireflyEndpoint {
 
     async getScheduleNotifications(indicator?: PageIndicator) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/notification/schedule-posts', {
-            page: indicator?.id && indicator.id !== '0' ? indicator.id : undefined,
+            cursor: indicator?.id && indicator.id !== '0' ? indicator.id : undefined,
             size: 20,
         });
         const response = await fireflySessionHolder.fetch<ScheduleNotificationsResponse>(url);

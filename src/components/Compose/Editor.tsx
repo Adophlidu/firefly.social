@@ -1,8 +1,6 @@
-import { TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable.js';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin.js';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin.js';
-import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin.js';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
 import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
 import { $dfs } from '@lexical/utils';
@@ -64,7 +62,6 @@ const EditorPlugins = memo(function EditorPlugins() {
             <LexicalAutoLinkPlugin />
             <HistoryPlugin />
             <HashtagPlugin />
-            <MarkdownShortcutPlugin transformers={TEXT_FORMAT_TRANSFORMERS} />
             <MentionsPlugin />
         </>
     );

@@ -15,7 +15,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
 import { CreateScheduleError } from '@/constants/error.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
-import { enqueueInfoMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { enqueueInfoMessage, enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
@@ -93,7 +93,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
             onClose();
         } catch (error) {
             if (error instanceof CreateScheduleError) {
-                enqueueInfoMessage(error.message);
+                enqueueWarningMessage(error.message);
             } else {
                 enqueueMessageFromError(error, t`Failed to set schedule time.`);
             }
@@ -164,6 +164,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                         <ClickableButton
                             onClick={handleSet}
                             className="flex flex-1 items-center justify-center gap-2 rounded-full bg-main py-2 font-bold text-primaryBottom"
+                            disabled={task?.schedule_at ? dayjs(task.schedule_at).isSame(value) : false}
                         >
                             {loading ? <LoadingIcon size={16} /> : null}
                             <Trans>Update</Trans>

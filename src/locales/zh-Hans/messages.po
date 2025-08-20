@@ -2234,6 +2234,10 @@ msgstr "编辑个人资料"
 msgid "Confirm you want to mute @{0}?"
 msgstr "你确定要隐藏 @{0} 吗？"
 
+#. placeholder {0}: resolveSourceName(source)
+msgid "Can not schedule post on {0}."
+msgstr ""
+
 msgid "Compose"
 msgstr "发帖"
 
@@ -4391,10 +4395,6 @@ msgstr "关于"
 #. placeholder {2}: timeLeft.seconds
 msgid "{0}h: {1}m: {2}s"
 msgstr "{0}时: {1}分: {2}秒"
-
-#. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES)
-msgid "Scheduled posts are only available on {0}."
-msgstr "定时贴仅在 {0} 支持。"
 
 msgid "Download App"
 msgstr "下载 App"

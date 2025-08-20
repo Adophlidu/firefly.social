@@ -45,6 +45,7 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
         : '';
 
     const firstPost = first(sortedPosts);
+    const failedPost = sortedPosts.find((x) => !!x.error);
 
     const display_info = firstPost?.display_info;
     const handleClickPost = useCallback(() => {
@@ -108,7 +109,7 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
                                 <div className="text-[12px] font-bold leading-4 text-danger">
                                     <Trans>Failed Post</Trans>
                                 </div>
-                                <div className="text-left text-medium leading-[16px]">{firstPost?.error}</div>
+                                <div className="text-left text-medium leading-[16px]">{failedPost?.error}</div>
                             </>
                         )}
                     </div>

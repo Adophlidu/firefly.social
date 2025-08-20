@@ -13,6 +13,7 @@ import { DisableItalicPlugin } from '@/components/Markup/plugins/DisableItalicPl
 import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
 import { MergeAdjacentTextPlugin } from '@/components/Markup/plugins/MergeAdjacentTextPlugin.js';
 import { UrlPlugin } from '@/components/Markup/plugins/UrlPlugin.js';
+import { Source } from '@/constants/enum.js';
 import {
     CHANNEL_REGEX,
     EMAIL_REGEX,
@@ -49,7 +50,9 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             MentionPlugin = linkifyRegex(mentionRe);
         }
         return compact([
-            [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'list', 'listItem'] }],
+            post?.source === Source.Lens
+                ? [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'list', 'listItem'] }]
+                : null,
             remarkBreaks,
             linkifyRegex(TCO_URL_REGEX), // Make sure tco url is before email which is more aggressive
             linkifyRegex(EMAIL_REGEX),

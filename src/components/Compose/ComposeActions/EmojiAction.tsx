@@ -13,6 +13,7 @@ import { Tippy } from '@/esm/Tippy.js';
 import { writeChars } from '@/helpers/chars.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { captureEmojiClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export const EmojiAction = memo(function EmojiAction() {
@@ -64,7 +65,14 @@ export const EmojiAction = memo(function EmojiAction() {
                 interactive
                 appendTo={() => document.body}
             >
-                <div onClick={() => setOpen(true)}>{buttonContent}</div>
+                <div
+                    onClick={() => {
+                        setOpen(true);
+                        captureEmojiClickEvent();
+                    }}
+                >
+                    {buttonContent}
+                </div>
             </Tippy>
         );
     }
@@ -72,7 +80,10 @@ export const EmojiAction = memo(function EmojiAction() {
         <>
             <ClickableButton
                 className="flex items-center gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                onClick={() => setOpen(true)}
+                onClick={() => {
+                    setOpen(true);
+                    captureEmojiClickEvent();
+                }}
             >
                 {buttonContent}
             </ClickableButton>

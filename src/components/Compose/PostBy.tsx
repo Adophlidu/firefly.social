@@ -15,7 +15,7 @@ import {
 } from '@/constants/index.js';
 import { ensureGifSource } from '@/helpers/checkPostGif.js';
 import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
-import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
+import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { validateVideoDuration } from '@/helpers/validateVideo.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -50,7 +50,7 @@ export function PostBy() {
             if (scheduleTime && !ENABLED_SCHEDULE_POST_SOURCES.includes(source))
                 return {
                     disabled: true,
-                    reason: t`Scheduled posts are only available on ${resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES)}.`,
+                    reason: t`Can not schedule post on ${resolveSourceName(source)}.`,
                 };
 
             const sources = uniq([...availableSources, source]);

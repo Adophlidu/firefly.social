@@ -2226,6 +2226,10 @@ msgstr ""
 msgid "Confirm you want to mute @{0}?"
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(source)
+msgid "Can not schedule post on {0}."
+msgstr ""
+
 msgid "Compose"
 msgstr ""
 
@@ -4374,10 +4378,6 @@ msgstr ""
 #. placeholder {1}: timeLeft.minutes
 #. placeholder {2}: timeLeft.seconds
 msgid "{0}h: {1}m: {2}s"
-msgstr ""
-
-#. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES)
-msgid "Scheduled posts are only available on {0}."
 msgstr ""
 
 msgid "Download App"
