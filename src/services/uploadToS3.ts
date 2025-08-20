@@ -24,9 +24,9 @@ async function uploadToDirectory(
     const promise = new Promise<string>(async (resolve, reject) => {
         try {
             // Dynamically import S3 and Upload modules
-            const [{ S3 }, { Upload }] = await Promise.all([
-                import('@aws-sdk/client-s3'),
-                import('@aws-sdk/lib-storage'),
+            const [S3, Upload] = await Promise.all([
+                import('@aws-sdk/client-s3').then((x) => x.S3),
+                import('@aws-sdk/lib-storage').then((x) => x.Upload),
             ]);
 
             const mediaToken = await getS3UploadMediaToken();

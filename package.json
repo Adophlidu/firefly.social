@@ -118,7 +118,6 @@
         "remark-breaks": "^4.0.0",
         "remark-linkify-regex": "^1.2.1",
         "satori": "^0.11.3",
-        "server-only": "^0.0.1",
         "strip-markdown": "^6.0.0",
         "swiper": "^11.2.10",
         "ts-results-es": "^4.2.0",

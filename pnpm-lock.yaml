@@ -327,9 +327,6 @@ dependencies:
   satori:
     specifier: ^0.11.3
     version: 0.11.3
-  server-only:
-    specifier: ^0.0.1
-    version: 0.0.1
   strip-markdown:
     specifier: ^6.0.0
     version: 6.0.0
@@ -21621,7 +21618,6 @@ time:
   /rollup-plugin-terser@7.0.2: '2020-09-04T18:39:17.900Z'
   /rollup@4.39.0: '2025-04-02T04:50:21.441Z'
   /satori@0.11.3: '2024-11-03T19:34:22.743Z'
-  /server-only@0.0.1: '2022-09-03T01:07:26.139Z'
   /storybook@8.6.14: '2025-05-16T11:32:52.782Z'
   /strip-markdown@6.0.0: '2023-10-25T14:39:38.868Z'
   /svgo-loader@4.0.0: '2023-01-21T06:39:04.523Z'
