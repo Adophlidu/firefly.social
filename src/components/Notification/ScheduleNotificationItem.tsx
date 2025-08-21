@@ -94,11 +94,11 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
                             </div>
                         ) : null}
                         <div className="line-clamp-5 break-words text-left text-medium leading-[24px]">
-                            {display_info?.content}
-                            {display_info?.media_type?.length ? (
+                            {firstPost?.display_info?.content}
+                            {firstPost?.display_info?.media_type?.length ? (
                                 <span>
                                     <br />
-                                    {display_info.media_type
+                                    {firstPost?.display_info.media_type
                                         .map((x) => {
                                             if (x === PostMediaType.Text) return;
                                             return `[${x}]`;
