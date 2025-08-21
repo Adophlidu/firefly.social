@@ -22,6 +22,7 @@ interface VoteButtonPanelProps {
 
 export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPanel({ source, postId, poll }) {
     const isLogin = useIsLogin(source);
+    const [selectedId, setSelectedId] = useState<string>();
     const [selectedOptions, setSelectedOptions] = useState<PollOption[]>([]);
 
     const isMultiple = poll.type === POLL_CHOICE_TYPE.Multiple;
@@ -49,6 +50,7 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
                     return;
                 }
 
+                setSelectedId(option?.id);
                 const pollProvider = resolvePollProvider(source);
                 const res = await pollProvider.vote({
                     postId,
@@ -79,7 +81,7 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
                     )}
                     onClick={() => handleVote(option)}
                 >
-                    {loading && !isMultiple ? <LoadingIcon /> : option.label}
+                    {loading && !isMultiple && option.id === selectedId ? <LoadingIcon /> : option.label}
                 </ClickableButton>
             ))}
             {isMultiple && selectedOptions.length ? (
