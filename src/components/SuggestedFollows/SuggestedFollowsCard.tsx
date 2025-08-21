@@ -21,11 +21,11 @@ import { isSocialDiscoverSource } from '@/helpers/isSource.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { mergeLists } from '@/helpers/mergeLists.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
-import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
@@ -71,13 +71,22 @@ export function SuggestedFollowsCard() {
         queryFn: async () => {
             if (!suggestedFollows?.length) return [];
 
-            const bskyProfiles = suggestedFollows.filter((x) => x.source === Source.Bsky);
-            const bskyIds = bskyProfiles.map((x) => x.profileId);
-            if (!bskyIds.length) return [];
+            const farAndBskyProfiles = suggestedFollows.filter((x) =>
+                [Source.Bsky, Source.Farcaster].includes(x.source),
+            );
+            if (!farAndBskyProfiles.length) return [];
 
-            const profilesWithStats = await BskySocialMediaProvider.getProfilesByIds(bskyIds);
+            const profiles = await Promise.allSettled(
+                ([Source.Farcaster, Source.Bsky] as const).map(async (x) => {
+                    const profileIds = farAndBskyProfiles
+                        .filter((profile) => profile.source === x)
+                        .map((profile) => profile.profileId);
+                    if (!profileIds.length) return [];
 
-            return profilesWithStats;
+                    return resolveSocialMediaProvider(x).getProfilesByIds(profileIds);
+                }),
+            );
+            return profiles.flatMap((x) => (x.status === 'fulfilled' ? x.value : []));
         },
     });
 
@@ -85,7 +94,7 @@ export function SuggestedFollowsCard() {
         if (!suggestedFollows?.length || !profilesWithStats?.length) return suggestedFollows;
 
         return suggestedFollows.map((profile) => {
-            if (profile.source !== Source.Bsky) return profile;
+            if (![Source.Farcaster, Source.Bsky].includes(profile.source)) return profile;
             const profileWithStats = profilesWithStats.find(
                 (p) => p.profileId === profile.profileId && p.source === profile.source,
             );

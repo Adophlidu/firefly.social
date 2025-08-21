@@ -42,7 +42,7 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
                     </ProfileTippy>
                     <SocialSourceIcon source={profile.source} size={15} className="shrink-0" />
                 </div>
-                {[Source.Lens, Source.Farcaster].includes(profile.source) ? null : (
+                {[Source.Lens].includes(profile.source) ? null : (
                     <FollowersLink profile={profile} className="relative z-1 text-xs leading-6 text-second" />
                 )}
                 <BioMarkup className="line-clamp-2 text-xs text-lightMain" source={profile.source} profile={profile}>
