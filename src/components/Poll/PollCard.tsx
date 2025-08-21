@@ -1,4 +1,5 @@
 import { sumBy } from 'lodash-es';
+import { memo } from 'react';
 
 import { VoteButtonPanel } from '@/components/Poll/VoteButtonPanel.js';
 import { VoteResult } from '@/components/Poll/VoteResult.js';
@@ -14,7 +15,7 @@ interface PollCardProps {
     frameUrl: string;
 }
 
-export function PollCard({ post, frameUrl }: PollCardProps) {
+export const PollCard = memo<PollCardProps>(function PollCard({ post, frameUrl }) {
     const profile = useCurrentProfile(post.source);
     const { poll } = useRetrievePollFromPost(post);
 
@@ -45,4 +46,4 @@ export function PollCard({ post, frameUrl }: PollCardProps) {
             ))}
         </div>
     );
-}
+});

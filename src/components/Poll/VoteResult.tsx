@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion';
+
 import RightAnswerIcon from '@/assets/right-answer.svg';
 import { classNames } from '@/helpers/classNames.js';
 import type { PollOption } from '@/providers/types/Poll.js';
@@ -18,9 +20,21 @@ export function VoteResult({ option, totalVotes, maxPercent }: VoteResultProps) 
     return (
         <div className="relative mt-3 h-10">
             <div
-                className="absolute h-full rounded-[10px] bg-[#EEEEF6] dark:bg-secondaryMain"
+                className="absolute h-full overflow-hidden rounded-[10px]"
                 style={{ width: currentRate ? `${currentRate}%` : '20px' }}
-            />
+            >
+                <motion.div
+                    className="h-full bg-[#EEEEF6] dark:bg-secondaryMain"
+                    transition={{
+                        type: 'tween',
+                        ease: 'easeInOut',
+                        duration: 0.5,
+                        delay: 0.3,
+                    }}
+                    style={{ width: '0%' }}
+                    animate={{ width: '100%' }}
+                />
+            </div>
             <div className="absolute z-10 flex h-full w-full items-center justify-between pl-5 text-base font-bold text-lightMain">
                 <span
                     className={classNames('mr-2 flex items-center gap-2 truncate', {
