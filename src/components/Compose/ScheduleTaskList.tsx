@@ -173,7 +173,11 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
             </div>
             <div className="flex gap-x-1">
                 <span className="flex items-center gap-x-1 font-bold">
-                    {uniq(task.relation.map((x) => x.platform)).map((platform, index) => (
+                    {uniq(
+                        task.relation
+                            .filter((x) => (isFailed ? x.status === ScheduleTaskStatus.Failed : true))
+                            .map((x) => x.platform),
+                    ).map((platform, index) => (
                         <SocialSourceIcon key={index} source={resolveSocialSource(platform)} size={20} />
                     ))}
                 </span>

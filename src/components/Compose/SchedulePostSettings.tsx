@@ -143,6 +143,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
             <div className="flex gap-[6px] pt-3 max-md:flex-col">
                 {action === 'create' ? (
                     <ClickableButton
+                        loading={loading}
                         onClick={handleSet}
                         className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
                     >
@@ -162,11 +163,11 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                             </ClickableButton>
                         ) : null}
                         <ClickableButton
+                            loading={loading}
                             onClick={handleSet}
                             className="flex flex-1 items-center justify-center gap-2 rounded-full bg-main py-2 font-bold text-primaryBottom"
                             disabled={task?.schedule_at ? dayjs(task.schedule_at).isSame(value) : false}
                         >
-                            {loading ? <LoadingIcon size={16} /> : null}
                             <Trans>Update</Trans>
                         </ClickableButton>
                     </>
