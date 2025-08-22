@@ -1850,6 +1850,10 @@ msgstr "Limits: <0>{0} posts/day</0> with {1}-minute intervals (applies to posts
 msgid "No mint function"
 msgstr "No mint function"
 
+#. placeholder {0}: resolveSourcesName(invalidSources)
+msgid "Poll for {0} is coming soon."
+msgstr "Poll for {0} is coming soon."
+
 msgid "Expired"
 msgstr "Expired"
 
@@ -2473,10 +2477,6 @@ msgstr "Updated profile successfully"
 
 msgid "Token ${symbol} could not be found."
 msgstr "Token ${symbol} could not be found."
-
-#. placeholder {0}: resolveSourcesName(invalidSources)
-msgid "Poll for ${0} is coming soon."
-msgstr "Poll for ${0} is coming soon."
 
 msgid "Failed to publish on {sortedSourceNames}"
 msgstr "Failed to publish on {sortedSourceNames}"
@@ -3559,9 +3559,6 @@ msgstr "Decrypt"
 
 msgid "Sign to Confirm"
 msgstr "Sign to Confirm"
-
-msgid "Poll for Lens will come back soon."
-msgstr "Poll for Lens will come back soon."
 
 msgid "Article collected successfully!"
 msgstr "Article collected successfully!"

@@ -21,4 +21,3 @@ export {
     SolanaExplorerResolver,
     SolanaNetworkResolver,
 } from '@/mask_pkgs/web3-providers/Web3/Solana/apis/ResolverAPI.js';
-export { ProfileIdentifier } from '@masknet/base';

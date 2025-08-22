@@ -2,6 +2,7 @@ import type { Hex } from 'viem';
 
 import type { NetworkType } from '@/constants/enum.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
+import type { RedPacketMetadata } from '@/types/rp.js';
 import type { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 type WithoutChainId<T> = Omit<T, 'chain_id'>;
@@ -308,6 +309,22 @@ export namespace FireflyRedPacketAPI {
 
     export type ClaimHistoryResponse = Response<RedPacketClaimListInfo>;
 
+    export interface CreateCoverOptions {
+        /** JSON object, metadata payload */
+        meta?: string;
+        content: string;
+        type: string;
+    }
+    export interface CreateCoverResult {
+        payload: string;
+        shortenURL: string | null;
+        createdAt: number;
+        shareText: string | null;
+        coverImageUrl: string | null;
+    }
+
+    export type CreateCoverResponse = Response<CreateCoverResult>;
+
     export interface ParseOptions {
         text?: string;
         image?: {
@@ -324,10 +341,10 @@ export namespace FireflyRedPacketAPI {
         /** only 1 for now */
         version: number;
         serializable: true;
-        meta: object;
+        meta: Record<string, RedPacketMetadata>;
         redpacket: {
             /** the same as meta */
-            payload: object;
+            payload: RedPacketMetadata;
             canClaim: boolean;
             canRefund: boolean;
             canSend: boolean;

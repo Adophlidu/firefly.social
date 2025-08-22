@@ -1,8 +1,6 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { SITE_HOSTNAME } from '@/constants/index.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
-import { ProfileIdentifier } from '@/mask/index.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
@@ -15,14 +13,13 @@ export async function getCurrentClaimProfile(source: SocialSource) {
     const platform = resolveRedPacketPlatformType(source);
 
     if (!platform || !currentProfile) return;
-    const identifier = ProfileIdentifier.of(SITE_HOSTNAME, currentProfile?.handle).unwrapOr(undefined);
 
     const profile = platform
         ? ({
               needLensAndFarcasterHandle: true,
               platform,
               profileId: currentProfile?.profileId,
-              handle: identifier?.userId,
+              handle: currentProfile.handle,
           } as FireflyRedPacketAPI.CheckClaimStrategyStatusOptions['profile'])
         : undefined;
 

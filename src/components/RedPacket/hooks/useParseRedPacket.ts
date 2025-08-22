@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
 
+import { RedPacketMetaKey, SolanaRedPacketMetaKey } from '@/constants/rp.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
@@ -33,5 +34,8 @@ export function useParseRedPacket(account: string, post: Post, enabled = true) {
             });
         },
     });
-    return { parsed: data, payloadImage: data?.redpacket?.payload ? image : undefined, isLoading };
+
+    const metadata = data?.redpacket?.payload || data?.meta[RedPacketMetaKey] || data?.meta[SolanaRedPacketMetaKey];
+
+    return { parsed: data, payloadImage: metadata ? image : undefined, metadata, isLoading };
 }

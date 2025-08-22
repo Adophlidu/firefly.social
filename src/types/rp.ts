@@ -14,6 +14,7 @@ export interface RedPacketPayload {
     publicKey?: string;
     payloadImage: string;
     claimRequirements: FireflyRedPacketAPI.ClaimStrategy[];
+    metadata: RedPacketMetadata;
 }
 
 export interface RedPacketMetadata {

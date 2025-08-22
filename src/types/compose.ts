@@ -10,6 +10,7 @@ export enum MediaSource {
     S3 = 's3',
     Giphy = 'giphy',
     Tenor = 'tenor',
+    Host = 'host',
 }
 
 export interface MediaObject {

@@ -1850,6 +1850,10 @@ msgstr ""
 msgid "No mint function"
 msgstr ""
 
+#. placeholder {0}: resolveSourcesName(invalidSources)
+msgid "Poll for {0} is coming soon."
+msgstr ""
+
 msgid "Expired"
 msgstr ""
 
@@ -2464,10 +2468,6 @@ msgid "Updated profile successfully"
 msgstr ""
 
 msgid "Token ${symbol} could not be found."
-msgstr ""
-
-#. placeholder {0}: resolveSourcesName(invalidSources)
-msgid "Poll for ${0} is coming soon."
 msgstr ""
 
 msgid "Failed to publish on {sortedSourceNames}"
@@ -3545,9 +3545,6 @@ msgid "Decrypt"
 msgstr ""
 
 msgid "Sign to Confirm"
-msgstr ""
-
-msgid "Poll for Lens will come back soon."
 msgstr ""
 
 msgid "Article collected successfully!"

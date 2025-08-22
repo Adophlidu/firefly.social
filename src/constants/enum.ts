@@ -21,10 +21,6 @@ export enum NetworkPluginID {
     PLUGIN_SOLANA = 'com.mask.solana',
 }
 
-export enum PluginID {
-    RedPacket = 'com.maskbook.red_packet',
-}
-
 export type ThemeMode = 'light' | 'dark' | 'default';
 
 export enum Locale {

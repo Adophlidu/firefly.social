@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { first, omit, pick } from 'lodash-es';
 import { useContext, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -11,16 +10,9 @@ import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { EMPTY_LIST, SITE_URL } from '@/constants/index.js';
-import {
-    DEFAULT_THEME_ID,
-    RED_PACKET_CONTRACT_VERSION,
-    RED_PACKET_DURATION,
-    RedPacketMetaKey,
-} from '@/constants/rp.js';
+import { DEFAULT_THEME_ID, RED_PACKET_CONTRACT_VERSION, RED_PACKET_DURATION } from '@/constants/rp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
 import { rightShift, toFixed } from '@/helpers/number.js';
-import { getRpMetadata } from '@/helpers/rpPayload.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { EVMChainResolver } from '@/mask/index.js';
@@ -32,15 +24,15 @@ import { EthereumRedPacket } from '@/providers/ethereum/RedPacket.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import type { RedPacketCreationSuccessEventArgs } from '@/types/rp.js';
+import type { RedPacketCreationSuccessEventArgs, RedPacketMetadata } from '@/types/rp.js';
 import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
-function reduceUselessPayloadInfo(payload: RedPacketJSONPayload): RedPacketJSONPayload {
+function treeShakePayloadInfo(payload: RedPacketJSONPayload): RedPacketMetadata {
     const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<
         EthereumChainId,
         EthereumSchemaType.Native | EthereumSchemaType.ERC20
     >;
-    return { ...omit(payload, ['block_number']), token };
+    return { ...omit(payload, ['block_number']), token } as RedPacketMetadata;
 }
 
 export function useEthereumCreateRedPacketCallback(
@@ -135,11 +127,7 @@ export function useEthereumCreateRedPacketCallback(
             };
 
             captureLuckyDropEvent('pre-create', {
-                metadata: getRpMetadata(
-                    getTypedMessageRedPacket({
-                        [RedPacketMetaKey]: reduceUselessPayloadInfo(payload),
-                    }),
-                ),
+                metadata: treeShakePayloadInfo(payload),
             });
 
             const result = await writeContract(wagmiConfig, {
@@ -195,15 +183,10 @@ export function useEthereumCreateRedPacketCallback(
                 txid: receipt.transactionHash,
             });
 
-            const typedMessage = getTypedMessageRedPacket({
-                [RedPacketMetaKey]: reduceUselessPayloadInfo(payload),
-            });
+            const metadata = treeShakePayloadInfo(payload);
 
-            const { updateTypedMessage, updateRpPayload } = useComposeStateStore.getState();
+            const { updateRpPayload } = useComposeStateStore.getState();
 
-            updateTypedMessage(typedMessage as TypedMessageTextV1);
-
-            const metadata = getRpMetadata(typedMessage);
             captureLuckyDropEvent('create', {
                 metadata,
             });
@@ -213,6 +196,7 @@ export function useEthereumCreateRedPacketCallback(
                     payloadImage: coverImage,
                     claimRequirements: claimRequirements ?? EMPTY_LIST,
                     publicKey,
+                    metadata,
                 });
             }
 

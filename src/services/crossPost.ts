@@ -6,7 +6,6 @@ import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { COMPOSE_ERROR_NOTIFICATION_KEY, SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
-import { SupportedMetaKeys } from '@/constants/rp.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -17,12 +16,11 @@ import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
-import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { SnackbarRef } from '@/modals/Snackbar.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { captureCreateFireflyPollEvent } from '@/providers/telemetry/capturePollEvent.js';
-import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { commitPoll } from '@/services/poll.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
@@ -43,22 +41,14 @@ async function refreshProfileFeed(source: SocialSource) {
 }
 
 async function updateRpClaimStrategy(compositePost: CompositePost) {
-    const { postId, typedMessage, rpPayload } = compositePost;
+    const { postId, rpPayload } = compositePost;
     if (env.shared.NODE_ENV === NODE_ENV.Development) {
         if (rpPayload?.publicKey && !SORTED_SOCIAL_SOURCES.some((x) => postId[x])) {
             console.error("[cross post] No any post id for updating RedPacket's claim strategy.");
         }
     }
 
-    const rpMetaKey = SupportedMetaKeys.find((x) => !!typedMessage?.meta?.get(x));
-    if (
-        hasRpPayload(typedMessage) &&
-        SORTED_SOCIAL_SOURCES.some((x) => postId[x]) &&
-        rpPayload?.publicKey &&
-        !!rpMetaKey
-    ) {
-        const rpPayloadFromMeta = typedMessage?.meta?.get(rpMetaKey) as RedPacketJSONPayload;
-
+    if (SORTED_SOCIAL_SOURCES.some((x) => postId[x]) && rpPayload?.publicKey) {
         const reactions = compact(
             SORTED_SOCIAL_SOURCES.map((x) => {
                 const id = postId[x];
@@ -96,7 +86,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
         );
 
         await FireflyRedPacketEndpoint.updateClaimStrategy(
-            rpPayloadFromMeta.rpid,
+            rpPayload.metadata.rpid,
             reactions,
             claimPlatforms,
             postOn,

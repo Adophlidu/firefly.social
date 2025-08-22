@@ -1855,6 +1855,10 @@ msgstr ""
 msgid "No mint function"
 msgstr "無鑄造功能"
 
+#. placeholder {0}: resolveSourcesName(invalidSources)
+msgid "Poll for {0} is coming soon."
+msgstr ""
+
 msgid "Expired"
 msgstr "已過期"
 
@@ -2478,10 +2482,6 @@ msgstr "成功更新個人檔案"
 
 msgid "Token ${symbol} could not be found."
 msgstr "未找到代幣 ${symbol}。"
-
-#. placeholder {0}: resolveSourcesName(invalidSources)
-msgid "Poll for ${0} is coming soon."
-msgstr "${0}投票即將回歸。"
 
 msgid "Failed to publish on {sortedSourceNames}"
 msgstr ""
@@ -3564,9 +3564,6 @@ msgstr "解密"
 
 msgid "Sign to Confirm"
 msgstr ""
-
-msgid "Poll for Lens will come back soon."
-msgstr "Lens 投票功能即將回歸。"
 
 msgid "Article collected successfully!"
 msgstr "文章鑄造收集成功！"

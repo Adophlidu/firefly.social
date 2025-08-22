@@ -2,6 +2,7 @@ import urlcat from 'urlcat';
 import type { Hex } from 'viem';
 
 import { EMPTY_LIST, FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
+import { RedPacketMetaKey } from '@/constants/rp.js';
 import { bom } from '@/helpers/bom.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
@@ -17,12 +18,27 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
+import type { RedPacketMetadata } from '@/types/rp.js';
 import type { EthereumChainId } from '#masknet/web3-shared-evm';
 
 const SITE_URL = bom.location?.origin ?? '';
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class FireflyRedPacketEndpoint {
+    static async createCover(metadata: RedPacketMetadata) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/maskTypedMessage/create');
+        const { data } = await fireflySessionHolder.fetch<FireflyRedPacketAPI.CreateCoverResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                meta: JSON.stringify({
+                    [RedPacketMetaKey]: metadata,
+                }),
+                type: 'text',
+                content: '',
+            }),
+        });
+        return data;
+    }
     static async parse(options: FireflyRedPacketAPI.ParseOptions) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/misc/redpacket/parse');
         const { data } = await fireflySessionHolder.fetch<FireflyRedPacketAPI.ParseResponse>(url, {

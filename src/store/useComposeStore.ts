@@ -1,4 +1,3 @@
-import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { clone, difference, uniq } from 'lodash-es';
 import { type SetStateAction } from 'react';
 import { create } from 'zustand';
@@ -55,7 +54,6 @@ export interface CompositePost {
     restriction: RestrictionType;
     availableSources: SocialSource[];
     channel: Record<SocialSource, Channel | null>;
-    typedMessage: TypedMessageTextV1 | null;
     // Anonymous post
     isAnonymous: boolean;
 
@@ -129,7 +127,6 @@ interface ComposeState extends ComposeBaseState {
     updateParentPost: (source: SocialSource, parentPost: Post, cursor?: Cursor) => void;
     updateAvailableSources: (sources: SocialSource[], cursor?: Cursor) => void;
     updateChars: (charsOrUpdater: SetStateAction<Chars>, cursor?: Cursor) => void;
-    updateTypedMessage: (typedMessage: TypedMessageTextV1 | null, cursor?: Cursor) => void;
     updateVideos: (imagesOrUpdater: SetStateAction<MediaObject[]>, cursor?: Cursor) => void;
     removeVideo: (image: MediaObject, cursor?: Cursor) => void;
     updateImages: (videosOrUpdater: SetStateAction<MediaObject[]>, cursor?: Cursor) => void;
@@ -174,7 +171,6 @@ export function createInitSinglePostState(cursor: Cursor): CompositePost {
         restriction: RestrictionType.Everyone,
         isAnonymous: false,
         chars: '',
-        typedMessage: null,
         urls: EMPTY_LIST,
         videos: EMPTY_LIST,
         images: EMPTY_LIST,
@@ -400,17 +396,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     (post) => ({
                         ...post,
                         chars: typeof charsOrUpdater === 'function' ? charsOrUpdater(post.chars) : charsOrUpdater,
-                    }),
-                    cursor,
-                ),
-            ),
-        updateTypedMessage: (typedMessage, cursor) =>
-            set((state) =>
-                next(
-                    state,
-                    (post) => ({
-                        ...post,
-                        typedMessage,
                     }),
                     cursor,
                 ),

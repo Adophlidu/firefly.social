@@ -102,7 +102,11 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
     const isTokenPage = /^\/token\b/.test(pathname);
 
     const hasRedpacket = checkIfHasRedPacket(post);
-    const { parsed, payloadImage, isLoading: isParsingRedPacket } = useParseRedPacket('', post, hasRedpacket);
+    const {
+        metadata: redPacketMetadata,
+        payloadImage,
+        isLoading: isParsingRedPacket,
+    } = useParseRedPacket('', post, hasRedpacket);
 
     // if payload image attachment is available, we don't need to show the attachments
     const availableAttachments = useMemo(() => {
@@ -118,13 +122,13 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
     const oembedUrl = resolveOembedUrl(post);
     const pollId = oembedUrl ? getPollIdFromLink(oembedUrl) : undefined;
 
-    const hasEncryptedPayload = !!parsed?.redpacket?.payload;
+    const hasEncryptedPayload = !!redPacketMetadata;
     const EncryptedContent = useMemo(() => {
-        if (!seen || isInCompose || !parsed?.redpacket?.payload) return null;
+        if (!seen || isInCompose || !redPacketMetadata) return null;
         if (post.source === Source.Twitter && !currentTwitterProfileSession) return null;
 
-        return <RedPacketCard post={post} payload={parsed.redpacket.payload as RedPacketJSONPayload} />;
-    }, [parsed, post, currentTwitterProfileSession, seen, isInCompose]);
+        return <RedPacketCard post={post} payload={redPacketMetadata as RedPacketJSONPayload} />;
+    }, [seen, isInCompose, redPacketMetadata, post, currentTwitterProfileSession]);
 
     if (post.isHidden || (muted && !isProfilePage)) {
         return (

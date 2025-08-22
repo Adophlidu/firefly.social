@@ -1,6 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
 
-import { PluginID } from '@/constants/enum.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { EthereumChainId as ChainId } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
@@ -9,12 +8,10 @@ import { EthereumChainId as ChainId } from '@/mask_pkgs/web3-shared/evm/types/in
  * !! Change this key cause a breaking change in the red packet plugin.
  * !! Please make sure it also be able to recognize the old key.
  */
-export const RedPacketMetaKey = `${PluginID.RedPacket}:1`;
-export const SolanaRedPacketMetaKey = `${PluginID.RedPacket}_solana:1`;
-export const RedPacketEncryptedKey = `${RedPacketMetaKey}:encrypted`;
 
-export const SupportedMetaKeys = [RedPacketMetaKey, SolanaRedPacketMetaKey];
-export type SupportedMetaKeys = typeof SolanaRedPacketMetaKey | typeof RedPacketMetaKey;
+const RedPacketPluginID = 'com.maskbook.red_packet';
+export const RedPacketMetaKey = `${RedPacketPluginID}:1`;
+export const SolanaRedPacketMetaKey = `${RedPacketPluginID}_solana:1`;
 
 export const MESSAGE_MAX_LENGTH = 40;
 export const MESSAGE_MAX_LENGTH_SOLANA = 40;

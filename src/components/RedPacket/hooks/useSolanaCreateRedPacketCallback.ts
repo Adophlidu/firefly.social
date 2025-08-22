@@ -1,6 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
 import { t } from '@lingui/core/macro';
-import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { BigNumber } from 'bignumber.js';
 import { omit, pick } from 'lodash-es';
 import { useContext } from 'react';
@@ -16,14 +15,11 @@ import {
     RED_PACKET_CONTRACT_VERSION,
     RED_PACKET_DURATION,
     RED_PACKET_MIN_SHARES,
-    SolanaRedPacketMetaKey,
 } from '@/constants/rp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getRpMaxShares } from '@/helpers/getRpLimitations.js';
-import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { rightShift, toFixed } from '@/helpers/number.js';
-import { getRpMetadata } from '@/helpers/rpPayload.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import RedPacketIDL from '@/idls/redpacket.json' with { type: 'json' };
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
@@ -33,15 +29,16 @@ import { type CreateWithNativeTokenContext, SolanaRedPacket } from '@/providers/
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import type { RedPacketMetadata } from '@/types/rp.js';
 
-function reduceUselessPayloadInfo(payload: RedPacketJSONPayload): RedPacketJSONPayload {
+function treeShakePayloadInfo(payload: RedPacketJSONPayload): RedPacketMetadata {
     const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<number, number>;
-    return { ...omit(payload, ['block_number']), token };
+    return { ...omit(payload, ['block_number']), token } as RedPacketMetadata;
 }
 
 export function useSolanaCreateRedPacketCallback(
     shareFromName: string,
-    claimRequirements?: FireflyRedPacketAPI.ClaimStrategy[],
+    claimRequirements: FireflyRedPacketAPI.ClaimStrategy[] | undefined,
 ) {
     const {
         randomType,
@@ -103,11 +100,7 @@ export function useSolanaCreateRedPacketCallback(
             };
 
             captureLuckyDropEvent('pre-create', {
-                metadata: getRpMetadata(
-                    getTypedMessageRedPacket({
-                        [SolanaRedPacketMetaKey]: reduceUselessPayloadInfo(payload),
-                    }),
-                ),
+                metadata: treeShakePayloadInfo(payload),
             });
 
             let result:
@@ -141,19 +134,13 @@ export function useSolanaCreateRedPacketCallback(
                 tokenProgram: tokenProgram?.toBase58(),
             });
 
-            const typedMessage = getTypedMessageRedPacket({
-                [SolanaRedPacketMetaKey]: reduceUselessPayloadInfo(payload),
+            const metadata = treeShakePayloadInfo(payload);
+
+            const { updateRpPayload } = useComposeStateStore.getState();
+
+            captureLuckyDropEvent('create', {
+                metadata,
             });
-
-            const { updateTypedMessage, updateRpPayload } = useComposeStateStore.getState();
-
-            updateTypedMessage(typedMessage as TypedMessageTextV1);
-
-            const metadata = getRpMetadata(typedMessage);
-            if (metadata)
-                captureLuckyDropEvent('create', {
-                    metadata,
-                });
 
             updateRpPayload({
                 payloadImage: urlcat(SITE_URL, '/api/rp', {
@@ -168,6 +155,7 @@ export function useSolanaCreateRedPacketCallback(
                 }),
                 claimRequirements: claimRequirements ?? [],
                 publicKey: claimer.publicKey.toBase58(),
+                metadata,
             });
 
             enqueueSuccessMessage(t`Lucky drop created successfully`);
