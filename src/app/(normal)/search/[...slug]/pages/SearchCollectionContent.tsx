@@ -17,7 +17,7 @@ const getSearchItemContent = (collection: EVM.Collection) => {
 
 function filterAndSortCollections(collections: EVM.Collection[], keyword: string) {
     return collections
-        .filter((collection) => collection.owners_total >= 100)
+        .filter((collection) => collection.owners_total >= 50)
         .sort((a, b) => {
             if (a.name.toLowerCase() === keyword.toLowerCase()) return -1;
             return b.items_total - a.items_total;

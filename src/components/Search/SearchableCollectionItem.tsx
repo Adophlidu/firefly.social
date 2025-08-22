@@ -2,8 +2,8 @@ import { Trans } from '@lingui/react/macro';
 import type { HTMLProps } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
-import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
+import { NFTImage } from '@/components/NFTImage.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
@@ -23,7 +23,7 @@ export function SearchableCollectionItem({ collection, className, onClick }: Col
             href={resolveNFTUrl(chainId, collection.contract_address)}
             onClick={onClick}
         >
-            <Image
+            <NFTImage
                 className="size-[50px] shrink-0 rounded-lg object-cover"
                 width={50}
                 height={50}
