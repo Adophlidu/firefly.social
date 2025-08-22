@@ -833,6 +833,7 @@ class LensSocialMedia implements Provider {
             filterNotifications(result.items).map<Promise<Notification | null>>(async (item) => {
                 if (isRepostNotification(item)) {
                     if (!item.reposts.length) return null;
+                    if (item.reposts.some((x) => x.account.operations?.isBlockedByMe)) return null;
 
                     const time = first(item.reposts)?.repostedAt;
                     const post = await formatLensQuoteOrCommentV3(item.post);
@@ -849,8 +850,9 @@ class LensSocialMedia implements Provider {
                 }
 
                 if (isQuoteNotification(item)) {
-                    const time = item.quote.timestamp;
+                    if (item.quote.author.operations?.isBlockedByMe) return null;
 
+                    const time = item.quote.timestamp;
                     const quoteOf = await formatLensQuoteOrCommentV3(item.quote.quoteOf, 'Quote');
                     if (!quoteOf) return null;
 
@@ -866,6 +868,8 @@ class LensSocialMedia implements Provider {
 
                 if (isReactionNotification(item)) {
                     if (!item.reactions.length) return null;
+                    if (item.reactions.some((x) => x.account.operations?.isBlockedByMe)) return null;
+
                     const time = first(flatMap(item.reactions.map((x) => x.reactions)))?.reactedAt;
                     const post = await formatLensQuoteOrCommentV3(item.post);
                     if (!post) return null;
@@ -882,6 +886,8 @@ class LensSocialMedia implements Provider {
                 }
 
                 if (isCommentNotification(item)) {
+                    if (item.comment.author.operations?.isBlockedByMe) return null;
+
                     const commentOn = await formatLensQuoteOrCommentV3(item.comment.commentOn, 'Comment');
                     if (!commentOn) return null;
 
@@ -897,6 +903,7 @@ class LensSocialMedia implements Provider {
 
                 if (isFollowNotification(item)) {
                     if (!item.followers.length) return null;
+                    if (item.followers.some((x) => x.account.operations?.isBlockedByMe)) return null;
 
                     return {
                         source: Source.Lens,
@@ -910,6 +917,8 @@ class LensSocialMedia implements Provider {
                 }
 
                 if (isMentionNotification(item)) {
+                    if (item.post.author.operations?.isBlockedByMe) return null;
+
                     const post = await formatLensQuoteOrCommentV3(item.post);
                     if (!post) return null;
 
@@ -942,60 +951,8 @@ class LensSocialMedia implements Provider {
             }),
         );
 
-        // filter muted/blocked items
-        const profileIds = compact(
-            data.flatMap((x) => {
-                if (!x || x.type === NotificationType.Tips || x.type === NotificationType.Schedule) return null;
-                if ('followers' in x) return x.followers.map((follower) => follower.profileId);
-                if ('mirrors' in x) return x.mirrors.map((mirror) => mirror.profileId);
-                if ('reactors' in x) return x.reactors.map((reactor) => reactor.profileId);
-                return x?.post?.author.profileId;
-            }),
-        );
-        const blockList = await FireflyEndpointProvider.getBlockRelation(
-            profileIds.map((snsId) => ({ snsId, snsPlatform: FireflyPlatform.Lens })),
-        );
-
-        const profileIdSet = new Set(blockList.filter((x) => x.blocked).map((x) => x.snsId));
-
-        const items = compact(data)
-            .map((item) => {
-                if (!item) return item;
-
-                if ('followers' in item) {
-                    item.followers = item.followers.filter((x) => !profileIdSet.has(x.profileId.toLowerCase()));
-                }
-                if ('mirrors' in item) {
-                    item.mirrors = item.mirrors.filter((x) => !profileIdSet.has(x.profileId.toLowerCase()));
-                }
-                if ('reactors' in item) {
-                    item.reactors = item.reactors.filter((x) => !profileIdSet.has(x.profileId.toLowerCase()));
-                }
-                return item;
-            })
-            .filter((item) => {
-                if (!item) return false;
-                if ('followers' in item && item.followers.length <= 0) return false;
-                if ('mirrors' in item && item.mirrors.length <= 0) return false;
-                if ('reactors' in item && item.reactors.length <= 0) return false;
-                if ('post' in item && item.post?.author.profileId && profileIdSet.has(item.post.author.profileId)) {
-                    return false;
-                }
-                if (
-                    'comment' in item &&
-                    item.comment?.author.profileId &&
-                    profileIdSet.has(item.comment.author.profileId.toLowerCase())
-                ) {
-                    return false;
-                }
-                if ('quote' in item && item.quote?.author.profileId && profileIdSet.has(item.quote.author.profileId)) {
-                    return false;
-                }
-                return true;
-            });
-
         return createPageable(
-            items,
+            compact(data),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
