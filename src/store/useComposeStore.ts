@@ -60,7 +60,7 @@ export interface CompositePost {
     isAnonymous: boolean;
 
     // media objects
-    video: MediaObject | null;
+    videos: MediaObject[];
     images: MediaObject[];
     urls: string[];
     poll: CompositePoll | null;
@@ -130,8 +130,9 @@ interface ComposeState extends ComposeBaseState {
     updateAvailableSources: (sources: SocialSource[], cursor?: Cursor) => void;
     updateChars: (charsOrUpdater: SetStateAction<Chars>, cursor?: Cursor) => void;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null, cursor?: Cursor) => void;
-    updateVideo: (video: MediaObject | null, cursor?: Cursor) => void;
-    updateImages: (imagesOrUpdater: SetStateAction<MediaObject[]>, cursor?: Cursor) => void;
+    updateVideos: (imagesOrUpdater: SetStateAction<MediaObject[]>, cursor?: Cursor) => void;
+    removeVideo: (image: MediaObject, cursor?: Cursor) => void;
+    updateImages: (videosOrUpdater: SetStateAction<MediaObject[]>, cursor?: Cursor) => void;
     addUrl: (url: string, cursor?: Cursor) => void;
     addImage: (image: MediaObject, index: number, cursor?: Cursor) => void;
     removeImage: (image: MediaObject, cursor?: Cursor) => void;
@@ -175,10 +176,10 @@ export function createInitSinglePostState(cursor: Cursor): CompositePost {
         chars: '',
         typedMessage: null,
         urls: EMPTY_LIST,
+        videos: EMPTY_LIST,
         images: EMPTY_LIST,
         frames: EMPTY_LIST,
         openGraphs: EMPTY_LIST,
-        video: null,
         rpPayload: null,
         channel: {
             [Source.Farcaster]: HOME_CHANNEL,
@@ -414,6 +415,31 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor,
                 ),
             ),
+        updateVideos: (videosOrUpdater, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        videos: typeof videosOrUpdater === 'function' ? videosOrUpdater(post.videos) : videosOrUpdater,
+                    }),
+                    cursor,
+                ),
+            ),
+        removeVideo: (target, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => {
+                        const videos = post.videos.filter((video) => video.file !== target.file);
+                        return {
+                            ...post,
+                            videos,
+                        };
+                    },
+                    cursor,
+                ),
+            ),
         updateImages: (imagesOrUpdater, cursor) =>
             set((state) =>
                 next(
@@ -421,17 +447,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     (post) => ({
                         ...post,
                         images: typeof imagesOrUpdater === 'function' ? imagesOrUpdater(post.images) : imagesOrUpdater,
-                    }),
-                    cursor,
-                ),
-            ),
-        updateVideo: (video, cursor) =>
-            set((state) =>
-                next(
-                    state,
-                    (post) => ({
-                        ...post,
-                        video,
                     }),
                     cursor,
                 ),

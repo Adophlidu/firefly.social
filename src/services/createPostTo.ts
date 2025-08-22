@@ -1,5 +1,3 @@
-import { first } from 'lodash-es';
-
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { mergeMediaObjects } from '@/helpers/mergeMediaObjects.js';
@@ -38,7 +36,7 @@ export function createPostTo(source: SocialSource, options: Options) {
         updatePostInThread(post.id, (post) => ({
             ...post,
             images: mergeMediaObjects(post.images, uploadedImages),
-            video: first(uploadedVideos) ?? null,
+            videos: uploadedVideos ?? null,
         }));
 
         const postTo = async () => {

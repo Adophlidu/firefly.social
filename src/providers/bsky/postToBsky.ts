@@ -24,7 +24,7 @@ export async function postToBsky(
     compositePost: CompositePost,
     signal?: AbortSignal,
 ): Promise<string | undefined> {
-    const { id, chars, images, video, postId, parentPost, restriction } = compositePost;
+    const { id, chars, images, videos, postId, parentPost, restriction } = compositePost;
 
     const bskyParentPost = parentPost.Bsky;
     const bskyPostId = postId.Bsky;
@@ -116,8 +116,8 @@ export async function postToBsky(
             return results;
         },
         uploadVideos: async () => {
-            if (!video) return [];
-            const downloaded = await downloadMediaObjects([video]);
+            if (!videos.length) return [];
+            const downloaded = await downloadMediaObjects(videos);
             const results = await Promise.all(
                 downloaded.map(async (media) => {
                     const videoInfo = await runInSafeAsync(() => getVideoMetadata(media.file));

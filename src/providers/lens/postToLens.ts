@@ -294,7 +294,7 @@ async function quotePostForLens(
 }
 
 export async function postToLens(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
-    const { chars, images, postId, parentPost, video, poll, channel, restriction } = compositePost;
+    const { chars, images, postId, parentPost, videos, poll, channel, restriction } = compositePost;
 
     const lensPostId = postId.Lens;
     const lensParentPost = parentPost.Lens;
@@ -320,7 +320,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         },
         uploadVideos() {
             return Promise.all(
-                (video?.file ? [video] : []).map(async (media) => {
+                videos.map(async (media) => {
                     if (resolveVideoUrl(Source.Lens, media)) return media;
                     return createS3MediaObject(
                         await uploadAndConvertToM3u8(media.file, SourceInURL.Lens, signal),

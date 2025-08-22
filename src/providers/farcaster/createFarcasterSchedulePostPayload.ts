@@ -35,7 +35,7 @@ export async function createFarcasterSchedulePostPayload(
     isThread = false,
     signal?: AbortSignal,
 ): Promise<FarcasterSchedulePostPayload> {
-    const { chars, parentPost, images, video, channel, poll } = compositePost;
+    const { chars, parentPost, images, videos, channel, poll } = compositePost;
 
     const sourceName = resolveSourceName(Source.Farcaster);
     const farcasterParentPost = parentPost.Farcaster;
@@ -52,7 +52,7 @@ export async function createFarcasterSchedulePostPayload(
     );
 
     const videoResults = await Promise.all(
-        (video?.file ? [video] : []).map(async (media) => {
+        videos.map(async (media) => {
             return createS3MediaObject(await uploadAndConvertToM3u8(media.file, SourceInURL.Farcaster, signal), media);
         }),
     );

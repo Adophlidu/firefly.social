@@ -9,15 +9,15 @@ import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.js';
 import { SchedulePostEntryButton } from '@/components/Compose/SchedulePostEntryButton.js';
 import { UploadDropArea } from '@/components/Compose/UploadDropArea.js';
+import { useUpdateImages } from '@/components/Compose/useUpdateImages.js';
+import { useUpdateVideos } from '@/components/Compose/useUpdateVideos.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { isImageFileType, isMediaFileType, isVideoFileType } from '@/helpers/isMediaFileType.js';
-import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import { isValidPostImage, isValidPostVideo } from '@/helpers/validatePostFile.js';
+import { isValidPostImage } from '@/helpers/validatePostFile.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useKeyboardHeight } from '@/hooks/useKeyboardHeight.js';
@@ -44,17 +44,17 @@ export function Title() {
 export const ComposeUI = memo(function ComposeUI() {
     const isMedium = useIsMedium();
     const isDark = useIsDarkMode();
-    const { type, posts, updateVideo, updateImages, isFailedSchedulePost, updateIsFailedSchedulePost } =
-        useComposeStateStore();
+    const { type, posts, isFailedSchedulePost, updateIsFailedSchedulePost } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
 
     const compositePost = useCompositePost();
 
     const availableSources = compositePost.availableSources;
-    const maxImageCount = getCurrentPostImageLimits(type, availableSources);
 
     const { available, keyboardHeight } = useKeyboardHeight();
 
+    const updateImages = useUpdateImages();
+    const updateVideos = useUpdateVideos();
     const [{ loading }, handleDropFiles] = useAsyncFn(
         async (files: File[]) => {
             const validFiles = files.filter((file) => isMediaFileType(file.type));
@@ -68,21 +68,14 @@ export const ComposeUI = memo(function ComposeUI() {
                 }
                 return true;
             });
-            updateImages((images) => {
-                if (images.length === maxImageCount) return images;
-                return [...images, ...validImages.map((file) => createLocalMediaObject(file))].slice(0, maxImageCount);
-            });
+            updateImages(validImages, availableSources, type);
 
-            const video = validFiles.find((file) => isVideoFileType(file.type));
-            if (video) {
-                const videoMessage = await isValidPostVideo(availableSources, video);
-                if (videoMessage) {
-                    return enqueueErrorMessage(videoMessage);
-                }
-                updateVideo(createLocalMediaObject(video));
+            const videos = validFiles.filter((file) => isVideoFileType(file.type));
+            if (videos.length) {
+                await updateVideos(videos, availableSources);
             }
         },
-        [availableSources, maxImageCount, updateImages, updateVideo],
+        [availableSources, type, updateImages, updateVideos],
     );
 
     return (

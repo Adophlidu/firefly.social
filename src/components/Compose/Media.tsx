@@ -1,10 +1,13 @@
 import { Popover, Transition } from '@headlessui/react';
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { type ChangeEvent, Fragment, useMemo, useRef } from 'react';
+import { type ChangeEvent, Fragment, memo, useMemo, useRef } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
+import { useUpdateImages } from '@/components/Compose/useUpdateImages.js';
+import { useUpdateVideos } from '@/components/Compose/useUpdateVideos.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { FileMimeType } from '@/constants/enum.js';
 import {
@@ -14,56 +17,44 @@ import {
     SUPPORTED_VIDEO_SOURCES,
 } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
-import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
-import { createLocalMediaObject, createVideoMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { isValidPostImage, isValidPostVideo } from '@/helpers/validatePostFile.js';
+import {
+    getCurrentPostGifLimits,
+    getCurrentPostImageLimits,
+    getCurrentPostVideoLimits,
+} from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { captureImageAddClickEvent, captureVideoAddClickEvent } from '@/providers/telemetry/captureClickEvent.js';
+import { captureImageAddClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { MediaSource } from '@/types/compose.js';
 
 interface MediaProps {
     close: () => void;
 }
-export function Media({ close }: MediaProps) {
+export const Media = memo(function Media({ close }: MediaProps) {
     const imageInputRef = useRef<HTMLInputElement>(null);
     const videoInputRef = useRef<HTMLInputElement>(null);
 
-    const { type, updateVideo, updateImages } = useComposeStateStore();
-    const { availableSources, video, images } = useCompositePost();
+    const { type } = useComposeStateStore();
+    const { availableSources, videos, images } = useCompositePost();
 
     const maxGifCount = getCurrentPostGifLimits(availableSources);
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);
+    const maxVideoCount = getCurrentPostVideoLimits(availableSources);
 
+    const updateImages = useUpdateImages();
+    const updateVideos = useUpdateVideos();
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
             const files = event.target.files;
 
             if (files?.length) {
-                const validFiles = [...files].filter((file) => {
-                    const message = isValidPostImage(availableSources, file);
-                    if (message) {
-                        enqueueErrorMessage(message);
-                        return false;
-                    }
-                    return true;
-                });
-                updateImages((images) => {
-                    if (images.length === maxImageCount) return images;
-                    return [...images, ...validFiles.map((file) => createLocalMediaObject(file))].slice(
-                        0,
-                        maxImageCount,
-                    );
-                });
+                updateImages([...files], availableSources, type);
                 captureImageAddClickEvent();
             }
             close();
         },
-        [maxImageCount, availableSources, close, updateImages],
+        [close, updateImages, availableSources, type],
     );
 
     const isMedium = useIsMedium();
@@ -73,18 +64,11 @@ export function Media({ close }: MediaProps) {
             const files = event.target.files;
 
             if (files?.length) {
-                const file = files[0];
-                const message = await isValidPostVideo(availableSources, file);
-                if (message) {
-                    return enqueueErrorMessage(message);
-                }
-                const metadata = await runInSafeAsync(() => getVideoMetadata(file));
-                updateVideo(createVideoMediaObject(file, metadata));
-                captureVideoAddClickEvent();
+                await updateVideos([...files], availableSources);
             }
             close();
         },
-        [availableSources, close, updateVideo],
+        [availableSources, close, updateVideos],
     );
 
     const allowedImagesMimes = useMemo(() => {
@@ -93,12 +77,17 @@ export function Media({ close }: MediaProps) {
     }, [availableSources]);
 
     const disableVideo =
-        !!video || images.length > 0 || availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source));
+        videos.length > maxVideoCount ||
+        images.length > 0 ||
+        availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source));
+
     const disableImage =
-        images.length >= maxImageCount || images.filter((x) => x.file.type === FileMimeType.GIF).length >= maxGifCount;
+        videos.length > 0 ||
+        images.length >= maxImageCount ||
+        images.filter((x) => x.file.type === FileMimeType.GIF).length >= maxGifCount;
 
     const content = (
-        <div>
+        <div role="menu">
             <div>
                 <div
                     className={classNames(
@@ -110,6 +99,9 @@ export function Media({ close }: MediaProps) {
 
                         imageInputRef.current?.click();
                     }}
+                    role="menuitem"
+                    aria-disabled={disableVideo}
+                    aria-label={t`Image`}
                 >
                     <ImageIcon width={24} height={24} />
                     <span className="font-bold">
@@ -137,6 +129,9 @@ export function Media({ close }: MediaProps) {
 
                         videoInputRef.current?.click();
                     }}
+                    role="menuitem"
+                    aria-disabled={disableVideo}
+                    aria-label={t`Video`}
                 >
                     {loading ? <LoadingIcon /> : <VideoIcon width={24} height={24} />}
                     <span className="font-bold">
@@ -149,6 +144,7 @@ export function Media({ close }: MediaProps) {
                     accept={ALLOWED_VIDEO_MIMES.join(', ')}
                     ref={videoInputRef}
                     className="hidden"
+                    multiple={maxVideoCount > 1}
                     onChange={handleVideoChange}
                 />
             </div>
@@ -176,4 +172,4 @@ export function Media({ close }: MediaProps) {
         );
 
     return <>{content}</>;
-}
+});

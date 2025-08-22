@@ -38,7 +38,7 @@ export function createDummyCommentPost(source: SocialSource, compositePost: Comp
         parentAuthor: parentPost.author,
         timestamp: Date.now(),
         author: createDummyProfile(source),
-        mediaObjects: compact([compositePost.video, ...compositePost.images, ...compositePost.images]).map((x) => ({
+        mediaObjects: compact([...compositePost.videos, ...compositePost.images, ...compositePost.images]).map((x) => ({
             title: x.file.name,
             mimeType: x.mimeType,
             url: resolveMediaObjectUrl(x),

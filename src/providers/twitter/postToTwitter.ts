@@ -17,7 +17,7 @@ import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfil
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
 export async function postToTwitter(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
-    const { chars, images, video, postId, parentPost, restriction, poll, excludeReplyProfileIds } = compositePost;
+    const { chars, images, videos, postId, parentPost, restriction, poll, excludeReplyProfileIds } = compositePost;
 
     const twitterPostId = postId.Twitter;
     const twitterParentPost = parentPost.Twitter;
@@ -71,6 +71,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
             return [pollStub];
         },
         uploadVideos: async () => {
+            const video = first(videos);
             if (!video) return [];
             const uploaded = await uploadVideoToTwitter(video.file);
             return uploaded.map((x) => createTwitterMediaObject(x, video));

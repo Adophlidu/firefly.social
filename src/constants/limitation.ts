@@ -37,6 +37,20 @@ export const MAX_IMAGE_SIZE_PRO_PER_POST: Limitation = {
     [Source.Bsky]: MAX_IMAGE_SIZE_PER_POST[Source.Bsky],
 };
 
+export const MAX_VIDEO_SIZE_PER_POST: Limitation = {
+    [Source.Farcaster]: 1,
+    [Source.Lens]: 1,
+    [Source.Twitter]: 1,
+    [Source.Bsky]: 1,
+};
+
+export const MAX_VIDEO_SIZE_PRO_PER_POST: Limitation = {
+    [Source.Farcaster]: 4,
+    [Source.Lens]: MAX_VIDEO_SIZE_PER_POST[Source.Lens],
+    [Source.Twitter]: MAX_VIDEO_SIZE_PER_POST[Source.Twitter],
+    [Source.Bsky]: MAX_VIDEO_SIZE_PER_POST[Source.Bsky],
+};
+
 export const MAX_GIF_SIZE_PER_POST: Limitation = {
     [Source.Farcaster]: 2,
     [Source.Lens]: 20,

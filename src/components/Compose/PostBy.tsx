@@ -24,7 +24,7 @@ import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function PostBy() {
-    const { poll, availableSources, images, rpPayload, video } = useCompositePost();
+    const { poll, availableSources, images, rpPayload, videos } = useCompositePost();
     const { type, sealedSource } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
 
@@ -81,15 +81,12 @@ export function PostBy() {
                 };
             }
 
-            const videoMetadata =
-                video?.width && video?.height && video?.duration
-                    ? {
-                          width: video.width,
-                          height: video.height,
-                          duration: video.duration,
-                      }
-                    : undefined;
-            if (videoMetadata && !validateVideoDuration(sources, videoMetadata).isValid) {
+            const hasInvalidVideo = videos.some((video) => {
+                if (!video.width || !video.height || !video.duration) return false;
+                const metadata = { width: video.width, height: video.height, duration: video.duration };
+                return !validateVideoDuration(sources, metadata).isValid;
+            });
+            if (hasInvalidVideo) {
                 return {
                     disabled: true,
                     reason: t`Video duration limit reached.`,
@@ -98,18 +95,7 @@ export function PostBy() {
 
             return { disabled: false };
         });
-    }, [
-        availableSources,
-        images,
-        poll,
-        type,
-        scheduleTime,
-        rpPayload,
-        video?.width,
-        video?.height,
-        video?.duration,
-        sealedSource,
-    ]);
+    }, [type, sealedSource, poll, scheduleTime, availableSources, images, rpPayload, videos]);
 
     const content = (
         <div className="no-scrollbar flex max-h-[156px] flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[188px]">

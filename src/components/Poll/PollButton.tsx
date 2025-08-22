@@ -12,12 +12,12 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export const PollButton = memo(function PollButton() {
-    const { video, images, poll, availableSources, rpPayload } = useCompositePost();
+    const { videos, images, poll, availableSources, rpPayload } = useCompositePost();
     const { createPoll } = useComposeStateStore();
 
     const invalidSources = availableSources.filter((x) => !SORTED_POLL_SOURCES.includes(x));
     const isPollSupported = availableSources.length > 0 && invalidSources.length === 0;
-    const hasConflictContent = !!video || images.length > 0 || !!poll || !!rpPayload;
+    const hasConflictContent = videos.length > 0 || images.length > 0 || !!poll || !!rpPayload;
     const disabled = !isPollSupported || hasConflictContent;
 
     return (

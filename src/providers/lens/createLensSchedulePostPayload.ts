@@ -33,7 +33,7 @@ export async function createLensSchedulePostPayload(
     isThread = false,
     signal?: AbortSignal,
 ): Promise<LensSchedulePayload> {
-    const { images, video, chars, parentPost } = compositePost;
+    const { images, videos, chars, parentPost } = compositePost;
 
     const lensParentPost = parentPost.Lens;
     const sourceName = resolveSourceName(Source.Lens);
@@ -45,6 +45,7 @@ export async function createLensSchedulePostPayload(
         }),
     );
 
+    const video = videos[0];
     const videoResult = video?.file
         ? createS3MediaObject(await uploadAndConvertToM3u8(video.file, SourceInURL.Lens, signal), video)
         : null;

@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import urlcat from 'urlcat';
 
-import { ScheduleTaskStatus } from '@/constants/enum.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -10,6 +9,7 @@ import {
     type Response,
     type SchedulePostPayload,
     type ScheduleTasksResponse,
+    ScheduleTaskStatus,
 } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 

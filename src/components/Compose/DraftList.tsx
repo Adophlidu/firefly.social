@@ -122,7 +122,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                 <div className="text-left">
                     {compact([
                         post?.images.length ? t`[Photo]` : undefined,
-                        post?.video ? t`[Video]` : undefined,
+                        post?.videos.length ? t`[Video]` : undefined,
                         post?.rpPayload ? t`[LuckyDrop]` : undefined,
                         post?.poll ? t`[Poll]` : undefined,
                     ]).join('')}

@@ -17,7 +17,7 @@ import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterPr
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
-    const { chars, parentPost, images, video, postId, channel, poll } = compositePost;
+    const { chars, parentPost, images, videos, postId, channel, poll } = compositePost;
 
     const farcasterPostId = postId.Farcaster;
     const farcasterParentPost = parentPost.Farcaster;
@@ -76,7 +76,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         },
         uploadVideos: () => {
             return Promise.all(
-                (video?.file ? [video] : []).map(async (media) => {
+                videos.map(async (media) => {
                     return createS3MediaObject(
                         await uploadAndConvertToM3u8(media.file, SourceInURL.Farcaster, signal),
                         media,

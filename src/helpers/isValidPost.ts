@@ -10,10 +10,10 @@ import type { CompositePost } from '@/store/useComposeStore.js';
 export function isValidPost(post: CompositePost) {
     if (!post.availableSources.length) return false;
 
-    const { images, video, poll } = post;
+    const { images, videos, poll } = post;
     const { usedLength, availableLength } = measureChars(post);
     if (usedLength > availableLength) return false;
-    if (!usedLength && !images.length && !video) return false;
+    if (!usedLength && !images.length && !videos.length) return false;
     if (poll && !isValidPoll(poll)) return false;
     return true;
 }

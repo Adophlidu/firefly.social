@@ -8,5 +8,5 @@ import type { CompositePost } from '@/store/useComposeStore.js';
  */
 export function isEmptyPost(post: CompositePost) {
     const content = readChars(post.chars, 'visible');
-    return !content && !post.images.length && !post.video;
+    return !content && !post.images.length && !post.videos.length;
 }

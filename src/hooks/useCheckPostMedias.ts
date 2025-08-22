@@ -13,11 +13,14 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function useCheckPostMedias() {
-    const { availableSources, images, video } = useCompositePost();
+    const { availableSources, images, videos } = useCompositePost();
     const { type } = useComposeStateStore();
     const imageCount = images.length;
     return useCallback(() => {
-        if (availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source)) && video?.file) {
+        if (
+            availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source)) &&
+            videos.some((x) => x.file)
+        ) {
             enqueueErrorMessage(t`Failed to upload. Video is not supported yet.`);
             return true;
         }
@@ -34,7 +37,7 @@ export function useCheckPostMedias() {
         }
 
         const videoSizeLimit = getPostVideoSizeLimit(availableSources);
-        if (video?.file && video.file.size > videoSizeLimit) {
+        if (videos.some((x) => x.file && x.file.size > videoSizeLimit)) {
             enqueueErrorMessage(
                 t`Failed to upload on ${resolveSourcesName(
                     availableSources.filter((x) => MAX_FILE_SIZE_PER_VIDEO[x] === videoSizeLimit),
@@ -44,5 +47,5 @@ export function useCheckPostMedias() {
         }
 
         return false;
-    }, [availableSources, video?.file, imageCount, type, images]);
+    }, [availableSources, videos, images, type, imageCount]);
 }

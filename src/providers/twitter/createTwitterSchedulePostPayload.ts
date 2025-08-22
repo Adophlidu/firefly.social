@@ -33,7 +33,7 @@ export async function createTwitterSchedulePostPayload(
     isThread = false,
     signal?: AbortSignal,
 ): Promise<TwitterSchedulePostPayload> {
-    const { chars, images, video, parentPost, restriction, poll } = compositePost;
+    const { chars, images, videos, parentPost, restriction, poll } = compositePost;
 
     const twitterParentPost = parentPost.Twitter;
 
@@ -41,6 +41,7 @@ export async function createTwitterSchedulePostPayload(
     const imageResults = (await uploadToTwitter(confirmedMedias.map((x) => ({ file: x.file })))).map((x, index) =>
         createTwitterMediaObject(x, confirmedMedias[index]),
     );
+    const video = videos[0];
     const videoResults = video
         ? (await uploadVideoToTwitter(video.file)).map((x) => createTwitterMediaObject(x, video))
         : [];

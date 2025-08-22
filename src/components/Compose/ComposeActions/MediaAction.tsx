@@ -9,7 +9,11 @@ import { Popover as PopoverModal } from '@/components/Popover.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { FileMimeType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
+import {
+    getCurrentPostGifLimits,
+    getCurrentPostImageLimits,
+    getCurrentPostVideoLimits,
+} from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -20,13 +24,14 @@ export const MediaAction = memo(function MediaAction() {
     const { type } = useComposeStateStore();
     const [open, setOpen] = useState(false);
 
-    const { availableSources, images, video, poll, rpPayload } = post;
+    const { availableSources, images, videos, poll, rpPayload } = post;
     const maxGifCount = getCurrentPostGifLimits(availableSources);
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);
+    const maxVideoCount = getCurrentPostVideoLimits(availableSources);
     const mediaDisabled =
         !!rpPayload ||
-        !!video ||
         !!poll ||
+        videos.length > maxVideoCount ||
         images.length >= maxImageCount ||
         images.filter((x) => x.file.type === FileMimeType.GIF).length >= maxGifCount;
 

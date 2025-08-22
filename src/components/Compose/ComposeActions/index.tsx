@@ -14,7 +14,11 @@ import { GifEntryButton } from '@/components/Gif/GifEntryButton.js';
 import { PollButton } from '@/components/Poll/PollButton.js';
 import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
+import {
+    getCurrentPostGifLimits,
+    getCurrentPostImageLimits,
+    getCurrentPostVideoLimits,
+} from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
@@ -24,7 +28,7 @@ export function ComposeActions() {
     const isMedium = useIsMedium();
     const { type, posts } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
-    const { availableSources, images, video, poll, rpPayload, isAnonymous } = useCompositePost();
+    const { availableSources, images, videos, poll, rpPayload, isAnonymous } = useCompositePost();
 
     const hasError = useMemo(() => {
         return posts.some((x) => !!compact(values(x.postError)).length);
@@ -34,8 +38,9 @@ export function ComposeActions() {
         getCurrentPostImageLimits(type, availableSources),
         getCurrentPostGifLimits(availableSources),
     );
+    const maxVideoCount = getCurrentPostVideoLimits(availableSources);
 
-    const mediaDisabled = !!video || !!poll || !!rpPayload || images.length >= maxImageCount;
+    const mediaDisabled = videos.length >= maxVideoCount || !!poll || !!rpPayload || images.length >= maxImageCount;
     const showFarcasterChannel =
         availableSources.includes(Source.Farcaster) && (type === 'compose' || type === 'quote');
     const showLensChannel = availableSources.includes(Source.Lens) && type === 'compose';

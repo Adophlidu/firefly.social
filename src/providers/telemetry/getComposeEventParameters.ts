@@ -86,6 +86,6 @@ export function getComposeEventParameters(
         x_poll_id: post.poll?.pollIds[Source.Twitter] ?? undefined,
 
         include_image: post.images.length > 0,
-        include_video: !!post.video,
+        include_video: post.videos.length > 0,
     };
 }

@@ -1,5 +1,5 @@
 import { ComposeImages } from '@/components/Compose/ComposeImages.js';
-import { ComposeVideo } from '@/components/Compose/ComposeVideo.js';
+import { ComposeVideos } from '@/components/Compose/ComposeVideos.js';
 import { Editor } from '@/components/Compose/Editor.js';
 import { Placeholder } from '@/components/Compose/Placeholder.js';
 import { PollCreatorCard } from '@/components/Poll/PollCreatorCard.js';
@@ -17,7 +17,7 @@ interface ComposeContentProps {
 export function ComposeContent(props: ComposeContentProps) {
     const { type, cursor } = useComposeStateStore();
 
-    const { id, parentPost, images, urls, poll, availableSources, chars } = props.post;
+    const { id, parentPost, images, videos, urls, poll, availableSources, chars } = props.post;
 
     // in reply and quote mode, there could be only one parent post
     const [, post] =
@@ -45,11 +45,7 @@ export function ComposeContent(props: ComposeContentProps) {
             {images.length > 0 ? <ComposeImages className="mt-2 flex-grow" images={images} /> : null}
 
             {/* video */}
-            {props.post.video ? (
-                <div className={replying ? 'pl-[52px]' : ''}>
-                    <ComposeVideo video={props.post.video} />
-                </div>
-            ) : null}
+            {videos.length > 0 ? <ComposeVideos className="mt-2 flex-grow" videos={videos} /> : null}
 
             {/* quote */}
             {type === 'quote' && post ? <Quote post={post} className="text-left" /> : null}

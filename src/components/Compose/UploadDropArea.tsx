@@ -4,7 +4,7 @@ import { type HTMLProps, useEffect, useRef, useState } from 'react';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
+import { getCurrentPostImageLimits, getCurrentPostVideoLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { isImageFileType, isMediaFileType, isVideoFileType } from '@/helpers/isMediaFileType.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useForkRef } from '@/hooks/useForkRef.js';
@@ -21,10 +21,13 @@ export function UploadDropArea({ loading, children, ref, onDrop, onDropFiles, ..
     const forkedRef = useForkRef(containerRef, ref);
 
     const { type } = useComposeStateStore();
-    const { availableSources, video, images } = useCompositePost();
+    const { availableSources, videos, images } = useCompositePost();
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);
+    const maxVideoCount = getCurrentPostVideoLimits(availableSources);
     const disableVideo =
-        !!video || images.length > 0 || availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source));
+        videos.length >= maxVideoCount ||
+        images.length > 0 ||
+        availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source));
     const disableImage = images.length >= maxImageCount;
 
     useEffect(() => {
