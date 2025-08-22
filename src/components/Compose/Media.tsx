@@ -77,7 +77,7 @@ export const Media = memo(function Media({ close }: MediaProps) {
     }, [availableSources]);
 
     const disableVideo =
-        videos.length > maxVideoCount ||
+        videos.length >= maxVideoCount ||
         images.length > 0 ||
         availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source));
 

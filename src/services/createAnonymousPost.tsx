@@ -123,7 +123,7 @@ async function createAnonymousPostByFirefly(
     sources: SocialSource[],
     signal?: AbortSignal,
 ): Promise<CreateAnonymousPostResult[]> {
-    const { images, video, chars, parentPost, availableSources } = compositePost;
+    const { images, videos, chars, parentPost, availableSources } = compositePost;
     const firstSource = first(availableSources);
     const parent = type !== 'compose' && firstSource && availableSources.length === 1 ? parentPost[firstSource] : null;
     if (type !== 'compose' && !parent?.postId) {
@@ -137,7 +137,7 @@ async function createAnonymousPostByFirefly(
         }),
     );
     const videoResults = await Promise.all(
-        (video?.file ? [video] : []).map(async (media) => {
+        videos.map(async (media) => {
             return createS3MediaObject(await uploadAndConvertToM3u8(media.file, SourceInURL.Firefly, signal), media);
         }),
     );
