@@ -46,7 +46,7 @@ export function VoteResult({ option, totalVotes, maxPercent }: VoteResultProps) 
                     <span className="overflow-hidden">{label}</span>
                     {isUserVoted ? <RightAnswerIcon className="mr-2 shrink-0" width={20} height={20} /> : null}
                 </span>
-                <span className={isMaxPercent ? 'text-lightMain' : 'text-third'}>{currentRate}%</span>
+                <span className={isMaxPercent ? 'text-lightMain' : 'text-third'}>{currentRate.toFixed(2)}%</span>
             </div>
         </div>
     );
