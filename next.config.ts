@@ -13,8 +13,6 @@ const cspConfig = {
     'default-src': ["'self'", 'https:', 'wss:', 'data:', 'blob:'],
     'script-src': [
         "'self'",
-        "'unsafe-inline'",
-        "'unsafe-eval'",
         'www.googletagmanager.com',
         'static.cloudflareinsights.com',
         'cdn.jsdelivr.net',
@@ -170,6 +168,10 @@ const config: NextConfig = {
             {
                 source: '/(.*)?', // Matches all pages
                 headers: [
+                    {
+                        key: 'Strict-Transport-Security',
+                        value: 'max-age=63072000; includeSubDomains; preload',
+                    },
                     {
                         key: 'X-Frame-Options',
                         value: 'DENY',

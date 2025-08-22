@@ -1,6 +1,5 @@
 'use client';
 import { Trans } from '@lingui/react/macro';
-import { isArray } from 'lodash-es';
 import { ReadonlyURLSearchParams, usePathname, useSearchParams } from 'next/navigation.js';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 import urlcat from 'urlcat';
@@ -43,7 +42,7 @@ export const CategoryTabs = memo<Props>(function CategoryTabs({ token, ...rest }
 
     const tokenId = token.id;
     const isTracingChain = token?.chainId ? TRACING_CHAINS.includes(token.chainId) : true;
-    const isTracingPlatform = isArray(token?.platform_info)
+    const isTracingPlatform = Array.isArray(token?.platform_info)
         ? token.platform_info.some((x) => TRACING_CHAINS.includes(x.chain_id))
         : true;
 
