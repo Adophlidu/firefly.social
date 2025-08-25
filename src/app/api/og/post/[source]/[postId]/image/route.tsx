@@ -17,6 +17,7 @@ import { compose } from '@/helpers/compose.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { getImageMetaFromUrl } from '@/helpers/getImageMetaFromUrl.js';
 import { narrowToSocialSourceInURL } from '@/helpers/narrowToSocialSource.js';
+import { removeCombiningCharacters } from '@/helpers/removeCombiningCharacters.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
@@ -214,7 +215,7 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
                         lineClamp: 3,
                     }}
                 >
-                    {content}
+                    {removeCombiningCharacters(content)}
                 </div>
             </div>
         </div>
