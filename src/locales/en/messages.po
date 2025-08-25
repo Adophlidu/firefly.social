@@ -4312,6 +4312,9 @@ msgstr "Events"
 msgid "Quote posts disabled"
 msgstr "Quote posts disabled"
 
+msgid "How to do?"
+msgstr "How to do?"
+
 msgid "Choose Wallet"
 msgstr "Choose Wallet"
 

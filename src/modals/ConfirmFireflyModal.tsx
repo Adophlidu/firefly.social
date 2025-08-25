@@ -1,7 +1,10 @@
+import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
+import { useMemo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
+import { ACCOUNT_CONFLICT_SOLUTION_URL, ACCOUNT_CONFLICT_SOLUTION_ZH_URL } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { createDummyProfileFromFireflySession } from '@/helpers/createDummyProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -49,7 +52,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                             </Trans>
                         </p>
                         {fireflyProfile ? (
-                            <menu className="no-scrollbar mb-6 flex max-h-[192px] flex-col gap-3 overflow-auto rounded-md border border-highlight border-line p-2">
+                            <menu className="no-scrollbar mb-2 flex max-h-[192px] flex-col gap-3 overflow-auto rounded-md border border-highlight border-line p-2">
                                 <ProfileInList
                                     key={account.profile.profileId}
                                     selectable={false}
@@ -63,7 +66,8 @@ export function ConfirmFireflyModal({ ref }: Props) {
                                 />
                             </menu>
                         ) : null}
-                        <div className="flex gap-2">
+                        <AccountConflictSolutionLink />
+                        <div className="mt-6 flex gap-2">
                             <ClickableButton
                                 className="box-border flex h-10 flex-1 items-center justify-center rounded-full border border-main text-medium font-bold text-main"
                                 onClick={() => {
@@ -99,6 +103,25 @@ export function ConfirmFireflyModal({ ref }: Props) {
     });
 
     return null;
+}
+
+function AccountConflictSolutionLink() {
+    const {
+        i18n: { locale },
+    } = useLingui();
+    const href = useMemo(() => {
+        if (locale === 'zh-Hans' || locale === 'zh-Hant') {
+            return ACCOUNT_CONFLICT_SOLUTION_ZH_URL;
+        }
+        return ACCOUNT_CONFLICT_SOLUTION_URL;
+    }, [locale]);
+    return (
+        <div className="flex w-full items-center justify-end">
+            <Link href={href} target="_blank" className="text-xs font-medium text-highlight underline">
+                <Trans>How to do?</Trans>
+            </Link>
+        </div>
+    );
 }
 
 export const ConfirmFireflyModalRef = new SingletonModal<ConfirmFireflyModalOpenProps, ConfirmFireflyModalCloseProps>();

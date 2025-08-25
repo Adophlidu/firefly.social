@@ -4296,6 +4296,9 @@ msgstr ""
 msgid "Quote posts disabled"
 msgstr ""
 
+msgid "How to do?"
+msgstr ""
+
 msgid "Choose Wallet"
 msgstr ""
 

@@ -76,6 +76,9 @@ export const X3_PRO_URL = 'https://x3.pro';
 export const X3_PRO_API_URL = `${X3_PRO_URL}/api/api`; // dual /api
 export const X3_PRO_AVATAR_URL = 'https://x3-media-pro-3.oss-cn-hongkong.aliyuncs.com';
 export const ORB_API_URL = 'https://orbapi.xyz';
+export const ACCOUNT_CONFLICT_SOLUTION_URL =
+    'https://mask.notion.site/Experience-a-login-conflict-2227d90fdc9b819cabffe6a98d87f901';
+export const ACCOUNT_CONFLICT_SOLUTION_ZH_URL = 'https://mask.notion.site/2327d90fdc9b80c8aba6e217343b304b';
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 

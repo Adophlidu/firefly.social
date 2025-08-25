@@ -4317,6 +4317,9 @@ msgstr "活動"
 msgid "Quote posts disabled"
 msgstr "無法轉發"
 
+msgid "How to do?"
+msgstr ""
+
 msgid "Choose Wallet"
 msgstr "選擇錢包"
 
