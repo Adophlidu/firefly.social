@@ -39,26 +39,34 @@ self.firebase.initializeApp({
 });
 const messaging = self.firebase.messaging();
 
-const linkRecord: Record<string, string | undefined> = {};
+const linkRecords = new Map<string, string[]>();
 
 messaging.onBackgroundMessage((payload) => {
     console.log('[firebase] Background message received');
     if (!payload.notification) return;
 
     const notificationTitle = payload.notification.title || 'Firefly';
+    const recordKey = `${notificationTitle}-${payload.notification.body}`;
+    const records = linkRecords.get(recordKey);
 
-    linkRecord[`${notificationTitle}-${payload.notification.body}`] = payload.data?.link;
+    linkRecords.set(recordKey, records ? [...records, payload.notification.link] : [payload.notification.link]);
     self.registration.showNotification(notificationTitle, {
         ...payload.notification,
         icon: '/android-chrome-144x144.png',
+        data: { link: payload.notification.link },
     });
 });
 
 self.addEventListener('notificationclick', (event) => {
     const recordKey = `${event.notification.title}-${event.notification.body}`;
-    const link = linkRecord[recordKey] || '/';
+    const records = linkRecords.get(recordKey);
+    const link = event.notification.data?.link || records?.[0] || '/';
 
-    linkRecord[recordKey] = undefined;
+    if (records?.length) {
+        if (records.length === 1) linkRecords.delete(recordKey);
+        else linkRecords.set(recordKey, records.slice(1));
+    }
+
     event.notification.close();
     event.waitUntil(
         self.clients
