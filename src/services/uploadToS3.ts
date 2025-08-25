@@ -2,17 +2,23 @@ import urlcat from 'urlcat';
 
 import { SUFFIX_NAMES } from '@/constants/index.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
+import { memoizePromiseWithTime } from '@/helpers/memoizePromise.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import type { UploadMediaTokenResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 const uploadedCache = new WeakMap<File, string | Promise<string>>();
 
-async function getS3UploadMediaToken() {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/uploadMediaToken');
-    const response = await fetchJson<UploadMediaTokenResponse>(url);
-    return resolveFireflyResponseData(response);
-}
+const getS3UploadMediaToken = memoizePromiseWithTime(
+    async function getS3UploadMediaToken() {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/uploadMediaToken');
+        const response = await fetchJson<UploadMediaTokenResponse>(url);
+        return resolveFireflyResponseData(response);
+    },
+    () => 'getS3UploadMediaToken',
+    // https://github.com/DimensionDev/Mask-X-Backend/blob/develop/src/farcaster-hub/farcaster-hub.service.ts
+    { cacheTime: 60 * 10 }, // 10 minutes
+);
 
 async function uploadToDirectory(
     file: File,
