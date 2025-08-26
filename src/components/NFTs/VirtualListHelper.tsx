@@ -1,6 +1,6 @@
 import { SingleNFTFeed } from '@/components/NFTs/SingleNFTFeed.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function getSingleNFTFeedItemContent(
     index: number,

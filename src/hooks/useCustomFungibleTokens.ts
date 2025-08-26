@@ -14,7 +14,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import type { Token as TipsToken } from '@/providers/types/Transfer.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export interface Token extends TipsToken {
     custom?: boolean;

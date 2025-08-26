@@ -5,9 +5,9 @@ import { zeroAddress } from 'viem';
 import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupportedChains.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
-import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/types.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useTradeInfo(token: CoinGeckoToken | null | undefined, argChainId?: number, argAddress?: string) {
     const { data: trending } = useCoinTrending(token?.id);

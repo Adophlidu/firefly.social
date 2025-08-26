@@ -569,8 +569,7 @@
         "src/idls",
         "src/types/sol-rp.ts",
         "stories",
-        "src/fonts/bedStead/**",
-        "src/fonts/levelUp/**"
+        "src/fonts/bedStead/**"
     ],
     "overrides": []
 }

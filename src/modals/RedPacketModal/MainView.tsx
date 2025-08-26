@@ -32,11 +32,11 @@ import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useERC20TokenAllowance } from '@/hooks/useERC20Allowance.js';
 import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
-import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { RedPacketContext, redPacketRandomTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { TypeTabs } from '@/modals/RedPacketModal/TypeTabs.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
-import type { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
+import type { FungibleToken } from '@/web3-shared/base/specs.js';
+import type { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export default function MainView() {
     const { history } = useRouter();

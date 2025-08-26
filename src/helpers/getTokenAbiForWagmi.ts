@@ -2,7 +2,7 @@ import { type Address, erc20Abi } from 'viem';
 
 import { USDT_ABI } from '@/abis/USDT.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const usdtAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7';
 

@@ -15,7 +15,7 @@ import { Modals } from '@/modals/FrameViewerModal/modals.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
 import type { FrameV2 } from '@/types/frame.js';
-import { EthereumMethodType } from '#masknet/web3-shared-evm';
+import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;

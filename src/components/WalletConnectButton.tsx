@@ -18,8 +18,8 @@ import { fetchEnsName } from '@/hooks/useEnsNameCached.js';
 import { MyWalletsModalRef } from '@/modals/MyWalletsModal/index.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface WalletConnectButtonProps extends ClickableButtonProps {}
 

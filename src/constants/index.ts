@@ -29,11 +29,11 @@ import {
     WalletProfileCategory,
 } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/types/index.js';
-import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/types.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 import type { Runtime } from '@/providers/types/Trending.js';
 import { MediaSource } from '@/types/compose.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export const EMPTY_LIST = Object.freeze([]) as never[];
 export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
@@ -50,7 +50,6 @@ export const FARCASTER_REPLY_URL = 'https://relay.farcaster.xyz';
 export const WARPCAST_ROOT_URL = 'https://api.warpcast.com';
 export const WARPCAST_ROOT_URL_V1 = 'https://api.warpcast.com/v1';
 export const WARPCAST_ROOT_URL_V2 = 'https://api.warpcast.com/v2';
-export const WARPCAST_CLIENT_URL_V1 = 'https://client.warpcast.com/v1';
 export const FIREFLY_ROOT_URL = 'https://api.firefly.land';
 export const FIREFLY_DEV_ROOT_URL = 'https://api-dev.firefly.land';
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';

@@ -11,7 +11,7 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { type CreateRedPacketContext, EthereumRedPacket } from '@/providers/ethereum/RedPacket.js';
-import { EthereumSchemaType } from '#masknet/web3-shared-evm';
+import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export function useEthereumDefaultGas(context: CreateRedPacketContext, enabled = true) {
     const { account, chainId } = useChainContext({

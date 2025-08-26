@@ -21,7 +21,7 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { type EVM as NFTScanEVM, TransEventType } from '@/providers/nft-scan/types.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface Props {
     chainId: EthereumChainId;

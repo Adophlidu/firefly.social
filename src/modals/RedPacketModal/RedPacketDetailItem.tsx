@@ -20,7 +20,7 @@ import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountIt
 import { RedPacketActionButton } from '@/modals/RedPacketModal/RedPacketActionButton.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface HistoryInfo {
     rp_msg: string;

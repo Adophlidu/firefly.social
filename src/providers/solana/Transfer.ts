@@ -10,7 +10,7 @@ import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTo
 import { getWalletAdapter } from '@/providers/solana/getWalletAdapter.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 const defaultFee = 0.00001 * web3.LAMPORTS_PER_SOL * 1.3; // 0.000008 SOL with a buffer
 

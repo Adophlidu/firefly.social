@@ -2,8 +2,8 @@
 
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
-import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/types.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export const searchTokenByAddress = memoizePromise(
     async function searchTokenByAddress(address: string) {

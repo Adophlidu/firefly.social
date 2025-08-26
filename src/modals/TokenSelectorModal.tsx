@@ -14,11 +14,11 @@ import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import type { Token } from '@/providers/types/Transfer.js';
-import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
+import type { FungibleToken } from '@/web3-shared/base/specs.js';
+import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export interface TokenSelectorModalOpenProps {
     address: string;

@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import { useMemo } from 'react';
 
 import { parseUrl } from '@/helpers/parseUrl.js';
-import type { NonFungibleTokenTrait } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { EVM as NFTScanEVM } from '@/providers/nft-scan/types.js';
+import type { NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
 
 function findTraitValue(traits: NFTScanEVM.Attribute[] | NonFungibleTokenTrait[], type: string) {
     const trait = traits.find((trait) => {

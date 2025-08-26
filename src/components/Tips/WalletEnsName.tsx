@@ -6,7 +6,7 @@ import { useEnsName } from 'wagmi';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface WalletEnsNameProps {
     address: string;

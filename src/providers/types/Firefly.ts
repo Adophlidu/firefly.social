@@ -21,7 +21,6 @@ import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { NotificationType as SocialNotificationType } from '@/providers/types/SocialMedia.js';
-import type { ComposeType } from '@/types/compose.js';
 
 export enum EmbedMediaType {
     IMAGE = 'image',
@@ -710,11 +709,6 @@ export interface SchedulePostPayload {
     platform: SocialSourceInURL;
     platformUserId: string;
     payload: string;
-}
-
-export interface SchedulePostDisplayInfo {
-    content: string;
-    type: ComposeType;
 }
 
 export enum ScheduleTaskStatus {

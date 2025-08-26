@@ -10,9 +10,10 @@ import { Link } from '@/components/Link.js';
 import { isValidChainIdEthereum, isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import { EVMExplorerResolver, SolanaExplorerResolver } from '@/mask/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
-import { EthereumSchemaType } from '#masknet/web3-shared-evm';
+import { EVMExplorerResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import { SolanaExplorerResolver } from '@/web3-providers/Web3/Solana/apis/ResolverAPI.js';
+import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
     return (

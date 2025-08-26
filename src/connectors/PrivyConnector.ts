@@ -5,8 +5,8 @@ import type { PrivyBridgeElement } from '@/components/PrivyBridge.js';
 import { NetworkType } from '@/constants/enum.js';
 import { AbortError, InvalidResultError } from '@/constants/error.js';
 import { retry } from '@/helpers/retry.js';
-import { EthereumMethodType } from '@/mask_pkgs/web3-shared/evm/index.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
+import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
 export function getPrivyBridge() {
     if (typeof window === 'undefined') return;

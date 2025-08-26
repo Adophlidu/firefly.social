@@ -26,9 +26,9 @@ import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { useCollectionMarketInfo } from '@/hooks/useCollectionMarketInfo.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
-import type { NonFungibleTokenTrait } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import type { NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface NFTInfoProps {
     ownerAddress?: string;

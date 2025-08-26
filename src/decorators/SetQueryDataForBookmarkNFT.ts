@@ -5,11 +5,11 @@ import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveNFTId, resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
-import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import type { FollowingNFT, NFTFeedV3, Poap } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/utility.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const METHODS_BE_OVERRIDDEN = ['bookmarkNFT', 'unbookmarkNFT'] as const;
 

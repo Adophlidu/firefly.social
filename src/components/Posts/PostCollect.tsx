@@ -23,11 +23,11 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { useTokenBalanceInPostCollect } from '@/hooks/useTokenBalanceInPostCollect.js';
-import { EVMExplorerResolver } from '@/mask/index.js';
 import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { EVMExplorerResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
 
 function formatTimeLeft(endTime: string) {
     const timeLeft = getTimeLeft(endTime);

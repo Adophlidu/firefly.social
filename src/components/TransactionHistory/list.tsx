@@ -17,7 +17,6 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { groupAndSortByDate } from '@/helpers/sortAndGroupByDate.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
@@ -26,6 +25,7 @@ import {
     type TransactionHistoryItem,
     TransactionState,
 } from '@/providers/types/Firefly.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface Props {
     chains: number[];

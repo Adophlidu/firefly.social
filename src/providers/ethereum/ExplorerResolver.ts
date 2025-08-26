@@ -1,5 +1,5 @@
-import { ExplorerResolver as Resolver } from '@/mask/index.js';
-import type { ChainDescriptor } from '@/mask_pkgs/web3-shared/base/index.js';
+import { ExplorerResolver as Resolver } from '@/web3-providers/Web3/Base/apis/ExplorerResolver.js';
+import type { ChainDescriptor } from '@/web3-shared/base/specs.js';
 
 class ExplorerResolver<ChainId, SchemaType, NetworkType> extends Resolver<ChainId, SchemaType, NetworkType> {
     constructor(

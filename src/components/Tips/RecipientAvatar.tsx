@@ -7,7 +7,7 @@ import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { type TipsProfile } from '@/hooks/useTipsContext.js';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
 

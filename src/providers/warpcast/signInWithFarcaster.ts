@@ -5,10 +5,10 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { SITE_URL } from '@/constants/index.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
-import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { custodyOf } from '@/providers/warpcast/custodyOf.js';
 import type { FrameV2 } from '@/types/frame.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 async function createSiwfMessage(url: string, address: string, fid: string, nonce: string) {
     const u = parseUrl(url);

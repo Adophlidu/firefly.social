@@ -7,7 +7,7 @@ import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/P
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function NFTListByContract(props: { contract: string; owner: string; chainId: EthereumChainId }) {
     const { contract, owner, chainId } = props;

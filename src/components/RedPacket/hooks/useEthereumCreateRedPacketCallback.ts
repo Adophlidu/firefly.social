@@ -15,8 +15,6 @@ import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueu
 import { rightShift, toFixed } from '@/helpers/number.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { EVMChainResolver } from '@/mask/index.js';
-import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
@@ -25,7 +23,9 @@ import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEve
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { RedPacketCreationSuccessEventArgs, RedPacketMetadata } from '@/types/rp.js';
-import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
+import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import type { FungibleToken } from '@/web3-shared/base/specs.js';
+import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 function treeShakePayloadInfo(payload: RedPacketJSONPayload): RedPacketMetadata {
     const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<

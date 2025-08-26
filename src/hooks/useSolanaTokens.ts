@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
-import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useSolanaTokens(address?: string) {
     return useQuery({

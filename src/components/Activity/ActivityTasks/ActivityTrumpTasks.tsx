@@ -33,8 +33,8 @@ import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { Level } from '@/providers/types/CZ.js';
 import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
 import type { Chars } from '@/types/chars.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
-import { SolanaChainId as SolChainId } from '#masknet/web3-shared-solana';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 function DisclaimerDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
     return (
@@ -199,7 +199,7 @@ Check your eligibility and participate here ${shareUrl}
                     <Trans>Connect Wallet</Trans>
                 </h2>
                 <ActivityConnectCard
-                    chainId={SolChainId.Mainnet}
+                    chainId={SolanaChainId.Mainnet}
                     source={Source.Twitter}
                     label={address ? <Trans>Wallet submitted</Trans> : <Trans>submit a wallet to receive $TRUMP</Trans>}
                 />

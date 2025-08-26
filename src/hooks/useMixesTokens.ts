@@ -8,8 +8,8 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { minus, multipliedBy } from '@/helpers/number.js';
 import { useCustomFungibleTokens } from '@/hooks/useCustomFungibleTokens.js';
-import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useMixesTokens({ evmAddress, solanaAddress }: { evmAddress?: Address; solanaAddress?: string }) {
     const query = useQuery({

@@ -5,7 +5,7 @@ import { compact } from 'lodash-es';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export const searchTokensByAddress = memoizePromise(
     async function searchTokensByAddress(address: string) {

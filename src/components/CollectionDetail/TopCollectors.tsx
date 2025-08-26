@@ -15,7 +15,7 @@ import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { CollectionHolder } from '@/providers/types/Firefly.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface TopCollectorsProps {
     chainId?: EthereumChainId;

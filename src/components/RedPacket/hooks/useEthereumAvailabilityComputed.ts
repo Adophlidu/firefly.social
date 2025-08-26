@@ -13,7 +13,7 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 /**
  * Fetch the red packet info from the chain

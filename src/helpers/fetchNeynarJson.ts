@@ -20,21 +20,3 @@ export function fetchNeynarJson<T>(
         options,
     );
 }
-
-export function fetchNeynarStream<T>(
-    url: string,
-    init?: RequestInit,
-    options?: NextFetchersOptions,
-): Promise<NeynarResponse<T>> {
-    return fetchJson(
-        url,
-        {
-            ...init,
-            headers: {
-                'Content-Type': 'application/octet-stream',
-                ...init?.headers,
-            },
-        },
-        options,
-    );
-}

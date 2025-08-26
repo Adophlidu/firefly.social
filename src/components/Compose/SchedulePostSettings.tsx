@@ -9,7 +9,6 @@ import CalendarIcon from '@/assets/calendar.svg';
 import TimerIcon from '@/assets/timer.svg';
 import { DatePicker } from '@/components/Calendar/DatePicker.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { TimePicker } from '@/components/TimePicker.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';

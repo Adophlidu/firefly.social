@@ -10,8 +10,8 @@ import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useVerifyAndBindWallet } from '@/hooks/useVerifyAndBindWallet.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface Props {
     onClose: (reason: Error) => void;

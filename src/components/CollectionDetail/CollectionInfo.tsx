@@ -13,7 +13,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface CollectionInfoProps {
     address: string;

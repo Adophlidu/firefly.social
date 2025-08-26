@@ -17,7 +17,7 @@ import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { type FollowingNFT, type NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface SingleNFTFeedProps {
     disableAnimate?: boolean;

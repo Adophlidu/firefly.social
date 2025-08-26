@@ -10,9 +10,9 @@ import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { NetworkType } from '@/constants/enum.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
-import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
-import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
 import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface TipsModalHeaderProps {
     title?: ReactNode;

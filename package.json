@@ -4,14 +4,6 @@
     "version": "7.3.1",
     "private": true,
     "packageManager": "pnpm@8.15.8",
-    "imports": {
-        "#masknet/web3-shared-evm": "./src/mask_pkgs/web3-shared/evm/index.ts",
-        "#masknet/web3-shared-solana": "./src/mask_pkgs/web3-shared/solana/index.ts",
-        "#masknet/web3-constants/*": "./src/mask_pkgs/web3-constants/*",
-        "#masknet/web3-contracts/*": "./src/mask_pkgs/web3-contracts/*",
-        "#masknet/web3-helpers": "./src/mask_pkgs/web3-helpers/index.ts",
-        "#masknet/web3-providers": "./src/mask_pkgs/web3-providers/entry.ts"
-    },
     "scripts": {
         "dev": "next dev --turbo",
         "debug": "NODE_OPTIONS='--inspect' next dev",

@@ -2,7 +2,7 @@ import { type Chain, createPublicClient as createClient, http, type PublicClient
 
 import { chains } from '@/configs/chains.js';
 import { resolvePublicProviderUrl } from '@/helpers/resolvePublicProviderUrl.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const map = new Map<number, PublicClient>();
 

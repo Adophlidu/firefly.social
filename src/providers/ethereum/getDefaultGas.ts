@@ -6,11 +6,11 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { multipliedBy, toFixed, ZERO } from '@/helpers/number.js';
-import { EVMChainResolver } from '@/mask/index.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import type { GetDefaultGasOptions } from '@/providers/types/Transfer.js';
-import type { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 async function estimateGasForErc20Token(
     to: string,

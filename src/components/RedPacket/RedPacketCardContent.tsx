@@ -34,13 +34,13 @@ import { usePreloadImage } from '@/helpers/preloadImage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { EVMChainResolver } from '@/mask/index.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { RedPacketModalRef } from '@/modals/RedPacketModal/index.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { TokenType } from '@/types/rp.js';
+import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
 
 interface Props {
     payload: RedPacketJSONPayload;

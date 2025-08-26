@@ -13,7 +13,7 @@ import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresse
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface SelectedCollection {
     chainId: EthereumChainId;

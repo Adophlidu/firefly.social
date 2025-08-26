@@ -65,8 +65,6 @@ import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useExpandableTokens } from '@/hooks/useExpandableTokens.js';
 import { useMixesTokens } from '@/hooks/useMixesTokens.js';
-import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
-import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
 import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
@@ -76,6 +74,8 @@ import { SolanaTransfer } from '@/providers/solana/Transfer.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import type { Token as TipsToken, Token } from '@/providers/types/Transfer.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function SendTransactionModal({ onClose, open }: { onClose: () => void; open: boolean }) {
     return (

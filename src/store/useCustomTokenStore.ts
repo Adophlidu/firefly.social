@@ -5,7 +5,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export enum CustomTokenType {
     ERC20 = 'ERC20',

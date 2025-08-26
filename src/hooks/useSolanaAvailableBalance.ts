@@ -7,8 +7,8 @@ import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { isGreaterThan } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
-import { SolanaChainResolver } from '@/mask/index.js';
 import { getNativeTokenBalance, getSplTokenBalance } from '@/providers/solana/getTokenBalance.js';
+import { SolanaChainResolver } from '@/web3-providers/Web3/Solana/apis/ResolverAPI.js';
 
 export function useSolanaAvailableBalance(
     address: string,

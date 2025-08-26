@@ -32,8 +32,8 @@ import { runInSafe } from '@/helpers/runInSafe.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
 import { type Chars } from '@/types/chars.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
-import { SolanaChainId as SolChainId } from '#masknet/web3-shared-solana';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function ActivityPenguTasks({
     data,
@@ -237,7 +237,7 @@ Submit here ${shareUrl}
                     <Trans>Connect Wallet</Trans>
                 </h2>
                 <ActivityConnectCard
-                    chainId={SolChainId.Mainnet}
+                    chainId={SolanaChainId.Mainnet}
                     source={Source.Twitter}
                     label={address ? <Trans>Wallet submitted</Trans> : <Trans>Submit a wallet to receive NFT</Trans>}
                 />

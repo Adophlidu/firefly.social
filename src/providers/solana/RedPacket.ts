@@ -10,7 +10,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { createRedPacketProgram } from '@/providers/solana/createRedPacketProgram.js';
 import { requestRPC } from '@/providers/solana/requestRPC.js';
 import type { GetTransactionResponse } from '@/providers/types/Solana.js';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 /**
  * Context for creating a red packet with native token.

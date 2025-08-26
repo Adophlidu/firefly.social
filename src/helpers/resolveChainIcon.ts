@@ -1,6 +1,6 @@
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/types/index.js';
-import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/types.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export const resolveChainIcon = createLookupTableResolver<number, string | undefined>(
     {

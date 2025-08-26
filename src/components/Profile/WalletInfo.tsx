@@ -34,7 +34,7 @@ import {
     type WalletProfile,
     WalletProfileDataSource,
 } from '@/providers/types/Firefly.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface WalletInfoProps {
     profile: WalletProfile;

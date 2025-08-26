@@ -24,7 +24,7 @@ import { Network, SupportedMethod, type Transaction } from '@/types/bridge.js';
 import type { RequestArguments } from '@/types/ethereum.js';
 import type { FrameV2 } from '@/types/frame.js';
 import type { NextPageProps } from '@/types/utility.js';
-import { EthereumMethodType } from '#masknet/web3-shared-evm';
+import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
 const connectWalletSquashed = squashCallback(
     () =>

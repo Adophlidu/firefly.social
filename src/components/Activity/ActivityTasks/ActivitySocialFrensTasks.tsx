@@ -22,7 +22,7 @@ import { safeUnreachable } from '@/helpers/unreachable.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
 import type { Chars } from '@/types/chars.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const sources: SocialSource[] = [Source.Lens, Source.Farcaster];
 

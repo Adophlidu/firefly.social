@@ -3,7 +3,7 @@ import { switchChain } from 'wagmi/actions';
 
 import { chains } from '@/configs/chains.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import type { EthereumChainId } from '#masknet/web3-shared-evm';
+import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export async function switchEthereumChain(
     chainId: EthereumChainId,

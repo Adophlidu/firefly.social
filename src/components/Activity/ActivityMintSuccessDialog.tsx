@@ -12,7 +12,7 @@ import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Chars } from '@/types/chars.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface Props {
     open: boolean;

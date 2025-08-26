@@ -7,7 +7,7 @@ import { NFTList } from '@/components/CollectionDetail/NFTList.js';
 import { TopCollectors } from '@/components/CollectionDetail/TopCollectors.js';
 import { Loading } from '@/components/Loading.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface CollectionTabsProps {
     chainId?: EthereumChainId;

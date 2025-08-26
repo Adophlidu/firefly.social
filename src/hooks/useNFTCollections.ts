@@ -4,7 +4,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { asyncIteratorToArray } from '@/helpers/asyncIteratorToArray.js';
 import { pageableToIterator, type PageIndicator } from '@/helpers/pageable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { EthereumSchemaType } from '#masknet/web3-shared-evm';
+import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 interface Options {
     account: string | undefined;

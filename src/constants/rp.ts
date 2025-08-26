@@ -1,7 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
 
 import { multipliedBy } from '@/helpers/number.js';
-import { EthereumChainId as ChainId } from '@/mask_pkgs/web3-shared/evm/types/index.js';
+import { EthereumChainId as ChainId } from '@/web3-shared/evm/types.js';
 
 // Note: if the latest version has been changed, please update packages/mask/content-script/components/CompositionDialog/useSubmit.ts
 /**

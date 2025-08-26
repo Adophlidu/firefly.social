@@ -6,7 +6,7 @@ import { getAnchorProvider } from '@/helpers/getAnchorProvider.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import type { Redpacket } from '@/idls/redpacket.js';
 import RedPacketIDL from '@/idls/redpacket.json' with { type: 'json' };
-import type { SolanaChainId } from '#masknet/web3-shared-solana';
+import type { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 const storage = new Map<string, Program<Redpacket>>();
 

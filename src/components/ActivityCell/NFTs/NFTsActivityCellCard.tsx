@@ -16,7 +16,7 @@ import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import { type EVM, TransEventType } from '@/providers/nft-scan/types.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface Props {
     address: string;

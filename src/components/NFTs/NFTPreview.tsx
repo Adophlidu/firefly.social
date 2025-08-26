@@ -27,7 +27,7 @@ import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface NFTPreviewProps {
     nft: NFTDetail;

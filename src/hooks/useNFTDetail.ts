@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function useNFTDetail(
     chainId: number = EthereumChainId.Mainnet,

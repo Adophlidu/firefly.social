@@ -10,9 +10,9 @@ import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
 import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation.js';
-import type { NonFungibleTokenTrait } from '@/mask_pkgs/web3-shared/base/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
+import type { NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
+import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export function PoapDetailPage({ tokenId }: { tokenId: string }) {
     const { data: poap, isLoading } = useQuery({

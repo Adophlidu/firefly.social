@@ -25,11 +25,11 @@ import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
-import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
-import type { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
+import type { FungibleToken } from '@/web3-shared/base/specs.js';
+import type { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export const redPacketRandomTabs = [
     {

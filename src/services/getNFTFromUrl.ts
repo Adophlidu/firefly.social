@@ -4,8 +4,8 @@ import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 const NFTSCAN_EVM_DOMAINS = [
     {

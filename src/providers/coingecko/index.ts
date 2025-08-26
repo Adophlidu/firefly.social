@@ -24,8 +24,9 @@ import type {
 } from '@/providers/types/CoinGecko.js';
 import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
-import { EthereumChainId, getCoinGeckoConstants } from '#masknet/web3-shared-evm';
-import { getCoinGeckoConstants as getCoinGeckoConstantsSolana } from '#masknet/web3-shared-solana';
+import { getCoinGeckoConstants } from '@/web3-shared/evm/constants.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { getCoinGeckoConstants as getCoinGeckoConstantsSolana } from '@/web3-shared/solana/constants.js';
 
 /**
  * @internal

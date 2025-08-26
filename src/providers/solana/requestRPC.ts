@@ -1,7 +1,7 @@
 import { RPC_Error } from '@/constants/error.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface RpcOptions {
     method: string;

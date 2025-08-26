@@ -4,9 +4,9 @@ import { estimateFeesPerGas, getBalance } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { isGreaterThan, multipliedBy, plus, ZERO } from '@/helpers/number.js';
-import { EVMChainResolver } from '@/mask/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { type Article } from '@/providers/types/Article.js';
+import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
 
 export function useArticleCollectStatus(article: Article) {
     const account = useAccount();

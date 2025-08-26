@@ -19,7 +19,7 @@ import { leftShift } from '@/helpers/number.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { SecurityMessageLevel, type StaticSecurityMessage } from '@/providers/types/Security.js';
 import type { AssetChange, SimulateResponse, SimulationOptions } from '@/providers/types/Tenderly.js';
-import { CHAIN_DESCRIPTORS } from '#masknet/web3-shared-evm';
+import { CHAIN_DESCRIPTORS } from '@/web3-shared/evm/descriptors.js';
 
 interface PanelConfig {
     title: ReactNode;

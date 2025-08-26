@@ -9,7 +9,7 @@ import { runInSafe } from '@/helpers/runInSafe.js';
 import { getWalletAdapter } from '@/providers/solana/getWalletAdapter.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function getPublicParameters(eventId: string, previousEventId: string | null) {
     const evmAccount = runInSafe(() => getAccount(wagmiConfig));

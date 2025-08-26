@@ -22,7 +22,7 @@ import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 import type { Chars } from '@/types/chars.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function ActivityButtrflyTasks({
     data,

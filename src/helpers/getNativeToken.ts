@@ -1,8 +1,9 @@
 import { NetworkType } from '@/constants/enum.js';
 import { unreachable } from '@/helpers/unreachable.js';
-import { EVMChainResolver, SolanaChainResolver } from '@/mask/index.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import { SolanaChainResolver } from '@/web3-providers/Web3/Solana/apis/ResolverAPI.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function getNativeToken(networkType: NetworkType, chainId?: number) {
     switch (networkType) {

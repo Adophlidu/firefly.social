@@ -2,7 +2,7 @@ import { pad, parseUnits } from 'viem';
 import { readContract } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const ABI = [
     {

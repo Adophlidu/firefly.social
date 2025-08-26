@@ -13,7 +13,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useNFTCollections } from '@/hooks/useNFTCollections.js';
 import { type Collection, CollectionItem } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
-import { EthereumSchemaType } from '#masknet/web3-shared-evm';
+import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 interface NonFungibleCollectionSelectPanelProps {
     onSelected?: (selected: Collection) => void;

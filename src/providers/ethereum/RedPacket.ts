@@ -12,15 +12,15 @@ import { isLessThan } from '@/helpers/number.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
-import { EVMChainResolver } from '@/mask/index.js';
-import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import { type EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
+import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import type { FungibleToken } from '@/web3-shared/base/specs.js';
+import { type EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export interface CreateRedPacketContext {
     networkType: NetworkType;

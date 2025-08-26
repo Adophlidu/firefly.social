@@ -18,7 +18,7 @@ import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { captureActivityClaimEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
 import type { Chars } from '@/types/chars.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface Props {
     status: ActivityStatus;

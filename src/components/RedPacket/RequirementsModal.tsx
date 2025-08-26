@@ -30,10 +30,10 @@ import { isZero } from '@/helpers/number.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import { EVMExplorerResolver } from '@/mask/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { EVMExplorerResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
 
 interface NFTListProps {
     nfts: FireflyRedPacketAPI.NftOwnedStrategyPayload[];

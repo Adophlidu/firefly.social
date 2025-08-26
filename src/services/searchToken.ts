@@ -2,13 +2,13 @@ import { queryClient } from '@/configs/queryClient.js';
 import { isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/types.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { CoinGeckoAsset, CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import type { GetTokenOptions, SearchTokenInfo } from '@/providers/types/Firefly.js';
 import { searchTokenByAddress } from '@/services/searchTokenByAddress.js';
 import { isTokenMatched } from '@/services/searchTokens.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 const getTokens = memoizePromise(CoinGecko.getTokens, () => 'CoinGecko.getTokens');
 

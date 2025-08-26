@@ -3,7 +3,7 @@ import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export async function getPoapsByWallet(address: string) {
     const poaps = await FireflyEndpointProvider.getPOAPs(address);

@@ -1,5 +1,5 @@
 import { getNFTPropertyDateString } from '@/helpers/getNFTPropertyDateString.js';
-import type { NonFungibleTokenTrait } from '@/mask_pkgs/web3-shared/base/index.js';
+import type { NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
 
 export function getNFTPropertyValue(displayType: NonFungibleTokenTrait['displayType'], value: string) {
     switch (displayType) {

@@ -1,4 +1,4 @@
-import { EthereumMethodType } from '#masknet/web3-shared-evm';
+import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
 export interface MethodItem {
     method: EthereumMethodType;

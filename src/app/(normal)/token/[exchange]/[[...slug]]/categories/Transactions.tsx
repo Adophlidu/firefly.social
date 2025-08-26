@@ -21,7 +21,7 @@ import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { swapActivityToTradeRecord } from '@/helpers/swapActivityToTradeRecord.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 function resolveTab(pathname: string, params: ReadonlyURLSearchParams, category: string) {
     const newParams = new URLSearchParams(params);

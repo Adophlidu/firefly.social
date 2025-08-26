@@ -26,7 +26,7 @@ import { ActivityElex24VoteOption } from '@/providers/types/Activity.js';
 import { Level } from '@/providers/types/CZ.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 import { type Chars } from '@/types/chars.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
     const { vote } = useContext(ActivityElex24Context);

@@ -28,7 +28,7 @@ import type { AddCustomERC20ModalOpenProps } from '@/modals/AddCustomERC20Modal.
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
-import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
+import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 const CHAIN_IDS = NFTSCAN_CHAIN_IDS.filter((id) => chains.some((chain) => chain.id === id));
 

@@ -31,13 +31,13 @@ import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsSetupPrivyWallet } from '@/hooks/useIsSetupPrivyWallet.js';
 import { useMixesTokens } from '@/hooks/useMixesTokens.js';
-import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
-import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
 import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
 import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 const TransactionHistory = dynamic(() => import('@/components/TransactionHistory/list.js'), {
     ssr: false,

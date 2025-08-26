@@ -6,7 +6,7 @@ import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useSolanaAvailabilityComputed(payload: RedPacketJSONPayload, post: Post, enabled = true) {
     const chainId = payload.chainId || SolanaChainId.Mainnet;

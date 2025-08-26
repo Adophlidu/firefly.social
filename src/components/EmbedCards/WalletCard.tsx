@@ -24,12 +24,12 @@ import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useWalletRelatedProfiles } from '@/hooks/useWalletRelatedProfiles.js';
-import { SolanaExplorerResolver } from '@/mask/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { GoPlus } from '@/providers/goplus/index.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { SolanaExplorerResolver } from '@/web3-providers/Web3/Solana/apis/ResolverAPI.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 function resolveProfileUrlBySource(source: ProfilePageSource, profiles: FireflyProfile[]) {
     const currentSourceProfiles = profiles.filter((profile) => profile.identity.source === source);

@@ -1,3 +1,9 @@
-import { EthereumChainId as ChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
-export const NFTSCAN_CHAIN_IDS = [ChainId.Mainnet, ChainId.BSC, ChainId.Polygon, ChainId.Base, ChainId.Optimism];
+export const NFTSCAN_CHAIN_IDS = [
+    EthereumChainId.Mainnet,
+    EthereumChainId.BSC,
+    EthereumChainId.Polygon,
+    EthereumChainId.Base,
+    EthereumChainId.Optimism,
+];

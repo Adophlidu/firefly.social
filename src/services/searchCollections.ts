@@ -5,7 +5,7 @@ import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const SEARCH_CHAIN_ID_LIST = [
     EthereumChainId.Mainnet,

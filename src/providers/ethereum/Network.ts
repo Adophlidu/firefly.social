@@ -3,10 +3,10 @@ import { getAccount, getChainId } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { EVMExplorerResolver } from '@/mask/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import type { NetworkProvider } from '@/providers/types/Network.js';
-import type { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EVMExplorerResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 class Provider implements NetworkProvider<EthereumChainId, Address, Hash> {
     async connect(): Promise<void> {

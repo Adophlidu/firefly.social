@@ -5,7 +5,7 @@ import { CACHE_AGE_INDEFINITE_ON_DISK, LENS_HUB_PROXY_ADDRESS } from '@/constant
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export async function GET(request: NextRequest) {
     const id = request.nextUrl.searchParams.get('id');

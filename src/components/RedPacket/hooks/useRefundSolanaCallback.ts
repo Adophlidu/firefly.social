@@ -5,7 +5,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import type { ChainContextOverrides } from '@/hooks/useChainContext.js';
 import { getTokenAccountByMint } from '@/providers/solana/getTokenAccountByMint.js';
 import { SolanaRedPacket } from '@/providers/solana/RedPacket.js';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useRefundSolanaCallback(rpid?: string, overrides?: ChainContextOverrides) {
     const chainId = overrides?.chainId || SolanaChainId.Mainnet;

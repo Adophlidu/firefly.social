@@ -11,7 +11,7 @@ import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
     const account = useAccount();

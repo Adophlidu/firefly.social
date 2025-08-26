@@ -11,7 +11,7 @@ import { notFound } from '@/esm/navigation.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { ErcType } from '@/providers/nft-scan/types.js';
-import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
+import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export function NFTDetailPage({ chainId, address, tokenId }: { chainId: number; address: string; tokenId: string }) {
     const isPoap = chainId === EthereumChainId.xDai && isSameEthereumAddress(address, POAP_CONTRACT_ADDRESS);

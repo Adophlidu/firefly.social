@@ -8,7 +8,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface CollectionItemProps extends HTMLProps<HTMLAnchorElement> {
     collection: EVM.Collection;

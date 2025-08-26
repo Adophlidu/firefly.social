@@ -3,9 +3,9 @@ import { useAccount, useChainId } from 'wagmi';
 import { NetworkType } from '@/constants/enum.js';
 import { unreachable } from '@/helpers/unreachable.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
-import { EVMChainResolver } from '@/mask/index.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
-import { SolanaChainId } from '#masknet/web3-shared-solana';
+import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export interface ChainContextOverrides {
     chainId?: number;

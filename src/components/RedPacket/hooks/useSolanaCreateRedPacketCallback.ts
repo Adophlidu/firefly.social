@@ -22,7 +22,6 @@ import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { rightShift, toFixed } from '@/helpers/number.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import RedPacketIDL from '@/idls/redpacket.json' with { type: 'json' };
-import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { getTokenAccountByMint } from '@/providers/solana/getTokenAccountByMint.js';
 import { type CreateWithNativeTokenContext, SolanaRedPacket } from '@/providers/solana/RedPacket.js';
@@ -30,6 +29,7 @@ import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEve
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { RedPacketMetadata } from '@/types/rp.js';
+import type { FungibleToken } from '@/web3-shared/base/specs.js';
 
 function treeShakePayloadInfo(payload: RedPacketJSONPayload): RedPacketMetadata {
     const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<number, number>;

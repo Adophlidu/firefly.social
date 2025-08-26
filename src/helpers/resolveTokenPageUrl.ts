@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 import { mainnet } from 'viem/chains';
 
 import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
-import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface Options {
     /** symbol, address, or coingecko coin id */

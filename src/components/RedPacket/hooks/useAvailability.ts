@@ -5,7 +5,7 @@ import { readContract } from 'wagmi/actions';
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
-import { type EthereumChainId } from '#masknet/web3-shared-evm';
+import { type EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function useAvailability(
     id: string,

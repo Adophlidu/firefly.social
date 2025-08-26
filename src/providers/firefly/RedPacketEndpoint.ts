@@ -19,7 +19,7 @@ import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { RedPacketMetadata } from '@/types/rp.js';
-import type { EthereumChainId } from '#masknet/web3-shared-evm';
+import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const SITE_URL = bom.location?.origin ?? '';
 
