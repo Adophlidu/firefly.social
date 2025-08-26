@@ -59,10 +59,12 @@ class FirebaseClient {
             const notification = new Notification(title, {
                 ...payload.notification,
                 icon: '/android-chrome-144x144.png',
+                data: { url: payload.data?.link },
             });
             notification.onclick = (event) => {
                 event.preventDefault();
-                const link = parseUrl(payload.data?.link || '');
+                const notification = event.currentTarget as Notification;
+                const link = parseUrl(notification?.data?.link || payload.data?.link || '');
                 if (!link || link.pathname === location.pathname) {
                     window.focus();
                     return;
