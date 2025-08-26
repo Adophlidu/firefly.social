@@ -16,6 +16,7 @@ import { URL_REGEX } from '@/constants/regexp.js';
 import { formatLensImageUrl } from '@/helpers/formatImageUrl.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
+import { resolveSizeFromS3Url } from '@/helpers/resolveSizeFromS3Url.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { formatLensChannelFromPostGroup } from '@/providers/lens/formatLensChannel.js';
 import {
@@ -26,7 +27,7 @@ import {
 import { formatLensPostOperations, formatLensPostStats } from '@/providers/lens/formatLensPostStatsAndOperations.js';
 import { formatLensProfileByMention, formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
 import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
-import type { Attachment, Post, PostType, Profile } from '@/providers/types/SocialMedia.js';
+import type { Attachment, MediaObject, Post, PostType, Profile } from '@/providers/types/SocialMedia.js';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
 
@@ -72,6 +73,7 @@ function getAttachmentsV3(attachments?: AnyMedia[] | null) {
                             uri: formatLensImageUrl(attachment.item),
                             coverUri: formatLensImageUrl(attachment.cover),
                             type: 'Video',
+                            ...resolveSizeFromS3Url(attachment.item),
                         };
                     }
                     return;
@@ -175,11 +177,15 @@ async function formatContentV3(metadata: PostMetadata, author: Profile, mentions
             };
         }
         case 'VideoMetadata': {
-            const videoAttachments = getAttachmentsV3(metadata.attachments)[0];
+            const videoAttachment = first(getAttachmentsV3(metadata.attachments));
+            const videoUrl = metadata.video.item || videoAttachment?.uri;
+            if (!videoUrl) return null;
+
             const asset = {
-                uri: formatLensImageUrl(metadata.video.item || videoAttachments?.uri),
-                coverUri: formatLensImageUrl(metadata.video.cover || videoAttachments?.coverUri || PLACEHOLDER_IMAGE),
+                uri: formatLensImageUrl(videoUrl),
+                coverUri: formatLensImageUrl(metadata.video.cover || videoAttachment?.coverUri || PLACEHOLDER_IMAGE),
                 type: 'Video',
+                ...resolveSizeFromS3Url(videoUrl),
             } satisfies Attachment;
 
             return {
@@ -217,9 +223,9 @@ async function formatContentV3(metadata: PostMetadata, author: Profile, mentions
     }
 }
 
-function getMediaObjectsV3(metadata: PostMetadata) {
+function getMediaObjectsV3(metadata: PostMetadata): MediaObject[] | undefined {
     const typename = metadata.__typename;
-    if (!typename) return undefined;
+    if (!typename) return;
 
     switch (typename) {
         case 'ArticleMetadata':
@@ -251,6 +257,7 @@ function getMediaObjectsV3(metadata: PostMetadata) {
                         return {
                             url: formatLensImageUrl(attachment.item),
                             mimeType: formatLensMediaVideoMimeType(attachment.type),
+                            ...resolveSizeFromS3Url(attachment.item),
                         };
                     default:
                         safeUnreachable(type);
@@ -264,10 +271,10 @@ function getMediaObjectsV3(metadata: PostMetadata) {
         case 'TextOnlyMetadata':
         case 'StoryMetadata':
         case 'UnknownPostMetadata':
-            return undefined;
+            return;
         default:
             safeUnreachable(typename);
-            return undefined;
+            return;
     }
 }
 

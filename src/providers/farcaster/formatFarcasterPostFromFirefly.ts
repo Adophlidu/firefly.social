@@ -1,12 +1,14 @@
 import { compact, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
+import { FIREFLY_S3_DOMAIN } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isIpfsCID } from '@/helpers/isIpfsCID.js';
 import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
+import { resolveSizeFromS3Url } from '@/helpers/resolveSizeFromS3Url.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/providers/farcaster/formatFarcasterProfileFromFirefly.js';
 import { type Cast, EmbedMediaType } from '@/providers/types/Firefly.js';
@@ -16,7 +18,7 @@ function getCoverUriFromUrl(url: string) {
     const parsed = parseUrl(url);
     if (!parsed) return '';
 
-    if (parsed.origin === 'https://media.firefly.land' && url.endsWith('.m3u8')) {
+    if (parsed.origin === FIREFLY_S3_DOMAIN && url.endsWith('.m3u8')) {
         return url.replace(/[^/]+\.m3u8$/, 'thumbnail.jpg');
     }
 
@@ -63,6 +65,7 @@ async function formatContent(cast: Cast): Promise<Post['metadata']['content']> {
                 type: assetType,
                 uri: lastAsset.url,
                 coverUri: getCoverUriFromUrl(lastAsset.url),
+                ...resolveSizeFromS3Url(lastAsset.url),
             } satisfies Attachment,
             attachments: compact<Attachment>(
                 attachments.map((x) => {
@@ -75,6 +78,7 @@ async function formatContent(cast: Cast): Promise<Post['metadata']['content']> {
                         type,
                         uri: x.url,
                         coverUri: getCoverUriFromUrl(x.url),
+                        ...resolveSizeFromS3Url(x.url),
                     };
                 }),
             ),
