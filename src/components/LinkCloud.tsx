@@ -2,8 +2,6 @@ import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 
 import { Link } from '@/components/Link.js';
-import { STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { SITE_URL_OFFICIAL } from '@/constants/index.js';
 
 export function LinkCloud() {
@@ -12,9 +10,11 @@ export function LinkCloud() {
             <span className="font-bold text-gray-500">© {2025} Firefly</span>
             {compact([
                 { name: <Trans>Communities</Trans>, link: '/settings/more', self: true },
-                env.external.NEXT_PUBLIC_DEVELOPERS !== STATUS.Disabled
-                    ? { name: <Trans>Developers</Trans>, link: '/developers/general', self: true }
-                    : null,
+
+                {
+                    name: <Trans>Feedback</Trans>,
+                    link: 'https://t.me/fireflyapp',
+                },
                 {
                     name: <Trans>Privacy Policy</Trans>,
                     link: 'https://mask.notion.site/Privacy-Policy-2e903bb2220e4dcfb7c3e8fcbd983d2a',
@@ -26,10 +26,6 @@ export function LinkCloud() {
                 {
                     name: <Trans>Download App</Trans>,
                     link: `${SITE_URL_OFFICIAL}/about`,
-                },
-                {
-                    name: <Trans>Feedback</Trans>,
-                    link: 'https://t.me/fireflyapp',
                 },
                 {
                     name: <Trans>About</Trans>,

@@ -3853,9 +3853,6 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-msgid "Developers"
-msgstr ""
-
 msgid "Sign In"
 msgstr ""
 

@@ -3874,9 +3874,6 @@ msgstr "账号或应用软件密码"
 msgid "Download"
 msgstr "下载"
 
-msgid "Developers"
-msgstr "开发者模式"
-
 msgid "Sign In"
 msgstr "登录"
 
