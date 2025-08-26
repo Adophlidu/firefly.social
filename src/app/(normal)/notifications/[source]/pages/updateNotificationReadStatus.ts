@@ -7,12 +7,7 @@ export function updateNotificationReadStatus() {
         const entries = Object.entries(prev || {}).map(([type, records]) => {
             return [
                 type,
-                !Array.isArray(records)
-                    ? []
-                    : records.map((record) => ({
-                          ...record,
-                          hasNewNotification: false,
-                      })),
+                Array.isArray(records) ? records.map((record) => ({ ...record, hasNewNotification: false })) : [],
             ];
         });
         return Object.fromEntries(entries);

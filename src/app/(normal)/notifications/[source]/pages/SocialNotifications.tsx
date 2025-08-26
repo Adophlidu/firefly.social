@@ -44,11 +44,7 @@ export const SocialNotifications = memo<SocialNotificationsProps>(function Socia
             updateNotificationReadStatus();
             listenNotifications();
 
-            const list = data.pages.flatMap((page) =>
-                page.data.concat().sort((a, b) => {
-                    return (b.timestamp ?? 0) - (a.timestamp ?? 0);
-                }),
-            );
+            const list = data.pages.flatMap((x) => x.data);
             if (!types.length) return list;
             return list.filter((x) => types.includes(x.type));
         },

@@ -3,7 +3,6 @@
 import { Popover, PopoverButton, PopoverPanel, Switch } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -84,7 +83,7 @@ export function NotificationSettings({ source }: { source: NotificationSource })
 
         return [Source.Farcaster, Source.Bsky].includes(source)
             ? baseTypes
-            : compact([
+            : [
                   ...baseTypes,
                   {
                       Icon: resolveNotificationIcon(NotificationType.Act),
@@ -105,7 +104,7 @@ export function NotificationSettings({ source }: { source: NotificationSource })
                             },
                         ]
                       : []),
-              ]);
+              ];
     }, [source]);
 
     return (
@@ -146,9 +145,9 @@ export function NotificationSettings({ source }: { source: NotificationSource })
                             className="flex cursor-pointer items-center justify-between py-1"
                             key={index}
                             onClick={() => {
-                                const result = !checked
-                                    ? [...selectedTypes, ...types]
-                                    : selectedTypes.filter((x) => !types.includes(x));
+                                const result = checked
+                                    ? selectedTypes.filter((x) => !types.includes(x))
+                                    : [...selectedTypes, ...types];
 
                                 setTypes(source, result);
                             }}
