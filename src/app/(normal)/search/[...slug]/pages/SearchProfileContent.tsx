@@ -29,6 +29,15 @@ const getSearchItemContent = ({ profile, related }: { profile: FireflyProfile; r
     );
 };
 
+function formatTwitterSearchKeyword(input: string) {
+    if (!input?.trim()) return;
+
+    return input
+        .replace(/[^A-Za-z0-9_'\s]/g, '')
+        .trim()
+        .replace(/\s+/g, ' ');
+}
+
 const noNextPage = '__no_next_page__';
 
 export function SearchProfileContent() {
@@ -51,7 +60,7 @@ export function SearchProfileContent() {
                       })
                     : createPageable([], createIndicator());
 
-            const trimmed = searchKeyword.trim().replace(/^@/, '');
+            const trimmed = formatTwitterSearchKeyword(searchKeyword);
             const twitterProfiles =
                 pageParam.twitter !== noNextPage && trimmed
                     ? await runInSafeAsync(() => TwitterSocialMediaProxy.searchProfiles(trimmed, twitterIndicator, 7))
