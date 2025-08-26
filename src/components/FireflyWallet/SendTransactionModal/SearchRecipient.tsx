@@ -16,7 +16,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { NetworkType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
@@ -65,8 +64,8 @@ export function SearchRecipient({
                             SORTED_SOCIAL_SOURCES.map((source) => {
                                 return first(
                                     item[resolveSocialSourceInUrl(source)]?.sort((a, b) => {
-                                        const aMatch = a.handle === debouncedKeyword ? 1 : 0;
-                                        const bMatch = b.handle === debouncedKeyword ? 1 : 0;
+                                        const aMatch = a.handle === debouncedKeyword || a.hit || a.special ? 1 : 0;
+                                        const bMatch = b.handle === debouncedKeyword || b.hit || b.special ? 1 : 0;
                                         return bMatch - aMatch;
                                     }),
                                 );
@@ -78,8 +77,8 @@ export function SearchRecipient({
                         const sources = uniq(
                             profiles.map((profile) => resolveSourceFromFireflyPlatform(profile.platform)),
                         ) as SocialSource[];
-                        if (item.ens?.[0] && isSameAddress(item.ens?.[0]?.resolved_address, debouncedKeyword)) {
-                            const ens = item.ens[0];
+                        const ens = item.ens?.find((x) => x.hit || x.resolved_address === debouncedKeyword);
+                        if (networkType === NetworkType.Ethereum && ens) {
                             return {
                                 address: ens.resolved_address as Address,
                                 ens: ens.handle,
@@ -105,7 +104,7 @@ export function SearchRecipient({
                         } satisfies RecipientItemProps;
                     }),
             );
-            if (data.length <= 0) {
+            if (networkType === NetworkType.Ethereum && data.length <= 0) {
                 const isEns = isValidDomainEthereum(debouncedKeyword);
                 if (isEns) {
                     const address = await lookup(debouncedKeyword);
@@ -152,7 +151,7 @@ export function SearchRecipient({
                     <LoadingIcon />
                 </div>
             ) : recipients?.length ? (
-                <div className="mt-2 flex w-full flex-1 flex-col space-y-2 overflow-y-auto">
+                <div className="no-scrollbar mt-2 flex w-full flex-1 flex-col space-y-2 overflow-y-auto">
                     {recipients?.map((recipient, i) => {
                         return (
                             <div
