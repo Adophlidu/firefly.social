@@ -28,6 +28,11 @@
                         "comment": "Matches any URL with a fragment that equals no_universal_links and instructs the system not to open it as a universal link."
                     },
                     {
+                        "/": "/fortune/*",
+                        "exclude": true,
+                        "comment": "Matches any URL with a path that starts with /fortune/."
+                    },
+                    {
                         "/": "/post/*",
                         "comment": "Matches any URL with a path that starts with /post/."
                     },
