@@ -1,7 +1,7 @@
 import type { Config } from '@wagmi/core';
 import { getConnectors, getWalletClient } from 'wagmi/actions';
 
-import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { getPrivyBridge, PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { delay } from '@/helpers/delay.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
@@ -33,4 +33,17 @@ export async function getPrivyWalletClientRequired(config: Config) {
     return await getWalletClient(config, {
         connector,
     });
+}
+
+export async function runWithoutPrivyWalletUI<T>(callback: () => Promise<T>) {
+    const bridge = getPrivyBridge();
+    if (!bridge) {
+        throw new Error('Privy bridge not found');
+    }
+    try {
+        await bridge.setShowWalletUI(false);
+        return await callback();
+    } finally {
+        await bridge.setShowWalletUI(true);
+    }
 }

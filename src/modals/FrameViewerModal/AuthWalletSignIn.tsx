@@ -10,7 +10,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getPrivyWalletClientRequired } from '@/helpers/getPrivyWalletClientRequired.js';
+import { getPrivyWalletClientRequired, runWithoutPrivyWalletUI } from '@/helpers/getPrivyWalletClientRequired.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { InfoCard } from '@/modals/FrameViewerModal/InfoCard.js';
 import { LoadingCard } from '@/modals/FrameViewerModal/LoadingCard.js';
@@ -71,12 +71,13 @@ export function AuthWalletSignIn() {
                 setIsScanned(true);
             }
 
-            const signed = await signInWithAuthWallet(frame, `${fid}`, options);
+            const signed = await runWithoutPrivyWalletUI(() => signInWithAuthWallet(frame, `${fid}`, options));
 
             captureFrameSignInEvent('auth-wallet', frame);
 
             onClose(signed);
         },
+        retry: 1,
     });
 
     return (
