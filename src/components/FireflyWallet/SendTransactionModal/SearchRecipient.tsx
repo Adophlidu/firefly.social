@@ -44,22 +44,6 @@ export function SearchRecipient({
         queryFn: async ({ pageParam }) => {
             if (!debouncedKeyword) return;
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
-            const isEns = isValidDomainEthereum(debouncedKeyword);
-            if (isEns) {
-                const address = await lookup(debouncedKeyword);
-                if (address) {
-                    return createPageable<RecipientItemProps>(
-                        [
-                            {
-                                address,
-                                avatar: getStampAvatarByProfileId(Source.Wallet, address),
-                                ens: debouncedKeyword,
-                            },
-                        ],
-                        createIndicator(),
-                    );
-                }
-            }
             const res = await FireflyEndpointProvider.searchIdentity(debouncedKeyword, {
                 size: 20,
                 indicator,
@@ -121,6 +105,24 @@ export function SearchRecipient({
                         } satisfies RecipientItemProps;
                     }),
             );
+            if (data.length <= 0) {
+                const isEns = isValidDomainEthereum(debouncedKeyword);
+                if (isEns) {
+                    const address = await lookup(debouncedKeyword);
+                    if (address) {
+                        return createPageable<RecipientItemProps>(
+                            [
+                                {
+                                    address,
+                                    avatar: getStampAvatarByProfileId(Source.Wallet, address),
+                                    ens: debouncedKeyword,
+                                },
+                            ],
+                            createIndicator(),
+                        );
+                    }
+                }
+            }
             return createPageable(data, res.indicator, res.nextIndicator);
         },
         initialPageParam: '',
