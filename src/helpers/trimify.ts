@@ -15,28 +15,28 @@ export function trimifyPost(value: string) {
     const blockquoteRe = /^\s*>\s*/;
     let inFence = false;
 
-    for (let i = 0; i < lines.length; i++) {
-        let line = lines[i];
-        if (line.trim().startsWith('```')) {
+    for (const line of lines) {
+        let processedLine = line;
+        if (processedLine.trim().startsWith('```')) {
             inFence = !inFence;
-            result.push(line);
+            result.push(processedLine);
             continue;
         }
 
         if (!inFence) {
-            line = line.replace(/^(\s*)\\([*+\-])\s+/, '$1$2 ');
+            processedLine = processedLine.replace(/^(\s*)([*+\-])\s+/, '$1$2 ');
         }
 
-        if (!inFence && listStartRe.test(line)) {
+        if (!inFence && listStartRe.test(processedLine)) {
             const prev = result[result.length - 1];
             if (prev !== undefined && prev.trim() !== '' && !listStartRe.test(prev) && !blockquoteRe.test(prev)) {
                 result.push('');
             }
-            result.push(line);
+            result.push(processedLine);
             continue;
         }
 
-        result.push(line);
+        result.push(processedLine);
     }
 
     return result.join('\n');

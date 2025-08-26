@@ -68,7 +68,6 @@ export enum EventId {
     COMPOSE_REPLY_RESTRICTION_CHANGE_SUCCESS = 'compose_reply_restriction_change_success', // ✅
     COMPOSE_FARCASTER_CHANNEL_CHANGE_SUCCESS = 'compose_farcaster_channel_change_success', // ✅
     COMPOSE_LENS_CLUB_CHANGE_SUCCESS = 'compose_lens_club_change_success',
-    COMPOSE_LENS_CHANNEL_CHANGE_SUCCESS = 'compose_lens_club_change_success',
     COMPOSE_SCHEDULE_TAB_CLICK = 'drafts_scheduled_tab_click',
     COMPOSE_DRAFT_DELETE_SUCCESS = 'drafts_post_delete_success',
 
