@@ -6,8 +6,8 @@ import { CHANNEL_TAB_TYPE } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import type { NextPageProps } from '@/types/utility.js';
 import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
     extends NextPageProps<

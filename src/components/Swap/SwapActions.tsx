@@ -46,7 +46,7 @@ interface SwapActionsProps {
 export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activity, isDetail = false }) {
     const isLoginFirefly = useIsLoginFirefly();
 
-    const { data } = useQuery({
+    const { data = activity } = useQuery({
         enabled: isDetail,
         queryKey: ['swap', activity?.hash, activity?.chain_id],
         queryFn: async () => {
@@ -54,7 +54,6 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
             const data = await FireflyEndpointProvider.getSwapActivityByHash(activity.hash, activity.chain_id);
             return data;
         },
-        initialData: activity,
     });
 
     const { mutate: onLikeChange, isPending } = useChangeSwapLikeStatus(data);
