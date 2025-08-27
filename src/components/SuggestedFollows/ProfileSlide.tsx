@@ -20,6 +20,8 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
     const identity = resolveFireflyIdentity(profile);
     if (!identity) return null;
 
+    const hideFollowers = profile.source === Source.Lens;
+
     return (
         <div className="relative cursor-pointer">
             <div className="h-[184px] w-[164px] rounded-2xl bg-lightBottom px-3 py-6 shadow-primary backdrop-blur dark:bg-primaryBottom">
@@ -42,10 +44,14 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
                     </ProfileTippy>
                     <SocialSourceIcon source={profile.source} size={15} className="shrink-0" />
                 </div>
-                {[Source.Lens].includes(profile.source) ? null : (
+                {hideFollowers ? null : (
                     <FollowersLink profile={profile} className="relative z-1 text-xs leading-6 text-second" />
                 )}
-                <BioMarkup className="line-clamp-2 text-xs text-lightMain" source={profile.source} profile={profile}>
+                <BioMarkup
+                    className={classNames('text-xs text-lightMain', hideFollowers ? 'line-clamp-4' : 'line-clamp-2')}
+                    source={profile.source}
+                    profile={profile}
+                >
                     {profile.bio ?? '-'}
                 </BioMarkup>
             </div>
