@@ -141,6 +141,22 @@ class FireflyMetadata {
             return createSiteMetadata(pathname);
         }
     }
+
+    async createChannelMetadata(source: string, id: string, pathname: string) {
+        try {
+            const response = await fetchWithDevelopmentApi(
+                urlcat(FIREFLY_WORKER_HOST, '/metadata/channel', {
+                    source,
+                    id,
+                    pathname,
+                }),
+            );
+            const metadata = resolveResponseData(response);
+            return metadata;
+        } catch (error) {
+            return createSiteMetadata(pathname);
+        }
+    }
 }
 
 export const FireflyMetadataProvider = new FireflyMetadata();

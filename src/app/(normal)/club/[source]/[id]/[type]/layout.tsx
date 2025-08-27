@@ -1,18 +1,13 @@
 import type { Metadata } from 'next';
 
 import { ChannelTabs } from '@/components/Channel/ChannelTabs.js';
-import { ChannelTabType, KeyType, type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
+import { ChannelTabType, type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
 import { CHANNEL_TAB_TYPE } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { createMetadataChannelById } from '@/helpers/createMetadataChannel.js';
-import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/utility.js';
-
-const createPageMetadata = memoizeWithRedis(createMetadataChannelById, {
-    key: KeyType.CreateMetadataChannelById,
-});
+import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
 
 interface Props
     extends NextPageProps<
@@ -28,7 +23,7 @@ interface Props
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source = SourceInURL.Farcaster, id, type = ChannelTabType.Posts } = await props.params;
-    return createPageMetadata(`/club/${source}/${id}/${type}`, source, id);
+    return FireflyMetadataProvider.createChannelMetadata(source, id, `/club/${source}/${id}/${type}`);
 }
 
 export default async function Layout(props: Props) {
