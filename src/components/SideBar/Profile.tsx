@@ -5,11 +5,9 @@ import { useMemo } from 'react';
 
 import ProfileSelectedIcon from '@/assets/profile.selected.svg';
 import ProfileIcon from '@/assets/profile.svg';
-import { Link } from '@/components/Link.js';
-import { Tooltip } from '@/components/Tooltip.js';
+import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
 import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { matchPath } from '@/helpers/matchPath.js';
@@ -45,24 +43,12 @@ export function Profile({ collapsed: sideBarCollapsed = false }: ProfileProps) {
     const Icon = isSelected ? ProfileSelectedIcon : ProfileIcon;
 
     return (
-        <Link
+        <BaseMenuItem
             href={href}
-            className={classNames('sidebar-nav-link flex w-full text-lg leading-6 outline-none md:px-2', {
-                'font-bold': isSelected,
-            })}
-        >
-            <span className="flex items-center gap-x-3 rounded-lg px-2 py-2 md:px-4">
-                {sideBarCollapsed ? (
-                    <Tooltip content={<Trans>Profile</Trans>} placement="right">
-                        <Icon width={20} height={20} />
-                    </Tooltip>
-                ) : (
-                    <Icon width={20} height={20} />
-                )}
-                <span style={{ display: sideBarCollapsed ? 'none' : 'inline' }}>
-                    <Trans>Profile</Trans>
-                </span>
-            </span>
-        </Link>
+            isSelected={isSelected}
+            collapsed={sideBarCollapsed}
+            menuName={<Trans>Profile</Trans>}
+            icon={<Icon width={20} height={20} />}
+        />
     );
 }
