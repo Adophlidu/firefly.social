@@ -33,7 +33,7 @@ export const DiscoverPostList = memo<{ source: SocialSource | Source.Posts }>(fu
             });
         },
         {
-            gcTime: selectedSources.length > 0 ? 0 : 60 * 1000,
+            gcTime: 10 * 60 * 1000,
         },
     );
 

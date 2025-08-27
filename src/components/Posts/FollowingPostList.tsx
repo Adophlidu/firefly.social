@@ -64,7 +64,7 @@ export const FollowingPostList = memo<{
             return mergeThreadPostsWithoutSource(uniqPosts);
         },
         {
-            gcTime: selectedSources.length > 0 ? 0 : 60 * 1000,
+            gcTime: 10 * 60 * 1000,
         },
     );
 
