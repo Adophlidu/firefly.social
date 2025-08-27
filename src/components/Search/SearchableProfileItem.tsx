@@ -112,7 +112,11 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
                 </div>
                 <div className="truncate text-medium leading-[22px] text-second">
                     {source === Source.Wallet || source === Source.Firefly ? '' : '@'}
-                    {source === Source.Firefly && profile.uid ? profile.uid : profile.handle}
+                    {source === Source.Firefly && profile.uid
+                        ? profile.uid
+                        : source === Source.Wallet && profile.platform_id
+                          ? profile.platform_id
+                          : profile.handle}
                 </div>
             </div>
         </Link>
