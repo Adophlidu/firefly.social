@@ -35,14 +35,16 @@ export default async function Layout(props: Props) {
 
     return (
         <div>
-            <div className="sticky top-[54px] z-20 bg-primaryBottom px-4 pb-3 md:top-0">
+            <div className="sticky top-[54px] z-20 bg-primaryBottom pb-3 md:top-0">
                 <TimelineTitle title={<Trans>Bookmarks</Trans>} />
-                <NoSSR>
-                    <SolidSourceTabs
-                        active={source}
-                        sources={BOOKMARK_SOURCES.map((s) => ({ source: s, link: resolveBookmarkUrl(s) }))}
-                    />
-                </NoSSR>
+                <div className="px-4">
+                    <NoSSR>
+                        <SolidSourceTabs
+                            active={source}
+                            sources={BOOKMARK_SOURCES.map((s) => ({ source: s, link: resolveBookmarkUrl(s) }))}
+                        />
+                    </NoSSR>
+                </div>
             </div>
             <div className="px-4">{children}</div>
         </div>
