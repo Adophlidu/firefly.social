@@ -2,9 +2,9 @@ import { plural, t } from '@lingui/core/macro';
 import { compact, difference, first } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { COMPOSE_ERROR_NOTIFICATION_KEY, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { delay } from '@/helpers/delay.js';
-import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorsMessage, enqueueSuccessMessage, MessageKey } from '@/helpers/enqueueMessage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
@@ -98,7 +98,7 @@ export async function crossPostThread({ progressCallback, isRetry = false, signa
 
     progressCallback?.(0);
 
-    SnackbarRef.close({ key: COMPOSE_ERROR_NOTIFICATION_KEY });
+    SnackbarRef.close({ key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY });
     for (const [index, _] of posts.entries()) {
         const { posts: allPosts } = useComposeStateStore.getState();
 
@@ -153,7 +153,7 @@ export async function crossPostThread({ progressCallback, isRetry = false, signa
         enqueueErrorsMessage(message, {
             errors: compact(allErrors),
             persist: true,
-            key: COMPOSE_ERROR_NOTIFICATION_KEY,
+            key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY,
         });
     } else {
         enqueueSuccessMessage(t`Your posts have published successfully.`);

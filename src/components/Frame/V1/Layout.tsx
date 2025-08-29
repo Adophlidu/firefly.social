@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { memo, type ReactNode, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
@@ -108,7 +108,7 @@ async function getNextFrame(
     async function postAction<T>(additional?: Additional) {
         const packet = await createPacket(additional);
         if (!packet) {
-            enqueueErrorMessage(t`Failed to generate signature packet with source = ${source}.`);
+            enqueueErrorMessage(<Trans>Failed to generate signature packet with source = {source}.</Trans>);
             throw new Error('Failed to generate signature packet.');
         }
         const url = urlcat(FIREFLY_WORKER_HOST, '/frame', {
@@ -133,7 +133,7 @@ async function getNextFrame(
                 const nextFrame = response.success ? (response.data.frame as FrameV1) : null;
 
                 if (!nextFrame) {
-                    enqueueErrorMessage(t`The frame server failed to process the request.`);
+                    enqueueErrorMessage(<Trans>The frame server failed to process the request.</Trans>);
                     return null;
                 }
 
@@ -153,7 +153,7 @@ async function getNextFrame(
                 const response = await postAction<RedirectUrlResponse>();
                 const redirectUrl = response.success ? response.data.redirectUrl : null;
                 if (!redirectUrl) {
-                    enqueueErrorMessage(t`The frame server failed to process the request.`);
+                    enqueueErrorMessage(<Trans>The frame server failed to process the request.</Trans>);
                     return null;
                 }
 
@@ -251,7 +251,7 @@ async function getNextFrame(
                     }
                     default:
                         safeUnreachable(method);
-                        enqueueErrorMessage(t`Unknown transaction method: ${method}.`);
+                        enqueueErrorMessage(<Trans>Unknown transaction method: {method}.</Trans>);
                         return null;
                 }
             default:
@@ -260,7 +260,7 @@ async function getNextFrame(
         }
     } catch (error) {
         if (error instanceof TransactionSimulationError) return null;
-        enqueueMessageFromError(error, t`Something went wrong. Please try again.`);
+        enqueueMessageFromError(error, <Trans>Something went wrong. Please try again.</Trans>);
         throw error;
     }
 }

@@ -1,6 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation.js';
@@ -108,7 +107,7 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
     const { loading: isSigning } = usePollingAppScanLogin(otp, linkInfoData?.session, {
         enabled,
         onSuccess() {
-            enqueueSuccessMessage(t`Your Firefly Account is now connected`);
+            enqueueSuccessMessage(<Trans>Your Firefly Account is now connected</Trans>);
             onClose?.();
         },
         onCancel: onClose,

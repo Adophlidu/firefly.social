@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useCallback } from 'react';
 
 import { Modal } from '@/components/Modal.js';
@@ -117,7 +117,7 @@ function TipsModalUI({ ref }: Props) {
                     router.navigate({ to: TipsRoutePath.TIPS });
                 }
             } catch (error) {
-                enqueueMessageFromError(error, t`Failed to send tip. Please try again later.`);
+                enqueueMessageFromError(error, <Trans>Failed to send tip. Please try again later.</Trans>);
                 throw error;
             }
         },

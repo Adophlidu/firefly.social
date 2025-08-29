@@ -10,6 +10,10 @@ import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getErrorMessageFromError, getWarningMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { SnackbarRef } from '@/modals/Snackbar.js';
 
+export enum MessageKey {
+    COMPOSE_ERROR_NOTIFICATION_KEY = 'COMPOSE_NOTIFICATION_KEY',
+}
+
 export interface MessageOptions extends OptionsObject {
     version?: string;
     environment?: NODE_ENV;
@@ -133,7 +137,7 @@ export function enqueueErrorsMessage(message: SnackbarMessage, options?: ErrorsO
     });
 }
 
-export function enqueueMessageFromError(error: unknown, fallback: string, options?: ErrorOptions) {
+export function enqueueMessageFromError(error: unknown, fallback: SnackbarMessage, options?: ErrorOptions) {
     const options_ = { error, ...options };
     const warningMessage = getWarningMessageFromError(error);
 

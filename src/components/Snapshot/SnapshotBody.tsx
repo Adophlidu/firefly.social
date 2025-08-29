@@ -307,7 +307,7 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
             }
             queryClient.setQueriesData({ queryKey: ['snapshot-votes', snapshot.id, account.address] }, selectedChoices);
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to vote.`);
+            enqueueMessageFromError(error, <Trans>Failed to vote.</Trans>);
             throw error;
         }
     }, [

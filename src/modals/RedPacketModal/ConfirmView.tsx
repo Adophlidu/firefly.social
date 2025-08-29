@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { compact, flatten } from 'lodash-es';
@@ -227,7 +226,7 @@ export default memo(function ConfirmView() {
                 setFontColor('golden');
                 setCustomThemes((customThemes) => [...customThemes, goldenTheme]);
             } else {
-                enqueueErrorMessage(t`Failed to create custom theme.`);
+                enqueueErrorMessage(<Trans>Failed to create custom theme.</Trans>);
                 return false;
             }
             return true;

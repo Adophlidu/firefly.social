@@ -81,7 +81,7 @@ function AddCustomERC721Content({
             }
             const collection = await FireflyEndpointProvider.getCollection(selectedChain, address);
             if (!collection) {
-                enqueueWarningMessage(t`Sorry, we are not able to find this collection`);
+                enqueueWarningMessage(<Trans>Sorry, we are not able to find this collection</Trans>);
                 return;
             }
             addCustomToken({
@@ -90,10 +90,10 @@ function AddCustomERC721Content({
                 address,
                 name: collection.name,
             });
-            enqueueSuccessMessage(t`Added successfully`);
+            enqueueSuccessMessage(<Trans>Added successfully</Trans>);
             onClose?.();
         } catch (error) {
-            enqueueWarningMessage(t`Sorry, we are not able to find this collection`);
+            enqueueWarningMessage(<Trans>Sorry, we are not able to find this collection</Trans>);
             throw error;
         }
     }, [account.address, contractAddress, allCollections, selectedChain, addCustomToken, onClose]);

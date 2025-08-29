@@ -86,7 +86,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                 })}
                 onClick={() => {
                     if (isDisabled) {
-                        enqueueErrorMessage(t`Cannot choose due to account mismatch.`);
+                        enqueueErrorMessage(<Trans>Cannot choose due to account mismatch.</Trans>);
                         return;
                     }
 
@@ -179,7 +179,7 @@ export const DraftList = memo(function DraftList() {
                     const provider = resolveSocialMediaProvider(post.source);
                     const detail = await provider.getPostById(post.postId);
                     if (detail.isHidden) {
-                        enqueueErrorMessage(t`The post you quoted/replied has already deleted`);
+                        enqueueErrorMessage(<Trans>The post you quoted/replied has already deleted</Trans>);
                         return;
                     }
                 }

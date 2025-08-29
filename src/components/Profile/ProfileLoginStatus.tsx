@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import type { HTMLProps } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -27,7 +26,7 @@ export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStat
         try {
             await switchAccount(account);
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to switch.`);
+            enqueueMessageFromError(error, <Trans>Failed to switch.</Trans>);
             throw error;
         }
     }, []);

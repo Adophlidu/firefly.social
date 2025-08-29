@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import {
     type Connector,
@@ -30,7 +29,7 @@ export default memo(function MultipleChainView() {
         async (provider: Connector) => {
             const connector = activeConnector?.connectors?.find((p) => p.chain === provider.chain);
             if (!connector) {
-                enqueueErrorMessage(t`No connector found for ${provider.chain}`);
+                enqueueErrorMessage(<Trans>No connector found for {provider.chain}</Trans>);
                 return;
             }
 

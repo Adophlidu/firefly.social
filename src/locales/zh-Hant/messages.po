@@ -140,6 +140,7 @@ msgstr "發送小費"
 msgid "Your post was sent to {0}."
 msgstr "您的貼文已發布至 {0}。"
 
+#. placeholder {0}: channel.name
 #. placeholder {0}: channel.id
 msgid "Mute /{0}"
 msgstr "隱藏 /{0}"
@@ -463,10 +464,6 @@ msgstr "發文失敗"
 msgid "Published successfully on {sortedSourceNames}"
 msgstr ""
 
-#. placeholder {0}: channel.name
-msgid "Mute /${0}"
-msgstr "隱藏 /${0}"
-
 msgid "Post engagements"
 msgstr "貼文互動"
 
@@ -565,9 +562,6 @@ msgstr "創建自訂封面失敗。"
 #. placeholder {1}: token.symbol
 msgid "The minimum amount for each share is {0} {1}"
 msgstr "每份最低數額為 {0} {1}"
-
-msgid "${days}d left"
-msgstr "剩餘 ${days} 天"
 
 msgid "Trending Channels"
 msgstr "熱門群組"
@@ -926,9 +920,6 @@ msgstr ""
 
 msgid "Limo"
 msgstr "Limo"
-
-msgid "${minutes}m left"
-msgstr "剩餘 ${minutes} 分鐘"
 
 msgid "Functions with retrievable ownership"
 msgstr "具有可回收所有權的函式"
@@ -1399,9 +1390,6 @@ msgstr "未發現釣魚網站"
 msgid "Log out"
 msgstr "登出"
 
-msgid "${hours}h left"
-msgstr "剩餘 ${hours} 小時"
-
 msgid "Oops... Not all the requirements have been met"
 msgstr "哎呀...尚未滿足所有要求"
 
@@ -1501,9 +1489,6 @@ msgstr "刪除帳戶將永久解除您的社交帳號綁定並移除您的 Firef
 
 msgid "Try searching for something else."
 msgstr "請嘗試搜尋其他關鍵字。"
-
-msgid "Follow for ${feeAmount} $${feeSymbol}"
-msgstr "追蹤需支付 ${feeAmount} $${feeSymbol}"
 
 #. placeholder {0}: provider.chain
 msgid "No connector found for {0}"
@@ -1623,7 +1608,7 @@ msgstr "透過 <0>Phaver</0> 發佈至 Lens"
 msgid "<0>Sent</0><1/>"
 msgstr "<0>發送</0><1/>"
 
-#. placeholder {0}: (err as Error).message
+#. placeholder {0}: error.message
 msgid "Failed to show more. {0}"
 msgstr "無法顯示更多內容。{0}"
 
@@ -2620,6 +2605,9 @@ msgstr "未驗證"
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly 通知未開啟！"
 
+msgid "Follow for {feeAmount} ${feeSymbol}"
+msgstr "追蹤需支付 {feeAmount} ${feeSymbol}"
+
 msgid "Farcaster"
 msgstr "Farcaster"
 
@@ -2823,6 +2811,10 @@ msgstr "如果該功能存在，項目方即使放棄所有權後仍可能重新
 
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "抱歉，我們無法找到 {displayName} 的錢包。"
+
+#. placeholder {0}: formatAddressEthereum(address, 4)
+msgid "Please switch to {0}"
+msgstr "請切換至 {0}"
 
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
 msgstr "權威 Top 100 榜單｜數據來源：<0>X3</0>"
@@ -3825,6 +3817,9 @@ msgstr "新增"
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr "GIF 大小超過 {0} 上傳失敗"
 
+msgid "{days}d left"
+msgstr "剩餘 {days} 天"
+
 msgid "Money laundering found."
 msgstr "檢測到洗錢行為。"
 
@@ -4060,10 +4055,6 @@ msgstr "透過 {0} <0>{sendFrom}</0> 發布"
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr "合約持有者未設定個人滑點限制。"
 
-#. placeholder {0}: formatAddressEthereum(address, 4)
-msgid "Please switch to ${0}"
-msgstr "請切換至 ${0}"
-
 msgid "Number of winners"
 msgstr "獲獎人數"
 
@@ -4091,6 +4082,9 @@ msgstr "發送小費失敗。"
 
 msgid "Connecting Wallet"
 msgstr "連接中錢包"
+
+msgid "{minutes}m left"
+msgstr "剩餘 {minutes} 分鐘"
 
 msgid "Neutral"
 msgstr "中立"
@@ -4323,6 +4317,9 @@ msgstr "<0/> 及 <1>其他的 {0} 個用户</1>"
 
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
 msgstr "確認要斷開該錢包及相關帳戶與 Firefly 社交圖譜的綁定嗎？"
+
+msgid "{hours}h left"
+msgstr "剩餘 {hours} 小時"
 
 msgid "Events"
 msgstr "活動"

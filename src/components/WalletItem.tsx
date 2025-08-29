@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 import { memo } from 'react';
@@ -62,7 +61,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
         }
         await mutation.mutateAsync();
 
-        enqueueSuccessMessage(isMuted ? t`Unmuted ${walletHandle}.` : t`Muted ${walletHandle}.`);
+        enqueueSuccessMessage(isMuted ? <Trans>Unmuted {walletHandle}.</Trans> : <Trans>Muted {walletHandle}.</Trans>);
     }, [isLogin, isMuted, mutation, walletHandle]);
 
     const isLoading = mutation.isPending || loading;

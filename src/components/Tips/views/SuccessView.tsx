@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { useAsyncFn } from 'react-use';
@@ -60,7 +59,7 @@ export function SuccessView() {
 
             context.onClose();
         } catch (error) {
-            enqueueErrorMessage(t`Something went wrong, please try again.`, { error });
+            enqueueErrorMessage(<Trans>Something went wrong, please try again.</Trans>, { error });
             throw error;
         }
     }, [context, post, recipient, token?.symbol, hash, currentChannel, identity, token?.chainId, isLogin]);

@@ -107,7 +107,7 @@ function AddCustomERC20ModalContent({
             });
             const [decimals, name, symbol] = result.map((x) => x.result) as [number, string, string];
             if (!decimals || !name || !symbol) {
-                enqueueWarningMessage(t`Sorry, we are not able to find this token`);
+                enqueueWarningMessage(<Trans>Sorry, we are not able to find this token</Trans>);
                 return;
             }
             const logoURI = await searchTokenLogoURI({
@@ -124,10 +124,10 @@ function AddCustomERC20ModalContent({
                 symbol,
                 decimals,
             });
-            enqueueSuccessMessage(t`Added successfully`);
+            enqueueSuccessMessage(<Trans>Added successfully</Trans>);
             onClose?.();
         } catch (error) {
-            enqueueWarningMessage(t`Sorry, we are not able to find this token`);
+            enqueueWarningMessage(<Trans>Sorry, we are not able to find this token</Trans>);
             throw error;
         }
     }, [account.address, contractAddress, tokens, selectedChain, addCustomToken, onClose]);

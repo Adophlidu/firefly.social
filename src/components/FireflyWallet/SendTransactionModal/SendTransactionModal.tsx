@@ -226,7 +226,7 @@ function FormView() {
                 chain_id: token.chainId,
             });
         } catch (error) {
-            enqueueErrorMessage(getErrorMessageFromError(error, t`Failed to transfer`));
+            enqueueErrorMessage(getErrorMessageFromError(error, <Trans>Failed to transfer</Trans>));
             router.navigate({ to: RoutePath.Failed, state: { error } as unknown as HistoryState });
             throw error;
         }

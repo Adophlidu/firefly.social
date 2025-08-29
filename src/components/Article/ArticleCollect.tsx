@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { produce } from 'immer';
 import { useMemo, useState } from 'react';
@@ -74,7 +73,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                 } catch (error) {
                     if (error instanceof Error && error.message.includes('insufficient funds')) {
                         hasBalance = false;
-                        enqueueWarningMessage(t`Sorry, today's free collect quota has been reached.`);
+                        enqueueWarningMessage(<Trans>Sorry, today's free collect quota has been reached.</Trans>);
                     } else {
                         throw error;
                     }
@@ -115,10 +114,10 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                 queryKey: ['article-collect-status', article.platform, article.id],
             });
 
-            enqueueSuccessMessage(t`Article collected successfully!`);
+            enqueueSuccessMessage(<Trans>Article collected successfully!</Trans>);
         } catch (error) {
             setModalSessionCollected(false);
-            enqueueMessageFromError(error, t`Failed to collect article.`);
+            enqueueMessageFromError(error, <Trans>Failed to collect article.</Trans>);
             throw error;
         }
     }, [collectParams, platform, account.address, article.id, article.platform, isFree]);

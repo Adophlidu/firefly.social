@@ -1,6 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, use, useContext, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -65,7 +64,7 @@ export function ActivityClaimButton({
             captureActivityClaimEvent(address, isPremium);
         } catch (error) {
             await refetch();
-            enqueueMessageFromError(error, t`Failed to claim token`);
+            enqueueMessageFromError(error, <Trans>Failed to claim token</Trans>);
             throw error;
         }
     }, [disabled, address, name, claimApiExtraParams, refetch, onSuccess, isPremium]);

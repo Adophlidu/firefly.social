@@ -59,7 +59,7 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
                 queryKey: ['allConnections'],
             });
 
-            enqueueSuccessMessage(t`Disconnected from your social graph`);
+            enqueueSuccessMessage(<Trans>Disconnected from your social graph</Trans>);
             dispatch?.close();
         } catch (error) {
             if (error instanceof Error && error.message.includes('Please leave at least 1 account')) {
@@ -68,7 +68,7 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
                     { error },
                 );
             } else {
-                enqueueMessageFromError(error, t`Failed to disconnect.`);
+                enqueueMessageFromError(error, <Trans>Failed to disconnect.</Trans>);
             }
             throw error;
         }

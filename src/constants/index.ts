@@ -508,5 +508,3 @@ export const EIP6963_PROVIDER_DESCRIPTION = {
     rdns: 'social.firefly.frameHost',
     uuid: 'a2ed942a-3e45-4bef-907d-22700a5315d6',
 };
-
-export const COMPOSE_ERROR_NOTIFICATION_KEY = 'COMPOSE_NOTIFICATION_KEY';

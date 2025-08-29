@@ -1,5 +1,4 @@
 import { Checkbox } from '@headlessui/react';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -40,7 +39,7 @@ function useToggleNotificationConfig({
                 pushType,
             });
         } catch (error) {
-            enqueueErrorMessage(t`Failed to update notification settings`, { error });
+            enqueueErrorMessage(<Trans>Failed to update notification settings</Trans>, { error });
             throw error;
         }
     }, [value, platform, pushType, unsupported]);

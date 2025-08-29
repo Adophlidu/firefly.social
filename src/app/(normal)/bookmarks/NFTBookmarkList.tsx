@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
@@ -86,7 +86,7 @@ export function NFTBookmarkList() {
             try {
                 return await FireflySocialMediaProvider.getNFTBookmarks(createIndicator(undefined, pageParam));
             } catch (error) {
-                enqueueMessageFromError(error, t`Failed to fetch bookmarks.`);
+                enqueueMessageFromError(error, <Trans>Failed to fetch bookmarks.</Trans>);
                 throw error;
             }
         },

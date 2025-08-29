@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { type Draft, produce } from 'immer';
 import { useAsyncFn } from 'react-use';
@@ -72,9 +71,9 @@ export function useReportSpamNFT() {
         try {
             await FireflyEndpointProvider.reportNFT(chainId, address);
             filterOutActivities(address);
-            enqueueSuccessMessage(t`Report submitted`);
+            enqueueSuccessMessage(<Trans>Report submitted</Trans>);
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to report spam NFT.`);
+            enqueueMessageFromError(error, <Trans>Failed to report spam NFT.</Trans>);
             throw error;
         }
     }, []);

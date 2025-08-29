@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
@@ -64,7 +63,7 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
 
     const [{ loading }, handleNext] = useAsyncFn(async () => {
         if (!isLoginFirefly) {
-            enqueueErrorMessage(t`Bad login state, please try to login again.`);
+            enqueueErrorMessage(<Trans>Bad login state, please try to login again.</Trans>);
             return;
         }
         changeStep(SignupStep.CreateAccountForm);

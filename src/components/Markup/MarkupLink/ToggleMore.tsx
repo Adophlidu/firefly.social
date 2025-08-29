@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo, useCallback, useState } from 'react';
 
@@ -34,7 +33,7 @@ export const ToggleMore = memo<Props>(function ToggleMore({ post, ...rest }) {
                 content = result?.content;
             }
             if (!content) {
-                enqueueErrorMessage(t`Failed to show more.`);
+                enqueueErrorMessage(<Trans>Failed to show more.</Trans>);
                 return;
             }
             patchPostQueryData(post.source, post.postId, (draft) => {
@@ -43,8 +42,12 @@ export const ToggleMore = memo<Props>(function ToggleMore({ post, ...rest }) {
                     draft.metadata.content.content = collapsed ? content : draft.partialContent;
                 }
             });
-        } catch (err) {
-            enqueueErrorMessage(t`Failed to show more. ${(err as Error).message}`);
+        } catch (error) {
+            if (error instanceof Error) {
+                enqueueErrorMessage(<Trans>Failed to show more. {error.message}</Trans>);
+            } else {
+                enqueueErrorMessage(<Trans>Failed to show more.</Trans>);
+            }
         } finally {
             setLoading(false);
         }

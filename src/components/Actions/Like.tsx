@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
@@ -50,10 +49,17 @@ export const Like = memo<LikeProps>(function Like({ post, disabled = false, hidd
             if (isComment) {
                 enqueueMessageFromError(
                     error,
-                    hasLiked ? t`Failed to unlike the comment.` : t`Failed to like the comment.`,
+                    hasLiked ? (
+                        <Trans>Failed to unlike the comment.</Trans>
+                    ) : (
+                        <Trans>Failed to like the comment.</Trans>
+                    ),
                 );
             } else {
-                enqueueMessageFromError(error, hasLiked ? t`Failed to unlike the post.` : t`Failed to like the post.`);
+                enqueueMessageFromError(
+                    error,
+                    hasLiked ? <Trans>Failed to unlike the post.</Trans> : <Trans>Failed to like the post.</Trans>,
+                );
             }
             throw error;
         }

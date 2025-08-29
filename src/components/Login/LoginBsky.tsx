@@ -47,7 +47,7 @@ async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<A
             },
         });
         if (done) {
-            enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Bsky)} account is now connected.`);
+            enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Bsky)} account is now connected.</Trans>);
         }
 
         LoginModalRef.close();
@@ -161,7 +161,7 @@ export function LoginBsky() {
             } catch (error) {
                 if (AbortError.is(error)) return null;
 
-                enqueueWarningMessage(t`Sorry, the provider you entered is invalid`);
+                enqueueWarningMessage(<Trans>Sorry, the provider you entered is invalid</Trans>);
                 throw error;
             }
         },
@@ -220,11 +220,11 @@ export function LoginBsky() {
                 );
             } catch (error) {
                 if (error instanceof Error && error.message === 'Invalid identifier or password') {
-                    enqueueWarningMessage(t`Sorry, the username or password you entered is incorrect`);
+                    enqueueWarningMessage(<Trans>Sorry, the username or password you entered is incorrect</Trans>);
                     setFocus('account');
                     return;
                 }
-                enqueueMessageFromError(error, t`Oops… Something went wrong. Please try again`);
+                enqueueMessageFromError(error, <Trans>Oops… Something went wrong. Please try again</Trans>);
                 throw error;
             }
         },

@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useRouteContext } from '@tanstack/react-router';
 import { useCallback } from 'react';
@@ -55,17 +54,19 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
     const [{ loading }, login] = useAsyncFn(async (account: Account) => {
         try {
             await switchAccount(account);
-            enqueueSuccessMessage(t`Your ${resolveSourceName(account.profile.source)} account is now connected.`);
+            enqueueSuccessMessage(
+                <Trans>Your {resolveSourceName(account.profile.source)} account is now connected.</Trans>,
+            );
         } catch (error) {
             if (error instanceof TokenExpiredError) {
                 const state = getProfileState(account.profile.profileSource);
                 state.removeAccount(account);
 
-                enqueueWarningMessage(t`This account has expired, please log in again.`);
+                enqueueWarningMessage(<Trans>This account has expired, please log in again.</Trans>);
                 return;
             }
 
-            enqueueMessageFromError(error, t`Failed to sign in.`);
+            enqueueMessageFromError(error, <Trans>Failed to sign in.</Trans>);
             throw error;
         }
     }, []);
@@ -113,7 +114,7 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
                 disabled={signInDisabled}
                 onClick={async () => {
                     if (source === Source.Farcaster && images.length > 2) {
-                        enqueueErrorMessage(t`Only up to 2 images can be chosen.`);
+                        enqueueErrorMessage(<Trans>Only up to 2 images can be chosen.</Trans>);
                         return;
                     }
 

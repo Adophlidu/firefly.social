@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -33,9 +32,9 @@ function formatTimeLeft(endTime: string) {
     const timeLeft = getTimeLeft(endTime);
     if (!timeLeft) return;
     const { days, hours, minutes } = timeLeft;
-    if (days >= 1) return <Trans>${days}d left</Trans>;
-    if (hours >= 1) return <Trans>${hours}h left</Trans>;
-    if (minutes >= 1) return <Trans>${minutes}m left</Trans>;
+    if (days >= 1) return <Trans>{days}d left</Trans>;
+    if (hours >= 1) return <Trans>{hours}h left</Trans>;
+    if (minutes >= 1) return <Trans>{minutes}m left</Trans>;
     return <Trans>1m left</Trans>;
 }
 
@@ -88,11 +87,11 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             };
             capturePostActionEvent('submit_collect', post, eventOptions);
             await LensSocialMediaProvider.actPost(post.postId);
-            enqueueSuccessMessage(t`Post collected successfully!`);
+            enqueueSuccessMessage(<Trans>Post collected successfully!</Trans>);
             capturePostActionEvent('collect', post, eventOptions);
             onClose?.();
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to collect post.`);
+            enqueueMessageFromError(error, <Trans>Failed to collect post.</Trans>);
             throw error;
         }
     }, [collectModule, post, account.address, freeToCollect, onClose]);

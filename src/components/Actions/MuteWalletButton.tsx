@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 import type { Address } from 'viem';
@@ -31,12 +30,12 @@ export function MuteWalletButton({ handleOrEnsOrAddress, address, isMuted, ref, 
                 const result = await FireflyEndpointProvider.unblockWallet(address);
                 queryClient.setQueryData(['address-is-muted', address], false);
                 captureMuteEvent(EventId.UNMUTE_SUCCESS, address);
-                enqueueSuccessMessage(t`Unmuted ${handleOrEnsOrAddress}.`);
+                enqueueSuccessMessage(<Trans>Unmuted {handleOrEnsOrAddress}.</Trans>);
                 return result;
             } else {
                 const result = await FireflyEndpointProvider.blockWallet(address);
                 queryClient.setQueryData(['address-is-muted', address], true);
-                enqueueSuccessMessage(t`Muted ${handleOrEnsOrAddress}.`);
+                enqueueSuccessMessage(<Trans>Muted {handleOrEnsOrAddress}.</Trans>);
                 captureMuteEvent(EventId.MUTE_SUCCESS, address);
                 return result;
             }

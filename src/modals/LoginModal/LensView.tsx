@@ -1,7 +1,6 @@
 'use client';
 
 import { lastLoggedInAccount } from '@lens-protocol/client/actions';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useRouter } from '@tanstack/react-router';
@@ -90,7 +89,7 @@ export const LensView = memo(function LensView() {
                     (x) => x.profileId,
                 );
             } catch (error) {
-                enqueueMessageFromError(error, t`Failed to fetch profiles.`);
+                enqueueMessageFromError(error, <Trans>Failed to fetch profiles.</Trans>);
                 console.error('[login lens] Failed to fetch profiles', error);
 
                 throw error;
@@ -135,7 +134,7 @@ export const LensView = memo(function LensView() {
                 }
                 lensSessionHolder.resumeSession(account.session);
                 lensSessionHolder.setSessionClient(sessionClient);
-                enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
+                enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Lens)} account is now connected.</Trans>);
             }
 
             LoginModalRef.close();
@@ -144,11 +143,11 @@ export const LensView = memo(function LensView() {
             if (AbortError.is(error)) return;
 
             if (error instanceof FireflyAlreadyBoundError) {
-                enqueueWarningMessage(t`This wallet is already linked to a different Firefly account.`);
+                enqueueWarningMessage(<Trans>This wallet is already linked to a different Firefly account.</Trans>);
                 return;
             }
 
-            enqueueMessageFromError(error, t`Failed to login.`);
+            enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
             throw error;
         }
     }, [profiles.length, currentProfile, controller]);

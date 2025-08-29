@@ -1,6 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -91,7 +90,7 @@ export function useDeleteFireflyAccount() {
             const { accountIdForEvent } = fireflySessionHolder.sessionRequired;
 
             await FireflyEndpointProvider.deleteAccount();
-            enqueueSuccessMessage(t`Deleted your Firefly account`);
+            enqueueSuccessMessage(<Trans>Deleted your Firefly account</Trans>);
             router.replace('/', {
                 showProgress: false,
                 disableSameURL: true,
@@ -99,7 +98,7 @@ export function useDeleteFireflyAccount() {
             await captureAccountDeleteEvent(accountIdForEvent);
             await removeAllAccounts();
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to delete`);
+            enqueueMessageFromError(error, <Trans>Failed to delete</Trans>);
         }
     }, [router]);
 }

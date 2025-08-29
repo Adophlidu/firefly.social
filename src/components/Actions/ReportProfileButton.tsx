@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
@@ -21,11 +20,11 @@ export function ReportProfileButton({ profile, ref, onConfirm, onClick, ...rest 
         try {
             const provider = resolveSocialMediaProvider(profile.source);
             const result = await provider.reportProfile(profile.profileId);
-            if (result) enqueueSuccessMessage(t`Report submitted on ${profile.source}`);
-            else enqueueErrorMessage(t`Failed to report @${profile.handle}`);
+            if (result) enqueueSuccessMessage(<Trans>Report submitted on {profile.source}</Trans>);
+            else enqueueErrorMessage(<Trans>Failed to report @{profile.handle}</Trans>);
             return result;
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to report @${profile.handle}.`);
+            enqueueMessageFromError(error, <Trans>Failed to report @{profile.handle}.</Trans>);
             throw error;
         }
     }, [profile]);

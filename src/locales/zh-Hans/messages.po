@@ -140,6 +140,7 @@ msgstr "发送打赏"
 msgid "Your post was sent to {0}."
 msgstr "你的帖子已发布至{0}。"
 
+#. placeholder {0}: channel.name
 #. placeholder {0}: channel.id
 msgid "Mute /{0}"
 msgstr "隐藏 /{0}"
@@ -463,10 +464,6 @@ msgstr "发帖失败"
 msgid "Published successfully on {sortedSourceNames}"
 msgstr ""
 
-#. placeholder {0}: channel.name
-msgid "Mute /${0}"
-msgstr "隐藏 /${0}"
-
 msgid "Post engagements"
 msgstr "帖子互动"
 
@@ -565,9 +562,6 @@ msgstr "创建自定义封面失败。"
 #. placeholder {1}: token.symbol
 msgid "The minimum amount for each share is {0} {1}"
 msgstr "每份最低数额为 {0} {1}"
-
-msgid "${days}d left"
-msgstr "剩余 ${days} 天"
 
 msgid "Trending Channels"
 msgstr "热门圈子"
@@ -927,9 +921,6 @@ msgstr ""
 msgid "Limo"
 msgstr "Limo"
 
-msgid "${minutes}m left"
-msgstr "${minutes} 分钟剩余"
-
 msgid "Functions with retrievable ownership"
 msgstr "具有可回收所有权的函数"
 
@@ -1077,7 +1068,7 @@ msgid "Transaction Hash"
 msgstr "交易哈希"
 
 msgid "1m left"
-msgstr "剩余 1分钟"
+msgstr "剩余 1 分钟"
 
 msgid "Connect Ethereum Wallet"
 msgstr "连接 EVM 兼容钱包"
@@ -1399,9 +1390,6 @@ msgstr "未发现钓鱼网站。"
 msgid "Log out"
 msgstr "登出"
 
-msgid "${hours}h left"
-msgstr "剩余 ${hours} 小时"
-
 msgid "Oops... Not all the requirements have been met"
 msgstr "哎呀... 并未满足所有要求"
 
@@ -1501,9 +1489,6 @@ msgstr "删除你的账户将永久断开您关联的社交账号绑定并移除
 
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
-
-msgid "Follow for ${feeAmount} $${feeSymbol}"
-msgstr "关注需支付 ${feeAmount} $${feeSymbol}"
 
 #. placeholder {0}: provider.chain
 msgid "No connector found for {0}"
@@ -1623,7 +1608,7 @@ msgstr "用<0>Phaver</0>发送过 Lens 帖子"
 msgid "<0>Sent</0><1/>"
 msgstr "<0>发送</0><1/>"
 
-#. placeholder {0}: (err as Error).message
+#. placeholder {0}: error.message
 msgid "Failed to show more. {0}"
 msgstr "无法展示更多内容。{0}"
 
@@ -2600,7 +2585,7 @@ msgid "Cannot send tip to yourself"
 msgstr "不能打赏给自己"
 
 msgid "{remainTryTimes} more incorrect password attempts will clear all your encrypted login sessions."
-msgstr "剩余{remainTryTimes}次尝试机会，失败将触发安全重置。"
+msgstr "剩余 {remainTryTimes} 次尝试机会，失败将触发安全重置。"
 
 msgid "Already signed in before?"
 msgstr "曾成功登录？"
@@ -2619,6 +2604,9 @@ msgstr "未验证"
 
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly 通知未开启！"
+
+msgid "Follow for {feeAmount} ${feeSymbol}"
+msgstr "关注需支付 {feeAmount} ${feeSymbol}"
 
 msgid "Farcaster"
 msgstr "Farcaster"
@@ -2823,6 +2811,10 @@ msgstr "如果该功能存在，项目方即使放弃所有权后仍可能重新
 
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "抱歉，我们无法找到 {displayName} 的钱包。"
+
+#. placeholder {0}: formatAddressEthereum(address, 4)
+msgid "Please switch to {0}"
+msgstr "请切换到 {0}"
 
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
 msgstr "权威 Top 100 榜单｜数据来源：<0>X3</0>"
@@ -3825,6 +3817,9 @@ msgstr "添加"
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr "上传失败。动图超过最大限制 {0}"
 
+msgid "{days}d left"
+msgstr "剩余 {days} 天"
+
 msgid "Money laundering found."
 msgstr "被识别为洗钱。"
 
@@ -4060,10 +4055,6 @@ msgstr "发布于 {0} <0>{sendFrom}</0>"
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr "合约所有者对个人滑点没有限制。"
 
-#. placeholder {0}: formatAddressEthereum(address, 4)
-msgid "Please switch to ${0}"
-msgstr "请切换到 ${0}"
-
 msgid "Number of winners"
 msgstr "获奖人数"
 
@@ -4091,6 +4082,9 @@ msgstr "发送打赏失败。"
 
 msgid "Connecting Wallet"
 msgstr "连接中钱包"
+
+msgid "{minutes}m left"
+msgstr "剩余 {minutes} 分钟"
 
 msgid "Neutral"
 msgstr "中性"
@@ -4323,6 +4317,9 @@ msgstr "<0/> 和 <1>其他的 {0} 个用户</1>"
 
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
 msgstr "确认断开此钱包及相关账户与 Firefly 社交图谱的绑定吗？"
+
+msgid "{hours}h left"
+msgstr "剩余 {hours} 小时"
 
 msgid "Events"
 msgstr "活动"

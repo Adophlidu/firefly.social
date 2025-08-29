@@ -120,24 +120,26 @@ export function OrbView() {
             if (sessionClient) lensSessionHolder.setSessionClient(sessionClient);
 
             LoginModalRef.close();
-            enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected`);
+            enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Lens)} account is now connected</Trans>);
             TelemetryProvider.captureEvent(EventId.ORB_LOGIN_IN_SUCCESS, {
                 lens_accounts: getAccountPairs(Source.Lens),
             });
         } catch (error) {
             if (error instanceof AbortError) return;
             if (error instanceof InvalidResultError) {
-                enqueueWarningMessage(t`This QR code is no longer valid. Please scan a new one to continue.`);
+                enqueueWarningMessage(
+                    <Trans>This QR code is no longer valid. Please scan a new one to continue.</Trans>,
+                );
                 setPollError(error);
                 return;
             }
             if (error instanceof InvalidOrbPermissionError) {
-                enqueueWarningMessage(t`Sorry, give edit permission from Orb is necessary to continue.`);
+                enqueueWarningMessage(<Trans>Sorry, give edit permission from Orb is necessary to continue.</Trans>);
                 setPollError(error);
                 throw error;
             }
 
-            enqueueMessageFromError(error, t`Failed to login lens with orb`);
+            enqueueMessageFromError(error, <Trans>Failed to login lens with orb</Trans>);
             setPollError(error as Error);
             throw error;
         } finally {

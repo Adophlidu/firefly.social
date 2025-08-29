@@ -140,6 +140,7 @@ msgstr ""
 msgid "Your post was sent to {0}."
 msgstr ""
 
+#. placeholder {0}: channel.name
 #. placeholder {0}: channel.id
 msgid "Mute /{0}"
 msgstr ""
@@ -463,10 +464,6 @@ msgstr ""
 msgid "Published successfully on {sortedSourceNames}"
 msgstr ""
 
-#. placeholder {0}: channel.name
-msgid "Mute /${0}"
-msgstr ""
-
 msgid "Post engagements"
 msgstr ""
 
@@ -564,9 +561,6 @@ msgstr ""
 #. placeholder {0}: formatBalance(1, token.decimals)
 #. placeholder {1}: token.symbol
 msgid "The minimum amount for each share is {0} {1}"
-msgstr ""
-
-msgid "${days}d left"
 msgstr ""
 
 msgid "Trending Channels"
@@ -925,9 +919,6 @@ msgid "See details"
 msgstr ""
 
 msgid "Limo"
-msgstr ""
-
-msgid "${minutes}m left"
 msgstr ""
 
 msgid "Functions with retrievable ownership"
@@ -1399,9 +1390,6 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-msgid "${hours}h left"
-msgstr ""
-
 msgid "Oops... Not all the requirements have been met"
 msgstr ""
 
@@ -1500,9 +1488,6 @@ msgid "Deleting your account will permanently disconnect your linked social acco
 msgstr ""
 
 msgid "Try searching for something else."
-msgstr ""
-
-msgid "Follow for ${feeAmount} $${feeSymbol}"
 msgstr ""
 
 #. placeholder {0}: provider.chain
@@ -1623,7 +1608,7 @@ msgstr ""
 msgid "<0>Sent</0><1/>"
 msgstr ""
 
-#. placeholder {0}: (err as Error).message
+#. placeholder {0}: error.message
 msgid "Failed to show more. {0}"
 msgstr ""
 
@@ -2612,6 +2597,9 @@ msgstr ""
 msgid "👀 Firefly notifications are off. "
 msgstr ""
 
+msgid "Follow for {feeAmount} ${feeSymbol}"
+msgstr ""
+
 msgid "Farcaster"
 msgstr ""
 
@@ -2809,6 +2797,10 @@ msgid "If this function exists, it is possible for the project owner to regain o
 msgstr ""
 
 msgid "Sorry, we are not able to find a wallet for {displayName}."
+msgstr ""
+
+#. placeholder {0}: formatAddressEthereum(address, 4)
+msgid "Please switch to {0}"
 msgstr ""
 
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
@@ -3812,6 +3804,9 @@ msgstr ""
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr ""
 
+msgid "{days}d left"
+msgstr ""
+
 msgid "Money laundering found."
 msgstr ""
 
@@ -4044,10 +4039,6 @@ msgstr ""
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr ""
 
-#. placeholder {0}: formatAddressEthereum(address, 4)
-msgid "Please switch to ${0}"
-msgstr ""
-
 msgid "Number of winners"
 msgstr ""
 
@@ -4074,6 +4065,9 @@ msgid "Failed to send tip."
 msgstr ""
 
 msgid "Connecting Wallet"
+msgstr ""
+
+msgid "{minutes}m left"
 msgstr ""
 
 msgid "Neutral"
@@ -4306,6 +4300,9 @@ msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
+msgstr ""
+
+msgid "{hours}h left"
 msgstr ""
 
 msgid "Events"

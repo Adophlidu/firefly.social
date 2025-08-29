@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -46,7 +45,7 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
 
                 const options = isMultiple ? selectedOptions : option ? [option] : [];
                 if (!options.length) {
-                    enqueueErrorMessage(t`No selected choice.`);
+                    enqueueErrorMessage(<Trans>No selected choice.</Trans>);
                     return;
                 }
 
@@ -58,9 +57,11 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
                     frameUrl: '',
                     options,
                 });
-                enqueueSuccessMessage(res.is_success ? t`Voted successfully.` : t`Failed to vote.`);
+                enqueueSuccessMessage(
+                    res.is_success ? <Trans>Voted successfully.</Trans> : <Trans>Failed to vote.</Trans>,
+                );
             } catch (error) {
-                enqueueMessageFromError(error, t`Failed to vote.`);
+                enqueueMessageFromError(error, <Trans>Failed to vote.</Trans>);
                 throw error;
             }
         },

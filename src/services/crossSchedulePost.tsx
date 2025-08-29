@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { ConnectorNotConnectedError } from '@wagmi/core';
 import dayjs from 'dayjs';
@@ -112,7 +111,7 @@ export async function crossSchedulePost(
             enqueueInfoMessage(error.message);
         } else {
             if (error instanceof ConnectorNotConnectedError) throw error;
-            enqueueMessageFromError(error, t`Failed to create schedule post.`);
+            enqueueMessageFromError(error, <Trans>Failed to create schedule post.</Trans>);
         }
         throw error;
     }

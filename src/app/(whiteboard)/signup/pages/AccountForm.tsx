@@ -87,7 +87,7 @@ export function AccountForm({ changeStep }: AccountFormProps) {
                 avatarFile = await downloadUrlWithProxy(avatar.url, `avatar-${crypto.randomUUID()}.jpg`);
             }
             if (!avatarFile) {
-                enqueueErrorMessage(t`Failed to read avatar file, please try again.`);
+                enqueueErrorMessage(<Trans>Failed to read avatar file, please try again.</Trans>);
                 return;
             }
 
@@ -101,7 +101,7 @@ export function AccountForm({ changeStep }: AccountFormProps) {
                 avatar: encodeURIComponent(s3Url),
             });
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to create Firefly profile.`);
+            enqueueMessageFromError(error, <Trans>Failed to create Firefly profile.</Trans>);
             throw error;
         }
     }, [avatar, nickname, changeStep]);

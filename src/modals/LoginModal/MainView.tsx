@@ -1,7 +1,6 @@
 'use client';
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
 import { signIn } from 'next-auth/react';
@@ -114,7 +113,7 @@ function FireflyAccount({
                 });
             }
         } catch (error) {
-            enqueueMessageFromError(error, t`Something went wrong.`);
+            enqueueMessageFromError(error, <Trans>Something went wrong.</Trans>);
             throw error;
         }
     }, []);
@@ -355,17 +354,17 @@ export function MainView() {
                     );
                 }
 
-                enqueueSuccessMessage(t`Switch Done!`);
+                enqueueSuccessMessage(<Trans>Switch Done!</Trans>);
             } catch (error) {
                 if (error instanceof TokenExpiredError) {
                     const state = getProfileState(account.profile.profileSource);
                     state.removeAccount(account);
 
-                    enqueueWarningMessage(t`This account has expired, please log in again.`);
+                    enqueueWarningMessage(<Trans>This account has expired, please log in again.</Trans>);
                     return;
                 }
 
-                enqueueMessageFromError(error, t`Failed to switch.`);
+                enqueueMessageFromError(error, <Trans>Failed to switch.</Trans>);
                 throw error;
             }
         },

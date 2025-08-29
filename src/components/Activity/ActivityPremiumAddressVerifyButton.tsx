@@ -1,7 +1,6 @@
 'use client';
 
 import { Menu } from '@headlessui/react';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { type MouseEvent, useContext } from 'react';
 
@@ -59,7 +58,9 @@ export function ActivityPremiumAddressVerifyButton({ source, chainId }: { source
                             return;
                         }
                         e.preventDefault();
-                        enqueueWarningMessage(t`Please sign in with ${resolveSourceName(source)} to continue`);
+                        enqueueWarningMessage(
+                            <Trans>Please sign in with {resolveSourceName(source)} to continue</Trans>,
+                        );
                     }}
                 >
                     {isRefetching || isLoading ? (

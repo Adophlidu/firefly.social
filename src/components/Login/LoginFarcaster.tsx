@@ -46,7 +46,8 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
         const account = await createAccount();
 
         const done = await addAccount(account, options);
-        if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
+        if (done)
+            enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Farcaster)} account is now connected.</Trans>);
 
         LoginModalRef.close();
     } catch (error) {
@@ -58,7 +59,7 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
 
         // if login timed out, let the user refresh the QR code
         if (error instanceof TimeoutError || error instanceof FireflyBindTimeoutError) {
-            enqueueWarningMessage(t`This QR code is longer valid. Please scan a new one to continue.`);
+            enqueueWarningMessage(<Trans>This QR code is longer valid. Please scan a new one to continue.</Trans>);
             return;
         }
 
@@ -92,13 +93,15 @@ function LoginFarcasterWithWalletButton({ children, className }: HTMLProps<'a'>)
             await login(() => createAccountByWallet(controller.current.signal));
         } catch (error) {
             if (error instanceof FireflyAccountAbsentError) {
-                enqueueWarningMessage(t`Registered account not found. Please switch to another wallet and try again.`);
+                enqueueWarningMessage(
+                    <Trans>Registered account not found. Please switch to another wallet and try again.</Trans>,
+                );
             } else if (error instanceof FireflyAlreadyBoundError) {
                 enqueueWarningMessage(
                     t`The account you are trying to log in with is already linked to a different Firefly account.`,
                 );
             } else {
-                enqueueMessageFromError(error, t`Failed to login.`);
+                enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
             }
             throw error;
         }
@@ -173,7 +176,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                 { skipReportFarcasterSigner: false, signal: controller.current.signal },
             );
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to login.`);
+            enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
             throw error;
         }
     }, [controller, resetCountdown, startCountdown, stopCountdown]);
@@ -202,18 +205,20 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
             );
         } catch (error) {
             if (error instanceof FarcasterPatchSignerError) {
-                enqueueInfoMessage(t`Failed to reconnect. Please scan another QR code to establish a new connection.`);
+                enqueueInfoMessage(
+                    <Trans>Failed to reconnect. Please scan another QR code to establish a new connection.</Trans>,
+                );
                 history.replace(`/farcaster?signType=${FarcasterSignType.FireflySponsorship}`);
                 return;
             }
 
             if (IS_MOBILE_DEVICE) {
-                enqueueMessageFromError(error, t`Failed to login.`);
+                enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
                 history.replace(`/farcaster?signType=${FarcasterSignType.FireflySponsorship}`);
                 return;
             }
 
-            enqueueMessageFromError(error, t`Failed to login.`);
+            enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
             throw error;
         }
     }, [controller, history, resetCountdown, startCountdown, stopCountdown]);
@@ -240,7 +245,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                 { skipReportFarcasterSigner: false, signal: controller.current.signal },
             );
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to login.`);
+            enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
             throw error;
         }
     }, [controller, resetCountdown, startCountdown, stopCountdown]);

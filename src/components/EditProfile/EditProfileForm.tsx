@@ -172,9 +172,9 @@ export function EditProfileForm() {
             const pfp = values.pfp ? await uploadProfileAvatar(profile.source, values.pfp) : profile.pfp;
             await updateProfile(profile, { ...values, pfp });
             onClose?.();
-            enqueueSuccessMessage(t`Updated profile successfully`);
+            enqueueSuccessMessage(<Trans>Updated profile successfully</Trans>);
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to update profile.`);
+            enqueueMessageFromError(error, <Trans>Failed to update profile.</Trans>);
             throw error;
         }
     };

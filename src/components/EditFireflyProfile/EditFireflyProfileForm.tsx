@@ -52,10 +52,10 @@ export function EditFireflyProfileForm() {
                     dirtyFields.displayName ? 'change_nickname' : undefined,
                 ]),
             );
-            enqueueSuccessMessage(t`Updated profile successfully`);
+            enqueueSuccessMessage(<Trans>Updated profile successfully</Trans>);
             context?.onClose?.();
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to update profile.`);
+            enqueueMessageFromError(error, <Trans>Failed to update profile.</Trans>);
             throw error;
         }
     };

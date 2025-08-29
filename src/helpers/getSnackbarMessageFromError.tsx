@@ -34,7 +34,7 @@ export function getWarningMessageFromError(error: unknown, fallback?: string) {
  * @param fallback the fallback message if error is not an instance of Error
  * @returns
  */
-export function getErrorMessageFromError(error: unknown, fallback?: string): SnackbarMessage {
+export function getErrorMessageFromError(error: unknown, fallback?: SnackbarMessage): SnackbarMessage {
     if (error) {
         const clientErrorParsed = ClientErrorSchema.safeParse(error);
         const message = clientErrorParsed.success ? first(clientErrorParsed.data.response.errors)?.message : null;

@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -74,10 +73,10 @@ function MuteAllProfileBase({ identity, onClose, className }: MuteAllProfileBase
                     }
                 });
             }
-            enqueueSuccessMessage(t`All wallets and accounts are muted.`);
+            enqueueSuccessMessage(<Trans>All wallets and accounts are muted.</Trans>);
             captureMuteEvent(EventId.MUTE_ALL_SUCCESS, identity);
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to mute all wallets and accounts.`);
+            enqueueMessageFromError(error, <Trans>Failed to mute all wallets and accounts.</Trans>);
             throw error;
         }
     }, [identity, onClose]);

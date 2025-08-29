@@ -1,5 +1,4 @@
 import { exposeToIframe } from '@farcaster/miniapp-host';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef } from 'react';
 import { useAccount, useChainId } from 'wagmi';
@@ -72,7 +71,7 @@ export function FrameViewerModal({ open, onClose, props, setProps }: Props) {
                             const chainId = Number.parseInt(chain.chainId, 16);
                             await switchEthereumChain(chainId);
                         } catch (error) {
-                            enqueueMessageFromError(error, t`Failed to switch chain`);
+                            enqueueMessageFromError(error, <Trans>Failed to switch chain</Trans>);
                             throw error;
                         }
                         return;

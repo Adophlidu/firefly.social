@@ -135,6 +135,7 @@ msgstr "Send a tip"
 msgid "Your post was sent to {0}."
 msgstr "Your post was sent to {0}."
 
+#. placeholder {0}: channel.name
 #. placeholder {0}: channel.id
 msgid "Mute /{0}"
 msgstr "Mute /{0}"
@@ -458,10 +459,6 @@ msgstr "FAILED POST"
 msgid "Published successfully on {sortedSourceNames}"
 msgstr "Published successfully on {sortedSourceNames}"
 
-#. placeholder {0}: channel.name
-msgid "Mute /${0}"
-msgstr "Mute /${0}"
-
 msgid "Post engagements"
 msgstr "Post engagements"
 
@@ -560,9 +557,6 @@ msgstr "Failed to create custom theme."
 #. placeholder {1}: token.symbol
 msgid "The minimum amount for each share is {0} {1}"
 msgstr "The minimum amount for each share is {0} {1}"
-
-msgid "${days}d left"
-msgstr "${days}d left"
 
 msgid "Trending Channels"
 msgstr "Trending Channels"
@@ -921,9 +915,6 @@ msgstr "See details"
 
 msgid "Limo"
 msgstr "Limo"
-
-msgid "${minutes}m left"
-msgstr "${minutes}m left"
 
 msgid "Functions with retrievable ownership"
 msgstr "Functions with retrievable ownership"
@@ -1394,9 +1385,6 @@ msgstr "No phishing site found."
 msgid "Log out"
 msgstr "Log out"
 
-msgid "${hours}h left"
-msgstr "${hours}h left"
-
 msgid "Oops... Not all the requirements have been met"
 msgstr "Oops... Not all the requirements have been met"
 
@@ -1496,9 +1484,6 @@ msgstr "Deleting your account will permanently disconnect your linked social acc
 
 msgid "Try searching for something else."
 msgstr "Try searching for something else."
-
-msgid "Follow for ${feeAmount} $${feeSymbol}"
-msgstr "Follow for ${feeAmount} $${feeSymbol}"
 
 #. placeholder {0}: provider.chain
 msgid "No connector found for {0}"
@@ -1618,7 +1603,7 @@ msgstr "Posted to Lens on <0>Phaver</0>"
 msgid "<0>Sent</0><1/>"
 msgstr "<0>Sent</0><1/>"
 
-#. placeholder {0}: (err as Error).message
+#. placeholder {0}: error.message
 msgid "Failed to show more. {0}"
 msgstr "Failed to show more. {0}"
 
@@ -2615,6 +2600,9 @@ msgstr "Unverified"
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly notifications are off. "
 
+msgid "Follow for {feeAmount} ${feeSymbol}"
+msgstr "Follow for {feeAmount} ${feeSymbol}"
+
 msgid "Farcaster"
 msgstr "Farcaster"
 
@@ -2818,6 +2806,10 @@ msgstr "If this function exists, it is possible for the project owner to regain 
 
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "Sorry, we are not able to find a wallet for {displayName}."
+
+#. placeholder {0}: formatAddressEthereum(address, 4)
+msgid "Please switch to {0}"
+msgstr "Please switch to {0}"
 
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
 msgstr "Top 100 Web3 profiles powered by <0>X3</0>"
@@ -3820,6 +3812,9 @@ msgstr "Add"
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr "Failed to upload. Gif size exceeds {0}"
 
+msgid "{days}d left"
+msgstr "{days}d left"
+
 msgid "Money laundering found."
 msgstr "Money laundering found."
 
@@ -4055,10 +4050,6 @@ msgstr "Posted via {0} <0>{sendFrom}</0>"
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr "The contract owner has no restrictions on personal slippage."
 
-#. placeholder {0}: formatAddressEthereum(address, 4)
-msgid "Please switch to ${0}"
-msgstr "Please switch to ${0}"
-
 msgid "Number of winners"
 msgstr "Number of winners"
 
@@ -4086,6 +4077,9 @@ msgstr "Failed to send tip."
 
 msgid "Connecting Wallet"
 msgstr "Connecting Wallet"
+
+msgid "{minutes}m left"
+msgstr "{minutes}m left"
 
 msgid "Neutral"
 msgstr "Neutral"
@@ -4318,6 +4312,9 @@ msgstr "<0/> and <1>{0} others</1>"
 
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
 msgstr "Confirm to disconnect this wallet and its associated account from Firefly?"
+
+msgid "{hours}h left"
+msgstr "{hours}h left"
 
 msgid "Events"
 msgstr "Events"

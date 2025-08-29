@@ -34,7 +34,7 @@ async function loginEmail(createAccount: () => Promise<Account>, options?: Omit<
             },
         });
         if (done) {
-            enqueueSuccessMessage(t`Your email is now connected.`);
+            enqueueSuccessMessage(<Trans>Your email is now connected.</Trans>);
         }
 
         LoginModalRef.close();
@@ -43,7 +43,7 @@ async function loginEmail(createAccount: () => Promise<Account>, options?: Omit<
         if (AbortError.is(error)) return;
 
         if (error instanceof FireflyAlreadyBoundError) {
-            enqueueWarningMessage(t`This Email is already linked to another Firefly account.`);
+            enqueueWarningMessage(<Trans>This Email is already linked to another Firefly account.</Trans>);
             return;
         }
 
@@ -66,12 +66,12 @@ export function LoginEmail() {
     const [{ loading }, login] = useAsyncFn(async () => {
         controller.current.renew();
         if (!isValidEmail) {
-            enqueueWarningMessage(t`Sorry, the email you entered is invalid`);
+            enqueueWarningMessage(<Trans>Sorry, the email you entered is invalid</Trans>);
             return;
         }
 
         if (!isValidPasscode) {
-            enqueueWarningMessage(t`Sorry, the passcode you entered is invalid`);
+            enqueueWarningMessage(<Trans>Sorry, the passcode you entered is invalid</Trans>);
             return;
         }
 
@@ -81,7 +81,7 @@ export function LoginEmail() {
             });
         } catch (error) {
             if (error instanceof Error) {
-                enqueueMessageFromError(error, t`Connection failed. ${error.message}`);
+                enqueueMessageFromError(error, <Trans>Connection failed. {error.message}</Trans>);
                 return;
             }
             throw error;

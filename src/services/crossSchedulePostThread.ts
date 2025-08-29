@@ -4,11 +4,15 @@ import { first } from 'lodash-es';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { CreateScheduleError } from '@/constants/error.js';
-import { COMPOSE_ERROR_NOTIFICATION_KEY } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { delay } from '@/helpers/delay.js';
-import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import {
+    enqueueInfoMessage,
+    enqueueMessageFromError,
+    enqueueSuccessMessage,
+    MessageKey,
+} from '@/helpers/enqueueMessage.js';
 import { getPostMediaTypes } from '@/helpers/getPostMediaTypes.js';
 import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
@@ -76,7 +80,7 @@ export async function crossPostScheduleThread(scheduleTime: Date, signal?: Abort
         } else {
             if (error instanceof ConnectorNotConnectedError) throw error;
             enqueueMessageFromError(error, t`Failed to create schedule thread posts.`, {
-                key: COMPOSE_ERROR_NOTIFICATION_KEY,
+                key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY,
             });
         }
         throw error;

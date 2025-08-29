@@ -1,6 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, type ReactNode } from 'react';
 
@@ -119,7 +118,7 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: ActivityTa
                         isLoggedIn={isLoggedIn}
                         onClick={async () => {
                             const { data: isFollowed } = await refetch();
-                            if (!isFollowed) enqueueWarningMessage(t`Verification unsuccessful`);
+                            if (!isFollowed) enqueueWarningMessage(<Trans>Verification unsuccessful</Trans>);
                         }}
                     >
                         <Trans>Verify</Trans>

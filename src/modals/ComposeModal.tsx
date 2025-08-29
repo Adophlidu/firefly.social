@@ -212,7 +212,7 @@ function ComposeModalUI({ ref }: Props) {
 
                 addDraft(draft);
                 ComposeModalRef.close();
-                enqueueSuccessMessage(t`Your draft was saved.`);
+                enqueueSuccessMessage(<Trans>Your draft was saved.</Trans>);
                 captureComposeDraftPostEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, posts[0], {
                     draftId: draft.draftId,
                     thread: posts,
@@ -270,7 +270,7 @@ function ComposeModalUI({ ref }: Props) {
             setEditorContent(chars);
             addImage(createLocalMediaObject(new File([coverBlob], 'image.png', { type: FileMimeType.PNG }), true), 0);
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to create image payload.`);
+            enqueueMessageFromError(error, <Trans>Failed to create image payload.</Trans>);
             throw error;
         }
     }, [rpPayload, promoteLink, updateChars, setEditorContent, addImage]);

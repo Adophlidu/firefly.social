@@ -1,6 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -31,7 +30,7 @@ export function SendPasscodeButton({ email, disabled }: Props) {
 
     const [{ loading }, handleSendPasscode] = useAsyncFn(async () => {
         if (!EMAIL_REGEX.test(email)) {
-            enqueueWarningMessage(t`Sorry, the email you entered is invalid`);
+            enqueueWarningMessage(<Trans>Sorry, the email you entered is invalid</Trans>);
             return;
         }
         if (secondsLeft > 0) return;
@@ -40,12 +39,14 @@ export function SendPasscodeButton({ email, disabled }: Props) {
             await FireflyEndpointProvider.generateEmailOTP(email);
             if (isFirstSendCode) setIsFirstSendCode(false);
             setSecondsLeft(60);
-            enqueueSuccessMessage(t`One-time passcode sent to you`);
+            enqueueSuccessMessage(<Trans>One-time passcode sent to you</Trans>);
         } catch (error) {
             if (error instanceof OTPExceededMaximumLimit) {
-                enqueueWarningMessage(t`You have exceeded the maximum number of attempts. Please try again later.`);
+                enqueueWarningMessage(
+                    <Trans>You have exceeded the maximum number of attempts. Please try again later.</Trans>,
+                );
             } else {
-                enqueueMessageFromError(error, t`Failed to send.`);
+                enqueueMessageFromError(error, <Trans>Failed to send.</Trans>);
             }
             throw error;
         }

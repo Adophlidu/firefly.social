@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
 import {
@@ -29,7 +29,10 @@ export function DisconnectBindAddressButton({ connection }: DisconnectBindAddres
             );
             if (disconnectedConnections.length <= 0) {
                 enqueueErrorMessage(
-                    t`Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly.`,
+                    <Trans>
+                        Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your
+                        immersive experience in Firefly.
+                    </Trans>,
                 );
                 return;
             }
@@ -44,9 +47,9 @@ export function DisconnectBindAddressButton({ connection }: DisconnectBindAddres
 
             const profiles = await getRelatedProfiles(connection);
             if (profiles.length) await removeAccountsByProfiles(profiles);
-            enqueueSuccessMessage(t`Disconnected from your Firefly account`);
+            enqueueSuccessMessage(<Trans>Disconnected from your Firefly account</Trans>);
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to disconnect`);
+            enqueueMessageFromError(error, <Trans>Failed to disconnect</Trans>);
             throw error;
         }
     }, [connected, connection]);

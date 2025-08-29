@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { type HTMLProps } from 'react';
@@ -68,7 +67,7 @@ export function Tips({
             if (!relatedProfiles?.some((profile) => profile.identity.source === Source.Wallet)) {
                 const fireflyAccountName = fireflyProfiles.account?.displayName;
                 const displayName = fireflyAccountName || (handle ? `@${handle}` : identity.id);
-                enqueueInfoMessage(t`Sorry, we are not able to find a wallet for ${displayName}.`);
+                enqueueInfoMessage(<Trans>Sorry, we are not able to find a wallet for {displayName}.</Trans>);
                 return;
             }
 
@@ -81,7 +80,7 @@ export function Tips({
                 post,
             });
         } catch (error) {
-            enqueueErrorMessage(t`Something went wrong, please try again.`, { error });
+            enqueueErrorMessage(<Trans>Something went wrong, please try again.</Trans>, { error });
             throw error;
         }
     }, [identity, onClick, handle, pureWallet, post, isLogin, isAuthRequired]);

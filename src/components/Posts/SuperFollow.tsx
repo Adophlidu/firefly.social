@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -55,13 +54,13 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
                 followerWalletAddress: account.address,
             });
             await LensSocialMediaProvider.superFollow(profile.profileId);
-            enqueueSuccessMessage(t`Followed @${profile.handle} on Lens`);
+            enqueueSuccessMessage(<Trans>Followed @{profile.handle} on Lens</Trans>);
             captureProfileActionEvent('super_follow', profile, {
                 followerWalletAddress: account.address,
             });
             onClose?.();
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to follow @${profile.handle} on Lens`);
+            enqueueMessageFromError(error, <Trans>Failed to follow @{profile.handle} on Lens</Trans>);
             throw error;
         }
     }, [account.address, followModule, allowanceModule, isConnected, hasAllowance, profile, onClose]);
@@ -71,13 +70,13 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
         // cspell: disable-next-line
         if (!followModule) return <Trans>This profile doesn&apos;t enable super follow</Trans>;
         if (!isConnected) return <Trans>Connect your wallet to follow</Trans>;
-        if (wrongAddress) return <Trans>Please switch to ${formatAddressEthereum(address, 4)}</Trans>;
+        if (wrongAddress) return <Trans>Please switch to {formatAddressEthereum(address, 4)}</Trans>;
         if (!hasAmount) return <Trans>Insufficient Balance</Trans>;
         if (!hasAllowance) return <Trans>Allow Follow Module</Trans>;
         if (feeAmount && feeSymbol)
             return (
                 <Trans>
-                    Follow for ${feeAmount} $${feeSymbol}
+                    Follow for {feeAmount} ${feeSymbol}
                 </Trans>
             );
         return <Trans>Follow</Trans>;

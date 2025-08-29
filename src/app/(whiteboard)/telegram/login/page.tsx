@@ -1,6 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { use, useMemo } from 'react';
@@ -75,13 +74,13 @@ export default function Page(props: Props) {
                     return;
                 }
 
-                enqueueSuccessMessage(t`Your TG account is now connected`);
+                enqueueSuccessMessage(<Trans>Your TG account is now connected</Trans>);
 
                 await delay(1000);
 
                 router.replace('/');
             } catch (error) {
-                enqueueMessageFromError(error, t`Oops... Something went wrong. Please try again`);
+                enqueueMessageFromError(error, <Trans>Oops... Something went wrong. Please try again</Trans>);
             }
         }
     }, [os, router, token]);

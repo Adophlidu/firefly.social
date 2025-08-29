@@ -61,7 +61,9 @@ function ToggleSyncSessionSwitch({
 
                 await FireflyEndpointProvider.resetPasscode();
                 queryClient.setQueryData(['session-sync-status', isLogin], false);
-                enqueueSuccessMessage(t`Multi-device login is now turned off and all previously sessions are cleared.`);
+                enqueueSuccessMessage(
+                    <Trans>Multi-device login is now turned off and all previously sessions are cleared.</Trans>,
+                );
                 captureRemovePasscodeEvent();
             } catch (error) {
                 enqueueErrorMessage(

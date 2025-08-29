@@ -5,10 +5,10 @@ import { compact, difference, first } from 'lodash-es';
 import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { COMPOSE_ERROR_NOTIFICATION_KEY, SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
-import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorsMessage, enqueueSuccessMessage, MessageKey } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getPostFailedAt } from '@/helpers/getPostFailedAt.js';
@@ -173,7 +173,7 @@ export async function crossPost(
 
     const parentPost = Object.values(compositePost.parentPost).find((x) => x);
 
-    SnackbarRef.close({ key: COMPOSE_ERROR_NOTIFICATION_KEY });
+    SnackbarRef.close({ key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY });
     const allSettled = await Promise.allSettled(
         SORTED_SOCIAL_SOURCES.map(async (source) => {
             if (!availableSources.includes(source)) return null;
@@ -247,7 +247,7 @@ export async function crossPost(
                 t`Your post failed to send to ${resolveSourcesName(failedAt, '/')}. Click 'Retry' to attempt posting again.`,
                 {
                     errors: compact(allErrors),
-                    key: COMPOSE_ERROR_NOTIFICATION_KEY,
+                    key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY,
                     persist: true,
                 },
             );

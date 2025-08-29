@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useCallback } from 'react';
 
 import { GiphyGifSelector } from '@/components/Gif/GiphyGifSelector.js';
@@ -29,7 +29,7 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
         (gif: IGif) => {
             const gifSize = gif.images.original.size;
             if (gifSize && parseFloat(gifSize) > maxGifSize) {
-                enqueueErrorMessage(t`Failed to upload. Gif size exceeds ${formatFileSize(maxGifSize)}`);
+                enqueueErrorMessage(<Trans>Failed to upload. Gif size exceeds {formatFileSize(maxGifSize)}</Trans>);
                 return;
             }
             updateImages((images) => {

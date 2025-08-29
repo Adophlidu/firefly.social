@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
 import TipsIcon from '@/assets/tips.svg';
@@ -34,7 +34,9 @@ export function TipsButton({ identity, handle, profiles }: Props) {
                 profiles,
             });
         } catch (error) {
-            enqueueInfoMessage(t`Sorry, we are not able to find a wallet for ${handle ? '@' + handle : identity.id}.`);
+            enqueueInfoMessage(
+                <Trans>Sorry, we are not able to find a wallet for {handle ? '@' + handle : identity.id}.</Trans>,
+            );
             throw error;
         }
     }, [isLogin, handle, profiles, identity]);

@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
 import { waitForDisconnectConfirmation } from '@/app/(settings)/components/waitForDisconnectConfirmation.js';
@@ -20,9 +20,9 @@ export function ReportButton({ connection }: ReportButtonProps) {
             const reason = 'Disconnect';
 
             await FireflyEndpointProvider.reportAndDeleteWallet(connection, reason);
-            enqueueSuccessMessage(t`Disconnected from your Firefly account`);
+            enqueueSuccessMessage(<Trans>Disconnected from your Firefly account</Trans>);
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to disconnect`);
+            enqueueMessageFromError(error, <Trans>Failed to disconnect</Trans>);
             throw error;
         }
     }, [connection]);

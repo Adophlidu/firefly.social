@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 
@@ -20,7 +19,7 @@ export function ReportArticleButton({ article, ref, onReport, onClick, ...rest }
     const mutation = useMutation({
         mutationFn: async () => {
             await FireflyEndpointProvider.reportArticle(article);
-            enqueueSuccessMessage(t`Report submitted`);
+            enqueueSuccessMessage(<Trans>Report submitted</Trans>);
         },
     });
     return (
@@ -41,7 +40,7 @@ export function ReportArticleButton({ article, ref, onReport, onClick, ...rest }
                 try {
                     await mutation.mutateAsync();
                 } catch (error) {
-                    enqueueMessageFromError(error, t`Failed to report @${article.title}.`);
+                    enqueueMessageFromError(error, <Trans>Failed to report @{article.title}.</Trans>);
                     throw error;
                 }
             }}

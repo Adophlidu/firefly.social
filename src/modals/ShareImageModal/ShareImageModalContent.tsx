@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -26,7 +25,7 @@ export function ShareImageModalContent(props: ShareImageModalContentProps) {
             }
             await downloadImage(props.imageUrl, 'firefly_tip_share.png');
         } catch (error) {
-            enqueueInfoMessage(t`Failed to download image. Please try again later.`);
+            enqueueInfoMessage(<Trans>Failed to download image. Please try again later.</Trans>);
             throw error;
         }
     }, [props?.imageUrl]);

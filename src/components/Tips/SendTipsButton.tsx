@@ -1,6 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
@@ -139,14 +138,14 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                 eventId: EventId.TIPS_SEND_SUCCESS,
             });
 
-            enqueueSuccessMessage(t`Tip sent successfully!`);
+            enqueueSuccessMessage(<Trans>Tip sent successfully!</Trans>);
             router.navigate({ to: TipsRoutePath.SUCCESS });
             update((prev) => ({ ...prev, isSending: false, hasError: false }));
         } catch (error) {
             if (isUserRejectErrorInWallet(error)) return;
 
             update((prev) => ({ ...prev, hasError: true, isSending: false, hash: null }));
-            enqueueMessageFromError(error, t`Failed to send tip.`);
+            enqueueMessageFromError(error, <Trans>Failed to send tip.</Trans>);
             throw error;
         }
     }, [connected, onConnect, recipient, token, update, amount, identity, isCustomAmount]);

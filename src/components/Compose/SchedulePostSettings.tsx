@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { noop } from 'lodash-es';
@@ -50,7 +49,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
     const [{ loading }, handleSet] = useAsyncFn(async () => {
         try {
             if (dayjs(value).isBefore(new Date(), 'minute')) {
-                enqueueWarningMessage(t`The scheduled time has passed. Please reset.`);
+                enqueueWarningMessage(<Trans>The scheduled time has passed. Please reset.</Trans>);
                 return;
             }
 
@@ -94,7 +93,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
             if (error instanceof CreateScheduleError) {
                 enqueueWarningMessage(error.message);
             } else {
-                enqueueMessageFromError(error, t`Failed to set schedule time.`);
+                enqueueMessageFromError(error, <Trans>Failed to set schedule time.</Trans>);
             }
             throw error;
         }

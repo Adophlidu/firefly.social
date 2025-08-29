@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { signIn } from 'next-auth/react';
 import { useAsyncFn } from 'react-use';
@@ -38,7 +37,7 @@ export function ThirdPartConnectButton({ source }: Props) {
                     safeUnreachable(source);
             }
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to connect on ${source}`);
+            enqueueMessageFromError(error, <Trans>Failed to connect on {source}</Trans>);
             throw error;
         }
     }, []);

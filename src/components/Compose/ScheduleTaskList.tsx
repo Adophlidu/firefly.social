@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
@@ -86,7 +85,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
                 scheduleId: task.task_uuid,
             });
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to delete scheduled post.`);
+            enqueueMessageFromError(error, <Trans>Failed to delete scheduled post.</Trans>);
             throw error;
         }
     }, [task.task_uuid]);
