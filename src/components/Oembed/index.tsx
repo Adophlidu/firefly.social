@@ -45,7 +45,12 @@ export const OembedLayout = memo<{ data: LinkDigested; post?: Post; isInCompose?
             case PayloadType.Post:
                 return (
                     <Suspense fallback={null}>
-                        <PostEmbed id={payload.id} source={payload.source} isInCompose={isInCompose} />
+                        <PostEmbed
+                            id={payload.id}
+                            source={payload.source}
+                            handle={payload.handle}
+                            isInCompose={isInCompose}
+                        />
                     </Suspense>
                 );
             case PayloadType.Mirror:

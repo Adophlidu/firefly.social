@@ -28,6 +28,8 @@ export interface PostPayload {
     type: PayloadType.Post;
     id: string;
     source: SocialSourceInURL;
+    // farcaster short id link
+    handle?: string;
 }
 export interface OpenGraphImage {
     url: string;

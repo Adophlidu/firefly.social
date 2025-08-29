@@ -92,6 +92,7 @@ class Processor {
         if (FARCASTER_DETAIL_REGEX.test(documentUrl)) {
             const match = documentUrl.match(FARCASTER_DETAIL_REGEX);
             const id = match ? match[2] : null;
+            const handle = match ? match[1] : undefined;
             if (!id) return { og };
             return {
                 og,
@@ -99,6 +100,7 @@ class Processor {
                     type: PayloadType.Post,
                     id,
                     source: SourceInURL.Farcaster,
+                    handle,
                 },
             };
         }

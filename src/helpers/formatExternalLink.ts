@@ -50,9 +50,12 @@ async function capturePostUrl(url: URL, regex: RegExp, source: SocialSource) {
     const postId = trimify(matched?.[1] ?? '');
     if (source === Source.Farcaster) {
         const handle = trimify(matched?.[1] ?? '');
-        const shortId = trimify(matched?.[2] ?? '');
-        if (!handle || !shortId) return;
-        const post = await FireflySocialMediaProvider.getPostByShortId(shortId, handle);
+        const postId = trimify(matched?.[2] ?? '');
+        if (!handle || !postId) return;
+        const post =
+            postId.length > 10
+                ? await FireflySocialMediaProvider.getPostById(postId)
+                : await FireflySocialMediaProvider.getPostByShortId(postId, handle);
         if (!post) return;
         return urlcat(SITE_URL, resolvePostUrl(source, post.postId));
     } else if (source === Source.Bsky) {
