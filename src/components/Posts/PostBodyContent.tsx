@@ -59,7 +59,7 @@ export interface PostBodyContentProps {
     ref?: React.Ref<HTMLDivElement>;
 }
 
-function checkIfHasRedPacket(post: Post) {
+export function checkIfHasRedPacket(post: Post) {
     const content = post.metadata.content?.content;
 
     return content?.includes(RP_HASH_TAG) || !!getEncryptedPayloadFromText(content);
