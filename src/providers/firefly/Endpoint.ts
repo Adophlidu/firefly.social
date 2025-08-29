@@ -1594,7 +1594,7 @@ class FireflyEndpoint {
         return data;
     }
 
-    async getPrivyWallet() {
+    async createPrivyWallet() {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/create/privy/user');
         const response = await fireflySessionHolder.fetch<PrivyWalletResponse>(url, {
             method: 'POST',

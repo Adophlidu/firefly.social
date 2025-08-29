@@ -97,7 +97,7 @@ export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: str
 
     if (result) {
         await queryClient.refetchQueries({ queryKey: ['all-profiles'] });
-        await queryClient.refetchQueries({ queryKey: ['my-wallet-connections'] });
+        await queryClient.refetchQueries({ queryKey: ['allConnections'] });
     }
 
     return result;

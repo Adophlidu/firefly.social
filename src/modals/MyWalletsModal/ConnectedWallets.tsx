@@ -23,9 +23,9 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveNamespace } from '@/helpers/resolveNamespace.js';
-import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useEnsNameCached } from '@/hooks/useEnsNameCached.js';
-import { useIsSetupPrivyWallet } from '@/hooks/useIsSetupPrivyWallet.js';
+import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
+import { usePrivyConnections } from '@/hooks/usePrivyConnections.js';
 import { ConnectionSource, useWalletConnections } from '@/hooks/useWalletConnections.js';
 import { rewriteDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
 import { switchNetwork } from '@/modals/MyWalletsModal/switchNetwork.js';
@@ -135,10 +135,11 @@ function ConnectedItem({
 
 function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
     const allWalletConnections = useWalletConnections();
-    const { isLoading: isLoadingAllConnections } = useAllConnections();
+    const { isLoading: isLoadingAllConnections } = usePrivyConnections();
+    const { isCreatedPrivyWallet } = useIsCreatedPrivyWallet();
 
-    const { isLoading } = useIsSetupPrivyWallet();
     if (isLoadingAllConnections) return <div className="mb-2 h-[122px] w-full animate-pulse rounded-lg bg-bg" />;
+    if (!isCreatedPrivyWallet) return null;
     const privyConnections = allWalletConnections.filter((x) => x.source === 'privy');
 
     return (
@@ -158,9 +159,11 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
                 <span className="min-w-0 flex-1 truncate text-left text-sm">
                     <Trans>Firefly wallets</Trans>
                 </span>
-                <span className="text-right text-sm">
-                    {isLoading ? <LoadingIcon size={20} /> : <Trans>Open</Trans>}
-                </span>
+                {privyConnections?.length ? (
+                    <span className="text-right text-sm">
+                        <Trans>Open</Trans>
+                    </span>
+                ) : null}
             </Link>
             {!privyConnections?.length ? (
                 <div className="flex h-10 items-center justify-center text-sm text-secondary">

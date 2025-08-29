@@ -7,7 +7,7 @@ export const queryMyAllConnections = {
     async queryFn() {
         return await FireflyEndpointProvider.getAllConnectionsFormatted();
     },
-};
+} as const;
 
 export function useAllConnections(options?: { enabled?: boolean }) {
     return useQuery({ ...queryMyAllConnections, enabled: options?.enabled });

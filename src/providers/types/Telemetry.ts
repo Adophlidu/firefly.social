@@ -310,6 +310,7 @@ export enum ExceptionId {
     RESUME_LENS_SESSION = 'resume_lens_session',
     RESUME_BSKY_SESSION = 'resume_bsky_session',
     RESUME_TWITTER_SESSION = 'resume_twitter_session',
+    CREATE_PRIVY_WALLET = 'create_privy_wallet',
 }
 
 export interface Event {

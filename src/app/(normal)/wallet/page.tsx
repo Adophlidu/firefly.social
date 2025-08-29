@@ -28,8 +28,8 @@ import { plus } from '@/helpers/number.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
+import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { useIsSetupPrivyWallet } from '@/hooks/useIsSetupPrivyWallet.js';
 import { useMixesTokens } from '@/hooks/useMixesTokens.js';
 import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
 import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
@@ -54,7 +54,7 @@ const SOLANA_TRANSACTION_CHAIN_IDS = [101];
 export default function Wallet() {
     const isLoginFirefly = useIsLoginFirefly();
     const ready = usePrivyWalletStore((state) => state.ready);
-    const { isLoading, error } = useIsSetupPrivyWallet();
+    const { isLoading, error, isCreatedPrivyWallet } = useIsCreatedPrivyWallet();
 
     if (env.external.NEXT_PUBLIC_PRIVY === STATUS.Disabled) {
         redirect('/');
@@ -64,7 +64,7 @@ export default function Wallet() {
         return <NotLoginFallback source={Source.NFTs} />;
     }
 
-    if (!ready || isLoading) {
+    if (!ready || isLoading || !isCreatedPrivyWallet) {
         return <Loading />;
     }
 

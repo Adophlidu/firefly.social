@@ -15,7 +15,7 @@ function updateWalletFromQueryData(data: BindWalletResponse['data']) {
     if (!data) return;
     queryClient.setQueriesData<WalletsData>(
         {
-            queryKey: ['my-wallet-connections'],
+            queryKey: ['allConnections'],
         },
         (old) => {
             if (!old || [...old.connected, ...old.related].some((x) => isSameEthereumAddress(x.address, data.address)))

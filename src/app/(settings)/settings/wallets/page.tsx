@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
 
 import { AddWalletButton } from '@/app/(settings)/components/AddWalletButton.js';
 import { SettingsSection } from '@/app/(settings)/components/Section.js';
@@ -14,8 +13,8 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { delay } from '@/helpers/delay.js';
+import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 export default function Wallets() {
     const isLogin = useIsLoginFirefly();
@@ -25,11 +24,7 @@ export default function Wallets() {
         isLoading,
         isRefetching,
         refetch,
-    } = useQuery({
-        queryKey: ['my-wallet-connections'],
-        queryFn: () => FireflyEndpointProvider.getAllConnectionsFormatted(),
-        enabled: isLogin,
-    });
+    } = useAllConnections();
 
     return (
         <SettingsSection title={<Trans>Connected wallets</Trans>}>

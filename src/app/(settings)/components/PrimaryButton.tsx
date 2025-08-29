@@ -34,7 +34,6 @@ export function PrimaryButton({
     const queryClient = useQueryClient();
     const [{ loading }, onSetPrimary] = useAsyncFn(async () => {
         await FireflyEndpointProvider.updateDefaultConnection(platformId, platform);
-        await queryClient.refetchQueries({ queryKey: ['my-wallet-connections'] });
         await queryClient.refetchQueries({ queryKey: ['all-profiles'] });
         await queryClient.refetchQueries({ queryKey: ['allConnections'] });
         if (profile?.handle) {

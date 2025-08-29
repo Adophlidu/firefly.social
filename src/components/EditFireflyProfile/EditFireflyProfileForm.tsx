@@ -42,7 +42,6 @@ export function EditFireflyProfileForm() {
             };
             if (values.avatar) params.avatar = await uploadToS3(values.avatar);
             await FireflyEndpointProvider.updateProfile(params);
-            await queryClient.refetchQueries({ queryKey: ['my-wallet-connections'] });
             await queryClient.refetchQueries({ queryKey: ['wallet-profiles'] });
             await queryClient.refetchQueries({ queryKey: ['allConnections'] });
             await queryClient.refetchQueries({ queryKey: ['firefly-profile'] });

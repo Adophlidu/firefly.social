@@ -9,7 +9,7 @@ export function useActivityConnections() {
     const currentProfileFirstAvailable = useCurrentProfileFirstAvailable();
     const { data: authToken } = useFireflyBridgeAuthorization();
     return useQuery({
-        queryKey: ['my-wallet-connections', currentProfileFirstAvailable, authToken],
+        queryKey: ['allConnections', currentProfileFirstAvailable, authToken],
         async queryFn() {
             if (fireflyBridgeProvider.supported) {
                 if (!authToken) return; // Not logged in on the mobile

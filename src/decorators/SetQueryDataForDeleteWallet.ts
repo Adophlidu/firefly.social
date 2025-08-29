@@ -14,7 +14,7 @@ function deleteWalletsFromQueryData(address: string) {
         Record<'connected' | 'related' | 'solanaConnections' | 'evmConnections', FireflyWalletConnection[]>
     >(
         {
-            queryKey: ['my-wallet-connections'],
+            queryKey: ['allConnections'],
         },
         (old) => {
             if (!old) return old;

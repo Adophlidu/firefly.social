@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { useQuery } from '@tanstack/react-query';
 import { useAsyncFn } from 'react-use';
 
 import {
@@ -12,6 +11,7 @@ import { WalletSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
+import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { type FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { removeAccountsByProfiles } from '@/services/account.js';
@@ -21,10 +21,7 @@ interface DisconnectBindAddressButtonProps {
 }
 
 export function DisconnectBindAddressButton({ connection }: DisconnectBindAddressButtonProps) {
-    const { data: { connected = EMPTY_LIST } = {}, isLoading } = useQuery({
-        queryKey: ['my-wallet-connections'],
-        queryFn: () => FireflyEndpointProvider.getAllConnectionsFormatted(),
-    });
+    const { data: { connected = EMPTY_LIST } = {}, isLoading } = useAllConnections();
     const [{ loading }, disconnectWallet] = useAsyncFn(async () => {
         try {
             const disconnectedConnections = connected.filter(
