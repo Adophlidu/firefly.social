@@ -768,6 +768,9 @@ msgstr "{0, plural, one {引用} other {引用}}"
 msgid "No hidden owner."
 msgstr "无隐藏的所有者。"
 
+msgid "Polymarket bet"
+msgstr ""
+
 msgid "Blockchain"
 msgstr "区块链"
 
@@ -1645,6 +1648,10 @@ msgstr "添加已有的账号"
 #. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"
 msgstr "你确定要隐藏 /{0} 吗？"
+
+#. placeholder {0}: validChains.find(({ id }) => id === selectedChainId)?.name
+msgid "{0}"
+msgstr ""
 
 msgid "Refund"
 msgstr "退款"
@@ -2840,6 +2847,9 @@ msgstr "{traderCount, plural, one {{0}} other {{1}}}"
 msgid "Show more comments"
 msgstr "展示更多评论"
 
+msgid "Snapshot DAO"
+msgstr ""
+
 msgid "Connect Solana Wallet"
 msgstr "连接Solana钱包"
 
@@ -3008,6 +3018,9 @@ msgstr "帖子解密中..."
 
 msgid "Transaction"
 msgstr "交易"
+
+msgid "Paragraph article"
+msgstr ""
 
 msgid "Bio should be at least {minBioSize} characters"
 msgstr "个人简介应至少包含 {minBioSize} 个字符"
@@ -4010,6 +4023,9 @@ msgstr "铸造中"
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "如果你授权此代币给这个网站，你可能会丢失您的资产。"
 
+msgid "Chain filter"
+msgstr ""
+
 msgid "Unfollow"
 msgstr "取消关注"
 
@@ -4329,11 +4345,17 @@ msgstr "最终结果"
 msgid "Transaction failed"
 msgstr "交易失败"
 
+msgid "All Chains"
+msgstr ""
+
 msgid "Status"
 msgstr "状态"
 
 msgid "No blackmail activities involved."
 msgstr "未发现勒索行为。"
+
+msgid "Mirror article"
+msgstr ""
 
 msgid "No Lens profile found,"
 msgstr ""

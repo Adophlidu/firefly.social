@@ -763,6 +763,9 @@ msgstr "{0, plural, one {quote} other {quotes}}"
 msgid "No hidden owner."
 msgstr "No hidden owner."
 
+msgid "Polymarket bet"
+msgstr "Polymarket bet"
+
 msgid "Blockchain"
 msgstr "Blockchain"
 
@@ -1640,6 +1643,10 @@ msgstr "Add an existing account"
 #. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
+
+#. placeholder {0}: validChains.find(({ id }) => id === selectedChainId)?.name
+msgid "{0}"
+msgstr "{0}"
 
 msgid "Refund"
 msgstr "Refund"
@@ -2835,6 +2842,9 @@ msgstr "{traderCount, plural, one {{0}} other {{1}}}"
 msgid "Show more comments"
 msgstr "Show more comments"
 
+msgid "Snapshot DAO"
+msgstr "Snapshot DAO"
+
 msgid "Connect Solana Wallet"
 msgstr "Connect Solana Wallet"
 
@@ -3003,6 +3013,9 @@ msgstr "Post is decrypting..."
 
 msgid "Transaction"
 msgstr "Transaction"
+
+msgid "Paragraph article"
+msgstr "Paragraph article"
 
 msgid "Bio should be at least {minBioSize} characters"
 msgstr "Bio should be at least {minBioSize} characters"
@@ -4005,6 +4018,9 @@ msgstr "Minting"
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "You may lose your assets if giving approval to the website of this token."
 
+msgid "Chain filter"
+msgstr "Chain filter"
+
 msgid "Unfollow"
 msgstr "Unfollow"
 
@@ -4324,11 +4340,17 @@ msgstr "Final results"
 msgid "Transaction failed"
 msgstr "Transaction failed"
 
+msgid "All Chains"
+msgstr "All Chains"
+
 msgid "Status"
 msgstr "Status"
 
 msgid "No blackmail activities involved."
 msgstr "No blackmail activities involved."
+
+msgid "Mirror article"
+msgstr "Mirror article"
 
 msgid "No Lens profile found,"
 msgstr "No Lens profile found,"

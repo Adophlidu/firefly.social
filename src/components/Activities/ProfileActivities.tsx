@@ -17,7 +17,7 @@ interface ProfileActivitiesProps {
 }
 
 export function ProfileActivities({ address }: ProfileActivitiesProps) {
-    const { selectedPlatform } = useActivitiesFilterStore(
+    const { selectedPlatforms } = useActivitiesFilterStore(
         ActivitiesFilterNamespace.Profile,
         isSameEthereumAddress(address, VITALIK_ADDRESS) ? undefined : [ActivitiesPlatform.Limo],
     );
@@ -25,17 +25,11 @@ export function ProfileActivities({ address }: ProfileActivitiesProps) {
     const account = useAccount();
 
     const queryResult = useMultiInfiniteQueryPageable(
-        ['activities', 'profile', address, selectedPlatform],
+        ['activities', 'profile', address, selectedPlatforms],
         ([Source.Article, Source.DAOs] as const).map((source) => ({
             key: source,
             async queryFn({ pageParam }) {
-                return getProfileActivities(
-                    source,
-                    addresses,
-                    pageParam,
-                    selectedPlatform || undefined,
-                    account.address,
-                );
+                return getProfileActivities(source, addresses, selectedPlatforms, pageParam, account.address);
             },
         })),
         (data) => {

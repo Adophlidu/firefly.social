@@ -1,10 +1,9 @@
 'use client';
 
-import { Switch } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 
 import { SettingsSection } from '@/app/(settings)/components/Section.js';
-import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { Switch } from '@/components/Switch/index.js';
 import { useToggleEnableTruthSocial } from '@/hooks/useToggleEnableTruthSocial.js';
 
 export default function PreferencePage() {
@@ -25,15 +24,11 @@ export default function PreferencePage() {
                     <Switch
                         disabled={isMutating}
                         checked={enable}
+                        loading={isMutating}
                         onChange={() => {
                             mutation.mutate();
                         }}
-                        className="group inline-flex h-[22px] w-11 items-center rounded-full bg-second transition data-[checked]:bg-highlight dark:bg-bg data-[checked]:dark:bg-highlight"
-                    >
-                        <span className="flex size-4 translate-x-1 items-center justify-center rounded-full bg-white transition group-data-[checked]:translate-x-6">
-                            {isMutating ? <LoadingIcon className="text-darkBottom" size={12} /> : null}
-                        </span>
-                    </Switch>
+                    />
                 </div>
             </div>
         </SettingsSection>

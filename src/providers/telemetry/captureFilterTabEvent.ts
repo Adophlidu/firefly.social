@@ -18,9 +18,19 @@ export function captureChainFilterTabEvent(pageSource: 'home' | 'profile', chain
     });
 }
 
-export function captureArticlePlatformFilterTabEvent(pageSource: 'home' | 'profile', platform?: ActivitiesPlatform) {
+export function captureArticlePlatformFilterTabEvent(pageSource: 'home' | 'profile', platform: ActivitiesPlatform[]) {
     return TelemetryProvider.captureEventInSafe(EventId.ACTIVITIES_FILTER_CHANGE, {
-        platform_selected: platform || 'all',
+        platform_selected: platform,
         page_source: pageSource,
     });
+}
+
+export function captureTypeFilterClickEvent(type_selected: string) {
+    return TelemetryProvider.captureEventInSafe(EventId.TYPE_FILTER_CHANGE, {
+        type_selected,
+    });
+}
+
+export function captureQualityFilterOffEvent() {
+    return TelemetryProvider.captureEventInSafe(EventId.QUALITY_FILTER_OFF, {});
 }

@@ -1,3 +1,5 @@
+import { compact } from 'lodash-es';
+
 import { resolveArticlePlatform } from '@/components/Activities/resolveArticlePlatform.js';
 import { ActivitiesPlatform, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
@@ -8,7 +10,10 @@ import type { Article, ArticlePlatform } from '@/providers/types/Article.js';
 import type { ActivitiesItem, FollowingSnapshotActivity } from '@/providers/types/Firefly.js';
 
 function createActivitiesFetcher(
-    fetchArticles: (indicator?: PageIndicator, platform?: ArticlePlatform) => Promise<Pageable<Article, PageIndicator>>,
+    fetchArticles: (
+        indicator?: PageIndicator,
+        platform?: ArticlePlatform[],
+    ) => Promise<Pageable<Article, PageIndicator>>,
     fetchSnapshots: (
         address?: string,
         indicator?: PageIndicator,
@@ -16,19 +21,19 @@ function createActivitiesFetcher(
 ) {
     return async function fetchActivities(
         source: ActivitiesItem['source'],
+        platforms?: ActivitiesPlatform[],
         pageParam?: string,
-        platform?: ActivitiesPlatform,
         connectedAddress?: string,
     ) {
         switch (source) {
             case Source.Article: {
-                if (platform && platform === ActivitiesPlatform.Snapshot) {
+                if (platforms?.includes(ActivitiesPlatform.Snapshot)) {
                     return createPageable([], createIndicator(undefined, pageParam));
                 }
 
                 const result = await fetchArticles(
                     createIndicator(undefined, pageParam),
-                    platform ? resolveArticlePlatform(platform) : undefined,
+                    compact(platforms ? platforms.map((x) => resolveArticlePlatform(x)) : []),
                 );
                 return {
                     ...result,
@@ -41,7 +46,7 @@ function createActivitiesFetcher(
                 };
             }
             case Source.DAOs: {
-                if (platform && platform !== ActivitiesPlatform.Snapshot) {
+                if (platforms?.length && !platforms.includes(ActivitiesPlatform.Snapshot)) {
                     return createPageable([], createIndicator(undefined, pageParam));
                 }
 
@@ -64,20 +69,20 @@ function createActivitiesFetcher(
 }
 
 export const getFollowingActivities = createActivitiesFetcher(
-    (indicator, platform) => FireflyArticleProvider.getFollowingArticles(indicator, platform),
+    (indicator, platforms) => FireflyArticleProvider.getFollowingArticles(indicator, platforms),
     (address, indicator) => FireflySocialMediaProvider.getFollowingSnapshotActivity({ address, indicator }),
 );
 
 export const getForYouActivities = createActivitiesFetcher(
-    (indicator, platform) => FireflyArticleProvider.discoverArticles(indicator, platform ? [platform] : undefined),
+    (indicator, platforms) => FireflyArticleProvider.discoverArticles(indicator, platforms),
     (address, indicator) => FireflySocialMediaProvider.discoverSnapshotActivity(address, indicator),
 );
 
 export function getProfileActivities(
     source: ActivitiesItem['source'],
     addresses: string[],
+    platforms: ActivitiesPlatform[],
     pageParam?: string,
-    platform?: ActivitiesPlatform,
     connectedAddress?: string,
 ) {
     return createActivitiesFetcher(
@@ -88,5 +93,5 @@ export function getProfileActivities(
                 indicator,
                 walletAddresses: addresses,
             }),
-    )(source, pageParam, platform, connectedAddress);
+    )(source, platforms || [], pageParam, connectedAddress);
 }
