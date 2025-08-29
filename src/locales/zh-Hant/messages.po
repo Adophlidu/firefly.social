@@ -4408,7 +4408,7 @@ msgstr "引用"
 msgid "Swap"
 msgstr "兌換"
 
-#. placeholder {0}: nFormatter(collection.items_total || 0)
+#. placeholder {0}: nFormatter(collection.collection.amounts_total || collection.items_total || 0)
 msgid "{0} <0> Items</0>"
 msgstr ""
 

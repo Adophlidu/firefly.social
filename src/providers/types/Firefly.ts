@@ -2090,6 +2090,8 @@ export interface TrendingNFT {
     market_cap: number;
     chain_id: number;
     price_symbol: string;
+    /** NFTScan collection */
+    collection: EVM.Collection;
 }
 
 export type TrendingNFTsResponse = Response<TrendingNFT[]>;
