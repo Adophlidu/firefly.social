@@ -84,7 +84,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
                 router.push(`/post/farcaster/${hash}`);
             },
             viewProfile: (profile: Profile) => {
-                router.push(`/profile/farcaster/${profile.handle}/feed`);
+                router.push(`/profile/farcaster/${profile.handle}`);
             },
         });
     });
