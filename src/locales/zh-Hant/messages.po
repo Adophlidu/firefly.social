@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-08-05 12:01\n"
+"PO-Revision-Date: 2025-08-29 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -671,7 +671,7 @@ msgid "Follow <0>@{handle}</0> on {0}"
 msgstr "在 {0} 上追蹤 <0>@{handle}</0>"
 
 msgid "Scan and Get Firefly Mobile App"
-msgstr ""
+msgstr "掃碼獲取 Firefly 流動應用"
 
 msgid "Undo repost"
 msgstr "取消轉發"
@@ -744,7 +744,7 @@ msgid "Failed to report @{0}"
 msgstr "檢舉 @{0} 失敗"
 
 msgid "Failed to login profile by orb"
-msgstr ""
+msgstr "Orb 登入失敗"
 
 msgid "Restricted approval."
 msgstr "限制授權。"
@@ -833,7 +833,7 @@ msgid "Only {0}"
 msgstr "僅限 {0}"
 
 msgid "Orb Mobile"
-msgstr ""
+msgstr "Orb 流動端"
 
 msgid "Type something here..."
 msgstr "在此輸入內容..."
@@ -1175,7 +1175,7 @@ msgid "Non-sanctioned address found."
 msgstr "非黑名單地址。"
 
 msgid "Anonymous"
-msgstr ""
+msgstr "匿名"
 
 msgid "Feed"
 msgstr "貼文"
@@ -1303,7 +1303,7 @@ msgstr "跟隨系統"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Replied on {0}."
-msgstr ""
+msgstr "🎭 已在 {0} 上回覆。"
 
 msgid "Unknown"
 msgstr "未知"
@@ -1332,7 +1332,7 @@ msgstr "在 Lens 上追蹤 @{0} 失敗"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Quoted on {0}."
-msgstr ""
+msgstr "🎭 已在 {0} 上引用。"
 
 msgid "Check Eligibility"
 msgstr "檢查資格"
@@ -1421,7 +1421,7 @@ msgid "Login to Firefly"
 msgstr "登入 Firefly"
 
 msgid "Content will be lost when leaving this page in anonymous mode."
-msgstr ""
+msgstr "⚠️ 匿名模式下離開將丟失內容"
 
 msgid "Approve Failed"
 msgstr "授權失敗"
@@ -1433,7 +1433,7 @@ msgid "No content for the last two weeks."
 msgstr "近兩週無內容"
 
 msgid "Discard Post"
-msgstr ""
+msgstr "放棄貼文"
 
 msgid "Participate Now"
 msgstr "立即參與"
@@ -1600,7 +1600,7 @@ msgstr "預約發布最多可設定 7 天內，請重新設定"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Your post was sent to {0}."
-msgstr ""
+msgstr "🎭 你的貼文已傳送至 {0}。"
 
 msgid "Posted to Lens on <0>Phaver</0>"
 msgstr "透過 <0>Phaver</0> 發佈至 Lens"
@@ -1647,7 +1647,7 @@ msgstr "連接中..."
 #. placeholder {0}: data.daily_limit
 #. placeholder {1}: data.wait_seconds
 msgid "Limits: <0>{0} posts/day</0> with {1}-second intervals (applies to posts, replies, and quotes)."
-msgstr ""
+msgstr "限制：<0>每日 {0} 次</0>，間隔 {1} 秒（含發文、回覆、引用）。"
 
 msgid "Enter amount"
 msgstr "輸入數額"
@@ -1772,7 +1772,7 @@ msgid "More details"
 msgstr "更多詳情"
 
 msgid "Failed to create anonymous post"
-msgstr ""
+msgstr "匿名發佈失敗"
 
 msgid "Set {formattedAddress} as primary EVM wallet"
 msgstr ""
@@ -1842,7 +1842,7 @@ msgstr "禁止訪問，請檢查權限。"
 #. placeholder {0}: data.daily_limit
 #. placeholder {1}: data.wait_minutes
 msgid "Limits: <0>{0} posts/day</0> with {1}-minute intervals (applies to posts, replies, and quotes)."
-msgstr ""
+msgstr "限制：<0>每日 {0} 次</0>，間隔 {1} 分鐘（含發文、回覆及引用）。"
 
 msgid "No mint function"
 msgstr "無鑄造功能"
@@ -1859,7 +1859,7 @@ msgid "{0, plural, one {# hour} other {# hours}}"
 msgstr "{0, plural, one {# 小時} other {# 小時}}"
 
 msgid "Failed to login lens with orb"
-msgstr ""
+msgstr "使用 orb 登入 lens 失敗"
 
 msgid "Nickname must not contain restricted symbols"
 msgstr "暱稱不得包含限制符號"
@@ -1946,7 +1946,7 @@ msgid "Leave"
 msgstr "離開"
 
 msgid "Sign in with Orb App"
-msgstr ""
+msgstr "透過 Orb 登入"
 
 msgid "Enter number of winners"
 msgstr "輸入獲獎人數"
@@ -2173,6 +2173,15 @@ msgstr "抱歉，您輸入的驗證碼無效"
 #. placeholder {1}: data.wait_minutes
 msgid "Your post will be shared anonymously through:<0/>X (Twitter): <1>@anoncast_</1><2/>Farcaster: <3>@anoncast</3> / <4>@anonworld</4><5>Limits: <6>{0} posts/day</6> with {1}-minute intervals (applies to posts, replies, and quotes).</5><7>Posts are anonymized using secure algorithms (takes a few minutes). Do not share sensitive content.</7>"
 msgstr ""
+"匿名分享至：\n"
+"\n"
+"<0/>X (Twitter): <1>@anoncast_</1>\n"
+"\n"
+"<2/>Farcaster: <3>@anoncast</3> / <4>@anonworld</4>\n"
+"\n"
+"<5>限制：<6>每日 {0} 次</6>，間隔 {1} 分鐘（含發文、回覆及引用）。</5>\n"
+"\n"
+"<7>安全匿名處理（需幾分鐘）。請勿分享敏感內容。</7>"
 
 msgid "Circulating Supply"
 msgstr "流通供應量"
@@ -2606,7 +2615,7 @@ msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly 通知未開啟！"
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
-msgstr "追蹤需支付 {feeAmount} ${feeSymbol}"
+msgstr ""
 
 msgid "Farcaster"
 msgstr "Farcaster"
@@ -2814,7 +2823,7 @@ msgstr "抱歉，我們無法找到 {displayName} 的錢包。"
 
 #. placeholder {0}: formatAddressEthereum(address, 4)
 msgid "Please switch to {0}"
-msgstr "請切換至 {0}"
+msgstr ""
 
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
 msgstr "權威 Top 100 榜單｜數據來源：<0>X3</0>"
@@ -3285,7 +3294,7 @@ msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr "抱歉，找不到 {0} 的關聯錢包。"
 
 msgid "Draft"
-msgstr ""
+msgstr "草稿"
 
 msgid "Wallets"
 msgstr "錢包"
@@ -3818,7 +3827,7 @@ msgid "Failed to upload. Gif size exceeds {0}"
 msgstr "GIF 大小超過 {0} 上傳失敗"
 
 msgid "{days}d left"
-msgstr "剩餘 {days} 天"
+msgstr ""
 
 msgid "Money laundering found."
 msgstr "檢測到洗錢行為。"
@@ -4084,7 +4093,7 @@ msgid "Connecting Wallet"
 msgstr "連接中錢包"
 
 msgid "{minutes}m left"
-msgstr "剩餘 {minutes} 分鐘"
+msgstr ""
 
 msgid "Neutral"
 msgstr "中立"
@@ -4319,7 +4328,7 @@ msgid "Confirm to disconnect this wallet and its associated account from Firefly
 msgstr "確認要斷開該錢包及相關帳戶與 Firefly 社交圖譜的綁定嗎？"
 
 msgid "{hours}h left"
-msgstr "剩餘 {hours} 小時"
+msgstr ""
 
 msgid "Events"
 msgstr "活動"
@@ -4328,7 +4337,7 @@ msgid "Quote posts disabled"
 msgstr "無法轉發"
 
 msgid "How to do?"
-msgstr ""
+msgstr "怎麼做？"
 
 msgid "Choose Wallet"
 msgstr "選擇錢包"

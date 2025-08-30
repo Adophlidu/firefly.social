@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-08-05 12:01\n"
+"PO-Revision-Date: 2025-08-29 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -671,7 +671,7 @@ msgid "Follow <0>@{handle}</0> on {0}"
 msgstr "在 {0} 上关注 <0>@{handle}</0>"
 
 msgid "Scan and Get Firefly Mobile App"
-msgstr ""
+msgstr "扫码获取 Firefly 移动应用"
 
 msgid "Undo repost"
 msgstr "取消转发"
@@ -744,7 +744,7 @@ msgid "Failed to report @{0}"
 msgstr "举报 @{0} 失败"
 
 msgid "Failed to login profile by orb"
-msgstr ""
+msgstr "Orb 登录失败"
 
 msgid "Restricted approval."
 msgstr "限制授权。"
@@ -833,7 +833,7 @@ msgid "Only {0}"
 msgstr "仅支持{0}"
 
 msgid "Orb Mobile"
-msgstr ""
+msgstr "Orb 移动端"
 
 msgid "Type something here..."
 msgstr "从这里开始..."
@@ -1068,7 +1068,7 @@ msgid "Transaction Hash"
 msgstr "交易哈希"
 
 msgid "1m left"
-msgstr "剩余 1 分钟"
+msgstr "剩余 1分钟"
 
 msgid "Connect Ethereum Wallet"
 msgstr "连接 EVM 兼容钱包"
@@ -1175,7 +1175,7 @@ msgid "Non-sanctioned address found."
 msgstr "非黑名单地址。"
 
 msgid "Anonymous"
-msgstr ""
+msgstr "匿名"
 
 msgid "Feed"
 msgstr "帖子"
@@ -1303,7 +1303,7 @@ msgstr "跟随系统"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Replied on {0}."
-msgstr ""
+msgstr "🎭 已在 {0} 上回复。"
 
 msgid "Unknown"
 msgstr "未知"
@@ -1332,7 +1332,7 @@ msgstr "在 Lens 上关注 @{0} 失败"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Quoted on {0}."
-msgstr ""
+msgstr "🎭 已在 {0} 上引用。"
 
 msgid "Check Eligibility"
 msgstr "检查资格"
@@ -1421,7 +1421,7 @@ msgid "Login to Firefly"
 msgstr "登录 Firefly"
 
 msgid "Content will be lost when leaving this page in anonymous mode."
-msgstr ""
+msgstr "⚠️ 匿名模式下离开将丢失内容"
 
 msgid "Approve Failed"
 msgstr "授权失败"
@@ -1600,7 +1600,7 @@ msgstr "发布时间最多可设置 7 天内。请重新设置"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Your post was sent to {0}."
-msgstr ""
+msgstr "🎭 你的帖子已发送至 {0}。"
 
 msgid "Posted to Lens on <0>Phaver</0>"
 msgstr "用<0>Phaver</0>发送过 Lens 帖子"
@@ -1647,7 +1647,7 @@ msgstr "正在连接…"
 #. placeholder {0}: data.daily_limit
 #. placeholder {1}: data.wait_seconds
 msgid "Limits: <0>{0} posts/day</0> with {1}-second intervals (applies to posts, replies, and quotes)."
-msgstr ""
+msgstr "限制：<0>每日 {0} 次</0>，间隔 {1} 秒（含发帖、回复、引用）。"
 
 msgid "Enter amount"
 msgstr "输入数额"
@@ -1772,7 +1772,7 @@ msgid "More details"
 msgstr "详细信息"
 
 msgid "Failed to create anonymous post"
-msgstr ""
+msgstr "匿名发布失败"
 
 msgid "Set {formattedAddress} as primary EVM wallet"
 msgstr ""
@@ -1842,7 +1842,7 @@ msgstr "禁止！请检查你的权限。"
 #. placeholder {0}: data.daily_limit
 #. placeholder {1}: data.wait_minutes
 msgid "Limits: <0>{0} posts/day</0> with {1}-minute intervals (applies to posts, replies, and quotes)."
-msgstr ""
+msgstr "限制：<0>每日 {0} 次</0>，间隔 {1} 分钟（含发帖、回复及引用）。"
 
 msgid "No mint function"
 msgstr "没有铸造功能"
@@ -1859,7 +1859,7 @@ msgid "{0, plural, one {# hour} other {# hours}}"
 msgstr "{0, plural, one {# 小时} other {# 小时}}"
 
 msgid "Failed to login lens with orb"
-msgstr ""
+msgstr "使用 orb 登录 lens 失败"
 
 msgid "Nickname must not contain restricted symbols"
 msgstr "昵称不可包含违禁字符"
@@ -1946,7 +1946,7 @@ msgid "Leave"
 msgstr "退出"
 
 msgid "Sign in with Orb App"
-msgstr ""
+msgstr "通过 Orb 登录"
 
 msgid "Enter number of winners"
 msgstr "输入获奖人数"
@@ -2173,6 +2173,15 @@ msgstr "抱歉，您输入的验证码无效"
 #. placeholder {1}: data.wait_minutes
 msgid "Your post will be shared anonymously through:<0/>X (Twitter): <1>@anoncast_</1><2/>Farcaster: <3>@anoncast</3> / <4>@anonworld</4><5>Limits: <6>{0} posts/day</6> with {1}-minute intervals (applies to posts, replies, and quotes).</5><7>Posts are anonymized using secure algorithms (takes a few minutes). Do not share sensitive content.</7>"
 msgstr ""
+"匿名分享至：\n"
+"\n"
+"<0/>X (Twitter): <1>@anoncast_</1>\n"
+"\n"
+"<2/>Farcaster: <3>@anoncast</3> / <4>@anonworld</4>\n"
+"\n"
+"<5>限制：<6>每日 {0} 次</6>，间隔 {1} 分钟（含发帖、回复及引用）。</5>\n"
+"\n"
+"<7>安全匿名处理（需几分钟）。请勿分享敏感内容。</7>"
 
 msgid "Circulating Supply"
 msgstr "流通供应量"
@@ -2585,7 +2594,7 @@ msgid "Cannot send tip to yourself"
 msgstr "不能打赏给自己"
 
 msgid "{remainTryTimes} more incorrect password attempts will clear all your encrypted login sessions."
-msgstr "剩余 {remainTryTimes} 次尝试机会，失败将触发安全重置。"
+msgstr "剩余{remainTryTimes}次尝试机会，失败将触发安全重置。"
 
 msgid "Already signed in before?"
 msgstr "曾成功登录？"
@@ -2606,7 +2615,7 @@ msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly 通知未开启！"
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
-msgstr "关注需支付 {feeAmount} ${feeSymbol}"
+msgstr ""
 
 msgid "Farcaster"
 msgstr "Farcaster"
@@ -2814,7 +2823,7 @@ msgstr "抱歉，我们无法找到 {displayName} 的钱包。"
 
 #. placeholder {0}: formatAddressEthereum(address, 4)
 msgid "Please switch to {0}"
-msgstr "请切换到 {0}"
+msgstr ""
 
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
 msgstr "权威 Top 100 榜单｜数据来源：<0>X3</0>"
@@ -3285,7 +3294,7 @@ msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr "对不起，我们未找到 {0} 的关联钱包。"
 
 msgid "Draft"
-msgstr ""
+msgstr "草稿"
 
 msgid "Wallets"
 msgstr "钱包"
@@ -3818,7 +3827,7 @@ msgid "Failed to upload. Gif size exceeds {0}"
 msgstr "上传失败。动图超过最大限制 {0}"
 
 msgid "{days}d left"
-msgstr "剩余 {days} 天"
+msgstr ""
 
 msgid "Money laundering found."
 msgstr "被识别为洗钱。"
@@ -4084,7 +4093,7 @@ msgid "Connecting Wallet"
 msgstr "连接中钱包"
 
 msgid "{minutes}m left"
-msgstr "剩余 {minutes} 分钟"
+msgstr ""
 
 msgid "Neutral"
 msgstr "中性"
@@ -4319,7 +4328,7 @@ msgid "Confirm to disconnect this wallet and its associated account from Firefly
 msgstr "确认断开此钱包及相关账户与 Firefly 社交图谱的绑定吗？"
 
 msgid "{hours}h left"
-msgstr "剩余 {hours} 小时"
+msgstr ""
 
 msgid "Events"
 msgstr "活动"
@@ -4328,7 +4337,7 @@ msgid "Quote posts disabled"
 msgstr "不可转发"
 
 msgid "How to do?"
-msgstr ""
+msgstr "怎么做？"
 
 msgid "Choose Wallet"
 msgstr "选择钱包"
