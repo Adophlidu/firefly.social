@@ -18,7 +18,7 @@ import {
     useRouter,
 } from '@tanstack/react-router';
 import { omit, uniq } from 'lodash-es';
-import { useCallback, useLayoutEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FormProvider, useForm, useFormContext, useWatch } from 'react-hook-form';
 import { type Address, formatEther } from 'viem';
 
@@ -63,6 +63,7 @@ import { resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
+import { useAuthHeightTextarea } from '@/hooks/useAuthHeightTextarea.js';
 import { useExpandableTokens } from '@/hooks/useExpandableTokens.js';
 import { useMixesTokens } from '@/hooks/useMixesTokens.js';
 import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
@@ -285,7 +286,11 @@ function FormView() {
         enabled: Boolean(to && amount && token && networkType && availableBalance),
     });
 
-    const { data: estimatedGas, isLoading: isEstimatingGas } = useQuery({
+    const {
+        data: estimatedGas,
+        isLoading: isEstimatingGas,
+        error: estimatedGasError,
+    } = useQuery({
         queryKey: ['estimateGas', token, networkType, to, amount],
         async queryFn() {
             if (!to || !amount || !token || !networkType) return;
@@ -340,26 +345,13 @@ function FormView() {
         enabled: !!token,
     });
 
-    useLayoutEffect(() => {
-        const textareaEl = document.getElementById('send-transaction-recipient') as HTMLTextAreaElement;
-        if (!textareaEl) return;
-        function adjustTextareaHeight() {
-            const el = textareaEl;
-            el.style.height = '1px';
-            el.style.height = `${el.scrollHeight}px`;
+    useEffect(() => {
+        if (estimatedGasError) {
+            enqueueErrorMessage(getErrorMessageFromError(estimatedGasError, <Trans>Failed to estimate gas</Trans>));
         }
-        adjustTextareaHeight();
-        textareaEl.addEventListener('input', adjustTextareaHeight);
-        textareaEl.addEventListener('change', adjustTextareaHeight);
-        textareaEl.addEventListener('focus', adjustTextareaHeight);
-        textareaEl.addEventListener('blur', adjustTextareaHeight);
-        return () => {
-            textareaEl.removeEventListener('input', adjustTextareaHeight);
-            textareaEl.removeEventListener('change', adjustTextareaHeight);
-            textareaEl.removeEventListener('focus', adjustTextareaHeight);
-            textareaEl.removeEventListener('blur', adjustTextareaHeight);
-        };
-    }, []);
+    }, [estimatedGasError]);
+
+    useAuthHeightTextarea(() => document.getElementById('send-transaction-recipient') as HTMLTextAreaElement);
 
     if (!token) {
         return <Navigate to={RoutePath.SelectToken} />;

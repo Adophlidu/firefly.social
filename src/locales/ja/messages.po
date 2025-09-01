@@ -2148,6 +2148,9 @@ msgstr ""
 msgid "Tip sent successfully!"
 msgstr ""
 
+msgid "Failed to estimate gas"
+msgstr ""
+
 #. placeholder {0}: activeConnector.name
 msgid "Select Chain for {0}"
 msgstr ""

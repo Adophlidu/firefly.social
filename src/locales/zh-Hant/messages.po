@@ -2156,6 +2156,9 @@ msgstr "{0, select, success {成功} failed {失敗} pending {處理中} other {
 msgid "Tip sent successfully!"
 msgstr "小費發送成功！"
 
+msgid "Failed to estimate gas"
+msgstr ""
+
 #. placeholder {0}: activeConnector.name
 msgid "Select Chain for {0}"
 msgstr "為{0}選擇鏈"
