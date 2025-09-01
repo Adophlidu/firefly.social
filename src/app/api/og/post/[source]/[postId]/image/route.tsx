@@ -184,7 +184,8 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         maxWidth: src ? '308px' : '100%',
-                        marginTop: '24px',
+                        paddingTop: '24px',
+                        paddingBottom: '6px',
                     }}
                 >
                     {post.author.displayName}
@@ -194,7 +195,8 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
                         fontSize: '24px',
                         fontWeight: 400,
                         color: '#767676',
-                        marginTop: '12px',
+                        paddingTop: '6px',
+                        paddingBottom: '20px',
                         lineHeight: '24px',
                     }}
                 >
@@ -205,11 +207,11 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
                         display: 'flex',
                         whiteSpace: 'pre-line',
                         wordWrap: 'break-word',
-                        height: '96px',
+                        height: '116px',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         fontSize: '24px',
-                        marginTop: '40px',
+                        paddingTop: '20px',
                         lineHeight: '32px',
                         width: '100%',
                         lineClamp: 3,

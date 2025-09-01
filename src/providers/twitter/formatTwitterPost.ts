@@ -48,7 +48,9 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     let entitiesUrls = item.note_tweet?.entities?.urls ?? item.entities?.urls;
     let content = item.note_tweet?.text || item.text || '';
     const mentions = item?.note_tweet?.entities?.mentions ?? item?.entities?.mentions;
-
+    if (item.id === '1962342658581696545') {
+        console.log('tweetV2ToPost: ', item, includes);
+    }
     const ret: Post = {
         publicationId: item.id,
         postId: item.id,
@@ -165,7 +167,11 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                 viewerContext: formatTwitterProfileStatus(author?.connection_status),
             };
         }
-        if (ret.metadata.content) ret.metadata.content.content = content;
+        if (ret.metadata.content) {
+            ret.metadata.content.content = content;
+            if (ret.mirrorOn?.metadata.content?.attachments)
+                ret.metadata.content.attachments = ret.mirrorOn.metadata.content.attachments;
+        }
     }
     if (item.attachments?.poll_ids?.length) {
         const poll = find(includes?.polls ?? [], (poll) => poll.id === first(item.attachments?.poll_ids));

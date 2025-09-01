@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 export const queryMyAllConnections = {
@@ -10,5 +11,6 @@ export const queryMyAllConnections = {
 } as const;
 
 export function useAllConnections(options?: { enabled?: boolean }) {
-    return useQuery({ ...queryMyAllConnections, enabled: options?.enabled });
+    const isLogin = useIsLoginFirefly();
+    return useQuery({ ...queryMyAllConnections, enabled: isLogin ?? options?.enabled });
 }

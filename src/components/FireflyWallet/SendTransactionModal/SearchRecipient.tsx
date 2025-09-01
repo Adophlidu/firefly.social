@@ -78,7 +78,7 @@ export function SearchRecipient({
                             profiles.map((profile) => resolveSourceFromFireflyPlatform(profile.platform)),
                         ) as SocialSource[];
                         const ens = item.ens?.find((x) => x.hit || x.resolved_address === debouncedKeyword);
-                        if (networkType === NetworkType.Ethereum && ens) {
+                        if (networkType === NetworkType.Ethereum && ens?.resolved_address) {
                             return {
                                 address: ens.resolved_address as Address,
                                 ens: ens.handle,
@@ -90,11 +90,12 @@ export function SearchRecipient({
                         return {
                             address: ETH_ZERO_ADDRESS,
                             avatar:
-                                profile.avatar ||
-                                getStampAvatarByProfileId(
-                                    resolveSourceFromFireflyPlatform(profile.platform),
-                                    profile.platform_id,
-                                ),
+                                profile.avatar || profile.platform_id
+                                    ? getStampAvatarByProfileId(
+                                          resolveSourceFromFireflyPlatform(profile.platform),
+                                          profile.platform_id,
+                                      )
+                                    : undefined,
                             username: profile.name,
                             handle: profile.handle,
                             source,

@@ -9,16 +9,18 @@ import { useInternalLink } from '@/hooks/useInternalLink.js';
 import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal.js';
 
 type Props = PropsWithChildren<Omit<LinkProps, 'href'>> &
-    Pick<HTMLProps<HTMLAnchorElement>, 'className' | 'target' | 'ref'> & { href: string };
+    Pick<HTMLProps<HTMLAnchorElement>, 'className' | 'target' | 'ref'> & { href: string } & {
+        trusted?: boolean;
+    };
 
-export function Link({ children, ref, ...props }: Props) {
+export function Link({ children, ref, trusted = false, ...props }: Props) {
     const { href } = props;
     const { data: internalLink } = useInternalLink(href);
 
     const onLinkClick = useCallback(
         async (event: React.MouseEvent<HTMLAnchorElement>) => {
             const isTrusted = isTrustedUrl(href);
-            if (!isTrusted && !internalLink && typeof href === 'string') {
+            if (!trusted && !isTrusted && !internalLink && typeof href === 'string') {
                 const intercepted = await interceptExternalUrl(href);
                 if (intercepted) return;
 
@@ -31,7 +33,7 @@ export function Link({ children, ref, ...props }: Props) {
             }
             props.onClick?.(event);
         },
-        [props, href, internalLink],
+        [href, trusted, internalLink, props],
     );
 
     return (

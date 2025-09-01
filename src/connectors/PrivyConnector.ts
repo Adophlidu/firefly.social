@@ -6,6 +6,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { AbortError, InvalidResultError } from '@/constants/error.js';
 import { retry } from '@/helpers/retry.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
 export function getPrivyBridge() {
@@ -110,9 +111,15 @@ export function createPrivyConnector(): CreateConnectorFn {
                 return [...wallets?.map((x) => x.address as Address)];
             },
             async getProvider() {
+                const isLogin = !!useFireflyProfileStore.getState().currentProfileSession;
+                if (!isLogin) return;
+                const isAuthorized = !!getPrivyBridge()?.getAuthenticated?.();
+                if (!isAuthorized) return;
                 return getProvider();
             },
             async isAuthorized() {
+                const isLogin = !!useFireflyProfileStore.getState().currentProfileSession;
+                if (!isLogin) return false;
                 const isAuthorized = !!getPrivyBridge()?.getAuthenticated?.();
                 console.info(`[privy] isAuthorized`, isAuthorized);
                 return isAuthorized;

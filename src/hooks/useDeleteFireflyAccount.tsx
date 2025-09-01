@@ -47,7 +47,7 @@ export function useDeleteFireflyAccount() {
             enableConfirmButton: false,
             contentClass: 'text-main text-left text-medium',
             resetSize: true,
-            modalClass: 'w-[calc(100%-40px)] max-w-[455px]',
+            modalClass: 'max-w-[455px]',
             content: (
                 <>
                     <div>

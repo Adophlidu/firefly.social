@@ -19,10 +19,10 @@ function deleteWalletsFromQueryData(address: string) {
         (old) => {
             if (!old) return old;
             return produce(old, (draft) => {
-                draft.connected = draft.connected.filter((x) => !isSameAddress(x.address, address));
-                draft.related = draft.related.filter((x) => !isSameAddress(x.address, address));
-                draft.evmConnections = draft.evmConnections.filter((x) => !isSameAddress(x.address, address));
-                draft.solanaConnections = draft.solanaConnections.filter((x) => !isSameAddress(x.address, address));
+                draft.connected = draft.connected?.filter((x) => !isSameAddress(x.address, address));
+                draft.related = draft.related?.filter((x) => !isSameAddress(x.address, address));
+                draft.evmConnections = draft.evmConnections?.filter((x) => !isSameAddress(x.address, address));
+                draft.solanaConnections = draft.solanaConnections?.filter((x) => !isSameAddress(x.address, address));
             });
         },
     );
