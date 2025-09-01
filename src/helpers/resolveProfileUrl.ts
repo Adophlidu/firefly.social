@@ -41,15 +41,21 @@ export function resolveProfileUrl(
     category?: ProfileCategory,
     isCurrentProfile = false,
 ) {
+    const s = resolveProfileSourceInURL(source);
     if (!handle) {
         return urlcat(`/profile/:source`, {
-            source: resolveProfileSourceInURL(source),
+            source: s,
         });
     }
-
+    if (!category) {
+        return urlcat(`/profile/:source/:handle`, {
+            handle,
+            source: s,
+        });
+    }
     return urlcat(`/profile/:source/:handle/:category`, {
         handle,
-        source: resolveProfileSourceInURL(source),
+        source: s,
         category: resolveProfileCategory(source, handle, category, isCurrentProfile),
     });
 }
