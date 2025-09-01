@@ -1,17 +1,25 @@
 'use client';
 
 import { compact } from 'lodash-es';
-import { type DetailedHTMLProps, memo, type OlHTMLAttributes, useMemo } from 'react';
+import {
+    Children,
+    cloneElement,
+    type DetailedHTMLProps,
+    isValidElement,
+    memo,
+    type OlHTMLAttributes,
+    useMemo,
+} from 'react';
 import ReactMarkdown, { type Options as ReactMarkdownOptions } from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 import linkifyRegex from 'remark-linkify-regex';
-import stripMarkdown from 'strip-markdown';
 
 import { Code } from '@/components/Code.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import { DisableItalicPlugin } from '@/components/Markup/plugins/DisableItalicPlugin.js';
 import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
 import { MergeAdjacentTextPlugin } from '@/components/Markup/plugins/MergeAdjacentTextPlugin.js';
+import { preserveListNumbers } from '@/components/Markup/plugins/preserveListNumber.js';
 import { UrlPlugin } from '@/components/Markup/plugins/UrlPlugin.js';
 import { Source } from '@/constants/enum.js';
 import {
@@ -35,8 +43,22 @@ export interface MarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
     post?: Post;
 }
 
-function Ol(props: DetailedHTMLProps<OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>) {
-    return <ol {...props} style={{ counterReset: `list-counter ${props.start ? props.start - 1 : ''}` }} />;
+function Ol({ children, ...props }: DetailedHTMLProps<OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>) {
+    return (
+        <ol {...props} style={{ counterReset: `list-counter ${props.start ? props.start - 1 : ''}` }}>
+            {Children.map(children, (child, index) => {
+                if (!isValidElement(child)) return child;
+                const start = props.start ?? 1;
+
+                // @ts-ignore augment li to carry ordered/index for our custom renderer
+                return cloneElement(child, {
+                    // @ts-ignore
+                    ordered: true,
+                    index: start + index - 1,
+                });
+            })}
+        </ol>
+    );
 }
 export const Markup = memo<MarkupProps>(function Markup({ children, post, ...rest }) {
     const withinPost = !!post;
@@ -50,9 +72,6 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             MentionPlugin = linkifyRegex(mentionRe);
         }
         return compact([
-            post?.source === Source.Lens
-                ? [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'list', 'listItem', 'break'] }]
-                : null,
             remarkBreaks,
             linkifyRegex(TCO_URL_REGEX), // Make sure tco url is before email which is more aggressive
             linkifyRegex(EMAIL_REGEX),
@@ -75,6 +94,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             // These two address regexes must be last
             withinPost ? linkifyRegex(EVM_ADDRESS) : null,
             withinPost ? linkifyRegex(SOLANA_ADDRESS) : null,
+            preserveListNumbers,
         ]);
     }, [mentions, withinPost, source]);
 
@@ -89,8 +109,40 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
                 a: (props) => <MarkupLink {...props} post={post} source={post?.source} />,
                 code: Code,
                 ol: Ol,
+                ul: ({ children }) => <div>{children}</div>,
+                // @ts-ignore
+                li: ({ children, ordered, index, ...props }) => {
+                    const prefix = ordered ? `${index}. ` : '- ';
+                    return (
+                        <div>
+                            {prefix}
+                            {children}
+                        </div>
+                    );
+                },
+
+                strong: ({ children }) => <span>**{children}**</span>,
+
+                ...(post?.source !== Source.Lens
+                    ? {
+                          ul: ({ children }) => <div>{children}</div>,
+                          // @ts-ignore
+                          li: ({ children, ordered, index, ...props }) => {
+                              const prefix = ordered ? `${index}. ` : '- ';
+                              return (
+                                  <div>
+                                      {prefix}
+                                      {children}
+                                  </div>
+                              );
+                          },
+
+                          strong: ({ children }) => <span>**{children}**</span>,
+                      }
+                    : {}),
                 ...rest.components,
             }}
+            unwrapDisallowed={false}
         >
             {trimifyPost(children)}
         </ReactMarkdown>

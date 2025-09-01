@@ -48,7 +48,10 @@ const TimeColumn = memo(function TimeColumn({ value, onChange, min, max, classNa
     return (
         <div
             ref={containerRef}
-            className={classNames('no-scrollbar flex max-h-32 flex-col overflow-y-auto', className)}
+            className={classNames(
+                'no-scrollbar flex max-h-32 touch-pan-y flex-col overflow-y-auto overscroll-y-contain [-webkit-overflow-scrolling:touch]',
+                className,
+            )}
         >
             {numbers.map((num) => (
                 <div

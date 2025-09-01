@@ -2453,6 +2453,10 @@ msgstr ""
 msgid "Standard"
 msgstr "標準"
 
+#. placeholder {0}: invalidSources.map((x) => resolveSourceName(x)).join(',')
+msgid "Schedule post for {0} is coming soon."
+msgstr ""
+
 msgid "Token"
 msgstr "代幣"
 
@@ -2833,6 +2837,9 @@ msgstr ""
 
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
 msgstr "權威 Top 100 榜單｜數據來源：<0>X3</0>"
+
+msgid "This Lens account has expired, please log in again."
+msgstr ""
 
 msgid "Non-honeypot related address."
 msgstr "非詐騙相關地址。"

@@ -69,6 +69,7 @@ export interface ComposeModalOpenProps {
     post?: Post | null;
     channel?: Channel | null;
     initialPath?: string;
+    isFailedSchedulePost?: boolean;
     isAnonymous?: boolean;
 }
 
@@ -108,6 +109,7 @@ function ComposeModalUI({ ref }: Props) {
         toggleAnonymous,
         updateSealedSource,
         clear,
+        updateIsFailedSchedulePost,
     } = useComposeStateStore();
     const { clearScheduleTime } = useComposeScheduleStateStore();
     const { rpPayload, availableSources } = useCompositePost();
@@ -116,7 +118,7 @@ function ComposeModalUI({ ref }: Props) {
 
     const setEditorContent = useSetEditorContent();
     const [open, dispatch] = useSingletonModal(ref, {
-        onOpen: ({ type, source, post, chars, channel, embeds, initialPath, isAnonymous }) => {
+        onOpen: ({ type, source, post, chars, channel, embeds, initialPath, isFailedSchedulePost, isAnonymous }) => {
             controller.current.abort();
             const newType = type || 'compose';
 
@@ -132,6 +134,7 @@ function ComposeModalUI({ ref }: Props) {
             if (isAnonymous) toggleAnonymous(true);
             if (initialPath) router.navigate({ to: initialPath });
             embeds?.forEach((embedUrl) => addUrl(embedUrl));
+            if (isFailedSchedulePost) updateIsFailedSchedulePost(true);
         },
         onClose: async (_props) => {
             // wait for animation to finish

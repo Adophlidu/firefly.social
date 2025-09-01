@@ -2439,6 +2439,10 @@ msgstr "Scan the QR code with the <0>Camera app</0> <1/>and give <2>edit permiss
 msgid "Standard"
 msgstr "Standard"
 
+#. placeholder {0}: invalidSources.map((x) => resolveSourceName(x)).join(',')
+msgid "Schedule post for {0} is coming soon."
+msgstr "Schedule post for {0} is coming soon."
+
 msgid "Token"
 msgstr "Token"
 
@@ -2819,6 +2823,9 @@ msgstr "Please switch to {0}"
 
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
 msgstr "Top 100 Web3 profiles powered by <0>X3</0>"
+
+msgid "This Lens account has expired, please log in again."
+msgstr "This Lens account has expired, please log in again."
 
 msgid "Non-honeypot related address."
 msgstr "Non-honeypot related address."

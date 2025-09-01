@@ -2431,6 +2431,10 @@ msgstr ""
 msgid "Standard"
 msgstr ""
 
+#. placeholder {0}: invalidSources.map((x) => resolveSourceName(x)).join(',')
+msgid "Schedule post for {0} is coming soon."
+msgstr ""
+
 msgid "Token"
 msgstr ""
 
@@ -2805,6 +2809,9 @@ msgid "Please switch to {0}"
 msgstr ""
 
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
+msgstr ""
+
+msgid "This Lens account has expired, please log in again."
 msgstr ""
 
 msgid "Non-honeypot related address."

@@ -55,6 +55,7 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
             ComposeModalRef.open({
                 chars: display_info?.content,
                 source: sortedPosts.map((x) => resolveSocialSource(x.platform)),
+                isFailedSchedulePost: true,
             });
         }
     }, [data.status, display_info?.content, firstPost?.platform, firstPost?.post_id, router, sortedPosts]);
@@ -66,7 +67,7 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
             exit={{ opacity: 0 }}
             className="border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
         >
-            <div className="flex w-full cursor-pointer items-center gap-4">
+            <div className="flex w-full cursor-pointer items-start gap-4">
                 <ScheduleIcon className="shrink-0 text-secondary" width={24} height={24} />
                 <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between">

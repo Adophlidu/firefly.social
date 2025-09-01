@@ -9,6 +9,7 @@ import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFro
 import { refreshLensSession } from '@/providers/lens/refreshLensSession.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import type { LensCredentials } from '@/providers/types/Lens.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 
 class LensSessionHolder extends SessionHolder<LensSession> {
     private lensClientSDK: PublicClient | null = null;
@@ -42,9 +43,37 @@ class LensSessionHolder extends SessionHolder<LensSession> {
     }
 
     override async refreshSession() {
-        // the sdk always maintain a latest session, thought no need to resume session here.
-        const session = await refreshLensSession(this.sessionClient);
-        return session;
+        try {
+            const currentSession = useLensProfileStore.getState().currentProfileSession;
+            if (!this.lensClientSDK) throw new Error('No lens client SDK found in Lens session holder');
+
+            const refreshedCredentialsResult = await refresh(this.lensClientSDK, {
+                refreshToken: (currentSession as LensSession).refreshToken,
+            });
+
+            if (!refreshedCredentialsResult.isOk()) {
+                throw refreshedCredentialsResult.error;
+            }
+
+            const refreshedCredentials = refreshedCredentialsResult.value;
+            if (refreshedCredentials.__typename === 'ForbiddenError') {
+                // revoked or expired
+                throw new TokenExpiredError('ForbiddenError');
+            }
+
+            updateCredentialsStorage(refreshedCredentials);
+            const sessionClient = await ensureLensResult(this.lensClientSDK.resumeSession());
+            this.setSessionClient(sessionClient);
+
+            // the sdk always maintain a latest session, thought no need to resume session here.
+            const session = await refreshLensSession(this.sessionClient);
+            return session;
+        } catch (error) {
+            if (error instanceof InvariantError && error.message?.includes('ExpiredSignature')) {
+                throw new TokenExpiredError();
+            }
+            throw error;
+        }
     }
 
     override async resumeSession(session: LensSession, refreshSession = false): Promise<LensCredentials | undefined> {

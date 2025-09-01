@@ -1677,7 +1677,7 @@ class FireflyEndpoint {
                     if (!posts.length) return;
                     const successPosts = posts.filter((post) => post.status === ScheduleTaskStatus.Success);
                     const failedPosts = posts.filter((post) => post.status === ScheduleTaskStatus.Failed);
-                    const timestamp = first(successPosts)?.publish_timestamp;
+                    const timestamp = first(posts)?.publish_timestamp;
                     return compact([
                         successPosts.length
                             ? {

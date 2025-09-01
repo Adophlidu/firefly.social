@@ -10,11 +10,14 @@ import { DatePicker } from '@/components/Calendar/DatePicker.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { TimePicker } from '@/components/TimePicker.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
-import { CreateScheduleError } from '@/constants/error.js';
+import { PasswordStep, PasswordWorkflow, Source } from '@/constants/enum.js';
+import { CreateScheduleError, TokenExpiredError } from '@/constants/error.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import type { LensSession } from '@/providers/lens/Session.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -22,6 +25,8 @@ import { uploadMetrics } from '@/services/metrics.js';
 import { updateScheduledPost } from '@/services/post.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 
 interface SchedulePostSettingsProps {
     task?: ScheduleTask;
@@ -42,7 +47,9 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
     useClickAway(datePickerRef, () => setDatePickerOpen(false));
     useClickAway(timePickerRef, () => setTimePickerOpen(false));
 
+    const { disableSource } = useComposeStateStore();
     const { updateScheduleTime, clearScheduleTime, scheduleTime } = useComposeScheduleStateStore();
+    const { currentProfile: currentLensProfile } = useLensProfileStore();
 
     const [value, setValue] = useState(task ? dayjs(task.schedule_at).toDate() : (scheduleTime ?? new Date()));
 
@@ -72,6 +79,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
             });
             if (!password) return;
 
+            await useLensProfileStore.getState().refreshCurrentAccount();
             await uploadMetrics(password);
 
             if (task) {
@@ -90,6 +98,17 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
 
             onClose();
         } catch (error) {
+            if (error instanceof TokenExpiredError && currentLensProfile) {
+                const state = getProfileState(Source.Lens);
+                state.removeAccount({
+                    profile: currentLensProfile,
+                    session: lensSessionHolder.session as LensSession,
+                });
+                disableSource(Source.Lens);
+                enqueueWarningMessage(<Trans>This Lens account has expired, please log in again.</Trans>);
+                return;
+            }
+
             if (error instanceof CreateScheduleError) {
                 enqueueWarningMessage(error.message);
             } else {
@@ -97,7 +116,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
             }
             throw error;
         }
-    }, [value, task, onClose, updateScheduleTime]);
+    }, [value, task, onClose, updateScheduleTime, currentLensProfile]);
 
     return (
         <div className="flex-col px-4 py-2 pb-6 text-main max-md:px-0 max-md:pb-2">

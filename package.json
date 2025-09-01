@@ -113,6 +113,7 @@
         "twitter-api-v2": "^1.23.2",
         "typescript": "5.7.3",
         "unist-util-flatmap": "^1.0.0",
+        "unist-util-visit": "^5.0.0",
         "unstated-next": "^1.1.0",
         "urlcat": "^3.1.0",
         "usehooks-ts": "^2.16.0",

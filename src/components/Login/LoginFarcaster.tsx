@@ -50,6 +50,7 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
             enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Farcaster)} account is now connected.</Trans>);
 
         LoginModalRef.close();
+        DraggablePopoverRef.close();
     } catch (error) {
         // ignore cancel connect wallet error
         if (error instanceof ConnectorNotConnectedError) return;
@@ -72,7 +73,7 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
         // if any error occurs, close the modal
         // by this we don't need to do error handling in UI part.
         LoginModalRef.close();
-
+        DraggablePopoverRef.close();
         // if the account is already bound to another account, show a warning message
         if (error instanceof FireflyAlreadyBoundError) {
             enqueueWarningMessage(
