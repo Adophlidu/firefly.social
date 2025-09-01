@@ -75,6 +75,7 @@ export interface ComposeBaseState {
     type: ComposeType;
     sealedSource: SocialSource | null;
     posts: CompositePost[];
+    disabledSources?: SocialSource[];
 
     // tracking the current editable post
     cursor: Cursor;
@@ -109,6 +110,9 @@ interface ComposeState extends ComposeBaseState {
 
     // for quote/comment, seal the parent post source
     updateSealedSource: (source: SocialSource) => void;
+
+    // for farcaster intent, seal the sources
+    updateDisabledSources: (sources: SocialSource[]) => void;
 
     // for failed schedule post, show the title
     updateIsFailedSchedulePost: (isFailedSchedulePost: boolean) => void;
@@ -282,6 +286,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         updateSealedSource: (source) =>
             set((state) => {
                 state.sealedSource = source;
+            }),
+        updateDisabledSources: (sources) =>
+            set((state) => {
+                state.disabledSources = sources;
             }),
         enableSource: (source) =>
             set((state) => ({

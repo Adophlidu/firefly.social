@@ -26,7 +26,6 @@ import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
-import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
@@ -44,7 +43,6 @@ import { EventId } from '@/providers/types/Telemetry.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { type Chars } from '@/types/chars.js';
 import type { ComposeType } from '@/types/compose.js';
 import type { RedPacketMetadata } from '@/types/rp.js';
@@ -71,6 +69,7 @@ export interface ComposeModalOpenProps {
     initialPath?: string;
     isFailedSchedulePost?: boolean;
     isAnonymous?: boolean;
+    disabledSources?: SocialSource[];
 }
 
 export enum CloseAction {
@@ -88,9 +87,6 @@ type Props = {
 };
 
 function ComposeModalUI({ ref }: Props) {
-    const currentSource = useGlobalState.use.currentSource();
-    const currentSocialSource = narrowToSocialSource(currentSource);
-
     const contentRef = useRef<HTMLDivElement>(null);
     const controller = useAbortController();
 
@@ -110,6 +106,7 @@ function ComposeModalUI({ ref }: Props) {
         updateSealedSource,
         clear,
         updateIsFailedSchedulePost,
+        updateDisabledSources,
     } = useComposeStateStore();
     const { clearScheduleTime } = useComposeScheduleStateStore();
     const { rpPayload, availableSources } = useCompositePost();
@@ -118,7 +115,18 @@ function ComposeModalUI({ ref }: Props) {
 
     const setEditorContent = useSetEditorContent();
     const [open, dispatch] = useSingletonModal(ref, {
-        onOpen: ({ type, source, post, chars, channel, embeds, initialPath, isFailedSchedulePost, isAnonymous }) => {
+        onOpen: ({
+            type,
+            source,
+            post,
+            chars,
+            channel,
+            embeds,
+            initialPath,
+            isFailedSchedulePost,
+            isAnonymous,
+            disabledSources,
+        }) => {
             controller.current.abort();
             const newType = type || 'compose';
 
@@ -130,6 +138,7 @@ function ComposeModalUI({ ref }: Props) {
                 updateChars(chars);
                 setEditorContent(chars);
             }
+            if (disabledSources && disabledSources.length > 0) updateDisabledSources(disabledSources);
             if (channel) updateChannel(channel);
             if (isAnonymous) toggleAnonymous(true);
             if (initialPath) router.navigate({ to: initialPath });

@@ -25,11 +25,16 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function PostBy() {
     const { poll, availableSources, images, rpPayload, videos } = useCompositePost();
-    const { type, sealedSource } = useComposeStateStore();
+    const { type, sealedSource, disabledSources } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
 
     const postByDisabled = useMemo(() => {
         return SORTED_SOCIAL_SOURCES.map((source) => {
+            if (disabledSources?.includes(source)) {
+                return {
+                    disabled: true,
+                };
+            }
             if (
                 type !== 'compose' &&
                 sealedSource &&
@@ -95,7 +100,7 @@ export function PostBy() {
 
             return { disabled: false };
         });
-    }, [type, sealedSource, poll, scheduleTime, availableSources, images, rpPayload, videos]);
+    }, [type, sealedSource, poll, scheduleTime, availableSources, images, rpPayload, videos, disabledSources]);
 
     const content = (
         <div className="no-scrollbar flex max-h-[156px] flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[188px]">
