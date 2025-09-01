@@ -96,7 +96,12 @@ export function HomeTabs({
                         </div>
                     </div>
                 ) : (
-                    <div className={classNames('flex h-[60px] flex-col px-4 pt-2.5', containerClass)}>
+                    <div
+                        className={classNames(
+                            'flex h-[60px] flex-col px-4 max-md:items-center md:pt-2.5',
+                            containerClass,
+                        )}
+                    >
                         <Menu>
                             {({ close }) => (
                                 <div>
