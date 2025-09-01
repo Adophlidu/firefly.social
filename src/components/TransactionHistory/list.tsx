@@ -260,7 +260,15 @@ function TransactionHistoryTokenItem({ item }: { item: TransactionHistoryItem })
     if (item.category === TransactionHistoryCategory.TokenApprove) {
         const token = item.token_approve?.token;
         if (!token) return null;
-        return <TokenIcon icon={token.logo} networkType={networkType} chainId={chainId} disableBadge={isSolana} />;
+        return (
+            <TokenIcon
+                icon={token.logo}
+                networkType={networkType}
+                chainId={chainId}
+                disableBadge={isSolana}
+                name={token.symbol}
+            />
+        );
     }
     if (
         [TransactionHistoryCategory.TokenSwap, TransactionHistoryCategory.ContractInteraction].includes(
@@ -280,6 +288,7 @@ function TransactionHistoryTokenItem({ item }: { item: TransactionHistoryItem })
                     className="!absolute left-0 top-0 rounded-full bg-white"
                     size={24}
                     disableBadge
+                    name={tokenSend.token.symbol}
                 />
                 <TokenIcon
                     icon={tokenReceive.token.logo}
@@ -288,6 +297,7 @@ function TransactionHistoryTokenItem({ item }: { item: TransactionHistoryItem })
                     size={24}
                     className="!absolute left-2.5 top-2 rounded-full bg-white"
                     disableBadge
+                    name={tokenReceive.token.symbol}
                 />
                 <div className="absolute -right-2 bottom-0 z-1 w-[14px] rounded-full bg-white p-[1px]">
                     <ChainIcon size={12} networkType={networkType} chainId={chainId} allowEmpty />
@@ -297,7 +307,9 @@ function TransactionHistoryTokenItem({ item }: { item: TransactionHistoryItem })
     }
 
     const token = item.token_receives[0] || item.token_sends[0];
-    return <TokenIcon icon={token?.token?.logo} networkType={networkType} chainId={chainId} />;
+    return (
+        <TokenIcon icon={token?.token?.logo} networkType={networkType} chainId={chainId} name={token?.token?.symbol} />
+    );
 }
 
 function TransactionHistorySubTitle({ item }: { item: TransactionHistoryItem }) {
