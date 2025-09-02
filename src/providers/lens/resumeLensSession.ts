@@ -11,12 +11,15 @@ import {
     updateCredentialsStorage,
 } from '@/providers/lens/getLensCredentialsFromStorage.js';
 import { parseLensAccessToken } from '@/providers/lens/parseLensAccessToken.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
 
 let resumeTask: Promise<string | undefined> | null = null;
 
-async function runResumeTask(currentProfileId?: string, retryCount = 0, onResumeFailure = noop) {
+async function runResumeTask(
+    currentProfileId?: string,
+    retryCount = 0,
+    onResumeFailure = noop,
+): Promise<string | undefined> {
     try {
         if (retryCount > 5) {
             console.warn('[resume lens] too many retries, clean the lens store');
@@ -39,6 +42,7 @@ async function runResumeTask(currentProfileId?: string, retryCount = 0, onResume
 
         // refresh token if it is expiring soon
         if (isExpiringSoon) {
+            const { lensSessionHolder } = await import('@/providers/lens/SessionHolder.js');
             const refreshedCredentialsResult = await refresh(lensSessionHolder.sdk, {
                 refreshToken: oldCredentials.refreshToken,
             });
@@ -65,6 +69,7 @@ async function runResumeTask(currentProfileId?: string, retryCount = 0, onResume
             updateCredentialsStorage(refreshedCredentials);
         }
 
+        const { lensSessionHolder } = await import('@/providers/lens/SessionHolder.js');
         const sessionClient = await ensureLensResult(lensSessionHolder.sdk.resumeSession());
         if (!sessionClient) {
             console.warn('[resume lens] clean the lens store because failed to call sdk.resumeSession');

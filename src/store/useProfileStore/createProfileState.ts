@@ -80,7 +80,7 @@ export function createProfileState(
                     }),
                 removeAccount: (account) =>
                     set((state) => {
-                        state.accounts = state.accounts.filter((x) => !isSameProfile(x.profile, account.profile));
+                        state.accounts = state.accounts.filter((x) => !isSameAccount(x, account));
 
                         if (isSameProfile(account.profile, state.currentProfile)) {
                             state.currentProfile = null;
