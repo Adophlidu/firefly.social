@@ -86,7 +86,7 @@ dependencies:
     version: 3.658.1(@aws-sdk/client-s3@3.658.1)
   '@bprogress/next':
     specifier: ^3.2.11
-    version: 3.2.11(next@15.4.6)(react-dom@19.0.0)(react@19.0.0)
+    version: 3.2.11(next@15.4.7)(react-dom@19.0.0)(react@19.0.0)
   '@coral-xyz/anchor':
     specifier: ^0.30.1
     version: 0.30.1(typescript@5.7.3)
@@ -146,7 +146,7 @@ dependencies:
     version: 4.2.9(@types/react-dom@19.0.2)(@types/react@19.0.2)(immer@10.1.1)(react-dom@19.0.0)(react@19.0.0)
   '@next/third-parties':
     specifier: ^15.4.6
-    version: 15.4.6(next@15.4.6)(react@19.0.0)
+    version: 15.4.6(next@15.4.7)(react@19.0.0)
   '@noble/ed25519':
     specifier: ^1.7.3
     version: 1.7.3
@@ -185,7 +185,7 @@ dependencies:
     version: 5.85.5(react@19.0.0)
   '@tanstack/react-query-next-experimental':
     specifier: 5.85.5
-    version: 5.85.5(@tanstack/react-query@5.85.5)(next@15.4.6)(react@19.0.0)
+    version: 5.85.5(@tanstack/react-query@5.85.5)(next@15.4.7)(react@19.0.0)
   '@tanstack/react-ranger':
     specifier: ^0.0.4
     version: 0.0.4(react@19.0.0)
@@ -259,11 +259,11 @@ dependencies:
     specifier: ^4.17.21
     version: 4.17.21
   next:
-    specifier: ^15.4.6
-    version: 15.4.6(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
+    specifier: ^15.4.7
+    version: 15.4.7(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
   next-auth:
     specifier: ^4.24.11
-    version: 4.24.11(next@15.4.6)(react-dom@19.0.0)(react@19.0.0)
+    version: 4.24.11(next@15.4.7)(react-dom@19.0.0)(react@19.0.0)
   plyr-react:
     specifier: ^5.3.0
     version: 5.3.0(plyr@3.7.8)(react@19.0.0)
@@ -373,7 +373,7 @@ devDependencies:
     version: 5.3.0(typescript@5.7.3)(webpack@5.99.5)
   '@lingui/swc-plugin':
     specifier: ^5.5.1
-    version: 5.5.1(@lingui/core@5.3.0)(@swc/core@1.11.18)(next@15.4.6)
+    version: 5.5.1(@lingui/core@5.3.0)(@swc/core@1.11.18)(next@15.4.7)
   '@masknet/config':
     specifier: ^0.2.1
     version: 0.2.1
@@ -400,7 +400,7 @@ devDependencies:
     version: 8.6.14(react-dom@19.0.0)(react@19.0.0)(storybook@8.6.14)
   '@storybook/experimental-nextjs-vite':
     specifier: 8.6.14
-    version: 8.6.14(@babel/core@7.26.10)(@storybook/test@8.6.14)(next@15.4.6)(react-dom@19.0.0)(react@19.0.0)(rollup@4.39.0)(storybook@8.6.14)(typescript@5.7.3)(vite@6.3.5)
+    version: 8.6.14(@babel/core@7.26.10)(@storybook/test@8.6.14)(next@15.4.7)(react-dom@19.0.0)(react@19.0.0)(rollup@4.39.0)(storybook@8.6.14)(typescript@5.7.3)(vite@6.3.5)
   '@storybook/react':
     specifier: ^8.6.14
     version: 8.6.14(@storybook/test@8.6.14)(react-dom@19.0.0)(react@19.0.0)(storybook@8.6.14)(typescript@5.7.3)
@@ -2503,7 +2503,7 @@ packages:
     resolution: {integrity: sha512-Vz9vzZE8xvfkgY09e0S6kzNz/ev/2lUw7A/z0TW7N0ZBG9xmVXrzSsFe3uvypxDa5ltn+xLBtfDtxBc8KsrvBQ==}
     dev: false
 
-  /@bprogress/next@3.2.11(next@15.4.6)(react-dom@19.0.0)(react@19.0.0):
+  /@bprogress/next@3.2.11(next@15.4.7)(react-dom@19.0.0)(react@19.0.0):
     resolution: {integrity: sha512-UPXApgTvtF0zu3GoxctG0sZ177PbresqVUosaV5giAG46CuGRQeY7Ys3McL7I1h9MaUkh1rg+1NPAdnGE4dEig==}
     peerDependencies:
       next: '>=13.0.0'
@@ -2512,7 +2512,7 @@ packages:
     dependencies:
       '@bprogress/core': 1.3.3
       '@bprogress/react': 1.2.6(patch_hash=ptpx3qttjiypitnumdwetbkgai)(react-dom@19.0.0)(react@19.0.0)
-      next: 15.4.6(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
+      next: 15.4.7(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
     dev: false
@@ -5557,7 +5557,7 @@ packages:
       react: 19.0.0
     dev: false
 
-  /@lingui/swc-plugin@5.5.1(@lingui/core@5.3.0)(@swc/core@1.11.18)(next@15.4.6):
+  /@lingui/swc-plugin@5.5.1(@lingui/core@5.3.0)(@swc/core@1.11.18)(next@15.4.7):
     resolution: {integrity: sha512-hELKeVqoaoyiNV35n3nHjwl/FJtK53/Hy06ckbp9ztEIu3ixbXuJXpYJFyUKKWwP1OrEzKzkTqZeIvjxTWImPA==}
     peerDependencies:
       '@lingui/core': '5'
@@ -5571,7 +5571,7 @@ packages:
     dependencies:
       '@lingui/core': 5.3.0(@lingui/babel-plugin-lingui-macro@5.3.0)(babel-plugin-macros@3.1.0)
       '@swc/core': 1.11.18
-      next: 15.4.6(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
+      next: 15.4.7(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
     dev: true
 
   /@lit-labs/ssr-dom-shim@1.3.0:
@@ -6301,8 +6301,8 @@ packages:
     resolution: {integrity: sha512-DXQwFGAE2VH+f2TJsKepRXpODPU+scf5fDbKOME8MMyeyswe4XwgRdiiIYmBfkXU+2ssliLYznajTrOQdnLR5A==}
     dev: true
 
-  /@next/env@15.4.6:
-    resolution: {integrity: sha512-yHDKVTcHrZy/8TWhj0B23ylKv5ypocuCwey9ZqPyv4rPdUdRzpGCkSi03t04KBPyU96kxVtUqx6O3nE1kpxASQ==}
+  /@next/env@15.4.7:
+    resolution: {integrity: sha512-PrBIpO8oljZGTOe9HH0miix1w5MUiGJ/q83Jge03mHEE0E3pyqzAy2+l5G6aJDbXoobmxPJTVhbCuwlLtjSHwg==}
 
   /@next/eslint-plugin-next@15.2.3:
     resolution: {integrity: sha512-eNSOIMJtjs+dp4Ms1tB1PPPJUQHP3uZK+OQ7iFY9qXpGO6ojT6imCL+KcUOqE/GXGidWbBZJzYdgAdPHqeCEPA==}
@@ -6310,69 +6310,69 @@ packages:
       fast-glob: 3.3.1
     dev: true
 
-  /@next/swc-darwin-arm64@15.4.6:
-    resolution: {integrity: sha512-667R0RTP4DwxzmrqTs4Lr5dcEda9OxuZsVFsjVtxVMVhzSpo6nLclXejJVfQo2/g7/Z9qF3ETDmN3h65mTjpTQ==}
+  /@next/swc-darwin-arm64@15.4.7:
+    resolution: {integrity: sha512-2Dkb+VUTp9kHHkSqtws4fDl2Oxms29HcZBwFIda1X7Ztudzy7M6XF9HDS2dq85TmdN47VpuhjE+i6wgnIboVzQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
     optional: true
 
-  /@next/swc-darwin-x64@15.4.6:
-    resolution: {integrity: sha512-KMSFoistFkaiQYVQQnaU9MPWtp/3m0kn2Xed1Ces5ll+ag1+rlac20sxG+MqhH2qYWX1O2GFOATQXEyxKiIscg==}
+  /@next/swc-darwin-x64@15.4.7:
+    resolution: {integrity: sha512-qaMnEozKdWezlmh1OGDVFueFv2z9lWTcLvt7e39QA3YOvZHNpN2rLs/IQLwZaUiw2jSvxW07LxMCWtOqsWFNQg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
     optional: true
 
-  /@next/swc-linux-arm64-gnu@15.4.6:
-    resolution: {integrity: sha512-PnOx1YdO0W7m/HWFeYd2A6JtBO8O8Eb9h6nfJia2Dw1sRHoHpNf6lN1U4GKFRzRDBi9Nq2GrHk9PF3Vmwf7XVw==}
+  /@next/swc-linux-arm64-gnu@15.4.7:
+    resolution: {integrity: sha512-ny7lODPE7a15Qms8LZiN9wjNWIeI+iAZOFDOnv2pcHStncUr7cr9lD5XF81mdhrBXLUP9yT9RzlmSWKIazWoDw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
     optional: true
 
-  /@next/swc-linux-arm64-musl@15.4.6:
-    resolution: {integrity: sha512-XBbuQddtY1p5FGPc2naMO0kqs4YYtLYK/8aPausI5lyOjr4J77KTG9mtlU4P3NwkLI1+OjsPzKVvSJdMs3cFaw==}
+  /@next/swc-linux-arm64-musl@15.4.7:
+    resolution: {integrity: sha512-4SaCjlFR/2hGJqZLLWycccy1t+wBrE/vyJWnYaZJhUVHccpGLG5q0C+Xkw4iRzUIkE+/dr90MJRUym3s1+vO8A==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
     optional: true
 
-  /@next/swc-linux-x64-gnu@15.4.6:
-    resolution: {integrity: sha512-+WTeK7Qdw82ez3U9JgD+igBAP75gqZ1vbK6R8PlEEuY0OIe5FuYXA4aTjL811kWPf7hNeslD4hHK2WoM9W0IgA==}
+  /@next/swc-linux-x64-gnu@15.4.7:
+    resolution: {integrity: sha512-2uNXjxvONyRidg00VwvlTYDwC9EgCGNzPAPYbttIATZRxmOZ3hllk/YYESzHZb65eyZfBR5g9xgCZjRAl9YYGg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
     optional: true
 
-  /@next/swc-linux-x64-musl@15.4.6:
-    resolution: {integrity: sha512-XP824mCbgQsK20jlXKrUpZoh/iO3vUWhMpxCz8oYeagoiZ4V0TQiKy0ASji1KK6IAe3DYGfj5RfKP6+L2020OQ==}
+  /@next/swc-linux-x64-musl@15.4.7:
+    resolution: {integrity: sha512-ceNbPjsFgLscYNGKSu4I6LYaadq2B8tcK116nVuInpHHdAWLWSwVK6CHNvCi0wVS9+TTArIFKJGsEyVD1H+4Kg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
     optional: true
 
-  /@next/swc-win32-arm64-msvc@15.4.6:
-    resolution: {integrity: sha512-FxrsenhUz0LbgRkNWx6FRRJIPe/MI1JRA4W4EPd5leXO00AZ6YU8v5vfx4MDXTvN77lM/EqsE3+6d2CIeF5NYg==}
+  /@next/swc-win32-arm64-msvc@15.4.7:
+    resolution: {integrity: sha512-pZyxmY1iHlZJ04LUL7Css8bNvsYAMYOY9JRwFA3HZgpaNKsJSowD09Vg2R9734GxAcLJc2KDQHSCR91uD6/AAw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
     optional: true
 
-  /@next/swc-win32-x64-msvc@15.4.6:
-    resolution: {integrity: sha512-T4ufqnZ4u88ZheczkBTtOF+eKaM14V8kbjud/XrAakoM5DKQWjW09vD6B9fsdsWS2T7D5EY31hRHdta7QKWOng==}
+  /@next/swc-win32-x64-msvc@15.4.7:
+    resolution: {integrity: sha512-HjuwPJ7BeRzgl3KrjKqD2iDng0eQIpIReyhpF5r4yeAHFwWRuAhfW92rWv/r3qeQHEwHsLRzFDvMqRjyM5DI6A==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
     optional: true
 
-  /@next/third-parties@15.4.6(next@15.4.6)(react@19.0.0):
+  /@next/third-parties@15.4.6(next@15.4.7)(react@19.0.0):
     resolution: {integrity: sha512-1BVymp3iVCMKvfIAlU1yptJuVnwiiyOs852WqPmj8bHPK7dcJN7vGEvH2uIKy9yBOi2UXZevlRT5njPDLZDHYg==}
     peerDependencies:
       next: ^13.0.0 || ^14.0.0 || ^15.0.0
       react: 19.0.0
     dependencies:
-      next: 15.4.6(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
+      next: 15.4.7(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
       react: 19.0.0
       third-party-capital: 1.0.20
     dev: false
@@ -9674,7 +9674,7 @@ packages:
       type-fest: 2.19.0
     dev: true
 
-  /@storybook/experimental-nextjs-vite@8.6.14(@babel/core@7.26.10)(@storybook/test@8.6.14)(next@15.4.6)(react-dom@19.0.0)(react@19.0.0)(rollup@4.39.0)(storybook@8.6.14)(typescript@5.7.3)(vite@6.3.5):
+  /@storybook/experimental-nextjs-vite@8.6.14(@babel/core@7.26.10)(@storybook/test@8.6.14)(next@15.4.7)(react-dom@19.0.0)(react@19.0.0)(rollup@4.39.0)(storybook@8.6.14)(typescript@5.7.3)(vite@6.3.5):
     resolution: {integrity: sha512-U0wNQV0LLnz6OpMx3AmxxoqC9d2l3Jmmxce6KcJu71gwMzdZL4i0N4wOlFVz+iI3tCrIcJsGkYShcxeSpQpoRA==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
@@ -9693,14 +9693,14 @@ packages:
       '@storybook/react': 8.6.14(@storybook/test@8.6.14)(react-dom@19.0.0)(react@19.0.0)(storybook@8.6.14)(typescript@5.7.3)
       '@storybook/react-vite': 8.6.14(@storybook/test@8.6.14)(react-dom@19.0.0)(react@19.0.0)(rollup@4.39.0)(storybook@8.6.14)(typescript@5.7.3)(vite@6.3.5)
       '@storybook/test': 8.6.14(storybook@8.6.14)
-      next: 15.4.6(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
+      next: 15.4.7(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       storybook: 8.6.14(prettier@3.5.3)
       styled-jsx: 5.1.6(@babel/core@7.26.10)(react@19.0.0)
       typescript: 5.7.3
       vite: 6.3.5(@types/node@22.10.7)
-      vite-plugin-storybook-nextjs: 1.1.5(patch_hash=fi5nqxjy55t77u7b3j43irxbw4)(@storybook/test@8.6.14)(next@15.4.6)(storybook@8.6.14)(vite@6.3.5)
+      vite-plugin-storybook-nextjs: 1.1.5(patch_hash=fi5nqxjy55t77u7b3j43irxbw4)(@storybook/test@8.6.14)(next@15.4.7)(storybook@8.6.14)(vite@6.3.5)
     optionalDependencies:
       sharp: 0.33.5
     transitivePeerDependencies:
@@ -10160,7 +10160,7 @@ packages:
       react: 19.0.0
     dev: true
 
-  /@tanstack/react-query-next-experimental@5.85.5(@tanstack/react-query@5.85.5)(next@15.4.6)(react@19.0.0):
+  /@tanstack/react-query-next-experimental@5.85.5(@tanstack/react-query@5.85.5)(next@15.4.7)(react@19.0.0):
     resolution: {integrity: sha512-DX4VQOA16UYPRy/xUOU9U6CNr+p7SQ83G1fkPECPsgnAIsz2/Qm5jNgKX6nR37v0BvIIq8gY4ejYAJynEV1V5A==}
     peerDependencies:
       '@tanstack/react-query': 5.85.5
@@ -10168,7 +10168,7 @@ packages:
       react: 19.0.0
     dependencies:
       '@tanstack/react-query': 5.85.5(react@19.0.0)
-      next: 15.4.6(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
+      next: 15.4.7(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
       react: 19.0.0
     dev: false
 
@@ -16962,7 +16962,7 @@ packages:
       '@rollup/rollup-linux-x64-gnu': 4.39.0
     dev: false
 
-  /next-auth@4.24.11(next@15.4.6)(react-dom@19.0.0)(react@19.0.0):
+  /next-auth@4.24.11(next@15.4.7)(react-dom@19.0.0)(react@19.0.0):
     resolution: {integrity: sha512-pCFXzIDQX7xmHFs4KVH4luCjaCbuPRtZ9oBUjUhOk84mZ9WVPf94n87TxYI4rSRf9HmfHEF8Yep3JrYDVOo3Cw==}
     peerDependencies:
       '@auth/core': 0.34.2
@@ -16980,7 +16980,7 @@ packages:
       '@panva/hkdf': 1.2.1
       cookie: 0.7.2
       jose: 4.15.9
-      next: 15.4.6(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
+      next: 15.4.7(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
       oauth: 0.9.15
       openid-client: 5.7.1
       preact: 10.26.5
@@ -17003,8 +17003,8 @@ packages:
       - webpack-cli
     dev: true
 
-  /next@15.4.6(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0):
-    resolution: {integrity: sha512-us++E/Q80/8+UekzB3SAGs71AlLDsadpFMXVNM/uQ0BMwsh9m3mr0UNQIfjKed8vpWXsASe+Qifrnu1oLIcKEQ==}
+  /next@15.4.7(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-OcqRugwF7n7mC8OSYjvsZhhG1AYSvulor1EIUsIkbbEbf1qoE5EbH36Swj8WhF4cHqmDgkiam3z1c1W0J1Wifg==}
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
     hasBin: true
     peerDependencies:
@@ -17024,7 +17024,7 @@ packages:
       sass:
         optional: true
     dependencies:
-      '@next/env': 15.4.6
+      '@next/env': 15.4.7
       '@swc/helpers': 0.5.15
       caniuse-lite: 1.0.30001712
       postcss: 8.4.31
@@ -17032,14 +17032,14 @@ packages:
       react-dom: 19.0.0(react@19.0.0)
       styled-jsx: 5.1.6(@babel/core@7.26.10)(react@19.0.0)
     optionalDependencies:
-      '@next/swc-darwin-arm64': 15.4.6
-      '@next/swc-darwin-x64': 15.4.6
-      '@next/swc-linux-arm64-gnu': 15.4.6
-      '@next/swc-linux-arm64-musl': 15.4.6
-      '@next/swc-linux-x64-gnu': 15.4.6
-      '@next/swc-linux-x64-musl': 15.4.6
-      '@next/swc-win32-arm64-msvc': 15.4.6
-      '@next/swc-win32-x64-msvc': 15.4.6
+      '@next/swc-darwin-arm64': 15.4.7
+      '@next/swc-darwin-x64': 15.4.7
+      '@next/swc-linux-arm64-gnu': 15.4.7
+      '@next/swc-linux-arm64-musl': 15.4.7
+      '@next/swc-linux-x64-gnu': 15.4.7
+      '@next/swc-linux-x64-musl': 15.4.7
+      '@next/swc-win32-arm64-msvc': 15.4.7
+      '@next/swc-win32-x64-msvc': 15.4.7
       sharp: 0.34.3
     transitivePeerDependencies:
       - '@babel/core'
@@ -20451,7 +20451,7 @@ packages:
       - yaml
     dev: true
 
-  /vite-plugin-storybook-nextjs@1.1.5(patch_hash=fi5nqxjy55t77u7b3j43irxbw4)(@storybook/test@8.6.14)(next@15.4.6)(storybook@8.6.14)(vite@6.3.5):
+  /vite-plugin-storybook-nextjs@1.1.5(patch_hash=fi5nqxjy55t77u7b3j43irxbw4)(@storybook/test@8.6.14)(next@15.4.7)(storybook@8.6.14)(vite@6.3.5):
     resolution: {integrity: sha512-doFAXLvfEtIgMbDA+0VzyanoWoAUAwMLMfTpFnv3rxaN/tGHtWAwyhK73OA3UJzyXrp6rDPTqbjWUYJ6noxNww==}
     peerDependencies:
       '@storybook/test': ^8.3.0
@@ -20464,7 +20464,7 @@ packages:
       image-size: 2.0.2
       magic-string: 0.30.17
       module-alias: 2.2.3
-      next: 15.4.6(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
+      next: 15.4.7(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
       storybook: 8.6.14(prettier@3.5.3)
       ts-dedent: 2.2.0
       vite: 6.3.5(@types/node@22.10.7)
@@ -21341,7 +21341,7 @@ time:
   /lodash-es@4.17.21: '2021-02-20T15:43:35.756Z'
   /next-auth@4.24.11: '2024-12-06T18:11:39.458Z'
   /next-statoscope@1.0.1: '2023-05-22T18:00:03.974Z'
-  /next@15.4.6: '2025-08-06T19:20:52.790Z'
+  /next@15.4.7: '2025-08-18T21:54:43.048Z'
   /plyr-react@5.3.0: '2023-06-12T22:50:21.153Z'
   /postcss@8.5.3: '2025-02-19T13:45:44.840Z'
   /prettier-plugin-tailwindcss@0.6.11: '2025-01-23T18:06:16.580Z'

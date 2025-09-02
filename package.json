@@ -88,7 +88,7 @@
         "linkedom": "^0.18.11",
         "localforage": "^1.10.0",
         "lodash-es": "^4.17.21",
-        "next": "^15.4.6",
+        "next": "^15.4.7",
         "next-auth": "^4.24.11",
         "plyr-react": "^5.3.0",
         "punycode": "^2.3.1",
