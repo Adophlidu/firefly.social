@@ -19,6 +19,7 @@ import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/controls.
 import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { signInWithFarcaster } from '@/providers/warpcast/signInWithFarcaster.js';
 import type { FrameV2 } from '@/types/frame.js';
@@ -81,7 +82,13 @@ export class FarcasterFrameHost implements MiniAppHost {
 
         // sign in with custody wallet
         const checked = await FireflyEndpointProvider.checkCustodyWallet(fid);
-        if (checked) return await signInWithFarcaster(frame, fid, options);
+        if (checked) {
+            const signed = await signInWithFarcaster(frame, fid, options);
+
+            captureFrameSignInEvent('mnemonic', frame);
+
+            return signed;
+        }
 
         // sign in with auth wallet or relay server
         const signed = await RelayConfirmationPopoverRef.openAndWaitForClose({

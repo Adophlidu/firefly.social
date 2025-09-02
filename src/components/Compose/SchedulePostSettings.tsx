@@ -17,7 +17,6 @@ import { enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueu
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';

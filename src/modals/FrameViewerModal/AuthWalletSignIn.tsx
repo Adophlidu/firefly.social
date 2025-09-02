@@ -73,7 +73,7 @@ export function AuthWalletSignIn() {
 
             const signed = await runWithoutPrivyWalletUI(() => signInWithAuthWallet(frame, `${fid}`, options));
 
-            captureFrameSignInEvent('auth-wallet', frame);
+            captureFrameSignInEvent('firefly-wallet', frame);
 
             onClose(signed);
         },

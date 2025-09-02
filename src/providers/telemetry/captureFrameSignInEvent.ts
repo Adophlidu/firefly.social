@@ -5,7 +5,7 @@ import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import type { Frame } from '@/types/frame.js';
 
-const resolveEventId = (type: 'siwf' | 'auth-wallet' | 'mnemonic') => {
+const resolveEventId = (type: 'siwf' | 'auth-wallet' | 'mnemonic' | 'firefly-wallet') => {
     switch (type) {
         case 'siwf':
             return EventId.MINI_APP_FARCASTER_SIGN_IN_SUCCESS;
@@ -13,13 +13,15 @@ const resolveEventId = (type: 'siwf' | 'auth-wallet' | 'mnemonic') => {
             return EventId.MINI_APP_FIREFLY_SIGN_IN_SUCCESS;
         case 'auth-wallet':
             return EventId.MINI_APP_AUTH_WALLET_SIGN_IN_SUCCESS;
+        case 'firefly-wallet':
+            return EventId.MINI_APP_FIREFLY_WALLET_SIGN_IN_SUCCESS;
         default:
             safeUnreachable(type);
             throw new Error(`Unknown type: ${type}`);
     }
 };
 
-export function captureFrameSignInEvent(type: 'siwf' | 'auth-wallet' | 'mnemonic', frame: Frame) {
+export function captureFrameSignInEvent(type: 'siwf' | 'auth-wallet' | 'mnemonic' | 'firefly-wallet', frame: Frame) {
     return runInSafeAsync(async () => {
         return TelemetryProvider.captureEvent(resolveEventId(type), {
             frame_version: (frame?.version ?? 'unknown') as string,
