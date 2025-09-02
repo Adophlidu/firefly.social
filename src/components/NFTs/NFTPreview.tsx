@@ -75,6 +75,9 @@ function BasePreviewContent(props: BasePreviewContentProps) {
             <h2 className="min-w-0 flex-1 truncate text-medium font-bold text-lightMain">{props.footer?.name}</h2>
         </>
     );
+    const address = nft?.contract_address ?? collection?.contract_address;
+    const link = props.link || (address ? resolveNFTUrl(chainId, address, nft?.token_id) : null);
+
     const content = (
         <>
             <div className="relative size-[300px]">
@@ -106,7 +109,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
             </div>
             <div className="flex flex-col gap-2 p-3">
                 {props.footer ? (
-                    props.footer.link ? (
+                    props.footer.link && !link ? (
                         <Link className="flex items-center gap-2" href={props.footer.link} onClick={stopPropagation}>
                             {footer}
                         </Link>
@@ -166,8 +169,6 @@ function BasePreviewContent(props: BasePreviewContentProps) {
         </>
     );
 
-    const address = nft?.contract_address ?? collection?.contract_address;
-    const link = props.link || (address ? resolveNFTUrl(chainId, address, nft?.token_id) : null);
     return (
         <div
             className={classNames('relative w-[300px] overflow-hidden rounded-xl bg-bg text-left', props.className)}
