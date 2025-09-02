@@ -26,10 +26,6 @@ import { SolanaChainId } from '@/web3-shared/solana/types.js';
 function resolveTab(pathname: string, params: ReadonlyURLSearchParams, category: string) {
     const newParams = new URLSearchParams(params);
     newParams.set('tx', category);
-    if (category !== 'trader' && newParams.has('trader')) {
-        newParams.delete('trader');
-        newParams.delete('traderName');
-    }
     return `${pathname}?${newParams.toString()}`;
 }
 

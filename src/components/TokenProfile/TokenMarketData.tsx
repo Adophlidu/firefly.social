@@ -30,6 +30,7 @@ import { assert } from '@/helpers/assert.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
+import { isZeroAddress } from '@/helpers/isZeroAddress.js';
 import { isZero } from '@/helpers/number.js';
 import { resolveCoinGeckoChain } from '@/helpers/resolveCoinGeckoChain.js';
 import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChainId.js';
@@ -124,7 +125,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                 ];
             return contracts;
         }
-        if (propChainId && runtimeAddress)
+        if (propChainId && !isZeroAddress(runtimeAddress))
             return [
                 {
                     runtime: resolveCoinGeckoChain(propChainId),
@@ -247,6 +248,10 @@ export const TokenMarketData = memo(function TokenMarketData({
             coingeckoChain={contract?.runtime}
         />
     );
+
+    const handleChartMouseLeave = useCallback(() => {
+        setActiveRecord(undefined);
+    }, []);
 
     return (
         <div {...rest} className={classNames('flex flex-col gap-1.5 p-3', rest.className)}>
@@ -372,8 +377,8 @@ export const TokenMarketData = memo(function TokenMarketData({
                         records={stats}
                         tradeRecords={showUserTx ? withinRangeTradeRecords : EMPTY_LIST}
                         activeTradeHash={pendingTradeHash ?? activeTradeHash ?? propTradeHash}
-                        onHover={(payload) => setActiveRecord(payload)}
-                        onMouseLeave={() => setActiveRecord(undefined)}
+                        onHover={setActiveRecord}
+                        onMouseLeave={handleChartMouseLeave}
                         onDotClick={handleDotClick}
                     />
                 )}

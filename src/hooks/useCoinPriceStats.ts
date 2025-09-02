@@ -10,8 +10,12 @@ export function useCoinPriceStats(
     address: string | undefined,
     days: number | undefined,
 ) {
+    // stabilize the query key
+    const queryKey = coinId
+        ? ['coingecko', 'token-price-stats', coinId, days]
+        : ['coingecko', 'token-price-stats', chainId, address, days];
     return useQuery({
-        queryKey: ['coingecko', 'token-price-stats', coinId, chainId, address, days],
+        queryKey,
         queryFn:
             coinId || (chainId && address)
                 ? async () => {
