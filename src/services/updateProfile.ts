@@ -4,6 +4,7 @@ import { pickBy } from 'lodash-es';
 import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
@@ -60,8 +61,8 @@ export async function updateProfile(profile: Profile, profileEditable: ProfileEd
             safeUnreachable(profile.source);
     }
 
-    function queryClientUpdater(old: Profile) {
-        if (!old) return old;
+    function queryClientUpdater(old?: Profile) {
+        if (!old || !isSameProfile(old, profile)) return old;
         return produce(old, (state: Profile) => {
             if (typeof profileEditable.displayName === 'string') state.displayName = profileEditable.displayName;
             if (typeof profileEditable.bio === 'string') state.bio = profileEditable.bio;
@@ -71,10 +72,11 @@ export async function updateProfile(profile: Profile, profileEditable: ProfileEd
         });
     }
 
-    queryClient.setQueryData(['profile', profile.source, profile.profileId], queryClientUpdater);
-    queryClient.setQueryData(['profile', profile.source, profile.handle], queryClientUpdater);
-    queryClient.setQueryData(['profile', profile.source, profile.profileId, 'tippy'], queryClientUpdater);
-    queryClient.setQueryData(['profile', profile.source, profile.handle, 'tippy'], queryClientUpdater);
+    queryClient.setQueriesData<Profile>(
+        { queryKey: ['profile', profile.source, profile.profileId] },
+        queryClientUpdater,
+    );
+    queryClient.setQueriesData<Profile>({ queryKey: ['profile', profile.source, profile.handle] }, queryClientUpdater);
     setCurrentProfileInPosts(profile, profileEditable);
     updateCurrentProfileInState(profile.source, profileEditable);
     await queryClient.refetchQueries({ queryKey: ['allConnections'] });

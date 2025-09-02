@@ -1,7 +1,7 @@
-import { AppBskyActorProfile, AppBskyFeedDefs, moderatePost } from '@atproto/api';
+import { AppBskyFeedDefs, moderatePost } from '@atproto/api';
 import { BlockedActorError } from '@atproto/api/dist/client/types/app/bsky/feed/getAuthorFeed.js';
 import { isServer } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
+import { compact, has } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { DISCOVER_AT_URI } from '@/constants/bsky.js';
@@ -810,25 +810,22 @@ class BskySocialMedia implements Provider {
         throw new NotImplementedError();
     }
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
-        const params = {
-            repo: bskySessionHolder.sessionRequired.did,
-            collection: 'app.bsky.actor.profile',
-            rkey: 'self',
-        };
-        const response = await bskySessionHolder.agent.com.atproto.repo.getRecord(params);
-        const record: AppBskyActorProfile.Record = {
-            ...response.data.value,
-            description: profile.bio,
-            displayName: profile.displayName,
-        };
-        if (profile.pfp) {
-            const avatarBlob = await fetchBlob(profile.pfp);
-            const avatarBlobUploaded = await bskySessionHolder.agent.uploadBlob(avatarBlob);
-            record.avatar = avatarBlobUploaded.data.blob;
-        }
-        await bskySessionHolder.agent.com.atproto.repo.putRecord({
-            ...params,
-            record,
+        await bskySessionHolder.agent.upsertProfile(async (existing) => {
+            const nextProfileData = existing || {};
+
+            if (has(profile, 'displayName')) {
+                nextProfileData.displayName = profile.displayName;
+            }
+            if (has(profile, 'bio')) {
+                nextProfileData.description = profile.bio;
+            }
+            if (profile.pfp) {
+                const avatarBlob = await fetchBlob(profile.pfp);
+                const avatarBlobUploaded = await bskySessionHolder.agent.uploadBlob(avatarBlob);
+                nextProfileData.avatar = avatarBlobUploaded.data.blob;
+            }
+
+            return nextProfileData;
         });
         return true;
     }
