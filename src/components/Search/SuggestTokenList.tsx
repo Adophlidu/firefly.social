@@ -53,7 +53,7 @@ export const SuggestTokenList = memo<SuggestTokenListProps>(function SuggestToke
                     {tokens.slice(0, 5).map((token) => (
                         <SearchableTokenItem
                             className="!border-0 !py-2"
-                            showRate={false}
+                            showChange={false}
                             key={token.id}
                             token={token}
                             onClick={onSelect}
