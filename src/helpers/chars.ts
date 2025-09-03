@@ -106,16 +106,28 @@ function resolvePeerPostMaxChars(source: SocialSource, post: CompositePost) {
         : currentMax;
 }
 
+function resolveUsedLength(sources: SocialSource[], chars: Chars) {
+    const profile = getProfileState(Source.Twitter).currentProfile;
+    // X > Bluesky > Farcaster > X premium > Lens
+    const sortedSources: SocialSource[] = profile?.verified
+        ? [Source.Bsky, Source.Farcaster, Source.Twitter, Source.Lens]
+        : [Source.Twitter, Source.Bsky, Source.Farcaster, Source.Lens];
+
+    const firstAvailableSource = sortedSources.find((source) => sources.includes(source));
+
+    if (!firstAvailableSource) return 0;
+
+    return resolveLengthCalculator(firstAvailableSource)(readChars(chars, 'visible', firstAvailableSource));
+}
+
 export function measureChars(post: CompositePost) {
     const { chars, availableSources } = post;
 
     if (!availableSources.length) return { usedLength: 0, availableLength: 0 };
 
     return {
-        // max(visible x1, visible x2, visible x3)
-        usedLength: Math.max(
-            ...availableSources.map((source) => resolveLengthCalculator(source)(readChars(chars, 'visible', source))),
-        ),
+        // X > Bluesky > Farcaster > X premium > Lens
+        usedLength: resolveUsedLength(availableSources, chars),
         // min(limit_y1 - invisible, limit_y2 - invisible, limit_y3 - invisible)
         availableLength: Math.min(
             ...availableSources.map(
