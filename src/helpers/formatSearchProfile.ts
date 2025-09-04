@@ -28,8 +28,8 @@ function fixProfilePlatform(profile: FireflyProfile) {
             // for ens matched
             platform_id:
                 (profile.platform as unknown) === 'ens'
-                    ? profile.primary_address || profile.resolved_address || profile.owner || profile.platform_id
-                    : profile.resolved_address || profile.primary_address || profile.platform_id,
+                    ? profile.resolved_address || profile.registrant || profile.owner || profile.wrapped_owner
+                    : profile.platform_id,
         } as FireflyProfile;
     }
 

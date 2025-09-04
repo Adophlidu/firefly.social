@@ -114,6 +114,8 @@ export interface Profile {
     // wallet profile
     resolved_address?: string;
     primary_address?: string;
+    registrant?: string;
+    wrapped_owner?: string;
     // related social profiles
     related_profiles?: Profile[];
     special?: boolean;
