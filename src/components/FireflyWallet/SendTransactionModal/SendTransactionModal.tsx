@@ -342,7 +342,7 @@ function FormView() {
                     return;
             }
         },
-        enabled: !!token,
+        enabled: !!token && !!to && !!amount,
     });
 
     useEffect(() => {

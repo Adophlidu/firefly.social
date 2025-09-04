@@ -35,6 +35,7 @@ export function ReceiveModal({ open, onClose, items }: Props) {
             dialogClassName="z-50"
             className="w-[calc(100%-40px)] max-w-[480px]"
             panelClassName={classNames('overflow-y-auto duration-100', selected ? 'md:h-[392px]' : 'md:h-[416px]')}
+            titleClassName="!p-6"
             title={selected ? <Trans>Your {selected.name} Address</Trans> : <Trans>Receive</Trans>}
         >
             <AnimatePresence mode="wait" initial={false}>
