@@ -29,19 +29,21 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
 }) {
     return (
         <div className="no-scrollbar flex flex-col overflow-auto max-md:h-[270px] md:h-[374px]">
-            <div className="text-base font-bold">
+            <div className="text-base font-bold text-main">
                 {status === SnapshotState.Closed ? <Trans>Results</Trans> : <Trans>Current Results</Trans>}
             </div>
-            <div className="mt-2 flex flex-col gap-2 rounded-lg bg-lightRebrandingBg p-4">
+            <div className="mt-2 flex flex-col gap-2 rounded-lg bg-farcasterBg p-4">
                 {choices.map((choice, index) => {
                     const score = scores[index];
                     return (
                         <div key={index}>
                             <div className="flex items-center justify-between">
                                 <TextOverflowTooltip className="max-sm:block" placement="top" content={choice}>
-                                    <div className="overflow-hidden overflow-ellipsis whitespace-nowrap">{choice}</div>
+                                    <div className="overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
+                                        {choice}
+                                    </div>
                                 </TextOverflowTooltip>
-                                <div className="flex gap-1 whitespace-nowrap">
+                                <div className="flex gap-1 whitespace-nowrap text-main">
                                     <span>{score > 1 ? nFormatter(score) : score.toFixed(2)}</span>
                                     <span>{symbol}</span>
                                     <span>{scoreTotal ? formatPercentage(score / scoreTotal) : '0%'}</span>
@@ -67,7 +69,7 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
                 })}
             </div>
 
-            <div className="mb-2 mt-4 flex gap-1 text-base font-bold">
+            <div className="mb-2 mt-4 flex gap-1 text-base font-bold text-main">
                 <Trans>Votes</Trans>
                 <span className="text-secondary">({votes.toLocaleString('en-US')})</span>
             </div>

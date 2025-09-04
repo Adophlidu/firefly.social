@@ -69,11 +69,11 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
     const ensHandle = useEnsName({ address: author as Hex });
 
     return (
-        <div className="link-preview">
+        <div>
             <ClickableArea className="relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3 text-left text-commonMain">
                 <SnapshotStatus status={state} className="self-start" />
                 <h3
-                    className={classNames('line-clamp-2 text-left text-[20px] font-bold leading-[22px]', {
+                    className={classNames('line-clamp-2 text-left text-[20px] font-bold leading-[22px] text-main', {
                         'max-h-[40px]': IS_SAFARI && IS_APPLE,
                     })}
                 >
@@ -144,7 +144,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                         'flex-1 rounded-t-xl px-4 py-2 text-base font-bold leading-5 outline-none',
                                         {
                                             'text-secondary': currentTabIndex !== i,
-                                            'bg-white text-main': currentTabIndex === i,
+                                            'bg-primaryBottom text-main': currentTabIndex === i,
                                         },
                                     )}
                                     key={x.value}
@@ -153,7 +153,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                 </Tab>
                             ))}
                         </TabList>
-                        <TabPanels className="rounded-b-xl bg-white p-4">
+                        <TabPanels className="rounded-b-xl bg-primaryBottom p-4">
                             <TabPanel>
                                 <SnapshotMarkup className="no-scrollbar overflow-auto text-sm leading-[18px] text-secondary max-md:h-[270px] md:h-[374px]">
                                     {snapshot.body}

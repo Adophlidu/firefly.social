@@ -54,16 +54,16 @@ const SnapshotVotesListItem = memo<SnapshotVotesListItemProps>(function Snapshot
                     placement="top"
                     content={ens || formatAddressEthereum(vote.voter, 4)}
                 >
-                    <div className="truncate">{ens || formatAddressEthereum(vote.voter, 4)}</div>
+                    <div className="truncate text-main">{ens || formatAddressEthereum(vote.voter, 4)}</div>
                 </TextOverflowTooltip>
             </Link>
             <TextOverflowTooltip className="max-sm:block" placement="top-start" content={choiceLabel}>
-                <div className="flex-1 truncate">{choiceLabel}</div>
+                <div className="flex-1 truncate text-main">{choiceLabel}</div>
             </TextOverflowTooltip>
 
             <div className="flex gap-1">
-                <span>{vote.vp > 1 ? nFormatter(vote.vp) : humanize(vote.vp)}</span>
-                <span>{vote.proposal.symbol}</span>
+                <span className="text-main">{vote.vp > 1 ? nFormatter(vote.vp) : humanize(vote.vp)}</span>
+                <span className="text-main">{vote.proposal.symbol}</span>
             </div>
         </div>
     );
