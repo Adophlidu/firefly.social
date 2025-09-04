@@ -200,7 +200,7 @@ async function createSwapOpenGraphImageResponse({ swap }: { swap: SwapActivity }
     return new ImageResponse(await SwapOpenGraphImage({ swap }), {
         width: 1200,
         height: 630,
-        fonts: await getSatoriFonts(),
+        fonts: await getSatoriFonts(['Inter', 'NotoSans']),
         headers: {
             'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
         },

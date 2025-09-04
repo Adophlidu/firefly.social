@@ -63,7 +63,10 @@ async function getTheme(themeId: string, signal?: AbortSignal) {
 
 export async function createRedPacketImage(coverOrPayload: Cover | Payload, signal?: AbortSignal) {
     const { usage, themeId } = coverOrPayload;
-    const [fonts, theme] = await Promise.all([getSatoriFonts(signal), getTheme(themeId, signal)]);
+    const [fonts, theme] = await Promise.all([
+        getSatoriFonts(['Inter', 'NotoSans'], signal),
+        getTheme(themeId, signal),
+    ]);
 
     if (!theme) {
         throw new Error(`Failed to get theme: ${themeId}`);

@@ -309,21 +309,7 @@ async function createTipOpenGraphImageResponse({ tip, view }: { tip: TipsDetail;
     return new ImageResponse(await TipOpenGraphImage({ tip, view }), {
         width: 1200,
         height: 630,
-        fonts: [
-            ...(await getSatoriFonts()),
-            {
-                name: 'Bedstead',
-                data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Bedstead-Regular.ttf')),
-                weight: 400,
-                style: 'normal',
-            },
-            {
-                name: 'Bedstead',
-                data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Bedstead-Bold.ttf')),
-                weight: 700,
-                style: 'normal',
-            },
-        ],
+        fonts: await getSatoriFonts(['Inter', 'NotoSans', 'Bedstead']),
         headers: {
             'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
         },
