@@ -9,8 +9,8 @@ import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 interface FontConfig {
     name: string;
     url: string;
-    weight: FontWeight;
-    style: FontStyle;
+    weight?: FontWeight;
+    style?: FontStyle;
 }
 
 const FONT_CONFIGS: FontConfig[] = [
@@ -20,6 +20,7 @@ const FONT_CONFIGS: FontConfig[] = [
     { name: 'NotoSans', url: urlcat(SITE_URL, '/font/NotoSans-Bold.ttf'), weight: 700, style: 'normal' },
     { name: 'Bedstead', url: urlcat(SITE_URL, '/font/Bedstead-Regular.ttf'), weight: 400, style: 'normal' },
     { name: 'Bedstead', url: urlcat(SITE_URL, '/font/Bedstead-Bold.ttf'), weight: 700, style: 'normal' },
+    { name: 'Noto Sans Symbols 2', url: urlcat(SITE_URL, '/font/NotoSansSymbols2-Regular.ttf') },
 ];
 
 export async function getSatoriFonts(

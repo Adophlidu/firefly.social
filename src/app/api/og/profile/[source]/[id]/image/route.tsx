@@ -23,7 +23,6 @@ import { NetworkType, type ProfilePageSource, type SocialSource, Source, SourceI
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL, SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE } from '@/constants/index.js';
 import { compose } from '@/helpers/compose.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
-import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
@@ -37,6 +36,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getAllRelatedProfileInfo } from '@/providers/firefly/getAllRelatedProfileInfo.js';
 import type { WalletProfiles } from '@/providers/types/Firefly.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
+import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import type { NextRequestContext } from '@/types/utility.js';
 
 const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
@@ -154,26 +154,33 @@ async function ProfileOpenGraphImage({ avatar, displayName, sources, source }: P
                 </div>
                 <div
                     style={{
-                        textAlign: 'center',
                         display: 'flex',
                         justifyContent: 'center',
+                        width: '750px',
+                        paddingTop: '16px',
+                        paddingBottom: '16px',
                         alignItems: 'center',
                         color: '#07101B',
                         fontSize: '56px',
                         lineHeight: '56px',
                         height: '88px',
-                        lineClamp: 1,
-                        whiteSpace: 'nowrap',
-                        wordWrap: 'break-word',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        fontFamily: OG_FONT_FAMILY,
-                        width: '750px',
-                        paddingTop: '16px',
-                        paddingBottom: '16px',
                     }}
                 >
-                    {displayName}
+                    <div
+                        style={{
+                            lineClamp: 1,
+                            whiteSpace: 'nowrap',
+                            wordWrap: 'break-word',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            fontFamily: OG_FONT_FAMILY,
+                            fontWeight: '700',
+                            width: 'auto',
+                            maxWidth: '750px',
+                        }}
+                    >
+                        {displayName}
+                    </div>
                 </div>
                 {sources && sources?.length > 1 ? (
                     <div
@@ -255,13 +262,7 @@ async function createProfileOpenGraphImageResponse({
         width: 1200,
         height: 630,
         debug,
-        fonts: [
-            {
-                name: OG_FONT_FAMILY,
-                data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Bedstead-Bold.otf')),
-                style: 'normal',
-            },
-        ],
+        fonts: await getSatoriFonts([OG_FONT_FAMILY]),
         headers: {
             'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
         },

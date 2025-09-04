@@ -22,6 +22,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
+import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import type { NextRequestContext } from '@/types/utility.js';
 
 function resolveSourceIcon(source: SocialSource) {
@@ -114,6 +115,8 @@ async function AttachmentImage({ src }: { src: string }) {
     );
 }
 
+const OG_FONT_FAMILY = ['Inter', 'Noto Sans Symbols 2'];
+
 async function PostOpenGraphImage({ post }: { post: Post }) {
     const src = resolveAttachmentsSrc(post.metadata.content?.asset);
     const content = (post.metadata.content?.content ?? '')
@@ -130,6 +133,7 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
                 background: '#fff',
                 padding: '25px',
                 position: 'relative',
+                fontFamily: OG_FONT_FAMILY.join(','),
             }}
         >
             <Image
@@ -238,12 +242,12 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     if (!post) {
         return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
     }
-
     return new ImageResponse(await PostOpenGraphImage({ post }), {
         width: 1200,
         height: 630,
         headers: {
             'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
         },
+        fonts: await getSatoriFonts(OG_FONT_FAMILY),
     });
 });
