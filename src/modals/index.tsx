@@ -49,6 +49,10 @@ import { SwapModal, SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
 import { TipsModal, TipsModalRef } from '@/modals/TipsModal/index.js';
 import { TokenSelectorModal, TokenSelectorModalRef } from '@/modals/TokenSelectorModal.js';
 import {
+    TransactionDetailModal,
+    TransactionDetailModalRef,
+} from '@/modals/TransactionDetailModal/TransactionDetailModal.js';
+import {
     TransactionSimulatorModal,
     TransactionSimulatorModalRef,
 } from '@/modals/TransactionSimulatorModal/TransactionSimulatorModal.js';
@@ -92,6 +96,7 @@ export const Modals = memo(function Modals() {
             <CreateFireflyAccountGuideModal ref={CreateFireflyAccountGuideModalRef.register} />
             <ShareImageModal ref={ShareImageModalRef.register} />
             <DownloadMobileAppModal ref={DownloadMobileAppModalRef.register} />
+            <TransactionDetailModal ref={TransactionDetailModalRef.register} />
         </NoSSR>
     );
 });

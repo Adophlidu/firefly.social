@@ -377,6 +377,10 @@ msgstr "虛假 KYC。"
 msgid "Requested from <0>{0}</0>"
 msgstr "請求來自 <0>{0}</0>"
 
+#. placeholder {0}: transaction.tx_status
+msgid "{0, select, success {Success} fail {Failed} other {Failed}}"
+msgstr ""
+
 msgid "Airdrop Scam"
 msgstr "空投騙局"
 
@@ -736,12 +740,18 @@ msgstr "{0} 個已隱藏群組"
 msgid "[Video]"
 msgstr "[影片]"
 
+msgid "To Address"
+msgstr ""
+
 msgid "The author is muted by you."
 msgstr "您已隱藏此作者。"
 
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}"
 msgstr "檢舉 @{0} 失敗"
+
+msgid "Approved"
+msgstr ""
 
 msgid "Failed to login profile by orb"
 msgstr "Orb 登入失敗"
@@ -824,6 +834,9 @@ msgstr "自訂"
 
 msgid "Select NFT collection to gate access"
 msgstr "選擇 NFT 系列作為領取門檻"
+
+msgid "From Address"
+msgstr ""
 
 msgid "Connect Email"
 msgstr "綁定電子郵件"
@@ -1383,6 +1396,9 @@ msgstr "已向您發送一次性驗證碼"
 
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "代幣交易次數受限。詐騙代幣交易次數可能受限（詐騙風險）。"
+
+msgid "on"
+msgstr ""
 
 msgid "No phishing site found."
 msgstr "未發現釣魚網站"
@@ -3030,6 +3046,9 @@ msgstr "取得個人檔案失敗。"
 msgid "Post is decrypting..."
 msgstr "貼文解密中..."
 
+msgid "with"
+msgstr ""
+
 msgid "Transaction"
 msgstr "交易"
 
@@ -3126,6 +3145,9 @@ msgstr "步驟 2 連接錢包"
 msgid "Light Mode"
 msgstr "淺色模式"
 
+msgid "Transaction Detail"
+msgstr ""
+
 #. placeholder {0}: post.source
 msgid "Failed to submit report on {0}."
 msgstr "在 {0} 提交檢舉失敗"
@@ -3213,6 +3235,9 @@ msgstr "您的交易即將確認"
 msgid "Failed to un-bookmark snapshot."
 msgstr "取消收藏投票失敗。"
 
+msgid "to"
+msgstr ""
+
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
 msgid "will send on {0} at {1}"
@@ -3295,6 +3320,9 @@ msgstr "👉 為了隨時掌握交易動態，請在瀏覽器設定中開啟通�
 
 msgid "Claimed lucky drop successfully"
 msgstr "紅包領取成功"
+
+msgid "From"
+msgstr ""
 
 msgid "Rejected"
 msgstr "已拒絕"
@@ -3723,6 +3751,9 @@ msgstr "已釘選"
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "合約持有者可能具備修改交易稅權限，若稅率超過 49% 將導致代幣無法交易（詐騙風險）。"
+
+msgid "NFT Received"
+msgstr ""
 
 msgid "Unknown status"
 msgstr "未知狀態"
@@ -4617,6 +4648,9 @@ msgstr "訊息"
 msgid "Continue"
 msgstr "繼續"
 
+msgid "Revoked"
+msgstr ""
+
 msgid "One-time passcode"
 msgstr "一次性驗證碼"
 
@@ -4758,6 +4792,9 @@ msgstr "NFT"
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
 msgstr "{0, plural, one {讚} other {讚}}"
+
+msgid "NFT Sent"
+msgstr ""
 
 msgid "👉 vitalik.eth"
 msgstr "👉 vitalik.eth"

@@ -372,6 +372,10 @@ msgstr ""
 msgid "Requested from <0>{0}</0>"
 msgstr ""
 
+#. placeholder {0}: transaction.tx_status
+msgid "{0, select, success {Success} fail {Failed} other {Failed}}"
+msgstr ""
+
 msgid "Airdrop Scam"
 msgstr ""
 
@@ -731,11 +735,17 @@ msgstr ""
 msgid "[Video]"
 msgstr ""
 
+msgid "To Address"
+msgstr ""
+
 msgid "The author is muted by you."
 msgstr ""
 
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}"
+msgstr ""
+
+msgid "Approved"
 msgstr ""
 
 msgid "Failed to login profile by orb"
@@ -818,6 +828,9 @@ msgid "Custom"
 msgstr ""
 
 msgid "Select NFT collection to gate access"
+msgstr ""
+
+msgid "From Address"
 msgstr ""
 
 msgid "Connect Email"
@@ -1377,6 +1390,9 @@ msgid "One-time passcode sent to you"
 msgstr ""
 
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
+msgstr ""
+
+msgid "on"
 msgstr ""
 
 msgid "No phishing site found."
@@ -3003,6 +3019,9 @@ msgstr ""
 msgid "Post is decrypting..."
 msgstr ""
 
+msgid "with"
+msgstr ""
+
 msgid "Transaction"
 msgstr ""
 
@@ -3099,6 +3118,9 @@ msgstr ""
 msgid "Light Mode"
 msgstr ""
 
+msgid "Transaction Detail"
+msgstr ""
+
 #. placeholder {0}: post.source
 msgid "Failed to submit report on {0}."
 msgstr ""
@@ -3186,6 +3208,9 @@ msgstr ""
 msgid "Failed to un-bookmark snapshot."
 msgstr ""
 
+msgid "to"
+msgstr ""
+
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
 msgid "will send on {0} at {1}"
@@ -3267,6 +3292,9 @@ msgid "👉 To stay updated on trades, enable notifications in your browser sett
 msgstr ""
 
 msgid "Claimed lucky drop successfully"
+msgstr ""
+
+msgid "From"
 msgstr ""
 
 msgid "Rejected"
@@ -3695,6 +3723,9 @@ msgid "Pinned"
 msgstr ""
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
+msgstr ""
+
+msgid "NFT Received"
 msgstr ""
 
 msgid "Unknown status"
@@ -4585,6 +4616,9 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
+msgid "Revoked"
+msgstr ""
+
 msgid "One-time passcode"
 msgstr ""
 
@@ -4725,6 +4759,9 @@ msgstr ""
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
+msgstr ""
+
+msgid "NFT Sent"
 msgstr ""
 
 msgid "👉 vitalik.eth"

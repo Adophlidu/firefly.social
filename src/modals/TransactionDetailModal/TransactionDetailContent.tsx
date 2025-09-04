@@ -1,0 +1,420 @@
+import { Select, Trans } from '@lingui/react/macro';
+import { first } from 'lodash-es';
+import { memo, useMemo } from 'react';
+
+import { TransactionDate } from '@/app/(normal)/tx/[chain_id]/[hash]/components/TransactionDate.js';
+import { AddressLink, TxLink } from '@/app/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
+import ClipboardTextIcon from '@/assets/clipboard-text.svg';
+import Receive from '@/assets/download1.svg';
+import Interaction from '@/assets/interaction.svg';
+import Revoke from '@/assets/revoke.svg';
+import Send from '@/assets/send1.svg';
+import Approve from '@/assets/tick-circle.svg';
+import { Avatar } from '@/components/Avatar.js';
+import { ChainIcon } from '@/components/ChainIcon.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { Link } from '@/components/Link.js';
+import { NetworkType, Source } from '@/constants/enum.js';
+import { Image } from '@/esm/Image.js';
+import { classNames } from '@/helpers/classNames.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
+import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
+import { getChainName } from '@/helpers/getChainName.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { openWindow } from '@/helpers/openWindow.js';
+import {
+    resolveTransactionCategoryPreWord,
+    resolveTransactionCategoryTitle,
+} from '@/helpers/resolveTransactionCategoryTitle.js';
+import { useEnsNameCached } from '@/hooks/useEnsNameCached.js';
+import { InlineTarget } from '@/modals/TransactionDetailModal/InlineTarget.js';
+import { TokenInfoRow } from '@/modals/TransactionDetailModal/TokenInfoRow.js';
+import { EthereumNetwork } from '@/providers/ethereum/Network.js';
+import { SolanaNetwork } from '@/providers/solana/Network.js';
+import {
+    TransactionHistoryCategory,
+    type TransactionHistoryItem,
+    TransactionState,
+} from '@/providers/types/Firefly.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
+
+export interface TransactionDetailContentProps {
+    transaction: TransactionHistoryItem;
+}
+
+const TransactionCategoryIcon = memo(function TransactionCategoryIcon({
+    category,
+}: {
+    category: TransactionHistoryCategory;
+}) {
+    switch (category) {
+        case TransactionHistoryCategory.TokenReceive:
+            return <Receive className="size-3" />;
+        case TransactionHistoryCategory.TokenSend:
+            return <Send className="size-3" />;
+        case TransactionHistoryCategory.TokenApprove:
+            return <Approve className="size-3" />;
+        case TransactionHistoryCategory.ContractInteraction:
+            return <Interaction className="size-3" />;
+        case TransactionHistoryCategory.TokenRevoke:
+            return <Revoke className="size-3" />;
+        default:
+            return <Interaction className="size-3" />;
+    }
+});
+
+export const TransactionDetailContentCard = memo(function TransactionDetailContentCard({
+    transaction,
+}: {
+    transaction: TransactionHistoryItem;
+}) {
+    switch (transaction.category) {
+        case TransactionHistoryCategory.TokenReceive: {
+            const token = first(transaction.token_receives);
+
+            return (
+                <TokenInfoRow
+                    label={<Trans>Received</Trans>}
+                    tokenLogo={token?.token.logo ?? null}
+                    tokenSymbol={token?.token.symbol ?? null}
+                    tokenName={token?.token.name ?? null}
+                    amountText={token?.amount ? renderShrankPrice(formatPrice(token.amount) ?? '') : null}
+                    amountPrefix="+"
+                    amountClassName="text-success"
+                />
+            );
+        }
+        case TransactionHistoryCategory.TokenSend: {
+            const token = first(transaction.token_sends);
+
+            return (
+                <TokenInfoRow
+                    label={<Trans>Sent</Trans>}
+                    tokenLogo={token?.token.logo ?? null}
+                    tokenSymbol={token?.token.symbol ?? null}
+                    tokenName={token?.token.name ?? null}
+                    amountText={token?.amount ? renderShrankPrice(formatPrice(token.amount) ?? '') : null}
+                    amountPrefix="-"
+                    amountClassName="text-main"
+                />
+            );
+        }
+        case TransactionHistoryCategory.TokenApprove: {
+            const token = transaction.token_approve?.token;
+            return (
+                <TokenInfoRow
+                    label={<Trans>Approved</Trans>}
+                    tokenLogo={token?.logo ?? null}
+                    tokenSymbol={token?.symbol ?? null}
+                    tokenName={token?.name ?? null}
+                    amountText={
+                        transaction.token_approve?.amount
+                            ? renderShrankPrice(formatPrice(transaction.token_approve.amount) ?? '')
+                            : null
+                    }
+                    amountPrefix=""
+                    amountClassName="text-main"
+                />
+            );
+        }
+        case TransactionHistoryCategory.TokenRevoke: {
+            const token = transaction.token_approve?.token;
+            return (
+                <TokenInfoRow
+                    label={<Trans>Revoked</Trans>}
+                    tokenLogo={token?.logo ?? null}
+                    tokenSymbol={token?.symbol ?? null}
+                    tokenName={token?.name ?? null}
+                    amountText={
+                        transaction.token_approve?.amount
+                            ? renderShrankPrice(formatPrice(transaction.token_approve.amount) ?? '')
+                            : null
+                    }
+                    amountPrefix=""
+                    amountClassName="text-main"
+                />
+            );
+        }
+        case TransactionHistoryCategory.TokenSwap:
+        case TransactionHistoryCategory.ContractInteraction: {
+            const sentToken = first(transaction.token_sends);
+            const receivedToken = first(transaction.token_receives);
+            return (
+                <div>
+                    <TokenInfoRow
+                        label={<Trans>Sent</Trans>}
+                        tokenLogo={sentToken?.token.logo ?? null}
+                        tokenSymbol={sentToken?.token.symbol ?? null}
+                        tokenName={sentToken?.token.name ?? null}
+                        amountText={sentToken?.amount ? renderShrankPrice(formatPrice(sentToken.amount) ?? '') : null}
+                        amountPrefix="-"
+                        amountClassName="text-main"
+                    />
+
+                    <TokenInfoRow
+                        label={<Trans>Received</Trans>}
+                        tokenLogo={receivedToken?.token.logo ?? null}
+                        tokenSymbol={receivedToken?.token.symbol ?? null}
+                        tokenName={receivedToken?.token.name ?? null}
+                        amountText={
+                            receivedToken?.amount ? renderShrankPrice(formatPrice(receivedToken.amount) ?? '') : null
+                        }
+                        amountPrefix="+"
+                        amountClassName="text-success"
+                        showLabelMarginTop
+                    />
+                </div>
+            );
+        }
+        default:
+            return null;
+    }
+});
+
+export default memo(function TransactionDetailContent({ transaction }: TransactionDetailContentProps) {
+    const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: transaction.from_address });
+    const { data: fromEnsHandle } = useEnsNameCached(transaction.from_address);
+    const fromAddressName = formatAddress(transaction.from_address, 4);
+    const toAddressName = formatAddress(transaction.to_address, 4);
+    const { data: toEnsHandle } = useEnsNameCached(transaction.to_address);
+
+    const href = (transaction.chain_id === SolanaChainId.Mainnet ? SolanaNetwork : EthereumNetwork).getTransactionUrl(
+        transaction.chain_id as never,
+        transaction.hash as `0x${string}`,
+    );
+
+    const target = useMemo(() => {
+        switch (transaction.category) {
+            case TransactionHistoryCategory.TokenReceive:
+                return (
+                    <InlineTarget
+                        href={getProfileUrl({ source: Source.Wallet, profileId: transaction.from_address })}
+                        logo={
+                            <Avatar
+                                src={getStampAvatarByProfileId(Source.Wallet, transaction.from_address)}
+                                size={12}
+                                alt={transaction.from_address}
+                            />
+                        }
+                        text={fromEnsHandle ?? fromAddressName}
+                    />
+                );
+            case TransactionHistoryCategory.TokenSend:
+                return (
+                    <InlineTarget
+                        href={getProfileUrl({ source: Source.Wallet, profileId: transaction.to_address })}
+                        logo={
+                            <Avatar
+                                src={getStampAvatarByProfileId(Source.Wallet, transaction.to_address)}
+                                size={12}
+                                alt={transaction.to_address}
+                            />
+                        }
+                        text={toEnsHandle ?? toAddressName}
+                    />
+                );
+            case TransactionHistoryCategory.TokenApprove:
+                return (
+                    <InlineTarget
+                        href={getProfileUrl({
+                            source: Source.Wallet,
+                            profileId: transaction.token_approve?.spender_address ?? transaction.to_address,
+                        })}
+                        logo={
+                            transaction.project_logo ? (
+                                <Avatar src={transaction.project_logo} size={12} alt={transaction.project_name} />
+                            ) : undefined
+                        }
+                        text={transaction.project_name ?? toAddressName}
+                    />
+                );
+            case TransactionHistoryCategory.TokenRevoke:
+                return (
+                    <InlineTarget
+                        href={getProfileUrl({
+                            source: Source.Wallet,
+                            profileId: transaction.token_approve?.spender_address ?? transaction.to_address,
+                        })}
+                        logo={
+                            transaction.project_logo ? (
+                                <Avatar src={transaction.project_logo} size={12} alt={transaction.project_name} />
+                            ) : undefined
+                        }
+                        text={transaction.token_approve?.spender_address ?? toAddressName}
+                    />
+                );
+            default:
+                return (
+                    <InlineTarget
+                        href={getProfileUrl({ source: Source.Wallet, profileId: transaction.to_address })}
+                        logo={<ClipboardTextIcon className="size-3 text-secondary" />}
+                        text={toAddressName}
+                    />
+                );
+        }
+    }, [transaction, toEnsHandle, toAddressName, fromAddressName, fromEnsHandle]);
+
+    return (
+        <div>
+            <div className="flex items-center gap-3">
+                <Link href={profileUrl}>
+                    <Avatar
+                        size={40}
+                        src={getStampAvatarByProfileId(Source.Wallet, transaction.from_address)}
+                        alt={transaction.from_address}
+                        className="size-10 rounded-full"
+                    />
+                </Link>
+                <div className="flex flex-col">
+                    <div className="flex items-center gap-x-1 text-medium">
+                        <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
+                            {fromEnsHandle ? <span>{fromEnsHandle}</span> : fromAddressName}
+                        </Link>
+                    </div>
+                    <div className="flex items-center gap-x-1 text-sm text-second">
+                        {fromEnsHandle ? (
+                            <Link href={profileUrl} className="text-second">
+                                {fromAddressName}
+                            </Link>
+                        ) : null}
+                    </div>
+                </div>
+            </div>
+            <div className="mt-3 flex items-center gap-x-1">
+                <div className="flex items-center rounded-lg border border-main px-2 py-[6px] text-main">
+                    <TransactionCategoryIcon category={transaction.category} />
+                    <span className="text-xs leading-[12px]">
+                        {resolveTransactionCategoryTitle(transaction.category)}
+                    </span>
+                </div>
+                <span className="text-xs leading-[12px]">
+                    {resolveTransactionCategoryPreWord(transaction.category)}
+                </span>
+                {target}
+            </div>
+            <div className="mt-3">
+                <TransactionDetailContentCard transaction={transaction} />
+            </div>
+
+            <div className="mt-5 space-y-3">
+                {transaction.category === TransactionHistoryCategory.TokenSend ? (
+                    <div>
+                        <div className="flex items-center justify-between">
+                            <span className="text-sm text-second">
+                                <Trans>To Address</Trans>
+                            </span>
+                            <span className="flex gap-1">
+                                <Avatar
+                                    src={getStampAvatarByProfileId(Source.Wallet, transaction.to_address)}
+                                    size={12}
+                                    alt={transaction.to_address}
+                                />
+                                <AddressLink chainId={transaction.chain_id} address={transaction.to_address} />
+                            </span>
+                        </div>
+                    </div>
+                ) : null}
+                {transaction.category === TransactionHistoryCategory.TokenReceive ? (
+                    <div>
+                        <div className="flex items-center justify-between">
+                            <span className="text-sm text-second">
+                                <Trans>From Address</Trans>
+                            </span>
+                            <span className="flex gap-1">
+                                <AddressLink chainId={transaction.chain_id} address={transaction.from_address} />
+                            </span>
+                        </div>
+                    </div>
+                ) : null}
+                {transaction.category === TransactionHistoryCategory.TokenApprove ||
+                transaction.category === TransactionHistoryCategory.TokenRevoke ||
+                transaction.category === TransactionHistoryCategory.ContractInteraction ? (
+                    <div>
+                        <div className="flex items-center justify-between">
+                            <span className="text-sm text-second">
+                                <Trans>Contract</Trans>
+                            </span>
+                            <span className="flex gap-1">
+                                {transaction.project_logo ? (
+                                    <Image
+                                        src={transaction.project_logo}
+                                        alt={transaction.project_name}
+                                        width={12}
+                                        height={12}
+                                    />
+                                ) : null}
+                                <AddressLink chainId={transaction.chain_id} address={transaction.to_address} />
+                            </span>
+                        </div>
+                    </div>
+                ) : null}
+                <div className="flex items-center justify-between">
+                    <span className="text-sm text-second">
+                        <Trans>Transaction Hash</Trans>
+                    </span>
+                    {transaction.hash ? <TxLink chainId={transaction.chain_id} hash={transaction.hash} /> : '--'}
+                </div>
+                <div className="flex items-center justify-between">
+                    <span className="text-sm text-second">
+                        <Trans>Block</Trans>
+                    </span>
+                    <span className="text-sm font-medium text-main">{transaction.block_number}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                    <span className="text-sm text-second">
+                        <Trans>Status</Trans>
+                    </span>
+                    <span
+                        className={classNames('flex items-center gap-2', {
+                            'text-success': transaction.tx_status === TransactionState.Success,
+
+                            'text-danger': transaction.tx_status === TransactionState.Failed,
+                        })}
+                    >
+                        <div
+                            className={classNames('h-1 w-1 rounded-full', {
+                                'bg-success': transaction.tx_status === TransactionState.Success,
+
+                                'bg-danger': transaction.tx_status === TransactionState.Failed,
+                            })}
+                        />
+                        <Select value={transaction.tx_status} _success="Success" _fail="Failed" other="Failed" />
+                    </span>
+                </div>
+                <div className="flex items-center justify-between">
+                    <span className="text-sm text-second">
+                        <Trans>Network</Trans>
+                    </span>
+                    <div className="flex items-center gap-1">
+                        <ChainIcon
+                            chainId={transaction.chain_id}
+                            size={15}
+                            networkType={transaction.chain_id === 101 ? NetworkType.Solana : NetworkType.Ethereum}
+                        />
+                        <span className="text-lightMain">
+                            {transaction.chain_id === 101 ? 'Solana' : getChainName(transaction.chain_id)}
+                        </span>
+                    </div>
+                </div>
+                <div className="flex items-center justify-between">
+                    <span className="text-sm text-second">
+                        <Trans>Time</Trans>
+                    </span>
+                    <span className="text-sm font-medium text-main">
+                        {transaction.timestamp ? <TransactionDate time={transaction.timestamp} /> : '--'}
+                    </span>
+                </div>
+            </div>
+
+            <ClickableButton
+                className="mt-6 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
+                onClick={() => {
+                    openWindow(href, '_blank');
+                }}
+            >
+                <Trans>View on Explorer</Trans>
+            </ClickableButton>
+        </div>
+    );
+});

@@ -372,6 +372,10 @@ msgstr "Fake KYC."
 msgid "Requested from <0>{0}</0>"
 msgstr "Requested from <0>{0}</0>"
 
+#. placeholder {0}: transaction.tx_status
+msgid "{0, select, success {Success} fail {Failed} other {Failed}}"
+msgstr "{0, select, success {Success} fail {Failed} other {Failed}}"
+
 msgid "Airdrop Scam"
 msgstr "Airdrop Scam"
 
@@ -731,12 +735,18 @@ msgstr "{0} muted channels"
 msgid "[Video]"
 msgstr "[Video]"
 
+msgid "To Address"
+msgstr "To Address"
+
 msgid "The author is muted by you."
 msgstr "The author is muted by you."
 
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}"
 msgstr "Failed to report @{0}"
+
+msgid "Approved"
+msgstr "Approved"
 
 msgid "Failed to login profile by orb"
 msgstr "Failed to login profile by orb"
@@ -819,6 +829,9 @@ msgstr "Custom"
 
 msgid "Select NFT collection to gate access"
 msgstr "Select NFT collection to gate access"
+
+msgid "From Address"
+msgstr "From Address"
 
 msgid "Connect Email"
 msgstr "Connect Email"
@@ -1378,6 +1391,9 @@ msgstr "One-time passcode sent to you"
 
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
+
+msgid "on"
+msgstr "on"
 
 msgid "No phishing site found."
 msgstr "No phishing site found."
@@ -3016,6 +3032,9 @@ msgstr "Failed to fetch profiles."
 msgid "Post is decrypting..."
 msgstr "Post is decrypting..."
 
+msgid "with"
+msgstr "with"
+
 msgid "Transaction"
 msgstr "Transaction"
 
@@ -3112,6 +3131,9 @@ msgstr "Step 2 Connect Wallet"
 msgid "Light Mode"
 msgstr "Light Mode"
 
+msgid "Transaction Detail"
+msgstr "Transaction Detail"
+
 #. placeholder {0}: post.source
 msgid "Failed to submit report on {0}."
 msgstr "Failed to submit report on {0}."
@@ -3199,6 +3221,9 @@ msgstr "Your transaction will confirm shortly"
 msgid "Failed to un-bookmark snapshot."
 msgstr "Failed to un-bookmark snapshot."
 
+msgid "to"
+msgstr "to"
+
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
 msgid "will send on {0} at {1}"
@@ -3281,6 +3306,9 @@ msgstr "👉 To stay updated on trades, enable notifications in your browser set
 
 msgid "Claimed lucky drop successfully"
 msgstr "Claimed lucky drop successfully"
+
+msgid "From"
+msgstr "From"
 
 msgid "Rejected"
 msgstr "Rejected"
@@ -3709,6 +3737,9 @@ msgstr "Pinned"
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
+
+msgid "NFT Received"
+msgstr "NFT Received"
 
 msgid "Unknown status"
 msgstr "Unknown status"
@@ -4601,6 +4632,9 @@ msgstr "Message"
 msgid "Continue"
 msgstr "Continue"
 
+msgid "Revoked"
+msgstr "Revoked"
+
 msgid "One-time passcode"
 msgstr "One-time passcode"
 
@@ -4742,6 +4776,9 @@ msgstr "NFT"
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
 msgstr "{0, plural, one {like} other {likes}}"
+
+msgid "NFT Sent"
+msgstr "NFT Sent"
 
 msgid "👉 vitalik.eth"
 msgstr "👉 vitalik.eth"

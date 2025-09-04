@@ -17,9 +17,8 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { groupAndSortByDate } from '@/helpers/sortAndGroupByDate.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
-import { EthereumNetwork } from '@/providers/ethereum/Network.js';
+import { TransactionDetailModalRef } from '@/modals/TransactionDetailModal/TransactionDetailModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { SolanaNetwork } from '@/providers/solana/Network.js';
 import {
     TransactionHistoryCategory,
     type TransactionHistoryItem,
@@ -82,10 +81,6 @@ function getTransactionHistoryItem(
 }
 
 function TransactionHistoryItem({ item }: { item: TransactionHistoryItem }) {
-    const href = (item.chain_id === SolanaChainId.Mainnet ? SolanaNetwork : EthereumNetwork).getTransactionUrl(
-        item.chain_id as never,
-        item.hash as `0x${string}`,
-    );
     const content = (
         <>
             <div className="flex items-center space-x-5">
@@ -104,14 +99,19 @@ function TransactionHistoryItem({ item }: { item: TransactionHistoryItem }) {
             <ItemEnd item={item} />
         </>
     );
-    if (href) {
-        return (
-            <Link href={href} target="_blank" className="my-1 flex items-center rounded-lg p-2 hover:bg-bg">
-                {content}
-            </Link>
-        );
-    }
-    return <div className="my-1 flex items-center rounded-lg p-2 hover:bg-bg">{content}</div>;
+
+    return (
+        <div
+            className="my-1 flex items-center rounded-lg p-2 hover:bg-bg"
+            onClick={() => {
+                TransactionDetailModalRef.open({
+                    transaction: item,
+                });
+            }}
+        >
+            {content}
+        </div>
+    );
 }
 
 function Category({ category, state }: { category: TransactionHistoryCategory; state: TransactionState }) {
