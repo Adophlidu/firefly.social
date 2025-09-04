@@ -119,7 +119,7 @@ export const PostLinks = memo(function PostLinks({ post, isInCompose = false, ha
         return <PostLinksMultiple post={post} isInCompose={isInCompose} hasRpPayload={hasRpPayload} />;
     }
 
-    return <PostLinksSingle post={post} isInCompose={isInCompose} hasRpPayload={hasRpPayload} />;
+    return hasRpPayload ? null : <PostLinksSingle post={post} isInCompose={isInCompose} />;
 });
 
 export function PostLinksInCompose({
