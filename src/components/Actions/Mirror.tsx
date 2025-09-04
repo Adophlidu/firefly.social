@@ -121,10 +121,9 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
                     disabled={disabled || mirrorLoading || allDisabled}
                     placement="top"
                     content={
-                        <>
-                            {shares ? humanize(shares) : null}
-                            {getTooltipContent(source, shares)}
-                        </>
+                        <span>
+                            {shares ? humanize(shares) : null} {getTooltipContent(source, shares)}
+                        </span>
                     }
                 >
                     <span className="inline-flex size-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20]">

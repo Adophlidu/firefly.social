@@ -49,9 +49,12 @@ const TimeColumn = memo(function TimeColumn({ value, onChange, min, max, classNa
         <div
             ref={containerRef}
             className={classNames(
-                'no-scrollbar flex max-h-32 touch-pan-y flex-col overflow-y-auto overscroll-y-contain [-webkit-overflow-scrolling:touch]',
+                'no-scrollbar flex h-32 touch-pan-y flex-col overflow-y-auto overscroll-y-contain [-webkit-overflow-scrolling:touch]',
                 className,
             )}
+            onTouchStart={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
+            onWheel={(e) => e.stopPropagation()}
         >
             {numbers.map((num) => (
                 <div

@@ -2,7 +2,7 @@ import { t } from '@lingui/core/macro';
 import { ConnectorNotConnectedError } from '@wagmi/core';
 import { first } from 'lodash-es';
 
-import type { SocialSourceInURL } from '@/constants/enum.js';
+import { Source, type SocialSourceInURL } from '@/constants/enum.js';
 import { CreateScheduleError } from '@/constants/error.js';
 import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
@@ -51,7 +51,7 @@ export async function crossPostScheduleThread(scheduleTime: Date, signal?: Abort
         const post = first(posts);
         const content = readChars(post?.chars ?? '', 'visible');
 
-        await useLensProfileStore.getState().refreshCurrentAccount();
+        if (post?.availableSources.includes(Source.Lens)) await useLensProfileStore.getState().refreshCurrentAccount();
 
         const result = await schedulePost(
             scheduleTime,

@@ -123,7 +123,7 @@ export function ConfirmModal({ ref }: Props) {
                                         'flex flex-1 items-center justify-center rounded-full py-2 font-bold',
                                         {
                                             'bg-main text-primaryBottom': props.variant === 'normal',
-                                            'bg-commonDanger text-lightBottom': props.variant === 'danger',
+                                            'bg-commonDanger text-white': props.variant === 'danger',
                                             'border border-main bg-bottom text-main': props.variant === 'secondary',
                                         },
                                         props.confirmButtonClass,

@@ -223,7 +223,9 @@ function FireflyAccount({
                                             }}
                                         >
                                             <LogoutIcon className="mr-2 size-[18px]" />
-                                            <Trans>Log out</Trans>
+                                            <span className="leading-6">
+                                                <Trans>Log out</Trans>
+                                            </span>
                                         </button>
                                     )}
                                 </MenuItem>

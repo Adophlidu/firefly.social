@@ -251,7 +251,7 @@ async function TipOpenGraphImage({
                                 height={80}
                                 src={fromAvatar}
                                 alt={accountInfo?.maintainAccountInfo.displayName}
-                                style={{ width: '80px', height: '80px', borderRadius: '999px' }}
+                                style={{ width: '80px', height: '80px', borderRadius: '999px', objectFit: 'cover' }}
                             />
                         ) : null}
                         <div
@@ -281,7 +281,7 @@ async function TipOpenGraphImage({
                                 height={80}
                                 src={toAvatar}
                                 alt={accountInfo?.targetAccountInfo.displayName}
-                                style={{ width: '80px', height: '80px', borderRadius: '999px' }}
+                                style={{ width: '80px', height: '80px', borderRadius: '999px', objectFit: 'cover' }}
                             />
                         ) : null}
                         <div

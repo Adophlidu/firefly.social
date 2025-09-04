@@ -20,9 +20,8 @@ function patchPostStats(stats: Post['stats'], status: boolean) {
 }
 
 function toggleMirror(source: SocialSource, postId: string, status: boolean, key?: string) {
-    if (!status) {
+    if (!status && source === Source.Twitter) {
         deletePostFromQueryData(source, postId);
-        return;
     }
     patchPostQueryData(source, postId, (draft) => {
         // Since lens only supports mirror and can mirror many times, rollback when the status is false.

@@ -23,6 +23,7 @@ import { schedulePost } from '@/services/post.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
+import { Source } from '@/constants/enum.js';
 
 export async function createSchedulePostsPayload(
     type: ComposeType,
@@ -69,7 +70,8 @@ export async function crossSchedulePost(
 
         const posts = await createSchedulePostsPayload(type, compositePost, false, signal);
 
-        await useLensProfileStore.getState().refreshCurrentAccount();
+        if (compositePost.availableSources.includes(Source.Lens))
+            await useLensProfileStore.getState().refreshCurrentAccount();
 
         const result = await schedulePost(
             scheduleTime,
