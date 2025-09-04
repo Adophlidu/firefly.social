@@ -1,5 +1,7 @@
 import type { LoggedInPostOperations, PostAction, PostStats } from '@lens-protocol/client';
 
+import { Source } from '@/constants/enum.js';
+import { SORTED_POLL_SOURCES } from '@/constants/index.js';
 import { ORB_POLL_CONTRACT } from '@/constants/poll.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -37,6 +39,7 @@ export function formatLensPostOperations(
 > {
     const canAct = actions?.some((action) => action.__typename === 'SimpleCollectAction') || false;
     const hasPoll =
+        SORTED_POLL_SOURCES.includes(Source.Lens) &&
         !!actions?.length &&
         actions.some(
             (action) =>
