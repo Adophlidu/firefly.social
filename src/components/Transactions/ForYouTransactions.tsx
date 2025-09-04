@@ -8,10 +8,10 @@ import { NetworkType, ScrollListKey, Source } from '@/constants/enum.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import type { TransactionsItem } from '@/providers/types/Firefly.js';
-import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
+import { useSwapStateStore } from '@/store/useSwapStore.js';
 
 export function ForYouTransactions() {
-    const { selectedChainId } = useTransactionsStateStore(NetworkType.Ethereum);
+    const { selectedChainId } = useSwapStateStore(NetworkType.Ethereum);
 
     const queryResult = useMultiInfiniteQueryPageable<TransactionsItem, Pageable<TransactionsItem, PageIndicator>>(
         ['transactions', 'discover', selectedChainId],

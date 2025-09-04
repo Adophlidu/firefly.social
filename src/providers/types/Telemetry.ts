@@ -283,8 +283,6 @@ export enum EventId {
     // filter tab
     POSTS_FILTER_CHANGE = 'tab_social_filter_click',
     CHAIN_FILTER_CHANGE = 'tab_chain_filter_click',
-    TYPE_FILTER_CHANGE = 'tab_type_filter_click',
-    QUALITY_FILTER_OFF = 'tab_quality_filter_off_click',
     ACTIVITIES_FILTER_CHANGE = 'tab_platform_filter_click',
 
     // firefly wallet
@@ -1348,25 +1346,12 @@ export interface Events extends Record<EventId, Event> {
             page_source: string;
         };
     };
-    [EventId.TYPE_FILTER_CHANGE]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-            type_selected: string;
-        };
-    };
-    [EventId.QUALITY_FILTER_OFF]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-        };
-    };
 
     [EventId.ACTIVITIES_FILTER_CHANGE]: {
         type: EventType.Interact;
         parameters: {
             firefly_account_id: string;
-            platform_selected: string[];
+            platform_selected: string;
             page_source: string;
         };
     };

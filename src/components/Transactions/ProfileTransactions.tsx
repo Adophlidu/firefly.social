@@ -9,14 +9,14 @@ import { getAddressType } from '@/helpers/getAddressType.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import type { TransactionsItem } from '@/providers/types/Firefly.js';
-import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
+import { useSwapStateStore } from '@/store/useSwapStore.js';
 
 interface ProfileTransactionsProps {
     address: string;
 }
 
 export function ProfileTransactions({ address }: ProfileTransactionsProps) {
-    const { selectedChainId } = useTransactionsStateStore(getAddressType(address));
+    const { selectedChainId } = useSwapStateStore(getAddressType(address));
     const addresses = useWalletMixAddresses(address);
 
     const queryResult = useMultiInfiniteQueryPageable<TransactionsItem, Pageable<TransactionsItem, PageIndicator>>(

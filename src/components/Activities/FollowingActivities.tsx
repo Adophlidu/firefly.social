@@ -16,16 +16,16 @@ export function FollowingActivities() {
     const isLogin = useIsLoginFirefly();
     const profileIds = useCurrentProfileIds();
     const asyncStatusAll = useAsyncStatusAll();
-    const { selectedPlatforms } = useActivitiesFilterStore(ActivitiesFilterNamespace.Home);
+    const { selectedPlatform } = useActivitiesFilterStore(ActivitiesFilterNamespace.Home);
 
     const queryResult = useMultiInfiniteQueryPageable(
-        ['activities', 'following', asyncStatusAll, selectedPlatforms, profileIds],
+        ['activities', 'following', asyncStatusAll, selectedPlatform, profileIds],
         ([Source.Article, Source.DAOs] as const).map((source) => ({
             key: source,
             async queryFn({ pageParam }) {
                 if (!isLogin) return createPageable([], createIndicator(undefined, pageParam));
 
-                const result = await getFollowingActivities(source, selectedPlatforms, pageParam);
+                const result = await getFollowingActivities(source, pageParam, selectedPlatform || undefined);
 
                 return result;
             },

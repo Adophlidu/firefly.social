@@ -8,14 +8,14 @@ import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPage
 import { ActivitiesFilterNamespace, useActivitiesFilterStore } from '@/store/useActivitiesFilterStore.js';
 
 export function ForYouActivities() {
-    const { selectedPlatforms } = useActivitiesFilterStore(ActivitiesFilterNamespace.Home);
+    const { selectedPlatform } = useActivitiesFilterStore(ActivitiesFilterNamespace.Home);
 
     const queryResult = useMultiInfiniteQueryPageable(
-        ['activities', 'discover', selectedPlatforms],
+        ['activities', 'discover', selectedPlatform],
         ([Source.Article, Source.DAOs] as const).map((source) => ({
             key: source,
             async queryFn({ pageParam }) {
-                const result = await getForYouActivities(source, selectedPlatforms, pageParam);
+                const result = await getForYouActivities(source, pageParam, selectedPlatform || undefined);
 
                 return result;
             },

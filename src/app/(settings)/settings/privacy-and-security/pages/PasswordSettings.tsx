@@ -1,3 +1,4 @@
+import { Switch } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -7,7 +8,7 @@ import { useAsyncFn } from 'react-use';
 import { ContentCard } from '@/app/(settings)/settings/privacy-and-security/pages/ContentCard.js';
 import RightArrowIcon from '@/assets/right-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { Switch } from '@/components/Switch/index.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { PasswordWorkflow } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -81,11 +82,14 @@ function ToggleSyncSessionSwitch({
     return (
         <Switch
             disabled={isLoading || loading}
-            loading={isLoading || loading}
             checked={checked}
             onChange={onSwitch}
-            size="medium"
-        />
+            className="group inline-flex h-[22px] w-11 shrink-0 items-center rounded-full bg-second transition data-[checked]:bg-highlight dark:bg-bg data-[checked]:dark:bg-highlight"
+        >
+            <span className="flex size-4 translate-x-1 items-center justify-center rounded-full bg-white transition group-data-[checked]:translate-x-6">
+                {isLoading || loading ? <LoadingIcon className="text-darkBottom" size={12} /> : null}
+            </span>
+        </Switch>
     );
 }
 

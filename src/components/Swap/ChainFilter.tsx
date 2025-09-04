@@ -1,115 +1,98 @@
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { memo, type ReactNode, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
-import ArrowDownIcon from '@/assets/arrow-line-down.svg';
 import CheckIcon from '@/assets/check.svg';
-import EvmChainsIcon from '@/assets/evm-chains.svg';
 import FilterIcon from '@/assets/filter.svg';
+import MiniFilterIcon from '@/assets/mini-filter.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { NetworkType } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { captureChainFilterTabEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
-import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
+import { useSwapStateStore } from '@/store/useSwapStore.js';
 
 interface ChainFilterProps {
     networkType?: NetworkType;
-    children?: ReactNode;
 }
 
-export const ChainFilter = memo(function ChainFilter({ networkType, children }: ChainFilterProps) {
-    const { selectedChainId, validChains, setSelectedChainId } = useTransactionsStateStore(networkType);
-    const [expanded, setExpanded] = useState(false);
+export function ChainFilter({ networkType }: ChainFilterProps) {
+    const { selectedChainId, validChains, setSelectedChainId } = useSwapStateStore(networkType);
 
     const Icon = useMemo(() => {
         if (selectedChainId === 101) {
             return <ChainIcon chainId={101} networkType={NetworkType.Solana} size={20} />;
         } else if (selectedChainId === null) {
             return <FilterIcon width={24} height={24} />;
+        } else {
+            return <ChainIcon chainId={selectedChainId} size={20} />;
         }
-        return <ChainIcon chainId={selectedChainId} size={20} />;
     }, [selectedChainId]);
-
     return (
-        <Popover className="relative flex items-center justify-center">
-            <PopoverButton className="p-2 outline-none">{Icon}</PopoverButton>
-            <PopoverPanel
-                anchor="bottom end"
-                className="z-50 flex min-w-[320px] flex-col gap-2 rounded-lg bg-lightBottom text-main shadow-lightS3 dark:bg-darkBottom"
-                transition
-                portal
-            >
-                <div className="flex flex-col gap-4 p-4">
-                    <div className="text-sm font-normal text-second">
-                        <Trans>Chain filter</Trans>
-                    </div>
-                    <div
-                        className="flex h-[30px] cursor-pointer items-center rounded-lg bg-bg px-3 py-[7px]"
-                        onClick={() => {
-                            setExpanded(!expanded);
-                        }}
+        <Menu>
+            {({ close }) => (
+                <div>
+                    <MenuButton
+                        className="size-6 text-placeholder outline-none"
+                        onMouseEnter={(e) => e.currentTarget.click()}
                     >
-                        {selectedChainId ? (
-                            <div className="flex items-center gap-2 text-sm font-normal text-main">
-                                <ChainIcon chainId={selectedChainId} size={15} networkType={networkType} />
-                                <Trans>{validChains.find(({ id }) => id === selectedChainId)?.name}</Trans>
-                            </div>
-                        ) : (
-                            <div className="flex items-center gap-2 text-sm font-normal text-main">
-                                <EvmChainsIcon className="size-[18px]" />
-                                <Trans>All Chains</Trans>
-                            </div>
-                        )}
-
-                        <ArrowDownIcon className={classNames('ml-auto size-4', expanded ? 'rotate-180' : '')} />
-                    </div>
-                    {expanded ? (
-                        <div className="flex flex-col gap-0.5">
-                            <div
-                                className="flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg bg-clip-padding p-2 hover:bg-bg"
-                                onClick={() => {
-                                    setSelectedChainId(null);
-                                    setExpanded(false);
-                                }}
-                            >
-                                <div className="flex h-[20px] items-center gap-2 text-sm font-normal text-main">
-                                    <EvmChainsIcon className="size-[18px]" />
-                                    <span>
-                                        <Trans>All Chains</Trans>
-                                    </span>
-                                </div>
-                                <div className="ml-auto">
-                                    {!selectedChainId ? (
-                                        <CheckIcon width={15} height={15} className="text-highlight" />
-                                    ) : null}
-                                </div>
-                            </div>
-                            {validChains.map(({ id, name, networkType }) => (
-                                <div
-                                    key={id}
-                                    className="flex w-full cursor-pointer flex-row items-center gap-2 rounded-lg bg-clip-padding p-2 hover:bg-bg"
-                                    onClick={() => {
-                                        setSelectedChainId(id);
-                                        setExpanded(false);
-                                        captureChainFilterTabEvent('home', `${id}`, name);
-                                    }}
-                                >
-                                    <div className="flex h-[20px] items-center gap-2 text-sm font-normal text-main">
-                                        <ChainIcon chainId={id} size={15} networkType={networkType} />
-                                        <span>{name}</span>
+                        {Icon}
+                    </MenuButton>
+                    <MenuItems
+                        transition
+                        anchor="bottom end"
+                        className="z-50 origin-top-right !overflow-visible font-normal outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
+                        onMouseLeave={() => close()}
+                    >
+                        <div className="w-full -translate-y-5 transform pt-5">
+                            <div className="flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom py-3 shadow-messageShadow">
+                                <MenuItem key="all">
+                                    <div
+                                        className="flex w-full cursor-pointer items-center gap-2 bg-clip-padding px-3 py-1 hover:bg-bg"
+                                        onClick={() => {
+                                            setSelectedChainId(null);
+                                            close();
+                                            captureChainFilterTabEvent('home');
+                                        }}
+                                    >
+                                        {selectedChainId === null ? (
+                                            <CheckIcon width={16} height={16} className="text-highlight" />
+                                        ) : (
+                                            <div className="size-4" />
+                                        )}
+                                        <div className="flex h-[22px] flex-row items-center gap-1 text-medium">
+                                            <MiniFilterIcon width={15} height={15} />
+                                            <span>
+                                                <Trans>All chains</Trans>
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div className="ml-auto">
-                                        {selectedChainId === id ? (
-                                            <CheckIcon width={15} height={15} className="text-highlight" />
-                                        ) : null}
-                                    </div>
-                                </div>
-                            ))}
+                                </MenuItem>
+                                {validChains.map(({ id, name, networkType }) => (
+                                    <MenuItem key={id}>
+                                        <div
+                                            className="flex w-full cursor-pointer flex-row items-center gap-2 bg-clip-padding px-3 py-1 hover:bg-bg"
+                                            onClick={() => {
+                                                setSelectedChainId(id);
+                                                close();
+                                                captureChainFilterTabEvent('home', `${id}`, name);
+                                            }}
+                                        >
+                                            {selectedChainId === id ? (
+                                                <CheckIcon width={16} height={16} className="text-highlight" />
+                                            ) : (
+                                                <div className="size-4" />
+                                            )}
+                                            <div className="flex h-[22px] flex-row items-center gap-1 text-medium">
+                                                <ChainIcon chainId={id} size={15} networkType={networkType} />
+                                                <span>{name}</span>
+                                            </div>
+                                        </div>
+                                    </MenuItem>
+                                ))}
+                            </div>
                         </div>
-                    ) : null}
-                    {children}
+                    </MenuItems>
                 </div>
-            </PopoverPanel>
-        </Popover>
+            )}
+        </Menu>
     );
-});
+}

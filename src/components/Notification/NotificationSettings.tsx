@@ -1,19 +1,20 @@
 'use client';
 
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
+import { Popover, PopoverButton, PopoverPanel, Switch } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import FilterIcon from '@/assets/filter.svg';
-import { Switch } from '@/components/Switch/index.js';
-import { TypeFilter } from '@/components/TypeFilter/index.js';
+import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { type NotificationSource, Source } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
+import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { captureQualityFilterOffEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 import { NotificationType } from '@/providers/types/SocialMedia.js';
 import { useNotificationStateStore } from '@/store/useNotificationStore.js';
 
@@ -36,7 +37,7 @@ export function NotificationSettings({ source }: { source: NotificationSource })
         },
     });
 
-    const [{ loading: switching }, onSwitch] = useAsyncFn(
+    const [{ loading }, onSwitch] = useAsyncFn(
         async (state: boolean) => {
             if (source === Source.Bsky) {
                 await BskySocialMediaProvider.setNotificationSettings({
@@ -50,55 +51,54 @@ export function NotificationSettings({ source }: { source: NotificationSource })
                     });
             }
             setEnableQualityFilter(source, state);
-            if (!state) captureQualityFilterOffEvent();
         },
         [source, setEnableQualityFilter, refetch],
     );
 
     const enabledState = source === Source.Bsky ? (enabledForBsky?.priority ?? false) : enableQualityFilter;
 
-    const menuItems = useMemo(() => {
-        const baseItems = [
+    const allTypes = useMemo(() => {
+        const baseTypes = [
             {
-                type: NotificationType.Comment,
+                Icon: resolveNotificationIcon(NotificationType.Comment),
                 text: <Trans>Comment or mention</Trans>,
                 types: [NotificationType.Comment, NotificationType.Mention],
             },
             {
-                type: NotificationType.Mirror,
+                Icon: resolveNotificationIcon(NotificationType.Mirror),
                 text: <Trans>Repost or quote</Trans>,
                 types: [NotificationType.Mirror, NotificationType.Quote],
             },
             {
-                type: NotificationType.Reaction,
+                Icon: resolveNotificationIcon(NotificationType.Reaction),
                 text: <Trans>Like</Trans>,
                 types: [NotificationType.Reaction],
             },
             {
-                type: NotificationType.Follow,
+                Icon: resolveNotificationIcon(NotificationType.Follow),
                 text: <Trans>Follow</Trans>,
                 types: [NotificationType.Follow],
             },
         ];
 
         return [Source.Farcaster, Source.Bsky].includes(source)
-            ? baseItems
+            ? baseTypes
             : [
-                  ...baseItems,
+                  ...baseTypes,
                   {
-                      type: NotificationType.Act,
+                      Icon: resolveNotificationIcon(NotificationType.Act),
                       text: <Trans>Collect</Trans>,
                       types: [NotificationType.Act],
                   },
                   ...(source === Source.Notifications
                       ? [
                             {
-                                type: NotificationType.Tips,
+                                Icon: resolveNotificationIcon(NotificationType.Tips),
                                 text: <Trans>Tip</Trans>,
                                 types: [NotificationType.Tips],
                             },
                             {
-                                type: NotificationType.Schedule,
+                                Icon: resolveNotificationIcon(NotificationType.Schedule),
                                 text: <Trans>Schedule</Trans>,
                                 types: [NotificationType.Schedule],
                             },
@@ -107,28 +107,6 @@ export function NotificationSettings({ source }: { source: NotificationSource })
               ];
     }, [source]);
 
-    const filterOptions = useMemo(() => {
-        return menuItems.map((type) => ({
-            value: type.type,
-            label: type.text,
-        }));
-    }, [menuItems]);
-
-    const selectedOptions = useMemo(() => {
-        return menuItems
-            .filter((item) => item.types.every((type) => selectedTypes.includes(type)))
-            .map((item) => item.type);
-    }, [selectedTypes, menuItems]);
-
-    const handleOptionsChange = useCallback(
-        (options: string[]) => {
-            const selectedTypes = menuItems.filter((item) => options.includes(item.type)).flatMap((item) => item.types);
-            setTypes(source, selectedTypes);
-        },
-        [menuItems, setTypes, source],
-    );
-    const loading = switching || isLoading;
-
     return (
         <Popover className="relative flex items-center justify-center">
             <PopoverButton className="p-2 outline-none">
@@ -136,28 +114,60 @@ export function NotificationSettings({ source }: { source: NotificationSource })
             </PopoverButton>
             <PopoverPanel
                 anchor="bottom end"
-                className="z-50 flex min-w-[320px] flex-col gap-2 rounded-lg bg-lightBottom text-main shadow-lightS3 dark:bg-darkBottom"
+                className="z-50 flex min-w-[226px] flex-col gap-2 rounded-lg bg-lightBottom p-3 py-3 text-main shadow-lightS3 dark:bg-darkBottom"
             >
-                <div className={'flex flex-col gap-4 p-4'}>
-                    <div className="flex justify-between">
-                        <span className="text-sm font-semibold">
-                            <Trans>Quality filter</Trans>
-                        </span>
-                        <Switch
-                            checked={enabledState}
-                            loading={loading}
-                            disabled={loading}
-                            onChange={onSwitch}
-                            size="small"
-                        />
+                <div className="flex items-center justify-between py-1">
+                    <div className="text-sm font-bold leading-[18px]">
+                        <Trans>Quality filter</Trans>
                     </div>
-                    <TypeFilter
-                        multiple
-                        options={filterOptions}
-                        selectedOptions={selectedOptions}
-                        onOptionsChange={handleOptionsChange}
-                    />
+                    <Switch
+                        disabled={loading || isLoading}
+                        checked={enabledState}
+                        onChange={onSwitch}
+                        className="group inline-flex h-[22px] w-11 items-center rounded-full bg-second transition data-[checked]:bg-lightHighlight dark:bg-bg data-[checked]:dark:bg-lightHighlight"
+                    >
+                        <span className="flex size-4 translate-x-1 items-center justify-center rounded-full bg-white transition group-data-[checked]:translate-x-6">
+                            {loading || isLoading ? <LoadingIcon className="text-darkBottom" size={12} /> : null}
+                        </span>
+                    </Switch>
                 </div>
+                <div className="flex items-center justify-between py-1">
+                    <div className="text-sm font-bold leading-[18px]">
+                        <Trans>Type filter</Trans>
+                    </div>
+                </div>
+
+                {allTypes.map(({ Icon, types, text }, index) => {
+                    const checked = types.every((type) => selectedTypes.includes(type));
+
+                    return (
+                        <div
+                            className="flex cursor-pointer items-center justify-between py-1"
+                            key={index}
+                            onClick={() => {
+                                const result = checked
+                                    ? selectedTypes.filter((x) => !types.includes(x))
+                                    : [...selectedTypes, ...types];
+
+                                setTypes(source, result);
+                            }}
+                        >
+                            <div
+                                className={classNames('flex text-sm font-bold leading-[18px]', {
+                                    'text-secondary': !selectedTypes.length,
+                                })}
+                            >
+                                {Icon ? <Icon width={20} height={20} /> : null}
+                                <span className="ml-2">{text}</span>
+                            </div>
+                            <CircleCheckboxIcon
+                                size={18}
+                                checked={checked}
+                                className={checked ? 'text-lightHighlight' : undefined}
+                            />
+                        </div>
+                    );
+                })}
             </PopoverPanel>
         </Popover>
     );

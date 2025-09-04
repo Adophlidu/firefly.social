@@ -772,9 +772,6 @@ msgstr "{0, plural, one {引用} other {引用}}"
 msgid "No hidden owner."
 msgstr "無隱藏的擁有者。"
 
-msgid "Polymarket bet"
-msgstr ""
-
 msgid "Blockchain"
 msgstr "區塊鏈"
 
@@ -1649,10 +1646,6 @@ msgstr "新增現有帳號"
 #. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"
 msgstr "你確認要隱藏 /{0} 嗎？"
-
-#. placeholder {0}: validChains.find(({ id }) => id === selectedChainId)?.name
-msgid "{0}"
-msgstr ""
 
 msgid "Refund"
 msgstr "退款"
@@ -2877,9 +2870,6 @@ msgstr "{traderCount, plural, one {{0}} other {{1}}}"
 msgid "Show more comments"
 msgstr "顯示更多留言"
 
-msgid "Snapshot DAO"
-msgstr ""
-
 msgid "Connect Solana Wallet"
 msgstr "連接Solana錢包"
 
@@ -3051,9 +3041,6 @@ msgstr ""
 
 msgid "Transaction"
 msgstr "交易"
-
-msgid "Paragraph article"
-msgstr ""
 
 msgid "Bio should be at least {minBioSize} characters"
 msgstr "個人簡介至少需 {minBioSize} 字元"
@@ -4071,9 +4058,6 @@ msgstr "鑄造中"
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "授權此代幣給此網站，可能導致資產損失。"
 
-msgid "Chain filter"
-msgstr ""
-
 msgid "Unfollow"
 msgstr "取消追蹤"
 
@@ -4395,17 +4379,11 @@ msgstr "最終結果"
 msgid "Transaction failed"
 msgstr "交易失敗"
 
-msgid "All Chains"
-msgstr ""
-
 msgid "Status"
 msgstr "狀態"
 
 msgid "No blackmail activities involved."
 msgstr "未檢測到勒索行為。"
-
-msgid "Mirror article"
-msgstr ""
 
 msgid "No Lens profile found,"
 msgstr ""

@@ -2,7 +2,7 @@
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { type ReactNode, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import ArrowDownCircleIcon from '@/assets/arrow-circle-down.svg';
 import { ActivitiesFilter } from '@/components/HomeTab/ActivitiesFilter.js';
@@ -10,7 +10,6 @@ import { DiscoverFilter } from '@/components/HomeTab/DiscoverFilter.js';
 import { Link } from '@/components/Link.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
-import { TypeFilter } from '@/components/TypeFilter/index.js';
 import { HomeTab, NetworkType, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -23,27 +22,12 @@ import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { ActivitiesFilterNamespace } from '@/store/useActivitiesFilterStore.js';
-import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
+import { useSwapStateStore } from '@/store/useSwapStore.js';
 
 const types = {
     [HomeTab.Discover]: [Source.Posts, Source.Transactions, Source.Activities],
     [HomeTab.Following]: [Source.Posts, Source.Transactions, Source.Activities],
 };
-const tabLabels = {
-    [HomeTab.Discover]: <Trans>For You</Trans>,
-    [HomeTab.Following]: <Trans>Following</Trans>,
-};
-
-const txTypeOptions: Array<{ value: string; label: ReactNode }> = [
-    {
-        value: Source.Polymarket,
-        label: <Trans>Polymarket bet</Trans>,
-    },
-    {
-        value: Source.Swap,
-        label: <Trans>Token</Trans>,
-    },
-];
 
 export function HomeTabs({
     onlyFilter = false,
@@ -55,9 +39,7 @@ export function HomeTabs({
     containerClass?: string;
 }) {
     const pathname = usePathname();
-    const { hasOpenSwap, setHasOpenSwap, followingTxTypes, setFollowingTxTypes } = useTransactionsStateStore(
-        NetworkType.Ethereum,
-    );
+    const { hasOpenSwap, setHasOpenSwap } = useSwapStateStore(NetworkType.Ethereum);
     const [allTabs, setAllTabs] = useState<Record<HomeTab, Source>>({
         [HomeTab.Discover]: types[HomeTab.Discover][0],
         [HomeTab.Following]: types[HomeTab.Following][0],
@@ -84,7 +66,10 @@ export function HomeTabs({
     }, [pathname]);
     const isLogin = useIsLoginFirefly();
 
-    const isFollowingTab = currentTab === HomeTab.Following;
+    const texts = {
+        [HomeTab.Discover]: <Trans>For You</Trans>,
+        [HomeTab.Following]: <Trans>Following</Trans>,
+    };
 
     return (
         <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
@@ -112,7 +97,7 @@ export function HomeTabs({
                                         )}
                                         onMouseEnter={(e) => e.currentTarget.click()}
                                     >
-                                        {tabLabels[currentTab]}
+                                        {texts[currentTab]}
                                         <ArrowDownCircleIcon width={24} height={24} className="ml-2 size-6 shrink-0" />
                                     </MenuButton>
                                     <MenuItems
@@ -135,7 +120,7 @@ export function HomeTabs({
                                                                     'opacity-60': currentTab !== tab,
                                                                 })}
                                                             >
-                                                                {tabLabels[tab]}
+                                                                {texts[tab]}
                                                             </Link>
                                                         </MenuItem>
                                                     );
@@ -182,20 +167,13 @@ export function HomeTabs({
                             }));
                         }}
                     />
-                    {source === Source.Posts ? (
-                        <DiscoverFilter tab={currentTab} />
-                    ) : source === Source.Transactions ? (
-                        <ChainFilter networkType={currentTab === HomeTab.Following ? undefined : NetworkType.Ethereum}>
-                            {isFollowingTab ? (
-                                <TypeFilter
-                                    multiple
-                                    options={txTypeOptions}
-                                    selectedOptions={followingTxTypes}
-                                    onOptionsChange={setFollowingTxTypes}
-                                />
-                            ) : null}
-                        </ChainFilter>
-                    ) : source === Source.Activities ? (
+                    {source === Source.Posts ? <DiscoverFilter tab={currentTab} /> : null}
+                    {source === Source.Transactions ? (
+                        <ChainFilter
+                            networkType={currentTab === HomeTab.Following ? undefined : NetworkType.Ethereum}
+                        />
+                    ) : null}
+                    {source === Source.Activities ? (
                         <ActivitiesFilter namespace={ActivitiesFilterNamespace.Home} />
                     ) : null}
                 </div>
