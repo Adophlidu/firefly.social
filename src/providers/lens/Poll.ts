@@ -1,4 +1,5 @@
 import { first } from 'lodash-es';
+import { sendEip712Transaction } from 'viem/zksync';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
@@ -50,10 +51,17 @@ class LensPoll implements Provider {
         });
         await Promise.all(
             result.transactions.map(async (transaction) => {
-                const hash = await walletClient.sendTransaction({
-                    ...transaction,
+                const hash = await sendEip712Transaction(walletClient, {
+                    account: walletClient.account,
+                    data: transaction.data,
+                    gas: BigInt(transaction.gasLimit),
                     maxFeePerGas: BigInt(transaction.maxFeePerGas),
                     maxPriorityFeePerGas: BigInt(transaction.maxPriorityFeePerGas),
+                    nonce: transaction.nonce,
+                    paymaster: transaction.paymaster,
+                    paymasterInput: transaction.paymasterInput,
+                    to: transaction.to,
+                    value: BigInt(transaction.amount),
                 });
                 await waitForEthereumTransaction(transaction.chainId, hash);
             }),

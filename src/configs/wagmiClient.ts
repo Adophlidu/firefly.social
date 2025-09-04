@@ -14,8 +14,6 @@ import {
     confluxESpace,
     fantom,
     gnosis,
-    lens,
-    lensTestnet,
     linea,
     mainnet,
     metis,
@@ -29,6 +27,7 @@ import {
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { http } from 'wagmi';
 
+import { lensMainnet, lensTestnet } from '@/configs/chains.js';
 import { createPrivyConnector } from '@/connectors/PrivyConnector.js';
 import { env } from '@/constants/env.js';
 
@@ -49,7 +48,7 @@ export const wagmiNetworks = [
     metis,
     zora,
     scroll,
-    lens,
+    lensMainnet,
     lensTestnet,
     celo,
     zkSync,
