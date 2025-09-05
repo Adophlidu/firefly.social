@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import urlcat from 'urlcat';
 
 import { DraftPageTab } from '@/components/Compose/DraftPage.js';
+import { Source } from '@/constants/enum.js';
 import { CreateScheduleError, UnauthorizedError } from '@/constants/error.js';
 import { SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
@@ -23,7 +24,6 @@ import { schedulePost } from '@/services/post.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
-import { Source } from '@/constants/enum.js';
 
 export async function createSchedulePostsPayload(
     type: ComposeType,

@@ -1,6 +1,6 @@
 import { Select, Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
-import { memo, useMemo } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 
 import { TransactionDate } from '@/app/(normal)/tx/[chain_id]/[hash]/components/TransactionDate.js';
 import { AddressLink, TxLink } from '@/app/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
@@ -30,6 +30,7 @@ import {
 import { useEnsNameCached } from '@/hooks/useEnsNameCached.js';
 import { InlineTarget } from '@/modals/TransactionDetailModal/InlineTarget.js';
 import { TokenInfoRow } from '@/modals/TransactionDetailModal/TokenInfoRow.js';
+import { TransactionDetailModalRef } from '@/modals/TransactionDetailModal/TransactionDetailModal.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
 import {
@@ -75,6 +76,7 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
 
             return (
                 <TokenInfoRow
+                    chainId={transaction.chain_id}
                     label={<Trans>Received</Trans>}
                     tokenLogo={token?.token.logo ?? null}
                     tokenSymbol={token?.token.symbol ?? null}
@@ -90,6 +92,7 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
 
             return (
                 <TokenInfoRow
+                    chainId={transaction.chain_id}
                     label={<Trans>Sent</Trans>}
                     tokenLogo={token?.token.logo ?? null}
                     tokenSymbol={token?.token.symbol ?? null}
@@ -104,6 +107,7 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
             const token = transaction.token_approve?.token;
             return (
                 <TokenInfoRow
+                    chainId={transaction.chain_id}
                     label={<Trans>Approved</Trans>}
                     tokenLogo={token?.logo ?? null}
                     tokenSymbol={token?.symbol ?? null}
@@ -122,6 +126,7 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
             const token = transaction.token_approve?.token;
             return (
                 <TokenInfoRow
+                    chainId={transaction.chain_id}
                     label={<Trans>Revoked</Trans>}
                     tokenLogo={token?.logo ?? null}
                     tokenSymbol={token?.symbol ?? null}
@@ -143,6 +148,7 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
             return (
                 <div>
                     <TokenInfoRow
+                        chainId={transaction.chain_id}
                         label={<Trans>Sent</Trans>}
                         tokenLogo={sentToken?.token.logo ?? null}
                         tokenSymbol={sentToken?.token.symbol ?? null}
@@ -153,6 +159,7 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
                     />
 
                     <TokenInfoRow
+                        chainId={transaction.chain_id}
                         label={<Trans>Received</Trans>}
                         tokenLogo={receivedToken?.token.logo ?? null}
                         tokenSymbol={receivedToken?.token.symbol ?? null}
@@ -173,11 +180,18 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
 });
 
 export default memo(function TransactionDetailContent({ transaction }: TransactionDetailContentProps) {
+    const token = first(transaction.token_receives) || first(transaction.token_sends);
     const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: transaction.from_address });
-    const { data: fromEnsHandle } = useEnsNameCached(transaction.from_address);
-    const fromAddressName = formatAddress(transaction.from_address, 4);
-    const toAddressName = formatAddress(transaction.to_address, 4);
-    const { data: toEnsHandle } = useEnsNameCached(transaction.to_address);
+
+    const isSolana = transaction.chain_id === SolanaChainId.Mainnet;
+    const fromAddress = transaction.from_address || token?.sender;
+    const toAddress = transaction.to_address || token?.recipient;
+
+    const fromAddressName = fromAddress ? formatAddress(fromAddress, 4).toLowerCase() : undefined;
+    const toAddressName = toAddress ? formatAddress(toAddress, 4).toLowerCase() : undefined;
+
+    const { data: fromEnsHandle } = useEnsNameCached(fromAddress, undefined, isSolana);
+    const { data: toEnsHandle } = useEnsNameCached(toAddress, undefined, isSolana);
 
     const href = (transaction.chain_id === SolanaChainId.Mainnet ? SolanaNetwork : EthereumNetwork).getTransactionUrl(
         transaction.chain_id as never,
@@ -185,16 +199,17 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
     );
 
     const target = useMemo(() => {
+        if (!fromAddress || !toAddress) return null;
         switch (transaction.category) {
             case TransactionHistoryCategory.TokenReceive:
                 return (
                     <InlineTarget
-                        href={getProfileUrl({ source: Source.Wallet, profileId: transaction.from_address })}
+                        href={getProfileUrl({ source: Source.Wallet, profileId: fromAddress })}
                         logo={
                             <Avatar
-                                src={getStampAvatarByProfileId(Source.Wallet, transaction.from_address)}
+                                src={getStampAvatarByProfileId(Source.Wallet, fromAddress)}
                                 size={12}
-                                alt={transaction.from_address}
+                                alt={fromAddressName || ''}
                             />
                         }
                         text={fromEnsHandle ?? fromAddressName}
@@ -203,12 +218,12 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
             case TransactionHistoryCategory.TokenSend:
                 return (
                     <InlineTarget
-                        href={getProfileUrl({ source: Source.Wallet, profileId: transaction.to_address })}
+                        href={getProfileUrl({ source: Source.Wallet, profileId: toAddress })}
                         logo={
                             <Avatar
-                                src={getStampAvatarByProfileId(Source.Wallet, transaction.to_address)}
+                                src={getStampAvatarByProfileId(Source.Wallet, toAddress)}
                                 size={12}
-                                alt={transaction.to_address}
+                                alt={toAddressName || ''}
                             />
                         }
                         text={toEnsHandle ?? toAddressName}
@@ -219,14 +234,14 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                     <InlineTarget
                         href={getProfileUrl({
                             source: Source.Wallet,
-                            profileId: transaction.token_approve?.spender_address ?? transaction.to_address,
+                            profileId: transaction.token_approve?.spender_address ?? toAddress,
                         })}
                         logo={
                             transaction.project_logo ? (
                                 <Avatar src={transaction.project_logo} size={12} alt={transaction.project_name} />
                             ) : undefined
                         }
-                        text={transaction.project_name ?? toAddressName}
+                        text={transaction.project_name ?? (toAddressName || '')}
                     />
                 );
             case TransactionHistoryCategory.TokenRevoke:
@@ -234,47 +249,57 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                     <InlineTarget
                         href={getProfileUrl({
                             source: Source.Wallet,
-                            profileId: transaction.token_approve?.spender_address ?? transaction.to_address,
+                            profileId: transaction.token_approve?.spender_address ?? toAddress,
                         })}
                         logo={
                             transaction.project_logo ? (
                                 <Avatar src={transaction.project_logo} size={12} alt={transaction.project_name} />
                             ) : undefined
                         }
-                        text={transaction.token_approve?.spender_address ?? toAddressName}
+                        text={transaction.token_approve?.spender_address ?? (toAddressName || '')}
                     />
                 );
             default:
                 return (
                     <InlineTarget
-                        href={getProfileUrl({ source: Source.Wallet, profileId: transaction.to_address })}
+                        href={getProfileUrl({ source: Source.Wallet, profileId: toAddress })}
                         logo={<ClipboardTextIcon className="size-3 text-secondary" />}
-                        text={toAddressName}
+                        text={toAddressName || ''}
                     />
                 );
         }
-    }, [transaction, toEnsHandle, toAddressName, fromAddressName, fromEnsHandle]);
+    }, [transaction, toEnsHandle, toAddress, fromAddress, fromEnsHandle]);
+
+    const closeModal = useCallback(() => {
+        TransactionDetailModalRef.close();
+    }, [TransactionDetailModalRef]);
+
+    if (!fromAddress || !toAddress) return null;
 
     return (
         <div>
             <div className="flex items-center gap-3">
-                <Link href={profileUrl}>
+                <Link href={profileUrl} onClick={closeModal}>
                     <Avatar
                         size={40}
-                        src={getStampAvatarByProfileId(Source.Wallet, transaction.from_address)}
-                        alt={transaction.from_address}
+                        src={getStampAvatarByProfileId(Source.Wallet, fromAddress)}
+                        alt={fromAddressName || ''}
                         className="size-10 rounded-full"
                     />
                 </Link>
                 <div className="flex flex-col">
                     <div className="flex items-center gap-x-1 text-medium">
-                        <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
+                        <Link
+                            href={profileUrl}
+                            className="min-w-0 truncate font-bold text-lightMain"
+                            onClick={closeModal}
+                        >
                             {fromEnsHandle ? <span>{fromEnsHandle}</span> : fromAddressName}
                         </Link>
                     </div>
                     <div className="flex items-center gap-x-1 text-sm text-second">
                         {fromEnsHandle ? (
-                            <Link href={profileUrl} className="text-second">
+                            <Link href={profileUrl} className="text-second" onClick={closeModal}>
                                 {fromAddressName}
                             </Link>
                         ) : null}
@@ -306,11 +331,11 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                             </span>
                             <span className="flex gap-1">
                                 <Avatar
-                                    src={getStampAvatarByProfileId(Source.Wallet, transaction.to_address)}
+                                    src={getStampAvatarByProfileId(Source.Wallet, toAddress)}
                                     size={12}
-                                    alt={transaction.to_address}
+                                    alt={toAddressName || ''}
                                 />
-                                <AddressLink chainId={transaction.chain_id} address={transaction.to_address} />
+                                <AddressLink chainId={transaction.chain_id} address={toAddress} />
                             </span>
                         </div>
                     </div>
@@ -322,7 +347,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                                 <Trans>From Address</Trans>
                             </span>
                             <span className="flex gap-1">
-                                <AddressLink chainId={transaction.chain_id} address={transaction.from_address} />
+                                <AddressLink chainId={transaction.chain_id} address={fromAddress} />
                             </span>
                         </div>
                     </div>
@@ -344,7 +369,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                                         height={12}
                                     />
                                 ) : null}
-                                <AddressLink chainId={transaction.chain_id} address={transaction.to_address} />
+                                <AddressLink chainId={transaction.chain_id} address={toAddress} />
                             </span>
                         </div>
                     </div>
@@ -402,7 +427,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                         <Trans>Time</Trans>
                     </span>
                     <span className="text-sm font-medium text-main">
-                        {transaction.timestamp ? <TransactionDate time={transaction.timestamp} /> : '--'}
+                        {transaction.timestamp ? <TransactionDate time={Number(transaction.timestamp) * 1000} /> : '--'}
                     </span>
                 </div>
             </div>

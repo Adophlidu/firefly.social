@@ -1,18 +1,18 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 
+import { Source } from '@/constants/enum.js';
 import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { Source } from '@/constants/enum.js';
-import { Trans } from '@lingui/react/macro';
 
 export async function addTwitterAccount(payload: SessionPayload, isNew = false, signal?: AbortSignal) {
     const profile = payload ? await TwitterSocialMediaProxy.getProfileById(payload.clientId) : null;

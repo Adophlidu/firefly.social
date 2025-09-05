@@ -74,12 +74,6 @@ export function LogoutModal({ ref }: Props) {
             });
             if (!confirmed) return;
 
-            router.replace('/', {
-                disableSameURL: true,
-                showProgress: false,
-            });
-            await delay(200);
-
             const source = props?.account?.profile.source;
 
             if (source) {
@@ -87,6 +81,12 @@ export function LogoutModal({ ref }: Props) {
             } else {
                 await removeAllAccounts();
             }
+
+            router.replace('/', {
+                disableSameURL: true,
+                showProgress: false,
+            });
+            await delay(200);
 
             dispatch?.close();
         },

@@ -1,14 +1,18 @@
 import { first } from 'lodash-es';
 import { type ReactNode } from 'react';
 
+import { Link } from '@/components/Link.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
+import { TransactionDetailModalRef } from '@/modals/TransactionDetailModal/TransactionDetailModal.js';
 
 export interface TokenInfoRowProps {
     label?: ReactNode;
     tokenLogo?: string | null;
     tokenSymbol?: string | null;
     tokenName?: string | null;
+    chainId: number;
     amountText?: ReactNode | null;
     amountPrefix?: '+' | '-' | '';
     amountClassName?: string;
@@ -21,12 +25,17 @@ export function TokenInfoRow({
     tokenLogo,
     tokenSymbol,
     tokenName,
+    chainId,
     amountText,
     amountPrefix = '',
     amountClassName,
     containerClassName,
     showLabelMarginTop,
 }: TokenInfoRowProps) {
+    const tokenPageUrl = resolveTokenPageUrl({
+        chainId,
+        identity: tokenSymbol ?? '',
+    });
     return (
         <div>
             {label ? (
@@ -46,21 +55,25 @@ export function TokenInfoRow({
                 )}
             >
                 <div className="flex items-center gap-2">
-                    {tokenLogo ? (
-                        <Image
-                            src={tokenLogo}
-                            alt={tokenSymbol ?? ''}
-                            width={32}
-                            height={32}
-                            className="size-8 rounded-full"
-                        />
-                    ) : tokenSymbol ? (
-                        <div className="flex size-8 items-center justify-center rounded-full bg-bg text-second">
-                            {first(tokenSymbol)}
-                        </div>
-                    ) : null}
+                    <Link href={tokenPageUrl} onClick={() => TransactionDetailModalRef.close()}>
+                        {tokenLogo ? (
+                            <Image
+                                src={tokenLogo}
+                                alt={tokenSymbol ?? ''}
+                                width={32}
+                                height={32}
+                                className="size-8 rounded-full"
+                            />
+                        ) : tokenSymbol ? (
+                            <div className="flex size-8 items-center justify-center rounded-full bg-bg text-second">
+                                {first(tokenSymbol)}
+                            </div>
+                        ) : null}
+                    </Link>
                     <div className="flex flex-col">
-                        <div className="text-sm font-medium text-lightMain">{tokenName}</div>
+                        <Link href={tokenPageUrl} onClick={() => TransactionDetailModalRef.close()}>
+                            <div className="text-sm font-medium text-lightMain">{tokenName}</div>
+                        </Link>
                         <div className="flex items-center justify-between text-second">
                             <span className="text-xs">{tokenSymbol}</span>
                         </div>
