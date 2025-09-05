@@ -253,10 +253,6 @@ msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the t
 msgid "Generating"
 msgstr "Generating"
 
-#. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
-msgid "GIF source not supported. Supported sources: {0}."
-msgstr "GIF source not supported. Supported sources: {0}."
-
 msgid "Join"
 msgstr "Join"
 
@@ -794,6 +790,10 @@ msgstr "Failed to bookmark NFT."
 msgid "Firefly wallet"
 msgstr "Firefly wallet"
 
+#. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
+msgid "Scheduled posts are only available on {0}"
+msgstr "Scheduled posts are only available on {0}"
+
 msgid "NFTs"
 msgstr "NFTs"
 
@@ -917,9 +917,6 @@ msgstr "<0>{0}</0> by <1>{1}</1>"
 msgid "Sending"
 msgstr "Sending"
 
-msgid "Video duration limit reached."
-msgstr "Video duration limit reached."
-
 msgid "See details"
 msgstr "See details"
 
@@ -954,6 +951,10 @@ msgstr "Other accounts"
 #. placeholder {0}: mutuals[0].displayName
 msgid "Followed by {0}"
 msgstr "Followed by {0}"
+
+#. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
+msgid "GIF source not supported. Supported sources: {0}"
+msgstr "GIF source not supported. Supported sources: {0}"
 
 msgid "All activities from {handleOrEnsOrAddress} will be hidden from you"
 msgstr "All activities from {handleOrEnsOrAddress} will be hidden from you"
@@ -1659,6 +1660,9 @@ msgstr "Enter amount"
 msgid "Platform fee"
 msgstr "Platform fee"
 
+msgid "GIF count limit reached"
+msgstr "GIF count limit reached"
+
 #. placeholder {0}: profile.handle
 msgid "All posts from @{0} will be hidden from you"
 msgstr "All posts from @{0} will be hidden from you"
@@ -1850,10 +1854,6 @@ msgstr "Limits: <0>{0} posts/day</0> with {1}-minute intervals (applies to posts
 
 msgid "No mint function"
 msgstr "No mint function"
-
-#. placeholder {0}: resolveSourcesName(invalidSources)
-msgid "Poll for {0} is coming soon."
-msgstr "Poll for {0} is coming soon."
 
 msgid "Expired"
 msgstr "Expired"
@@ -2243,10 +2243,6 @@ msgstr "Edit Profile"
 msgid "Confirm you want to mute @{0}?"
 msgstr "Confirm you want to mute @{0}?"
 
-#. placeholder {0}: resolveSourceName(source)
-msgid "Can not schedule post on {0}."
-msgstr "Can not schedule post on {0}."
-
 msgid "Compose"
 msgstr "Compose"
 
@@ -2451,9 +2447,8 @@ msgstr "Scan the QR code with the <0>Camera app</0> <1/>and give <2>edit permiss
 msgid "Standard"
 msgstr "Standard"
 
-#. placeholder {0}: invalidSources.map((x) => resolveSourceName(x)).join(',')
-msgid "Schedule post for {0} is coming soon."
-msgstr "Schedule post for {0} is coming soon."
+msgid "Video duration limit reached"
+msgstr "Video duration limit reached"
 
 msgid "Token"
 msgstr "Token"
@@ -2517,9 +2512,6 @@ msgstr "Followers you know"
 
 msgid "Settings"
 msgstr "Settings"
-
-msgid "GIF count limit reached."
-msgstr "GIF count limit reached."
 
 msgid "Font Color"
 msgstr "Font Color"
@@ -2790,6 +2782,9 @@ msgstr "You are not eligible to claim this red packet"
 msgid "Collectible could not be found."
 msgstr "Collectible could not be found."
 
+msgid "Image count limit reached"
+msgstr "Image count limit reached"
+
 msgid "Confirm to disconnect this wallet from Firefly?"
 msgstr "Confirm to disconnect this wallet from Firefly?"
 
@@ -2919,10 +2914,6 @@ msgstr "Failed to send your post to {0}."
 
 msgid "Top Collectors"
 msgstr "Top Collectors"
-
-#. placeholder {0}: resolveSourcesName(SORTED_POLL_SOURCES)
-msgid "Polls are only available on {0}."
-msgstr "Polls are only available on {0}."
 
 msgid "Quote"
 msgstr "Quote"
@@ -3246,6 +3237,10 @@ msgstr "Explore and follow accounts to see the feed"
 
 msgid "Muted contents"
 msgstr "Muted contents"
+
+#. placeholder {0}: resolveSourcesName(ENABLED_RP_SOURCES)
+msgid "Lucky drop is only available on {0}"
+msgstr "Lucky drop is only available on {0}"
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
@@ -3706,9 +3701,6 @@ msgstr "No whitelist"
 msgid "Cancel repost successfully"
 msgstr "Cancel repost successfully"
 
-msgid "Image count limit reached."
-msgstr "Image count limit reached."
-
 msgid "Collect Post"
 msgstr "Collect Post"
 
@@ -3717,6 +3709,10 @@ msgstr "Sorry, we are not able to find this token"
 
 msgid "Muting..."
 msgstr "Muting..."
+
+#. placeholder {0}: resolveSourcesName(SORTED_POLL_SOURCES, undefined, true)
+msgid "Polls are only available on {0}"
+msgstr "Polls are only available on {0}"
 
 #. placeholder {0}: post.stats.comments
 msgid "{0, plural, one {comment} other {comments}}"
@@ -4397,10 +4393,6 @@ msgstr "NFT Mint Failed"
 
 msgid "Hidden owner."
 msgstr "Hidden owner."
-
-#. placeholder {0}: resolveSourcesName(ENABLED_RP_SOURCES)
-msgid "Lucky drop is only available on {0}."
-msgstr "Lucky drop is only available on {0}."
 
 msgid "Scheduled Post"
 msgstr "Scheduled Post"

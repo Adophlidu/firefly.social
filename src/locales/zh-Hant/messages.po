@@ -258,10 +258,6 @@ msgstr "<0>市值 = 當前價格 × 流通供應量</0><1>指加密貨幣流通�
 msgid "Generating"
 msgstr "正在為您生成"
 
-#. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
-msgid "GIF source not supported. Supported sources: {0}."
-msgstr "不支援的 GIF 來源。支援來源：{0}。"
-
 msgid "Join"
 msgstr "加入"
 
@@ -799,6 +795,10 @@ msgstr "無法收藏 NFT。"
 msgid "Firefly wallet"
 msgstr "Firefly 錢包"
 
+#. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
+msgid "Scheduled posts are only available on {0}"
+msgstr ""
+
 msgid "NFTs"
 msgstr "NFTs"
 
@@ -922,9 +922,6 @@ msgstr "<0>{0}</0> 由 <1>{1}</1> 建立"
 msgid "Sending"
 msgstr "發布中"
 
-msgid "Video duration limit reached."
-msgstr "影片長度超過限制"
-
 msgid "See details"
 msgstr ""
 
@@ -959,6 +956,10 @@ msgstr "其他帳號"
 #. placeholder {0}: mutuals[0].displayName
 msgid "Followed by {0}"
 msgstr "已被 {0} 追蹤"
+
+#. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
+msgid "GIF source not supported. Supported sources: {0}"
+msgstr ""
 
 msgid "All activities from {handleOrEnsOrAddress} will be hidden from you"
 msgstr "將隱藏 {handleOrEnsOrAddress} 的所有動態"
@@ -1664,6 +1665,9 @@ msgstr "輸入數額"
 msgid "Platform fee"
 msgstr "平台費用"
 
+msgid "GIF count limit reached"
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "All posts from @{0} will be hidden from you"
 msgstr "來自 @{0} 的所有貼文將對你隱藏"
@@ -1855,10 +1859,6 @@ msgstr "限制：<0>每日 {0} 次</0>，間隔 {1} 分鐘（含發文、回覆�
 
 msgid "No mint function"
 msgstr "無鑄造功能"
-
-#. placeholder {0}: resolveSourcesName(invalidSources)
-msgid "Poll for {0} is coming soon."
-msgstr ""
 
 msgid "Expired"
 msgstr "已過期"
@@ -2257,10 +2257,6 @@ msgstr "編輯個人檔案"
 msgid "Confirm you want to mute @{0}?"
 msgstr "你確認要隱藏 @{0} 嗎？"
 
-#. placeholder {0}: resolveSourceName(source)
-msgid "Can not schedule post on {0}."
-msgstr ""
-
 msgid "Compose"
 msgstr "撰寫"
 
@@ -2465,8 +2461,7 @@ msgstr ""
 msgid "Standard"
 msgstr "標準"
 
-#. placeholder {0}: invalidSources.map((x) => resolveSourceName(x)).join(',')
-msgid "Schedule post for {0} is coming soon."
+msgid "Video duration limit reached"
 msgstr ""
 
 msgid "Token"
@@ -2531,9 +2526,6 @@ msgstr "你認識的追蹤者"
 
 msgid "Settings"
 msgstr "設定"
-
-msgid "GIF count limit reached."
-msgstr "已達 GIF 數量上限。"
 
 msgid "Font Color"
 msgstr "字体颜色"
@@ -2804,6 +2796,9 @@ msgstr "你不符合領取此紅包的資格"
 msgid "Collectible could not be found."
 msgstr "未找到相關NFT。"
 
+msgid "Image count limit reached"
+msgstr ""
+
 msgid "Confirm to disconnect this wallet from Firefly?"
 msgstr "確認要斷開該錢包與 Firefly 社交圖譜的綁定嗎？"
 
@@ -2933,10 +2928,6 @@ msgstr ""
 
 msgid "Top Collectors"
 msgstr "鑄造收集者"
-
-#. placeholder {0}: resolveSourcesName(SORTED_POLL_SOURCES)
-msgid "Polls are only available on {0}."
-msgstr "投票功能僅在 {0} 上支持。"
 
 msgid "Quote"
 msgstr "引用"
@@ -3260,6 +3251,10 @@ msgstr "探索並追蹤帳戶以查看動態"
 
 msgid "Muted contents"
 msgstr "已隱藏內容"
+
+#. placeholder {0}: resolveSourcesName(ENABLED_RP_SOURCES)
+msgid "Lucky drop is only available on {0}"
+msgstr ""
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr "流通量指市場可公開交易的代幣數量，類似於流通股概念"
@@ -3720,9 +3715,6 @@ msgstr "無白名單"
 msgid "Cancel repost successfully"
 msgstr "取消轉發成功"
 
-msgid "Image count limit reached."
-msgstr "已達圖片數量上限。"
-
 msgid "Collect Post"
 msgstr "鑄造收集貼文"
 
@@ -3731,6 +3723,10 @@ msgstr "抱歉，找不到此代幣"
 
 msgid "Muting..."
 msgstr "隱藏中..."
+
+#. placeholder {0}: resolveSourcesName(SORTED_POLL_SOURCES, undefined, true)
+msgid "Polls are only available on {0}"
+msgstr ""
 
 #. placeholder {0}: post.stats.comments
 msgid "{0, plural, one {comment} other {comments}}"
@@ -4411,10 +4407,6 @@ msgstr "鑄造 NFT 失敗"
 
 msgid "Hidden owner."
 msgstr "隱藏的擁有者。"
-
-#. placeholder {0}: resolveSourcesName(ENABLED_RP_SOURCES)
-msgid "Lucky drop is only available on {0}."
-msgstr "紅包功能僅在{0}支持。"
 
 msgid "Scheduled Post"
 msgstr ""

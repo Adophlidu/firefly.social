@@ -15,7 +15,7 @@ import {
 } from '@/constants/index.js';
 import { ensureGifSource } from '@/helpers/checkPostGif.js';
 import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
-import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
+import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { validateVideoDuration } from '@/helpers/validateVideo.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -49,13 +49,13 @@ export function PostBy() {
             if (poll && !SORTED_POLL_SOURCES.includes(source))
                 return {
                     disabled: true,
-                    reason: t`Polls are only available on ${resolveSourcesName(SORTED_POLL_SOURCES)}.`,
+                    reason: t`Polls are only available on ${resolveSourcesName(SORTED_POLL_SOURCES, undefined, true)}`,
                 };
 
             if (scheduleTime && !ENABLED_SCHEDULE_POST_SOURCES.includes(source))
                 return {
                     disabled: true,
-                    reason: t`Can not schedule post on ${resolveSourceName(source)}.`,
+                    reason: t`Scheduled posts are only available on ${resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)}`,
                 };
 
             const sources = uniq([...availableSources, source]);
@@ -63,26 +63,26 @@ export function PostBy() {
             if (images.length > maxImageCount)
                 return {
                     disabled: true,
-                    reason: t`Image count limit reached.`,
+                    reason: t`Image count limit reached`,
                 };
 
             const maxGifCount = getCurrentPostGifLimits(sources);
             if (images.filter((x) => x.file.type === FileMimeType.GIF).length > maxGifCount)
                 return {
                     disabled: true,
-                    reason: t`GIF count limit reached.`,
+                    reason: t`GIF count limit reached`,
                 };
 
             if (!ensureGifSource(images, source))
                 return {
                     disabled: true,
-                    reason: t`GIF source not supported. Supported sources: ${GIF_MEDIA_SOURCE_CONFIG[source].join(', ')}.`,
+                    reason: t`GIF source not supported. Supported sources: ${GIF_MEDIA_SOURCE_CONFIG[source].join(', ')}`,
                 };
 
             if (!ENABLED_RP_SOURCES.includes(source) && rpPayload) {
                 return {
                     disabled: true,
-                    reason: t`Lucky drop is only available on ${resolveSourcesName(ENABLED_RP_SOURCES)}.`,
+                    reason: t`Lucky drop is only available on ${resolveSourcesName(ENABLED_RP_SOURCES)}`,
                 };
             }
 
@@ -94,7 +94,7 @@ export function PostBy() {
             if (hasInvalidVideo) {
                 return {
                     disabled: true,
-                    reason: t`Video duration limit reached.`,
+                    reason: t`Video duration limit reached`,
                 };
             }
 

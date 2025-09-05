@@ -23,7 +23,9 @@ export const PollButton = memo(function PollButton() {
         <Tooltip
             content={
                 !isPollSupported && invalidSources.length > 0 ? (
-                    <Trans>Poll for {resolveSourcesName(invalidSources)} is coming soon.</Trans>
+                    <Trans>
+                        Polls are only available on {resolveSourcesName(SORTED_POLL_SOURCES, undefined, true)}
+                    </Trans>
                 ) : (
                     <Trans>Poll</Trans>
                 )

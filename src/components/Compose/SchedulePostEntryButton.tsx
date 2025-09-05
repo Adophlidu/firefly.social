@@ -9,7 +9,7 @@ import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { ENABLED_SCHEDULE_POST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
@@ -86,11 +86,12 @@ export function SchedulePostEntryButton({ className, showText, disabled = false,
         <Tooltip
             placement="top"
             content={
-                !disabled ? (
+                !scheduleDisabled ? (
                     <Trans>Schedule Post</Trans>
                 ) : (
                     <Trans>
-                        Schedule post for {invalidSources.map((x) => resolveSourceName(x)).join(',')} is coming soon.
+                        Scheduled posts are only available on{' '}
+                        {resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)}
                     </Trans>
                 )
             }

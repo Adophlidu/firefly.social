@@ -253,10 +253,6 @@ msgstr ""
 msgid "Generating"
 msgstr ""
 
-#. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
-msgid "GIF source not supported. Supported sources: {0}."
-msgstr ""
-
 msgid "Join"
 msgstr ""
 
@@ -794,6 +790,10 @@ msgstr ""
 msgid "Firefly wallet"
 msgstr ""
 
+#. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
+msgid "Scheduled posts are only available on {0}"
+msgstr ""
+
 msgid "NFTs"
 msgstr ""
 
@@ -917,9 +917,6 @@ msgstr ""
 msgid "Sending"
 msgstr ""
 
-msgid "Video duration limit reached."
-msgstr ""
-
 msgid "See details"
 msgstr ""
 
@@ -953,6 +950,10 @@ msgstr ""
 
 #. placeholder {0}: mutuals[0].displayName
 msgid "Followed by {0}"
+msgstr ""
+
+#. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
+msgid "GIF source not supported. Supported sources: {0}"
 msgstr ""
 
 msgid "All activities from {handleOrEnsOrAddress} will be hidden from you"
@@ -1659,6 +1660,9 @@ msgstr ""
 msgid "Platform fee"
 msgstr ""
 
+msgid "GIF count limit reached"
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "All posts from @{0} will be hidden from you"
 msgstr ""
@@ -1849,10 +1853,6 @@ msgid "Limits: <0>{0} posts/day</0> with {1}-minute intervals (applies to posts,
 msgstr ""
 
 msgid "No mint function"
-msgstr ""
-
-#. placeholder {0}: resolveSourcesName(invalidSources)
-msgid "Poll for {0} is coming soon."
 msgstr ""
 
 msgid "Expired"
@@ -2235,10 +2235,6 @@ msgstr ""
 msgid "Confirm you want to mute @{0}?"
 msgstr ""
 
-#. placeholder {0}: resolveSourceName(source)
-msgid "Can not schedule post on {0}."
-msgstr ""
-
 msgid "Compose"
 msgstr ""
 
@@ -2443,8 +2439,7 @@ msgstr ""
 msgid "Standard"
 msgstr ""
 
-#. placeholder {0}: invalidSources.map((x) => resolveSourceName(x)).join(',')
-msgid "Schedule post for {0} is coming soon."
+msgid "Video duration limit reached"
 msgstr ""
 
 msgid "Token"
@@ -2508,9 +2503,6 @@ msgid "Followers you know"
 msgstr ""
 
 msgid "Settings"
-msgstr ""
-
-msgid "GIF count limit reached."
 msgstr ""
 
 msgid "Font Color"
@@ -2777,6 +2769,9 @@ msgstr ""
 msgid "Collectible could not be found."
 msgstr ""
 
+msgid "Image count limit reached"
+msgstr ""
+
 msgid "Confirm to disconnect this wallet from Firefly?"
 msgstr ""
 
@@ -2905,10 +2900,6 @@ msgid "Failed to send your post to {0}."
 msgstr ""
 
 msgid "Top Collectors"
-msgstr ""
-
-#. placeholder {0}: resolveSourcesName(SORTED_POLL_SOURCES)
-msgid "Polls are only available on {0}."
 msgstr ""
 
 msgid "Quote"
@@ -3232,6 +3223,10 @@ msgid "Explore and follow accounts to see the feed"
 msgstr ""
 
 msgid "Muted contents"
+msgstr ""
+
+#. placeholder {0}: resolveSourcesName(ENABLED_RP_SOURCES)
+msgid "Lucky drop is only available on {0}"
 msgstr ""
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
@@ -3693,9 +3688,6 @@ msgstr ""
 msgid "Cancel repost successfully"
 msgstr ""
 
-msgid "Image count limit reached."
-msgstr ""
-
 msgid "Collect Post"
 msgstr ""
 
@@ -3703,6 +3695,10 @@ msgid "Sorry, we are not able to find this token"
 msgstr ""
 
 msgid "Muting..."
+msgstr ""
+
+#. placeholder {0}: resolveSourcesName(SORTED_POLL_SOURCES, undefined, true)
+msgid "Polls are only available on {0}"
 msgstr ""
 
 #. placeholder {0}: post.stats.comments
@@ -4380,10 +4376,6 @@ msgid "NFT Mint Failed"
 msgstr ""
 
 msgid "Hidden owner."
-msgstr ""
-
-#. placeholder {0}: resolveSourcesName(ENABLED_RP_SOURCES)
-msgid "Lucky drop is only available on {0}."
 msgstr ""
 
 msgid "Scheduled Post"

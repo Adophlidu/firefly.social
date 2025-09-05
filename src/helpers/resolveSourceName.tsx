@@ -62,6 +62,13 @@ export const resolveNotificationSourceName = createLookupTableResolver<Notificat
     },
 );
 
-export function resolveSourcesName(sources: Source[], separator = ', '): string {
-    return sources.map(resolveSourceName).join(separator);
+export function resolveSourcesName(sources: Source[], separator = ', ', useOr = false): string {
+    if (!useOr || sources.length <= 1) {
+        return sources.map(resolveSourceName).join(separator);
+    }
+
+    const sourceNames = sources.map(resolveSourceName);
+    const lastName = sourceNames.pop();
+
+    return `${sourceNames.join(separator)}${sourceNames.length > 0 ? ' or ' : ''}${lastName}`;
 }
