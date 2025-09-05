@@ -19,18 +19,15 @@ export function Link({ children, ref, trusted = false, ...props }: Props) {
 
     const onLinkClick = useCallback(
         async (event: React.MouseEvent<HTMLAnchorElement>) => {
+            event.preventDefault();
             const isTrusted = isTrustedUrl(href);
             if (!trusted && !isTrusted && !internalLink && typeof href === 'string') {
                 const intercepted = await interceptExternalUrl(href);
                 if (intercepted) return;
-
-                event.preventDefault();
-
                 const confirmed = await ConfirmLeavingModalRef.openAndWaitForClose(href);
                 if (!confirmed) return;
-
-                await openUrl(props.href);
             }
+            await openUrl(props.href);
             props.onClick?.(event);
         },
         [href, trusted, internalLink, props],
