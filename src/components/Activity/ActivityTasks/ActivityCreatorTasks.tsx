@@ -11,7 +11,7 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
 const VIEW_EXAMPLE_URL_EN = 'https://x.com/thefireflyapp/article/1929723999019548966';
 const SUBMIT_FORM_URL_ZH =
-    'https://docs.google.com/forms/d/e/1FAIpQLSe2RnsxdezPrhwB0hhqnzYHRMm1YhYwK4V3ED6JcqiYF1rWdg/viewform';
+    'https://docs.google.com/forms/d/e/1FAIpQLSe2RnsxdezPrhwB0hhqnzYHRMm1YhYwK4V3ED6JcqiYF1rWdg/viewform?pli=1%EF%BC%89%EF%BC%9B';
 const SUBMIT_FORM_URL_EN =
     'https://docs.google.com/forms/d/e/1FAIpQLSdrT09V1NfErk14rhmXhcqhDcdvn87rnxe2wY73hzgL3t1ZYw/viewform';
 
@@ -63,11 +63,11 @@ export function ActivityCreatorTasks() {
                     <br />
                     <ol className="list-inside list-decimal">
                         <li>
-                            Create Firefly-related content and publish it using the Firefly crosspost feature (must
-                            include X).
+                            <span className="font-bold">Create</span> Firefly-related content and publish it using the
+                            Firefly crosspost feature (must include X).
                         </li>
                         <li>
-                            Follow & Mention{' '}
+                            <span className="font-bold">Follow & Mention</span>{' '}
                             <Link
                                 trusted
                                 href={getProfileUrl()}
@@ -78,7 +78,9 @@ export function ActivityCreatorTasks() {
                             </Link>
                             .
                         </li>
-                        <li>Register your submission by filling out this form.</li>
+                        <li>
+                            <span className="font-bold">Register</span> your submission by filling out this form.
+                        </li>
                     </ol>
                 </Trans>
             </div>
@@ -90,7 +92,7 @@ export function ActivityCreatorTasks() {
                     className="flex flex-1 flex-col items-center gap-2 rounded-lg p-2.5 font-bold outline outline-1 outline-offset-[-1px] outline-main"
                     target="_blank"
                 >
-                    <Trans>Submit to Google Doc</Trans>
+                    <Trans>Open Google Form</Trans>
                 </Link>
             </div>
 

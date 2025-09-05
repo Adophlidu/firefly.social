@@ -2301,6 +2301,9 @@ msgstr "Failed to restore your Bluesky session, you can refresh the page to try 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 
+msgid "Firefly is actively expanding its community presence, laying a strong foundation for future growth. We welcome you to join as an early contributor, starting with our <0>content bounty tasks</0>!<1/><2/>💰 Users who produce high-quality content can each earn <3>100 USDC</3>, with winners <4>announced every two weeks</4>.<5/><6/>🧩 Create a post on Firefly (thread / article / video, etc.) introducing Firefly. You can give a broad overview or focus on the features you find most valuable. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <7>@thefireflyapp</7> and contacted via DM.<8>【View Example】</8><9/><10/>📌 How to participate:<11/><12><13><14>Create</14> Firefly-related content and publish it using the Firefly crosspost feature (must include X).</13><15><16>Follow & Mention</16> <17>@thefireflyapp</17>.</15><18><19>Register</19> your submission by filling out this form.</18></12>"
+msgstr "Firefly is actively expanding its community presence, laying a strong foundation for future growth. We welcome you to join as an early contributor, starting with our <0>content bounty tasks</0>!<1/><2/>💰 Users who produce high-quality content can each earn <3>100 USDC</3>, with winners <4>announced every two weeks</4>.<5/><6/>🧩 Create a post on Firefly (thread / article / video, etc.) introducing Firefly. You can give a broad overview or focus on the features you find most valuable. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <7>@thefireflyapp</7> and contacted via DM.<8>【View Example】</8><9/><10/>📌 How to participate:<11/><12><13><14>Create</14> Firefly-related content and publish it using the Firefly crosspost feature (must include X).</13><15><16>Follow & Mention</16> <17>@thefireflyapp</17>.</15><18><19>Register</19> your submission by filling out this form.</18></12>"
+
 msgid "The password you entered is incorrect. Please try again."
 msgstr "The password you entered is incorrect. Please try again."
 
@@ -2983,6 +2986,9 @@ msgstr "Failed to bookmark post."
 #. placeholder {0}: resolveSourceName(Source.Twitter)
 msgid "{0} muted users"
 msgstr "{0} muted users"
+
+msgid "Open Google Form"
+msgstr "Open Google Form"
 
 #. placeholder {0}: resolveSourcesName( availableSources.filter((x) => MAX_FILE_SIZE_PER_VIDEO[x] === videoSizeLimit), )
 #. placeholder {1}: formatFileSize(videoSizeLimit)
@@ -4730,9 +4736,6 @@ msgstr "<0>{0}</0> recasted"
 
 msgid "Close"
 msgstr "Close"
-
-msgid "Submit to Google Doc"
-msgstr "Submit to Google Doc"
 
 msgid "Login"
 msgstr "Login"
