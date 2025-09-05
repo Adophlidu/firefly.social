@@ -3002,7 +3002,7 @@ msgid "{0} muted users"
 msgstr "{0} 位已隱藏的用戶"
 
 msgid "Open Google Form"
-msgstr ""
+msgstr "打開 Google Form"
 
 #. placeholder {0}: resolveSourcesName( availableSources.filter((x) => MAX_FILE_SIZE_PER_VIDEO[x] === videoSizeLimit), )
 #. placeholder {1}: formatFileSize(videoSizeLimit)
