@@ -10,7 +10,7 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata('/', {
-        title: await createPageTitleSSR(msg`Following`),
+        title: await createPageTitleSSR(msg`Home`),
     });
 }
 
