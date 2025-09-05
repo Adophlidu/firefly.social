@@ -12,6 +12,6 @@ export async function openUrl(urlOrPathname: string) {
     }
 
     await fireflyBridgeProvider.request(SupportedMethod.OPEN_URL, {
-        url: urlOrPathname.startsWith('https') ? urlcat(location.origin, urlOrPathname) : urlOrPathname,
+        url: !urlOrPathname.startsWith('https') ? urlcat(location.origin, urlOrPathname) : urlOrPathname,
     });
 }

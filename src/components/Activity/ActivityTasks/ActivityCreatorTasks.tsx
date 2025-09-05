@@ -7,7 +7,6 @@ import { Link } from '@/components/Activity/Link.js';
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_TELEGRAM_URL } from '@/constants/index.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
 const VIEW_EXAMPLE_URL_EN = 'https://x.com/thefireflyapp/article/1929723999019548966';
 const SUBMIT_FORM_URL_ZH =
@@ -31,8 +30,12 @@ export function ActivityCreatorTasks() {
     };
 
     const getProfileUrl = () => {
-        if (locale === 'zh-Hans' || locale === 'zh-Hant') return resolveProfileUrl(Source.Twitter, 'fireflyappcn');
-        return resolveProfileUrl(Source.Twitter, 'thefireflyapp');
+        if (locale === 'zh-Hans' || locale === 'zh-Hant') {
+            // return resolveProfileUrl(Source.Twitter, 'fireflyappcn');
+            return '/profile/twitter/1891342077751123968';
+        }
+        // return resolveProfileUrl(Source.Twitter, 'thefireflyapp');
+        return '/profile/twitter/1583361564479889408';
     };
 
     return (
