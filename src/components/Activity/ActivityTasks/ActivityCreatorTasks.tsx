@@ -32,10 +32,10 @@ export function ActivityCreatorTasks() {
     const getProfileUrl = () => {
         if (locale === 'zh-Hans' || locale === 'zh-Hant') {
             // return resolveProfileUrl(Source.Twitter, 'fireflyappcn');
-            return '/profile/twitter/1891342077751123968';
+            return '/profile/twitter/1891342077751123968/feed';
         }
         // return resolveProfileUrl(Source.Twitter, 'thefireflyapp');
-        return '/profile/twitter/1583361564479889408';
+        return '/profile/twitter/1583361564479889408/feed';
     };
 
     return (
