@@ -138,6 +138,7 @@ interface ComposeState extends ComposeBaseState {
     addImage: (image: MediaObject, index: number, cursor?: Cursor) => void;
     removeImage: (image: MediaObject, cursor?: Cursor) => void;
     addFrame: (frame: Frame, cursor?: Cursor) => void;
+    removeUrl: (url: string, cursor?: Cursor) => void;
     removeFrame: (frame: Frame, cursor?: Cursor) => void;
     removeOpenGraph: (og: OpenGraph, cursor?: Cursor) => void;
     updateRpPayload: (value: RedPacketPayload, cursor?: Cursor) => void;
@@ -459,6 +460,8 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor,
                 ),
             ),
+        removeUrl: (url, cursor) =>
+            set((state) => next(state, (post) => ({ ...post, urls: post.urls.filter((x) => x !== url) }), cursor)),
         addImage: (image, index: number, cursor) =>
             set((state) =>
                 next(

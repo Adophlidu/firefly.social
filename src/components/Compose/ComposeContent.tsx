@@ -2,20 +2,26 @@ import { ComposeImages } from '@/components/Compose/ComposeImages.js';
 import { ComposeVideos } from '@/components/Compose/ComposeVideos.js';
 import { Editor } from '@/components/Compose/Editor.js';
 import { Placeholder } from '@/components/Compose/Placeholder.js';
+import { RemoveButton } from '@/components/RemoveButton.js';
 import { PollCreatorCard } from '@/components/Poll/PollCreatorCard.js';
+import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { PostLinksInCompose } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { Reply } from '@/components/Posts/Reply.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
+import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
+import { EmbedMediaType } from '@/providers/types/Firefly.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { last } from 'lodash-es';
 
 interface ComposeContentProps {
     post: CompositePost;
 }
 
 export function ComposeContent(props: ComposeContentProps) {
-    const { type, cursor } = useComposeStateStore();
+    const { type, cursor, removeUrl } = useComposeStateStore();
 
     const { id, parentPost, images, videos, urls, poll, availableSources, chars } = props.post;
 
@@ -25,6 +31,9 @@ export function ComposeContent(props: ComposeContentProps) {
             ([source, value]) => value && SORTED_SOCIAL_SOURCES.includes(source as SocialSource),
         ) ?? [];
     const replying = type === 'reply' && !!post;
+
+    const imagesInUrl = urls.filter((url) => resolveEmbedMediaType(url, EmbedMediaType.IMAGE) === 'Image');
+    const lastImageInUrl = last(imagesInUrl);
 
     return (
         <div className="relative flex flex-1 flex-col">
@@ -50,8 +59,22 @@ export function ComposeContent(props: ComposeContentProps) {
             {/* quote */}
             {type === 'quote' && post ? <Quote post={post} className="text-left" /> : null}
 
+            {lastImageInUrl ? (
+                <div className="relative mt-2 flex-grow">
+                    <ImageAsset
+                        className={'w-full cursor-pointer rounded-lg object-cover'}
+                        width={1000}
+                        height={1000}
+                        src={sanitizeDStorageUrl(lastImageInUrl)}
+                        alt={lastImageInUrl}
+                        overSize
+                    />
+                    <RemoveButton className="absolute right-1 top-1 z-10" onClick={() => removeUrl(lastImageInUrl)} />
+                </div>
+            ) : null}
+
             <PostLinksInCompose
-                urls={urls}
+                urls={urls.filter((url) => !imagesInUrl.includes(url))}
                 chars={chars}
                 parentPost={post}
                 source={post?.source ?? availableSources[0]}
