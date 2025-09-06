@@ -1,5 +1,4 @@
 import { msg } from '@lingui/core/macro';
-import { type ReactNode } from 'react';
 
 import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
@@ -11,8 +10,14 @@ import { SuggestedFollows } from '@/components/SuggestedFollows/SuggestedFollows
 import { Agent, PageRoute } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { setupAgentForSSR } from '@/helpers/setupAgentForSSR.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import type { NextPageProps } from '@/types/utility.js';
+import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
+
+interface Props
+    extends NextPageProps<{
+        agent: string;
+    }> {}
 
 export async function generateMetadata() {
     return createSiteMetadata('/events', {
@@ -20,13 +25,15 @@ export async function generateMetadata() {
     });
 }
 
-export default async function Layout({ children }: { children: ReactNode }) {
+export default async function Layout(props: Props) {
     await setupLocaleForSSR();
 
-    const agent = await setupAgentForSSR(PageRoute.Events);
-    switch (agent) {
+    const { agent } = await props.params;
+    const resolvedAgent = agent && isValidEnumValue(agent, Agent) ? agent : Agent.Browser;
+
+    switch (resolvedAgent) {
         case Agent.FireflyApp:
-            return children;
+            return props.children;
         case Agent.Browser:
             return (
                 <>
@@ -38,7 +45,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
                                 <NavigatorBar />
                             </IfPathname>
                         </div>
-                        {children}
+                        {props.children}
                     </main>
                     <aside className="sticky top-0 z-[1] hidden h-screen w-96 flex-col gap-4 px-4 md:min-w-[384px] lg:flex">
                         <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
