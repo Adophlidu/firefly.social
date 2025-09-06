@@ -10,9 +10,9 @@ import { SuggestedFollows } from '@/components/SuggestedFollows/SuggestedFollows
 import { Agent, PageRoute } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/utility.js';
-import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 
 interface Props
     extends NextPageProps<{

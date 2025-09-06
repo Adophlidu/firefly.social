@@ -12,10 +12,20 @@ import { queryClient } from '@/configs/queryClient.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
 import type { GetTokenOptions } from '@/providers/types/Firefly.js';
 import { searchToken } from '@/services/searchToken.js';
+import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+
 import type { NextPageProps } from '@/types/utility.js';
+
+const QueryOptionsSchema = z.object({
+    address: z.string().optional(),
+    isCoinId: z
+        .string()
+        .optional()
+        .transform((val) => (val === 'true' ? true : undefined)),
+    chainId: z.coerce.number().int().optional(),
+});
 
 interface Props
     extends NextPageProps<
@@ -26,31 +36,6 @@ interface Props
         TokenPageSearch
     > {}
 
-export async function generateMetadata(props: Props) {
-    const params = await props.params;
-    const searchParams = await props.searchParams;
-    const options = z
-        .object({
-            address: z.string().optional(),
-            isCoinId: z
-                .string()
-                .optional()
-                .transform((val) => (val === 'true' ? true : undefined)),
-            chainId: z.coerce.number().int().optional(),
-        })
-        .safeParse(searchParams).data;
-
-    const isCexCoin = params.exchange === 'cex';
-    const isDexCoin = params.exchange === 'dex';
-
-    const keyword = isCexCoin ? params.slug?.[0] : isDexCoin ? params.slug?.[1] : params.exchange;
-    return FireflyMetadataProvider.createTokenMetadata(
-        keyword!,
-        params.slug ? `/token/${params.exchange}/${params.slug.join('/')}` : `/token/${params.exchange}`,
-        { ...options, isCoinId: isCexCoin ? true : options?.isCoinId },
-    );
-}
-
 function updateSearch(originSearch: string, patch: Record<string, string>) {
     const newSearch = new URLSearchParams(originSearch);
     newSearch.delete('isCoinId');
@@ -58,6 +43,22 @@ function updateSearch(originSearch: string, patch: Record<string, string>) {
         newSearch.set(key, value);
     }
     return newSearch.size ? `?${newSearch.toString()}` : '';
+}
+
+export async function generateMetadata(props: Props) {
+    const params = await props.params;
+    const searchParams = await props.searchParams;
+    const options = QueryOptionsSchema.safeParse(searchParams).data;
+
+    const isCexCoin = params.exchange === 'cex';
+    const isDexCoin = params.exchange === 'dex';
+
+    const keyword = isCexCoin ? params.slug?.[0] : isDexCoin ? params.slug?.[1] : params.exchange;
+    return FireflyMetadataProvider.createTokenMetadata(
+        keyword ?? '-',
+        params.slug ? `/token/${params.exchange}/${params.slug.join('/')}` : `/token/${params.exchange}`,
+        { ...options, isCoinId: isCexCoin ? true : options?.isCoinId },
+    );
 }
 
 /**

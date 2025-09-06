@@ -1,12 +1,13 @@
+import type { Metadata } from 'next';
+
 import { ActivityHeader } from '@/components/Activity/ActivityHeader.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { notFound } from '@/esm/navigation.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
-import { ActivityStatus } from '@/providers/types/Firefly.js';
 import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import { ActivityStatus } from '@/providers/types/Firefly.js';
 import type { NextPageProps } from '@/types/utility.js';
-import type { Metadata } from 'next';
 
 const ActivityNavigationBar = dynamic(() => import('@/components/Activity/ActivityNavigationBar.js'), { ssr: false });
 const ActivityTasks = dynamic(() => import('@/components/Activity/ActivityTasks/index.js'), { ssr: false });

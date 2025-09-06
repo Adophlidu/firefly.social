@@ -1,20 +1,21 @@
+import { last } from 'lodash-es';
+
 import { ComposeImages } from '@/components/Compose/ComposeImages.js';
 import { ComposeVideos } from '@/components/Compose/ComposeVideos.js';
 import { Editor } from '@/components/Compose/Editor.js';
 import { Placeholder } from '@/components/Compose/Placeholder.js';
-import { RemoveButton } from '@/components/RemoveButton.js';
 import { PollCreatorCard } from '@/components/Poll/PollCreatorCard.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { PostLinksInCompose } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { Reply } from '@/components/Posts/Reply.js';
+import { RemoveButton } from '@/components/RemoveButton.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { EmbedMediaType } from '@/providers/types/Firefly.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
-import { last } from 'lodash-es';
 
 interface ComposeContentProps {
     post: CompositePost;
