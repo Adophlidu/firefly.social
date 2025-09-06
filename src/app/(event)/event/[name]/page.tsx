@@ -4,13 +4,20 @@ import { notFound } from '@/esm/navigation.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
+import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
 import type { NextPageProps } from '@/types/utility.js';
+import type { Metadata } from 'next';
 
 const ActivityNavigationBar = dynamic(() => import('@/components/Activity/ActivityNavigationBar.js'), { ssr: false });
 const ActivityTasks = dynamic(() => import('@/components/Activity/ActivityTasks/index.js'), { ssr: false });
 const ActivityEndedDialog = dynamic(() => import('@/components/Activity/ActivityEndedDialog.js'), { ssr: false });
 
 interface Props extends NextPageProps<{ name: string }> {}
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+    const { name } = await props.params;
+    return FireflyMetadataProvider.createEventMetadata(name, `/event/${name}`);
+}
 
 export default async function Page(props: Props) {
     const { name } = await props.params;
