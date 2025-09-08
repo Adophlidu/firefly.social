@@ -47,7 +47,7 @@ interface Props {
 }
 
 export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
-    const { choices, state, scores, symbol, scores_total, votes, space, author } = snapshot;
+    const { choices, scores, symbol, scores_total, votes, space, author } = snapshot;
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
     const authorUrl = urlcat('/profile/:address', {
@@ -68,6 +68,12 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
 
     const ensHandle = useEnsName({ address: author as Hex });
 
+    const state =
+        snapshot.state === SnapshotState.Closed
+            ? snapshot.type !== 'basic'
+                ? SnapshotState.Closed
+                : SnapshotState.Passed
+            : snapshot.state;
     return (
         <div>
             <ClickableArea className="relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3 text-left text-commonMain">
