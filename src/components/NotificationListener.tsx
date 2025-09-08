@@ -2,17 +2,26 @@
 
 import { useEffect } from 'react';
 
+import { PageRoute } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useNewestNotification } from '@/hooks/useNewestNotification.js';
 import { listenNotifications, stopListenNotifications } from '@/services/listenNotifications.js';
 
 export function NotificationListener() {
     const isSyncing = useAsyncStatusAll();
     const isLoginFirefly = useIsLoginFirefly();
+    const recordWithNew = useNewestNotification();
+    const pathname = usePathname();
+
+    const isNotificationPage = isRoutePathname(pathname, PageRoute.Notifications);
+    const shouldNotListen = !isLoginFirefly || isNotificationPage || !!recordWithNew;
 
     useEffect(() => {
         if (isSyncing) return;
-        if (!isLoginFirefly) {
+        if (shouldNotListen) {
             stopListenNotifications();
             return;
         }
@@ -22,7 +31,7 @@ export function NotificationListener() {
         return () => {
             stopListenNotifications();
         };
-    }, [isSyncing, isLoginFirefly]);
+    }, [isSyncing, shouldNotListen]);
 
     useEffect(() => {
         const onVisibilityChange = () => {
@@ -30,7 +39,7 @@ export function NotificationListener() {
                 stopListenNotifications();
                 return;
             }
-            if (document.visibilityState === 'visible' && isLoginFirefly) {
+            if (document.visibilityState === 'visible' && !shouldNotListen) {
                 listenNotifications();
                 return;
             }
@@ -42,7 +51,7 @@ export function NotificationListener() {
         return () => {
             document.removeEventListener('visibilitychange', onVisibilityChange);
         };
-    }, [isLoginFirefly]);
+    }, [shouldNotListen]);
 
     return null;
 }
