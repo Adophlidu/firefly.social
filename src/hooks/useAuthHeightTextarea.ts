@@ -20,5 +20,5 @@ export function useAuthHeightTextarea(getElement: () => HTMLTextAreaElement | un
             textareaEl.removeEventListener('focus', adjustTextareaHeight);
             textareaEl.removeEventListener('blur', adjustTextareaHeight);
         };
-    }, []);
+    }, [getElement]);
 }

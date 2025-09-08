@@ -138,7 +138,17 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
                 enableOverflow: false,
             });
         }
-    }, [task, isMedium, isFailed, updateIsFailedSchedulePost, history]);
+    }, [
+        task,
+        isMedium,
+        isFailed,
+        history,
+        profilesAll,
+        updateIsFailedSchedulePost,
+        setEditorContent,
+        updateChars,
+        updateSources,
+    ]);
 
     return (
         <div className="border-b border-line p-3">

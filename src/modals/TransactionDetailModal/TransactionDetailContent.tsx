@@ -210,7 +210,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
 
     const closeModal = useCallback(() => {
         TransactionDetailModalRef.close();
-    }, [TransactionDetailModalRef]);
+    }, []);
 
     console.log(transaction);
     const target = useMemo(() => {
@@ -288,7 +288,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                     />
                 );
         }
-    }, [transaction, toEnsHandle, toAddress, fromAddress, fromEnsHandle, closeModal]);
+    }, [transaction, toEnsHandle, toAddress, fromAddress, fromEnsHandle, fromAddressName, toAddressName, closeModal]);
 
     if (!fromAddress || !toAddress) return null;
 

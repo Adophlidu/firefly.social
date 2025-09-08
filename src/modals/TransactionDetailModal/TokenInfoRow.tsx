@@ -81,7 +81,14 @@ export function TokenInfoRow({
                 </div>
                 {amountText ? (
                     <span className={classNames(amountClassName)}>
-                        {amountPrefix ? `${amountPrefix} ${amountText}` : amountText}
+                        {amountPrefix ? (
+                            <>
+                                {`${amountPrefix} `}
+                                {amountText}
+                            </>
+                        ) : (
+                            amountText
+                        )}
                     </span>
                 ) : null}
             </div>

@@ -8,6 +8,7 @@ import {
     isValidElement,
     memo,
     type OlHTMLAttributes,
+    type PropsWithChildren,
     useMemo,
 } from 'react';
 import ReactMarkdown, { type Options as ReactMarkdownOptions } from 'react-markdown';
@@ -60,6 +61,32 @@ function Ol({ children, ...props }: DetailedHTMLProps<OlHTMLAttributes<HTMLOList
         </ol>
     );
 }
+
+function Ul({ children }: React.HTMLAttributes<HTMLUListElement>) {
+    return <div>{children}</div>;
+}
+
+function Li({
+    children,
+    ordered,
+    index,
+}: PropsWithChildren<{
+    ordered?: boolean;
+    index?: number;
+}>) {
+    const prefix = ordered ? `${index}. ` : '- ';
+    return (
+        <div>
+            {prefix}
+            {children}
+        </div>
+    );
+}
+
+function Strong({ children }: PropsWithChildren) {
+    return <span>**{children}**</span>;
+}
+
 export const Markup = memo<MarkupProps>(function Markup({ children, post, ...rest }) {
     const withinPost = !!post;
     const mentions = post?.mentions;
@@ -109,22 +136,11 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
                 a: (props) => <MarkupLink {...props} post={post} source={post?.source} />,
                 code: Code,
                 ol: Ol,
-
                 ...(post?.source !== Source.Lens
                     ? {
-                          ul: ({ children }) => <div>{children}</div>,
-                          // @ts-ignore
-                          li: ({ children, ordered, index, ...props }) => {
-                              const prefix = ordered ? `${index}. ` : '- ';
-                              return (
-                                  <div>
-                                      {prefix}
-                                      {children}
-                                  </div>
-                              );
-                          },
-
-                          strong: ({ children }) => <span>**{children}**</span>,
+                          ul: Ul,
+                          li: Li,
+                          strong: Strong,
                       }
                     : {}),
                 ...rest.components,

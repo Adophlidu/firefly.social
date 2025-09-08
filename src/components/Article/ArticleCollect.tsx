@@ -73,7 +73,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                 } catch (error) {
                     if (error instanceof Error && error.message.includes('insufficient funds')) {
                         hasBalance = false;
-                        enqueueWarningMessage(<Trans>Sorry, today's free collect quota has been reached.</Trans>);
+                        enqueueWarningMessage(<Trans>Sorry, today&apos;s free collect quota has been reached.</Trans>);
                     } else {
                         throw error;
                     }

@@ -24,7 +24,7 @@ export function trimifyPost(value: string) {
         }
 
         if (!inFence) {
-            processedLine = processedLine.replace(/^(\s*)([*+\-])\s+/, '$1$2 ');
+            processedLine = processedLine.replace(/^(\s*)([*+-])\s+/, '$1$2 ');
         }
 
         if (!inFence && listStartRe.test(processedLine)) {

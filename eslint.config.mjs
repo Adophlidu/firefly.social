@@ -1,16 +1,15 @@
-import { defineConfig, globalIgnores } from 'eslint/config';
-import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
-import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js';
 import typescriptEslintEslintPlugin from '@typescript-eslint/eslint-plugin';
-import react from 'eslint-plugin-react';
-import unicorn from 'eslint-plugin-unicorn';
-import _import from 'eslint-plugin-import';
-import unusedImports from 'eslint-plugin-unused-imports';
 import tsParser from '@typescript-eslint/parser';
+import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
+import react from 'eslint-plugin-react';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import unicorn from 'eslint-plugin-unicorn';
+import unusedImports from 'eslint-plugin-unused-imports';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import js from '@eslint/js';
-import { FlatCompat } from '@eslint/eslintrc';
 import renameJsx from './scripts/eslint-plugin-rename-jsx.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -39,6 +38,7 @@ export default defineConfig([
         'setups',
         '.next/**',
         '*.svg',
+        'prebuilt',
     ]),
     {
         extends: compat.extends('next/core-web-vitals'),

@@ -115,7 +115,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
             }
             throw error;
         }
-    }, [value, task, onClose, updateScheduleTime, currentLensProfile]);
+    }, [value, task, currentLensProfile, onClose, updateScheduleTime, disableSource]);
 
     return (
         <div className="flex-col px-4 py-2 pb-6 text-main max-md:px-0 max-md:pb-2">
