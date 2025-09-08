@@ -109,19 +109,6 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
                 a: (props) => <MarkupLink {...props} post={post} source={post?.source} />,
                 code: Code,
                 ol: Ol,
-                ul: ({ children }) => <div>{children}</div>,
-                // @ts-ignore
-                li: ({ children, ordered, index, ...props }) => {
-                    const prefix = ordered ? `${index}. ` : '- ';
-                    return (
-                        <div>
-                            {prefix}
-                            {children}
-                        </div>
-                    );
-                },
-
-                strong: ({ children }) => <span>**{children}**</span>,
 
                 ...(post?.source !== Source.Lens
                     ? {

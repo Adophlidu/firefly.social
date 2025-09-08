@@ -98,7 +98,7 @@ async function updateState(accounts: Account[], { setAsCurrent = true, overwrite
         if (thirdPartyAccounts.length) {
             thirdPartyState.resetCurrentAccount();
             thirdPartyState.updateAccounts([]);
-            signOut({
+            await signOut({
                 redirect: false,
             });
         }
@@ -562,7 +562,7 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
             ]);
         }
     }
-    runInSafeAsync(async () => {
+    await runInSafeAsync(async () => {
         if (TwitterSession.isNextAuth(account.session)) {
             await signOut({
                 redirect: false,
@@ -593,7 +593,7 @@ export async function removeAccountsByProfiles(profiles: Profile[], signal?: Abo
             state.removeAccount(account);
         }
 
-        runInSafeAsync(async () => {
+        await runInSafeAsync(async () => {
             if (TwitterSession.isNextAuth(account.session)) {
                 await signOut({
                     redirect: false,
@@ -641,33 +641,37 @@ export async function removeCurrentAccount(source: SocialSource) {
 export async function removeAllAccounts() {
     const allAccounts = SORTED_SOCIAL_SOURCES.flatMap((x) => getProfileState(x).accounts);
 
-    SORTED_SOCIAL_SOURCES.forEach(async (x) => {
-        const state = getProfileState(x);
-        if (!state.accounts.length) return;
+    await Promise.all(
+        SORTED_SOCIAL_SOURCES.map(async (x) => {
+            const state = getProfileState(x);
+            if (!state.accounts.length) return;
 
-        const hasTwitterSession = state.accounts.some((x) => TwitterSession.isNextAuth(x.session));
+            const hasTwitterSession = state.accounts.some((x) => TwitterSession.isNextAuth(x.session));
 
-        state.clear();
-        resolveSessionHolder(x)?.removeSession();
+            state.clear();
+            resolveSessionHolder(x)?.removeSession();
 
-        if (hasTwitterSession) {
+            if (hasTwitterSession) {
+                await signOut({
+                    redirect: false,
+                });
+            }
+        }),
+    );
+
+    await Promise.all(
+        SORTED_THIRD_PARTY_SOURCES.map(async (x) => {
+            const state = useThirdPartyProfileStore.getState();
+            if (!state.accounts.length) return;
+
+            state.clear();
+            resolveSessionHolderFromProfileSource(x)?.removeSession();
+
             await signOut({
                 redirect: false,
             });
-        }
-    });
-
-    SORTED_THIRD_PARTY_SOURCES.forEach(async (x) => {
-        const state = useThirdPartyProfileStore.getState();
-        if (!state.accounts.length) return;
-
-        state.clear();
-        resolveSessionHolderFromProfileSource(x)?.removeSession();
-
-        await signOut({
-            redirect: false,
-        });
-    });
+        }),
+    );
 
     await removeFireflyAccountIfNeeded();
 

@@ -27,7 +27,7 @@ export class TwitterSession extends BaseSession implements Session {
     }
 
     override async destroy(): Promise<void> {
-        signOut();
+        await signOut();
     }
 
     override serialize(): `${SessionType}:${string}` {

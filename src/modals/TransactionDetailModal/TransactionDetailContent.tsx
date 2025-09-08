@@ -73,7 +73,7 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
     switch (transaction.category) {
         case TransactionHistoryCategory.TokenReceive: {
             const token = first(transaction.token_receives);
-
+            if (!token) return null;
             return (
                 <TokenInfoRow
                     chainId={transaction.chain_id}
@@ -89,7 +89,7 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
         }
         case TransactionHistoryCategory.TokenSend: {
             const token = first(transaction.token_sends);
-
+            if (!token) return null;
             return (
                 <TokenInfoRow
                     chainId={transaction.chain_id}
@@ -105,6 +105,7 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
         }
         case TransactionHistoryCategory.TokenApprove: {
             const token = transaction.token_approve?.token;
+            if (!token) return null;
             return (
                 <TokenInfoRow
                     chainId={transaction.chain_id}
@@ -124,6 +125,7 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
         }
         case TransactionHistoryCategory.TokenRevoke: {
             const token = transaction.token_approve?.token;
+            if (!token) return null;
             return (
                 <TokenInfoRow
                     chainId={transaction.chain_id}
@@ -147,30 +149,38 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
             const receivedToken = first(transaction.token_receives);
             return (
                 <div>
-                    <TokenInfoRow
-                        chainId={transaction.chain_id}
-                        label={<Trans>Sent</Trans>}
-                        tokenLogo={sentToken?.token.logo ?? null}
-                        tokenSymbol={sentToken?.token.symbol ?? null}
-                        tokenName={sentToken?.token.name ?? null}
-                        amountText={sentToken?.amount ? renderShrankPrice(formatPrice(sentToken.amount) ?? '') : null}
-                        amountPrefix="-"
-                        amountClassName="text-main"
-                    />
+                    {sentToken ? (
+                        <TokenInfoRow
+                            chainId={transaction.chain_id}
+                            label={<Trans>Sent</Trans>}
+                            tokenLogo={sentToken?.token.logo ?? null}
+                            tokenSymbol={sentToken?.token.symbol ?? null}
+                            tokenName={sentToken?.token.name ?? null}
+                            amountText={
+                                sentToken?.amount ? renderShrankPrice(formatPrice(sentToken.amount) ?? '') : null
+                            }
+                            amountPrefix="-"
+                            amountClassName="text-main"
+                        />
+                    ) : null}
 
-                    <TokenInfoRow
-                        chainId={transaction.chain_id}
-                        label={<Trans>Received</Trans>}
-                        tokenLogo={receivedToken?.token.logo ?? null}
-                        tokenSymbol={receivedToken?.token.symbol ?? null}
-                        tokenName={receivedToken?.token.name ?? null}
-                        amountText={
-                            receivedToken?.amount ? renderShrankPrice(formatPrice(receivedToken.amount) ?? '') : null
-                        }
-                        amountPrefix="+"
-                        amountClassName="text-success"
-                        showLabelMarginTop
-                    />
+                    {receivedToken ? (
+                        <TokenInfoRow
+                            chainId={transaction.chain_id}
+                            label={<Trans>Received</Trans>}
+                            tokenLogo={receivedToken?.token.logo ?? null}
+                            tokenSymbol={receivedToken?.token.symbol ?? null}
+                            tokenName={receivedToken?.token.name ?? null}
+                            amountText={
+                                receivedToken?.amount
+                                    ? renderShrankPrice(formatPrice(receivedToken.amount) ?? '')
+                                    : null
+                            }
+                            amountPrefix="+"
+                            amountClassName="text-success"
+                            showLabelMarginTop
+                        />
+                    ) : null}
                 </div>
             );
         }
@@ -184,8 +194,8 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
     const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: transaction.from_address });
 
     const isSolana = transaction.chain_id === SolanaChainId.Mainnet;
-    const fromAddress = transaction.from_address || token?.sender;
-    const toAddress = transaction.to_address || token?.recipient;
+    const fromAddress = token?.sender || transaction.from_address;
+    const toAddress = token?.recipient || transaction.to_address;
 
     const fromAddressName = fromAddress ? formatAddress(fromAddress, 4).toLowerCase() : undefined;
     const toAddressName = toAddress ? formatAddress(toAddress, 4).toLowerCase() : undefined;
@@ -198,6 +208,11 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
         transaction.hash as `0x${string}`,
     );
 
+    const closeModal = useCallback(() => {
+        TransactionDetailModalRef.close();
+    }, [TransactionDetailModalRef]);
+
+    console.log(transaction);
     const target = useMemo(() => {
         if (!fromAddress || !toAddress) return null;
         switch (transaction.category) {
@@ -213,6 +228,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                             />
                         }
                         text={fromEnsHandle ?? fromAddressName}
+                        onClick={closeModal}
                     />
                 );
             case TransactionHistoryCategory.TokenSend:
@@ -227,6 +243,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                             />
                         }
                         text={toEnsHandle ?? toAddressName}
+                        onClick={closeModal}
                     />
                 );
             case TransactionHistoryCategory.TokenApprove:
@@ -242,6 +259,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                             ) : undefined
                         }
                         text={transaction.project_name ?? (toAddressName || '')}
+                        onClick={closeModal}
                     />
                 );
             case TransactionHistoryCategory.TokenRevoke:
@@ -257,6 +275,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                             ) : undefined
                         }
                         text={transaction.token_approve?.spender_address ?? (toAddressName || '')}
+                        onClick={closeModal}
                     />
                 );
             default:
@@ -265,14 +284,11 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                         href={getProfileUrl({ source: Source.Wallet, profileId: toAddress })}
                         logo={<ClipboardTextIcon className="size-3 text-secondary" />}
                         text={toAddressName || ''}
+                        onClick={closeModal}
                     />
                 );
         }
-    }, [transaction, toEnsHandle, toAddress, fromAddress, fromEnsHandle]);
-
-    const closeModal = useCallback(() => {
-        TransactionDetailModalRef.close();
-    }, [TransactionDetailModalRef]);
+    }, [transaction, toEnsHandle, toAddress, fromAddress, fromEnsHandle, closeModal]);
 
     if (!fromAddress || !toAddress) return null;
 
@@ -329,7 +345,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                             <span className="text-sm text-second">
                                 <Trans>To Address</Trans>
                             </span>
-                            <span className="flex gap-1">
+                            <span className="flex items-center gap-1">
                                 <Avatar
                                     src={getStampAvatarByProfileId(Source.Wallet, toAddress)}
                                     size={12}

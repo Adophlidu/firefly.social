@@ -40,7 +40,8 @@ export function SnapshotStatus({ status, className }: Props) {
             className={classNames(
                 'flex items-center gap-1 rounded-full bg-lightMain px-3 py-[2px] text-sm leading-[18px] text-lightBottom opacity-40',
                 {
-                    '!bg-highlight': isActiveOrPending,
+                    '!bg-highlight !opacity-100': status === SnapshotState.Active,
+                    '!bg-highlight !bg-opacity-50': status === SnapshotState.Pending,
                     '!bg-danger !bg-opacity-50': status === SnapshotState.Rejected,
                     '!opacity-50': status === SnapshotState.Pending,
                 },

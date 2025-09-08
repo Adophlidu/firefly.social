@@ -8,11 +8,12 @@ export interface InlineTargetProps {
     logo?: ReactNode;
     text: ReactNode;
     className?: string;
+    onClick?: () => void;
 }
 
-export function InlineTarget({ href, logo, text, className }: InlineTargetProps) {
+export function InlineTarget({ href, logo, text, className, onClick }: InlineTargetProps) {
     return (
-        <Link href={href} className={classNames('flex items-center gap-x-1', className)}>
+        <Link href={href} className={classNames('flex items-center gap-x-1', className)} onClick={onClick}>
             {logo}
             <span className="text-xs leading-[12px]">{text}</span>
         </Link>

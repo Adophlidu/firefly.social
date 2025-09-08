@@ -24,7 +24,7 @@ export function SnapshotFallbackContent({ title, body }: { title: string; body: 
             <ClickableArea className="relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3 text-left text-commonMain">
                 <div
                     className={
-                        'flex items-center gap-1 self-start rounded-full bg-secondary px-3 py-[2px] text-sm leading-[18px] text-white'
+                        'flex items-center gap-1 self-start rounded-full bg-lightMain px-3 py-[2px] text-sm leading-[18px] text-lightBottom opacity-40'
                     }
                 >
                     <ActiveIcon />
@@ -48,7 +48,7 @@ export function SnapshotFallbackContent({ title, body }: { title: string; body: 
                                     'flex-1 rounded-t-xl px-4 py-2 text-base font-bold leading-5 outline-none',
                                     {
                                         'text-secondary': i !== 0,
-                                        'bg-white text-main': i === 0,
+                                        'bg-primaryBottom text-main': i === 0,
                                     },
                                 )}
                                 key={x.value}
@@ -57,7 +57,7 @@ export function SnapshotFallbackContent({ title, body }: { title: string; body: 
                             </Tab>
                         ))}
                     </Tab.List>
-                    <Tab.Panels className="rounded-b-xl bg-white p-4">
+                    <Tab.Panels className="rounded-b-xl bg-primaryBottom p-4">
                         <Tab.Panel>
                             <SnapshotMarkup className="no-scrollbar overflow-auto text-sm leading-[18px] text-secondary max-md:h-[270px] md:h-[374px]">
                                 {body}
