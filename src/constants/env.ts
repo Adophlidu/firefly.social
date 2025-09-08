@@ -60,6 +60,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_FORCE_SIGNUP: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_PRIVY: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_POST_BY_ANONYMOUS: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_BANNER_CACHE: z.nativeEnum(STATUS).default(STATUS.Enabled),
 
     // hubble
     NEXT_PUBLIC_NEYNAR_URL: z.string().default('https://neynar-proxy.r2d2.to'),
@@ -136,6 +137,7 @@ export const env = {
         NEXT_PUBLIC_FORCE_SIGNUP: process.env.NEXT_PUBLIC_FORCE_SIGNUP,
         NEXT_PUBLIC_PRIVY: process.env.NEXT_PUBLIC_PRIVY,
         NEXT_PUBLIC_POST_BY_ANONYMOUS: process.env.NEXT_PUBLIC_POST_BY_ANONYMOUS,
+        NEXT_PUBLIC_BANNER_CACHE: process.env.NEXT_PUBLIC_BANNER_CACHE,
 
         // hubble
         NEXT_PUBLIC_NEYNAR_URL: process.env.NEXT_PUBLIC_NEYNAR_URL,
