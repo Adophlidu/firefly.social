@@ -1,4 +1,5 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { compact } from 'lodash-es';
 
 import { getPoapsByWallet } from '@/services/getPoapsByWallet.js';
 
@@ -10,9 +11,13 @@ export function usePoapsByWallet(address: string) {
         getNextPageParam: () => undefined,
         queryKey: ['poap-list', address],
         queryFn: async () => {
-            const poaps = await getPoapsByWallet(address);
-            return { data: poaps };
+            try {
+                const poaps = await getPoapsByWallet(address);
+                return { data: poaps };
+            } catch {
+                return;
+            }
         },
-        select: (data) => data.pages.flatMap((x) => x.data),
+        select: (data) => compact(data.pages.flatMap((x) => x?.data || [])),
     });
 }
