@@ -1,6 +1,8 @@
+'use client';
+
 import { Trans } from '@lingui/react/macro';
-import { useMemo } from 'react';
-import { useWindowSize } from 'usehooks-ts';
+import { debounce } from 'lodash-es';
+import { useEffect, useState } from 'react';
 
 import { ShadowInAndOut } from '@/app/(whiteboard)/components/Signup/ShadowInAndOut.js';
 import { SquareButton } from '@/app/(whiteboard)/components/Signup/SquareButton.js';
@@ -16,18 +18,28 @@ interface GuidePageProps {
     changeStep: (step: SignupStep) => void;
 }
 
+function computeFontSize() {
+    const windowWidth = window?.innerWidth || 1920;
+    return {
+        title: Math.max(20, Math.min(40, (40 / 1920) * windowWidth)),
+        tip: Math.max(14, Math.min(18, (18 / 1920) * windowWidth)),
+    };
+}
+
 export function GuidePage({ changeStep }: GuidePageProps) {
     const { isLoading } = useCheckFireflyAccount(false, true);
-    const { width } = useWindowSize({
-        debounceDelay: 100,
-    });
+    const [fontSizes, setFontSizes] = useState(computeFontSize());
 
-    const { titleFontSize, tipFontSize } = useMemo(() => {
-        return {
-            titleFontSize: Math.max(20, Math.min(40, (40 / 1920) * width)),
-            tipFontSize: Math.max(14, Math.min(18, (18 / 1920) * width)),
+    useEffect(() => {
+        const onWindowSizeChange = debounce(() => {
+            setFontSizes(computeFontSize());
+        }, 100);
+
+        window.addEventListener('resize', onWindowSizeChange);
+        return () => {
+            window.removeEventListener('resize', onWindowSizeChange);
         };
-    }, [width]);
+    }, []);
 
     return (
         <div className="no-scrollbar absolute inset-0 z-1 flex flex-col items-center justify-center gap-[6.875%] md:flex-row">
@@ -38,7 +50,7 @@ export function GuidePage({ changeStep }: GuidePageProps) {
                 <h1
                     className={`font-bold uppercase leading-[100%] ${bedStead.className}`}
                     style={{
-                        fontSize: titleFontSize,
+                        fontSize: `${fontSizes.title}px`,
                     }}
                 >
                     <Trans>Everything app for Web3 natives</Trans>
@@ -46,7 +58,7 @@ export function GuidePage({ changeStep }: GuidePageProps) {
                 <p
                     className="mt-4 font-bold leading-[100%]"
                     style={{
-                        fontSize: tipFontSize,
+                        fontSize: `${fontSizes.tip}px`,
                     }}
                 >
                     <Trans>
