@@ -60,6 +60,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
     const myProfile = useCurrentProfile(post.source);
     const { data: profile = null, isLoading: queryProfileLoading } = useQuery({
         queryKey: ['profile', post.source, post.author.profileId, myProfile?.profileId],
+        enabled: collectModule?.followerOnly && isLogin,
         queryFn: async () => {
             return resolveSocialMediaProvider(post.source).getProfileByIdOrHandle(post.author.handle);
         },
@@ -265,8 +266,9 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             <div className="mt-6 flex gap-2 max-md:mt-4">
                 <ChainGuardButton
                     targetChainId={LENS_CHAIN_ID}
-                    className="w-full"
+                    className="h-10 w-full"
                     loading={loading}
+                    onlyLoading={queryBalanceLoading || queryProfileLoading}
                     disabled={disabled}
                     onClick={handleClick}
                 >
