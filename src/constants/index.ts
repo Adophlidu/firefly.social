@@ -293,7 +293,7 @@ export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
         TrendingType.Trending,
         TrendingType.Meme,
     ],
-    [ExploreType.TopChannels]: [Source.Farcaster, Source.Bsky],
+    [ExploreType.TopChannels]: [Source.Bsky],
 };
 
 export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource | undefined> = {
@@ -301,7 +301,7 @@ export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource | undefin
     [ExploreType.Projects]: undefined,
     [ExploreType.TruthSocial]: undefined,
     [ExploreType.CryptoTrends]: TrendingType.Trending,
-    [ExploreType.TopChannels]: Source.Farcaster,
+    [ExploreType.TopChannels]: Source.Bsky,
     [ExploreType.NFTs]: TrendingType.Trending,
 };
 
