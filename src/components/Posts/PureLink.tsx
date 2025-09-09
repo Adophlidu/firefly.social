@@ -24,11 +24,11 @@ export function PureLink({ url, title, description, className }: PureLinkProps) 
             onClick={stopPropagation}
             rel="nofollow noopener noreferrer"
             className={classNames(
-                'flex h-[120px] gap-4 overflow-hidden rounded-2xl border border-lightLineSecond',
+                'flex h-[120px] gap-4 overflow-hidden rounded-2xl border border-secondaryLine',
                 className,
             )}
         >
-            <div className="flex aspect-square h-full shrink-0 items-center justify-center bg-bg">
+            <div className="flex aspect-square h-full shrink-0 items-center justify-center bg-lightBg">
                 <PureLinkIcon width={56} height={56} />
             </div>
             <div className="flex min-w-0 flex-1 flex-col items-start justify-center gap-1 pr-4">
@@ -37,9 +37,10 @@ export function PureLink({ url, title, description, className }: PureLinkProps) 
                         {siteTitle}
                     </h1>
                 ) : null}
-                <div className="line-clamp-2 max-w-full text-sm font-medium text-highlight">
-                    {description || domain || url}
-                </div>
+                {description ? (
+                    <div className="line-clamp-2 max-w-full text-sm font-normal text-second">{description}</div>
+                ) : null}
+                <div className="line-clamp-1 max-w-full text-sm font-medium text-highlight">{domain || url}</div>
             </div>
         </Link>
     );

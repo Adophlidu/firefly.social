@@ -62,29 +62,12 @@ export function Embed({ og }: EmbedProps) {
                                 />
                             </div>
                         ) : null}
-                        <div className="truncate p-2 text-left text-second md:p-5">
-                            <div className="space-y-1.5">
-                                <div className="truncate font-bold">{og.title || u.host}</div>
-                                {og.description || u.hostname ? (
-                                    <div className="ld-text-gray-500 line-clamp-1 whitespace-break-spaces">
-                                        {og.description || u.hostname}
-                                    </div>
-                                ) : null}
-                                {og.site ? (
-                                    <div className="flex items-center space-x-2 pt-1.5">
-                                        {og.favicon ? (
-                                            // eslint-disable-next-line @next/next/no-img-element
-                                            <img
-                                                className="size-4 rounded-full"
-                                                height={16}
-                                                width={16}
-                                                src={og.favicon}
-                                                alt="Favicon"
-                                            />
-                                        ) : null}
-                                        <div className="ld-text-gray-500 text-xs">{og.site}</div>
-                                    </div>
-                                ) : null}
+                        <div className="truncate px-3 py-2 text-left text-second">
+                            <div className="line-clamp-1 max-w-full text-base font-semibold text-main first-letter:uppercase">
+                                {og.title || u.host}
+                            </div>
+                            <div className="line-clamp-1 max-w-full text-sm font-medium text-highlight">
+                                {u?.hostname || og.url}
                             </div>
                         </div>
                     </div>
