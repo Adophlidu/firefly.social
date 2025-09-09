@@ -71,7 +71,7 @@ export const NotificationMenu = memo<NotificationMenuProps>(function Notificatio
             isSelected={isSelected}
             collapsed={collapsed}
             menuName={<Trans>Notifications</Trans>}
-            icon={<Icon width={size} height={size} />}
+            icon={<Icon className={hasNewNotification ? 'swing-animation' : ''} width={size} height={size} />}
             onClick={onLinkClick}
         />
     );
