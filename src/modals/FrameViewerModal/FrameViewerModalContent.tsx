@@ -1,6 +1,6 @@
 import { exposeToIframe } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
-import { type ReactNode,useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useAccount, useChainId } from 'wagmi';
 
 import { Image } from '@/components/Image.js';
@@ -36,7 +36,6 @@ export function FrameViewerModal({ open, onClose, props, setProps }: Props) {
 
     const account = useAccount();
     const chainId = useChainId();
-    const [errorMessage, setErrorMessage] = useState<ReactNode | null>(null);
 
     const endpointRef = useRef<ReturnType<typeof exposeToIframe>['endpoint']>(null);
 
@@ -136,32 +135,12 @@ export function FrameViewerModal({ open, onClose, props, setProps }: Props) {
                 style={{
                     backgroundColor: frame.button.action.splashBackgroundColor,
                 }}
-                onLoad={() => {
-                    try {
-                        if (frameRef.current?.contentDocument || frameRef.current?.contentWindow?.document) {
-                            console.log(
-                                `[FrameViewerModal] miniapp loaded and accessible, url=${frame.button.action.url}`,
-                            );
-                        }
-                    } catch {
-                        setErrorMessage(
-                            <Trans>Miniapp loaded but not accessible (likely cross-origin or blocked)</Trans>,
-                        );
-                    }
-                }}
-                onError={() => {
-                    setErrorMessage(<Trans>Failed to load miniapp. Please try again later.</Trans>);
-                }}
             />
             {props.timeout ? (
                 <div className="absolute inset-0 top-[60px] flex items-center justify-center bg-primaryBottom">
                     <p className="text-sm">
-                        <Trans>The content is taking too long to load. Please try again later.</Trans>
+                        <Trans>Something went wrong. Please try again later.</Trans>
                     </p>
-                </div>
-            ) : errorMessage ? (
-                <div className="absolute inset-0 top-[60px] flex items-center justify-center bg-primaryBottom">
-                    <p className="text-sm">{errorMessage}</p>
                 </div>
             ) : !props.ready ? (
                 <div
