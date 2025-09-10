@@ -3342,6 +3342,9 @@ msgstr ""
 msgid "Translated from {contentLanguage}"
 msgstr ""
 
+msgid "Failed to open miniapp"
+msgstr ""
+
 msgid "Follow @realMaskNetwork on X"
 msgstr ""
 

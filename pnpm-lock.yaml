@@ -94,8 +94,8 @@ dependencies:
     specifier: ^0.18.4
     version: 0.18.4(patch_hash=hngiodc6uoegwmshm6epwtctuy)(typescript@5.7.3)(zod@3.24.2)
   '@farcaster/miniapp-host':
-    specifier: ^0.2.8
-    version: 0.2.8(react@19.0.0)(typescript@5.7.3)(zod@3.24.2)
+    specifier: ^0.2.12
+    version: 0.2.12(react@19.0.0)(typescript@5.7.3)(zod@3.24.2)
   '@floating-ui/react':
     specifier: 0.27.9
     version: 0.27.9(react-dom@19.0.0)(react@19.0.0)
@@ -3964,8 +3964,8 @@ packages:
     dev: false
     patched: true
 
-  /@farcaster/miniapp-core@0.3.8(typescript@5.7.3):
-    resolution: {integrity: sha512-LaRG1L3lxHqo5pP/E2CX9hNqusR0C8hX3QTV2+hzmQJz6IGvmSpH6Q9ivlLyDfbdqokiMFo5Y3Z1EX1zBHMEQQ==}
+  /@farcaster/miniapp-core@0.3.9(typescript@5.7.3):
+    resolution: {integrity: sha512-7k2AHYycFABUEQFHGqsuZr6P6UQOE2WO4/Qj/kQ1ydKA8QjrWxO4HjiPfnTdvqH0xOKtdavbFOV5lK5bDLkemw==}
     dependencies:
       '@solana/web3.js': 1.98.2(typescript@5.7.3)
       ox: 0.4.4(typescript@5.7.3)(zod@3.24.2)
@@ -3977,12 +3977,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@farcaster/miniapp-host@0.2.8(react@19.0.0)(typescript@5.7.3)(zod@3.24.2):
-    resolution: {integrity: sha512-bPxBKFXQNjSl9OOobsqaPOs6/vScK3+Lg/MGLkaLZ18qbFRZuUK6aC0LL7L/R0V8g/5KdvWpCLGgaR/qukg+hw==}
+  /@farcaster/miniapp-host@0.2.12(react@19.0.0)(typescript@5.7.3)(zod@3.24.2):
+    resolution: {integrity: sha512-wsHKbkTj/1zAx0oIVuIpZPQFEtALlB4TvweDthBfzS6EVL9dYjKJFr4SvR2KUXEsD9BNrNCLGEExlKQYIWL6Zw==}
     peerDependencies:
       react: 19.0.0
     dependencies:
-      '@farcaster/miniapp-core': 0.3.8(typescript@5.7.3)
+      '@farcaster/miniapp-core': 0.3.9(typescript@5.7.3)
       ox: 0.4.4(typescript@5.7.3)(zod@3.24.2)
       react: 19.0.0
     transitivePeerDependencies:
@@ -21238,7 +21238,7 @@ time:
   /@coral-xyz/anchor@0.30.1: '2024-06-20T15:28:00.153Z'
   /@crowdin/cli@4.7.1: '2025-06-05T13:08:33.288Z'
   /@farcaster/core@0.18.4: '2025-07-12T16:14:38.184Z'
-  /@farcaster/miniapp-host@0.2.8: '2025-08-16T18:40:20.808Z'
+  /@farcaster/miniapp-host@0.2.12: '2025-09-05T16:45:18.036Z'
   /@floating-ui/react@0.27.9: '2025-05-26T03:31:17.104Z'
   /@giphy/js-fetch-api@5.6.0: '2024-05-28T16:39:28.633Z'
   /@giphy/react-components@9.8.0: '2024-11-05T16:50:07.282Z'

@@ -1,3 +1,4 @@
+import type { AppRouterProgressInstance } from '@bprogress/next';
 import type { Context, SetPrimaryButton } from '@farcaster/miniapp-host';
 import { memo, useState } from 'react';
 
@@ -18,6 +19,87 @@ import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActio
 import { type Post, type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 import type { FrameV2 } from '@/types/frame.js';
 
+function createFrameHost(
+    frame: FrameV2,
+    post: Post,
+    router: AppRouterProgressInstance,
+    options?: {
+        setPrimaryButton?: SetPrimaryButton;
+    },
+): FarcasterFrameHost {
+    const profile = getProfileFromStorage(Source.Farcaster);
+    const fid = Number.parseInt(profile?.profileId ?? '0', 10);
+    const context = {
+        user: {
+            fid,
+            username: profile?.handle,
+            displayName: profile?.displayName,
+            pfpUrl: profile?.pfp,
+            location: {
+                placeId: 'firefly',
+                description: SITE_NAME,
+            },
+        },
+        location: {
+            type: 'cast_embed',
+            embed: resolvePostUrl(post.source, post.postId),
+            cast: {
+                author: {
+                    fid: Number.parseInt(post.author.profileId, 10),
+                    username: post.author.handle,
+                    displayName: post.author.displayName,
+                    pfpUrl: post.author.pfp,
+                },
+                hash: post.postId,
+                parentFid: post.parentAuthor?.profileId as number | undefined,
+                parentHash: post.parentPostId,
+                text: post.metadata.content?.content ?? '',
+                embeds: post.metadata.content?.oembedUrls ?? [],
+                channelKey: post.parentChannelKey,
+                timestamp: post.timestamp,
+                mentions: post.mentions?.map((mention) => ({
+                    fid: Number.parseInt(mention.profileId, 10),
+                })),
+            },
+        },
+        client: {
+            added: false,
+            clientFid: fid,
+        },
+    } satisfies Context.MiniAppContext;
+
+    const frameHost = new FarcasterFrameHost(context, {
+        frame: () => frame,
+        ready: (options) =>
+            FrameViewerModalRef.open({
+                ready: true,
+                timeout: false,
+                frame,
+                frameHost,
+            }),
+        close: () => FrameViewerModalRef.close(),
+        setPrimaryButton: options?.setPrimaryButton,
+        viewCast: (hash: string) => {
+            router.push(`/post/farcaster/${hash}`);
+        },
+        viewProfile: (profile: Profile) => {
+            router.push(`/profile/farcaster/${profile.handle}/feed`);
+        },
+        openMiniApps: (frame: FrameV2) => {
+            console.log('[frame host]: openMiniApps', frame);
+
+            FrameViewerModalRef.open({
+                ready: false,
+                timeout: false,
+                frame,
+                frameHost: createFrameHost(frame, post, router),
+            });
+        },
+    });
+
+    return frameHost;
+}
+
 interface CardProps {
     post: Post;
     frame: FrameV2;
@@ -30,64 +112,8 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
     const [primaryButton, setPrimaryButton] = useState<Parameters<SetPrimaryButton>[0] | null>(null);
 
     const [frameHost] = useState(() => {
-        const profile = getProfileFromStorage(Source.Farcaster);
-        const fid = Number.parseInt(profile?.profileId ?? '0', 10);
-        const context = {
-            user: {
-                fid,
-                username: profile?.handle,
-                displayName: profile?.displayName,
-                pfpUrl: profile?.pfp,
-                location: {
-                    placeId: 'firefly',
-                    description: SITE_NAME,
-                },
-            },
-            location: {
-                type: 'cast_embed',
-                embed: resolvePostUrl(post.source, post.postId),
-                cast: {
-                    author: {
-                        fid: Number.parseInt(post.author.profileId, 10),
-                        username: post.author.handle,
-                        displayName: post.author.displayName,
-                        pfpUrl: post.author.pfp,
-                    },
-                    hash: post.postId,
-                    parentFid: post.parentAuthor?.profileId as number | undefined,
-                    parentHash: post.parentPostId,
-                    text: post.metadata.content?.content ?? '',
-                    embeds: post.metadata.content?.oembedUrls ?? [],
-                    channelKey: post.parentChannelKey,
-                    timestamp: post.timestamp,
-                    mentions: post.mentions?.map((mention) => ({
-                        fid: Number.parseInt(mention.profileId, 10),
-                    })),
-                },
-            },
-            client: {
-                added: false,
-                clientFid: fid,
-            },
-        } satisfies Context.MiniAppContext;
-
-        return new FarcasterFrameHost(context, {
-            frame: () => frame,
-            ready: (options) =>
-                FrameViewerModalRef.open({
-                    ready: true,
-                    timeout: false,
-                    frame,
-                    frameHost,
-                }),
-            close: () => FrameViewerModalRef.close(),
+        return createFrameHost(frame, post, router, {
             setPrimaryButton,
-            viewCast: (hash: string) => {
-                router.push(`/post/farcaster/${hash}`);
-            },
-            viewProfile: (profile: Profile) => {
-                router.push(`/profile/farcaster/${profile.handle}`);
-            },
         });
     });
 

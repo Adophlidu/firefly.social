@@ -1,5 +1,6 @@
 import { type Context, type MiniAppHost, type ReadyOptions, type SetPrimaryButton } from '@farcaster/miniapp-host';
 import { t } from '@lingui/core/macro';
+import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/debank.js';
@@ -19,6 +20,7 @@ import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/controls.
 import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FrameLoader } from '@/providers/frame/Loader.js';
 import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { signInWithFarcaster } from '@/providers/warpcast/signInWithFarcaster.js';
@@ -35,6 +37,7 @@ export class FarcasterFrameHost implements MiniAppHost {
             setPrimaryButton?: SetPrimaryButton;
             viewCast?: (hash: string) => void;
             viewProfile?: (profile: Profile) => void;
+            openMiniApps?: (frame: FrameV2) => void;
             eip6963RequestProvider?: () => void;
         },
     ) {}
@@ -49,9 +52,18 @@ export class FarcasterFrameHost implements MiniAppHost {
         throw new NotImplementedError();
     };
 
-    openMiniApp: MiniAppHost['openMiniApp'] = (options) => {
+    openMiniApp: MiniAppHost['openMiniApp'] = async (options) => {
         console.warn('[frame host]: openMiniApp', options);
-        throw new NotImplementedError();
+        const frames = await FrameLoader.load([options.url]);
+        const frame = first(frames)?.value;
+        if (!frame) {
+            enqueueWarningMessage(t`Failed to open miniapp`);
+            return;
+        }
+
+        // TODO: request double confirmation from the user
+
+        this.options?.openMiniApps?.(frame as FrameV2);
     };
 
     close: MiniAppHost['close'] = () => {
@@ -98,6 +110,10 @@ export class FarcasterFrameHost implements MiniAppHost {
         });
         if (!signed) throw new Error('Failed to sign in farcaster');
         return signed;
+    };
+
+    signManifest: MiniAppHost['signManifest'] = async (options) => {
+        throw new NotImplementedError();
     };
 
     viewToken: MiniAppHost['viewToken'] = async (options) => {
@@ -264,7 +280,7 @@ export class FarcasterFrameHost implements MiniAppHost {
             'actions.viewToken',
             // 'actions.sendToken',
             // 'actions.swapToken',
-            // 'actions.openMiniApp',
+            'actions.openMiniApp',
             // 'haptics.impactOccurred',
             // 'haptics.notificationOccurred',
             // 'haptics.selectionChanged',

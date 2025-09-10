@@ -3355,6 +3355,9 @@ msgstr "Received"
 msgid "Translated from {contentLanguage}"
 msgstr "Translated from {contentLanguage}"
 
+msgid "Failed to open miniapp"
+msgstr "Failed to open miniapp"
+
 msgid "Follow @realMaskNetwork on X"
 msgstr "Follow @realMaskNetwork on X"
 
