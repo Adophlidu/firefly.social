@@ -83,7 +83,7 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
     }
 
     private async transferContract(options: TransactionOptions<EthereumChainId, Address>): Promise<Address> {
-        const { isEIP1559, gasPrice, maxFeePerGas } = await getDefaultGas(options);
+        const { isEIP1559, gasPrice, maxFeePerGas, maxPriorityFeePerGas } = await getDefaultGas(options);
         const gas = multipliedBy((this.isNativeToken(options.token) ? 21000n : 50000n).toString(), '3').toFixed(0);
 
         const parameters = {
@@ -99,7 +99,9 @@ class Provider implements TransferProvider<EthereumChainId, Address, Hash> {
             return writeContract(wagmiConfig, {
                 ...parameters,
                 type: 'eip1559',
+                gas: undefined,
                 maxFeePerGas,
+                maxPriorityFeePerGas,
             });
         }
         return writeContract(wagmiConfig, {
