@@ -102,10 +102,10 @@ export const MAX_DURATION_PER_VIDEO: Limitation = {
 };
 
 export const MIN_WIDTH_PER_VIDEO: Limitation = {
-    [Source.Lens]: 32,
-    [Source.Farcaster]: 32,
-    [Source.Twitter]: 32,
-    [Source.Bsky]: 32,
+    [Source.Lens]: 0,
+    [Source.Farcaster]: 0,
+    [Source.Twitter]: 0,
+    [Source.Bsky]: 0,
 };
 
 export const MAX_WIDTH_PER_VIDEO: Limitation = {
@@ -116,10 +116,10 @@ export const MAX_WIDTH_PER_VIDEO: Limitation = {
 };
 
 export const MIN_HEIGHT_PER_VIDEO: Limitation = {
-    [Source.Lens]: 32,
-    [Source.Farcaster]: 32,
-    [Source.Twitter]: 32,
-    [Source.Bsky]: 32,
+    [Source.Lens]: 0,
+    [Source.Farcaster]: 0,
+    [Source.Twitter]: 0,
+    [Source.Bsky]: 0,
 };
 
 export const MAX_HEIGHT_PER_VIDEO: Limitation = {
