@@ -131,8 +131,8 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
                         onClick={onClick}
                     >
                         {primaryButton?.text ||
-                            frame.x_manifest?.frame.buttonTitle ||
                             frame.button.title ||
+                            frame.x_manifest?.frame.buttonTitle ||
                             frame.button.action.name}
                     </ClickableButton>
                 )}
