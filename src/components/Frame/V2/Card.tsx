@@ -11,6 +11,7 @@ import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { FrameViewerModalRef } from '@/modals/FrameViewerModal/FrameViewerModal.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
@@ -24,6 +25,7 @@ interface CardProps {
 
 export const Card = memo<CardProps>(function Card({ post, frame }) {
     const router = useRouter();
+    const isDarkMode = useIsDarkMode();
 
     const [primaryButton, setPrimaryButton] = useState<Parameters<SetPrimaryButton>[0] | null>(null);
 
@@ -122,6 +124,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
                     width={530}
                     height={350}
                     src={frame.imageUrl}
+                    fallback={isDarkMode ? '/image/miniapps-fallback-dark.png' : '/image/miniapps-fallback-light.png'}
                     alt={frame.x_url}
                 />
                 {primaryButton?.hidden ? null : (
