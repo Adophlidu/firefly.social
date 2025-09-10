@@ -247,27 +247,25 @@ export const LensView = memo(function LensView() {
                 )
             ) : null}
 
-            {!isFetching ? (
-                account.address ? (
-                    <ClickableButton
-                        disabled={!currentProfile || !profiles.length}
-                        loading={loading}
-                        onClick={() => login()}
-                        className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
-                    >
-                        {loading ? <Trans>Signing transaction</Trans> : <Trans>Sign to Confirm</Trans>}
-                    </ClickableButton>
-                ) : (
-                    <ClickableButton
-                        className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
-                        onClick={() => {
-                            WalletConnectModalRef.open();
-                        }}
-                    >
-                        <Trans>Connect Wallet</Trans>
-                    </ClickableButton>
-                )
-            ) : null}
+            {account.address ? (
+                <ClickableButton
+                    disabled={!currentProfile || !profiles.length || isFetching}
+                    loading={loading}
+                    onClick={() => login()}
+                    className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
+                >
+                    {loading ? <Trans>Signing transaction</Trans> : <Trans>Sign to Confirm</Trans>}
+                </ClickableButton>
+            ) : (
+                <ClickableButton
+                    className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
+                    onClick={() => {
+                        WalletConnectModalRef.open();
+                    }}
+                >
+                    <Trans>Connect Wallet</Trans>
+                </ClickableButton>
+            )}
         </div>
     );
 });
