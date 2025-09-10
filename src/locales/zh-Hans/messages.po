@@ -2164,6 +2164,9 @@ msgstr "投票"
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr "个人介绍不可以超过 {maxBioSize} 个字符"
 
+msgid "Failed to load miniapp. Please try again later."
+msgstr ""
+
 #. placeholder {0}: activity.tx_status
 msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
 msgstr "{0, select, success {成功} failed {失败} pending {待处理} other {失败}}"
@@ -3055,6 +3058,9 @@ msgstr "访问 mask.io"
 msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 msgstr "我们无法模拟该交易或完成所有安全检测。请谨慎操作。"
 
+msgid "The content is taking too long to load. Please try again later."
+msgstr ""
+
 #. placeholder {0}: author.handle
 msgid "Unfollow @{0}"
 msgstr "取消关注 @{0}"
@@ -3835,9 +3841,6 @@ msgstr "Firefly"
 msgid "Invalid website format"
 msgstr "无效的网站格式"
 
-msgid "Something went wrong. Please try again later."
-msgstr "哎呀，出问题了，请稍后重试。"
-
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "支付<0>{feeAmount} ${feeSymbol}</0>来关注并获得专属福利！"
 
@@ -4001,6 +4004,9 @@ msgstr "{0, plural, one {收集} other {收集}}"
 
 msgid "Change"
 msgstr "切换"
+
+msgid "Miniapp loaded but not accessible (likely cross-origin or blocked)"
+msgstr ""
 
 msgid "Malicious mining activities."
 msgstr "恶意挖矿活动。"

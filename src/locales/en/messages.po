@@ -2159,6 +2159,9 @@ msgstr "Votes"
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr "Bio should not exceed {maxBioSize} characters"
 
+msgid "Failed to load miniapp. Please try again later."
+msgstr "Failed to load miniapp. Please try again later."
+
 #. placeholder {0}: activity.tx_status
 msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
 msgstr "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
@@ -3041,6 +3044,9 @@ msgstr "Visit mask.io"
 msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 msgstr "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 
+msgid "The content is taking too long to load. Please try again later."
+msgstr "The content is taking too long to load. Please try again later."
+
 #. placeholder {0}: author.handle
 msgid "Unfollow @{0}"
 msgstr "Unfollow @{0}"
@@ -3821,9 +3827,6 @@ msgstr "Firefly"
 msgid "Invalid website format"
 msgstr "Invalid website format"
 
-msgid "Something went wrong. Please try again later."
-msgstr "Something went wrong. Please try again later."
-
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 
@@ -3987,6 +3990,9 @@ msgstr "{0, plural, one {collect} other {collects}}"
 
 msgid "Change"
 msgstr "Change"
+
+msgid "Miniapp loaded but not accessible (likely cross-origin or blocked)"
+msgstr "Miniapp loaded but not accessible (likely cross-origin or blocked)"
 
 msgid "Malicious mining activities."
 msgstr "Malicious mining activities."

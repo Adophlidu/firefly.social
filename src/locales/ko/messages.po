@@ -2156,6 +2156,9 @@ msgstr ""
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr ""
 
+msgid "Failed to load miniapp. Please try again later."
+msgstr ""
+
 #. placeholder {0}: activity.tx_status
 msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
 msgstr ""
@@ -3033,6 +3036,9 @@ msgstr ""
 msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 msgstr ""
 
+msgid "The content is taking too long to load. Please try again later."
+msgstr ""
+
 #. placeholder {0}: author.handle
 msgid "Unfollow @{0}"
 msgstr ""
@@ -3813,9 +3819,6 @@ msgstr ""
 msgid "Invalid website format"
 msgstr ""
 
-msgid "Something went wrong. Please try again later."
-msgstr ""
-
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr ""
 
@@ -3975,6 +3978,9 @@ msgid "{0, plural, one {collect} other {collects}}"
 msgstr ""
 
 msgid "Change"
+msgstr ""
+
+msgid "Miniapp loaded but not accessible (likely cross-origin or blocked)"
 msgstr ""
 
 msgid "Malicious mining activities."
