@@ -2350,6 +2350,10 @@ msgstr "This can’t be undone, and the scheduled send will be canceled."
 msgid "NFT Mint"
 msgstr "NFT Mint"
 
+#. placeholder {0}: formatAddress(token.sender, 4)
+msgid "From <0>{0}</0>"
+msgstr "From <0>{0}</0>"
+
 msgid "Lens"
 msgstr "Lens"
 
@@ -4235,6 +4239,10 @@ msgstr "Clear all requirements"
 
 msgid "Claim Requirements"
 msgstr "Claim Requirements"
+
+#. placeholder {0}: formatAddress(token.recipient, 4)
+msgid "To <0>{0}</0>"
+msgstr "To <0>{0}</0>"
 
 msgid "Oversupply minting."
 msgstr "Oversupply minting."

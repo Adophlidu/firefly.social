@@ -347,9 +347,27 @@ function TransactionHistorySubTitle({ item }: { item: TransactionHistoryItem }) 
             </div>
         );
     }
+    if (item.category === TransactionHistoryCategory.TokenSend) {
+        return (
+            <div className="text-[13px] font-medium leading-[18px] text-second">
+                <Trans>
+                    To <span className="lowercase">{formatAddress(token.recipient, 4)}</span>
+                </Trans>
+            </div>
+        );
+    }
+    if (item.category === TransactionHistoryCategory.TokenReceive) {
+        return (
+            <div className="text-[13px] font-medium leading-[18px] text-second">
+                <Trans>
+                    From <span className="lowercase">{formatAddress(token.sender, 4)}</span>
+                </Trans>
+            </div>
+        );
+    }
     return (
         <div className="text-[13px] font-medium lowercase leading-[18px] text-second">
-            <div>{formatAddress(token.sender || token.recipient, 4)}</div>
+            {formatAddress(token.sender || token.recipient, 4)}
         </div>
     );
 }

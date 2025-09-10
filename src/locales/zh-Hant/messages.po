@@ -2364,6 +2364,10 @@ msgstr "此操作不可逆，並且預約發布任務將被取消。"
 msgid "NFT Mint"
 msgstr "NFT 鑄造"
 
+#. placeholder {0}: formatAddress(token.sender, 4)
+msgid "From <0>{0}</0>"
+msgstr ""
+
 msgid "Lens"
 msgstr "Lens"
 
@@ -4249,6 +4253,10 @@ msgstr "清除所有條件"
 
 msgid "Claim Requirements"
 msgstr "領取條件"
+
+#. placeholder {0}: formatAddress(token.recipient, 4)
+msgid "To <0>{0}</0>"
+msgstr ""
 
 msgid "Oversupply minting."
 msgstr "超額鑄造中"

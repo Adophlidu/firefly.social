@@ -2347,6 +2347,10 @@ msgstr ""
 msgid "NFT Mint"
 msgstr ""
 
+#. placeholder {0}: formatAddress(token.sender, 4)
+msgid "From <0>{0}</0>"
+msgstr ""
+
 msgid "Lens"
 msgstr ""
 
@@ -4223,6 +4227,10 @@ msgid "Clear all requirements"
 msgstr ""
 
 msgid "Claim Requirements"
+msgstr ""
+
+#. placeholder {0}: formatAddress(token.recipient, 4)
+msgid "To <0>{0}</0>"
 msgstr ""
 
 msgid "Oversupply minting."

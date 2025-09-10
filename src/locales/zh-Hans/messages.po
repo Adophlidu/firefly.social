@@ -2364,6 +2364,10 @@ msgstr "操作无法回滚，并且定时发布任务将会被取消。"
 msgid "NFT Mint"
 msgstr "NFT 铸造"
 
+#. placeholder {0}: formatAddress(token.sender, 4)
+msgid "From <0>{0}</0>"
+msgstr ""
+
 msgid "Lens"
 msgstr "Lens"
 
@@ -4249,6 +4253,10 @@ msgstr "清除所有任务"
 
 msgid "Claim Requirements"
 msgstr "领取条件"
+
+#. placeholder {0}: formatAddress(token.recipient, 4)
+msgid "To <0>{0}</0>"
+msgstr ""
 
 msgid "Oversupply minting."
 msgstr "超出最大铸造数量。"
