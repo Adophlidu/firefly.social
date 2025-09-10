@@ -84,6 +84,8 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
                     amountText={token?.amount ? renderShrankPrice(formatPrice(token.amount) ?? '') : null}
                     amountPrefix="+"
                     amountClassName="text-success"
+                    address={token?.token.address}
+                    amount={token?.amount}
                 />
             );
         }
@@ -100,6 +102,8 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
                     amountText={token?.amount ? renderShrankPrice(formatPrice(token.amount) ?? '') : null}
                     amountPrefix="-"
                     amountClassName="text-main"
+                    address={token?.token.address}
+                    amount={token?.amount}
                 />
             );
         }
@@ -120,6 +124,7 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
                     }
                     amountPrefix=""
                     amountClassName="text-main"
+                    address={token?.address}
                 />
             );
         }
@@ -140,6 +145,7 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
                     }
                     amountPrefix=""
                     amountClassName="text-main"
+                    address={token?.address}
                 />
             );
         }
@@ -161,6 +167,8 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
                             }
                             amountPrefix="-"
                             amountClassName="text-main"
+                            address={sentToken?.token.address}
+                            amount={sentToken?.amount}
                         />
                     ) : null}
 
@@ -179,6 +187,8 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
                             amountPrefix="+"
                             amountClassName="text-success"
                             showLabelMarginTop
+                            address={receivedToken?.token.address}
+                            amount={receivedToken?.amount}
                         />
                     ) : null}
                 </div>
@@ -212,7 +222,6 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
         TransactionDetailModalRef.close();
     }, []);
 
-    console.log(transaction);
     const target = useMemo(() => {
         if (!fromAddress || !toAddress) return null;
         switch (transaction.category) {

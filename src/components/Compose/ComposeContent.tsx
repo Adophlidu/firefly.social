@@ -33,7 +33,7 @@ export function ComposeContent(props: ComposeContentProps) {
         ) ?? [];
     const replying = type === 'reply' && !!post;
 
-    const imagesInUrl = urls.filter((url) => resolveEmbedMediaType(url, EmbedMediaType.IMAGE) === 'Image');
+    const imagesInUrl = urls.filter((url) => resolveEmbedMediaType(url) === 'Image');
     const lastImageInUrl = last(imagesInUrl);
 
     return (

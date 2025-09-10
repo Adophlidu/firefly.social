@@ -1,10 +1,13 @@
+import { BigNumber } from 'bignumber.js';
 import { first } from 'lodash-es';
-import { type ReactNode } from 'react';
+import { type ReactNode, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatCurrency } from '@/helpers/formatCurrency.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
+import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { TransactionDetailModalRef } from '@/modals/TransactionDetailModal/TransactionDetailModal.js';
 
 export interface TokenInfoRowProps {
@@ -18,6 +21,8 @@ export interface TokenInfoRowProps {
     amountClassName?: string;
     containerClassName?: string;
     showLabelMarginTop?: boolean;
+    address?: string;
+    amount?: string;
 }
 
 export function TokenInfoRow({
@@ -31,11 +36,21 @@ export function TokenInfoRow({
     amountClassName,
     containerClassName,
     showLabelMarginTop,
+    address,
+    amount,
 }: TokenInfoRowProps) {
     const tokenPageUrl = resolveTokenPageUrl({
         chainId,
         identity: tokenSymbol ?? '',
     });
+
+    const { data: tokenPrice } = useFungibleTokenPrice(address, { chainId });
+    const amountUSD = useMemo(() => {
+        if (!tokenPrice || !amount) return;
+        return formatCurrency(new BigNumber(amount).times(tokenPrice), 'USD', {
+            onlyRemainTwoOrZeroDecimal: true,
+        });
+    }, [amount, tokenPrice]);
     return (
         <div>
             {label ? (
@@ -79,18 +94,21 @@ export function TokenInfoRow({
                         </div>
                     </div>
                 </div>
-                {amountText ? (
-                    <span className={classNames(amountClassName)}>
-                        {amountPrefix ? (
-                            <>
-                                {`${amountPrefix} `}
-                                {amountText}
-                            </>
-                        ) : (
-                            amountText
-                        )}
-                    </span>
-                ) : null}
+                <div className="flex flex-col items-end">
+                    {amountText ? (
+                        <span className={classNames(amountClassName)}>
+                            {amountPrefix ? (
+                                <>
+                                    {`${amountPrefix} `}
+                                    {amountText}
+                                </>
+                            ) : (
+                                amountText
+                            )}
+                        </span>
+                    ) : null}
+                    <span className="text-right text-xs leading-[14px] text-secondary">{amountUSD}</span>
+                </div>
             </div>
         </div>
     );
