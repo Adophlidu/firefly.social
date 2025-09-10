@@ -17,6 +17,7 @@ import {
     linea,
     mainnet,
     metis,
+    monadTestnet,
     optimism,
     polygon,
     scroll,
@@ -53,6 +54,7 @@ export const wagmiNetworks = [
     celo,
     zkSync,
     linea,
+    monadTestnet,
 ] as AppKitNetwork[];
 
 const privyConnector = createPrivyConnector();

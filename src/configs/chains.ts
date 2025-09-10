@@ -18,6 +18,7 @@ import {
     linea as wagmiLinea,
     mainnet as wagmiMainnet,
     metis as wagmiMetis,
+    monadTestnet as wagmiMonadTestnet,
     optimism as wagmiOptimism,
     polygon as wagmiPolygon,
     scroll as wagmiScroll,
@@ -90,6 +91,9 @@ export const lensTestnet = defineChain({
     testnet: true,
 });
 
+/**
+ * List of all supported chains
+ */
 export const chains = [
     wagmiMainnet,
     wagmiBase,
@@ -112,6 +116,7 @@ export const chains = [
     wagmiCelo,
     lensMainnet,
     lensTestnet,
+    wagmiMonadTestnet,
 ] as const;
 
 export const visibleChains = [
