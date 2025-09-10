@@ -833,7 +833,7 @@ class LensSocialMedia implements Provider {
             filterNotifications(result.items).map<Promise<Notification | null>>(async (item) => {
                 if (isRepostNotification(item)) {
                     if (!item.reposts.length) return null;
-                    if (item.reposts.some((x) => x.account.operations?.isBlockedByMe)) return null;
+                    if (item.reposts.some((x) => x.account.operations?.isMutedByMe)) return null;
 
                     const time = first(item.reposts)?.repostedAt;
                     const post = await formatLensQuoteOrCommentV3(item.post);
@@ -850,7 +850,7 @@ class LensSocialMedia implements Provider {
                 }
 
                 if (isQuoteNotification(item)) {
-                    if (item.quote.author.operations?.isBlockedByMe) return null;
+                    if (item.quote.author.operations?.isMutedByMe) return null;
 
                     const time = item.quote.timestamp;
                     const quoteOf = await formatLensQuoteOrCommentV3(item.quote.quoteOf, 'Quote');
@@ -868,7 +868,7 @@ class LensSocialMedia implements Provider {
 
                 if (isReactionNotification(item)) {
                     if (!item.reactions.length) return null;
-                    if (item.reactions.some((x) => x.account.operations?.isBlockedByMe)) return null;
+                    if (item.reactions.some((x) => x.account.operations?.isMutedByMe)) return null;
 
                     const time = first(flatMap(item.reactions.map((x) => x.reactions)))?.reactedAt;
                     const post = await formatLensQuoteOrCommentV3(item.post);
@@ -886,7 +886,7 @@ class LensSocialMedia implements Provider {
                 }
 
                 if (isCommentNotification(item)) {
-                    if (item.comment.author.operations?.isBlockedByMe) return null;
+                    if (item.comment.author.operations?.isMutedByMe) return null;
 
                     const commentOn = await formatLensQuoteOrCommentV3(item.comment.commentOn, 'Comment');
                     if (!commentOn) return null;
@@ -903,7 +903,7 @@ class LensSocialMedia implements Provider {
 
                 if (isFollowNotification(item)) {
                     if (!item.followers.length) return null;
-                    if (item.followers.some((x) => x.account.operations?.isBlockedByMe)) return null;
+                    if (item.followers.some((x) => x.account.operations?.isMutedByMe)) return null;
 
                     return {
                         source: Source.Lens,
@@ -917,7 +917,7 @@ class LensSocialMedia implements Provider {
                 }
 
                 if (isMentionNotification(item)) {
-                    if (item.post.author.operations?.isBlockedByMe) return null;
+                    if (item.post.author.operations?.isMutedByMe) return null;
 
                     const post = await formatLensQuoteOrCommentV3(item.post);
                     if (!post) return null;

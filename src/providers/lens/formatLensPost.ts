@@ -359,9 +359,9 @@ export function filterFeedsV3(posts: AnyPost[] | readonly AnyPost[]): AnyPost[] 
     return posts.filter((x) => {
         switch (x.__typename) {
             case 'Post':
-                return !x.author.operations?.isBlockedByMe && !x.operations?.hasReported;
+                return !x.author.operations?.isMutedByMe && !x.operations?.hasReported;
             case 'Repost':
-                return !x.author?.operations?.isBlockedByMe;
+                return !x.author?.operations?.isMutedByMe;
             default:
                 safeUnreachable(x);
                 return false;
@@ -570,7 +570,7 @@ export async function formatLensPostV3(result: AnyPost): Promise<Post> {
 export async function formatLensPostByFeedV3(result: TimelineItem): Promise<Post | null> {
     const firstComment = result.comments.length ? first(result.comments) : undefined;
     const basePost = result.primary;
-    if (basePost.author.operations?.isBlockedByMe) return null;
+    if (basePost.author.operations?.isMutedByMe) return null;
     const post = await formatLensPostV3(basePost);
     const mirrors = result.reposts.map((x) => formatLensProfileV3(x.author));
     const reactions: Profile[] = []; // TODO
