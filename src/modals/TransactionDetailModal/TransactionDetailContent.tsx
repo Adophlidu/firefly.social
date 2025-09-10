@@ -210,8 +210,8 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
     const fromAddressName = fromAddress ? formatAddress(fromAddress, 4).toLowerCase() : undefined;
     const toAddressName = toAddress ? formatAddress(toAddress, 4).toLowerCase() : undefined;
 
-    const { data: fromEnsHandle } = useEnsNameCached(fromAddress, undefined, isSolana);
-    const { data: toEnsHandle } = useEnsNameCached(toAddress, undefined, isSolana);
+    const { data: fromEnsHandle } = useEnsNameCached(fromAddress, undefined, !isSolana);
+    const { data: toEnsHandle } = useEnsNameCached(toAddress, undefined, !isSolana);
 
     const href = (transaction.chain_id === SolanaChainId.Mainnet ? SolanaNetwork : EthereumNetwork).getTransactionUrl(
         transaction.chain_id as never,

@@ -38,12 +38,11 @@ export function SnapshotStatus({ status, className }: Props) {
     return (
         <div
             className={classNames(
-                'flex items-center gap-1 rounded-full bg-lightMain px-3 py-[2px] text-sm leading-[18px] text-white opacity-40',
+                'flex items-center gap-1 rounded-full bg-lightMain px-3 py-[2px] text-sm leading-[18px] text-lightBottom opacity-40',
                 {
-                    '!bg-highlight !opacity-100': status === SnapshotState.Active,
-                    '!bg-highlight !bg-opacity-50': status === SnapshotState.Pending,
-                    '!bg-danger !bg-opacity-50': status === SnapshotState.Rejected,
-                    '!opacity-50': status === SnapshotState.Pending,
+                    '!bg-highlight !text-white !opacity-100': status === SnapshotState.Active,
+                    '!bg-highlight !bg-opacity-50 !text-white !opacity-50': status === SnapshotState.Pending,
+                    '!bg-danger !bg-opacity-50 !text-white': status === SnapshotState.Rejected,
                 },
                 className,
             )}
