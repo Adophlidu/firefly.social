@@ -95,7 +95,11 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                     return <MentionLink handle={handle} href={`https://truthsocial.com/@${handle}`} />;
                 }
                 const bioMention = profile?.bioContext?.mentions?.find((x) => x.id === handle);
-                const postMention = post?.mentions?.find((x) => x.handle === handle || x.handle === title);
+                const postMention = post?.mentions?.find(
+                    (x) =>
+                        x.handle.toLowerCase() === handle.toLowerCase() ||
+                        x.handle.toLowerCase() === title.toLowerCase(),
+                );
                 if (!bioMention && !postMention) {
                     return <MentionLinkWithQueryProfile source={source} handle={handle} fallback={title} />;
                 }
