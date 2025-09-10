@@ -26,6 +26,7 @@ import {
 } from '@/providers/lens/formatLensMediaType.js';
 import { formatLensPostOperations, formatLensPostStats } from '@/providers/lens/formatLensPostStatsAndOperations.js';
 import { formatLensProfileByMention, formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
+import { isMutedLensAccount } from '@/providers/lens/isMutedLensAccount.js';
 import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
 import type { Attachment, MediaObject, Post, PostType, Profile } from '@/providers/types/SocialMedia.js';
 
@@ -359,9 +360,9 @@ export function filterFeedsV3(posts: AnyPost[] | readonly AnyPost[]): AnyPost[] 
     return posts.filter((x) => {
         switch (x.__typename) {
             case 'Post':
-                return !x.author.operations?.isMutedByMe && !x.operations?.hasReported;
+                return !isMutedLensAccount(x.author) && !x.operations?.hasReported;
             case 'Repost':
-                return !x.author?.operations?.isMutedByMe;
+                return !isMutedLensAccount(x.author);
             default:
                 safeUnreachable(x);
                 return false;
@@ -570,7 +571,7 @@ export async function formatLensPostV3(result: AnyPost): Promise<Post> {
 export async function formatLensPostByFeedV3(result: TimelineItem): Promise<Post | null> {
     const firstComment = result.comments.length ? first(result.comments) : undefined;
     const basePost = result.primary;
-    if (basePost.author.operations?.isMutedByMe) return null;
+    if (isMutedLensAccount(basePost.author)) return null;
     const post = await formatLensPostV3(basePost);
     const mirrors = result.reposts.map((x) => formatLensProfileV3(x.author));
     const reactions: Profile[] = []; // TODO
