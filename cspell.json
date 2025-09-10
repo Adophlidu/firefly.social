@@ -545,7 +545,8 @@
         "xrpc",
         "XSUSHI",
         "Yumi",
-        "Pubdata"
+        "Pubdata",
+        "Unlimit"
     ],
     "flagWords": [],
     "ignorePaths": [

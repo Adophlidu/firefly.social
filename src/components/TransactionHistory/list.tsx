@@ -197,6 +197,13 @@ function ItemEnd({ item }: { item: TransactionHistoryItem }) {
     }
     if (item.category === TransactionHistoryCategory.TokenApprove) {
         if (!item.token_approve) return null;
+        if (isUnlimit(item.token_approve.amount)) {
+            return (
+                <div className="ml-auto truncate text-right text-sm font-medium">
+                    <Trans>Unlimit</Trans> {item.token_approve.token.symbol}
+                </div>
+            );
+        }
         return (
             <div className="ml-auto truncate text-right text-sm font-medium">
                 -{renderShrankPrice(formatPrice(item.token_approve.amount) ?? '-')} {item.token_approve.token.symbol}
@@ -369,5 +376,12 @@ function TransactionHistorySubTitle({ item }: { item: TransactionHistoryItem }) 
         <div className="text-[13px] font-medium lowercase leading-[18px] text-second">
             {formatAddress(token.sender || token.recipient, 4)}
         </div>
+    );
+}
+
+function isUnlimit(amount: string) {
+    return (
+        BigInt(amount.replace('.', '')) ===
+        115792089237316195423570985008687907853269984665640564039457584007913129639935n
     );
 }

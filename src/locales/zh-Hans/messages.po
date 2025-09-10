@@ -154,6 +154,9 @@ msgstr "模板"
 msgid "Failed to collect article."
 msgstr "铸造收集文章失败。"
 
+msgid "Unlimit"
+msgstr ""
+
 msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 msgstr "<0>通过参与，你确认您已满 18 岁，并且居住在允许此类促销活动的法域内。此促销活动在法律禁止的地方无效。</0><1>参与或获胜无需购买或付款，且此类行为不会影响您获胜的机会。获胜者将通过透明的过程随机选出。参赛作品必须在2025年1月23日之前提交。</1><2>参与者有责任确保遵守适用的法律。我们不对因参与而产生的任何损失承担责任。通过参与，您在法律允许的最大范围内解除我们的一切责任。</2>"
 
