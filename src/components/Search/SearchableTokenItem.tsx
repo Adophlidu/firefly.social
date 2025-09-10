@@ -33,12 +33,15 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
     const identityId = token.address || token.api_symbol || token.symbol;
     if (!token.id && !identityId) return null;
 
+    const isCex = token.platform_type
+        ? token.platform_type === TokenPlatformType.Cex
+        : !!token.id && !isValidAddress(token.id);
+
     const tokenPageUrl = resolveTokenPageUrl(
         isValidAddress(token.id)
             ? { identity: token.id, chainId: token.chainId }
-            : { identity: token.id, isCoinId: true },
+            : { identity: token.id, isCoinId: true, chainId: isCex ? undefined : token.chainId },
     );
-    const isCex = token.platform_type === TokenPlatformType.Cex || (!!token.id && !isValidAddress(token.id));
     return (
         <Link
             className={classNames('flex items-center gap-3 border-b border-line p-3 hover:bg-bg', className)}

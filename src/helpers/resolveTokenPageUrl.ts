@@ -29,7 +29,7 @@ export function resolveTokenPageUrl({ identity, chainId, address, isCoinId, trad
     if (isCoinId && !isAddress)
         return urlcat('/token/cex/:identity', {
             identity,
-            chainId: isCoinId ? undefined : chainId,
+            chainId,
             address,
             trader,
             traderName: traderName || undefined,
