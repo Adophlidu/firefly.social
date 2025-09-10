@@ -338,6 +338,9 @@ msgstr "撤銷授權失敗"
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr "無法關閉多裝置登入功能，請稍後重試。"
 
+msgid "<0><1/><2>Interacted</2></0><3>with</3><4/>"
+msgstr ""
+
 msgid "{hours, plural, one {# hour left} other {# hours left}}"
 msgstr "{hours, plural, one {剩餘 # 小時} other {剩餘 # 小時}}"
 
@@ -1398,9 +1401,6 @@ msgstr "已向您發送一次性驗證碼"
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "代幣交易次數受限。詐騙代幣交易次數可能受限（詐騙風險）。"
 
-msgid "on"
-msgstr ""
-
 msgid "No phishing site found."
 msgstr "未發現釣魚網站"
 
@@ -1953,6 +1953,9 @@ msgstr "通往個人化社交體驗的入口。"
 
 msgid "Total amount shared among all winners"
 msgstr "所有獲獎者共享的總數額"
+
+msgid "<0><1/><2>Sent</2></0><3>to</3><4/>"
+msgstr ""
 
 msgid "Leave"
 msgstr "離開"
@@ -3037,9 +3040,6 @@ msgstr "取得個人檔案失敗。"
 msgid "Post is decrypting..."
 msgstr "貼文解密中..."
 
-msgid "with"
-msgstr ""
-
 msgid "Transaction"
 msgstr "交易"
 
@@ -3223,9 +3223,6 @@ msgstr "您的交易即將確認"
 msgid "Failed to un-bookmark snapshot."
 msgstr "取消收藏投票失敗。"
 
-msgid "to"
-msgstr ""
-
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
 msgid "will send on {0} at {1}"
@@ -3312,9 +3309,6 @@ msgstr "👉 為了隨時掌握交易動態，請在瀏覽器設定中開啟通�
 
 msgid "Claimed lucky drop successfully"
 msgstr "紅包領取成功"
-
-msgid "From"
-msgstr ""
 
 msgid "Rejected"
 msgstr "已拒絕"
@@ -3745,9 +3739,6 @@ msgstr "已釘選"
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "合約持有者可能具備修改交易稅權限，若稅率超過 49% 將導致代幣無法交易（詐騙風險）。"
 
-msgid "NFT Received"
-msgstr ""
-
 msgid "Unknown status"
 msgstr "未知狀態"
 
@@ -3939,6 +3930,9 @@ msgstr "滿足以下任一條件即可解鎖高級收藏品並獲取更多 $ANON
 
 msgid "Non-sanctioned address."
 msgstr "未受制裁地址。"
+
+msgid "<0><1/><2>Received</2></0><3>from</3><4/>"
+msgstr ""
 
 msgid "Solana wallets"
 msgstr "Solana 錢包"
@@ -4147,6 +4141,9 @@ msgstr "總供應量"
 
 msgid "No tax changes found for personal addresses."
 msgstr "未檢測到個人地址稅率變更。"
+
+msgid "<0><1/><2>Approved</2></0><3>on</3><4/>"
+msgstr ""
 
 #. placeholder {0}: token.symbol
 msgid "Unlock {0}"
@@ -4704,6 +4701,9 @@ msgstr "複製連結"
 msgid "Post"
 msgstr "發帖"
 
+msgid "<0><1/><2>Revoked</2></0><3>on</3><4/>"
+msgstr ""
+
 msgid "Creator:"
 msgstr "創作者："
 
@@ -4773,9 +4773,6 @@ msgstr "NFT"
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
 msgstr "{0, plural, one {讚} other {讚}}"
-
-msgid "NFT Sent"
-msgstr ""
 
 msgid "👉 vitalik.eth"
 msgstr "👉 vitalik.eth"

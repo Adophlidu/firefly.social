@@ -333,6 +333,9 @@ msgstr "Revoke Failed"
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr "Failed to disable Multi-device login. Please try again later."
 
+msgid "<0><1/><2>Interacted</2></0><3>with</3><4/>"
+msgstr "<0><1/><2>Interacted</2></0><3>with</3><4/>"
+
 msgid "{hours, plural, one {# hour left} other {# hours left}}"
 msgstr "{hours, plural, one {# hour left} other {# hours left}}"
 
@@ -1393,9 +1396,6 @@ msgstr "One-time passcode sent to you"
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 
-msgid "on"
-msgstr "on"
-
 msgid "No phishing site found."
 msgstr "No phishing site found."
 
@@ -1948,6 +1948,9 @@ msgstr "Your gateway to a personalized social experience."
 
 msgid "Total amount shared among all winners"
 msgstr "Total amount shared among all winners"
+
+msgid "<0><1/><2>Sent</2></0><3>to</3><4/>"
+msgstr "<0><1/><2>Sent</2></0><3>to</3><4/>"
 
 msgid "Leave"
 msgstr "Leave"
@@ -3023,9 +3026,6 @@ msgstr "Failed to fetch profiles."
 msgid "Post is decrypting..."
 msgstr "Post is decrypting..."
 
-msgid "with"
-msgstr "with"
-
 msgid "Transaction"
 msgstr "Transaction"
 
@@ -3209,9 +3209,6 @@ msgstr "Your transaction will confirm shortly"
 msgid "Failed to un-bookmark snapshot."
 msgstr "Failed to un-bookmark snapshot."
 
-msgid "to"
-msgstr "to"
-
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
 msgid "will send on {0} at {1}"
@@ -3298,9 +3295,6 @@ msgstr "👉 To stay updated on trades, enable notifications in your browser set
 
 msgid "Claimed lucky drop successfully"
 msgstr "Claimed lucky drop successfully"
-
-msgid "From"
-msgstr "From"
 
 msgid "Rejected"
 msgstr "Rejected"
@@ -3731,9 +3725,6 @@ msgstr "Pinned"
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 
-msgid "NFT Received"
-msgstr "NFT Received"
-
 msgid "Unknown status"
 msgstr "Unknown status"
 
@@ -3925,6 +3916,9 @@ msgstr "Meet any of the following to unlock a premium collectible and get more $
 
 msgid "Non-sanctioned address."
 msgstr "Non-sanctioned address."
+
+msgid "<0><1/><2>Received</2></0><3>from</3><4/>"
+msgstr "<0><1/><2>Received</2></0><3>from</3><4/>"
 
 msgid "Solana wallets"
 msgstr "Solana wallets"
@@ -4133,6 +4127,9 @@ msgstr "Total Supply"
 
 msgid "No tax changes found for personal addresses."
 msgstr "No tax changes found for personal addresses."
+
+msgid "<0><1/><2>Approved</2></0><3>on</3><4/>"
+msgstr "<0><1/><2>Approved</2></0><3>on</3><4/>"
 
 #. placeholder {0}: token.symbol
 msgid "Unlock {0}"
@@ -4688,6 +4685,9 @@ msgstr "Copy link"
 msgid "Post"
 msgstr "Post"
 
+msgid "<0><1/><2>Revoked</2></0><3>on</3><4/>"
+msgstr "<0><1/><2>Revoked</2></0><3>on</3><4/>"
+
 msgid "Creator:"
 msgstr "Creator:"
 
@@ -4757,9 +4757,6 @@ msgstr "NFT"
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
 msgstr "{0, plural, one {like} other {likes}}"
-
-msgid "NFT Sent"
-msgstr "NFT Sent"
 
 msgid "👉 vitalik.eth"
 msgstr "👉 vitalik.eth"

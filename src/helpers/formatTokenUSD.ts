@@ -20,7 +20,7 @@ export function formatTokenUSD(amount: string | number): string {
 
     if (num >= 0.01) {
         return `$${num.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
+            minimumFractionDigits: 0,
             maximumFractionDigits: 2,
         })}`;
     }

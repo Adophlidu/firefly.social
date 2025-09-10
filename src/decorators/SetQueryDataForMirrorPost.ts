@@ -1,5 +1,4 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { deletePostFromQueryData } from '@/helpers/deletePostFromQueryData.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { updateQueryForPosts } from '@/helpers/updateQueryForPosts.js';
@@ -20,9 +19,6 @@ function patchPostStats(stats: Post['stats'], status: boolean) {
 }
 
 function toggleMirror(source: SocialSource, postId: string, status: boolean, key?: string) {
-    if (!status && source === Source.Twitter) {
-        deletePostFromQueryData(source, postId);
-    }
     patchPostQueryData(source, postId, (draft) => {
         // Since lens only supports mirror and can mirror many times, rollback when the status is false.
         if (source === Source.Lens && key) {
@@ -46,10 +42,12 @@ function toggleMirror(source: SocialSource, postId: string, status: boolean, key
         }
     });
 
-    if ([Source.Bsky, Source.Lens].includes(source) && !status) {
+    if ([Source.Bsky, Source.Lens, Source.Twitter].includes(source) && !status) {
         // remove mirrored post
         updateQueryForPosts(source, (posts) => {
-            const index = posts.findIndex((p) => p.postId === postId || p.publicationId === postId);
+            const index = posts.findIndex(
+                (p) => (p.postId === postId || p.publicationId === postId) && p.type === 'Mirror',
+            );
             if (index !== -1) posts.splice(index, 1);
         });
     }

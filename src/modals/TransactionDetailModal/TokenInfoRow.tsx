@@ -1,11 +1,11 @@
-import { BigNumber } from 'bignumber.js';
 import { first } from 'lodash-es';
 import { type ReactNode, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatCurrency } from '@/helpers/formatCurrency.js';
+import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { isZero, multipliedBy } from '@/helpers/number.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { TransactionDetailModalRef } from '@/modals/TransactionDetailModal/TransactionDetailModal.js';
@@ -23,6 +23,7 @@ export interface TokenInfoRowProps {
     showLabelMarginTop?: boolean;
     address?: string;
     amount?: string;
+    price?: string;
 }
 
 export function TokenInfoRow({
@@ -38,19 +39,22 @@ export function TokenInfoRow({
     showLabelMarginTop,
     address,
     amount,
+    price,
 }: TokenInfoRowProps) {
     const tokenPageUrl = resolveTokenPageUrl({
         chainId,
         identity: tokenSymbol ?? '',
     });
 
-    const { data: tokenPrice } = useFungibleTokenPrice(address, { chainId });
+    const { data: tokenPrice } = useFungibleTokenPrice(!price || isZero(price) ? address : '', { chainId });
+
+    const finalPrice = price && !isZero(price) ? price : tokenPrice;
+
     const amountUSD = useMemo(() => {
-        if (!tokenPrice || !amount) return;
-        return formatCurrency(new BigNumber(amount).times(tokenPrice), 'USD', {
-            onlyRemainTwoOrZeroDecimal: true,
-        });
-    }, [amount, tokenPrice]);
+        if (!finalPrice || !amount) return;
+        return formatTokenUSD(multipliedBy(amount, finalPrice).toString());
+    }, [amount, finalPrice]);
+
     return (
         <div>
             {label ? (

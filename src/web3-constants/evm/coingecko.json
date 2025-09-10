@@ -14,7 +14,10 @@
         "Astar": "astar",
         "Boba": "boba",
         "Metis": "metis-andromeda",
-        "Scroll": "scroll"
+        "Scroll": "scroll",
+        "Linea": "linea",
+        "BitTorrent": "bittorrent",
+        "Harmony": "harmony-shard-0"
     },
     "COIN_ID": {
         "Mainnet": "ethereum",

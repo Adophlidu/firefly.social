@@ -35,7 +35,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
     });
     const isProtected = profile?.protected;
     // Twitter API might returns incomplete data, so only force it when the user protects his account
-    const forceTwitterOfficial = isProtected && isLogin;
+    const forceTwitterOfficial = isLogin && isProtected;
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'posts-of', profileId, forceTwitterOfficial],

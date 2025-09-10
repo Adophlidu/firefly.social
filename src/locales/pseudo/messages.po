@@ -333,6 +333,9 @@ msgstr ""
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr ""
 
+msgid "<0><1/><2>Interacted</2></0><3>with</3><4/>"
+msgstr ""
+
 msgid "{hours, plural, one {# hour left} other {# hours left}}"
 msgstr ""
 
@@ -1393,9 +1396,6 @@ msgstr ""
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr ""
 
-msgid "on"
-msgstr ""
-
 msgid "No phishing site found."
 msgstr ""
 
@@ -1947,6 +1947,9 @@ msgid "Your gateway to a personalized social experience."
 msgstr ""
 
 msgid "Total amount shared among all winners"
+msgstr ""
+
+msgid "<0><1/><2>Sent</2></0><3>to</3><4/>"
 msgstr ""
 
 msgid "Leave"
@@ -3010,9 +3013,6 @@ msgstr ""
 msgid "Post is decrypting..."
 msgstr ""
 
-msgid "with"
-msgstr ""
-
 msgid "Transaction"
 msgstr ""
 
@@ -3196,9 +3196,6 @@ msgstr ""
 msgid "Failed to un-bookmark snapshot."
 msgstr ""
 
-msgid "to"
-msgstr ""
-
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
 msgid "will send on {0} at {1}"
@@ -3284,9 +3281,6 @@ msgid "👉 To stay updated on trades, enable notifications in your browser sett
 msgstr ""
 
 msgid "Claimed lucky drop successfully"
-msgstr ""
-
-msgid "From"
 msgstr ""
 
 msgid "Rejected"
@@ -3718,9 +3712,6 @@ msgstr ""
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr ""
 
-msgid "NFT Received"
-msgstr ""
-
 msgid "Unknown status"
 msgstr ""
 
@@ -3908,6 +3899,9 @@ msgid "Meet any of the following to unlock a premium collectible and get more $A
 msgstr ""
 
 msgid "Non-sanctioned address."
+msgstr ""
+
+msgid "<0><1/><2>Received</2></0><3>from</3><4/>"
 msgstr ""
 
 msgid "Solana wallets"
@@ -4116,6 +4110,9 @@ msgid "Total Supply"
 msgstr ""
 
 msgid "No tax changes found for personal addresses."
+msgstr ""
+
+msgid "<0><1/><2>Approved</2></0><3>on</3><4/>"
 msgstr ""
 
 #. placeholder {0}: token.symbol
@@ -4672,6 +4669,9 @@ msgstr ""
 msgid "Post"
 msgstr ""
 
+msgid "<0><1/><2>Revoked</2></0><3>on</3><4/>"
+msgstr ""
+
 msgid "Creator:"
 msgstr ""
 
@@ -4740,9 +4740,6 @@ msgstr ""
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
-msgstr ""
-
-msgid "NFT Sent"
 msgstr ""
 
 msgid "👉 vitalik.eth"

@@ -14,6 +14,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
+import { isUnlimit } from '@/components/TransactionHistory/list.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -23,10 +24,6 @@ import { getChainName } from '@/helpers/getChainName.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import {
-    resolveTransactionCategoryPreWord,
-    resolveTransactionCategoryTitle,
-} from '@/helpers/resolveTransactionCategoryTitle.js';
 import { useEnsNameCached } from '@/hooks/useEnsNameCached.js';
 import { InlineTarget } from '@/modals/TransactionDetailModal/InlineTarget.js';
 import { TokenInfoRow } from '@/modals/TransactionDetailModal/TokenInfoRow.js';
@@ -84,8 +81,8 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
                     amountText={token?.amount ? renderShrankPrice(formatPrice(token.amount) ?? '') : null}
                     amountPrefix="+"
                     amountClassName="text-success"
-                    address={token?.token.address}
                     amount={token?.amount}
+                    price={token?.token.price}
                 />
             );
         }
@@ -102,8 +99,8 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
                     amountText={token?.amount ? renderShrankPrice(formatPrice(token.amount) ?? '') : null}
                     amountPrefix="-"
                     amountClassName="text-main"
-                    address={token?.token.address}
                     amount={token?.amount}
+                    price={token?.token.price}
                 />
             );
         }
@@ -118,12 +115,17 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
                     tokenSymbol={token?.symbol ?? null}
                     tokenName={token?.name ?? null}
                     amountText={
-                        transaction.token_approve?.amount
-                            ? renderShrankPrice(formatPrice(transaction.token_approve.amount) ?? '')
-                            : null
+                        transaction.token_approve?.amount ? (
+                            isUnlimit(transaction.token_approve.amount) ? (
+                                <Trans>Unlimit</Trans>
+                            ) : (
+                                renderShrankPrice(formatPrice(transaction.token_approve.amount) ?? '')
+                            )
+                        ) : null
                     }
                     amountPrefix=""
                     amountClassName="text-main"
+                    price={token?.price}
                     address={token?.address}
                 />
             );
@@ -139,12 +141,17 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
                     tokenSymbol={token?.symbol ?? null}
                     tokenName={token?.name ?? null}
                     amountText={
-                        transaction.token_approve?.amount
-                            ? renderShrankPrice(formatPrice(transaction.token_approve.amount) ?? '')
-                            : null
+                        transaction.token_approve?.amount ? (
+                            isUnlimit(transaction.token_approve.amount) ? (
+                                <Trans>Unlimit</Trans>
+                            ) : (
+                                renderShrankPrice(formatPrice(transaction.token_approve.amount) ?? '')
+                            )
+                        ) : null
                     }
                     amountPrefix=""
                     amountClassName="text-main"
+                    price={token?.price}
                     address={token?.address}
                 />
             );
@@ -167,8 +174,9 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
                             }
                             amountPrefix="-"
                             amountClassName="text-main"
-                            address={sentToken?.token.address}
                             amount={sentToken?.amount}
+                            price={sentToken?.token.price}
+                            address={sentToken?.token.address}
                         />
                     ) : null}
 
@@ -187,8 +195,9 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
                             amountPrefix="+"
                             amountClassName="text-success"
                             showLabelMarginTop
-                            address={receivedToken?.token.address}
                             amount={receivedToken?.amount}
+                            price={receivedToken?.token.price}
+                            address={receivedToken?.token.address}
                         />
                     ) : null}
                 </div>
@@ -222,79 +231,115 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
         TransactionDetailModalRef.close();
     }, []);
 
-    const target = useMemo(() => {
+    const subtitle = useMemo(() => {
         if (!fromAddress || !toAddress) return null;
         switch (transaction.category) {
             case TransactionHistoryCategory.TokenReceive:
                 return (
-                    <InlineTarget
-                        href={getProfileUrl({ source: Source.Wallet, profileId: fromAddress })}
-                        logo={
-                            <Avatar
-                                src={getStampAvatarByProfileId(Source.Wallet, fromAddress)}
-                                size={12}
-                                alt={fromAddressName || ''}
-                            />
-                        }
-                        text={fromEnsHandle ?? fromAddressName}
-                        onClick={closeModal}
-                    />
+                    <Trans>
+                        <div className="flex items-center rounded-lg border border-main px-2 py-[6px] text-main">
+                            <TransactionCategoryIcon category={transaction.category} />
+                            <span className="text-xs leading-[12px]">Received</span>
+                        </div>
+                        <span className="text-xs leading-[12px]">from</span>
+                        <InlineTarget
+                            href={getProfileUrl({ source: Source.Wallet, profileId: fromAddress })}
+                            logo={
+                                <Avatar
+                                    src={getStampAvatarByProfileId(Source.Wallet, fromAddress)}
+                                    size={12}
+                                    alt={fromAddressName || ''}
+                                />
+                            }
+                            text={fromEnsHandle ?? fromAddressName}
+                            onClick={closeModal}
+                        />
+                    </Trans>
                 );
             case TransactionHistoryCategory.TokenSend:
                 return (
-                    <InlineTarget
-                        href={getProfileUrl({ source: Source.Wallet, profileId: toAddress })}
-                        logo={
-                            <Avatar
-                                src={getStampAvatarByProfileId(Source.Wallet, toAddress)}
-                                size={12}
-                                alt={toAddressName || ''}
-                            />
-                        }
-                        text={toEnsHandle ?? toAddressName}
-                        onClick={closeModal}
-                    />
+                    <Trans>
+                        <div className="flex items-center rounded-lg border border-main px-2 py-[6px] text-main">
+                            <TransactionCategoryIcon category={transaction.category} />
+                            <span className="text-xs leading-[12px]">Sent</span>
+                        </div>
+                        <span className="text-xs leading-[12px]">to</span>
+                        <InlineTarget
+                            href={getProfileUrl({ source: Source.Wallet, profileId: toAddress })}
+                            logo={
+                                <Avatar
+                                    src={getStampAvatarByProfileId(Source.Wallet, toAddress)}
+                                    size={12}
+                                    alt={toAddressName || ''}
+                                />
+                            }
+                            text={toEnsHandle ?? toAddressName}
+                            onClick={closeModal}
+                        />
+                    </Trans>
                 );
             case TransactionHistoryCategory.TokenApprove:
                 return (
-                    <InlineTarget
-                        href={getProfileUrl({
-                            source: Source.Wallet,
-                            profileId: transaction.token_approve?.spender_address ?? toAddress,
-                        })}
-                        logo={
-                            transaction.project_logo ? (
-                                <Avatar src={transaction.project_logo} size={12} alt={transaction.project_name} />
-                            ) : undefined
-                        }
-                        text={transaction.project_name ?? (toAddressName || '')}
-                        onClick={closeModal}
-                    />
+                    <Trans>
+                        <div className="flex items-center rounded-lg border border-main px-2 py-[6px] text-main">
+                            <TransactionCategoryIcon category={transaction.category} />
+                            <span className="text-xs leading-[12px]">Approved</span>
+                        </div>
+                        <span className="text-xs leading-[12px]">on</span>
+                        <InlineTarget
+                            href={getProfileUrl({
+                                source: Source.Wallet,
+                                profileId: transaction.token_approve?.spender_address ?? toAddress,
+                            })}
+                            logo={
+                                transaction.project_logo ? (
+                                    <Avatar src={transaction.project_logo} size={12} alt={transaction.project_name} />
+                                ) : undefined
+                            }
+                            text={transaction.project_name ?? (toAddressName || '')}
+                            onClick={closeModal}
+                        />
+                    </Trans>
                 );
+
             case TransactionHistoryCategory.TokenRevoke:
                 return (
-                    <InlineTarget
-                        href={getProfileUrl({
-                            source: Source.Wallet,
-                            profileId: transaction.token_approve?.spender_address ?? toAddress,
-                        })}
-                        logo={
-                            transaction.project_logo ? (
-                                <Avatar src={transaction.project_logo} size={12} alt={transaction.project_name} />
-                            ) : undefined
-                        }
-                        text={transaction.token_approve?.spender_address ?? (toAddressName || '')}
-                        onClick={closeModal}
-                    />
+                    <Trans>
+                        <div className="flex items-center rounded-lg border border-main px-2 py-[6px] text-main">
+                            <TransactionCategoryIcon category={transaction.category} />
+                            <span className="text-xs leading-[12px]">Revoked</span>
+                        </div>
+                        <span className="text-xs leading-[12px]">on</span>
+                        <InlineTarget
+                            href={getProfileUrl({
+                                source: Source.Wallet,
+                                profileId: transaction.token_approve?.spender_address ?? toAddress,
+                            })}
+                            logo={
+                                transaction.project_logo ? (
+                                    <Avatar src={transaction.project_logo} size={12} alt={transaction.project_name} />
+                                ) : undefined
+                            }
+                            text={transaction.token_approve?.spender_address ?? (toAddressName || '')}
+                            onClick={closeModal}
+                        />
+                    </Trans>
                 );
             default:
                 return (
-                    <InlineTarget
-                        href={getProfileUrl({ source: Source.Wallet, profileId: toAddress })}
-                        logo={<ClipboardTextIcon className="size-3 text-secondary" />}
-                        text={toAddressName || ''}
-                        onClick={closeModal}
-                    />
+                    <Trans>
+                        <div className="flex items-center rounded-lg border border-main px-2 py-[6px] text-main">
+                            <TransactionCategoryIcon category={transaction.category} />
+                            <span className="text-xs leading-[12px]">Interacted</span>
+                        </div>
+                        <span className="text-xs leading-[12px]">with</span>
+                        <InlineTarget
+                            href={getProfileUrl({ source: Source.Wallet, profileId: toAddress })}
+                            logo={<ClipboardTextIcon className="size-3 text-secondary" />}
+                            text={toAddressName || ''}
+                            onClick={closeModal}
+                        />
+                    </Trans>
                 );
         }
     }, [transaction, toEnsHandle, toAddress, fromAddress, fromEnsHandle, fromAddressName, toAddressName, closeModal]);
@@ -331,18 +376,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                     </div>
                 </div>
             </div>
-            <div className="mt-3 flex items-center gap-x-1">
-                <div className="flex items-center rounded-lg border border-main px-2 py-[6px] text-main">
-                    <TransactionCategoryIcon category={transaction.category} />
-                    <span className="text-xs leading-[12px]">
-                        {resolveTransactionCategoryTitle(transaction.category)}
-                    </span>
-                </div>
-                <span className="text-xs leading-[12px]">
-                    {resolveTransactionCategoryPreWord(transaction.category)}
-                </span>
-                {target}
-            </div>
+            <div className="mt-3 flex items-center gap-x-1">{subtitle}</div>
             <div className="mt-3">
                 <TransactionDetailContentCard transaction={transaction} />
             </div>

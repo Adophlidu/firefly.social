@@ -10,8 +10,8 @@ import { RecipientAvatar } from '@/components/Tips/RecipientAvatar.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
+import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { openWindow } from '@/helpers/openWindow.js';
@@ -115,7 +115,7 @@ export function SuccessView() {
                             <span>
                                 <Trans>Send</Trans>
                             </span>
-                            <span>${renderShrankPrice((usdValue ? formatPrice(usdValue) : '') || '')}</span>
+                            <span>{formatTokenUSD(usdValue)}</span>
                         </div>
                     </div>
                 </div>
