@@ -31,6 +31,7 @@ export function resolveLanguageLocale(language: string | undefined) {
     return Locale.en;
 }
 export async function resolveClientLocale() {
+    if (bom.document) return resolveLanguageLocale(bom.navigator?.language);
     const acceptLanguageHeader = (await headers()).get('Accept-Language');
     const headerLang = acceptLanguageHeader?.split(',')[0];
     return headerLang ? resolveLanguageLocale(headerLang) : Locale.en;
