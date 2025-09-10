@@ -38,7 +38,7 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
             ? { identity: token.id, chainId: token.chainId }
             : { identity: token.id, isCoinId: true },
     );
-    const isCex = token.platform_type === TokenPlatformType.Cex;
+    const isCex = token.platform_type === TokenPlatformType.Cex || (!!token.id && !isValidAddress(token.id));
     return (
         <Link
             className={classNames('flex items-center gap-3 border-b border-line p-3 hover:bg-bg', className)}
