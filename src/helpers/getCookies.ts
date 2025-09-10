@@ -52,6 +52,9 @@ export function useCookie(key: SiteCookies) {
 }
 
 export function useLocale() {
-    const cookie = useCookie(SiteCookies.Locale);
-    return resolveLocale(cookie || resolveLanguageLocale(bom.navigator?.language));
+    const localeFromCookie = useCookie(SiteCookies.Locale);
+    const locale =
+        localeFromCookie ||
+        (bom.document ? resolveLanguageLocale(bom.navigator?.language) : use(resolveClientLocale()));
+    return resolveLocale(locale);
 }
