@@ -95,7 +95,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
         let MentionPlugin: Pluggable | null = null;
         if (mentions?.length) {
             const handles = mentions.map((x) => x.fullHandle);
-            const mentionRe = new RegExp(`@(${handles.join('|')})`, 'g');
+            const mentionRe = new RegExp(`@(${handles.join('|')})`, 'gi');
             MentionPlugin = linkifyRegex(mentionRe);
         }
         return compact([
