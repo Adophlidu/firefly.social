@@ -3,9 +3,8 @@ import { getI18n, setI18n } from '@lingui/react/server';
 import dayjs from 'dayjs';
 
 import { Locale } from '@/constants/enum.js';
-import { DEFAULT_LOCALE } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
-import { getLocaleFromCookies, getLocalFromClientCookies } from '@/helpers/getCookies.js';
+import { getLocaleFromCookies, getLocalFromClientCookies, resolveLanguageLocale } from '@/helpers/getCookies.js';
 import { messages as en } from '@/locales/en/messages.js';
 import { messages as zhHans } from '@/locales/zh-Hans/messages.js';
 import { messages as zhHant } from '@/locales/zh-Hant/messages.js';
@@ -38,7 +37,7 @@ const allLocales = Object.fromEntries(
 function resolveLocale(locale: Locale) {
     if (!supportedLocales.hasOwnProperty(locale)) {
         console.error(`[i18n]: unknown locale ${locale}`);
-        return DEFAULT_LOCALE;
+        return resolveLanguageLocale(bom.navigator?.language);
     }
     return locale;
 }

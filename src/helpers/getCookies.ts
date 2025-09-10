@@ -1,13 +1,12 @@
-import { cookies } from 'next/headers.js';
+import { cookies, headers } from 'next/headers.js';
 import { use } from 'react';
 
 import { Locale, SiteCookies } from '@/constants/enum.js';
-import { DEFAULT_LOCALE } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 
 function resolveLocale(locale: string): Locale {
-    return isValidEnumValue(locale, Locale) ? (locale as Locale) : DEFAULT_LOCALE;
+    return isValidEnumValue(locale, Locale) ? (locale as Locale) : resolveLanguageLocale(bom.navigator?.language);
 }
 
 export function getClientCookies(name: SiteCookies) {
@@ -22,14 +21,29 @@ export async function getCookie(name: SiteCookies) {
     return (await cookies()).get(name)?.value;
 }
 
+export function resolveLanguageLocale(language: string | undefined) {
+    if (!language) return Locale.en;
+    if (language.startsWith('en')) return Locale.en;
+    if (language.startsWith('zh'))
+        return ['zh', 'zh-CN', 'zh-SG'].includes(language) || language.startsWith('zh-Hans')
+            ? Locale.zhHans
+            : Locale.zhHant;
+    return Locale.en;
+}
+export async function resolveClientLocale() {
+    const acceptLanguageHeader = (await headers()).get('Accept-Language');
+    const headerLang = acceptLanguageHeader?.split(',')[0];
+    return headerLang ? resolveLanguageLocale(headerLang) : Locale.en;
+}
+
 export async function getLocaleFromCookies() {
     const locale = await getCookie(SiteCookies.Locale);
-    return locale ? resolveLocale(locale) : DEFAULT_LOCALE;
+    return locale ? resolveLocale(locale) : resolveClientLocale();
 }
 
 export function getLocalFromClientCookies() {
     const locale = getClientCookies(SiteCookies.Locale);
-    return locale ? resolveLocale(locale) : DEFAULT_LOCALE;
+    return locale ? resolveLocale(locale) : resolveLanguageLocale(bom.navigator?.language);
 }
 
 export function useCookie(key: SiteCookies) {
@@ -39,5 +53,5 @@ export function useCookie(key: SiteCookies) {
 
 export function useLocale() {
     const cookie = useCookie(SiteCookies.Locale);
-    return resolveLocale(cookie || DEFAULT_LOCALE);
+    return resolveLocale(cookie || resolveLanguageLocale(bom.navigator?.language));
 }
