@@ -1,15 +1,62 @@
 'use client';
 
-import { ActivityElex24Provider } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
 import { ActivityMobileOnly } from '@/components/Activity/ActivityMobileOnly.js';
-import { ActivityButtrflyTasks } from '@/components/Activity/ActivityTasks/ActivityButtrflyTasks.js';
-import { ActivityElex24Tasks } from '@/components/Activity/ActivityTasks/ActivityElex24Tasks.js';
-import { ActivityFrensgivingTasks } from '@/components/Activity/ActivityTasks/ActivityFrensgivingTasks.js';
-import { ActivityHlblTasks } from '@/components/Activity/ActivityTasks/ActivityHlblTasks.js';
-import { ActivityPenguTasks } from '@/components/Activity/ActivityTasks/ActivityPenguTasks.js';
-import { ActivitySocialFrensTasks } from '@/components/Activity/ActivityTasks/ActivitySocialFrensTasks.js';
-import { ActivityTrumpTasks } from '@/components/Activity/ActivityTasks/ActivityTrumpTasks.js';
+import { dynamic } from '@/esm/dynamic.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
+
+const ActivityButtrflyTasks = dynamic(() =>
+    import('@/components/Activity/ActivityTasks/ActivityButtrflyTasks.js').then((mod) => ({
+        default: mod.ActivityButtrflyTasks,
+    })),
+);
+
+const ActivityElex24Tasks = dynamic(() =>
+    import('@/components/Activity/ActivityTasks/ActivityElex24Tasks.js').then((mod) => ({
+        default: mod.ActivityElex24Tasks,
+    })),
+);
+
+const ActivityFrensgivingTasks = dynamic(() =>
+    import('@/components/Activity/ActivityTasks/ActivityFrensgivingTasks.js').then((mod) => ({
+        default: mod.ActivityFrensgivingTasks,
+    })),
+);
+
+const ActivityHaidilaoTask = dynamic(() =>
+    import('@/components/Activity/ActivityTasks/ActivityHaidilaoTask.js').then((mod) => ({
+        default: mod.ActivityHaidilaoTask,
+    })),
+);
+
+const ActivityCreatorTasks = dynamic(() =>
+    import('@/components/Activity/ActivityTasks/ActivityCreatorTasks.js').then((mod) => ({
+        default: mod.ActivityCreatorTasks,
+    })),
+);
+
+const ActivityHlblTasks = dynamic(() =>
+    import('@/components/Activity/ActivityTasks/ActivityHlblTasks.js').then((mod) => ({
+        default: mod.ActivityHlblTasks,
+    })),
+);
+
+const ActivityPenguTasks = dynamic(() =>
+    import('@/components/Activity/ActivityTasks/ActivityPenguTasks.js').then((mod) => ({
+        default: mod.ActivityPenguTasks,
+    })),
+);
+
+const ActivitySocialFrensTasks = dynamic(() =>
+    import('@/components/Activity/ActivityTasks/ActivitySocialFrensTasks.js').then((mod) => ({
+        default: mod.ActivitySocialFrensTasks,
+    })),
+);
+
+const ActivityTrumpTasks = dynamic(() =>
+    import('@/components/Activity/ActivityTasks/ActivityTrumpTasks.js').then((mod) => ({
+        default: mod.ActivityTrumpTasks,
+    })),
+);
 
 interface Props {
     name: string;
@@ -21,11 +68,7 @@ export function ActivityTasks({ name, data }: Props) {
         case 'hlbl':
             return <ActivityHlblTasks data={data} />;
         case 'elex24':
-            return (
-                <ActivityElex24Provider>
-                    <ActivityElex24Tasks data={data} />
-                </ActivityElex24Provider>
-            );
+            return <ActivityElex24Tasks data={data} />;
         case 'frensgiving':
             return <ActivityFrensgivingTasks data={data} />;
         case 'pengu':
@@ -44,6 +87,10 @@ export function ActivityTasks({ name, data }: Props) {
             return <ActivityButtrflyTasks data={data} />;
         case 'socialfrens':
             return <ActivitySocialFrensTasks data={data} />;
+        case 'creator':
+            return <ActivityCreatorTasks />;
+        case 'haidilao':
+            return <ActivityHaidilaoTask />;
         default:
             return null;
     }

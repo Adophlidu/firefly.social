@@ -218,6 +218,9 @@ msgstr ""
 msgid "Enter a new password to verify your identity."
 msgstr ""
 
+msgid "1 voucher per person; Total usable vouchers = Number of diners"
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr ""
@@ -455,6 +458,9 @@ msgstr ""
 msgid "Potential risk of external call."
 msgstr ""
 
+msgid "What to Expect"
+msgstr ""
+
 #. placeholder {0}: selected.name
 msgid "Your {0} Address"
 msgstr ""
@@ -481,6 +487,9 @@ msgid "Trending"
 msgstr ""
 
 msgid "View similar symbols"
+msgstr ""
+
+msgid "Rules"
 msgstr ""
 
 msgid "MAX"
@@ -511,6 +520,9 @@ msgid "Poll"
 msgstr ""
 
 msgid "Back to list"
+msgstr ""
+
+msgid "Product Detail"
 msgstr ""
 
 msgid "Scheduled"
@@ -759,6 +771,9 @@ msgstr ""
 msgid "Read this <0>disclaimer</0> before participation. For any inquiries, please <1>contact us</1>. All rights reserved by Firefly."
 msgstr ""
 
+msgid "Valid at 3 Stores"
+msgstr ""
+
 msgid "Report submitted"
 msgstr ""
 
@@ -833,6 +848,9 @@ msgstr ""
 msgid "Select NFT collection to gate access"
 msgstr ""
 
+msgid "Follow <0>@thefireflyapp</0> on X"
+msgstr ""
+
 msgid "From Address"
 msgstr ""
 
@@ -859,6 +877,9 @@ msgid "Failed to set password."
 msgstr ""
 
 msgid "Explore"
+msgstr ""
+
+msgid "Connect your wallet to Firefly (Optional)"
 msgstr ""
 
 msgid "Show Less"
@@ -918,6 +939,9 @@ msgstr ""
 #. placeholder {0}: space.name
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
+msgstr ""
+
+msgid "No refund if expired"
 msgstr ""
 
 msgid "Sending"
@@ -994,6 +1018,9 @@ msgid "Host"
 msgstr ""
 
 msgid "Unsafe: Transaction is at risk"
+msgstr ""
+
+msgid "👀 Foodie builders, listen up!"
 msgstr ""
 
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
@@ -1289,6 +1316,9 @@ msgstr ""
 msgid "THREAD POST"
 msgstr ""
 
+msgid "Repost the official campaign post"
+msgstr ""
+
 msgid "Repost again"
 msgstr ""
 
@@ -1311,6 +1341,9 @@ msgid "There is no data available to display"
 msgstr ""
 
 msgid "Follow System"
+msgstr ""
+
+msgid "Cross-post to invite your crew to join (Optional)"
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
@@ -1350,6 +1383,9 @@ msgid "Check Eligibility"
 msgstr ""
 
 msgid "You might like"
+msgstr ""
+
+msgid "🔥 <0>Unlock up to SGD50 Haidilao dining vouchers</0> by completing Firefly social tasks (from just US$15 — or <1>even free!</1>)."
 msgstr ""
 
 msgid "Please enter at least 2 characters."
@@ -1524,6 +1560,9 @@ msgid "Failed to mute @{0} on {sourceName}."
 msgstr ""
 
 msgid "View Source"
+msgstr ""
+
+msgid "🤝 Meet and connect with <0>Top 10 Asian Web3 teams</0>"
 msgstr ""
 
 #. placeholder {0}: author.handle
@@ -1709,6 +1748,9 @@ msgstr ""
 msgid "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
 msgstr ""
 
+msgid "Bugis+"
+msgstr ""
+
 msgid "Send"
 msgstr ""
 
@@ -1725,6 +1767,9 @@ msgid "Show more users"
 msgstr ""
 
 msgid "View detail"
+msgstr ""
+
+msgid "Product"
 msgstr ""
 
 msgid "Try again"
@@ -1986,6 +2031,9 @@ msgstr ""
 msgid "Empty"
 msgstr ""
 
+msgid "Stores"
+msgstr ""
+
 msgid "All"
 msgstr ""
 
@@ -2052,6 +2100,9 @@ msgstr ""
 
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your posts have published successfully on {0}."
+msgstr ""
+
+msgid "Period"
 msgstr ""
 
 msgid "Manage the accounts, wallets, and clubs that you’ve muted."
@@ -2248,6 +2299,9 @@ msgstr ""
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 msgstr ""
 
+msgid "As part of the festival, join us on-site at Marina Bay Sands Haidilao for an afternoon of Web3 + lifestyle experiences:"
+msgstr ""
+
 #. placeholder {0}: first(post.reactions)?.displayName
 msgid "<0>{0}</0> liked"
 msgstr ""
@@ -2317,6 +2371,9 @@ msgid "Age"
 msgstr ""
 
 msgid "Failed to recast."
+msgstr ""
+
+msgid "Special On-Site Event"
 msgstr ""
 
 msgid "Display Name should not be blank"
@@ -2661,6 +2718,9 @@ msgstr ""
 msgid "The page could not be found."
 msgstr ""
 
+msgid "📅 <0>Dates:</0> Sept 30 – Oct 6, 2025"
+msgstr ""
+
 msgid "Change Password"
 msgstr ""
 
@@ -2777,6 +2837,9 @@ msgid "Collectible could not be found."
 msgstr ""
 
 msgid "Image count limit reached"
+msgstr ""
+
+msgid "Support"
 msgstr ""
 
 msgid "Confirm to disconnect this wallet from Firefly?"
@@ -2992,6 +3055,9 @@ msgstr ""
 msgid "No activity yet"
 msgstr ""
 
+msgid "Activity not started yet"
+msgstr ""
+
 msgid "Top 500 Buttrfly Points Leaderboard"
 msgstr ""
 
@@ -3153,6 +3219,9 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "Marina Square"
+msgstr ""
+
 msgid "Available"
 msgstr ""
 
@@ -3230,6 +3299,12 @@ msgstr ""
 msgid "Lucky drop is only available on {0}"
 msgstr ""
 
+msgid "About the Festival"
+msgstr ""
+
+msgid "Join Firefly’s Telegram community"
+msgstr ""
+
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr ""
 
@@ -3244,6 +3319,9 @@ msgid "This does not appear to be a honeypot."
 msgstr ""
 
 msgid "NFT Send"
+msgstr ""
+
+msgid "Connect your email to Firefly (Optional)"
 msgstr ""
 
 msgid "Your Firefly Account is now connected"
@@ -3284,6 +3362,9 @@ msgid "Claimed lucky drop successfully"
 msgstr ""
 
 msgid "Rejected"
+msgstr ""
+
+msgid "Voucher SGD 50 x 1"
 msgstr ""
 
 msgid "Recast or Quote"
@@ -3612,6 +3693,9 @@ msgstr ""
 msgid "<0>Any assets in this Firefly wallet will be permanently lost and cannot be recovered.</0> Before proceeding, please withdraw all funds and assets from your Firefly wallets to avoid any loss."
 msgstr ""
 
+msgid "The more tasks you complete, the better your chances to unlock <0>exclusive discounts</0> or even<1> free hotpot vouchers</1>."
+msgstr ""
+
 msgid "Display Name should not exceed 20 characters"
 msgstr ""
 
@@ -3681,6 +3765,9 @@ msgid "<0>Acquired</0><1/>"
 msgstr ""
 
 msgid "Copy link to profile"
+msgstr ""
+
+msgid "Complete the <0>3 basic tasks</0> below to activate your voucher and get a S$50 Haidilao dining voucher <1>for US$15</1>"
 msgstr ""
 
 msgid "No whitelist"
@@ -3790,6 +3877,9 @@ msgid "Ended on {0}"
 msgstr ""
 
 msgid "Collect Article"
+msgstr ""
+
+msgid "🎟 Complete more Firefly tasks to unlock <0>free hotpot vouchers</0> or extra discount voucher"
 msgstr ""
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
@@ -3932,6 +4022,9 @@ msgstr ""
 msgid "Username or email address"
 msgstr ""
 
+msgid "Marina Bay Sands"
+msgstr ""
+
 #. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
 msgid "<0>Minted</0><1/>{0}"
 msgstr ""
@@ -4068,6 +4161,9 @@ msgstr ""
 msgid "Number of winners"
 msgstr ""
 
+msgid "Sep 29, 16:00 - Oct 5, 16:00 UTC"
+msgstr ""
+
 msgid "Multi-device login is now turned on and synced successfully."
 msgstr ""
 
@@ -4102,6 +4198,9 @@ msgstr ""
 msgid "Turn on notifications to never miss important alerts."
 msgstr ""
 
+msgid "📸 Snap photos and connect with <0>well-known KOLs</0>"
+msgstr ""
+
 msgid "Signature Request"
 msgstr ""
 
@@ -4110,6 +4209,9 @@ msgid "Followed <0>@{0}</0> on X before Dec 16, 2024"
 msgstr ""
 
 msgid "Total Supply"
+msgstr ""
+
+msgid "📍 <0>Locations:</0> Marina Bay Sands, Bugis+, Marina Square"
 msgstr ""
 
 msgid "No tax changes found for personal addresses."
@@ -4273,6 +4375,9 @@ msgstr ""
 msgid "Mask Network"
 msgstr ""
 
+msgid "💺 <0>Exclusive seat booking</0> at Haidilao and additional discounted dishes of your choice"
+msgstr ""
+
 msgid "Sanctioned address found."
 msgstr ""
 
@@ -4346,6 +4451,9 @@ msgid "Events"
 msgstr ""
 
 msgid "Quote posts disabled"
+msgstr ""
+
+msgid "📍 <0>Location:</0> Marina Bay Sands"
 msgstr ""
 
 msgid "How to do?"
@@ -4540,6 +4648,9 @@ msgstr ""
 msgid "Followed @{0} on Lens"
 msgstr ""
 
+msgid "💅 Enjoy <0>a free manicure</0> session at our NFC Nail Art booth brought to you together with Chipped (<1>@chippedsocial</1>)"
+msgstr ""
+
 msgid "Claim Now"
 msgstr ""
 
@@ -4667,6 +4778,9 @@ msgstr ""
 msgid "Remind me later"
 msgstr ""
 
+msgid "This October, join us at Haidilao Singapore for the first-ever Web3 Hotpot Festival — a week of vouchers, networking, and fun."
+msgstr ""
+
 msgid "Choose a token to send"
 msgstr ""
 
@@ -4755,6 +4869,9 @@ msgstr ""
 msgid "Collectible"
 msgstr ""
 
+msgid "Completed tasks (0/3)"
+msgstr ""
+
 msgid "Are you sure you want to report this user?"
 msgstr ""
 
@@ -4774,6 +4891,9 @@ msgid "Golden"
 msgstr ""
 
 msgid "Multi-device login"
+msgstr ""
+
+msgid "📅 <0>Date/ Time:</0> Oct 1, 3:30–6:30 PM"
 msgstr ""
 
 msgid "Success"

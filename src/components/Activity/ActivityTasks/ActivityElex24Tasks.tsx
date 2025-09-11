@@ -7,7 +7,10 @@ import urlcat from 'urlcat';
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
-import { ActivityElex24Context } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
+import {
+    ActivityElex24Context,
+    ActivityElex24Provider,
+} from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
 import { ActivityElex24Vote } from '@/components/Activity/ActivityElex24/ActivityElex24Vote.js';
 import { useActivityElex24Involved } from '@/components/Activity/ActivityElex24/useActivityElex24Involved.js';
 import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.js';
@@ -28,7 +31,7 @@ import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 import { type Chars } from '@/types/chars.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
-export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
+function ActivityElex24TasksComponent({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
     const { vote } = useContext(ActivityElex24Context);
     const { name, address } = useContext(ActivityContext);
     const xHandle = useActivityCurrentAccountHandle(Source.Twitter);
@@ -147,5 +150,13 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
                 />
             </div>
         </ActivityPremiumListProvider>
+    );
+}
+
+export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
+    return (
+        <ActivityElex24Provider>
+            <ActivityElex24TasksComponent data={data} />
+        </ActivityElex24Provider>
     );
 }

@@ -7,6 +7,15 @@ import { Image } from '@/components/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
+function parseDescription(description: string) {
+    return description.split('\\n').map((line, index, array) => (
+        <span key={index}>
+            {line}
+            {index < array.length - 1 && <br />}
+        </span>
+    ));
+}
+
 export function ActivityHeader({
     data,
 }: {
@@ -37,7 +46,7 @@ export function ActivityHeader({
                         <ActivityStatusTag status={data.status} />
                     </div>
                     <h1 className="text-xl font-semibold leading-6">{data.title}</h1>
-                    <p className="text-sm leading-6">{data.description}</p>
+                    <p className="text-sm leading-6">{parseDescription(data.description)}</p>
                 </div>
             </div>
         </div>

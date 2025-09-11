@@ -34,7 +34,9 @@ function ActivityListItem({ data }: { data: TypeActivityListItem; index?: number
             />
             <div className="w-full space-y-1 rounded-b-2xl p-2 text-lightMain">
                 <h4 className="truncate text-base font-semibold leading-6">{data.title}</h4>
-                {data.description ? <p className="line-clamp-2 text-sm leading-6">{data.description}</p> : null}
+                {data.description ? (
+                    <p className="line-clamp-2 text-sm leading-6">{data.description.replaceAll('\\n', ' ')}</p>
+                ) : null}
                 <div className="flex h-6 items-center space-x-1.5 text-[13px] leading-6">
                     <CalendarIcon className="size-4 shrink-0" />
                     <span>

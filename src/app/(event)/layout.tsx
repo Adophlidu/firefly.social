@@ -1,4 +1,5 @@
 import { msg } from '@lingui/core/macro';
+import { headers } from 'next/headers.js';
 
 import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
@@ -11,13 +12,17 @@ import { Agent, PageRoute } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
-    extends NextPageProps<{
-        agent: string;
-    }> {}
+    extends NextPageProps<
+        never,
+        {
+            agent: string;
+        }
+    > {}
 
 export async function generateMetadata() {
     return createSiteMetadata('/events', {
@@ -25,10 +30,17 @@ export async function generateMetadata() {
     });
 }
 
+async function getAgent() {
+    const url = (await headers()).get('X-URL');
+    if (!url) return;
+    const parsedUrl = parseUrl(url);
+    return parsedUrl?.searchParams.get('agent') ?? undefined;
+}
+
 export default async function Layout(props: Props) {
     await setupLocaleForSSR();
 
-    const { agent } = await props.params;
+    const agent = await getAgent();
     const resolvedAgent = agent && isValidEnumValue(agent, Agent) ? agent : Agent.Browser;
 
     switch (resolvedAgent) {

@@ -1,28 +1,27 @@
 'use client';
 
+import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 
-import { changeCookies } from '@/actions/changeCookies.js';
 import { Locale } from '@/constants/enum.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
 export function useFireflyBridgeLanguage() {
+    const { i18n } = useLingui();
     return useQuery({
         enabled: fireflyBridgeProvider.supported,
         queryKey: ['firefly-bridge-language'],
         async queryFn() {
             const language = await fireflyBridgeProvider.request(SupportedMethod.GET_LANGUAGE, {});
-            const data = new FormData();
             switch (language) {
                 case 'zh':
-                    data.append('locale', Locale.zhHans);
+                    i18n.activate(Locale.zhHans);
                     break;
                 default:
-                    data.append('locale', Locale.en);
+                    i18n.activate(language);
                     break;
             }
-            await changeCookies(data);
         },
         refetchOnWindowFocus: false,
         refetchOnMount: false,
