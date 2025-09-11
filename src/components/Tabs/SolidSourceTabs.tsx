@@ -2,7 +2,7 @@
 
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
 import type { Source } from '@/constants/enum.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { resolveSourceUIName } from '@/helpers/resolveSourceName.js';
 
 interface SolidSourceTabsProps {
     active: Source;
@@ -17,7 +17,7 @@ export function SolidSourceTabs({ active, sources, onChange }: SolidSourceTabsPr
             link={(source) => sources.find((s) => s.source === source)?.link || ''}
             onChange={onChange}
             isSelected={(source) => source === active}
-            itemRender={(source) => resolveSourceName(source)}
+            itemRender={resolveSourceUIName}
         />
     );
 }

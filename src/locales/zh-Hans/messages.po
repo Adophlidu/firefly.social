@@ -198,6 +198,9 @@ msgstr "平均分配"
 msgid "$ {0} <0>Net worth</0>"
 msgstr "$ {0} <0>净资产</0>"
 
+msgid "firefly.eth reposted your tips"
+msgstr ""
+
 msgid "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
 msgstr "请输入你的邮箱地址，我们将发送一次性验证码以确认你的邮箱"
 
@@ -494,6 +497,9 @@ msgstr "热门"
 msgid "View similar symbols"
 msgstr "查看名称相似的代币"
 
+msgid "DAOs"
+msgstr ""
+
 msgid "Rules"
 msgstr ""
 
@@ -528,6 +534,9 @@ msgid "Back to list"
 msgstr "返回列表"
 
 msgid "Product Detail"
+msgstr ""
+
+msgid "Bets"
 msgstr ""
 
 msgid "Scheduled"
@@ -1351,6 +1360,9 @@ msgstr "没有可显示的数据"
 msgid "Follow System"
 msgstr "跟随系统"
 
+msgid "Swaps"
+msgstr ""
+
 msgid "Cross-post to invite your crew to join (Optional)"
 msgstr ""
 
@@ -1771,6 +1783,9 @@ msgstr "已收集"
 msgid "Encrypted choice"
 msgstr "加密选项"
 
+msgid "Hide small transactions(<$100)"
+msgstr ""
+
 msgid "<0>You</0> retruthed"
 msgstr "<0>你</0> 已转发"
 
@@ -1812,6 +1827,9 @@ msgstr "净资产"
 
 msgid "All Wallets"
 msgstr "所有钱包"
+
+msgid "Significant movements in token prices"
+msgstr ""
 
 msgid "Executed"
 msgstr "已执行"
@@ -2142,6 +2160,9 @@ msgstr ""
 "刚刚通过铸造 {fireflyMention} 的 Buttrfly Fren 🦋 收藏品获得了 $MASK 代币。\n"
 "\n"
 "点击这里领取：{shareUrl}"
+
+msgid "Email"
+msgstr ""
 
 msgid "Disconnected from your social graph"
 msgstr "已从你的社交图谱中断开绑定"
@@ -2582,6 +2603,9 @@ msgstr ""
 
 msgid "No cybercrime found."
 msgstr "不涉及网络犯罪。"
+
+msgid "Articles"
+msgstr ""
 
 msgid "This Apple account is already linked to another Firefly account."
 msgstr "该邮箱已绑定其他 Apple 账号。"
@@ -3418,6 +3442,9 @@ msgstr "草稿"
 
 msgid "Wallets"
 msgstr "钱包"
+
+msgid "firefly.eth liked your tips"
+msgstr ""
 
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "来自 {walletHandle} 的文章现在将从您的首页时间线中隐藏。"
@@ -4439,6 +4466,9 @@ msgstr "关注 @{0}"
 
 msgid "Cancel Recast"
 msgstr "取消转发"
+
+msgid "Reports"
+msgstr ""
 
 msgid "The connection has timed out. Please try again later."
 msgstr "连接已经超时。请稍后重试。"

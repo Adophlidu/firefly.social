@@ -44,6 +44,26 @@ function useToggleNotificationConfig({
     }, [value, platform, pushType, unsupported]);
 }
 
+const notificationLabelMap: Record<string, ReactNode> = {
+    Tips: <Trans>Tips</Trans>,
+    Likes: <Trans>Likes</Trans>,
+    Reports: <Trans>Reports</Trans>,
+    Tokens: <Trans>Tokens</Trans>,
+    'Hide small transactions(<$100)': <Trans>Hide small transactions(&lt;$100)</Trans>,
+    Swaps: <Trans>Swaps</Trans>,
+};
+const notificationDescriptionMap: Record<string, ReactNode> = {
+    'firefly.eth tipped you 100 USDC': <Trans>firefly.eth tipped you 100 USDC</Trans>,
+    'firefly.eth liked your tips': <Trans>firefly.eth liked your tips</Trans>,
+    'firefly.eth reposted your tips': <Trans>firefly.eth reposted your tips</Trans>,
+    'Significant movements in token prices': <Trans>Significant movements in token prices</Trans>,
+    'Block transactions under $100': <Trans>Block transactions under $100</Trans>,
+    'firefly.eth liked your transaction': <Trans>firefly.eth liked your transaction</Trans>,
+    // cspell: disable-next-line
+    'firefly.eth swappped 1850 USDC for 0.5 ETH': <Trans>firefly.eth swapped 1850 USDC for 0.5 ETH</Trans>,
+    'firefly.eth swapped 1850 USDC for 0.5 ETH': <Trans>firefly.eth swapped 1850 USDC for 0.5 ETH</Trans>,
+};
+
 export function NotificationConfigItem({
     label,
     description,
@@ -62,8 +82,14 @@ export function NotificationConfigItem({
             )}
         >
             <div className="min-w-0 flex-1 truncate">
-                <p className="text-base font-bold text-main">{label}</p>
-                <p className="mt-1 text-medium text-second">{description}</p>
+                <p className="text-base font-bold text-main">
+                    {typeof label === 'string' ? notificationLabelMap[label] || label : label}
+                </p>
+                <p className="mt-1 text-medium text-second">
+                    {typeof description === 'string'
+                        ? notificationDescriptionMap[description] || description
+                        : description}
+                </p>
             </div>
             <Tooltip
                 content={rest.unsupported ? <Trans>Seems like this feature is not supported!</Trans> : null}
@@ -105,8 +131,14 @@ export function NotificationChildConfigItem({ label, description, disabled, ...r
                 </Checkbox>
             </Tooltip>
             <div className="min-w-0 flex-1 truncate">
-                <p className="text-base font-bold text-main">{label}</p>
-                <p className="mt-1 text-medium text-second">{description}</p>
+                <p className="text-base font-bold text-main">
+                    {typeof label === 'string' ? notificationLabelMap[label] || label : label}
+                </p>
+                <p className="mt-1 text-medium text-second">
+                    {typeof description === 'string'
+                        ? notificationDescriptionMap[description] || description
+                        : description}
+                </p>
             </div>
         </ClickableButton>
     );

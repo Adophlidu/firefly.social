@@ -17,7 +17,7 @@ import { getEnumAsArray } from '@/helpers/getEnumAsArray.js';
 import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
 import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';
 import { resolveHomeUrl } from '@/helpers/resolveHomeUrl.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { resolveSourceUIName } from '@/helpers/resolveSourceName.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -146,7 +146,7 @@ export function HomeTabs({
                             if (x === Source.Swap && !hasOpenSwap) {
                                 return (
                                     <span className="relative">
-                                        {resolveSourceName(x)}
+                                        {resolveSourceUIName(x)}
                                         <span className="absolute -right-[18px] -top-2 rounded-full bg-danger px-1 py-0.5 text-[9px] leading-[9px] text-white">
                                             <Trans>New</Trans>
                                         </span>
@@ -154,7 +154,7 @@ export function HomeTabs({
                                 );
                             }
 
-                            return resolveSourceName(x);
+                            return resolveSourceUIName(x);
                         }}
                         onChange={(source) => {
                             if (source === Source.Swap) {

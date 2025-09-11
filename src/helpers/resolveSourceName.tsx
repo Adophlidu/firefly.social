@@ -33,6 +33,34 @@ export const resolveSourceName = createLookupTableResolver<Source, string>(
         throw new UnreachableError('source', source);
     },
 );
+export const resolveSourceUIName = createLookupTableResolver<Source, string | JSX.Element>(
+    {
+        [Source.Lens]: 'Lens',
+        [Source.Farcaster]: 'Farcaster',
+        [Source.Twitter]: 'X',
+        [Source.Bsky]: 'Bluesky',
+        [Source.Firefly]: 'Firefly',
+        [Source.Article]: <Trans>Articles</Trans>,
+        [Source.Wallet]: <Trans>Wallets</Trans>,
+        [Source.WalletMix]: <Trans>Wallets</Trans>,
+        [Source.NFTs]: <Trans>NFTs</Trans>,
+        [Source.DAOs]: <Trans>DAOs</Trans>,
+        [Source.Polymarket]: <Trans>Bets</Trans>,
+        [Source.Telegram]: 'Telegram',
+        [Source.Google]: 'Google',
+        [Source.Apple]: 'Apple',
+        [Source.Posts]: <Trans>Posts</Trans>,
+        [Source.Notifications]: <Trans>Notifications</Trans>,
+        [Source.Email]: <Trans>Email</Trans>,
+        [Source.Swap]: <Trans>Swaps</Trans>,
+        [Source.Transactions]: <Trans>Transactions</Trans>,
+        [Source.Activities]: <Trans>Activities</Trans>,
+        [Source.X3Pro]: 'X3',
+    },
+    (source) => {
+        throw new UnreachableError('source', source);
+    },
+);
 
 export const resolveExploreSourceName = createLookupTableResolver<ExploreSource, string | JSX.Element>(
     {
@@ -52,7 +80,7 @@ export const resolveExploreSourceName = createLookupTableResolver<ExploreSource,
 
 export const resolveNotificationSourceName = createLookupTableResolver<NotificationSource, string | JSX.Element>(
     {
-        [Source.Notifications]: 'All',
+        [Source.Notifications]: <Trans>All</Trans>,
         [Source.Lens]: 'Lens',
         [Source.Farcaster]: 'Farcaster',
         [Source.Bsky]: 'Bluesky',

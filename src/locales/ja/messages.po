@@ -198,6 +198,9 @@ msgstr ""
 msgid "$ {0} <0>Net worth</0>"
 msgstr ""
 
+msgid "firefly.eth reposted your tips"
+msgstr ""
+
 msgid "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
 msgstr ""
 
@@ -494,6 +497,9 @@ msgstr ""
 msgid "View similar symbols"
 msgstr ""
 
+msgid "DAOs"
+msgstr ""
+
 msgid "Rules"
 msgstr ""
 
@@ -528,6 +534,9 @@ msgid "Back to list"
 msgstr ""
 
 msgid "Product Detail"
+msgstr ""
+
+msgid "Bets"
 msgstr ""
 
 msgid "Scheduled"
@@ -1351,6 +1360,9 @@ msgstr ""
 msgid "Follow System"
 msgstr ""
 
+msgid "Swaps"
+msgstr ""
+
 msgid "Cross-post to invite your crew to join (Optional)"
 msgstr ""
 
@@ -1771,6 +1783,9 @@ msgstr ""
 msgid "Encrypted choice"
 msgstr ""
 
+msgid "Hide small transactions(<$100)"
+msgstr ""
+
 msgid "<0>You</0> retruthed"
 msgstr ""
 
@@ -1811,6 +1826,9 @@ msgid "Net Worth"
 msgstr ""
 
 msgid "All Wallets"
+msgstr ""
+
+msgid "Significant movements in token prices"
 msgstr ""
 
 msgid "Executed"
@@ -2138,6 +2156,9 @@ msgid ""
 "Just earned $MASK by minting the Buttrfly Fren 🦋 collectible from {fireflyMention} \n"
 "\n"
 "Claim here {shareUrl}"
+msgstr ""
+
+msgid "Email"
 msgstr ""
 
 msgid "Disconnected from your social graph"
@@ -2564,6 +2585,9 @@ msgid "Failed to publish on {sortedSourceNames}"
 msgstr ""
 
 msgid "No cybercrime found."
+msgstr ""
+
+msgid "Articles"
 msgstr ""
 
 msgid "This Apple account is already linked to another Firefly account."
@@ -3395,6 +3419,9 @@ msgid "Draft"
 msgstr ""
 
 msgid "Wallets"
+msgstr ""
+
+msgid "firefly.eth liked your tips"
 msgstr ""
 
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
@@ -4413,6 +4440,9 @@ msgid "Follow @{0}"
 msgstr ""
 
 msgid "Cancel Recast"
+msgstr ""
+
+msgid "Reports"
 msgstr ""
 
 msgid "The connection has timed out. Please try again later."

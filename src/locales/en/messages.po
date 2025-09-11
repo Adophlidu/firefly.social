@@ -193,6 +193,9 @@ msgstr "Equal Split"
 msgid "$ {0} <0>Net worth</0>"
 msgstr "$ {0} <0>Net worth</0>"
 
+msgid "firefly.eth reposted your tips"
+msgstr "firefly.eth reposted your tips"
+
 msgid "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
 msgstr "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
 
@@ -489,6 +492,9 @@ msgstr "Trending"
 msgid "View similar symbols"
 msgstr "View similar symbols"
 
+msgid "DAOs"
+msgstr "DAOs"
+
 msgid "Rules"
 msgstr "Rules"
 
@@ -524,6 +530,9 @@ msgstr "Back to list"
 
 msgid "Product Detail"
 msgstr "Product Detail"
+
+msgid "Bets"
+msgstr "Bets"
 
 msgid "Scheduled"
 msgstr "Scheduled"
@@ -1346,6 +1355,9 @@ msgstr "There is no data available to display"
 msgid "Follow System"
 msgstr "Follow System"
 
+msgid "Swaps"
+msgstr "Swaps"
+
 msgid "Cross-post to invite your crew to join (Optional)"
 msgstr "Cross-post to invite your crew to join (Optional)"
 
@@ -1766,6 +1778,9 @@ msgstr "Collected"
 msgid "Encrypted choice"
 msgstr "Encrypted choice"
 
+msgid "Hide small transactions(<$100)"
+msgstr "Hide small transactions(<$100)"
+
 msgid "<0>You</0> retruthed"
 msgstr "<0>You</0> retruthed"
 
@@ -1807,6 +1822,9 @@ msgstr "Net Worth"
 
 msgid "All Wallets"
 msgstr "All Wallets"
+
+msgid "Significant movements in token prices"
+msgstr "Significant movements in token prices"
 
 msgid "Executed"
 msgstr "Executed"
@@ -2137,6 +2155,9 @@ msgstr ""
 "Just earned $MASK by minting the Buttrfly Fren 🦋 collectible from {fireflyMention} \n"
 "\n"
 "Claim here {shareUrl}"
+
+msgid "Email"
+msgstr "Email"
 
 msgid "Disconnected from your social graph"
 msgstr "Disconnected from your social graph"
@@ -2568,6 +2589,9 @@ msgstr "Failed to publish on {sortedSourceNames}"
 
 msgid "No cybercrime found."
 msgstr "No cybercrime found."
+
+msgid "Articles"
+msgstr "Articles"
 
 msgid "This Apple account is already linked to another Firefly account."
 msgstr "This Apple account is already linked to another Firefly account."
@@ -3404,6 +3428,9 @@ msgstr "Draft"
 
 msgid "Wallets"
 msgstr "Wallets"
+
+msgid "firefly.eth liked your tips"
+msgstr "firefly.eth liked your tips"
 
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "Articles from {walletHandle} will now be hidden in your home timeline"
@@ -4425,6 +4452,9 @@ msgstr "Follow @{0}"
 
 msgid "Cancel Recast"
 msgstr "Cancel Recast"
+
+msgid "Reports"
+msgstr "Reports"
 
 msgid "The connection has timed out. Please try again later."
 msgstr "The connection has timed out. Please try again later."
