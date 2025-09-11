@@ -146,7 +146,7 @@ export function ActivityHaidilaoTask() {
                         <li>
                             <Trans>
                                 This October, join us at Haidilao Singapore for the first-ever Web3 Hotpot Festival — a
-                                week of vouchers, networking, and fun.
+                                week of hotpot, networking, and fun.
                             </Trans>
                             <br />
                             <br />
@@ -227,15 +227,7 @@ export function ActivityHaidilaoTask() {
                         <li>
                             <Trans>
                                 💅 Enjoy <span className="font-bold">a free manicure</span> session at our NFC Nail Art
-                                booth brought to you together with Chipped (
-                                <Link
-                                    className="text-highlight"
-                                    href={resolveProfileUrl(Source.Twitter, 'chippedsocial')}
-                                    target="_blank"
-                                >
-                                    @chippedsocial
-                                </Link>
-                                )
+                                booth brought to you together with Chipped
                             </Trans>
                         </li>
                     </ul>
@@ -254,10 +246,7 @@ export function ActivityHaidilaoTask() {
                     }}
                 >
                     <ProductDetailRow label={<Trans>Product</Trans>} value={<Trans>Voucher SGD 50 x 1</Trans>} />
-                    <ProductDetailRow
-                        label={<Trans>Period</Trans>}
-                        value={<Trans>Sep 29, 16:00 - Oct 5, 16:00 UTC</Trans>}
-                    />
+                    <ProductDetailRow label={<Trans>Period</Trans>} value={<Trans>Sept 30 – Oct 6</Trans>} />
                     <ProductDetailRow
                         label={<Trans>Rules</Trans>}
                         value={<Trans>1 voucher per person; Total usable vouchers = Number of diners</Trans>}
@@ -343,9 +332,12 @@ export function ActivityHaidilaoTask() {
                         <li>
                             <Trans>
                                 The more tasks you complete, the better your chances to unlock{' '}
-                                <span className="font-bold">exclusive discounts</span> or even
-                                <span className="font-bold"> free hotpot vouchers</span>.
+                                <span className="font-bold">exclusive discounts</span> or even{' '}
+                                <span className="font-bold">free hotpot vouchers</span>.
                             </Trans>
+                        </li>
+                        <li>
+                            <Trans>The final amount is subject to the actual order amount</Trans>
                         </li>
                     </ul>
                 </div>

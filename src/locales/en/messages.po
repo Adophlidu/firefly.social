@@ -1232,6 +1232,9 @@ msgstr "Delete Firefly account?"
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "Failed to upload. Image size exceeds {0}"
 
+msgid "💅 Enjoy <0>a free manicure</0> session at our NFC Nail Art booth brought to you together with Chipped"
+msgstr "💅 Enjoy <0>a free manicure</0> session at our NFC Nail Art booth brought to you together with Chipped"
+
 msgid "Done"
 msgstr "Done"
 
@@ -1564,6 +1567,9 @@ msgstr "View Source"
 
 msgid "🤝 Meet and connect with <0>Top 10 Asian Web3 teams</0>"
 msgstr "🤝 Meet and connect with <0>Top 10 Asian Web3 teams</0>"
+
+msgid "The final amount is subject to the actual order amount"
+msgstr "The final amount is subject to the actual order amount"
 
 #. placeholder {0}: author.handle
 #. placeholder {1}: resolveSourceName(source)
@@ -2281,6 +2287,9 @@ msgstr "Failed to unmute /{0}."
 msgid "Custom amount is required for this token"
 msgstr "Custom amount is required for this token"
 
+msgid "The more tasks you complete, the better your chances to unlock <0>exclusive discounts</0> or even <1>free hotpot vouchers</1>."
+msgstr "The more tasks you complete, the better your chances to unlock <0>exclusive discounts</0> or even <1>free hotpot vouchers</1>."
+
 msgid "Cover background"
 msgstr "Cover background"
 
@@ -2492,6 +2501,9 @@ msgstr "Users"
 
 msgid "Primary"
 msgstr "Primary"
+
+msgid "This October, join us at Haidilao Singapore for the first-ever Web3 Hotpot Festival — a week of hotpot, networking, and fun."
+msgstr "This October, join us at Haidilao Singapore for the first-ever Web3 Hotpot Festival — a week of hotpot, networking, and fun."
 
 msgid "Failed to reconnect. Please scan another QR code to establish a new connection."
 msgstr "Failed to reconnect. Please scan another QR code to establish a new connection."
@@ -3706,9 +3718,6 @@ msgstr "Upcoming"
 msgid "<0>Any assets in this Firefly wallet will be permanently lost and cannot be recovered.</0> Before proceeding, please withdraw all funds and assets from your Firefly wallets to avoid any loss."
 msgstr "<0>Any assets in this Firefly wallet will be permanently lost and cannot be recovered.</0> Before proceeding, please withdraw all funds and assets from your Firefly wallets to avoid any loss."
 
-msgid "The more tasks you complete, the better your chances to unlock <0>exclusive discounts</0> or even<1> free hotpot vouchers</1>."
-msgstr "The more tasks you complete, the better your chances to unlock <0>exclusive discounts</0> or even<1> free hotpot vouchers</1>."
-
 msgid "Display Name should not exceed 20 characters"
 msgstr "Display Name should not exceed 20 characters"
 
@@ -4065,6 +4074,9 @@ msgstr "Dex"
 msgid "Passed"
 msgstr "Passed"
 
+msgid "Sept 30 – Oct 6"
+msgstr "Sept 30 – Oct 6"
+
 msgid "Unlock a premium collectible and a larger $MASK airdrop "
 msgstr "Unlock a premium collectible and a larger $MASK airdrop "
 
@@ -4176,9 +4188,6 @@ msgstr "The contract owner has no restrictions on personal slippage."
 
 msgid "Number of winners"
 msgstr "Number of winners"
-
-msgid "Sep 29, 16:00 - Oct 5, 16:00 UTC"
-msgstr "Sep 29, 16:00 - Oct 5, 16:00 UTC"
 
 msgid "Multi-device login is now turned on and synced successfully."
 msgstr "Multi-device login is now turned on and synced successfully."
@@ -4664,9 +4673,6 @@ msgstr "Last sale"
 msgid "Followed @{0} on Lens"
 msgstr "Followed @{0} on Lens"
 
-msgid "💅 Enjoy <0>a free manicure</0> session at our NFC Nail Art booth brought to you together with Chipped (<1>@chippedsocial</1>)"
-msgstr "💅 Enjoy <0>a free manicure</0> session at our NFC Nail Art booth brought to you together with Chipped (<1>@chippedsocial</1>)"
-
 msgid "Claim Now"
 msgstr "Claim Now"
 
@@ -4793,9 +4799,6 @@ msgstr "Refund successfully."
 
 msgid "Remind me later"
 msgstr "Remind me later"
-
-msgid "This October, join us at Haidilao Singapore for the first-ever Web3 Hotpot Festival — a week of vouchers, networking, and fun."
-msgstr "This October, join us at Haidilao Singapore for the first-ever Web3 Hotpot Festival — a week of vouchers, networking, and fun."
 
 msgid "Choose a token to send"
 msgstr "Choose a token to send"
