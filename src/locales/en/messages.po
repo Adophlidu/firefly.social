@@ -221,9 +221,6 @@ msgstr "Turning off Multi-device login will clear all previously encrypted login
 msgid "Enter a new password to verify your identity."
 msgstr "Enter a new password to verify your identity."
 
-msgid "1 voucher per person; Total usable vouchers = Number of diners"
-msgstr "1 voucher per person; Total usable vouchers = Number of diners"
-
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "Mute @{0}"
@@ -4650,6 +4647,9 @@ msgstr "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{
 
 msgid "View on website"
 msgstr "View on website"
+
+msgid "1 voucher can be redeemed by 1 person; No limit for dining guests"
+msgstr "1 voucher can be redeemed by 1 person; No limit for dining guests"
 
 msgid "Please confirm the login with X."
 msgstr "Please confirm the login with X."

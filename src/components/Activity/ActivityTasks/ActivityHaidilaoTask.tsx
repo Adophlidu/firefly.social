@@ -249,7 +249,7 @@ export function ActivityHaidilaoTask() {
                     <ProductDetailRow label={<Trans>Period</Trans>} value={<Trans>Sept 30 – Oct 6</Trans>} />
                     <ProductDetailRow
                         label={<Trans>Rules</Trans>}
-                        value={<Trans>1 voucher per person; Total usable vouchers = Number of diners</Trans>}
+                        value={<Trans>1 voucher can be redeemed by 1 person; No limit for dining guests</Trans>}
                     />
                     <ProductDetailRow label={<Trans>Support</Trans>} value={<Trans>No refund if expired</Trans>} />
                     <>
@@ -263,13 +263,13 @@ export function ActivityHaidilaoTask() {
                                 </span>
                                 <ArrowRightIcon width={10} height={10} />
                             </MenuButton>
-                            <MenuItems className="absolute left-0 z-10 mt-2 w-48 rounded-lg bg-white py-3 shadow-primary focus:outline-none">
+                            <MenuItems className="absolute left-0 z-10 mt-2 w-48 rounded-lg bg-primaryBottom py-3 text-main shadow-primary focus:outline-none">
                                 <MenuItem>
                                     <a
                                         href="https://maps.app.goo.gl/775Lf22Gdwy4mszt6"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="block px-3 py-1 text-base font-normal text-neutral-900 hover:opacity-80"
+                                        className="block px-3 py-1 text-base font-normal hover:opacity-80"
                                     >
                                         <Trans>Marina Bay Sands</Trans>
                                     </a>
@@ -279,7 +279,7 @@ export function ActivityHaidilaoTask() {
                                         href="https://maps.app.goo.gl/CNCgARJEWbGtcYj48"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="block px-3 py-1 text-base font-normal text-neutral-900 hover:opacity-80"
+                                        className="block px-3 py-1 text-base font-normal hover:opacity-80"
                                     >
                                         <Trans>Bugis+</Trans>
                                     </a>
@@ -289,7 +289,7 @@ export function ActivityHaidilaoTask() {
                                         href="https://maps.app.goo.gl/5sxX9ETjmZhHk9VL8"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="block px-3 py-1 text-base font-normal text-neutral-900 hover:opacity-80"
+                                        className="block px-3 py-1 text-base font-normal hover:opacity-80"
                                     >
                                         <Trans>Marina Square</Trans>
                                     </a>

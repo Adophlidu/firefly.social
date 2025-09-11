@@ -221,9 +221,6 @@ msgstr ""
 msgid "Enter a new password to verify your identity."
 msgstr ""
 
-msgid "1 voucher per person; Total usable vouchers = Number of diners"
-msgstr ""
-
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr ""
@@ -4633,6 +4630,9 @@ msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{t
 msgstr ""
 
 msgid "View on website"
+msgstr ""
+
+msgid "1 voucher can be redeemed by 1 person; No limit for dining guests"
 msgstr ""
 
 msgid "Please confirm the login with X."

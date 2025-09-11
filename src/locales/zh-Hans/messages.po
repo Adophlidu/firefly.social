@@ -226,9 +226,6 @@ msgstr "关闭多设备登录功能将清除所有已加密的登录授权。重
 msgid "Enter a new password to verify your identity."
 msgstr "请输入新密码以验证身份。"
 
-msgid "1 voucher per person; Total usable vouchers = Number of diners"
-msgstr ""
-
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "隐藏 @{0}"
@@ -4664,6 +4661,9 @@ msgstr "<0>已领取: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> 
 
 msgid "View on website"
 msgstr "在网站上查看"
+
+msgid "1 voucher can be redeemed by 1 person; No limit for dining guests"
+msgstr ""
 
 msgid "Please confirm the login with X."
 msgstr "请在 X 确认登录。"
