@@ -62,13 +62,13 @@ export function RecipientItem({
                 ) : null}
             </div>
             {forceAddress || (!username && !ens) ? (
-                <div className="flex w-full flex-col items-center justify-center space-y-1 text-[13px]">
+                <div className="flex w-full flex-1 flex-col items-center justify-center space-y-1 text-[13px]">
                     <div className="break-word line-clamp-2 w-full whitespace-pre-wrap pr-3 font-bold leading-[18px]">
                         {address}
                     </div>
                 </div>
             ) : (
-                <div className="flex flex-col items-start space-y-1 text-[13px]">
+                <div className="flex flex-1 flex-col items-start space-y-1 text-[13px]">
                     <div className="h-[18px] truncate font-bold leading-[18px]">{username || ens}</div>
                     <div className="h-3.5 leading-[14px] text-second">
                         {handle ? `@${handle}` : formatAddress(address, 4)}
@@ -77,7 +77,7 @@ export function RecipientItem({
             )}
             <div className="ml-auto flex items-center space-x-2">
                 {tag ? (
-                    <div className="h-6 rounded bg-walletBg px-2 text-[13px] font-medium leading-6 text-highlight">
+                    <div className="h-6 whitespace-nowrap rounded bg-walletBg px-2 text-[13px] font-medium leading-6 text-highlight">
                         {tag}
                     </div>
                 ) : null}
