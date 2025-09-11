@@ -5,6 +5,7 @@ import { type HTMLProps, memo, Suspense, useCallback, useContext, useMemo, useSt
 
 import TokenPageLoading from '@/app/(normal)/token/[exchange]/[[...slug]]/loading.js';
 import { Avatar } from '@/components/Avatar.js';
+import { DisableScrollRestoreContext } from '@/components/DisableScrollRestore/index.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SwapTimeline, type SwapTimelineProps } from '@/components/Swap/SwapTimeline.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
@@ -85,7 +86,6 @@ export const Transactions = memo<Props>(function Transactions({
         chainId,
         tokenAddress,
         onActivitiesUpdate: handleActivitiesUpdate,
-        disableScrollRestore: true,
         ignoreFilters: true,
     };
 
@@ -130,44 +130,46 @@ export const Transactions = memo<Props>(function Transactions({
                     </div>
                 }
             >
-                {isFollowing ? (
-                    <SwapTimeline
-                        isFollowing
-                        {...timelineProps}
-                        listSubScope={`${chainId}-${tokenAddress}-following`}
-                        NoResultsFallbackProps={{
-                            icon: null,
-                            message: <Trans>No one you follow has traded this token.</Trans>,
-                        }}
-                    />
-                ) : subcategory === 'mine' || isMyOwnWallet ? (
-                    account ? (
+                <DisableScrollRestoreContext value>
+                    {isFollowing ? (
                         <SwapTimeline
-                            address={account}
+                            isFollowing
                             {...timelineProps}
-                            listSubScope={`${chainId}-${tokenAddress}-${account}`}
+                            listSubScope={`${chainId}-${tokenAddress}-following`}
                             NoResultsFallbackProps={{
                                 icon: null,
-                                message: <Trans>You haven&apos;t traded this token.</Trans>,
+                                message: <Trans>No one you follow has traded this token.</Trans>,
                             }}
                         />
-                    ) : (
-                        <NotLoginFallback
-                            source={Source.Wallet}
-                            message={<Trans>Connect your wallet to unlock all features</Trans>}
+                    ) : subcategory === 'mine' || isMyOwnWallet ? (
+                        account ? (
+                            <SwapTimeline
+                                address={account}
+                                {...timelineProps}
+                                listSubScope={`${chainId}-${tokenAddress}-${account}`}
+                                NoResultsFallbackProps={{
+                                    icon: null,
+                                    message: <Trans>You haven&apos;t traded this token.</Trans>,
+                                }}
+                            />
+                        ) : (
+                            <NotLoginFallback
+                                source={Source.Wallet}
+                                message={<Trans>Connect your wallet to unlock all features</Trans>}
+                            />
+                        )
+                    ) : subcategory === 'trader' && trader ? (
+                        <SwapTimeline
+                            address={trader}
+                            {...timelineProps}
+                            listSubScope={`${chainId}-${tokenAddress}-${trader}`}
+                            NoResultsFallbackProps={{
+                                icon: null,
+                                message: <Trans>No trade records</Trans>,
+                            }}
                         />
-                    )
-                ) : subcategory === 'trader' && trader ? (
-                    <SwapTimeline
-                        address={trader}
-                        {...timelineProps}
-                        listSubScope={`${chainId}-${tokenAddress}-${trader}`}
-                        NoResultsFallbackProps={{
-                            icon: null,
-                            message: <Trans>No trade records</Trans>,
-                        }}
-                    />
-                ) : null}
+                    ) : null}
+                </DisableScrollRestoreContext>
             </Suspense>
         </div>
     );

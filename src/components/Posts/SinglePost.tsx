@@ -6,6 +6,7 @@ import { isUndefined } from 'lodash-es';
 import { type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
 import { PostActions } from '@/components/Actions/index.js';
+import { useDisableScrollRestore } from '@/components/DisableScrollRestore/index.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
@@ -73,6 +74,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
         if (post.source === Source.Farcaster && post.stats?.comments === 0) return false;
         return true;
     }, [post, isPostPage]);
+    const disableScrollRestore = useDisableScrollRestore();
 
     if (!isProfilePage && !isDetail && muted)
         return keepMutedSpace ? <div className="pointer-events-none -mt-[1px] h-[1px]" /> : null;
@@ -100,7 +102,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 }
 
                 if (!isPostPage || isComment) {
-                    if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+                    if (listKey && !isUndefined(index) && !disableScrollRestore) setScrollIndex(listKey, index);
                     router.push(postLink);
                 }
                 return;

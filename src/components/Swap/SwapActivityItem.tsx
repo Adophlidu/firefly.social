@@ -10,6 +10,7 @@ import ExchangeIcon from '@/assets/exchange.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { useDisableScrollRestore } from '@/components/DisableScrollRestore/index.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
@@ -37,21 +38,16 @@ interface SwapActivityItemProps {
     activity: SwapActivity;
     listKey?: string;
     index?: number;
-    disableScrollRestore?: boolean;
 }
 
-export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivityItem({
-    activity,
-    listKey,
-    index,
-    disableScrollRestore,
-}) {
+export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivityItem({ activity, listKey, index }) {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const router = useRouter();
     const addressName = formatAddress(activity.owner, 4);
     const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: activity.owner });
 
     const detailUrl = resolveTxPageUrl(activity.hash, activity.chain_id);
+    const disableScrollRestore = useDisableScrollRestore();
 
     return (
         <motion.article

@@ -7,6 +7,7 @@ import { type HTMLProps, memo, Suspense, useMemo, useState, useTransition } from
 import TokenPageLoading from '@/app/(normal)/token/[exchange]/[[...slug]]/loading.js';
 import SortAscIcon from '@/assets/sort-asc.svg';
 import X3ProIcon from '@/assets/x3pro.svg';
+import { DisableScrollRestoreContext } from '@/components/DisableScrollRestore/index.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchPostList } from '@/components/Search/SearchPostList.js';
 import { KolBar } from '@/components/TokenProfile/KolBar.js';
@@ -197,24 +198,26 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
                     </div>
                 }
             >
-                <SearchPostList
-                    keyword={keywords}
-                    searchType={SearchType.Posts}
-                    source={source}
-                    orderType={postOrderType}
-                    loading={<TokenPageLoading />}
-                    emptyMessage={
-                        isX3Pro ? (
-                            supportedX3 ? (
-                                <Trans>No posts found for this token.</Trans>
+                <DisableScrollRestoreContext value>
+                    <SearchPostList
+                        keyword={keywords}
+                        searchType={SearchType.Posts}
+                        source={source}
+                        orderType={postOrderType}
+                        loading={<TokenPageLoading />}
+                        emptyMessage={
+                            isX3Pro ? (
+                                supportedX3 ? (
+                                    <Trans>No posts found for this token.</Trans>
+                                ) : (
+                                    <Trans>Feeds for tokens on this chain will be available soon.</Trans>
+                                )
                             ) : (
-                                <Trans>Feeds for tokens on this chain will be available soon.</Trans>
+                                <Empty keyword={keywords[0]} message="" />
                             )
-                        ) : (
-                            <Empty keyword={keywords[0]} message="" />
-                        )
-                    }
-                />
+                        }
+                    />
+                </DisableScrollRestoreContext>
             </Suspense>
             {openModal && users.length ? (
                 <MentionedByModal open onClose={() => setOpenModal(false)} users={users} />
