@@ -254,7 +254,6 @@ async function commentPostForLens(
         postId,
         {
             ...createDummyPost(Source.Lens, contentURI.uri),
-            channel: resolveValidChannel(channel),
         },
         profile.signless,
     );
