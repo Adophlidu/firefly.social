@@ -100,7 +100,7 @@ export function TokenInfoRow({
                 </div>
                 <div className="flex flex-col items-end">
                     {amountText ? (
-                        <span className={classNames(amountClassName)}>
+                        <span className={classNames('text-sm font-medium', amountClassName)}>
                             {amountPrefix ? (
                                 <>
                                     {`${amountPrefix} `}

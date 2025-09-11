@@ -89,6 +89,7 @@ export function setWalletBlockStatus(address: string, status: boolean) {
     });
 
     patchTransactionsQuery(Source.Polymarket, undefined, (data) => !isSameEthereumAddress(data.wallet, address));
+    patchTransactionsQuery(Source.Swap, undefined, (data) => !isSameEthereumAddress(data.owner, address));
 
     queryClient.setQueriesData<DAOPagesData>({ queryKey: ['snapshots'] }, (old) => {
         if (!old) return old;

@@ -15,7 +15,7 @@ export function InlineTarget({ href, logo, text, className, onClick }: InlineTar
     return (
         <Link href={href} className={classNames('flex items-center gap-x-1', className)} onClick={onClick}>
             {logo}
-            <span className="text-xs leading-[12px]">{text}</span>
+            <span className="text-sm font-semibold leading-[18px]">{text}</span>
         </Link>
     );
 }

@@ -237,9 +237,9 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
             case TransactionHistoryCategory.TokenReceive:
                 return (
                     <Trans>
-                        <div className="flex items-center rounded-lg border border-main px-2 py-[6px] text-main">
+                        <div className="flex items-center rounded-lg border border-main px-2 py-[2px] text-main">
                             <TransactionCategoryIcon category={transaction.category} />
-                            <span className="text-xs leading-[12px]">Received</span>
+                            <span className="text-sm">Received</span>
                         </div>
                         <span className="text-xs leading-[12px]">from</span>
                         <InlineTarget
@@ -247,7 +247,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                             logo={
                                 <Avatar
                                     src={getStampAvatarByProfileId(Source.Wallet, fromAddress)}
-                                    size={12}
+                                    size={20}
                                     alt={fromAddressName || ''}
                                 />
                             }
@@ -259,9 +259,9 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
             case TransactionHistoryCategory.TokenSend:
                 return (
                     <Trans>
-                        <div className="flex items-center rounded-lg border border-main px-2 py-[6px] text-main">
+                        <div className="flex items-center rounded-lg border border-main px-2 py-[2px] text-main">
                             <TransactionCategoryIcon category={transaction.category} />
-                            <span className="text-xs leading-[12px]">Sent</span>
+                            <span className="text-sm">Sent</span>
                         </div>
                         <span className="text-xs leading-[12px]">to</span>
                         <InlineTarget
@@ -269,7 +269,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                             logo={
                                 <Avatar
                                     src={getStampAvatarByProfileId(Source.Wallet, toAddress)}
-                                    size={12}
+                                    size={20}
                                     alt={toAddressName || ''}
                                 />
                             }
@@ -281,9 +281,9 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
             case TransactionHistoryCategory.TokenApprove:
                 return (
                     <Trans>
-                        <div className="flex items-center rounded-lg border border-main px-2 py-[6px] text-main">
+                        <div className="flex items-center rounded-lg border border-main px-2 py-[2px] text-main">
                             <TransactionCategoryIcon category={transaction.category} />
-                            <span className="text-xs leading-[12px]">Approved</span>
+                            <span className="text-sm">Approved</span>
                         </div>
                         <span className="text-xs leading-[12px]">on</span>
                         <InlineTarget
@@ -293,7 +293,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                             })}
                             logo={
                                 transaction.project_logo ? (
-                                    <Avatar src={transaction.project_logo} size={12} alt={transaction.project_name} />
+                                    <Avatar src={transaction.project_logo} size={20} alt={transaction.project_name} />
                                 ) : undefined
                             }
                             text={transaction.project_name ?? (toAddressName || '')}
@@ -305,9 +305,9 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
             case TransactionHistoryCategory.TokenRevoke:
                 return (
                     <Trans>
-                        <div className="flex items-center rounded-lg border border-main px-2 py-[6px] text-main">
+                        <div className="flex items-center rounded-lg border border-main px-2 py-[2px] text-main">
                             <TransactionCategoryIcon category={transaction.category} />
-                            <span className="text-xs leading-[12px]">Revoked</span>
+                            <span className="text-sm">Revoked</span>
                         </div>
                         <span className="text-xs leading-[12px]">on</span>
                         <InlineTarget
@@ -317,7 +317,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                             })}
                             logo={
                                 transaction.project_logo ? (
-                                    <Avatar src={transaction.project_logo} size={12} alt={transaction.project_name} />
+                                    <Avatar src={transaction.project_logo} size={20} alt={transaction.project_name} />
                                 ) : undefined
                             }
                             text={transaction.token_approve?.spender_address ?? (toAddressName || '')}
@@ -328,9 +328,9 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
             default:
                 return (
                     <Trans>
-                        <div className="flex items-center rounded-lg border border-main px-2 py-[6px] text-main">
+                        <div className="flex items-center rounded-lg border border-main px-2 py-[2px] text-main">
                             <TransactionCategoryIcon category={transaction.category} />
-                            <span className="text-xs leading-[12px]">Interacted</span>
+                            <span className="text-sm">Interacted</span>
                         </div>
                         <span className="text-xs leading-[12px]">with</span>
                         <InlineTarget
@@ -361,7 +361,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                     <div className="flex items-center gap-x-1 text-medium">
                         <Link
                             href={profileUrl}
-                            className="min-w-0 truncate font-bold text-lightMain"
+                            className="min-w-0 truncate text-base font-semibold text-lightMain"
                             onClick={closeModal}
                         >
                             {fromEnsHandle ? <span>{fromEnsHandle}</span> : fromAddressName}
@@ -376,7 +376,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                     </div>
                 </div>
             </div>
-            <div className="mt-3 flex items-center gap-x-1">{subtitle}</div>
+            <div className="mt-3 flex items-center gap-x-2">{subtitle}</div>
             <div className="mt-3">
                 <TransactionDetailContentCard transaction={transaction} />
             </div>
@@ -391,7 +391,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                             <span className="flex items-center gap-1">
                                 <Avatar
                                     src={getStampAvatarByProfileId(Source.Wallet, toAddress)}
-                                    size={12}
+                                    size={20}
                                     alt={toAddressName || ''}
                                 />
                                 <AddressLink chainId={transaction.chain_id} address={toAddress} />
@@ -424,8 +424,8 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                                     <Image
                                         src={transaction.project_logo}
                                         alt={transaction.project_name}
-                                        width={12}
-                                        height={12}
+                                        width={20}
+                                        height={20}
                                     />
                                 ) : null}
                                 <AddressLink chainId={transaction.chain_id} address={toAddress} />
@@ -450,7 +450,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                         <Trans>Status</Trans>
                     </span>
                     <span
-                        className={classNames('flex items-center gap-2', {
+                        className={classNames('flex items-center gap-2 text-sm font-medium', {
                             'text-success': transaction.tx_status === TransactionState.Success,
 
                             'text-danger': transaction.tx_status === TransactionState.Failed,
@@ -473,10 +473,10 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                     <div className="flex items-center gap-1">
                         <ChainIcon
                             chainId={transaction.chain_id}
-                            size={15}
+                            size={20}
                             networkType={transaction.chain_id === 101 ? NetworkType.Solana : NetworkType.Ethereum}
                         />
-                        <span className="text-lightMain">
+                        <span className="text-sm font-medium text-lightMain">
                             {transaction.chain_id === 101 ? 'Solana' : getChainName(transaction.chain_id)}
                         </span>
                     </div>
