@@ -4224,6 +4224,10 @@ msgstr ""
 msgid "Clear all requirements"
 msgstr ""
 
+#. placeholder {0}: transaction.token_approve.token.symbol
+msgid "Unlimit {0}"
+msgstr ""
+
 msgid "Claim Requirements"
 msgstr ""
 

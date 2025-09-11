@@ -4240,6 +4240,10 @@ msgstr "Congratulations!"
 msgid "Clear all requirements"
 msgstr "Clear all requirements"
 
+#. placeholder {0}: transaction.token_approve.token.symbol
+msgid "Unlimit {0}"
+msgstr "Unlimit {0}"
+
 msgid "Claim Requirements"
 msgstr "Claim Requirements"
 

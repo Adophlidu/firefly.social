@@ -117,7 +117,7 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
                     amountText={
                         transaction.token_approve?.amount ? (
                             isUnlimit(transaction.token_approve.amount) ? (
-                                <Trans>Unlimit</Trans>
+                                <Trans>Unlimit {transaction.token_approve.token.symbol}</Trans>
                             ) : (
                                 renderShrankPrice(formatPrice(transaction.token_approve.amount) ?? '')
                             )
@@ -143,7 +143,7 @@ export const TransactionDetailContentCard = memo(function TransactionDetailConte
                     amountText={
                         transaction.token_approve?.amount ? (
                             isUnlimit(transaction.token_approve.amount) ? (
-                                <Trans>Unlimit</Trans>
+                                <Trans>Unlimit {transaction.token_approve.token.symbol}</Trans>
                             ) : (
                                 renderShrankPrice(formatPrice(transaction.token_approve.amount) ?? '')
                             )

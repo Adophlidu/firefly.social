@@ -4254,6 +4254,10 @@ msgstr "恭喜！"
 msgid "Clear all requirements"
 msgstr "清除所有任务"
 
+#. placeholder {0}: transaction.token_approve.token.symbol
+msgid "Unlimit {0}"
+msgstr ""
+
 msgid "Claim Requirements"
 msgstr "领取条件"
 
