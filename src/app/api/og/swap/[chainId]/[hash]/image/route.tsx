@@ -159,7 +159,7 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                 style={{
                     display: 'flex',
                     position: 'absolute',
-                    top: '478px',
+                    top: '468px',
                     left: '78px',
                     gap: '12px',
                     alignItems: 'center',
@@ -188,7 +188,7 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
             </div>
 
             {chainIcon ? (
-                <div style={{ display: 'flex', position: 'absolute', bottom: '64px', right: '64px' }}>
+                <div style={{ display: 'flex', position: 'absolute', bottom: '94px', right: '64px' }}>
                     <Image src={chainIcon} alt="chain-icon" width={48} height={48} />
                 </div>
             ) : null}
