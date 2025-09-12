@@ -1,5 +1,3 @@
-import urlcat from 'urlcat';
-
 import { FileMimeType, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { SORTED_MEDIA_SOURCES } from '@/constants/index.js';
@@ -50,13 +48,7 @@ export function createS3MediaObject(url: string, media: MediaObject): MediaObjec
     return {
         ...media,
         urls: {
-            [MediaSource.S3]:
-                media.width && media.height
-                    ? urlcat(url, {
-                          w: media.width,
-                          h: media.height,
-                      })
-                    : url,
+            [MediaSource.S3]: url,
         },
     };
 }
