@@ -60,7 +60,7 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                 height={630}
                 style={{ position: 'absolute', top: 0, left: 0, width: '1200px', height: '630px', objectFit: 'cover' }}
             />
-            <div style={{ display: 'flex', position: 'absolute', top: '220px', left: '312px' }}>
+            <div style={{ display: 'flex', position: 'absolute', top: '200px', left: '312px' }}>
                 {fromToken ? (
                     <Image
                         src={fromToken}
@@ -87,7 +87,7 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                 style={{
                     display: 'flex',
                     position: 'absolute',
-                    top: '370px',
+                    top: '350px',
                     left: '156px',
                     alignItems: 'center',
                     fontWeight: '900',
@@ -113,7 +113,7 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                 <span>{swap.from_token?.symbol}</span>
             </div>
 
-            <div style={{ display: 'flex', position: 'absolute', top: '220px', right: '312px' }}>
+            <div style={{ display: 'flex', position: 'absolute', top: '200px', right: '312px' }}>
                 {toToken ? (
                     <Image src={toToken} alt="to-token" width={128} height={128} style={{ borderRadius: '999px' }} />
                 ) : (
@@ -129,7 +129,7 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                 style={{
                     display: 'flex',
                     position: 'absolute',
-                    top: '370px',
+                    top: '350px',
                     right: '156px',
                     alignItems: 'flex-end',
                     fontWeight: '900',
@@ -159,7 +159,7 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                 style={{
                     display: 'flex',
                     position: 'absolute',
-                    top: '498px',
+                    top: '478px',
                     left: '78px',
                     gap: '12px',
                     alignItems: 'center',
