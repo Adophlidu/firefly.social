@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-09-12 09:57\n"
+"PO-Revision-Date: 2025-09-12 10:21\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1244,7 +1244,7 @@ msgid "Failed to upload. Image size exceeds {0}"
 msgstr "上传失败。图片超过最大限制 {0}"
 
 msgid "💅 Enjoy <0>a free manicure</0> session at our NFC Nail Art booth brought to you together with Chipped"
-msgstr "💅 体验科技感十足的 NFC 美甲服务，<0>免费打造</0>个性定制美甲，由 Chipped 特别呈现"
+msgstr "💅 体验科技感十足的 NFC 美甲服务，<0>免费打造</0>个性定制美甲，由Chipped特别呈现"
 
 msgid "Done"
 msgstr "完成"
@@ -2327,7 +2327,7 @@ msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quot
 msgstr "<0/>提到了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
 
 msgid "As part of the festival, join us on-site at Marina Bay Sands Haidilao for an afternoon of Web3 + lifestyle experiences:"
-msgstr "10月1日，欢迎莅临 Marina Bay Sands 海底捞，与我们一同体验Web3火锅社交！"
+msgstr "10月1日，欢迎莅临Marina Bay Sands海底捞，与我们一同体验Web3火锅社交！"
 
 #. placeholder {0}: first(post.reactions)?.displayName
 msgid "<0>{0}</0> liked"
@@ -2872,7 +2872,7 @@ msgid "Image count limit reached"
 msgstr "达到图片数量上限"
 
 msgid "Support"
-msgstr "支持"
+msgstr "购买须知"
 
 msgid "Confirm to disconnect this wallet from Firefly?"
 msgstr "确认断开此钱包与 Firefly 社交图谱的绑定吗？"
@@ -3912,7 +3912,7 @@ msgid "Collect Article"
 msgstr "铸造收集文章"
 
 msgid "🎟 Complete more Firefly tasks to unlock <0>free hotpot vouchers</0> or extra discount voucher"
-msgstr "🎟 完成 Firefly 任务，即有机会赢取<0>免费火锅券</0>或额外打折券"
+msgstr "🎟 完成Firefly任务，即有机会赢取<0>免费火锅券</0>或额外打折券"
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "自定义你的红包发送者名称：可选择你的社交账号或钱包地址。"
@@ -4271,7 +4271,7 @@ msgid "Primary account"
 msgstr "主账号"
 
 msgid "The more tasks you complete, the better your chances to unlock <0>exclusive discounts</0> or even <1>free hotpot vouchers</1>"
-msgstr ""
+msgstr "完成的任务越多，越有机会<0>降低代金券的购买价</0>，甚至<1>0元购</1>"
 
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额代币"
@@ -4638,7 +4638,7 @@ msgid "View on website"
 msgstr "在网站上查看"
 
 msgid "1 voucher can be redeemed by 1 person; No limit for dining guests"
-msgstr ""
+msgstr "每人可用1张，用餐人数不限"
 
 msgid "Please confirm the login with X."
 msgstr "请在 X 确认登录。"

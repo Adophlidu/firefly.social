@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-09-12 09:57\n"
+"PO-Revision-Date: 2025-09-12 10:21\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -860,7 +860,7 @@ msgid "Select NFT collection to gate access"
 msgstr "選擇 NFT 系列作為領取門檻"
 
 msgid "Follow <0>@thefireflyapp</0> on X"
-msgstr "在X上關注<0>@thefireflyapp</0>"
+msgstr "在X上追蹤 <0>@thefireflyapp</0>"
 
 msgid "From Address"
 msgstr "來自地址"
@@ -1244,7 +1244,7 @@ msgid "Failed to upload. Image size exceeds {0}"
 msgstr "上傳失敗。圖片大小超過{0}"
 
 msgid "💅 Enjoy <0>a free manicure</0> session at our NFC Nail Art booth brought to you together with Chipped"
-msgstr "💅 體驗科技感十足的 NFC 美甲服務，<0>免費打造</0>個性定製美甲，由 Chipped 特別呈現"
+msgstr "💅 體驗科技感十足的 NFC 美甲服務，<0>免費打造</0>個性定製美甲，由Chipped特別呈現"
 
 msgid "Done"
 msgstr "完成"
@@ -2327,7 +2327,7 @@ msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quot
 msgstr "<0/> 在<1>{0, select, Post {貼文} Comment {留言} Quote {引用} Mirror {轉發} other {貼文}}</1>中提及您"
 
 msgid "As part of the festival, join us on-site at Marina Bay Sands Haidilao for an afternoon of Web3 + lifestyle experiences:"
-msgstr "10月1日，歡迎蒞臨 Marina Bay Sands 海底撈，與我們一同體驗Web3火鍋社交！"
+msgstr "10月1日，歡迎蒞臨Marina Bay Sands海底撈，與我們一同體驗Web3火鍋社交！"
 
 #. placeholder {0}: first(post.reactions)?.displayName
 msgid "<0>{0}</0> liked"
@@ -3912,7 +3912,7 @@ msgid "Collect Article"
 msgstr "鑄造收集文章"
 
 msgid "🎟 Complete more Firefly tasks to unlock <0>free hotpot vouchers</0> or extra discount voucher"
-msgstr "🎟 完成 Firefly 任務，即有機會贏取免費火鍋券或額外打折券"
+msgstr "🎟 完成Firefly任務，即有機會贏取免費火鍋券或額外打折券"
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "自訂你的紅包發送者名稱：可選擇社交帳號或錢包地址。"
@@ -4638,7 +4638,7 @@ msgid "View on website"
 msgstr "在網站查看"
 
 msgid "1 voucher can be redeemed by 1 person; No limit for dining guests"
-msgstr ""
+msgstr "每人可用1張，用餐人數不限"
 
 msgid "Please confirm the login with X."
 msgstr "請至 X 確認登入。"
