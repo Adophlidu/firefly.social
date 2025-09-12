@@ -4424,6 +4424,10 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
+#. placeholder {0}: author.fullHandle || author.displayName
+msgid "by {0}"
+msgstr ""
+
 msgid "Associated wallet may be outdated or inaccurate. Please verify before sending."
 msgstr ""
 

@@ -4445,6 +4445,10 @@ msgstr "你的帖文已发布"
 msgid "Remove"
 msgstr "移除"
 
+#. placeholder {0}: author.fullHandle || author.displayName
+msgid "by {0}"
+msgstr ""
+
 msgid "Associated wallet may be outdated or inaccurate. Please verify before sending."
 msgstr "关联钱包可能已过期或不准确，请在转账前验证。"
 
