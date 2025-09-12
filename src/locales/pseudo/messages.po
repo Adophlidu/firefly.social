@@ -2297,9 +2297,6 @@ msgstr ""
 msgid "Custom amount is required for this token"
 msgstr ""
 
-msgid "The more tasks you complete, the better your chances to unlock <0>exclusive discounts</0> or even <1>free hotpot vouchers</1>."
-msgstr ""
-
 msgid "Cover background"
 msgstr ""
 
@@ -4270,6 +4267,9 @@ msgid "1Y"
 msgstr ""
 
 msgid "Primary account"
+msgstr ""
+
+msgid "The more tasks you complete, the better your chances to unlock <0>exclusive discounts</0> or even <1>free hotpot vouchers</1>"
 msgstr ""
 
 msgid "Hide tokens with small balances"

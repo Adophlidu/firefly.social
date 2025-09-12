@@ -2319,9 +2319,6 @@ msgstr "取消隐藏失败/{0}。"
 msgid "Custom amount is required for this token"
 msgstr "此代币需要自定义数额"
 
-msgid "The more tasks you complete, the better your chances to unlock <0>exclusive discounts</0> or even <1>free hotpot vouchers</1>."
-msgstr ""
-
 msgid "Cover background"
 msgstr "封面背景"
 
@@ -4301,6 +4298,9 @@ msgstr "1年"
 
 msgid "Primary account"
 msgstr "主账号"
+
+msgid "The more tasks you complete, the better your chances to unlock <0>exclusive discounts</0> or even <1>free hotpot vouchers</1>"
+msgstr ""
 
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额代币"

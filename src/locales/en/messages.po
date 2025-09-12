@@ -2305,9 +2305,6 @@ msgstr "Failed to unmute /{0}."
 msgid "Custom amount is required for this token"
 msgstr "Custom amount is required for this token"
 
-msgid "The more tasks you complete, the better your chances to unlock <0>exclusive discounts</0> or even <1>free hotpot vouchers</1>."
-msgstr "The more tasks you complete, the better your chances to unlock <0>exclusive discounts</0> or even <1>free hotpot vouchers</1>."
-
 msgid "Cover background"
 msgstr "Cover background"
 
@@ -4287,6 +4284,9 @@ msgstr "1Y"
 
 msgid "Primary account"
 msgstr "Primary account"
+
+msgid "The more tasks you complete, the better your chances to unlock <0>exclusive discounts</0> or even <1>free hotpot vouchers</1>"
+msgstr "The more tasks you complete, the better your chances to unlock <0>exclusive discounts</0> or even <1>free hotpot vouchers</1>"
 
 msgid "Hide tokens with small balances"
 msgstr "Hide tokens with small balances"

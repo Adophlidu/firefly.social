@@ -333,7 +333,7 @@ export function ActivityHaidilaoTask() {
                             <Trans>
                                 The more tasks you complete, the better your chances to unlock{' '}
                                 <span className="font-bold">exclusive discounts</span> or even{' '}
-                                <span className="font-bold">free hotpot vouchers</span>.
+                                <span className="font-bold">free hotpot vouchers</span>
                             </Trans>
                         </li>
                         <li>
