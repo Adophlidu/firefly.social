@@ -52,7 +52,8 @@ export function ProfileActivities({ address }: ProfileActivitiesProps) {
             VirtualListProps={{
                 listKey: `${ScrollListKey.Activities}:${address}`,
                 computeItemKey: (index, item) => `${item.id}-${index}`,
-                itemContent: (index, item) => getActivitiesItemContent(index, item, ScrollListKey.Profile),
+                itemContent: (index, item) =>
+                    getActivitiesItemContent(index, item, `${ScrollListKey.Activities}:${address}`),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

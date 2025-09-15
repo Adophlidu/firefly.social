@@ -65,7 +65,8 @@ export function FollowingTransactions() {
             VirtualListProps={{
                 listKey: `${ScrollListKey.Transactions}:following`,
                 computeItemKey: (index, item) => `${item.id}-${index}`,
-                itemContent: (index, item) => getTransactionsItemContent(item, index, ScrollListKey.Following),
+                itemContent: (index, item) =>
+                    getTransactionsItemContent(item, index, `${ScrollListKey.Transactions}:following`),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

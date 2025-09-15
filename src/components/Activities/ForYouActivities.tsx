@@ -34,7 +34,8 @@ export function ForYouActivities() {
             VirtualListProps={{
                 listKey: `${ScrollListKey.Activities}:for-you`,
                 computeItemKey: (index, item) => `${item.id}-${index}`,
-                itemContent: (index, item) => getActivitiesItemContent(index, item, ScrollListKey.ForYou),
+                itemContent: (index, item) =>
+                    getActivitiesItemContent(index, item, `${ScrollListKey.Activities}:for-you`),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

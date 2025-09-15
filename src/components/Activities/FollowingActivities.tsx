@@ -48,7 +48,8 @@ export function FollowingActivities() {
             VirtualListProps={{
                 listKey: `${ScrollListKey.Activities}:following`,
                 computeItemKey: (index, item) => `${item.id}-${index}`,
-                itemContent: (index, item) => getActivitiesItemContent(index, item, ScrollListKey.Following),
+                itemContent: (index, item) =>
+                    getActivitiesItemContent(index, item, `${ScrollListKey.Activities}:following`),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

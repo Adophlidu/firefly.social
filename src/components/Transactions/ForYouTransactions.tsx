@@ -34,7 +34,8 @@ export function ForYouTransactions() {
             VirtualListProps={{
                 listKey: `${ScrollListKey.Transactions}:for-you`,
                 computeItemKey: (index, item) => `${item.id}-${index}`,
-                itemContent: (index, item) => getTransactionsItemContent(item, index, ScrollListKey.ForYou),
+                itemContent: (index, item) =>
+                    getTransactionsItemContent(item, index, `${ScrollListKey.Transactions}:for-you`),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',
