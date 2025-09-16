@@ -136,7 +136,12 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                         open={datePickerOpen}
                         onToggle={setDatePickerOpen}
                         date={value}
-                        onChange={(date) => setValue(date)}
+                        onChange={(date) => {
+                            const result = new Date(value);
+                            result.setMonth(date.getMonth());
+                            result.setDate(date.getDate());
+                            setValue(result);
+                        }}
                         onMonthChange={noop}
                         allowedDates={Array.from({ length: 8 }, (_, i) =>
                             dayjs().add(i, 'day').toDate().toLocaleDateString(),

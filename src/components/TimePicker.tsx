@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useRef, useState } from 'react';
+import { memo, useRef } from 'react';
 import { useMount } from 'react-use';
 
 import { classNames } from '@/helpers/classNames.js';
@@ -77,8 +77,6 @@ const TimeColumn = memo(function TimeColumn({ value, onChange, min, max, classNa
 });
 
 export const TimePicker = memo(function TimePicker({ value, onChange, open, onToggle }: TimePickerProps) {
-    const [currentValue, setCurrentValue] = useState(value);
-
     const handleTimeChange = (date: Date) => {
         onChange(date);
         onToggle(false);
@@ -89,10 +87,10 @@ export const TimePicker = memo(function TimePicker({ value, onChange, open, onTo
         <div className="absolute right-[15px] top-12 z-50 flex flex-col gap-[6px] rounded-2xl border border-line bg-bgModal px-1 pt-2">
             <div className="flex items-center justify-center gap-4 p-1">
                 <TimeColumn
-                    value={currentValue.getHours()}
+                    value={value.getHours()}
                     onChange={(hours: number) => {
-                        const result = new Date(currentValue.setHours(hours));
-                        setCurrentValue(result);
+                        const result = new Date(value);
+                        result.setHours(hours);
                         handleTimeChange(result);
                     }}
                     min={0}
@@ -100,10 +98,10 @@ export const TimePicker = memo(function TimePicker({ value, onChange, open, onTo
                 />
                 <div className="h-32 w-px bg-line" />
                 <TimeColumn
-                    value={currentValue.getMinutes()}
+                    value={value.getMinutes()}
                     onChange={(minutes: number) => {
-                        const result = new Date(currentValue.setMinutes(minutes));
-                        setCurrentValue(result);
+                        const result = new Date(value);
+                        result.setMinutes(minutes);
                         handleTimeChange(result);
                     }}
                     min={0}
