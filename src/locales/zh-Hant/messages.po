@@ -2386,9 +2386,6 @@ msgstr "無法恢復您的 Bluesky 登入狀態，您可以刷新頁面再試一
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "包含自毀功能，項目方可能具備合約銷毀權限。"
 
-msgid "Firefly is actively expanding its community presence, laying a strong foundation for future growth. We welcome you to join as an early contributor, starting with our <0>content bounty tasks</0>!<1/><2/>💰 Users who produce high-quality content can each earn <3>100 USDC</3>, with winners <4>announced every two weeks</4>.<5/><6/>🧩 Create a post on Firefly (thread / article / video, etc.) introducing Firefly. You can give a broad overview or focus on the features you find most valuable. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <7>@thefireflyapp</7> and contacted via DM.<8>【View Example】</8><9/><10/>📌 How to participate:<11/><12><13><14>Create</14> Firefly-related content and publish it using the Firefly crosspost feature (must include X).</13><15><16>Follow & Mention</16> <17>@thefireflyapp</17>.</15><18><19>Register</19> your submission by filling out this form.</18></12>"
-msgstr ""
-
 msgid "The password you entered is incorrect. Please try again."
 msgstr "您輸入的密碼不正確，請重試。"
 
@@ -3136,6 +3133,9 @@ msgstr "個人簡介至少需 {minBioSize} 字元"
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "此錢包來自公開數據或我們的算法，請先添加錢包再設為主要錢包。"
 
+msgid "【View Example】"
+msgstr ""
+
 msgid "Visit mask.io"
 msgstr "訪問 mask.io"
 
@@ -3161,6 +3161,9 @@ msgstr "等待追蹤請求通過"
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {轉發或引用} other {轉發或引用}}"
+
+msgid "Firefly is actively expanding its community presence, laying a strong foundation for future growth. We welcome you to join as an early contributor, starting with our <0>content bounty tasks</0>!"
+msgstr ""
 
 msgid "Website is a phishing site."
 msgstr "該網站為釣魚網站。"
@@ -3841,6 +3844,9 @@ msgstr "投票僅支援 {0}"
 msgid "{0, plural, one {comment} other {comments}}"
 msgstr "{0, plural, one {留言} other {留言}}"
 
+msgid "📌 How to participate:"
+msgstr ""
+
 msgid "<0/> Loading"
 msgstr "<0/> 載入中"
 
@@ -3957,6 +3963,9 @@ msgstr "如果你之前使用 Farcaster 登入過，請重新連接。<0/>第一
 
 msgid "App Store"
 msgstr "App Store"
+
+msgid "<0>Register</0> your submission by filling out this form."
+msgstr ""
 
 msgid "Enter Number of Winners"
 msgstr "輸入獲獎人數"
@@ -4222,6 +4231,9 @@ msgstr "多裝置登入功能開啟，登入狀態已同步完成。"
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "已在 {sourceName} 上取消對 @{0} 的隱藏。"
 
+msgid "<0>Follow & Mention</0> <1>@thefireflyapp</1>."
+msgstr ""
+
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "若包含可暫停代碼，代幣可能無法買賣（詐騙風險）。"
 
@@ -4352,6 +4364,9 @@ msgstr "貼文鑄造收集成功！"
 
 msgid "Reposts"
 msgstr "轉發"
+
+msgid "<0>Create</0> Firefly-related content and publish it using the Firefly crosspost feature (must include X)."
+msgstr ""
 
 msgid "The contract owner has no restrictions on anti whale."
 msgstr "合約持有者未設反巨鯨機制。"
@@ -4494,6 +4509,9 @@ msgstr "網站不得超過 {maxWebsiteSize} 字元"
 
 msgid "Save"
 msgstr "儲存"
+
+msgid "🧩 Create a post on Firefly (thread / article / video, etc.) introducing Firefly. You can give a broad overview or focus on the features you find most valuable. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <0>@thefireflyapp</0> and contacted via DM."
+msgstr ""
 
 msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
 msgstr "firefly.eth 將 1850 USDC 兌換為 0.5 ETH"
@@ -4879,6 +4897,9 @@ msgstr "未連接任意錢包。"
 
 msgid "Hide assets < 1 USD"
 msgstr "隱藏少於 1 美元的資產"
+
+msgid "💰 Users who produce high-quality content can each earn <0>100 USDC</0>, with winners <1>announced every two weeks</1>."
+msgstr ""
 
 msgid "Hours"
 msgstr "小時"
