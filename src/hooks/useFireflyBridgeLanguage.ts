@@ -4,6 +4,7 @@ import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 
 import { Locale } from '@/constants/enum.js';
+import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
@@ -19,7 +20,7 @@ export function useFireflyBridgeLanguage() {
                     i18n.activate(Locale.zhHans);
                     break;
                 default:
-                    i18n.activate(language);
+                    i18n.activate(isValidEnumValue(language, Locale) ? language : Locale.en);
                     break;
             }
         },
