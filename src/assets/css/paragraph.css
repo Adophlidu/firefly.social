@@ -951,3 +951,13 @@
 .paragraph-article a {
     word-break: break-all;
 }
+
+.paragraph-article ul > li {
+    margin-left: 2rem;
+    list-style-type: disc;
+}
+
+.paragraph-article ol > li {
+    margin-left: 2rem;
+    list-style-type: decimal;
+}
