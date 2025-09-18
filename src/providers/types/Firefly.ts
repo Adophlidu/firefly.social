@@ -834,7 +834,7 @@ export interface WalletConnection {
     platform: 'eth' | 'solana';
     provider: string;
     source: WalletSource;
-    sources: WalletProfile['verifiedSources'];
+    sources?: WalletProfile['verifiedSources'];
     twitterId: string;
     isDefault?: boolean;
     isConnected?: boolean;

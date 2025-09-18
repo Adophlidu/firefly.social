@@ -592,7 +592,7 @@ class FireflyEndpoint {
                 web3Id: connection.twitterId,
                 walletAddress: connection.address,
                 reportReason: reason,
-                sources: connection.sources.map((x) => x.source).join(','),
+                sources: (connection.sources || []).map((x) => x.source).join(','),
             }),
         });
     }
