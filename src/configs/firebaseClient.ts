@@ -64,7 +64,7 @@ class FirebaseClient {
             notification.onclick = (event) => {
                 event.preventDefault();
                 const notification = event.currentTarget as Notification;
-                const link = parseUrl(notification?.data?.link || payload.data?.link || '');
+                const link = parseUrl(notification?.data?.url || payload.data?.link || '');
                 if (!link || link.pathname === location.pathname) {
                     window.focus();
                     return;
