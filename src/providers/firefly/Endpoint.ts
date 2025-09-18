@@ -5,6 +5,7 @@ import { type Address, type Hex } from 'viem';
 import { queryClient } from '@/configs/queryClient.js';
 import {
     ConnectionPlatform,
+    ExploreSwitchType,
     FireflyPlatform,
     Locale,
     NetworkType,
@@ -86,6 +87,7 @@ import {
     type GetAllConnectionsResponse,
     type GetAnonymousPostResponse,
     type GetCollectStatusResponse,
+    type GetExploreSwitchConfigResponse,
     type GetFarcasterSuggestedFollowUserResponse,
     type GetFollowingCountByNFTParams,
     type GetFollowingCountByNFTResponse,
@@ -1711,6 +1713,31 @@ class FireflyEndpoint {
             createIndicator(),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
+    }
+
+    async getExploreSwitchConfigList(deviceId?: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/explore/switch/get', {
+            device_id: deviceId,
+        });
+        const response = await fireflySessionHolder.fetch<GetExploreSwitchConfigResponse>(url);
+        return resolveFireflyResponseData(response);
+    }
+
+    async setExploreSwitchConfig(switchType: ExploreSwitchType, status: boolean) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/explore/switch/set');
+        const response = await fireflySessionHolder.fetch<Response<unknown>>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                list: [
+                    {
+                        platform: 'explore',
+                        explore_type: switchType,
+                        state: status,
+                    },
+                ],
+            }),
+        });
+        return resolveFireflyResponseData(response);
     }
 }
 

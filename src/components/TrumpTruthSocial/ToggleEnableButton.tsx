@@ -2,14 +2,18 @@
 
 import { Trans } from '@lingui/react/macro';
 import { memo, useLayoutEffect, useRef } from 'react';
+import { useAsyncFn } from 'react-use';
 import { useHover } from 'usehooks-ts';
 
 import SmallCloseIcon from '@/assets/small-close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
+import { ExploreSwitchType } from '@/constants/enum.js';
+import { Link } from '@/esm/Link.js';
 import { useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useToggleEnableTruthSocial } from '@/hooks/useToggleEnableTruthSocial.js';
+import { useExploreDataSwitchConfig } from '@/hooks/useExploreDataSwitchConfig.js';
+import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 
 interface ToggleEnableButtonProps {
     className?: string;
@@ -26,19 +30,35 @@ export const ToggleEnableButton = memo<ToggleEnableButtonProps>(function ToggleE
     inProfile,
     link,
 }) {
-    const { mutation, enable } = useToggleEnableTruthSocial(true);
+    const { status, toggleSwitch } = useExploreDataSwitchConfig(ExploreSwitchType.TruthSocial, true);
     const router = useRouter();
 
     const spanRef = useRef<HTMLSpanElement>(null!);
     const isHover = useHover(spanRef);
 
-    const handleClick = () => {
+    const [{ loading }, handleClick] = useAsyncFn(async () => {
+        const confirmed = await ConfirmModalRef.openAndWaitForClose({
+            title: <Trans>Remove Truth Social</Trans>,
+            variant: 'normal',
+            content: (
+                <div className="text-main">
+                    <Trans>
+                        You can turn it back on anytime in{' '}
+                        <Link className="text-highlight" href={'/settings/preference'}>
+                            Settings &gt; Content preference
+                        </Link>
+                    </Trans>
+                </div>
+            ),
+        });
+        if (!confirmed) return;
+
         if (isActive && replaceUrl) {
             router.replace(replaceUrl);
         }
 
-        mutation.mutate();
-    };
+        await toggleSwitch(false);
+    }, [isActive, replaceUrl, router, toggleSwitch]);
 
     useLayoutEffect(() => {
         if (isActive && spanRef.current) {
@@ -46,7 +66,7 @@ export const ToggleEnableButton = memo<ToggleEnableButtonProps>(function ToggleE
         }
     }, [isActive]);
 
-    if (!enable) return null;
+    if (!status) return null;
 
     return (
         <span className="relative" ref={spanRef}>

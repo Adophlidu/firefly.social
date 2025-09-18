@@ -651,3 +651,9 @@ export enum NotificationSourceType {
     Lens = 'lens',
     Bsky = 'bsky',
 }
+
+export enum ExploreSwitchType {
+    TrendingToken = 'trending_token',
+    TrendingNFT = 'trending_nft',
+    TruthSocial = 'trump_truth',
+}

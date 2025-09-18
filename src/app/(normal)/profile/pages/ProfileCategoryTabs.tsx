@@ -8,6 +8,7 @@ import { Link } from '@/components/Link.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { ToggleEnableButton } from '@/components/TrumpTruthSocial/ToggleEnableButton.js';
 import {
+    ExploreSwitchType,
     NetworkType,
     type ProfilePageSource,
     SocialProfileCategory,
@@ -27,7 +28,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
-import { useToggleEnableTruthSocial } from '@/hooks/useToggleEnableTruthSocial.js';
+import { useExploreDataSwitchConfig } from '@/hooks/useExploreDataSwitchConfig.js';
 import { ActivitiesFilterNamespace } from '@/store/useActivitiesFilterStore.js';
 
 export function ProfileCategoryTabs({
@@ -39,7 +40,7 @@ export function ProfileCategoryTabs({
     id: string;
     category: WalletProfileCategory | SocialProfileCategory;
 }) {
-    const { enable } = useToggleEnableTruthSocial();
+    const { status } = useExploreDataSwitchConfig(ExploreSwitchType.TruthSocial);
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, { id, source }));
 
@@ -92,13 +93,13 @@ export function ProfileCategoryTabs({
                 title: <Trans>Truth Social</Trans>,
             },
         ].filter(({ type }) => {
-            if (type === SocialProfileCategory.TruthSocial && (!enable || id !== TRUMP_TWITTER_PROFILE.handle)) {
+            if (type === SocialProfileCategory.TruthSocial && (!status || id !== TRUMP_TWITTER_PROFILE.handle)) {
                 return false;
             }
 
             return (isCurrentProfile ? LOGIN_SORTED_PROFILE_TAB_TYPE : SORTED_PROFILE_TAB_TYPE)[source].includes(type);
         });
-    }, [id, source, tabTitles, isCurrentProfile, enable, addressType]);
+    }, [id, source, tabTitles, isCurrentProfile, status, addressType]);
 
     const hasLimo = source === Source.Wallet && isSameEthereumAddress(id, VITALIK_ADDRESS);
 

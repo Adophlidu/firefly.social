@@ -3,6 +3,7 @@ import type { Address, Hex } from 'viem';
 
 import {
     BookmarkType,
+    ExploreSwitchType,
     FireflyPlatform,
     MintStatus,
     NetworkType,
@@ -2237,3 +2238,17 @@ export type ScheduleNotification = {
     notificationId: string;
     status: ScheduleTaskStatus;
 };
+
+export type GetExploreSwitchConfigResponse = Response<{
+    explore_switch: boolean;
+    list: Array<{
+        title: 'Explore';
+        list: Array<{
+            account_id: number;
+            disabled: boolean;
+            explore_type: ExploreSwitchType;
+            state: boolean;
+            title: string;
+        }>;
+    }>;
+}>;

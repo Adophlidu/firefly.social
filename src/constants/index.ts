@@ -265,23 +265,14 @@ export const REQUIRE_LOGIN_SOURCES_IN_SEARCH: SocialSource[] =
     env.external.NEXT_PUBLIC_NITTER === STATUS.Enabled ? [Source.Bsky] : [Source.Twitter, Source.Bsky];
 export const SUPPORTED_ANONYMOUS_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Twitter];
 
-export const EXPLORE_TYPES: ExploreType[] =
-    env.external.NEXT_PUBLIC_TRUTH_SOCIAL === STATUS.Enabled
-        ? [
-              ExploreType.TopProfiles,
-              ExploreType.TruthSocial,
-              ExploreType.CryptoTrends,
-              ExploreType.NFTs,
-              ExploreType.TopChannels,
-              ExploreType.Projects,
-          ]
-        : [
-              ExploreType.TopProfiles,
-              ExploreType.CryptoTrends,
-              ExploreType.NFTs,
-              ExploreType.TopChannels,
-              ExploreType.Projects,
-          ];
+export const EXPLORE_TYPES: ExploreType[] = [
+    ExploreType.TopProfiles,
+    ExploreType.TruthSocial,
+    ExploreType.CryptoTrends,
+    ExploreType.NFTs,
+    ExploreType.TopChannels,
+    ExploreType.Projects,
+];
 
 export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
     [ExploreType.TopProfiles]: [Source.Twitter, Source.Farcaster, Source.Lens, Source.Bsky],

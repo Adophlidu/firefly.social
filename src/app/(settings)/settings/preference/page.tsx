@@ -5,10 +5,11 @@ import { Trans } from '@lingui/react/macro';
 
 import { SettingsSection } from '@/app/(settings)/components/Section.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { useToggleEnableTruthSocial } from '@/hooks/useToggleEnableTruthSocial.js';
+import { ExploreSwitchType } from '@/constants/enum.js';
+import { useExploreDataSwitchConfig } from '@/hooks/useExploreDataSwitchConfig.js';
 
 export default function PreferencePage() {
-    const { enable, mutation, isMutating } = useToggleEnableTruthSocial();
+    const { loading, status, toggleSwitch } = useExploreDataSwitchConfig(ExploreSwitchType.TruthSocial);
 
     return (
         <SettingsSection title={<Trans>Content preference</Trans>}>
@@ -23,15 +24,15 @@ export default function PreferencePage() {
                         </p>
                     </div>
                     <Switch
-                        disabled={isMutating}
-                        checked={enable}
+                        disabled={loading}
+                        checked={status}
                         onChange={() => {
-                            mutation.mutate();
+                            toggleSwitch(!status);
                         }}
                         className="group inline-flex h-[22px] w-11 items-center rounded-full bg-second transition data-[checked]:bg-highlight dark:bg-bg data-[checked]:dark:bg-highlight"
                     >
                         <span className="flex size-4 translate-x-1 items-center justify-center rounded-full bg-white transition group-data-[checked]:translate-x-6">
-                            {isMutating ? <LoadingIcon className="text-darkBottom" size={12} /> : null}
+                            {loading ? <LoadingIcon className="text-darkBottom" size={12} /> : null}
                         </span>
                     </Switch>
                 </div>
