@@ -121,7 +121,7 @@ class Provider implements TransferProvider<SolanaChainId> {
         );
     }
 
-    private async getSplTransferTransaction(options: TransactionOptions<SolanaChainId>) {
+    async getSplTransferTransaction(options: TransactionOptions<SolanaChainId>) {
         const adapter = getWalletAdapter();
         const accountPublicKey = new web3.PublicKey(await SolanaNetwork.getAccount());
 

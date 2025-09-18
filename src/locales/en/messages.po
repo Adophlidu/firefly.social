@@ -31,6 +31,9 @@ msgstr "Connected wallets"
 msgid "Stealing attack found."
 msgstr "Stealing attack found."
 
+msgid "Please switch the wallet you want to connect"
+msgstr "Please switch the wallet you want to connect"
+
 msgid "Be the first one to comment!"
 msgstr "Be the first one to comment!"
 
@@ -124,6 +127,10 @@ msgstr "Simulating"
 
 msgid "Interacted Failed"
 msgstr "Interacted Failed"
+
+#. placeholder {0}: dayjs(data.qrcode.validateTill).utc().format('YYYY/MM/DD HH:mm')
+msgid "Valid until: {0} (UTC)"
+msgstr "Valid until: {0} (UTC)"
 
 msgid "Refunded"
 msgstr "Refunded"
@@ -282,6 +289,9 @@ msgstr "Rank #{0}"
 
 msgid "Mute {walletHandle}"
 msgstr "Mute {walletHandle}"
+
+msgid "Sold Out."
+msgstr "Sold Out."
 
 #. placeholder {0}: sourceNames.slice(0, -1).join(', ')
 #. placeholder {1}: last(sourceNames) ?? ''
@@ -992,6 +1002,9 @@ msgstr "Followed by {0}"
 msgid "GIF source not supported. Supported sources: {0}"
 msgstr "GIF source not supported. Supported sources: {0}"
 
+msgid "Check your redeem code"
+msgstr "Check your redeem code"
+
 msgid "All activities from {handleOrEnsOrAddress} will be hidden from you"
 msgstr "All activities from {handleOrEnsOrAddress} will be hidden from you"
 
@@ -1246,6 +1259,9 @@ msgstr "Market Cap / FDV"
 
 msgid "Failed to un-bookmark NFT."
 msgstr "Failed to un-bookmark NFT."
+
+msgid "Connected your email to Firefly"
+msgstr "Connected your email to Firefly"
 
 msgid "Confirmation"
 msgstr "Confirmation"
@@ -1508,6 +1524,9 @@ msgstr "Revoke"
 msgid "Failed Post"
 msgstr "Failed Post"
 
+msgid "Continue payment"
+msgstr "Continue payment"
+
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 msgstr "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 
@@ -1560,6 +1579,9 @@ msgstr "Failed to un-bookmark post."
 
 msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
 msgstr "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
+
+msgid "Cross-posted to invite your crew to join"
+msgstr "Cross-posted to invite your crew to join"
 
 #. placeholder {0}: profile.handle
 msgid "Failed to mute @{0} on {sourceName}."
@@ -1766,6 +1788,9 @@ msgstr "Send"
 msgid "Collected"
 msgstr "Collected"
 
+msgid "Unpaid orders exist, retry later"
+msgstr "Unpaid orders exist, retry later"
+
 msgid "Encrypted choice"
 msgstr "Encrypted choice"
 
@@ -1774,6 +1799,9 @@ msgstr "Hide small transactions(<$100)"
 
 msgid "<0>You</0> retruthed"
 msgstr "<0>You</0> retruthed"
+
+msgid "Completed tasks ({completedTaskCount}/3)"
+msgstr "Completed tasks ({completedTaskCount}/3)"
 
 msgid "Show more users"
 msgstr "Show more users"
@@ -1869,6 +1897,9 @@ msgstr "Verify and Claim"
 
 msgid "Kamala Harris"
 msgstr "Kamala Harris"
+
+msgid "Reposted the official campaign post"
+msgstr "Reposted the official campaign post"
 
 msgid "Failed to connect on {source}"
 msgstr "Failed to connect on {source}"
@@ -2135,6 +2166,9 @@ msgstr "Muted wallets"
 msgid "Everything app for Web3 natives"
 msgstr "Everything app for Web3 natives"
 
+msgid "Purchase Completed"
+msgstr "Purchase Completed"
+
 msgid "All wallets and accounts are muted."
 msgstr "All wallets and accounts are muted."
 
@@ -2221,6 +2255,9 @@ msgstr "Post with link"
 
 msgid "Rank #{tokenRank}"
 msgstr "Rank #{tokenRank}"
+
+msgid "Joined Firefly’s Telegram community"
+msgstr "Joined Firefly’s Telegram community"
 
 msgid "Votes"
 msgstr "Votes"
@@ -2479,6 +2516,9 @@ msgstr "Confirm to disconnect this account and related wallets from Firefly’s 
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "Unfollowed {handleOrEnsOrAddress} on Firefly"
 
+msgid "Redeem Code"
+msgstr "Redeem Code"
+
 msgid "Enter your password to verify your identity."
 msgstr "Enter your password to verify your identity."
 
@@ -2565,6 +2605,9 @@ msgstr "Updated profile successfully"
 
 msgid "Token ${symbol} could not be found."
 msgstr "Token ${symbol} could not be found."
+
+msgid "Failed to purchase.{reason}"
+msgstr "Failed to purchase.{reason}"
 
 msgid "Failed to publish on {sortedSourceNames}"
 msgstr "Failed to publish on {sortedSourceNames}"
@@ -2698,6 +2741,9 @@ msgstr "👀 Firefly notifications are off. "
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr "Follow for {feeAmount} ${feeSymbol}"
+
+msgid "Failed to purchase. {orderStatus}"
+msgstr "Failed to purchase. {orderStatus}"
 
 msgid "Farcaster"
 msgstr "Farcaster"
@@ -3506,6 +3552,9 @@ msgstr "Powered by"
 msgid "Stay in the loop with Firefly!"
 msgstr "Stay in the loop with Firefly!"
 
+msgid "The code not found"
+msgstr "The code not found"
+
 msgid "So sorry, we are not able to mint this NFT at the moment."
 msgstr "So sorry, we are not able to mint this NFT at the moment."
 
@@ -3892,11 +3941,17 @@ msgstr "Failed to set schedule time."
 msgid "{0, plural, one {recast} other {recasts}}"
 msgstr "{0, plural, one {recast} other {recasts}}"
 
+msgid "Followed <0>@thefireflyapp</0> on X"
+msgstr "Followed <0>@thefireflyapp</0> on X"
+
 msgid "Refresh"
 msgstr "Refresh"
 
 msgid "Receive"
 msgstr "Receive"
+
+msgid "Discount ends in {formattedTime}"
+msgstr "Discount ends in {formattedTime}"
 
 msgid "NFT holder"
 msgstr "NFT holder"
@@ -4071,6 +4126,9 @@ msgstr "The signer is not authorized to perform the requested operation. Please 
 
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr "The account you are trying to log in with is already linked to a different Firefly account."
+
+msgid "Purchase at $<0/>"
+msgstr "Purchase at $<0/>"
 
 msgid "Username or email address"
 msgstr "Username or email address"
@@ -4570,6 +4628,11 @@ msgstr "NFT Mint Failed"
 msgid "Hidden owner."
 msgstr "Hidden owner."
 
+#. placeholder {0}: data.qrcode.qrcode
+#. placeholder {1}: data.qrcode.redeemedAt ? '(Used)' : ''
+msgid "Code: {0} {1}"
+msgstr "Code: {0} {1}"
+
 msgid "Scheduled Post"
 msgstr "Scheduled Post"
 
@@ -4659,6 +4722,9 @@ msgstr "Ignore the warnings to continue"
 
 msgid "The contract owner has restrictions on trading cooldown."
 msgstr "The contract owner has restrictions on trading cooldown."
+
+msgid "Connected your wallet to Firefly"
+msgstr "Connected your wallet to Firefly"
 
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts, token_decimal ?? 18, { significant: 2, isPrecise: true, })
@@ -4944,9 +5010,6 @@ msgstr "👉 vitalik.eth"
 msgid "Collectible"
 msgstr "Collectible"
 
-msgid "Completed tasks (0/3)"
-msgstr "Completed tasks (0/3)"
-
 msgid "Are you sure you want to report this user?"
 msgstr "Are you sure you want to report this user?"
 
@@ -4958,6 +5021,9 @@ msgstr "Please confirm the login with Farcaster."
 
 msgid "Minted"
 msgstr "Minted"
+
+msgid "Insufficient balance"
+msgstr "Insufficient balance"
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"
 msgstr "Posts from Trump on Truth Social (Explore, profile)"

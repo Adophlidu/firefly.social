@@ -36,6 +36,9 @@ msgstr "已綁定的錢包"
 msgid "Stealing attack found."
 msgstr "發現竊取攻擊。"
 
+msgid "Please switch the wallet you want to connect"
+msgstr ""
+
 msgid "Be the first one to comment!"
 msgstr "快來留言吧～"
 
@@ -129,6 +132,10 @@ msgstr "模擬中"
 
 msgid "Interacted Failed"
 msgstr "互動失敗"
+
+#. placeholder {0}: dayjs(data.qrcode.validateTill).utc().format('YYYY/MM/DD HH:mm')
+msgid "Valid until: {0} (UTC)"
+msgstr ""
 
 msgid "Refunded"
 msgstr "已退款"
@@ -287,6 +294,9 @@ msgstr "排名 #{0}"
 
 msgid "Mute {walletHandle}"
 msgstr "隱藏 {walletHandle}"
+
+msgid "Sold Out."
+msgstr ""
 
 #. placeholder {0}: sourceNames.slice(0, -1).join(', ')
 #. placeholder {1}: last(sourceNames) ?? ''
@@ -997,6 +1007,9 @@ msgstr "已被 {0} 追蹤"
 msgid "GIF source not supported. Supported sources: {0}"
 msgstr "不支援GIF來源。支援來源：{0}"
 
+msgid "Check your redeem code"
+msgstr ""
+
 msgid "All activities from {handleOrEnsOrAddress} will be hidden from you"
 msgstr "將隱藏 {handleOrEnsOrAddress} 的所有動態"
 
@@ -1251,6 +1264,9 @@ msgstr "市值 / 完全稀釋估值"
 
 msgid "Failed to un-bookmark NFT."
 msgstr "取消收藏 NFT 失敗。"
+
+msgid "Connected your email to Firefly"
+msgstr ""
 
 msgid "Confirmation"
 msgstr "確認"
@@ -1513,6 +1529,9 @@ msgstr "撤銷授權"
 msgid "Failed Post"
 msgstr "發佈失敗"
 
+msgid "Continue payment"
+msgstr ""
+
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 msgstr "掃描此二維碼，並在 Farcaster 行動版應用中確認，即可開始使用你的帳戶。"
 
@@ -1565,6 +1584,9 @@ msgstr "取消收藏貼文失敗。"
 
 msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
 msgstr "您無權解密此貼文，請使用符合資格的 {sourceName} 帳戶重試。"
+
+msgid "Cross-posted to invite your crew to join"
+msgstr ""
 
 #. placeholder {0}: profile.handle
 msgid "Failed to mute @{0} on {sourceName}."
@@ -1771,6 +1793,9 @@ msgstr "發送"
 msgid "Collected"
 msgstr "已收集"
 
+msgid "Unpaid orders exist, retry later"
+msgstr ""
+
 msgid "Encrypted choice"
 msgstr "加密選項"
 
@@ -1779,6 +1804,9 @@ msgstr "隱藏小額交易（<$100）"
 
 msgid "<0>You</0> retruthed"
 msgstr "<0>你</0> 已轉發"
+
+msgid "Completed tasks ({completedTaskCount}/3)"
+msgstr ""
 
 msgid "Show more users"
 msgstr "顯示更多用戶"
@@ -1874,6 +1902,9 @@ msgstr "驗證並領取"
 
 msgid "Kamala Harris"
 msgstr "賀錦麗"
+
+msgid "Reposted the official campaign post"
+msgstr ""
 
 msgid "Failed to connect on {source}"
 msgstr "在 {source} 上連接失敗"
@@ -2140,6 +2171,9 @@ msgstr "已隱藏錢包"
 msgid "Everything app for Web3 natives"
 msgstr "Web3 原住民的萬能應用"
 
+msgid "Purchase Completed"
+msgstr ""
+
 msgid "All wallets and accounts are muted."
 msgstr "已隱藏所有錢包與帳號。"
 
@@ -2226,6 +2260,9 @@ msgstr "發布分享連結"
 
 msgid "Rank #{tokenRank}"
 msgstr "排名 #{tokenRank}"
+
+msgid "Joined Firefly’s Telegram community"
+msgstr ""
 
 msgid "Votes"
 msgstr "票數"
@@ -2484,6 +2521,9 @@ msgstr "確認要斷開該帳號及相關錢包與 Firefly 社交圖譜的綁定
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "於 Firefly 上取消追蹤 {handleOrEnsOrAddress}"
 
+msgid "Redeem Code"
+msgstr ""
+
 msgid "Enter your password to verify your identity."
 msgstr "請輸入密碼以驗證您的身份。"
 
@@ -2570,6 +2610,9 @@ msgstr "成功更新個人檔案"
 
 msgid "Token ${symbol} could not be found."
 msgstr "未找到代幣 ${symbol}。"
+
+msgid "Failed to purchase.{reason}"
+msgstr ""
 
 msgid "Failed to publish on {sortedSourceNames}"
 msgstr "在 {sortedSourceNames} 上發佈失敗"
@@ -2703,6 +2746,9 @@ msgstr "👀 Firefly 通知未開啟！"
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr "{feeAmount} ${feeSymbol} 付費追蹤"
+
+msgid "Failed to purchase. {orderStatus}"
+msgstr ""
 
 msgid "Farcaster"
 msgstr "Farcaster"
@@ -3092,7 +3138,7 @@ msgid "No activity yet"
 msgstr "这里空空如也"
 
 msgid "Activity not started yet"
-msgstr "活動尚未開始"
+msgstr ""
 
 msgid "Top 500 Buttrfly Points Leaderboard"
 msgstr "Buttrfly 積分排行榜前500"
@@ -3511,6 +3557,9 @@ msgstr "技術支援："
 msgid "Stay in the loop with Firefly!"
 msgstr "透過 Firefly 掌握最新動態！"
 
+msgid "The code not found"
+msgstr ""
+
 msgid "So sorry, we are not able to mint this NFT at the moment."
 msgstr "很抱歉，目前無法鑄造此 NFT。"
 
@@ -3897,11 +3946,17 @@ msgstr "設定預約時間失敗。"
 msgid "{0, plural, one {recast} other {recasts}}"
 msgstr "{0, plural, one {轉發} other {轉發}}"
 
+msgid "Followed <0>@thefireflyapp</0> on X"
+msgstr ""
+
 msgid "Refresh"
 msgstr "刷新"
 
 msgid "Receive"
 msgstr "接收"
+
+msgid "Discount ends in {formattedTime}"
+msgstr ""
 
 msgid "NFT holder"
 msgstr "NFT 擁有者"
@@ -4076,6 +4131,9 @@ msgstr "簽名者無權執行此操作，請重新授權。"
 
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr "您嘗試登入的帳戶已綁定其他 Firefly 帳戶。"
+
+msgid "Purchase at $<0/>"
+msgstr ""
 
 msgid "Username or email address"
 msgstr "用戶名或電子郵件"
@@ -4575,6 +4633,11 @@ msgstr "鑄造 NFT 失敗"
 msgid "Hidden owner."
 msgstr "隱藏的擁有者。"
 
+#. placeholder {0}: data.qrcode.qrcode
+#. placeholder {1}: data.qrcode.redeemedAt ? '(Used)' : ''
+msgid "Code: {0} {1}"
+msgstr ""
+
 msgid "Scheduled Post"
 msgstr "預約貼文"
 
@@ -4664,6 +4727,9 @@ msgstr "忽略警告以繼續"
 
 msgid "The contract owner has restrictions on trading cooldown."
 msgstr "合約擁有者對交易冷卻時間有限制。"
+
+msgid "Connected your wallet to Firefly"
+msgstr ""
 
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts, token_decimal ?? 18, { significant: 2, isPrecise: true, })
@@ -4951,9 +5017,6 @@ msgstr "👉 vitalik.eth"
 msgid "Collectible"
 msgstr "NFT"
 
-msgid "Completed tasks (0/3)"
-msgstr "已完成數量 (0/3)"
-
 msgid "Are you sure you want to report this user?"
 msgstr "確定要檢舉此用戶？"
 
@@ -4965,6 +5028,9 @@ msgstr "請透過 Farcaster 確認登入。"
 
 msgid "Minted"
 msgstr "已鑄造"
+
+msgid "Insufficient balance"
+msgstr ""
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"
 msgstr "來自特朗普的 Truth Social 貼文（探索、個人檔案）"

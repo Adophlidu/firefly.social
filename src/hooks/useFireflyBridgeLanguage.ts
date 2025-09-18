@@ -4,9 +4,22 @@ import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 
 import { Locale } from '@/constants/enum.js';
-import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
+import { resolveLocale } from '@/helpers/getCookies.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { SupportedMethod } from '@/types/bridge.js';
+
+function resolveValidLocale(locale: string) {
+    switch (locale.toLowerCase()) {
+        case 'zh':
+            return Locale.zhHans;
+        case 'zh_cn':
+            return Locale.zhHans;
+        case 'zh_tw':
+            return Locale.zhHant;
+        default:
+            return resolveLocale(locale);
+    }
+}
 
 export function useFireflyBridgeLanguage() {
     const { i18n } = useLingui();
@@ -15,14 +28,9 @@ export function useFireflyBridgeLanguage() {
         queryKey: ['firefly-bridge-language'],
         async queryFn() {
             const language = await fireflyBridgeProvider.request(SupportedMethod.GET_LANGUAGE, {});
-            switch (language) {
-                case 'zh':
-                    i18n.activate(Locale.zhHans);
-                    break;
-                default:
-                    i18n.activate(isValidEnumValue(language, Locale) ? language : Locale.en);
-                    break;
-            }
+            const locale = resolveValidLocale(language);
+            if (i18n.locale === locale) return;
+            i18n.activate(locale);
         },
         refetchOnWindowFocus: false,
         refetchOnMount: false,

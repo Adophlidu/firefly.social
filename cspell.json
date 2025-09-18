@@ -548,7 +548,9 @@
         "Pubdata",
         "Unlimit",
         "Haidilao",
-        "Bugis"
+        "Bugis",
+        "inprogress",
+        "ordercheck"
     ],
     "flagWords": [],
     "ignorePaths": [

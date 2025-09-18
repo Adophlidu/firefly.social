@@ -2,7 +2,7 @@ import { useActivityConnections } from '@/components/Activity/hooks/useActivityC
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 
-export function useIsLoginInActivity(source: SocialSource | SocialSource[]) {
+export function useIsLoginInActivity(source?: SocialSource | SocialSource[]) {
     const { data } = useActivityConnections();
     function isConnected(s: SocialSource) {
         if (!data) return false;
@@ -19,6 +19,10 @@ export function useIsLoginInActivity(source: SocialSource | SocialSource[]) {
                 safeUnreachable(s);
                 return false;
         }
+    }
+    const isLoginFirefly = !!data;
+    if (!source) {
+        return isLoginFirefly;
     }
     return Array.isArray(source) ? source.some(isConnected) : isConnected(source);
 }

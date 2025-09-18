@@ -49,3 +49,37 @@ export function useActivityBindAddress(source: SocialSource | SocialSource[], ch
         }
     }, [chainId, connected, onChangeAddress, refetch, refetchActivityClaimCondition]);
 }
+
+export function usePureActivityBindAddress(chainId?: number) {
+    const { onChangeAddress } = useContext(ActivityContext);
+    const { data: { connected = EMPTY_LIST } = {}, refetch } = useActivityConnections();
+    return useAsyncFn(async () => {
+        if (fireflyBridgeProvider.supported) {
+            await runInSafeAsync(async () => {
+                const address = await fireflyBridgeProvider.request(SupportedMethod.BIND_WALLET, {
+                    type: chainId ? (isValidChainIdSolana(chainId) ? Network.Solana : Network.EVM) : Network.All,
+                });
+                onChangeAddress(address);
+                captureActivityConnectWalletEvent(address);
+                await refetch();
+            });
+            return;
+        }
+        try {
+            const { response } = await AddWalletModalRef.openAndWaitForClose({
+                connections: connected,
+            });
+            if (response?.address) {
+                onChangeAddress(response.address);
+                captureActivityConnectWalletEvent(response.address);
+            }
+            await refetch();
+            return response?.address;
+        } catch (error) {
+            enqueueMessageFromError(error, t`Failed to bind address.`, {
+                error,
+            });
+            throw error;
+        }
+    }, [chainId, connected, onChangeAddress, refetch]);
+}

@@ -1,4 +1,5 @@
 import type { Context, ReadyOptions } from '@farcaster/miniapp-host';
+import type { Address, Hex } from 'viem';
 
 import type { FireflyPlatform } from '@/constants/enum.js';
 import type { FrameV2 } from '@/types/frame.js';
@@ -43,6 +44,9 @@ export enum SupportedMethod {
     SIGN_TYPED_DATA = 'signTypedData',
     ADD_ETHEREUM_CHAIN = 'addEthereumChain',
     SWITCH_ETHEREUM_CHAIN = 'switchEthereumChain',
+    SEND_EVM_TRANSACTION = 'sendEvmTransaction',
+    SEND_SOLANA_TRANSACTION = 'sendSolanaTransaction',
+    LOGIN_OR_BIND_EMAIL = 'loginOrBindEmail',
 }
 
 export enum SupportedEvent {
@@ -165,6 +169,23 @@ export interface RequestArguments {
     [SupportedMethod.SWITCH_ETHEREUM_CHAIN]: {
         chainId: string;
     };
+    [SupportedMethod.SEND_EVM_TRANSACTION]: {
+        chainId: string;
+        transaction: {
+            from: Address;
+            to: Address;
+            data: Hex;
+            value: string;
+        };
+    };
+    [SupportedMethod.SEND_SOLANA_TRANSACTION]: {
+        transaction: {
+            from: string;
+            to: string;
+            data: string;
+        };
+    };
+    [SupportedMethod.LOGIN_OR_BIND_EMAIL]: {};
 }
 
 type StringifyBoolean = 'true' | 'false';
@@ -204,6 +225,9 @@ export interface ResponseResult {
     [SupportedMethod.SIGN_TYPED_DATA]: string;
     [SupportedMethod.ADD_ETHEREUM_CHAIN]: true;
     [SupportedMethod.SWITCH_ETHEREUM_CHAIN]: true;
+    [SupportedMethod.SEND_EVM_TRANSACTION]: Hex;
+    [SupportedMethod.SEND_SOLANA_TRANSACTION]: string;
+    [SupportedMethod.LOGIN_OR_BIND_EMAIL]: string;
 }
 
 export interface EventPayload {

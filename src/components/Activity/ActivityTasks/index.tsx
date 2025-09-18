@@ -1,7 +1,10 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { ActivityMobileOnly } from '@/components/Activity/ActivityMobileOnly.js';
 import { dynamic } from '@/esm/dynamic.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 const ActivityButtrflyTasks = dynamic(() =>
@@ -64,6 +67,13 @@ interface Props {
 }
 
 export function ActivityTasks({ name, data }: Props) {
+    useEffect(() => {
+        runInSafeAsync(async () => {
+            const eruda = await import('eruda');
+            eruda.default.init();
+        });
+    }, []);
+
     switch (name) {
         case 'hlbl':
             return <ActivityHlblTasks data={data} />;
@@ -90,7 +100,7 @@ export function ActivityTasks({ name, data }: Props) {
         case 'creator':
             return <ActivityCreatorTasks />;
         case 'haidilao':
-            return <ActivityHaidilaoTask />;
+            return <ActivityHaidilaoTask data={data} />;
         default:
             return null;
     }

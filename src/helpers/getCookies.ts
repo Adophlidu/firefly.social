@@ -5,7 +5,7 @@ import { Locale, SiteCookies } from '@/constants/enum.js';
 import { bom } from '@/helpers/bom.js';
 import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 
-function resolveLocale(locale: string): Locale {
+export function resolveLocale(locale: string): Locale {
     return isValidEnumValue(locale, Locale) ? (locale as Locale) : resolveLanguageLocale(bom.navigator?.language);
 }
 

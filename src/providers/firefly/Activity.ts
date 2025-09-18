@@ -17,11 +17,23 @@ import {
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { CheckResponse, MintActivitySBTResponse, Provider } from '@/providers/types/Activity.js';
+import type {
+    CheckBuyResponse,
+    CheckOrderResponse,
+    CheckPriceResponse,
+    CheckResponse,
+    ClaimTaskResponse,
+    CommitOrderResponse,
+    MintActivitySBTResponse,
+    Provider,
+    SearchQrcodeResponse,
+    TaskResponse,
+} from '@/providers/types/Activity.js';
 import type {
     ActivityInfoResponse,
     ActivityListItem,
@@ -35,6 +47,15 @@ import { settings } from '@/settings/index.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
 class FireflyActivity implements Provider {
+    async fetch<T>(url: string, init?: RequestInit) {
+        const authToken = await runInSafeAsync(() =>
+            fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {}),
+        );
+        return fireflyBridgeProvider.supported && authToken
+            ? await fireflySessionHolder.fetchWithSession<T>(url, init)
+            : await fireflySessionHolder.fetch<T>(url, init);
+    }
+
     async getActivityClaimCondition(
         name: string,
         address = '0x',
@@ -244,6 +265,83 @@ class FireflyActivity implements Provider {
                 return false;
             }
         }
+    }
+
+    async getTasks(name: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, urlcat(`/v1/:name/tasks`, { name }), {
+            activity_name: name,
+        });
+
+        const response = await this.fetch<TaskResponse>(url);
+        return resolveFireflyResponseData(response);
+    }
+
+    async claimTask(name: string, task_id: number) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, urlcat(`/v1/:name/tasks/claim`, { name }));
+        const response = await fireflySessionHolder.fetchWithSession<ClaimTaskResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({ task_id, activity_name: name }),
+        });
+        return resolveFireflyResponseData(response);
+    }
+
+    async checkPrice(name: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, urlcat(`/v1/:name/coupon/checkPrice`, { name }));
+        const response = await fireflySessionHolder.fetchWithSession<CheckPriceResponse>(url, {
+            method: 'POST',
+        });
+        return resolveFireflyResponseData(response);
+    }
+
+    async orderCommit(
+        name: string,
+        body: {
+            productId: string;
+        },
+    ) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, urlcat(`/v1/:name/coupon/orderCommit`, { name }));
+        const response = await fireflySessionHolder.fetchWithSession<CommitOrderResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify(body),
+        });
+        return resolveFireflyResponseData(response);
+    }
+
+    async checkOrder(name: string, orderNo: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, urlcat(`/v1/:name/coupon/ordercheck`, { name }));
+        const response = await fireflySessionHolder.fetchWithSession<CheckOrderResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                orderNo,
+            }),
+        });
+        return resolveFireflyResponseData(response);
+    }
+
+    async checkBuy(name: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, urlcat(`/v1/:name/coupon/checkBuy`, { name }));
+        const response = await fireflySessionHolder.fetchWithSession<CheckBuyResponse>(url, {
+            method: 'POST',
+        });
+        return resolveFireflyResponseData(response);
+    }
+
+    async searchQrcode(name: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, urlcat(`/v1/:name/searchQrcode`, { name }));
+        const response = await fireflySessionHolder.fetchWithSession<SearchQrcodeResponse>(url, {
+            method: 'POST',
+        });
+        return resolveFireflyResponseData(response);
+    }
+
+    async reportOrderPaid(name: string, orderNo: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, urlcat(`/v1/:name/coupon/orderPayReport`, { name }));
+        await fireflySessionHolder.fetchWithSession(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                orderNo,
+            }),
+        });
     }
 }
 

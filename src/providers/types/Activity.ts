@@ -1,3 +1,5 @@
+import type { Address } from 'viem';
+
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type {
     ActivityInfoResponse,
@@ -107,6 +109,136 @@ export type MintActivitySBTResponse = Response<{
     hash: string;
     errormessage?: string;
     chainId: EthereumChainId | 'solana';
+}>;
+
+export enum TaskStatus {
+    Pending = 'pending',
+    Completed = 'completed',
+}
+
+export type TaskResponse = Response<{
+    total_count: number;
+    completed_count: number;
+    tasks: Array<{
+        id: number;
+        name: string;
+        status: TaskStatus;
+        description: string;
+    }>;
+    has_inprogress_order: boolean;
+    total_inventory: number;
+}>;
+
+export type ClaimTaskResponse = Response<{
+    id: number;
+    task_name: string;
+    status: TaskStatus;
+    description: string;
+}>;
+
+export type CheckPriceResponse = Response<{
+    product_id: string;
+    task_num: number;
+    sku: string;
+    attributes: Record<string, unknown>;
+    price: number;
+    cost_price: number;
+    market_price: number;
+    remainingLockSeconds: number;
+} | null>;
+
+export enum CommitOrderResponseStatus {
+    Success = 1,
+    TaskNotMeet = 2,
+    OutOfStock = 3,
+    WrongPose = 4,
+    OrderExists = 5,
+    SubmitException = 6,
+    SystemBusy = 9,
+}
+
+export enum OrderStatus {
+    Unpaid = 1,
+    Paying = 2,
+    Completed = 3,
+    Shipped = 4,
+    Cancelled = 5,
+    Timeout = 6,
+    AmountError = 7,
+}
+
+export type CommitOrderResponse = Response<{
+    userId: number;
+    productId: string;
+    Sku: string;
+    orderNo: string;
+    amount: number;
+    EvmWallet: Address;
+    SolanaWallet: string;
+    ChainID: number;
+    Status: CommitOrderResponseStatus;
+    OrderStatus: OrderStatus;
+    Message: string;
+    commitTime: number;
+}>;
+
+export interface OrderInfo {
+    userId: number;
+    productId: string;
+    Sku: string;
+    orderNo: string;
+    amount: number;
+    EvmWallet: string;
+    SolanaWallet: string;
+    ChainID: number;
+    OrderStatus: OrderStatus;
+    commitTime: number;
+}
+
+export type CheckOrderResponse = Response<{
+    userId: number;
+    productId: string;
+    Sku: string;
+    orderNo: string;
+    amount: number;
+    EvmWallet: string;
+    SolanaWallet: string;
+    ChainID: number;
+    OrderStatus: OrderStatus;
+    commitTime: number;
+}>;
+
+export enum CheckBuyStatus {
+    Purchased = 1,
+    NotPurchased = 2,
+    PurchasedUnpaid = 3,
+}
+
+export type CheckBuyResponse = Response<{
+    account_id: number;
+    orderInfo: OrderInfo;
+    status: CheckBuyStatus;
+    Message: string;
+}>;
+
+export type SearchQrcodeResponse = Response<{
+    data: {
+        qrcode: {
+            id: number;
+            qrcode: string;
+            validateTill: string;
+            creatorUserId: number;
+            creatorUsername: string;
+            creatorFireflyId: string;
+            creatorFireflyUsername: string;
+            creatorPlatform: string;
+            createdAt: string;
+            redeemedAt: string | null;
+            redeemedBy: string | null;
+            redeemedShop: string | null;
+            orderId: string | null;
+        };
+    };
 }>;
 
 export interface Provider {

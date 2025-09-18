@@ -2,6 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 
 import { CloseButton } from '@/components/IconButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -59,7 +60,7 @@ export function AddWalletModal({ ref }: Props) {
 
     return (
         <Modal open={open} onClose={closeModal}>
-            <div className="transform rounded-[12px] bg-primaryBottom transition-all">
+            <div className="h-[212px] transform rounded-[12px] bg-primaryBottom transition-all">
                 <div
                     className="relative inline-flex items-center justify-center gap-2 rounded-t-[12px] p-4 text-center md:h-[56px] md:w-[600px]"
                     style={{ background: 'var(--m-modal-title-bg)' }}
@@ -75,7 +76,11 @@ export function AddWalletModal({ ref }: Props) {
                         onClose={(reason) => dispatch?.abort?.(reason)}
                         connections={connections}
                     />
-                ) : null}
+                ) : (
+                    <div className="flex flex-1 items-center justify-center">
+                        <LoadingIcon />
+                    </div>
+                )}
             </div>
         </Modal>
     );

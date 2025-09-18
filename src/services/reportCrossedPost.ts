@@ -2,11 +2,12 @@ import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ReportCrossPostResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
@@ -25,17 +26,21 @@ interface Report {
     platform: string;
 }
 
-const resolvePlatform = createLookupTableResolver<SocialSource, string>(
+const resolvePlatform = createLookupTableResolver<SocialSource, FireflyPlatform>(
     {
-        [Source.Farcaster]: 'farcaster',
-        [Source.Lens]: 'lens',
-        [Source.Twitter]: 'twitter',
-        [Source.Bsky]: 'bsky',
+        [Source.Farcaster]: FireflyPlatform.Farcaster,
+        [Source.Lens]: FireflyPlatform.Lens,
+        [Source.Twitter]: FireflyPlatform.Twitter,
+        [Source.Bsky]: FireflyPlatform.Bsky,
     },
     (source) => {
         throw new UnreachableError('source', source);
     },
 );
+
+function resolvePlatformType(post: CompositePost) {
+    return compact(['text', post.videos.length ? 'video' : null, post.images.length ? 'image' : null]);
+}
 
 async function report(post: CompositePost) {
     // a post shared across multiple platforms will have the same relation ID
@@ -66,6 +71,18 @@ async function report(post: CompositePost) {
     const allSettled = await Promise.allSettled(
         reports.map(async (x) => {
             if (!x) return null;
+            await FireflyEndpointProvider.reportPost(
+                x.platform as FireflyPlatform,
+                x.platform_id,
+                resolvePlatformType(post),
+                x.post_id,
+                x.relation_id,
+                {
+                    content: Array.isArray(post.chars)
+                        ? post.chars.map((char) => (typeof char === 'string' ? char : char.content)).join('')
+                        : post.chars,
+                },
+            );
             return fireflySessionHolder.fetch<ReportCrossPostResponse>(
                 // cspell: disable-next-line
                 urlcat(settings.FIREFLY_ROOT_URL, '/api/logpush'),
