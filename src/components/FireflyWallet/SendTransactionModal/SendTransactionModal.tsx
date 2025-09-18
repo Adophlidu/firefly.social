@@ -18,7 +18,7 @@ import {
     useRouter,
 } from '@tanstack/react-router';
 import { omit, uniq } from 'lodash-es';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { FormProvider, useForm, useFormContext, useWatch } from 'react-hook-form';
 import { type Address, formatEther } from 'viem';
 
@@ -286,11 +286,7 @@ function FormView() {
         enabled: Boolean(to && amount && token && networkType && availableBalance),
     });
 
-    const {
-        data: estimatedGas,
-        isLoading: isEstimatingGas,
-        error: estimatedGasError,
-    } = useQuery({
+    const { data: estimatedGas, isLoading: isEstimatingGas } = useQuery({
         queryKey: ['estimateGas', token, networkType, to, amount],
         async queryFn() {
             if (!to || !amount || !token || !networkType) return;
@@ -344,12 +340,6 @@ function FormView() {
         },
         enabled: !!token && !!to && !!amount,
     });
-
-    useEffect(() => {
-        if (estimatedGasError) {
-            enqueueErrorMessage(getErrorMessageFromError(estimatedGasError, <Trans>Failed to estimate gas</Trans>));
-        }
-    }, [estimatedGasError]);
 
     useAuthHeightTextarea(() => document.getElementById('send-transaction-recipient') as HTMLTextAreaElement);
 
@@ -484,28 +474,23 @@ function FormView() {
                     </label>
                 </div>
                 <div className="flex h-[18px] w-full flex-row justify-between whitespace-nowrap text-sm leading-[18px]">
-                    {estimatedGas || isEstimatingGas ? (
-                        <>
-                            <div className="font-normal text-second">
-                                <Trans>Network cost</Trans>
-                            </div>
-                            <div
-                                className={classNames('font-medium', {
-                                    'animate-pulse rounded bg-bg': isEstimatingGas,
-                                })}
-                            >
-                                {isEstimatingGas ? null : estimatedGas ? (
-                                    <>
-                                        {renderShrankPrice(formatPrice(estimatedGas.amount) ?? '-')} $
-                                        {estimatedGas.symbol} ≈ $
-                                        {renderShrankPrice(formatPrice(estimatedGas.usd) ?? '-')}
-                                    </>
-                                ) : (
-                                    '-'
-                                )}
-                            </div>
-                        </>
-                    ) : null}
+                    <div className="font-normal text-second">
+                        <Trans>Network cost</Trans>
+                    </div>
+                    <div
+                        className={classNames('font-medium', {
+                            'animate-pulse rounded bg-bg': isEstimatingGas,
+                        })}
+                    >
+                        {isEstimatingGas ? null : estimatedGas ? (
+                            <>
+                                {renderShrankPrice(formatPrice(estimatedGas.amount) ?? '-')} ${estimatedGas.symbol} ≈ $
+                                {renderShrankPrice(formatPrice(estimatedGas.usd) ?? '-')}
+                            </>
+                        ) : (
+                            '-'
+                        )}
+                    </div>
                 </div>
             </div>
             <div className="mt-auto w-full">
@@ -514,7 +499,7 @@ function FormView() {
                     type="submit"
                     disabled={isSubmitting || !!validatedResult?.error || isValidating || isEstimatingGas || !isValid}
                 >
-                    {isValidating || isSubmitting ? (
+                    {isValidating || isSubmitting || isEstimatingGas ? (
                         <LoadingIcon size={20} />
                     ) : (
                         (validatedResult?.error ?? <Trans>Send</Trans>)

@@ -2241,9 +2241,6 @@ msgstr "{0, select, success {Success} failed {Failed} pending {Pending} other {F
 msgid "Tip sent successfully!"
 msgstr "Tip sent successfully!"
 
-msgid "Failed to estimate gas"
-msgstr "Failed to estimate gas"
-
 #. placeholder {0}: activeConnector.name
 msgid "Select Chain for {0}"
 msgstr "Select Chain for {0}"
