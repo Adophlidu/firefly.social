@@ -169,10 +169,6 @@ const config: NextConfig = {
                 source: '/(.*)?', // Matches all pages
                 headers: [
                     {
-                        key: 'X-Content-Type-Options',
-                        value: 'nosniff',
-                    },
-                    {
                         key: 'Referrer-Policy',
                         value: 'origin-when-cross-origin',
                     },
