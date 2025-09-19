@@ -12,6 +12,7 @@
 
 .limo-article > .markdown-body pre {
     border: inherit !important;
+    overflow: auto;
 }
 
 .limo-article > .markdown-body code {
