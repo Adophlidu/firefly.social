@@ -47,6 +47,7 @@ export function NFTDetailPage({ chainId, address, tokenId }: { chainId: number; 
                     chainId={chainId}
                     externalUrl={data.external_link}
                     traits={data.attributes ?? EMPTY_LIST}
+                    platformLogo={data.deployPlatformLogo}
                 />
                 {!isPoap && data.attributes.length ? <NFTProperties items={data.attributes} /> : null}
                 <NFTOverflow

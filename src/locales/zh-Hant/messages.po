@@ -805,6 +805,9 @@ msgstr "{0, plural, one {引用} other {引用}}"
 msgid "No hidden owner."
 msgstr "無隱藏的擁有者。"
 
+msgid "Unpaid"
+msgstr ""
+
 msgid "Blockchain"
 msgstr "區塊鏈"
 
@@ -962,9 +965,6 @@ msgstr "圖片載入失敗，請重試。"
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr "<0>{0}</0> 由 <1>{1}</1> 建立"
 
-msgid "No refund if expired"
-msgstr "過期不支持退款"
-
 msgid "Sending"
 msgstr "發布中"
 
@@ -1046,6 +1046,9 @@ msgstr "危險：交易存在風險"
 
 msgid "👀 Foodie builders, listen up!"
 msgstr "👀 Foodie builders看過來"
+
+msgid "Shipped"
+msgstr ""
 
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
 msgid "{0, plural, one {# day} other {# days}}"
@@ -1510,6 +1513,9 @@ msgstr "近兩週無內容"
 msgid "Discard Post"
 msgstr "放棄發佈"
 
+msgid "Paying"
+msgstr ""
+
 msgid "Participate Now"
 msgstr "立即參與"
 
@@ -1547,6 +1553,9 @@ msgstr "您也可以在區塊鏈瀏覽器頁面找到更詳細的持幣者分析
 
 msgid "Change password"
 msgstr "變更密碼"
+
+msgid "System busy"
+msgstr ""
 
 msgid "Verified by {provider}"
 msgstr "由 {provider} 驗證"
@@ -1679,6 +1688,9 @@ msgstr "Gas 不足"
 msgid "Failed to change password."
 msgstr "變更密碼失敗。"
 
+msgid "Submit exception"
+msgstr ""
+
 msgid "Blacklist function"
 msgstr "黑名單功能"
 
@@ -1704,6 +1716,10 @@ msgstr "已投票"
 
 msgid "Lucky Drop"
 msgstr "紅包"
+
+#. placeholder {0}: resolveOrderStatusText(orderStatus)
+msgid "Failed to purchase. {0}"
+msgstr ""
 
 msgid "Bad login state, please try to login again."
 msgstr "登入狀態異常，請重新登入。"
@@ -1822,6 +1838,9 @@ msgstr "重試"
 
 msgid "Failed to create image payload."
 msgstr "創建圖片失敗。"
+
+msgid "Discount won! Valid for 3 minutes，snatch it now!"
+msgstr ""
 
 msgid "Network Fee"
 msgstr "網路費用"
@@ -2338,6 +2357,9 @@ msgstr "取消隱藏 /{0} 失敗。"
 msgid "Custom amount is required for this token"
 msgstr "此代幣需要自訂數額"
 
+msgid "No refund"
+msgstr ""
+
 msgid "Cover background"
 msgstr "封面背景"
 
@@ -2376,6 +2398,9 @@ msgstr "已兌換"
 
 msgid "This Email is already linked to another Firefly account."
 msgstr "此電子郵件已綁定其他 Firefly 帳戶。"
+
+msgid "Wrong pose"
+msgstr ""
 
 msgid "Fully Diluted Valuation"
 msgstr "完全稀釋估值"
@@ -2533,6 +2558,9 @@ msgstr "發布你的留言"
 msgid "View on Explorer"
 msgstr "在瀏覽器查看"
 
+msgid "The task Not Meet"
+msgstr ""
+
 #. placeholder {0}: account?.uid
 msgid "UID: {0}"
 msgstr "UID: {0}"
@@ -2610,9 +2638,6 @@ msgstr "成功更新個人檔案"
 
 msgid "Token ${symbol} could not be found."
 msgstr "未找到代幣 ${symbol}。"
-
-msgid "Failed to purchase.{reason}"
-msgstr ""
 
 msgid "Failed to publish on {sortedSourceNames}"
 msgstr "在 {sortedSourceNames} 上發佈失敗"
@@ -2746,9 +2771,6 @@ msgstr "👀 Firefly 通知未開啟！"
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr "{feeAmount} ${feeSymbol} 付費追蹤"
-
-msgid "Failed to purchase. {orderStatus}"
-msgstr ""
 
 msgid "Farcaster"
 msgstr "Farcaster"
@@ -2918,6 +2940,9 @@ msgstr "你不符合領取此紅包的資格"
 msgid "Collectible could not be found."
 msgstr "未找到相關NFT。"
 
+msgid "OrderExists"
+msgstr ""
+
 msgid "Image count limit reached"
 msgstr "達到圖片數量上限"
 
@@ -2941,6 +2966,9 @@ msgstr "預約貼文的發布時間最多可設定在 7 天內。"
 
 msgid "This token can not self destruct."
 msgstr "此代幣不具備自毀功能。"
+
+msgid "AmountError"
+msgstr ""
 
 msgid "Display"
 msgstr "外觀"
@@ -3360,6 +3388,9 @@ msgstr "您的交易即將確認"
 msgid "Failed to un-bookmark snapshot."
 msgstr "取消收藏投票失敗。"
 
+msgid "Out of stock"
+msgstr ""
+
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
 msgid "will send on {0} at {1}"
@@ -3617,6 +3648,9 @@ msgstr "取消轉發"
 msgid "{days, plural, one {# day left} other {# days left}}"
 msgstr "{days, plural, one {剩餘 # 日} other {剩餘 # 日}}"
 
+msgid "Failed to purchase. Insufficient balance"
+msgstr ""
+
 msgid "No cybercrime involved."
 msgstr "未涉及網路犯罪。"
 
@@ -3796,6 +3830,9 @@ msgstr "<0>Firefly 錢包內資產將永久遺失且無法恢復。</0> 請先�
 
 msgid "Display Name should not exceed 20 characters"
 msgstr "名稱不得超過 20 字元"
+
+msgid "No discount yet! Do more tasks if available to claim your next draw!"
+msgstr ""
 
 msgid "New"
 msgstr "新增"
@@ -4141,10 +4178,6 @@ msgstr "用戶名或電子郵件"
 msgid "Marina Bay Sands"
 msgstr "Marina Bay Sands"
 
-#. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
-msgid "<0>Minted</0><1/>{0}"
-msgstr "<0>鑄造</0><1/>{0}"
-
 #. placeholder {0}: fromAccountInfo?.link ? ( <Link onClick={stopPropagation} className="font-bold hover:underline" href={fromAccountInfo.link} > {fromAccountInfo?.displayName || '-'} </Link> ) : ( <span className="font-bold">{fromAccountInfo?.displayName || '-'}</span> )
 msgid "{0} liked your <0>tip</0>"
 msgstr "{0} 讚了你的 <0>打賞</0>"
@@ -4314,6 +4347,9 @@ msgstr "剩餘 {minutes} 分鐘"
 msgid "Neutral"
 msgstr "中立"
 
+msgid "Failed to purchase."
+msgstr ""
+
 msgid "Turn on notifications to never miss important alerts."
 msgstr "開啟通知以掌握重要提醒"
 
@@ -4393,6 +4429,9 @@ msgstr "合約"
 
 msgid "NFT ID"
 msgstr "NFT ID"
+
+msgid "Completed"
+msgstr ""
 
 msgid "Sign in with Bluesky"
 msgstr "使用 Bluesky 登入"
@@ -4615,6 +4654,9 @@ msgstr "未檢測到勒索行為。"
 msgid "No Lens profile found,"
 msgstr "未找到 Lens 帳號，"
 
+msgid "Amount exception"
+msgstr ""
+
 msgid "No one you follow has traded this token."
 msgstr "你追蹤的人中沒有人交易過此代幣。"
 
@@ -4670,6 +4712,11 @@ msgstr "關於"
 #. placeholder {2}: timeLeft.seconds
 msgid "{0}h: {1}m: {2}s"
 msgstr "{0}時： {1}分： {2}秒"
+
+#. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
+#. placeholder {1}: feed.deployPlatform && feed.deployPlatformLogo ? ( <div className="flex items-center gap-1"> on <Image src={feed.deployPlatformLogo} className="size-[18px] rounded-full" alt={feed.deployPlatform} width={18} height={18} /> <span className="h-6 capitalize leading-6">{feed.deployPlatform}</span> </div> ) : null
+msgid "<0>Minted</0><1/>{0}{1}"
+msgstr ""
 
 msgid "Download App"
 msgstr "下載 App"
@@ -4738,6 +4785,9 @@ msgstr "<0>已領取: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> 
 
 msgid "View on website"
 msgstr "在網站查看"
+
+msgid "Cancelled"
+msgstr ""
 
 msgid "1 voucher can be redeemed by 1 person; No limit for dining guests"
 msgstr "每人可用1張，用餐人數不限"
@@ -4887,6 +4937,9 @@ msgstr "此 NFT 元數據未儲存於 IPFS、AR 等去中心化儲存方案。"
 msgid "No trading cooldown function."
 msgstr "無交易冷卻機制。"
 
+msgid "Timeout"
+msgstr ""
+
 msgid "Media"
 msgstr "媒體"
 
@@ -5028,9 +5081,6 @@ msgstr "請透過 Farcaster 確認登入。"
 
 msgid "Minted"
 msgstr "已鑄造"
-
-msgid "Insufficient balance"
-msgstr ""
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"
 msgstr "來自特朗普的 Truth Social 貼文（探索、個人檔案）"

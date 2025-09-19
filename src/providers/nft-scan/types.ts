@@ -72,6 +72,8 @@ export namespace EVM {
         hasBookmarked?: boolean;
         /** extends at runtime. */
         video_uri?: string;
+        deployPlatform?: string;
+        deployPlatformLogo?: string;
     }
 
     export interface AssetsGroup {

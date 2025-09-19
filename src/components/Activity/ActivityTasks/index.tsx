@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useAsync } from 'react-use';
 
 import { ActivityMobileOnly } from '@/components/Activity/ActivityMobileOnly.js';
+import { IS_IOS } from '@/constants/browser.js';
 import { dynamic } from '@/esm/dynamic.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { waitForWebviewDidLoadEvent } from '@/helpers/waitForWebviewDidLoadEvent.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 const ActivityButtrflyTasks = dynamic(() =>
@@ -25,10 +26,14 @@ const ActivityFrensgivingTasks = dynamic(() =>
     })),
 );
 
-const ActivityHaidilaoTask = dynamic(() =>
-    import('@/components/Activity/ActivityTasks/ActivityHaidilaoTask.js').then((mod) => ({
-        default: mod.ActivityHaidilaoTask,
-    })),
+const ActivityHaidilaoTask = dynamic(
+    () =>
+        import('@/components/Activity/ActivityTasks/ActivityHaidilaoTask.js').then((mod) => ({
+            default: mod.ActivityHaidilaoTask,
+        })),
+    {
+        ssr: false,
+    },
 );
 
 const ActivityCreatorTasks = dynamic(() =>
@@ -67,12 +72,22 @@ interface Props {
 }
 
 export function ActivityTasks({ name, data }: Props) {
-    useEffect(() => {
-        runInSafeAsync(async () => {
-            const eruda = await import('eruda');
-            eruda.default.init();
-        });
+    const { value: isReady } = useAsync(async () => {
+        try {
+            // iOS needs to wait for the load event to be able to communicate with the bridge
+            if (IS_IOS) {
+                console.log('[ActivityTasks] wait for webview did load event');
+                await waitForWebviewDidLoadEvent();
+                return true;
+            }
+            return true;
+        } catch (error) {
+            console.error('[ActivityTasks] failed to wait for webview did load event', error);
+            return true;
+        }
     }, []);
+
+    if (!isReady) return null;
 
     switch (name) {
         case 'hlbl':

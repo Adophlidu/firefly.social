@@ -7,6 +7,7 @@ import LocationIcon from '@/assets/location.svg';
 import PoapIcon from '@/assets/poap.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { NFTVideo } from '@/components/NFTDetail/NFTInfoPreview.js';
 import { NFTImage } from '@/components/NFTImage.js';
@@ -16,16 +17,13 @@ import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import { type EVM, TransEventType } from '@/providers/nft-scan/types.js';
+import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
-interface Props {
-    address: string;
+interface NFTsActivityCellCardProps {
     tokenId: string;
     chainId: EthereumChainId;
-    action: TransEventType;
-    ownerAddress: string;
-    bookmarked?: boolean;
-    nft: EVM.Asset;
+    feed: NFTFeedV3;
 }
 
 const PoapTags = memo(function PoapTags({ asset }: { asset: EVM.Asset }) {
@@ -49,8 +47,10 @@ const PoapTags = memo(function PoapTags({ asset }: { asset: EVM.Asset }) {
     );
 });
 
-export function NFTsActivityCellCard(props: Props) {
-    const { address, tokenId, chainId, action, ownerAddress, bookmarked, nft: data } = props;
+export function NFTsActivityCellCard(props: NFTsActivityCellCardProps) {
+    const { tokenId, chainId, feed } = props;
+    const { event_type: action, owner: ownerAddress, contract_address: address, bookmarked, detail: data } = feed;
+    if (!data) return null;
     const imageURL = data.image_uri || data.content_uri || data.nftscan_uri!;
 
     const isPoap = action === TransEventType.Poap;
@@ -105,8 +105,17 @@ export function NFTsActivityCellCard(props: Props) {
                 {isPoap ? (
                     <PoapIcon width={32} height={32} className="absolute left-[14px] top-3" />
                 ) : (
-                    <div className="absolute left-[14px] top-3 flex size-8 items-center justify-center rounded-xl bg-black/25">
+                    <div className="absolute left-[14px] top-3 flex items-center justify-center gap-1 rounded-xl bg-black/25 p-1">
                         <ChainIcon className="rounded-full" chainId={chainId} size={24} />
+                        {feed.deployPlatformLogo ? (
+                            <Image
+                                src={feed.deployPlatformLogo}
+                                className="size-6 rounded-full"
+                                alt={feed.deployPlatform || 'Mint platform'}
+                                width={24}
+                                height={24}
+                            />
+                        ) : null}
                     </div>
                 )}
             </Link>

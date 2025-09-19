@@ -48,6 +48,7 @@ interface NFTInfoProps {
     isPoap?: boolean;
     externalUrl?: string | null;
     traits: NonFungibleTokenTrait[] | EVM.Attribute[];
+    platformLogo?: string;
 }
 
 export function NFTInfo(props: NFTInfoProps) {
@@ -66,6 +67,7 @@ export function NFTInfo(props: NFTInfoProps) {
         isPoap = false,
         externalUrl,
         traits,
+        platformLogo,
     } = props;
     const isMedium = useIsMedium();
     const { data: ensName } = useEnsName({
@@ -105,11 +107,22 @@ export function NFTInfo(props: NFTInfoProps) {
         <div className="flex flex-col gap-2 md:flex-row md:gap-3">
             <div className="relative mx-auto flex size-[230px] items-center justify-center md:min-w-[230px]">
                 {isPoap || chainId ? (
-                    <div className="absolute left-2.5 top-2.5 z-10 rounded-xl bg-black/25 p-1">
+                    <div className="absolute left-2.5 top-2.5 z-10 flex gap-1 rounded-xl bg-black/25 p-1">
                         {isPoap ? (
                             <PoapIcon width={24} height={24} />
                         ) : (
-                            <ChainIcon className="rounded-full" chainId={chainId} size={24} />
+                            <>
+                                <ChainIcon className="rounded-full" chainId={chainId} size={24} />
+                                {platformLogo ? (
+                                    <Image
+                                        src={platformLogo}
+                                        className="size-6 rounded-full"
+                                        alt={platformLogo}
+                                        width={24}
+                                        height={24}
+                                    />
+                                ) : null}
+                            </>
                         )}
                     </div>
                 ) : null}

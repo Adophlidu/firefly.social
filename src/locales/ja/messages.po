@@ -805,6 +805,9 @@ msgstr ""
 msgid "No hidden owner."
 msgstr ""
 
+msgid "Unpaid"
+msgstr ""
+
 msgid "Blockchain"
 msgstr ""
 
@@ -962,9 +965,6 @@ msgstr ""
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr ""
 
-msgid "No refund if expired"
-msgstr ""
-
 msgid "Sending"
 msgstr ""
 
@@ -1045,6 +1045,9 @@ msgid "Unsafe: Transaction is at risk"
 msgstr ""
 
 msgid "👀 Foodie builders, listen up!"
+msgstr ""
+
+msgid "Shipped"
 msgstr ""
 
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
@@ -1510,6 +1513,9 @@ msgstr ""
 msgid "Discard Post"
 msgstr ""
 
+msgid "Paying"
+msgstr ""
+
 msgid "Participate Now"
 msgstr ""
 
@@ -1546,6 +1552,9 @@ msgid "In some cases, you can also find a more detailed breakdown of holders in 
 msgstr ""
 
 msgid "Change password"
+msgstr ""
+
+msgid "System busy"
 msgstr ""
 
 msgid "Verified by {provider}"
@@ -1679,6 +1688,9 @@ msgstr ""
 msgid "Failed to change password."
 msgstr ""
 
+msgid "Submit exception"
+msgstr ""
+
 msgid "Blacklist function"
 msgstr ""
 
@@ -1703,6 +1715,10 @@ msgid "Voted"
 msgstr ""
 
 msgid "Lucky Drop"
+msgstr ""
+
+#. placeholder {0}: resolveOrderStatusText(orderStatus)
+msgid "Failed to purchase. {0}"
 msgstr ""
 
 msgid "Bad login state, please try to login again."
@@ -1821,6 +1837,9 @@ msgid "Try again"
 msgstr ""
 
 msgid "Failed to create image payload."
+msgstr ""
+
+msgid "Discount won! Valid for 3 minutes，snatch it now!"
 msgstr ""
 
 msgid "Network Fee"
@@ -2330,6 +2349,9 @@ msgstr ""
 msgid "Custom amount is required for this token"
 msgstr ""
 
+msgid "No refund"
+msgstr ""
+
 msgid "Cover background"
 msgstr ""
 
@@ -2367,6 +2389,9 @@ msgid "Swapped"
 msgstr ""
 
 msgid "This Email is already linked to another Firefly account."
+msgstr ""
+
+msgid "Wrong pose"
 msgstr ""
 
 msgid "Fully Diluted Valuation"
@@ -2525,6 +2550,9 @@ msgstr ""
 msgid "View on Explorer"
 msgstr ""
 
+msgid "The task Not Meet"
+msgstr ""
+
 #. placeholder {0}: account?.uid
 msgid "UID: {0}"
 msgstr ""
@@ -2601,9 +2629,6 @@ msgid "Updated profile successfully"
 msgstr ""
 
 msgid "Token ${symbol} could not be found."
-msgstr ""
-
-msgid "Failed to purchase.{reason}"
 msgstr ""
 
 msgid "Failed to publish on {sortedSourceNames}"
@@ -2737,9 +2762,6 @@ msgid "👀 Firefly notifications are off. "
 msgstr ""
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
-msgstr ""
-
-msgid "Failed to purchase. {orderStatus}"
 msgstr ""
 
 msgid "Farcaster"
@@ -2905,6 +2927,9 @@ msgstr ""
 msgid "Collectible could not be found."
 msgstr ""
 
+msgid "OrderExists"
+msgstr ""
+
 msgid "Image count limit reached"
 msgstr ""
 
@@ -2927,6 +2952,9 @@ msgid "The scheduled time to send this post can be set up to 7 days in advance."
 msgstr ""
 
 msgid "This token can not self destruct."
+msgstr ""
+
+msgid "AmountError"
 msgstr ""
 
 msgid "Display"
@@ -3347,6 +3375,9 @@ msgstr ""
 msgid "Failed to un-bookmark snapshot."
 msgstr ""
 
+msgid "Out of stock"
+msgstr ""
+
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
 msgid "will send on {0} at {1}"
@@ -3604,6 +3635,9 @@ msgstr ""
 msgid "{days, plural, one {# day left} other {# days left}}"
 msgstr ""
 
+msgid "Failed to purchase. Insufficient balance"
+msgstr ""
+
 msgid "No cybercrime involved."
 msgstr ""
 
@@ -3782,6 +3816,9 @@ msgid "<0>Any assets in this Firefly wallet will be permanently lost and cannot 
 msgstr ""
 
 msgid "Display Name should not exceed 20 characters"
+msgstr ""
+
+msgid "No discount yet! Do more tasks if available to claim your next draw!"
 msgstr ""
 
 msgid "New"
@@ -4125,10 +4162,6 @@ msgstr ""
 msgid "Marina Bay Sands"
 msgstr ""
 
-#. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
-msgid "<0>Minted</0><1/>{0}"
-msgstr ""
-
 #. placeholder {0}: fromAccountInfo?.link ? ( <Link onClick={stopPropagation} className="font-bold hover:underline" href={fromAccountInfo.link} > {fromAccountInfo?.displayName || '-'} </Link> ) : ( <span className="font-bold">{fromAccountInfo?.displayName || '-'}</span> )
 msgid "{0} liked your <0>tip</0>"
 msgstr ""
@@ -4298,6 +4331,9 @@ msgstr ""
 msgid "Neutral"
 msgstr ""
 
+msgid "Failed to purchase."
+msgstr ""
+
 msgid "Turn on notifications to never miss important alerts."
 msgstr ""
 
@@ -4376,6 +4412,9 @@ msgid "Ca"
 msgstr ""
 
 msgid "NFT ID"
+msgstr ""
+
+msgid "Completed"
 msgstr ""
 
 msgid "Sign in with Bluesky"
@@ -4599,6 +4638,9 @@ msgstr ""
 msgid "No Lens profile found,"
 msgstr ""
 
+msgid "Amount exception"
+msgstr ""
+
 msgid "No one you follow has traded this token."
 msgstr ""
 
@@ -4653,6 +4695,11 @@ msgstr ""
 #. placeholder {1}: timeLeft.minutes
 #. placeholder {2}: timeLeft.seconds
 msgid "{0}h: {1}m: {2}s"
+msgstr ""
+
+#. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
+#. placeholder {1}: feed.deployPlatform && feed.deployPlatformLogo ? ( <div className="flex items-center gap-1"> on <Image src={feed.deployPlatformLogo} className="size-[18px] rounded-full" alt={feed.deployPlatform} width={18} height={18} /> <span className="h-6 capitalize leading-6">{feed.deployPlatform}</span> </div> ) : null
+msgid "<0>Minted</0><1/>{0}{1}"
 msgstr ""
 
 msgid "Download App"
@@ -4721,6 +4768,9 @@ msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{t
 msgstr ""
 
 msgid "View on website"
+msgstr ""
+
+msgid "Cancelled"
 msgstr ""
 
 msgid "1 voucher can be redeemed by 1 person; No limit for dining guests"
@@ -4869,6 +4919,9 @@ msgstr ""
 msgid "No trading cooldown function."
 msgstr ""
 
+msgid "Timeout"
+msgstr ""
+
 msgid "Media"
 msgstr ""
 
@@ -5009,9 +5062,6 @@ msgid "Please confirm the login with Farcaster."
 msgstr ""
 
 msgid "Minted"
-msgstr ""
-
-msgid "Insufficient balance"
 msgstr ""
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"

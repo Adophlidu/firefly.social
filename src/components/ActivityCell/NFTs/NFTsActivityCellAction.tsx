@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { pick } from 'lodash-es';
 
 import AcquiredIcon from '@/assets/acquired.svg';
 import BoughtIcon from '@/assets/bought.svg';
@@ -21,27 +20,25 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { type EVM as NFTScanEVM, TransEventType } from '@/providers/nft-scan/types.js';
+import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface Props {
+    feed: NFTFeedV3;
     chainId: EthereumChainId;
-    address: string;
     tokenId: string;
-    action: TransEventType;
     tokenCount?: number;
-    ownerAddress?: string;
-    toAddress?: string;
-    fromAddress?: string;
-    nft: NFTScanEVM.Asset | null;
 }
 
 const tagClassName = 'flex items-center space-x-1 rounded-lg bg-bg px-2 h-6 leading-6 truncate cursor-pointer';
 
-function NFTsActivityCellActionCollectionName({
-    asset,
-    chainId,
-    address,
-}: { asset: NFTScanEVM.Asset | null } & Pick<Props, 'chainId' | 'address'>) {
+interface CollectionNameProps {
+    asset: NFTScanEVM.Asset | null;
+    chainId: EthereumChainId;
+    address: string;
+}
+
+function NFTsActivityCellActionCollectionName({ asset, chainId, address }: CollectionNameProps) {
     if (!asset) return null;
     return (
         <Link
@@ -65,11 +62,7 @@ function NFTsActivityCellActionCollectionName({
     );
 }
 
-function NFTsActivityCellActionPoapName({
-    asset,
-    chainId,
-    address,
-}: { asset?: NFTScanEVM.Asset | null } & Pick<Props, 'chainId' | 'address'>) {
+function NFTsActivityCellActionPoapName({ asset, chainId, address }: CollectionNameProps) {
     if (!asset?.contract_name) return null;
 
     return (
@@ -83,7 +76,13 @@ function NFTsActivityCellActionPoapName({
 }
 
 export function NFTsActivityCellAction(props: Props) {
-    const { action, toAddress, ownerAddress, fromAddress, tokenCount, nft: data } = props;
+    const { tokenCount, feed } = props;
+    const collectionProps: CollectionNameProps = {
+        chainId: props.chainId,
+        address: feed.contract_address,
+        asset: feed.detail,
+    };
+    const { event_type: action, receive: toAddress, send: fromAddress, owner: ownerAddress } = feed;
 
     switch (action) {
         case TransEventType.Mint:
@@ -91,8 +90,21 @@ export function NFTsActivityCellAction(props: Props) {
                 <ActivityCellAction>
                     <Trans>
                         <ActivityCellActionTag icon={<MintIcon />}>Minted</ActivityCellActionTag>
-                        <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                        <NFTsActivityCellActionCollectionName {...collectionProps} />
                         {tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null}
+                        {feed.deployPlatform && feed.deployPlatformLogo ? (
+                            <div className="flex items-center gap-1">
+                                on
+                                <Image
+                                    src={feed.deployPlatformLogo}
+                                    className="size-[18px] rounded-full"
+                                    alt={feed.deployPlatform}
+                                    width={18}
+                                    height={18}
+                                />
+                                <span className="h-6 capitalize leading-6">{feed.deployPlatform}</span>
+                            </div>
+                        ) : null}
                     </Trans>
                 </ActivityCellAction>
             );
@@ -104,10 +116,7 @@ export function NFTsActivityCellAction(props: Props) {
                         {fromAddress ? (
                             <Trans>
                                 <ActivityCellActionTag icon={<AcquiredIcon />}>Acquired</ActivityCellActionTag>
-                                <NFTsActivityCellActionCollectionName
-                                    asset={data}
-                                    {...pick(props, 'chainId', 'address')}
-                                />
+                                <NFTsActivityCellActionCollectionName {...collectionProps} />
                                 <span>from</span>
                                 <ClickableArea className="whitespace-nowrap">
                                     <Link
@@ -121,10 +130,7 @@ export function NFTsActivityCellAction(props: Props) {
                         ) : (
                             <Trans>
                                 <ActivityCellActionTag icon={<AcquiredIcon />}>Acquired</ActivityCellActionTag>
-                                <NFTsActivityCellActionCollectionName
-                                    asset={data}
-                                    {...pick(props, 'chainId', 'address')}
-                                />
+                                <NFTsActivityCellActionCollectionName {...collectionProps} />
                             </Trans>
                         )}
                     </ActivityCellAction>
@@ -135,7 +141,7 @@ export function NFTsActivityCellAction(props: Props) {
                     {toAddress ? (
                         <Trans>
                             <ActivityCellActionTag icon={<SentIcon />}>Sent</ActivityCellActionTag>
-                            <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                            <NFTsActivityCellActionCollectionName {...collectionProps} />
                             <span>to</span>
                             <ClickableArea className="whitespace-nowrap">
                                 <Link
@@ -149,7 +155,7 @@ export function NFTsActivityCellAction(props: Props) {
                     ) : (
                         <Trans>
                             <ActivityCellActionTag icon={<SentIcon />}>Sent</ActivityCellActionTag>
-                            <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                            <NFTsActivityCellActionCollectionName {...collectionProps} />
                         </Trans>
                     )}
                 </ActivityCellAction>
@@ -159,7 +165,7 @@ export function NFTsActivityCellAction(props: Props) {
                 <ActivityCellAction>
                     <Trans>
                         <ActivityCellActionTag icon={<BurnIcon />}>Burned</ActivityCellActionTag>
-                        <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                        <NFTsActivityCellActionCollectionName {...collectionProps} />
                     </Trans>
                 </ActivityCellAction>
             );
@@ -170,7 +176,7 @@ export function NFTsActivityCellAction(props: Props) {
                     <ActivityCellAction>
                         <Trans>
                             <ActivityCellActionTag icon={<BoughtIcon />}>Bought</ActivityCellActionTag>
-                            <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                            <NFTsActivityCellActionCollectionName {...collectionProps} />
                         </Trans>
                     </ActivityCellAction>
                 );
@@ -179,7 +185,7 @@ export function NFTsActivityCellAction(props: Props) {
                 <ActivityCellAction>
                     <Trans>
                         <ActivityCellActionTag icon={<SoldIcon />}>Sold</ActivityCellActionTag>
-                        <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                        <NFTsActivityCellActionCollectionName {...collectionProps} />
                     </Trans>
                 </ActivityCellAction>
             );
@@ -188,7 +194,7 @@ export function NFTsActivityCellAction(props: Props) {
                 <ActivityCellAction>
                     <Trans>
                         <ActivityCellActionTag icon={<MintIcon />}>Collected</ActivityCellActionTag>
-                        <NFTsActivityCellActionPoapName asset={data} {...pick(props, 'chainId', 'address')} />
+                        <NFTsActivityCellActionPoapName {...collectionProps} />
                     </Trans>
                 </ActivityCellAction>
             );

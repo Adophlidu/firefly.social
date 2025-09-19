@@ -83,30 +83,14 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                         ens={displayInfo.ensHandle}
                         time={time}
                     />
-                    <NFTsActivityCellAction
-                        address={feed.contract_address}
-                        chainId={chainId}
-                        tokenId={tokenId}
-                        action={feed.event_type}
-                        toAddress={feed.receive}
-                        fromAddress={feed.send}
-                        ownerAddress={feed.owner}
-                        tokenCount={1}
-                        nft={feed.detail}
-                    />
+                    <NFTsActivityCellAction chainId={chainId} tokenId={tokenId} tokenCount={1} feed={feed} />
                     <div className="mt-1.5 flex w-full space-x-3 overflow-x-auto overflow-y-hidden">
-                        {feed.detail ? (
-                            <NFTsActivityCellCard
-                                key={`${tokenId}-${feed.contract_address}-${chainId}`}
-                                action={feed.event_type}
-                                address={feed.contract_address}
-                                ownerAddress={feed.owner}
-                                chainId={chainId}
-                                tokenId={tokenId}
-                                bookmarked={feed.bookmarked}
-                                nft={feed.detail}
-                            />
-                        ) : null}
+                        <NFTsActivityCellCard
+                            key={`${tokenId}-${feed.contract_address}-${chainId}`}
+                            chainId={chainId}
+                            tokenId={tokenId}
+                            feed={feed}
+                        />
                     </div>
                 </article>
             </div>

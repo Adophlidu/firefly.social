@@ -25,6 +25,8 @@ export interface NFTFeedV3 extends EVM.Transaction {
     /** extends at runtime */
     bookmarked?: boolean;
     has_bookmarked?: boolean;
+    deployPlatform?: string;
+    deployPlatformLogo?: string;
 }
 
 export interface FollowingNFT {

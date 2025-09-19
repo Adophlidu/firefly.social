@@ -10,8 +10,8 @@ import bs58 from 'bs58';
 import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { type HTMLProps, type MouseEventHandler, useEffect, useMemo, useRef, useState } from 'react';
-import { useAsyncFn } from 'react-use';
+import { type HTMLProps, type MouseEventHandler, type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import { useAsyncFn, useLocalStorage } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 import { type Address, encodeFunctionData, parseUnits, toHex } from 'viem';
 import { useSwitchAccount } from 'wagmi';
@@ -39,8 +39,9 @@ import { InvalidResultError } from '@/constants/error.js';
 import { FIREFLY_TELEGRAM_URL } from '@/constants/index.js';
 import { FIREFLY_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { classNames } from '@/helpers/classNames.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { delay } from '@/helpers/delay.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
@@ -57,7 +58,14 @@ import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { SolanaTransfer } from '@/providers/solana/Transfer.js';
-import { CheckBuyStatus, OrderStatus, TaskStatus } from '@/providers/types/Activity.js';
+import {
+    CheckBuyStatus,
+    type CheckPriceResponse,
+    CommitOrderResponseStatus,
+    OrderStatus,
+    type TaskResponse,
+    TaskStatus,
+} from '@/providers/types/Activity.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
@@ -88,6 +96,12 @@ interface ProductDetailRowProps {
     value: React.ReactNode;
 }
 
+interface LocalStorageItem {
+    lastTask: TaskResponse['data'];
+    lastCheckPrice: CheckPriceResponse['data'];
+    lastNoticedAtMap?: Record<number, number>;
+}
+
 export function ActivityHaidilaoTask({ data }: { data: Required<ActivityInfoResponse>['data'] }) {
     const router = useRouter();
     const { data: task, refetch: refetchTask } = useQuery({
@@ -96,6 +110,7 @@ export function ActivityHaidilaoTask({ data }: { data: Required<ActivityInfoResp
             return FireflyActivityProvider.getTasks(data.name);
         },
     });
+
     const queryClient = useQueryClient();
     const refetchAll = async () => {
         await refetchTask();
@@ -391,7 +406,7 @@ export function ActivityHaidilaoTask({ data }: { data: Required<ActivityInfoResp
                         label={<Trans>Rules</Trans>}
                         value={<Trans>1 voucher can be redeemed by 1 person; No limit for dining guests</Trans>}
                     />
-                    <ProductDetailRow label={<Trans>Support</Trans>} value={<Trans>No refund if expired</Trans>} />
+                    <ProductDetailRow label={<Trans>Support</Trans>} value={<Trans>No refund</Trans>} />
                     <>
                         <div className="text-sm font-semibold text-main">
                             <Trans>Stores</Trans>
@@ -597,7 +612,10 @@ function TaskItem({
 
     return (
         <div
-            className={classNames('min-h-14 rounded-2xl p-3', completed ? 'bg-success/10 dark:bg-success/20' : 'bg-bg')}
+            className={classNames(
+                'flex min-h-14 items-center justify-between rounded-2xl p-3',
+                completed ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
+            )}
         >
             <div className="flex flex-col justify-between gap-2 md:flex-row md:items-center">
                 <div className="flex items-center gap-2">
@@ -619,10 +637,9 @@ function TaskItem({
                             </ClickableButton>
                         ) : null}
                     </div>
-                ) : (
-                    <TickSquareIcon className="size-6 shrink-0 text-success" />
-                )}
+                ) : null}
             </div>
+            {completed ? <TickSquareIcon className="size-6 shrink-0 text-success" /> : null}
         </div>
     );
 }
@@ -644,128 +661,173 @@ function ActivityGoRedeemButton() {
     );
 }
 
+const resolveOrderStatusText = createLookupTableResolver<OrderStatus, ReactNode>(
+    {
+        [OrderStatus.Unpaid]: <Trans>Unpaid</Trans>,
+        [OrderStatus.Paying]: <Trans>Paying</Trans>,
+        [OrderStatus.Completed]: <Trans>Completed</Trans>,
+        [OrderStatus.Shipped]: <Trans>Shipped</Trans>,
+        [OrderStatus.Cancelled]: <Trans>Cancelled</Trans>,
+        [OrderStatus.Timeout]: <Trans>Timeout</Trans>,
+        [OrderStatus.AmountError]: <Trans>AmountError</Trans>,
+    },
+    <Trans>Unknown</Trans>,
+);
+
+const resolveCommitOrderText = createLookupTableResolver<CommitOrderResponseStatus, ReactNode>(
+    {
+        [CommitOrderResponseStatus.Success]: <Trans>Success</Trans>,
+        [CommitOrderResponseStatus.TaskNotMeet]: <Trans>The task Not Meet</Trans>,
+        [CommitOrderResponseStatus.OutOfStock]: <Trans>Out of stock</Trans>,
+        [CommitOrderResponseStatus.WrongPose]: <Trans>Wrong pose</Trans>,
+        [CommitOrderResponseStatus.OrderExists]: <Trans>OrderExists</Trans>,
+        [CommitOrderResponseStatus.SubmitException]: <Trans>Submit exception</Trans>,
+        [CommitOrderResponseStatus.SystemBusy]: <Trans>System busy</Trans>,
+    },
+    <Trans>Unknown</Trans>,
+);
+
 function usePurchase(name: string, { onClose }: { onClose?: () => void }) {
     const connections = useWalletConnections();
     const { switchAccountAsync } = useSwitchAccount();
     const queryClient = useQueryClient();
-    return async (address: string, networkType: NetworkType) => {
-        try {
-            const checkPrice = await FireflyActivityProvider.checkPrice(name);
-            if (!checkPrice) {
-                enqueueErrorMessage(<Trans>Sold Out.</Trans>);
-                return;
-            }
-            const orderCommitResponse = await FireflyActivityProvider.orderCommit(name, {
-                productId: checkPrice.product_id,
-            });
-            const tokens = await FireflyEndpointProvider.getMultiChainTokenList(
-                [address],
-                [SolanaChainId.Mainnet, EthereumChainId.Base],
-            );
-            const tokenAsset = tokens.find(
-                (token) => token.tokenAddress === SOLANA_USDC || token.tokenAddress === BASE_USDC,
-            );
-            if (!tokenAsset) {
-                return enqueueErrorMessage(<Trans>Insufficient balance</Trans>);
-            }
-            const token = formatTokenFromFireflyTokenAsset(tokenAsset);
-            if (fireflyBridgeProvider.supported) {
-                switch (networkType) {
-                    case NetworkType.Ethereum: {
-                        const data = encodeFunctionData({
-                            abi: getTokenAbiForWagmi(token.chainId, token.id as Address),
-                            functionName: 'transfer',
-                            args: [orderCommitResponse.EvmWallet, parseUnits(`${checkPrice.price}`, token.decimals)],
-                        });
-                        await fireflyBridgeProvider.request(SupportedMethod.SEND_EVM_TRANSACTION, {
-                            chainId: toHex(token.chainId),
-                            transaction: {
-                                from: address as Address,
-                                to: token.id as Address,
-                                data,
-                                value: '0x0',
-                            },
-                        });
-                        break;
-                    }
-                    case NetworkType.Solana: {
-                        const tx = await SolanaTransfer.getSplTransferTransaction({
-                            token: token as Token<SolanaChainId>,
-                            amount: `${checkPrice.price}`,
-                            to: orderCommitResponse.SolanaWallet,
-                        });
-                        await fireflyBridgeProvider.request(SupportedMethod.SEND_SOLANA_TRANSACTION, {
-                            transaction: {
-                                from: address,
-                                to: orderCommitResponse.SolanaWallet,
-                                data: bs58.encode(tx.serialize()),
-                            },
-                        });
-                        break;
-                    }
-                    default:
-                        unreachable(networkType);
+    return useAsyncFn(
+        async (address: string, networkType: NetworkType) => {
+            try {
+                const checkPrice = await queryClient.ensureQueryData({
+                    queryKey: ['activity-check-price', name],
+                    queryFn: () => FireflyActivityProvider.checkPrice(name),
+                });
+                if (!checkPrice) {
+                    enqueueErrorMessage(<Trans>Sold Out.</Trans>);
+                    return;
                 }
-            } else {
-                const connection = connections.find((x) => isSameAddress(x.address, address));
-                switch (networkType) {
-                    case NetworkType.Ethereum: {
-                        if (connection?.connector) await switchAccountAsync({ connector: connection.connector });
-                        await EthereumTransfer.transfer({
-                            to: orderCommitResponse.EvmWallet,
-                            token: token as Token<EthereumChainId, Address>,
-                            amount: `${checkPrice.price}`,
-                        });
-                        break;
-                    }
-                    case NetworkType.Solana: {
-                        if (connection?.namespace === 'solana') {
-                            useSolanaActiveNetworkStore
-                                .getState()
-                                .setActiveNetwork(
-                                    connection?.source === ConnectionSource.Privy
-                                        ? SolanaNetworkType.Privy
-                                        : SolanaNetworkType.Appkit,
-                                );
+                const orderCommitResponse = await FireflyActivityProvider.orderCommit(name, {
+                    productId: checkPrice.product_id,
+                });
+                if (!orderCommitResponse.EvmWallet || !orderCommitResponse.SolanaWallet) {
+                    enqueueErrorMessage(resolveCommitOrderText(orderCommitResponse.Status));
+                    return;
+                }
+                if (checkPrice.price <= 0) {
+                    enqueueSuccessMessage(<Trans>Purchase Completed</Trans>);
+                    await queryClient.refetchQueries({ queryKey: ['activity-check-buy', name] });
+                    return;
+                }
+                const tokens = await FireflyEndpointProvider.getMultiChainTokenList(
+                    [address],
+                    [SolanaChainId.Mainnet, EthereumChainId.Base],
+                );
+                const tokenAsset = tokens.find(
+                    (token) =>
+                        isSameAddress(token.tokenAddress, SOLANA_USDC) || isSameAddress(token.tokenAddress, BASE_USDC),
+                );
+                if (!tokenAsset) {
+                    return enqueueErrorMessage(<Trans>Failed to purchase. Insufficient balance</Trans>);
+                }
+                const token = formatTokenFromFireflyTokenAsset(tokenAsset);
+                if (fireflyBridgeProvider.supported) {
+                    switch (networkType) {
+                        case NetworkType.Ethereum: {
+                            const data = encodeFunctionData({
+                                abi: getTokenAbiForWagmi(token.chainId, token.id as Address),
+                                functionName: 'transfer',
+                                args: [
+                                    orderCommitResponse.EvmWallet,
+                                    parseUnits(`${checkPrice.price}`, token.decimals),
+                                ],
+                            });
+                            await fireflyBridgeProvider.request(SupportedMethod.SEND_EVM_TRANSACTION, {
+                                chainId: toHex(token.chainId),
+                                transaction: {
+                                    from: address as Address,
+                                    to: token.id as Address,
+                                    data,
+                                    value: '0x0',
+                                },
+                            });
+                            break;
                         }
-                        await SolanaTransfer.transfer({
-                            to: orderCommitResponse.SolanaWallet,
-                            token: token as Token<SolanaChainId>,
-                            amount: `${checkPrice.price}`,
-                        });
-                        break;
+                        case NetworkType.Solana: {
+                            const tx = await SolanaTransfer.getSplTransferTransaction({
+                                token: token as Token<SolanaChainId>,
+                                amount: `${checkPrice.price}`,
+                                to: orderCommitResponse.SolanaWallet,
+                            });
+                            await fireflyBridgeProvider.request(SupportedMethod.SEND_SOLANA_TRANSACTION, {
+                                transaction: {
+                                    from: address,
+                                    to: orderCommitResponse.SolanaWallet,
+                                    data: bs58.encode(tx.serialize()),
+                                },
+                            });
+                            break;
+                        }
+                        default:
+                            unreachable(networkType);
                     }
-                    default:
-                        unreachable(networkType);
+                } else {
+                    const connection = connections.find((x) => isSameAddress(x.address, address));
+                    switch (networkType) {
+                        case NetworkType.Ethereum: {
+                            if (connection?.connector) await switchAccountAsync({ connector: connection.connector });
+                            await EthereumTransfer.transfer({
+                                to: orderCommitResponse.EvmWallet,
+                                token: token as Token<EthereumChainId, Address>,
+                                amount: `${checkPrice.price}`,
+                            });
+                            break;
+                        }
+                        case NetworkType.Solana: {
+                            if (connection?.namespace === 'solana') {
+                                useSolanaActiveNetworkStore
+                                    .getState()
+                                    .setActiveNetwork(
+                                        connection?.source === ConnectionSource.Privy
+                                            ? SolanaNetworkType.Privy
+                                            : SolanaNetworkType.Appkit,
+                                    );
+                            }
+                            await SolanaTransfer.transfer({
+                                to: orderCommitResponse.SolanaWallet,
+                                token: token as Token<SolanaChainId>,
+                                amount: `${checkPrice.price}`,
+                            });
+                            break;
+                        }
+                        default:
+                            unreachable(networkType);
+                    }
                 }
-            }
-            await FireflyActivityProvider.reportOrderPaid(name, orderCommitResponse.orderNo);
-            await queryClient.refetchQueries({ queryKey: ['activity-check-buy', name] });
-            const orderStatus = await retry(async () => {
-                const checkOrder = await FireflyActivityProvider.checkOrder(name, orderCommitResponse.orderNo);
-                if (checkOrder.OrderStatus === OrderStatus.Paying || checkOrder.OrderStatus === OrderStatus.Shipped) {
-                    throw new InvalidResultError();
+                await FireflyActivityProvider.reportOrderPaid(name, orderCommitResponse.orderNo);
+                await queryClient.refetchQueries({ queryKey: ['activity-check-buy', name] });
+                const orderStatus = await retry(async () => {
+                    const checkOrder = await FireflyActivityProvider.checkOrder(name, orderCommitResponse.orderNo);
+                    if (
+                        checkOrder.OrderStatus === OrderStatus.Paying ||
+                        checkOrder.OrderStatus === OrderStatus.Shipped
+                    ) {
+                        throw new InvalidResultError();
+                    }
+                    return checkOrder.OrderStatus;
+                });
+                onClose?.();
+                if (orderStatus === OrderStatus.Completed) {
+                    await delay(5000);
+                    enqueueSuccessMessage(<Trans>Purchase Completed</Trans>);
+                    await queryClient.refetchQueries({ queryKey: ['activity-check-buy', name] });
+                    return;
                 }
-                return checkOrder.OrderStatus;
-            });
-            onClose?.();
-            if (orderStatus === OrderStatus.Completed) {
-                enqueueSuccessMessage(<Trans>Purchase Completed</Trans>);
-                return;
+                enqueueErrorMessage(<Trans>Failed to purchase. {resolveOrderStatusText(orderStatus)}</Trans>);
+            } catch (error) {
+                console.error(error);
+                const reason = getErrorMessageFromError(error, <Trans>Failed to purchase.</Trans>);
+                enqueueErrorMessage(reason);
+                throw error;
             }
-            enqueueErrorMessage(<Trans>Failed to purchase. {orderStatus}</Trans>);
-        } catch (error) {
-            console.error(error);
-            const reason = getErrorMessageFromError(error);
-            enqueueErrorMessage(
-                <Trans>
-                    Failed to purchase.
-                    {reason}
-                </Trans>,
-            );
-            throw error;
-        }
-    };
+        },
+        [connections, name, onClose, queryClient, switchAccountAsync],
+    );
 }
 
 function PurchaseButton({
@@ -773,12 +835,30 @@ function PurchaseButton({
     name,
     className,
     isContinue = false,
+    productId,
+    disabled,
     ...props
-}: { price: number; name: string; isContinue?: boolean } & Omit<HTMLProps<HTMLButtonElement>, 'children' | 'type'>) {
+}: { price: number; name: string; isContinue?: boolean; productId?: string } & Omit<
+    HTMLProps<HTMLButtonElement>,
+    'children' | 'type'
+>) {
     const [openCashier, setOpenCashier] = useState(false);
     const { addresses } = useActivityConnectedAddresses();
     const connectWallet = useActivityConnectWallet();
-    const onPurchase = usePurchase(name, { onClose: () => setOpenCashier(false) });
+    const [{ loading: purchasing }, onPurchase] = usePurchase(name, { onClose: () => setOpenCashier(false) });
+    const queryClient = useQueryClient();
+
+    const [{ loading }, onClick] = useAsyncFn(async () => {
+        if (productId && price <= 0) {
+            await FireflyActivityProvider.orderCommit(name, {
+                productId,
+            });
+            await delay(5000);
+            await queryClient.refetchQueries({ queryKey: ['activity-check-buy', name] });
+            return;
+        }
+        setOpenCashier(true);
+    }, [productId, price, name, queryClient]);
 
     if (!addresses.length) {
         return (
@@ -803,19 +883,26 @@ function PurchaseButton({
             <Cashier open={openCashier} onClose={() => setOpenCashier(false)} price={price} onContinue={onPurchase} />
             <button
                 {...props}
+                disabled={loading || purchasing || disabled}
                 className={classNames(
                     'leading-12 relative flex h-12 w-full items-center justify-center rounded-full text-center text-base font-bold duration-300 disabled:bg-main disabled:text-primaryBottom disabled:opacity-60',
                     !isContinue && price >= 15 ? 'bg-main text-primaryBottom' : 'bg-[#8155ed] text-white',
                     className,
                 )}
-                onClick={() => setOpenCashier(true)}
+                onClick={onClick}
             >
-                {isContinue ? (
-                    <Trans>Continue payment</Trans>
+                {purchasing ? (
+                    <LoadingIcon />
                 ) : (
-                    <Trans>
-                        Purchase at $<NumberFlow value={price} />
-                    </Trans>
+                    <>
+                        {isContinue ? (
+                            <Trans>Continue payment</Trans>
+                        ) : (
+                            <Trans>
+                                Purchase at $<NumberFlow value={price} />
+                            </Trans>
+                        )}
+                    </>
                 )}
             </button>
         </>
@@ -853,6 +940,36 @@ function ActivityHaidilaoTaskSubmitButton({ name }: { name: string }) {
         enabled: isLoginFirefly,
     });
 
+    const [localStorage, setLocalStorage] = useLocalStorage<LocalStorageItem | null>(`${name}-tasks`, null);
+    useEffect(() => {
+        if (!task || !checkPrice || !checkBuy) return;
+        if (
+            (!checkBuy.orderInfo.OrderStatus || checkBuy.orderInfo.OrderStatus !== OrderStatus.Unpaid) &&
+            task.completed_count > 3 &&
+            !localStorage?.lastNoticedAtMap?.[task.completed_count] &&
+            task.total_inventory > 0
+        ) {
+            if (`${checkPrice.product_id}` === '81') {
+                enqueueWarningMessage(
+                    <Trans>No discount yet! Do more tasks if available to claim your next draw!</Trans>,
+                );
+            } else {
+                enqueueSuccessMessage(<Trans>Discount won! Valid for 3 minutes，snatch it now!</Trans>);
+            }
+            setLocalStorage((x) => ({
+                lastTask: task,
+                lastCheckPrice: checkPrice,
+                lastNoticedAtMap: {
+                    ...x?.lastNoticedAtMap,
+                    [task.completed_count]: Date.now(),
+                },
+            }));
+        } else {
+            setLocalStorage((x) => ({ ...x, lastTask: task, lastCheckPrice: checkPrice }));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [task, checkPrice, checkBuy]);
+
     const price = checkPrice?.price ?? 15;
     const completedTaskCount = task?.completed_count ?? 0;
     const canBuy = completedTaskCount >= 3;
@@ -861,6 +978,17 @@ function ActivityHaidilaoTaskSubmitButton({ name }: { name: string }) {
 
     if (checkBuy?.status === CheckBuyStatus.Purchased) {
         return <ActivityGoRedeemButton />;
+    }
+
+    if (checkBuy?.orderInfo.OrderStatus === OrderStatus.AmountError) {
+        return (
+            <button
+                className="leading-12 relative flex h-12 w-full items-center justify-center rounded-full bg-main text-center text-base font-bold text-primaryBottom disabled:opacity-60"
+                disabled
+            >
+                <Trans>Amount exception</Trans>
+            </button>
+        );
     }
 
     if (isLoading || isCheckingPrice || isLoadingTask) {
@@ -886,7 +1014,7 @@ function ActivityHaidilaoTaskSubmitButton({ name }: { name: string }) {
         );
     }
 
-    if ((task && isSoldOut) || !checkPrice) {
+    if ((task && isSoldOut && checkBuy?.status !== CheckBuyStatus.PurchasedUnpaid) || !checkPrice) {
         return (
             <button
                 className="leading-12 relative flex h-12 w-full items-center justify-center rounded-full bg-main text-center text-base font-bold text-primaryBottom disabled:opacity-60"
@@ -900,7 +1028,7 @@ function ActivityHaidilaoTaskSubmitButton({ name }: { name: string }) {
     return (
         <>
             {(checkPrice?.remainingLockSeconds ?? 0) > 0 ? (
-                <Countdown countStart={checkPrice?.remainingLockSeconds ?? 0} onEnd={() => refetchCheckPrice()} />
+                <Countdown countStart={checkPrice?.remainingLockSeconds ?? 0} onEnd={refetchCheckPrice} />
             ) : null}
             <PurchaseButton
                 disabled={!canBuy}
