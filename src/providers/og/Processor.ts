@@ -14,18 +14,18 @@ import {
     WARPCAST_CONVERSATIONS_REGEX,
     WARPCAST_THREAD_REGEX,
 } from '@/constants/regexp.js';
+import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSourceFromUrl } from '@/helpers/resolveSource.js';
-import { type LinkDigested, type OpenGraph } from '@/types/og.js';
-import type { ResponseJson } from '@/types/utility.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
-import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { convertBskyHandleToDid } from '@/providers/bsky/convertBskyHandleToDid.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { getMirrorPayload } from '@/providers/og/readers/payload.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+import { type LinkDigested, type OpenGraph } from '@/types/og.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 class Processor {
     digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigested | null> => {

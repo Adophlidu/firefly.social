@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-09-17 05:05\n"
+"PO-Revision-Date: 2025-09-19 16:02\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -37,7 +37,7 @@ msgid "Stealing attack found."
 msgstr "發現竊取攻擊。"
 
 msgid "Please switch the wallet you want to connect"
-msgstr ""
+msgstr "請切換你想要連接的錢包"
 
 msgid "Be the first one to comment!"
 msgstr "快來留言吧～"
@@ -135,7 +135,7 @@ msgstr "互動失敗"
 
 #. placeholder {0}: dayjs(data.qrcode.validateTill).utc().format('YYYY/MM/DD HH:mm')
 msgid "Valid until: {0} (UTC)"
-msgstr ""
+msgstr "有效期：{0}（UTC）"
 
 msgid "Refunded"
 msgstr "已退款"
@@ -296,7 +296,7 @@ msgid "Mute {walletHandle}"
 msgstr "隱藏 {walletHandle}"
 
 msgid "Sold Out."
-msgstr ""
+msgstr "已售罄"
 
 #. placeholder {0}: sourceNames.slice(0, -1).join(', ')
 #. placeholder {1}: last(sourceNames) ?? ''
@@ -806,7 +806,7 @@ msgid "No hidden owner."
 msgstr "無隱藏的擁有者。"
 
 msgid "Unpaid"
-msgstr ""
+msgstr "未支付"
 
 msgid "Blockchain"
 msgstr "區塊鏈"
@@ -1008,7 +1008,7 @@ msgid "GIF source not supported. Supported sources: {0}"
 msgstr "不支援GIF來源。支援來源：{0}"
 
 msgid "Check your redeem code"
-msgstr ""
+msgstr "查看核銷碼"
 
 msgid "All activities from {handleOrEnsOrAddress} will be hidden from you"
 msgstr "將隱藏 {handleOrEnsOrAddress} 的所有動態"
@@ -1048,7 +1048,7 @@ msgid "👀 Foodie builders, listen up!"
 msgstr "👀 Foodie builders看過來"
 
 msgid "Shipped"
-msgstr ""
+msgstr "已發放核銷碼"
 
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
 msgid "{0, plural, one {# day} other {# days}}"
@@ -1269,7 +1269,7 @@ msgid "Failed to un-bookmark NFT."
 msgstr "取消收藏 NFT 失敗。"
 
 msgid "Connected your email to Firefly"
-msgstr ""
+msgstr "已綁定郵箱"
 
 msgid "Confirmation"
 msgstr "確認"
@@ -1514,7 +1514,7 @@ msgid "Discard Post"
 msgstr "放棄發佈"
 
 msgid "Paying"
-msgstr ""
+msgstr "支付中"
 
 msgid "Participate Now"
 msgstr "立即參與"
@@ -1536,7 +1536,7 @@ msgid "Failed Post"
 msgstr "發佈失敗"
 
 msgid "Continue payment"
-msgstr ""
+msgstr "繼續支付"
 
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 msgstr "掃描此二維碼，並在 Farcaster 行動版應用中確認，即可開始使用你的帳戶。"
@@ -1555,7 +1555,7 @@ msgid "Change password"
 msgstr "變更密碼"
 
 msgid "System busy"
-msgstr ""
+msgstr "系統繁忙"
 
 msgid "Verified by {provider}"
 msgstr "由 {provider} 驗證"
@@ -1595,7 +1595,7 @@ msgid "You are not eligible to decrypt this post, try again with eligible {sourc
 msgstr "您無權解密此貼文，請使用符合資格的 {sourceName} 帳戶重試。"
 
 msgid "Cross-posted to invite your crew to join"
-msgstr ""
+msgstr "已發佈貼文@你的朋友一起來吃火鍋"
 
 #. placeholder {0}: profile.handle
 msgid "Failed to mute @{0} on {sourceName}."
@@ -1689,7 +1689,7 @@ msgid "Failed to change password."
 msgstr "變更密碼失敗。"
 
 msgid "Submit exception"
-msgstr ""
+msgstr "訂單提交異常"
 
 msgid "Blacklist function"
 msgstr "黑名單功能"
@@ -1719,7 +1719,7 @@ msgstr "紅包"
 
 #. placeholder {0}: resolveOrderStatusText(orderStatus)
 msgid "Failed to purchase. {0}"
-msgstr ""
+msgstr "購買失敗，{0}"
 
 msgid "Bad login state, please try to login again."
 msgstr "登入狀態異常，請重新登入。"
@@ -1810,7 +1810,7 @@ msgid "Collected"
 msgstr "已收集"
 
 msgid "Unpaid orders exist, retry later"
-msgstr ""
+msgstr "有人未付款，你仍有機會下單"
 
 msgid "Encrypted choice"
 msgstr "加密選項"
@@ -1822,7 +1822,7 @@ msgid "<0>You</0> retruthed"
 msgstr "<0>你</0> 已轉發"
 
 msgid "Completed tasks ({completedTaskCount}/3)"
-msgstr ""
+msgstr "已完成數量（{completedTaskCount}/3）"
 
 msgid "Show more users"
 msgstr "顯示更多用戶"
@@ -1840,7 +1840,7 @@ msgid "Failed to create image payload."
 msgstr "創建圖片失敗。"
 
 msgid "Discount won! Valid for 3 minutes，snatch it now!"
-msgstr ""
+msgstr "運氣爆棚！你抽中了優惠金額，快來下單吧～"
 
 msgid "Network Fee"
 msgstr "網路費用"
@@ -1923,7 +1923,7 @@ msgid "Kamala Harris"
 msgstr "賀錦麗"
 
 msgid "Reposted the official campaign post"
-msgstr ""
+msgstr "已轉貼本次活動"
 
 msgid "Failed to connect on {source}"
 msgstr "在 {source} 上連接失敗"
@@ -2191,7 +2191,7 @@ msgid "Everything app for Web3 natives"
 msgstr "Web3 原住民的萬能應用"
 
 msgid "Purchase Completed"
-msgstr ""
+msgstr "購買成功"
 
 msgid "All wallets and accounts are muted."
 msgstr "已隱藏所有錢包與帳號。"
@@ -2281,7 +2281,7 @@ msgid "Rank #{tokenRank}"
 msgstr "排名 #{tokenRank}"
 
 msgid "Joined Firefly’s Telegram community"
-msgstr ""
+msgstr "已加入Firefly官方TG群"
 
 msgid "Votes"
 msgstr "票數"
@@ -2358,7 +2358,7 @@ msgid "Custom amount is required for this token"
 msgstr "此代幣需要自訂數額"
 
 msgid "No refund"
-msgstr ""
+msgstr "不支持退款"
 
 msgid "Cover background"
 msgstr "封面背景"
@@ -2400,7 +2400,7 @@ msgid "This Email is already linked to another Firefly account."
 msgstr "此電子郵件已綁定其他 Firefly 帳戶。"
 
 msgid "Wrong pose"
-msgstr ""
+msgstr "訂單異常"
 
 msgid "Fully Diluted Valuation"
 msgstr "完全稀釋估值"
@@ -2547,7 +2547,7 @@ msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "於 Firefly 上取消追蹤 {handleOrEnsOrAddress}"
 
 msgid "Redeem Code"
-msgstr ""
+msgstr "核銷碼"
 
 msgid "Enter your password to verify your identity."
 msgstr "請輸入密碼以驗證您的身份。"
@@ -2559,7 +2559,7 @@ msgid "View on Explorer"
 msgstr "在瀏覽器查看"
 
 msgid "The task Not Meet"
-msgstr ""
+msgstr "不滿足購買條件"
 
 #. placeholder {0}: account?.uid
 msgid "UID: {0}"
@@ -2941,7 +2941,7 @@ msgid "Collectible could not be found."
 msgstr "未找到相關NFT。"
 
 msgid "OrderExists"
-msgstr ""
+msgstr "訂單已存在"
 
 msgid "Image count limit reached"
 msgstr "達到圖片數量上限"
@@ -2968,7 +2968,7 @@ msgid "This token can not self destruct."
 msgstr "此代幣不具備自毀功能。"
 
 msgid "AmountError"
-msgstr ""
+msgstr "金額異常"
 
 msgid "Display"
 msgstr "外觀"
@@ -3166,7 +3166,7 @@ msgid "No activity yet"
 msgstr "这里空空如也"
 
 msgid "Activity not started yet"
-msgstr ""
+msgstr "活動尚未開始"
 
 msgid "Top 500 Buttrfly Points Leaderboard"
 msgstr "Buttrfly 積分排行榜前500"
@@ -3389,7 +3389,7 @@ msgid "Failed to un-bookmark snapshot."
 msgstr "取消收藏投票失敗。"
 
 msgid "Out of stock"
-msgstr ""
+msgstr "庫存不足"
 
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
@@ -3649,7 +3649,7 @@ msgid "{days, plural, one {# day left} other {# days left}}"
 msgstr "{days, plural, one {剩餘 # 日} other {剩餘 # 日}}"
 
 msgid "Failed to purchase. Insufficient balance"
-msgstr ""
+msgstr "購買失敗，餘額不足"
 
 msgid "No cybercrime involved."
 msgstr "未涉及網路犯罪。"
@@ -3832,7 +3832,7 @@ msgid "Display Name should not exceed 20 characters"
 msgstr "名稱不得超過 20 字元"
 
 msgid "No discount yet! Do more tasks if available to claim your next draw!"
-msgstr ""
+msgstr "本次未能抽中優惠金額...但好運已在路上！完成更多任務進行再次抽取吧～"
 
 msgid "New"
 msgstr "新增"
@@ -3984,7 +3984,7 @@ msgid "{0, plural, one {recast} other {recasts}}"
 msgstr "{0, plural, one {轉發} other {轉發}}"
 
 msgid "Followed <0>@thefireflyapp</0> on X"
-msgstr ""
+msgstr "已追蹤 <0>@thefireflyapp</0>"
 
 msgid "Refresh"
 msgstr "刷新"
@@ -3993,7 +3993,7 @@ msgid "Receive"
 msgstr "接收"
 
 msgid "Discount ends in {formattedTime}"
-msgstr ""
+msgstr "你的優惠價將於{formattedTime}後失效"
 
 msgid "NFT holder"
 msgstr "NFT 擁有者"
@@ -4170,7 +4170,7 @@ msgid "The account you are trying to log in with is already linked to a differen
 msgstr "您嘗試登入的帳戶已綁定其他 Firefly 帳戶。"
 
 msgid "Purchase at $<0/>"
-msgstr ""
+msgstr "立即購買 $<0/>"
 
 msgid "Username or email address"
 msgstr "用戶名或電子郵件"
@@ -4348,7 +4348,7 @@ msgid "Neutral"
 msgstr "中立"
 
 msgid "Failed to purchase."
-msgstr ""
+msgstr "購買失敗 "
 
 msgid "Turn on notifications to never miss important alerts."
 msgstr "開啟通知以掌握重要提醒"
@@ -4431,7 +4431,7 @@ msgid "NFT ID"
 msgstr "NFT ID"
 
 msgid "Completed"
-msgstr ""
+msgstr "已完成"
 
 msgid "Sign in with Bluesky"
 msgstr "使用 Bluesky 登入"
@@ -4655,7 +4655,7 @@ msgid "No Lens profile found,"
 msgstr "未找到 Lens 帳號，"
 
 msgid "Amount exception"
-msgstr ""
+msgstr "支付金額異常"
 
 msgid "No one you follow has traded this token."
 msgstr "你追蹤的人中沒有人交易過此代幣。"
@@ -4776,7 +4776,7 @@ msgid "The contract owner has restrictions on trading cooldown."
 msgstr "合約擁有者對交易冷卻時間有限制。"
 
 msgid "Connected your wallet to Firefly"
-msgstr ""
+msgstr "已綁定你的錢包"
 
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts, token_decimal ?? 18, { significant: 2, isPrecise: true, })
@@ -4787,7 +4787,7 @@ msgid "View on website"
 msgstr "在網站查看"
 
 msgid "Cancelled"
-msgstr ""
+msgstr "已取消"
 
 msgid "1 voucher can be redeemed by 1 person; No limit for dining guests"
 msgstr "每人可用1張，用餐人數不限"
@@ -4938,7 +4938,7 @@ msgid "No trading cooldown function."
 msgstr "無交易冷卻機制。"
 
 msgid "Timeout"
-msgstr ""
+msgstr "超時"
 
 msgid "Media"
 msgstr "媒體"

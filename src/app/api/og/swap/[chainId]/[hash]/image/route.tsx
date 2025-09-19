@@ -6,8 +6,8 @@ import type { NextRequest } from 'next/server.js';
 import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 
-import CopyTradeButtonSVG from '@/assets/copy-trade-button.svg?url';
 import BridgeButtonSVG from '@/assets/bridge-og-background.svg?url';
+import CopyTradeButtonSVG from '@/assets/copy-trade-button.svg?url';
 import SwapOGBackgroundSVG from '@/assets/swap-og-background.svg?url';
 import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { Source } from '@/constants/enum.js';

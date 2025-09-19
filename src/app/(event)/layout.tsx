@@ -1,5 +1,4 @@
 import { msg } from '@lingui/core/macro';
-import { headers } from 'next/headers.js';
 
 import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
@@ -11,11 +10,10 @@ import { SuggestedFollows } from '@/components/SuggestedFollows/SuggestedFollows
 import { Agent, PageRoute } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { getAgent } from '@/helpers/getAgent.js';
 import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/utility.js';
-import { getAgent } from '@/helpers/getAgent.js';
 
 interface Props
     extends NextPageProps<

@@ -13,9 +13,9 @@ import { IS_PRODUCTION } from '@/constants/index.js';
 import { Script } from '@/esm/Script.js';
 import { inter } from '@/fonts/inter.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { getAgent } from '@/helpers/getAgent.js';
 import { getCookie } from '@/helpers/getCookies.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { getAgent } from '@/helpers/getAgent.js';
 
 export const metadata = createSiteMetadata('/');
 
