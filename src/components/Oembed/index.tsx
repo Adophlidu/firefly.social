@@ -1,16 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { memo, Suspense, useEffect } from 'react';
+import { memo, useEffect } from 'react';
 
 import { Embed } from '@/components/Oembed/Embed.js';
 import { Player } from '@/components/Oembed/Player.js';
-import { PostEmbed } from '@/components/Oembed/Post.js';
-import { Quote } from '@/components/Posts/Quote.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
-import { formatFarcasterPost } from '@/providers/farcaster/formatFarcasterPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostOembed } from '@/services/getPostLinks.js';
-import { type LinkDigested, type OpenGraph, PayloadType } from '@/types/og.js';
+import { type LinkDigested, type OpenGraph } from '@/types/og.js';
 
 interface OembedUIProps {
     og: OpenGraph;
@@ -27,39 +23,11 @@ const OembedUI = memo<OembedUIProps>(function OembedUI({ og }) {
 export const OembedLayout = memo<{ data: LinkDigested; post?: Post; isInCompose?: boolean }>(
     function OembedPayload(props) {
         const {
-            data: { payload, og },
-            post,
-            isInCompose,
+            data: { og },
         } = props;
 
         if (!og.title) return null;
-        if (payload?.type === 'Post' && post?.type === 'Mirror' && post.parentPostId === payload.id) return null;
-        if (payload?.type === 'Post' && payload.id === post?.postId) return null;
-
-        const type = payload?.type;
-        if (!type) return <OembedUI og={og} />;
-
-        switch (type) {
-            case PayloadType.Farcaster:
-                return <Quote post={formatFarcasterPost(payload.cast)} />;
-            case PayloadType.Post:
-                return (
-                    <Suspense fallback={null}>
-                        <PostEmbed
-                            id={payload.id}
-                            source={payload.source}
-                            handle={payload.handle}
-                            isInCompose={isInCompose}
-                        />
-                    </Suspense>
-                );
-            case PayloadType.Mirror:
-                // Since it has been processed in PostLinks
-                return null;
-            default:
-                safeUnreachable(type);
-                return <OembedUI og={og} />;
-        }
+        return <OembedUI og={og} />;
     },
 );
 

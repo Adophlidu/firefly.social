@@ -9,7 +9,6 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
-import { digestBskyPostLink } from '@/providers/bsky/digestBskyPostLink.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import { getPostIframeContent } from '@/providers/og/readers/getPostIframeContent.js';
@@ -20,7 +19,6 @@ import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 import { getCollectionFromUrl } from '@/services/getCollectionFromUrl.js';
 import { getNFTFromUrl } from '@/services/getNFTFromUrl.js';
 import { getSnapshotByLink } from '@/services/getSnapshotByLink.js';
-import { getTruthSocialPostFromUrl } from '@/services/getTruthSocialPostFromUrl.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { LinkDigested } from '@/types/og.js';
 import type { ResponseJson } from '@/types/utility.js';
@@ -63,12 +61,8 @@ export async function getClassifyPostLink(url: string) {
     return attemptUntil<GetClassifyPostLinkOnActionResult | null>(
         [
             async () => {
-                const truthSocialPost = await getTruthSocialPostFromUrl(url);
-                return truthSocialPost ? { quote: truthSocialPost } : null;
-            },
-            async () => {
-                const bskyPost = await digestBskyPostLink(url);
-                return bskyPost ? { quote: bskyPost } : null;
+                const quote = await OpenGraphProcessor.digestPostUrl(url);
+                return quote ? { quote } : null;
             },
             async () => {
                 const spaceId = url.match(TWEET_SPACE_REGEX)?.[3];

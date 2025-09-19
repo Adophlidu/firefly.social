@@ -35,6 +35,13 @@ export function PostLinkContent({ data, url, post, article, isInCompose }: PostL
         return data?.oembed?.og.isLarge;
     }, [data?.oembed?.og.isLarge, post]);
 
+    const quote = useMemo(() => {
+        if (!data?.quote) return null;
+        if (post.type === 'Mirror' && post.parentPostId === data?.quote?.postId) return null;
+        if (data.quote.postId === post.postId) return null;
+        return data.quote;
+    }, [data?.quote, post]);
+
     if (!data) return <PureLink url={url} className="mt-2" />;
 
     // If the url occurs in the content, it might be rendered as an embed card as well.
@@ -58,7 +65,7 @@ export function PostLinkContent({ data, url, post, article, isInCompose }: PostL
                     }}
                 />
             ) : null}
-            {data.quote ? <Quote post={data.quote} /> : null}
+            {quote ? <Quote post={quote} /> : null}
             {data.snapshot && !isInCompose ? (
                 <SnapshotBody snapshot={data.snapshot} link={url} postId={post.postId} />
             ) : null}

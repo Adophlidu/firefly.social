@@ -1,36 +1,5 @@
 import type { Hex } from 'viem';
 
-import type { SocialSourceInURL } from '@/constants/enum.js';
-import type { Cast } from '@/providers/types/Warpcast.js';
-
-export enum PayloadType {
-    Mirror = 'Mirror',
-    Farcaster = 'Farcaster',
-    Post = 'Post',
-}
-
-export interface MirrorPayload {
-    type: PayloadType.Mirror;
-    address?: Hex;
-    timestamp?: number;
-    ens?: string;
-    displayName?: string;
-    body?: string;
-    cover?: string;
-}
-
-export interface FarcasterPayload {
-    type: PayloadType.Farcaster;
-    cast: Cast;
-}
-
-export interface PostPayload {
-    type: PayloadType.Post;
-    id: string;
-    source: SocialSourceInURL;
-    // farcaster short id link
-    handle?: string;
-}
 export interface OpenGraphImage {
     url: string;
     width: number;
@@ -39,7 +8,7 @@ export interface OpenGraphImage {
 
 export interface LinkDigested {
     og: OpenGraph;
-    payload?: MirrorPayload | FarcasterPayload | PostPayload | null;
+    payload?: MirrorPayload | null;
 }
 
 export interface OpenGraph {
@@ -53,4 +22,18 @@ export interface OpenGraph {
     isLarge: boolean;
     html: string | null;
     locale: string | null;
+}
+
+export enum PayloadType {
+    Mirror = 'Mirror',
+}
+
+export interface MirrorPayload {
+    type: PayloadType.Mirror;
+    address?: Hex;
+    timestamp?: number;
+    ens?: string;
+    displayName?: string;
+    body?: string;
+    cover?: string;
 }
