@@ -18,21 +18,13 @@ import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
 export interface PreviewMediaModalContentProps {
     index: number;
-    open: boolean;
     source: Source;
     post?: Post;
     medias?: Attachment[];
     onClose: () => void;
 }
 
-export function PreviewMediaModalContent({
-    open,
-    onClose,
-    post,
-    source,
-    medias,
-    index,
-}: PreviewMediaModalContentProps) {
+export function PreviewMediaModalContent({ onClose, post, source, medias, index }: PreviewMediaModalContentProps) {
     const prevRef = useRef<HTMLButtonElement>(null);
     const nextRef = useRef<HTMLButtonElement>(null);
 

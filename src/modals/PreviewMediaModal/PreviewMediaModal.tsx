@@ -39,7 +39,7 @@ export function PreviewMediaModal({ ref }: Props) {
                 className="preview-actions fixed inset-0 flex transform-none flex-col items-center justify-center bg-black/90 bg-opacity-90 outline-none transition-all"
                 onClick={isMedium ? () => dispatch?.close() : undefined}
             >
-                <PreviewMediaModalContent {...props} open={open} onClose={() => dispatch?.close()} />;
+                <PreviewMediaModalContent {...props} onClose={() => dispatch?.close()} />
             </div>
         </Modal>
     );

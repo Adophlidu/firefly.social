@@ -51,7 +51,6 @@ export default function Page(props: Props) {
                 onClick={isMedium ? () => router.back() : undefined}
             >
                 <PreviewMediaModalContent
-                    open
                     post={post}
                     source={currentSource}
                     index={Number.isNaN(+index) ? 0 : +index}
