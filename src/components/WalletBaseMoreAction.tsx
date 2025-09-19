@@ -33,6 +33,7 @@ interface Props {
     ens?: string;
     showTips?: boolean;
     autoQueryEns?: boolean;
+    icon?: React.ReactElement;
 }
 
 export function WalletBaseMoreAction({
@@ -43,6 +44,7 @@ export function WalletBaseMoreAction({
     chainId,
     showTips = true,
     autoQueryEns = false,
+    icon,
 }: Props) {
     const { data } = useNFTDetail(chainId, contractAddress, tokenId);
     const { data: isMuted } = useIsWalletMuted(address);
@@ -70,7 +72,7 @@ export function WalletBaseMoreAction({
         <MoreActionMenu
             button={
                 <Tooltip content={<Trans>More</Trans>} placement="top">
-                    <MoreIcon width={24} height={24} className="text-secondary" />
+                    {icon ?? <MoreIcon width={24} height={24} className="text-secondary" />}
                 </Tooltip>
             }
         >

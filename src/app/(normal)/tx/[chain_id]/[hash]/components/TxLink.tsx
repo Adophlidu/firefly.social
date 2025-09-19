@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { type PropsWithChildren,useMemo } from 'react';
 
 import { Link } from '@/esm/Link.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
@@ -10,7 +10,7 @@ import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 
-interface TxLinkProps {
+interface TxLinkProps extends PropsWithChildren {
     chainId: number;
     hash: string;
 }
@@ -23,7 +23,7 @@ function getTransactionLink(chainId: number, txHash: string) {
     return resolveExplorerLink(chainId, txHash, 'tx');
 }
 
-export function TxLink({ chainId, hash }: TxLinkProps) {
+export function TxLink({ chainId, hash, children }: TxLinkProps) {
     const txLink = useMemo(() => runInSafe(() => getTransactionLink(chainId, hash)), [chainId, hash]);
 
     if (txLink) {
@@ -32,16 +32,18 @@ export function TxLink({ chainId, hash }: TxLinkProps) {
                 target="_blank"
                 rel="noreferrer"
                 href={txLink}
-                className={classNames('text-sm font-medium text-highlight', bedStead.className)}
+                className={classNames('flex items-center gap-1 text-sm font-medium text-highlight', bedStead.className)}
             >
                 {hash.slice(0, 6)}...{hash.slice(-4)}
+                {children}
             </Link>
         );
     }
 
     return (
-        <span className={classNames('text-sm font-medium text-highlight', bedStead.className)}>
+        <span className={classNames('flex items-center gap-1 text-sm font-medium text-highlight', bedStead.className)}>
             {hash.slice(0, 6)}...{hash.slice(-4)}
+            {children}
         </span>
     );
 }

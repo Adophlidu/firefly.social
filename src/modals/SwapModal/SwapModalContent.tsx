@@ -12,7 +12,6 @@ import {
 import { CoreChainController } from '@reown/appkit';
 import { uniq } from 'lodash-es';
 import { useEffect, useRef, useState } from 'react';
-import { useMediaQuery } from 'usehooks-ts';
 import { mainnet } from 'viem/chains';
 import { getConnections } from 'wagmi/actions';
 
@@ -27,10 +26,10 @@ import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.j
 import { useLocale } from '@/helpers/getCookies.js';
 import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { EthereumWalletProvider, SolanaWalletProvider } from '@/providers/okx/WalletProvider.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 const LangMap = {
     [Locale.en]: 'en_us',
@@ -76,10 +75,9 @@ interface SwapModalContentProps {
 
 export function SwapModalContent({ open, onClose, props }: SwapModalContentProps) {
     const [widgetRef, setWidgetRef] = useState<HTMLDivElement | null>(null);
-
     const locale = useLocale();
     const [providerType, setProviderType] = useState<OkxProviderType>();
-    const mode = useThemeModeStore.use.themeMode();
+    const isDarkMode = useIsDarkMode();
     const instanceRef = useRef<OkxSwapWidgetHandler | null>(null);
     const propChainId = props?.chainId;
 
@@ -87,8 +85,8 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
     const computedProviderType =
         providerType ?? props?.providerType ?? (isSolanaChainId ? OkxProviderType.SOLANA : OkxProviderType.EVM);
     const isEvm = computedProviderType === OkxProviderType.EVM;
-    const isDark = useMediaQuery('(prefers-color-scheme: dark)');
-    const theme = mode === 'default' ? (isDark ? THEME.DARK : THEME.LIGHT) : mode === 'dark' ? THEME.DARK : THEME.LIGHT;
+
+    const theme = isDarkMode ? THEME.DARK : THEME.LIGHT;
 
     useEffect(() => {
         if (!instanceRef.current) return;
@@ -113,11 +111,12 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
         };
 
         const params = {
-            tradeType: TradeType.SWAP,
+            tradeType: TradeType.AUTO,
             lang: LangMap[locale] || 'en_us',
             theme,
             width: window.innerWidth < 440 ? window.innerWidth - 40 : 400,
             providerType: resolveProviderType(computedProviderType),
+
             chainIds: props?.chainIds ? uniq([...props.chainIds, chainId.toString()]) : [],
             tokenPair,
         };

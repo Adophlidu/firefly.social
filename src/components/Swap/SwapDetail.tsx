@@ -6,8 +6,10 @@ import { first } from 'lodash-es';
 import { memo } from 'react';
 import { type Address } from 'viem';
 
+import { AddressLink,TxLink } from '@/app/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
 import ExchangeIcon from '@/assets/exchange.svg';
 import LinkOut from '@/assets/link.svg';
+import MoreIcon from '@/assets/more-circle.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { Comeback } from '@/components/Comeback.js';
@@ -59,7 +61,11 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                         <Trans>Transaction</Trans>
                     </span>
                 </div>
-                <WalletBaseMoreAction address={activity.owner as Address} ens={activity.displayInfo?.ensHandle} />
+                <WalletBaseMoreAction
+                    icon={<MoreIcon width={24} height={24} className="text-main" />}
+                    address={activity.owner as Address}
+                    ens={activity.displayInfo?.ensHandle}
+                />
             </div>
             <div className="flex items-center justify-between px-4 py-3">
                 <div className="flex items-center gap-3">
@@ -100,7 +106,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                 </div>
             </div>
 
-            <div className="px-4 py-3">
+            <div className="pb-3 pl-[68px] pr-4 pt-1">
                 {activity.dex_name || activity.router_address ? (
                     <div className="mb-4 flex items-center gap-x-2">
                         <Trans>
@@ -129,9 +135,6 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                 <div className="flex flex-col gap-4">
                     {activity.from_token?.symbol ? (
                         <div className="flex flex-col gap-2">
-                            <div className="text-second">
-                                <Trans>Sent</Trans>
-                            </div>
                             <Link
                                 href={resolveTokenPageUrl({
                                     identity: activity.from_token.symbol,
@@ -157,19 +160,21 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                                 )}
                                 <div className="flex flex-1 flex-col">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-lightMain">
+                                        <span className="text-base font-medium leading-[20px] text-lightMain">
                                             {activity.from_token.name}
                                         </span>
                                         {activity.from_token.amount_num ? (
-                                            <span>
+                                            <span className="text-base leading-[20px]">
                                                 - {renderShrankPrice(formatPrice(activity.from_token.amount_num) ?? '')}
                                             </span>
                                         ) : null}
                                     </div>
 
                                     <div className="flex items-center justify-between text-second">
-                                        <span className="text-xs">{activity.from_token.symbol}</span>
-                                        <span>{formatTokenUSD(activity.from_token.amount_usd)}</span>
+                                        <span className="text-sm leading-[18px]">{activity.from_token.symbol}</span>
+                                        <span className="text-sm leading-[18px]">
+                                            {formatTokenUSD(activity.from_token.amount_usd)}
+                                        </span>
                                     </div>
                                 </div>
                             </Link>
@@ -177,9 +182,6 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                     ) : null}
                     {activity.to_token?.symbol ? (
                         <div>
-                            <div className="text-second">
-                                <Trans>Received</Trans>
-                            </div>
                             <Link
                                 href={resolveTokenPageUrl({
                                     identity: activity.to_token.symbol,
@@ -205,19 +207,21 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                                 )}
                                 <div className="flex flex-1 flex-col">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-lightMain">
+                                        <span className="text-base font-medium leading-[20px] text-lightMain">
                                             {activity.to_token.name}
                                         </span>
                                         {activity.to_token.amount_num ? (
-                                            <span className="text-success">
+                                            <span className="text-base leading-[20px] text-success">
                                                 + {renderShrankPrice(formatPrice(activity.to_token.amount_num) ?? '')}
                                             </span>
                                         ) : null}
                                     </div>
 
                                     <div className="flex items-center justify-between text-second">
-                                        <span className="text-xs">{activity.to_token.symbol}</span>
-                                        <span>{formatTokenUSD(activity.to_token.amount_usd)}</span>
+                                        <span className="text-sm leading-[18px]">{activity.to_token.symbol}</span>
+                                        <span className="text-sm leading-[18px]">
+                                            {formatTokenUSD(activity.to_token.amount_usd)}
+                                        </span>
                                     </div>
                                 </div>
                             </Link>
@@ -233,9 +237,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                             <Trans>Contract</Trans>
                         </span>
                         <div className="flex items-center gap-1">
-                            <Link href={contractLink ?? ''} className="text-highlight" target="_blank">
-                                {formatAddress(activity.router_address, 4)}
-                            </Link>
+                            <AddressLink chainId={activity.chain_id} address={activity.router_address} />
                             {activity.dex_logo ? (
                                 <Image
                                     src={activity.dex_logo}
@@ -248,18 +250,14 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                         </div>
                     </div>
                     {explorerLink ? (
-                        <div className="flex items-center justify-between text-sm">
+                        <div className="flex items-center justify-between text-sm text-highlight">
                             <span className="text-second">
                                 <Trans>Transaction Hash</Trans>
                             </span>
-                            <Link
-                                href={explorerLink}
-                                target="_blank"
-                                className="flex items-center gap-1 text-highlight"
-                            >
-                                <span>{`${activity.hash.slice(0, 4)}...${activity.hash.slice(-4)}`}</span>
+
+                            <TxLink chainId={activity.chain_id} hash={activity.hash}>
                                 <LinkOut className="size-4" />
-                            </Link>
+                            </TxLink>
                         </div>
                     ) : null}
                     <div className="flex items-center justify-between text-sm">
@@ -280,7 +278,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                             })}
                         >
                             <div
-                                className={classNames('h-1 w-1 rounded-full', {
+                                className={classNames('h-2 w-2 rounded-full', {
                                     'bg-success': activity.tx_status === 'success',
                                     'bg-warn': activity.tx_status === 'pending',
                                     'bg-danger': activity.tx_status === 'failed',

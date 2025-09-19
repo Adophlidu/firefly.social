@@ -7,6 +7,7 @@ import { ChainInfo } from '@/app/(normal)/tx/[chain_id]/[hash]/components/ChainI
 import { TransactionDate } from '@/app/(normal)/tx/[chain_id]/[hash]/components/TransactionDate.js';
 import { TxLink } from '@/app/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
 import DownloadIcon from '@/assets/download-tip.svg';
+import MoreIcon from '@/assets/more-circle.svg';
 import { Comeback } from '@/components/Comeback.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
@@ -59,7 +60,11 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                     </span>
                 </div>
                 <NoSSR>
-                    <WalletBaseMoreAction autoQueryEns address={maintainAccountInfo.address as Address} />
+                    <WalletBaseMoreAction
+                        icon={<MoreIcon width={24} height={24} className="text-main" />}
+                        autoQueryEns
+                        address={maintainAccountInfo.address as Address}
+                    />
                 </NoSSR>
             </div>
             <div className="p-4">

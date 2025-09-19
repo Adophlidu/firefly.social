@@ -40,6 +40,7 @@ export const SwapButton = memo<Props>(function SwapButton({
     const chainId = swapPropsFromProps?.chainId;
     const providerType = chainId !== SOLANA_CHAIN_ID_IN_FIREFLY ? OkxProviderType.EVM : OkxProviderType.SOLANA;
 
+    const chainIds = supportedChainIds.map((x) => x.chainId);
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         if (loginRequired && !isLoginFirefly) {
             openLoginModal();
@@ -59,6 +60,7 @@ export const SwapButton = memo<Props>(function SwapButton({
         captureSwapEvent(EventId.EVENT_SWAP_COPY_TRADE_CLICK);
         SwapModalRef.open({
             ...swapPropsFromProps,
+            chainIds: swapPropsFromProps?.chainIds ?? chainIds.map((x) => x.toString()),
             providerType,
         });
     }, [
@@ -71,7 +73,6 @@ export const SwapButton = memo<Props>(function SwapButton({
         loginRequired,
     ]);
 
-    const chainIds = supportedChainIds.map((x) => x.chainId);
     if (providerType === OkxProviderType.EVM && chainId && !chainIds.includes(chainId)) return null;
 
     return (
