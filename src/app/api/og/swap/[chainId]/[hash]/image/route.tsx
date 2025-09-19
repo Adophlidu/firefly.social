@@ -6,6 +6,8 @@ import type { NextRequest } from 'next/server.js';
 import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 
+import CopyTradeButtonSVG from '@/assets/copy-trade-button.svg?url';
+import BridgeButtonSVG from '@/assets/bridge-og-background.svg?url';
 import SwapOGBackgroundSVG from '@/assets/swap-og-background.svg?url';
 import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { Source } from '@/constants/enum.js';
@@ -38,6 +40,9 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
     const chainIconUrl = resolveChainIcon(swap.chain_id);
     const chainIcon = chainIconUrl ? await fetchAvatarAsBase64(chainIconUrl) : null;
 
+    const toChainIconUrl = swap.to_chain_id ? resolveChainIcon(swap.to_chain_id) : null;
+    const toChainIcon = toChainIconUrl ? await fetchAvatarAsBase64(toChainIconUrl) : null;
+
     const fromTokenAmountNum = Number(swap.from_token?.amount_num);
     const toTokenAmountNum = Number(swap.to_token?.amount_num);
 
@@ -54,7 +59,7 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
             }}
         >
             <Image
-                src={SwapOGBackgroundSVG}
+                src={swap.is_cross_chain ? BridgeButtonSVG : SwapOGBackgroundSVG}
                 alt="swap-og-background"
                 width={1200}
                 height={630}
@@ -81,6 +86,12 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                         {first(swap.from_token?.symbol)}
                     </div>
                 )}
+            </div>
+
+            <div style={{ display: 'flex', position: 'absolute', top: '288px', left: '400px' }}>
+                {chainIcon ? (
+                    <Image src={chainIcon} alt="chain-icon" width={48} height={48} style={{ borderRadius: '12px' }} />
+                ) : null}
             </div>
 
             <div
@@ -123,6 +134,20 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                         {first(swap.to_token?.symbol)}
                     </div>
                 )}
+            </div>
+
+            <div style={{ right: 300, top: 288, display: 'flex', position: 'absolute' }}>
+                {toChainIcon ? (
+                    <Image
+                        src={toChainIcon}
+                        alt="to-chain-icon"
+                        width={48}
+                        height={48}
+                        style={{ borderRadius: '12px' }}
+                    />
+                ) : chainIcon ? (
+                    <Image src={chainIcon} alt="chain-icon" width={48} height={48} style={{ borderRadius: '12px' }} />
+                ) : null}
             </div>
 
             <div
@@ -187,11 +212,9 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                 </span>
             </div>
 
-            {chainIcon ? (
-                <div style={{ display: 'flex', position: 'absolute', bottom: '94px', right: '64px' }}>
-                    <Image src={chainIcon} alt="chain-icon" width={48} height={48} />
-                </div>
-            ) : null}
+            <div style={{ display: 'flex', position: 'absolute', top: '498px', right: '64px' }}>
+                <Image src={CopyTradeButtonSVG} alt="copy-trade-button" width={272} height={48} />
+            </div>
         </div>
     );
 }

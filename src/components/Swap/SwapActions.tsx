@@ -109,6 +109,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
                     chainId: activity.chain_id,
                     fromToken: activity.from_token?.address,
                     toToken: activity.to_token?.address,
+                    toChainId: activity.to_chain_id,
                 }}
             >
                 <Trans>Copy Trade</Trans>

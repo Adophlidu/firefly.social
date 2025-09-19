@@ -1,6 +1,6 @@
 'use client';
 
-import { type PropsWithChildren,useMemo } from 'react';
+import { type PropsWithChildren, useMemo } from 'react';
 
 import { Link } from '@/esm/Link.js';
 import { bedStead } from '@/fonts/bedStead/index.js';

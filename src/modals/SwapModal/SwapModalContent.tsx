@@ -44,6 +44,7 @@ export interface SwapModalOpenProps {
     providerType?: OkxProviderType;
     chainIds?: string[];
     providerSwitchable?: boolean;
+    toChainId?: number;
 }
 
 function getConnectWalletName(isEvm: boolean) {
@@ -102,13 +103,22 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
         const solanaProvider = solanaProviderRef.current;
         const provider = isEvm ? evmProvider : solanaProvider;
         const chainId = isEvm ? (props?.chainId ?? mainnet.id) : SOLANA_CHAIN_ID_IN_OKX;
-
+        const toChainId = props?.toChainId ?? chainId;
         const tokenPair = {
             fromChain: chainId,
             toChain: chainId,
             fromToken: props?.fromToken ?? (isEvm ? NATIVE_TOKEN_ADDRESS : NATIVE_SOLANA_TOKEN_ADDRESS),
             toToken: props?.toToken,
         };
+
+        const bridgeTokenPair = toChainId
+            ? {
+                  fromChain: chainId,
+                  toChain: toChainId,
+                  fromToken: props?.fromToken ?? (isEvm ? NATIVE_TOKEN_ADDRESS : NATIVE_SOLANA_TOKEN_ADDRESS),
+                  toToken: props?.toToken,
+              }
+            : undefined;
 
         const params = {
             tradeType: TradeType.AUTO,
@@ -118,7 +128,8 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
             providerType: resolveProviderType(computedProviderType),
 
             chainIds: props?.chainIds ? uniq([...props.chainIds, chainId.toString()]) : [],
-            tokenPair,
+            tokenPair: !bridgeTokenPair ? tokenPair : undefined,
+            bridgeTokenPair,
         };
 
         const connectWallet = () => {

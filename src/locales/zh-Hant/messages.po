@@ -1047,12 +1047,6 @@ msgstr "發現詐騙相關地址。"
 msgid "All rights reserved by Firefly. For any inquiries, please <0>contact us.</0>"
 msgstr "Firefly 保留所有權利。如有疑問請<0>聯絡我們</0>"
 
-#. placeholder {0}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
-#. placeholder {0}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
-#. placeholder {1}: activity.dex_name || formatAddress(activity.router_address, 4)
-msgid "<0><1/><2>Swapped</2></0><3>on</3>{0}<4>{1}</4>"
-msgstr "<0><1/><2>已兌換</2></0><3>於</3>{0}<4>{1}</4>"
-
 msgid "Failed to enable Multi-device login. Please try again later."
 msgstr "無法開啟多裝置登入功能，請稍後重試。"
 
@@ -3168,6 +3162,13 @@ msgstr "該網站為釣魚網站。"
 msgid "Network cost"
 msgstr "手續費"
 
+#. placeholder {0}: isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
+#. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
+#. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
+#. placeholder {2}: activity.dex_name || formatAddress(activity.router_address, 4)
+msgid "<0><1/><2>{0}</2></0><3>on</3>{1}<4>{2}</4>"
+msgstr ""
+
 msgid "Failed to update profile."
 msgstr "更新個人檔案失敗。"
 
@@ -4724,6 +4725,9 @@ msgstr "<0>{0}</0><1>市值</1>{1}"
 
 msgid "Last sale"
 msgstr "最新售價"
+
+msgid "Bridged"
+msgstr ""
 
 #. placeholder {0}: profile.handle
 msgid "Followed @{0} on Lens"

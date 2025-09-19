@@ -49,6 +49,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
     const detailUrl = resolveTxPageUrl(activity.hash, activity.chain_id);
     const disableScrollRestore = useDisableScrollRestore();
 
+    const isCrossChain = activity.is_cross_chain;
     return (
         <motion.article
             initial={{ opacity: 0 }}
@@ -128,7 +129,9 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                             <Trans>
                                 <div className="flex items-center gap-x-1 rounded-lg border border-main px-2 text-main">
                                     <ExchangeIcon className="size-3" />
-                                    <span className="text-[15px] leading-6">Swapped</span>
+                                    <span className="text-[15px] leading-6">
+                                        {isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>}
+                                    </span>
                                 </div>
                                 <span>on</span>
                                 {activity.dex_logo ? (

@@ -1616,7 +1616,10 @@ export type SwapActivity = {
     like_count: number;
     is_like: boolean;
     is_repost: boolean;
+    is_cross_chain: boolean;
     repost_count: number;
+    to_chain_id?: number;
+    to_chain_hash?: string;
     displayInfo?: FireflyDisplayInfo;
     followingSources: FollowingSource[];
 };

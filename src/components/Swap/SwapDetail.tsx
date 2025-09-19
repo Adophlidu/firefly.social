@@ -6,7 +6,7 @@ import { first } from 'lodash-es';
 import { memo } from 'react';
 import { type Address } from 'viem';
 
-import { AddressLink,TxLink } from '@/app/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
+import { AddressLink, TxLink } from '@/app/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
 import ExchangeIcon from '@/assets/exchange.svg';
 import LinkOut from '@/assets/link.svg';
 import MoreIcon from '@/assets/more-circle.svg';
@@ -51,6 +51,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
     const contractLink = resolveAddressLink(activity.chain_id, activity.router_address);
 
     const chain = activity.chain_id !== 101 ? chains.find((x) => x.id === activity.chain_id) : null;
+    const isCrossChain = activity.is_cross_chain;
 
     return (
         <div className="flex flex-col">
@@ -112,7 +113,9 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                         <Trans>
                             <div className="flex items-center gap-x-1 rounded-lg border border-main px-2 text-main">
                                 <ExchangeIcon className="size-3" />
-                                <span className="text-[15px] leading-6">Swapped</span>
+                                <span className="text-[15px] leading-6">
+                                    {isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>}
+                                </span>
                             </div>
                             <span>on</span>
                             {activity.dex_logo ? (

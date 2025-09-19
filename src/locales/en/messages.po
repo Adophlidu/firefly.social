@@ -1042,12 +1042,6 @@ msgstr "Honeypot related address found."
 msgid "All rights reserved by Firefly. For any inquiries, please <0>contact us.</0>"
 msgstr "All rights reserved by Firefly. For any inquiries, please <0>contact us.</0>"
 
-#. placeholder {0}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
-#. placeholder {0}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
-#. placeholder {1}: activity.dex_name || formatAddress(activity.router_address, 4)
-msgid "<0><1/><2>Swapped</2></0><3>on</3>{0}<4>{1}</4>"
-msgstr "<0><1/><2>Swapped</2></0><3>on</3>{0}<4>{1}</4>"
-
 msgid "Failed to enable Multi-device login. Please try again later."
 msgstr "Failed to enable Multi-device login. Please try again later."
 
@@ -3163,6 +3157,13 @@ msgstr "Website is a phishing site."
 msgid "Network cost"
 msgstr "Network cost"
 
+#. placeholder {0}: isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>
+#. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
+#. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
+#. placeholder {2}: activity.dex_name || formatAddress(activity.router_address, 4)
+msgid "<0><1/><2>{0}</2></0><3>on</3>{1}<4>{2}</4>"
+msgstr "<0><1/><2>{0}</2></0><3>on</3>{1}<4>{2}</4>"
+
 msgid "Failed to update profile."
 msgstr "Failed to update profile."
 
@@ -4717,6 +4718,9 @@ msgstr "<0>{0}</0><1>MC</1>{1}"
 
 msgid "Last sale"
 msgstr "Last sale"
+
+msgid "Bridged"
+msgstr "Bridged"
 
 #. placeholder {0}: profile.handle
 msgid "Followed @{0} on Lens"
