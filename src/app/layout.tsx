@@ -15,6 +15,7 @@ import { inter } from '@/fonts/inter.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getCookie } from '@/helpers/getCookies.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import { getAgent } from '@/helpers/getAgent.js';
 
 export const metadata = createSiteMetadata('/');
 
@@ -31,7 +32,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     await setupLocaleForSSR();
 
     const rootClass = await getCookie(SiteCookies.FireflyRootClass);
-    const agent = await getCookie(SiteCookies.Agent);
+    const agent = await getAgent();
     const requestHeaders = await headers();
 
     const VERCEL_REGION = [

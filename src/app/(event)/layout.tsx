@@ -15,6 +15,7 @@ import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/utility.js';
+import { getAgent } from '@/helpers/getAgent.js';
 
 interface Props
     extends NextPageProps<
@@ -28,13 +29,6 @@ export async function generateMetadata() {
     return createSiteMetadata('/events', {
         title: await createPageTitleSSR(msg`Exclusive Events`),
     });
-}
-
-async function getAgent() {
-    const url = (await headers()).get('X-URL');
-    if (!url) return;
-    const parsedUrl = parseUrl(url);
-    return parsedUrl?.searchParams.get('agent') ?? undefined;
 }
 
 export default async function Layout(props: Props) {

@@ -563,7 +563,6 @@ export enum ClickOrigin {
 }
 
 export enum SiteCookies {
-    Agent = 'agent',
     Locale = 'locale',
     FireflyRootAPI = 'firefly_root_api',
     FireflyRootClass = 'firefly_root_class',
