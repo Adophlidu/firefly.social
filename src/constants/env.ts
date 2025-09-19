@@ -10,8 +10,6 @@ const InternalEnvSchema = z.object({
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
 
-    APPLE_KEY_ID: z.string(),
-    APPLE_TEAM_ID: z.string(),
     APPLE_CLIENT_ID: z.string(),
     APPLE_CLIENT_SECRET: z.string(),
 
@@ -36,34 +34,28 @@ const ExternalEnvSchema = z.object({
     // urls
     NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.social'),
     NEXT_PUBLIC_SOLANA_RPC_URL: z.string().default('https://api.mainnet-beta.solana.com'),
-    NEXT_PUBLIC_FIREFLY_NITTER_URL: z.string().default('https://nitter.r2d2.to'),
 
     // features
-    NEXT_PUBLIC_POLL: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_FRAME: z.nativeEnum(STATUS).default(STATUS.Enabled),
+    NEXT_PUBLIC_ACTIVITY_PARTICLE: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_BANNER_CACHE: z.nativeEnum(STATUS).default(STATUS.Enabled),
+    NEXT_PUBLIC_COMPOSE_GIF: z.nativeEnum(STATUS).default(STATUS.Enabled),
+    NEXT_PUBLIC_FIREFLY_DEV_API: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_FORCE_SIGNUP: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_FRAME_V1: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_FRAME_V2: z.nativeEnum(STATUS).default(STATUS.Enabled),
-    NEXT_PUBLIC_OPENGRAPH: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_SCHEDULE_POST: z.nativeEnum(STATUS).default(STATUS.Enabled),
-    NEXT_PUBLIC_TIPS: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_COMPOSE_GIF: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_TELEMETRY: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_TELEMETRY_DEBUG: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_FIREFLY_DEV_API: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_THIRD_PARTY_AUTH: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_SOLANA_DEV: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_ACTIVITY_PARTICLE: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_NITTER: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_WALLET_MIX: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_POST_TRANSLATE: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_FORCE_SIGNUP: z.nativeEnum(STATUS).default(STATUS.Enabled),
-    NEXT_PUBLIC_PRIVY: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_FRAME: z.nativeEnum(STATUS).default(STATUS.Enabled),
+    NEXT_PUBLIC_NITTER: z.nativeEnum(STATUS).default(STATUS.Enabled),
+    NEXT_PUBLIC_OPENGRAPH: z.nativeEnum(STATUS).default(STATUS.Enabled),
+    NEXT_PUBLIC_POLL: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_POST_BY_ANONYMOUS: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_BANNER_CACHE: z.nativeEnum(STATUS).default(STATUS.Enabled),
-
-    // hubble
-    NEXT_PUBLIC_NEYNAR_URL: z.string().default('https://neynar-proxy.r2d2.to'),
-    NEXT_PUBLIC_HUBBLE_TOKEN: z.string().optional(),
+    NEXT_PUBLIC_POST_TRANSLATE: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_PRIVY: z.nativeEnum(STATUS).default(STATUS.Enabled),
+    NEXT_PUBLIC_SCHEDULE_POST: z.nativeEnum(STATUS).default(STATUS.Enabled),
+    NEXT_PUBLIC_SOLANA_DEV: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_TELEMETRY: z.nativeEnum(STATUS).default(STATUS.Enabled),
+    NEXT_PUBLIC_THIRD_PARTY_AUTH: z.nativeEnum(STATUS).default(STATUS.Enabled),
+    NEXT_PUBLIC_TIPS: z.nativeEnum(STATUS).default(STATUS.Enabled),
+    NEXT_PUBLIC_WALLET_MIX: z.nativeEnum(STATUS).default(STATUS.Disabled),
 
     // sentry
     NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
@@ -116,30 +108,25 @@ export const env = {
         // urls
         NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
         NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
-        NEXT_PUBLIC_FIREFLY_NITTER_URL: process.env.NEXT_PUBLIC_FIREFLY_NITTER_URL,
 
         // features
-        NEXT_PUBLIC_POLL: process.env.NEXT_PUBLIC_POLL,
-        NEXT_PUBLIC_FRAME: process.env.NEXT_PUBLIC_FRAME,
-        NEXT_PUBLIC_THIRD_PARTY_AUTH: process.env.NEXT_PUBLIC_THIRD_PARTY_AUTH,
-        NEXT_PUBLIC_OPENGRAPH: process.env.NEXT_PUBLIC_OPENGRAPH,
-        NEXT_PUBLIC_SCHEDULE_POST: process.env.NEXT_PUBLIC_SCHEDULE_POST,
-        NEXT_PUBLIC_TIPS: process.env.NEXT_PUBLIC_TIPS,
-        NEXT_PUBLIC_COMPOSE_GIF: process.env.NEXT_PUBLIC_COMPOSE_GIF,
-        NEXT_PUBLIC_TELEMETRY: process.env.NEXT_PUBLIC_TELEMETRY,
-        NEXT_PUBLIC_TELEMETRY_DEBUG: process.env.NEXT_PUBLIC_TELEMETRY_DEBUG,
-        NEXT_PUBLIC_FIREFLY_DEV_API: process.env.NEXT_PUBLIC_FIREFLY_DEV_API,
-        NEXT_PUBLIC_NITTER: process.env.NEXT_PUBLIC_NITTER,
-        NEXT_PUBLIC_WALLET_MIX: process.env.NEXT_PUBLIC_WALLET_MIX,
-        NEXT_PUBLIC_POST_TRANSLATE: process.env.NEXT_PUBLIC_POST_TRANSLATE,
-        NEXT_PUBLIC_FORCE_SIGNUP: process.env.NEXT_PUBLIC_FORCE_SIGNUP,
-        NEXT_PUBLIC_PRIVY: process.env.NEXT_PUBLIC_PRIVY,
-        NEXT_PUBLIC_POST_BY_ANONYMOUS: process.env.NEXT_PUBLIC_POST_BY_ANONYMOUS,
         NEXT_PUBLIC_BANNER_CACHE: process.env.NEXT_PUBLIC_BANNER_CACHE,
-
-        // hubble
-        NEXT_PUBLIC_NEYNAR_URL: process.env.NEXT_PUBLIC_NEYNAR_URL,
-        NEXT_PUBLIC_HUBBLE_TOKEN: process.env.NEXT_PUBLIC_HUBBLE_TOKEN,
+        NEXT_PUBLIC_COMPOSE_GIF: process.env.NEXT_PUBLIC_COMPOSE_GIF,
+        NEXT_PUBLIC_FIREFLY_DEV_API: process.env.NEXT_PUBLIC_FIREFLY_DEV_API,
+        NEXT_PUBLIC_FORCE_SIGNUP: process.env.NEXT_PUBLIC_FORCE_SIGNUP,
+        NEXT_PUBLIC_FRAME: process.env.NEXT_PUBLIC_FRAME,
+        NEXT_PUBLIC_NITTER: process.env.NEXT_PUBLIC_NITTER,
+        NEXT_PUBLIC_OPENGRAPH: process.env.NEXT_PUBLIC_OPENGRAPH,
+        NEXT_PUBLIC_POLL: process.env.NEXT_PUBLIC_POLL,
+        NEXT_PUBLIC_POST_BY_ANONYMOUS: process.env.NEXT_PUBLIC_POST_BY_ANONYMOUS,
+        NEXT_PUBLIC_POST_TRANSLATE: process.env.NEXT_PUBLIC_POST_TRANSLATE,
+        NEXT_PUBLIC_PRIVY: process.env.NEXT_PUBLIC_PRIVY,
+        NEXT_PUBLIC_SCHEDULE_POST: process.env.NEXT_PUBLIC_SCHEDULE_POST,
+        NEXT_PUBLIC_SOLANA_DEV: process.env.NEXT_PUBLIC_SOLANA_DEV,
+        NEXT_PUBLIC_TELEMETRY: process.env.NEXT_PUBLIC_TELEMETRY,
+        NEXT_PUBLIC_THIRD_PARTY_AUTH: process.env.NEXT_PUBLIC_THIRD_PARTY_AUTH,
+        NEXT_PUBLIC_TIPS: process.env.NEXT_PUBLIC_TIPS,
+        NEXT_PUBLIC_WALLET_MIX: process.env.NEXT_PUBLIC_WALLET_MIX,
 
         // sentry
         NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
@@ -147,8 +134,6 @@ export const env = {
 
         // app scheme url
         NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK: process.env.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK,
-        NEXT_PUBLIC_FIREFLY_IOS_HOME: process.env.NEXT_PUBLIC_FIREFLY_IOS_HOME,
-        NEXT_PUBLIC_FIREFLY_ANDROID_HOME: process.env.NEXT_PUBLIC_FIREFLY_ANDROID_HOME,
 
         // gif
         NEXT_PUBLIC_GIPHY_API_KEY: process.env.NEXT_PUBLIC_GIPHY_API_KEY,
@@ -156,8 +141,6 @@ export const env = {
 
         // w3m
         NEXT_PUBLIC_W3M_PROJECT_ID: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
-
-        NEXT_PUBLIC_SOLANA_DEV: process.env.NEXT_PUBLIC_SOLANA_DEV,
 
         // firebase
         NEXT_PUBLIC_FIREBASE_API_KEY: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,

@@ -8,9 +8,8 @@ import { createAppKit } from '@reown/appkit/react';
 import { solanaAdapter, solanaNetworks } from '@/configs/solanaClient.js';
 import { wagmiAdapter, wagmiNetworks } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
-import { VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
+import { IS_PRODUCTION, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
 import { WalletId } from '@/constants/reown.js';
 
 const networks = [...wagmiNetworks, ...solanaNetworks] as [AppKitNetwork, ...AppKitNetwork[]];
@@ -36,7 +35,7 @@ export const appkit = createAppKit({
         email: false,
         socials: [],
     },
-    debug: env.external.NEXT_PUBLIC_VERCEL_ENV !== VERCEL_NEV.Production,
+    debug: !IS_PRODUCTION,
     featuredWalletIds: walletIds,
     themeVariables: {
         '--w3m-border-radius-master': '1px',

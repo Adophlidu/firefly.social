@@ -65,6 +65,7 @@ export const SwapButton = memo<Props>(function SwapButton({
         });
     }, [
         chainId,
+        chainIds,
         providerType,
         ethereum.isConnected,
         solana.isConnected,
