@@ -2248,6 +2248,9 @@ msgstr ""
 msgid "No blacklist"
 msgstr ""
 
+msgid "📞 <0>Enjoy the Haidilao feast, with voucher redemption and seating services available from September 30 to October 6</0><1/>- Bugis+: 69086166<2/>- Marina Square: 65921555<3/>- Marina Bay Sands: 65091611"
+msgstr ""
+
 msgid "<0>Collected</0><1/>"
 msgstr ""
 

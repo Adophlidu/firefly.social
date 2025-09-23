@@ -318,6 +318,20 @@ export function ActivityHaidilaoTask({ data }: { data: Required<ActivityInfoResp
                         </li>
                         <li>
                             <Trans>
+                                📞{' '}
+                                <span className="font-bold">
+                                    Enjoy the Haidilao feast, with voucher redemption and seating services available
+                                    from September 30 to October 6
+                                </span>
+                                <br />
+                                - Bugis+: 69086166
+                                <br />
+                                - Marina Square: 65921555
+                                <br />- Marina Bay Sands: 65091611
+                            </Trans>
+                        </li>
+                        <li>
+                            <Trans>
                                 🔥 <span className="font-bold">Unlock up to SGD50 Haidilao dining vouchers</span> by
                                 completing Firefly social tasks (from just US$15 — or{' '}
                                 <span className="font-bold">even free!</span>).
@@ -617,7 +631,7 @@ function TaskItem({
                 completed ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
             )}
         >
-            <div className="flex flex-col justify-between gap-2 md:flex-row md:items-center">
+            <div className="flex w-full flex-col justify-between gap-2 md:flex-row md:items-center">
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-semibold text-main">{title}</span>
                 </div>
