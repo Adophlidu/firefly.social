@@ -3,6 +3,7 @@ import { type HTMLProps, memo, useLayoutEffect } from 'react';
 import { Indicator, type IndicatorProps } from '@/components/EmbedCards/Indicator.js';
 import { CollectionPreviewer, NFTPreviewer } from '@/components/NFTs/NFTPreview.js';
 import { useClassifyPostLink } from '@/hooks/useClassifyPostLink.js';
+import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 
 interface EmbedLinkCardProps extends HTMLProps<HTMLDivElement> {
     link: string;
@@ -10,12 +11,21 @@ interface EmbedLinkCardProps extends HTMLProps<HTMLDivElement> {
 
 export const EmbedLinkCard = memo<EmbedLinkCardProps>(function EmbedLinkCard({ link, className }) {
     const { isLoading, error, data } = useClassifyPostLink(link);
+    const linkCollection = data?.collection;
+    const address = linkCollection?.contract_address;
+    const collectionChainId = linkCollection?.chain_id;
+    const isCollection = !data?.nft && !!collectionChainId && !!address;
+    const hasDeployPlatformLogo = linkCollection?.deployPlatformLogo;
+    const { data: collection = linkCollection } = useNFTCollection(
+        address || '',
+        collectionChainId,
+        isCollection && !hasDeployPlatformLogo,
+    );
 
     if (isLoading || error || !data) return null;
 
     if (data.nft) return <NFTPreviewer nft={data.nft} showTradeInfo className={className} />;
-    if (data.collection?.contract_address)
-        return <CollectionPreviewer collection={data.collection} showTradeInfo className={className} />;
+    if (collection) return <CollectionPreviewer collection={collection} showTradeInfo className={className} />;
     return null;
 });
 

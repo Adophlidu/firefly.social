@@ -126,6 +126,8 @@ export namespace EVM {
         price_symbol: string;
         /** extended by Firefly API */
         chain_id: number;
+        deployPlatform?: Asset['deployPlatform'];
+        deployPlatformLogo?: Asset['deployPlatformLogo'];
     }
 
     export type CollectionBasics = Pick<

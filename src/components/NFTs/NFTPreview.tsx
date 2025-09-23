@@ -90,7 +90,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                     alt={props.image}
                 />
                 {props.icon ? (
-                    <span className="absolute left-3.5 top-[18px] flex size-8 items-center justify-center rounded-xl bg-black/25">
+                    <span className="absolute left-3.5 top-[18px] flex items-center justify-center gap-1 rounded-xl bg-black/25 p-1">
                         {props.icon}
                     </span>
                 ) : null}
@@ -190,6 +190,7 @@ export const NFTPreviewer = memo(function NFTPreview({ nft, showTradeInfo, class
     const { date, position } = usePoapTraits(nft.attributes);
     const { data: collection } = useNFTCollection(nft.contract_address, chainId);
     const nftId = resolveNFTId(nft.chain_id, nft.contract_address, nft.token_id);
+    const platformLogo = nft.deployPlatformLogo;
 
     return (
         <BasePreviewContent
@@ -202,7 +203,18 @@ export const NFTPreviewer = memo(function NFTPreview({ nft, showTradeInfo, class
                 isPoap ? (
                     <PoapIcon width={24} height={24} />
                 ) : chainId ? (
-                    <ChainIcon className="rounded-full" size={24} chainId={chainId} />
+                    <>
+                        <ChainIcon className="rounded-full" size={24} chainId={chainId} />
+                        {platformLogo ? (
+                            <Image
+                                src={platformLogo}
+                                className="size-6 rounded-full"
+                                alt={platformLogo}
+                                width={24}
+                                height={24}
+                            />
+                        ) : null}
+                    </>
                 ) : undefined
             }
             link={
@@ -248,7 +260,22 @@ export const CollectionPreviewer = memo(function CollectionPreviewer({
             showTradeInfo={showTradeInfo}
             collection={collection}
             image={collection.large_image_url ?? collection.logo_url}
-            icon={chainId ? <ChainIcon className="rounded-full" size={24} chainId={chainId} /> : undefined}
+            icon={
+                chainId ? (
+                    <>
+                        <ChainIcon className="rounded-full" size={24} chainId={chainId} />
+                        {collection.deployPlatformLogo ? (
+                            <Image
+                                src={collection.deployPlatformLogo}
+                                className="size-6 rounded-full"
+                                alt={collection.deployPlatformLogo}
+                                width={24}
+                                height={24}
+                            />
+                        ) : null}
+                    </>
+                ) : undefined
+            }
             link={collection.website}
             footer={{
                 name: collection.name || t`Unknown Collection`,
