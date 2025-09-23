@@ -60,7 +60,11 @@ class FireflyArticle implements Provider {
         );
     }
 
-    async discoverArticlesByAddress(address: string | string[], indicator?: PageIndicator, platform?: ArticlePlatform) {
+    async discoverArticlesByAddress(
+        address: string | string[],
+        indicator?: PageIndicator,
+        platforms: ArticlePlatform[] = [],
+    ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/timeline/articles');
         const limoPlatform = Array.isArray(address)
             ? address.some((x) => isSameEthereumAddress(VITALIK_ADDRESS, x))
@@ -70,12 +74,13 @@ class FireflyArticle implements Provider {
             method: 'POST',
             body: JSON.stringify({
                 platform:
-                    platform ||
-                    compact([
-                        ArticlePlatform.Paragraph,
-                        ArticlePlatform.Mirror,
-                        limoPlatform ? ArticlePlatform.Limo : undefined,
-                    ]).join(','),
+                    platforms.length > 0 && platforms.length < 3
+                        ? platforms.join(',')
+                        : compact([
+                              ArticlePlatform.Paragraph,
+                              ArticlePlatform.Mirror,
+                              limoPlatform ? ArticlePlatform.Limo : undefined,
+                          ]).join(','),
                 walletAddresses: Array.isArray(address) ? address : [address],
                 size: 20,
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
@@ -111,13 +116,13 @@ class FireflyArticle implements Provider {
         return formatArticleFromFirefly(article);
     }
 
-    async getFollowingArticles(indicator?: PageIndicator, platform?: ArticlePlatform) {
+    async getFollowingArticles(indicator?: PageIndicator, platforms?: ArticlePlatform[]) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/timeline/articles');
         const response = await fireflySessionHolder.fetch<GetFollowingArticlesResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
                 size: 20,
-                platform,
+                platform: platforms ? platforms.join(',') : undefined,
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
             }),
         });

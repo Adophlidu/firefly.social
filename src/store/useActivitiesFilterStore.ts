@@ -11,20 +11,20 @@ export enum ActivitiesFilterNamespace {
 }
 
 interface FilterState {
-    selectedPlatform: Record<ActivitiesFilterNamespace, ActivitiesPlatform | null>;
-    setSelectedPlatform: (namespace: ActivitiesFilterNamespace, platform: ActivitiesPlatform | null) => void;
+    selectedPlatforms: Record<ActivitiesFilterNamespace, ActivitiesPlatform[]>;
+    setSelectedPlatforms: (namespace: ActivitiesFilterNamespace, platform: ActivitiesPlatform[]) => void;
 }
 
 const useStateStore = create<FilterState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
     persist(
         immer((set) => ({
-            selectedPlatform: {
-                [ActivitiesFilterNamespace.Profile]: null,
-                [ActivitiesFilterNamespace.Home]: null,
+            selectedPlatforms: {
+                [ActivitiesFilterNamespace.Profile]: [],
+                [ActivitiesFilterNamespace.Home]: [],
             },
-            setSelectedPlatform: (namespace, platform) =>
+            setSelectedPlatforms: (namespace, platforms) =>
                 set((state) => {
-                    state.selectedPlatform[namespace] = platform;
+                    state.selectedPlatforms[namespace] = platforms;
                 }),
         })),
         {
@@ -36,19 +36,16 @@ const useStateStore = create<FilterState, [['zustand/persist', unknown], ['zusta
 
 const useActivitiesFilterStoreBase = createSelectors(useStateStore);
 
-export function useActivitiesFilterStore(namespace: ActivitiesFilterNamespace, excludes?: ActivitiesPlatform[]) {
-    const { selectedPlatform, setSelectedPlatform } = useActivitiesFilterStoreBase();
-
-    const currentPlatform = selectedPlatform[namespace];
+export function useActivitiesFilterStore(namespace: ActivitiesFilterNamespace, excludes: ActivitiesPlatform[] = []) {
+    const { selectedPlatforms, setSelectedPlatforms } = useActivitiesFilterStoreBase();
 
     return {
-        selectedPlatform: currentPlatform && excludes?.includes(currentPlatform) ? null : currentPlatform,
-        setSelectedPlatform(platform: ActivitiesPlatform | null) {
-            if (platform && excludes?.includes(platform)) {
-                setSelectedPlatform(namespace, null);
-            } else {
-                setSelectedPlatform(namespace, platform);
-            }
+        selectedPlatforms: selectedPlatforms[namespace].filter((x) => !excludes.includes(x)),
+        setSelectedPlatforms(platforms: ActivitiesPlatform[]) {
+            setSelectedPlatforms(
+                namespace,
+                platforms.filter((x) => !excludes.includes(x)),
+            );
         },
     };
 }

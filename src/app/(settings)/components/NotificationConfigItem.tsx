@@ -1,4 +1,4 @@
-import { Checkbox, Switch } from '@headlessui/react';
+import { Checkbox } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -7,6 +7,7 @@ import { toggleSwitchNotificationConfig } from '@/app/(settings)/settings/notifi
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { Switch } from '@/components/Switch/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -97,17 +98,11 @@ export function NotificationConfigItem({
             >
                 <Switch
                     disabled={loading || disabled}
+                    loading={loading}
                     checked={rest.value}
                     onChange={onSwitch}
-                    className={classNames(
-                        'group inline-flex h-[22px] w-11 items-center rounded-full bg-second transition data-[checked]:bg-highlight dark:bg-bg data-[checked]:dark:bg-highlight',
-                        rest.unsupported ? 'opacity-50' : '',
-                    )}
-                >
-                    <span className="flex size-4 translate-x-1 items-center justify-center rounded-full bg-white transition group-data-[checked]:translate-x-6">
-                        {loading ? <LoadingIcon className="text-darkBottom" size={12} /> : null}
-                    </span>
-                </Switch>
+                    className={classNames(rest.unsupported ? 'opacity-50' : '')}
+                />
             </Tooltip>
         </div>
     );

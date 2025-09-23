@@ -805,6 +805,9 @@ msgstr ""
 msgid "No hidden owner."
 msgstr ""
 
+msgid "Polymarket bet"
+msgstr ""
+
 msgid "Unpaid"
 msgstr ""
 
@@ -1735,6 +1738,10 @@ msgstr ""
 
 #. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"
+msgstr ""
+
+#. placeholder {0}: validChains.find(({ id }) => id === selectedChainId)?.name
+msgid "{0}"
 msgstr ""
 
 msgid "Refund"
@@ -3008,6 +3015,9 @@ msgstr ""
 msgid "Show more comments"
 msgstr ""
 
+msgid "Snapshot DAO"
+msgstr ""
+
 msgid "Connect Solana Wallet"
 msgstr ""
 
@@ -3177,6 +3187,9 @@ msgid "Post is decrypting..."
 msgstr ""
 
 msgid "Transaction"
+msgstr ""
+
+msgid "Paragraph article"
 msgstr ""
 
 msgid "Bio should be at least {minBioSize} characters"
@@ -4260,6 +4273,9 @@ msgstr ""
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr ""
 
+msgid "Chain filter"
+msgstr ""
+
 msgid "Unfollow"
 msgstr ""
 
@@ -4629,10 +4645,16 @@ msgstr ""
 msgid "Transaction failed"
 msgstr ""
 
+msgid "All Chains"
+msgstr ""
+
 msgid "Status"
 msgstr ""
 
 msgid "No blackmail activities involved."
+msgstr ""
+
+msgid "Mirror article"
 msgstr ""
 
 msgid "No Lens profile found,"

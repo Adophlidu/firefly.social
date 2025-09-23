@@ -19,7 +19,7 @@ import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
-import { useSwapStateStore } from '@/store/useSwapStore.js';
+import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 
 function getSwapActivityItemContent(index: number, activity: SwapActivity) {
     return <SwapActivityItem activity={activity} />;
@@ -56,7 +56,7 @@ export function SwapTimeline({
 }: SwapTimelineProps) {
     const isLoginFirefly = useIsLoginFirefly();
     const profileIds = useCurrentProfileIds();
-    const { selectedChainId } = useSwapStateStore();
+    const { selectedChainId } = useTransactionsStateStore();
     const chainId = ignoreFilters ? propChainId : propChainId || selectedChainId;
     const router = useRouter();
     const queryKey = isFollowing

@@ -13,7 +13,7 @@ import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import type { TransactionsItem } from '@/providers/types/Firefly.js';
-import { useSwapStateStore } from '@/store/useSwapStore.js';
+import { availableFollowingTxTypes, useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 
 function shuffleTransactions(list: TransactionsItem[]) {
     const count = Math.floor(Math.random() * 3 + 1); // [1, 3]
@@ -31,26 +31,38 @@ function shuffleTransactions(list: TransactionsItem[]) {
     return preferredSwaps.concat(shuffle(others));
 }
 
+const availableSources = [Source.Swap, Source.Polymarket] as const;
+
 export function FollowingTransactions() {
     const isLogin = useIsLoginFirefly();
     const profileIds = useCurrentProfileIds();
     const asyncStatusAll = useAsyncStatusAll();
 
-    const { selectedChainId } = useSwapStateStore();
+    const { selectedChainId, followingTxTypes } = useTransactionsStateStore();
+
+    const sources = followingTxTypes.length ? followingTxTypes : availableSources;
 
     const queryResult = useMultiInfiniteQueryPageable<TransactionsItem, Pageable<TransactionsItem, PageIndicator>>(
         ['transactions', 'following', asyncStatusAll, selectedChainId, profileIds],
-        ([Source.Swap, Source.Polymarket] as const).map((source) => ({
+        sources.map((source) => ({
             key: source,
             async queryFn({ pageParam }) {
                 if (!isLogin) return createPageable([], createIndicator(undefined, pageParam));
 
-                const result = await getFollowingTransactions(source, pageParam, selectedChainId || undefined);
+                const result = await getFollowingTransactions(
+                    source as TransactionsItem['source'],
+                    pageParam,
+                    selectedChainId || undefined,
+                );
 
                 return result;
             },
         })),
-        (data) => data.pages.flatMap((page) => page.data),
+        (data) => {
+            const feeds = data.pages.flatMap((page) => page.data);
+            if (!followingTxTypes.length || followingTxTypes.length === availableFollowingTxTypes.length) return feeds;
+            return feeds.filter((x) => followingTxTypes.includes(x.source));
+        },
         { formatter: shuffleTransactions },
     );
 

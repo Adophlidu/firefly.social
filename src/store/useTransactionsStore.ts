@@ -4,14 +4,16 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { NetworkType } from '@/constants/enum.js';
+import { NetworkType, Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
-interface SwapState {
+interface TransactionsState {
     hasOpenSwap: boolean;
     setHasOpenSwap: (hasOpenSwap: boolean) => void;
     selectedChainId: number | null;
     setSelectedChainId: (chainId: number | null) => void;
+    followingTxTypes: string[];
+    setFollowingTxTypes: (followingTxTypes: string[]) => void;
 }
 
 export const chainsList = [
@@ -52,25 +54,40 @@ export const chainsList = [
     },
 ];
 
-const useSwapStore = create<SwapState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
+export const availableFollowingTxTypes: string[] = [Source.Swap, Source.Polymarket];
+
+const useTransactionsStore = create<TransactionsState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
     persist(
         immer((set) => ({
             hasOpenSwap: false,
             setHasOpenSwap: (hasOpenSwap) => set({ hasOpenSwap }),
             selectedChainId: null,
             setSelectedChainId: (chainId) => set({ selectedChainId: chainId }),
+            followingTxTypes: availableFollowingTxTypes,
+            setFollowingTxTypes: (followingTxTypes) => set({ followingTxTypes }),
         })),
         {
-            name: 'firefly-swap',
+            name: 'firefly-transitions',
+            version: 1,
             storage: createJSONStorage(() => localStorage),
+            migrate(persistedState, version) {
+                if (!persistedState) return persistedState;
+                if (version !== 1) {
+                    return {
+                        ...persistedState,
+                        followingTxTypes: availableFollowingTxTypes,
+                    };
+                }
+                return persistedState;
+            },
         },
     ),
 );
 
-const useSwapStateStoreBase = createSelectors(useSwapStore);
+const useTransactionsStateStoreBase = createSelectors(useTransactionsStore);
 
-export function useSwapStateStore(networkType?: NetworkType | null) {
-    const { selectedChainId, ...rest } = useSwapStateStoreBase();
+export function useTransactionsStateStore(networkType?: NetworkType | null) {
+    const { selectedChainId, ...rest } = useTransactionsStateStoreBase();
     const validChains = useMemo(
         () => (networkType ? chainsList.filter((x) => x.networkType === networkType) : chainsList),
         [networkType],
