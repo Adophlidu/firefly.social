@@ -9,14 +9,14 @@ import { BackButton } from '@/components/IconButton.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { Section } from '@/components/Semantic/Section.js';
-import { PageRoute } from '@/constants/enum.js';
+import { PageRoute, SearchType } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { isValidAddress } from '@/helpers/isValidAddress.js';
+import { isValidAddress, isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';
 import { useComeBack } from '@/hooks/useComeback.js';
-import { searchTokens } from '@/services/searchTokens.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
@@ -25,11 +25,15 @@ interface SearchBarProps extends HTMLProps<HTMLDivElement> {
     autoSearchType?: boolean;
 }
 
-function useIsTokenAddress(address: string) {
+function useDetectAddress(address?: string) {
+    const isAddress = isValidAddressEthereum(address);
+
     return useQuery({
-        queryKey: ['search-tokens', address],
-        queryFn: address ? () => searchTokens(address) : skipToken,
-        select: (data) => data.length > 0,
+        queryKey: ['detect-address', address],
+        staleTime: 1000 * 60 * 60,
+        enabled: isAddress,
+        queryFn: isAddress ? () => FireflyEndpointProvider.detectAddress(address) : skipToken,
+        select: (data) => data?.list[0],
     });
 }
 
@@ -63,7 +67,12 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
     }, [searchKeyword]);
 
     const closeRecommendation = useCallback(() => setShowRecommendation(false), []);
-    const { data: isTokenAddress } = useIsTokenAddress(inputText);
+    const { data } = useDetectAddress(inputText);
+    const isProfile = data?.address_type === 'eoa' || data?.address_type === 'soa';
+    const isTokenAddress =
+        data?.address_type === 'contract' &&
+        !!data.contract_info &&
+        (data.contract_type === 'ERC20' || data.contract_type === 'token');
 
     if (slot === 'header' && !isSearchPage && !isExplorePage) return null;
     if (slot === 'secondary' && (isSearchPage || isExplorePage)) return null;
@@ -94,9 +103,13 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
                     onSubmit={(ev) => {
                         ev.preventDefault();
                         const autoRouting = autoSearchType || isValidAddress(inputText);
-                        const searchType = autoRouting
-                            ? resolveSearchTypeFromQuery(inputText, isTokenAddress)
-                            : undefined;
+                        const searchType = isProfile
+                            ? SearchType.Profiles
+                            : isTokenAddress
+                              ? SearchType.Tokens
+                              : autoRouting
+                                ? resolveSearchTypeFromQuery(inputText, isTokenAddress)
+                                : undefined;
 
                         handleInputSubmit({
                             q: inputText,

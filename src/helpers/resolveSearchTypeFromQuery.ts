@@ -7,8 +7,7 @@ export function resolveSearchTypeFromQuery(query: string, isTokenAddress?: boole
 
     if (trimmed.startsWith('@')) return SearchType.Profiles;
     if (trimmed.startsWith('/')) return SearchType.Clubs;
-    if (trimmed.startsWith('$') || (isValidAddressEthereum(trimmed) && isTokenAddress !== false))
-        return SearchType.Tokens;
+    if (trimmed.startsWith('$') || (isValidAddressEthereum(trimmed) && isTokenAddress)) return SearchType.Tokens;
 
     return SearchType.Posts;
 }
