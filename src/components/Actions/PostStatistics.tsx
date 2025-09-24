@@ -218,7 +218,12 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     if (!statisticsItems.length) return null;
 
     return (
-        <div className={classNames('flex min-h-6 w-full justify-between text-xs leading-6 text-second', className)}>
+        <div
+            className={classNames(
+                'flex min-h-6 w-full flex-wrap justify-between text-xs leading-6 text-second',
+                className,
+            )}
+        >
             <div className="flex items-center gap-1">
                 {statisticsItems.map((item, i, arr) => {
                     const isLast = arr.length - 1 === i;
