@@ -81,30 +81,30 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
         />
     );
 
+    const handleTipsClick = () => {
+        const selection = window.getSelection();
+        if (selection && selection.toString().length !== 0) return;
+
+        router.push(
+            RouteResolver.tx(
+                data.chain_id,
+                data.tx_hash,
+                data.notification_type === TipsNotificationType.Tip
+                    ? TipsDetailViewType.Receiver
+                    : TipsDetailViewType.Sender,
+            ),
+        );
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
+            className="cursor-pointer border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
+            onClick={handleTipsClick}
         >
-            <div
-                className="flex w-full cursor-pointer items-start gap-4"
-                onClick={() => {
-                    const selection = window.getSelection();
-                    if (selection && selection.toString().length !== 0) return;
-
-                    router.push(
-                        RouteResolver.tx(
-                            data.chain_id,
-                            data.tx_hash,
-                            data.notification_type === TipsNotificationType.Tip
-                                ? TipsDetailViewType.Receiver
-                                : TipsDetailViewType.Sender,
-                        ),
-                    );
-                }}
-            >
+            <div className="flex w-full items-start gap-4">
                 <TipIcon className="shrink-0 text-secondary" width={24} height={24} />
                 <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between">

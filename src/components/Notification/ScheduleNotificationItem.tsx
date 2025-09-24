@@ -65,9 +65,10 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
+            className="cursor-pointer border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
+            onClick={handleClickPost}
         >
-            <div className="flex w-full cursor-pointer items-start gap-4">
+            <div className="flex w-full items-start gap-4">
                 <ScheduleIcon className="shrink-0 text-secondary" width={24} height={24} />
                 <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between">
@@ -85,10 +86,7 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
                     </div>
 
                     <div className="mt-3 text-[15px] leading-4 text-main">{description}</div>
-                    <div
-                        className="mt-3 cursor-pointer rounded-2xl border border-line bg-bg p-3"
-                        onClick={handleClickPost}
-                    >
+                    <div className="mt-3 rounded-2xl border border-line bg-bg p-3">
                         {data.status === ScheduleTaskStatus.Failed ? (
                             <div className="text-[12px] font-bold leading-4 text-danger">
                                 <Trans>Failed Post</Trans>

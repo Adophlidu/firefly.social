@@ -3,7 +3,7 @@
 import { Plural, Select, Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { first, uniqBy } from 'lodash-es';
-import { memo, useMemo } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 
 import { PostActions } from '@/components/Actions/index.js';
 import { MoreAction } from '@/components/Actions/More.js';
@@ -19,6 +19,7 @@ import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Source } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { toProfileId } from '@/helpers/isSameProfile.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
@@ -361,6 +362,54 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
         }
     }, [notification]);
 
+    const handleNotificationClick = useCallback(
+        (event: React.MouseEvent) => {
+            const target = event.target as HTMLElement;
+            if (target.closest('a') || target.closest('button') || target.closest('[role="button"]')) {
+                return;
+            }
+
+            const selection = window.getSelection();
+            if (selection && selection.toString().length !== 0) {
+                return;
+            }
+
+            const type = notification.type;
+            switch (type) {
+                case NotificationType.Follow:
+                    if (notification.followers.length !== 1) return;
+                    const firstFollower = first(notification.followers);
+                    if (!firstFollower) return;
+                    router.push(getProfileUrl(firstFollower));
+                    break;
+                case NotificationType.Comment:
+                    if (!notification.comment) return;
+                    router.push(getPostUrl(notification.comment));
+                    break;
+                case NotificationType.Reaction:
+                    if (!notification.post) return;
+                    router.push(getPostUrl(notification.post));
+                    break;
+                case NotificationType.Quote:
+                    if (!notification.quote) return;
+                    router.push(getPostUrl(notification.quote));
+                    break;
+                case NotificationType.Mirror:
+                    if (!notification.post) return;
+                    router.push(getPostUrl(notification.post));
+                    break;
+                case NotificationType.Mention:
+                case NotificationType.Act:
+                    if (!notification.post) return;
+                    router.push(getPostUrl(notification.post));
+                    break;
+                default:
+                    break;
+            }
+        },
+        [notification, router],
+    );
+
     if (!profiles) return;
 
     return (
@@ -368,7 +417,8 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
+            className="cursor-pointer border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
+            onClick={handleNotificationClick}
         >
             <div className="flex justify-between">
                 <div className="flex max-w-full flex-1 items-start gap-4">
