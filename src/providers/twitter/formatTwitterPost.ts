@@ -48,9 +48,6 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     let entitiesUrls = item.note_tweet?.entities?.urls ?? item.entities?.urls;
     let content = item.note_tweet?.text || item.text || '';
     const mentions = item?.note_tweet?.entities?.mentions ?? item?.entities?.mentions;
-    if (item.id === '1962342658581696545') {
-        console.log('tweetV2ToPost: ', item, includes);
-    }
     const ret: Post = {
         publicationId: item.id,
         postId: item.id,
@@ -144,7 +141,11 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                   }
                 : undefined;
             content = retweetedTweet.note_tweet?.text || retweetedTweet.text;
-            if (retweetedTweet.entities?.urls) entitiesUrls = retweetedTweet.entities?.urls;
+            const entities = [
+                ...(retweetedTweet.note_tweet?.entities?.urls ?? []),
+                ...(retweetedTweet?.entities?.urls ?? []),
+            ];
+            if (entities.length) entitiesUrls = entities;
         }
         const mention = mentions?.sort((a, b) => a.start - b.start)?.[0];
         if (mention) {
