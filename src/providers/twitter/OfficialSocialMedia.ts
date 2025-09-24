@@ -158,11 +158,11 @@ class OfficialSocialMedia implements Provider {
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const pageNo = indicator?.id ? parseInt(indicator.id, 10) : 1;
-        const res = await X3ProProvider.getKolList(X3ProKolListLabel.Web3, X3ProOrderType.Follower, {
+        const response = await X3ProProvider.getKolList(X3ProKolListLabel.Web3, X3ProOrderType.Follower, {
             pageNo: isNaN(pageNo) ? 1 : pageNo,
         });
-        const data = res.list.map((x) => formatTwitterProfileFromX3Pro(x));
-        const nextIndicator = res.hasNextPage ? createNextIndicator(indicator, `${res.nextPage}`) : undefined;
+        const data = response.list.map((x) => formatTwitterProfileFromX3Pro(x));
+        const nextIndicator = response.hasNextPage ? createNextIndicator(indicator, `${response.nextPage}`) : undefined;
         if (twitterSessionHolder.session) {
             const profiles = await OfficialSocialMediaProvider.getProfilesByIds(data.map((x) => x.profileId));
             return createPageable(

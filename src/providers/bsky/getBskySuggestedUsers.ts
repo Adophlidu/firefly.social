@@ -11,17 +11,15 @@ import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 
+interface Options {
+    category?: string;
+    limit?: number;
+    queryStats?: boolean;
+}
+
 export async function getBskySuggestedUsers(
     indicator?: PageIndicator,
-    {
-        category,
-        queryStats,
-        limit = 20,
-    }: {
-        category?: string;
-        limit?: number;
-        queryStats?: boolean;
-    } = {},
+    { category, queryStats, limit = 20 }: Options = {},
 ): Promise<Pageable<Profile, PageIndicator | undefined>> {
     const session = getSessionFromStorage(SessionType.Bsky);
     if (!session || !bskySessionHolder.session) return createPageable([], indicator);
