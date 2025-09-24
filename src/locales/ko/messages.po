@@ -1740,10 +1740,6 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
-#. placeholder {0}: validChains.find(({ id }) => id === selectedChainId)?.name
-msgid "{0}"
-msgstr ""
-
 msgid "Refund"
 msgstr ""
 

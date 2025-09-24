@@ -1735,10 +1735,6 @@ msgstr "Add an existing account"
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
 
-#. placeholder {0}: validChains.find(({ id }) => id === selectedChainId)?.name
-msgid "{0}"
-msgstr "{0}"
-
 msgid "Refund"
 msgstr "Refund"
 

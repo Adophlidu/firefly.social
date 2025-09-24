@@ -1740,10 +1740,6 @@ msgstr "添加已有的账号"
 msgid "Confirm you want to mute /{0}?"
 msgstr "你确定要隐藏 /{0} 吗？"
 
-#. placeholder {0}: validChains.find(({ id }) => id === selectedChainId)?.name
-msgid "{0}"
-msgstr ""
-
 msgid "Refund"
 msgstr "退款"
 

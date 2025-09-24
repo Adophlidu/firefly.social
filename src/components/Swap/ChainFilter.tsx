@@ -52,7 +52,7 @@ export const ChainFilter = memo(function ChainFilter({ networkType, children }: 
                         {selectedChainId ? (
                             <div className="flex items-center gap-2 text-sm font-normal text-main">
                                 <ChainIcon chainId={selectedChainId} size={15} networkType={networkType} />
-                                <Trans>{validChains.find(({ id }) => id === selectedChainId)?.name}</Trans>
+                                {validChains.find(({ id }) => id === selectedChainId)?.name}
                             </div>
                         ) : (
                             <div className="flex items-center gap-2 text-sm font-normal text-main">
