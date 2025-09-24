@@ -1,5 +1,5 @@
 import { type FirebaseApp, type FirebaseOptions, initializeApp } from 'firebase/app';
-import { getMessaging, type Messaging, onMessage } from 'firebase/messaging';
+import { getMessaging, type Messaging, onMessage, type Unsubscribe } from 'firebase/messaging';
 
 import { env } from '@/constants/env.js';
 import { SITE_NAME } from '@/constants/index.js';
@@ -30,6 +30,7 @@ class FirebaseClient {
     private _initialized = false;
     private _firebaseApp: FirebaseApp | null = null;
     private _firebaseFcm: Messaging | null = null;
+    private _unsubscribe: Unsubscribe | undefined;
 
     init() {
         if (!('serviceWorker' in navigator) || !('Notification' in window)) {
@@ -50,7 +51,7 @@ class FirebaseClient {
     listenMessage() {
         if (!this._firebaseFcm) return;
 
-        onMessage(this._firebaseFcm, (payload) => {
+        this._unsubscribe = onMessage(this._firebaseFcm, (payload) => {
             console.log('[firebase] Foreground message received');
             if (!payload.notification || document.visibilityState !== 'visible') return;
 
@@ -59,16 +60,17 @@ class FirebaseClient {
             const notification = new Notification(title, {
                 ...payload.notification,
                 icon: '/android-chrome-144x144.png',
-                data: { url: payload.data?.link },
+                data: { link: payload.data?.link },
             });
             notification.onclick = (event) => {
                 event.preventDefault();
                 const notification = event.currentTarget as Notification;
-                const link = parseUrl(notification?.data?.url || payload.data?.link || '');
+                const link = parseUrl(notification?.data?.link || payload.data?.link || '');
                 if (!link || link.pathname === location.pathname) {
                     window.focus();
                     return;
                 }
+                notification.close();
                 window.open(link.href, '_blank');
             };
         });
@@ -78,6 +80,10 @@ class FirebaseClient {
         if (!this._initialized) return;
 
         this._initialized = false;
+        if (this._unsubscribe) {
+            this._unsubscribe();
+            this._unsubscribe = undefined;
+        }
     }
 
     get firebaseApp() {
