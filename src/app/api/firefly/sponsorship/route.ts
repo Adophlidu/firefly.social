@@ -5,7 +5,10 @@ import { z } from 'zod';
 
 import { env } from '@/constants/env.js';
 import { compose } from '@/helpers/compose.js';
-import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import {
+    createSuccessResponseJson,
+    createZodErrorResponseJson,
+} from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { JWTGenerator } from '@/libs/JWTGenerator.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -17,7 +20,7 @@ const BodySchema = z.object({
 
 export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const parsed = BodySchema.safeParse(await request.json());
-    if (!parsed.success) return createErrorResponseJson(parsed.error.message, { status: 400 });
+    if (!parsed.success) return createZodErrorResponseJson(parsed.error, { status: 400 });
 
     const deadline = dayjs(Date.now()).add(1, 'y').unix();
 

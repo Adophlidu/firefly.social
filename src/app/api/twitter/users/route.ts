@@ -18,7 +18,7 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
     withRequestErrorHandler({ throwError: true }),
     async (request: NextRequest) => {
         const parsedBody = BodySchema.safeParse(await request.json());
-        if (!parsedBody.success) throw new Error(parsedBody.error.message);
+        if (!parsedBody.success) throw parsedBody.error;
         const { ids } = parsedBody.data;
 
         const client = await createTwitterClientV2();

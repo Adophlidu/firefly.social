@@ -2,7 +2,11 @@ import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { SourceInURL } from '@/constants/enum.js';
-import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import {
+    createErrorResponseJson,
+    createSuccessResponseJson,
+    createZodErrorResponseJson,
+} from '@/helpers/createResponseJson.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSourceFromUrl } from '@/helpers/resolveSource.js';
 
@@ -59,7 +63,7 @@ export async function POST(request: NextRequest) {
         const parsedRequest = BaseRPCSchema.safeParse(body);
 
         if (!parsedRequest.success) {
-            return createErrorResponseJson(`Invalid request: ${parsedRequest.error.message}`, { status: 400 });
+            return createZodErrorResponseJson(parsedRequest.error, { status: 400 });
         }
 
         const { method, source, params } = parsedRequest.data;
@@ -77,7 +81,7 @@ export async function POST(request: NextRequest) {
         const parsedParams = methodSchema.safeParse(params);
 
         if (!parsedParams.success) {
-            return createErrorResponseJson(`Invalid parameters for method ${method}: ${parsedParams.error.message}`, {
+            return createZodErrorResponseJson(parsedParams.error, {
                 status: 400,
             });
         }

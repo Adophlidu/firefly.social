@@ -36,7 +36,7 @@ const TweetSchema = z.object({
 
 async function composeTweet(rawTweet: unknown) {
     const parsedTweet = TweetSchema.safeParse(rawTweet);
-    if (!parsedTweet.success) throw new Error(parsedTweet.error.message);
+    if (!parsedTweet.success) throw parsedTweet.error;
 
     const tweet = parsedTweet.success ? parsedTweet.data : null;
     if (!tweet?.text && !tweet?.mediaIds?.length) throw new Error('Tweet must contain text or media');

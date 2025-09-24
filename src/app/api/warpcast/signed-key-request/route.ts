@@ -5,7 +5,7 @@ import { mnemonicToAccount } from 'viem/accounts';
 import { z } from 'zod';
 
 import { env } from '@/constants/env.js';
-import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { createSuccessResponseJson, createZodErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { HexStringSchema } from '@/schemas/index.js';
 
 const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
@@ -27,7 +27,7 @@ const BodySchema = z.object({
 
 export async function POST(request: NextRequest) {
     const parsed = BodySchema.safeParse(await request.json());
-    if (!parsed.success) return createErrorResponseJson(parsed.error.message, { status: 400 });
+    if (!parsed.success) return createZodErrorResponseJson(parsed.error, { status: 400 });
 
     const key = parsed.data.key as Hex;
 
