@@ -51,15 +51,23 @@ export function SearchRecipient({
                 res.data
                     .filter((item) => {
                         switch (networkType) {
-                            case NetworkType.Ethereum:
-                                return (item.eth?.length ?? 0) > 0;
                             case NetworkType.Solana:
                                 return (item.solana?.length ?? 0) > 0;
+                            case NetworkType.Ethereum:
                             default:
-                                return false;
+                                return (item.eth?.length ?? 0) > 0 || (item.ens?.length ?? 0) > 0;
                         }
                     })
                     .map((item) => {
+                        const ens = item.ens?.find((x) => x.hit || x.resolved_address === debouncedKeyword);
+                        if (networkType === NetworkType.Ethereum && ens?.resolved_address) {
+                            return {
+                                address: ens.resolved_address as Address,
+                                ens: ens.handle,
+                                avatar: getStampAvatarByProfileId(Source.Wallet, ens.resolved_address!),
+                                fireflyId: first(item.account)?.platform_id,
+                            } satisfies RecipientItemProps;
+                        }
                         const profiles = compact(
                             SORTED_SOCIAL_SOURCES.map((source) => {
                                 return first(
@@ -77,16 +85,6 @@ export function SearchRecipient({
                         const sources = uniq(
                             profiles.map((profile) => resolveSourceFromFireflyPlatform(profile.platform)),
                         ) as SocialSource[];
-                        const ens = item.ens?.find((x) => x.hit || x.resolved_address === debouncedKeyword);
-                        if (networkType === NetworkType.Ethereum && ens?.resolved_address) {
-                            return {
-                                address: ens.resolved_address as Address,
-                                ens: ens.handle,
-                                avatar: getStampAvatarByProfileId(Source.Wallet, ens.resolved_address!),
-                                sources,
-                                fireflyId: first(item.account)?.platform_id,
-                            } satisfies RecipientItemProps;
-                        }
                         return {
                             address: ETH_ZERO_ADDRESS,
                             avatar:

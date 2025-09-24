@@ -3924,6 +3924,9 @@ msgstr "Collect Post"
 msgid "Sorry, we are not able to find this token"
 msgstr "Sorry, we are not able to find this token"
 
+msgid "Report issue"
+msgstr "Report issue"
+
 msgid "Muting..."
 msgstr "Muting..."
 

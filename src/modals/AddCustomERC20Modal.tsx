@@ -1,6 +1,5 @@
 'use client';
 
-import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useMemo, useState } from 'react';
@@ -11,7 +10,6 @@ import { readContracts } from 'wagmi/actions';
 
 import { ActionButton } from '@/components/ActionButton.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
-import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
@@ -177,7 +175,7 @@ type Props = {
 
 export function AddCustomERC20Modal({ ref }: Props) {
     const [props, setProps] = useState<AddCustomERC20ModalOpenProps | undefined>();
-    const [open, dispatch] = useSingletonModal(ref, {
+    const [open, dispatch, mounted] = useSingletonModal(ref, {
         onOpen(props) {
             setProps(props);
         },
@@ -188,20 +186,17 @@ export function AddCustomERC20Modal({ ref }: Props) {
     });
     const onClose = () => dispatch?.close();
 
+    if (!mounted) return null;
+
     return (
-        <Modal open={open} onClose={onClose} className="z-50 w-[calc(100%-40px)] md:w-[450px]">
-            <div className="z-50 flex h-auto flex-col p-4 pt-0 text-medium text-lightMain shadow-popover">
-                <DialogTitle as="h3" className="relative h-14 shrink-0 pt-safe">
-                    <CloseButton
-                        onClick={onClose}
-                        className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
-                    />
-                    <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
-                        <Trans>Add Token</Trans>
-                    </span>
-                </DialogTitle>
-                {props ? <AddCustomERC20ModalContent onClose={onClose} initialChainId={props.initialChainId} /> : null}
-            </div>
+        <Modal
+            open={open}
+            onClose={onClose}
+            className="z-50 w-[calc(100%-40px)] md:w-[450px]"
+            title={<Trans>Add Token</Trans>}
+            enableClose
+        >
+            {props ? <AddCustomERC20ModalContent onClose={onClose} initialChainId={props.initialChainId} /> : null}
         </Modal>
     );
 }

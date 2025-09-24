@@ -66,6 +66,7 @@ import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useAuthHeightTextarea } from '@/hooks/useAuthHeightTextarea.js';
 import { useExpandableTokens } from '@/hooks/useExpandableTokens.js';
 import { useMixesTokens } from '@/hooks/useMixesTokens.js';
+import { useReportFeedback } from '@/hooks/useReportFeedback.js';
 import { AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
@@ -666,6 +667,15 @@ function ChooseRecipientView() {
 
 function FailedView() {
     const router = useRouter();
+    const location = useLocation();
+    const state = location.state as unknown as { error: Error };
+    const [reported, loading, handleReport] = useReportFeedback(
+        'Privy Transaction Failed',
+        state?.error?.message ?? '',
+    );
+    if (!state.error) {
+        return <Navigate to={RoutePath.Form} />;
+    }
     return (
         <div className="flex h-full w-full flex-col justify-between pt-6">
             <div className="flex flex-col items-center gap-4 bg-lightBottom pb-6 dark:bg-darkBottom">
@@ -673,15 +683,27 @@ function FailedView() {
                 <p className="text-2xl font-semibold text-main">
                     <Trans>Transaction failed</Trans>
                 </p>
+                <pre className="mt-4 line-clamp-2 w-full text-sm text-second">{state.error.message}</pre>
             </div>
-            <ActionButton
-                className="mt-12 h-10 w-full rounded-lg text-medium"
-                onClick={() => {
-                    router.navigate({ to: RoutePath.Form });
-                }}
-            >
-                <Trans>Try again</Trans>
-            </ActionButton>
+            <div className="flex w-full items-center">
+                <ActionButton
+                    variant="secondary"
+                    className="mt-12 h-10 w-full rounded-lg border-none bg-secondaryLine text-medium"
+                    onClick={() => handleReport()}
+                    disabled={reported}
+                    loading={loading}
+                >
+                    <Trans>Report issue</Trans>
+                </ActionButton>
+                <ActionButton
+                    className="mt-12 h-10 w-full rounded-lg text-medium"
+                    onClick={() => {
+                        router.navigate({ to: RoutePath.Form });
+                    }}
+                >
+                    <Trans>Try again</Trans>
+                </ActionButton>
+            </div>
         </div>
     );
 }
