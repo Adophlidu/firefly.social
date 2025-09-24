@@ -34,6 +34,7 @@ import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
 import { WalletProfileDataSource } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 import type { ChainNamespace } from '@/types/utility.js';
 
@@ -54,6 +55,7 @@ interface ConnectedItemProps extends Omit<ClickableButtonProps, 'onClick'> {
     walletIconUrl?: string;
     source?: ConnectionSource;
     onOpenPrivy?: () => void;
+    loading?: boolean;
 }
 
 function ConnectedItem({
@@ -65,6 +67,7 @@ function ConnectedItem({
     walletIconUrl,
     source,
     onOpenPrivy,
+    loading: isLoading,
     ...rest
 }: ConnectedItemProps) {
     const { switchAccountAsync } = useSwitchAccount();
@@ -74,11 +77,12 @@ function ConnectedItem({
 
     const Icon = IconMap[namespace] || WalletIcon;
 
-    const [{ loading }, onConnectionClick] = useAsyncFn(async () => {
+    const [{ loading: isConnecting }, onConnectionClick] = useAsyncFn(async () => {
         if (namespace === 'solana') {
             setActiveNetwork(source === ConnectionSource.Privy ? SolanaNetworkType.Privy : SolanaNetworkType.Appkit);
         }
         if (!connected && connector) {
+            await connector.connect();
             await switchAccountAsync({ connector });
             return;
         }
@@ -109,6 +113,8 @@ function ConnectedItem({
         router,
     ]);
 
+    const loading = isConnecting || isLoading;
+
     return (
         <ClickableButton
             key={address}
@@ -137,6 +143,8 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
     const allWalletConnections = useWalletConnections();
     const { isLoading: isLoadingAllConnections } = usePrivyConnections();
     const { isCreatedPrivyWallet } = useIsCreatedPrivyWallet();
+    const { ready } = usePrivyWalletStore();
+    const loading = !ready;
 
     if (isLoadingAllConnections) return <div className="mb-2 h-[122px] w-full animate-pulse rounded-lg bg-bg" />;
     if (!isCreatedPrivyWallet) return null;
@@ -188,6 +196,7 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
                             onOpenPrivy={() => {
                                 onOpenWallets?.();
                             }}
+                            loading={loading}
                         />
                     );
                 })
