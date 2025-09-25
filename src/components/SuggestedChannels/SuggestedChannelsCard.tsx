@@ -13,8 +13,8 @@ import { ExploreType, Source } from '@/constants/enum.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
+import { fireflyInterface } from '@/providers/firefly/Interface.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
-import { getTrendingChannels } from '@/services/getTrendingChannels.js';
 
 function SuggestedChannelItem({ channel }: { channel: Channel }) {
     return (
@@ -36,7 +36,7 @@ export function SuggestedChannelsCard() {
     const { data, isLoading, isError } = useQuery({
         queryKey: ['suggest-channels', ...profileIds],
         staleTime: 1000 * 60 * 5, // 5 minutes
-        queryFn: () => getTrendingChannels([Source.Farcaster, Source.Bsky, Source.Lens]),
+        queryFn: () => fireflyInterface.getTrendingChannels(),
     });
 
     if (isError || isLoading || !data?.length) return <SuggestedChannelsSkeleton />;

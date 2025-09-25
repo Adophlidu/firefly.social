@@ -8,8 +8,8 @@ import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJson } from '@/types/utility.js';
 
-function fetchWithDevelopmentApi(url: string, init?: RequestInit) {
-    return fetchJson<ResponseJson<Metadata>>(url, {
+export function fetchMetadataApi(pathname: string, init?: RequestInit) {
+    return fetchJson<ResponseJson<Metadata>>(urlcat(FIREFLY_WORKER_HOST, pathname), {
         ...init,
         headers: {
             ...init?.headers,
@@ -21,8 +21,8 @@ function fetchWithDevelopmentApi(url: string, init?: RequestInit) {
 class FireflyMetadata {
     async createArticleMetadata(articleId: string, pathname: string) {
         try {
-            const response = await fetchWithDevelopmentApi(
-                urlcat(FIREFLY_WORKER_HOST, '/metadata/article', {
+            const response = await fetchMetadataApi(
+                urlcat('/metadata/article', {
                     id: articleId,
                     pathname,
                 }),
@@ -36,8 +36,8 @@ class FireflyMetadata {
 
     async createEventMetadata(eventName: string, pathname: string) {
         try {
-            const response = await fetchWithDevelopmentApi(
-                urlcat(FIREFLY_WORKER_HOST, '/metadata/event', {
+            const response = await fetchMetadataApi(
+                urlcat('/metadata/event', {
                     name: eventName,
                     pathname,
                 }),
@@ -51,8 +51,8 @@ class FireflyMetadata {
 
     async createTransactionMetadata(chainId: number, hash: string, pathname: string) {
         try {
-            const response = await fetchWithDevelopmentApi(
-                urlcat(FIREFLY_WORKER_HOST, '/metadata/transaction', {
+            const response = await fetchMetadataApi(
+                urlcat('/metadata/transaction', {
                     chainId,
                     hash,
                     pathname,
@@ -75,8 +75,8 @@ class FireflyMetadata {
         },
     ) {
         try {
-            const response = await fetchWithDevelopmentApi(
-                urlcat(FIREFLY_WORKER_HOST, '/metadata/token', {
+            const response = await fetchMetadataApi(
+                urlcat('/metadata/token', {
                     keyword,
                     pathname,
                     ...options,
@@ -96,8 +96,8 @@ class FireflyMetadata {
         pathname: string,
     ) {
         try {
-            const response = await fetchWithDevelopmentApi(
-                urlcat(FIREFLY_WORKER_HOST, '/metadata/nft', {
+            const response = await fetchMetadataApi(
+                urlcat('/metadata/nft', {
                     chainIdOrCollectionId,
                     addressOrTokenId,
                     tokenId,
@@ -113,8 +113,8 @@ class FireflyMetadata {
 
     async createNftCollectionMetadata(chainIdOrCollectionId: string, addressOrTokenId: string, pathname: string) {
         try {
-            const response = await fetchWithDevelopmentApi(
-                urlcat(FIREFLY_WORKER_HOST, '/metadata/nft-collection', {
+            const response = await fetchMetadataApi(
+                urlcat('/metadata/nft-collection', {
                     chainIdOrCollectionId,
                     addressOrTokenId,
                     pathname,
@@ -129,8 +129,8 @@ class FireflyMetadata {
 
     async createFireflyProfileMetadata(source: string, pathname: string) {
         try {
-            const response = await fetchWithDevelopmentApi(
-                urlcat(FIREFLY_WORKER_HOST, '/metadata/firefly-profile', {
+            const response = await fetchMetadataApi(
+                urlcat('/metadata/firefly-profile', {
                     source,
                     pathname,
                 }),
@@ -144,8 +144,8 @@ class FireflyMetadata {
 
     async createChannelMetadata(source: string, id: string, pathname: string) {
         try {
-            const response = await fetchWithDevelopmentApi(
-                urlcat(FIREFLY_WORKER_HOST, '/metadata/channel', {
+            const response = await fetchMetadataApi(
+                urlcat('/metadata/channel', {
                     source,
                     id,
                     pathname,
