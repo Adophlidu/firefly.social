@@ -119,10 +119,6 @@ export const LensView = memo(function LensView() {
                 controller.current.signal,
             );
 
-            if (!currentProfile.signless && currentProfile.profileType === 'AccountOwned') {
-                await enableSignlessForManaged(sessionClient);
-            }
-
             const credentials = ensureLensResultSync(sessionClient.getCredentials());
             const done = await addAccount(account, {
                 signal: controller.current.signal,
