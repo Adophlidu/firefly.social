@@ -104,6 +104,7 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
         const provider = isEvm ? evmProvider : solanaProvider;
         const chainId = isEvm ? (props?.chainId ?? mainnet.id) : SOLANA_CHAIN_ID_IN_OKX;
         const toChainId = props?.toChainId ?? chainId;
+        const isSwap = chainId === toChainId;
         const tokenPair = {
             fromChain: chainId,
             toChain: chainId,
@@ -111,7 +112,7 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
             toToken: props?.toToken,
         };
 
-        const bridgeTokenPair = toChainId
+        const bridgeTokenPair = !isSwap
             ? {
                   fromChain: chainId,
                   toChain: toChainId,
@@ -128,7 +129,7 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
             providerType: resolveProviderType(computedProviderType),
 
             chainIds: props?.chainIds ? uniq([...props.chainIds, chainId.toString()]) : [],
-            tokenPair: !bridgeTokenPair ? tokenPair : undefined,
+            tokenPair: isSwap ? tokenPair : undefined,
             bridgeTokenPair,
         };
 

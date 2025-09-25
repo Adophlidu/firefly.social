@@ -4,10 +4,10 @@ import type { PropsWithChildren } from 'react';
 import { z } from 'zod';
 
 import { CategoryTabs, type TokenPageSearch } from '@/app/(normal)/token/[exchange]/[[...slug]]/CategoryTabs.js';
+import { MobileSwapButton } from '@/app/(normal)/token/[exchange]/[[...slug]]/MobileSwapButton.js';
 import { WrapTokenMarketData } from '@/app/(normal)/token/[exchange]/[[...slug]]/WrapTokenMarketData.js';
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
-import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -128,7 +128,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
                         {token?.symbol || (isNewRoute ? slug : legacySymbol)}
                     </span>
                 </div>
-                <SwapButton className="ml-auto sm:inline-flex md:hidden" />
+                <MobileSwapButton className="ml-auto sm:inline-flex md:hidden" token={token} />
             </div>
             <WrapTokenMarketData className="sticky" token={token} />
             <CategoryTabs token={token} className="sticky top-[54px] !z-30 md:top-[60px]" />
