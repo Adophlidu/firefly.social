@@ -11,7 +11,10 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 export function TrendingNFTs(props: HTMLProps<HTMLDivElement>) {
     const { data, isFetching } = useSuspenseQuery({
         queryKey: ['explore-nfts'],
-        queryFn: () => FireflyEndpointProvider.getTrendingNFTs(100),
+        queryFn: async () => {
+            const nfts = await FireflyEndpointProvider.getTrendingNFTs(100);
+            return nfts.filter((x) => x.contract_name);
+        },
     });
 
     if (!data.length && !isFetching) {

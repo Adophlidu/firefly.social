@@ -60,8 +60,6 @@ const notificationDescriptionMap: Record<string, ReactNode> = {
     'Significant movements in token prices': <Trans>Significant movements in token prices</Trans>,
     'Block transactions under $100': <Trans>Block transactions under $100</Trans>,
     'firefly.eth liked your transaction': <Trans>firefly.eth liked your transaction</Trans>,
-    // cspell: disable-next-line
-    'firefly.eth swappped 1850 USDC for 0.5 ETH': <Trans>firefly.eth swapped 1850 USDC for 0.5 ETH</Trans>,
     'firefly.eth swapped 1850 USDC for 0.5 ETH': <Trans>firefly.eth swapped 1850 USDC for 0.5 ETH</Trans>,
 };
 

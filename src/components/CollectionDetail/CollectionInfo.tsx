@@ -50,6 +50,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
                 height={1000}
                 src={bannerImageUrl || '/image/nft-collection-fallback.webp'}
                 alt={name}
+                fallback="/image/nft-collection-fallback.webp"
                 className="h-[150px] w-full object-cover"
             />
             <div className="flex w-full p-3">
