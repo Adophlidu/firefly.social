@@ -2126,9 +2126,6 @@ msgstr "Comment"
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 
-msgid "Posted by {displayName} via Firefly"
-msgstr "Posted by {displayName} via Firefly"
-
 msgid "Only people you mention"
 msgstr "Only people you mention"
 
@@ -3672,6 +3669,9 @@ msgstr "Token could not be found."
 
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
+
+msgid "View @{handle}'s post on Firefly"
+msgstr "View @{handle}'s post on Firefly"
 
 msgid "Image"
 msgstr "Image"

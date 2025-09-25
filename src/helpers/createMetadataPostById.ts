@@ -22,9 +22,9 @@ async function createMetadataForTwitter(pathname: string, postId: string) {
         OpenGraphProcessor.digestDocumentUrl(`https://x.com/realMaskNetwork/status/${postId}`, timeout),
     );
     if (ogResult?.og) {
-        const { displayName } = extractTwitterProfileByOpengraphTitle(ogResult.og.title ?? '');
-        const title = displayName
-            ? await createPageTitleSSR(msg`Posted by ${displayName} via Firefly`, {
+        const { handle } = extractTwitterProfileByOpengraphTitle(ogResult.og.title ?? '');
+        const title = handle
+            ? await createPageTitleSSR(msg`View @${handle}'s post on Firefly`, {
                   withSiteName: false,
               })
             : ogResult.og.title || SITE_NAME;
@@ -95,9 +95,9 @@ export async function createMetadataPostById(pathname: string, source: SocialSou
         postId,
     });
 
-    const displayName = post.author?.displayName;
-    const title = displayName
-        ? await createPageTitleSSR(msg`Posted by ${displayName} via Firefly`, {
+    const handle = post.author?.handle;
+    const title = handle
+        ? await createPageTitleSSR(msg`View @${handle}'s post on Firefly`, {
               withSiteName: false,
           })
         : SITE_NAME;

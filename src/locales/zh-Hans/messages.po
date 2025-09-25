@@ -2131,9 +2131,6 @@ msgstr "评论"
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr "发送红包 24 小时后可提取未领取数额。"
 
-msgid "Posted by {displayName} via Firefly"
-msgstr "由 {displayName} 使用 Firefly 发送"
-
 msgid "Only people you mention"
 msgstr "只有你提及的人"
 
@@ -3677,6 +3674,9 @@ msgstr "未找到该代币。"
 
 msgid "Casts + Replies"
 msgstr "帖子 + 评论"
+
+msgid "View @{handle}'s post on Firefly"
+msgstr ""
 
 msgid "Image"
 msgstr "图片"
