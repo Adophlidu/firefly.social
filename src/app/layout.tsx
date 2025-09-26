@@ -8,7 +8,8 @@ import type { ReactNode } from 'react';
 
 import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
-import { Agent, SiteCookies } from '@/constants/enum.js';
+import { Agent, SiteCookies, STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { Script } from '@/esm/Script.js';
 import { inter } from '@/fonts/inter.js';
@@ -46,6 +47,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <html className={`font-loading ${rootClass}`}>
             <head>
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
+                {IS_PRODUCTION || env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? (
+                    <GoogleAnalytics gaId="G-61NFDTK6LT" />
+                ) : null}
                 {IS_PRODUCTION ? <Script src="/js/safary.js" defer /> : null}
                 <Script>{VERCEL_REGION.join('\n')}</Script>
                 <Script
@@ -56,7 +60,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                     strategy="lazyOnload"
                     site-id="4e0dc4ab-2a63-4303-ad25-8aa14275d2d4"
                 />
-                <GoogleAnalytics gaId="G-61NFDTK6LT" />
                 <meta name="theme-color" content="#ffffff" />
                 <meta name="googlebot" content="notranslate" />
                 {/* for ssr purpose */}

@@ -9,7 +9,6 @@ import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import { type Events, EventType, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
-import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 function formatParameter(key: string, value: unknown): [string, unknown] {
     if (typeof value === 'boolean') {
@@ -61,11 +60,6 @@ class Telemetry extends Provider<Events, never> {
             return;
         }
 
-        if (!useDeveloperSettingsState.getState().telemetry) {
-            console.info('[telemetry] capture event:', name, parameters);
-            return;
-        }
-
         // update the latest event id
         const publicParameters = getPublicParameters(crypto.randomUUID(), this.latestEventId);
         this.latestEventId = publicParameters.public_uuid;
@@ -86,12 +80,7 @@ class Telemetry extends Provider<Events, never> {
         if (provider_filter === ProviderFilter.All || provider_filter === ProviderFilter.GA) {
             try {
                 console.info('[ga] capture event:', event.eventType, event.parameters);
-
-                sendGAEvent('event', event.eventType, {
-                    ...event.parameters,
-                    debug_mode:
-                        useDeveloperSettingsState.getState().telemetryDebug || event.eventName === EventType.Debug,
-                });
+                sendGAEvent('event', event.eventType, event.parameters);
             } catch (error) {
                 console.error('[ga] failed to capture event:', event);
             }
