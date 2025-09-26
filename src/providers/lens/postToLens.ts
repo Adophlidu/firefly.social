@@ -170,8 +170,6 @@ export function createPostMetadata(metadata: BaseMetadata, attachments?: Attachm
     });
 }
 
-export type GetPostMetaData = ReturnType<typeof createPostMetadata>;
-
 function resolveValidChannel(channel: Channel | null) {
     return channel && channel?.id !== HOME_CLUB.id ? channel : undefined;
 }
