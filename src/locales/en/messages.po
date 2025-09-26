@@ -3670,9 +3670,6 @@ msgstr "Token could not be found."
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
 
-msgid "View @{handle}'s post on Firefly"
-msgstr "View @{handle}'s post on Firefly"
-
 msgid "Image"
 msgstr "Image"
 

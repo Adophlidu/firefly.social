@@ -4,12 +4,12 @@ import { notFound } from '@/esm/navigation.js';
 import { isNumericalProfileId as isUID } from '@/helpers/isNumericalProfileId.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 export async function generateMetadata(props: Props) {
     const { source } = await props.params;
-    return FireflyMetadataProvider.createFireflyProfileMetadata(source, `/profile/${source}`);
+    return fireflyMetadataProvider.createFireflyProfileMetadata(source, `/profile/${source}`);
 }
 
 interface Props extends NextPageProps<{ source: string }> {}

@@ -252,7 +252,6 @@ export enum KeyType {
     GetBlink = '/v2/getBlink',
     GetClassifyPostLinkWithRedis = '/v1/getClassifyPostLinkWithRedis',
 
-    CreateMetadataPostById = '/v2/createPageMetadataById',
     CreateMetadataProfileById = '/v3/createMetadataProfileById',
 
     TwitterHandleToUid = 'twitterHandleToUid',

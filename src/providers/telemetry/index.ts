@@ -8,7 +8,7 @@ import { bom } from '@/helpers/bom.js';
 import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
-import { type Events, EventType, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
+import { type Events, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
 
 function formatParameter(key: string, value: unknown): [string, unknown] {
     if (typeof value === 'boolean') {

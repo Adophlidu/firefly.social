@@ -8,8 +8,8 @@ import { GroveStorageProvider } from '@/providers/lens/Grove.js';
 import { createPayloadAttachments, createPostMetadata } from '@/providers/lens/postToLens.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
-import { type CompositePost } from '@/store/useComposeStore.js';
-import { type ComposeType } from '@/types/compose.js';
+import type { CompositePost } from '@/store/useComposeStore.js';
+import type { ComposeType } from '@/types/compose.js';
 
 export interface LensSchedulePayload {
     operationName: 'CreatePost';
@@ -53,12 +53,10 @@ export async function createLensSchedulePostPayload(
     const currentProfile = getProfileFromStorage(Source.Lens);
     if (!currentProfile?.profileId) throw new Error(`Login required to schedule post on ${sourceName}`);
 
-    const title = `Post by #${currentProfile.handle}`;
-    const content = readChars(chars, 'both', Source.Lens);
     const metadata = createPostMetadata(
         {
-            title,
-            content,
+            title: `Post by #${currentProfile.handle}`,
+            content: readChars(chars, 'both', Source.Lens),
         },
         await createPayloadAttachments(imageResults, videoResult),
     );

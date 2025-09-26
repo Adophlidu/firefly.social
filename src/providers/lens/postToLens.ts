@@ -21,16 +21,13 @@ import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
-import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { OrbProvider } from '@/providers/orb/index.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import { type Channel, SessionType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
-import { uploadToArweave } from '@/services/uploadToArweave.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
@@ -174,16 +171,6 @@ export function createPostMetadata(metadata: BaseMetadata, attachments?: Attachm
 }
 
 export type GetPostMetaData = ReturnType<typeof createPostMetadata>;
-
-async function uploadPostMetadata(metadata: GetPostMetaData) {
-    const credentials = ensureLensResultSync(lensSessionHolder.sessionClient.getCredentials());
-    if (!credentials) {
-        throw new Error('No credentials found');
-    }
-
-    const arweaveId = await uploadToArweave(metadata, credentials.accessToken);
-    return `ar://${arweaveId}`;
-}
 
 function resolveValidChannel(channel: Channel | null) {
     return channel && channel?.id !== HOME_CLUB.id ? channel : undefined;

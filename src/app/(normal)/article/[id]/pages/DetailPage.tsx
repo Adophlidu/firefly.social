@@ -6,13 +6,13 @@ import { first } from 'lodash-es';
 import { ArticleDetailContent } from '@/components/Article/ArticleDetailContent.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
-import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
 import type { Article } from '@/providers/types/Article.js';
 
 async function getArticleCoverUrl(article: Article): Promise<string | null> {
     if (article.coverUrl) return article.coverUrl;
 
-    const metadata = await FireflyMetadataProvider.createArticleMetadata(article.id, `/article/${article.id}`);
+    const metadata = await fireflyMetadataProvider.createArticleMetadata(article.id, `/article/${article.id}`);
     return first(metadata.openGraph?.images as string[]) ?? null;
 }
 

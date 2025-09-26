@@ -19,6 +19,22 @@ export function fetchMetadataApi(pathname: string, init?: RequestInit) {
 }
 
 class FireflyMetadata {
+    async createPostMetadata(source: string, postId: string, pathname: string) {
+        try {
+            const response = await fetchMetadataApi(
+                urlcat('/metadata/post', {
+                    source,
+                    postId,
+                    pathname,
+                }),
+            );
+            const metadata = resolveResponseData(response);
+            return metadata;
+        } catch (error) {
+            return createSiteMetadata(pathname);
+        }
+    }
+
     async createArticleMetadata(articleId: string, pathname: string) {
         try {
             const response = await fetchMetadataApi(
@@ -142,12 +158,12 @@ class FireflyMetadata {
         }
     }
 
-    async createChannelMetadata(source: string, id: string, pathname: string) {
+    async createChannelMetadata(source: string, channelId: string, pathname: string) {
         try {
             const response = await fetchMetadataApi(
                 urlcat('/metadata/channel', {
                     source,
-                    id,
+                    id: channelId,
                     pathname,
                 }),
             );
@@ -159,4 +175,4 @@ class FireflyMetadata {
     }
 }
 
-export const FireflyMetadataProvider = new FireflyMetadata();
+export const fireflyMetadataProvider = new FireflyMetadata();

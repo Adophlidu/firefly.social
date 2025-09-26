@@ -3675,9 +3675,6 @@ msgstr "未找到該代幣。"
 msgid "Casts + Replies"
 msgstr "貼文 + 留言"
 
-msgid "View @{handle}'s post on Firefly"
-msgstr ""
-
 msgid "Image"
 msgstr "圖片"
 

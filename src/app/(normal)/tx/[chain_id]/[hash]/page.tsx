@@ -5,7 +5,7 @@ import { notFound } from '@/esm/navigation/server.js';
 import { isValidTxId } from '@/helpers/isValidTxId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { FireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
@@ -18,7 +18,7 @@ interface Props
 
 export async function generateMetadata(props: Props) {
     const { chain_id, hash } = await props.params;
-    return FireflyMetadataProvider.createTransactionMetadata(
+    return fireflyMetadataProvider.createTransactionMetadata(
         Number.parseInt(chain_id, 10),
         hash,
         `/tx/${chain_id}/${hash}`,

@@ -9,29 +9,25 @@ import { getPostDetailQuery, getPostThreadQuery } from '@/app/(normal)/post/[sou
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { queryClientConfig } from '@/configs/queryClient.js';
-import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
+import { type SocialSourceInURL } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
-import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 export const revalidate = 60;
-
-const createPageMetadata = memoizeWithRedis(createMetadataPostById, {
-    key: KeyType.CreateMetadataPostById,
-});
 
 interface Props extends NextPageProps<{ id: string; source: SocialSourceInURL }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source, id } = await props.params;
-    if (isSocialSourceInUrl(source)) return createPageMetadata(`/post/${source}/${id}`, source, id);
-    return createSiteMetadata(`/post/${source}/${id}`);
+    return isSocialSourceInUrl(source)
+        ? fireflyMetadataProvider.createPostMetadata(source, id, `/post/${source}/${id}`)
+        : createSiteMetadata(`/post/${source}/${id}`);
 }
 
 export default async function Page(props: Props) {
