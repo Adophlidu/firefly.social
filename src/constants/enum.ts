@@ -243,19 +243,12 @@ export enum SearchType {
  * The final redis key is alike: `/[version]/[name]:[sequence_id]`
  */
 export enum KeyType {
-    DigestOpenGraphLink = '/v2/digestOpenGraphLink',
-    DigestFrameLink = '/v3/digestFrameLink',
     GetLensThreadByPostId = '/v2/getLensThreadByPostId',
-    RefreshLensThreadLock = '/v2/RefreshLensThreadLock',
-    GetFollowings = '/v2/getFollowings',
     ConsumerSecret = '/v2/consumerSecret',
-    GetBlink = '/v2/getBlink',
     GetClassifyPostLinkWithRedis = '/v1/getClassifyPostLinkWithRedis',
 
     CreateMetadataProfileById = '/v3/createMetadataProfileById',
 
-    TwitterHandleToUid = 'twitterHandleToUid',
-    TwitterUidToHandle = 'twitterUidToHandle',
     GetTwitterAvatarById = '/v2/getTwitterAvatar',
 
     PostState = '/v2/post-state',
