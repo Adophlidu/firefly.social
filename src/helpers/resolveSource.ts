@@ -14,6 +14,7 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
     {
         [SourceInURL.Farcaster]: Source.Farcaster,
+        [SourceInURL.FarcasterV2]: Source.Farcaster,
         [SourceInURL.Lens]: Source.Lens,
         [SourceInURL.Twitter]: Source.Twitter,
         [SourceInURL.Bsky]: Source.Bsky,
@@ -31,7 +32,6 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.Notifications]: Source.Notifications,
         [SourceInURL.Email]: Source.Email,
         [SourceInURL.Swap]: Source.Swap,
-        [SourceInURL.FarcasterV2]: Source.Farcaster,
         [SourceInURL.X]: Source.Twitter,
         [SourceInURL.Transactions]: Source.Transactions,
         [SourceInURL.Activities]: Source.Activities,

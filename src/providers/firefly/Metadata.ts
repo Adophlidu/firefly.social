@@ -19,6 +19,22 @@ export function fetchMetadataApi(pathname: string, init?: RequestInit) {
 }
 
 class FireflyMetadata {
+    async createProfileMetadata(source: string, handle: string, pathname: string) {
+        try {
+            const response = await fetchMetadataApi(
+                urlcat('/metadata/profile', {
+                    source,
+                    handle,
+                    pathname,
+                }),
+            );
+            const metadata = resolveResponseData(response);
+            return metadata;
+        } catch (error) {
+            return createSiteMetadata(pathname);
+        }
+    }
+
     async createPostMetadata(source: string, postId: string, pathname: string) {
         try {
             const response = await fetchMetadataApi(

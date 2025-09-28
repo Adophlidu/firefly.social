@@ -2,9 +2,8 @@ import type { Metadata } from 'next';
 
 import { ProfileCategoryTabs } from '@/app/(normal)/profile/pages/ProfileCategoryTabs.js';
 import {
-    KeyType,
     type ProfileCategory,
-    type ProfileSourceInURL,
+    type ProfilePageSourceInURL,
     SocialProfileCategory,
     type SocialSource,
     WalletProfileCategory,
@@ -14,23 +13,20 @@ import { createMetadataProfileById } from '@/helpers/createMetadataProfileById.j
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
-import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: ProfileSourceInURL }> {}
-
-const createPageMetadata = memoizeWithRedis(createMetadataProfileById, {
-    key: KeyType.CreateMetadataProfileById,
-});
+interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: ProfilePageSourceInURL }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source, id, category } = await props.params;
     const resolvedSource = resolveSourceFromUrlNoFallback(source);
-    if (resolvedSource && isProfilePageSource(resolvedSource))
-        return createPageMetadata(`/profile/${resolvedSource}/${id}/${category}`, resolvedSource, id, true);
+
+    if (resolvedSource && isProfilePageSource(resolvedSource)) {
+        return createMetadataProfileById(`/profile/${source}/${id}/${category}`, source, id);
+    }
     return createSiteMetadata(`/profile/${resolvedSource}/${id}/${category}`);
 }
 
@@ -38,7 +34,7 @@ interface LayoutProps
     extends NextPageProps<{
         id: string;
         category: SocialProfileCategory | WalletProfileCategory;
-        source: ProfileSourceInURL;
+        source: ProfilePageSourceInURL;
     }> {}
 
 export default async function Layout(props: LayoutProps) {

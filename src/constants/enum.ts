@@ -163,25 +163,14 @@ export type ProfileSource =
 export type LoginSource = SocialSource | ThirdPartySource;
 export type RequestedLoginSource = Source.Twitter;
 
-export type ProfilePageSource =
-    | Source.Farcaster
-    | Source.Lens
-    | Source.Twitter
-    | Source.Bsky
-    | Source.Wallet
-    | Source.WalletMix;
 export type SocialSourceInURL =
     | SourceInURL.Farcaster
     | SourceInURL.Lens
     | SourceInURL.Twitter
     | SourceInURL.Bsky
     | SourceInURL.X;
-export type ProfileSourceInURL =
-    | SocialSourceInURL
-    | SourceInURL.Wallet
-    | SourceInURL.WalletMix
-    | SourceInURL.FarcasterV2
-    | SourceInURL.X;
+export type ProfilePageSource = SocialSource | Source.Wallet | Source.WalletMix;
+export type ProfilePageSourceInURL = SocialSourceInURL | SourceInURL.Wallet | SourceInURL.WalletMix;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter;
 export type DiscoverSource = Source.Posts | Source.Activities | Source.Transactions;
 export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.DAOs | Source.NFTs | Source.Bsky;
@@ -246,11 +235,7 @@ export enum KeyType {
     GetLensThreadByPostId = '/v2/getLensThreadByPostId',
     ConsumerSecret = '/v2/consumerSecret',
     GetClassifyPostLinkWithRedis = '/v1/getClassifyPostLinkWithRedis',
-
-    CreateMetadataProfileById = '/v3/createMetadataProfileById',
-
     GetTwitterAvatarById = '/v2/getTwitterAvatar',
-
     PostState = '/v2/post-state',
 }
 

@@ -4,7 +4,7 @@ import {
     type NotificationSource,
     type NotificationSourceInURL,
     type ProfilePageSource,
-    type ProfileSourceInURL,
+    type ProfilePageSourceInURL,
     type SocialSource,
     type SocialSourceInURL,
     Source,
@@ -109,7 +109,7 @@ export const resolveNotificationSource = createLookupTableResolver<NotificationS
     },
 );
 
-export const resolveProfileSourceInURL = createLookupTableResolver<ProfilePageSource, ProfileSourceInURL>(
+export const resolveProfileSourceInURL = createLookupTableResolver<ProfilePageSource, ProfilePageSourceInURL>(
     {
         [Source.Farcaster]: SourceInURL.Farcaster,
         [Source.Lens]: SourceInURL.Lens,

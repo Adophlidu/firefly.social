@@ -7,7 +7,7 @@ import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileContext } from '@/components/Profile/ProfileContext.js';
 import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
-import { type ProfileCategory, type ProfileSourceInURL, Source } from '@/constants/enum.js';
+import { type ProfileCategory, type ProfilePageSourceInURL, Source } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
@@ -16,7 +16,7 @@ import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import type { NextPageProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: ProfileSourceInURL }> {}
+interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: ProfilePageSourceInURL }> {}
 
 export default function Page(props: Props) {
     const params = use(props.params);

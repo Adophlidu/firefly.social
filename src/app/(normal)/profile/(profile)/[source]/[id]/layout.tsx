@@ -7,7 +7,7 @@ import { WalletProfileProvider } from '@/components/Profile/ProfileContext.js';
 import { ProfileInfoCard } from '@/components/Profile/ProfileInfoCard.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
-import { type LoginFallbackSource, type ProfileSourceInURL, Source } from '@/constants/enum.js';
+import { type LoginFallbackSource, type ProfilePageSourceInURL, Source } from '@/constants/enum.js';
 import { AccountSuspendedError } from '@/constants/error.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
@@ -25,7 +25,7 @@ import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
 import type { NextPageProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{ id: string; source: ProfileSourceInURL }> {}
+interface Props extends NextPageProps<{ id: string; source: ProfilePageSourceInURL }> {}
 
 // Now we only support profile handle in url, so we fix the identity here
 function fixIdentity(identity: FireflyIdentity, profiles: FireflyProfile[]) {
