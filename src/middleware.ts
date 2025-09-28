@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 import urlcat from 'urlcat';
 
-import { ChannelTabType, SocialProfileCategory, SourceInURL } from '@/constants/enum.js';
+import { ChannelTabType, SocialProfileCategory, SourceInURL, WalletProfileCategory } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
-import { isProfilePageSource } from '@/helpers/isSource.js';
+import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { parseClubUrl } from '@/helpers/parseClubUrl.js';
 import { parseOldDiscoverUrl } from '@/helpers/parseDiscoverUrl.js';
 import { parseOldEngagementUrl } from '@/helpers/parseEngagementUrl.js';
@@ -142,7 +142,9 @@ export async function middleware(request: NextRequest) {
             urlcat(`/profile/:source/:id/:category`, {
                 source: resolveProfileSourceInURL(parsedProfileUrl.source),
                 id: parsedProfileUrl.id,
-                category: SocialProfileCategory.Feed,
+                category: isSocialSource(parsedProfileUrl.source)
+                    ? SocialProfileCategory.Feed
+                    : WalletProfileCategory.NFTs,
             }),
             request.url,
         );
