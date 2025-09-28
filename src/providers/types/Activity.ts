@@ -187,7 +187,7 @@ export interface OrderInfo {
     productId: string;
     Sku: string;
     orderNo: string;
-    amount: number;
+    amount: string;
     EvmWallet: string;
     SolanaWallet: string;
     ChainID: number;

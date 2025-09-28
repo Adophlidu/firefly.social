@@ -11,7 +11,7 @@ import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { type HTMLProps, type MouseEventHandler, type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
-import { useAsyncFn, useLocalStorage } from 'react-use';
+import { useAsyncFn } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 import { type Address, encodeFunctionData, parseUnits, toHex } from 'viem';
 import { useSwitchAccount } from 'wagmi';
@@ -46,6 +46,7 @@ import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFiref
 import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { parseJson } from '@/helpers/parseJson.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { retry } from '@/helpers/retry.js';
@@ -76,9 +77,6 @@ import { SolanaChainId } from '@/web3-shared/solana/types.js';
 const TELEGRAM_URL = 'https://t.me/+OFx_HKqkeB01OGE1';
 const COMPOSE_TEXT = `Join the Web3 Hotpot Festival with Firefly💜 — complete tasks, unlock Haidilao vouchers. Let’s dip in together🍲
 https://firefly.social/event/haidilao`;
-
-const BASE_USDC = '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913';
-const SOLANA_USDC = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
 
 interface TaskItemProps {
     title: React.ReactNode;
@@ -139,10 +137,13 @@ export function ActivityHaidilaoTask({ data }: { data: Required<ActivityInfoResp
     useEffect(() => {
         if (isFollowing) {
             runInSafeAsync(async () => {
-                if (followXTaskId) await FireflyActivityProvider.claimTask(data.name, followXTaskId);
+                if (followXTaskId) {
+                    await FireflyActivityProvider.claimTask(data.name, followXTaskId);
+                    await refetchTask();
+                }
             });
         }
-    }, [data.name, isFollowing, followXTaskId]);
+    }, [data.name, isFollowing, followXTaskId, refetchTask]);
 
     const isStarted = dayjs(data.start_time).isBefore(dayjs());
 
@@ -201,6 +202,7 @@ export function ActivityHaidilaoTask({ data }: { data: Required<ActivityInfoResp
                         async onPrimaryClick() {
                             await delay(5000);
                             await FireflyActivityProvider.claimTask(data.name, task.id);
+                            await refetchAll();
                         },
                         async onSecondaryClick() {
                             await refetchAll();
@@ -337,66 +339,10 @@ export function ActivityHaidilaoTask({ data }: { data: Required<ActivityInfoResp
                                 <span className="font-bold">even free!</span>).
                             </Trans>
                         </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 className="mb-2 text-lg font-bold">
-                        <Trans>Special On-Site Event</Trans>
-                    </h3>
-                    <ul className="space-y-1">
                         <li>
                             <Trans>
-                                As part of the festival, join us on-site at Marina Bay Sands Haidilao for an afternoon
-                                of Web3 + lifestyle experiences:
-                            </Trans>
-                            <br />
-                            <br />
-                        </li>
-                        <li>
-                            <Trans>
-                                📅 <span className="font-bold">Date/ Time:</span> Oct 1, 3:30–6:30 PM
-                            </Trans>
-                        </li>
-                        <li>
-                            <Trans>
-                                📍 <span className="font-bold">Location:</span> Marina Bay Sands
-                            </Trans>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 className="mb-2 text-lg font-bold">
-                        <Trans>What to Expect</Trans>
-                    </h3>
-                    <ul className="space-y-1">
-                        <li>
-                            <Trans>
-                                🎟 Complete more Firefly tasks to unlock{' '}
-                                <span className="font-bold">free hotpot vouchers</span> or extra discount voucher
-                            </Trans>
-                        </li>
-                        <li>
-                            <Trans>
-                                💺 <span className="font-bold">Exclusive seat booking</span> at Haidilao and additional
-                                discounted dishes of your choice
-                            </Trans>
-                        </li>
-                        <li>
-                            <Trans>
-                                🤝 Meet and connect with <span className="font-bold">Top 10 Asian Web3 teams</span>
-                            </Trans>
-                        </li>
-                        <li>
-                            <Trans>
-                                📸 Snap photos and connect with <span className="font-bold">well-known KOLs</span>
-                            </Trans>
-                        </li>
-                        <li>
-                            <Trans>
-                                💅 Enjoy <span className="font-bold">a free manicure</span> session at our NFC Nail Art
-                                booth brought to you together with Chipped
+                                🎁 Buy a Haidilao Voucher ={' '}
+                                <span className="font-bold">Unlock Future Firefly NFT Perks</span> 🍲✨
                             </Trans>
                         </li>
                     </ul>
@@ -491,13 +437,6 @@ export function ActivityHaidilaoTask({ data }: { data: Required<ActivityInfoResp
 
                 <div className="rounded-lg border border-success/20 bg-success/10 p-2">
                     <ul className="list-outside list-disc space-y-1 pl-4 text-xs leading-none text-success">
-                        <li>
-                            <Trans>
-                                Complete the <span className="font-bold">3 basic tasks</span> below to activate your
-                                voucher and get a S$50 Haidilao dining voucher{' '}
-                                <span className="font-bold">for US$15</span>
-                            </Trans>
-                        </li>
                         <li>
                             <Trans>
                                 The more tasks you complete, the better your chances to unlock{' '}
@@ -706,12 +645,14 @@ function usePurchase(name: string, { onClose }: { onClose?: () => void }) {
     const { switchAccountAsync } = useSwitchAccount();
     const queryClient = useQueryClient();
     return useAsyncFn(
-        async (address: string, networkType: NetworkType) => {
+        async (
+            address: string,
+            networkType: NetworkType,
+            chainId: EthereumChainId | SolanaChainId,
+            tokenAddress: string,
+        ) => {
             try {
-                const checkPrice = await queryClient.ensureQueryData({
-                    queryKey: ['activity-check-price', name],
-                    queryFn: () => FireflyActivityProvider.checkPrice(name),
-                });
+                const checkPrice = await FireflyActivityProvider.checkPrice(name);
                 if (!checkPrice) {
                     enqueueErrorMessage(<Trans>Sold Out.</Trans>);
                     return;
@@ -723,18 +664,19 @@ function usePurchase(name: string, { onClose }: { onClose?: () => void }) {
                     enqueueErrorMessage(resolveCommitOrderText(orderCommitResponse.Status));
                     return;
                 }
-                if (checkPrice.price <= 0) {
+                if (orderCommitResponse.amount <= 0) {
                     enqueueSuccessMessage(<Trans>Purchase Completed</Trans>);
                     await queryClient.refetchQueries({ queryKey: ['activity-check-buy', name] });
                     return;
                 }
                 const tokens = await FireflyEndpointProvider.getMultiChainTokenList(
                     [address],
-                    [SolanaChainId.Mainnet, EthereumChainId.Base],
+                    [SolanaChainId.Mainnet, chainId],
                 );
                 const tokenAsset = tokens.find(
                     (token) =>
-                        isSameAddress(token.tokenAddress, SOLANA_USDC) || isSameAddress(token.tokenAddress, BASE_USDC),
+                        isSameAddress(token.tokenAddress, tokenAddress) ||
+                        isSameAddress(token.tokenAddress, tokenAddress),
                 );
                 if (!tokenAsset) {
                     return enqueueErrorMessage(<Trans>Failed to purchase. Insufficient balance</Trans>);
@@ -748,7 +690,7 @@ function usePurchase(name: string, { onClose }: { onClose?: () => void }) {
                                 functionName: 'transfer',
                                 args: [
                                     orderCommitResponse.EvmWallet,
-                                    parseUnits(`${checkPrice.price}`, token.decimals),
+                                    parseUnits(`${orderCommitResponse.amount}`, token.decimals),
                                 ],
                             });
                             await fireflyBridgeProvider.request(SupportedMethod.SEND_EVM_TRANSACTION, {
@@ -765,7 +707,7 @@ function usePurchase(name: string, { onClose }: { onClose?: () => void }) {
                         case NetworkType.Solana: {
                             const tx = await SolanaTransfer.getSplTransferTransaction({
                                 token: token as Token<SolanaChainId>,
-                                amount: `${checkPrice.price}`,
+                                amount: `${orderCommitResponse.amount}`,
                                 to: orderCommitResponse.SolanaWallet,
                             });
                             await fireflyBridgeProvider.request(SupportedMethod.SEND_SOLANA_TRANSACTION, {
@@ -788,7 +730,7 @@ function usePurchase(name: string, { onClose }: { onClose?: () => void }) {
                             await EthereumTransfer.transfer({
                                 to: orderCommitResponse.EvmWallet,
                                 token: token as Token<EthereumChainId, Address>,
-                                amount: `${checkPrice.price}`,
+                                amount: `${orderCommitResponse.amount}`,
                             });
                             break;
                         }
@@ -805,7 +747,7 @@ function usePurchase(name: string, { onClose }: { onClose?: () => void }) {
                             await SolanaTransfer.transfer({
                                 to: orderCommitResponse.SolanaWallet,
                                 token: token as Token<SolanaChainId>,
-                                amount: `${checkPrice.price}`,
+                                amount: `${orderCommitResponse.amount}`,
                             });
                             break;
                         }
@@ -932,6 +874,7 @@ function ActivityHaidilaoTaskSubmitButton({ name }: { name: string }) {
             return FireflyActivityProvider.checkBuy(name);
         },
         enabled: isLoginFirefly,
+        refetchInterval: 5000,
     });
 
     const {
@@ -944,6 +887,7 @@ function ActivityHaidilaoTaskSubmitButton({ name }: { name: string }) {
             return FireflyActivityProvider.checkPrice(name);
         },
         enabled: isLoginFirefly,
+        refetchInterval: 5000,
     });
 
     const { data: task, isLoading: isLoadingTask } = useQuery({
@@ -954,13 +898,13 @@ function ActivityHaidilaoTaskSubmitButton({ name }: { name: string }) {
         enabled: isLoginFirefly,
     });
 
-    const [localStorage, setLocalStorage] = useLocalStorage<LocalStorageItem | null>(`${name}-tasks`, null);
     useEffect(() => {
         if (!task || !checkPrice || !checkBuy) return;
+        const key = `${name}-tasks`;
+        const storage = parseJson<LocalStorageItem>(localStorage.getItem(key));
         if (
             (!checkBuy.orderInfo.OrderStatus || checkBuy.orderInfo.OrderStatus !== OrderStatus.Unpaid) &&
-            task.completed_count > 3 &&
-            !localStorage?.lastNoticedAtMap?.[task.completed_count] &&
+            !storage?.lastNoticedAtMap?.[task.completed_count] &&
             task.total_inventory > 0
         ) {
             if (`${checkPrice.product_id}` === '81') {
@@ -968,29 +912,37 @@ function ActivityHaidilaoTaskSubmitButton({ name }: { name: string }) {
                     <Trans>No discount yet! Do more tasks if available to claim your next draw!</Trans>,
                 );
             } else {
-                enqueueSuccessMessage(<Trans>Discount won! Valid for 3 minutes，snatch it now!</Trans>);
+                enqueueSuccessMessage(<Trans>Discount won! Valid for 10 minutes，snatch it now!</Trans>);
             }
-            setLocalStorage((x) => ({
-                lastTask: task,
-                lastCheckPrice: checkPrice,
-                lastNoticedAtMap: {
-                    ...x?.lastNoticedAtMap,
-                    [task.completed_count]: Date.now(),
-                },
-            }));
+            localStorage.setItem(
+                key,
+                JSON.stringify({
+                    ...storage,
+                    lastTask: task,
+                    lastCheckPrice: checkPrice,
+                    lastNoticedAtMap: {
+                        ...storage?.lastNoticedAtMap,
+                        [task.completed_count]: Date.now(),
+                    },
+                }),
+            );
         } else {
-            setLocalStorage((x) => ({ ...x, lastTask: task, lastCheckPrice: checkPrice }));
+            localStorage.setItem(
+                key,
+                JSON.stringify({
+                    ...storage,
+                    lastTask: task,
+                    lastCheckPrice: checkPrice,
+                }),
+            );
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [task, checkPrice, checkBuy]);
+    }, [task, checkPrice, checkBuy, name]);
 
     const price = checkPrice?.price ?? 15;
-    const completedTaskCount = task?.completed_count ?? 0;
-    const canBuy = completedTaskCount >= 3;
     const isSoldOut = (task?.total_inventory ?? 0) <= 0;
     const [, login] = useLoginInActivity();
 
-    if (checkBuy?.status === CheckBuyStatus.Purchased) {
+    if (checkBuy?.orderInfo.OrderStatus === OrderStatus.Shipped) {
         return <ActivityGoRedeemButton />;
     }
 
@@ -1005,7 +957,13 @@ function ActivityHaidilaoTaskSubmitButton({ name }: { name: string }) {
         );
     }
 
-    if (isLoading || isCheckingPrice || isLoadingTask) {
+    if (
+        isLoading ||
+        isCheckingPrice ||
+        isLoadingTask ||
+        (checkBuy?.orderInfo.OrderStatus &&
+            [OrderStatus.Paying, OrderStatus.Completed].includes(checkBuy?.orderInfo.OrderStatus))
+    ) {
         return (
             <button
                 className="leading-12 relative flex h-12 w-full items-center justify-center rounded-full bg-main text-center text-base font-bold text-primaryBottom disabled:opacity-60"
@@ -1045,8 +1003,9 @@ function ActivityHaidilaoTaskSubmitButton({ name }: { name: string }) {
                 <Countdown countStart={checkPrice?.remainingLockSeconds ?? 0} onEnd={refetchCheckPrice} />
             ) : null}
             <PurchaseButton
-                disabled={!canBuy}
-                price={price}
+                price={
+                    checkBuy?.status === CheckBuyStatus.PurchasedUnpaid ? parseFloat(checkBuy.orderInfo.amount) : price
+                }
                 name={name}
                 isContinue={checkBuy?.status === CheckBuyStatus.PurchasedUnpaid}
             />

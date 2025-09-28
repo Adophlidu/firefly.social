@@ -3,6 +3,7 @@
 import { useAsync } from 'react-use';
 
 import { ActivityMobileOnly } from '@/components/Activity/ActivityMobileOnly.js';
+import { Loading } from '@/components/Loading.js';
 import { IS_IOS } from '@/constants/browser.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { waitForWebviewDidLoadEvent } from '@/helpers/waitForWebviewDidLoadEvent.js';
@@ -33,6 +34,7 @@ const ActivityHaidilaoTask = dynamic(
         })),
     {
         ssr: false,
+        loading: () => <Loading />,
     },
 );
 

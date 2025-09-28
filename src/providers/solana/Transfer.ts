@@ -1,11 +1,14 @@
 import { web3 } from '@coral-xyz/anchor';
-import { createTransferInstruction } from '@solana/spl-token';
+import {
+    createAssociatedTokenAccountInstruction,
+    createTransferInstruction,
+    getAssociatedTokenAddress,
+} from '@solana/spl-token';
 
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { isGreaterThan, isLessThan, leftShift, minus, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { parseSolToLamports } from '@/helpers/parseSolToLamports.js';
-import { getOrCreateAssociatedTokenAccount } from '@/providers/solana/getOrCreateAssociatedTokenAccount.js';
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';
 import { getWalletAdapter } from '@/providers/solana/getWalletAdapter.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
@@ -122,37 +125,20 @@ class Provider implements TransferProvider<SolanaChainId> {
     }
 
     async getSplTransferTransaction(options: TransactionOptions<SolanaChainId>) {
-        const adapter = getWalletAdapter();
-        const accountPublicKey = new web3.PublicKey(await SolanaNetwork.getAccount());
-
-        const recipientPubkey = new web3.PublicKey(options.to);
+        const fromPubkey = new web3.PublicKey(await SolanaNetwork.getAccount());
+        const toPubkey = new web3.PublicKey(options.to);
         const mintPubkey = new web3.PublicKey(options.token.id);
-        function signTransaction(transaction: web3.Transaction) {
-            return adapter.signTransaction(transaction);
-        }
-        const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
-            this.connection,
-            accountPublicKey,
-            mintPubkey,
-            accountPublicKey,
-            signTransaction,
-        );
-        const toTokenAccount = await getOrCreateAssociatedTokenAccount(
-            this.connection,
-            accountPublicKey,
-            mintPubkey,
-            recipientPubkey,
-            signTransaction,
-        );
+        const tokenAmount = Number.parseInt(rightShift(options.amount, options.token.decimals).toString(), 10);
 
-        return new web3.Transaction().add(
-            createTransferInstruction(
-                fromTokenAccount.address,
-                toTokenAccount.address,
-                accountPublicKey,
-                Number.parseInt(rightShift(options.amount, options.token.decimals).toString(), 10),
-            ),
-        );
+        const transaction = new web3.Transaction();
+        const ata = await getAssociatedTokenAddress(mintPubkey, toPubkey);
+        const info = await this.connection.getAccountInfo(ata);
+        if (!info) {
+            transaction.add(createAssociatedTokenAccountInstruction(fromPubkey, ata, toPubkey, mintPubkey));
+        }
+        const fromATA = await getAssociatedTokenAddress(mintPubkey, fromPubkey);
+        transaction.add(createTransferInstruction(fromATA, ata, fromPubkey, tokenAmount));
+        return transaction;
     }
 
     async waitForTransaction(signature: string, chainId: number): Promise<void> {

@@ -35,7 +35,8 @@ interface CashierProps {
     onContinue?: (
         address: string,
         networkType: NetworkType,
-        chainId: EthereumChainId.Base | SolanaChainId.Mainnet,
+        chainId: EthereumChainId | SolanaChainId,
+        token: string,
     ) => void;
 }
 
@@ -43,6 +44,44 @@ interface Account {
     address: string;
     ens?: string;
 }
+
+const SOLANA_USDT = 'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB';
+const SOLANA_USDC = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
+
+export const CHAIN_TOKEN_ADDRESSES = [
+    {
+        name: 'Base',
+        chainId: EthereumChainId.Base,
+        tokens: [
+            { symbol: 'USDT', address: '0xfde4c96c8593536e31f229ea8f37b2ada2699bb2' },
+            { symbol: 'USDC', address: '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913' },
+        ],
+    },
+    {
+        name: 'BNB',
+        chainId: EthereumChainId.BSC,
+        tokens: [
+            { symbol: 'USDT', address: '0x55d398326f99059ff775485246999027b3197955' },
+            { symbol: 'USDC', address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d' },
+        ],
+    },
+    {
+        name: 'Optimism',
+        chainId: EthereumChainId.Optimism,
+        tokens: [
+            { symbol: 'USDT', address: '0x94b008aa00579c1307b0ef2c499ad98a8ce58e58' },
+            { symbol: 'USDC', address: '0x0b2c639c533813f4aa9d7837caf62653d097ff85' },
+        ],
+    },
+    {
+        name: 'Arbitrum',
+        chainId: EthereumChainId.Arbitrum,
+        tokens: [
+            { symbol: 'USDT', address: '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9' },
+            { symbol: 'USDC', address: '0xaf88d065e77c8cc2239327c5edb3a432268e5831' },
+        ],
+    },
+];
 
 export function Cashier({ open, onClose, onContinue, price }: CashierProps) {
     const [selectedAccount, setSelectedAccount] = useState<Account | null>(null);
@@ -53,12 +92,24 @@ export function Cashier({ open, onClose, onContinue, price }: CashierProps) {
     const isDarkMode = useIsDarkMode();
     const networkType = isValidAddressEthereum(currentAccount?.address) ? NetworkType.Ethereum : NetworkType.Solana;
     const networkIcon = resolveNetworkIcon(networkType, isDarkMode);
-    const chainId = networkType === NetworkType.Ethereum ? EthereumChainId.Base : SolanaChainId.Mainnet;
+    const [evmChainId, setEVMEvmChainId] = useState(EthereumChainId.Base);
+    const [token, setToken] = useState<'USDC' | 'USDT'>('USDC');
+    const chainId = networkType === NetworkType.Ethereum ? evmChainId : SolanaChainId.Mainnet;
 
     const { mutate: mutateContinue, isPending } = useMutation({
         async mutationFn() {
             if (!currentAccount?.address) return;
-            return onContinue?.(currentAccount?.address, networkType, chainId);
+            const tokenAddress =
+                chainId === SolanaChainId.Mainnet
+                    ? {
+                          USDC: SOLANA_USDC,
+                          USDT: SOLANA_USDT,
+                      }[token]
+                    : CHAIN_TOKEN_ADDRESSES.find((item) => item.chainId === chainId)?.tokens.find(
+                          (tokenItem) => tokenItem.symbol === token,
+                      )?.address;
+            if (!tokenAddress) return;
+            return onContinue?.(currentAccount?.address, networkType, chainId, tokenAddress);
         },
     });
 
@@ -138,15 +189,46 @@ export function Cashier({ open, onClose, onContinue, price }: CashierProps) {
                         <span className="text-base text-main">
                             <Trans>Chain</Trans>
                         </span>
-                        {chainId ? (
-                            <div className="flex items-center gap-2">
-                                <ChainIcon chainId={chainId} size={16} className="size-4 shrink-0" />
-                                <span className="text-sm text-second">
-                                    {networkType === NetworkType.Ethereum
-                                        ? EVMChainResolver.chainName(chainId as EthereumChainId)
-                                        : SolanaChainResolver.chainName(chainId as SolanaChainId)}
-                                </span>
-                            </div>
+                        {evmChainId ? (
+                            networkType === NetworkType.Ethereum ? (
+                                <Menu>
+                                    <Menu.Button className="relative flex cursor-pointer items-center gap-2">
+                                        <ChainIcon chainId={evmChainId} size={24} className="size-6 shrink-0" />
+                                        <span className="text-sm text-main">
+                                            {EVMChainResolver.chainName(evmChainId as EthereumChainId)}
+                                        </span>
+                                        <ArrowDownIcon width={10} height={10} className="size-2.5 text-main" />
+                                    </Menu.Button>
+                                    <Menu.Items className="absolute right-0 top-0 z-50 flex max-h-[200px] w-[150px] flex-col overflow-y-auto rounded-[12px] border border-line bg-primaryBottom shadow-lg">
+                                        {CHAIN_TOKEN_ADDRESSES.map((chain) => (
+                                            <Menu.Item key={chain.chainId}>
+                                                <button
+                                                    className="cursor-pointer px-4 py-2 text-left text-sm font-semibold leading-6 hover:bg-main/10"
+                                                    onClick={() => {
+                                                        setEVMEvmChainId(chain.chainId);
+                                                    }}
+                                                >
+                                                    <span className="flex items-center gap-2">
+                                                        <ChainIcon
+                                                            chainId={chain.chainId}
+                                                            size={24}
+                                                            className="size-6 shrink-0"
+                                                        />
+                                                        <span>{chain.name}</span>
+                                                    </span>
+                                                </button>
+                                            </Menu.Item>
+                                        ))}
+                                    </Menu.Items>
+                                </Menu>
+                            ) : (
+                                <div className="flex items-center gap-2">
+                                    <ChainIcon chainId={chainId} size={24} className="size-6 shrink-0" />
+                                    <span className="text-sm text-main">
+                                        {SolanaChainResolver.chainName(chainId as SolanaChainId)}
+                                    </span>
+                                </div>
+                            )
                         ) : (
                             '-'
                         )}
@@ -154,9 +236,59 @@ export function Cashier({ open, onClose, onContinue, price }: CashierProps) {
 
                     <div className="flex items-center justify-between">
                         <span className="text-base text-main">
+                            <Trans>Token</Trans>
+                        </span>
+                        <Menu>
+                            <Menu.Button className="relative flex cursor-pointer items-center gap-2">
+                                <Image
+                                    src={
+                                        token === 'USDC'
+                                            ? 'https://coin-images.coingecko.com/coins/images/6319/large/usdc.png?1696506694'
+                                            : 'https://coin-images.coingecko.com/coins/images/31271/large/usdt.jpeg?1696530095'
+                                    }
+                                    alt={token}
+                                    width={24}
+                                    height={24}
+                                    className="size-6 rounded-full"
+                                />
+                                <span className="text-sm text-main">{token}</span>
+                                <ArrowDownIcon width={10} height={10} className="size-2.5 text-main" />
+                            </Menu.Button>
+                            <Menu.Items className="absolute bottom-0 right-0 z-50 flex max-h-[200px] w-[150px] flex-col overflow-y-auto rounded-[12px] border border-line bg-primaryBottom shadow-lg">
+                                {(['USDC', 'USDT'] as const).map((symbol) => (
+                                    <Menu.Item key={symbol}>
+                                        <button
+                                            className="flex cursor-pointer items-center px-4 py-2 text-left text-sm font-semibold leading-6 hover:bg-main/10"
+                                            onClick={() => {
+                                                setToken(symbol);
+                                            }}
+                                        >
+                                            <Image
+                                                src={
+                                                    symbol === 'USDC'
+                                                        ? 'https://coin-images.coingecko.com/coins/images/6319/large/usdc.png?1696506694'
+                                                        : 'https://coin-images.coingecko.com/coins/images/31271/large/usdt.jpeg?1696530095'
+                                                }
+                                                alt={symbol}
+                                                width={24}
+                                                height={24}
+                                                className="mr-2 size-6 rounded-full"
+                                            />
+                                            {symbol}
+                                        </button>
+                                    </Menu.Item>
+                                ))}
+                            </Menu.Items>
+                        </Menu>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                        <span className="text-base text-main">
                             <Trans>Price</Trans>
                         </span>
-                        <span className="text-base text-second">{formatPrice(price)} USDC</span>
+                        <span className="text-base text-second">
+                            {formatPrice(price)} {networkType === NetworkType.Ethereum ? token : 'USDC'}
+                        </span>
                     </div>
                 </div>
 

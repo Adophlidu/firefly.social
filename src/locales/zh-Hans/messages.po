@@ -473,9 +473,6 @@ msgstr "密码无效，请输入6位数字密码。"
 msgid "Potential risk of external call."
 msgstr "存在外部调用的潜在风险。"
 
-msgid "What to Expect"
-msgstr "活动亮点"
-
 #. placeholder {0}: selected.name
 msgid "Your {0} Address"
 msgstr "您的 {0} 地址"
@@ -1256,9 +1253,6 @@ msgstr "删除 Firefly 账户？"
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "上传失败。图片超过最大限制 {0}"
 
-msgid "💅 Enjoy <0>a free manicure</0> session at our NFC Nail Art booth brought to you together with Chipped"
-msgstr "💅 体验科技感十足的 NFC 美甲服务，<0>免费打造</0>个性定制美甲，由Chipped特别呈现"
-
 msgid "Done"
 msgstr "完成"
 
@@ -1397,6 +1391,9 @@ msgstr "删除选项"
 
 msgid "Update"
 msgstr "更新"
+
+msgid "🎁 Buy a Haidilao Voucher = <0>Unlock Future Firefly NFT Perks</0> 🍲✨"
+msgstr "🎁 买火锅兑换券 = <0>解锁Firefly未来特别的NFT权益</0> 🍲✨"
 
 msgid "Registered account not found. Please switch to another wallet and try again."
 msgstr "未发现任何在Firefly注册的账号，请更换钱包重试。"
@@ -1606,9 +1603,6 @@ msgstr "在 {sourceName} 上隐藏 @{0} 失败。"
 
 msgid "View Source"
 msgstr "查看原文"
-
-msgid "🤝 Meet and connect with <0>Top 10 Asian Web3 teams</0>"
-msgstr "🤝 与<0>亚洲Top10 Web3团队火锅社交</0>，拓展行业人脉"
 
 msgid "The final amount is subject to the actual order amount"
 msgstr "最终金额以实际下单金额为准"
@@ -1841,9 +1835,6 @@ msgstr "请重试"
 
 msgid "Failed to create image payload."
 msgstr "创建图片失败。"
-
-msgid "Discount won! Valid for 3 minutes，snatch it now!"
-msgstr "运气爆棚！你抽中了优惠金额，快来购买吧～"
 
 msgid "Network Fee"
 msgstr "网络费"
@@ -2389,9 +2380,6 @@ msgstr "发帖"
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 msgstr "<0/>提到了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
 
-msgid "As part of the festival, join us on-site at Marina Bay Sands Haidilao for an afternoon of Web3 + lifestyle experiences:"
-msgstr "10月1日，欢迎莅临Marina Bay Sands海底捞，与我们一同体验Web3火锅社交！"
-
 #. placeholder {0}: first(post.reactions)?.displayName
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> 点赞"
@@ -2462,9 +2450,6 @@ msgstr "发行时长"
 
 msgid "Failed to recast."
 msgstr "转发失败。"
-
-msgid "Special On-Site Event"
-msgstr "线下特别活动-火锅节KOL专场"
 
 msgid "Display Name should not be blank"
 msgstr "全名不可以为空"
@@ -2990,6 +2975,9 @@ msgstr "未找到与 \"{keyword}\" 相关的结果"
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "如果该功能存在，项目方即使放弃所有权后仍可能重新获得控制权"
+
+msgid "Discount won! Valid for 10 minutes，snatch it now!"
+msgstr ""
 
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "抱歉，我们无法找到 {displayName} 的钱包。"
@@ -3911,9 +3899,6 @@ msgstr "<0>获得</0><1/>"
 msgid "Copy link to profile"
 msgstr "复制账户分享链接"
 
-msgid "Complete the <0>3 basic tasks</0> below to activate your voucher and get a S$50 Haidilao dining voucher <1>for US$15</1>"
-msgstr "完成<0>任意3项</0>任务，即可以<1>15美元</1>的价格购买1张50新元海底捞代金券"
-
 msgid "No whitelist"
 msgstr "没有白名单"
 
@@ -4034,9 +4019,6 @@ msgstr "结束时间 {0}"
 
 msgid "Collect Article"
 msgstr "铸造收集文章"
-
-msgid "🎟 Complete more Firefly tasks to unlock <0>free hotpot vouchers</0> or extra discount voucher"
-msgstr "🎟 完成Firefly任务，即有机会赢取<0>免费火锅券</0>或额外打折券"
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "自定义你的红包发送者名称：可选择你的社交账号或钱包地址。"
@@ -4368,9 +4350,6 @@ msgstr "购买失败 "
 msgid "Turn on notifications to never miss important alerts."
 msgstr "开启通知，重要动态不错过"
 
-msgid "📸 Snap photos and connect with <0>well-known KOLs</0>"
-msgstr "📸 与<0>美女KOL互动</0>，现场精美周边，惊喜不断"
-
 msgid "Signature Request"
 msgstr "签名请求"
 
@@ -4554,9 +4533,6 @@ msgstr "上传失败。视频尺寸超过限制 {minWidth}x{minHeight} ~ {maxWid
 msgid "Mask Network"
 msgstr "Mask Network"
 
-msgid "💺 <0>Exclusive seat booking</0> at Haidilao and additional discounted dishes of your choice"
-msgstr "💺 预留海底捞<0>专属座位</0>，并加享指定菜品折扣"
-
 msgid "Sanctioned address found."
 msgstr "黑名单地址。"
 
@@ -4641,9 +4617,6 @@ msgstr "活动"
 
 msgid "Quote posts disabled"
 msgstr "不可转发"
-
-msgid "📍 <0>Location:</0> Marina Bay Sands"
-msgstr "📍 <0>地点:</0> Marina Bay Sands"
 
 msgid "How to do?"
 msgstr "该怎么做？"
@@ -5111,9 +5084,6 @@ msgstr "金色的"
 
 msgid "Multi-device login"
 msgstr "多设备登录"
-
-msgid "📅 <0>Date/ Time:</0> Oct 1, 3:30–6:30 PM"
-msgstr "📅 <0>时间: </0>10月1日 15:30 – 18:30"
 
 msgid "Success"
 msgstr "成功"

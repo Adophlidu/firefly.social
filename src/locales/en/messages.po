@@ -468,9 +468,6 @@ msgstr "Invalid password. Please ensure it is a 6-digit number."
 msgid "Potential risk of external call."
 msgstr "Potential risk of external call."
 
-msgid "What to Expect"
-msgstr "What to Expect"
-
 #. placeholder {0}: selected.name
 msgid "Your {0} Address"
 msgstr "Your {0} Address"
@@ -1251,9 +1248,6 @@ msgstr "Delete Firefly account?"
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "Failed to upload. Image size exceeds {0}"
 
-msgid "💅 Enjoy <0>a free manicure</0> session at our NFC Nail Art booth brought to you together with Chipped"
-msgstr "💅 Enjoy <0>a free manicure</0> session at our NFC Nail Art booth brought to you together with Chipped"
-
 msgid "Done"
 msgstr "Done"
 
@@ -1392,6 +1386,9 @@ msgstr "Remove Choice"
 
 msgid "Update"
 msgstr "Update"
+
+msgid "🎁 Buy a Haidilao Voucher = <0>Unlock Future Firefly NFT Perks</0> 🍲✨"
+msgstr "🎁 Buy a Haidilao Voucher = <0>Unlock Future Firefly NFT Perks</0> 🍲✨"
 
 msgid "Registered account not found. Please switch to another wallet and try again."
 msgstr "Registered account not found. Please switch to another wallet and try again."
@@ -1601,9 +1598,6 @@ msgstr "Failed to mute @{0} on {sourceName}."
 
 msgid "View Source"
 msgstr "View Source"
-
-msgid "🤝 Meet and connect with <0>Top 10 Asian Web3 teams</0>"
-msgstr "🤝 Meet and connect with <0>Top 10 Asian Web3 teams</0>"
 
 msgid "The final amount is subject to the actual order amount"
 msgstr "The final amount is subject to the actual order amount"
@@ -1836,9 +1830,6 @@ msgstr "Try again"
 
 msgid "Failed to create image payload."
 msgstr "Failed to create image payload."
-
-msgid "Discount won! Valid for 3 minutes，snatch it now!"
-msgstr "Discount won! Valid for 3 minutes，snatch it now!"
 
 msgid "Network Fee"
 msgstr "Network Fee"
@@ -2384,9 +2375,6 @@ msgstr "Compose"
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 msgstr "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 
-msgid "As part of the festival, join us on-site at Marina Bay Sands Haidilao for an afternoon of Web3 + lifestyle experiences:"
-msgstr "As part of the festival, join us on-site at Marina Bay Sands Haidilao for an afternoon of Web3 + lifestyle experiences:"
-
 #. placeholder {0}: first(post.reactions)?.displayName
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
@@ -2457,9 +2445,6 @@ msgstr "Age"
 
 msgid "Failed to recast."
 msgstr "Failed to recast."
-
-msgid "Special On-Site Event"
-msgstr "Special On-Site Event"
 
 msgid "Display Name should not be blank"
 msgstr "Display Name should not be blank"
@@ -2985,6 +2970,9 @@ msgstr "No results for \"{keyword}\""
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
+
+msgid "Discount won! Valid for 10 minutes，snatch it now!"
+msgstr "Discount won! Valid for 10 minutes，snatch it now!"
 
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "Sorry, we are not able to find a wallet for {displayName}."
@@ -3906,9 +3894,6 @@ msgstr "<0>Acquired</0><1/>"
 msgid "Copy link to profile"
 msgstr "Copy link to profile"
 
-msgid "Complete the <0>3 basic tasks</0> below to activate your voucher and get a S$50 Haidilao dining voucher <1>for US$15</1>"
-msgstr "Complete the <0>3 basic tasks</0> below to activate your voucher and get a S$50 Haidilao dining voucher <1>for US$15</1>"
-
 msgid "No whitelist"
 msgstr "No whitelist"
 
@@ -4029,9 +4014,6 @@ msgstr "Ended on {0}"
 
 msgid "Collect Article"
 msgstr "Collect Article"
-
-msgid "🎟 Complete more Firefly tasks to unlock <0>free hotpot vouchers</0> or extra discount voucher"
-msgstr "🎟 Complete more Firefly tasks to unlock <0>free hotpot vouchers</0> or extra discount voucher"
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
@@ -4363,9 +4345,6 @@ msgstr "Failed to purchase."
 msgid "Turn on notifications to never miss important alerts."
 msgstr "Turn on notifications to never miss important alerts."
 
-msgid "📸 Snap photos and connect with <0>well-known KOLs</0>"
-msgstr "📸 Snap photos and connect with <0>well-known KOLs</0>"
-
 msgid "Signature Request"
 msgstr "Signature Request"
 
@@ -4549,9 +4528,6 @@ msgstr "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}
 msgid "Mask Network"
 msgstr "Mask Network"
 
-msgid "💺 <0>Exclusive seat booking</0> at Haidilao and additional discounted dishes of your choice"
-msgstr "💺 <0>Exclusive seat booking</0> at Haidilao and additional discounted dishes of your choice"
-
 msgid "Sanctioned address found."
 msgstr "Sanctioned address found."
 
@@ -4636,9 +4612,6 @@ msgstr "Events"
 
 msgid "Quote posts disabled"
 msgstr "Quote posts disabled"
-
-msgid "📍 <0>Location:</0> Marina Bay Sands"
-msgstr "📍 <0>Location:</0> Marina Bay Sands"
 
 msgid "How to do?"
 msgstr "How to do?"
@@ -5104,9 +5077,6 @@ msgstr "Golden"
 
 msgid "Multi-device login"
 msgstr "Multi-device login"
-
-msgid "📅 <0>Date/ Time:</0> Oct 1, 3:30–6:30 PM"
-msgstr "📅 <0>Date/ Time:</0> Oct 1, 3:30–6:30 PM"
 
 msgid "Success"
 msgstr "Success"

@@ -6,7 +6,7 @@ import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
 export function useFireflyBridgeAuthorization() {
-    const { value: supported } = useFireflyBridgeSupported();
+    const { value: supported = false } = useFireflyBridgeSupported();
     return useQuery({
         enabled: supported,
         queryKey: ['firefly-bridge-authorization', supported],

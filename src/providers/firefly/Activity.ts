@@ -48,10 +48,10 @@ import { SupportedMethod } from '@/types/bridge.js';
 
 class FireflyActivity implements Provider {
     async fetch<T>(url: string, init?: RequestInit) {
-        const authToken = await runInSafeAsync(() =>
-            fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {}),
-        );
-        return fireflyBridgeProvider.supported && authToken
+        const authToken = fireflyBridgeProvider.supported
+            ? await runInSafeAsync(() => fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {}))
+            : undefined;
+        return authToken
             ? await fireflySessionHolder.fetchWithSession<T>(url, init)
             : await fireflySessionHolder.fetch<T>(url, init);
     }
