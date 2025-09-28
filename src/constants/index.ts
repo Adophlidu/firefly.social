@@ -214,7 +214,7 @@ export const SORTED_THIRD_PARTY_SOURCES_IN_URL = [
     SourceInURL.Email,
 ] as const;
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
-export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Farcaster, Source.Twitter];
+export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Farcaster, Source.Twitter, Source.Lens];
 export const SORTED_MEDIA_SOURCES: MediaSource[] = [
     MediaSource.Twimg,
     MediaSource.S3,
