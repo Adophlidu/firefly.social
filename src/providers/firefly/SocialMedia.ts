@@ -416,24 +416,6 @@ class FireflySocialMedia implements Provider {
         });
     }
 
-    async getPostByShortId(shortId: string, handle: string) {
-        return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast', {
-                hash: shortId,
-                fid: session?.profileId,
-                needRootParentHash: true,
-                hashHandle: handle,
-            });
-            const { data: cast } = await fireflySessionHolder.fetch<CastResponse>(url, {
-                method: 'GET',
-            });
-
-            const post = cast ? await formatFarcasterPostFromFirefly(cast) : null;
-            if (!post) throw new NotFoundError('Post not found');
-            return post;
-        });
-    }
-
     getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
         if (isNumericalProfileId(profileIdOrHandle)) {
             return this.getProfileById(profileIdOrHandle);

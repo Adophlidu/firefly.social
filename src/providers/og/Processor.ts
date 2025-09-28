@@ -20,8 +20,8 @@ import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSourceFromUrl } from '@/helpers/resolveSource.js';
 import { convertBskyHandleToDid } from '@/providers/bsky/convertBskyHandleToDid.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { getMirrorPayload } from '@/providers/og/readers/payload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { type LinkDigested, type OpenGraph } from '@/types/og.js';
@@ -100,7 +100,12 @@ class Processor {
                     const handle = match ? match[1] : null;
                     const id = match ? match[2] : null;
                     if (!id) return null;
-                    if (id.length <= 10 && handle) return FireflySocialMediaProvider.getPostByShortId(id, handle);
+                    if (id.length <= 10 && handle)
+                        return FireflyEndpointProvider.getPostByShortId(
+                            id,
+                            handle,
+                            farcasterSessionHolder.session?.profileId,
+                        );
                     const provider = resolveSocialMediaProvider(Source.Farcaster);
                     return provider.getPostById(id);
                 },
@@ -114,7 +119,12 @@ class Processor {
                     const handle = threadMatch ? threadMatch[1] : null;
                     if (!id) return null;
                     const provider = resolveSocialMediaProvider(Source.Farcaster);
-                    if (id.length <= 10 && handle) return FireflySocialMediaProvider.getPostByShortId(id, handle);
+                    if (id.length <= 10 && handle)
+                        return FireflyEndpointProvider.getPostByShortId(
+                            id,
+                            handle,
+                            farcasterSessionHolder.session?.profileId,
+                        );
                     return provider.getPostById(id);
                 },
                 async () => {

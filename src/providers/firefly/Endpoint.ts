@@ -16,7 +16,7 @@ import {
     TipsNotificationType,
     TxReactionType,
 } from '@/constants/enum.js';
-import { OTPExceededMaximumLimit } from '@/constants/error.js';
+import { NotFoundError, OTPExceededMaximumLimit } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
@@ -50,6 +50,7 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
+import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromSuggestedFollow } from '@/providers/farcaster/formatFarcasterProfileFromSuggestedFollow.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { getWalletProfileByAddressOrEns } from '@/providers/firefly/getWalletProfileByAddressOrEns.js';
@@ -65,6 +66,7 @@ import {
     type BlockedUsersResponse,
     type BlockFields,
     type BlockUserResponse,
+    type CastResponse,
     type CollectArticleResponse,
     type CollectionItemsResponse,
     type CollectionResponse,
@@ -1638,6 +1640,22 @@ class FireflyEndpoint {
             method: 'GET',
         });
         return (response.data?.data?.tokenAssets ?? EMPTY_LIST) as TokenAsset[];
+    }
+
+    async getPostByShortId(shortId: string, handle: string, profileId?: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast', {
+            hash: shortId,
+            fid: profileId,
+            needRootParentHash: true,
+            hashHandle: handle,
+        });
+        const { data: cast } = await fireflySessionHolder.fetch<CastResponse>(url, {
+            method: 'GET',
+        });
+
+        const post = cast ? await formatFarcasterPostFromFirefly(cast) : null;
+        if (!post) throw new NotFoundError('Post not found');
+        return post;
     }
 
     async getPostByAnonymousRateLimits() {
