@@ -19,6 +19,23 @@ interface FirebaseApp {
     messaging: () => Messaging;
 }
 
+interface MessagePayload {
+    from: string;
+    messageId: string;
+    notification: {
+        title: string;
+        body: string;
+    };
+    data: {
+        link: string;
+        msgid: string;
+    };
+    fcmOptions: {
+        /** The same as `link` in `data`. */
+        link: string;
+    };
+}
+
 declare let self: ServiceWorkerGlobalScope & {
     firebase: {
         initializeApp: (config: Record<string, string | undefined>) => FirebaseApp;
@@ -39,33 +56,21 @@ self.firebase.initializeApp({
 });
 const messaging = self.firebase.messaging();
 
-const linkRecords = new Map<string, string[]>();
-
-messaging.onBackgroundMessage((payload) => {
+messaging.onBackgroundMessage((payload: MessagePayload) => {
     console.log('[firebase] Background message received');
     if (!payload.notification) return;
 
     const notificationTitle = payload.notification.title || 'Firefly';
-    const recordKey = `${notificationTitle}-${payload.notification.body}`;
-    const records = linkRecords.get(recordKey);
 
-    linkRecords.set(recordKey, records ? [...records, payload.notification.link] : [payload.notification.link]);
     self.registration.showNotification(notificationTitle, {
         ...payload.notification,
         icon: '/android-chrome-144x144.png',
-        data: { link: payload.notification.link },
+        data: { link: payload.data.link },
     });
 });
 
 self.addEventListener('notificationclick', (event) => {
-    const recordKey = `${event.notification.title}-${event.notification.body}`;
-    const records = linkRecords.get(recordKey);
-    const link = event.notification.data?.link || records?.[0] || '/';
-
-    if (records?.length) {
-        if (records.length === 1) linkRecords.delete(recordKey);
-        else linkRecords.set(recordKey, records.slice(1));
-    }
+    const link = event.notification.data?.link;
 
     event.notification.close();
     event.waitUntil(
