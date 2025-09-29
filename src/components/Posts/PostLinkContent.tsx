@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import type { ClassifyPostLinkResult } from '@/app/api/post-link/getClassifyPostLinkWithDeserialization.js';
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
 import { FrameLayout } from '@/components/Frame/Layout.js';
 import { CollectionPreviewer, NFTPreviewer } from '@/components/NFTs/NFTPreview.js';
@@ -15,7 +16,6 @@ import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
 import { type Article } from '@/providers/types/Article.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { ClassifyPostLinkResult } from '@/services/getClassifyPostLinkWithDeserialization.js';
 
 interface PostLinkContentProps {
     data: ClassifyPostLinkResult | null;

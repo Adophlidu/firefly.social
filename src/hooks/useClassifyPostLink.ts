@@ -3,7 +3,7 @@ import { skipToken, useQueries, useQuery } from '@tanstack/react-query';
 import {
     getClassifyPostLinkWithDeserialization,
     getClassifyPostLinkWithDeserializationMultiple,
-} from '@/services/getClassifyPostLinkWithDeserialization.js';
+} from '@/app/api/post-link/getClassifyPostLinkWithDeserialization.js';
 
 export function useClassifyPostLink(url: string | null | undefined) {
     return useQuery({

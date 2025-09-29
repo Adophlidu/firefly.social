@@ -32,6 +32,7 @@ import {
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
+import { getPollIdFromLink } from '@/helpers/getPollIdFromLink.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
@@ -43,7 +44,6 @@ import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getPollIdFromLink } from '@/services/getPostLinks.js';
 import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 export interface PostBodyContentProps {

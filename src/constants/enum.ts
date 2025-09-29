@@ -234,7 +234,6 @@ export enum SearchType {
 export enum KeyType {
     GetLensThreadByPostId = '/v2/getLensThreadByPostId',
     ConsumerSecret = '/v2/consumerSecret',
-    GetClassifyPostLinkWithRedis = '/v1/getClassifyPostLinkWithRedis',
     GetTwitterAvatarById = '/v2/getTwitterAvatar',
     PostState = '/v2/post-state',
 }

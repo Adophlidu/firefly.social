@@ -10,6 +10,7 @@ export async function getSnapshotByLink(link: string) {
     const newMatch = link.match(SNAPSHOT_NEW_PROPOSAL_REGEXP);
     const id = match ? match[1] : newMatch ? newMatch[2] : null;
     if (!id) return;
+
     const { data } = await fetchJson<{ data: { proposal: SnapshotProposal } }>(SNAPSHOT_GRAPHQL_URL, {
         method: 'POST',
         body: JSON.stringify({

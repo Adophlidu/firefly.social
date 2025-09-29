@@ -5,7 +5,7 @@ import { Embed } from '@/components/Oembed/Embed.js';
 import { Player } from '@/components/Oembed/Player.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getPostOembed } from '@/services/getPostLinks.js';
+import { getPostOembed } from '@/services/getPostOembed.js';
 import { type LinkDigested, type OpenGraph } from '@/types/og.js';
 
 interface OembedUIProps {
@@ -44,7 +44,7 @@ export const Oembed = memo<OembedProps>(function Oembed({ post, onData }) {
         error,
     } = useQuery({
         queryKey: ['oembed', url, post],
-        queryFn: () => getPostOembed(url!, post),
+        queryFn: () => (url ? getPostOembed(url, post) : null),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         retry: false,

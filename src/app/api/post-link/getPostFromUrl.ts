@@ -3,12 +3,12 @@ import urlcat from 'urlcat';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
-import type { ResponseJson } from '@/types/utility.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+import type { ResponseJson } from '@/types/utility.js';
 
 export async function getPostFromUrl(postUrl: string): Promise<Post | null> {
     const response = await fetchJson<ResponseJson<Post | null>>(

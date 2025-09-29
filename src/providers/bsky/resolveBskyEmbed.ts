@@ -11,7 +11,7 @@ import { fetchBlob } from '@/helpers/fetchBlob.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getPostOembed } from '@/services/getPostLinks.js';
+import { getPostOembed } from '@/services/getPostOembed.js';
 
 export async function resolveBskyEmbed(post: Post, richText?: RichText) {
     const images = post.mediaObjects?.filter((media) => media.type === 'Image' && !!media.blobRef);

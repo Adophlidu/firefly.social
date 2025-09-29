@@ -2,11 +2,14 @@ import { uniq } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import type { GetClassifyPostLinkOnActionResult } from '@/app/api/post-link/getClassifyPostLink.js';
+import { deserializeClassifyPostLinkResult } from '@/app/api/post-link/getClassifyPostLinkWithDeserialization.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { deserializeClassifyPostLinkResult } from '@/services/getClassifyPostLinkWithDeserialization.js';
+import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 import type { ResponseJson } from '@/types/utility.js';
+
+type PostLinkResponse = ResponseJson<Array<{ url: string; result: GetClassifyPostLinkOnActionResult }>>;
 
 export async function prefetchPostLinks(urls: string[]) {
     return runInSafeAsync(async () => {
@@ -15,15 +18,13 @@ export async function prefetchPostLinks(urls: string[]) {
             return !data;
         });
         if (notCachedUrls.length <= 0) return;
-        const response = await fetchJson<
-            ResponseJson<Array<{ url: string; result: GetClassifyPostLinkOnActionResult }>>
-        >(
-            urlcat(`/api/post-link`, {
-                'cache-urls': notCachedUrls.join(','),
-            }),
-        );
-        if (!response.success) return;
-        for (const { url, result } of response.data) {
+
+        const url = urlcat(`/api/post-link`, {
+            'cache-urls': notCachedUrls.join(','),
+        });
+        const response = await fetchJson<PostLinkResponse>(url);
+        const data = resolveResponseData(response);
+        for (const { url, result } of data) {
             queryClient.setQueryData(['classify-post-link', url], await deserializeClassifyPostLinkResult(result));
         }
     });

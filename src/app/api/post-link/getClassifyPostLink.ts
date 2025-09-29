@@ -2,14 +2,13 @@ import urlcat from 'urlcat';
 
 import { getPostFromUrl } from '@/app/api/post-link/getPostFromUrl.js';
 import { getPostIframeContent } from '@/app/api/post-link/getPostIframeContent.js';
-import { KeyType, STATUS } from '@/constants/enum.js';
+import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
-import { TWEET_SPACE_REGEX } from '@/constants/regexp.js';
+import { EVM_ADDRESS, TWEET_SPACE_REGEX } from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
-import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
@@ -17,12 +16,12 @@ import type { SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
-import { getCollectionFromUrl } from '@/services/getCollectionFromUrl.js';
 import { getNFTFromUrl } from '@/services/getNFTFromUrl.js';
 import { getSnapshotByLink } from '@/services/getSnapshotByLink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { LinkDigested } from '@/types/og.js';
 import type { ResponseJson } from '@/types/utility.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 const IGNORE_HOSTS = [/^.+\.firefly\.social$/, 'localhost:3000', 'x.com'];
 
@@ -85,7 +84,10 @@ export async function getClassifyPostLink(url: string) {
                 return nft ? { nft } : null;
             },
             async () => {
-                const collection = await getCollectionFromUrl(url);
+                const matched = url.match(EVM_ADDRESS);
+                const address = matched?.[0];
+                if (!address) return null;
+                const collection = await FireflyEndpointProvider.detectCollection(address);
                 return collection ? { collection } : null;
             },
             async () => {
@@ -114,8 +116,3 @@ export async function getClassifyPostLink(url: string) {
         (x) => !x,
     );
 }
-
-export const getClassifyPostLinkWithRedis = memoizeWithRedis(getClassifyPostLink, {
-    key: KeyType.GetClassifyPostLinkWithRedis,
-    resolver: (url) => url,
-});
