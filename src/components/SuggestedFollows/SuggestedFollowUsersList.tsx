@@ -13,7 +13,6 @@ import { X3_PRO_URL } from '@/constants/index.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { getBskySuggestedUsers } from '@/providers/bsky/getBskySuggestedUsers.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getSuggestedFollowsInPage } from '@/services/getSuggestedFollows.js';
 
@@ -32,10 +31,7 @@ export function SuggestedFollowUsersList({ source }: Props) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['suggested-follows', source, profile?.profileId, asyncStatus],
         queryFn({ pageParam }) {
-            if (source === Source.Bsky) {
-                return getBskySuggestedUsers(createIndicator(undefined, pageParam), { limit: 25, queryStats: true });
-            }
-            return getSuggestedFollowsInPage(source, createIndicator(undefined, pageParam));
+            return getSuggestedFollowsInPage(source, createIndicator(undefined, pageParam), true);
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id,

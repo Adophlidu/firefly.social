@@ -38,6 +38,7 @@ import { formatBskyChannel } from '@/providers/bsky/formatBskyChannel.js';
 import { formatBskyFeedPost, formatBskyPost, formatBskyThreadPosts } from '@/providers/bsky/formatBskyFeedPost.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { getBskyProfileBySession } from '@/providers/bsky/getBskyProfileBySession.js';
+import { getBskySuggestedUsers } from '@/providers/bsky/getBskySuggestedUsers.js';
 import { publishPostToBsky } from '@/providers/bsky/publishPostToBsky.js';
 import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
@@ -590,30 +591,12 @@ class BskySocialMedia implements Provider {
         return true;
     }
 
-    async getSuggestedFollows(indicator?: PageIndicator) {
+    async getSuggestedFollows(indicator?: PageIndicator, includeFollowingStatus?: boolean) {
         if (!bskySessionHolder.session) {
             return createPageable([], indicator);
         }
-        const size = 20;
-        const response = await bskySessionHolder.agent.getSuggestions({
-            limit: size,
-            cursor: indicator?.id ?? '',
-        });
 
-        const actors = response.data.actors.map((x) => x.did);
-        if (!actors.length) {
-            return createPageable([], indicator);
-        }
-
-        const detailedResponse = await bskySessionHolder.agent.getProfiles({
-            actors,
-        });
-        const profiles = detailedResponse.data.profiles.map(formatBskyProfile);
-        return createPageable(
-            profiles,
-            indicator,
-            response.data.cursor ? createNextIndicator(indicator, response.data.cursor) : undefined,
-        );
+        return getBskySuggestedUsers(indicator, { limit: 20, queryStats: includeFollowingStatus });
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator, limit = 25): Promise<Pageable<Profile, PageIndicator>> {

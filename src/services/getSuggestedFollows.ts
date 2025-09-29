@@ -2,7 +2,6 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { getBskySuggestedUsers } from '@/providers/bsky/getBskySuggestedUsers.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 
@@ -29,11 +28,11 @@ async function getProfilesWithFixedTotal(
     return createPageable(data, createIndicator(undefined), indicator);
 }
 
-export async function getSuggestedFollowsInCard(source: SocialSource) {
+export async function getSuggestedFollowsInCard(source: SocialSource, queryStats?: boolean) {
     const provider = resolveSocialMediaProvider(source, { [Source.Twitter]: 'twitter' });
     const session = getSessionFromStorageBySource(source);
     const result = await getProfilesWithFixedTotal(
-        source === Source.Bsky ? getBskySuggestedUsers : provider.getSuggestedFollows.bind(provider),
+        (indicator) => provider.getSuggestedFollows(indicator, queryStats),
         (oldData, newData) =>
             [
                 ...oldData,
@@ -51,11 +50,11 @@ export async function getSuggestedFollowsInCard(source: SocialSource) {
     return result.data ?? [];
 }
 
-export async function getSuggestedFollowsInPage(source: SocialSource, indicator?: PageIndicator) {
+export async function getSuggestedFollowsInPage(source: SocialSource, indicator?: PageIndicator, queryStats?: boolean) {
     const session = getSessionFromStorageBySource(source);
     const provider = resolveSocialMediaProvider(source);
     return getProfilesWithFixedTotal(
-        provider.getSuggestedFollows.bind(provider),
+        (indicator) => provider.getSuggestedFollows(indicator, queryStats),
         (oldData, newData) => [
             ...oldData,
             ...newData.filter(

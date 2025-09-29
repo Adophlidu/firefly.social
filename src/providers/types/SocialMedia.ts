@@ -835,7 +835,7 @@ export interface Provider {
      * @param indicator Optional PageIndicator for pagination.
      * @returns A promise that resolves to a pageable list of Profile objects.
      */
-    getSuggestedFollows: (indicator?: PageIndicator) => Promise<Pageable<Profile>>;
+    getSuggestedFollows: (indicator?: PageIndicator, includeFollowingStatus?: boolean) => Promise<Pageable<Profile>>;
 
     /**
      * Search profiles.
