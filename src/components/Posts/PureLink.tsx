@@ -38,7 +38,7 @@ export function PureLink({ url, title, description, className }: PureLinkProps) 
                     </h1>
                 ) : null}
                 {description ? (
-                    <div className="line-clamp-2 max-w-full text-sm font-normal text-second">{description}</div>
+                    <div className="line-clamp-1 max-w-full text-sm font-normal text-second">{description}</div>
                 ) : null}
                 <div className="line-clamp-1 max-w-full text-sm font-medium text-highlight">{domain || url}</div>
             </div>
