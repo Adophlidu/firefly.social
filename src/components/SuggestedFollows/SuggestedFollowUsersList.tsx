@@ -35,7 +35,6 @@ export function SuggestedFollowUsersList({ source }: Props) {
             if (source === Source.Bsky) {
                 return getBskySuggestedUsers(createIndicator(undefined, pageParam), { limit: 25, queryStats: true });
             }
-
             return getSuggestedFollowsInPage(source, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',

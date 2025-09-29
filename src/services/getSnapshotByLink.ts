@@ -1,4 +1,5 @@
 import urlcat from 'urlcat';
+
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { SNAPSHOT_NEW_PROPOSAL_REGEXP, SNAPSHOT_PROPOSAL_REGEXP } from '@/constants/regexp.js';
 import { fetchJson } from '@/helpers/fetchJson.js';

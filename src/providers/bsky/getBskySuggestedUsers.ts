@@ -29,13 +29,12 @@ export async function getBskySuggestedUsers(
         queryFn: () => bskySessionHolder.agent.getPreferences(),
         staleTime: 1000 * 60 * 30, // 30 minutes
     });
-    const interests = preferences?.interests?.tags?.join(',') || '';
 
     const response = await bskySessionHolder.agent.sessionManager.fetchHandler(
         urlcat('/xrpc/app.bsky.unspecced.getSuggestedUsers', { limit, category, cursor: indicator?.id }),
         {
             headers: {
-                'X-Bsky-Topics': interests,
+                'X-Bsky-Topics': preferences?.interests?.tags?.join(',') || '',
                 'Content-Type': 'application/json',
             },
         },
