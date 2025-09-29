@@ -10,6 +10,7 @@ import AppleIcon from '@/assets/apple-small.svg';
 import GoogleStoreIcon from '@/assets/google-store.svg';
 import { SignupStep } from '@/constants/enum.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
+import { bom } from '@/helpers/bom.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { FireflyAccountSVG } from '@/modals/CreateFireflyAccountGuideModal/FireflyAccountSVG.js';
 import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';
@@ -19,7 +20,7 @@ interface GuidePageProps {
 }
 
 function computeFontSize() {
-    const windowWidth = window?.innerWidth || 1920;
+    const windowWidth = bom.window?.innerWidth || 1920;
     return {
         title: Math.max(20, Math.min(40, (40 / 1920) * windowWidth)),
         tip: Math.max(14, Math.min(18, (18 / 1920) * windowWidth)),
@@ -35,9 +36,9 @@ export function GuidePage({ changeStep }: GuidePageProps) {
             setFontSizes(computeFontSize());
         }, 100);
 
-        window.addEventListener('resize', onWindowSizeChange);
+        bom.window?.addEventListener('resize', onWindowSizeChange);
         return () => {
-            window.removeEventListener('resize', onWindowSizeChange);
+            bom.window?.removeEventListener('resize', onWindowSizeChange);
         };
     }, []);
 
