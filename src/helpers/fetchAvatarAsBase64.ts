@@ -2,9 +2,8 @@ import { Transformer } from '@napi-rs/image';
 
 export async function fetchAvatarAsBase64(avatarURL: string) {
     const response = await fetch(avatarURL);
-    if (!response.ok) {
-        return null;
-    }
+    if (!response.ok) return null;
+
     const contentType = response.headers.get('content-type') || 'image/jpeg';
     const arrayBuffer = await response.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);

@@ -15,7 +15,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source, id } = await props.params;
     const resolvedSource = resolveSourceFromUrlNoFallback(source);
     if (resolvedSource && isProfilePageSource(resolvedSource)) {
-        return createMetadataProfileById(`/profile/${source}/${id}`, source, id);
+        return createMetadataProfileById(source, id, `/profile/${source}/${id}`);
     }
     return createSiteMetadata(`/profile/${source}/${id}`);
 }
