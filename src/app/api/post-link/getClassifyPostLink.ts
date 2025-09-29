@@ -1,5 +1,7 @@
 import urlcat from 'urlcat';
 
+import { getPostFromUrl } from '@/app/api/post-link/getPostFromUrl.js';
+import { getPostIframeContent } from '@/app/api/post-link/getPostIframeContent.js';
 import { KeyType, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
@@ -11,7 +13,6 @@ import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
-import { getPostIframeContent } from '@/providers/og/readers/getPostIframeContent.js';
 import type { SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -61,7 +62,7 @@ export async function getClassifyPostLink(url: string) {
     return attemptUntil<GetClassifyPostLinkOnActionResult | null>(
         [
             async () => {
-                const quote = await OpenGraphProcessor.digestPostUrl(url);
+                const quote = await getPostFromUrl(url);
                 return quote ? { quote } : null;
             },
             async () => {

@@ -21,7 +21,7 @@ const MethodParamSchemas = {
     getPostByShortId: z.object({
         shortId: z.string(),
         handle: z.string(),
-        profileId: z.string().optional(),
+        profileId: z.string().nullable().optional(),
     }),
     getTruthSocialPostById: z.object({
         truthId: z.string(),
@@ -64,6 +64,8 @@ export async function POST(request: NextRequest) {
         const authHeader = request.headers.get('Authorization');
         if (authHeader) {
             const token = authHeader.replace('Bearer ', '');
+            if (!token) return createErrorResponseJson('Invalid Authorization header', { status: 400 });
+
             // Create a minimal FireflySession with the provided token
             // We use a dummy accountId since we only need the token for API calls
             const session = new FireflySession('dummy-account-id', token, null, null);

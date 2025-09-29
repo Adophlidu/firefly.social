@@ -5,10 +5,15 @@ import { compose } from '@/helpers/compose.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { parseHtml } from '@/helpers/parseHtml.js';
+import { qAny } from '@/helpers/q.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { getImageUrl } from '@/providers/og/readers/getImageUrl.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import type { NextRequestContext } from '@/types/utility.js';
+
+function getImageUrl(document: Document): string | null {
+    const meta = qAny(document, ['lens:image', 'og:image', 'twitter:image', 'twitter:image:src']);
+    return meta?.getAttribute('content') || null;
+}
 
 export const GET = compose(
     withTwitterRequestErrorHandler,
