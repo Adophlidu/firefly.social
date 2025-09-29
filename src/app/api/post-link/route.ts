@@ -26,14 +26,3 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     }
     return createSuccessResponseJson(null);
 });
-
-export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
-    const urls = await request.json();
-    if (!Array.isArray(urls)) return createSuccessResponseJson([]);
-
-    const results = await Promise.allSettled(
-        urls.map(async (url) => ({ url, result: await getClassifyPostLink(url) })),
-    );
-
-    return createSuccessResponseJson(compact(results.map((x) => (x.status === 'fulfilled' ? x.value : null))));
-});

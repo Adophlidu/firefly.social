@@ -38,10 +38,11 @@ export async function getClassifyPostLinkWithDeserializationMultiple(urls: strin
                 result: GetClassifyPostLinkOnActionResult;
             }>
         >
-    >('/api/post-link', {
-        method: 'POST',
-        body: JSON.stringify(urls),
-    });
+    >(
+        urlcat(`/api/post-link`, {
+            'cache-urls': urls.join(','),
+        }),
+    );
     if (!response.success) return [];
 
     return Promise.all(
