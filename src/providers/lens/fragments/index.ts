@@ -1,10 +1,10 @@
 import { type FragmentOf } from '@lens-protocol/client';
 
-import { CommentNotificationFragment } from '@/fragments/notification/CommentNotification.js';
-import { QuoteNotificationFragment } from '@/fragments/notification/QuoteNotification.js';
-import { MediaImageFragment } from '@/fragments/post/MediaImage.js';
-import { PostFragment } from '@/fragments/post/Post.js';
-import { ReferencedPostFragment } from '@/fragments/post/ReferencedPost.js';
+import { CommentNotificationFragment } from '@/providers/lens/fragments/notification/CommentNotification.js';
+import { QuoteNotificationFragment } from '@/providers/lens/fragments/notification/QuoteNotification.js';
+import { MediaImageFragment } from '@/providers/lens/fragments/post/MediaImage.js';
+import { PostFragment } from '@/providers/lens/fragments/post/Post.js';
+import { ReferencedPostFragment } from '@/providers/lens/fragments/post/ReferencedPost.js';
 
 declare module '@lens-protocol/client' {
     export interface Post extends FragmentOf<typeof PostFragment> {}

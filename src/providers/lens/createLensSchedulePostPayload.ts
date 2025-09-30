@@ -1,5 +1,5 @@
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { createPostFragments } from '@/fragments/post/CreatePost.js';
+import { createPostFragments } from '@/providers/lens/fragments/post/CreatePost.js';
 import { readChars } from '@/helpers/chars.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';

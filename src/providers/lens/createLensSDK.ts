@@ -1,7 +1,7 @@
 import { type IStorageProvider, mainnet, PublicClient } from '@lens-protocol/client';
 
 import { LENS_TOKEN_STORAGE_KEY } from '@/constants/index.js';
-import { fragments } from '@/fragments/index.js';
+import { fragments } from '@/providers/lens/fragments/index.js';
 import { bom } from '@/helpers/bom.js';
 
 export class LocalStorageProvider implements IStorageProvider {

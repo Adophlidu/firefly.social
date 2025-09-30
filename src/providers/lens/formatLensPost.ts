@@ -1,7 +1,7 @@
 import {
     type AnyMedia,
     type AnyPost,
-    type FullPostMetadata as PostMetadata,
+    type FullPostMetadata,
     type Post as LensPost,
     type PostAction,
     type PostMention,
@@ -125,7 +125,7 @@ function updateContent(content: string, mentions: PostMention[]) {
     }, content);
 }
 
-async function formatContentV3(metadata: PostMetadata, author: Profile, mentions: PostMention[]) {
+async function formatContentV3(metadata: FullPostMetadata, author: Profile, mentions: PostMention[]) {
     if (!metadata.__typename) return null;
 
     const typeName = metadata.__typename;
@@ -224,7 +224,7 @@ async function formatContentV3(metadata: PostMetadata, author: Profile, mentions
     }
 }
 
-function getMediaObjectsV3(metadata: PostMetadata): MediaObject[] | undefined {
+function getMediaObjectsV3(metadata: FullPostMetadata): MediaObject[] | undefined {
     const typename = metadata.__typename;
     if (!typename) return;
 
@@ -325,7 +325,7 @@ export async function formatLensQuoteOrCommentV3(
     };
 }
 
-export function getPostLocale(metadata: PostMetadata) {
+export function getPostLocale(metadata: FullPostMetadata) {
     if (!metadata.__typename) return 'en';
 
     switch (metadata.__typename) {
@@ -348,7 +348,7 @@ export function getPostLocale(metadata: PostMetadata) {
         case 'UnknownPostMetadata':
             return 'en';
         default:
-            safeUnreachable(metadata);
+            safeUnreachable(metadata.__typename);
             return 'en';
     }
 }

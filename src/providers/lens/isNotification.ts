@@ -11,8 +11,8 @@ import type {
     RepostNotification,
 } from '@lens-protocol/client';
 
-import { CommentNotificationFragment } from '@/fragments/notification/CommentNotification.js';
-import { QuoteNotificationFragment } from '@/fragments/notification/QuoteNotification.js';
+import { CommentNotificationFragment } from '@/providers/lens/fragments/notification/CommentNotification.js';
+import { QuoteNotificationFragment } from '@/providers/lens/fragments/notification/QuoteNotification.js';
 
 function isNotification<
     T extends {

@@ -39,54 +39,6 @@ export const UsersQuery = {
     }`,
 };
 
-export const ProposalQuery = {
-    operationName: 'Proposal',
-    query: `query Proposal($id: String!) {
-        proposal(id: $id) {
-            id
-            ipfs
-            title
-            body
-            discussion
-            choices
-            start
-            end
-            snapshot
-            state
-            author
-            link
-            created
-            plugins
-            network
-            type
-            quorum
-            quorumType
-            symbol
-            privacy
-            validation {
-                name
-                params
-            }
-            strategies {
-                name
-                network
-                params
-            }
-            space {
-                id
-                name
-                avatar
-            }
-            scores_state
-            scores
-            scores_by_strategy
-            scores_total
-            votes
-            flagged
-    }
-    }`,
-};
-
 export const ProposalsQuery = {
     operationName: 'Proposals',
     query: `query Proposals($first: Int, $state: String, $space_in: [String], $start_gte: Int, $id_in: [String]) {

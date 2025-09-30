@@ -480,18 +480,6 @@ export enum PolymarketBetType {
     Sell = 'sell',
 }
 
-export enum LinkDigestType {
-    NFT = 'nft',
-    LensPost = 'lensPost',
-    FarcasterPost = 'farcasterPost',
-    Mirror = 'mirror',
-    Paragraph = 'paragraph',
-    Snapshot = 'snapshot',
-    Twitter = 'twitter',
-    TwitterXQT = 'twitterXQT',
-    FarcasterFrames = 'farcasterFrames',
-}
-
 export enum MintStatus {
     NotSupported = 0,
     Mintable = 1,

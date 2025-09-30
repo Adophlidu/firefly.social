@@ -28,13 +28,7 @@ export const CHANNEL_REGEX = /(^|\s)\/[a-z0-9][a-z0-9-]*($|(?![0-9a-zA-Z/]))/g;
 
 export const MIRROR_HOSTNAME_REGEXP = /mirror\.xyz|.+\.mirror\.xyz/i;
 
-export const WARPCAST_THREAD_REGEX = /^https:\/\/warpcast\.com\/([^/]+)\/([^/]+)$/;
-export const WARPCAST_CONVERSATIONS_REGEX = /^https:\/\/warpcast\.com\/~\/conversations\/(0x[a-fA-F0-9]+)?$/;
-
-export const LENS_DETAIL_REGEX = /^https:\/\/hey\.xyz\/posts\/.*$/;
 export const FARCASTER_DETAIL_REGEX = /^https:\/\/farcaster\.xyz\/([^/]+)\/(0x[a-fA-F0-9]+)$/;
-
-export const FIREFLY_DETAIL_REGEX = /^https:\/\/([^/]+\.)?firefly\.social\/post\/([^/]+)\/([a-zA-Z0-9_]+)$/;
 
 export const BIO_TWITTER_PROFILE_REGEX = /([^\s]+)\.twitter/;
 // cspell: disable-next-line
@@ -43,7 +37,6 @@ export const TWITTER_NORMAL_AVATAR = /^https:\/\/pbs\.twimg\.com.*_normal(\.\w+)
 export const NUMBER_STRING_REGEX = /^[0-9\s+-,]+$/m;
 
 export const TWEET_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z0-9_]*)\/status\/(\d+)/;
-export const TWEET_WEB_REGEX = /https:\/\/(x\.com|twitter\.com)\/i\/web\/status\/(\d+)/;
 
 export const TWEET_SPACE_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z0-9_]*)\/spaces\/([a-zA-Z0-9_]*)/;
 
@@ -72,16 +65,11 @@ export const IPFS_REGEXP =
 
 export const FIREFLY_DISPLAY_NAME_REGEXP = /^(?!\s*$).+/;
 
-// https://truthsocial.com/users/realDonaldTrump/statuses/114496851630865496
-export const TRUTH_SOCIAL_POST_REGEXP = /https:\/\/truthsocial\.com\/users\/([^/]+)\/statuses\/([a-zA-Z0-9_]+)/;
-
 export const SPECIAL_TOKEN_SYMBOLS = ['the network state'];
 export const SPECIAL_TOKEN_SYMBOLS_REGEX = new RegExp(`\\b(${SPECIAL_TOKEN_SYMBOLS.join('|')})\\b`, 'i');
 
 // From x api error message: "The `query` query parameter value [x] does not match ^[A-Za-z0-9_' ]{1,50}$ (code: undefined)"
 export const TWITTER_PROFILE_SEARCH_REGEXP = /^[A-Za-z0-9_' ]{1,50}$/;
-
-export const BSKY_POST_REGEXP = /^https:\/\/bsky\.app\/profile\/([^/]+)\/post\/([a-zA-Z0-9_]+)/;
 
 /* cspell:ignore youtu */
 export const YOUTUBE_URL_REGEX = /^https?:\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w-]+)(?:\?.*)?$/;
