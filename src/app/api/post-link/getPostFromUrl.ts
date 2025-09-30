@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
+import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';

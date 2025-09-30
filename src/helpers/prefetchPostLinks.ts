@@ -5,8 +5,8 @@ import type { GetClassifyPostLinkOnActionResult } from '@/app/api/post-link/getC
 import { deserializeClassifyPostLinkResult } from '@/app/api/post-link/getClassifyPostLinkWithDeserialization.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
+import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 import type { ResponseJson } from '@/types/utility.js';
 
 type PostLinkResponse = ResponseJson<Array<{ url: string; result: GetClassifyPostLinkOnActionResult }>>;

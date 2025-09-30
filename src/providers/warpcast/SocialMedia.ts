@@ -10,8 +10,8 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
+import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 import { formatFarcasterChannelFromWarpcast } from '@/providers/farcaster/formatFarcasterChannelFromWarpcast.js';
 import { getFarcasterAuthToken } from '@/providers/farcaster/getFarcasterAuthToken.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';

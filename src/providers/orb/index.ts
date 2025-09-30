@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatOrbPoll } from '@/helpers/formatOrbPoll.js';
-import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
+import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';

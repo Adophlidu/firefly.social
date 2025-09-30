@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
+import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJson } from '@/types/utility.js';
 

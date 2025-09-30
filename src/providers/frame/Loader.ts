@@ -4,8 +4,8 @@ import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { anySignal } from '@/helpers/anySignal.js';
 import { fetchCachedJSON } from '@/helpers/fetchJson.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
+import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { BaseLoader } from '@/providers/base/Loader.js';
-import { resolveResponseData } from '@/providers/bsky/resolveResponseData.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJson } from '@/types/utility.js';
 

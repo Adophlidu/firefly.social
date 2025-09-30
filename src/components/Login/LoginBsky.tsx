@@ -1,6 +1,5 @@
 /* cspell:disable */
 
-import type { ComAtprotoServerDescribeServer } from '@atproto/api';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -69,7 +68,9 @@ function createBskyFullHandle(name: string, domain: string): string {
 function formatBskyLoginIdentifier(
     username: string,
     serviceUrl: string,
-    serviceDescription?: ComAtprotoServerDescribeServer.OutputSchema,
+    serviceDescription?: {
+        availableUserDomains: string[];
+    },
 ) {
     if (username.includes('@') || username.includes('.')) return username;
 
