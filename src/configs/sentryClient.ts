@@ -25,15 +25,10 @@ class SentryClient {
         const sentry = await this.loadSentry();
 
         sentry.onLoad(() => {
-            const browserTracking = sentry.browserTracingIntegration();
-
             sentry.init({
                 dsn: env.external.NEXT_PUBLIC_SENTRY_DSN,
                 release: process.version,
                 environment: IS_PRODUCTION ? 'prod' : IS_PREVIEW ? 'preview' : 'development',
-                integrations: [browserTracking],
-                tracesSampleRate: 1.0,
-                tracePropagationTargets: [/firefly\.social/],
                 ignoreErrors: ['AbortError', 'The element has no supported sources.'],
             });
 
