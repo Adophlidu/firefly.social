@@ -3,12 +3,12 @@
 import type { HTMLProps, PropsWithChildren, ReactNode } from 'react';
 
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { type SocialSource } from '@/constants/enum.js';
+import type { LoginFallbackSource } from '@/constants/enum.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
-    source: SocialSource;
+    source: LoginFallbackSource;
     fallback?: ReactNode;
     required?: boolean;
 }
@@ -25,7 +25,8 @@ export function LoginRequiredGuard({
     if (!required) return children;
 
     if (!isLogin) {
-        return fallback ?? <NotLoginFallback source={source} className={className} />;
+        if (fallback) return fallback;
+        return <NotLoginFallback source={source} className={className} />;
     }
 
     return children;

@@ -10,13 +10,13 @@ import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { Source } from '@/constants/enum.js';
 import { isToday } from '@/helpers/isToday.js';
 import { isTomorrow } from '@/helpers/isTomorrow.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { formatTwitterProfile } from '@/providers/twitter/formatTwitterProfile.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
@@ -170,23 +170,24 @@ function TweetSpaceContent({ spaceId }: Props) {
 }
 
 export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
-    const isLogin = useIsLogin(Source.Twitter);
-
-    if (!isLogin) {
-        return (
-            <div className="mt-3 flex min-h-[128px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
-                <p className="text-[13px] font-semibold leading-6">
-                    <Trans>Log in with your X account to view</Trans>
-                </p>
-                <ClickableArea
-                    className="rounded-full bg-[rgba(24,26,32,0.5)] px-3 py-2 text-sm leading-[18px]"
-                    onClick={() => openLoginModal()}
-                >
-                    <Trans>Login</Trans>
-                </ClickableArea>
-            </div>
-        );
-    }
-
-    return <TweetSpaceContent spaceId={spaceId} />;
+    return (
+        <LoginRequiredGuard
+            source={Source.Twitter}
+            fallback={
+                <div className="mt-3 flex min-h-[128px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
+                    <p className="text-[13px] font-semibold leading-6">
+                        <Trans>Log in with your X account to view</Trans>
+                    </p>
+                    <ClickableArea
+                        className="rounded-full bg-[rgba(24,26,32,0.5)] px-3 py-2 text-sm leading-[18px]"
+                        onClick={() => openLoginModal()}
+                    >
+                        <Trans>Login</Trans>
+                    </ClickableArea>
+                </div>
+            }
+        >
+            <TweetSpaceContent spaceId={spaceId} />
+        </LoginRequiredGuard>
+    );
 });

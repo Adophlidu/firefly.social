@@ -3,14 +3,14 @@
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import type { GridItemProps, GridListProps } from 'react-virtuoso';
+import { type GridItemProps, type GridListProps } from 'react-virtuoso';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { Link } from '@/components/Link.js';
+import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
-import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
@@ -19,7 +19,6 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
 
@@ -75,14 +74,12 @@ function GridItem({ children, ...props }: GridItemProps) {
     return <div {...props}>{children}</div>;
 }
 
-export function NFTBookmarkList() {
-    const isLogin = useIsLogin();
+function NFTBookmarkListContent() {
     const profileIds = useCurrentProfileIds();
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['bookmarks', Source.NFTs, profileIds],
         queryFn: async ({ pageParam }) => {
-            if (!isLogin) return;
             try {
                 return await FireflySocialMediaProvider.getNFTBookmarks(createIndicator(undefined, pageParam));
             } catch (error) {
@@ -98,10 +95,6 @@ export function NFTBookmarkList() {
         select: (data) => compact(data.pages.flatMap((x) => x?.data)),
     });
 
-    if (!isLogin) {
-        return <NotLoginFallback source={Source.Polymarket} />;
-    }
-
     return (
         <GridListInPage
             queryResult={queryResult}
@@ -110,13 +103,19 @@ export function NFTBookmarkList() {
                     List: GridList,
                     Item: GridItem,
                 },
-                itemContent: (index, item) => {
-                    return getNFTItemContent(item.id, item.nft);
-                },
+                itemContent: (index, item) => getNFTItemContent(item.id, item.nft),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',
             }}
         />
+    );
+}
+
+export function NFTBookmarkList() {
+    return (
+        <LoginRequiredGuard source={Source.Polymarket}>
+            <NFTBookmarkListContent />
+        </LoginRequiredGuard>
     );
 }

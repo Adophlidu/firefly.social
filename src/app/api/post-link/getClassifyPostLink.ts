@@ -10,8 +10,10 @@ import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { resolveNFTDataFromUrl } from '@/helpers/resolveNFTDataFromUrl.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import type { SnapshotProposal } from '@/providers/snapshot/type.js';
@@ -23,8 +25,6 @@ import { getSnapshotByLink } from '@/services/getSnapshotByLink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { LinkDigested } from '@/types/og.js';
 import type { ResponseJson } from '@/types/utility.js';
-import { resolveNFTDataFromUrl } from '@/helpers/resolveNFTDataFromUrl.js';
-import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 
 const IGNORE_HOSTS = [/^.+\.firefly\.social$/, 'localhost:3000', 'x.com'];
 

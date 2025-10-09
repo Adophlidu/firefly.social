@@ -20,8 +20,9 @@ interface Props extends NextPageProps<{ id: string; category: ProfileCategory; s
 
 export default function Page(props: Props) {
     const params = use(props.params);
-    const source = resolveSourceFromUrlNoFallback(params.source);
     const { identity: cachedIdentity } = use(ProfileContext);
+
+    const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isProfilePageSource(source)) notFound();
 
     // Lens used handle in profile page, while timeline can only be queried using profileId, it is necessary to convert handle to profileId.
