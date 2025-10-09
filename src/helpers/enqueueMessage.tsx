@@ -1,4 +1,5 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { omit } from 'lodash-es';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
@@ -19,13 +20,13 @@ export interface MessageOptions extends OptionsObject {
     environment?: NODE_ENV;
 }
 
-interface ErrorOptions extends OptionsObject, Pick<ErrorReportSnackbarProps, 'noReport'> {
+interface ErrorOptions extends OptionsObject, Pick<ErrorReportSnackbarProps, 'noReport' | 'icon'> {
     error?: unknown;
     /** If you don't want to display error stack */
     description?: string;
 }
 
-interface ErrorsOptions extends OptionsObject, Pick<ErrorReportSnackbarProps, 'noReport'> {
+interface ErrorsOptions extends OptionsObject, Pick<ErrorReportSnackbarProps, 'noReport' | 'icon'> {
     errors?: unknown[];
     /** If you don't want to display error stack */
     description?: string;
@@ -111,9 +112,15 @@ export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOpt
         options: {
             duration: 15 * 1000, // 15s
             variant: 'error',
-            ...options,
+            ...omit(options, 'icon'),
             content: (key: SnackbarKey, message?: SnackbarMessage) => (
-                <ErrorReportSnackbar id={key} message={message} detail={detail} noReport={options?.noReport} />
+                <ErrorReportSnackbar
+                    id={key}
+                    icon={options?.icon}
+                    message={message}
+                    detail={detail}
+                    noReport={options?.noReport}
+                />
             ),
         },
     });
@@ -129,9 +136,9 @@ export function enqueueErrorsMessage(message: SnackbarMessage, options?: ErrorsO
         options: {
             duration: 15 * 1000, // 15s
             variant: 'error',
-            ...options,
+            ...omit(options, 'icon'),
             content: (key: SnackbarKey, message?: SnackbarMessage) => (
-                <ErrorReportSnackbar id={key} message={message} detail={detailedMessage} />
+                <ErrorReportSnackbar id={key} icon={options?.icon} message={message} detail={detailedMessage} />
             ),
         },
     });

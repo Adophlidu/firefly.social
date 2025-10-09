@@ -4,8 +4,10 @@ import { Trans } from '@lingui/react/macro';
 import { NoSSR } from '@/components/NoSSR.js';
 import { SolidSourceTabs } from '@/components/Tabs/SolidSourceTabs.js';
 import { TimelineTitle } from '@/components/TimelineTitle.js';
+import { Source } from '@/constants/enum.js';
 import { BOOKMARK_SOURCES } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation/server.js';
+import { classNames } from '@/helpers/classNames.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBookmarkSource } from '@/helpers/isSource.js';
@@ -46,7 +48,7 @@ export default async function Layout(props: Props) {
                     </NoSSR>
                 </div>
             </div>
-            <div className="px-4">{children}</div>
+            <div className={classNames(source !== Source.Tokens ? 'px-4' : null)}>{children}</div>
         </div>
     );
 }

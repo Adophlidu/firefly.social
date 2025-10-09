@@ -40,6 +40,7 @@ export function ListInPage<T = unknown, C = unknown>({
         Source.DAOs,
         Source.Posts,
         Source.NFTs,
+        Source.Tokens,
         Source.Notifications,
         Source.Polymarket,
     ].includes(source);

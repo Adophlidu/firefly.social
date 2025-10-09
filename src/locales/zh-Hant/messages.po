@@ -183,6 +183,10 @@ msgstr "{shares, plural, one {轉發或引用} other {轉發或引用}}"
 msgid "Ask a question"
 msgstr "提問"
 
+#. placeholder {0}: error.message
+msgid "Failed to add to Bookmarks. {0}"
+msgstr ""
+
 msgid "There is no data available to select."
 msgstr "無可選數據。"
 
@@ -217,6 +221,10 @@ msgstr "已在 {sourceName} 上追蹤 @{0}"
 
 msgid "Search collection"
 msgstr "搜尋 NFT 系列"
+
+#. placeholder {0}: error.message
+msgid "Failed to remove from Bookmarks. {0}"
+msgstr ""
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {追蹤者} other {追蹤者}}"
@@ -1080,6 +1088,9 @@ msgstr "24 小時交易量"
 msgid "Failed to delete scheduled post."
 msgstr "刪除預約貼文失敗。"
 
+msgid "You haven't bookmarked any tokens."
+msgstr ""
+
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "未包含黑名單功能。若有黑名單，部分地址可能無法正常交易（詐騙風險）。"
 
@@ -1584,6 +1595,9 @@ msgstr "未找到 {0} 的連接器"
 #. placeholder {0}: channel.id
 msgid "Unmute /{0}"
 msgstr "取消隱藏 /{0}"
+
+msgid "Volume(24h) · MC"
+msgstr ""
 
 msgid "Report spam"
 msgstr "檢舉垃圾訊息"
@@ -2508,6 +2522,9 @@ msgstr "回追"
 
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 msgstr "此錢包已被標記為有風險。請勿信任或與其進行互動。避免任何交易或分享敏感資訊。請保持安全！"
+
+msgid "Bookmarked Token"
+msgstr ""
 
 msgid "Are you sure you want to report this article?"
 msgstr "是否確定要檢舉這篇文章？"
@@ -4001,6 +4018,9 @@ msgstr "選擇網路"
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "請選擇一個 EVM 錢包與一個 Solana 錢包以使用 Firefly 鏈上功能。"
 
+msgid "Token added to your Bookmarks. <0>View</0>"
+msgstr ""
+
 msgid "Scan QR code to access your account"
 msgstr "掃碼登入帳戶"
 
@@ -4056,6 +4076,9 @@ msgstr "輸入獲獎人數"
 
 msgid "Add"
 msgstr "新增"
+
+msgid "Token removed from your Bookmarks. <0>View</0>"
+msgstr ""
 
 #. placeholder {0}: formatFileSize(maxGifSize)
 msgid "Failed to upload. Gif size exceeds {0}"
@@ -4993,6 +5016,9 @@ msgstr "哎呀... 發生錯誤，請重試。"
 
 msgid "Following"
 msgstr "正在追蹤"
+
+msgid "Trending Token"
+msgstr ""
 
 msgid "Your X account holds Premium status"
 msgstr "您的 X 帳號為 Premium"

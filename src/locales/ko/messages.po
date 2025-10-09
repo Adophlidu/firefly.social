@@ -183,6 +183,10 @@ msgstr ""
 msgid "Ask a question"
 msgstr ""
 
+#. placeholder {0}: error.message
+msgid "Failed to add to Bookmarks. {0}"
+msgstr ""
+
 msgid "There is no data available to select."
 msgstr ""
 
@@ -216,6 +220,10 @@ msgid "Followed @{0} on {sourceName}"
 msgstr ""
 
 msgid "Search collection"
+msgstr ""
+
+#. placeholder {0}: error.message
+msgid "Failed to remove from Bookmarks. {0}"
 msgstr ""
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
@@ -1080,6 +1088,9 @@ msgstr ""
 msgid "Failed to delete scheduled post."
 msgstr ""
 
+msgid "You haven't bookmarked any tokens."
+msgstr ""
+
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
@@ -1583,6 +1594,9 @@ msgstr ""
 
 #. placeholder {0}: channel.id
 msgid "Unmute /{0}"
+msgstr ""
+
+msgid "Volume(24h) · MC"
 msgstr ""
 
 msgid "Report spam"
@@ -2499,6 +2513,9 @@ msgid "Follow Back"
 msgstr ""
 
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
+msgstr ""
+
+msgid "Bookmarked Token"
 msgstr ""
 
 msgid "Are you sure you want to report this article?"
@@ -3988,6 +4005,9 @@ msgstr ""
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr ""
 
+msgid "Token added to your Bookmarks. <0>View</0>"
+msgstr ""
+
 msgid "Scan QR code to access your account"
 msgstr ""
 
@@ -4042,6 +4062,9 @@ msgid "Enter Number of Winners"
 msgstr ""
 
 msgid "Add"
+msgstr ""
+
+msgid "Token removed from your Bookmarks. <0>View</0>"
 msgstr ""
 
 #. placeholder {0}: formatFileSize(maxGifSize)
@@ -4974,6 +4997,9 @@ msgid "Something went wrong, please try again."
 msgstr ""
 
 msgid "Following"
+msgstr ""
+
+msgid "Trending Token"
 msgstr ""
 
 msgid "Your X account holds Premium status"

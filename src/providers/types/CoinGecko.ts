@@ -174,6 +174,8 @@ export interface CoinGeckoCoinTrending {
     market_cap_rank: number;
     data: {
         price: number;
+        /**  "$1,107,834,290" */
+        market_cap: string;
         price_change_percentage_24h: {
             usd: number;
         };

@@ -11,6 +11,8 @@ import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.j
 import { Section } from '@/components/Semantic/Section.js';
 import { SuggestedChannels } from '@/components/SuggestedChannels/SuggestedChannels.js';
 import { SuggestedFollows } from '@/components/SuggestedFollows/SuggestedFollows.js';
+import { BookmarkedTokens } from '@/components/Token/BookmarkedTokens.js';
+import { SideTrendingTokens } from '@/components/Token/SideTrendingTokens.js';
 import { WithinDiscover } from '@/components/WithinDiscover.js';
 import { PageRoute } from '@/constants/enum.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
@@ -58,7 +60,7 @@ export default async function Layout({ children, modal }: { children: ReactNode;
                 </IfPathname>
 
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
-                    <IfPathname isNotOneOf={[PageRoute.Settings]}>
+                    <IfPathname isNotOneOf={[PageRoute.Settings, '/following/transactions']}>
                         <Section title="Advertisement" className="mt-2.5">
                             <Advertisement />
                         </Section>
@@ -66,17 +68,22 @@ export default async function Layout({ children, modal }: { children: ReactNode;
 
                     <WithinDiscover
                         otherwise={
-                            <>
+                            <IfPathname isNotOneOf={['/following/transactions']}>
                                 <SuggestedFollows />
                                 <SuggestedChannels />
-                            </>
+                            </IfPathname>
                         }
                     >
                         <Section title="Web3 Calendar">
                             <Calendar />
                         </Section>
                     </WithinDiscover>
-
+                    <IfPathname isOneOf={['/following/transactions']}>
+                        <div className="flex flex-col gap-6">
+                            <BookmarkedTokens />
+                            <SideTrendingTokens />
+                        </div>
+                    </IfPathname>
                     <LinkCloud />
                 </div>
             </aside>

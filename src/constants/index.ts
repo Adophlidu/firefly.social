@@ -298,6 +298,7 @@ export const BOOKMARK_SOURCES: BookmarkSource[] = [
     Source.Farcaster,
     Source.Lens,
     Source.Bsky,
+    Source.Tokens,
     Source.NFTs,
     Source.Article,
     Source.DAOs,

@@ -64,6 +64,7 @@ export enum Source {
     Wallet = 'Wallet',
     WalletMix = 'Wallets',
     NFTs = 'NFTs',
+    Tokens = 'Tokens',
     Polymarket = 'Polymarket',
     Telegram = 'Telegram',
     Google = 'Google',
@@ -88,6 +89,7 @@ export enum SourceInURL {
     Wallet = 'wallet',
     WalletMix = 'wallets',
     NFTs = 'nfts',
+    Tokens = 'tokens',
     Polymarket = 'polymarket',
     Telegram = 'telegram',
     Google = 'google',
@@ -126,6 +128,7 @@ export enum FireflyPlatform {
     Article = 'article',
     Wallet = 'wallet',
     NFTs = 'nfts',
+    Token = 'token',
     DAOs = 'snapshot',
     Polymarket = 'polymarket',
 }
@@ -173,7 +176,14 @@ export type ProfilePageSource = SocialSource | Source.Wallet | Source.WalletMix;
 export type ProfilePageSourceInURL = SocialSourceInURL | SourceInURL.Wallet | SourceInURL.WalletMix;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter;
 export type DiscoverSource = Source.Posts | Source.Activities | Source.Transactions;
-export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.DAOs | Source.NFTs | Source.Bsky;
+export type BookmarkSource =
+    | Source.Farcaster
+    | Source.Lens
+    | Source.Article
+    | Source.DAOs
+    | Source.NFTs
+    | Source.Tokens
+    | Source.Bsky;
 export type FollowingSource = DiscoverSource | Source.Transactions | Source.Activities;
 export type ExploreSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter | TrendingType;
 export type ExploreSourceInURL =

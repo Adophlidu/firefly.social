@@ -2,7 +2,7 @@
 
 import { createElement, type HTMLProps, type JSX, type MouseEvent } from 'react';
 
-interface ClickableAreaProps extends HTMLProps<HTMLDivElement> {
+export interface ClickableAreaProps extends HTMLProps<HTMLDivElement> {
     disabled?: boolean;
     as?: keyof JSX.IntrinsicElements;
 }

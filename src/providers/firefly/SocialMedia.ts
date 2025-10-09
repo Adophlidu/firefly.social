@@ -5,6 +5,7 @@ import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForBookmarkNFT } from '@/decorators/SetQueryDataForBookmarkNFT.js';
+import { SetQueryDataForBookmarkToken } from '@/decorators/SetQueryDataForBookmarkToken.js';
 import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
@@ -24,6 +25,7 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
+import { resolveTokenBookmarkId } from '@/helpers/resolveTokenBookmarkId.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import {
     formatBriefChannelFromFirefly,
@@ -45,10 +47,12 @@ import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
+import type { BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
 import {
     type BlockChannelResponse,
     type BlockedChannelsResponse,
     type BlockedUsersResponse,
+    type Bookmarkable,
     type BookmarkResponse,
     type Cast,
     type CastResponse,
@@ -78,6 +82,7 @@ import {
     type SearchProfileResponse,
     type SetNotificationPushSwitchParams,
     type ThreadResponse,
+    type TokenWithMarketData,
     type User,
     type UsersResponse,
 } from '@/providers/types/Firefly.js';
@@ -118,6 +123,7 @@ function groupNFTParamsByChainId(nftIds: string[]) {
 }
 
 @SetQueryDataForBookmarkNFT()
+@SetQueryDataForBookmarkToken()
 class FireflySocialMedia implements Provider {
     get type() {
         return SessionType.Farcaster;
@@ -1206,6 +1212,20 @@ class FireflySocialMedia implements Provider {
         return await FireflySocialMediaProvider.unbookmark(nftId);
     }
 
+    async bookmarkToken(options: BookmarkTokenOptions) {
+        const bookmarkContentId = resolveTokenBookmarkId(options);
+        return await FireflySocialMediaProvider.bookmark(
+            bookmarkContentId,
+            FireflyPlatform.Token,
+            undefined,
+            BookmarkType.All,
+        );
+    }
+    async unbookmarkToken(options: BookmarkTokenOptions) {
+        const bookmarkContentId = resolveTokenBookmarkId(options);
+        return await FireflySocialMediaProvider.unbookmark(bookmarkContentId);
+    }
+
     async getNFTBookmarks(indicator?: PageIndicator): Promise<
         Pageable<
             {
@@ -1248,6 +1268,50 @@ class FireflySocialMedia implements Provider {
                     return nft ? { id, nft: adjustAssetUris(nft) } : null;
                 }),
             ),
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        );
+    }
+
+    async getTokenBookmarks(
+        indicator?: PageIndicator,
+        limit = 25,
+    ): Promise<Pageable<Bookmarkable<TokenWithMarketData>, PageIndicator>> {
+        const session = getSessionFromStorage(SessionType.Farcaster);
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
+            post_type: BookmarkType.All,
+            platforms: 'token',
+            limit,
+            cursor: indicator?.id || undefined,
+            fid: session?.profileId,
+        });
+
+        const response = await fireflySessionHolder.fetch<BookmarkResponse<void>>(url);
+        const data = resolveFireflyResponseData(response);
+
+        const promises = compact(
+            data.list.map((item) => {
+                if (/^\d+\./.test(item.post_id)) {
+                    const parts = item.post_id.split('.');
+                    const chainId = +parts[0];
+                    const address = parts[1];
+                    if (!address) return null;
+                    return FireflyEndpointProvider.getTokenByAddress(chainId, address);
+                } else if (item.post_id) {
+                    return FireflyEndpointProvider.getTokenByCoinId(item.post_id);
+                }
+                return null;
+            }),
+        );
+        const allTokens = await Promise.allSettled(promises);
+        const list = allTokens.flatMap((x) =>
+            x.status === 'fulfilled' && x.value
+                ? ({ ...x.value, is_bookmarked: true } as Bookmarkable<TokenWithMarketData>)
+                : [],
+        );
+
+        return createPageable(
+            compact(list),
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
         );

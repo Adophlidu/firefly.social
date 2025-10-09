@@ -183,6 +183,10 @@ msgstr "{shares, plural, one {转发或引用} other {转发或引用}}"
 msgid "Ask a question"
 msgstr "询问"
 
+#. placeholder {0}: error.message
+msgid "Failed to add to Bookmarks. {0}"
+msgstr ""
+
 msgid "There is no data available to select."
 msgstr "没有可选择的数据。"
 
@@ -217,6 +221,10 @@ msgstr "已在 {sourceName} 上关注 @{0}"
 
 msgid "Search collection"
 msgstr "搜索 NFT 系列"
+
+#. placeholder {0}: error.message
+msgid "Failed to remove from Bookmarks. {0}"
+msgstr ""
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {关注者} other {关注者}}"
@@ -1080,6 +1088,9 @@ msgstr "24h 交易总额"
 msgid "Failed to delete scheduled post."
 msgstr "删除定时任务失败。"
 
+msgid "You haven't bookmarked any tokens."
+msgstr ""
+
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "黑名单功能未启用。如果启用，有些地址可能无法正常交易（欺诈风险）。"
 
@@ -1584,6 +1595,9 @@ msgstr "未找到 {0} 的连接器"
 #. placeholder {0}: channel.id
 msgid "Unmute /{0}"
 msgstr "取消隐藏 /{0}"
+
+msgid "Volume(24h) · MC"
+msgstr ""
 
 msgid "Report spam"
 msgstr "举报垃圾信息"
@@ -2508,6 +2522,9 @@ msgstr "回关"
 
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 msgstr "该钱包已被标记为存在安全风险。请不要信任或与其进行任何交互。避免任何交易或分享敏感信息。请保持警惕！"
+
+msgid "Bookmarked Token"
+msgstr ""
 
 msgid "Are you sure you want to report this article?"
 msgstr "你确定要举报这篇文章吗？"
@@ -4001,6 +4018,9 @@ msgstr "选择网络"
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "请连接一个 EVM 钱包和一个 Solana 钱包以体验 Firefly 的链上功能。"
 
+msgid "Token added to your Bookmarks. <0>View</0>"
+msgstr ""
+
 msgid "Scan QR code to access your account"
 msgstr "扫码登录账户"
 
@@ -4056,6 +4076,9 @@ msgstr "输入获奖人数"
 
 msgid "Add"
 msgstr "添加"
+
+msgid "Token removed from your Bookmarks. <0>View</0>"
+msgstr ""
 
 #. placeholder {0}: formatFileSize(maxGifSize)
 msgid "Failed to upload. Gif size exceeds {0}"
@@ -4993,6 +5016,9 @@ msgstr "哎呀！出错了。 请再试一次。"
 
 msgid "Following"
 msgstr "正在关注"
+
+msgid "Trending Token"
+msgstr ""
 
 msgid "Your X account holds Premium status"
 msgstr "你的 X 账号为 Premium"

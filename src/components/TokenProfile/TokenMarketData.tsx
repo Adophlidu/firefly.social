@@ -19,6 +19,7 @@ import { Link } from '@/components/Link.js';
 import { PriceChart } from '@/components/PriceChart/index.js';
 import { useWithinRangeRecords } from '@/components/PriceChart/useWithinRangeRecords.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
+import { TokenBookmarkButton } from '@/components/Token/TokenBookmarkButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
@@ -48,6 +49,7 @@ import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import type { Contract } from '@/providers/types/Trending.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import type { PriceRecord, TradeRecord } from '@/types/token.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 function getRanges() {
     return [
@@ -290,22 +292,29 @@ export const TokenMarketData = memo(function TokenMarketData({
                                 ) : null}
                             </div>
                         </div>
-                        {tradeInfo.tradable ? (
-                            <SwapButton
-                                className="ml-auto sm:hidden md:inline-flex"
-                                swapProps={
-                                    tradeChainId
-                                        ? {
-                                              toToken: address || tradeInfo.address,
-                                              chainId: tradeChainId,
-                                              chainIds: tradeInfo.supportedChainIds.map((x) => x.toString()),
-                                          }
-                                        : undefined
-                                }
-                            >
-                                <Trans>Swap</Trans>
-                            </SwapButton>
-                        ) : null}
+                        <div className="ml-auto flex items-center gap-2 empty:hidden">
+                            {tradeInfo.tradable ? (
+                                <SwapButton
+                                    className="sm:hidden md:inline-flex"
+                                    swapProps={
+                                        tradeChainId
+                                            ? {
+                                                  toToken: address || tradeInfo.address,
+                                                  chainId: tradeChainId,
+                                                  chainIds: tradeInfo.supportedChainIds.map((x) => x.toString()),
+                                              }
+                                            : undefined
+                                    }
+                                >
+                                    <Trans>Swap</Trans>
+                                </SwapButton>
+                            ) : null}
+                            <TokenBookmarkButton
+                                coinId={token.id}
+                                chainId={chainId || EthereumChainId.Mainnet}
+                                address={address}
+                            />
+                        </div>
                     </div>
                     {isTrendingPending && !contractSelect ? (
                         <div className="ml-[52px] mt-0.5 h-[30px] w-[122px] self-start rounded-full bg-bg02" />

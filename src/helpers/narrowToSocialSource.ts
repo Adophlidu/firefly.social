@@ -14,6 +14,7 @@ export const narrowToSocialSource = createLookupTableResolver<Source, SocialSour
         // default to Farcaster
         [Source.Article]: Source.Farcaster,
         [Source.NFTs]: Source.Farcaster,
+        [Source.Tokens]: Source.Farcaster,
         [Source.DAOs]: Source.Farcaster,
         [Source.Polymarket]: Source.Farcaster,
         [Source.Telegram]: Source.Farcaster,
@@ -46,6 +47,7 @@ export const narrowToSocialSourceInURL = createLookupTableResolver<SourceInURL, 
         // default to Farcaster
         [SourceInURL.Article]: SourceInURL.Farcaster,
         [SourceInURL.NFTs]: SourceInURL.Farcaster,
+        [SourceInURL.Tokens]: SourceInURL.Farcaster,
         [SourceInURL.DAOs]: SourceInURL.Farcaster,
         [SourceInURL.Polymarket]: SourceInURL.Farcaster,
         [SourceInURL.Telegram]: SourceInURL.Farcaster,

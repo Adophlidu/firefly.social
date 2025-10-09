@@ -3,6 +3,7 @@ import { type Draft, produce } from 'immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
+import type { PageData } from '@/decorators/types.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveNFTId, resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
@@ -12,8 +13,6 @@ import type { ClassType } from '@/types/utility.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const METHODS_BE_OVERRIDDEN = ['bookmarkNFT', 'unbookmarkNFT'] as const;
-
-type PageData<T> = { pages: Array<{ data: T[] }> };
 
 function createUpdater<T>(updater: (item: Draft<T>) => void) {
     return (old?: PageData<T>) => {
@@ -30,7 +29,7 @@ function createUpdater<T>(updater: (item: Draft<T>) => void) {
     };
 }
 
-function toggleBlock(id: string, status: boolean) {
+function toggleBookmark(id: string, status: boolean) {
     queryClient.setQueriesData<PageData<NFTFeedV3>>(
         { queryKey: ['nfts', 'discover'] },
         createUpdater<NFTFeedV3>((feed) => {
@@ -101,7 +100,7 @@ export function SetQueryDataForBookmarkNFT() {
 
                     const result = await m.call(target.prototype, id, owner);
                     if (result) {
-                        toggleBlock(id.toLowerCase(), status);
+                        toggleBookmark(id.toLowerCase(), status);
                     }
 
                     return result;

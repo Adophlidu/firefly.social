@@ -253,6 +253,7 @@ export class CoinGecko {
                 symbol: info.symbol,
                 thumbnail: info.thumb,
                 market: {
+                    market_cap: +info.data.market_cap.replace(/(^\$|,)/g, ''),
                     current_price: info.data.price,
                     price_change_percentage_24h: info.data.price_change_percentage_24h.usd,
                 },

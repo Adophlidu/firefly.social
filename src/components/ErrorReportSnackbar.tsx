@@ -15,11 +15,12 @@ export interface ErrorReportSnackbarProps {
     id: string;
     detail?: string | ReactNode;
     noReport?: boolean;
+    icon?: ReactNode;
     message: SnackbarMessage;
     ref?: ForwardedRef<HTMLDivElement>;
 }
 
-export function ErrorReportSnackbar({ id, detail, noReport, message, ref }: ErrorReportSnackbarProps) {
+export function ErrorReportSnackbar({ id, detail, noReport, icon, message, ref }: ErrorReportSnackbarProps) {
     const { closeSnackbar } = useSnackbar();
     const [expanded, setExpanded] = useState(false);
 
@@ -60,7 +61,7 @@ export function ErrorReportSnackbar({ id, detail, noReport, message, ref }: Erro
                     <div className="flex max-w-[400px] text-white">
                         <div className="mr-auto flex flex-grow cursor-pointer items-center" onClick={handleExpandClick}>
                             <div className="mr-1 inline-block p-2 text-white">
-                                <XCircleIcon className="size-[20px] text-white" />
+                                {icon ?? <XCircleIcon className="size-[20px] text-white" />}
                             </div>
                             <div
                                 className="break-word"

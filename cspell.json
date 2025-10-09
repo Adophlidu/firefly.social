@@ -19,6 +19,7 @@
         "blockhash",
         "bluesky",
         "boba",
+        "Bookmarkable",
         "brise",
         "bsky",
         "cacheable",
@@ -27,6 +28,7 @@
         "celo",
         "chainbase",
         "coincarp",
+        "crosspost",
         "daos",
         "datetime",
         "deeplink",
@@ -153,8 +155,7 @@
         "zerion",
         "zksync",
         "zora",
-        "zustand",
-        "crosspost"
+        "zustand"
     ],
     "ignoreWords": [
         "Aave",

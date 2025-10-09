@@ -43,7 +43,7 @@ export function TokenTrendingList(props: Props) {
     return (
         <div>
             {data.map((x) => (
-                <SearchableTokenItem key={x.id} token={x} />
+                <SearchableTokenItem className="border-b border-line" key={x.id} token={x} />
             ))}
 
             <VirtualListFooterBottomText />

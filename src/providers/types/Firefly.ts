@@ -1536,6 +1536,7 @@ export interface TokenWithMarketData {
     detail_platforms: unknown;
     id: string;
     image: Record<'small' | 'thumb' | 'large', string>;
+    platform_type?: TokenPlatformType;
     links: {
         homepage: string[];
         twitter_handle: string;
@@ -1568,8 +1569,15 @@ export interface TokenWithMarketData {
     }>;
     symbol: string;
     web_slug: string;
+    chain_id: number;
     contract_address: string;
+    market_cap_rank: number;
 }
+
+export type Bookmarkable<T> = T & {
+    /** extends at runtime */
+    is_bookmarked: boolean;
+};
 
 export type WalletsStatusResponse = Response<
     Array<{

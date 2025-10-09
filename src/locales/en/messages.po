@@ -178,6 +178,10 @@ msgstr "{shares, plural, one {Repost or Quote} other {Reposts or Quotes}}"
 msgid "Ask a question"
 msgstr "Ask a question"
 
+#. placeholder {0}: error.message
+msgid "Failed to add to Bookmarks. {0}"
+msgstr "Failed to add to Bookmarks. {0}"
+
 msgid "There is no data available to select."
 msgstr "There is no data available to select."
 
@@ -212,6 +216,10 @@ msgstr "Followed @{0} on {sourceName}"
 
 msgid "Search collection"
 msgstr "Search collection"
+
+#. placeholder {0}: error.message
+msgid "Failed to remove from Bookmarks. {0}"
+msgstr "Failed to remove from Bookmarks. {0}"
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {Follower} other {Followers}}"
@@ -1075,6 +1083,9 @@ msgstr "24 Hour Trading Vol"
 msgid "Failed to delete scheduled post."
 msgstr "Failed to delete scheduled post."
 
+msgid "You haven't bookmarked any tokens."
+msgstr "You haven't bookmarked any tokens."
+
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 
@@ -1579,6 +1590,9 @@ msgstr "No connector found for {0}"
 #. placeholder {0}: channel.id
 msgid "Unmute /{0}"
 msgstr "Unmute /{0}"
+
+msgid "Volume(24h) · MC"
+msgstr "Volume(24h) · MC"
 
 msgid "Report spam"
 msgstr "Report spam"
@@ -2503,6 +2517,9 @@ msgstr "Follow Back"
 
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
 msgstr "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
+
+msgid "Bookmarked Token"
+msgstr "Bookmarked Token"
 
 msgid "Are you sure you want to report this article?"
 msgstr "Are you sure you want to report this article?"
@@ -3996,6 +4013,9 @@ msgstr "Select Network"
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 
+msgid "Token added to your Bookmarks. <0>View</0>"
+msgstr "Token added to your Bookmarks. <0>View</0>"
+
 msgid "Scan QR code to access your account"
 msgstr "Scan QR code to access your account"
 
@@ -4051,6 +4071,9 @@ msgstr "Enter Number of Winners"
 
 msgid "Add"
 msgstr "Add"
+
+msgid "Token removed from your Bookmarks. <0>View</0>"
+msgstr "Token removed from your Bookmarks. <0>View</0>"
 
 #. placeholder {0}: formatFileSize(maxGifSize)
 msgid "Failed to upload. Gif size exceeds {0}"
@@ -4986,6 +5009,9 @@ msgstr "Something went wrong, please try again."
 
 msgid "Following"
 msgstr "Following"
+
+msgid "Trending Token"
+msgstr "Trending Token"
 
 msgid "Your X account holds Premium status"
 msgstr "Your X account holds Premium status"

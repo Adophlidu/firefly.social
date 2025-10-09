@@ -30,6 +30,7 @@ export function getStampAvatarByProfileId(source: Source, profileId: string, siz
         case Source.Wallet:
         case Source.WalletMix:
         case Source.NFTs:
+        case Source.Tokens:
         case Source.Article:
         case Source.DAOs:
         case Source.Polymarket:

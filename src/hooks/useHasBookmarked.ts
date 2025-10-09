@@ -1,4 +1,5 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
+import { uniq } from 'lodash-es';
 
 import { type BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -16,7 +17,11 @@ export function useHasBookmarked(platform: FireflyPlatform, id: string, postType
         queryFn: disabled
             ? skipToken
             : async () => {
-                  const data = await getFireflyBookmarksByIds(platform, isNFT ? [id, lowerCaseId] : [id], postType);
+                  const data = await getFireflyBookmarksByIds(
+                      platform,
+                      isNFT ? uniq([id, lowerCaseId]) : [id],
+                      postType,
+                  );
 
                   const matched = data.find(
                       (x) => x.post_id.toLowerCase() === lowerCaseId && x.has_book_marked === true,
