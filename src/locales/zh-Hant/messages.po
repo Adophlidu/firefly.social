@@ -1369,6 +1369,9 @@ msgstr "更多詳情"
 msgid "Verified by Lens"
 msgstr "由 Lens 驗證"
 
+msgid "Limo article"
+msgstr ""
+
 msgid "No proxy"
 msgstr "無代理"
 

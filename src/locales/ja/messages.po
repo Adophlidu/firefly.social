@@ -1369,6 +1369,9 @@ msgstr ""
 msgid "Verified by Lens"
 msgstr ""
 
+msgid "Limo article"
+msgstr ""
+
 msgid "No proxy"
 msgstr ""
 

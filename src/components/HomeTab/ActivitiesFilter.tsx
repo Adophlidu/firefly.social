@@ -23,7 +23,7 @@ const ActivitiesPlatforms = [
     },
     {
         platform: ActivitiesPlatform.Limo,
-        label: <Trans>Limo</Trans>,
+        label: <Trans>Limo article</Trans>,
     },
 ];
 

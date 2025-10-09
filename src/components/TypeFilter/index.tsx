@@ -1,6 +1,8 @@
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 
+import RadioOff from '@/assets/radio.disable-no.svg';
+import RadioOn from '@/assets/radio.yes.svg';
 import { classNames } from '@/helpers/classNames.js';
 import { captureTypeFilterClickEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 
@@ -46,23 +48,27 @@ function TypeFilter<T extends string = string>({
                             key={option.value}
                             className="flex cursor-pointer items-center gap-2"
                             onClick={() => {
+                                let newOptions: T[] = [];
                                 if (multiple) {
-                                    onOptionsChange?.(
-                                        selected
-                                            ? selectedOptions.filter((x) => x !== option.value)
-                                            : [...selectedOptions, option.value],
-                                    );
+                                    newOptions = selected
+                                        ? selectedOptions.filter((x) => x !== option.value)
+                                        : [...selectedOptions, option.value];
+                                    onOptionsChange?.(newOptions);
                                 } else {
                                     onOptionChange?.(option.value);
                                 }
-                                if (!selected) captureTypeFilterClickEvent(option.value);
+                                if (!selected) {
+                                    captureTypeFilterClickEvent(option.value);
+                                } else if (multiple && !newOptions.length) {
+                                    captureTypeFilterClickEvent('all');
+                                }
                             }}
                         >
-                            <input
-                                type={multiple ? 'checkbox' : 'radio'}
-                                checked={selected}
-                                className={classNames('size-4 border-secondaryLine', multiple ? 'rounded-[4px]' : null)}
-                            />
+                            {selected ? (
+                                <RadioOn className="size-4 text-highlight" />
+                            ) : (
+                                <RadioOff className="size-4 text-secondaryLine" />
+                            )}
                             <div className="text-sm font-semibold text-main">{option.label}</div>
                         </div>
                     );
