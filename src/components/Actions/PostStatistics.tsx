@@ -224,7 +224,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                 className,
             )}
         >
-            <div className="flex items-center gap-1">
+            <div className="flex flex-wrap items-center gap-1">
                 {statisticsItems.map((item, i, arr) => {
                     const isLast = arr.length - 1 === i;
                     return (
