@@ -1,9 +1,9 @@
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { createPostFragments } from '@/providers/lens/fragments/post/CreatePost.js';
 import { readChars } from '@/helpers/chars.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { createPostFragments } from '@/providers/lens/fragments/post/CreatePost.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';
 import { createPayloadAttachments, createPostMetadata } from '@/providers/lens/postToLens.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';

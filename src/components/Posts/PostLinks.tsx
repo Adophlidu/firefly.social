@@ -1,6 +1,5 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import { compact, last, uniq } from 'lodash-es';
 import { memo, useEffect, useMemo } from 'react';
 
@@ -15,7 +14,6 @@ import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import { resolveAllOembedUrls, resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { useClassifyPostLink, useClassifyPostLinkMultiple } from '@/hooks/useClassifyPostLink.js';
-import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Chars } from '@/types/chars.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -29,15 +27,6 @@ interface Props {
 function PostLinksSingle({ post, isInCompose = false }: Props) {
     const url = resolveOembedUrl(post);
     const { isLoading, error, data = null } = useClassifyPostLink(url);
-
-    const { data: article } = useQuery({
-        enabled: !!data?.articleId,
-        queryKey: ['article-detail', data?.articleId],
-        queryFn: async () => {
-            if (!data?.articleId) return;
-            return FireflyArticleProvider.getArticleById(data.articleId);
-        },
-    });
 
     const content = post.metadata.content?.content;
     useEffect(() => {
@@ -62,9 +51,7 @@ function PostLinksSingle({ post, isInCompose = false }: Props) {
 
     if (!url || isLoading || error) return null;
 
-    return (
-        <PostLinkContent data={data} url={url} post={post} article={article || undefined} isInCompose={isInCompose} />
-    );
+    return <PostLinkContent data={data} url={url} post={post} isInCompose={isInCompose} />;
 }
 
 function PostLinksMultiple({ post, isInCompose = false, hasRpPayload = false }: Props) {

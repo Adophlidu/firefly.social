@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import type { ClassifyPostLinkResult } from '@/app/api/post-link/getClassifyPostLinkWithDeserialization.js';
@@ -14,18 +15,17 @@ import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
-import { type Article } from '@/providers/types/Article.js';
+import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostLinkContentProps {
     data: ClassifyPostLinkResult | null;
     url: string;
     post: Post;
-    article?: Article;
     isInCompose?: boolean;
 }
 
-export function PostLinkContent({ data, url, post, article, isInCompose }: PostLinkContentProps) {
+export function PostLinkContent({ data, url, post, isInCompose }: PostLinkContentProps) {
     const router = useRouter();
     const isLargeOembed = useMemo(() => {
         const hasAttachments = !!post.metadata.content?.attachments?.length;
@@ -42,6 +42,15 @@ export function PostLinkContent({ data, url, post, article, isInCompose }: PostL
         return data.quote;
     }, [data?.quote, post]);
 
+    const { data: article } = useQuery({
+        enabled: !!data?.articleId,
+        queryKey: ['article-detail', data?.articleId],
+        queryFn: async () => {
+            if (!data?.articleId) return;
+            return FireflyArticleProvider.getArticleById(data.articleId);
+        },
+    });
+
     if (!data) return <PureLink url={url} className="mt-2" />;
 
     // If the url occurs in the content, it might be rendered as an embed card as well.
@@ -49,7 +58,7 @@ export function PostLinkContent({ data, url, post, article, isInCompose }: PostL
 
     return (
         <>
-            {article ? (
+            {article && data?.articleId ? (
                 <ArticleBody
                     article={article}
                     onClick={() => {
