@@ -10,18 +10,21 @@ import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import type { SnapshotProposal } from '@/providers/snapshot/type.js';
+import type { Article } from '@/providers/types/Article.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
-import { getNFTFromUrl } from '@/services/getNFTFromUrl.js';
 import { getSnapshotByLink } from '@/services/getSnapshotByLink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { LinkDigested } from '@/types/og.js';
 import type { ResponseJson } from '@/types/utility.js';
+import { resolveNFTDataFromUrl } from '@/helpers/resolveNFTDataFromUrl.js';
+import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 
 const IGNORE_HOSTS = [/^.+\.firefly\.social$/, 'localhost:3000', 'x.com'];
 
@@ -49,7 +52,7 @@ export interface GetClassifyPostLinkOnActionResult {
     oembed?: LinkDigested;
     frame?: Frame;
     html?: string;
-    articleId?: string;
+    article?: Article;
     spaceId?: string;
     snapshot?: SnapshotProposal;
     nft?: NFTDetail;
@@ -62,7 +65,8 @@ export async function getClassifyPostLink(url: string) {
         [
             async () => {
                 const quote = await getPostFromUrl(url);
-                return quote ? { quote } : null;
+                if (!quote) return null;
+                return { quote };
             },
             async () => {
                 const spaceId = url.match(TWEET_SPACE_REGEX)?.[3];
@@ -77,10 +81,21 @@ export async function getClassifyPostLink(url: string) {
             async () => {
                 const articleId = await getArticleIdFromUrl(url);
                 if (!articleId) return null;
-                return { articleId };
+
+                const article = await FireflyArticleProvider.getArticleById(articleId);
+                if (!article) return null;
+
+                return { article };
             },
             async () => {
-                const nft = await getNFTFromUrl(url);
+                const nftParams = resolveNFTDataFromUrl(url);
+                if (!nftParams || !NFTSCAN_CHAIN_IDS.includes(nftParams.chainId)) return null;
+
+                const nft = await FireflyEndpointProvider.getNFTDetail(
+                    nftParams.chainId,
+                    nftParams.address,
+                    nftParams.tokenId,
+                );
                 return nft ? { nft } : null;
             },
             async () => {

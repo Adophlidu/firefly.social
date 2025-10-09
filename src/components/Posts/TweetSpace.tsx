@@ -29,32 +29,14 @@ interface Props {
     spaceId: string;
 }
 
-export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
-    const isLogin = useIsLogin(Source.Twitter);
+function TweetSpaceContent({ spaceId }: Props) {
     const { data, isLoading, error, refetch } = useQuery({
-        enabled: isLogin,
         queryKey: ['twitter-space', spaceId],
-        queryFn() {
-            return TwitterSocialMediaProxy.getSpace(spaceId);
+        async queryFn() {
+            const response = await TwitterSocialMediaProxy.getSpace(spaceId);
+            return response;
         },
     });
-    const space = data?.data;
-
-    if (!isLogin) {
-        return (
-            <div className="mt-3 flex min-h-[128px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
-                <p className="text-[13px] font-semibold leading-6">
-                    <Trans>Log in with your X account to view</Trans>
-                </p>
-                <ClickableArea
-                    className="rounded-full bg-[rgba(24,26,32,0.5)] px-3 py-2 text-sm leading-[18px]"
-                    onClick={() => openLoginModal()}
-                >
-                    <Trans>Login</Trans>
-                </ClickableArea>
-            </div>
-        );
-    }
 
     if (isLoading) {
         return (
@@ -79,6 +61,8 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
             </div>
         );
     }
+
+    const space = data?.data;
 
     if (!space) {
         return (
@@ -183,4 +167,26 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
             ) : null}
         </Link>
     );
+}
+
+export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
+    const isLogin = useIsLogin(Source.Twitter);
+
+    if (!isLogin) {
+        return (
+            <div className="mt-3 flex min-h-[128px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
+                <p className="text-[13px] font-semibold leading-6">
+                    <Trans>Log in with your X account to view</Trans>
+                </p>
+                <ClickableArea
+                    className="rounded-full bg-[rgba(24,26,32,0.5)] px-3 py-2 text-sm leading-[18px]"
+                    onClick={() => openLoginModal()}
+                >
+                    <Trans>Login</Trans>
+                </ClickableArea>
+            </div>
+        );
+    }
+
+    return <TweetSpaceContent spaceId={spaceId} />;
 });
