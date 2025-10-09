@@ -58,13 +58,16 @@ export const SearchTabs = memo(function SearchTabs() {
                 return (
                     <Link
                         key={tab.link}
-                        className={classNames('h-[45px] border-b-4 font-bold leading-[45px] transition-all', {
-                            'border-transparent text-third': !isActive,
-                            'border-highlight text-highlight': isActive,
-                        })}
+                        className={classNames(
+                            'h-[45px] whitespace-nowrap border-b-4 font-bold leading-[45px] transition-all',
+                            {
+                                'border-transparent text-third': !isActive,
+                                'border-highlight text-highlight': isActive,
+                            },
+                        )}
                         href={tab.link}
                     >
-                        <span className="px-4">{tab.label}</span>
+                        <span className="px-2 sm:px-4">{tab.label}</span>
                     </Link>
                 );
             })}

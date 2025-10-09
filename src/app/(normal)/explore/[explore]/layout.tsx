@@ -52,7 +52,7 @@ export default async function Layout(props: Props) {
                         </NoSSR>
                     ) : (
                         <SourceTab
-                            className="whitespace-nowrap text-base md:!h-[45px] md:!px-4 md:!py-[10px]"
+                            className="whitespace-nowrap !px-2 text-base md:!h-[45px] md:!px-4 md:!py-[10px]"
                             key={x}
                             href={resolveExploreUrl(x)}
                             isActive={x === explore}
