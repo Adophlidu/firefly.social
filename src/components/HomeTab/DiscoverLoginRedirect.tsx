@@ -7,16 +7,17 @@ import { useRouter } from '@/esm/navigation.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
-import { useIsLoginDiscoverSource } from '@/hooks/useIsLogin.js';
+import { useIsLoginDiscoverSource, useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 
 export function DiscoverLoginRedirect() {
     const router = useRouter();
     const isLogin = useIsLoginDiscoverSource();
+    const isLoginFirefly = useIsLoginFirefly();
     const prevLoginRef = useRef<boolean>(null);
     const isSyncing = useAsyncStatusAll();
 
     useEffect(() => {
-        if (prevLoginRef.current === isLogin || isSyncing) return;
+        if (prevLoginRef.current === isLogin || isSyncing || !isLoginFirefly) return;
         prevLoginRef.current = isLogin;
         router.replace(
             isLogin ? resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE) : resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE),
@@ -25,7 +26,7 @@ export function DiscoverLoginRedirect() {
                 disableSameURL: true,
             },
         );
-    }, [isLogin, router, isSyncing]);
+    }, [isLogin, router, isSyncing, isLoginFirefly]);
 
     return null;
 }
