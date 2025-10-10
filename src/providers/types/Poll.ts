@@ -1,7 +1,7 @@
-import type { SocialSource, SocialSourceInURL } from '@/constants/enum.js';
+import type { SocialSource, SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
 import type { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import type { Pageable } from '@/helpers/pageable.js';
-import type { Response } from '@/providers/types/Firefly.js';
+import type { Response as FireflyResponse } from '@/providers/types/Firefly.js';
 
 export interface PollOption {
     id: string;
@@ -47,7 +47,7 @@ export interface CreatePollRequest {
     strategies: POLL_STRATEGIES;
 }
 
-export type CreatePollResponse = Response<{
+export type CreatePollResponse = FireflyResponse<{
     poll_id: string;
 }>;
 
@@ -70,7 +70,7 @@ export interface FireflyPoll {
     choice_detail: FireflyPollOption[];
 }
 
-export type GetPollResponse = Response<FireflyPoll>;
+export type GetPollResponse = FireflyResponse<FireflyPoll>;
 
 export interface VoteRequest {
     poll_id: string;
@@ -89,7 +89,15 @@ export type VoteResponseData = {
     choice_detail: FireflyPollOption[];
 };
 
-export type VoteResponse = Response<VoteResponseData>;
+export type VoteResponse = FireflyResponse<VoteResponseData>;
+
+export interface VoteRequestOptions {
+    poll_id: string;
+    platform: SourceInURL.Farcaster | SourceInURL.Lens;
+    platform_id: string;
+    choices: number[];
+    farcaster_miniapp_token?: string;
+}
 
 export interface Provider {
     /**

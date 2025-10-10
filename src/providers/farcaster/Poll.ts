@@ -5,11 +5,9 @@ import { NotImplementedError } from '@/constants/error.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
-import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { commitPoll, vote } from '@/services/poll.js';
-import type { Index } from '@/types/frame.js';
+import { commitPoll, voteV2 } from '@/services/poll.js';
 
 @SetQueryDataForVote(Source.Farcaster)
 class FarcasterPoll implements Provider {
@@ -44,17 +42,11 @@ class FarcasterPoll implements Provider {
             throw new Error('No selected choice.');
         }
 
-        const packet = await HubbleFrameProvider.generateSignaturePacket(postId, frameUrl, +option.id as Index);
-        return await vote({
+        return voteV2({
             poll_id: pollId,
             platform: SourceInURL.Farcaster,
             platform_id: session.profileId,
             choices: [+option.id],
-            lens_token: '',
-            farcaster_signature: packet.trustedData.messageBytes,
-            wallet_address: '',
-            original_message: JSON.stringify(packet.untrustedData),
-            signature_message: packet.trustedData.messageBytes,
         });
     }
 

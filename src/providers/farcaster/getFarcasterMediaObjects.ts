@@ -2,7 +2,7 @@ import { uniqBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { isFrameV1 } from '@/helpers/frame.js';
-import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
+import { getFarcasterPollUrl } from '@/helpers/getPollFrameUrl.js';
 import { resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
@@ -31,7 +31,7 @@ export function getFarcasterMediaObjects(
             ...frames.filter(isFrameV1).map((frame) => ({ title: frame.title, url: frame.url })),
             ...openGraphs.map((openGraph) => ({ title: openGraph.title!, url: openGraph.url })),
             ...(polls ?? []).map((poll) => ({
-                url: getPollFrameUrl(poll.id, Source.Farcaster),
+                url: getFarcasterPollUrl(poll.id),
             })),
             ...videos.map((media) => ({
                 url: resolveVideoUrl(Source.Farcaster, media),

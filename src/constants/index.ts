@@ -78,6 +78,7 @@ export const ORB_API_URL = 'https://orbapi.xyz';
 export const ACCOUNT_CONFLICT_SOLUTION_URL =
     'https://mask.notion.site/Experience-a-login-conflict-2227d90fdc9b819cabffe6a98d87f901';
 export const ACCOUNT_CONFLICT_SOLUTION_ZH_URL = 'https://mask.notion.site/2327d90fdc9b80c8aba6e217343b304b';
+export const FARCASTER_POLL_MINI_APP_URL = 'https://polls-miniapps.firefly.social';
 
 export const ADVERTISEMENT_JSON_URL = `${FIREFLY_S3_DOMAIN}/advertisement/web.json`;
 

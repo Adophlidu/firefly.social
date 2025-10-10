@@ -120,7 +120,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
     const noLeftPadding = isDetail || isMedium || disablePadding;
 
     const oembedUrl = resolveOembedUrl(post);
-    const pollId = oembedUrl ? getPollIdFromLink(oembedUrl) : undefined;
+    const pollId = oembedUrl ? getPollIdFromLink(oembedUrl, post.source) : undefined;
 
     const hasEncryptedPayload = !!redPacketMetadata;
     const EncryptedContent = useMemo(() => {
@@ -147,7 +147,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
     const supportMultipleEmbeds = SUPPORTED_MULTIPLE_EMBED_SOURCES.includes(post.source);
     const LinksContent =
         !isParsingRedPacket && (supportMultipleEmbeds || (!hasEncryptedPayload && !pollId)) ? (
-            <PostLinks hasRpPayload={!!hasEncryptedPayload} post={post} />
+            <PostLinks hasRpPayload={!!hasEncryptedPayload} hasPoll={!!pollId} post={post} />
         ) : null;
 
     if (isQuote) {

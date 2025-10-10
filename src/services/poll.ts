@@ -15,6 +15,7 @@ import type {
     GetPollResponse,
     Poll,
     VoteRequest,
+    VoteRequestOptions,
     VoteResponse,
 } from '@/providers/types/Poll.js';
 import { settings } from '@/settings/index.js';
@@ -64,6 +65,16 @@ export const vote = async (voteRequest: VoteRequest) => {
     const response = await fireflySessionHolder.fetch<VoteResponse>(url, {
         method: 'POST',
         body: JSON.stringify(voteRequest),
+    });
+
+    return resolveFireflyResponseData(response);
+};
+
+export const voteV2 = async (options: VoteRequestOptions) => {
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/vote_frame/poll/vote');
+    const response = await fireflySessionHolder.fetchWithSession<VoteResponse>(url, {
+        method: 'POST',
+        body: JSON.stringify(options),
     });
 
     return resolveFireflyResponseData(response);

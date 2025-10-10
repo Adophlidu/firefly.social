@@ -22,6 +22,7 @@ interface Props {
     post: Post;
     isInCompose?: boolean;
     hasRpPayload?: boolean;
+    hasPoll?: boolean;
 }
 
 function PostLinksSingle({ post, isInCompose = false }: Props) {
@@ -100,13 +101,13 @@ function PostLinksMultiple({ post, isInCompose = false, hasRpPayload = false }: 
     );
 }
 
-export const PostLinks = memo(function PostLinks({ post, isInCompose = false, hasRpPayload }: Props) {
+export const PostLinks = memo(function PostLinks({ post, isInCompose = false, hasRpPayload, hasPoll }: Props) {
     const urls = resolveAllOembedUrls(post);
     if (urls.length > 1 && SUPPORTED_MULTIPLE_EMBED_SOURCES.includes(post.source)) {
         return <PostLinksMultiple post={post} isInCompose={isInCompose} hasRpPayload={hasRpPayload} />;
     }
 
-    return hasRpPayload ? null : <PostLinksSingle post={post} isInCompose={isInCompose} />;
+    return hasRpPayload || hasPoll ? null : <PostLinksSingle post={post} isInCompose={isInCompose} />;
 });
 
 export function PostLinksInCompose({
