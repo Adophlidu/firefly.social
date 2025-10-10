@@ -104,20 +104,17 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
                     ) : null}
                     {showMarketInfo && tokenWithMarket ? (
                         <div className="flex gap-2">
-                            {tokenWithMarket.market_data?.volume_usd_24h ? (
-                                <span className="text-sm leading-[20px] text-second">
-                                    ${nFormatter(tokenWithMarket.market_data.volume_usd_24h)}
-                                </span>
-                            ) : null}
-                            {tokenWithMarket.market_data?.volume_usd_24h &&
-                            tokenWithMarket.market_data?.market_cap_usd ? (
-                                <span>·</span>
-                            ) : null}
-                            {tokenWithMarket.market_data?.market_cap_usd ? (
-                                <span className="text-sm leading-[20px] text-second">
-                                    ${nFormatter(tokenWithMarket.market_data.market_cap_usd)}
-                                </span>
-                            ) : null}
+                            <span className="text-sm leading-[20px] text-second">
+                                {tokenWithMarket.market_data?.volume_usd_24h
+                                    ? `$${nFormatter(tokenWithMarket.market_data.volume_usd_24h)}`
+                                    : '-'}
+                            </span>
+                            <span className="text-sm leading-[20px] text-second">·</span>
+                            <span className="text-sm leading-[20px] text-second">
+                                {tokenWithMarket.market_data?.market_cap_usd
+                                    ? `$${nFormatter(tokenWithMarket.market_data.market_cap_usd)}`
+                                    : '-'}
+                            </span>
                         </div>
                     ) : null}
                 </div>

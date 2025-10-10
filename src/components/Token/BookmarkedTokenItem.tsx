@@ -28,13 +28,14 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
         ? token.platform_type === TokenPlatformType.Cex
         : !!token.id && !isValidAddress(token.id);
 
-    const chainId = token.chain_id || token.platform_info[0].chain_id;
-    const address = token.contract_address || token.platform_info[0].token_address;
-    const tokenPageUrl = resolveTokenPageUrl(
-        isValidAddress(token.id)
-            ? { identity: token.id, chainId }
-            : { identity: token.id, isCoinId: true, chainId: isCex ? undefined : chainId },
-    );
+    const chainId = token.chain_id || token.platform_info?.[0]?.chain_id;
+    const address = token.contract_address || token.platform_info?.[0]?.token_address;
+    const tokenPageUrl = resolveTokenPageUrl({
+        identity: token.id,
+        isCoinId: isCex,
+        chainId,
+        address,
+    });
     const priceChange = token.market_data?.price_change_percentage_24h ?? 0;
     return (
         <Link
