@@ -86,6 +86,7 @@ import {
     type FollowingTraderCountResponse,
     type GenerateFarcasterSignatureResponse,
     type GenerateOTPResponse,
+    type GenesisSparksAccountsResponse,
     type GetAllConnectionsResponse,
     type GetAnonymousPostResponse,
     type GetCollectStatusResponse,
@@ -1731,6 +1732,22 @@ class FireflyEndpoint {
             createIndicator(),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
+    }
+
+    async checkGenesisSparksAccounts(source: SocialSource, idAndHandleList: Array<{ id: string; handle: string }>) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/genesis/accountactive/check');
+        const response = await fireflySessionHolder.fetch<GenesisSparksAccountsResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                infoList: idAndHandleList.map((x) => ({
+                    platform_id: x.id,
+                    handle: x.handle,
+                    platform: resolveSourceInUrlForApi(source),
+                })),
+            }),
+        });
+
+        return resolveFireflyResponseData(response);
     }
 
     async getExploreSwitchConfigList(deviceId?: string) {

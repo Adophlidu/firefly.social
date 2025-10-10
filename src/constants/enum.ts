@@ -625,6 +625,14 @@ export enum NotificationSourceType {
     Bsky = 'bsky',
 }
 
+export enum SparksAccountStatus {
+    Activated = 1,
+    HandleNotInList = 2,
+    AccountNotExist = 3,
+    AccountNotBindTwitterHandle = 4,
+    NotActivated = 5,
+}
+
 export enum ExploreSwitchType {
     TrendingToken = 'trending_token',
     TrendingNFT = 'trending_nft',

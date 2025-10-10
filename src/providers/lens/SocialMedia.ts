@@ -62,6 +62,7 @@ import urlcat from 'urlcat';
 import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { InvalidResultError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForApprovalLensModule } from '@/decorators/SetQueryDataForApprovalLensModule.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -167,6 +168,7 @@ import type { ResponseJson } from '@/types/utility.js';
 @SetQueryDataForJoinChannel(Source.Lens)
 @SetQueryDataForPosts
 @SetQueryDataForApprovalLensModule
+@AddAuthorHighlightStatusForPosts(Source.Lens)
 class LensSocialMedia implements Provider {
     get type() {
         return SessionType.Lens;

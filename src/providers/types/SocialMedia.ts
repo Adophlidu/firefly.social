@@ -126,6 +126,8 @@ export interface Profile<O = unknown> {
     profileType?: 'AccountManaged' | 'AccountOwned';
     canFollow?: boolean;
     canUnfollow?: boolean;
+    /** highlight handle if true */
+    highlighted?: boolean;
     __original__?: O;
 }
 

@@ -9,6 +9,7 @@ import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { BSKY_LOGIN_REQUIRED_FEEDS, EMPTY_LIST } from '@/constants/index.js';
 import { AddBookmarkStatusForPosts } from '@/decorators/AddBookmarkStatusForPosts.js';
+import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
@@ -90,6 +91,7 @@ async function getSinglePost(uri: string) {
 @SetQueryDataForPosts
 @SetQueryDataForJoinChannel(Source.Bsky)
 @AddBookmarkStatusForPosts(Source.Bsky)
+@AddAuthorHighlightStatusForPosts(Source.Bsky)
 @WithMutedProfilesQuery()
 class BskySocialMedia implements Provider {
     get type() {

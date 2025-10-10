@@ -1,6 +1,7 @@
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { UserDataType } from '@/constants/farcaster.js';
+import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockChannel } from '@/decorators/SetQueryDataForBlockChannel.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -60,6 +61,7 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForJoinChannel(Source.Farcaster)
 @SetQueryDataForReportPost(Source.Farcaster)
 @SetQueryDataForPosts
+@AddAuthorHighlightStatusForPosts(Source.Farcaster)
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post, profileId?: string): Promise<{ postId: string }> {
         return HubbleSocialMediaProvider.quotePost(postId, post, profileId);

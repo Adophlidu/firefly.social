@@ -28,6 +28,7 @@ import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useProfileHighlighted } from '@/hooks/useProfileHighlighted.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
 import type {
     FireflyAccountProfile,
@@ -100,12 +101,14 @@ function FireflyAccountWithTitleUI({
     profile,
     profiles,
 }: FireflyAccountWithTitleUIProps) {
+    const { data: highlighted } = useProfileHighlighted(socialProfile, true);
+
     return (
         <>
             <div className="sticky left-0 top-0 z-navbar h-0 w-full transform duration-200">
                 <NavigationBar identity={identity} walletProfile={walletProfile} socialProfile={socialProfile} />
             </div>
-            <FireflyAccountInfoUI profile={profile} className="z-banner">
+            <FireflyAccountInfoUI profile={profile} highlighted={highlighted} className="z-banner">
                 <FireflyAccountInfoHeader
                     identity={identity}
                     walletProfile={walletProfile}

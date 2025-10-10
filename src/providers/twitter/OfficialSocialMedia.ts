@@ -15,6 +15,7 @@ import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { TWITTER_PROFILE_SEARCH_REGEXP } from '@/constants/regexp.js';
 import { AddLikeStatusToTwitterPosts } from '@/decorators/AddLikeStatusToTwitterPosts.js';
+import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
@@ -83,6 +84,7 @@ export
 @AddLikeStatusToTwitterPosts()
 @SetQueryDataForPosts
 @WithMutedProfilesQuery()
+@AddAuthorHighlightStatusForPosts(Source.Twitter)
 class OfficialSocialMedia implements Provider {
     get type() {
         return SessionType.Twitter;

@@ -12,6 +12,7 @@ import {
     type SocialSourceInURL,
     type Source,
     SourceInURL,
+    SparksAccountStatus,
     TipsNotificationType,
     WalletSource,
 } from '@/constants/enum.js';
@@ -2249,6 +2250,16 @@ export type ScheduleNotification = {
     notificationId: string;
     status: ScheduleTaskStatus;
 };
+
+export type GenesisSparksAccountsResponse = Response<{
+    infoList: Array<{
+        account_id: string;
+        handle: string;
+        platform: SourceInURL;
+        platform_id: string;
+        status: SparksAccountStatus;
+    }>;
+} | null>;
 
 export type GetExploreSwitchConfigResponse = Response<{
     explore_switch: boolean;

@@ -16,6 +16,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { useProfileHighlighted } from '@/hooks/useProfileHighlighted.js';
 import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
 import { getLargeTwitterAvatar } from '@/providers/twitter/getLargeTwitterAvatar.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -28,6 +29,7 @@ export const PROFILE_ACTION_ID = 'profile-action';
 
 export function SocialProfileInfo(props: InfoProps) {
     const { data: profile = props.profile } = useRefreshedProfile(props.profile);
+    const { data: highlighted } = useProfileHighlighted(props.profile);
 
     const { source, followerCount = 0, followingCount = 0 } = profile;
 
@@ -54,7 +56,12 @@ export function SocialProfileInfo(props: InfoProps) {
                     <div className="flex h-8 w-full items-start gap-2 md:-mb-2">
                         <div className="flex h-8 min-w-0 flex-1 items-center gap-2 md:h-6">
                             <TextOverflowTooltip content={profile.displayName} placement="top">
-                                <h1 className="min-w-0 truncate text-lg font-black not-italic leading-6 text-lightMain">
+                                <h1
+                                    className={classNames(
+                                        'min-w-0 truncate text-lg font-black not-italic leading-6 text-lightMain',
+                                        highlighted ? 'gradient-text' : '',
+                                    )}
+                                >
                                     {profile.displayName || '-'}
                                 </h1>
                             </TextOverflowTooltip>

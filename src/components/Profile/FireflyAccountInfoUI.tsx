@@ -25,9 +25,10 @@ function FireflyAccountAvatarBanner({ src }: { src: string }) {
 export function FireflyAccountInfoUI({
     profile,
     banner,
+    highlighted,
     children,
     className,
-}: HTMLProps<'div'> & { profile: FireflyAccountProfile; banner?: string }) {
+}: HTMLProps<'div'> & { profile: FireflyAccountProfile; banner?: string; highlighted?: boolean }) {
     const { uid, avatar, displayName } = profile;
     const avatarWithFallback = avatar || getStampAvatarByProfileId(Source.Firefly, uid);
     return (
@@ -46,7 +47,12 @@ export function FireflyAccountInfoUI({
             {children}
             <div className="flex w-full flex-col items-center px-4">
                 <Avatar size={80} alt="firefly-account" src={avatarWithFallback} />
-                <div className="h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6">
+                <div
+                    className={classNames(
+                        'h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6',
+                        highlighted ? 'gradient-text' : '',
+                    )}
+                >
                     {displayName ?? <Trans>Firefly User</Trans>}
                 </div>
             </div>

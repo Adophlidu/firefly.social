@@ -812,3 +812,24 @@ body {
 [data-address^='0x' i] {
     text-transform: lowercase;
 }
+
+.gradient-text {
+    background: linear-gradient(90deg, #6b56d6 20.19%, #e64cff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: gradientMove 3s ease-in-out infinite;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% center;
+    }
+    50% {
+        background-position: 100% center;
+    }
+    100% {
+        background-position: 0% center;
+    }
+}
