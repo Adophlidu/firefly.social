@@ -1,3 +1,4 @@
+import { type Analytics, getAnalytics, logEvent } from 'firebase/analytics';
 import { type FirebaseApp, type FirebaseOptions, initializeApp } from 'firebase/app';
 import { getMessaging, type Messaging, onMessage, type Unsubscribe } from 'firebase/messaging';
 
@@ -31,6 +32,7 @@ class FirebaseClient {
     private _firebaseApp: FirebaseApp | null = null;
     private _firebaseFcm: Messaging | null = null;
     private _unsubscribe: Unsubscribe | undefined;
+    private _analytics: Analytics | null = null;
 
     init() {
         if (!('serviceWorker' in navigator) || !('Notification' in window)) {
@@ -41,6 +43,7 @@ class FirebaseClient {
 
         this._firebaseApp = createFirebaseApp();
         this._firebaseFcm = getMessaging(this._firebaseApp);
+        this._analytics = getAnalytics(this._firebaseApp);
         Reflect.set(window, '_firebaseFcm', this._firebaseFcm);
         this.listenMessage();
 
@@ -53,6 +56,9 @@ class FirebaseClient {
 
         this._unsubscribe = onMessage(this._firebaseFcm, (payload) => {
             console.log('[firebase] Foreground message received');
+            if (this._analytics) {
+                logEvent(this._analytics, 'notification_foreground', payload);
+            }
             if (!payload.notification || document.visibilityState !== 'visible') return;
 
             const title = payload.notification?.title || SITE_NAME;
@@ -63,6 +69,9 @@ class FirebaseClient {
                 data: { link: payload.data?.link },
             });
             notification.onclick = (event) => {
+                if (this._analytics) {
+                    logEvent(this._analytics, 'notification_foreground_click', payload);
+                }
                 event.preventDefault();
                 const notification = event.currentTarget as Notification;
                 const link = parseUrl(notification?.data?.link || payload.data?.link || '');

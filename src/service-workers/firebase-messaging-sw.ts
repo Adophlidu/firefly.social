@@ -3,6 +3,7 @@
 
 importScripts('https://www.gstatic.com/firebasejs/11.4.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/11.4.0/firebase-messaging-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics-compat.js');
 
 interface MessagingPayload {
     notification?: {
@@ -42,6 +43,14 @@ declare let self: ServiceWorkerGlobalScope & {
         messaging: () => {
             onBackgroundMessage: (callback: (payload: any) => void) => void;
         };
+        analytics: () => {
+            logEvent: (
+                eventName: string,
+                params?: {
+                    [key: string]: any;
+                },
+            ) => void;
+        };
     };
 };
 
@@ -55,8 +64,10 @@ self.firebase.initializeApp({
     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 });
 const messaging = self.firebase.messaging();
+const analytics = self.firebase.analytics();
 
 messaging.onBackgroundMessage((payload: MessagePayload) => {
+    analytics.logEvent('notification_background', payload);
     console.log('[firebase] Background message received');
     if (!payload.notification) return;
 
@@ -70,6 +81,7 @@ messaging.onBackgroundMessage((payload: MessagePayload) => {
 });
 
 self.addEventListener('notificationclick', (event) => {
+    analytics.logEvent('notification_background_click', event.notification.data);
     const link = event.notification.data?.link;
 
     event.notification.close();
