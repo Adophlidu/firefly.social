@@ -35,10 +35,8 @@ export default function Page(props: Props) {
         },
     });
 
-    const identity = useMemo(
-        () => resolveSpecialProfileIdentity({ id: profile?.profileId ?? cachedIdentity?.id ?? params.id, source }),
-        [profile?.profileId, params.id, source, cachedIdentity?.id],
-    );
+    const profileId = profile?.profileId ?? cachedIdentity?.id ?? params.id;
+    const identity = useMemo(() => resolveSpecialProfileIdentity({ id: profileId, source }), [profileId, source]);
 
     const content = (
         <Suspense fallback={<Loading className="!min-h-[unset] flex-1 py-2" />}>
