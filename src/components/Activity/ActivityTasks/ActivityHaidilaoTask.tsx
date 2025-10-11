@@ -182,7 +182,6 @@ export function ActivityHaidilaoTask({ data }: { data: Required<ActivityInfoResp
                             }
                             await follow();
                             await FireflyActivityProvider.claimTask(data.name, task.id);
-                            console.log(task);
                         },
                         async onSecondaryClick() {
                             await refetchAll();
