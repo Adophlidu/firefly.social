@@ -12,6 +12,7 @@ import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
 import { BookmarkMenu } from '@/components/SideBar/BookmarkMenu.js';
 import { ExclusiveEvents } from '@/components/SideBar/ExclusiveEvents.js';
+import { GenesisSparksMenu } from '@/components/SideBar/GenesisSparksMenu.js';
 import { HomeEntry } from '@/components/SideBar/HomeEntry.js';
 import { NotificationMenu } from '@/components/SideBar/NotificationMenu.js';
 import { Post } from '@/components/SideBar/Post.js';
@@ -66,6 +67,11 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 name: <Trans>Profile</Trans>,
                             },
                             {
+                                href: PageRoute.Sparks,
+                                name: <Trans>Genesis Sparks</Trans>,
+                                match: () => isRoutePathname(pathname, PageRoute.Sparks),
+                            },
+                            {
                                 href: PageRoute.Events,
                                 name: <Trans>Exclusive Events</Trans>,
                                 match: () => isRoutePathname(pathname, PageRoute.Events),
@@ -99,6 +105,9 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                         ),
                                         [PageRoute.Bookmarks]: (
                                             <BookmarkMenu isSelected={isSelected} collapsed={collapsed} />
+                                        ),
+                                        [PageRoute.Sparks]: (
+                                            <GenesisSparksMenu isSelected={isSelected} collapsed={collapsed} />
                                         ),
                                     }[item.href] ?? (
                                         <BaseMenuItem

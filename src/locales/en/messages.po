@@ -3185,6 +3185,9 @@ msgstr "The contract owner has restrictions on selling."
 msgid "The gas abuse function is not included. If there is a gas abuse function, the project owner may have the ability to control the contract."
 msgstr "The gas abuse function is not included. If there is a gas abuse function, the project owner may have the ability to control the contract."
 
+msgid "Genesis Sparks"
+msgstr "Genesis Sparks"
+
 msgid "Translated"
 msgstr "Translated"
 

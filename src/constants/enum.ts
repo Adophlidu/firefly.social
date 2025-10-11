@@ -52,6 +52,7 @@ export enum PageRoute {
     SettingConnected = '/settings/connected',
     SettingsMutes = '/settings/mutes',
     Signup = '/signup',
+    Sparks = '/sparks',
 }
 
 export enum Source {

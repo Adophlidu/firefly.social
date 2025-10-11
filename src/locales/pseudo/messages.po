@@ -3172,6 +3172,9 @@ msgstr ""
 msgid "The gas abuse function is not included. If there is a gas abuse function, the project owner may have the ability to control the contract."
 msgstr ""
 
+msgid "Genesis Sparks"
+msgstr ""
+
 msgid "Translated"
 msgstr ""
 

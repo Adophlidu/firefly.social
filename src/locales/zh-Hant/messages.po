@@ -3190,6 +3190,9 @@ msgstr "合約擁有者設有銷售限制。"
 msgid "The gas abuse function is not included. If there is a gas abuse function, the project owner may have the ability to control the contract."
 msgstr "未包含 Gas 濫用的機制。若存在，項目方可能擁有控制合約的權限。"
 
+msgid "Genesis Sparks"
+msgstr ""
+
 msgid "Translated"
 msgstr "已翻譯"
 

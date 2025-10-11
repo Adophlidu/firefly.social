@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
-import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
+import { FIREFLY_WORKER_HOST, SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
@@ -185,6 +185,46 @@ class FireflyMetadata {
             );
             const metadata = resolveResponseData(response);
             return metadata;
+        } catch (error) {
+            return createSiteMetadata(pathname);
+        }
+    }
+
+    createSparksMetadata() {
+        const title = 'Are you the next Genesis Sparks✨ on Firefly?';
+        const description =
+            'Unlock Genesis Sparks status to enjoy faster points, premium invite rewards, and a guaranteed airdrop.';
+        const url = urlcat(SITE_URL_OFFICIAL, '/sparks');
+        const ogImageUrl = 'https://media.firefly.land/og/genesis_sparks.png';
+
+        return createSiteMetadata('/sparks', {
+            title,
+            description,
+            openGraph: {
+                title,
+                description,
+                url,
+                images: [ogImageUrl],
+            },
+            twitter: {
+                card: 'summary_large_image',
+                title,
+                description,
+                creator: '@thefireflyapp',
+                images: [ogImageUrl],
+            },
+        });
+    }
+
+    async createSparksAccountMetadata(accountId: string, pathname: string) {
+        try {
+            const response = await fetchMetadataApi(
+                urlcat(FIREFLY_WORKER_HOST, '/metadata/sparks-account', {
+                    accountId,
+                    pathname,
+                }),
+            );
+            return resolveResponseData(response);
         } catch (error) {
             return createSiteMetadata(pathname);
         }
