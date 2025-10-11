@@ -3,8 +3,10 @@ import { compact, last, uniq } from 'lodash-es';
 import type { TweetV2LookupResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
+import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import {
@@ -129,6 +131,7 @@ async function withReplyPostsToTimelineWithPagination(
 
 export
 @SetQueryDataForPosts
+@AddAuthorHighlightStatusForPosts(Source.Twitter)
 class NitterSocialMedia implements Provider {
     get type() {
         return SessionType.Twitter;
