@@ -23,15 +23,15 @@ const SwapModalContent = dynamic(
 );
 
 interface Props {
-    token: CoinGeckoToken;
+    token: CoinGeckoToken | null | undefined;
 }
 export const Swap = memo(function Swap({ token }: Props) {
     const search = useSearchParams();
     const paramChainId = search.get('chainId') ? Number(search.get('chainId')) : undefined;
-    const propChainId = paramChainId || token.chainId;
-    const runtimeAddress = search.get('address') || token.address;
-    const { data: trending } = useCoinTrending(token.id);
-    const coinChainId = token.id ? resolveCoinGeckoCoinChainId(token.id) : undefined;
+    const propChainId = paramChainId || token?.chainId;
+    const runtimeAddress = search.get('address') || token?.address;
+    const { data: trending } = useCoinTrending(token?.id);
+    const coinChainId = token?.id ? resolveCoinGeckoCoinChainId(token.id) : undefined;
 
     const contracts = useMemo(() => {
         if (trending?.contracts) {
@@ -64,12 +64,14 @@ export const Swap = memo(function Swap({ token }: Props) {
     const tradeInfo = useTradeInfo(token, chainId, address);
     const tradeChainId = chainId || tradeInfo.chainId;
 
-    const swapOptions = tradeChainId
-        ? {
-              toToken: address || tradeInfo.address,
-              chainId: tradeChainId,
-              chainIds: tradeInfo?.supportedChainIds?.map((x) => x.toString()),
-          }
-        : undefined;
+    const swapOptions = useMemo(() => {
+        return tradeChainId
+            ? {
+                  toToken: address || tradeInfo.address,
+                  chainId: tradeChainId,
+                  chainIds: tradeInfo.supportedChainIds?.map((x) => x.toString()),
+              }
+            : undefined;
+    }, [address, tradeChainId, tradeInfo.address, tradeInfo.supportedChainIds]);
     return <SwapModalContent props={swapOptions} embed open />;
 });

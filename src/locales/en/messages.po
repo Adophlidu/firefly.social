@@ -664,6 +664,9 @@ msgstr "Sign in"
 msgid "Signing in"
 msgstr "Signing in"
 
+msgid "Overview"
+msgstr "Overview"
+
 msgid "Sorry, the email you entered is invalid"
 msgstr "Sorry, the email you entered is invalid"
 

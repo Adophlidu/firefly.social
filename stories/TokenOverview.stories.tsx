@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Overview, type TokenOverviewProps } from '@/components/Token/Overview.js';
+import { Overview, type TokenOverviewProps } from '@/components/TokenProfile/Overview.js';
 
 interface Props extends TokenOverviewProps {
     coinId: string;

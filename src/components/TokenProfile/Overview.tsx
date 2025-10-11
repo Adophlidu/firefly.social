@@ -12,6 +12,7 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
 import NotFound from '@/components/NotFound.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { ClubLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -347,10 +348,10 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
         <div {...rest}>
             <div className="grid grid-cols-3 gap-3">
                 <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
-                    <p className="font-inter text-lg font-bold leading-6 text-main">
+                    <p className="font-inter text-base font-bold leading-6 text-main">
                         {marketCap ? formatMarketCap(marketCap, 2, '$') : fdv ? formatMarketCap(fdv, 2, '$') : '-'}
                     </p>
-                    <h3 className="font-inter text-medium leading-[18px] text-second underline">
+                    <h3 className="font-inter text-[13px] leading-[18px] text-second underline">
                         <Tooltip
                             placement="top"
                             content={
@@ -369,7 +370,7 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                                 </div>
                             }
                         >
-                            <span>
+                            <span className="truncate">
                                 <Trans>Market Cap</Trans>
                             </span>
                         </Tooltip>
@@ -379,7 +380,7 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                     <p className="font-inter text-lg font-bold leading-6 text-main">
                         {liquidity ? formatMarketCap(liquidity, 2, '$') : '-'}
                     </p>
-                    <h3 className="font-inter text-medium leading-[18px] text-second">
+                    <h3 className="truncate font-inter text-medium leading-[18px] text-second">
                         <Trans>Liquidity</Trans>
                     </h3>
                 </div>
@@ -387,7 +388,7 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                     <p className="font-inter text-lg font-bold leading-6 text-main">
                         {fdv ? formatMarketCap(fdv, 2, '$') : '-'}
                     </p>
-                    <h3 className="font-inter text-medium leading-[18px] text-second">
+                    <h3 className="truncate font-inter text-medium leading-[18px] text-second">
                         <Trans>FDV</Trans>
                     </h3>
                 </div>
@@ -395,9 +396,11 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                     <p className="font-inter text-lg font-bold leading-6 text-main">
                         {tradeVol24h ? formatMarketCap(tradeVol24h, 2, '$') : '-'}
                     </p>
-                    <h3 className="font-inter text-medium leading-[18px] text-second">
-                        <Trans>24h Vol</Trans>
-                    </h3>
+                    <TextOverflowTooltip content={<Trans>24h Vol</Trans>}>
+                        <h3 className="truncate font-inter text-medium leading-[18px] text-second">
+                            <Trans>24h Vol</Trans>
+                        </h3>
+                    </TextOverflowTooltip>
                 </div>
                 <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
                     <p className="font-inter text-lg font-bold leading-6 text-main">
@@ -419,7 +422,7 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                             }
                             placement="top"
                         >
-                            <span>
+                            <span className="truncate">
                                 <Trans>Holders</Trans>
                             </span>
                         </Tooltip>

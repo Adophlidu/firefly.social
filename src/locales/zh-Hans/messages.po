@@ -669,6 +669,9 @@ msgstr "登录"
 msgid "Signing in"
 msgstr "登录中"
 
+msgid "Overview"
+msgstr ""
+
 msgid "Sorry, the email you entered is invalid"
 msgstr "抱歉，你输入的邮箱无效"
 
