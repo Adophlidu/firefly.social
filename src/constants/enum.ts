@@ -262,6 +262,7 @@ export enum WalletProfileCategory {
     NFTs = 'nfts',
     Activities = 'activities',
     Transactions = 'transactions',
+    Bets = 'bets',
 }
 
 export enum EngagementType {

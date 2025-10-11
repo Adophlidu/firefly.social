@@ -2274,3 +2274,84 @@ export type GetExploreSwitchConfigResponse = Response<{
         }>;
     }>;
 }>;
+
+export interface PolymarketProfileData {
+    balance: number;
+    buy_count: number;
+    cash_balance: number;
+    gains: number;
+    join1year: string;
+    join_time: number;
+    losses: number;
+    notfill_balance: number;
+    notfill_pnl: number;
+    pnl: number;
+    pnl1m: string;
+    pnl100: string;
+    pnl_rate: number;
+    position_traded: number;
+    proxy: string;
+    sell_count: number;
+    shares: number;
+    total_count: number;
+    wallet: string;
+    win_rate: number;
+    win_rate67: string;
+}
+
+export interface PolymarketPositionData {
+    Id: string;
+    IsClaim: boolean;
+    avg_price: number;
+    closed_time: number | null;
+    conditionId: string;
+    cur_price: number;
+    event_slugs: string[];
+    image?: string;
+    is_closed: boolean;
+    negRisk: boolean;
+    notfill_pnl: number;
+    offset: number;
+    pnl: number;
+    pnl_rate: number;
+    shares: number;
+    title?: string;
+    tokenId: string;
+    total_buy: number;
+    vote_status: string;
+    wallet: string;
+}
+
+export interface PolymarketTradeData {
+    asset: string;
+    avgPrice: string;
+    blockNumber: number;
+    blockNumberSort: number;
+    conditionId: string;
+    conditionOutcomePrices: string[];
+    conditionOutcomes: string[];
+    conditionRawData: unknown;
+    endDate: string;
+    eventSlug: string;
+    icon: string;
+    image: string;
+    outcome: string;
+    outcomeIndex: number;
+    owner: string;
+    pnl: string;
+    pnlPercent: string;
+    position: string;
+    price: string;
+    proxyWallet: string;
+    resolvedResult: number;
+    side: string;
+    size: string;
+    slug: string;
+    timestamp: number;
+    title: string;
+    transactionHash: string;
+    umaResolutionStatus: string;
+    usdcSize: string;
+    volume: string;
+    wallet: string;
+}

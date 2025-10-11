@@ -149,8 +149,9 @@ export const SORTED_PROFILE_TAB_TYPE_REQUIRE_LOGIN: Record<SocialSource, SocialP
 };
 export const WALLET_PROFILE_TAB_TYPES: Record<NetworkType, WalletProfileCategory[]> = {
     [NetworkType.Ethereum]: [
-        WalletProfileCategory.NFTs,
         WalletProfileCategory.Transactions,
+        WalletProfileCategory.Bets,
+        WalletProfileCategory.NFTs,
         WalletProfileCategory.Activities,
     ],
     [NetworkType.Solana]: [WalletProfileCategory.Transactions],

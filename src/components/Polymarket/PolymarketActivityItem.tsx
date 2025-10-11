@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { type CSSProperties, memo } from 'react';
 import type { Address } from 'viem';
@@ -116,7 +117,7 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                                     {outcome.toUpperCase()} - {floor(+activity.price * 100)}¢
                                 </span>
                                 <span className="h-6 rounded-lg bg-lightBottom px-2 leading-6 text-lightMain dark:bg-lightBg">
-                                    ×{floor(formatAmount(activity.size))}
+                                    <Trans>×{formatAmount(activity.size)} shares</Trans>
                                 </span>
                             </div>
                             {activity.umaResolutionStatus === 'resolved' ? (

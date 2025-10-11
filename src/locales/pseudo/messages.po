@@ -227,6 +227,9 @@ msgstr ""
 msgid "Delete post"
 msgstr ""
 
+msgid "No positions yet"
+msgstr ""
+
 msgid "This account has expired, please log in again."
 msgstr ""
 
@@ -282,6 +285,9 @@ msgid "Failed to fetch: {0}. Please try again later."
 msgstr ""
 
 msgid "We are not aware of any code that prevents the sale of tokens."
+msgstr ""
+
+msgid "Positions"
 msgstr ""
 
 #. placeholder {0}: space.participant_count?.toLocaleString()
@@ -480,6 +486,9 @@ msgstr ""
 msgid "Your {0} Address"
 msgstr ""
 
+msgid "Avg"
+msgstr ""
+
 msgid "FAILED POST"
 msgstr ""
 
@@ -493,6 +502,9 @@ msgid "No financial crime found."
 msgstr ""
 
 msgid "Muted {handleOrEnsOrAddress}."
+msgstr ""
+
+msgid "MARKET"
 msgstr ""
 
 msgid "The token can be bought."
@@ -562,6 +574,9 @@ msgstr ""
 msgid "Failed to add wallet"
 msgstr ""
 
+msgid "Markets Traded"
+msgstr ""
+
 msgid "Solana"
 msgstr ""
 
@@ -595,6 +610,9 @@ msgstr ""
 #. placeholder {0}: formatBalance(1, token.decimals)
 #. placeholder {1}: token.symbol
 msgid "The minimum amount for each share is {0} {1}"
+msgstr ""
+
+msgid "ACTIVITY"
 msgstr ""
 
 msgid "Trending Channels"
@@ -741,6 +759,10 @@ msgstr ""
 msgid "Failed to follow @{handle} on {0}."
 msgstr ""
 
+#. placeholder {0}: formatAmount(activity.size)
+msgid "×{0} shares"
+msgstr ""
+
 msgid "Bookmarks"
 msgstr ""
 
@@ -840,6 +862,9 @@ msgstr ""
 
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES, undefined, true)
 msgid "Scheduled posts are only available on {0}"
+msgstr ""
+
+msgid "Bought"
 msgstr ""
 
 msgid "NFTs"
@@ -1652,6 +1677,9 @@ msgstr ""
 msgid "1H"
 msgstr ""
 
+msgid "Current"
+msgstr ""
+
 msgid "Days"
 msgstr ""
 
@@ -1869,10 +1897,16 @@ msgstr ""
 msgid "Net Worth"
 msgstr ""
 
+msgid "VALUE"
+msgstr ""
+
 msgid "All Wallets"
 msgstr ""
 
 msgid "Significant movements in token prices"
+msgstr ""
+
+msgid "Market"
 msgstr ""
 
 msgid "Executed"
@@ -2061,6 +2095,9 @@ msgstr ""
 msgid "One Firefly account manages all your social accounts"
 msgstr ""
 
+msgid "Portfolio"
+msgstr ""
+
 msgid "Posted to Farcaster on <0>Supercast</0>"
 msgstr ""
 
@@ -2171,6 +2208,9 @@ msgstr ""
 msgid "Allow Follow Module"
 msgstr ""
 
+msgid "No trades yet"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your posts have published successfully on {0}."
 msgstr ""
@@ -2188,6 +2228,9 @@ msgid "Others"
 msgstr ""
 
 msgid "Muted wallets"
+msgstr ""
+
+msgid "No polymarket profile found."
 msgstr ""
 
 msgid "Everything app for Web3 natives"
@@ -2236,6 +2279,9 @@ msgid "Your Firefly Identity is now active."
 msgstr ""
 
 msgid "Failed to mint NFT."
+msgstr ""
+
+msgid "PnL"
 msgstr ""
 
 msgid "Unlike"
@@ -2470,6 +2516,9 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collec
 msgstr ""
 
 msgid "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
+msgstr ""
+
+msgid "Polymarket PnL"
 msgstr ""
 
 msgid "Reset password"
@@ -2882,6 +2931,11 @@ msgstr ""
 msgid "Show more tokens"
 msgstr ""
 
+#. placeholder {0}: leftShift(trade.size, 6).toFixed(1)
+#. placeholder {0}: formatPolymarketNumber(positionData.shares, { prefix: null })
+msgid "{0} shares"
+msgstr ""
+
 msgid "<0/>Edit profile"
 msgstr ""
 
@@ -3059,6 +3113,9 @@ msgstr ""
 msgid "Transaction Simulation"
 msgstr ""
 
+msgid "Trades"
+msgstr ""
+
 msgid "Remaining"
 msgstr ""
 
@@ -3127,6 +3184,9 @@ msgid "<0/>{0}<1>today</1><2>${1}</2>"
 msgstr ""
 
 msgid "Insufficient Balance for Gas Fee"
+msgstr ""
+
+msgid "Current Positions"
 msgstr ""
 
 msgid "Price"
@@ -3440,6 +3500,9 @@ msgstr ""
 msgid "Wallet submitted"
 msgstr ""
 
+msgid "Total Value"
+msgstr ""
+
 msgid "This does not appear to be a honeypot."
 msgstr ""
 
@@ -3481,6 +3544,9 @@ msgid "The user rejected the request."
 msgstr ""
 
 msgid "👉 To stay updated on trades, enable notifications in your browser settings."
+msgstr ""
+
+msgid "Total Gains"
 msgstr ""
 
 msgid "Claimed lucky drop successfully"
@@ -3609,6 +3675,9 @@ msgid "Upload photo"
 msgstr ""
 
 msgid "Cross at handles"
+msgstr ""
+
+msgid "Total Losses"
 msgstr ""
 
 msgid "Follow {handleOrEnsOrAddress}"
@@ -3878,6 +3947,9 @@ msgid "Checking wallet status..."
 msgstr ""
 
 msgid "No matching token"
+msgstr ""
+
+msgid "Win Rate"
 msgstr ""
 
 msgid "The contract owner has restrictions on anti whale."
@@ -4281,6 +4353,9 @@ msgstr ""
 msgid "Unfollow"
 msgstr ""
 
+msgid "Position"
+msgstr ""
+
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted on “{0}”"
 msgstr ""
@@ -4486,6 +4561,9 @@ msgstr ""
 msgid "Congratulations!"
 msgstr ""
 
+msgid "Volume Traded"
+msgstr ""
+
 msgid "Clear all requirements"
 msgstr ""
 
@@ -4501,6 +4579,9 @@ msgid "To <0>{0}</0>"
 msgstr ""
 
 msgid "Oversupply minting."
+msgstr ""
+
+msgid "Sold"
 msgstr ""
 
 msgid "Failed to read avatar file, please try again."
@@ -4581,6 +4662,9 @@ msgid "Emoji"
 msgstr ""
 
 msgid "Failed to report spam NFT."
+msgstr ""
+
+msgid "Polymarket"
 msgstr ""
 
 msgid "Unfollow {handleOrEnsOrAddress}"
@@ -4689,6 +4773,9 @@ msgid "No phishing activities involved."
 msgstr ""
 
 msgid "Multi-device login is now turned off and all previously sessions are cleared."
+msgstr ""
+
+msgid "Only show holding"
 msgstr ""
 
 msgid "The metadata of this NFT is stored in IPFS, AR, generated by contract, or another decentralized way."
@@ -4821,6 +4908,9 @@ msgstr ""
 msgid "Error: {message}"
 msgstr ""
 
+msgid "Value"
+msgstr ""
+
 msgid "Your assets on Base Chain are worth over US$10,000"
 msgstr ""
 
@@ -4896,6 +4986,9 @@ msgid "Followers"
 msgstr ""
 
 msgid "Search channel"
+msgstr ""
+
+msgid "PnL%"
 msgstr ""
 
 msgid "Mint function"

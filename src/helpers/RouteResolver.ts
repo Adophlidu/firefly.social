@@ -32,4 +32,10 @@ export class RouteResolver {
     static token() {}
     static nft() {}
     static article() {}
+    static polymarketProfile(address: string, subPath?: 'trades' | 'positions') {
+        return urlcat(SITE_URL, `/polymarket/profile/:address${subPath ? '/:subPath' : ''}`, {
+            address,
+            subPath,
+        });
+    }
 }

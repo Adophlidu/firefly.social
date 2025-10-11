@@ -1,9 +1,9 @@
 /* cspell:disable */
 
+import createBundleAnalyzer from '@next/bundle-analyzer';
 import { execSync } from 'child_process';
 import { createRequire } from 'module';
 import type { NextConfig } from 'next';
-import createBundleAnalyzer from '@next/bundle-analyzer';
 import createStatoscope from 'next-statoscope';
 import { resolve } from 'path';
 
@@ -160,6 +160,10 @@ const config: NextConfig = {
             },
             {
                 hostname: 'cdn.simplehash.com',
+            },
+            {
+                protocol: 'https',
+                hostname: '*.amazonaws.com',
             },
         ],
     },

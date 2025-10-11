@@ -84,7 +84,7 @@ export function getProfileTransactions(
     const fetcher = createTransactionsFetcher(
         (indicator, chainId) =>
             FireflyEndpointProvider.getSwapTimelineByAddress(addresses, chainId ? [chainId] : [], undefined, indicator),
-        (indicator) => FireflyEndpointProvider.getProfilePolymarketTimeline(addresses, 'all', indicator),
+        () => Promise.resolve(createPageable([] as PolymarketActivity[], createIndicator(undefined))),
         (indicator, chainId) =>
             FireflyEndpointProvider.getFollowingNFTs({
                 indicator,

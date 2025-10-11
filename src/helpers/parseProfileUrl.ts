@@ -36,8 +36,11 @@ function fixWalletProfileCategory(category: WalletProfileCategory) {
     if (['articles', 'DAOs'].includes(category)) {
         return WalletProfileCategory.Activities;
     }
-    if (['swap', 'polymarket'].includes(category)) {
+    if (['swap'].includes(category)) {
         return WalletProfileCategory.Transactions;
+    }
+    if (['polymarket'].includes(category)) {
+        return WalletProfileCategory.Bets;
     }
 
     return;

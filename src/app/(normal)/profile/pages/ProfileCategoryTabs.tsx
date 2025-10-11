@@ -49,6 +49,7 @@ export function ProfileCategoryTabs({
             [WalletProfileCategory.Activities]: <Trans>Activities</Trans>,
             [WalletProfileCategory.NFTs]: <Trans>NFTs</Trans>,
             [WalletProfileCategory.Transactions]: <Trans>Transactions</Trans>,
+            [WalletProfileCategory.Bets]: <Trans>Bets</Trans>,
         }),
         [],
     );

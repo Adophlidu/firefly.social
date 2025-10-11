@@ -2,6 +2,8 @@ import { memo } from 'react';
 
 import { ProfileActivities } from '@/components/Activities/ProfileActivities.js';
 import { NFTs } from '@/components/Profile/NFTs.js';
+import { PolymarketProfile } from '@/components/Profile/PolymarketProfile.js';
+import { ProfilePolymarketList } from '@/components/Profile/ProfilePolymarketList.js';
 import { ProfileTransactions } from '@/components/Transactions/ProfileTransactions.js';
 import { WalletProfileCategory } from '@/constants/enum.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
@@ -20,6 +22,13 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
             return <ProfileActivities address={address} />;
         case WalletProfileCategory.Transactions:
             return <ProfileTransactions address={address} />;
+        case WalletProfileCategory.Bets:
+            return (
+                <>
+                    <PolymarketProfile address={address} />
+                    <ProfilePolymarketList address={address} />
+                </>
+            );
         default:
             safeUnreachable(type);
             return null;
