@@ -8,8 +8,6 @@ import { type HTMLProps, memo, type ReactNode, useCallback, useMemo, useState } 
 
 import ArrowDownIcon from '@/assets/arrow-line-down.svg';
 import DexScreenerIcon from '@/assets/dex-screener.svg';
-import EyeIcon from '@/assets/eye.svg';
-import EyeCloseIcon from '@/assets/eye-close.svg';
 import GlobalIcon from '@/assets/global.svg';
 import PriceArrow from '@/assets/price-arrow.svg';
 import TwitterIcon from '@/assets/x-fill.svg';
@@ -22,8 +20,8 @@ import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { TokenBookmarkButton } from '@/components/Token/TokenBookmarkButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
-import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js';
+import { TradeFilter } from '@/components/TokenProfile/TradeFilter.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
 import { EMPTY_LIST, TRACING_RUNTIME_LIST } from '@/constants/index.js';
 import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
@@ -162,7 +160,13 @@ export const TokenMarketData = memo(function TokenMarketData({
         [currentRange.id, priceStats],
     );
     const showUserTx = preferences.SHOW_USER_TX_IN_CHART;
-    const withinRangeTradeRecords = useWithinRangeRecords(stats, tradeRecords, currentRange.id === 'max');
+    const [tradeDirection, setTradeDirection] = useState<TradeRecord['type']>();
+    const withinRangeTradeRecords = useWithinRangeRecords(
+        stats,
+        tradeRecords,
+        tradeDirection,
+        currentRange.id === 'max',
+    );
     const [activeTradeHash = propTradeHash, setActiveTradeHash] = useState<string>();
 
     const { isUp, change } = useIsPriceUp(stats, activeRecord);
@@ -293,22 +297,6 @@ export const TokenMarketData = memo(function TokenMarketData({
                             </div>
                         </div>
                         <div className="ml-auto flex items-center gap-2 empty:hidden">
-                            {tradeInfo.tradable ? (
-                                <SwapButton
-                                    className="sm:hidden md:inline-flex"
-                                    swapProps={
-                                        tradeChainId
-                                            ? {
-                                                  toToken: address || tradeInfo.address,
-                                                  chainId: tradeChainId,
-                                                  chainIds: tradeInfo.supportedChainIds.map((x) => x.toString()),
-                                              }
-                                            : undefined
-                                    }
-                                >
-                                    <Trans>Swap</Trans>
-                                </SwapButton>
-                            ) : null}
                             <TokenBookmarkButton
                                 coinId={token.id}
                                 chainId={chainId || EthereumChainId.Mainnet}
@@ -448,20 +436,11 @@ export const TokenMarketData = memo(function TokenMarketData({
                         </ClickableButton>
                     ))}
                 </div>
-                {withinRangeTradeRecords.length ? (
-                    <ClickableButton
-                        className="ml-auto"
-                        onClick={() => {
-                            setPreference('SHOW_USER_TX_IN_CHART', !showUserTx);
-                        }}
-                    >
-                        {showUserTx ? (
-                            <EyeIcon className="size-4 text-secondary" width={16} height={16} />
-                        ) : (
-                            <EyeCloseIcon className="size-4 text-secondary" width={16} height={16} />
-                        )}
-                    </ClickableButton>
-                ) : null}
+                <div className="ml-auto">
+                    {withinRangeTradeRecords.length ? (
+                        <TradeFilter value={tradeDirection} onChange={setTradeDirection} />
+                    ) : null}
+                </div>
             </div>
         </div>
     );

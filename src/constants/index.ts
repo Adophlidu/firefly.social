@@ -443,11 +443,7 @@ export const BSKY_LOGIN_REQUIRED_FEEDS = [
     'at://did:plc:tenurhgjptubkk5zf5qhi3og/app.bsky.feed.generator/mutuals',
 ];
 
-export const TOKEN_CATEGORIES: TokenCategory[] = [
-    TokenCategory.Transactions,
-    TokenCategory.Feeds,
-    TokenCategory.Overview,
-];
+export const TOKEN_CATEGORIES: TokenCategory[] = [TokenCategory.Transactions, TokenCategory.Feeds];
 
 /** coingecko coin ids that are not solana or ethereum */
 export const NO_TRACING_COINS = [

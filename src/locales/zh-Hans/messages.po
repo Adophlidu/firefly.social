@@ -669,9 +669,6 @@ msgstr "登录"
 msgid "Signing in"
 msgstr "登录中"
 
-msgid "Overview"
-msgstr "基本信息"
-
 msgid "Sorry, the email you entered is invalid"
 msgstr "抱歉，你输入的邮箱无效"
 
@@ -4522,6 +4519,9 @@ msgstr "转发或者引用"
 msgid "Ca"
 msgstr "合约"
 
+msgid "Buy"
+msgstr ""
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -5037,6 +5037,9 @@ msgstr "复制 Frame URL"
 
 msgid "Cybercrime."
 msgstr "网络犯罪。"
+
+msgid "Sell"
+msgstr ""
 
 msgid "This wallet is already linked to a different Firefly account."
 msgstr "该钱包地址已绑定其他Firefly账户。"

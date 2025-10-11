@@ -11,7 +11,7 @@ import {
 } from '@okxweb3/dex-widget';
 import { CoreChainController } from '@reown/appkit';
 import { uniq } from 'lodash-es';
-import { useEffect, useRef, useState } from 'react';
+import { type HTMLProps, useEffect, useRef, useState } from 'react';
 import { mainnet } from 'viem/chains';
 import { getConnections } from 'wagmi/actions';
 
@@ -22,6 +22,7 @@ import { SOLANA_CHAIN_ID_IN_FIREFLY, SOLANA_CHAIN_ID_IN_OKX } from '@/constants/
 import { Locale, OkxProviderType } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { NATIVE_SOLANA_TOKEN_ADDRESS, NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
+import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { useLocale } from '@/helpers/getCookies.js';
 import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
@@ -68,13 +69,14 @@ const resolveProviderType = createLookupTableResolver<OkxProviderType, ProviderT
     },
 );
 
-interface SwapModalContentProps {
+interface SwapModalContentProps extends HTMLProps<HTMLDivElement> {
     open: boolean;
-    onClose: () => void;
+    onClose?: () => void;
+    embed?: boolean;
     props?: SwapModalOpenProps;
 }
 
-export function SwapModalContent({ open, onClose, props }: SwapModalContentProps) {
+export function SwapModalContent({ open, embed = false, onClose, props, className, ...rest }: SwapModalContentProps) {
     const [widgetRef, setWidgetRef] = useState<HTMLDivElement | null>(null);
     const locale = useLocale();
     const [providerType, setProviderType] = useState<OkxProviderType>();
@@ -96,9 +98,10 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
 
     const evmProviderRef = useRef(new EthereumWalletProvider());
     const solanaProviderRef = useRef(new SolanaWalletProvider());
+    const visible = open || embed;
 
     useEffect(() => {
-        if (!widgetRef || !open) return;
+        if (!widgetRef || !visible) return;
         const evmProvider = evmProviderRef.current;
         const solanaProvider = solanaProviderRef.current;
         const provider = isEvm ? evmProvider : solanaProvider;
@@ -182,12 +185,19 @@ export function SwapModalContent({ open, onClose, props }: SwapModalContentProps
             instanceRef.current?.destroy();
             instanceRef.current = null;
         };
-    }, [props, locale, theme, open, widgetRef, computedProviderType, isEvm]);
+    }, [props, locale, theme, open, widgetRef, computedProviderType, isEvm, visible]);
 
     return (
-        <div className="relative z-10 w-full overflow-hidden rounded-2xl bg-white dark:bg-black">
-            <div className="relative z-1 -mb-4 flex h-14 w-full items-center justify-between bg-white px-6 pt-6 dark:bg-black">
-                <CloseButton className="text-main" onClick={onClose} />
+        <div
+            className={classNames(
+                'relative z-10 w-full overflow-hidden bg-white dark:bg-black',
+                !embed ? 'rounded-2xl' : '',
+                className,
+            )}
+            {...rest}
+        >
+            <div className="relative z-1 -mb-4 flex h-14 w-full items-center justify-between bg-white px-6 pt-6 empty:hidden dark:bg-black">
+                {!embed ? <CloseButton className="text-main" onClick={onClose} /> : null}
                 {props?.providerSwitchable ? (
                     <FireflyWalletChainSelectorWithOkxProviderType
                         selectedChain={computedProviderType}

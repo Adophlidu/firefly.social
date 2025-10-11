@@ -17,9 +17,16 @@ interface IfPathname {
     isOneOf?: Array<PageRoute | `/${string}` | RE>;
     isNotOneOf?: Array<PageRoute | `/${string}` | RE>;
     children: ReactNode;
+    otherwise?: ReactNode;
 }
 
-export const IfPathname = memo(function IfPathname({ exact = false, isOneOf, isNotOneOf, children }: IfPathname) {
+export const IfPathname = memo(function IfPathname({
+    exact = false,
+    isOneOf,
+    isNotOneOf,
+    children,
+    otherwise = null,
+}: IfPathname) {
     const pathname = usePathname();
     const [lastPathname, setLastPathname] = useState(
         !isRoutePathname(pathname, '/post/:detail/photos/:index', true) ? pathname : '',
@@ -52,5 +59,5 @@ export const IfPathname = memo(function IfPathname({ exact = false, isOneOf, isN
         return <>{children}</>;
     }
 
-    return null;
+    return otherwise;
 });

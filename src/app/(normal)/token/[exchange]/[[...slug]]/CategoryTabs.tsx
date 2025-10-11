@@ -10,19 +10,6 @@ import { TokenCategory } from '@/constants/enum.js';
 import { NO_TRACING_COINS, TOKEN_CATEGORIES, TRACING_CHAINS } from '@/constants/index.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 
-export interface TokenPageSearch {
-    wallet: string;
-    chainId?: string;
-    /** if is coingecko coin id, which is more specific */
-    isCoinId?: 'true';
-    /** trader wallet address */
-    trader?: string;
-    /** to keep consistent with previous entry */
-    traderName?: string;
-    address?: string;
-    source?: string;
-    category?: TokenCategory;
-}
 interface Props extends HTMLProps<HTMLDivElement> {
     token: CoinGeckoToken;
 }
@@ -30,7 +17,6 @@ interface Props extends HTMLProps<HTMLDivElement> {
 const labels: Record<TokenCategory, ReactNode> = {
     [TokenCategory.Transactions]: <Trans>Transactions</Trans>,
     [TokenCategory.Feeds]: <Trans>Feeds</Trans>,
-    [TokenCategory.Overview]: <Trans>Overview</Trans>,
 };
 
 function resolveTab(pathname: string, category: TokenCategory, params: ReadonlyURLSearchParams) {
@@ -48,7 +34,7 @@ export const CategoryTabs = memo<Props>(function CategoryTabs({ token, ...rest }
 
     const categories =
         tokenId && (NO_TRACING_COINS.includes(tokenId) || !isTracingChain || !isTracingPlatform)
-            ? [TokenCategory.Feeds, TokenCategory.Overview]
+            ? [TokenCategory.Feeds]
             : TOKEN_CATEGORIES;
     const current = search.get('category');
     const category = current && categories.includes(current as TokenCategory) ? current : categories[0];

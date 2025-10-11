@@ -664,9 +664,6 @@ msgstr "Sign in"
 msgid "Signing in"
 msgstr "Signing in"
 
-msgid "Overview"
-msgstr "Overview"
-
 msgid "Sorry, the email you entered is invalid"
 msgstr "Sorry, the email you entered is invalid"
 
@@ -4517,6 +4514,9 @@ msgstr "Repost or Quote"
 msgid "Ca"
 msgstr "Ca"
 
+msgid "Buy"
+msgstr "Buy"
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -5030,6 +5030,9 @@ msgstr "Copy frame URL"
 
 msgid "Cybercrime."
 msgstr "Cybercrime."
+
+msgid "Sell"
+msgstr "Sell"
 
 msgid "This wallet is already linked to a different Firefly account."
 msgstr "This wallet is already linked to a different Firefly account."

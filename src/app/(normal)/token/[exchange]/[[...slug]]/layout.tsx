@@ -3,8 +3,9 @@ import { notFound, redirect, RedirectType } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
 import { z } from 'zod';
 
-import { CategoryTabs, type TokenPageSearch } from '@/app/(normal)/token/[exchange]/[[...slug]]/CategoryTabs.js';
+import { CategoryTabs } from '@/app/(normal)/token/[exchange]/[[...slug]]/CategoryTabs.js';
 import { MobileSwapButton } from '@/app/(normal)/token/[exchange]/[[...slug]]/MobileSwapButton.js';
+import type { TokenPageSearch } from '@/app/(normal)/token/[exchange]/[[...slug]]/types.js';
 import { WrapTokenMarketData } from '@/app/(normal)/token/[exchange]/[[...slug]]/WrapTokenMarketData.js';
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
