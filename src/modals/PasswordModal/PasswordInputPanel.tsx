@@ -76,6 +76,9 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
                 type="password"
                 ref={inputRef}
                 value={password}
+                autoCorrect="off"
+                spellCheck="false"
+                inputMode="decimal"
                 onChange={onInputChange}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
