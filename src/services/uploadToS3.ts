@@ -1,11 +1,18 @@
 import urlcat from 'urlcat';
 
-import { SUFFIX_NAMES } from '@/constants/index.js';
+import { FIREFLY_WORKER_HOST, SUFFIX_NAMES } from '@/constants/index.js';
+import { blobToBase64 } from '@/helpers/blobToBase64.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { memoizePromiseWithTime } from '@/helpers/memoizePromise.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import type { UploadMediaTokenResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
+import type { ResponseJson } from '@/types/utility.js';
+
+type UploadResponse = ResponseJson<{
+    url: string;
+}>;
 
 const uploadedCache = new WeakMap<File, string | Promise<string>>();
 
@@ -27,41 +34,21 @@ async function uploadToDirectory(
 ): Promise<string> {
     const hit = uploadedCache.get(file);
     if (typeof hit === 'string' || hit instanceof Promise) return hit;
+
     const promise = new Promise<string>(async (resolve, reject) => {
         try {
-            // Dynamically import S3 and Upload modules
-            const [S3, Upload] = await Promise.all([
-                import('@aws-sdk/client-s3').then((x) => x.S3),
-                import('@aws-sdk/lib-storage').then((x) => x.Upload),
-            ]);
-
             const mediaToken = await getS3UploadMediaToken();
-            const client = new S3({
-                credentials: {
-                    accessKeyId: mediaToken.accessKeyId,
-                    secretAccessKey: mediaToken.secretAccessKey,
-                    sessionToken: mediaToken.sessionToken,
-                },
-                region: mediaToken.region || 'us-west-2',
-                maxAttempts: 5,
+            const response = await fetchJson<UploadResponse>(urlcat(FIREFLY_WORKER_HOST, '/s3/upload'), {
+                method: 'POST',
+                body: JSON.stringify({
+                    file: await blobToBase64(file),
+                    fileKey: `${directory}/${nameGenerator(file)}`,
+                    mediaToken,
+                }),
             });
 
-            const params = {
-                Bucket: mediaToken.bucket,
-                Key: `${directory}/${nameGenerator(file)}`,
-                Body: file,
-                ContentType: file.type,
-            };
-            const task = new Upload({
-                client,
-                params,
-                partSize: 1024 * 1024 * 5, // part upload
-                queueSize: 3,
-            });
+            const { url } = resolveResponseData(response);
 
-            await task.done();
-
-            const url = `https://${mediaToken.cdnHost}/${params.Key}`;
             uploadedCache.set(file, url);
             resolve(url);
         } catch (err) {
@@ -70,6 +57,7 @@ async function uploadToDirectory(
             reject(err);
         }
     });
+
     uploadedCache.set(file, promise);
 
     return promise;
