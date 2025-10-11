@@ -40,6 +40,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_BANNER_CACHE: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_COMPOSE_GIF: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_FIREFLY_DEV_API: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_IFRAME_BRIDGE: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_FORCE_SIGNUP: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_FRAME_V1: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_FRAME_V2: z.nativeEnum(STATUS).default(STATUS.Enabled),

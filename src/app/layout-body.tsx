@@ -5,7 +5,7 @@ import { IfPathname } from '@/components/IfPathname.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
-import { STATUS } from '@/constants/enum.js';
+import { Agent, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { dynamic } from '@/esm/dynamic.js';
 
@@ -13,6 +13,7 @@ const Modals = dynamic(() => import('@/modals/index.js').then((m) => m.Modals), 
 const BeforeUnload = dynamic(() => import('@/components/Compose/BeforeUnload.js').then((m) => m.BeforeUnload), {
     ssr: false,
 });
+const IframeBridge = dynamic(() => import('@/components/IframeBridge.js').then((m) => m.IframeBridge), { ssr: false });
 const FireflyAccountChecker = dynamic(
     () => import('@/components/FireflyAccountChecker.js').then((m) => m.FireflyAccountChecker),
     {
@@ -24,7 +25,12 @@ const NotificationListener = dynamic(
     { ssr: false },
 );
 
-export function LayoutBody({ children }: { children: ReactNode }) {
+interface LayoutBodyProps {
+    agent: Agent | null;
+    children: ReactNode;
+}
+
+export function LayoutBody({ agent, children }: LayoutBodyProps) {
     return (
         <>
             <Providers>
@@ -39,30 +45,40 @@ export function LayoutBody({ children }: { children: ReactNode }) {
                     <IfPathname isNotOneOf={['/signup']}>
                         <div className="m-auto flex w-full md:min-h-screen lg:w-[1265px]">
                             {children}
-                            <IfPathname
-                                isNotOneOf={[
-                                    '/login/desktop',
-                                    '/activity/cz',
-                                    '/event',
-                                    '/events',
-                                    '/frame',
-                                    '/redirect',
-                                    '/signup',
-                                ]}
-                            >
-                                <SideBar />
-                            </IfPathname>
+                            {agent !== Agent.FireflyApp ? (
+                                <IfPathname
+                                    isNotOneOf={[
+                                        '/login/desktop',
+                                        '/activity/cz',
+                                        '/event',
+                                        '/events',
+                                        '/frame',
+                                        '/redirect',
+                                        '/signup',
+                                    ]}
+                                >
+                                    <SideBar />
+                                </IfPathname>
+                            ) : null}
                         </div>
                     </IfPathname>
 
                     <Modals />
-                    {env.external.NEXT_PUBLIC_FORCE_SIGNUP === STATUS.Enabled ? <FireflyAccountChecker /> : null}
+                    {env.external.NEXT_PUBLIC_IFRAME_BRIDGE === STATUS.Enabled && agent !== Agent.FireflyApp ? (
+                        <IframeBridge />
+                    ) : null}
+                    {env.external.NEXT_PUBLIC_FORCE_SIGNUP === STATUS.Enabled && agent !== Agent.FireflyApp ? (
+                        <FireflyAccountChecker />
+                    ) : null}
                 </RouteProgressBar>
-                {env.external.NEXT_PUBLIC_PRIVY === STATUS.Enabled ? <DynamicPrivyBridge /> : null}
-                {/* delay render */}
-                <Suspense>
-                    <NotificationListener />
-                </Suspense>
+                {env.external.NEXT_PUBLIC_PRIVY === STATUS.Enabled && agent !== Agent.FireflyApp ? (
+                    <DynamicPrivyBridge />
+                ) : null}
+                {agent !== Agent.FireflyApp ? (
+                    <Suspense>
+                        <NotificationListener />
+                    </Suspense>
+                ) : null}
             </Providers>
             <BeforeUnload />
         </>
