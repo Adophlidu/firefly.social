@@ -21,10 +21,11 @@ export function useTokenPageParams({ params, searchParams }: TokenPageProps) {
     const isDex = exchange === 'dex';
     const { chainId: paramChainId, trader, traderName, address: paramAddress, category: current } = use(searchParams);
     const addressSlug = slug[1];
+    const chainIdSlug = isDex ? +slug[0] : undefined;
     const isSolAddress = isValidAddressSolana(addressSlug);
     const isAddress = isValidAddressEthereum(addressSlug) || isSolAddress;
 
-    const chainId = paramChainId ? +paramChainId : isSolAddress ? SolanaChainId.Mainnet : undefined;
+    const chainId = paramChainId ? +paramChainId : isSolAddress ? SolanaChainId.Mainnet : chainIdSlug;
     const { data: token, isPending: isTokenPending } = useTokenInfo({
         token_symbol: isAddress ? undefined : exchange,
         coingecko_id: isCex ? slug[0] : undefined,

@@ -1,7 +1,7 @@
 import { memoize } from 'lodash-es';
 import { checksumAddress } from 'viem';
 
-import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
+import { isValidAddressEthereum, isValidAddressSolana, isValidTokenAddressSui } from '@/helpers/isValidAddress.js';
 
 type Offset = 0 | 2;
 
@@ -12,6 +12,7 @@ const resolver = (address: string, size = 0) => `${address}.${size}`;
 export function formatAddress(address: string, size?: number, offset?: Offset, strict = true) {
     if (isValidAddressSolana(address, strict)) return formatAddressSolana(address, size, offset, strict);
     if (isValidAddressEthereum(address)) return formatAddressEthereum(address, size, offset);
+    if (isValidTokenAddressSui(address)) return formatTokenAddressSui(address);
     return address;
 }
 
@@ -34,3 +35,16 @@ export const formatAddressEthereum: Formatter = memoize(function formatEthereumA
     if (size === 0 || size >= 20) return address_;
     return `${address_.slice(0, Math.max(0, offset + size))}...${address_.slice(-size)}`;
 }, resolver);
+
+export function formatTokenAddressSui(address: string): string {
+    if (!isValidTokenAddressSui(address)) return address;
+
+    const parts = address.split('::');
+    if (parts.length !== 3) return address;
+
+    const [packageId, moduleName, structName] = parts;
+
+    const packageIdWithoutZeros = packageId.replace(/^0x0+/, '0x');
+
+    return `${packageIdWithoutZeros}::${moduleName}::${structName}`;
+}

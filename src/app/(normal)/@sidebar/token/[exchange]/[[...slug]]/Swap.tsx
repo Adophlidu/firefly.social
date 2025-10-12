@@ -23,13 +23,13 @@ const SwapModalContent = dynamic(
 );
 
 interface Props {
+    chainId?: number;
+    address?: string;
     token: CoinGeckoToken | null | undefined;
 }
-export const Swap = memo(function Swap({ token }: Props) {
+export const Swap = memo(function Swap({ token, chainId: propChainId, address: propAddress }: Props) {
     const search = useSearchParams();
-    const paramChainId = search.get('chainId') ? Number(search.get('chainId')) : undefined;
-    const propChainId = paramChainId || token?.chainId;
-    const runtimeAddress = search.get('address') || token?.address;
+    const runtimeAddress = search.get('address') || propAddress || token?.address;
     const { data: trending } = useCoinTrending(token?.id);
     const coinChainId = token?.id ? resolveCoinGeckoCoinChainId(token.id) : undefined;
 
@@ -71,7 +71,11 @@ export const Swap = memo(function Swap({ token }: Props) {
                   chainId: tradeChainId,
                   chainIds: tradeInfo.supportedChainIds?.map((x) => x.toString()),
               }
-            : undefined;
-    }, [address, tradeChainId, tradeInfo.address, tradeInfo.supportedChainIds]);
+            : {
+                  toToken: address || tradeInfo.address,
+                  chainId,
+              };
+    }, [address, chainId, tradeChainId, tradeInfo.address, tradeInfo.supportedChainIds]);
+
     return <SwapModalContent props={swapOptions} embed open />;
 });

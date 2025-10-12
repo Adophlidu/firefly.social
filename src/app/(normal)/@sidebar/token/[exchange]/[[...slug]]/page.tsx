@@ -10,7 +10,7 @@ export default function TokenSidebarPage(props: TokenPageProps) {
 
     return (
         <div className="flex flex-col gap-3 pb-6">
-            <Swap token={token} />
+            <Swap token={token} chainId={updatedChainId} address={tokenAddress} />
             <Overview coinId={tokenId} chainId={updatedChainId} address={tokenAddress} />
         </div>
     );

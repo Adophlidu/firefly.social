@@ -13,9 +13,10 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
     handleOrEnsOrAddress: string;
     address: Address;
     isFollowing?: boolean;
+    onSuccess?: () => void;
 }
 
-export function WatchWalletButton({ handleOrEnsOrAddress, address, isFollowing, ref, ...rest }: Props) {
+export function WatchWalletButton({ handleOrEnsOrAddress, address, isFollowing, ref, onSuccess, ...rest }: Props) {
     const { data, isLoading } = useIsFollowingWallet(address, isFollowing === undefined);
     const following = isFollowing || data;
 
@@ -27,6 +28,7 @@ export function WatchWalletButton({ handleOrEnsOrAddress, address, isFollowing, 
             disabled={isLoading}
             onClick={async (event) => {
                 await mutation.mutateAsync();
+                onSuccess?.();
                 rest.onClick?.(event);
             }}
             ref={ref}

@@ -47,7 +47,7 @@ function renderZero(value?: string) {
 function InfoRow({ title, description, amount, asInfinite, value, extra, className, ...rest }: InfoRowProps) {
     return (
         <div className={classNames('flex items-center text-medium', className)} {...rest}>
-            <span className="text-second">{title}</span>
+            <span className="whitespace-nowrap text-second">{title}</span>
             {description ? (
                 <Tooltip placement="top" content={description} touch>
                     <QuestionIcon className="ml-1 cursor-pointer text-second" width={14} height={14} />
@@ -58,7 +58,7 @@ function InfoRow({ title, description, amount, asInfinite, value, extra, classNa
             ) : (
                 <div
                     className={classNames(
-                        'ml-auto font-inter font-bold text-main',
+                        'ml-auto truncate whitespace-nowrap font-inter font-bold text-main',
                         asInfinite ? 'text-2xl leading-[22.5px]' : 'text-medium',
                     )}
                 >

@@ -84,7 +84,7 @@ export function WalletBaseMoreAction({
                                 <WatchWalletButton
                                     handleOrEnsOrAddress={ensOrAddress}
                                     address={address}
-                                    onClick={close}
+                                    onSuccess={close}
                                 />
                             )}
                         </MenuItem>
