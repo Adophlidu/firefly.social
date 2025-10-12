@@ -128,6 +128,7 @@ import {
     type SearchProfileResponse,
     type SearchTokenInfosResponse,
     type SearchTokenResponse,
+    type SparksAccountResponse,
     type SponsorMintOptions,
     type SwapActivityDetail,
     type SwapActivityTimeline,
@@ -1881,6 +1882,14 @@ class FireflyEndpoint {
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
+    }
+    async getSparksAccountDetails(accountId: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/genesis/spark/profile');
+        const response = await fireflySessionHolder.fetch<SparksAccountResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({ uid: accountId }),
+        });
+        return resolveFireflyResponseData(response);
     }
 }
 

@@ -1,3 +1,5 @@
+import type { Chars } from '@/types/chars.js';
+
 export enum IframeBridgeMethod {
     COMPOSE = 'compose',
     LOGIN = 'login',
@@ -17,8 +19,7 @@ export interface IframeBridgeMessage {
 
 export interface IframeBridgeRequestArguments {
     [IframeBridgeMethod.COMPOSE]: {
-        text: string;
-        activity: string;
+        text: Chars;
     };
     [IframeBridgeMethod.ENQUEUE_MESSAGE]: {
         type: 'success' | 'error' | 'info' | 'warning';

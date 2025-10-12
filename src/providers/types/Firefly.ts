@@ -2275,6 +2275,43 @@ export type GetExploreSwitchConfigResponse = Response<{
     }>;
 }>;
 
+export type OgUser = {
+    platform: string;
+    platform_id: string;
+    handle: string;
+    IsClaim: boolean;
+    IsActive: boolean;
+};
+
+export enum OgStatus {
+    isOgActive = 1,
+    isOgInactive = 2,
+    isNotOg = 3,
+    isNotBoundX = 4,
+}
+
+export enum FansStatus {
+    isFansActive = 1,
+    isFansInactive = 2,
+    isNotFans = 3,
+    isNotBoundX = 4,
+}
+
+export type SparksAccountResponse = Response<{
+    account_id: number;
+    account_uuid: string;
+    fansActive: boolean;
+    name: string;
+    ogActive: boolean;
+    rank: string;
+    uid: string;
+    avatar: string;
+    isFans: FansStatus;
+    isOg: OgStatus;
+    OgList?: OgUser[];
+    FansList?: OgUser[];
+}>;
+
 export interface PolymarketProfileData {
     balance: number;
     buy_count: number;
