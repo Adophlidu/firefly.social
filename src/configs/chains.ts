@@ -20,6 +20,7 @@ import {
     metis as wagmiMetis,
     monadTestnet as wagmiMonadTestnet,
     optimism as wagmiOptimism,
+    plasma as wagmiPlasma,
     polygon as wagmiPolygon,
     scroll as wagmiScroll,
     xLayer as wagmiXLayer,
@@ -117,6 +118,7 @@ export const chains = [
     lensMainnet,
     lensTestnet,
     wagmiMonadTestnet,
+    wagmiPlasma,
 ] as const;
 
 export const visibleChains = [
@@ -139,6 +141,7 @@ export const visibleChains = [
     wagmiZkSync,
     wagmiCelo,
     lensMainnet,
+    wagmiPlasma,
 ] as const satisfies ReadonlyArray<(typeof chains)[number]>;
 
 // privy wallet currently only supports these 10 chains
@@ -152,4 +155,5 @@ export const privyVisibleChains = [
     wagmiArbitrum,
     wagmiZkSync,
     wagmiCelo,
+    wagmiPlasma,
 ] as const satisfies ReadonlyArray<(typeof chains)[number]>;

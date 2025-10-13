@@ -26,6 +26,7 @@ import {
     zora,
 } from '@reown/appkit/networks';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
+import { plasma } from 'viem/chains';
 import { http } from 'wagmi';
 
 import { lensMainnet, lensTestnet } from '@/configs/chains.js';
@@ -55,6 +56,7 @@ export const wagmiNetworks = [
     zkSync,
     linea,
     monadTestnet,
+    plasma,
 ] as AppKitNetwork[];
 
 const privyConnector = createPrivyConnector();

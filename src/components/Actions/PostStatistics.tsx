@@ -183,7 +183,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                   pollVotes,
                   !isDetailPage && showChannelTag && post.channel?.name && !isChannelPage ? (
                       <ChannelAnchor
-                          className="!inline-flex translate-y-1"
+                          className="!inline-flex align-middle"
                           channel={post.channel}
                           onClick={onSetScrollIndex}
                       />

@@ -345,6 +345,13 @@ export const DEBANK_CHAINS = [
         native_token_id: 'eth',
         logo_url: '/image/chains/linea.png',
     },
+    {
+        id: 'plasma',
+        community_id: 9745,
+        name: 'Plasma',
+        native_token_id: 'xpl',
+        logo_url: 'https://static.debank.com/image/plasma_token/logo_url/plasma/baafefce3b9d43b12b0c016f30aff140.png',
+    },
 ];
 
 export const DEBANK_CHAIN_TO_CHAIN_ID_MAP: Record<string, number> = {
@@ -365,6 +372,7 @@ export const DEBANK_CHAIN_TO_CHAIN_ID_MAP: Record<string, number> = {
     linea: EthereumChainId.Linea,
     era: EthereumChainId.ZksyncEra,
     celo: EthereumChainId.Celo,
+    plasma: EthereumChainId.Plasma,
 };
 
 export const SOLANA_CHAIN_ID_IN_FIREFLY = 101;

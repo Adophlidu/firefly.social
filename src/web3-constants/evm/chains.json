@@ -1400,5 +1400,27 @@
                 "url": "https://explorer.lens.xyz"
             }
         ]
+    },
+    {
+        "chainId": 9745,
+        "name": "Plasma",
+        "type": "Plasma",
+        "network": "mainnet",
+        "features": [],
+        "nativeCurrency": {
+            "chainId": 9745,
+            "name": "XPL",
+            "symbol": "XPL",
+            "decimals": 18,
+            "logoURL": "https://static.debank.com/image/plasma_token/logo_url/plasma/baafefce3b9d43b12b0c016f30aff140.png"
+        },
+        "shortName": "Plasma",
+        "infoURL": "https://plasma.network",
+        "explorers": [
+            {
+                "name": "Plasma",
+                "url": "https://plasmascan.to"
+            }
+        ]
     }
 ]

@@ -20,6 +20,7 @@ export enum EthereumChainId {
     Lens = 232,
     ZksyncEra = 324,
     Linea = 59144,
+    Plasma = 9745,
 }
 
 export enum EthereumSchemaType {
@@ -108,6 +109,7 @@ export enum EthereumNetworkType {
     Celo = 'Celo',
     ZksyncEra = 'ZksyncEra',
     Linea = 'Linea',
+    Plasma = 'Plasma',
 }
 export interface Web3Definition {
     ChainId: EthereumChainId;

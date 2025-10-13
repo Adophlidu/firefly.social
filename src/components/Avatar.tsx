@@ -100,7 +100,7 @@ export const Avatar = memo(function Avatar({
             loading="lazy"
             unoptimized
             priority={false}
-            className={classNames('relative z-10 max-w-none rounded-full bg-secondary object-cover', className)}
+            className={classNames('max-w-none rounded-full bg-secondary object-cover', className)}
             style={{
                 height: size,
                 width: size,

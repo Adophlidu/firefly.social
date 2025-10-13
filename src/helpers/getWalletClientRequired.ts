@@ -1,4 +1,4 @@
-import { ConnectorNotConnectedError } from '@wagmi/core';
+import { ConnectorChainMismatchError, ConnectorNotConnectedError } from '@wagmi/core';
 import type { Config } from 'wagmi';
 import { getWalletClient, type GetWalletClientParameters, type GetWalletClientReturnType } from 'wagmi/actions';
 
@@ -22,6 +22,9 @@ export async function getWalletClientRequired(
                 ...openProps,
                 networkType: NetworkType.Ethereum,
             });
+        } else if (error instanceof ConnectorChainMismatchError && clientParameters?.chainId) {
+            // starting from wagmi/core 2.2, the validation of chains will be strict.
+            await switchEthereumChain(clientParameters.chainId);
         } else {
             throw error;
         }

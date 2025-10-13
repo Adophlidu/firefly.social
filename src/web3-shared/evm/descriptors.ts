@@ -223,6 +223,17 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<EthereumChainI
         isMainnet: true,
         averageBlockDelay: 10,
     },
+    {
+        ID: `${PLUGIN_ID}_plasma`,
+        networkSupporterPluginID: PLUGIN_ID,
+        chainId: EthereumChainId.Plasma,
+        type: EthereumNetworkType.Plasma,
+        icon: '/image/chains/plasma.png',
+        iconColor: '#3059AE',
+        name: 'Plasma',
+        isMainnet: true,
+        averageBlockDelay: 10,
+    },
 ];
 
 export const CHAIN_DESCRIPTORS: ReadonlyArray<

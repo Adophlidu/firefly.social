@@ -34,14 +34,14 @@ async function getProvider(signal?: AbortSignal) {
 
 export const PRIVY_CONNECTOR_ID = 'network.privy';
 
-export function createPrivyConnector(): CreateConnectorFn {
-    return createConnector((config) => {
+export function createPrivyConnector() {
+    const fn = (config: Parameters<CreateConnectorFn>[0]) => {
         return {
             id: PRIVY_CONNECTOR_ID,
             name: 'Firefly Wallet',
             type: 'INJECTED',
             icon: '/firefly.png',
-            async connect() {
+            async connect(parameters) {
                 const chainId = await this.getChainId();
                 const provider = await getProvider();
                 const accounts: Address[] = await provider.request({
@@ -52,6 +52,19 @@ export function createPrivyConnector(): CreateConnectorFn {
                     accounts,
                     chainId,
                 });
+
+                if (parameters?.withCapabilities === true) {
+                    return {
+                        accounts: Object.freeze(
+                            accounts.map((address) => ({
+                                address,
+                                capabilities: {} as Record<string, unknown>,
+                            })),
+                        ),
+                        chainId,
+                    };
+                }
+
                 return {
                     accounts,
                     chainId,
@@ -139,6 +152,8 @@ export function createPrivyConnector(): CreateConnectorFn {
             onMessage(message) {
                 console.log(`[privy] onMessage`, message);
             },
-        };
-    });
+        } as ReturnType<CreateConnectorFn>;
+    };
+
+    return createConnector(fn);
 }

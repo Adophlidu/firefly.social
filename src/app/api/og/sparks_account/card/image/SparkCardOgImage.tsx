@@ -1,8 +1,9 @@
-import urlcat from 'urlcat';
-import { SITE_URL } from '@/constants/index.js';
 import type { HTMLProps } from 'react';
+import urlcat from 'urlcat';
 
-const bgImageUrl = urlcat(SITE_URL, '/og/sparks-default-card.png');
+import { SITE_URL } from '@/constants/index.js';
+
+const bgImageUrl = urlcat(SITE_URL, '/image/sparks-default-card.png');
 const defaultAvatar = 'https://media.firefly.land/og/sparks_account_avatar.png';
 
 /* eslint-disable @next/next/no-img-element */
