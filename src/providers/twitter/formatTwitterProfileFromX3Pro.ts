@@ -9,7 +9,7 @@ import { formatX3Id } from '@/providers/x3pro/helpers.js';
 import type { Profile as X3ProProfile } from '@/providers/x3pro/types.js';
 
 export function formatTwitterProfileFromX3Pro(user: X3ProProfile): Profile<X3ProProfile> {
-    const bio = user.introLinks.reduce(
+    const bio = user.introLinks?.reduce(
         (b, interLink) => b.replace(interLink.shortUrl, interLink.realUrl),
         user.introduction,
     );

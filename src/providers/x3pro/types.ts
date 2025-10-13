@@ -67,7 +67,7 @@ export interface Profile {
         displayUrl: string;
         realUrl: string;
         shortUrl: string;
-    }>;
+    }> | null;
     introduction: string;
     introductionLang: string;
     isFocus: boolean;
