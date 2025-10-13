@@ -13,6 +13,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { capturePolymarketProfileLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 
 interface PolymarketProfileProps {
     address: string;
@@ -32,6 +33,7 @@ export const PolymarketProfile = memo<PolymarketProfileProps>(function Polymarke
             style={{
                 backgroundColor: '#DADADA33',
             }}
+            onClick={() => capturePolymarketProfileLinkClick()}
         >
             <div className="flex items-center gap-2 text-main">
                 <PolymarketIcon className="shrink-0" width={20} height={20} />

@@ -304,6 +304,11 @@ export enum EventId {
     FIREFLY_WALLET_SEND_RECIPIENT_WALLET_CHANGE = 'Firefly_wallet_send_recipient_wallet_change',
 
     NEW_NOTIFICATION_CLICK = 'notification_update_click',
+
+    // polymarket
+    POLYMARKET_PROFILE_DETAIL_LINK_CLICK = 'profile_wallet_bets_detail_click',
+    PROFILE_POLYMARKET_LINK_CLICK = 'profile_wallet_bets_click',
+    FOLLOWING_POLYMARKET_LINK_CLICK = 'following_bets_click',
 }
 
 export enum ExceptionId {

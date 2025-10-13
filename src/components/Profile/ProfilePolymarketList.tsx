@@ -1,21 +1,22 @@
 'use client';
 
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { PolymarketActivityItem } from '@/components/Polymarket/PolymarketActivityItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { captureProfilePolymarketLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { PolymarketActivity } from '@/providers/types/Firefly.js';
 
 interface ProfilePolymarketListProps {
     address: string;
 }
 
-function getPolymarketItem(data: PolymarketActivity) {
-    return <PolymarketActivityItem activity={data} />;
+function getPolymarketItem(data: PolymarketActivity, onClick?: () => void) {
+    return <PolymarketActivityItem activity={data} onPolymarketLinkClick={onClick} />;
 }
 
 export const ProfilePolymarketList = memo<ProfilePolymarketListProps>(function ProfilePolymarketList({ address }) {
@@ -30,6 +31,10 @@ export const ProfilePolymarketList = memo<ProfilePolymarketListProps>(function P
         select: (data) => data.pages.flatMap((x) => x.data),
     });
 
+    const onPolymarketLinkClick = useCallback(() => {
+        captureProfilePolymarketLinkClick();
+    }, []);
+
     return (
         <ListInPage
             source={Source.Polymarket}
@@ -38,7 +43,7 @@ export const ProfilePolymarketList = memo<ProfilePolymarketListProps>(function P
             VirtualListProps={{
                 listKey: `${ScrollListKey.Polymarket}:${address}`,
                 computeItemKey: (index, data) => `${data.transactionHash}-${index}`,
-                itemContent: (_, item) => getPolymarketItem(item),
+                itemContent: (_, item) => getPolymarketItem(item, onPolymarketLinkClick),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

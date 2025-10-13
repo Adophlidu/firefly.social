@@ -30,9 +30,13 @@ function floor(num: number | string) {
 
 interface PolymarketActivityProps {
     activity: PolymarketActivity;
+    onPolymarketLinkClick?: () => void;
 }
 
-export const PolymarketActivityItem = memo<PolymarketActivityProps>(function PolymarketActivityItem({ activity }) {
+export const PolymarketActivityItem = memo<PolymarketActivityProps>(function PolymarketActivityItem({
+    activity,
+    onPolymarketLinkClick,
+}) {
     const isMyProfile = useIsMyRelatedProfile(Source.Wallet, activity.wallet);
 
     const addressName = formatAddress(activity.wallet, 4);
@@ -92,6 +96,7 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                         target="_blank"
                         className="mt-1.5 block flex-1"
                         href={`https://polymarket.com/event/${activity.eventSlug}`}
+                        onClick={onPolymarketLinkClick}
                     >
                         <ActivityCellPolymarketAction type={activity.side} usdcSize={activity.usdcSize} />
                         <div className="mt-1.5 rounded-xl border border-line bg-lightBg p-3">
