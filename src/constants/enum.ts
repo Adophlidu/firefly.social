@@ -185,7 +185,7 @@ export type BookmarkSource =
     | Source.NFTs
     | Source.Tokens
     | Source.Bsky;
-export type FollowingSource = DiscoverSource | Source.Transactions | Source.Activities;
+export type FollowingSource = DiscoverSource | Source.Transactions | Source.Activities | Source.Polymarket;
 export type ExploreSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter | TrendingType;
 export type ExploreSourceInURL =
     | SourceInURL.Farcaster

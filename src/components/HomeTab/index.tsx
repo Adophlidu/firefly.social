@@ -27,7 +27,7 @@ import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 
 const types = {
     [HomeTab.Discover]: [Source.Posts, Source.Transactions, Source.Activities],
-    [HomeTab.Following]: [Source.Posts, Source.Transactions, Source.Activities],
+    [HomeTab.Following]: [Source.Posts, Source.Transactions, Source.Polymarket, Source.Activities],
 };
 const tabLabels = {
     [HomeTab.Discover]: <Trans>For You</Trans>,

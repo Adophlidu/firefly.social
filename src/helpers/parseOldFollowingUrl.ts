@@ -7,7 +7,6 @@ function fixFollowingSource(source: Source | null) {
 
     switch (source) {
         case Source.Swap:
-        case Source.Polymarket:
         case Source.NFTs:
             return Source.Transactions;
         case Source.Article:

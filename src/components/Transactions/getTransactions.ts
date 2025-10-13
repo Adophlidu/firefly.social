@@ -64,7 +64,7 @@ function createTransactionsFetcher(
 export const getFollowingTransactions = createTransactionsFetcher(
     (indicator, chainId) =>
         FireflyEndpointProvider.getFollowingSwapTimeline(chainId ? [chainId] : [], undefined, indicator, 30),
-    (indicator) => FireflyEndpointProvider.getFollowingPolymarketTimeline('all', indicator, 10),
+    (indicator) => Promise.resolve(createPageable([] as PolymarketActivity[], createIndicator(indicator))),
     (indicator) => Promise.resolve(createPageable([] as NFTFeedV3[], createIndicator(indicator))),
 );
 

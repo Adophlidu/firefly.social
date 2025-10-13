@@ -747,7 +747,7 @@ class FireflyEndpoint {
         platformFollowing: SourceInURL | 'all' = 'all',
         indicator?: PageIndicator,
     ) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/timeline/polymarket');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/user/timeline/polymarket');
 
         const response = await fireflySessionHolder.fetch<PolymarketActivityTimeline>(url, {
             method: 'POST',
@@ -772,7 +772,7 @@ class FireflyEndpoint {
         indicator?: PageIndicator,
         size = 25,
     ) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/timeline/polymarket');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/timeline/polymarket');
 
         const response = await fireflySessionHolder.fetch<PolymarketActivityTimeline>(url, {
             method: 'POST',

@@ -258,7 +258,12 @@ export const SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED: SocialDiscoverSource[] = [So
 export const SOCIAL_DISCOVER_WHITELIST_SOURCE: SocialDiscoverSource[] = [Source.Twitter];
 export const QUERY_MUTE_PROFILE_SOURCES = [Source.Bsky, Source.Twitter, Source.Lens];
 export const DISCOVER_SOURCES: DiscoverSource[] = [Source.Posts, Source.Transactions, Source.Activities] as const;
-export const FOLLOWING_SOURCES: FollowingSource[] = [Source.Posts, Source.Transactions, Source.Activities] as const;
+export const FOLLOWING_SOURCES: FollowingSource[] = [
+    Source.Posts,
+    Source.Transactions,
+    Source.Polymarket,
+    Source.Activities,
+] as const;
 export const FOLLOWING_CATEGORY = [FollowCategory.Followers, FollowCategory.Mutuals, FollowCategory.Following] as const;
 export const REQUIRE_LOGIN_FOLLOWING_CATEGORY = [FollowCategory.Mutuals];
 export const REQUIRE_LOGIN_SOURCES: RequestedLoginSource[] =
