@@ -61,7 +61,7 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
                     res.is_success ? <Trans>Voted successfully.</Trans> : <Trans>Failed to vote.</Trans>,
                 );
             } catch (error) {
-                enqueueMessageFromError(error, <Trans>Failed to vote.</Trans>);
+                enqueueMessageFromError(error, error instanceof Error ? error.message : <Trans>Failed to vote.</Trans>);
                 throw error;
             }
         },
