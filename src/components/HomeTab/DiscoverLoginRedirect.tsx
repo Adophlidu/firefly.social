@@ -4,6 +4,8 @@ import { useEffect, useRef } from 'react';
 
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
+import { bom } from '@/helpers/bom.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
@@ -19,6 +21,10 @@ export function DiscoverLoginRedirect() {
     useEffect(() => {
         if (prevLoginRef.current === isLogin || isSyncing || !isLoginFirefly) return;
         prevLoginRef.current = isLogin;
+
+        const pathname = bom.location?.pathname;
+        if (isLogin && pathname && isRoutePathname(pathname, '/following/:source', true)) return;
+
         router.replace(
             isLogin ? resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE) : resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE),
             {
