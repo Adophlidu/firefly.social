@@ -808,8 +808,8 @@ body {
     width: 100%;
 }
 
-/** lowercase ethereum address */
-[data-address^='0x' i] {
+/** lowercase ethereum address, excludes sui token address */
+[data-address^='0x' i]:not([data-address*='::']) {
     text-transform: lowercase;
 }
 

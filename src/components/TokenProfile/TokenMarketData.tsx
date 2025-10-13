@@ -45,7 +45,6 @@ import { useTokenPrice } from '@/hooks/useTokenPrice.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import type { Contract } from '@/providers/types/Trending.js';
-import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import type { PriceRecord, TradeRecord } from '@/types/token.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
@@ -143,7 +142,6 @@ export const TokenMarketData = memo(function TokenMarketData({
     const tradeInfo = useTradeInfo(token, chainId, address);
     const tradeChainId = chainId || tradeInfo.chainId;
 
-    const { preferences, setPreference } = usePreferencesState();
     const [activeRecord, setActiveRecord] = useState<PriceRecord>();
     const [pendingTradeHash, setPendingTradeHash] = useState<string>();
     const [rangeId = range, setRangeId] = useState<(typeof ranges)[number]['id']>();
@@ -159,7 +157,6 @@ export const TokenMarketData = memo(function TokenMarketData({
         () => (currentRange.id === '1h' ? priceStats.slice(-12) : priceStats),
         [currentRange.id, priceStats],
     );
-    const showUserTx = preferences.SHOW_USER_TX_IN_CHART;
     const [tradeDirection, setTradeDirection] = useState<TradeRecord['type']>();
     const withinRangeTradeRecords = useWithinRangeRecords(
         stats,
@@ -372,7 +369,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                     <PriceChart
                         className="size-full"
                         records={stats}
-                        tradeRecords={showUserTx ? withinRangeTradeRecords : EMPTY_LIST}
+                        tradeRecords={withinRangeTradeRecords}
                         activeTradeHash={pendingTradeHash ?? activeTradeHash ?? propTradeHash}
                         onHover={setActiveRecord}
                         onMouseLeave={handleChartMouseLeave}
@@ -381,7 +378,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                 )}
             </div>
             <div className="flex h-[10px] items-center">
-                {showUserTx && withinRangeTradeRecords.length > 1 ? (
+                {withinRangeTradeRecords.length > 1 ? (
                     <div className="no-scrollbar flex flex-grow flex-nowrap gap-1 overflow-auto">
                         {withinRangeTradeRecords.map((trade, i) => {
                             const activeRecordIndex = activeRecord

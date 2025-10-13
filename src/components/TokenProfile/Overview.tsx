@@ -19,12 +19,13 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link as OriginalLink } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatAddress } from '@/helpers/formatAddress.js';
+import { formatAddress, formatTokenAddressSui } from '@/helpers/formatAddress.js';
 import { formatAge } from '@/helpers/formatAge.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { formatDate } from '@/helpers/formatTimestamp.js';
 import { getChainInfo } from '@/helpers/getChainInfo.js';
+import { isValidTokenAddressSui } from '@/helpers/isValidAddress.js';
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useDetectToken } from '@/hooks/useDetectToken.js';
@@ -113,11 +114,15 @@ export const Overview = memo<TokenOverviewProps>(function Overview({ coinId, cha
 
     const total_supply = market?.total_supply ?? attributes?.normalized_total_supply;
 
+    const selectedAddress = useMemo(() => {
+        const selected = address || contracts[0]?.address;
+        if (isValidTokenAddressSui(selected)) return formatTokenAddressSui(selected);
+        return selected;
+    }, [address, contracts]);
+
     if (!coinId && !isLoading && chainId && address) {
         return <DexCoinOverview chainId={chainId} address={address} {...rest} />;
     }
-
-    const selectedAddress = address || contracts[0]?.address;
 
     return (
         <div {...rest}>
