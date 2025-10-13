@@ -31,7 +31,7 @@ export function SparkCardOgImage({ avatar, rank, name }: { avatar: string; rank:
                 width={144}
                 height={144}
                 style={{
-                    marginTop: 139,
+                    marginTop: 86,
                     width: 144,
                     height: 144,
                     objectFit: 'cover',
