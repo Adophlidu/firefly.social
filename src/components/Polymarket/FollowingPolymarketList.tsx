@@ -1,6 +1,7 @@
 'use client';
 
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useCallback } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
@@ -8,11 +9,14 @@ import { PolymarketActivityItem } from '@/components/Polymarket/PolymarketActivi
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { captureFollowingPolymarketLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { PolymarketActivity } from '@/providers/types/Firefly.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
-function getPolymarketActivityItem(index: number, activity: PolymarketActivity, listKey: string) {
-    return <PolymarketActivityItem activity={activity} key={`${activity.slug}-${index}`} />;
+function getPolymarketActivityItem(index: number, activity: PolymarketActivity, onClick?: () => void) {
+    return (
+        <PolymarketActivityItem activity={activity} key={`${activity.slug}-${index}`} onPolymarketLinkClick={onClick} />
+    );
 }
 
 export function FollowingPolymarketList() {
@@ -32,6 +36,10 @@ export function FollowingPolymarketList() {
         select: (data) => data.pages.flatMap((x) => x.data),
     });
 
+    const onPolymarketLinkClick = useCallback(() => {
+        captureFollowingPolymarketLinkClick();
+    }, []);
+
     if (!queryResult.isFetchingNextPage && queryResult.isFetching) {
         return <Loading />;
     }
@@ -45,8 +53,7 @@ export function FollowingPolymarketList() {
                 useWindowScroll: true,
                 listKey: `${ScrollListKey.Polymarket}:following`,
                 computeItemKey: (index, activity) => `${activity.slug}-${index}`,
-                itemContent: (index, activity) =>
-                    getPolymarketActivityItem(index, activity, `${ScrollListKey.Polymarket}:following`),
+                itemContent: (index, activity) => getPolymarketActivityItem(index, activity, onPolymarketLinkClick),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',
