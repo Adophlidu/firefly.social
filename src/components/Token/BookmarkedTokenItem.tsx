@@ -73,7 +73,7 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
                                 ${nFormatter(token.market_data.volume_usd_24h)}
                             </span>
                         ) : null}
-                        {token.market_data?.volume_usd_24h && token.market_data?.market_cap_usd ? <span>·</span> : null}
+                        {token.market_data?.volume_usd_24h && token.market_data.market_cap_usd ? <span>·</span> : null}
                         {token.market_data?.market_cap_usd ? (
                             <span className="text-sm leading-[20px] text-second">
                                 ${nFormatter(token.market_data.market_cap_usd)}
@@ -82,10 +82,10 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
                     </div>
                 ) : null}
             </div>
-            <div className="flex flex-col justify-end gap-0.5">
-                <div className="text-right font-inter text-base font-semibold leading-[14px] text-lightMain">
+            <div className="flex flex-col justify-end gap-1">
+                <div className="text-right font-inter text-base font-semibold leading-6 text-lightMain">
                     {token.market_data?.token_price_usd ? (
-                        <>${renderShrankPrice(formatPrice(token.market_data?.token_price_usd) ?? '')}</>
+                        <>${renderShrankPrice(formatPrice(token.market_data.token_price_usd) ?? '')}</>
                     ) : (
                         <span className="text-third">--</span>
                     )}

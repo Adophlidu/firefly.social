@@ -21,8 +21,6 @@ interface SearchableTokenItemProps extends HTMLProps<HTMLAnchorElement> {
     showSymbol?: boolean;
     showRank?: boolean;
     showMarketInfo?: boolean;
-    /** compact on sidebar */
-    compact?: boolean;
 }
 
 function formatTokenAddress(address: string) {
@@ -38,7 +36,6 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
     showSymbol = true,
     showRank = true,
     showMarketInfo,
-    compact,
     onClick,
 }: SearchableTokenItemProps) {
     const priceChange = token.market?.price_change_percentage_24h ?? 0;
@@ -122,13 +119,8 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
                     ) : null}
                 </div>
             </div>
-            <div className="flex flex-col justify-end">
-                <div
-                    className={classNames(
-                        'text-right font-inter text-base font-semibold text-lightMain',
-                        compact ? 'leading-[14px]' : 'leading-6',
-                    )}
-                >
+            <div className="flex flex-col justify-end gap-1">
+                <div className="text-right font-inter text-base font-semibold leading-6 text-lightMain">
                     {token.market?.current_price ? (
                         <>${renderShrankPrice(formatPrice(token.market.current_price) ?? '')}</>
                     ) : (
@@ -138,9 +130,8 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
                 {showChange ? (
                     <data
                         className={classNames(
-                            'flex shrink-0 items-center justify-end gap-1 text-right font-inter text-sm font-medium max-md:h-[30px] max-md:w-auto max-md:min-w-[60px] max-md:px-2 max-md:text-[15px] max-md:leading-[15px]',
+                            'flex h-3 shrink-0 items-center justify-end gap-1 text-right font-inter text-sm font-medium max-md:h-[30px] max-md:w-auto max-md:min-w-[60px] max-md:px-2 max-md:text-[15px] max-md:leading-[15px]',
                             priceChange >= 0 ? 'text-success' : 'text-danger',
-                            compact ? 'h-3' : 'h-8',
                         )}
                     >
                         {priceChange !== 0 ? (priceChange > 0 ? '↑ ' : '↓ ') : null}
