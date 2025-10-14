@@ -149,7 +149,7 @@ export class FarcasterFrameHost implements MiniAppHost {
             console.warn('No chain id', options);
             return { success: false, reason: 'swap_failed' };
         }
-        const chainId = parseInt(originChainId, 10);
+        const chainId = Number.parseInt(originChainId, 10);
         const buyTokenAddress = buyToken?.reference;
         const sellTokenAddress = sellToken?.reference;
         const address = buyTokenAddress || sellTokenAddress;

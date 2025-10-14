@@ -81,8 +81,8 @@ function parseTweetOembedUrls(text: string) {
 function extractDimensionsFromUrl(url: string): { width: number; height: number } | null {
     const match = url.match(/\/(\d+)x(\d+)(?=\/|$)/);
     if (match) {
-        const width = parseInt(match[1], 10);
-        const height = parseInt(match[2], 10);
+        const width = Number.parseInt(match[1], 10);
+        const height = Number.parseInt(match[2], 10);
         return { width, height };
     }
     return null;
@@ -187,7 +187,7 @@ export function formatTwitterPostFromNitter(
         const poll = tweet.poll;
         const cardPrefix = 'card://';
         const id = poll.url.startsWith(cardPrefix) ? tweet.poll.url.substring(cardPrefix.length) : tweet.poll.url;
-        const durationMinutes = poll.durationMinutes ? parseInt(poll.durationMinutes, 10) : 0;
+        const durationMinutes = poll.durationMinutes ? Number.parseInt(poll.durationMinutes, 10) : 0;
         post.poll = {
             id,
             options: tweet.poll.options.map((x, i) => ({ label: x, id: x, votes: poll.values[i] })),

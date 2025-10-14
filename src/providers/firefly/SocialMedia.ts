@@ -114,7 +114,7 @@ type ParamTuple = [chainId: number, address: string, tokenId: string];
 function groupNFTParamsByChainId(nftIds: string[]) {
     const tuples = nftIds.map((nftId) => {
         const parts = nftId.split('.');
-        const chainId = parseInt(parts[0], 10);
+        const chainId = Number.parseInt(parts[0], 10);
         if (!NFTSCAN_CHAIN_IDS.includes(chainId)) return null;
         return [chainId, parts[1], parts[2]] as ParamTuple;
     });
@@ -491,7 +491,7 @@ class FireflySocialMedia implements Provider {
             });
 
             const { list, total } = resolveFireflyResponseData(response);
-            const currentCursor = parseInt(params.cursor || '0', 10);
+            const currentCursor = Number.parseInt(params.cursor || '0', 10);
             const next_cursor = total > currentCursor + size ? currentCursor + size : undefined;
 
             return createPageable(

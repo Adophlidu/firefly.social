@@ -2,7 +2,6 @@ import { Grid, SearchContext, SuggestionBar } from '@giphy/react-components';
 import { memo, useContext } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import { LoadingIndicator } from '@/components/Gif/LoadingIndicator.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { MediaSource } from '@/types/compose.js';
 import type { IGif } from '@/types/giphy.js';
@@ -13,7 +12,7 @@ interface GiphyGifListProps {
 }
 
 export const GiphyGifList = memo<GiphyGifListProps>(function GiphyGifList({ width, onSelected }) {
-    const { isFetching, fetchGifs, searchKey } = useContext(SearchContext);
+    const { fetchGifs, searchKey } = useContext(SearchContext);
     const isMedium = useIsMedium();
 
     const [, fetchGiphyGifs] = useAsyncFn(
@@ -43,7 +42,6 @@ export const GiphyGifList = memo<GiphyGifListProps>(function GiphyGifList({ widt
                     onGifClick={onSelected}
                 />
             </div>
-            {isFetching ? <LoadingIndicator /> : null}
         </div>
     );
 });

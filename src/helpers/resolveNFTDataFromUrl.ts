@@ -133,7 +133,7 @@ const rules: Rule[] = [
             const matched = link.match(/^chain:\/\/eip155:(\d+)\/([^/]+)\/(\d+)\/?$/);
             if (!matched) return null;
 
-            const chainId = parseInt(matched[1], 10);
+            const chainId = Number.parseInt(matched[1], 10);
             if (Number.isNaN(chainId)) return null;
 
             const address = matched[2].split(':')[1];
@@ -149,7 +149,7 @@ const rules: Rule[] = [
             const matched = link.match(/^nft:\/\/(\d+)\/([^/]+)\/(\d+)\/?$/);
             if (!matched) return null;
 
-            const chainId = parseInt(matched[1], 10);
+            const chainId = Number.parseInt(matched[1], 10);
             if (Number.isNaN(chainId)) return null;
 
             return { chainId, address: matched[2], tokenId: matched[3] };

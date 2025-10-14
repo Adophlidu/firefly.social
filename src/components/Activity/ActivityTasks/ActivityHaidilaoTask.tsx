@@ -1003,7 +1003,9 @@ function ActivityHaidilaoTaskSubmitButton({ name }: { name: string }) {
             ) : null}
             <PurchaseButton
                 price={
-                    checkBuy?.status === CheckBuyStatus.PurchasedUnpaid ? parseFloat(checkBuy.orderInfo.amount) : price
+                    checkBuy?.status === CheckBuyStatus.PurchasedUnpaid
+                        ? Number.parseFloat(checkBuy.orderInfo.amount)
+                        : price
                 }
                 name={name}
                 isContinue={checkBuy?.status === CheckBuyStatus.PurchasedUnpaid}

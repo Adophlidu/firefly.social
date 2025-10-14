@@ -15,7 +15,7 @@ import { isZero } from '@/helpers/number.js';
 export function formatTokenUSD(amount: string | number): string {
     if (!amount || isZero(amount)) return '$0.00';
 
-    const num = typeof amount === 'string' ? parseFloat(amount) : amount;
+    const num = typeof amount === 'string' ? Number.parseFloat(amount) : amount;
     if (isNaN(num)) return '$0.00';
 
     if (num >= 0.01) {

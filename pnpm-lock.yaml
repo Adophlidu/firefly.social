@@ -7,7 +7,7 @@ settings:
 onlyBuiltDependencies: []
 
 overrides:
-  '@floating-ui/react': 0.27.9
+  '@floating-ui/react': 0.27.16
   '@noble/curves': 1.9.2
   '@solana/wallet-adapter-base': 0.9.27
   '@tanstack/react-query-next-experimental': 5.85.5
@@ -87,8 +87,8 @@ dependencies:
     specifier: ^0.2.12
     version: 0.2.12(react@19.0.0)(typescript@5.7.3)(zod@3.24.4)
   '@floating-ui/react':
-    specifier: 0.27.9
-    version: 0.27.9(react-dom@19.0.0)(react@19.0.0)
+    specifier: 0.27.16
+    version: 0.27.16(react-dom@19.0.0)(react@19.0.0)
   '@giphy/js-fetch-api':
     specifier: ^5.6.0
     version: 5.6.0
@@ -3402,11 +3402,24 @@ packages:
       '@floating-ui/utils': 0.2.9
     dev: false
 
+  /@floating-ui/core@1.7.3:
+    resolution: {integrity: sha512-sGnvb5dmrJaKEZ+LDIpguvdX3bDlEllmv4/ClQ9awcmCZrlx5jQyyMWFM5kBI+EyNOCDDiKk8il0zeuX3Zlg/w==}
+    dependencies:
+      '@floating-ui/utils': 0.2.10
+    dev: false
+
   /@floating-ui/dom@1.6.13:
     resolution: {integrity: sha512-umqzocjDgNRGTuO7Q8CU32dkHkECqI8ZdMZ5Swb6QAM0t5rnlrN3lGo1hdpscRd3WS8T6DKYK4ephgIH9iRh3w==}
     dependencies:
       '@floating-ui/core': 1.6.9
       '@floating-ui/utils': 0.2.9
+    dev: false
+
+  /@floating-ui/dom@1.7.4:
+    resolution: {integrity: sha512-OOchDgh4F2CchOX94cRVqhvy7b3AFb+/rQXyswmzmGakRfkMgoWVjfnLWkRirfLEfuD4ysVW16eXzwt3jHIzKA==}
+    dependencies:
+      '@floating-ui/core': 1.7.3
+      '@floating-ui/utils': 0.2.10
     dev: false
 
   /@floating-ui/react-dom@2.1.2(react-dom@19.0.0)(react@19.0.0):
@@ -3420,17 +3433,32 @@ packages:
       react-dom: 19.0.0(react@19.0.0)
     dev: false
 
-  /@floating-ui/react@0.27.9(react-dom@19.0.0)(react@19.0.0):
-    resolution: {integrity: sha512-Y0aCJBNtfVF6ikI1kVzA0WzSAhVBz79vFWOhvb5MLCRNODZ1ylGSLTuncchR7JsLyn9QzV6JD44DyZhhOtvpRw==}
+  /@floating-ui/react-dom@2.1.6(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-4JX6rEatQEvlmgU80wZyq9RT96HZJa88q8hp0pBd+LrczeDI4o6uA2M+uvxngVHo4Ihr8uibXxH6+70zhAFrVw==}
     peerDependencies:
       react: 19.0.0
       react-dom: 19.0.0
     dependencies:
-      '@floating-ui/react-dom': 2.1.2(react-dom@19.0.0)(react@19.0.0)
-      '@floating-ui/utils': 0.2.9
+      '@floating-ui/dom': 1.7.4
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+    dev: false
+
+  /@floating-ui/react@0.27.16(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-9O8N4SeG2z++TSM8QA/KTeKFBVCNEz/AGS7gWPJf6KFRzmRWixFRnCnkPHRDwSVZW6QPDO6uT0P2SpWNKCc9/g==}
+    peerDependencies:
+      react: 19.0.0
+      react-dom: 19.0.0
+    dependencies:
+      '@floating-ui/react-dom': 2.1.6(react-dom@19.0.0)(react@19.0.0)
+      '@floating-ui/utils': 0.2.10
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       tabbable: 6.2.0
+    dev: false
+
+  /@floating-ui/utils@0.2.10:
+    resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
     dev: false
 
   /@floating-ui/utils@0.2.9:
@@ -3565,7 +3593,7 @@ packages:
       react: 19.0.0
       react-dom: 19.0.0
     dependencies:
-      '@floating-ui/react': 0.27.9(react-dom@19.0.0)(react@19.0.0)
+      '@floating-ui/react': 0.27.16(react-dom@19.0.0)(react@19.0.0)
       '@react-aria/focus': 3.20.1(react-dom@19.0.0)(react@19.0.0)
       '@react-aria/interactions': 3.24.1(react-dom@19.0.0)(react@19.0.0)
       '@tanstack/react-virtual': 3.13.6(react-dom@19.0.0)(react@19.0.0)
@@ -3581,7 +3609,7 @@ packages:
       react: 19.0.0
       react-dom: 19.0.0
     dependencies:
-      '@floating-ui/react': 0.27.9(react-dom@19.0.0)(react@19.0.0)
+      '@floating-ui/react': 0.27.16(react-dom@19.0.0)(react@19.0.0)
       '@react-aria/focus': 3.20.5(react-dom@19.0.0)(react@19.0.0)
       '@react-aria/interactions': 3.25.3(react-dom@19.0.0)(react@19.0.0)
       '@tanstack/react-virtual': 3.13.10(react-dom@19.0.0)(react@19.0.0)
@@ -5455,7 +5483,7 @@ packages:
     dependencies:
       '@base-org/account': 1.1.1(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0)(typescript@5.7.3)(use-sync-external-store@1.5.0)(zod@3.24.4)
       '@coinbase/wallet-sdk': 4.3.2
-      '@floating-ui/react': 0.27.9(react-dom@19.0.0)(react@19.0.0)
+      '@floating-ui/react': 0.27.16(react-dom@19.0.0)(react@19.0.0)
       '@headlessui/react': 2.2.4(react-dom@19.0.0)(react@19.0.0)
       '@heroicons/react': 2.2.0(react@19.0.0)
       '@marsidev/react-turnstile': 0.4.1(react-dom@19.0.0)(react@19.0.0)
@@ -20351,7 +20379,7 @@ time:
   /@crowdin/cli@4.7.1: '2025-06-05T13:08:33.288Z'
   /@farcaster/core@0.18.4: '2025-07-12T16:14:38.184Z'
   /@farcaster/miniapp-host@0.2.12: '2025-09-05T16:45:18.036Z'
-  /@floating-ui/react@0.27.9: '2025-05-26T03:31:17.104Z'
+  /@floating-ui/react@0.27.16: '2025-08-21T06:33:44.461Z'
   /@giphy/js-fetch-api@5.6.0: '2024-05-28T16:39:28.633Z'
   /@giphy/react-components@9.8.0: '2024-11-05T16:50:07.282Z'
   /@heroicons/react@2.2.0: '2024-11-18T15:33:27.317Z'

@@ -27,7 +27,7 @@ export function formatMarketCap(amount: BigNumber.Value, digits = 2, symbol = ''
             bigNumber = bigNumber.dividedBy(1000);
             suffixIndex += 1;
         }
-        return leading + parseFloat(bigNumber.toFixed(digits)) + (suffixes[suffixIndex] ?? '');
+        return leading + Number.parseFloat(bigNumber.toFixed(digits)) + (suffixes[suffixIndex] ?? '');
     }
     if (bigNumber.isLessThan(1)) {
         const zeroCount = bigNumber.toFormat().substring(2).match(/^0+/)?.[0].length ?? 0;

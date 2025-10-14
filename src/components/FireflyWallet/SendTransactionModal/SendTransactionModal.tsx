@@ -222,7 +222,7 @@ function FormView() {
                 wallet_address: address,
                 target_wallet_address: to,
                 target_firefly_account_id: recipient?.handle,
-                amount: parseFloat(values.amount),
+                amount: Number.parseFloat(values.amount),
                 currency: token.symbol,
                 amount_usd: amountUsd,
                 chain_id: token.chainId,

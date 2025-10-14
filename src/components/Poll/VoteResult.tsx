@@ -12,7 +12,7 @@ interface VoteResultProps {
 
 export function VoteResult({ option, totalVotes, maxPercent }: VoteResultProps) {
     const { label, votes = 0, percent } = option;
-    const currentRate = percent ?? (totalVotes ? parseFloat(((votes / totalVotes) * 100).toFixed(2)) : 0);
+    const currentRate = percent ?? (totalVotes ? Number.parseFloat(((votes / totalVotes) * 100).toFixed(2)) : 0);
 
     const isUserVoted = option.isVoted ?? false;
     const isMaxPercent = !!currentRate && currentRate === maxPercent;

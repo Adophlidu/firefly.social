@@ -8,7 +8,7 @@
  *    - If amount < 0.000001, show "<0.000001"
  */
 export function formatTokenAmount(amount: string | number): string {
-    const num = typeof amount === 'string' ? parseFloat(amount) : amount;
+    const num = typeof amount === 'string' ? Number.parseFloat(amount) : amount;
 
     // Handle invalid input
     if (isNaN(num)) return '0';

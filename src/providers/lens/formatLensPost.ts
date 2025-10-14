@@ -42,7 +42,7 @@ function formatCollectModuleV3(postActions: PostAction[], count: number) {
         currency: collectAction.payToCollect?.amount?.asset.symbol,
         assetAddress: collectAction.payToCollect?.amount?.asset.contract.address,
         usdPrice: '',
-        amount: parseFloat(collectAction.payToCollect?.amount?.value || '0'),
+        amount: Number.parseFloat(collectAction.payToCollect?.amount?.value || '0'),
         referralFee: collectAction.payToCollect?.referralShare ?? undefined,
         followerOnly: collectAction.followerOnGraph?.globalGraph,
         contract: {

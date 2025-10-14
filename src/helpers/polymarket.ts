@@ -13,7 +13,7 @@ export function toFixedTrimmed(num: number, fixed: number) {
 
 export function formatAmount(amount: string) {
     const numStr = runInSafe(() => {
-        const num = parseFloat(amount);
+        const num = Number.parseFloat(amount);
         return toFixedTrimmed(num / 1e6, 2);
     }, true);
 
@@ -23,7 +23,7 @@ export function formatAmount(amount: string) {
 export function computeVolume(activity: PolymarketActivity, index: number) {
     const ratio = runInSafe(
         () => {
-            const total = activity.conditionOutcomePrices.reduce((acc, price) => acc + parseFloat(price), 0);
+            const total = activity.conditionOutcomePrices.reduce((acc, price) => acc + Number.parseFloat(price), 0);
             return Math.min(parseFloat(activity.conditionOutcomePrices[index]) / total, 1);
         },
         true,

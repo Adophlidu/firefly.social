@@ -159,7 +159,7 @@ class OfficialSocialMedia implements Provider {
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const pageNo = indicator?.id ? parseInt(indicator.id, 10) : 1;
+        const pageNo = indicator?.id ? Number.parseInt(indicator.id, 10) : 1;
         const response = await X3ProProvider.getKolList(X3ProKolListLabel.Web3, X3ProOrderType.Follower, {
             pageNo: isNaN(pageNo) ? 1 : pageNo,
         });

@@ -7,8 +7,8 @@ function isSequentialDigits(password: string) {
     let isReverseSequential = true;
 
     for (let i = 1; i < password.length; i += 1) {
-        const current = parseInt(password[i], 10);
-        const prev = parseInt(password[i - 1], 10);
+        const current = Number.parseInt(password[i], 10);
+        const prev = Number.parseInt(password[i - 1], 10);
 
         // up sequential digits
         if (current !== prev + 1) {
