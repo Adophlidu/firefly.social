@@ -69,9 +69,11 @@ export function ComposeActions() {
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-x-3">
                     <MediaAction />
+
                     {env.external.NEXT_PUBLIC_COMPOSE_GIF === STATUS.Enabled ? (
                         <GifEntryButton disabled={mediaDisabled} />
                     ) : null}
+
                     <EmojiAction />
 
                     {type === 'compose' && env.external.NEXT_PUBLIC_POLL === STATUS.Enabled && !isAnonymous ? (
@@ -79,6 +81,7 @@ export function ComposeActions() {
                     ) : null}
 
                     {!isAnonymous ? <SchedulePostEntryButton className="text-main" /> : null}
+
                     {!scheduleTime && !mediaDisabled && isMedium && !isAnonymous ? (
                         <RedPacketAction disabled={mediaDisabled} />
                     ) : null}

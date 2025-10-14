@@ -1,3 +1,3 @@
-import EmojiPickerComponent from 'emoji-picker-react';
+import Picker from 'emoji-picker-react';
 
-export const EmojiPicker = EmojiPickerComponent as unknown as typeof EmojiPickerComponent.default;
+export const EmojiPicker = Picker as unknown as typeof Picker.default;
