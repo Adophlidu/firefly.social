@@ -94,15 +94,7 @@ export function Signup({ initialStep }: SignupProps) {
     );
 
     if (hasFireflyAccount && !hasFinished.current) {
-        if (displayName) {
-            LoginModalRef.close();
-            changeStep(SignupStep.Success, {
-                nickname: encodeURIComponent(displayName),
-                avatar: avatar ? encodeURIComponent(avatar) : '',
-                isBack: '1',
-            });
-            return null;
-        }
+        LoginModalRef.close();
         redirect(PageRoute.FollowingPosts, RedirectType.replace);
     }
 
