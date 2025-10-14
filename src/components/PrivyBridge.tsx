@@ -1,26 +1,25 @@
 'use client';
 
+import { web3 } from '@coral-xyz/anchor';
 import {
-    type ConnectedSolanaWallet,
     type ConnectedWallet,
     type PrivyClientConfig,
     PrivyProvider,
     type SignMessageModalUIOptions,
-    type SupportedSolanaTransaction,
     usePrivy,
     useSignMessage,
-    useSolanaWallets,
     useSyncJwtBasedAuthState,
     useWallets,
 } from '@privy-io/react-auth';
 import {
-    useSendTransaction,
-    type UseSendTransactionInterface,
-    useSignMessage as useSignMessageSolana,
-    type UseSignMessageInterface,
-    useSignTransaction,
-    type UseSignTransactionInterface,
+    ConnectedStandardSolanaWallet as ConnectedSolanaWallet,
+    useSignAndSendTransaction as useSignAndSendTransactionSolana,
+    useWallets as useSolanaWallets,
 } from '@privy-io/react-auth/solana';
+import { createSolanaRpc, createSolanaRpcSubscriptions } from '@solana/kit';
+import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
+import bs58 from 'bs58';
+import { first } from 'lodash-es';
 import { createRef, type Ref, useCallback, useEffect, useImperativeHandle, useState } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
@@ -46,26 +45,43 @@ type SignMessageWithEVM = (
     signature: string;
 }>;
 
+type SupportedSolanaTransaction = web3.Transaction | web3.VersionedTransaction;
+
+type SendTransactionWithSolana = (o: {
+    transaction: SupportedSolanaTransaction;
+    connection: web3.Connection;
+    address?: string;
+}) => Promise<{
+    signature: string;
+}>;
+
+type SignMessageWithSolana = (o: { message: Uint8Array }) => Promise<Uint8Array>;
+type SignTransactionWithSolana = (o: {
+    transaction: web3.Transaction | web3.VersionedTransaction;
+    connection: web3.Connection;
+    address?: string;
+}) => Promise<Uint8Array>;
+
 interface PrivyBridgeHandle {
     getWallets: () => {
         solanaWallets: ConnectedSolanaWallet[];
         evmWallets: ConnectedWallet[];
     };
     getAuthenticated: () => boolean;
-    sendTransactionWithSolana: UseSendTransactionInterface['sendTransaction'];
-    signTransactionWithSolana: UseSignTransactionInterface['signTransaction'];
-    signMessageWithSolana: UseSignMessageInterface['signMessage'];
+    sendTransactionWithSolana: SendTransactionWithSolana;
+    signTransactionWithSolana: SignTransactionWithSolana;
+    signMessageWithSolana: SignMessageWithSolana;
     signAllTransactionsWithSolana: (txs: SupportedSolanaTransaction[]) => Promise<SupportedSolanaTransaction[]>;
     signMessageWithEVM: SignMessageWithEVM;
 }
+
+const PRIVY_SOLANA_CHAIN = 'solana:mainnet';
 
 function PrivyBridge({ ref }: { ref: Ref<PrivyBridgeHandle> }) {
     const { wallets: evmWallets } = useWallets();
     const { wallets: solanaWallets } = useSolanaWallets();
     const { authenticated, ready } = usePrivy();
-    const { sendTransaction: sendTransactionWithSolana } = useSendTransaction();
-    const { signTransaction: signTransactionWithSolana } = useSignTransaction();
-    const { signMessage: signMessageWithSolana } = useSignMessageSolana();
+    const { signAndSendTransaction: signAndSendTransactionSolana } = useSignAndSendTransactionSolana();
     const { signMessage: signMessageWithEVM } = useSignMessage();
 
     useImperativeHandle(
@@ -81,22 +97,57 @@ function PrivyBridge({ ref }: { ref: Ref<PrivyBridgeHandle> }) {
                 return authenticated;
             },
             signMessageWithEVM,
-            sendTransactionWithSolana,
-            signTransactionWithSolana,
-            signMessageWithSolana,
-            signAllTransactionsWithSolana(...args) {
-                return solanaWallets?.[0]?.signAllTransactions(...args);
+            async sendTransactionWithSolana({ transaction, connection }) {
+                const wallet = first(solanaWallets);
+                if (!wallet) throw new WalletNotConnectedError();
+                const { signature } = await wallet.signAndSendTransaction({
+                    transaction: new Uint8Array(
+                        transaction.serialize({
+                            requireAllSignatures: false,
+                            verifySignatures: false,
+                        }),
+                    ),
+                    chain: PRIVY_SOLANA_CHAIN,
+                });
+                return { signature: bs58.encode(signature) };
+            },
+            async signTransactionWithSolana({ transaction }) {
+                const wallet = first(solanaWallets);
+                if (!wallet) throw new WalletNotConnectedError();
+                const { signedTransaction } = await wallet.signTransaction({
+                    transaction: new Uint8Array(
+                        transaction.serialize({
+                            requireAllSignatures: false,
+                            verifySignatures: false,
+                        }),
+                    ),
+                });
+                return signedTransaction;
+            },
+            async signMessageWithSolana({ message }) {
+                const wallet = first(solanaWallets);
+                if (!wallet) throw new WalletNotConnectedError();
+                const { signedMessage } = await wallet.signMessage({ message });
+                return signedMessage;
+            },
+            async signAllTransactionsWithSolana(txs) {
+                const wallet = first(solanaWallets);
+                if (!wallet) throw new WalletNotConnectedError();
+                await signAndSendTransactionSolana(
+                    ...txs.map((transaction) => ({
+                        transaction: new Uint8Array(
+                            transaction.serialize({
+                                requireAllSignatures: false,
+                                verifySignatures: false,
+                            }),
+                        ),
+                        wallet,
+                    })),
+                );
+                return txs;
             },
         }),
-        [
-            signMessageWithEVM,
-            authenticated,
-            evmWallets,
-            sendTransactionWithSolana,
-            signMessageWithSolana,
-            signTransactionWithSolana,
-            solanaWallets,
-        ],
+        [signMessageWithEVM, evmWallets, solanaWallets, authenticated, signAndSendTransactionSolana],
     );
     const isLoginFirefly = useIsLoginFirefly();
     const subscribe = useCallback((onJwtAuthStateChange: () => void) => {
@@ -147,6 +198,16 @@ function Root({ ref, rootRef }: { ref: Ref<PrivyBridgeHandle>; rootRef: Ref<Priv
             <PrivyProvider
                 appId={env.external.NEXT_PUBLIC_PRIVY_APP_ID}
                 config={{
+                    solana: {
+                        rpcs: {
+                            [PRIVY_SOLANA_CHAIN]: {
+                                rpc: createSolanaRpc(env.external.NEXT_PUBLIC_SOLANA_RPC_URL),
+                                rpcSubscriptions: createSolanaRpcSubscriptions(
+                                    env.external.NEXT_PUBLIC_SOLANA_RPC_WS_URL,
+                                ),
+                            },
+                        },
+                    },
                     supportedChains: chains as unknown as PrivyClientConfig['supportedChains'],
                     embeddedWallets: {
                         showWalletUIs: showWalletUI,

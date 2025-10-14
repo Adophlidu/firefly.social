@@ -1,4 +1,5 @@
-import type { ConnectedSolanaWallet, ConnectedWallet } from '@privy-io/react-auth';
+import type { ConnectedWallet } from '@privy-io/react-auth';
+import { ConnectedStandardSolanaWallet as ConnectedSolanaWallet } from '@privy-io/react-auth/solana';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
@@ -42,7 +43,8 @@ export const usePrivyWalletStore = create<usePrivyWalletStoreState, [['zustand/i
         },
         setWallet(networkType, wallets) {
             set((state) => {
-                state.wallets[networkType] = wallets;
+                // Avoid Immer's deep-writable draft incompatibility with readonly fields inside Privy wallet types
+                state.wallets[networkType] = wallets as never;
             });
         },
     })),

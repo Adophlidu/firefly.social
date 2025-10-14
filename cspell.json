@@ -552,7 +552,8 @@
         "Bugis",
         "inprogress",
         "ordercheck",
-        "notfill"
+        "notfill",
+        "rpcs"
     ],
     "flagWords": [],
     "ignorePaths": [

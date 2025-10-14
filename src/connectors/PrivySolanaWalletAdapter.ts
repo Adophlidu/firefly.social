@@ -1,5 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
-import type { ConnectedSolanaWallet } from '@privy-io/react-auth';
+import { ConnectedStandardSolanaWallet as ConnectedSolanaWallet } from '@privy-io/react-auth/solana';
 import type { RequestArguments } from '@reown/appkit';
 import type { AnyTransaction, Provider, ProviderEventEmitterMethods } from '@reown/appkit-adapter-solana';
 import {
@@ -12,17 +12,16 @@ import {
     WalletNotReadyError,
     WalletReadyState,
 } from '@solana/wallet-adapter-base';
+import { first } from 'lodash-es';
 
 import { getPrivyBridge } from '@/connectors/PrivyConnector.js';
 import { NetworkType } from '@/constants/enum.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 
-function getWallet() {
+function getWallet(): ConnectedSolanaWallet | null {
     if (typeof window === 'undefined') return null;
-    const wallet = usePrivyWalletStore
-        .getState()
-        .wallets[NetworkType.Solana].find((x) => x.connectorType === 'embedded');
+    const wallet = first(usePrivyWalletStore.getState().wallets[NetworkType.Solana]);
     return wallet ?? null;
 }
 
@@ -93,7 +92,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
         if (this._readyState !== WalletReadyState.Installed) throw new WalletNotReadyError();
         try {
             this._wallet = getWallet();
-            if (this._wallet && (await this._wallet.isConnected())) {
+            if (this._wallet) {
                 this._publicKey = new web3.PublicKey(this._wallet.address);
                 this._connecting = true;
                 this.emit('connect', this._publicKey);
@@ -141,7 +140,6 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
                 transaction,
                 connection,
                 address: wallet.address,
-                transactionOptions: options,
             });
             return result.signature;
         } catch (error: any) {
@@ -167,7 +165,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
                 connection,
                 address: wallet.address,
             });
-            return signedTransaction as T;
+            return web3.Transaction.from(signedTransaction) as T;
         } catch (error: any) {
             this.emit('error', new WalletError('Failed to sign transaction', error));
             throw error;
@@ -187,9 +185,6 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
         try {
             return await privyBridge.signMessageWithSolana({
                 message,
-                options: {
-                    address: wallet.address,
-                },
             });
         } catch (error: any) {
             this.emit('error', new WalletError('Failed to sign message', error));
@@ -266,7 +261,6 @@ export class PrivySolanaWalletProvider implements Provider {
     async sendTransaction<T extends web3.Transaction | web3.VersionedTransaction>(
         transaction: T,
         connection: web3.Connection,
-        options: SendTransactionOptions = {},
     ): Promise<web3.TransactionSignature> {
         const wallet = getWallet();
         const privyBridge = getPrivyBridge();
@@ -277,7 +271,6 @@ export class PrivySolanaWalletProvider implements Provider {
             transaction,
             connection,
             address: wallet.address,
-            transactionOptions: options,
         });
         return result.signature;
     }
@@ -307,9 +300,6 @@ export class PrivySolanaWalletProvider implements Provider {
         }
         return await privyBridge.signMessageWithSolana({
             message,
-            options: {
-                address: wallet.address,
-            },
         });
     }
 
@@ -326,7 +316,7 @@ export class PrivySolanaWalletProvider implements Provider {
             connection,
             address: wallet.address,
         });
-        return signedTransaction as T;
+        return web3.Transaction.from(signedTransaction) as T;
     }
 }
 

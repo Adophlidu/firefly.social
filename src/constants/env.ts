@@ -34,6 +34,7 @@ const ExternalEnvSchema = z.object({
     // urls
     NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.social'),
     NEXT_PUBLIC_SOLANA_RPC_URL: z.string().default('https://api.mainnet-beta.solana.com'),
+    NEXT_PUBLIC_SOLANA_RPC_WS_URL: z.string().default('wss://api.mainnet-beta.solana.com'),
 
     // features
     NEXT_PUBLIC_ACTIVITY_PARTICLE: z.nativeEnum(STATUS).default(STATUS.Disabled),
@@ -109,6 +110,7 @@ export const env = {
         // urls
         NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
         NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
+        NEXT_PUBLIC_SOLANA_RPC_WS_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_WS_URL,
 
         // features
         NEXT_PUBLIC_BANNER_CACHE: process.env.NEXT_PUBLIC_BANNER_CACHE,

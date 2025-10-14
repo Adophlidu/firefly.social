@@ -250,7 +250,7 @@ function FormView() {
             if (!token || !networkType) return;
             const transfer = resolveTransferProvider(networkType);
             return await transfer.getAvailableBalance({
-                to: ETH_ZERO_ADDRESS,
+                to: networkType === NetworkType.Solana ? SOL_ZERO_ADDRESS : ETH_ZERO_ADDRESS,
                 token,
                 amount: '0',
             });
@@ -685,7 +685,7 @@ function FailedView() {
                 </p>
                 <pre className="mt-4 line-clamp-2 w-full text-sm text-second">{state.error.message}</pre>
             </div>
-            <div className="flex w-full items-center">
+            <div className="flex w-full items-center gap-2">
                 <ActionButton
                     variant="secondary"
                     className="mt-12 h-10 w-full rounded-lg border-none bg-secondaryLine text-medium"
