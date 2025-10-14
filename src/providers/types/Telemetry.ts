@@ -272,6 +272,10 @@ export enum EventId {
     EVENT_SWAP_SUBMIT = 'swap_submit',
     EVENT_SWAP_SUCCESS = 'swap_success',
 
+    // token
+    TOKEN_BOOKMARK_CLICK = 'token_bookmark_click',
+    BOOKMARK_TOKEN_VIEW = 'token_bookmark_view',
+
     // channel
     FARCASTER_CHANNEL_JOIN_SUCCESS = 'farcaster_channel_join_success',
     FARCASTER_CHANNEL_LEAVE_SUCCESS = 'farcaster_channel_leave_success',
@@ -1407,6 +1411,21 @@ export interface Events extends Record<EventId, Event> {
             wallet_name: string;
             time: string;
             tx_hash?: string;
+        };
+    };
+
+    // token
+    [EventId.TOKEN_BOOKMARK_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.BOOKMARK_TOKEN_VIEW]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            source: 'direct' | 'toast_view' | 'sidebar_more';
         };
     };
 

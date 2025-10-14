@@ -36,6 +36,7 @@ export function SideTrendingTokens() {
                         showSymbol={false}
                         showRank={false}
                         showMarketInfo
+                        compact
                     />
                 ))}
             </div>

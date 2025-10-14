@@ -17,6 +17,10 @@ import { resolveTokenBookmarkId } from '@/helpers/resolveTokenBookmarkId.js';
 import { useHasBookmarked } from '@/hooks/useHasBookmarked.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import {
+    captureBookmarkTokenViewEvent,
+    captureTokenBookmarkClickEvent,
+} from '@/providers/telemetry/captureTokenEvent.js';
 import type { BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
 
 interface Props extends ClickableAreaProps, BookmarkTokenOptions {
@@ -36,6 +40,9 @@ export const TokenBookmarkButton = memo<Props>(function TokenBookmarkButton({
     const bookmarkContentId = resolveTokenBookmarkId({ coinId, chainId, address });
     const query = useHasBookmarked(FireflyPlatform.Token, bookmarkContentId, undefined, propBookmarked !== undefined);
     const bookmarked = propBookmarked || query.data;
+    const captureBookmarkToastClick = () => {
+        captureBookmarkTokenViewEvent('toast_view');
+    };
 
     const { isPending, mutate } = useMutation({
         mutationKey: ['bookmark-token', bookmarkContentId, isLogin],
@@ -50,7 +57,7 @@ export const TokenBookmarkButton = memo<Props>(function TokenBookmarkButton({
                 enqueueSuccessMessage(
                     <Trans>
                         Token removed from your Bookmarks.{' '}
-                        <Link href="/bookmarks/tokens" className="underline">
+                        <Link href="/bookmarks/tokens" className="underline" onClick={captureBookmarkToastClick}>
                             View
                         </Link>
                     </Trans>,
@@ -64,7 +71,7 @@ export const TokenBookmarkButton = memo<Props>(function TokenBookmarkButton({
                 enqueueSuccessMessage(
                     <Trans>
                         Token added to your Bookmarks.{' '}
-                        <Link href="/bookmarks/tokens" className="underline">
+                        <Link href="/bookmarks/tokens" className="underline" onClick={captureBookmarkToastClick}>
                             View
                         </Link>
                     </Trans>,
@@ -103,6 +110,7 @@ export const TokenBookmarkButton = memo<Props>(function TokenBookmarkButton({
                         e.preventDefault();
                         e.stopPropagation();
                         mutate(!!bookmarked);
+                        captureTokenBookmarkClickEvent();
                     }}
                 >
                     {isPending ? (

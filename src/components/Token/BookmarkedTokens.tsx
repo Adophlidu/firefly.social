@@ -13,6 +13,7 @@ import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { captureBookmarkTokenViewEvent } from '@/providers/telemetry/captureTokenEvent.js';
 
 export const BookmarkedTokens = memo(function BookmarkedTokens(props: HTMLProps<HTMLDivElement>) {
     const isLogin = useIsLogin();
@@ -40,7 +41,13 @@ export const BookmarkedTokens = memo(function BookmarkedTokens(props: HTMLProps<
                 <div className="text-xl font-bold leading-6 text-main">
                     <Trans>Bookmarked Token</Trans>
                 </div>
-                <Link href="/bookmarks/tokens" className="ml-auto text-medium font-bold text-highlight">
+                <Link
+                    href="/bookmarks/tokens"
+                    className="ml-auto text-medium font-bold text-highlight"
+                    onClick={() => {
+                        captureBookmarkTokenViewEvent('sidebar_more');
+                    }}
+                >
                     <Trans>More</Trans>
                 </Link>
             </div>
