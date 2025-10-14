@@ -12,7 +12,6 @@ import { Section } from '@/components/Semantic/Section.js';
 import { SuggestedChannels } from '@/components/SuggestedChannels/SuggestedChannels.js';
 import { SuggestedFollows } from '@/components/SuggestedFollows/SuggestedFollows.js';
 import { WithinDiscover } from '@/components/WithinDiscover.js';
-import { PageRoute } from '@/constants/enum.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
 const parallelSidebarPatterns: Array<`/${string}`> = [
@@ -65,20 +64,16 @@ export default async function Layout({ children, modal, sidebar }: Props) {
                 {modal}
             </main>
             <aside className="sticky top-0 z-[1] hidden h-screen w-96 flex-col gap-4 px-4 md:min-w-[384px] lg:flex">
-                <IfPathname isNotOneOf={[PageRoute.Settings]}>
-                    <AsideSearchBar />
-                </IfPathname>
+                <AsideSearchBar />
 
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
                     <IfPathname
                         isOneOf={parallelSidebarPatterns}
                         otherwise={
                             <>
-                                <IfPathname isNotOneOf={[PageRoute.Settings]}>
-                                    <Section title="Advertisement" className="mt-2.5">
-                                        <Advertisement />
-                                    </Section>
-                                </IfPathname>
+                                <Section title="Advertisement" className="mt-2.5">
+                                    <Advertisement />
+                                </Section>
                                 <WithinDiscover
                                     otherwise={
                                         <>
