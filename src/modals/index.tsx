@@ -29,6 +29,10 @@ import {
     EditFireflyProfileModalRef,
 } from '@/modals/EditFireflyProfileModal/EditFireflyProfileModal.js';
 import { FrameViewerModal, FrameViewerModalRef } from '@/modals/FrameViewerModal/FrameViewerModal.js';
+import {
+    RelayConfirmationPopover,
+    RelayConfirmationPopoverRef,
+} from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
 import { FreeMintModal, FreeMintModalRef } from '@/modals/FreeMintModal/index.js';
 import { ImageEditorModal, ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
 import { LoginModal, LoginModalRef } from '@/modals/LoginModal/index.js';
@@ -97,6 +101,7 @@ export const Modals = memo(function Modals() {
             <ShareImageModal ref={ShareImageModalRef.register} />
             <DownloadMobileAppModal ref={DownloadMobileAppModalRef.register} />
             <TransactionDetailModal ref={TransactionDetailModalRef.register} />
+            <RelayConfirmationPopover ref={RelayConfirmationPopoverRef.register} />
         </NoSSR>
     );
 });

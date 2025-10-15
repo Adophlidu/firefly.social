@@ -19,7 +19,6 @@ import { frameSwapToken } from '@/helpers/frameSwapToken.js';
 import { squashCallback } from '@/helpers/squashCallback.js';
 import { waitForWebviewDidLoadEvent } from '@/helpers/waitForWebviewDidLoadEvent.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
-import { Modals } from '@/modals/FrameViewerModal/modals.js';
 import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
@@ -222,43 +221,40 @@ export default function Page(props: Props) {
     }
 
     return (
-        <>
-            <Modals />
-            <FramePage>
-                <FramePageTitle frame={frame} onClose={onClose} onReload={onReload}>
-                    {frame ? frame.button.action.name : <Trans>Loading...</Trans>}
-                </FramePageTitle>
-                <FramePageBody>
-                    {!ready || loading || loadingSupported ? (
-                        <div className="absolute inset-0 z-10 flex h-full w-full items-center justify-center bg-white dark:bg-black">
-                            {frame?.button.action.splashImageUrl ? (
-                                <Image
-                                    alt={frame.button.action.name}
-                                    src={frame.button.action.splashImageUrl}
-                                    width={80}
-                                    height={80}
-                                />
-                            ) : (
-                                <FireflyLogo width={80} height={80} />
-                            )}
-                        </div>
-                    ) : null}
-                    {frame ? (
-                        <iframe
-                            className="scrollbar-hide absolute inset-0 z-0 h-full w-full opacity-100"
-                            ref={frameRef}
-                            src={frame.button.action.url}
-                            allow="clipboard-write 'src'"
-                            sandbox="allow-forms allow-scripts allow-same-origin"
-                            style={{
-                                backgroundColor: frame.button.action.splashBackgroundColor,
-                            }}
-                        />
-                    ) : (
-                        <GhostError error={error} fallback={<Trans>No frame found.</Trans>} />
-                    )}
-                </FramePageBody>
-            </FramePage>
-        </>
+        <FramePage>
+            <FramePageTitle frame={frame} onClose={onClose} onReload={onReload}>
+                {frame ? frame.button.action.name : <Trans>Loading...</Trans>}
+            </FramePageTitle>
+            <FramePageBody>
+                {!ready || loading || loadingSupported ? (
+                    <div className="absolute inset-0 z-10 flex h-full w-full items-center justify-center bg-white dark:bg-black">
+                        {frame?.button.action.splashImageUrl ? (
+                            <Image
+                                alt={frame.button.action.name}
+                                src={frame.button.action.splashImageUrl}
+                                width={80}
+                                height={80}
+                            />
+                        ) : (
+                            <FireflyLogo width={80} height={80} />
+                        )}
+                    </div>
+                ) : null}
+                {frame ? (
+                    <iframe
+                        className="scrollbar-hide absolute inset-0 z-0 h-full w-full opacity-100"
+                        ref={frameRef}
+                        src={frame.button.action.url}
+                        allow="clipboard-write 'src'"
+                        sandbox="allow-forms allow-scripts allow-same-origin"
+                        style={{
+                            backgroundColor: frame.button.action.splashBackgroundColor,
+                        }}
+                    />
+                ) : (
+                    <GhostError error={error} fallback={<Trans>No frame found.</Trans>} />
+                )}
+            </FramePageBody>
+        </FramePage>
     );
 }

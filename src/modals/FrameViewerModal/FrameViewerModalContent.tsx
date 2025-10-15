@@ -11,7 +11,6 @@ import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { frameSwapToken } from '@/helpers/frameSwapToken.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
-import { Modals } from '@/modals/FrameViewerModal/modals.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
 import type { FrameV2 } from '@/types/frame.js';
@@ -128,7 +127,6 @@ export function FrameViewerModal({ open, onClose, props, setProps }: Props) {
 
     return (
         <>
-            <Modals />
             <iframe
                 className="scrollbar-hide h-full w-full opacity-100"
                 ref={frameRef}
