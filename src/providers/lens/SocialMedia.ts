@@ -5,6 +5,8 @@ import {
     GroupsOrderBy,
     MainContentFocus,
     ManagedAccountsVisibility,
+    type MetadataAttribute,
+    MetadataAttributeType,
     PageSize,
     postId as toPostId,
     PostReactionType,
@@ -55,7 +57,7 @@ import {
     unfollow,
     unmuteAccount,
 } from '@lens-protocol/client/actions';
-import { account, type MetadataAttribute, MetadataAttributeType } from '@lens-protocol/metadata';
+import { account } from '@lens-protocol/metadata';
 import { compact, first, flatMap, uniqBy, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -1216,8 +1218,22 @@ class LensSocialMedia implements Provider {
 
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
         const attributes: MetadataAttribute[] = compact([
-            profile.website ? { type: MetadataAttributeType.STRING, key: 'website', value: profile.website } : null,
-            profile.location ? { type: MetadataAttributeType.STRING, key: 'location', value: profile.location } : null,
+            profile.website
+                ? {
+                      __typename: 'MetadataAttribute',
+                      type: MetadataAttributeType.String,
+                      key: 'website',
+                      value: profile.website,
+                  }
+                : null,
+            profile.location
+                ? {
+                      __typename: 'MetadataAttribute',
+                      type: MetadataAttributeType.String,
+                      key: 'location',
+                      value: profile.location,
+                  }
+                : null,
         ]);
         const metadata = account({
             id: crypto.randomUUID(),

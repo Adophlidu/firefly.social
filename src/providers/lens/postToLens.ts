@@ -2,8 +2,8 @@ import {
     image,
     link,
     type MediaImage,
-    MediaImageMimeType,
-    MediaVideoMimeType,
+    type MediaImageMimeType,
+    type MediaVideoMimeType,
     textOnly,
     type URI,
     video,
@@ -106,7 +106,7 @@ export async function createPayloadAttachments(
         : undefined;
 }
 
-export function createPostMetadata(metadata: BaseMetadata, attachments?: Attachments, sharingLink?: string) {
+export function createLensPostMetadata(metadata: BaseMetadata, attachments?: Attachments, sharingLink?: string) {
     const localBaseMetadata = {
         id: crypto.randomUUID(),
         locale: getUserLocale(),
@@ -190,7 +190,7 @@ async function publishPostForLens(
 
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
     const title = `Post by #${profile.handle}`;
-    const metadata = createPostMetadata(
+    const metadata = createLensPostMetadata(
         {
             title,
             content,
@@ -226,7 +226,7 @@ async function commentPostForLens(
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
     const title = `Post by #${profile.handle}`;
-    const metadata = createPostMetadata(
+    const metadata = createLensPostMetadata(
         {
             title,
             content,
@@ -256,7 +256,7 @@ async function quotePostForLens(
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
     const title = `Post by #${profile.handle}`;
-    const metadata = createPostMetadata(
+    const metadata = createLensPostMetadata(
         {
             title,
             content,

@@ -5,7 +5,7 @@ import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObje
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { createPostFragments } from '@/providers/lens/fragments/post/CreatePost.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';
-import { createPayloadAttachments, createPostMetadata } from '@/providers/lens/postToLens.js';
+import { createLensPostMetadata, createPayloadAttachments } from '@/providers/lens/postToLens.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
@@ -53,7 +53,7 @@ export async function createLensSchedulePostPayload(
     const currentProfile = getProfileFromStorage(Source.Lens);
     if (!currentProfile?.profileId) throw new Error(`Login required to schedule post on ${sourceName}`);
 
-    const metadata = createPostMetadata(
+    const metadata = createLensPostMetadata(
         {
             title: `Post by #${currentProfile.handle}`,
             content: readChars(chars, 'both', Source.Lens),
