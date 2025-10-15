@@ -45,7 +45,7 @@ export function FireflyAccountInfoUI({
                 <FireflyAccountAvatarBanner src={avatarWithFallback} />
             )}
             {children}
-            <div className="flex w-full flex-col items-center px-4">
+            <div className="z-1 flex w-full flex-col items-center px-4">
                 <Avatar size={80} alt="firefly-account" src={avatarWithFallback} />
                 <div
                     className={classNames(
