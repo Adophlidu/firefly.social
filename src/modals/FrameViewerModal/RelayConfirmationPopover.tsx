@@ -1,9 +1,11 @@
+'use client';
+
 import type { SignInOptions } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { Popover } from '@/modals/FrameViewerModal/Popover.js';
 import { RelayConfirmationRouter } from '@/modals/FrameViewerModal/RelayConfirmationRouter.js';
 import type { FrameV2 } from '@/types/frame.js';
@@ -55,3 +57,8 @@ export function RelayConfirmationPopover({ ref }: Props) {
         />
     );
 }
+
+export const RelayConfirmationPopoverRef = new SingletonModal<
+    RelayConfirmationPopoverOpenProps,
+    RelayConfirmationPopoverCloseProps
+>();

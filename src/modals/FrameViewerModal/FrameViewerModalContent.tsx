@@ -16,20 +16,21 @@ import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActio
 import type { FrameV2 } from '@/types/frame.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
-export type FrameViewerModalOpenProps = {
+export interface FrameViewerModalOpenProps {
     ready: boolean;
     timeout: boolean;
     frame: FrameV2;
     frameHost: FarcasterFrameHost;
-};
+}
+
 export type FrameViewerModalCloseProps = void;
 
-type Props = {
+interface Props {
     open: boolean;
     onClose?: () => void;
     props: FrameViewerModalOpenProps | null;
     setProps: React.Dispatch<React.SetStateAction<FrameViewerModalOpenProps | null>>;
-};
+}
 
 export function FrameViewerModal({ open, onClose, props, setProps }: Props) {
     const frameRef = useRef<HTMLIFrameElement | null>(null);

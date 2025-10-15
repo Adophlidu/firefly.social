@@ -1189,9 +1189,6 @@ msgstr "連接錢包"
 msgid "Mobile QR login is interrupted. Please try again."
 msgstr "行動版二維碼登入已中斷。請重試。"
 
-msgid "Review Transaction"
-msgstr "交易審查"
-
 #. placeholder {0}: error.url
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "找不到內容。請檢查您的網址[{0}]。"

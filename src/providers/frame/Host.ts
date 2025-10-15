@@ -1,6 +1,7 @@
-import { type Context, type MiniAppHost, type ReadyOptions, type SetPrimaryButton } from '@farcaster/miniapp-host';
+import { type Context, type MiniAppHost, type SignInOptions } from '@farcaster/miniapp-host';
 import { t } from '@lingui/core/macro';
 import { first } from 'lodash-es';
+import type { UnwrapPromise } from 'next/dist/lib/coalesced-function.js';
 import urlcat from 'urlcat';
 
 import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/debank.js';
@@ -16,7 +17,6 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
-import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/controls.js';
 import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -32,9 +32,10 @@ export class FarcasterFrameHost implements MiniAppHost {
         public options?: {
             debug?: boolean;
             frame?: () => FrameV2;
-            ready?: (options?: Partial<ReadyOptions>) => void;
-            close?: () => void;
-            setPrimaryButton?: SetPrimaryButton;
+            ready?: MiniAppHost['ready'];
+            signIn?: (options: SignInOptions) => Promise<UnwrapPromise<ReturnType<MiniAppHost['signIn']>> | null>;
+            close?: MiniAppHost['close'];
+            setPrimaryButton?: MiniAppHost['setPrimaryButton'];
             viewCast?: (hash: string) => void;
             viewProfile?: (profile: Profile) => void;
             openMiniApps?: (frame: FrameV2) => void;
@@ -60,8 +61,6 @@ export class FarcasterFrameHost implements MiniAppHost {
             enqueueWarningMessage(t`Failed to open miniapp`);
             return;
         }
-
-        // TODO: request double confirmation from the user
 
         this.options?.openMiniApps?.(frame as FrameV2);
     };
@@ -102,13 +101,9 @@ export class FarcasterFrameHost implements MiniAppHost {
             return signed;
         }
 
-        // sign in with auth wallet or relay server
-        const signed = await RelayConfirmationPopoverRef.openAndWaitForClose({
-            fid: this.context.client.clientFid,
-            frame,
-            options,
-        });
+        const signed = await this.options?.signIn?.(options);
         if (!signed) throw new Error('Failed to sign in farcaster');
+
         return signed;
     };
 

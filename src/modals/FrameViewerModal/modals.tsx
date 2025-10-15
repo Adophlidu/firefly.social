@@ -1,14 +1,15 @@
 import { memo } from 'react';
 
-import * as controls from '@/modals/FrameViewerModal/controls.js';
-import { RelayConfirmationPopover } from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
-import { TransactionSimulationPopover } from '@/modals/FrameViewerModal/TransactionSimulationPopover.js';
+import { NoSSR } from '@/components/NoSSR.js';
+import {
+    RelayConfirmationPopover,
+    RelayConfirmationPopoverRef,
+} from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
 
 export const Modals = memo(function Modals() {
     return (
-        <>
-            <TransactionSimulationPopover ref={controls.TransactionSimulationPopoverRef.register} />
-            <RelayConfirmationPopover ref={controls.RelayConfirmationPopoverRef.register} />
-        </>
+        <NoSSR>
+            <RelayConfirmationPopover ref={RelayConfirmationPopoverRef.register} />
+        </NoSSR>
     );
 });

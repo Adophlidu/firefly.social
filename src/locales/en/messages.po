@@ -1184,9 +1184,6 @@ msgstr "Connect Wallet"
 msgid "Mobile QR login is interrupted. Please try again."
 msgstr "Mobile QR login is interrupted. Please try again."
 
-msgid "Review Transaction"
-msgstr "Review Transaction"
-
 #. placeholder {0}: error.url
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "Not Found. Please check your URL[{0}]."

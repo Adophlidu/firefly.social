@@ -14,6 +14,7 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { FrameViewerModalRef } from '@/modals/FrameViewerModal/FrameViewerModal.js';
+import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
 import { type Post, type Profile, SessionType } from '@/providers/types/SocialMedia.js';
@@ -77,14 +78,16 @@ function createFrameHost(
                 frame,
                 frameHost,
             }),
+        signIn: (options) =>
+            RelayConfirmationPopoverRef.openAndWaitForClose({
+                fid: context.client.clientFid,
+                frame,
+                options,
+            }),
         close: () => FrameViewerModalRef.close(),
         setPrimaryButton: options?.setPrimaryButton,
-        viewCast: (hash: string) => {
-            router.push(`/post/farcaster/${hash}`);
-        },
-        viewProfile: (profile: Profile) => {
-            router.push(`/profile/farcaster/${profile.handle}/feed`);
-        },
+        viewCast: (hash) => router.push(`/post/farcaster/${hash}`),
+        viewProfile: (profile: Profile) => router.push(`/profile/farcaster/${profile.handle}/feed`),
         openMiniApps: (frame: FrameV2) => {
             console.log('[frame host]: openMiniApps', frame);
 
