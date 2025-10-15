@@ -69,20 +69,20 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
                 {showMarketInfo ? (
                     <div className="flex gap-2">
                         {token.market_data?.volume_usd_24h ? (
-                            <span className="text-sm leading-[20px] text-second">
+                            <span className="text-sm leading-5 text-second">
                                 ${nFormatter(token.market_data.volume_usd_24h)}
                             </span>
                         ) : null}
                         {token.market_data?.volume_usd_24h && token.market_data.market_cap_usd ? <span>·</span> : null}
                         {token.market_data?.market_cap_usd ? (
-                            <span className="text-sm leading-[20px] text-second">
+                            <span className="text-sm leading-5 text-second">
                                 ${nFormatter(token.market_data.market_cap_usd)}
                             </span>
                         ) : null}
                     </div>
                 ) : null}
             </div>
-            <div className="flex flex-col justify-end gap-1">
+            <div className="flex flex-col justify-end">
                 <div className="text-right font-inter text-base font-semibold leading-6 text-lightMain">
                     {token.market_data?.token_price_usd ? (
                         <>${renderShrankPrice(formatPrice(token.market_data.token_price_usd) ?? '')}</>
@@ -92,7 +92,7 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
                 </div>
                 <data
                     className={classNames(
-                        'flex h-3 shrink-0 items-center justify-end gap-1 text-right font-inter text-xs font-medium max-md:w-auto max-md:min-w-[60px] max-md:px-2 max-md:text-[15px] max-md:leading-3',
+                        'flex h-5 shrink-0 items-center justify-end gap-1 text-right font-inter text-sm font-medium max-md:w-auto max-md:min-w-[60px] max-md:px-2',
                         priceChange >= 0 ? 'text-success' : 'text-danger',
                     )}
                 >

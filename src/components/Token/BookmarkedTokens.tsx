@@ -51,9 +51,14 @@ export const BookmarkedTokens = memo(function BookmarkedTokens(props: HTMLProps<
                     <Trans>More</Trans>
                 </Link>
             </div>
-            {tokens.map((token) => (
-                <BookmarkedTokenItem key={token.id || `${token.chain_id}-${token.contract_address}`} token={token} />
-            ))}
+            <div>
+                {tokens.map((token) => (
+                    <BookmarkedTokenItem
+                        key={token.id || `${token.chain_id}-${token.contract_address}`}
+                        token={token}
+                    />
+                ))}
+            </div>
         </div>
     );
 });

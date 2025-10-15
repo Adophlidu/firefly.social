@@ -4,6 +4,7 @@ import type { TokenPageProps } from '@/app/(normal)/token/[exchange]/[[...slug]]
 import { TokenCategory } from '@/constants/enum.js';
 import {
     COINGECKO_SOL_COIN_ID,
+    EMPTY_LIST,
     NO_TRACING_COINS,
     SWAP_SOL_NATIVE_ADDRESS,
     TOKEN_CATEGORIES,
@@ -16,7 +17,7 @@ import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useTokenPageParams({ params, searchParams }: TokenPageProps) {
-    const { exchange, slug } = use(params);
+    const { exchange, slug = EMPTY_LIST } = use(params);
     const isCex = exchange === 'cex';
     const isDex = exchange === 'dex';
     const { chainId: paramChainId, trader, traderName, address: paramAddress, category: current } = use(searchParams);

@@ -104,13 +104,13 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
                     ) : null}
                     {showMarketInfo && tokenWithMarket ? (
                         <div className="flex gap-2">
-                            <span className="text-sm leading-[20px] text-second">
+                            <span className="text-sm leading-5 text-second">
                                 {tokenWithMarket.market_data?.volume_usd_24h
                                     ? `$${nFormatter(tokenWithMarket.market_data.volume_usd_24h)}`
                                     : '-'}
                             </span>
-                            <span className="text-sm leading-[20px] text-second">·</span>
-                            <span className="text-sm leading-[20px] text-second">
+                            <span className="text-sm leading-5 text-second">·</span>
+                            <span className="text-sm leading-5 text-second">
                                 {tokenWithMarket.market_data?.market_cap_usd
                                     ? `$${nFormatter(tokenWithMarket.market_data.market_cap_usd)}`
                                     : '-'}
@@ -119,7 +119,7 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
                     ) : null}
                 </div>
             </div>
-            <div className="flex flex-col justify-end gap-1">
+            <div className="flex flex-col justify-end">
                 <div className="text-right font-inter text-base font-semibold leading-6 text-lightMain">
                     {token.market?.current_price ? (
                         <>${renderShrankPrice(formatPrice(token.market.current_price) ?? '')}</>
@@ -130,7 +130,7 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
                 {showChange ? (
                     <data
                         className={classNames(
-                            'flex h-3 shrink-0 items-center justify-end gap-1 text-right font-inter text-sm font-medium max-md:h-[30px] max-md:w-auto max-md:min-w-[60px] max-md:px-2 max-md:text-[15px] max-md:leading-[15px]',
+                            'flex h-5 shrink-0 items-center justify-end gap-1 text-right font-inter text-sm font-medium max-md:w-auto max-md:min-w-[60px] max-md:px-2',
                             priceChange >= 0 ? 'text-success' : 'text-danger',
                         )}
                     >
