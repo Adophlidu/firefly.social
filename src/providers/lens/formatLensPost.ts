@@ -96,17 +96,15 @@ function getAttachmentsV3(attachments?: AnyMedia[] | null) {
     );
 }
 
-async function getOembedUrlsV3(metadata: TextOnlyMetadata, author: Profile): Promise<string[]> {
-    return Promise.all(
-        getEmbedUrls(
-            metadata.content,
-            metadata.attributes?.reduce<string[]>((acc, attr) => {
-                if (attr.key === LensMetadataAttributeKey.Poll) {
-                    acc.push(getPollFrameUrl(attr.value, undefined, author));
-                }
-                return acc;
-            }, []) ?? [],
-        ),
+function getOembedUrlsV3(metadata: TextOnlyMetadata, author: Profile): string[] {
+    return getEmbedUrls(
+        metadata.content,
+        metadata.attributes?.reduce<string[]>((acc, attr) => {
+            if (attr.key === LensMetadataAttributeKey.Poll) {
+                acc.push(getPollFrameUrl(attr.value, undefined, author));
+            }
+            return acc;
+        }, []) ?? [],
     );
 }
 
@@ -125,7 +123,7 @@ function updateContent(content: string, mentions: PostMention[]) {
     }, content);
 }
 
-async function formatContentV3(metadata: FullPostMetadata, author: Profile, mentions: PostMention[]) {
+function formatContentV3(metadata: FullPostMetadata, author: Profile, mentions: PostMention[]) {
     if (!metadata.__typename) return null;
 
     const typeName = metadata.__typename;
@@ -138,7 +136,7 @@ async function formatContentV3(metadata: FullPostMetadata, author: Profile, ment
         case 'TextOnlyMetadata':
             return {
                 content: updateContent(metadata.content, mentions),
-                oembedUrls: await getOembedUrlsV3(metadata, author),
+                oembedUrls: getOembedUrlsV3(metadata, author),
             };
         case 'LinkMetadata':
             return null;
@@ -279,10 +277,10 @@ function getMediaObjectsV3(metadata: FullPostMetadata): MediaObject[] | undefine
     }
 }
 
-export async function formatLensQuoteOrCommentV3(
+export function formatLensQuoteOrCommentV3(
     result: LensPost['quoteOf'] | LensPost['commentOn'],
     type?: PostType,
-): Promise<Post | undefined> {
+): Post | undefined {
     if (!result) return;
 
     const profile = formatLensProfileV3(result?.author);
@@ -304,7 +302,7 @@ export async function formatLensQuoteOrCommentV3(
         isEncrypted: false, // TODO
         metadata: {
             locale: getPostLocale(result.metadata),
-            content: await formatContentV3(result.metadata, profile, result.mentions),
+            content: formatContentV3(result.metadata, profile, result.mentions),
             contentURI: result.contentUri,
         },
 
@@ -394,14 +392,14 @@ function formatLensMentions(mentions: PostMention[]) {
     return { profiles, groups };
 }
 
-export async function formatLensPostV3(result: AnyPost): Promise<Post> {
+export function formatLensPostV3(result: AnyPost): Post {
     if (result.__typename === 'Repost') {
         const mirrorOn = result.repostOf?.__typename === 'Post' ? (result.repostOf as LensPost) : undefined;
         if (!mirrorOn) throw new Error('No root post found');
 
         const mediaObjects = getMediaObjectsV3(mirrorOn.metadata);
         const mirrorOnProfile = formatLensProfileV3(mirrorOn.author);
-        const content = await formatContentV3(mirrorOn.metadata, mirrorOnProfile, mirrorOn.mentions);
+        const content = formatContentV3(mirrorOn.metadata, mirrorOnProfile, mirrorOn.mentions);
         const oembedUrls = getEmbedUrls(content?.content ?? '', []);
         const mentions = formatLensMentions(mirrorOn.mentions);
 
@@ -447,7 +445,7 @@ export async function formatLensPostV3(result: AnyPost): Promise<Post> {
     const timestamp = new Date(result.timestamp).getTime();
 
     const mediaObjects = getMediaObjectsV3(result.metadata);
-    const content = await formatContentV3(result.metadata, profile, result.mentions);
+    const content = formatContentV3(result.metadata, profile, result.mentions);
     const oembedUrl = last(content?.oembedUrls || content?.content.match(URL_REGEX) || []);
     const mentions = formatLensMentions(result.mentions);
     const locale = getPostLocale(result.metadata);
@@ -476,7 +474,7 @@ export async function formatLensPostV3(result: AnyPost): Promise<Post> {
             stats: formatLensPostStats(result.stats),
             ...formatLensPostOperations(result.operations, result.actions),
             __original__: result,
-            quoteOn: await formatLensQuoteOrCommentV3(result.quoteOf),
+            quoteOn: formatLensQuoteOrCommentV3(result.quoteOf),
             mentions: mentions.profiles,
             groups: mentions.groups,
             collectModule: formatCollectModuleV3(result.actions, result.stats.collects),
@@ -512,13 +510,13 @@ export async function formatLensPostV3(result: AnyPost): Promise<Post> {
             stats: formatLensPostStats(result.stats),
             ...formatLensPostOperations(result.operations, result.actions),
             __original__: result,
-            commentOn: await formatLensQuoteOrCommentV3(result.commentOn),
+            commentOn: formatLensQuoteOrCommentV3(result.commentOn),
             firstComment: undefined,
             mentions: mentions.profiles,
             groups: mentions.groups,
             root:
                 result.root && !isEmpty(result.root) && result.root.id !== result.commentOn.id
-                    ? await formatLensPostV3(result.root as AnyPost)
+                    ? formatLensPostV3(result.root as AnyPost)
                     : undefined,
             collectModule: formatCollectModuleV3(result.actions, result.stats.collects),
             momoka: undefined,
@@ -568,24 +566,24 @@ export async function formatLensPostV3(result: AnyPost): Promise<Post> {
     }
 }
 
-export async function formatLensPostByFeedV3(result: TimelineItem): Promise<Post | null> {
+export function formatLensPostByFeedV3(result: TimelineItem): Post | null {
     const firstComment = result.comments.length ? first(result.comments) : undefined;
     const basePost = result.primary;
     if (isMutedLensAccount(basePost.author)) return null;
-    const post = await formatLensPostV3(basePost);
+    const post = formatLensPostV3(basePost);
     const mirrors = result.reposts.map((x) => formatLensProfileV3(x.author));
     const reactions: Profile[] = []; // TODO
-    const comments = await Promise.all(filterFeedsV3(result.comments).map((x) => formatLensPostV3(x)));
+    const comments = filterFeedsV3(result.comments).map((x) => formatLensPostV3(x));
 
     return {
         ...post,
         comments,
         mirrors,
         reactions,
-        commentOn: basePost.commentOn ? await formatLensPostV3(basePost.commentOn) : undefined,
+        commentOn: basePost.commentOn ? formatLensPostV3(basePost.commentOn) : undefined,
         root:
             firstComment && result.primary.commentOn
-                ? await formatLensPostV3(result.primary.commentOn as AnyPost)
+                ? formatLensPostV3(result.primary.commentOn as AnyPost)
                 : undefined,
     };
 }

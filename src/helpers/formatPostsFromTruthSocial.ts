@@ -97,7 +97,7 @@ function formatInlineQuotes(content: string) {
     };
 }
 
-export async function formatPostsFromTruthSocial(data: TruthSocialPost): Promise<Post> {
+export function formatPostsFromTruthSocial(data: TruthSocialPost): Post {
     const { content, inlineMentions } = formatInlineQuotes(data.content);
 
     return {

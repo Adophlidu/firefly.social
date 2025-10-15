@@ -1440,9 +1440,7 @@ class FireflyEndpoint {
             cursor: indicator?.id,
         });
         const response = await fireflySessionHolder.fetch<TrumpTruthSocialPostsResponse>(url);
-        const posts = await Promise.all(
-            (response.data?.result || []).filter((x) => !x.has_reblog).map(formatPostsFromTruthSocial),
-        );
+        const posts = (response.data?.result || []).filter((x) => !x.has_reblog).map(formatPostsFromTruthSocial);
 
         return createPageable(
             posts,
@@ -1658,7 +1656,7 @@ class FireflyEndpoint {
             method: 'GET',
         });
 
-        const post = cast ? await formatFarcasterPostFromFirefly(cast) : null;
+        const post = cast ? formatFarcasterPostFromFirefly(cast) : null;
         if (!post) throw new NotFoundError('Post not found');
         return post;
     }

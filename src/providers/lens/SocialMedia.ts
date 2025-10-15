@@ -240,7 +240,7 @@ class LensSocialMedia implements Provider {
         );
 
         return createPageable(
-            await Promise.all(filterFeedsV3(compact(result.items)).map(formatLensPostV3)),
+            filterFeedsV3(compact(result.items)).map(formatLensPostV3),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -511,11 +511,11 @@ class LensSocialMedia implements Provider {
                 referenceTypes: [PostReferenceType.CommentOn],
             }),
         );
+        if (!result) return createPageable([], createIndicator(indicator));
 
-        if (!result) throw new Error('No comments found');
-
+        const posts = result.items.map(formatLensPostV3);
         return createPageable(
-            await Promise.all(result.items.map(formatLensPostV3)),
+            posts,
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -529,12 +529,11 @@ class LensSocialMedia implements Provider {
             }),
         );
 
-        if (!result) {
-            return createPageable([], createIndicator(indicator));
-        }
+        if (!result) return createPageable([], createIndicator(indicator));
 
+        const posts = filterFeedsV3(compact(result.items)).map(formatLensPostV3);
         return createPageable(
-            await Promise.all(filterFeedsV3(compact(result.items)).map(formatLensPostV3)),
+            posts,
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -551,9 +550,11 @@ class LensSocialMedia implements Provider {
             }),
         );
 
-        const posts = compact(await Promise.all(result.items.map(formatLensPostByFeedV3)));
+        const posts = compact(result.items.map(formatLensPostByFeedV3)).filter(
+            (post) => !post.author.viewerContext?.blocking && !post.hasReported,
+        );
         return createPageable(
-            posts.filter((post) => !post.author.viewerContext?.blocking && !post.hasReported),
+            posts,
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -576,8 +577,9 @@ class LensSocialMedia implements Provider {
             }),
         );
 
+        const posts = uniqWith(result.items.map(formatLensPostV3), isSamePost);
         return createPageable(
-            uniqWith(await Promise.all(result.items.map(formatLensPostV3)), isSamePost),
+            posts,
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -597,7 +599,7 @@ class LensSocialMedia implements Provider {
         );
 
         return createPageable(
-            await Promise.all(result.items.map(formatLensPostV3)),
+            result.items.map(formatLensPostV3),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -620,7 +622,7 @@ class LensSocialMedia implements Provider {
         );
 
         return createPageable(
-            await Promise.all(result.items.map(formatLensPostV3)),
+            result.items.map(formatLensPostV3),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -645,7 +647,7 @@ class LensSocialMedia implements Provider {
         );
 
         return createPageable(
-            await Promise.all(result.items.map(formatLensPostV3)),
+            result.items.map(formatLensPostV3),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -665,7 +667,7 @@ class LensSocialMedia implements Provider {
         );
 
         return createPageable(
-            await Promise.all(result.items.map(formatLensPostV3)),
+            result.items.map(formatLensPostV3),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -689,7 +691,7 @@ class LensSocialMedia implements Provider {
         );
 
         return createPageable(
-            await Promise.all(result.items.map(formatLensPostV3)),
+            result.items.map(formatLensPostV3),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -706,7 +708,7 @@ class LensSocialMedia implements Provider {
         );
 
         return createPageable(
-            await Promise.all(result.items.map(formatLensPostV3)),
+            result.items.map(formatLensPostV3),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -834,127 +836,125 @@ class LensSocialMedia implements Provider {
             }),
         );
 
-        const data = await Promise.all(
-            filterNotifications(result.items).map<Promise<Notification | null>>(async (item) => {
-                if (isRepostNotification(item)) {
-                    if (!item.reposts.length) return null;
-                    if (item.reposts.some((x) => isMutedLensAccount(x.account))) return null;
+        const data = filterNotifications(result.items).map<Notification | null>((item) => {
+            if (isRepostNotification(item)) {
+                if (!item.reposts.length) return null;
+                if (item.reposts.some((x) => isMutedLensAccount(x.account))) return null;
 
-                    const time = first(item.reposts)?.repostedAt;
-                    const post = await formatLensQuoteOrCommentV3(item.post);
-                    if (!post) return null;
+                const time = first(item.reposts)?.repostedAt;
+                const post = formatLensQuoteOrCommentV3(item.post);
+                if (!post) return null;
 
-                    return {
-                        source: Source.Lens,
-                        notificationId: item.id,
-                        type: NotificationType.Mirror,
-                        mirrors: item.reposts.map((x) => formatLensProfileV3(x.account)),
-                        post,
-                        timestamp: time ? new Date(time).getTime() : undefined,
-                    };
-                }
+                return {
+                    source: Source.Lens,
+                    notificationId: item.id,
+                    type: NotificationType.Mirror,
+                    mirrors: item.reposts.map((x) => formatLensProfileV3(x.account)),
+                    post,
+                    timestamp: time ? new Date(time).getTime() : undefined,
+                };
+            }
 
-                if (isQuoteNotification(item)) {
-                    if (isMutedLensAccount(item.quote.author)) return null;
+            if (isQuoteNotification(item)) {
+                if (isMutedLensAccount(item.quote.author)) return null;
 
-                    const time = item.quote.timestamp;
-                    const quoteOf = await formatLensQuoteOrCommentV3(item.quote.quoteOf, 'Quote');
-                    if (!quoteOf) return null;
+                const time = item.quote.timestamp;
+                const quoteOf = formatLensQuoteOrCommentV3(item.quote.quoteOf, 'Quote');
+                if (!quoteOf) return null;
 
-                    return {
-                        source: Source.Lens,
-                        notificationId: item.id,
-                        type: NotificationType.Quote,
-                        quote: await formatLensPostV3(item.quote),
-                        post: quoteOf,
-                        timestamp: time ? new Date(time).getTime() : undefined,
-                    };
-                }
+                return {
+                    source: Source.Lens,
+                    notificationId: item.id,
+                    type: NotificationType.Quote,
+                    quote: formatLensPostV3(item.quote),
+                    post: quoteOf,
+                    timestamp: time ? new Date(time).getTime() : undefined,
+                };
+            }
 
-                if (isReactionNotification(item)) {
-                    if (!item.reactions.length) return null;
-                    if (item.reactions.some((x) => isMutedLensAccount(x.account))) return null;
+            if (isReactionNotification(item)) {
+                if (!item.reactions.length) return null;
+                if (item.reactions.some((x) => isMutedLensAccount(x.account))) return null;
 
-                    const time = first(flatMap(item.reactions.map((x) => x.reactions)))?.reactedAt;
-                    const post = await formatLensQuoteOrCommentV3(item.post);
-                    if (!post) return null;
+                const time = first(flatMap(item.reactions.map((x) => x.reactions)))?.reactedAt;
+                const post = formatLensQuoteOrCommentV3(item.post);
+                if (!post) return null;
 
-                    return {
-                        source: Source.Lens,
-                        notificationId: item.id,
-                        type: NotificationType.Reaction,
-                        reaction: ReactionType.Upvote,
-                        reactors: item.reactions.map((x) => formatLensProfileV3(x.account)),
-                        post,
-                        timestamp: time ? new Date(time).getTime() : undefined,
-                    };
-                }
+                return {
+                    source: Source.Lens,
+                    notificationId: item.id,
+                    type: NotificationType.Reaction,
+                    reaction: ReactionType.Upvote,
+                    reactors: item.reactions.map((x) => formatLensProfileV3(x.account)),
+                    post,
+                    timestamp: time ? new Date(time).getTime() : undefined,
+                };
+            }
 
-                if (isCommentNotification(item)) {
-                    if (isMutedLensAccount(item.comment.author)) return null;
+            if (isCommentNotification(item)) {
+                if (isMutedLensAccount(item.comment.author)) return null;
 
-                    const commentOn = await formatLensQuoteOrCommentV3(item.comment.commentOn, 'Comment');
-                    if (!commentOn) return null;
+                const commentOn = formatLensQuoteOrCommentV3(item.comment.commentOn, 'Comment');
+                if (!commentOn) return null;
 
-                    return {
-                        source: Source.Lens,
-                        notificationId: item.id,
-                        type: NotificationType.Comment,
-                        comment: await formatLensPostV3(item.comment),
-                        post: commentOn,
-                        timestamp: new Date(item.comment.timestamp).getTime(),
-                    };
-                }
+                return {
+                    source: Source.Lens,
+                    notificationId: item.id,
+                    type: NotificationType.Comment,
+                    comment: formatLensPostV3(item.comment),
+                    post: commentOn,
+                    timestamp: new Date(item.comment.timestamp).getTime(),
+                };
+            }
 
-                if (isFollowNotification(item)) {
-                    if (!item.followers.length) return null;
-                    if (item.followers.some((x) => isMutedLensAccount(x.account))) return null;
+            if (isFollowNotification(item)) {
+                if (!item.followers.length) return null;
+                if (item.followers.some((x) => isMutedLensAccount(x.account))) return null;
 
-                    return {
-                        source: Source.Lens,
-                        notificationId: item.id,
-                        type: NotificationType.Follow,
-                        followers: uniqBy(
-                            item.followers.map((x) => formatLensProfileV3(x.account)),
-                            (x) => x.profileId,
-                        ),
-                    };
-                }
+                return {
+                    source: Source.Lens,
+                    notificationId: item.id,
+                    type: NotificationType.Follow,
+                    followers: uniqBy(
+                        item.followers.map((x) => formatLensProfileV3(x.account)),
+                        (x) => x.profileId,
+                    ),
+                };
+            }
 
-                if (isMentionNotification(item)) {
-                    if (isMutedLensAccount(item.post.author)) return null;
+            if (isMentionNotification(item)) {
+                if (isMutedLensAccount(item.post.author)) return null;
 
-                    const post = await formatLensQuoteOrCommentV3(item.post);
-                    if (!post) return null;
+                const post = formatLensQuoteOrCommentV3(item.post);
+                if (!post) return null;
 
-                    return {
-                        source: Source.Lens,
-                        notificationId: item.id,
-                        type: NotificationType.Mention,
-                        post,
-                        timestamp: new Date(item.post.timestamp).getTime(),
-                    };
-                }
+                return {
+                    source: Source.Lens,
+                    notificationId: item.id,
+                    type: NotificationType.Mention,
+                    post,
+                    timestamp: new Date(item.post.timestamp).getTime(),
+                };
+            }
 
-                if (isAccountActionExecutedNotification(item)) {
-                    return null;
-                }
-
-                if (isGroupMembershipRequestApprovedNotification(item)) {
-                    return null;
-                }
-
-                if (isGroupMembershipRequestRejectedNotification(item)) {
-                    return null;
-                }
-
-                if (isPostActionExecutedNotification(item)) {
-                    return null;
-                }
-
+            if (isAccountActionExecutedNotification(item)) {
                 return null;
-            }),
-        );
+            }
+
+            if (isGroupMembershipRequestApprovedNotification(item)) {
+                return null;
+            }
+
+            if (isGroupMembershipRequestRejectedNotification(item)) {
+                return null;
+            }
+
+            if (isPostActionExecutedNotification(item)) {
+                return null;
+            }
+
+            return null;
+        });
 
         return createPageable(
             compact(data),
@@ -1041,7 +1041,7 @@ class LensSocialMedia implements Provider {
             }),
         );
         return createPageable(
-            await Promise.all(result.items.map(formatLensPostV3)),
+            result.items.map(formatLensPostV3),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -1134,7 +1134,7 @@ class LensSocialMedia implements Provider {
         if (!result) throw new Error('No one likes this post yet.');
         const posts = result.items.map(formatLensPostV3);
         return createPageable(
-            await Promise.all(posts),
+            posts,
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -1164,9 +1164,9 @@ class LensSocialMedia implements Provider {
                 pageSize: PageSize.Fifty,
             }),
         );
-        const profiles = result.items.map(formatLensPostV3);
+        const posts = result.items.map(formatLensPostV3);
         return createPageable(
-            await Promise.all(profiles),
+            posts,
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -1187,7 +1187,7 @@ class LensSocialMedia implements Provider {
         if (!result) throw new Error('No comments found');
 
         return createPageable(
-            await Promise.all(result.items.map(formatLensPostV3)),
+            result.items.map(formatLensPostV3),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );

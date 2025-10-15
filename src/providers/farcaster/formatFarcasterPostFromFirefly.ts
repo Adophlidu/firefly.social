@@ -25,7 +25,7 @@ function getCoverUriFromUrl(url: string) {
     return '';
 }
 
-async function formatContent(cast: Cast): Promise<Post['metadata']['content']> {
+function formatContent(cast: Cast): Post['metadata']['content'] {
     const embedUrls: Array<{ url: string; type?: EmbedMediaType }> = cast.embed_urls?.length
         ? cast.embed_urls
         : cast.embeds;
@@ -37,17 +37,13 @@ async function formatContent(cast: Cast): Promise<Post['metadata']['content']> {
         return true;
     });
 
-    const oembedUrls = (
-        await Promise.all(
-            getEmbedUrls(
-                cast.text,
-                compact(
-                    embedUrls
-                        .filter((x) => (x.type ? [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type) : true))
-                        .map((x) => x.url),
-                ),
-            ),
-        )
+    const oembedUrls = getEmbedUrls(
+        cast.text,
+        compact(
+            embedUrls
+                .filter((x) => (x.type ? [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type) : true))
+                .map((x) => x.url),
+        ),
     ).filter((x) => isTopLevelDomain(x) && !attachments.some((a) => a.url === x));
 
     const defaultContent = { content: cast.text, oembedUrl: last(oembedUrls), oembedUrls };
@@ -97,9 +93,9 @@ function getPostTypeByCast(cast: Cast) {
 /**
  * Return null if cast is detected
  */
-export async function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Promise<Post> {
+export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Post {
     const postType = type ?? getPostTypeByCast(cast);
-    const content = await formatContent(cast);
+    const content = formatContent(cast);
     const incomplete =
         cast.sendFrom?.display_name === 'tako-protocol' &&
         !!content?.content?.endsWith('...') &&
@@ -138,11 +134,11 @@ export async function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType
         hasBookmarked: cast.bookmarked,
         source: Source.Farcaster,
         canComment: true,
-        commentOn: cast.parentCast ? await formatFarcasterPostFromFirefly(cast.parentCast) : undefined,
-        root: cast.rootParentCast ? await formatFarcasterPostFromFirefly(cast.rootParentCast) : undefined,
-        threads: await Promise.all(compact(cast.threads?.map((x) => formatFarcasterPostFromFirefly(x, 'Comment')))),
+        commentOn: cast.parentCast ? formatFarcasterPostFromFirefly(cast.parentCast) : undefined,
+        root: cast.rootParentCast ? formatFarcasterPostFromFirefly(cast.rootParentCast) : undefined,
+        threads: compact(cast.threads?.map((x) => formatFarcasterPostFromFirefly(x, 'Comment'))),
         channel: cast.channel ? formatChannelFromFirefly(cast.channel) : undefined,
-        quoteOn: cast.quotedCast ? await formatFarcasterPostFromFirefly(cast.quotedCast) : undefined,
+        quoteOn: cast.quotedCast ? formatFarcasterPostFromFirefly(cast.quotedCast) : undefined,
         sendFrom: {
             displayName: cast.sendFrom?.display_name ?? cast.sendFrom?.name,
             name: cast.sendFrom?.name,

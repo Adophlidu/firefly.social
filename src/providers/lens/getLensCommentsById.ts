@@ -31,7 +31,7 @@ export async function getLensCommentsById(
     );
 
     return createPageable(
-        await Promise.all(result.items.map(formatLensPostV3)),
+        result.items.map(formatLensPostV3),
         createIndicator(indicator),
         result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
     );
