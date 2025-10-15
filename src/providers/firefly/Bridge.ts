@@ -51,8 +51,9 @@ class FireflyBridgeProvider {
     private callbacks = new Map<string, (payload: Payload) => void>();
     private events = new Map<string, Set<(payload: Payload) => void>>();
 
-    private installCallbacks() {
+    constructor() {
         if (!bom.window) return;
+
         Reflect.set(
             bom.window,
             'callJsMethod',
@@ -99,9 +100,6 @@ class FireflyBridgeProvider {
                     if (error) reject(error);
                     else resolve(result as ResponseResult[T]);
                 });
-
-                // install the callback
-                this.installCallbacks();
 
                 // dispatch the request to the native app
                 callNativeMethod(method, requestId, params as RequestArguments[T]);
