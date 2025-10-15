@@ -12,7 +12,7 @@ export function MenuGroup({ className, children, ref, onClick = stopEvent, ...re
         <MenuItems
             ref={ref}
             className={classNames(
-                'z-menu flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main',
+                'z-menu flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main outline-none',
                 typeof className === 'string' ? className : '',
             )}
             onClick={onClick}

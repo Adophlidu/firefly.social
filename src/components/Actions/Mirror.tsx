@@ -148,7 +148,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
             >
-                <MenuItems className="absolute z-menu flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main">
+                <MenuItems className="absolute z-menu flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main outline-none">
                     <MenuItem>
                         {({ close }) => (
                             <MenuButton

@@ -33,7 +33,6 @@ export function FireflyAccountChecker() {
 
     useEffect(() => {
         if (!bom?.location) return;
-        if (pathname === PageRoute.Signup) return;
         if (hasFireflyAccount || isLoading) return;
         if (!isForceRedirect) return;
 
