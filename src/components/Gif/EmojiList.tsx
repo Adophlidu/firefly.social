@@ -3,10 +3,10 @@ import { Grid } from '@giphy/react-components';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import { Loading } from '@/components/Loading.js';
 import { env } from '@/constants/env.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { IGif } from '@/types/giphy.js';
-import { Loading } from '@/components/Loading.js';
 
 interface EmojiListProps {
     width: number;

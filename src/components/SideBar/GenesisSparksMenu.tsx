@@ -1,11 +1,14 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { memo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { memo, useMemo } from 'react';
+import urlcat from 'urlcat';
 
 import SparksIcon from '@/assets/sparks-star.svg';
 import SparksSelectedIcon from '@/assets/sparks-star-selected.svg';
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 interface GenesisSparksMenuProps {
@@ -19,9 +22,26 @@ export const GenesisSparksMenu = memo<GenesisSparksMenuProps>(function GenesisSp
     const Icon = isSelected ? SparksSelectedIcon : SparksIcon;
     const uid = currentProfileSession?.profileId;
 
+    const { data } = useQuery({
+        queryKey: ['sparks-account', uid],
+        queryFn: () => {
+            if (!uid) return;
+            return FireflyEndpointProvider.getSparksAccountDetails(`${uid}`);
+        },
+    });
+
+    const isOgUser = !!data?.OgList?.length;
+    const isFansUser = !!data?.FansList?.length;
+
+    const href = useMemo(() => {
+        if (uid && (isOgUser || isFansUser))
+            return urlcat('/sparks/:uid', { uid, eligible: isOgUser ? 'KOL' : isFansUser ? 'Fans' : 'No' });
+        return '/sparks';
+    }, [uid, isOgUser, isFansUser]);
+
     return (
         <BaseMenuItem
-            href={uid ? `/sparks/${uid}` : '/sparks'}
+            href={href}
             isSelected={isSelected}
             collapsed={collapsed}
             menuName={<Trans>Genesis Sparks</Trans>}
