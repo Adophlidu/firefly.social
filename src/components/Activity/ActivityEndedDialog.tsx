@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useCallback } from 'react';
+import { type ReactNode, useCallback } from 'react';
 
 import { Modal } from '@/components/Modal.js';
 import { PageRoute } from '@/constants/enum.js';
@@ -10,16 +10,19 @@ import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Fir
 
 interface Props {
     data: Pick<Required<ActivityInfoResponse>['data'], 'status'>;
+    open?: boolean;
+    buttonText?: ReactNode;
+    onClose?: () => void;
 }
 
-export function ActivityEndedDialog({ data }: Props) {
+export function ActivityEndedDialog({ buttonText, data, open = true, ...rest }: Props) {
     const router = useRouter();
     const onClose = useCallback(() => {
         router.replace(PageRoute.Events);
     }, [router]);
 
     return (
-        <Modal open={data.status === ActivityStatus.Ended} onClose={onClose}>
+        <Modal open={!!open && data.status === ActivityStatus.Ended} onClose={onClose}>
             <div className="w-[359px] transform rounded-[12px] bg-primaryBottom transition-all">
                 <div className="relative inline-flex h-12 w-full items-center justify-center gap-2 rounded-t-[12px] pt-6 text-center">
                     <div className="text-lg font-bold leading-6 text-main">
@@ -28,13 +31,13 @@ export function ActivityEndedDialog({ data }: Props) {
                 </div>
                 <div className="p-6">
                     <p className="mb-6 text-sm font-medium leading-6 text-second">
-                        <Trans>The event has ended, but you can explore others in Exclusive Events.</Trans>
+                        <Trans>This event has ended. Stay tuned for what&#39;s next!</Trans>
                     </p>
                     <button
                         className="flex h-12 w-full items-center justify-center rounded-full border border-current px-4 text-center text-base font-bold leading-8"
-                        onClick={onClose}
+                        onClick={rest.onClose ?? onClose}
                     >
-                        <Trans>Back to list</Trans>
+                        {buttonText ?? <Trans>Back to list</Trans>}
                     </button>
                 </div>
             </div>

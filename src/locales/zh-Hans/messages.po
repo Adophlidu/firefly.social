@@ -79,9 +79,6 @@ msgstr "发送帖子串失败"
 msgid "Connecting wallets"
 msgstr "连接中钱包"
 
-msgid "You have been detected as a loyal Farcaster user"
-msgstr "你被检测到为 Farcaster 忠实用户"
-
 #. placeholder {0}: notification.quote.quoteOn.type
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 msgstr "<0/> 引用了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {帖子}}</1>"
@@ -164,15 +161,9 @@ msgstr "铸造收集文章失败。"
 msgid "Unlimit"
 msgstr "无限额"
 
-msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
-msgstr "<0>通过参与，你确认您已满 18 岁，并且居住在允许此类促销活动的法域内。此促销活动在法律禁止的地方无效。</0><1>参与或获胜无需购买或付款，且此类行为不会影响您获胜的机会。获胜者将通过透明的过程随机选出。参赛作品必须在2025年1月23日之前提交。</1><2>参与者有责任确保遵守适用的法律。我们不对因参与而产生的任何损失承担责任。通过参与，您在法律允许的最大范围内解除我们的一切责任。</2>"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "在 {0} 引用失败。"
-
-msgid "Hold on! Meet any of the following to unlock a premium collectible:"
-msgstr "稍等！满足以下任一条件以解锁优质 NFT："
 
 msgid "Communities"
 msgstr "社区"
@@ -308,9 +299,6 @@ msgstr "排名 #{0}"
 
 msgid "Mute {walletHandle}"
 msgstr "隐藏 {walletHandle}"
-
-msgid "Sold Out."
-msgstr "已售罄"
 
 #. placeholder {0}: sourceNames.slice(0, -1).join(', ')
 #. placeholder {1}: last(sourceNames) ?? ''
@@ -524,9 +512,6 @@ msgstr "查看名称相似的代币"
 msgid "DAOs"
 msgstr "DAOs"
 
-msgid "Rules"
-msgstr "使用规则"
-
 msgid "MAX"
 msgstr "最大"
 
@@ -556,9 +541,6 @@ msgstr "投票"
 
 msgid "Back to list"
 msgstr "返回列表"
-
-msgid "Product Detail"
-msgstr "商品详情"
 
 msgid "Bets"
 msgstr "投注"
@@ -626,9 +608,6 @@ msgstr "热门圈子"
 msgid "Adding..."
 msgstr "添加中..."
 
-msgid "Donald Trump"
-msgstr "唐纳德·特朗普"
-
 msgid "Mint"
 msgstr "铸造"
 
@@ -640,9 +619,6 @@ msgstr "市值"
 
 msgid "NFT Send Failed"
 msgstr "NFT 发送失败"
-
-msgid "Eligible for Premium Collectible?"
-msgstr "是否可解锁更高版本？"
 
 msgid "Contract source code verified"
 msgstr "已验证合约源代码"
@@ -723,10 +699,6 @@ msgstr "资产总额（≈美元）"
 msgid "Show less"
 msgstr "收起"
 
-#. placeholder {0}: resolveSourceName(source)
-msgid "Follow <0>@{handle}</0> on {0}"
-msgstr "在 {0} 上关注 <0>@{handle}</0>"
-
 msgid "Scan and Get Firefly Mobile App"
 msgstr "扫描二维码下载 Firefly 移动端应用"
 
@@ -738,9 +710,6 @@ msgstr "代理合约。"
 
 msgid "Liquidity"
 msgstr "流动性"
-
-msgid "Verification unsuccessful"
-msgstr "验证失败"
 
 msgid "Scan this QR code to establish a new connection via Farcaster for free."
 msgstr "扫描二维码免费建立新的 Farcaster 连接。"
@@ -770,10 +739,6 @@ msgstr ""
 
 msgid "Bookmarks"
 msgstr "收藏夹"
-
-#. placeholder {0}: followTrumpTwitterProfile.handle
-msgid "Followed <0>@{0}</0> on X before Jan 18, 2025"
-msgstr "你在2025年1月18日快照中识别为 X 账号 <0>@{0}</0> 的关注者"
 
 msgid "This QR code is no longer valid. Please scan a new one to continue."
 msgstr "该二维码已失效，请刷新后重试。"
@@ -816,12 +781,6 @@ msgstr "Orb 登录失败"
 msgid "Restricted approval."
 msgstr "限制授权。"
 
-msgid "Read this <0>disclaimer</0> before participation. For any inquiries, please <1>contact us</1>. All rights reserved by Firefly."
-msgstr "请在参与前阅读此<0>免责声明</0>。如有任何疑问，请<1>联系我们</1>。Firefly保留所有权利。"
-
-msgid "Valid at 3 Stores"
-msgstr "3家门店通用"
-
 msgid "Report submitted"
 msgstr "已举报"
 
@@ -834,9 +793,6 @@ msgstr "无隐藏的所有者。"
 
 msgid "Polymarket bet"
 msgstr ""
-
-msgid "Unpaid"
-msgstr "未支付"
 
 msgid "Blockchain"
 msgstr "区块链"
@@ -855,9 +811,6 @@ msgstr "糟糕！你的账户当前已被封禁。请联系客服了解具体原
 
 msgid "Mutes"
 msgstr "隐藏"
-
-msgid "Submit an evm wallet to check"
-msgstr "提交你的 Evm 钱包以检测资格"
 
 msgid "Failed to bookmark NFT."
 msgstr "收藏 NFT 失败。"
@@ -905,9 +858,6 @@ msgstr "自定义"
 msgid "Select NFT collection to gate access"
 msgstr "选择 NFT 系列作为领取门槛"
 
-msgid "Follow <0>@thefireflyapp</0> on X"
-msgstr "在X上关注 <0>@thefireflyapp</0>"
-
 msgid "From Address"
 msgstr "来自地址"
 
@@ -936,17 +886,11 @@ msgstr "密码设置失败。"
 msgid "Explore"
 msgstr "探索"
 
-msgid "Connect your wallet to Firefly (Optional)"
-msgstr "在Firefly上绑定你的钱包 (可选)"
-
 msgid "Show Less"
 msgstr "收起"
 
 msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择 2 张图片。"
-
-msgid "submit a wallet to receive $TRUMP"
-msgstr "提交你的钱包以领取你的 $TRUMP"
 
 msgid "Failed to delete"
 msgstr "删除失败"
@@ -964,6 +908,9 @@ msgstr "扫描此二维码，并在 Farcaster 移动端应用中确认注册认�
 #. placeholder {0}: post.metadata.content.asset.type
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[图片]} Video {[视频]} Audio {[音频]} Poll {[投票]} other {}}"
+
+msgid "This event has ended. Stay tuned for what's next!"
+msgstr ""
 
 #. placeholder {0}: profile.handle
 msgid "Failed to follow @{0} on {sourceName}."
@@ -1040,9 +987,6 @@ msgstr "已被 {0} 关注"
 msgid "GIF source not supported. Supported sources: {0}"
 msgstr "不支持GIF来源。支持来源：{0}"
 
-msgid "Check your redeem code"
-msgstr "查看我的核销码"
-
 msgid "All activities from {handleOrEnsOrAddress} will be hidden from you"
 msgstr "将隐藏 {handleOrEnsOrAddress} 的所有动态"
 
@@ -1077,12 +1021,6 @@ msgstr "主持人"
 msgid "Unsafe: Transaction is at risk"
 msgstr "不安全：交易存在风险"
 
-msgid "👀 Foodie builders, listen up!"
-msgstr "👀 Foodie builders看过来"
-
-msgid "Shipped"
-msgstr "已发放核销码"
-
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
 msgid "{0, plural, one {# day} other {# days}}"
 msgstr "{0, plural, one {# 日} other {# 日}}"
@@ -1092,9 +1030,6 @@ msgstr "发现疑似恶意地址。"
 
 msgid "Honeypot related address found."
 msgstr "发现诈骗相关地址。"
-
-msgid "All rights reserved by Firefly. For any inquiries, please <0>contact us.</0>"
-msgstr "Firefly版权所有。若有任何疑问，请<0>联系我们。</0>"
 
 msgid "Failed to enable Multi-device login. Please try again later."
 msgstr "无法开启多设备登录功能，请稍后重试。"
@@ -1212,9 +1147,6 @@ msgstr "<0>投注</0><1>价值 ${0} 于Polymarket</1>"
 msgid "Holders"
 msgstr "持有者"
 
-msgid "The event has ended, but you can explore others in Exclusive Events."
-msgstr "活动已结束，但你可以在独家活动中探索其他活动。"
-
 msgid "Multi-device login is required for schedule post. Enter your password to confirm your identity."
 msgstr "定时发布需启用多设备登录。请输入密码验证身份。"
 
@@ -1301,9 +1233,6 @@ msgstr "市值 / 完全稀释估值"
 msgid "Failed to un-bookmark NFT."
 msgstr "取消收藏 NFT 失败。"
 
-msgid "Connected your email to Firefly"
-msgstr "已绑定邮箱"
-
 msgid "Confirmation"
 msgstr "确认"
 
@@ -1376,9 +1305,6 @@ msgstr "不涉及虚假 KYC。"
 msgid "THREAD POST"
 msgstr "帖子串"
 
-msgid "Repost the official campaign post"
-msgstr "在X上转发本次活动"
-
 msgid "Repost again"
 msgstr "再次转发"
 
@@ -1409,9 +1335,6 @@ msgstr "跟随系统"
 msgid "Swaps"
 msgstr "兑换"
 
-msgid "Cross-post to invite your crew to join (Optional)"
-msgstr "发帖@你的朋友一起来吃火锅 (可选)"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Replied on {0}."
 msgstr "🎭 已在 {0} 评论。"
@@ -1431,9 +1354,6 @@ msgstr "删除选项"
 msgid "Update"
 msgstr "更新"
 
-msgid "🎁 Buy a Haidilao Voucher = <0>Unlock Future Firefly NFT Perks</0> 🍲✨"
-msgstr "🎁 买火锅兑换券 = <0>解锁Firefly未来特别的NFT权益</0> 🍲✨"
-
 msgid "Registered account not found. Please switch to another wallet and try again."
 msgstr "未发现任何在Firefly注册的账号，请更换钱包重试。"
 
@@ -1448,14 +1368,8 @@ msgstr "在 Lens 上关注 @{0} 失败"
 msgid "🎭 Quoted on {0}."
 msgstr "🎭 已在 {0} 引用。"
 
-msgid "Check Eligibility"
-msgstr "检查资格"
-
 msgid "You might like"
 msgstr "你也许感兴趣"
-
-msgid "🔥 <0>Unlock up to SGD50 Haidilao dining vouchers</0> by completing Firefly social tasks (from just US$15 — or <1>even free!</1>)."
-msgstr "🔥 <0>解锁换购资格: </0>挑战Firefly任务，完成3个即解锁$15换购资格！继续挑战更能升级奖励，<1>赢取免费票</1>"
 
 msgid "Please enter at least 2 characters."
 msgstr "请输入至少 2 个字符。"
@@ -1510,9 +1424,6 @@ msgstr "登出"
 msgid "Oops... Not all the requirements have been met"
 msgstr "哎呀... 并未满足所有要求"
 
-msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
-msgstr "你是 <0>Pudgy Penguins</0> 或 <1>Lil Pudgy</1> NFT 系列的持有者"
-
 msgid "No restricted approval."
 msgstr "没有限制性批准。"
 
@@ -1552,12 +1463,6 @@ msgstr "最近两周没有内容。"
 msgid "Discard Post"
 msgstr "放弃发布"
 
-msgid "Paying"
-msgstr "支付中"
-
-msgid "Participate Now"
-msgstr "立即参加"
-
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "此代币合约包含不可出售条款，可能是有欺诈风险。"
 
@@ -1574,15 +1479,8 @@ msgstr "撤销授权"
 msgid "Failed Post"
 msgstr "发布失败"
 
-msgid "Continue payment"
-msgstr "继续支付"
-
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 msgstr "扫描此二维码，并在 Farcaster 移动端应用中确认，即可开始使用你的账户。"
-
-#. placeholder {0}: BRIAN_FARCASTER_PROFILE.handle
-msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{0}</1> on Farcaster before Oct 20, 2024"
-msgstr "在 2024 年 10 月 12 日之前关注了 X 上的 <0>@{handle}</0>，或在 2024 年 10 月 20 日之前关注了 Farcaster 上的 <1>@{0}</1>"
 
 msgid "Cannot choose due to account mismatch."
 msgstr "因账户不匹配无法选择。"
@@ -1592,9 +1490,6 @@ msgstr "您也可以在区块链浏览器页面找到更详细的持币者分析
 
 msgid "Change password"
 msgstr "修改密码"
-
-msgid "System busy"
-msgstr "系统繁忙"
 
 msgid "Verified by {provider}"
 msgstr "由 {provider} 校验"
@@ -1636,18 +1531,12 @@ msgstr "取消收藏帖子失败。"
 msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
 msgstr "你没有资格解密此帖子，请使用符合条件的{sourceName}账户重试。"
 
-msgid "Cross-posted to invite your crew to join"
-msgstr "已发帖@你的朋友一起来吃火锅"
-
 #. placeholder {0}: profile.handle
 msgid "Failed to mute @{0} on {sourceName}."
 msgstr "在 {sourceName} 上隐藏 @{0} 失败。"
 
 msgid "View Source"
 msgstr "查看原文"
-
-msgid "The final amount is subject to the actual order amount"
-msgstr "最终金额以实际下单金额为准"
 
 #. placeholder {0}: author.handle
 #. placeholder {1}: resolveSourceName(source)
@@ -1692,9 +1581,6 @@ msgstr "天"
 msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
 msgstr "<0>获取</0><1/><2>从</2><3><4>{0}</4></3>"
 
-msgid "Submit a wallet to receive NFT and $ANON"
-msgstr "提交您的钱包以领取您的 NFT 和 $ANON"
-
 msgid "<0>Bought</0><1/>"
 msgstr "<0>购买</0><1/>"
 
@@ -1730,9 +1616,6 @@ msgstr "Gas 不足"
 msgid "Failed to change password."
 msgstr "修改密码失败。"
 
-msgid "Submit exception"
-msgstr "订单提交异常"
-
 msgid "Blacklist function"
 msgstr "黑名单功能"
 
@@ -1742,9 +1625,6 @@ msgstr "发布时间最多可设置 7 天内。请重新设置"
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Your post was sent to {0}."
 msgstr "🎭 你的帖子已发布至 {0}。"
-
-msgid "Posted to Lens on <0>Phaver</0>"
-msgstr "用<0>Phaver</0>发送过 Lens 帖子"
 
 msgid "<0>Sent</0><1/>"
 msgstr "<0>发送</0><1/>"
@@ -1758,10 +1638,6 @@ msgstr "已投票"
 
 msgid "Lucky Drop"
 msgstr "红包"
-
-#. placeholder {0}: resolveOrderStatusText(orderStatus)
-msgid "Failed to purchase. {0}"
-msgstr "购买失败，{0}"
 
 msgid "Bad login state, please try to login again."
 msgstr "登录状态异常，请重新登录。"
@@ -1815,9 +1691,6 @@ msgstr "投票成功！"
 msgid "The user canceled the operation."
 msgstr "用户已取消操作。"
 
-msgid "Your Farcaster account holds Power Badge"
-msgstr "你的 Farcaster 账户拥有 Power Badge"
-
 msgid "Owned By"
 msgstr "属于"
 
@@ -1842,17 +1715,11 @@ msgstr "分享图片"
 msgid "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
 msgstr "市值数据来自 CoinGecko，包含该代币在其他区块链上的发行量。"
 
-msgid "Bugis+"
-msgstr "Bugis+"
-
 msgid "Send"
 msgstr "发送"
 
 msgid "Collected"
 msgstr "已收集"
-
-msgid "Unpaid orders exist, retry later"
-msgstr "有人未付款，你仍有机会下单"
 
 msgid "Encrypted choice"
 msgstr "加密选项"
@@ -1863,17 +1730,11 @@ msgstr "隐藏小额交易（<$100）"
 msgid "<0>You</0> retruthed"
 msgstr "<0>你</0> 已转发"
 
-msgid "Completed tasks ({completedTaskCount}/3)"
-msgstr "已完成数量（{completedTaskCount}/3）"
-
 msgid "Show more users"
 msgstr "展示更多用户"
 
 msgid "View detail"
 msgstr "查看详情"
-
-msgid "Product"
-msgstr "商品内容"
 
 msgid "Try again"
 msgstr "请重试"
@@ -1933,9 +1794,6 @@ msgstr "将 {formattedAddress} 设为 Solana 主钱包"
 msgid "Choice {0}"
 msgstr "选项 {0}"
 
-msgid "Posted on the following apps since August 1, 2024, and new Firefly users only:"
-msgstr "自 2024 年 8 月 1 日起，使用以下应用程序发布过帖子；仅限新注册的 Firefly 用户参与："
-
 msgid "More details"
 msgstr "详细信息"
 
@@ -1964,12 +1822,6 @@ msgstr "找不到该地址。"
 msgid "Verify and Claim"
 msgstr "校验并且领取"
 
-msgid "Kamala Harris"
-msgstr "卡玛拉·哈里斯"
-
-msgid "Reposted the official campaign post"
-msgstr "已转发本次活动"
-
 msgid "Failed to connect on {source}"
 msgstr "在 {source} 上连接失败。"
 
@@ -1994,15 +1846,6 @@ msgstr "时间"
 
 msgid "Holders can sell all of the token."
 msgstr "持有者可以出售所有代币。"
-
-msgid "Claim Premium"
-msgstr "领取高级版"
-
-msgid "Share in a Post"
-msgstr "在帖子中分享"
-
-msgid "Participation Blocked"
-msgstr "禁止参与"
 
 msgid "Collected by"
 msgstr "收集者"
@@ -2103,9 +1946,6 @@ msgstr "一个 Firefly 账户即可管理所有社交账号"
 msgid "Portfolio"
 msgstr ""
 
-msgid "Posted to Farcaster on <0>Supercast</0>"
-msgstr "用<0>Supercast</0>发送过 Farcaster 帖子"
-
 msgid "Your gateway to a personalized social experience."
 msgstr "通往个性化社交体验的入口。"
 
@@ -2148,9 +1988,6 @@ msgstr "余额不足"
 
 msgid "Empty"
 msgstr "空的"
-
-msgid "Stores"
-msgstr "适用门店"
 
 msgid "All"
 msgstr "所有"
@@ -2195,9 +2032,6 @@ msgstr "输入或搜索接收方钱包地址"
 msgid "Failed to switch chain"
 msgstr "切换失败"
 
-msgid "Eligible for Premium?"
-msgstr "符合高级版资格？"
-
 msgid "You haven't traded this token."
 msgstr "你还没有交易过这个代币呢。"
 
@@ -2220,9 +2054,6 @@ msgstr ""
 msgid "Your posts have published successfully on {0}."
 msgstr "您的帖子已成功发布至 {0} 。"
 
-msgid "Period"
-msgstr "有效期限"
-
 msgid "Manage the accounts, wallets, and clubs that you’ve muted."
 msgstr "管理您已隐藏的账号，钱包和圈子。"
 
@@ -2241,20 +2072,8 @@ msgstr ""
 msgid "Everything app for Web3 natives"
 msgstr "Web3 原住民的万能应用"
 
-msgid "Purchase Completed"
-msgstr "购买成功"
-
 msgid "All wallets and accounts are muted."
 msgstr "已隐藏所有的钱包和账号。"
-
-msgid ""
-"Just earned $MASK by minting the Buttrfly Fren 🦋 collectible from {fireflyMention} \n"
-"\n"
-"Claim here {shareUrl}"
-msgstr ""
-"刚刚通过铸造 {fireflyMention} 的 Buttrfly Fren 🦋 收藏品获得了 $MASK 代币。\n"
-"\n"
-"点击这里领取：{shareUrl}"
 
 msgid "Email"
 msgstr "Email"
@@ -2298,9 +2117,6 @@ msgstr "取消点赞"
 msgid "No blacklist"
 msgstr "无黑名单"
 
-msgid "📞 <0>Enjoy the Haidilao feast, with voucher redemption and seating services available from September 30 to October 6</0><1/>- Bugis+: 69086166<2/>- Marina Square: 65921555<3/>- Marina Bay Sands: 65091611"
-msgstr "📞 <0>使用代金券前，请先致电店内预约免排队专属位置</0><1/>- Bugis+: 69086166<2/>- Marina Square: 65921555<3/>- Marina Bay Sands: 65091611"
-
 msgid "<0>Collected</0><1/>"
 msgstr "<0>铸造收集了</0><1/>"
 
@@ -2318,27 +2134,11 @@ msgstr "您的 TG 账户已绑定"
 msgid "Failed to report @{0}."
 msgstr "举报 @{0} 失败。"
 
-msgid ""
-"Just submitted my wallet to receive my Christmas gift. Let's skate into the holiday season with $PENGU on {fireflyMention}\n"
-"\n"
-"Submit here {shareUrl}\n"
-"\n"
-"#PENGU #FireflySocial"
-msgstr ""
-"刚刚提交了我的钱包地址来领取圣诞礼物。让我们一起带着 $PENGU 滑入假日季吧 {fireflyMention}！\n"
-"\n"
-"提交地址：{shareUrl}\n"
-"\n"
-"#PENGU #FireflySocial"
-
 msgid "Post with link"
 msgstr "发布分享链接"
 
 msgid "Rank #{tokenRank}"
 msgstr "排名 #{tokenRank}"
-
-msgid "Joined Firefly’s Telegram community"
-msgstr "已加入Firefly官方TG群"
 
 msgid "Votes"
 msgstr "投票"
@@ -2414,9 +2214,6 @@ msgstr "取消隐藏失败/{0}。"
 msgid "Custom amount is required for this token"
 msgstr "此代币需要自定义数额"
 
-msgid "No refund"
-msgstr "不支持退款"
-
 msgid "Cover background"
 msgstr "封面背景"
 
@@ -2453,9 +2250,6 @@ msgstr "已兑换"
 msgid "This Email is already linked to another Firefly account."
 msgstr "该邮箱已绑定其他 Firefly 账户。"
 
-msgid "Wrong pose"
-msgstr "订单异常"
-
 msgid "Fully Diluted Valuation"
 msgstr "完全稀释估值"
 
@@ -2480,9 +2274,6 @@ msgstr "<0>/{0}</0> 的成员"
 
 msgid "Requirements"
 msgstr "条件"
-
-msgid "*This event is only available on the mobile app. Download Firefly now!"
-msgstr "*此活动仅在移动端应用上参与，立即下载 Firefly！"
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 高风险项} other {# 高风险项}}"
@@ -2615,9 +2406,6 @@ msgstr "发布你的评论"
 msgid "View on Explorer"
 msgstr "在浏览器查看"
 
-msgid "The task Not Meet"
-msgstr "不满足购买条件"
-
 #. placeholder {0}: account?.uid
 msgid "UID: {0}"
 msgstr "UID: {0}"
@@ -2635,9 +2423,6 @@ msgstr "用户"
 msgid "Primary"
 msgstr "主要"
 
-msgid "This October, join us at Haidilao Singapore for the first-ever Web3 Hotpot Festival — a week of hotpot, networking, and fun."
-msgstr "10月，F1-Token2049黄金周来新加坡海底捞吧，一起涮起来Web3火锅节。完成3项Firefly互动任务，解锁兑换火锅券，社交换🍲大餐，刷刷刷～涮涮涮～"
-
 msgid "Failed to reconnect. Please scan another QR code to establish a new connection."
 msgstr "重连失败，请重新扫描二维码建立连接。"
 
@@ -2649,9 +2434,6 @@ msgstr "移除Truth Social"
 
 msgid "Signing transaction"
 msgstr "签署交易"
-
-msgid "Submit a wallet to receive a collectible and $MASK airdrop"
-msgstr "提交钱包地址，领取收藏品和 $MASK 空投"
 
 msgid "Scan the QR code with the <0>Camera app</0> <1/>and give <2>edit permission</2> to sign in instantly"
 msgstr "使用<0>相机应用</0><1/>扫描二维码并授予<2>编辑权限</2>以即时登录"
@@ -2769,9 +2551,6 @@ msgstr "未定义用户"
 msgid "Unmute {handleOrEnsOrAddress}"
 msgstr "取消隐藏 {handleOrEnsOrAddress}"
 
-msgid "Participated"
-msgstr "已参加"
-
 msgid "No external call risk found."
 msgstr "未发现外部调用风险。"
 
@@ -2816,9 +2595,6 @@ msgstr "总数额"
 
 msgid "Invalid signer key"
 msgstr "签名密钥无效"
-
-msgid "Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
-msgstr "若你的 Farcaster ID 低于 100,000，或在快照中被识别为指定 Farcaster 第三方应用的用户，即可获得领取资格"
 
 msgid "Unverified"
 msgstr "未验证"
@@ -2874,9 +2650,6 @@ msgstr "此用户未开放超级关注功能"
 msgid "The page could not be found."
 msgstr "找不到该页面。"
 
-msgid "📅 <0>Dates:</0> Sept 30 – Oct 6, 2025"
-msgstr "📅 <0>使用时间: </0>2025年9月30日 - 10月6日"
-
 msgid "Change Password"
 msgstr "修改密码"
 
@@ -2884,27 +2657,11 @@ msgstr "修改密码"
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {由于某些错误你的帖子在 {firstPlatform} 發佈失敗。請點擊重試。} two {由于某些错误你的帖子在 {firstPlatform} 和{secondPlatform} 發佈失敗。請點擊重試。} other {你的貼文發佈失敗。請點擊重試。}}"
 
-msgid ""
-"Just joined this exclusive raffle event \"🇺🇸 Winning with $TRUMP 🇺🇸\" from {fireflyMention}\n"
-"\n"
-"Check your eligibility and participate here {shareUrl}\n"
-"\n"
-"#TRUMP #FireflySocial"
-msgstr ""
-"Just joined this exclusive raffle event \"🇺🇸 Winning with $TRUMP 🇺🇸\" from {fireflyMention}\n"
-"\n"
-"Check your eligibility and participate here {shareUrl}\n"
-"\n"
-"#TRUMP #FireflySocial"
-
 msgid "Cybercrime found."
 msgstr "发现网络犯罪。"
 
 msgid "What's happening..."
 msgstr "正在发生..."
-
-msgid "Connect your wallet to claim your NFT"
-msgstr "连接你的钱包以领取 NFT"
 
 msgid "Reauthorize"
 msgstr "重新授权"
@@ -2981,9 +2738,6 @@ msgstr "此操作无法撤销，您将丢失您的草稿。"
 msgid "Article removed from your Bookmarks"
 msgstr "文章已经从你的收藏中移除"
 
-msgid "Posted to Lens on Buttrfly since August 1, 2024"
-msgstr "自 2024 年 8 月 1 日起，曾经通过 Buttrfly 发布帖子到 Lens"
-
 msgid "Powered by Tenderly and GoPlus"
 msgstr "技术支持：Tenderly & GoPlus"
 
@@ -3002,23 +2756,14 @@ msgstr "你不符合领取此红包的条件"
 msgid "Collectible could not be found."
 msgstr "未找到相关 NFT。"
 
-msgid "OrderExists"
-msgstr "订单已存在"
-
 msgid "Image count limit reached"
 msgstr "达到图片数量上限"
-
-msgid "Support"
-msgstr "购买须知"
 
 msgid "Confirm to disconnect this wallet from Firefly?"
 msgstr "确认断开此钱包与 Firefly 社交图谱的绑定吗？"
 
 msgid "Token holder of any one below"
 msgstr "持有以下任意代币"
-
-msgid "Step 3 Select to vote"
-msgstr "第 3 步 选择候选人"
 
 msgid "Select Collection"
 msgstr "选择 NFT 系列"
@@ -3029,14 +2774,8 @@ msgstr "定时帖的发布时间最多可设置在 7 天内。"
 msgid "This token can not self destruct."
 msgstr "该代币无法自我销毁。"
 
-msgid "AmountError"
-msgstr "金额错误"
-
 msgid "Display"
 msgstr "显示"
-
-msgid "Submit claimed address"
-msgstr "提交领取的钱包地址"
 
 msgid "Mute successfully."
 msgstr "已隐藏成功。"
@@ -3049,9 +2788,6 @@ msgstr "未找到与 \"{keyword}\" 相关的结果"
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "如果该功能存在，项目方即使放弃所有权后仍可能重新获得控制权"
-
-msgid "Discount won! Valid for 10 minutes，snatch it now!"
-msgstr ""
 
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "抱歉，我们无法找到 {displayName} 的钱包。"
@@ -3222,9 +2958,6 @@ msgstr "收藏帖子失败。"
 msgid "{0} muted users"
 msgstr "{0} 已隐藏用户"
 
-msgid "Open Google Form"
-msgstr "打开 Google Form"
-
 #. placeholder {0}: resolveSourcesName( availableSources.filter((x) => MAX_FILE_SIZE_PER_VIDEO[x] === videoSizeLimit), )
 #. placeholder {1}: formatFileSize(videoSizeLimit)
 msgid "Failed to upload on {0}. Video size exceeds {1}"
@@ -3241,12 +2974,6 @@ msgstr "删除投票"
 
 msgid "No activity yet"
 msgstr "这里空空如也"
-
-msgid "Activity not started yet"
-msgstr "活动尚未开始"
-
-msgid "Top 500 Buttrfly Points Leaderboard"
-msgstr "Buttrfly 积分排行榜 Top 500"
 
 msgid "Minutes"
 msgstr "分钟"
@@ -3278,9 +3005,6 @@ msgstr "个人简介应至少包含 {minBioSize} 个字符"
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "这是从公开数据库或我们的算法中检索到的钱包。请先添加此钱包再设置为主钱包。"
 
-msgid "【View Example】"
-msgstr "【查看范例】"
-
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
 
@@ -3306,9 +3030,6 @@ msgstr "等待关注请求通过"
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转发或引用} other {转发或引用}}"
-
-msgid "Firefly is actively expanding its community presence, laying a strong foundation for future growth. We welcome you to join as an early contributor, starting with our <0>content bounty tasks</0>!"
-msgstr "Firefly 正在积极拓展社群版图，为未来的发展打下坚实基础。欢迎大家作为早期贡献者参与建设，从<0>创作赏金任务</0>开始！"
 
 msgid "Website is a phishing site."
 msgstr "该网站是钓鱼网站。"
@@ -3343,14 +3064,6 @@ msgstr "{type, select, compose {{0}} quote {添加评论} reply {发布你的评
 msgid "Unknown transaction method: {method}."
 msgstr "未知交易方法：{method}。"
 
-#. placeholder {0}: resolveSourceName(source)
-#. placeholder {0}: resolveSourceName(Array.isArray(source) ? source[0] : source)
-msgid "Please sign in with {0} to continue"
-msgstr "请登陆 {0} 以继续"
-
-msgid "Get involved in the <0>Presidential Election Winner 2024</0> on Polymarket"
-msgstr "您曾在 Polymarket 对 <0>Presidential Election Winner 2024</0> 进行投注"
-
 msgid "Discard"
 msgstr "放弃"
 
@@ -3368,9 +3081,6 @@ msgstr "定时发布需启用多设备登录。请设置 6 位数字密码以验
 
 msgid "Swapped 0.1 ETH for 253.97 Virtual."
 msgstr "以 0.1 ETH 兑换了 253.97 Virtual。"
-
-msgid "Step 2 Connect Wallet"
-msgstr "第 2 步 连接钱包"
 
 msgid "Light Mode"
 msgstr "明亮模式"
@@ -3422,9 +3132,6 @@ msgstr "免费铸造收集"
 msgid "Delete"
 msgstr "删除"
 
-msgid "Marina Square"
-msgstr "Marina Square"
-
 msgid "Available"
 msgstr "可用的"
 
@@ -3462,14 +3169,8 @@ msgstr "按计划发布"
 msgid "Post on"
 msgstr "发布于"
 
-msgid "Your transaction will confirm shortly"
-msgstr "您的交易将很快确认"
-
 msgid "Failed to un-bookmark snapshot."
 msgstr "取消收藏投票失败。"
-
-msgid "Out of stock"
-msgstr "库存不足"
 
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
@@ -3505,21 +3206,12 @@ msgstr "已隐藏内容"
 msgid "Lucky drop is only available on {0}"
 msgstr "红包仅支持 {0}"
 
-msgid "About the Festival"
-msgstr "活动介绍"
-
-msgid "Join Firefly’s Telegram community"
-msgstr "加入Firefly官方TG群"
-
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr "市场上流通并可供公众交易的货币数量。这相当于市场上随时可买到的股票（未被内部人士或政府持有和锁定）。"
 
 #. placeholder {0}: post.stats.mirrors
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {转发} other {转发}}"
-
-msgid "Wallet submitted"
-msgstr "已提交钱包"
 
 msgid "Total Value"
 msgstr ""
@@ -3529,9 +3221,6 @@ msgstr "未检测到欺诈风险。"
 
 msgid "NFT Send"
 msgstr "发送 NFT"
-
-msgid "Connect your email to Firefly (Optional)"
-msgstr "在Firefly上绑定你的邮箱 (可选)"
 
 msgid "Your Firefly Account is now connected"
 msgstr "你的 Firefly 账户已连接"
@@ -3576,9 +3265,6 @@ msgstr "红包领取成功"
 msgid "Rejected"
 msgstr "已拒绝"
 
-msgid "Voucher SGD 50 x 1"
-msgstr "50新元海底捞代金券 x 1"
-
 msgid "Recast or Quote"
 msgstr "转发或引用"
 
@@ -3597,9 +3283,6 @@ msgstr "firefly.eth 赞了你的打赏"
 
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "来自 {walletHandle} 的文章现在将从您的首页时间线中隐藏。"
-
-msgid "Meet any of the following to unlock a premium collectible:"
-msgstr "满足以下任意条件即可解锁高级版本的NFT"
 
 msgid "Article"
 msgstr "文章"
@@ -3737,9 +3420,6 @@ msgstr "取消转发"
 msgid "{days, plural, one {# day left} other {# days left}}"
 msgstr "{days, plural, one {剩余 # 天} other {剩余 # 天}}"
 
-msgid "Failed to purchase. Insufficient balance"
-msgstr "购买失败，余额不足"
-
 msgid "No cybercrime involved."
 msgstr "不涉及网络犯罪。"
 
@@ -3788,9 +3468,6 @@ msgstr "包含隐藏所有者功能。项目所有者可能有能力控制合约
 msgid "Next"
 msgstr "下一步"
 
-msgid "Step 1 Sign in"
-msgstr "第 1 步 登录"
-
 msgid "Copy"
 msgstr "复制"
 
@@ -3802,9 +3479,6 @@ msgstr "数额"
 
 msgid "firefly.eth liked your transaction"
 msgstr "firefly.eth 点赞了你的交易"
-
-msgid "Submit a wallet to receive NFT"
-msgstr "提交您的钱包以领取您的 NFT"
 
 #. placeholder {0}: error.message
 msgid "Connection failed. {0}"
@@ -3866,14 +3540,8 @@ msgstr "不涉及洗钱。"
 msgid "Accounts Connected"
 msgstr "已连接的账户"
 
-msgid "Failed to claim token"
-msgstr "领取代币失败"
-
 msgid "Top 40 Projects powered by Rootdata"
 msgstr "权威 Top 40 榜单｜数据来源：Rootdata"
-
-msgid "Disclaimer"
-msgstr "免责声明"
 
 msgid "Notifications"
 msgstr "通知"
@@ -3919,9 +3587,6 @@ msgstr "<0>该 Firefly 钱包中的所有资产将永久丢失，无法恢复。
 
 msgid "Display Name should not exceed 20 characters"
 msgstr "名称不可超过 20 个字符"
-
-msgid "No discount yet! Do more tasks if available to claim your next draw!"
-msgstr "本次未能抽中优惠金额...但好运已在路上！完成更多任务进行再次抽取吧～"
 
 msgid "New"
 msgstr "新建"
@@ -4020,9 +3685,6 @@ msgstr "投票仅支持 {0}"
 msgid "{0, plural, one {comment} other {comments}}"
 msgstr "{0, plural, one {评论} other {评论}}"
 
-msgid "📌 How to participate:"
-msgstr "📌 参与方式："
-
 msgid "<0/> Loading"
 msgstr "<0/> 加载中"
 
@@ -4075,17 +3737,11 @@ msgstr "设置定时时间失败。"
 msgid "{0, plural, one {recast} other {recasts}}"
 msgstr "{0, plural, one {转发} other {转发}}"
 
-msgid "Followed <0>@thefireflyapp</0> on X"
-msgstr "已关注 <0>@thefireflyapp</0>"
-
 msgid "Refresh"
 msgstr "刷新"
 
 msgid "Receive"
 msgstr "接收"
-
-msgid "Discount ends in {formattedTime}"
-msgstr "你的优惠价将在{formattedTime}后失效"
 
 msgid "NFT holder"
 msgstr "NFT 持有者"
@@ -4146,9 +3802,6 @@ msgstr "如果你之前使用 Farcaster 登录过，请重新连接。<0/>首次
 msgid "App Store"
 msgstr "Apple Store"
 
-msgid "<0>Register</0> your submission by filling out this form."
-msgstr "<0>填写并提交</0>此表登记作品"
-
 msgid "Enter Number of Winners"
 msgstr "输入获奖人数"
 
@@ -4167,18 +3820,6 @@ msgstr "剩余 {days} 天"
 
 msgid "Money laundering found."
 msgstr "被识别为洗钱。"
-
-msgid "Posted to Lens or Farcaster on <0>Yup</0>"
-msgstr "用<0>Yup</0>发送过 Lens/Farcaster 帖子"
-
-msgid ""
-"Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n"
-"\n"
-"Claim here {shareUrl}"
-msgstr ""
-"刚刚通过铸造 {fireflyMention} 的 Inviting Yup & Phaver frens🌟 收藏品获得了 $MASK 代币。\n"
-"\n"
-"点击这里领取：{shareUrl}"
 
 msgid "Share image"
 msgstr "分享图片"
@@ -4233,9 +3874,6 @@ msgstr "登录"
 msgid "Share to"
 msgstr "分享到"
 
-msgid "Meet any of the following to unlock a premium collectible and get more $ANON:"
-msgstr "满足以下任意条件即可解锁高级版本的 NFT 和获得更多的 $ANON："
-
 msgid "Non-sanctioned address."
 msgstr "非黑名单地址。"
 
@@ -4264,14 +3902,8 @@ msgstr "Signer key 未被授权。请重试。"
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr "你尝试登录的账户已绑定其他Firefly 账户。"
 
-msgid "Purchase at $<0/>"
-msgstr "立即购买 $<0/>"
-
 msgid "Username or email address"
 msgstr "用户名或者邮箱地址"
-
-msgid "Marina Bay Sands"
-msgstr "Marina Bay Sands"
 
 #. placeholder {0}: fromAccountInfo?.link ? ( <Link onClick={stopPropagation} className="font-bold hover:underline" href={fromAccountInfo.link} > {fromAccountInfo?.displayName || '-'} </Link> ) : ( <span className="font-bold">{fromAccountInfo?.displayName || '-'}</span> )
 msgid "{0} liked your <0>tip</0>"
@@ -4293,12 +3925,6 @@ msgstr "Dex 代币"
 msgid "Passed"
 msgstr "已拒绝"
 
-msgid "Sept 30 – Oct 6"
-msgstr "9月30日 - 10月6日"
-
-msgid "Unlock a premium collectible and a larger $MASK airdrop "
-msgstr "解锁高级收藏品和更多 $MASK 空投奖励"
-
 msgid "Something went wrong"
 msgstr "发生未知错误。"
 
@@ -4308,9 +3934,6 @@ msgstr "创建时间："
 #. placeholder {0}: post.stats.countOpenActions
 msgid "{0, plural, one {collect} other {collects}}"
 msgstr "{0, plural, one {收集} other {收集}}"
-
-msgid "Change"
-msgstr "切换"
 
 msgid "Malicious mining activities."
 msgstr "恶意挖矿活动。"
@@ -4333,9 +3956,6 @@ msgstr "绑定地址失败。"
 #. placeholder {0}: percentageToNumber(info.buy_tax)
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
-
-msgid "Success!"
-msgstr "成功！"
 
 #. placeholder {0}: post.mirrors.find((profile) => !isSameProfile(profile, currentProfile)) ?.displayName
 msgid "<0>You</0> and {0} recasted"
@@ -4421,9 +4041,6 @@ msgstr "多设备登录功能开启，登录状态已同步完成。"
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "已在 {sourceName} 上取消对 @{0} 的隐藏。"
 
-msgid "<0>Follow & Mention</0> <1>@thefireflyapp</1>."
-msgstr "<0>关注并艾特</0> <1>@fireflyappcn</1> 账号"
-
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "若包含可中止的代码，代币可能无法买卖（欺诈风险）。"
 
@@ -4448,24 +4065,14 @@ msgstr "剩余 {minutes} 分钟"
 msgid "Neutral"
 msgstr "中性"
 
-msgid "Failed to purchase."
-msgstr "购买失败 "
-
 msgid "Turn on notifications to never miss important alerts."
 msgstr "开启通知，重要动态不错过"
 
 msgid "Signature Request"
 msgstr "签名请求"
 
-#. placeholder {0}: followPenguTwitterProfile.handle
-msgid "Followed <0>@{0}</0> on X before Dec 16, 2024"
-msgstr "你在2024年12月16日快照中识别为 X 账号 <0>@{0}</0> 的关注者"
-
 msgid "Total Supply"
 msgstr "总供应量"
-
-msgid "📍 <0>Locations:</0> Marina Bay Sands, Bugis+, Marina Square"
-msgstr "📍 <0>可使用门店: </0>Marina Bay Sands, Bugis+, Marina Square"
 
 msgid "No tax changes found for personal addresses."
 msgstr "未发现个人地址的税务变更。"
@@ -4491,9 +4098,6 @@ msgstr "1年"
 
 msgid "Primary account"
 msgstr "主账号"
-
-msgid "The more tasks you complete, the better your chances to unlock <0>exclusive discounts</0> or even <1>free hotpot vouchers</1>"
-msgstr "完成的任务越多，越有机会<0>降低代金券的购买价</0>，甚至<1>0元购</1>"
 
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额代币"
@@ -4531,9 +4135,6 @@ msgstr ""
 msgid "NFT ID"
 msgstr "NFT ID"
 
-msgid "Completed"
-msgstr "已完成"
-
 msgid "Sign in with Bluesky"
 msgstr "使用 Bluesky 登录"
 
@@ -4561,9 +4162,6 @@ msgstr "帖子铸造收集成功！"
 msgid "Reposts"
 msgstr "转发"
 
-msgid "<0>Create</0> Firefly-related content and publish it using the Firefly crosspost feature (must include X)."
-msgstr "<0>创作介绍</0> Firefly 的内容并使用 Firefly crosspost 功能发布（必须发布在 X 上）， 形式为 X article，thread，长推或视频"
-
 msgid "The contract owner has no restrictions on anti whale."
 msgstr "合约所有者对反鲸鱼机制没有限制。"
 
@@ -4575,9 +4173,6 @@ msgstr "帖子已添加到收藏夹"
 
 msgid "Preview"
 msgstr "预览"
-
-msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
-msgstr "你持有<0>2024年总统选举</0> NFT 并投票给特朗普"
 
 msgid "Tip"
 msgstr "打赏"
@@ -4614,15 +4209,8 @@ msgstr ""
 msgid "Failed to read avatar file, please try again."
 msgstr "头像读取失败，请重试"
 
-msgid "*Note: Each NFT can only be used once."
-msgstr "*注意：每个NFT只能使用一次。"
-
 msgid "Add Token"
 msgstr "添加代币"
-
-#. placeholder {0}: resolveSourceName(source)
-msgid "Followed <0>@{handle}</0> on {0}"
-msgstr "在 {0} 上关注了 <0>@{handle}</0>"
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
@@ -4712,9 +4300,6 @@ msgstr "网站不可以超过 {maxWebsiteSize} 个字符"
 msgid "Save"
 msgstr "保存"
 
-msgid "🧩 Create a post on Firefly (thread / article / video, etc.) introducing Firefly. You can give a broad overview or focus on the features you find most valuable. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <0>@thefireflyapp</0> and contacted via DM."
-msgstr "🧩 请在 Firefly 上创作内容发帖（包括但不限于 thread / article / 视频），你可以全面介绍 Firefly，也可以聚焦你使用过程中最值得称赞的功能。我们会综合考虑内容、创意性、内容深度、易读性和真实传播度来评选出优胜作品。 活动结束后会在 <0>@fireflyappcn</0> 上公布获奖者并私信联系。"
-
 msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
 msgstr "firefly.eth 将 1850 USDC 兑换为 0.5 ETH"
 
@@ -4764,17 +4349,8 @@ msgstr ""
 msgid "No Lens profile found,"
 msgstr "未找到 Lens 账号，"
 
-msgid "Amount exception"
-msgstr "支付金额异常"
-
 msgid "No one you follow has traded this token."
 msgstr "你关注的人没有交易过这个代币哦。"
-
-msgid "Final Step Claim Now!"
-msgstr "最后一步，立即领取！"
-
-msgid "Verify"
-msgstr "验证"
 
 msgid "Explore now"
 msgstr "开始探索"
@@ -4867,9 +4443,6 @@ msgstr "Firefly 钱包"
 msgid "Language"
 msgstr "语言"
 
-msgid "Meet any of the following to unlock premium status and get more $Trump:"
-msgstr "满足以下任意条件即可解锁高级版本的 NFT 和获得更多的 $Trump："
-
 msgid "Address on Watching Lists"
 msgstr "关注名单地址"
 
@@ -4888,9 +4461,6 @@ msgstr "忽略警告以继续"
 msgid "The contract owner has restrictions on trading cooldown."
 msgstr "合约所有者对交易冷却时间有限制。"
 
-msgid "Connected your wallet to Firefly"
-msgstr "已绑定你的钱包"
-
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts, token_decimal ?? 18, { significant: 2, isPrecise: true, })
 msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
@@ -4898,12 +4468,6 @@ msgstr "<0>已领取: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> 
 
 msgid "View on website"
 msgstr "在网站上查看"
-
-msgid "Cancelled"
-msgstr "已取消"
-
-msgid "1 voucher can be redeemed by 1 person; No limit for dining guests"
-msgstr "每人可用1张，用餐人数不限"
 
 msgid "Please confirm the login with X."
 msgstr "请在 X 确认登录。"
@@ -4939,9 +4503,6 @@ msgstr "错误: {message}"
 
 msgid "Value"
 msgstr ""
-
-msgid "Your assets on Base Chain are worth over US$10,000"
-msgstr "您在 Base Chain 上的资产价值超过 10,000 美元"
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
@@ -4994,9 +4555,6 @@ msgstr "重置6位数字密码将清除所有已加密的登录授权。"
 
 msgid "Translating..."
 msgstr "翻译中..."
-
-msgid "Claim Basic"
-msgstr "领取基础奖励"
 
 #. placeholder {0}: post.author.displayName
 msgid "<0>{0}</0> retruthed"
@@ -5059,14 +4617,8 @@ msgstr "此NFT的元数据未存储在 IPFS、AR、合约生成或其他去中�
 msgid "No trading cooldown function."
 msgstr "没有交易冷却功能。"
 
-msgid "Timeout"
-msgstr "超时"
-
 msgid "Media"
 msgstr "媒体"
-
-msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
-msgstr "你是 <0>truePengu</0> 或 <1>penguPins</1> 灵魂绑定NFT系列的持有者"
 
 msgid "Are you sure you want to continue?"
 msgstr "你确定要继续吗？"
@@ -5125,14 +4677,8 @@ msgstr "正在关注"
 msgid "Trending Token"
 msgstr ""
 
-msgid "Your X account holds Premium status"
-msgstr "你的 X 账号为 Premium"
-
 msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
 msgstr "发贴分享你的参与，提案期间可以更改投票。"
-
-msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
-msgstr "如有任何疑问，请<0>联系我们</0>。Firefly 保留所有权利。"
 
 msgid "Different Account Detected"
 msgstr "检测到账户冲突"
@@ -5142,9 +4688,6 @@ msgstr "没有连接任何钱包。"
 
 msgid "Hide assets < 1 USD"
 msgstr "隐藏少于 1 美元的资产"
-
-msgid "💰 Users who produce high-quality content can each earn <0>100 USDC</0>, with winners <1>announced every two weeks</1>."
-msgstr "💰 产出高质量内容的用户每人 <0>100 USDC</0>，双周开奖。"
 
 msgid "Hours"
 msgstr "小时"
@@ -5206,6 +4749,9 @@ msgstr "请使用 Farcaster 确认登录。"
 
 msgid "Minted"
 msgstr "已铸造"
+
+msgid "OK"
+msgstr ""
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"
 msgstr "来自特朗普的 Truth Social 帖子（探索、个人资料）"
