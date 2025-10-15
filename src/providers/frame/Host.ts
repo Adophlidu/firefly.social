@@ -4,20 +4,17 @@ import { first } from 'lodash-es';
 import type { UnwrapPromise } from 'next/dist/lib/coalesced-function.js';
 import urlcat from 'urlcat';
 
-import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/debank.js';
-import { OkxProviderType, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';
+import { assert } from '@/helpers/assert.js';
 import { createDummyChannel } from '@/helpers/createDummyChannel.js';
-import { delay } from '@/helpers/delay.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileById } from '@/helpers/getProfileById.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
-import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { FrameLoader } from '@/providers/frame/Loader.js';
@@ -40,6 +37,7 @@ export class FarcasterFrameHost implements MiniAppHost {
             viewProfile?: (profile: Profile) => void;
             openMiniApps?: (frame: FrameV2) => void;
             eip6963RequestProvider?: () => void;
+            swapToken?: MiniAppHost['swapToken'];
         },
     ) {}
 
@@ -133,43 +131,8 @@ export class FarcasterFrameHost implements MiniAppHost {
     };
 
     swapToken: MiniAppHost['swapToken'] = async (options) => {
-        const buyToken = options.buyToken ? parseCAIP19(options.buyToken) : undefined;
-        const sellToken = options.sellToken ? parseCAIP19(options.sellToken) : undefined;
-        if (!buyToken && !sellToken) {
-            console.warn('[frame host]: swapToken', options);
-            return { success: false, reason: 'swap_failed' };
-        }
-        const originChainId = buyToken?.chainReference || sellToken?.chainReference;
-        if (!originChainId) {
-            console.warn('No chain id', options);
-            return { success: false, reason: 'swap_failed' };
-        }
-        const chainId = Number.parseInt(originChainId, 10);
-        const buyTokenAddress = buyToken?.reference;
-        const sellTokenAddress = sellToken?.reference;
-        const address = buyTokenAddress || sellTokenAddress;
-
-        const providerType =
-            chainId !== SOLANA_CHAIN_ID_IN_FIREFLY || isValidAddressEthereum(address)
-                ? OkxProviderType.EVM
-                : OkxProviderType.SOLANA;
-
-        // await for modal to register
-        await delay(1000);
-        SwapModalRef.open({
-            providerType,
-            chainId,
-            fromToken: sellTokenAddress || undefined,
-            toToken: buyTokenAddress,
-        });
-
-        // TODO We can't get the result of the swap from OKX widget yet.
-        return {
-            success: true,
-            swap: {
-                transactions: [],
-            },
-        };
+        assert(this.options?.swapToken, 'swapToken is not available');
+        return this.options.swapToken(options);
     };
 
     viewCast: MiniAppHost['viewCast'] = async (options) => {

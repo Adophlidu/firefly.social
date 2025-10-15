@@ -8,6 +8,7 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { EIP6963_PROVIDER_DESCRIPTION, IS_DEVELOPMENT } from '@/constants/index.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { frameSwapToken } from '@/helpers/frameSwapToken.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { Modals } from '@/modals/FrameViewerModal/modals.js';
@@ -57,6 +58,7 @@ export function FrameViewerModal({ open, onClose, props, setProps }: Props) {
                         info: EIP6963_PROVIDER_DESCRIPTION,
                     });
                 },
+                swapToken: frameSwapToken,
             }),
             ethProvider: createEIP1193Provider(async (parameters) => {
                 const { method, params } = parameters;

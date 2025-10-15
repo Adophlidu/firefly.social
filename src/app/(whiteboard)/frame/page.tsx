@@ -15,6 +15,7 @@ import { EIP6963_PROVIDER_DESCRIPTION, IS_DEVELOPMENT } from '@/constants/index.
 import { bom } from '@/helpers/bom.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { createWagmiLimitedClient } from '@/helpers/createWagmiLimitedClient.js';
+import { frameSwapToken } from '@/helpers/frameSwapToken.js';
 import { squashCallback } from '@/helpers/squashCallback.js';
 import { waitForWebviewDidLoadEvent } from '@/helpers/waitForWebviewDidLoadEvent.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
@@ -161,6 +162,7 @@ export default function Page(props: Props) {
                     info: EIP6963_PROVIDER_DESCRIPTION,
                 });
             },
+            swapToken: frameSwapToken,
         });
 
         return {
