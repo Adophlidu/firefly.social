@@ -4,9 +4,11 @@ import type { HTMLProps } from 'react';
 import { Avatar } from '@/components/Avatar.js';
 import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import type { FireflyAccountProfile } from '@/providers/types/Firefly.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 function FireflyAccountAvatarBanner({ src }: { src: string }) {
     return (
@@ -29,8 +31,12 @@ export function FireflyAccountInfoUI({
     children,
     className,
 }: HTMLProps<'div'> & { profile: FireflyAccountProfile; banner?: string; highlighted?: boolean }) {
+    const { currentProfileSession } = useFireflyProfileStore();
+
     const { uid, avatar, displayName } = profile;
     const avatarWithFallback = avatar || getStampAvatarByProfileId(Source.Firefly, uid);
+    const isCurrentProfile = !!currentProfileSession && currentProfileSession?.profileId === profile.uid;
+
     return (
         <div className={classNames('relative flex w-full flex-col items-center bg-primaryBottom pt-2.5', className)}>
             {banner ? (
@@ -53,7 +59,11 @@ export function FireflyAccountInfoUI({
                         highlighted ? 'gradient-text' : '',
                     )}
                 >
-                    {displayName ?? <Trans>Firefly User</Trans>}
+                    {isCurrentProfile && highlighted ? (
+                        <Link href={`/sparks/${profile.uid}`}>{displayName ?? <Trans>Firefly User</Trans>}</Link>
+                    ) : (
+                        (displayName ?? <Trans>Firefly User</Trans>)
+                    )}
                 </div>
             </div>
         </div>

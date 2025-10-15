@@ -44,6 +44,7 @@ const METHODS_BE_OVERRIDDEN = [
     'discoverPostsById',
     'getPostsByProfileId',
     'getHiddenComments',
+    'getMediaPostsByProfileId',
 ] as const;
 
 export function AddAuthorHighlightStatusForPosts(source: SocialSource) {
