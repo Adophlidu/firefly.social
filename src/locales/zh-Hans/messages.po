@@ -4393,6 +4393,9 @@ msgstr "铸造收集帖子失败。"
 msgid "About"
 msgstr "关于"
 
+msgid "Signed in successfully"
+msgstr ""
+
 #. placeholder {0}: timeLeft.hours
 #. placeholder {1}: timeLeft.minutes
 #. placeholder {2}: timeLeft.seconds

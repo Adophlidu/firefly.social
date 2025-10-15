@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { rootRouteId, useRouteContext } from '@tanstack/react-router';
 import { isUndefined } from 'lodash-es';
 import { useState } from 'react';
+import { useAsyncRetry } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -10,11 +11,13 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { classNames } from '@/helpers/classNames.js';
+import { delay } from '@/helpers/delay.js';
 import { getPrivyWalletClientRequired, runWithoutPrivyWalletUI } from '@/helpers/getPrivyWalletClientRequired.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { InfoCard } from '@/modals/FrameViewerModal/InfoCard.js';
 import { LoadingCard } from '@/modals/FrameViewerModal/LoadingCard.js';
 import type { RelayConfirmationContext } from '@/modals/FrameViewerModal/RelayConfirmationRouter.js';
+import { ResultCard } from '@/modals/FrameViewerModal/ResultCard.js';
 import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
 import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
 import { createSignedKeyPayloadWithAddressVerification } from '@/providers/warpcast/createSignedKeyPayload.js';
@@ -29,6 +32,7 @@ export function AuthWalletSignIn() {
 
     const account = useAccount();
     const [isScanned, setIsScanned] = useState(false);
+    const [isSigned, setIsSigned] = useState(false);
 
     // Check if the current wallet is registered
     const { isLoading, isRefetching, isError, data, refetch } = useQuery({
@@ -60,25 +64,23 @@ export function AuthWalletSignIn() {
         enabled: !!fid,
     });
 
-    const { isError: signError, refetch: sign } = useQuery({
-        queryKey: ['auth-wallet-sign-in', data?.token, fid, frame, options],
-        enabled: !isLoading && !isRefetching && !isUndefined(data),
-        queryFn: async () => {
-            if (isUndefined(data)) return;
+    const { error: signError, retry: sign } = useAsyncRetry(async () => {
+        if (isUndefined(data) || isRefetching || isLoading) return;
 
-            if (data?.token) {
-                await pollingSignerRequestToken(data.token, controller.current.signal);
-                setIsScanned(true);
-            }
+        if (data?.token) {
+            await pollingSignerRequestToken(data.token, controller.current.signal);
+            setIsScanned(true);
+        }
 
-            const signed = await runWithoutPrivyWalletUI(() => signInWithAuthWallet(frame, `${fid}`, options));
+        const signed = await runWithoutPrivyWalletUI(() => signInWithAuthWallet(frame, `${fid}`, options));
+        setIsSigned(true);
 
-            captureFrameSignInEvent('firefly-wallet', frame);
+        captureFrameSignInEvent('firefly-wallet', frame);
 
-            onClose(signed);
-        },
-        retry: 1,
-    });
+        // take a while to present the signed result
+        await delay(2000);
+        onClose(signed);
+    }, [data, isRefetching, isLoading]);
 
     return (
         <div className="relative flex flex-col items-center justify-center gap-2 py-2">
@@ -113,6 +115,8 @@ export function AuthWalletSignIn() {
                                 <Trans>Retry</Trans>
                             </ClickableButton>
                         </InfoCard>
+                    ) : isSigned ? (
+                        <ResultCard description={<Trans>Signed in successfully</Trans>} />
                     ) : (
                         <LoadingCard description={<Trans>Wait for signing...</Trans>} />
                     )}

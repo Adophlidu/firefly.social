@@ -4388,6 +4388,9 @@ msgstr "Failed to collect post."
 msgid "About"
 msgstr "About"
 
+msgid "Signed in successfully"
+msgstr "Signed in successfully"
+
 #. placeholder {0}: timeLeft.hours
 #. placeholder {1}: timeLeft.minutes
 #. placeholder {2}: timeLeft.seconds
