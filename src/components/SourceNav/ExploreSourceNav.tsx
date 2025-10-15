@@ -1,5 +1,5 @@
 'use client';
-import { type HTMLProps, memo } from 'react';
+import { type HTMLProps, memo, useMemo } from 'react';
 
 import { SourceNav } from '@/components/SourceNav/SourceNav.js';
 import { type ExploreSourceInURL, ExploreType, Source } from '@/constants/enum.js';
@@ -16,17 +16,19 @@ interface Props extends HTMLProps<HTMLDivElement> {
 
 export const ExploreSourceNav = memo<Props>(function ExploreSourceNav({ explore, source, ...rest }) {
     const currentBskyProfile = useCurrentProfile(Source.Bsky);
-    const sources = EXPLORE_SOURCES[explore];
-    if (!sources) return null;
+    const sources = useMemo(() => {
+        const allSources = EXPLORE_SOURCES[explore];
+        return explore === ExploreType.TopProfiles && !currentBskyProfile
+            ? allSources?.filter((x) => x !== Source.Bsky)
+            : allSources;
+    }, [currentBskyProfile, explore]);
+
+    if (!sources?.length) return null;
 
     return (
         <SourceNav
             source={resolveExploreSource(source)}
-            sources={
-                !currentBskyProfile && explore === ExploreType.TopProfiles
-                    ? sources.filter((x) => x !== Source.Bsky)
-                    : sources
-            }
+            sources={sources}
             urlResolver={(source) => resolveExploreUrl(explore, source)}
             nameResolver={resolveExploreSourceName}
             {...rest}

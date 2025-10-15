@@ -9,7 +9,7 @@ import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { SuggestedChannelsSkeleton } from '@/components/SuggestedChannels/SuggestedChannelsSkeleton.js';
-import { ExploreType, Source } from '@/constants/enum.js';
+import { ExploreType } from '@/constants/enum.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
@@ -50,10 +50,7 @@ export function SuggestedChannelsCard() {
                     </span>
                 }
                 more={
-                    <Link
-                        className="text-medium text-highlight"
-                        href={resolveExploreUrl(ExploreType.TopChannels, Source.Farcaster)}
-                    >
+                    <Link className="text-medium text-highlight" href={resolveExploreUrl(ExploreType.TopChannels)}>
                         <Trans>More</Trans>
                     </Link>
                 }
