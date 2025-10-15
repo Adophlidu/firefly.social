@@ -505,9 +505,6 @@ devDependencies:
   eslint-plugin-unused-imports:
     specifier: ^4.1.4
     version: 4.1.4(@typescript-eslint/eslint-plugin@8.29.1)(eslint@9.24.0)
-  graphql:
-    specifier: ^16.10.0
-    version: 16.10.0
   next-statoscope:
     specifier: ^1.0.1
     version: 1.0.1(@rspack/core@1.4.6)(@swc/core@1.11.18)(esbuild@0.25.10)(webpack@5.99.5)
@@ -14364,6 +14361,7 @@ packages:
   /graphql@16.10.0:
     resolution: {integrity: sha512-AjqGKbDGUFRKIRCP9tCKiIGHyriz2oHEbPIbEtcSLSs4YjReZOIPQQWek4+6hjw62H9QShXHyaGivGiYVLeYFQ==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
+    dev: false
 
   /gzip-size@6.0.0:
     resolution: {integrity: sha512-ax7ZYomf6jqPTQ4+XCpUGyXKHk5WweS+e05MBO4/y3WJ5RkmPXNKvX+bx1behVILVwr6JSQvZAku021CHPXG3Q==}
@@ -20475,7 +20473,6 @@ time:
   /framer-motion@12.9.2: '2025-04-25T14:02:32.239Z'
   /franc-min@6.2.0: '2024-01-11T13:33:46.729Z'
   /fuse.js@7.1.0: '2025-02-03T00:43:03.870Z'
-  /graphql@16.10.0: '2024-12-15T10:35:18.376Z'
   /immer@10.1.1: '2024-04-27T20:07:26.218Z'
   /jwt-decode@4.0.0: '2023-10-27T08:54:17.048Z'
   /lexical@0.18.0: '2024-09-26T17:26:17.141Z'
