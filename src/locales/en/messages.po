@@ -759,7 +759,7 @@ msgstr "True Token"
 msgid "Failed to follow @{handle} on {0}."
 msgstr "Failed to follow @{handle} on {0}."
 
-#. placeholder {0}: formatAmount(activity.size)
+#. placeholder {0}: removeTrailingZeros(toFixed(activity.position, 2))
 msgid "×{0} shares"
 msgstr "×{0} shares"
 

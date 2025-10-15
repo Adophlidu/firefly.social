@@ -14,12 +14,13 @@ import { PolymarketActivityRate } from '@/components/Polymarket/PolymarketActivi
 import { PolymarketActivityResult } from '@/components/Polymarket/PolymarketActivityResult.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
-import { Source } from '@/constants/enum.js';
+import { Source, WalletProfileCategory } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
-import { formatAmount } from '@/helpers/polymarket.js';
+import { toFixed } from '@/helpers/number.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import type { PolymarketActivity } from '@/providers/types/Firefly.js';
@@ -40,7 +41,7 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
     const isMyProfile = useIsMyRelatedProfile(Source.Wallet, activity.wallet);
 
     const addressName = formatAddress(activity.wallet, 4);
-    const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: activity.wallet });
+    const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: activity.wallet }, WalletProfileCategory.Bets);
 
     const isLeft = activity.outcomeIndex === 0;
     const outcome = activity.conditionOutcomes[activity.outcomeIndex] || activity.outcome;
@@ -119,10 +120,10 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                                         'border-danger text-danger': !isLeft,
                                     })}
                                 >
-                                    {outcome.toUpperCase()} - {floor(+activity.price * 100)}¢
+                                    {outcome.toUpperCase()} - {floor(+activity.avgPrice * 100)}¢
                                 </span>
                                 <span className="h-6 rounded-lg bg-lightBottom px-2 leading-6 text-lightMain dark:bg-lightBg">
-                                    <Trans>×{formatAmount(activity.size)} shares</Trans>
+                                    <Trans>×{removeTrailingZeros(toFixed(activity.position, 2))} shares</Trans>
                                 </span>
                             </div>
                             {activity.umaResolutionStatus === 'resolved' ? (

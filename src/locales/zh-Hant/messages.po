@@ -764,7 +764,7 @@ msgstr "真實代幣"
 msgid "Failed to follow @{handle} on {0}."
 msgstr "在 {0} 上追蹤 @{handle} 失敗。"
 
-#. placeholder {0}: formatAmount(activity.size)
+#. placeholder {0}: removeTrailingZeros(toFixed(activity.position, 2))
 msgid "×{0} shares"
 msgstr ""
 

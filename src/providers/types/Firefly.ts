@@ -1206,6 +1206,8 @@ export type PolymarketActivity = {
     usdcSize: string;
     volume: string;
     wallet: string;
+    avgPrice: string;
+    position: string;
 };
 
 export type PolymarketActivityTimeline = Response<{
