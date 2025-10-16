@@ -11,7 +11,6 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { CollectionHolder } from '@/providers/types/Firefly.js';
@@ -22,7 +21,7 @@ interface TopCollectorsProps {
     address: string;
 }
 
-function getTopCollectorsItemContent(index: number, item: CollectionHolder, isDarkMode: boolean) {
+function getTopCollectorsItemContent(index: number, item: CollectionHolder) {
     const addressOrEns = item.address;
     const profileLink =
         BlockScanExplorerResolver.addressLink(EthereumChainId.Mainnet, item.address) ||
@@ -72,7 +71,6 @@ export function TopCollectors(props: TopCollectorsProps) {
         getNextPageParam: () => undefined,
         select: (data) => data.pages.flat(),
     });
-    const isDarkMode = useIsDarkMode();
 
     return (
         <TableListInPage
@@ -103,7 +101,7 @@ export function TopCollectors(props: TopCollectorsProps) {
                 },
                 key: `${ScrollListKey.TopCollectors}:${address}:${chainId}`,
                 computeItemKey: (index, item) => `${item.address}-${item.address}-${index}`,
-                itemContent: (index, item) => getTopCollectorsItemContent(index, item, isDarkMode),
+                itemContent: (index, item) => getTopCollectorsItemContent(index, item),
             }}
             className="mt-2 w-full"
             NoResultsFallbackProps={{

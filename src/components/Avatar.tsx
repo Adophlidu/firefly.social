@@ -1,16 +1,10 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import type { ImageProps as NextImageProps } from 'next/image.js';
 import { memo, useState } from 'react';
-import urlcat from 'urlcat';
 
-import { STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
-import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL } from '@/constants/index.js';
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { fetchJson } from '@/helpers/fetchJson.js';
 import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { useDefaultFireflyAvatar } from '@/hooks/useDefaultFireflyAvatar.js';
@@ -29,37 +23,6 @@ function resolveImgurUrl(url: string) {
 function resolveAvatarFallbackUrl(url: string, isDarkMode = false) {
     if (!url?.startsWith('https://cdn.stamp.fyi/avatar/eth:')) return;
     return isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
-}
-
-export function useResolveAvatarFallbackUrl(src: string | undefined) {
-    return useQuery({
-        queryKey: ['avatar', src],
-        enabled:
-            env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled
-                ? src?.includes(FIREFLY_STAMP_DEV_URL)
-                : src?.includes(FIREFLY_STAMP_URL),
-        queryFn: async () => {
-            if (!src) return null;
-            const response = await fetch(src, {
-                method: 'GET',
-                redirect: 'manual',
-                mode: 'cors',
-            });
-
-            if (response.type === 'opaqueredirect') {
-                const result = await fetchJson<{ twitterId: string }>(
-                    urlcat('/api/twitter/getIdByAvatar', { target: src }),
-                );
-                const twitterId = result?.twitterId;
-                if (!twitterId) return null;
-
-                return urlcat('/api/twitter/user/:id/avatar', { id: twitterId });
-            }
-
-            return null;
-        },
-        staleTime: 1000 * 60 * 60,
-    });
 }
 
 export interface AvatarProps extends Omit<NextImageProps, 'src'> {
@@ -89,9 +52,7 @@ export const Avatar = memo(function Avatar({
         !matchDomainSuffix(src, 'warpcast.com') &&
         !matchDomainSuffix(src, 'farcaster.xyz');
 
-    const { data: xFallbackAvatar } = useResolveAvatarFallbackUrl(src);
-
-    const preferredSrc = xFallbackAvatar || (isNormalUrl ? url : src) || src || fallbackUrl;
+    const preferredSrc = (isNormalUrl ? url : src) || src || fallbackUrl;
     const imageSrc = errorMap[preferredSrc] ? fallbackUrl : preferredSrc;
 
     return (
