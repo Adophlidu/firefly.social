@@ -57,7 +57,7 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
 
     return (
         <div
-            className="relative max-w-full rounded-lg bg-bg"
+            className="relative max-h-[280px] max-w-full rounded-lg bg-bg"
             style={{
                 aspectRatio: `${imageWidth}/${imageHeight}`,
                 width: renderWidth,
