@@ -20,21 +20,6 @@ function formatParameter(key: string, value: unknown): [string, unknown] {
     }
 }
 
-async function getSafary(signal?: AbortSignal) {
-    return retry(
-        async () => {
-            if (typeof bom.window === 'undefined') throw new AbortError();
-            if (typeof bom.window?.safary === 'undefined') throw new InvalidResultError();
-            return bom.window.safary;
-        },
-        {
-            times: 5,
-            interval: 300,
-            signal,
-        },
-    );
-}
-
 type CaptureParameters<T extends keyof Events> = [
     T,
     Omit<Events[T]['parameters'], keyof ReturnType<typeof getPublicParameters>> & {
@@ -86,22 +71,6 @@ class Telemetry extends Provider<Events, never> {
             }
         } else {
             console.info('[ga] event is filtered out:', name, parameters);
-        }
-
-        if (provider_filter === ProviderFilter.All || provider_filter === ProviderFilter.Safary) {
-            try {
-                const safary = await getSafary();
-
-                if (safary) {
-                    await safary.track(event);
-                } else {
-                    console.error('[safary] safary SDK not available. failed to capture event:', name, parameters);
-                }
-            } catch (error) {
-                console.error('[safary] failed to capture event:', event);
-            }
-        } else {
-            console.info('[safary] event is filtered out:', name, parameters);
         }
     }
 

@@ -1,5 +1,3 @@
-import type { Safary } from '@/providers/types/Safary.js';
-
 interface CustomWindow extends Window {
     opera: string;
     MSStream: object;
@@ -22,8 +20,6 @@ interface CustomWindow extends Window {
     };
 
     _firebaseFcm: unknown;
-
-    safary: Safary | undefined;
 }
 
 export const bom = {

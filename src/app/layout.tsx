@@ -49,7 +49,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 {IS_PRODUCTION || env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? (
                     <GoogleAnalytics gaId="G-61NFDTK6LT" />
                 ) : null}
-                {IS_PRODUCTION ? <Script src="/js/safary.js" defer /> : null}
                 <Script>{VERCEL_REGION.join('\n')}</Script>
                 <Script
                     src="/js/cookie3.analytics.js"

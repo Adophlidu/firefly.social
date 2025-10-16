@@ -62,7 +62,7 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
         // firefly account id
         firefly_account_id: fireflySession?.accountIdForEvent,
 
-        // safary social login
+        // social login parameters
         twitter_username: xProfile?.handle,
         lens_handle: lensProfile?.handle,
         farcaster_id: farcasterProfile?.profileId,

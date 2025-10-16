@@ -12,7 +12,6 @@ export enum VersionFilter {
 export enum ProviderFilter {
     All = 'all',
     GA = 'google_analytics',
-    Safary = 'safary',
 }
 
 export enum EventType {
