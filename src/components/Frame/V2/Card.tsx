@@ -9,6 +9,7 @@ import { Source } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
 import { frameSwapToken } from '@/helpers/frameSwapToken.js';
+import { delay } from '@/helpers/delay.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
@@ -79,12 +80,15 @@ function createFrameHost(
                 frame,
                 frameHost,
             }),
-        signIn: (options) =>
-            RelayConfirmationPopoverRef.openAndWaitForClose({
+        signIn: async (options) => {
+            await delay(1000);
+
+            return RelayConfirmationPopoverRef.openAndWaitForClose({
                 fid: context.client.clientFid,
                 frame,
                 options,
-            }),
+            });
+        },
         close: () => FrameViewerModalRef.close(),
         setPrimaryButton: options?.setPrimaryButton,
         viewCast: (hash) => router.push(`/post/farcaster/${hash}`),

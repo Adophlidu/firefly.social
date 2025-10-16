@@ -2,7 +2,9 @@
 
 import { memo } from 'react';
 
+import { IfPathname } from '@/components/IfPathname.js';
 import { NoSSR } from '@/components/NoSSR.js';
+import { WHITEBOARD_ROUTES } from '@/constants/index.js';
 import { AddCustomERC20Modal, AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
 import { AddCustomERC721Modal, AddCustomERC721ModalRef } from '@/modals/AddCustomERC721Modal.js';
 import { AddWalletModal, AddWalletModalRef } from '@/modals/AddWalletModal/index.js';
@@ -23,17 +25,11 @@ import {
 } from '@/modals/DisconnectFireflyAccountModal.js';
 import { DownloadMobileAppModal, DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';
 import { DraggablePopover, DraggablePopoverRef } from '@/modals/DraggablePopover.js';
-import { EditCrossAtModal, EditCrossAtModalRef } from '@/modals/EditCrossAtModal.js';
 import {
     EditFireflyProfileModal,
     EditFireflyProfileModalRef,
 } from '@/modals/EditFireflyProfileModal/EditFireflyProfileModal.js';
 import { FrameViewerModal, FrameViewerModalRef } from '@/modals/FrameViewerModal/FrameViewerModal.js';
-import {
-    RelayConfirmationPopover,
-    RelayConfirmationPopoverRef,
-} from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
-import { FreeMintModal, FreeMintModalRef } from '@/modals/FreeMintModal/index.js';
 import { ImageEditorModal, ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
 import { LoginModal, LoginModalRef } from '@/modals/LoginModal/index.js';
 import { LogoutModal, LogoutModalRef } from '@/modals/LogoutModal.js';
@@ -65,43 +61,43 @@ import { WalletConnectModal, WalletConnectModalRef } from '@/modals/WalletConnec
 export const Modals = memo(function Modals() {
     return (
         <NoSSR>
+            <ComposeModal ref={ComposeModalRef.register} />
+            <DisconnectFireflyAccountModal ref={DisconnectFireflyAccountModalRef.register} />
+            <DownloadMobileAppModal ref={DownloadMobileAppModalRef.register} />
             <LoginModal ref={LoginModalRef.register} />
             <LogoutModal ref={LogoutModalRef.register} />
-            <ComposeModal ref={ComposeModalRef.register} />
-            <ConfirmModal ref={ConfirmModalRef.register} />
-            <ConfirmFireflyModal ref={ConfirmFireflyModalRef.register} />
-            <ConfirmLeavingModal ref={ConfirmLeavingModalRef.register} />
-            <DraggablePopover ref={DraggablePopoverRef.register} />
-            <Snackbar ref={SnackbarRef.register} />
-            <TipsModal ref={TipsModalRef.register} />
-            <PreviewMediaModal ref={PreviewMediaModalRef.register} />
-            <SchedulePostModal ref={SchedulePostModalRef.register} />
-            <CollectArticleModal ref={CollectArticleModalRef.register} />
-            <CollectPostModal ref={CollectPostModalRef.register} />
-            <AddWalletModal ref={AddWalletModalRef.register} />
-            <TransactionSimulatorModal ref={TransactionSimulatorModalRef.register} />
-            <DisconnectFireflyAccountModal ref={DisconnectFireflyAccountModalRef.register} />
-            <TokenSelectorModal ref={TokenSelectorModalRef.register} />
-            <RedPacketModal ref={RedPacketModalRef.register} />
-            <NonFungibleCollectionSelectModal ref={NonFungibleTokenCollectionSelectModalRef.register} />
-            <ImageEditorModal ref={ImageEditorModalRef.register} />
-            <FreeMintModal ref={FreeMintModalRef.register} />
-            <FrameViewerModal ref={FrameViewerModalRef.register} />
-            <AddCustomERC20Modal ref={AddCustomERC20ModalRef.register} />
-            <AddCustomERC721Modal ref={AddCustomERC721ModalRef.register} />
-            <WalletConnectModal ref={WalletConnectModalRef.register} />
-            <MyWalletsModal ref={MyWalletsModalRef.register} />
-            <EditFireflyProfileModal ref={EditFireflyProfileModalRef.register} />
-            <SwapModal ref={SwapModalRef.register} />
             <SignInWithFireflyAppModal ref={SignInWithFireflyAppModalRef.register} />
-            <PasswordModal ref={PasswordModalRef.register} />
-            <EditCrossAtModal ref={EditCrossAtModalRef.register} />
-            <ConfirmSyncSessionModal ref={ConfirmSyncSessionModalRef.register} />
-            <CreateFireflyAccountGuideModal ref={CreateFireflyAccountGuideModalRef.register} />
-            <ShareImageModal ref={ShareImageModalRef.register} />
-            <DownloadMobileAppModal ref={DownloadMobileAppModalRef.register} />
-            <TransactionDetailModal ref={TransactionDetailModalRef.register} />
-            <RelayConfirmationPopover ref={RelayConfirmationPopoverRef.register} />
+            <Snackbar ref={SnackbarRef.register} />
+
+            <IfPathname isNotOneOf={WHITEBOARD_ROUTES}>
+                <AddCustomERC20Modal ref={AddCustomERC20ModalRef.register} />
+                <AddCustomERC721Modal ref={AddCustomERC721ModalRef.register} />
+                <AddWalletModal ref={AddWalletModalRef.register} />
+                <CollectArticleModal ref={CollectArticleModalRef.register} />
+                <CollectPostModal ref={CollectPostModalRef.register} />
+                <ConfirmFireflyModal ref={ConfirmFireflyModalRef.register} />
+                <ConfirmLeavingModal ref={ConfirmLeavingModalRef.register} />
+                <ConfirmModal ref={ConfirmModalRef.register} />
+                <ConfirmSyncSessionModal ref={ConfirmSyncSessionModalRef.register} />
+                <CreateFireflyAccountGuideModal ref={CreateFireflyAccountGuideModalRef.register} />
+                <DraggablePopover ref={DraggablePopoverRef.register} />
+                <EditFireflyProfileModal ref={EditFireflyProfileModalRef.register} />
+                <FrameViewerModal ref={FrameViewerModalRef.register} />
+                <ImageEditorModal ref={ImageEditorModalRef.register} />
+                <MyWalletsModal ref={MyWalletsModalRef.register} />
+                <NonFungibleCollectionSelectModal ref={NonFungibleTokenCollectionSelectModalRef.register} />
+                <PasswordModal ref={PasswordModalRef.register} />
+                <PreviewMediaModal ref={PreviewMediaModalRef.register} />
+                <RedPacketModal ref={RedPacketModalRef.register} />
+                <SchedulePostModal ref={SchedulePostModalRef.register} />
+                <ShareImageModal ref={ShareImageModalRef.register} />
+                <SwapModal ref={SwapModalRef.register} />
+                <TipsModal ref={TipsModalRef.register} />
+                <TokenSelectorModal ref={TokenSelectorModalRef.register} />
+                <TransactionDetailModal ref={TransactionDetailModalRef.register} />
+                <TransactionSimulatorModal ref={TransactionSimulatorModalRef.register} />
+                <WalletConnectModal ref={WalletConnectModalRef.register} />
+            </IfPathname>
         </NoSSR>
     );
 });

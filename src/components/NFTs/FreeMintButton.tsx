@@ -14,7 +14,7 @@ import { chains } from '@/configs/chains.js';
 import { MintStatus, NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
-import { FreeMintModalRef } from '@/modals/FreeMintModal/index.js';
+import { FreeMintModal, FreeMintModalRef } from '@/modals/FreeMintModal/index.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { captureNFTMintClickEvent, captureNFTViewWebsiteClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import type { SponsorMintOptions } from '@/providers/types/Firefly.js';
@@ -129,26 +129,29 @@ export function FreeMintButton({
     if (isLoading) return null;
 
     return (
-        <div className={classNames('flex items-center gap-3', className)}>
-            {isSupportedChain ? (
-                <ClickableButton
-                    {...rest}
-                    className="flex h-8 flex-1 items-center justify-center rounded-full bg-main px-5 text-sm font-bold text-lightBottom dark:text-darkBottom"
-                    disabled={disabled}
-                    onClick={handleClick}
-                >
-                    {loading ? <LoadingIcon size={20} /> : getMintButtonText(data?.mintStatus)}
-                </ClickableButton>
-            ) : null}
-            {externalUrl ? (
-                <Link
-                    href={externalUrl}
-                    target="_blank"
-                    className="flex size-8 shrink-0 items-center justify-center rounded-full border border-main text-main"
-                >
-                    <WebsiteIcon width={20} height={20} />
-                </Link>
-            ) : null}
-        </div>
+        <>
+            <FreeMintModal ref={FreeMintModalRef.register} />
+            <div className={classNames('flex items-center gap-3', className)}>
+                {isSupportedChain ? (
+                    <ClickableButton
+                        {...rest}
+                        className="flex h-8 flex-1 items-center justify-center rounded-full bg-main px-5 text-sm font-bold text-lightBottom dark:text-darkBottom"
+                        disabled={disabled}
+                        onClick={handleClick}
+                    >
+                        {loading ? <LoadingIcon size={20} /> : getMintButtonText(data?.mintStatus)}
+                    </ClickableButton>
+                ) : null}
+                {externalUrl ? (
+                    <Link
+                        href={externalUrl}
+                        target="_blank"
+                        className="flex size-8 shrink-0 items-center justify-center rounded-full border border-main text-main"
+                    >
+                        <WebsiteIcon width={20} height={20} />
+                    </Link>
+                ) : null}
+            </div>
+        </>
     );
 }

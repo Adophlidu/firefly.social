@@ -11,6 +11,10 @@ import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { frameSwapToken } from '@/helpers/frameSwapToken.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
+import {
+    RelayConfirmationPopover,
+    RelayConfirmationPopoverRef,
+} from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
 import type { FrameV2 } from '@/types/frame.js';
@@ -127,6 +131,7 @@ export function FrameViewerModal({ open, onClose, props, setProps }: Props) {
 
     return (
         <>
+            <RelayConfirmationPopover ref={RelayConfirmationPopoverRef.register} />
             <iframe
                 className="scrollbar-hide h-full w-full opacity-100"
                 ref={frameRef}
