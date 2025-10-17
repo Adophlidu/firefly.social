@@ -35,6 +35,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_SOLANA_RPC_WS_URL: z.string().default('wss://api.mainnet-beta.solana.com'),
 
     // features
+    NEXT_PUBLIC_FIREFLY_WALLET_IFRAME: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_ACTIVITY_PARTICLE: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_BANNER_CACHE: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_COMPOSE_GIF: z.nativeEnum(STATUS).default(STATUS.Enabled),
