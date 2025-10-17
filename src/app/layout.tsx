@@ -62,7 +62,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 <meta name="googlebot" content="notranslate" />
                 {/* for ssr purpose */}
                 <meta name="apple-itunes-apps" content="app-id=6445781203" />
-                <link rel="preload" href="/webm/global-loading.webm" as="video" type="video/webm" />
                 {IS_PRODUCTION ? null : <meta name="robots" content="noindex, nofollow" />}
                 <Script>
                     {`
