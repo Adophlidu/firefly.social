@@ -59,8 +59,9 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
                 badgeSize={17}
                 chainId={chainId}
                 address={address}
-                icon={token.image.small || token.image.large}
+                icon={token.image.large || token.image.small}
                 disableBadge={isCex}
+                name={token.name}
             />
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-x-1 text-medium font-bold text-secondary">

@@ -15,7 +15,7 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Bookmarkable, TokenWithMarketData } from '@/providers/types/Firefly.js';
 
 function getTokenItemContent(token: Bookmarkable<TokenWithMarketData>) {
-    return <BookmarkedTokenItem className="border-b border-line" token={token} showMarketInfo />;
+    return <BookmarkedTokenItem className="border-b border-line !p-4" token={token} showMarketInfo />;
 }
 
 function ListHeader() {

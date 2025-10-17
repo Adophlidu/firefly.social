@@ -23,8 +23,6 @@ const InternalEnvSchema = z.object({
 
     FIREFLY_JWT_SECRET: z.string(),
 
-    X3_PRO_API_TOKEN: z.string(),
-
     ORB_API_KEY: z.string(),
 });
 
