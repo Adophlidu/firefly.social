@@ -434,9 +434,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                     ))}
                 </div>
                 <div className="ml-auto">
-                    {withinRangeTradeRecords.length ? (
-                        <TradeFilter value={tradeDirection} onChange={setTradeDirection} />
-                    ) : null}
+                    <TradeFilter value={tradeDirection} onChange={setTradeDirection} />
                 </div>
             </div>
         </div>

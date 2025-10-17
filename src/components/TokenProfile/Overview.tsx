@@ -382,36 +382,36 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                     </h3>
                 </div>
                 <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
-                    <p className="font-inter text-lg font-bold leading-6 text-main">
+                    <p className="font-inter text-base font-bold leading-6 text-main">
                         {liquidity ? formatMarketCap(liquidity, 2, '$') : '-'}
                     </p>
-                    <h3 className="truncate font-inter text-medium leading-[18px] text-second">
+                    <h3 className="truncate font-inter text-[13px] leading-[18px] text-second">
                         <Trans>Liquidity</Trans>
                     </h3>
                 </div>
                 <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
-                    <p className="font-inter text-lg font-bold leading-6 text-main">
+                    <p className="font-inter text-base font-bold leading-6 text-main">
                         {fdv ? formatMarketCap(fdv, 2, '$') : '-'}
                     </p>
-                    <h3 className="truncate font-inter text-medium leading-[18px] text-second">
+                    <h3 className="truncate font-inter text-[13px] leading-[18px] text-second">
                         <Trans>FDV</Trans>
                     </h3>
                 </div>
                 <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
-                    <p className="font-inter text-lg font-bold leading-6 text-main">
+                    <p className="font-inter text-base font-bold leading-6 text-main">
                         {tradeVol24h ? formatMarketCap(tradeVol24h, 2, '$') : '-'}
                     </p>
                     <TextOverflowTooltip content={<Trans>24h Vol</Trans>}>
-                        <h3 className="truncate font-inter text-medium leading-[18px] text-second">
+                        <h3 className="truncate font-inter text-[13px] leading-[18px] text-second">
                             <Trans>24h Vol</Trans>
                         </h3>
                     </TextOverflowTooltip>
                 </div>
                 <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
-                    <p className="font-inter text-lg font-bold leading-6 text-main">
+                    <p className="font-inter text-base font-bold leading-6 text-main">
                         {holders ? formatMarketCap(holders, 2) : '-'}
                     </p>
-                    <h3 className="font-inter text-medium leading-[18px] text-second underline">
+                    <h3 className="font-inter text-[13px] leading-[18px] text-second underline">
                         <Tooltip
                             interactive
                             content={
@@ -434,10 +434,10 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                     </h3>
                 </div>
                 <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
-                    <p className="font-inter text-lg font-bold leading-6 text-main">
+                    <p className="font-inter text-base font-bold leading-6 text-main">
                         {createAt ? formatAge(createAt) : '-'}
                     </p>
-                    <h3 className="inline-block font-inter text-medium leading-[18px] text-second underline">
+                    <h3 className="inline-block font-inter text-[13px] leading-[18px] text-second underline">
                         <Tooltip
                             content={createAt ? formatDate(new Date(createAt), 'MMM d, yyyy, hh:mm a') : null}
                             placement="top"
