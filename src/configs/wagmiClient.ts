@@ -29,7 +29,7 @@ import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { plasma } from 'viem/chains';
 import { http } from 'wagmi';
 
-import { lensMainnet, lensTestnet } from '@/configs/chains.js';
+import { hyperEVM, lensMainnet, lensTestnet } from '@/configs/chains.js';
 import { createPrivyConnector } from '@/connectors/PrivyConnector.js';
 import { env } from '@/constants/env.js';
 
@@ -57,6 +57,7 @@ export const wagmiNetworks = [
     linea,
     monadTestnet,
     plasma,
+    hyperEVM,
 ] as AppKitNetwork[];
 
 const privyConnector = createPrivyConnector();

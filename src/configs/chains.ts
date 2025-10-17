@@ -92,6 +92,18 @@ export const lensTestnet = defineChain({
     testnet: true,
 });
 
+export const hyperEVM = defineChain({
+    id: 999,
+    name: 'Hyper EVM',
+    nativeCurrency: { name: 'HYPE', symbol: 'HYPE', decimals: 18 },
+    rpcUrls: {
+        default: {
+            http: ['https://rpc.hyperliquid.xyz/evm'],
+        },
+    },
+    testnet: false,
+});
+
 /**
  * List of all supported chains
  */
@@ -119,6 +131,7 @@ export const chains = [
     lensTestnet,
     wagmiMonadTestnet,
     wagmiPlasma,
+    hyperEVM,
 ] as const;
 
 export const visibleChains = [
@@ -142,6 +155,7 @@ export const visibleChains = [
     wagmiCelo,
     lensMainnet,
     wagmiPlasma,
+    hyperEVM,
 ] as const satisfies ReadonlyArray<(typeof chains)[number]>;
 
 // privy wallet currently only supports these 10 chains
