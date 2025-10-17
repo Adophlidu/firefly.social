@@ -1747,7 +1747,10 @@ class FireflyEndpoint {
         );
     }
 
-    async checkGenesisSparksAccounts(source: SocialSource, idAndHandleList: Array<{ id: string; handle: string }>) {
+    async checkGenesisSparksAccounts(
+        source: ProfilePageSource,
+        idAndHandleList: Array<{ id: string; handle: string }>,
+    ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/genesis/accountactive/check');
         const response = await fireflySessionHolder.fetch<GenesisSparksAccountsResponse>(url, {
             method: 'POST',

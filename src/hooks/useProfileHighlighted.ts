@@ -1,11 +1,17 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 
-import { SparksAccountStatus } from '@/constants/enum.js';
+import { type ProfilePageSource, SparksAccountStatus } from '@/constants/enum.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export function useProfileHighlighted(profile?: Profile | null, onlyActivated = false) {
+export function useProfileHighlighted(
+    profile?: {
+        source: ProfilePageSource;
+        profileId: string;
+        handle: string;
+    } | null,
+    onlyActivated = false,
+) {
     const enabled = !!profile;
     return useQuery({
         enabled,

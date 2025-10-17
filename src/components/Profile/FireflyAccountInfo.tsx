@@ -101,7 +101,18 @@ function FireflyAccountWithTitleUI({
     profile,
     profiles,
 }: FireflyAccountWithTitleUIProps) {
-    const { data: highlighted } = useProfileHighlighted(socialProfile, true);
+    const { data: highlighted } = useProfileHighlighted(
+        socialProfile
+            ? socialProfile
+            : walletProfile
+              ? {
+                    source: Source.Wallet,
+                    profileId: walletProfile.address,
+                    handle: walletProfile.address,
+                }
+              : null,
+        true,
+    );
 
     return (
         <>
