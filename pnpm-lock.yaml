@@ -266,6 +266,9 @@ dependencies:
   next-auth:
     specifier: ^4.24.11
     version: 4.24.11(next@15.4.7)(react-dom@19.0.0)(react@19.0.0)
+  nuqs:
+    specifier: ^2.7.1
+    version: 2.7.1(@tanstack/react-router@1.115.2)(next@15.4.7)(react@19.0.0)
   plyr-react:
     specifier: ^5.3.0
     version: 5.3.0(plyr@3.7.8)(react@19.0.0)
@@ -8266,6 +8269,10 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@standard-schema/spec@1.0.0:
+    resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
+    dev: false
+
   /@statoscope/extensions@5.28.1:
     resolution: {integrity: sha512-jxkHSNfr7KJOfxlueCtahv1LqscTALLkcGSrYCU71C4tR9GVYoVCUMOrhAFJr6ia+GlPhSaxOSk/j+Ay+ZN9vg==}
     dev: true
@@ -16150,6 +16157,33 @@ packages:
       esm-env: 1.2.2
     dev: false
 
+  /nuqs@2.7.1(@tanstack/react-router@1.115.2)(next@15.4.7)(react@19.0.0):
+    resolution: {integrity: sha512-3WDgrOZWat0QyOheyljTlXK4TGFh1JKSLvXMgusMDcTyMJXe1xL8+q3zuQ6ke1vyeGnpJwztlZl2aDkMW2eIUg==}
+    peerDependencies:
+      '@remix-run/react': '>=2'
+      '@tanstack/react-router': ^1
+      next: '>=14.2.0'
+      react: 19.0.0
+      react-router: ^6 || ^7
+      react-router-dom: ^6 || ^7
+    peerDependenciesMeta:
+      '@remix-run/react':
+        optional: true
+      '@tanstack/react-router':
+        optional: true
+      next:
+        optional: true
+      react-router:
+        optional: true
+      react-router-dom:
+        optional: true
+    dependencies:
+      '@standard-schema/spec': 1.0.0
+      '@tanstack/react-router': 1.115.2(react-dom@19.0.0)(react@19.0.0)
+      next: 15.4.7(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
+      react: 19.0.0
+    dev: false
+
   /oauth@0.9.15:
     resolution: {integrity: sha512-a5ERWK1kh38ExDEfoO6qUHJb32rd7aYmPHuyCu3Fta/cnICvYmgd2uhuKXvPD+PXB+gCEYYEaQdIRAjCOwAKNA==}
     dev: false
@@ -20482,6 +20516,7 @@ time:
   /next-auth@4.24.11: '2024-12-06T18:11:39.458Z'
   /next-statoscope@1.0.1: '2023-05-22T18:00:03.974Z'
   /next@15.4.7: '2025-08-18T21:54:43.048Z'
+  /nuqs@2.7.1: '2025-10-06T19:13:49.749Z'
   /plyr-react@5.3.0: '2023-06-12T22:50:21.153Z'
   /postcss@8.5.3: '2025-02-19T13:45:44.840Z'
   /prettier-plugin-tailwindcss@0.6.11: '2025-01-23T18:06:16.580Z'

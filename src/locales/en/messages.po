@@ -3897,6 +3897,10 @@ msgstr "The account you are trying to log in with is already linked to a differe
 msgid "Username or email address"
 msgstr "Username or email address"
 
+#. js-lingui-explicit-id
+msgid "nft-items"
+msgstr "Items"
+
 #. placeholder {0}: fromAccountInfo?.link ? ( <Link onClick={stopPropagation} className="font-bold hover:underline" href={fromAccountInfo.link} > {fromAccountInfo?.displayName || '-'} </Link> ) : ( <span className="font-bold">{fromAccountInfo?.displayName || '-'}</span> )
 msgid "{0} liked your <0>tip</0>"
 msgstr "{0} liked your <0>tip</0>"

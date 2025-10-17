@@ -4,6 +4,7 @@ import '@/app/globals.css';
 
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { headers } from 'next/headers.js';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import type { ReactNode } from 'react';
 
 import { LayoutBody } from '@/app/layout-body.js';
@@ -76,7 +77,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             </head>
             <body className={`${inter.variable} notranslate font-inter`}>
                 <ErrorBoundary>
-                    <LayoutBody agent={agent}>{children}</LayoutBody>
+                    <LayoutBody agent={agent}>
+                        <NuqsAdapter>{children}</NuqsAdapter>
+                    </LayoutBody>
                 </ErrorBoundary>
 
                 {/* global loading */}

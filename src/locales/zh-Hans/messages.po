@@ -3902,6 +3902,10 @@ msgstr "你尝试登录的账户已绑定其他Firefly 账户。"
 msgid "Username or email address"
 msgstr "用户名或者邮箱地址"
 
+#. js-lingui-explicit-id
+msgid "nft-items"
+msgstr ""
+
 #. placeholder {0}: fromAccountInfo?.link ? ( <Link onClick={stopPropagation} className="font-bold hover:underline" href={fromAccountInfo.link} > {fromAccountInfo?.displayName || '-'} </Link> ) : ( <span className="font-bold">{fromAccountInfo?.displayName || '-'}</span> )
 msgid "{0} liked your <0>tip</0>"
 msgstr "{0} 赞了你的 <0>打赏</0>"

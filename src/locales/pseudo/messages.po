@@ -3897,6 +3897,10 @@ msgstr ""
 msgid "Username or email address"
 msgstr ""
 
+#. js-lingui-explicit-id
+msgid "nft-items"
+msgstr ""
+
 #. placeholder {0}: fromAccountInfo?.link ? ( <Link onClick={stopPropagation} className="font-bold hover:underline" href={fromAccountInfo.link} > {fromAccountInfo?.displayName || '-'} </Link> ) : ( <span className="font-bold">{fromAccountInfo?.displayName || '-'}</span> )
 msgid "{0} liked your <0>tip</0>"
 msgstr ""

@@ -1,7 +1,8 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { Suspense, useState } from 'react';
+import { useQueryState } from 'nuqs';
+import { Suspense } from 'react';
 
 import { NFTList } from '@/components/CollectionDetail/NFTList.js';
 import { TopCollectors } from '@/components/CollectionDetail/TopCollectors.js';
@@ -17,15 +18,15 @@ interface CollectionTabsProps {
 export function CollectionTabs({ address, chainId }: CollectionTabsProps) {
     const tabs = [
         {
-            label: <Trans>Items</Trans>,
+            label: <Trans id="nft-items">Items</Trans>,
             value: 'items',
         },
         {
             label: <Trans>Top Collectors</Trans>,
-            value: 'topCollectors',
+            value: 'collectors',
         },
     ] as const;
-    const [currentTab, setCurrentTab] = useState<(typeof tabs)[number]['value']>('items');
+    const [currentTab, setCurrentTab] = useQueryState('tab', { defaultValue: 'items' });
 
     return (
         <div className="px-3 pb-3">
@@ -48,7 +49,7 @@ export function CollectionTabs({ address, chainId }: CollectionTabsProps) {
                                 }}
                             />
                         ),
-                        topCollectors: <TopCollectors address={address} chainId={chainId} />,
+                        collectors: <TopCollectors address={address} chainId={chainId} />,
                     }[currentTab]
                 }
             </Suspense>
