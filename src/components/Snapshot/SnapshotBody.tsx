@@ -192,10 +192,10 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
     const { data: currentUserChoice, isLoading: isLoadingCurrentUserChoice } = useQuery({
         queryKey: ['snapshot-votes', snapshot.id, account.address],
         async queryFn() {
-            if (!account.address) return;
+            if (!account.address) return null;
             const votes = await Snapshot.pathQueryVoteResultsByVoter([snapshot.id], account.address);
             const target = last(votes.data);
-            if (!target) return;
+            if (!target) return null;
             return target.choice;
         },
         refetchOnMount: false,
