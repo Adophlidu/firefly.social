@@ -9,10 +9,10 @@ import { useAccount } from 'wagmi';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
-import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { classNames } from '@/helpers/classNames.js';
 import { delay } from '@/helpers/delay.js';
-import { getPrivyWalletClientRequired, runWithoutPrivyWalletUI } from '@/helpers/getPrivyWalletClientRequired.js';
+import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
+import { runWithoutPrivyWalletUI } from '@/helpers/getPrivyWalletClientRequired.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { InfoCard } from '@/modals/FrameViewerModal/InfoCard.js';
 import { LoadingCard } from '@/modals/FrameViewerModal/LoadingCard.js';
@@ -41,14 +41,18 @@ export function AuthWalletSignIn() {
             setIsScanned(false);
             controller.current.renew();
 
-            const client = await getPrivyWalletClientRequired(wagmiConfig);
-            const result = await keyDataOf(fid, client.account.address);
+            const wallet = await ensureCreatedFireflyWallet();
+            if (!wallet) throw new Error('Failed to ensure Firefly wallet');
+
+            console.warn(`[AuthWalletSignIn] Using address: ${wallet.address}`);
+
+            const result = await keyDataOf(fid, wallet.address as `0x${string}`);
 
             // the address key has already registered
             if (result.state === 1 && result.keyType === 2) return null;
 
             const response = await createSignedKeyPayloadWithAddressVerification(
-                client.account.address,
+                wallet.address as `0x${string}`,
                 controller.current.signal,
             );
             const key = await createSignedKey(
