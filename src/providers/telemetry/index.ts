@@ -3,9 +3,7 @@ import { isHex } from 'viem';
 
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { AbortError, InvalidResultError, NotImplementedError } from '@/constants/error.js';
-import { bom } from '@/helpers/bom.js';
-import { retry } from '@/helpers/retry.js';
+import { NotImplementedError } from '@/constants/error.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import { type Events, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';

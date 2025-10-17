@@ -49,12 +49,12 @@ import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
+import { getBskyProfileById } from '@/providers/bsky/getBskyProfileById.js';
 import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
 import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromSuggestedFollow } from '@/providers/farcaster/formatFarcasterProfileFromSuggestedFollow.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { getWalletProfileByAddressOrEns } from '@/providers/firefly/getWalletProfileByAddressOrEns.js';
-import { isFireflyProfileMuted } from '@/providers/firefly/isFireflyProfileMuted.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { formatLensProfileFromSuggestedFollow } from '@/providers/lens/formatLensProfileFromSuggestedFollow.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
@@ -576,7 +576,18 @@ class FireflyEndpoint {
     }
 
     async isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
-        return isFireflyProfileMuted(platform, profileId);
+        // TODO firefly doesn't support bsky
+        if (platform === FireflyPlatform.Bsky) {
+            const profile = await getBskyProfileById(profileId);
+            return !!profile.viewerContext?.blocking;
+        }
+        const blockRelationList = await getBlockRelation([
+            {
+                snsPlatform: platform,
+                snsId: profileId,
+            },
+        ]);
+        return !!blockRelationList.find((x) => x.snsId === profileId)?.blocked;
     }
 
     async isProfileMutedAll(source: ProfilePageSource, id: string) {

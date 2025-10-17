@@ -8,6 +8,7 @@ import { SetQueryDataForBookmarkNFT } from '@/decorators/SetQueryDataForBookmark
 import { SetQueryDataForBookmarkToken } from '@/decorators/SetQueryDataForBookmarkToken.js';
 import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
+import { formatFireflyNotification } from '@/helpers/formatFireflyNotification.js';
 import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
@@ -26,7 +27,6 @@ import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { resolveTokenBookmarkId } from '@/helpers/resolveTokenBookmarkId.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import {
     formatBriefChannelFromFirefly,
     formatChannelFromFirefly,
@@ -74,7 +74,6 @@ import {
     type NotificationPushSwitchResponse,
     type NotificationResponse,
     type NotificationSettings,
-    NotificationType as FireflyNotificationType,
     type PostQuotesResponse,
     type ReactorsResponse,
     type SearchCastsResponse,
@@ -90,7 +89,6 @@ import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Notification,
-    NotificationType,
     type Post,
     type Profile,
     type ProfileBadge,
@@ -634,85 +632,10 @@ class FireflySocialMedia implements Provider {
         });
         const response = await fireflySessionHolder.fetch<NotificationResponse>(url, { method: 'GET' });
         const data = resolveFireflyResponseData(response);
-        const notifications = data.notifications.map<Notification | null>((notification) => {
-            const notificationId = `${profileId}_${notification.timestamp}_${notification.notificationType}`;
-            const users =
-                notification.users?.map(formatFarcasterProfileFromFirefly) ??
-                (notification.user ? [formatFarcasterProfileFromFirefly(notification.user)] : EMPTY_LIST);
-            const post = notification.cast ? formatFarcasterPostFromFirefly(notification.cast) : undefined;
-            const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
-
-            switch (notification.notificationType) {
-                case FireflyNotificationType.CastBeLiked:
-                    return {
-                        source: Source.Farcaster,
-                        notificationId,
-                        type: NotificationType.Reaction,
-                        reactors: users,
-                        post,
-                        timestamp,
-                    };
-                case FireflyNotificationType.CastBeRecasted:
-                    return {
-                        source: Source.Farcaster,
-                        notificationId,
-                        type: NotificationType.Mirror,
-                        mirrors: users,
-                        post,
-                        timestamp,
-                    };
-                case FireflyNotificationType.CastBeReplied:
-                    const commentOn = notification.cast?.parentCast
-                        ? formatFarcasterPostFromFirefly(notification.cast.parentCast)
-                        : undefined;
-                    return {
-                        source: Source.Farcaster,
-                        notificationId,
-                        type: NotificationType.Comment,
-                        comment: post
-                            ? {
-                                  ...post,
-                                  commentOn,
-                              }
-                            : undefined,
-                        post: commentOn,
-                        timestamp,
-                    } as const;
-                case FireflyNotificationType.BeFollowed:
-                    return {
-                        source: Source.Farcaster,
-                        notificationId,
-                        type: NotificationType.Follow,
-                        followers: users,
-                        timestamp,
-                    };
-                case FireflyNotificationType.BeMentioned:
-                    return {
-                        source: Source.Farcaster,
-                        notificationId,
-                        type: NotificationType.Mention,
-                        post,
-                        timestamp,
-                    };
-                case FireflyNotificationType.BeQuoted:
-                    return post?.quoteOn
-                        ? {
-                              source: Source.Farcaster,
-                              notificationId,
-                              type: NotificationType.Quote,
-                              post: post.quoteOn,
-                              quote: post,
-                              timestamp,
-                          }
-                        : null;
-                default:
-                    safeUnreachable(notification.notificationType);
-                    return null;
-            }
-        });
+        const notifications = compact(data.notifications.map((x) => formatFireflyNotification(profileId, x)));
 
         return createPageable(
-            compact(notifications),
+            notifications,
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );

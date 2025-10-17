@@ -93,11 +93,10 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     </Trans>
                 );
             case NotificationType.Quote:
-                const by = notification.quote.author;
                 if (!notification.quote.quoteOn?.type) return;
                 return (
                     <Trans>
-                        <ProfileLink profile={by} /> quoted your{' '}
+                        <ProfileLink profile={notification.quote.author} /> quoted your{' '}
                         <strong>
                             <Select
                                 value={notification.quote.quoteOn.type}

@@ -45,8 +45,6 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
         : '';
 
     const firstPost = first(sortedPosts);
-    const failedPost = sortedPosts.find((x) => !!x.error);
-
     const display_info = firstPost?.display_info;
     const handleClickPost = useCallback(() => {
         if (data.status === ScheduleTaskStatus.Success && firstPost?.post_id) {
