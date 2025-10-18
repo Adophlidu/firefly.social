@@ -25,7 +25,7 @@ export default async function Page(props: Props) {
     if (!data) notFound();
 
     return (
-        <div className="flex min-h-[100svh] w-full flex-1 flex-col">
+        <div className="flex min-h-svh w-full flex-1 flex-col">
             <ActivityNavigationBar>{data.title}</ActivityNavigationBar>
             <ActivityHeader data={data} />
             {data.status === ActivityStatus.Ended ? <ActivityEndedDialog data={data} /> : null}

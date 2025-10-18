@@ -92,7 +92,7 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
             {isSearchPage && slot === 'header' ? (
                 <BackButton className="mr-7 cursor-pointer" onClick={comeback} />
             ) : null}
-            <div className="group relative flex flex-grow items-center rounded-xl border border-transparent bg-lightBg px-3 text-main focus-within:border-highlight focus-within:bg-primaryBottom">
+            <div className="group relative flex grow items-center rounded-xl border border-transparent bg-lightBg px-3 text-main focus-within:border-highlight focus-within:bg-primaryBottom">
                 <SearchIcon
                     width={18}
                     height={18}

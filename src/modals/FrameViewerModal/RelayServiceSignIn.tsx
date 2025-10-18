@@ -101,12 +101,12 @@ export function RelayServiceSignIn() {
                 }}
             >
                 {isError ? (
-                    <div className="flex h-[232px] w-[232px] flex-col items-center justify-center gap-2 p-6 text-sm text-primaryBottom">
+                    <div className="flex size-[232px] flex-col items-center justify-center gap-2 p-6 text-sm text-primaryBottom">
                         <Trans>Something went wrong, please try again.</Trans>
                     </div>
                 ) : isLoading || isRefetching || !data ? (
                     <div className="p-4 text-black">
-                        <div className="flex h-[200px] w-[200px] items-center justify-center">
+                        <div className="flex size-[200px] items-center justify-center">
                             <LoadingIcon />
                         </div>
                     </div>

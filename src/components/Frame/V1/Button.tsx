@@ -27,11 +27,11 @@ export function Button({ button, disabled = false, onClick }: Props) {
             }}
             title={overflow ? button.text : undefined}
         >
-            <span className="overflow-hidden text-ellipsis whitespace-nowrap" ref={ref}>
+            <span className="truncate" ref={ref}>
                 {button.text}
             </span>
             {[ActionType.PostRedirect, ActionType.Link].includes(button.action) ? (
-                <LinkIcon className="ml-1 flex-shrink-0 text-second" width={18} height={18} />
+                <LinkIcon className="ml-1 shrink-0 text-second" width={18} height={18} />
             ) : null}
         </ClickableButton>
     );

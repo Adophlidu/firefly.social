@@ -26,7 +26,7 @@ export const DraftPage = memo(function DraftPage() {
     });
 
     return (
-        <div className="flex min-h-0 flex-grow flex-col">
+        <div className="flex min-h-0 grow flex-col">
             <div className="scrollable-tab flex shrink-0 gap-3 border-b border-line px-4">
                 {[
                     {

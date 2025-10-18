@@ -40,7 +40,7 @@ export function ArticleAuthor({ article }: Props) {
         <div className="flex items-center gap-2">
             {authorUrl ? (
                 <>
-                    <Link href={authorUrl} className="z-[1]">
+                    <Link href={authorUrl} className="z-1">
                         {avatar}
                     </Link>
                     <Link

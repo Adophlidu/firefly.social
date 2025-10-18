@@ -82,7 +82,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
         <>
             <div className="relative size-[300px]">
                 <NFTImage
-                    className="border0 h-full w-full object-cover"
+                    className="border0 size-full object-cover"
                     fallbackClassName="" // remove border of Image
                     width={300}
                     height={300}

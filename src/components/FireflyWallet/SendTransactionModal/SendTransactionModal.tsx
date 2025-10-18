@@ -137,7 +137,7 @@ function Header() {
                     className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
                 />
             )}
-            <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
+            <span className="flex size-full items-center justify-center text-lg font-bold text-main">
                 {location.pathname === RoutePath.Form ? <Trans>Send</Trans> : null}
                 {location.pathname === RoutePath.SelectToken ? <Trans>Select Token</Trans> : null}
                 {location.pathname === RoutePath.SearchRecipients ? <Trans>Recipient</Trans> : null}
@@ -677,7 +677,7 @@ function FailedView() {
         return <Navigate to={RoutePath.Form} />;
     }
     return (
-        <div className="flex h-full w-full flex-col justify-between pt-6">
+        <div className="flex size-full flex-col justify-between pt-6">
             <div className="flex flex-col items-center gap-4 bg-lightBottom pb-6 dark:bg-darkBottom">
                 <ErrorIcon width={64} height={64} />
                 <p className="text-2xl font-semibold text-main">
@@ -717,7 +717,7 @@ function SuccessView() {
     }
     const { token, recipient, amount, to, hash } = state;
     return (
-        <div className="flex h-full w-full flex-col justify-between pt-6">
+        <div className="flex size-full flex-col justify-between pt-6">
             <div className="flex flex-col items-center space-y-4 bg-lightBottom pb-6 dark:bg-darkBottom">
                 <SuccessIcon width={64} height={64} className="shrink-0" />
                 <p className="text-2xl font-semibold text-main">
@@ -740,7 +740,7 @@ function SuccessView() {
                         <div className="text-sm text-second">${multipliedBy(token.price, amount).toFormat()}</div>
                     </div>
                 </div>
-                <div className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border-2 border-primaryBottom bg-bg">
+                <div className="absolute left-1/2 top-1/2 flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border-2 border-primaryBottom bg-bg">
                     <ArrowDownIcon className="text-main" width={24} height={24} />
                 </div>
                 <div className="w-full rounded-2xl bg-bg px-4 py-6">

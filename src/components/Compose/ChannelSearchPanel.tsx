@@ -39,7 +39,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
     const { data, isLoading, isError } = useSearchChannels(inputText, source, !!rpPayload);
 
     const InputBox = (
-        <div className="relative mx-0 flex h-10 flex-grow items-center rounded-xl bg-lightBg px-3 text-main md:mx-3">
+        <div className="relative mx-0 flex h-10 grow items-center rounded-xl bg-lightBg px-3 text-main md:mx-3">
             <SearchIcon width={18} height={18} className="shrink-0" />
             <SearchInput
                 className="h-8"

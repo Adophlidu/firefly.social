@@ -34,7 +34,7 @@ export function RedPacketEnvelope({
     });
 
     return (
-        <div className="h-full w-full" {...rest}>
+        <div className="size-full" {...rest}>
             {cover ? <Image alt="cover" width={220} height={154} src={cover?.url} /> : null}
         </div>
     );

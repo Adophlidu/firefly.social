@@ -79,7 +79,7 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
                     >
                         <ShareIcon width={24} height={24} />
                     </button>
-                    <div className="absolute bottom-[100%] h-[200px] w-full bg-primaryBottom dark:bg-[#262a34]" />
+                    <div className="absolute bottom-full h-[200px] w-full bg-primaryBottom dark:bg-[#262a34]" />
                 </div>
             </div>
         </>

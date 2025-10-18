@@ -33,7 +33,7 @@ function getNFTItemContent(id: string, nft: NFTDetail) {
                     alt={nft.name}
                     width={500}
                     height={500}
-                    className="h-full w-full rounded-lg object-cover"
+                    className="size-full rounded-lg object-cover"
                 />
                 {chainId ? <ChainIcon size={20} chainId={chainId} className="absolute left-1 top-1" /> : null}
             </div>
@@ -48,7 +48,7 @@ function getNFTItemContent(id: string, nft: NFTDetail) {
     return (
         <div className="relative flex cursor-pointer flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl">
             {chainId ? (
-                <Link className="h-full w-full" href={resolveNFTUrl(chainId, nft.contract_address, tokenId)}>
+                <Link className="size-full" href={resolveNFTUrl(chainId, nft.contract_address, tokenId)}>
                     {content}
                 </Link>
             ) : (

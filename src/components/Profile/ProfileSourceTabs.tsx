@@ -401,7 +401,7 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
                 </span>
             </button>
             <div
-                className="no-scrollbar align-center relative flex w-full overflow-x-auto overflow-y-auto pb-2.5 pt-2"
+                className="no-scrollbar align-center relative flex w-full overflow-auto pb-2.5 pt-2"
                 ref={ref}
                 onScroll={(e) => handleButtons(e.currentTarget)}
                 id={PROFILE_SOURCE_TABS_CONTAINER_ID}

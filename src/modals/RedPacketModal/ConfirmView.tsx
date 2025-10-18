@@ -441,7 +441,7 @@ export default memo(function ConfirmView() {
                 </div>
             </div>
 
-            <div className="flex-grow" />
+            <div className="grow" />
 
             <div className="w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg dark:shadow-primaryDark">
                 <ActionButton

@@ -109,7 +109,7 @@ export function PageBackground({ step, children }: PageBackgroundProps) {
             <AnimatePresence>
                 {step !== SignupStep.Welcome ? (
                     <motion.div
-                        className="absolute bottom-0 left-0 right-0 w-full"
+                        className="absolute inset-x-0 bottom-0 w-full"
                         style={{
                             aspectRatio: '1922 / 404',
                         }}
@@ -124,7 +124,7 @@ export function PageBackground({ step, children }: PageBackgroundProps) {
                             duration: 0.3,
                         }}
                     >
-                        <SignupBg className="absolute inset-0 h-full w-full" width="100%" height="100%" />
+                        <SignupBg className="absolute inset-0 size-full" width="100%" height="100%" />
                         {profileAll[Source.Lens] ? (
                             <div className="absolute bottom-0 left-[80.6%] pb-[11.2%]">
                                 <motion.div

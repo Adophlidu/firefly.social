@@ -54,7 +54,7 @@ export const GamePlayer = memo<GamePlayerProps>(function GamePlayer({ avatar, ni
                         alt="Avatar"
                         width={136}
                         height={136}
-                        className="h-full w-full rounded-sm object-cover"
+                        className="size-full rounded-sm object-cover"
                     />
                 </div>
             ) : null}

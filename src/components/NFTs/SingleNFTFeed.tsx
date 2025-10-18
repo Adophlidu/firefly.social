@@ -65,7 +65,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
         >
             <FeedFollowSource source={first(followingSources)} />
             <div className="flex gap-3">
-                <Link href={authorUrl} className="z-[1] flex-shrink-0" onClick={stopPropagation}>
+                <Link href={authorUrl} className="z-1 shrink-0" onClick={stopPropagation}>
                     <Avatar
                         className="size-10"
                         src={getWalletProfileAvatar(displayInfo)}
@@ -73,7 +73,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                         alt={ownerAddress}
                     />
                 </Link>
-                <article className="min-w-0 flex-grow">
+                <article className="min-w-0 grow">
                     <NFTFeedHeader
                         className="mb-2"
                         address={ownerAddress}

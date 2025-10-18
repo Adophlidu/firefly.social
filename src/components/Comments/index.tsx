@@ -74,7 +74,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                     source={source}
                     excludePostIds={excludePostIds}
                     postId={postId}
-                    className="border-t-[1px] border-t-line"
+                    className="border-t border-t-line"
                 />
             ) : null}
         </>

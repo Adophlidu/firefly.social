@@ -44,7 +44,7 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                 height={28}
                 alt={targetAccountInfo.displayName}
                 src={targetAccountInfo.avatar}
-                className="h-7 w-7 rounded-full object-cover"
+                className="size-7 rounded-full object-cover"
             />
             <span className="font-semibold text-main">{targetAccountInfo.displayName}</span>
         </Link>
@@ -75,7 +75,7 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                             height={40}
                             src={maintainAccountInfo.avatar}
                             alt={maintainAccountInfo.displayName}
-                            className="h-10 w-10 rounded-full object-cover"
+                            className="size-10 rounded-full object-cover"
                         />
                     </Link>
                     <div className="min-w-0 flex-1">
@@ -123,7 +123,7 @@ export const TipsDetail = memo<TipsDetailProps>(function TipsDetail({ tipsData, 
                                     src={tipsData.token_icon}
                                     width={36}
                                     height={36}
-                                    className="h-9 w-9 rounded-full object-cover"
+                                    className="size-9 rounded-full object-cover"
                                 />
                             ) : null}
                             <div className="flex flex-col">

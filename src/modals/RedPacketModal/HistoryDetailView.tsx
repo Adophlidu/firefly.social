@@ -51,7 +51,7 @@ function HistoryDetail() {
     const { claimInfo, claimList, onEndReached } = useEthereumClaimedInfo(rpid);
 
     return (
-        <div className="flex w-[600px] flex-grow flex-col overflow-auto px-4 py-3">
+        <div className="flex w-[600px] grow flex-col overflow-auto px-4 py-3">
             {claimInfo ? <RedPacketDetailItem history={{ ...claimInfo, redpacket_id: rpid }} isDetail /> : null}
             {claimList.length ? (
                 <VirtualList

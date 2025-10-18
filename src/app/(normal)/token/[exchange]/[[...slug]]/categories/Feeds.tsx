@@ -193,7 +193,7 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
             ) : null}
             <Suspense
                 fallback={
-                    <div className="flex flex-grow flex-col">
+                    <div className="flex grow flex-col">
                         <TokenPageLoading />
                     </div>
                 }

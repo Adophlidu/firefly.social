@@ -36,10 +36,10 @@ export function ImageEditorModal({ ref }: Props) {
 
     return (
         <Modal open={open} onClose={() => dispatch?.close(null)}>
-            <div className="flex w-[100vw] transform flex-col overflow-hidden rounded-[12px] bg-primaryBottom transition-all md:max-h-[800px] md:w-[455px]">
+            <div className="flex w-screen flex-col overflow-hidden rounded-[12px] bg-primaryBottom transition-all md:max-h-[800px] md:w-[455px]">
                 <DialogTitle as="h3" className="relative flex h-14 shrink-0 items-center px-4 pt-safe">
                     <BackButton onClick={() => dispatch?.close(null)} />
-                    <span className="flex h-full w-full items-center justify-center gap-x-1 text-lg font-bold capitalize text-fourMain">
+                    <span className="flex size-full items-center justify-center gap-x-1 text-lg font-bold capitalize text-fourMain">
                         <Trans>Edit Image</Trans>
                     </span>
                 </DialogTitle>

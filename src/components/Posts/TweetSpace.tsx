@@ -156,10 +156,7 @@ function TweetSpaceContent({ spaceId }: Props) {
                 <div className="flex h-6 items-center leading-6">
                     <Avatar className="mr-2 size-[18px]" src={creator.pfp} size={18} alt={creator.handle} />
                     <span className="mr-1 truncate text-medium font-bold leading-5">{creator.displayName}</span>
-                    <ProfileVerifyBadge
-                        className="flex flex-shrink-0 items-center space-x-1 sm:mr-2"
-                        profile={creator}
-                    />
+                    <ProfileVerifyBadge className="flex shrink-0 items-center space-x-1 sm:mr-2" profile={creator} />
                     <div className="flex items-center space-x-1 rounded-lg bg-[rgba(24,26,32,0.5)] px-2 text-xs font-semibold leading-[18px]">
                         <Trans>Host</Trans>
                     </div>

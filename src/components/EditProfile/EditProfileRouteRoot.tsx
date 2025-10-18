@@ -33,7 +33,7 @@ export function EditProfileRouteRoot() {
     });
 
     return (
-        <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-primaryBottom shadow-popover transition-all md:h-auto md:max-h-[800px] md:w-[455px] md:rounded-xl lg:flex-grow-0">
+        <div className="relative flex w-screen grow flex-col overflow-auto bg-primaryBottom shadow-popover transition-all md:h-auto md:max-h-[800px] md:w-[455px] md:rounded-xl lg:grow-0">
             <Dialog.Title as="h3" className="relative h-14 shrink-0 pt-safe">
                 {pathname === Path.Root ? (
                     <CloseButton
@@ -46,7 +46,7 @@ export function EditProfileRouteRoot() {
                         onClick={() => history.replace(Path.Root)}
                     />
                 )}
-                <span className="flex h-full w-full items-center justify-center gap-x-1 text-lg font-bold capitalize text-fourMain">
+                <span className="flex size-full items-center justify-center gap-x-1 text-lg font-bold capitalize text-fourMain">
                     {titles[pathname] ?? titles[Path.Root]}
                 </span>
             </Dialog.Title>

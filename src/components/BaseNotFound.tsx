@@ -6,7 +6,7 @@ import { classNames } from '@/helpers/classNames.js';
 export function BaseNotFound(props: HTMLProps<HTMLDivElement>) {
     return (
         <main {...props} className={classNames('flex flex-[1_1_100%] flex-col border-r border-line', props.className)}>
-            <div className="flex flex-grow flex-col items-center justify-center">
+            <div className="flex grow flex-col items-center justify-center">
                 <Image src="/image/radar.png" width={200} height={106} alt="Page not found" />
                 {props.children}
             </div>

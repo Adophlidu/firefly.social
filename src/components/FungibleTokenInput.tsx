@@ -123,7 +123,7 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
                 <input
                     value={amount}
                     onChange={onChange}
-                    className="flex-1 border-0 border-transparent bg-transparent px-0 placeholder-secondary outline-transparent focus:border-0 focus:outline-0 focus:ring-0"
+                    className="flex-1 border-0 border-transparent bg-transparent px-0 outline-transparent placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0"
                     autoComplete="off"
                     autoCorrect="off"
                     spellCheck="false"

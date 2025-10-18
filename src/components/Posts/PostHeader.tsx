@@ -57,7 +57,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
         <ProfileTippy identity={identity} disabled={post.isTruthSocial}>
             <Link
                 href={profileLink}
-                className="flex-shrink-0 truncate text-medium leading-5 text-secondary"
+                className="shrink-0 truncate text-medium leading-5 text-secondary"
                 onClick={stopPropagation}
             >
                 @{author.handle}
@@ -70,7 +70,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
             <ProfileTippy identity={identity} disabled={post.isTruthSocial}>
                 <Link
                     href={profileLink}
-                    className="z-[1]"
+                    className="z-1"
                     onClick={(event) => {
                         event.stopPropagation();
                         onClickProfileLink?.();
@@ -109,14 +109,11 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                         </Link>
                     </ProfileTippy>
                     {post.isTruthSocial ? (
-                        <div className="flex flex-shrink-0 items-center space-x-1 sm:mr-2">
+                        <div className="flex shrink-0 items-center space-x-1 sm:mr-2">
                             <VerifyIcon style={{ color: '#FF4775' }} className="size-4 shrink-0" />
                         </div>
                     ) : (
-                        <ProfileVerifyBadge
-                            className="flex flex-shrink-0 items-center space-x-1 sm:mr-2"
-                            profile={author}
-                        />
+                        <ProfileVerifyBadge className="flex shrink-0 items-center space-x-1 sm:mr-2" profile={author} />
                     )}
                     {newLine ? null : handle}
                     {post.timestamp && (isComment || isQuote || !isDetailPage || showDate) ? (

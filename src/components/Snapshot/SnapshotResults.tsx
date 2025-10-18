@@ -39,9 +39,7 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
                         <div key={index}>
                             <div className="flex items-center justify-between">
                                 <TextOverflowTooltip className="max-sm:block" placement="top" content={choice}>
-                                    <div className="overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
-                                        {choice}
-                                    </div>
+                                    <div className="truncate text-main">{choice}</div>
                                 </TextOverflowTooltip>
                                 <div className="flex gap-1 whitespace-nowrap text-main">
                                     <span>{score > 1 ? nFormatter(score) : score.toFixed(2)}</span>

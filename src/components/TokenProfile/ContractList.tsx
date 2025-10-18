@@ -39,7 +39,7 @@ export const ContractList = memo<Props>(function ContractList({
         >
             <MenuItems
                 style={{ '--anchor-max-height': '225px' } as CSSProperties}
-                className="z-[1000] flex max-h-[225px] w-max flex-col overflow-auto rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)] backdrop-blur-[8px]"
+                className="z-[1000] flex max-h-[225px] w-max flex-col overflow-auto rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)] backdrop-blur"
                 data-hide-scrollbar
                 onClick={stopEvent}
                 anchor={menuAnchor}
@@ -73,16 +73,13 @@ function ContractItem({ contract, ...rest }: ContractItemProps) {
     return (
         <div {...rest} className={classNames('flex items-center gap-2', rest.className)}>
             {chain?.icon ? (
-                <Image src={chain.icon} className="flex-shrink-0" alt={name} width={16} height={16} />
+                <Image src={chain.icon} className="shrink-0" alt={name} width={16} height={16} />
             ) : (
                 <QuestionIcon className="ml-1 cursor-pointer text-second" width={16} height={16} />
             )}
-            <div className="min-w-[100px] flex-grow p-1 leading-4">
+            <div className="min-w-[100px] grow p-1 leading-4">
                 <div className="text-[12px] font-bold capitalize text-main">{name}</div>
-                <div
-                    className="max-w-[160px] overflow-hidden text-ellipsis whitespace-nowrap text-[12px] font-bold text-main"
-                    data-address={contract.address}
-                >
+                <div className="max-w-[160px] truncate text-[12px] font-bold text-main" data-address={contract.address}>
                     {formatAddress(contract.address, 4)}
                 </div>
             </div>

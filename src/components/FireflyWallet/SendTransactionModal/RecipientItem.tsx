@@ -89,7 +89,7 @@ export function RecipientItem({
                                 key={source}
                                 width={20}
                                 height={20}
-                                className="flex-shrink-0"
+                                className="shrink-0"
                             />
                         ))}
                     </div>

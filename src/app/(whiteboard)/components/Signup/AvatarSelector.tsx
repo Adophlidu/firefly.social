@@ -141,7 +141,7 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
     return (
         <div>
             <div className="mt-12 flex justify-center">
-                <div className="relative h-32 w-32 rounded-full bg-black">
+                <div className="relative size-32 rounded-full bg-black">
                     <ImageWithLoading
                         alt="avatar"
                         src={avatar}
@@ -156,7 +156,7 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
                         ) : null
                     ) : (
                         <ClickableButton
-                            className="absolute bottom-0.5 right-1.5 h-7 w-7 rounded-full border-2 border-white bg-[#5E69FF]"
+                            className="absolute bottom-0.5 right-1.5 size-7 rounded-full border-2 border-white bg-[#5E69FF]"
                             onClick={onAvatarMenuClick}
                         >
                             <Icon width={24} height={24} />
@@ -187,7 +187,7 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
                                 width={64}
                                 height={64}
                                 wrapperClassName="h-full w-full overflow-hidden"
-                                className="h-full w-full object-cover"
+                                className="size-full object-cover"
                             />
                         </ClickableButton>
                     );
@@ -214,7 +214,7 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
                             src={customSelected ? avatar : customAvatar?.url || ''}
                             width={64}
                             height={64}
-                            className="h-full w-full object-cover"
+                            className="size-full object-cover"
                         />
                     ) : (
                         <AddIcon width={24} height={24} />

@@ -52,7 +52,7 @@ export const SuggestCollectionList = memo<SuggestCollectionListProps>(function S
                     ))}
                 </div>
             ) : (
-                <div className="space-y-2 px-4 py-4 text-center text-sm font-bold">
+                <div className="space-y-2 p-4 text-center text-sm font-bold">
                     <div className="font-bold">
                         <Trans>No matching collection</Trans>
                     </div>

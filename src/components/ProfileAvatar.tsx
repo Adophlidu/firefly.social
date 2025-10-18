@@ -57,7 +57,7 @@ export const ProfileAvatar = memo(function ProfileAvatar({
                 <ProfileSourceIcon
                     source={profileSource}
                     size={16}
-                    className="absolute -bottom-[1px] -right-[8px] z-10 size-4 rounded-full border border-white"
+                    className="absolute -bottom-px -right-[8px] z-10 size-4 rounded-full border border-white"
                 />
             ) : null}
         </div>

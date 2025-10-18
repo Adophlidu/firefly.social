@@ -75,10 +75,7 @@ export function FrameViewerModalHeader({ props, setProps, onClose }: FrameViewer
                     {author ? (
                         <div className="flex gap-1 text-xs text-secondary">
                             <Trans>by {author.fullHandle || author.displayName}</Trans>
-                            <ProfileVerifyBadge
-                                className="flex flex-shrink-0 items-center space-x-1"
-                                profile={author}
-                            />
+                            <ProfileVerifyBadge className="flex shrink-0 items-center space-x-1" profile={author} />
                         </div>
                     ) : u ? (
                         <div className="text-xs text-secondary">{u.host}</div>

@@ -68,7 +68,7 @@ export function Popover({
                             </div>
                         ) : null}
                         <div
-                            className="no-scrollbar flex max-h-[50vh] w-full flex-shrink-0 flex-col overflow-y-auto"
+                            className="no-scrollbar flex max-h-[50vh] w-full shrink-0 flex-col overflow-y-auto"
                             style={{
                                 overflow: !enableOverflow ? 'unset' : undefined,
                                 maxHeight: !enableOverflow ? 'unset' : undefined,

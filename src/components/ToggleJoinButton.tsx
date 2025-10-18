@@ -28,9 +28,9 @@ export const ToggleJoinButton = memo<ToggleJoinButtonProps>(function ToggleJoinB
         const label =
             variant === 'icon' ? (
                 joined ? (
-                    <FollowedIcon className="size-4 flex-shrink-0" />
+                    <FollowedIcon className="size-4 shrink-0" />
                 ) : (
-                    <FollowIcon className="size-4 flex-shrink-0" />
+                    <FollowIcon className="size-4 shrink-0" />
                 )
             ) : joined ? (
                 hovered ? (

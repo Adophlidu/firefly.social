@@ -34,7 +34,7 @@ export const NFTCollection = memo<NFTCollectionProps>(function NFTCard({ contrac
                     src={collection.banner_url}
                     width={120}
                     height={120}
-                    className="aspect-square h-full w-full rounded-xl object-cover sm:mb-0 sm:w-auto"
+                    className="aspect-square size-full rounded-xl object-cover sm:mb-0 sm:w-auto"
                     draggable={false}
                     alt={collection.name || contractAddress || ''}
                 />

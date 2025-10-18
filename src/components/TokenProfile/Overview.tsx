@@ -240,7 +240,7 @@ export const Overview = memo<TokenOverviewProps>(function Overview({ coinId, cha
                                 {chain ? (
                                     <Image
                                         src={chain.icon}
-                                        className="flex-shrink-0"
+                                        className="shrink-0"
                                         alt={chain.name}
                                         width={16}
                                         height={16}
@@ -454,7 +454,7 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                     title={<Trans>Ca</Trans>}
                     extra={
                         <div className="flex items-center gap-1">
-                            <ChainIcon chainId={chainId} className="flex-shrink-0" width={16} height={16} />
+                            <ChainIcon chainId={chainId} className="shrink-0" width={16} height={16} />
                             <Tooltip
                                 content={
                                     <div className="max-w-[200px] whitespace-normal text-wrap break-words text-center">

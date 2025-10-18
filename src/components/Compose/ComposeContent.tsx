@@ -52,17 +52,17 @@ export function ComposeContent(props: ComposeContentProps) {
 
             {/* image */}
             {images.length > 0 ? (
-                <ComposeImages className="mt-2 max-h-[288px] flex-grow overflow-hidden rounded-lg" images={images} />
+                <ComposeImages className="mt-2 max-h-[288px] grow overflow-hidden rounded-lg" images={images} />
             ) : null}
 
             {/* video */}
-            {videos.length > 0 ? <ComposeVideos className="mt-2 flex-grow" videos={videos} /> : null}
+            {videos.length > 0 ? <ComposeVideos className="mt-2 grow" videos={videos} /> : null}
 
             {/* quote */}
             {type === 'quote' && post ? <Quote post={post} className="text-left" /> : null}
 
             {lastImageInUrl ? (
-                <div className="relative mt-2 max-h-[288px] flex-grow overflow-hidden rounded-lg">
+                <div className="relative mt-2 max-h-[288px] grow overflow-hidden rounded-lg">
                     <ImageAsset
                         className={'w-full cursor-pointer rounded-lg object-cover'}
                         width={1000}

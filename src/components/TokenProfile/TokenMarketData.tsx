@@ -259,7 +259,7 @@ export const TokenMarketData = memo(function TokenMarketData({
     return (
         <div {...rest} className={classNames('flex flex-col gap-1.5 p-3', rest.className)}>
             <div className="flex items-start">
-                <div className="flex min-w-0 flex-grow flex-col gap-1.5">
+                <div className="flex min-w-0 grow flex-col gap-1.5">
                     <div className="flex h-[42px] min-w-0 items-center gap-4">
                         {wrapLink(icon, tokenPageUrl, linkable)}
                         <div className="flex min-w-0 flex-col gap-1">
@@ -360,9 +360,9 @@ export const TokenMarketData = memo(function TokenMarketData({
                 )}
             >
                 {isPending ? (
-                    <div className="mx-2 h-full flex-grow rounded-lg bg-gray-100 dark:bg-gray-800" />
+                    <div className="mx-2 h-full grow rounded-lg bg-gray-100 dark:bg-gray-800" />
                 ) : invalidData ? (
-                    <div className="mx-2 flex h-full flex-grow items-center justify-center rounded-lg">
+                    <div className="mx-2 flex h-full grow items-center justify-center rounded-lg">
                         <Trans>There is no data available to display</Trans>
                     </div>
                 ) : (
@@ -379,7 +379,7 @@ export const TokenMarketData = memo(function TokenMarketData({
             </div>
             <div className="flex h-[10px] items-center">
                 {withinRangeTradeRecords.length > 1 ? (
-                    <div className="no-scrollbar flex flex-grow flex-nowrap gap-1 overflow-auto">
+                    <div className="no-scrollbar flex grow flex-nowrap gap-1 overflow-auto">
                         {withinRangeTradeRecords.map((trade, i) => {
                             const activeRecordIndex = activeRecord
                                 ? withinRangeTradeRecords.findIndex((x) => x.date === activeRecord?.date)
@@ -387,7 +387,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                             return (
                                 <div
                                     key={i}
-                                    className="group min-w-4 max-w-[60px] shrink-0 flex-grow cursor-pointer py-1 first:ml-auto last:mr-auto"
+                                    className="group min-w-4 max-w-[60px] shrink-0 grow cursor-pointer py-1 first:ml-auto last:mr-auto"
                                     onClick={() => {
                                         setActiveTradeHash((hash) => (trade.hash === hash ? undefined : trade.hash));
                                     }}

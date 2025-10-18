@@ -35,7 +35,7 @@ export function NFTVideo({
                 </ClickableButton>
             ) : isPlaying ? (
                 <ClickableButton
-                    className="absolute left-0 top-0 z-10 flex h-full w-full cursor-pointer items-center justify-center opacity-0 duration-100 hover:opacity-100"
+                    className="absolute left-0 top-0 z-10 flex size-full cursor-pointer items-center justify-center opacity-0 duration-100 hover:opacity-100"
                     onClick={() => {
                         ref.current?.pause();
                     }}
@@ -50,7 +50,7 @@ export function NFTVideo({
                 src={video}
                 poster={imageURL}
                 loop
-                className="h-full w-full cursor-pointer"
+                className="size-full cursor-pointer"
                 {...props}
                 ref={ref}
                 onClick={() => {
@@ -75,7 +75,7 @@ export function NFTVideo({
 
 export function NFTInfoPreview({ name, imageURL, video }: { imageURL: string; video?: string; name: string }) {
     return (
-        <div className="relative h-full w-full max-w-[250px] overflow-hidden rounded-[20px] border border-secondaryLine object-cover shadow-lightS3">
+        <div className="relative size-full max-w-[250px] overflow-hidden rounded-[20px] border border-secondaryLine object-cover shadow-lightS3">
             {video ? (
                 <NFTVideo video={video} imageURL={imageURL} autoPlay />
             ) : (
@@ -84,7 +84,7 @@ export function NFTInfoPreview({ name, imageURL, video }: { imageURL: string; vi
                     height={230}
                     src={imageURL}
                     alt={name}
-                    className="h-full w-full object-cover"
+                    className="size-full object-cover"
                     fallbackClassName=""
                 />
             )}

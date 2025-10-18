@@ -36,7 +36,7 @@ export const NFTCard = memo<NFTCardProps>(function NFTCard({ chainId, contractAd
                     src={nft.nftscan_uri || nft.imageURL || nft.image_uri || ''}
                     width={120}
                     height={120}
-                    className="aspect-square h-full w-full rounded-xl object-cover sm:mb-0 sm:w-auto"
+                    className="aspect-square size-full rounded-xl object-cover sm:mb-0 sm:w-auto"
                     draggable={false}
                     alt={contractAddress ?? ''}
                 />

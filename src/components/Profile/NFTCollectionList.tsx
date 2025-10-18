@@ -44,7 +44,7 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
                 <NFTImage
                     width={500}
                     height={500}
-                    className="h-full w-full rounded-lg object-cover"
+                    className="size-full rounded-lg object-cover"
                     src={collection.large_image_url || collection.logo_url}
                     alt="nft_image"
                 />

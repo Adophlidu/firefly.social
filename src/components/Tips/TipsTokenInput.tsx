@@ -40,9 +40,9 @@ export const TipsTokenInput = memo(function TipsTokenInput() {
             ) : (
                 <>
                     {token.logo_url ? (
-                        <div className="relative h-9 w-9">
+                        <div className="relative size-9">
                             <div
-                                className="flex h-full w-full items-center justify-center rounded-full"
+                                className="flex size-full items-center justify-center rounded-full"
                                 style={{
                                     boxShadow: '0px 8px 16px 0px rgba(28, 104, 243, 0.20)',
                                     backdropFilter: 'blur(11px)',
@@ -53,15 +53,15 @@ export const TipsTokenInput = memo(function TipsTokenInput() {
                                     height={36}
                                     alt={token.name}
                                     src={token.logo_url}
-                                    className="h-full w-full rounded-full object-cover"
+                                    className="size-full rounded-full object-cover"
                                 />
                             </div>
                             {token.chainLogoUrl ? (
-                                <div className="absolute -right-1 bottom-0 z-1 h-[18px] w-[18px] rounded-full border border-white bg-white">
+                                <div className="absolute -right-1 bottom-0 z-1 size-[18px] rounded-full border border-white bg-white">
                                     <Image
                                         width={16}
                                         height={16}
-                                        className="h-full w-full"
+                                        className="size-full"
                                         alt={token.chain}
                                         src={token.chainLogoUrl}
                                     />

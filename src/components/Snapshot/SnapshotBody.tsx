@@ -87,7 +87,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                 </h3>
                 <div>
                     <div className="flex items-center gap-2 max-md:flex md:hidden">
-                        <Link href={authorUrl} className="z-[1]">
+                        <Link href={authorUrl} className="z-1">
                             <Avatar
                                 className="size-[15px]"
                                 src={`https://cdn.stamp.fyi/space/s:${space.id}?s=40`}
@@ -109,7 +109,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                     <div className="flex items-center justify-between">
                         <div className="flex flex-1 items-center gap-2 truncate">
                             <div className="hidden items-center gap-2 md:flex">
-                                <Link href={authorUrl} className="z-[1]">
+                                <Link href={authorUrl} className="z-1">
                                     <Avatar
                                         className="size-[15px]"
                                         src={`https://cdn.stamp.fyi/space/s:${space.id}?s=40`}

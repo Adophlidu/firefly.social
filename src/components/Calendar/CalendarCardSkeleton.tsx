@@ -10,16 +10,16 @@ export function CalendarCardSkeleton() {
             </div>
             {/* Date Picker Skeleton */}
             <div className="flex items-center gap-2 px-4 py-3">
-                <div className="h-6 w-6 rounded-full bg-bg" />
-                <div className="h-6 w-6 rounded-full bg-bg" />
-                <div className="h-6 w-6 rounded-full bg-bg" />
-                <div className="h-6 w-6 rounded-full bg-bg" />
-                <div className="h-6 w-6 rounded-full bg-bg" />
-                <div className="h-6 w-6 rounded-full bg-bg" />
-                <div className="h-6 w-6 rounded-full bg-bg" />
-                <div className="h-6 w-6 rounded-full bg-bg" />
-                <div className="h-6 w-6 rounded-full bg-bg" />
-                <div className="h-6 w-6 rounded-full bg-bg" />
+                <div className="size-6 rounded-full bg-bg" />
+                <div className="size-6 rounded-full bg-bg" />
+                <div className="size-6 rounded-full bg-bg" />
+                <div className="size-6 rounded-full bg-bg" />
+                <div className="size-6 rounded-full bg-bg" />
+                <div className="size-6 rounded-full bg-bg" />
+                <div className="size-6 rounded-full bg-bg" />
+                <div className="size-6 rounded-full bg-bg" />
+                <div className="size-6 rounded-full bg-bg" />
+                <div className="size-6 rounded-full bg-bg" />
             </div>
             {/* Content Area Skeleton */}
             <div className="rounded-b-xl p-4">

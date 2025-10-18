@@ -96,7 +96,7 @@ export function LoginEmail() {
                 </Trans>
             </h2>
             <div className="flex w-[300px] flex-col gap-5 max-md:w-full">
-                <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
+                <div className="group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                     <EmailIcon width={18} height={18} className="absolute left-3 shrink-0" />
                     <input
                         ref={emailRef}
@@ -107,7 +107,7 @@ export function LoginEmail() {
                         autoComplete="off"
                         spellCheck="false"
                         placeholder={t`Your email address`}
-                        className="w-full border-0 bg-transparent py-2 pl-9 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
+                        className="w-full border-0 bg-transparent py-2 pl-9 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
                         value={email}
                         onChange={(ev) => setEmail(ev.currentTarget.value)}
                     />
@@ -125,7 +125,7 @@ export function LoginEmail() {
                     ) : null}
                 </div>
                 <div className="flex items-center justify-between gap-2">
-                    <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
+                    <div className="group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                         <LockIcon width={18} height={18} className="absolute left-3 shrink-0" />
                         <input
                             ref={passcodeRef}
@@ -135,7 +135,7 @@ export function LoginEmail() {
                             autoComplete="off"
                             spellCheck="false"
                             placeholder={t`One-time passcode`}
-                            className="w-full border-0 bg-transparent py-2 pl-9 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
+                            className="w-full border-0 bg-transparent py-2 pl-9 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
                             value={passcode}
                             onChange={(ev) => setPasscode(ev.currentTarget.value)}
                         />

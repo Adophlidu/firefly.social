@@ -19,7 +19,7 @@ export function EditProfileDialog({
             disableScrollLock={false}
             disableDialogClose
         >
-            <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-primaryBottom shadow-popover transition-all md:h-auto md:max-h-[800px] md:w-[455px] md:rounded-xl lg:flex-grow-0">
+            <div className="relative flex w-screen grow flex-col overflow-auto bg-primaryBottom shadow-popover transition-all md:h-auto md:max-h-[800px] md:w-[455px] md:rounded-xl lg:grow-0">
                 <EditProfileRouter onClose={onClose} profile={profile} />
             </div>
         </Modal>

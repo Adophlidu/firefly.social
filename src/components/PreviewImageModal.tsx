@@ -33,7 +33,7 @@ export function PreviewImageModal({
     const nextRef = useRef<HTMLButtonElement>(null);
 
     return (
-        <div className="fixed left-0 top-0 z-modal h-full w-full">
+        <div className="fixed left-0 top-0 z-modal size-full">
             <div
                 className="fixed inset-0 bg-black bg-opacity-90"
                 onClick={(event) => {
@@ -42,7 +42,7 @@ export function PreviewImageModal({
                     router.replace(urlcat('/post/:source/:id', { id: postId, source }));
                 }}
             />
-            <div className="h-full w-full">
+            <div className="size-full">
                 <div className="relative z-50 cursor-pointer pl-4 pt-4 text-main">
                     <CloseButton
                         onClick={() => {
@@ -52,7 +52,7 @@ export function PreviewImageModal({
                         IconProps={{ className: '!text-white' }}
                     />
                 </div>
-                <div className="flex h-full w-full items-center text-main">
+                <div className="flex size-full items-center text-main">
                     <Swiper
                         modules={[Navigation, Keyboard]}
                         navigation={{
@@ -71,7 +71,7 @@ export function PreviewImageModal({
                         {assets.map((asset, key) => {
                             return (
                                 <SwiperSlide key={key} className="flex">
-                                    <div className="flex h-full w-full items-center justify-center">
+                                    <div className="flex size-full items-center justify-center">
                                         <PreviewContent source={resolveSocialSource(source)} asset={asset} />
                                     </div>
                                 </SwiperSlide>

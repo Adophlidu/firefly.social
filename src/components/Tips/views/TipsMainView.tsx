@@ -49,7 +49,7 @@ export function TipsMainView() {
 
     if (showLoadingView) {
         return (
-            <div className="flex h-full w-full flex-col justify-between pt-6">
+            <div className="flex size-full flex-col justify-between pt-6">
                 <LoadingView />
                 {button}
             </div>
@@ -58,7 +58,7 @@ export function TipsMainView() {
 
     if (showFailedView) {
         return (
-            <div className="flex h-full w-full flex-col justify-between pt-6">
+            <div className="flex size-full flex-col justify-between pt-6">
                 <FailedView />
                 {button}
             </div>

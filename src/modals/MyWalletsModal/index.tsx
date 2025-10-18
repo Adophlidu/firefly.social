@@ -25,7 +25,7 @@ export function MyWalletsModal({ ref }: Props) {
             disableScrollLock={false}
             className="max-md:h-svh"
         >
-            <div className="relative flex max-h-[70vh] w-full flex-col bg-lightBottom text-medium text-lightMain transition-all dark:bg-darkBottom max-md:h-full max-md:max-h-full max-md:w-full max-md:max-w-full">
+            <div className="relative flex max-h-[70vh] w-full flex-col bg-lightBottom text-medium text-lightMain transition-all dark:bg-darkBottom max-md:size-full max-md:max-h-full max-md:max-w-full">
                 <div className="no-scrollbar relative min-h-0 flex-1 overflow-y-auto">
                     <p className="pb-2 text-sm text-secondary max-md:text-left">
                         <Trans>

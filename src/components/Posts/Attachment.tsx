@@ -92,7 +92,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
             <div className="size-[120px]">
                 {asset.coverUri ? (
                     <div className="relative">
-                        <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-third p-2 text-[#181818]">
+                        <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-third p-2 text-lightTextMain">
                             <Play width={16} height={16} />
                         </div>
                         <Image
@@ -212,7 +212,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                             alt={formatImageUrl(uri, IMAGE_KIT_ATTACHMENT)}
                                         />
                                     ) : (
-                                        <div className="flex h-full w-full flex-col overflow-hidden rounded-lg">
+                                        <div className="flex size-full flex-col overflow-hidden rounded-lg">
                                             <VideoAsset
                                                 videoClassName={
                                                     attachmentsSnapshot.length >= 2 ? 'mini-video flex-1' : undefined
@@ -225,7 +225,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                     )}
                                 </WithPreviewLink>
                                 {isLast && moreImageCount > 0 ? (
-                                    <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center rounded-lg bg-mainLight/50 text-white">
+                                    <div className="absolute right-0 top-0 flex size-full items-center justify-center rounded-lg bg-mainLight/50 text-white">
                                         <div className={classNames('font-bold', minimal ? 'text-medium' : 'text-2xl')}>
                                             +{moreImageCount + 1}
                                         </div>

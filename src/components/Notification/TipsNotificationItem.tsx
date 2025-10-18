@@ -75,7 +75,7 @@ export function TipsNotificationItem({ data }: TipsNotificationItemProps) {
         <Image
             width={40}
             height={40}
-            className="h-10 w-10 shrink-0 rounded-full bg-secondary object-cover"
+            className="size-10 shrink-0 rounded-full bg-secondary object-cover"
             src={fromAccountInfo?.avatar || defaultAvatarUrl}
             alt={fromAccountInfo?.displayName || 'Firefly'}
         />

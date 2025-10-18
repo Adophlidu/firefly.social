@@ -248,7 +248,7 @@ export function ScheduleTaskList() {
     }
 
     return (
-        <div className="no-scrollbar box-border flex min-h-[478px] flex-grow flex-col gap-1 overflow-auto p-3">
+        <div className="no-scrollbar box-border flex min-h-[478px] grow flex-col gap-1 overflow-auto p-3">
             {preferences.SHOW_SCHEDULE_POST_TIP ? (
                 <div className="flex items-center gap-1.5 rounded-[4px] bg-bg p-3">
                     <Info width={20} height={20} className="shrink-0 text-main" />

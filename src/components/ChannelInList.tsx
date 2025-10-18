@@ -93,12 +93,7 @@ export const ChannelInList = memo(function ChannelInList({
                         <ChannelTippy channel={channel} className="mr-1 truncate">
                             <span className="text-[18px] leading-6">{channel.name}</span>
                         </ChannelTippy>
-                        <SocialSourceIcon
-                            mono
-                            source={channel.source}
-                            size={16}
-                            className="flex-shrink-0 text-secondary"
-                        />
+                        <SocialSourceIcon mono source={channel.source} size={16} className="shrink-0 text-secondary" />
                     </div>
                     <div className="flex items-center gap-2 text-medium text-sm leading-[24px] text-secondary">
                         <ChannelTippy channel={channel}>

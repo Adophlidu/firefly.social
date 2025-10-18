@@ -56,7 +56,7 @@ export function GiphyGifSelector({ onSelected }: GiphyGifSelectorProps) {
         >
             <div>
                 {tabType !== GiphyTabType.Emoji ? (
-                    <div className="relative mx-3 flex flex-grow items-center rounded-xl bg-lightBg pl-3 text-main">
+                    <div className="relative mx-3 flex grow items-center rounded-xl bg-lightBg pl-3 text-main">
                         <SearchIcon width={18} height={18} className="shrink-0 text-primaryMain" />
                         <div className="w-full flex-1">
                             <SearchBar className="ff-giphy-search-bar" placeholder={t`Search...`} />

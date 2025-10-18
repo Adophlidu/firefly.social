@@ -103,7 +103,7 @@ export default memo(function RequirementsView() {
                                                         }
                                                     }}
                                                 />
-                                                <div className="flex min-w-0 flex-grow items-center gap-2">
+                                                <div className="flex min-w-0 grow items-center gap-2">
                                                     <TokenIcon
                                                         chainId={collection.chainId}
                                                         icon={collection.iconURL!}
@@ -113,7 +113,7 @@ export default memo(function RequirementsView() {
                                                         className="size-6 shrink-0 rounded-full"
                                                     />
                                                     {collection.name ? (
-                                                        <div className="min-w-0 flex-grow truncate text-left text-medium leading-5 text-main">
+                                                        <div className="min-w-0 grow truncate text-left text-medium leading-5 text-main">
                                                             {collection.name}
                                                         </div>
                                                     ) : null}
@@ -181,7 +181,7 @@ export default memo(function RequirementsView() {
                     </div>
                 </div>
             </div>
-            <div className="flex-grow" />
+            <div className="grow" />
             <div className="w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg dark:shadow-primaryDark">
                 <ActionButton className="rounded-lg" disabled={disabled} onClick={() => history.push('/confirm')}>
                     <Trans>Next</Trans>

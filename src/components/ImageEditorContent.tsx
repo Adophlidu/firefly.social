@@ -59,9 +59,9 @@ export function ImageEditorContent({ file, onSave, AvatarEditorProps }: ImageEdi
                         .handles()
                         .map(({ value, onKeyDownHandler, onMouseDownHandler, onTouchStart }, i) => (
                             <Fragment key={i}>
-                                <div className="relative h-full w-full overflow-hidden rounded-2xl">
+                                <div className="relative size-full overflow-hidden rounded-2xl">
                                     <div
-                                        className="h-full w-full origin-left bg-link"
+                                        className="size-full origin-left bg-link"
                                         style={{
                                             transform: `scaleX(${rangerInstance.getPercentageForValue(value) / 100})`,
                                         }}

@@ -19,7 +19,7 @@ export function CreateFireflyAccountGuideModal({ ref }: Props) {
             <div>
                 <div className="relative flex max-h-[75vh] w-[90vw] max-w-[512px] flex-col gap-5 rounded-md bg-white p-3 text-medium text-lightMain shadow-popover transition-all md:gap-10 md:rounded-3xl md:p-8">
                     <div className="shrink-0">
-                        <h2 className="text-2xl font-bold !leading-[29px] text-[#181818]">
+                        <h2 className="text-2xl font-bold !leading-[29px] text-lightTextMain">
                             <Trans>Create your Firefly Profile</Trans>
                         </h2>
                         <p className="mt-2 text-lg tracking-tight text-[#6b6b6b]">

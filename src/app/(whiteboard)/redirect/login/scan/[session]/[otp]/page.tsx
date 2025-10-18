@@ -33,7 +33,7 @@ export default function Page({
 
     return (
         <div className="fixed inset-0 z-10 flex h-screen items-center justify-center">
-            <FireflyIcon className="h-24 w-24 animate-pulse" />
+            <FireflyIcon className="size-24 animate-pulse" />
         </div>
     );
 }

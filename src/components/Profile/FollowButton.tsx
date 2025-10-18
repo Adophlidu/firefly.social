@@ -67,9 +67,9 @@ export const FollowButton = memo(function FollowButton({
                     <Trans>Follow</Trans>
                 );
             }
-            if (isFollowing) return <FollowedIcon className="size-4 flex-shrink-0" />;
-            if (isFollowedBy) return <MutualFollowIcon className="size-4 flex-shrink-0" />;
-            return <FollowIcon className="size-4 flex-shrink-0" />;
+            if (isFollowing) return <FollowedIcon className="size-4 shrink-0" />;
+            if (isFollowedBy) return <MutualFollowIcon className="size-4 shrink-0" />;
+            return <FollowIcon className="size-4 shrink-0" />;
         },
         [hovering, isFollowing, isFollowedBy, variant],
     );

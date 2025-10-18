@@ -26,7 +26,7 @@ export const AddThread = memo(function AddThread() {
         <>
             {usedLength && post.availableSources.length ? (
                 <div className="flex items-center gap-[10px] whitespace-nowrap text-medium text-main">
-                    <CountdownCircle width={24} height={24} className="flex-shrink-0" />
+                    <CountdownCircle width={24} height={24} className="shrink-0" />
                     <span className={usedLength > availableLength ? 'text-danger' : ''}>
                         {usedLength} / {availableLength}
                     </span>

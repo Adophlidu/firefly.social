@@ -77,9 +77,9 @@ export function SuccessView() {
             <div className="relative mt-12 w-full">
                 <div className="flex h-[68px] items-center gap-3 rounded-xl bg-bg px-4">
                     {token.logo_url ? (
-                        <div className="relative h-9 w-9">
+                        <div className="relative size-9">
                             <div
-                                className="flex h-full w-full items-center justify-center rounded-full"
+                                className="flex size-full items-center justify-center rounded-full"
                                 style={{
                                     boxShadow: '0px 8px 16px 0px rgba(28, 104, 243, 0.20)',
                                     backdropFilter: 'blur(11px)',
@@ -90,15 +90,15 @@ export function SuccessView() {
                                     height={36}
                                     alt={token.name}
                                     src={token.logo_url}
-                                    className="h-full w-full rounded-full object-cover"
+                                    className="size-full rounded-full object-cover"
                                 />
                             </div>
                             {token.chainLogoUrl ? (
-                                <div className="absolute -right-1 bottom-0 z-1 h-[18px] w-[18px] rounded-full border-2 border-white bg-white">
+                                <div className="absolute -right-1 bottom-0 z-1 size-[18px] rounded-full border-2 border-white bg-white">
                                     <Image
                                         width={14}
                                         height={14}
-                                        className="h-full w-full"
+                                        className="size-full"
                                         alt={token.chain}
                                         src={token.chainLogoUrl}
                                     />
@@ -148,7 +148,7 @@ export function SuccessView() {
                         )}
                     </div>
                 </div>
-                <div className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border-2 border-bg bg-lightBottom">
+                <div className="absolute left-1/2 top-1/2 flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border-2 border-bg bg-lightBottom">
                     <ArrowDownIcon className="text-main" width={24} height={24} />
                 </div>
             </div>

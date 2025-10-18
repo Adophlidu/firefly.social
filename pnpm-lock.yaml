@@ -502,6 +502,9 @@ devDependencies:
   eslint-plugin-storybook:
     specifier: ^0.12.0
     version: 0.12.0(eslint@9.24.0)(typescript@5.7.3)
+  eslint-plugin-tailwindcss:
+    specifier: ^3.18.2
+    version: 3.18.2(tailwindcss@3.4.17)
   eslint-plugin-unicorn:
     specifier: ^58.0.0
     version: 58.0.0(eslint@9.24.0)
@@ -13560,6 +13563,17 @@ packages:
       - typescript
     dev: true
 
+  /eslint-plugin-tailwindcss@3.18.2(tailwindcss@3.4.17):
+    resolution: {integrity: sha512-QbkMLDC/OkkjFQ1iz/5jkMdHfiMu/uwujUHLAJK5iwNHD8RTxVTlsUezE0toTZ6VhybNBsk+gYGPDq2agfeRNA==}
+    engines: {node: '>=18.12.0'}
+    peerDependencies:
+      tailwindcss: ^3.4.0
+    dependencies:
+      fast-glob: 3.3.3
+      postcss: 8.5.3
+      tailwindcss: 3.4.17
+    dev: true
+
   /eslint-plugin-unicorn@58.0.0(eslint@9.24.0):
     resolution: {integrity: sha512-fc3iaxCm9chBWOHPVjn+Czb/wHS0D2Mko7wkOdobqo9R2bbFObc4LyZaLTNy0mhZOP84nKkLhTUQxlLOZ7EjKw==}
     engines: {node: ^18.20.0 || ^20.10.0 || >=21.0.0}
@@ -20499,6 +20513,7 @@ time:
   /eslint-plugin-react@7.37.5: '2025-04-03T20:01:15.958Z'
   /eslint-plugin-simple-import-sort@12.1.1: '2024-07-02T18:27:33.712Z'
   /eslint-plugin-storybook@0.12.0: '2025-03-25T14:44:32.338Z'
+  /eslint-plugin-tailwindcss@3.18.2: '2025-07-16T11:36:30.926Z'
   /eslint-plugin-unicorn@58.0.0: '2025-03-24T09:16:52.878Z'
   /eslint-plugin-unused-imports@4.1.4: '2024-09-13T10:01:24.741Z'
   /eslint@9.24.0: '2025-04-04T19:20:41.757Z'

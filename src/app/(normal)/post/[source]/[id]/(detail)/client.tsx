@@ -72,7 +72,7 @@ export function PageDetail({ id: postId, source }: Props) {
                                     post={post}
                                     isDetail
                                     disabled={post.isHidden}
-                                    className="!mt-0 border-b border-t border-line py-3 pl-2 pr-4"
+                                    className="!mt-0 border-y border-line py-3 pl-2 pr-4"
                                 />
                             ) : null}
                         </NoSSR>

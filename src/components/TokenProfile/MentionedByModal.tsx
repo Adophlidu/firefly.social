@@ -45,13 +45,13 @@ export const MentionedByModal = memo<Props>(function MentionedByModal({ users, .
                         <Trans>Mentioned by</Trans>
                     </div>
                 </div>
-                <div className="no-scrollbar flex max-h-[293px] min-h-0 flex-grow flex-col gap-3 overflow-auto">
+                <div className="no-scrollbar flex max-h-[293px] min-h-0 grow flex-col gap-3 overflow-auto">
                     {users.map((user, i) => {
                         const count = nFormatter(user.followerCount);
                         const link = resolveProfileUrl(Source.Twitter, user.handle);
                         return (
                             <div key={user.profileId} className="flex items-center gap-2 py-0.5">
-                                <Link className="flex flex-grow items-center gap-2" href={link}>
+                                <Link className="flex grow items-center gap-2" href={link}>
                                     <Avatar alt={user.handle} src={user.pfp} size={40} />
                                     <div className="flex flex-col">
                                         <div className="flex items-center gap-1 text-medium">

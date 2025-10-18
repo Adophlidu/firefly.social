@@ -78,7 +78,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                 <Link href={url}>
                     <Avatar src={profile.pfp} alt="avatar" size={80} className="size-20 cursor-pointer rounded-full" />
                 </Link>
-                <div className="flex min-w-0 flex-1 flex-grow flex-col gap-[6px]">
+                <div className="flex min-w-0 flex-1 grow flex-col gap-[6px]">
                     <div className="flex items-center gap-2">
                         <Link
                             href={url}
@@ -86,8 +86,8 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                         >
                             {profile.displayName}
                         </Link>
-                        <ProfileVerifyBadge profile={profile} className="flex flex-shrink-0 items-center space-x-1" />
-                        <SocialSourceIcon source={profile.source} className="ml-auto flex-shrink-0" size={18} />
+                        <ProfileVerifyBadge profile={profile} className="flex shrink-0 items-center space-x-1" />
+                        <SocialSourceIcon source={profile.source} className="ml-auto shrink-0" size={18} />
                     </div>
 
                     <Link href={url} className="cursor-pointer text-medium leading-6 text-secondary">

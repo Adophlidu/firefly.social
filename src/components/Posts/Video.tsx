@@ -99,19 +99,19 @@ function VideoContent({
         <Player.Container ref={containerRef} className="bg-black text-white" __scopeMedia={__scopeMedia}>
             <Player.Video
                 loop={loop}
-                className="h-full w-full rounded-md object-contain"
+                className="size-full rounded-md object-contain"
                 poster={poster}
                 muted={autoPlay || autoPlayInViewport}
             />
 
             <Player.LoadingIndicator asChild>
-                <div className="flex h-full w-full items-center justify-center">
+                <div className="flex size-full items-center justify-center">
                     <LoadingIcon className="size-6 animate-spin" />
                 </div>
             </Player.LoadingIndicator>
 
             <Player.ErrorIndicator matcher="all" asChild>
-                <div className="flex h-full w-full items-center justify-center">
+                <div className="flex size-full items-center justify-center">
                     <LoadingIcon className="size-6 animate-spin" />
                 </div>
             </Player.ErrorIndicator>
@@ -200,7 +200,7 @@ function VideoContent({
                                 </Player.FullscreenTrigger>
                             </div>
                             <Player.Seek className="relative flex h-5 touch-none select-none items-center">
-                                <Player.Track className="relative h-[2px] flex-grow rounded-full bg-white bg-opacity-70">
+                                <Player.Track className="relative h-[2px] grow rounded-full bg-white bg-opacity-70">
                                     <Player.SeekBuffer className="absolute h-full rounded-full bg-white bg-opacity-50" />
                                     <Player.Range className="absolute h-full rounded-full bg-white" />
                                 </Player.Track>

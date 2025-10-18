@@ -191,7 +191,7 @@ export function RedPacketCardContent({ payload, post }: Props) {
                             />
                         ) : null}
                         <ClickableArea
-                            className="absolute right-5 top-4 z-[1] flex cursor-pointer items-center gap-1 rounded-full px-3 py-[6px] text-xs leading-3 text-white disabled:cursor-not-allowed"
+                            className="absolute right-5 top-4 z-1 flex cursor-pointer items-center gap-1 rounded-full px-3 py-[6px] text-xs leading-3 text-white disabled:cursor-not-allowed"
                             style={{ background: 'rgba(0, 0, 0, 0.25)', backdropFilter: 'blur(5px)' }}
                             disabled={isVerifying}
                             onClick={async () => {
@@ -219,7 +219,7 @@ export function RedPacketCardContent({ payload, post }: Props) {
                             }}
                         />
                         <div className="z-10 max-w-[50%]">
-                            <div className="mb-2 line-clamp-2 max-w-[100%] text-[20px] font-bold">
+                            <div className="mb-2 line-clamp-2 max-w-full text-[20px] font-bold">
                                 {payload.sender.message}
                             </div>
                             <Tooltip content={senderName === `@${originSenderName}` ? '' : originSenderName}>

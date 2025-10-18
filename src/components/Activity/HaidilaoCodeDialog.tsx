@@ -45,14 +45,14 @@ function HaidilaoCodeContent() {
 
     if (isLoading) {
         return (
-            <div className="flex h-full w-full flex-col items-center justify-center md:h-[332px]">
+            <div className="flex size-full flex-col items-center justify-center md:h-[332px]">
                 <LoadingIcon />
             </div>
         );
     }
 
     return (
-        <div className="flex h-full w-full flex-col items-center justify-center p-6 md:h-[332px]">
+        <div className="flex size-full flex-col items-center justify-center p-6 md:h-[332px]">
             {data?.qrcode ? (
                 <>
                     <div className="size-[270px] rounded-2xl bg-white p-4">

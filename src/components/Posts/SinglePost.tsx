@@ -77,7 +77,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const disableScrollRestore = useDisableScrollRestore();
 
     if (!isProfilePage && !isDetail && muted)
-        return keepMutedSpace ? <div className="pointer-events-none -mt-[1px] h-[1px]" /> : null;
+        return keepMutedSpace ? <div className="pointer-events-none -mt-px h-px" /> : null;
 
     const showPostAction = !isDetail && (isProfilePage || !post.isHidden || !muted);
 

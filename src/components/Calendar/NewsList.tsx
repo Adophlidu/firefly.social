@@ -52,7 +52,7 @@ export function NewsList({ date }: NewsListProps) {
         return (
             <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll">
                 <div className="pt-3">
-                    <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second">
+                    <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-3 whitespace-nowrap text-second">
                         <Loading />
                     </div>
                 </div>
@@ -63,7 +63,7 @@ export function NewsList({ date }: NewsListProps) {
         return (
             <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll">
                 <div className="pt-3">
-                    <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second">
+                    <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-3 whitespace-nowrap text-second">
                         <EmptyStatus>
                             <Trans>No content for the last two weeks.</Trans>
                         </EmptyStatus>

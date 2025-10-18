@@ -49,12 +49,12 @@ export function PolymarketTradeItem({ trade, className }: PolymarketTradeItemPro
         <div className={classNames('flex items-center border-t border-line px-4 py-2', className)}>
             <PolymarketTradeType className="hidden md:flex" type={trade.side} />
             <div className="flex min-w-0 flex-1 gap-3 md:items-center">
-                <div className="flex h-11 w-11 shrink-0 items-center overflow-hidden rounded">
+                <div className="flex size-11 shrink-0 items-center overflow-hidden rounded">
                     {trade.icon ? (
                         <Image
                             src={trade.icon}
                             alt={trade.title}
-                            className="h-full w-full object-cover"
+                            className="size-full object-cover"
                             width={44}
                             height={44}
                         />

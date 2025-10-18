@@ -36,7 +36,7 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
 
     return (
         <header className={classNames('flex w-full items-start gap-3', className)}>
-            <Link href={authorUrl} className="z-[1]" onClick={stopPropagation}>
+            <Link href={authorUrl} className="z-1" onClick={stopPropagation}>
                 <Avatar
                     className="size-10"
                     src={getWalletProfileAvatar(article.displayInfo) || article.author.avatar}

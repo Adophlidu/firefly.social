@@ -163,7 +163,7 @@ export function AddCustomERC721Modal({ ref }: Props) {
                         onClick={onClose}
                         className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
                     />
-                    <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
+                    <span className="flex size-full items-center justify-center text-lg font-bold text-main">
                         <Trans>Add Collection</Trans>
                     </span>
                 </DialogTitle>

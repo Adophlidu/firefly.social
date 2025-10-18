@@ -262,7 +262,7 @@ export default function MainView() {
                                 spellCheck="false"
                                 placeholder={t`Enter number of winners`}
                                 className={
-                                    'w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0'
+                                    'w-full border-0 bg-transparent py-2 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0'
                                 }
                                 inputMode="decimal"
                                 pattern="^[0-9]+$"
@@ -303,7 +303,7 @@ export default function MainView() {
                                 value={message}
                                 onChange={onMessageChange}
                                 placeholder={t`Best Wishes!`}
-                                className="w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0"
+                                className="w-full border-0 bg-transparent py-2 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0"
                             />
                         </label>
                     </form>
@@ -332,7 +332,7 @@ export default function MainView() {
                     <TokenValue token={token} amount={rawTotalAmount} chainId={chainId} networkType={networkType} />
                 ) : null}
             </div>
-            <div className="flex-grow" />
+            <div className="grow" />
             <div className="w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg dark:shadow-primaryDark">
                 <ChainGuardButton
                     networkType={networkType}

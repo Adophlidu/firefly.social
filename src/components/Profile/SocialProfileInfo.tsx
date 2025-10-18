@@ -65,10 +65,7 @@ export function SocialProfileInfo(props: InfoProps) {
                                     {profile.displayName || '-'}
                                 </h1>
                             </TextOverflowTooltip>
-                            <ProfileVerifyBadge
-                                className="flex flex-shrink-0 items-center space-x-1"
-                                profile={profile}
-                            />
+                            <ProfileVerifyBadge className="flex shrink-0 items-center space-x-1" profile={profile} />
                         </div>
                         <div id={PROFILE_ACTION_ID} className="ml-auto flex items-center gap-2">
                             <NoSSR>

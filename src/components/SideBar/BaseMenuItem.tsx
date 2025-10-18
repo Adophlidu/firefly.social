@@ -21,7 +21,7 @@ export function BaseMenuItem({ isSelected, collapsed, href, icon, menuName, ...r
                 'font-bold': isSelected,
             })}
         >
-            <span className="flex items-center gap-x-3 rounded-lg px-2 py-2 md:px-4">
+            <span className="flex items-center gap-x-3 rounded-lg p-2 md:px-4">
                 {collapsed && icon ? (
                     <Tooltip content={menuName} placement="right">
                         {icon as TippyProps['children']}

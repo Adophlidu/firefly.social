@@ -70,7 +70,7 @@ export function NonFungibleCollectionSelectModal({ ref }: Props) {
                         className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
                         onClick={() => dispatch?.close(null)}
                     />
-                    <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
+                    <span className="flex size-full items-center justify-center text-lg font-bold text-main">
                         <Trans>Select Collection</Trans>
                     </span>
                     <ClickableButton

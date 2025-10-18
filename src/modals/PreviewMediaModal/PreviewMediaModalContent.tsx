@@ -70,7 +70,7 @@ export function PreviewMediaModalContent({ onClose, post, source, medias, index 
                     {assets.map((asset, key) => {
                         return (
                             <SwiperSlide key={key} className="flex">
-                                <div className="flex h-full w-full items-center justify-center">
+                                <div className="flex size-full items-center justify-center">
                                     <PreviewContent source={source} asset={asset} />
                                 </div>
                             </SwiperSlide>

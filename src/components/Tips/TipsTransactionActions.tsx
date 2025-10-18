@@ -169,7 +169,7 @@ export function TipsTransactionActions({
                     disabled={loading || isLoading}
                     onClick={handleSharePost}
                     whileTap={{ scale: 0.9 }}
-                    className="flex h-7 w-7 items-center justify-center"
+                    className="flex size-7 items-center justify-center"
                 >
                     {loading || isLoading ? (
                         <LoadingIcon size={16} />
@@ -180,7 +180,7 @@ export function TipsTransactionActions({
                 <motion.button
                     disabled={isLoading || isPending}
                     whileTap={{ scale: 0.9 }}
-                    className="flex h-7 w-7 items-center justify-center"
+                    className="flex size-7 items-center justify-center"
                     onClick={async (event) => {
                         event.stopPropagation();
 

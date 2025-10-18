@@ -173,7 +173,7 @@ export function OrbView() {
                 }}
             >
                 {initSignInLoading || !initSignInData ? (
-                    <div className="flex h-[270px] w-[270px] items-center justify-center">
+                    <div className="flex size-[270px] items-center justify-center">
                         {initSignInLoading ? (
                             <LoadingIcon size={26} />
                         ) : (

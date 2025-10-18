@@ -139,7 +139,7 @@ export function SearchRecipient({
             <div className="flex w-full items-center rounded-lg border border-transparent bg-lightBg px-3 transition-all focus-within:border-highlight">
                 <SearchIcon width={18} height={18} className="mr-2 shrink-0 text-second" />
                 <input
-                    className="h-10 w-full border-0 bg-transparent px-0 py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
+                    className="h-10 w-full border-0 bg-transparent px-0 py-2 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
                     placeholder={t`Address, ENS, or social handle`}
                     value={keyword}
                     onChange={(e) => setKeyword(e.target.value)}

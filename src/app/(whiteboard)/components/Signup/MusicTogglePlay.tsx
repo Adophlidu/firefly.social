@@ -28,7 +28,7 @@ export const MusicTogglePlay = memo(function MusicTogglePlay() {
 
     return (
         <motion.button
-            className="absolute right-[3.3%] top-[3.7%] z-20 flex h-10 w-10 items-center justify-center"
+            className="absolute right-[3.3%] top-[3.7%] z-20 flex size-10 items-center justify-center"
             onClick={toggleSignupAudio}
             whileTap={{ scale: 0.9 }}
         >

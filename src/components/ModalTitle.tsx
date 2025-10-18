@@ -34,7 +34,7 @@ export const ModalTitle = memo(function ModalTitle({
                 <BackButton onClick={() => onBack?.()} className="cursor-pointer text-main" />
             ) : null}
             <div className="h-6 shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">{title}</div>
-            <div className="flex h-8 w-8 items-center justify-end">{actions}</div>
+            <div className="flex size-8 items-center justify-end">{actions}</div>
         </DialogTitle>
     );
 });

@@ -104,7 +104,7 @@ export function ExcludeReplyUserListModal({
                     anchor="bottom start"
                     className="fixed bottom-full left-0 z-50 translate-y-1 transition duration-200 ease-in-out data-[closed]:-translate-y-1 data-[closed]:opacity-0"
                 >
-                    <div className="w-[280px] rounded-lg bg-lightBottom px-3 py-3 text-main shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none">
+                    <div className="w-[280px] rounded-lg bg-lightBottom p-3 text-main shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none">
                         <ExcludeReplyUserList {...props} />
                     </div>
                 </Popover.Panel>

@@ -20,7 +20,7 @@ export const RecipientAvatar = memo<RecipientAvatarProps>(function RecipientAvat
     const isEvm = recipient.networkType === NetworkType.Ethereum;
 
     return (
-        <div className="relative h-9 w-9">
+        <div className="relative size-9">
             <div
                 className={classNames(
                     'flex h-full w-full items-center justify-center rounded-full',
@@ -37,7 +37,7 @@ export const RecipientAvatar = memo<RecipientAvatarProps>(function RecipientAvat
                         height={36}
                         alt={recipient.displayName || 'Tip'}
                         src={ensAvatar}
-                        className="h-full w-full rounded-full object-cover"
+                        className="size-full rounded-full object-cover"
                     />
                 ) : (
                     <WalletIcon width={24} height={24} />
@@ -55,7 +55,7 @@ export const RecipientAvatar = memo<RecipientAvatarProps>(function RecipientAvat
                     <Image
                         width={14}
                         height={14}
-                        className="h-full w-full"
+                        className="size-full"
                         alt={recipient.networkType}
                         src={solanaNetworkDescriptor.icon}
                     />

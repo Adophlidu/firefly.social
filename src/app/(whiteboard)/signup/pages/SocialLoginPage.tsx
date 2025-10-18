@@ -91,7 +91,7 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
                         <div className="mt-6 space-y-2">
                             <QrScanLogin
                                 logo={
-                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white">
+                                    <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-white">
                                         <FireflyLogo width={23} height={30} />
                                     </div>
                                 }

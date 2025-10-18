@@ -41,7 +41,7 @@ function ActivityListItem({ data }: { data: TypeActivityListItem; index?: number
                     }
                 }}
             >
-                <div className="absolute right-2 top-2 z-[1]">
+                <div className="absolute right-2 top-2 z-1">
                     <ActivityStatusTag status={data.status} />
                 </div>
                 <Image

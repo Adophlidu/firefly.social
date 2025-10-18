@@ -116,7 +116,7 @@ function FireflyAccountWithTitleUI({
 
     return (
         <>
-            <div className="sticky left-0 top-0 z-navbar h-0 w-full transform duration-200">
+            <div className="sticky left-0 top-0 z-navbar h-0 w-full duration-200">
                 <NavigationBar identity={identity} walletProfile={walletProfile} socialProfile={socialProfile} />
             </div>
             <FireflyAccountInfoUI profile={profile} highlighted={highlighted} className="z-banner">

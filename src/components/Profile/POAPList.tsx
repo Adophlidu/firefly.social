@@ -84,7 +84,7 @@ function NFTItemContent({
                     <NFTImage
                         width={500}
                         height={500}
-                        className="h-full w-full rounded-lg object-cover"
+                        className="size-full rounded-lg object-cover"
                         src={item.image_uri! || item.nftscan_uri!}
                         alt="nft_image"
                     />
@@ -132,7 +132,7 @@ function PoapItemContent({
                     <NFTImage
                         width={500}
                         height={500}
-                        className="h-full w-full rounded-lg object-cover"
+                        className="size-full rounded-lg object-cover"
                         src={item.event.image_url}
                         alt="nft_image"
                     />

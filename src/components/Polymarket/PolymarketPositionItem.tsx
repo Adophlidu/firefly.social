@@ -22,12 +22,12 @@ export function PolymarketPositionItem({ positionData }: PolymarketPositionItemP
 
     return (
         <div key={positionData.Id} className="flex items-start gap-3 py-2 md:items-center">
-            <div className="h-10 w-10 shrink-0">
+            <div className="size-10 shrink-0">
                 {positionData.image ? (
                     <Image
                         width={40}
                         height={40}
-                        className="h-10 w-10 shrink-0 rounded object-cover"
+                        className="size-10 shrink-0 rounded object-cover"
                         src={positionData.image}
                         alt={positionData.title}
                     />

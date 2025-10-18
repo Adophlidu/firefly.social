@@ -35,7 +35,7 @@ export function VoteResult({ option, totalVotes, maxPercent }: VoteResultProps) 
                     animate={{ width: '100%' }}
                 />
             </div>
-            <div className="absolute z-10 flex h-full w-full items-center justify-between pl-5 text-base font-bold text-lightMain">
+            <div className="absolute z-10 flex size-full items-center justify-between pl-5 text-base font-bold text-lightMain">
                 <span
                     className={classNames('mr-2 flex items-center gap-2 truncate', {
                         'text-highlight': isUserVoted,

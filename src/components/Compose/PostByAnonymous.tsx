@@ -114,7 +114,7 @@ export const PostByAnonymous = memo<PostByAnonymousProps>(function PostByAnonymo
                         className="flex h-8 w-full items-center justify-between gap-2 px-3 hover:bg-bg"
                     >
                         <div className="relative shrink-0">
-                            <AnonymousAvatar width={24} height={24} className="h-6 w-6 rounded-full" />
+                            <AnonymousAvatar width={24} height={24} className="size-6 rounded-full" />
                             <SocialSourceIcon
                                 className="absolute -bottom-1 -right-1 z-10 rounded-full border border-white dark:border-gray-900"
                                 source={source}

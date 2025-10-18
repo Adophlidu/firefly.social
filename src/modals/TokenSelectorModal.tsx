@@ -67,7 +67,7 @@ export function TokenSelectorModal({ ref }: Props) {
                         onClick={() => dispatch?.close(null)}
                         className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
                     />
-                    <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
+                    <span className="flex size-full items-center justify-center text-lg font-bold text-main">
                         <Trans>Select Token</Trans>
                     </span>
                     {[NetworkType.Ethereum].includes(props.networkType) ? (
@@ -92,7 +92,7 @@ export function TokenSelectorModal({ ref }: Props) {
                             onSelected={onSelected}
                         />
                     ) : (
-                        <div className="flex h-full w-full items-center justify-center">
+                        <div className="flex size-full items-center justify-center">
                             <ClickableButton
                                 className="h-10 rounded-full border border-main px-3 text-lg font-bold leading-10 text-main"
                                 onClick={() => {

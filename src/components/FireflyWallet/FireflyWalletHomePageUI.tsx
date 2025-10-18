@@ -60,21 +60,21 @@ export function FireflyWalletHomePageUI({
                 </div>
                 <div className="mx-auto grid grid-cols-3 gap-2 md:gap-4">
                     <button
-                        className="hover:bg-button-hover flex h-12 transform items-center justify-center rounded-2xl border border-current px-4 font-bold text-main duration-100 active:scale-95 active:bg-bg md:w-[124px]"
+                        className="hover:bg-button-hover flex h-12 items-center justify-center rounded-2xl border border-current px-4 font-bold text-main duration-100 active:scale-95 active:bg-bg md:w-[124px]"
                         onClick={onSend}
                     >
                         <SendIcon width={24} height={24} className="mr-1.5 shrink-0" />
                         <Trans>Send</Trans>
                     </button>
                     <button
-                        className="hover:bg-button-hover flex h-12 transform items-center justify-center rounded-2xl border border-current px-4 font-bold text-main duration-100 active:scale-95 active:bg-bg md:w-[124px]"
+                        className="hover:bg-button-hover flex h-12 items-center justify-center rounded-2xl border border-current px-4 font-bold text-main duration-100 active:scale-95 active:bg-bg md:w-[124px]"
                         onClick={onReceive}
                     >
                         <ReceiveIcon width={24} height={24} className="mr-1.5 shrink-0" />
                         <Trans>Receive</Trans>
                     </button>
                     <button
-                        className="hover:bg-button-hover flex h-12 transform items-center justify-center rounded-2xl border border-current px-4 font-bold text-main duration-100 active:scale-95 active:bg-bg md:w-[124px]"
+                        className="hover:bg-button-hover flex h-12 items-center justify-center rounded-2xl border border-current px-4 font-bold text-main duration-100 active:scale-95 active:bg-bg md:w-[124px]"
                         onClick={onSwap}
                     >
                         <SwapIcon width={24} height={24} className="mr-1.5 shrink-0" />

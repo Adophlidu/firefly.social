@@ -47,7 +47,7 @@ export function TradeFilter({ value, onChange }: Props) {
                         className="z-50 origin-top-right !overflow-visible font-normal outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
                         onMouseLeave={() => close()}
                     >
-                        <div className="flex translate-y-1 transform flex-col gap-2 overflow-y-auto rounded-2xl bg-primaryBottom p-3 shadow-messageShadow">
+                        <div className="flex translate-y-1 flex-col gap-2 overflow-y-auto rounded-2xl bg-primaryBottom p-3 shadow-messageShadow">
                             {options.map((option) => (
                                 <MenuItem key={option.id}>
                                     {({ close }) => (

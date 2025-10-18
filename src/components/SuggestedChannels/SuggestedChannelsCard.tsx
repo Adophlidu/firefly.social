@@ -25,7 +25,7 @@ function SuggestedChannelItem({ channel }: { channel: Channel }) {
             >
                 <Avatar className="rounded-full" src={channel.imageUrl} size={15} alt={channel.name} />
                 <span className="text-medium font-bold text-main">{channel.name}</span>
-                <SocialSourceIcon mono source={channel.source} size={15} className="flex-shrink-0 text-secondary" />
+                <SocialSourceIcon mono source={channel.source} size={15} className="shrink-0 text-secondary" />
             </Link>
         </ChannelTippy>
     );

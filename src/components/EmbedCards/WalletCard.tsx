@@ -87,7 +87,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                     e.stopPropagation();
                 }}
             >
-                <Link className="flex-shrink-0 rounded-full ring-[3px] ring-primaryBottom" href={profileUrl}>
+                <Link className="shrink-0 rounded-full ring ring-primaryBottom" href={profileUrl}>
                     <Avatar
                         className="size-12 overflow-hidden rounded-full bg-bg"
                         unoptimized

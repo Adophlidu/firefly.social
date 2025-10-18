@@ -60,7 +60,7 @@ export function ShareImageModalContent(props: ShareImageModalContentProps) {
                     <img
                         src={props.imageUrl}
                         alt={'Share image'}
-                        className="h-full w-full object-cover"
+                        className="size-full object-cover"
                         onLoad={() => {
                             setLoading(false);
                         }}

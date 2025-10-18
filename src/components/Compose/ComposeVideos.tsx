@@ -38,7 +38,7 @@ export const ComposeVideos = memo(function ComposeVideos({ videos, ...rest }: Co
         <div {...rest} className={classNames('grid grid-cols-2 flex-wrap gap-2', rest.className)}>
             {videos.map((video) => {
                 return (
-                    <div key={video.id} className="flex min-w-0 flex-grow items-center justify-center">
+                    <div key={video.id} className="flex min-w-0 grow items-center justify-center">
                         <ComposeVideo video={video} className="relative" />
                     </div>
                 );

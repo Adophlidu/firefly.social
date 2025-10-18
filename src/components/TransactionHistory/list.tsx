@@ -306,7 +306,7 @@ function TransactionHistoryTokenItem({ item }: { item: TransactionHistoryItem })
                     disableBadge
                     name={tokenReceive.token.symbol}
                 />
-                <div className="absolute -right-2 bottom-0 z-1 w-[14px] rounded-full bg-white p-[1px]">
+                <div className="absolute -right-2 bottom-0 z-1 w-[14px] rounded-full bg-white p-px">
                     <ChainIcon size={12} networkType={networkType} chainId={chainId} allowEmpty />
                 </div>
             </div>

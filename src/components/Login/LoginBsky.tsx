@@ -248,7 +248,7 @@ export function LoginBsky() {
                     <Trans>Enter your username and password to sign in instantly</Trans>
                 </h2>
 
-                <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
+                <div className="group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                     <AtIcon width={18} height={18} className="absolute left-3 shrink-0" />
                     <input
                         disabled={loading}
@@ -257,7 +257,7 @@ export function LoginBsky() {
                         autoComplete="off"
                         spellCheck="false"
                         placeholder={t`Username or email address`}
-                        className="w-full border-0 bg-transparent py-2 pl-9 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
+                        className="w-full border-0 bg-transparent py-2 pl-9 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
                         {...register('account', { required: true })}
                     />
                     {account ? (
@@ -274,7 +274,7 @@ export function LoginBsky() {
                         />
                     ) : null}
                 </div>
-                <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
+                <div className="group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                     <LockIcon width={18} height={18} className="absolute left-3 shrink-0" />
                     <input
                         disabled={loading}
@@ -282,7 +282,7 @@ export function LoginBsky() {
                         autoComplete="off"
                         spellCheck="false"
                         placeholder={t`Account or App Password`}
-                        className="w-full border-0 bg-transparent py-2 pl-9 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
+                        className="w-full border-0 bg-transparent py-2 pl-9 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
                         {...register('password', { required: true })}
                     />
                     {password ? (
@@ -299,7 +299,7 @@ export function LoginBsky() {
                         />
                     ) : null}
                 </div>
-                <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
+                <div className="group relative mx-0 flex h-10 grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                     <ServiceUrlIcon width={18} height={18} className="absolute left-3 shrink-0" />
                     <input
                         disabled={loading}

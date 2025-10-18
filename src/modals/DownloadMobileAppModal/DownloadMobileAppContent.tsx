@@ -16,7 +16,7 @@ export function DownloadMobileAppContent() {
                 </p>
                 <div className="relative rounded-lg bg-white p-3">
                     <QRCode value="https://5euxu.app.link/PHvNiyVemIb" size={170} />
-                    <div className="absolute left-1/2 top-1/2 flex h-[45px] w-[45px] -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-white">
+                    <div className="absolute left-1/2 top-1/2 flex size-[45px] -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-white">
                         <FireflyLogo width={28} height={36} />
                     </div>
                 </div>

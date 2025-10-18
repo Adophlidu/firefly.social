@@ -33,8 +33,8 @@ export const ToggleMutedButton = memo(function ToggleMutedButton({
 
     const buttonText = useMemo(() => {
         if (variant === 'icon') {
-            if (isMuted) return <UnmuteIcon className="size-4 flex-shrink-0" />;
-            return <MuteIcon className="size-4 flex-shrink-0" />;
+            if (isMuted) return <UnmuteIcon className="size-4 shrink-0" />;
+            return <MuteIcon className="size-4 shrink-0" />;
         }
         if (isMuted) {
             if (loading) return <Trans>Unmuting...</Trans>;

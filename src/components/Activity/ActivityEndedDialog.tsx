@@ -23,7 +23,7 @@ export function ActivityEndedDialog({ buttonText, data, open = true, ...rest }: 
 
     return (
         <Modal open={!!open && data.status === ActivityStatus.Ended} onClose={onClose}>
-            <div className="w-[359px] transform rounded-[12px] bg-primaryBottom transition-all">
+            <div className="w-[359px] rounded-[12px] bg-primaryBottom transition-all">
                 <div className="relative inline-flex h-12 w-full items-center justify-center gap-2 rounded-t-[12px] pt-6 text-center">
                     <div className="text-lg font-bold leading-6 text-main">
                         <Trans>Event Ended!</Trans>

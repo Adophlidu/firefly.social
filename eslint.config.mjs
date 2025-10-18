@@ -5,6 +5,7 @@ import tsParser from '@typescript-eslint/parser';
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
 import react from 'eslint-plugin-react';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import tailwindcss from 'eslint-plugin-tailwindcss';
 import unicorn from 'eslint-plugin-unicorn';
 import unusedImports from 'eslint-plugin-unused-imports';
 import { defineConfig, globalIgnores } from 'eslint/config';
@@ -48,6 +49,7 @@ export default defineConfig([
             unicorn,
             'no-relative-import-paths': noRelativeImportPaths,
             'simple-import-sort': simpleImportSort,
+            tailwindcss: tailwindcss,
             '@typescript-eslint': typescriptEslintEslintPlugin,
             'unused-imports': unusedImports,
             'rename-jsx': renameJsx,
@@ -242,6 +244,15 @@ export default defineConfig([
                     additionalHooks: '(useAsync|useAsyncFn)\\b',
                 },
             ],
+
+            // Tailwind CSS rules
+            'tailwindcss/no-custom-classname': 'warn',
+            'tailwindcss/enforces-shorthand': 'warn',
+            'tailwindcss/enforces-negative-arbitrary-values': 'warn',
+            'tailwindcss/migration-from-tailwind-2': 'warn',
+            'tailwindcss/no-contradicting-classname': 'error',
+            'tailwindcss/no-unnecessary-arbitrary-value': 'warn',
+            'tailwindcss/no-arbitrary-value': 'off',
         },
     },
 ]);

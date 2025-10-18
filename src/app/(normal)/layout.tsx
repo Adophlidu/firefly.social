@@ -63,7 +63,7 @@ export default async function Layout({ children, modal, sidebar }: Props) {
                 {children}
                 {modal}
             </main>
-            <aside className="sticky top-0 z-[1] hidden h-screen w-96 flex-col gap-4 px-4 md:min-w-[384px] lg:flex">
+            <aside className="sticky top-0 z-1 hidden h-screen w-96 flex-col gap-4 px-4 md:min-w-[384px] lg:flex">
                 <AsideSearchBar />
 
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">

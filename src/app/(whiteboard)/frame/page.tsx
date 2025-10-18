@@ -232,7 +232,7 @@ export default function Page(props: Props) {
                 </FramePageTitle>
                 <FramePageBody>
                     {!ready || loading || loadingSupported ? (
-                        <div className="absolute inset-0 z-10 flex h-full w-full items-center justify-center bg-white dark:bg-black">
+                        <div className="absolute inset-0 z-10 flex size-full items-center justify-center bg-white dark:bg-black">
                             {frame?.button.action.splashImageUrl ? (
                                 <Image
                                     alt={frame.button.action.name}
@@ -247,7 +247,7 @@ export default function Page(props: Props) {
                     ) : null}
                     {frame ? (
                         <iframe
-                            className="scrollbar-hide absolute inset-0 z-0 h-full w-full opacity-100"
+                            className="scrollbar-hide absolute inset-0 z-0 size-full opacity-100"
                             ref={frameRef}
                             src={frame.button.action.url}
                             allow="clipboard-write 'src'"

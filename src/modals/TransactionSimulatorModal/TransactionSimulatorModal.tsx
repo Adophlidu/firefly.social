@@ -36,7 +36,7 @@ export function TransactionSimulatorModal({ ref }: Props) {
 
     return (
         <Modal open={open} onClose={() => dispatch?.close()}>
-            <div className="w-[485px] max-w-[90vw] transform rounded-xl bg-primaryBottom p-6 transition-all">
+            <div className="w-[485px] max-w-[90vw] rounded-xl bg-primaryBottom p-6 transition-all">
                 <TransactionSimulatorContent
                     options={props}
                     onClose={() => dispatch?.close()}

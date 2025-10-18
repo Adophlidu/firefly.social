@@ -92,7 +92,7 @@ export function NFTsActivityCellCard(props: NFTsActivityCellCardProps) {
                             height={200}
                         />
                     )}
-                    <div className="absolute bottom-0 left-0 flex max-w-[100%] flex-col space-y-1 px-[15px] pb-3">
+                    <div className="absolute bottom-0 left-0 flex max-w-full flex-col space-y-1 px-[15px] pb-3">
                         {isPoap ? (
                             <PoapTags asset={data} />
                         ) : (

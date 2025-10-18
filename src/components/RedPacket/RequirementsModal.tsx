@@ -450,7 +450,7 @@ export function RequirementsModal({
 
                         return null;
                     })}
-                    <div className="flex-grow" />
+                    <div className="grow" />
                     {showResults ? (
                         <ActionButton
                             className="w-full flex-none"

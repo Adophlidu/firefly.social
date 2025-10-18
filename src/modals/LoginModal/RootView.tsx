@@ -19,7 +19,7 @@ export function RootView() {
     const title = contextTitle ?? <Trans>Login to Firefly</Trans>;
 
     return (
-        <div className="flex transform flex-col rounded-[12px] bg-primaryBottom transition-all max-md:h-full max-md:rounded-none">
+        <div className="flex flex-col rounded-[12px] bg-primaryBottom transition-all max-md:h-full max-md:rounded-none">
             <div className="flex items-center justify-center gap-2 rounded-t-[12px] p-4">
                 {isMain || noBackButton ? (
                     <CloseButton
@@ -39,7 +39,7 @@ export function RootView() {
                 <div className="h-6 shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                     {title}
                 </div>
-                <div className="relative h-6 w-6" />
+                <div className="relative size-6" />
             </div>
             <Outlet />
         </div>

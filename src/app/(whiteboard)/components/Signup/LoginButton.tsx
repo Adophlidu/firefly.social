@@ -28,7 +28,7 @@ export function LoginButton({ source }: LoginButtonProps) {
             }}
         >
             {source === 'other' ? (
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#5E69FF]">
+                <span className="flex size-6 items-center justify-center rounded-full bg-[#5E69FF]">
                     <OtherIcon />
                 </span>
             ) : (
@@ -37,7 +37,7 @@ export function LoginButton({ source }: LoginButtonProps) {
             <span className="ml-2 mr-4 text-base font-medium text-[#171717]">
                 {source === 'other' ? <Trans>Others</Trans> : resolveSourceName(source)}
             </span>
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white">
+            <span className="flex size-6 items-center justify-center rounded-full bg-white">
                 <AddIcon />
             </span>
         </motion.button>

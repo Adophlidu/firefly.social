@@ -48,7 +48,7 @@ export const LoadingBar = memo(function LoadingBar() {
     });
 
     return (
-        <div className="flex h-full w-full flex-col items-center justify-center gap-6">
+        <div className="flex size-full flex-col items-center justify-center gap-6">
             <div className="h-[22px] w-[240px] overflow-hidden border-2 border-[#5E69FF]">
                 <div
                     className="relative h-full bg-[#5E69FF]"
@@ -60,7 +60,7 @@ export const LoadingBar = memo(function LoadingBar() {
                     {spinSpanPositions.map((pos, index) => (
                         <span
                             key={index}
-                            className="absolute inline-block h-0.5 w-0.5 bg-white"
+                            className="absolute inline-block size-0.5 bg-white"
                             style={{
                                 right: pos.right,
                                 top: pos.top,

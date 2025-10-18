@@ -166,7 +166,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 >
                     {posts.length > 1 && loading ? (
                         <span
-                            className="absolute left-0 top-0 z-10 h-full w-full bg-white/50 duration-100 dark:bg-black/50"
+                            className="absolute left-0 top-0 z-10 size-full bg-white/50 duration-100 dark:bg-black/50"
                             style={{
                                 transform: `scaleX(${percentage})`,
                                 transformOrigin: 'left',

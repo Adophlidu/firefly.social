@@ -122,7 +122,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                 }}
                             >
                                 <SearchIcon width={18} height={18} className="shrink-0" />
-                                <span className="color-main ml-4 flex-grow truncate py-2">{record}</span>
+                                <span className="color-main ml-4 grow truncate py-2">{record}</span>
                             </Link>
                             <ClearButton
                                 size={16}

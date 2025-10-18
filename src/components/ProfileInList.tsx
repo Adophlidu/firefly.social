@@ -47,7 +47,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
         return (
             <div className="flex-start flex cursor-not-allowed gap-3 overflow-auto border-b border-secondaryLine p-3 hover:bg-bg dark:border-line">
                 <SocialSourceIcon size={isMedium ? 40 : 44} className="rounded-full border" source={profile.source} />
-                <div className="flex min-w-0 flex-grow flex-col justify-center">
+                <div className="flex min-w-0 grow flex-col justify-center">
                     <span className="truncate text-lg font-bold leading-6">
                         <Trans>Undefined user</Trans>
                     </span>
@@ -71,7 +71,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                     alt={profile.displayName}
                 />
             </Link>
-            <div className="min-w-0 flex-grow">
+            <div className="min-w-0 grow">
                 <div className="flex-start flex gap-3">
                     <div className="flex-start flex flex-1 flex-col overflow-auto">
                         <p className="flex items-center gap-2 text-sm font-bold leading-5">

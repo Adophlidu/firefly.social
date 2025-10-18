@@ -15,7 +15,7 @@ export function SourceTabs({ className, children }: PropsWithChildren<HTMLProps<
                 className,
             )}
         >
-            <nav className="no-scrollbar flex min-w-0 flex-grow gap-3 overflow-x-auto text-xl" aria-label="Tabs">
+            <nav className="no-scrollbar flex min-w-0 grow gap-3 overflow-x-auto text-xl" aria-label="Tabs">
                 {children}
             </nav>
         </div>

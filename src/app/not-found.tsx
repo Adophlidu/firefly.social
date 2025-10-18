@@ -24,7 +24,7 @@ export default async function NotFound() {
 
     return (
         <>
-            <BaseNotFound className="min-h-[100vh] flex-grow md:pl-[235px] lg:pl-[289px]">
+            <BaseNotFound className="min-h-screen grow md:pl-[235px] lg:pl-[289px]">
                 <div className="mt-11 text-sm font-bold">
                     <Trans>The page could not be found.</Trans>
                 </div>
@@ -32,7 +32,7 @@ export default async function NotFound() {
                     <Trans>Back to home</Trans>
                 </Link>
             </BaseNotFound>
-            <aside className="sticky top-0 z-[1] hidden h-screen w-96 flex-col gap-4 px-4 md:min-w-[384px] lg:flex">
+            <aside className="sticky top-0 z-1 hidden h-screen w-96 flex-col gap-4 px-4 md:min-w-[384px] lg:flex">
                 <IfPathname isNotOneOf={[PageRoute.Settings]}>
                     <AsideSearchBar />
                 </IfPathname>

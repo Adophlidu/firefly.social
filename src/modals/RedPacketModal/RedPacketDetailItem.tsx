@@ -142,7 +142,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                         }}
                     />
                     <div className="light flex justify-between">
-                        <div className="min-w-0 flex-grow">
+                        <div className="min-w-0 grow">
                             <div className="flex w-full">
                                 <TextOverflowTooltip content={message} className="break-all">
                                     <div

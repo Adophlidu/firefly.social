@@ -45,7 +45,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
     if (post.isTruthSocial && post.retruthed) {
         return (
             <div className="mb-3 flex w-full items-center space-x-2 text-medium text-secondary">
-                <MirrorIcon width={16} height={16} className="flex-shrink-0" />
+                <MirrorIcon width={16} height={16} className="shrink-0" />
                 <Link href={getProfileUrl(post.author)} className="flex min-w-0 space-x-1">
                     {isSameProfile(post.author, currentProfile) ? (
                         <Trans>
@@ -65,7 +65,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
         <ClickableArea className="w-full">
             {post.type === 'Mirror' && post.reporter && !isPostPage ? (
                 <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
-                    <MirrorIcon width={16} height={16} className="flex-shrink-0" />
+                    <MirrorIcon width={16} height={16} className="shrink-0" />
                     <Link href={getProfileUrl(post.reporter)} className="flex min-w-0 space-x-1">
                         {isSameProfile(post.reporter, currentProfile) ? (
                             <Trans>
@@ -74,7 +74,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
                         ) : (
                             <Trans>
                                 <strong className="truncate">{post.reporter.displayName}</strong>
-                                <span className="flex-shrink-0">reposted</span>
+                                <span className="shrink-0">reposted</span>
                             </Trans>
                         )}
                     </Link>

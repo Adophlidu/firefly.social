@@ -86,13 +86,13 @@ export const ComposeImages = memo(function ComposeImages({ images, readonly = fa
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                            className="h-full w-full shrink-0 cursor-pointer rounded-lg object-cover"
+                            className="size-full shrink-0 cursor-pointer rounded-lg object-cover"
                             loading="lazy"
                             src={formatImageUrl(uri, IMAGE_KIT_ATTACHMENT)}
                             alt={formatImageUrl(uri, IMAGE_KIT_ATTACHMENT)}
                         />
                         {isLast && moreImageCount > 0 ? (
-                            <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center rounded-lg bg-mainLight/50 text-white">
+                            <div className="absolute right-0 top-0 flex size-full items-center justify-center rounded-lg bg-mainLight/50 text-white">
                                 <div className={'text-2xl font-bold'}>+{moreImageCount + 1}</div>
                             </div>
                         ) : null}

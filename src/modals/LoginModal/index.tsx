@@ -94,7 +94,7 @@ export function LoginModal({ ref }: Props) {
 
     return (
         <Modal open={open} onClose={() => dispatch?.close()} enableBackdrop={isMedium}>
-            <div className="max-md:h-[100vh] max-md:w-[100vw]">{Router}</div>
+            <div className="max-md:h-screen max-md:w-screen">{Router}</div>
         </Modal>
     );
 }

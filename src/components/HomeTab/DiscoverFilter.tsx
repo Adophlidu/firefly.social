@@ -119,7 +119,7 @@ export function DiscoverFilter({ tab }: Props) {
                         className="z-50 origin-top-right !overflow-visible font-normal outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
                         onMouseLeave={() => close()}
                     >
-                        <div className="w-full -translate-y-5 transform pt-5">
+                        <div className="w-full -translate-y-5 pt-5">
                             <div className="flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom py-3 shadow-messageShadow">
                                 <MenuItem key="all">
                                     <a

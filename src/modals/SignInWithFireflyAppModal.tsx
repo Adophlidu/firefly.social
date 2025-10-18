@@ -49,7 +49,7 @@ export const SignInWithFireflyAppModal = memo(function SignInWithFireflyAppModal
 
     return (
         <Modal onClose={onClose} open={open}>
-            <div className="transform rounded-[12px] bg-primaryBottom text-second transition-all max-md:h-full md:w-[500px]">
+            <div className="rounded-[12px] bg-primaryBottom text-second transition-all max-md:h-full md:w-[500px]">
                 <Header onClose={onClose} />
                 <div className="flex w-full flex-col items-center space-y-3 px-6 pb-6 text-xs">
                     <Content enabled={open} onClose={onClose} />
@@ -66,7 +66,7 @@ function Header({ onClose }: { onClose: () => void }) {
             <h3 className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                 <Trans>Sign in with Firefly App</Trans>
             </h3>
-            <div className="relative h-6 w-6" />
+            <div className="relative size-6" />
         </div>
     );
 }

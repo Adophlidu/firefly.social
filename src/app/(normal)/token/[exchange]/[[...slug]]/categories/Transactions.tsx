@@ -125,7 +125,7 @@ export const Transactions = memo<Props>(function Transactions({
             </div>
             <Suspense
                 fallback={
-                    <div className="flex flex-grow flex-col">
+                    <div className="flex grow flex-col">
                         <TokenPageLoading />
                     </div>
                 }

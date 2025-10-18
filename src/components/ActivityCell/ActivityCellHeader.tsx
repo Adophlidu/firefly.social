@@ -30,7 +30,7 @@ export function ActivityCellHeader({
 
     return (
         <header className={classNames('flex items-start gap-3', className)} {...rest}>
-            <div className="flex flex-1 flex-grow flex-row items-center overflow-hidden text-ellipsis whitespace-nowrap text-[15px] leading-6 max-md:max-w-[calc(100%_-_56px)]">
+            <div className="flex flex-1 grow flex-row items-center truncate text-[15px] leading-6 max-md:max-w-[calc(100%_-_56px)]">
                 <Link
                     href={authorUrl}
                     onClick={stopPropagation}

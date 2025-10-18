@@ -19,7 +19,7 @@ export default memo(function HistoryView() {
     const { account } = useChainContext({ networkType });
 
     return (
-        <div className="flex flex-1 flex-grow flex-col bg-primaryBottom px-4 py-2">
+        <div className="flex flex-1 grow flex-col bg-primaryBottom px-4 py-2">
             <div className="flex gap-2">
                 <Tabs value={historyType} onChange={setHistoryType} variant="solid" className="self-start">
                     <Tab value={FireflyRedPacketAPI.ActionType.Claim} key="claimed">
@@ -32,7 +32,7 @@ export default memo(function HistoryView() {
                 <TypeTabs />
             </div>
 
-            <div className="no-scrollbar box-border flex flex-grow flex-col gap-1 overflow-auto p-3">
+            <div className="no-scrollbar box-border flex grow flex-col gap-1 overflow-auto p-3">
                 <Suspense fallback={<Loading className="!min-h-52" />}>
                     {networkType === NetworkType.Solana ? (
                         <SolanaHistoryList address={account} historyType={historyType} />

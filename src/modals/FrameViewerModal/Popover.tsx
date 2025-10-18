@@ -49,7 +49,7 @@ export const Popover = memo(function Popover({ frame, open, onClose, title, cont
                     leaveFrom="translate-y-0"
                     leaveTo="translate-y-full"
                 >
-                    <div className="relative z-10 max-h-[600px] w-full rounded-tl-xl rounded-tr-xl bg-lightBottom dark:bg-darkBottom">
+                    <div className="relative z-10 max-h-[600px] w-full rounded-t-xl bg-lightBottom dark:bg-darkBottom">
                         <div className="flex items-center border-b border-line p-3">
                             {frame?.button.action.splashImageUrl ? (
                                 <Image

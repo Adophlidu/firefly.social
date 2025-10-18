@@ -60,7 +60,7 @@ export function AddWalletModal({ ref }: Props) {
 
     return (
         <Modal open={open} onClose={closeModal}>
-            <div className="h-[212px] transform rounded-[12px] bg-primaryBottom transition-all">
+            <div className="h-[212px] rounded-[12px] bg-primaryBottom transition-all">
                 <div
                     className="relative inline-flex items-center justify-center gap-2 rounded-t-[12px] p-4 text-center md:h-[56px] md:w-[600px]"
                     style={{ background: 'var(--m-modal-title-bg)' }}

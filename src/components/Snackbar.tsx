@@ -250,27 +250,27 @@ const variantClasses: Record<SnackbarVariant, string> = {
 
 const variantIcons: Record<SnackbarVariant, JSX.Element> = {
     default: (
-        <div className="flex h-6 w-6 items-center justify-center rounded-full">
+        <div className="flex size-6 items-center justify-center rounded-full">
             <InformationCircleIcon width={24} height={24} />
         </div>
     ),
     success: (
-        <div className="flex h-6 w-6 items-center justify-center rounded-full">
+        <div className="flex size-6 items-center justify-center rounded-full">
             <CheckCircleIcon width={24} height={24} />
         </div>
     ),
     error: (
-        <div className="flex h-6 w-6 items-center justify-center rounded-full">
+        <div className="flex size-6 items-center justify-center rounded-full">
             <XCircleIcon width={24} height={24} />
         </div>
     ),
     warning: (
-        <div className="flex h-6 w-6 items-center justify-center rounded-full">
+        <div className="flex size-6 items-center justify-center rounded-full">
             <ExclamationCircleIcon width={24} height={24} />
         </div>
     ),
     info: (
-        <div className="flex h-6 w-6 items-center justify-center rounded-full">
+        <div className="flex size-6 items-center justify-center rounded-full">
             <InformationCircleIcon width={24} height={24} />
         </div>
     ),

@@ -75,7 +75,7 @@ export default function Wallet() {
     return (
         <SelectPrivyWalletGuard>
             {env.external.NEXT_PUBLIC_FIREFLY_WALLET_IFRAME === STATUS.Enabled ? (
-                <iframe src="https://firefly.social/wallet-iframe" className="h-full w-full" />
+                <iframe src="https://firefly.social/wallet-iframe" className="size-full" />
             ) : (
                 <FireflyWallet />
             )}

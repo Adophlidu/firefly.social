@@ -18,7 +18,7 @@ export function SocialAvatarSelector({ profiles, onSelect }: SocialAvatarSelecto
         <Popover as="div">
             {({ close }) => (
                 <>
-                    <PopoverButton className="absolute bottom-0.5 right-1.5 h-7 w-7 rounded-full border-2 border-white bg-[#5E69FF]">
+                    <PopoverButton className="absolute bottom-0.5 right-1.5 size-7 rounded-full border-2 border-white bg-[#5E69FF]">
                         <SwitchAvatar width={24} height={24} />
                     </PopoverButton>
                     <Transition
@@ -60,7 +60,7 @@ export function SocialAvatarSelector({ profiles, onSelect }: SocialAvatarSelecto
                                                 source={profile.source}
                                             />
                                         )}
-                                        <span className="min-w-0 flex-1 truncate text-left text-sm font-semibold text-[#181818]">
+                                        <span className="min-w-0 flex-1 truncate text-left text-sm font-semibold text-lightTextMain">
                                             @{profile.handle || '-'}
                                         </span>
                                     </ClickableButton>

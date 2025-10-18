@@ -15,7 +15,7 @@ function getItemContent(gif: IGif, onSelected: (gif: IGif) => void) {
             <Image
                 width={160}
                 height={160}
-                className="h-full w-full object-cover"
+                className="size-full object-cover"
                 src={gif.images.preview_gif.url}
                 alt={gif.title}
             />

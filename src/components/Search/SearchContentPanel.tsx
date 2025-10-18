@@ -135,7 +135,7 @@ export function SearchContentPanel<T, F = void>({
     }, [data, selectedIndex]);
 
     return (
-        <div className="flex h-full w-full flex-col">
+        <div className="flex size-full flex-col">
             <div className="flex items-center gap-2.5">
                 {showFilter && filterProps ? (
                     <FilterPopover
