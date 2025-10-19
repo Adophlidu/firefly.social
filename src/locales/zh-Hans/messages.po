@@ -144,8 +144,8 @@ msgstr "发送打赏"
 msgid "Your post was sent to {0}."
 msgstr "你的帖子已发布至{0}。"
 
-#. placeholder {0}: channel.name
 #. placeholder {0}: channel.id
+#. placeholder {0}: channel.name
 msgid "Mute /{0}"
 msgstr "隐藏 /{0}"
 
@@ -580,8 +580,8 @@ msgstr "<0>卖出投注</0><1>价值 ${0}于 Polymarket </1>"
 msgid "Transactions"
 msgstr "交易记录"
 
-#. placeholder {0}: profile.source
 #. placeholder {0}: post.source
+#. placeholder {0}: profile.source
 msgid "Report submitted on {0}"
 msgstr "举报已提交 {0}"
 
@@ -1257,8 +1257,8 @@ msgstr "跌幅榜"
 msgid "Profile details"
 msgstr "个人资料详情"
 
-#. placeholder {0}: dayjs(create_time * 1000).format('MM/DD/YYYY HH:mm')
 #. placeholder {0}: dayjs(Number.parseInt(received_time, 10) * 1000).format( 'MM/DD/YYYY HH:mm', )
+#. placeholder {0}: dayjs(create_time * 1000).format('MM/DD/YYYY HH:mm')
 msgid "{0} (UTC+8)"
 msgstr "{0} (UTC+8)"
 
@@ -2126,8 +2126,8 @@ msgstr "网站"
 msgid "Your TG account is now connected"
 msgstr "您的 TG 账户已绑定"
 
-#. placeholder {0}: profile.handle
 #. placeholder {0}: article.title
+#. placeholder {0}: profile.handle
 msgid "Failed to report @{0}."
 msgstr "举报 @{0} 失败。"
 
@@ -2493,8 +2493,8 @@ msgstr "关注我"
 msgid "Quality filter"
 msgstr "质量筛选"
 
-#. placeholder {0}: resolveSourceName(source)
 #. placeholder {0}: resolveSourceName(post.source)
+#. placeholder {0}: resolveSourceName(source)
 msgid "Connect to {0}"
 msgstr "连接到 {0}"
 
@@ -2703,8 +2703,8 @@ msgstr "通用"
 msgid "Show more tokens"
 msgstr "展示更多代币"
 
-#. placeholder {0}: leftShift(trade.size, 6).toFixed(1)
 #. placeholder {0}: formatPolymarketNumber(positionData.shares, { prefix: null })
+#. placeholder {0}: leftShift(trade.size, 6).toFixed(1)
 msgid "{0} shares"
 msgstr ""
 
@@ -2909,8 +2909,8 @@ msgstr "查看互动"
 
 #. placeholder {0}: token.amount ? formatTokenItemAmount(token.amount) : '-'
 #. placeholder {0}: token.balance || '0'
-#. placeholder {1}: token.symbol?.toUpperCase()
 #. placeholder {1}: token.symbol || '-'
+#. placeholder {1}: token.symbol?.toUpperCase()
 msgid "Balance: {0} {1}"
 msgstr "余额： {0} {1}"
 
@@ -2949,9 +2949,9 @@ msgstr "价格"
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
 
+#. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Lens)
-#. placeholder {0}: resolveSourceName(Source.Twitter)
 msgid "{0} muted users"
 msgstr "{0} 已隐藏用户"
 
@@ -4016,9 +4016,9 @@ msgstr "你可以设置一个或多个规则，作为领取红包的条件。"
 msgid "{0} {1} <0>24H Vol</0>"
 msgstr ""
 
-#. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Bsky)
-#. placeholder {0}: resolveSourceName(account.profile.source)
+#. placeholder {0}: resolveSourceName(Source.Farcaster)
+#. placeholder {0}: resolveSourceName(Source.Lens)
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 账号已连接。"
 
@@ -4515,8 +4515,8 @@ msgid "GIF"
 msgstr "GIF"
 
 #. placeholder {0}: market_cap ? `$${formatMarketCap(market_cap)}` : '-'
-#. placeholder {1}: rank ? ( <span className="inline-flex h-[14px] items-center text-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
 #. placeholder {1}: rank ? ( <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
+#. placeholder {1}: rank ? ( <span className="inline-flex h-[14px] items-center text-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
 msgid "<0>{0}</0><1>MC</1>{1}"
 msgstr "<0>{0}</0><1>市值</1>{1}"
 
