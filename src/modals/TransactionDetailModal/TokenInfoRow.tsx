@@ -60,7 +60,7 @@ export function TokenInfoRow({
             {label ? (
                 <div
                     className={classNames(
-                        'text-left text-[14px] font-medium leading-[20px] text-secondary',
+                        'text-left text-[14px] font-medium leading-5 text-secondary',
                         showLabelMarginTop ? 'mt-3' : undefined,
                     )}
                 >

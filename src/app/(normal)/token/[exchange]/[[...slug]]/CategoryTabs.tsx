@@ -43,7 +43,7 @@ export const CategoryTabs = memo<Props>(function CategoryTabs({ token, ...rest }
         <SourceTabs {...rest}>
             {categories.map((x) => (
                 <SourceTab
-                    className="whitespace-nowrap text-base md:!h-[45px] md:!px-4 md:!py-[10px]"
+                    className="whitespace-nowrap text-base md:!h-[45px] md:!px-4 md:!py-2.5"
                     key={x}
                     href={resolveTab(pathname, x, search)}
                     isActive={x === category}

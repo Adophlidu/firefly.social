@@ -139,7 +139,7 @@ export function SuggestedFollowsCard() {
                     </span>
                 }
                 more={
-                    <Link href={showMoreUrl} className="text-[15px] text-highlight">
+                    <Link href={showMoreUrl} className="text-medium text-highlight">
                         <Trans>More</Trans>
                     </Link>
                 }

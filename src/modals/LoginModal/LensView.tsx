@@ -157,7 +157,7 @@ export const LensView = memo(function LensView() {
                 }}
             >
                 <OrbIcon />
-                <div className="flex flex-1 flex-col text-left text-[14px] leading-[20px] text-main">
+                <div className="flex flex-1 flex-col text-left text-[14px] leading-5 text-main">
                     <span>
                         <Trans>Orb Mobile</Trans>
                     </span>
@@ -204,7 +204,7 @@ export const LensView = memo(function LensView() {
                                         enableSourceIcon={false}
                                     />
 
-                                    <div className="flex flex-1 flex-col text-left text-[14px] leading-[20px]">
+                                    <div className="flex flex-1 flex-col text-left text-[14px] leading-5">
                                         <span className="font-bold text-main">{profile.displayName}</span>
                                         <span className="text-second">@{profile.handle}</span>
                                     </div>

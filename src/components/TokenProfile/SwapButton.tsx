@@ -73,7 +73,7 @@ export function SwapButton({ className, swapProps: swapFromProps, loginRequired 
     return (
         <ClickableButton
             className={classNames(
-                'ml-auto gap-[10px] rounded-full bg-main px-5 py-2 text-[15px] leading-4 text-primaryBottom',
+                'ml-auto gap-2.5 rounded-full bg-main px-5 py-2 text-medium leading-4 text-primaryBottom',
                 className,
             )}
             disabled={loading}

@@ -170,7 +170,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
                 )}
             </div>
             <div className="my-2 cursor-pointer text-fourMain" onClick={handleUpdate}>
-                <div className="line-clamp-5 min-h-[24px] break-words text-left text-medium leading-[24px]">
+                <div className="line-clamp-5 min-h-[24px] break-words text-left text-medium leading-6">
                     {content}
                     {mediaTypes?.length ? (
                         <span>
@@ -189,7 +189,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
                         <SocialSourceIcon key={index} source={resolveSocialSource(platform)} size={20} />
                     ))}
                 </span>
-                <span className="text-[13px] font-medium leading-[24px] text-secondary">
+                <span className="text-[13px] font-medium leading-6 text-secondary">
                     {isFailed ? (
                         <Trans>
                             Saved on {dayjs(createdAt).format('ddd, MMM DD, YYYY')} at{' '}

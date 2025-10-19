@@ -192,7 +192,7 @@ function ComposeModalUI({ ref }: Props) {
                     <Trans>Save Post?</Trans>
                 ),
                 content: (
-                    <div className="text-[15px] text-main md:text-base">
+                    <div className="text-medium text-main md:text-base">
                         {isAnonymous ? (
                             <Trans>Content will be lost when leaving this page in anonymous mode.</Trans>
                         ) : hasError ? (

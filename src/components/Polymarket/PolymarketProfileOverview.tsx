@@ -110,7 +110,7 @@ export function PolymarketProfileOverview({ data, address }: PolymarketProfileOv
                     {tags.map((tag, i) => (
                         <span
                             key={i}
-                            className="h-[26px] rounded-full border border-line px-3 text-xs font-medium !leading-[24px] text-main"
+                            className="h-[26px] rounded-full border border-line px-3 text-xs font-medium !leading-6 text-main"
                         >
                             {tag}
                         </span>

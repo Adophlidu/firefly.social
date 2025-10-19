@@ -50,7 +50,7 @@ export function ConfirmSyncSessionModal({ ref }: Props) {
                     </div>
                 </div>
                 <div className="flex flex-1 flex-col gap-6 px-6 pb-[6px] pt-0">
-                    <div className="text-center text-[15px] leading-[18px] text-second">
+                    <div className="text-center text-medium leading-[18px] text-second">
                         <Trans>We&apos;ve detected logins available for sync.</Trans>
                     </div>
                 </div>

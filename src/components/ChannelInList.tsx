@@ -73,7 +73,7 @@ export const ChannelInList = memo(function ChannelInList({
                 }}
                 href={getChannelUrl(channel)}
             >
-                <div className="mr-[10px] shrink-0 self-start">
+                <div className="mr-2.5 shrink-0 self-start">
                     <ChannelTippy channel={channel}>
                         {!channel.imageUrl && showSourceAvatarWhenNoAvatar ? (
                             <SocialSourceIcon className="rounded-full" source={channel.source} size={avatarSize} />
@@ -95,16 +95,16 @@ export const ChannelInList = memo(function ChannelInList({
                         </ChannelTippy>
                         <SocialSourceIcon mono source={channel.source} size={16} className="shrink-0 text-secondary" />
                     </div>
-                    <div className="flex items-center gap-2 text-medium text-sm leading-[24px] text-secondary">
+                    <div className="flex items-center gap-2 text-medium text-sm leading-6 text-secondary">
                         <ChannelTippy channel={channel}>
                             {isLens || isBsky ? (
                                 channel.lead?.handle ? (
-                                    <p className="truncate text-[15px] leading-[22px]">
+                                    <p className="truncate text-medium leading-[22px]">
                                         <Trans>By @{channel.lead.handle}</Trans>
                                     </p>
                                 ) : null
                             ) : (
-                                <p className="truncate text-[15px] leading-[22px]">/{channel.id}</p>
+                                <p className="truncate text-medium leading-[22px]">/{channel.id}</p>
                             )}
                         </ChannelTippy>
                         {isLens ? null : (

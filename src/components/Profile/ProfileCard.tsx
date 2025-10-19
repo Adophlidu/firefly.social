@@ -51,7 +51,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
         return (
             <div className="h-[182px] w-[350px] rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
                 <div className="animate-pulse">
-                    <div className="flex w-full gap-[10px]">
+                    <div className="flex w-full gap-2.5">
                         <div className="size-20 rounded-full bg-third" />
                         <div className="flex flex-1 flex-col justify-between">
                             <div className="h-3 w-[120px] rounded bg-third" />
@@ -74,7 +74,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
 
     return (
         <ClickableArea className="flex w-[350px] flex-col gap-y-3 rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
-            <div className="flex gap-[10px]">
+            <div className="flex gap-2.5">
                 <Link href={url}>
                     <Avatar src={profile.pfp} alt="avatar" size={80} className="size-20 cursor-pointer rounded-full" />
                 </Link>

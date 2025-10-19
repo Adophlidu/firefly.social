@@ -30,7 +30,7 @@ export function EventList({ date }: EventListProps) {
 
     if (isLoading) {
         return (
-            <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll">
+            <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-2.5 overflow-y-scroll">
                 <div className="pt-3">
                     <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-3 whitespace-nowrap text-second">
                         <Loading />
@@ -42,7 +42,7 @@ export function EventList({ date }: EventListProps) {
 
     if (!data.length) {
         return (
-            <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll">
+            <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-2.5 overflow-y-scroll">
                 <div className="pt-3">
                     <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-3 whitespace-nowrap text-second">
                         <EmptyStatus>
@@ -56,7 +56,7 @@ export function EventList({ date }: EventListProps) {
 
     return (
         <div
-            className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll overscroll-contain"
+            className="no-scrollbar relative flex h-[506px] w-full flex-col gap-2.5 overflow-y-scroll overscroll-contain"
             ref={listRef}
         >
             <div className="pt-3">

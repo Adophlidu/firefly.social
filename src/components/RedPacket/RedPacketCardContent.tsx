@@ -223,7 +223,7 @@ export function RedPacketCardContent({ payload, post }: Props) {
                                 {payload.sender.message}
                             </div>
                             <Tooltip content={senderName === `@${originSenderName}` ? '' : originSenderName}>
-                                <div className="text-[15px] opacity-80">{senderName}</div>
+                                <div className="text-medium opacity-80">{senderName}</div>
                             </Tooltip>
                         </div>
 

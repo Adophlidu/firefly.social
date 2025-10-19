@@ -72,7 +72,7 @@ export const ToggleEnableButton = memo<ToggleEnableButtonProps>(function ToggleE
         <span className="relative" ref={spanRef}>
             <SourceTab
                 className={classNames(
-                    'relative block whitespace-nowrap text-base md:!h-[45px] md:!py-[10px]',
+                    'relative block whitespace-nowrap text-base md:!h-[45px] md:!py-2.5',
                     className,
                     inProfile ? '!px-3 font-extrabold' : 'md:!px-4',
                 )}

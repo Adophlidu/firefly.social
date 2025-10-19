@@ -279,7 +279,7 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: <Trans>Your vote is in!</Trans>,
                 content: (
-                    <div className="mb-2 text-center text-[15px] leading-[18px] text-secondary">
+                    <div className="mb-2 text-center text-medium leading-[18px] text-secondary">
                         <Trans>
                             Create a post to tell everyone about your participation. Votes can be changed while the
                             proposal is active.

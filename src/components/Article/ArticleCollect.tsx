@@ -145,7 +145,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
     if (!paramsLoading && (!collectParams || collectParams.chainId === 0)) {
         return (
             <div className="flex h-[198px] w-full items-center justify-center">
-                <div className="text-[14px] leading-[24px] text-secondary">
+                <div className="text-[14px] leading-6 text-secondary">
                     <Trans>This article is no longer available</Trans>
                 </div>
             </div>

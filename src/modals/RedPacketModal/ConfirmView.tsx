@@ -427,7 +427,7 @@ export default memo(function ConfirmView() {
 
                 <div className="flex max-w-[568px] gap-x-[6px] rounded-[4px] bg-bg p-3">
                     <InfoIcon width={20} height={20} />
-                    <div className="flex flex-col gap-[10px] text-start text-[13px] leading-[18px]">
+                    <div className="flex flex-col gap-2.5 text-start text-[13px] leading-[18px]">
                         <div>
                             <Trans>
                                 You can withdraw any unclaimed amount 24 hours after creating this lucky drop.

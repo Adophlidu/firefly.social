@@ -93,10 +93,10 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
                     ) : null}
                 </div>
                 <div className="flex gap-2">
-                    {showSymbol ? <div className="text-sm leading-[20px] text-second">{token.symbol}</div> : null}
+                    {showSymbol ? <div className="text-sm leading-5 text-second">{token.symbol}</div> : null}
                     {token.address && !isCex ? (
                         <span
-                            className={classNames('truncate text-sm leading-[20px] text-third', bedStead.className)}
+                            className={classNames('truncate text-sm leading-5 text-third', bedStead.className)}
                             title={token.address}
                         >
                             {formatTokenAddress(token.address)}

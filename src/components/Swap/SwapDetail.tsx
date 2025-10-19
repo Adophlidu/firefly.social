@@ -113,7 +113,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                         <Trans>
                             <div className="flex items-center gap-x-1 rounded-lg border border-main px-2 text-main">
                                 <ExchangeIcon className="size-3" />
-                                <span className="text-[15px] leading-6">
+                                <span className="text-medium leading-6">
                                     {isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>}
                                 </span>
                             </div>
@@ -163,11 +163,11 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                                 )}
                                 <div className="flex flex-1 flex-col">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-base font-medium leading-[20px] text-lightMain">
+                                        <span className="text-base font-medium leading-5 text-lightMain">
                                             {activity.from_token.name}
                                         </span>
                                         {activity.from_token.amount_num ? (
-                                            <span className="text-base leading-[20px]">
+                                            <span className="text-base leading-5">
                                                 - {renderShrankPrice(formatPrice(activity.from_token.amount_num) ?? '')}
                                             </span>
                                         ) : null}
@@ -210,11 +210,11 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                                 )}
                                 <div className="flex flex-1 flex-col">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-base font-medium leading-[20px] text-lightMain">
+                                        <span className="text-base font-medium leading-5 text-lightMain">
                                             {activity.to_token.name}
                                         </span>
                                         {activity.to_token.amount_num ? (
-                                            <span className="text-base leading-[20px] text-success">
+                                            <span className="text-base leading-5 text-success">
                                                 + {renderShrankPrice(formatPrice(activity.to_token.amount_num) ?? '')}
                                             </span>
                                         ) : null}

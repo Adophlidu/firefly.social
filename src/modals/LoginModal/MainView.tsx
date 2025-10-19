@@ -396,7 +396,7 @@ export function MainView() {
                         ) : (
                             <FireflyLoginButton />
                         )}
-                        <div className="my-2 text-left text-[15px] font-medium leading-[15px]">
+                        <div className="my-2 text-left text-medium font-medium leading-[15px]">
                             <Trans>Social accounts</Trans>
                         </div>
                         <div className="flex flex-col gap-2">
@@ -474,7 +474,7 @@ export function MainView() {
                             })}
                         </div>
 
-                        <div className="my-2 text-left text-[15px] font-medium leading-[15px]">
+                        <div className="my-2 text-left text-medium font-medium leading-[15px]">
                             <Trans>Other accounts</Trans>
                         </div>
                     </>

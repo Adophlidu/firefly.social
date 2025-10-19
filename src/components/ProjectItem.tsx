@@ -30,7 +30,7 @@ export const ProjectItem = memo<{ project: Project }>(function ProjectItem({
                         </div>
                     ))}
                 </div>
-                <div className="line-clamp-2 text-[15px] leading-[22px]">{one_liner}</div>
+                <div className="line-clamp-2 text-medium leading-[22px]">{one_liner}</div>
             </div>
         </Link>
     );

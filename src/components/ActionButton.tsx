@@ -20,7 +20,7 @@ export const ActionButton = memo<ActionButtonProps>(function ActionButton({
                 'flex w-full flex-1 items-center justify-center rounded-full py-2 font-bold',
                 {
                     'bg-main text-primaryBottom': variant === 'primary',
-                    'border border-main border-opacity-40 py-[10px] text-sm leading-[18px] text-fourMain':
+                    'border border-main border-opacity-40 py-2.5 text-sm leading-[18px] text-fourMain':
                         variant === 'secondary',
                     'bg-commonDanger text-lightBottom': variant === 'danger',
                 },

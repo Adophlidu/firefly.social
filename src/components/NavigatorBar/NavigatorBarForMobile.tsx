@@ -168,7 +168,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                             {isHomePage && isLogin ? (
                                 <HomeTabs onlyFilter buttonClass="!mx-auto" containerClass="justify-center h-[54px]" />
                             ) : profiles.length && title ? (
-                                <span className="text-[18px] font-bold leading-[24px]">{title}</span>
+                                <span className="text-[18px] font-bold leading-6">{title}</span>
                             ) : (
                                 <FireflyIcon
                                     className={classNames('relative', {

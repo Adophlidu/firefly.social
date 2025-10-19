@@ -26,7 +26,7 @@ export function SettingsHeader() {
                 </ClickableButton>
             </div>
             <h1 className="flex h-10 flex-1 items-center justify-center">
-                <span className="text-[18px] font-bold leading-[24px]">
+                <span className="text-[18px] font-bold leading-6">
                     <Trans>Settings</Trans>
                 </span>
             </h1>

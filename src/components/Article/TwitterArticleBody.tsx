@@ -36,7 +36,7 @@ export function TwitterArticleBody({ cover, title, content }: Props) {
                 />
             ) : null}
             <div
-                className={classNames('line-clamp-2 text-base font-bold leading-[20px]', {
+                className={classNames('line-clamp-2 text-base font-bold leading-5', {
                     'max-h-[40px]': IS_SAFARI && IS_APPLE,
                 })}
             >

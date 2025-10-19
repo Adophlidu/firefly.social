@@ -61,7 +61,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
                 />
             ) : null}
             <h1
-                className={classNames('line-clamp-2 text-left text-[18px] font-bold leading-[20px]', {
+                className={classNames('line-clamp-2 text-left text-[18px] font-bold leading-5', {
                     'max-h-[40px]': IS_SAFARI && IS_APPLE,
                 })}
             >

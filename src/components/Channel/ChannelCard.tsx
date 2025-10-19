@@ -35,7 +35,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
         return (
             <div className="w-[350px] rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
                 <div className="animate-pulse">
-                    <div className="flex w-full gap-[10px]">
+                    <div className="flex w-full gap-2.5">
                         <div className="size-20 rounded-full bg-third" />
                         <div className="flex flex-1 flex-col justify-between">
                             <div className="h-3 w-[120px] rounded bg-third" />
@@ -60,7 +60,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
 
     return (
         <div className="w-[350px] rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
-            <div className="flex gap-[10px]">
+            <div className="flex gap-2.5">
                 {channel.imageUrl ? (
                     <Avatar
                         src={channel.imageUrl}

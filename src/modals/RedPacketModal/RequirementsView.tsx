@@ -49,7 +49,7 @@ export default memo(function RequirementsView() {
             <div className="flex flex-1 flex-col gap-y-4 bg-primaryBottom px-4 py-2">
                 <div className="flex gap-x-[6px] rounded-[4px] bg-bg p-3">
                     <InfoIcon width={20} height={20} />
-                    <div className="flex flex-col gap-[10px] text-start text-[13px] leading-[18px]">
+                    <div className="flex flex-col gap-2.5 text-start text-[13px] leading-[18px]">
                         <div>
                             <Trans>You can set one or multiple rules to be eligible to win a Lucky Drop.</Trans>
                         </div>
@@ -169,7 +169,7 @@ export default memo(function RequirementsView() {
 
                 <div className="flex justify-end">
                     <div
-                        className="cursor-pointer text-base font-bold leading-[20px] text-highlight"
+                        className="cursor-pointer text-base font-bold leading-5 text-highlight"
                         onClick={() => {
                             setRules(EMPTY_LIST);
                             setRequireTokens(EMPTY_LIST);

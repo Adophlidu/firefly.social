@@ -25,7 +25,7 @@ export function RedPacketCard(props: Props) {
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-[6px]">
                     <RedPacketIcon width={24} height={24} />
-                    <strong className="text-base leading-[20px]">
+                    <strong className="text-base leading-5">
                         <Trans>Lucky Drop</Trans>
                     </strong>
                 </div>

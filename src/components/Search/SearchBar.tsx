@@ -80,7 +80,7 @@ function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchB
     return (
         <div
             className={classNames(
-                'hidden items-center pt-[10px] md:flex',
+                'hidden items-center pt-2.5 md:flex',
                 {
                     sticky: isExplorePage,
                 },
@@ -143,7 +143,7 @@ export function HeaderSearchBar() {
     const pathname = usePathname();
     const isSearchPage = isRoutePathname(pathname, PageRoute.Search);
     const isExplorePage = isRoutePathname(pathname, PageRoute.Explore);
-    return isSearchPage || isExplorePage ? <SearchBar slot="header" className="px-4 py-[10px]" /> : null;
+    return isSearchPage || isExplorePage ? <SearchBar slot="header" className="px-4 py-2.5" /> : null;
 }
 
 export function AsideSearchBar() {

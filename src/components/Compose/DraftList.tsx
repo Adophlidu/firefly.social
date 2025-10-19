@@ -116,9 +116,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                     handleApply(draft);
                 }}
             >
-                <div className="line-clamp-5 min-h-[24px] break-words text-left text-medium leading-[24px]">
-                    {content}
-                </div>
+                <div className="line-clamp-5 min-h-[24px] break-words text-left text-medium leading-6">{content}</div>
                 <div className="text-left">
                     {compact([
                         post?.images.length ? t`[Photo]` : undefined,
@@ -132,7 +130,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                 <span className="flex items-center gap-x-1 font-bold">
                     {post?.availableSources.map((y) => <SocialSourceIcon key={y} source={y} size={20} />)}
                 </span>
-                <span className="text-[13px] font-medium leading-[24px] text-secondary">
+                <span className="text-[13px] font-medium leading-6 text-secondary">
                     <Trans>Saved on {dayjs(draft.createdAt).format('ddd, MMM DD, YYYY [at] h:mm A')}</Trans>
                 </span>
             </div>

@@ -52,7 +52,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                         <Trans>Undefined user</Trans>
                     </span>
                     {profile.profileId ? (
-                        <span className="self-start text-[15px] leading-[22px] text-secondary">
+                        <span className="self-start text-medium leading-[22px] text-secondary">
                             ID: {profile.profileId}
                         </span>
                     ) : null}
@@ -88,7 +88,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                         <div className="flex items-center whitespace-nowrap">
                             {profile.handle ? (
                                 <Link
-                                    className="self-start truncate text-[15px] leading-[22px] text-secondary"
+                                    className="self-start truncate text-medium leading-[22px] text-secondary"
                                     href={profileUrl}
                                     onClick={handleClickOnLink}
                                     prefetch={false}
@@ -102,7 +102,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                                     <Link
                                         prefetch={false}
                                         href={getProfileUrl(profile, FollowCategory.Followers)}
-                                        className={classNames('gap-1 text-[15px] leading-[22px] hover:underline', {
+                                        className={classNames('gap-1 text-medium leading-[22px] hover:underline', {
                                             'pointer-events-none':
                                                 source !== Source.Farcaster && source !== Source.Lens,
                                         })}

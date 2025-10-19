@@ -170,7 +170,7 @@ export function RequirementsModal({
                             return (
                                 <div
                                     className={classNames(
-                                        'flex items-center gap-x-[10px] rounded-lg px-2 py-3 text-base leading-[18px]',
+                                        'flex items-center gap-x-2.5 rounded-lg px-2 py-3 text-base leading-[18px]',
                                         !isVerifying && status.result
                                             ? 'group-[.unclaimed]:bg-success/10 dark:group-[.unclaimed]:bg-success/20'
                                             : 'group-[.unclaimed]:bg-bg',
@@ -226,7 +226,7 @@ export function RequirementsModal({
                                     return (
                                         <div
                                             className={classNames(
-                                                'flex items-center gap-x-[10px] rounded-lg px-2 py-4 text-base leading-[18px]',
+                                                'flex items-center gap-x-2.5 rounded-lg px-2 py-4 text-base leading-[18px]',
                                                 !isVerifying && condition.value
                                                     ? 'group-[.unclaimed]:bg-success/10 dark:group-[.unclaimed]:bg-success/20'
                                                     : 'group-[.unclaimed]:bg-bg',
@@ -262,7 +262,7 @@ export function RequirementsModal({
                             return (
                                 <div
                                     className={classNames(
-                                        'flex items-center gap-x-[10px] rounded-lg px-2 py-4 text-base leading-[18px]',
+                                        'flex items-center gap-x-2.5 rounded-lg px-2 py-4 text-base leading-[18px]',
                                         !isVerifying && status.result.hasPassed
                                             ? 'group-[.unclaimed]:bg-success/10 dark:group-[.unclaimed]:bg-success/20'
                                             : 'group-[.unclaimed]:bg-bg',
@@ -295,7 +295,7 @@ export function RequirementsModal({
                             return (
                                 <div
                                     className={classNames(
-                                        'flex items-center gap-x-[10px] rounded-lg px-2 py-4 text-base leading-[18px]',
+                                        'flex items-center gap-x-2.5 rounded-lg px-2 py-4 text-base leading-[18px]',
                                         !isVerifying && status.result.hasPassed
                                             ? 'group-[.unclaimed]:bg-success/10 dark:group-[.unclaimed]:bg-success/20'
                                             : 'group-[.unclaimed]:bg-bg',
@@ -375,7 +375,7 @@ export function RequirementsModal({
                                 return (
                                     <div
                                         className={classNames(
-                                            'flex items-center gap-x-[10px] rounded-lg px-2 py-4 text-base leading-[18px]',
+                                            'flex items-center gap-x-2.5 rounded-lg px-2 py-4 text-base leading-[18px]',
                                             !isVerifying && status.result
                                                 ? 'group-[.unclaimed]:bg-success/10 dark:group-[.unclaimed]:bg-success/20'
                                                 : 'group-[.unclaimed]:bg-bg',
@@ -412,7 +412,7 @@ export function RequirementsModal({
                                 return (
                                     <div
                                         className={classNames(
-                                            'flex items-center gap-x-[10px] rounded-lg px-2 py-4 text-base leading-[18px]',
+                                            'flex items-center gap-x-2.5 rounded-lg px-2 py-4 text-base leading-[18px]',
                                             !isVerifying && status.result
                                                 ? 'group-[.unclaimed]:bg-success/10 dark:group-[.unclaimed]:bg-success/20'
                                                 : 'group-[.unclaimed]:bg-bg',

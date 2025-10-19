@@ -129,7 +129,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                             <Trans>
                                 <div className="flex items-center gap-x-1 rounded-lg border border-main px-2 text-main">
                                     <ExchangeIcon className="size-3" />
-                                    <span className="text-[15px] leading-6">
+                                    <span className="text-medium leading-6">
                                         {isCrossChain ? <Trans>Bridged</Trans> : <Trans>Swapped</Trans>}
                                     </span>
                                 </div>

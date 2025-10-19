@@ -128,7 +128,7 @@ function VideoContent({
                             }}
                         >
                             <div className="flex justify-between gap-5 px-3">
-                                <div className="flex flex-1 items-center gap-[10px]">
+                                <div className="flex flex-1 items-center gap-2.5">
                                     <Player.PlayPauseTrigger className="size-[25px]" onClick={onControlsClick}>
                                         <Player.PlayingIndicator asChild matcher={false}>
                                             <PlayIcon />

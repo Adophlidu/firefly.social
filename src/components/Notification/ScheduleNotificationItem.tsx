@@ -70,7 +70,7 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
                 <ScheduleIcon className="shrink-0 text-secondary" width={24} height={24} />
                 <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between">
-                        <div className="text-[15px] font-bold leading-4 text-main">
+                        <div className="text-medium font-bold leading-4 text-main">
                             <Trans>Scheduled Post</Trans>
                         </div>
                         <div className="flex items-center space-x-2">
@@ -83,14 +83,14 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
                         </div>
                     </div>
 
-                    <div className="mt-3 text-[15px] leading-4 text-main">{description}</div>
+                    <div className="mt-3 text-medium leading-4 text-main">{description}</div>
                     <div className="mt-3 rounded-2xl border border-line bg-bg p-3">
                         {data.status === ScheduleTaskStatus.Failed ? (
                             <div className="text-[12px] font-bold leading-4 text-danger">
                                 <Trans>Failed Post</Trans>
                             </div>
                         ) : null}
-                        <div className="line-clamp-5 break-words text-left text-medium leading-[24px]">
+                        <div className="line-clamp-5 break-words text-left text-medium leading-6">
                             {firstPost?.display_info?.content}
                             {firstPost?.display_info?.media_type?.length ? (
                                 <span>
