@@ -18,11 +18,11 @@ interface Props {
 function ArticlePlatformName({ platform }: { platform: ArticlePlatform }) {
     switch (platform) {
         case ArticlePlatform.Limo:
-            return <Trans>Limo</Trans>;
+            return 'Limo';
         case ArticlePlatform.Mirror:
-            return <Trans>Mirror</Trans>;
+            return 'Mirror';
         case ArticlePlatform.Paragraph:
-            return <Trans>Paragraph</Trans>;
+            return 'Paragraph';
         default:
             safeUnreachable(platform);
             return null;

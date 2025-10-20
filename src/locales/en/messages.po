@@ -946,9 +946,6 @@ msgstr "Sending"
 msgid "See details"
 msgstr "See details"
 
-msgid "Limo"
-msgstr "Limo"
-
 msgid "Functions with retrievable ownership"
 msgstr "Functions with retrievable ownership"
 
@@ -3042,9 +3039,6 @@ msgstr "Failed to update profile."
 msgid "Password cannot be a sequence or repeated digits. Please try again."
 msgstr "Password cannot be a sequence or repeated digits. Please try again."
 
-msgid "Paragraph"
-msgstr "Paragraph"
-
 msgid "Mute {handleOrEnsOrAddress}"
 msgstr "Mute {handleOrEnsOrAddress}"
 
@@ -4625,9 +4619,6 @@ msgstr "Text"
 
 msgid "Chain"
 msgstr "Chain"
-
-msgid "Mirror"
-msgstr "Mirror"
 
 msgid "Terms of Service"
 msgstr "Terms of Service"

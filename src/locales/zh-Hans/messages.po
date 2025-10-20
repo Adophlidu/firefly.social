@@ -951,9 +951,6 @@ msgstr "发送中"
 msgid "See details"
 msgstr "查看详情"
 
-msgid "Limo"
-msgstr "Limo"
-
 msgid "Functions with retrievable ownership"
 msgstr "具有可回收所有权的函数"
 
@@ -3047,9 +3044,6 @@ msgstr "更新个人资料失败。"
 msgid "Password cannot be a sequence or repeated digits. Please try again."
 msgstr "密码不能是连续或重复的数字。请重试。"
 
-msgid "Paragraph"
-msgstr "Paragraph"
-
 msgid "Mute {handleOrEnsOrAddress}"
 msgstr "隐藏 {handleOrEnsOrAddress}"
 
@@ -4632,9 +4626,6 @@ msgstr "文本"
 
 msgid "Chain"
 msgstr "链"
-
-msgid "Mirror"
-msgstr "转发"
 
 msgid "Terms of Service"
 msgstr "服务条款"

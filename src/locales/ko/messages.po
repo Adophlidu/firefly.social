@@ -951,9 +951,6 @@ msgstr ""
 msgid "See details"
 msgstr ""
 
-msgid "Limo"
-msgstr ""
-
 msgid "Functions with retrievable ownership"
 msgstr ""
 
@@ -3047,9 +3044,6 @@ msgstr ""
 msgid "Password cannot be a sequence or repeated digits. Please try again."
 msgstr ""
 
-msgid "Paragraph"
-msgstr ""
-
 msgid "Mute {handleOrEnsOrAddress}"
 msgstr ""
 
@@ -4629,9 +4623,6 @@ msgid "Text"
 msgstr ""
 
 msgid "Chain"
-msgstr ""
-
-msgid "Mirror"
 msgstr ""
 
 msgid "Terms of Service"
