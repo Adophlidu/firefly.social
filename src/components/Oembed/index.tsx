@@ -20,16 +20,12 @@ const OembedUI = memo<OembedUIProps>(function OembedUI({ og }) {
     );
 });
 
-export const OembedLayout = memo<{ data: LinkDigested; post?: Post; isInCompose?: boolean }>(
-    function OembedPayload(props) {
-        const {
-            data: { og },
-        } = props;
+export const OembedLayout = memo<{ data: LinkDigested }>(function OembedPayload(props) {
+    const { og } = props.data;
 
-        if (!og.title) return null;
-        return <OembedUI og={og} />;
-    },
-);
+    if (!og.title) return null;
+    return <OembedUI og={og} />;
+});
 
 interface OembedProps {
     post: Post;

@@ -67,7 +67,7 @@ export const SearchTabs = memo(function SearchTabs() {
                         )}
                         href={tab.link}
                     >
-                        <span className="px-2 sm:px-4">{tab.label}</span>
+                        <span className="px-2 md:px-4">{tab.label}</span>
                     </Link>
                 );
             })}

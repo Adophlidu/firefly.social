@@ -71,14 +71,12 @@ export function PostLinkContent({ data, url, post, isInCompose }: PostLinkConten
                 <Player html={data.html} isSpotify={isLinkMatchingHost(url, 'open.spotify.com', false)} />
             ) : null}
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
-            {data.oembed ? (
+            {data.oembed && !post.quoteOn ? (
                 <OembedLayout
                     data={{
                         ...data.oembed,
                         og: { ...data.oembed.og, isLarge: isLargeOembed ?? data.oembed.og.isLarge },
                     }}
-                    post={post}
-                    isInCompose={isInCompose}
                 />
             ) : null}
             {data.spaceId ? <TweetSpace spaceId={data.spaceId} /> : null}
