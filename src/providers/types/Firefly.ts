@@ -356,14 +356,15 @@ export type CommentsResponse = Response<{
     cursor: string;
 }>;
 
-export type UploadMediaTokenResponse = Response<{
+export interface S3ConnectionConfig {
     bucket: string;
     cdnHost: string;
     region: string;
     accessKeyId: string;
     secretAccessKey: string;
     sessionToken: string;
-}>;
+}
+export type UploadMediaTokenResponse = Response<S3ConnectionConfig>;
 
 export type FriendshipResponse = Response<{
     isFollowing: boolean;
