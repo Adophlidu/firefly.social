@@ -112,6 +112,7 @@ function FireflyAccountWithTitleUI({
                 }
               : null,
         true,
+        profile.uid,
     );
 
     return (
