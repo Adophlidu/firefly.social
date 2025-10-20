@@ -99,7 +99,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ..
                 </div>
                 <div className="flex">
                     <div className="flex flex-col gap-1">
-                        <div className="line-height-[22px] flex min-h-[22px] items-center gap-1">
+                        <div className="flex min-h-[22px] items-center gap-1 leading-[22px]">
                             {market_cap ? (
                                 <Trans>
                                     <strong className="text-2xl font-bold leading-[22px]">

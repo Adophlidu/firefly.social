@@ -132,7 +132,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                         <span className="max-md:text-sm">{dayjs(value).format('MMM D')}</span>
                     </div>
                     <DatePicker
-                        className="max-md:-top-[120px]"
+                        className="max-md:top-[-120px]"
                         open={datePickerOpen}
                         onToggle={setDatePickerOpen}
                         date={value}

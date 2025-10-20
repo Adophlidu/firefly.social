@@ -79,7 +79,7 @@ export function EventList({ date }: EventListProps) {
                                             height={24}
                                             alt={event.host_name}
                                         />
-                                        <p className="leading-16 text-xs font-bold">{event.host_name}</p>
+                                        <p className="text-xs font-bold leading-4">{event.host_name}</p>
                                     </div>
                                 </div>
                             ) : null}

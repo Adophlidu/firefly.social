@@ -247,7 +247,7 @@ export default function Page(props: Props) {
                     ) : null}
                     {frame ? (
                         <iframe
-                            className="scrollbar-hide absolute inset-0 z-0 size-full opacity-100"
+                            className="no-scrollbar absolute inset-0 z-0 size-full opacity-100"
                             ref={frameRef}
                             src={frame.button.action.url}
                             allow="clipboard-write 'src'"

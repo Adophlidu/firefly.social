@@ -76,7 +76,7 @@ export function SearchTokenContent() {
                         {tokens.length > 5 ? (
                             <div className="flex w-full items-center justify-center">
                                 <div
-                                    className="font-xs w-full cursor-pointer text-center text-xs font-bold leading-6 text-highlight"
+                                    className="w-full cursor-pointer text-center text-xs font-bold leading-6 text-highlight"
                                     onClick={() => {
                                         setExpandMap((map) => ({
                                             ...map,

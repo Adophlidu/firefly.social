@@ -121,7 +121,7 @@ export function HomeTabs({
                                         anchor="bottom start"
                                         className="z-50 w-[128px] origin-top-left !overflow-visible text-xl font-bold outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
                                     >
-                                        <div className="w-full -translate-y-[50px] pt-[50px]">
+                                        <div className="w-full translate-y-[-50px] pt-[50px]">
                                             <div className="flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom py-3 shadow-messageShadow">
                                                 {getEnumAsArray(HomeTab).map(({ value: tab }) => {
                                                     const type = types[tab].includes(allTabs[tab])
@@ -162,7 +162,7 @@ export function HomeTabs({
                                 return (
                                     <span className="relative">
                                         {resolveSourceUIName(x)}
-                                        <span className="absolute -right-[18px] -top-2 rounded-full bg-danger px-1 py-0.5 text-[9px] leading-[9px] text-white">
+                                        <span className="absolute -top-2 right-[-18px] rounded-full bg-danger px-1 py-0.5 text-[9px] leading-[9px] text-white">
                                             <Trans>New</Trans>
                                         </span>
                                     </span>

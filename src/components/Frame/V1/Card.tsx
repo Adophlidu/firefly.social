@@ -28,7 +28,7 @@ export function Card({ frame, source, readonly = false, loading = false, onButto
             >
                 <div className="relative w-full">
                     {loading ? (
-                        <div className="z10 absolute inset-0 overflow-hidden rounded-xl bg-white shadow-primary backdrop-blur-sm dark:bg-bg" />
+                        <div className="absolute inset-0 z-10 overflow-hidden rounded-xl bg-white shadow-primary backdrop-blur-sm dark:bg-bg" />
                     ) : null}
                     <Image
                         className="divider aspect-2 w-full rounded-xl object-cover"

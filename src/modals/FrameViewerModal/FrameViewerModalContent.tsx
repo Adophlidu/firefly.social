@@ -133,7 +133,7 @@ export function FrameViewerModal({ open, onClose, props, setProps }: Props) {
         <>
             <RelayConfirmationPopover ref={RelayConfirmationPopoverRef.register} />
             <iframe
-                className="scrollbar-hide size-full opacity-100"
+                className="no-scrollbar size-full opacity-100"
                 ref={frameRef}
                 src={frame.button.action.url}
                 allow="clipboard-write 'src'"

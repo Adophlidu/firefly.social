@@ -326,7 +326,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                             )}
                         </div>
                     ) : null}
-                    <div className="line-height-[22px] mt-[18px] flex flex-col gap-2">
+                    <div className="mt-[18px] flex flex-col gap-2 leading-[22px]">
                         <div className="text-2xl font-bold">
                             ${renderShrankPrice(formatPrice(activeRecord?.value ?? price) ?? '-')}
                         </div>

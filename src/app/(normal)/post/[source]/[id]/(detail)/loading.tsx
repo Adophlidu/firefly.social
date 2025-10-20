@@ -11,7 +11,7 @@ export default function LoadingPage() {
     useBodyLock(true);
 
     return (
-        <div className="max-h-100svh animate-pulse overflow-y-hidden border-b-0 px-3 py-2 md:px-4 md:py-3">
+        <div className="max-h-svh animate-pulse overflow-y-hidden border-b-0 px-3 py-2 md:px-4 md:py-3">
             <div className="grid grid-cols-[40px_1fr] gap-3">
                 <div className="size-10 rounded-full bg-bg" />
                 <div>

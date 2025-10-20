@@ -57,10 +57,7 @@ export function ArticleAuthor({ article }: Props) {
                     <span className="block truncate text-clip text-medium leading-5 text-secondary">{authorName}</span>
                 </>
             )}
-            <Time
-                dateTime={article.timestamp}
-                className="whitespace-nowrap text-medium text-xs leading-4 text-secondary"
-            >
+            <Time dateTime={article.timestamp} className="whitespace-nowrap text-xs leading-4 text-secondary">
                 <TimestampFormatter time={article.timestamp} />
             </Time>
             {Icon ? <Icon width={15} height={15} /> : null}

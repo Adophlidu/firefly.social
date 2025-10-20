@@ -30,7 +30,7 @@ export const MutedProfileItem = memo<MutedProfileItemProps>(function MutedProfil
             />
             <div className="leading-5.5 flex flex-col text-medium">
                 <div className="flex w-full items-center">
-                    <Link href={profileUrl} className="max-w-[calc(100% - 32px)] mr-2 truncate text-lg leading-6">
+                    <Link href={profileUrl} className="mr-2 max-w-[calc(100%-32px)] truncate text-lg leading-6">
                         {profile.displayName}
                     </Link>
                     <SocialSourceIcon

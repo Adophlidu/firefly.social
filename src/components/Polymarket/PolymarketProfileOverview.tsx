@@ -36,7 +36,7 @@ export function PolymarketProfileOverview({ data, address }: PolymarketProfileOv
             {
                 label: <Trans>PnL%</Trans>,
                 value: (
-                    <span className={!data ? '-' : data.pnl_rate < 0 ? 'text-danger' : 'text-success'}>
+                    <span className={!data ? '' : data.pnl_rate < 0 ? 'text-danger' : 'text-success'}>
                         {toRate(data?.pnl_rate)}
                     </span>
                 ),

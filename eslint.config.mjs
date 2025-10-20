@@ -66,7 +66,15 @@ export default defineConfig([
                 allowAutomaticSingleRunInference: true,
             },
         },
-
+        settings: {
+            tailwindcss: {
+                callees: ['classnames', 'clsx', 'ctl'],
+                cssFilesRefreshRate: 5_000,
+                removeDuplicates: true,
+                skipClassAttribute: false,
+                whitelist: ['notranslate'],
+            },
+        },
         rules: {
             'rename-jsx/rename-jsx-import': 'warn',
             'default-case-last': 'error',

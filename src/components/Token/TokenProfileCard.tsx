@@ -41,7 +41,7 @@ export function TokenProfileCardSkeleton(props: HTMLProps<HTMLDivElement>) {
                 <div className="flex items-center">
                     <div className="size-8 rounded-full bg-bg" />
                     <div className="ml-3 flex flex-col gap-1">
-                        <div className="item-center flex gap-1">
+                        <div className="flex items-center gap-1">
                             <div className="h-3 w-10 rounded bg-bg py-0.5" />
                             <span className="size-3 rounded-full bg-bg" />
                         </div>
@@ -54,7 +54,7 @@ export function TokenProfileCardSkeleton(props: HTMLProps<HTMLDivElement>) {
                     </div>
                 </div>
                 <div className="flex h-10 items-center">
-                    <div className="line-height-[22px] flex items-center gap-1">
+                    <div className="flex items-center gap-1 leading-[22px]">
                         <strong className="h-[22px] w-20 rounded bg-bg" />
                         <span className="h-4 w-6 bg-bg text-medium text-secondary" title={t`Market Cap`} />
                         <span className="inline-flex h-[14px] w-12 items-center text-nowrap rounded bg-bg px-1 py-0.5" />
@@ -62,7 +62,7 @@ export function TokenProfileCardSkeleton(props: HTMLProps<HTMLDivElement>) {
                     <div className="ml-auto h-8 w-[170px] overflow-auto rounded bg-bg" />
                 </div>
                 <div className="flex items-center">
-                    <div className="line-height-[22px] flex h-8 items-center gap-1 text-medium">
+                    <div className="flex h-8 items-center gap-1 text-medium leading-[22px]">
                         <span className="h-3 w-10 rounded bg-bg py-0.5" />
                         <span className="h-3 w-20 rounded bg-bg py-0.5" />
                         <span className="h-3 w-10 rounded bg-bg py-0.5" />
@@ -216,7 +216,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
                 ) : null}
             </div>
             <div className="flex items-center">
-                <div className="line-height-[22px] flex items-center gap-1">
+                <div className="flex items-center gap-1 leading-[22px]">
                     <Trans>
                         <strong className="text-2xl font-bold leading-[22px]">
                             {market_cap ? `$${formatMarketCap(market_cap)}` : '-'}
@@ -241,7 +241,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
                 </div>
             </div>
             <div className="flex items-center">
-                <div className="line-height-[22px] flex h-8 items-center gap-1 text-medium">
+                <div className="flex h-8 items-center gap-1 text-medium leading-[22px]">
                     {typeof changePercent === 'number' ? (
                         <>
                             <PriceArrow

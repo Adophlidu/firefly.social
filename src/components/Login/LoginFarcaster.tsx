@@ -302,7 +302,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     onClick(FarcasterSignType.RelayService);
                                     DraggablePopoverRef.close();
                                 }}
-                                className="font-bol flex flex-1 items-center justify-center rounded-full bg-main py-2 text-primaryBottom"
+                                className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
                             >
                                 <Trans>Reconnect</Trans>
                             </ClickableButton>
