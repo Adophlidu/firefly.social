@@ -57,6 +57,7 @@ class FirebaseClient {
         this._unsubscribe = onMessage(this._firebaseFcm, (payload) => {
             console.log('[firebase] Foreground message received');
             if (this._analytics) {
+                console.log('[Firebase analytics]: notification_foreground');
                 logEvent(this._analytics, 'notification_foreground', payload);
             }
             if (!payload.notification || document.visibilityState !== 'visible') return;
@@ -70,6 +71,7 @@ class FirebaseClient {
             });
             notification.onclick = (event) => {
                 if (this._analytics) {
+                    console.log('[Firebase analytics]: notification_foreground_click');
                     logEvent(this._analytics, 'notification_foreground_click', payload);
                 }
                 event.preventDefault();
