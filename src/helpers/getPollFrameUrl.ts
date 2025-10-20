@@ -1,7 +1,6 @@
 import urlcat from 'urlcat';
 
 import { type SocialSource } from '@/constants/enum.js';
-import { FARCASTER_POLL_MINI_APP_URL } from '@/constants/index.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -17,5 +16,5 @@ export function getPollFrameUrl(pollId: string, source?: SocialSource, author?: 
 }
 
 export function getFarcasterPollUrl(pollId: string) {
-    return urlcat(FARCASTER_POLL_MINI_APP_URL, '/:pollId', { pollId });
+    return urlcat(settings.POLL_MINI_APP_URL, '/:pollId', { pollId });
 }
