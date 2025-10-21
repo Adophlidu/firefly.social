@@ -54,6 +54,7 @@ import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.j
 import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromSuggestedFollow } from '@/providers/farcaster/formatFarcasterProfileFromSuggestedFollow.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { getWalletProfileByAddressOrEns } from '@/providers/firefly/getWalletProfileByAddressOrEns.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { formatLensProfileFromSuggestedFollow } from '@/providers/lens/formatLensProfileFromSuggestedFollow.js';
@@ -323,7 +324,7 @@ class FireflyEndpoint {
     }
 
     async getFarcasterSuggestFollows(indicator?: PageIndicator) {
-        return fireflySessionHolder.withSession(async (session) => {
+        return farcasterSessionHolder.withSession(async (session) => {
             const response = await fireflySessionHolder.fetch<GetFarcasterSuggestedFollowUserResponse>(
                 urlcat(settings.FIREFLY_ROOT_URL, `/v2/farcaster-hub/suggested_follow_list`, {
                     cursor: indicator?.id,
