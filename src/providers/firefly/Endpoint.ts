@@ -323,15 +323,18 @@ class FireflyEndpoint {
     }
 
     async getFarcasterSuggestFollows(indicator?: PageIndicator) {
-        const response = await fireflySessionHolder.fetch<GetFarcasterSuggestedFollowUserResponse>(
-            urlcat(settings.FIREFLY_ROOT_URL, `/v2/farcaster-hub/suggested_follow_list`, {
-                cursor: indicator?.id,
-            }),
-        );
-        if (!response.data) return createPageable(EMPTY_LIST, indicator);
-        const profiles =
-            response.data?.suggestedFollowList.map((user) => formatFarcasterProfileFromSuggestedFollow(user)) ?? [];
-        return createPageable(profiles, indicator, createIndicator(indicator, `${response.data.cursor}`));
+        return fireflySessionHolder.withSession(async (session) => {
+            const response = await fireflySessionHolder.fetch<GetFarcasterSuggestedFollowUserResponse>(
+                urlcat(settings.FIREFLY_ROOT_URL, `/v2/farcaster-hub/suggested_follow_list`, {
+                    cursor: indicator?.id,
+                    sourceFid: session?.profileId,
+                }),
+            );
+            if (!response.data) return createPageable(EMPTY_LIST, indicator);
+            const profiles =
+                response.data?.suggestedFollowList.map((user) => formatFarcasterProfileFromSuggestedFollow(user)) ?? [];
+            return createPageable(profiles, indicator, createIndicator(indicator, `${response.data.cursor}`));
+        });
     }
 
     async getMessageToSignForBindWallet(address: string) {
