@@ -67,7 +67,6 @@ const messaging = self.firebase.messaging();
 const analytics = self.firebase.analytics();
 
 messaging.onBackgroundMessage((payload: MessagePayload) => {
-    console.log('[Firebase analytics]: notification_background');
     analytics.logEvent('notification_background', payload);
     console.log('[firebase] Background message received');
     if (!payload.notification) return;
@@ -82,7 +81,6 @@ messaging.onBackgroundMessage((payload: MessagePayload) => {
 });
 
 self.addEventListener('notificationclick', (event) => {
-    console.log('[Firebase analytics]: notification_background_click');
     analytics.logEvent('notification_background_click', event.notification.data);
     const link = event.notification.data?.link;
 
