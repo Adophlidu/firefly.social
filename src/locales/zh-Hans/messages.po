@@ -3319,9 +3319,6 @@ msgstr "翻译自{contentLanguage}"
 msgid "Failed to open miniapp"
 msgstr "打开 miniapp 失败"
 
-msgid "Follow @realMaskNetwork on X"
-msgstr "在 X 上关注 @realMaskNetwork"
-
 msgid "Leaving Firefly"
 msgstr "即将离开 Firefly"
 
@@ -3787,6 +3784,9 @@ msgstr "无效的网站格式"
 
 msgid "Something went wrong. Please try again later."
 msgstr "哎呀！出错了。 请再试一次。"
+
+msgid "Follow @masknetwork on X"
+msgstr ""
 
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "支付<0>{feeAmount} ${feeSymbol}</0>来关注并获得专属福利！"

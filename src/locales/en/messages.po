@@ -3314,9 +3314,6 @@ msgstr "Translated from {contentLanguage}"
 msgid "Failed to open miniapp"
 msgstr "Failed to open miniapp"
 
-msgid "Follow @realMaskNetwork on X"
-msgstr "Follow @realMaskNetwork on X"
-
 msgid "Leaving Firefly"
 msgstr "Leaving Firefly"
 
@@ -3782,6 +3779,9 @@ msgstr "Invalid website format"
 
 msgid "Something went wrong. Please try again later."
 msgstr "Something went wrong. Please try again later."
+
+msgid "Follow @masknetwork on X"
+msgstr "Follow @masknetwork on X"
 
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
