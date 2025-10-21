@@ -1,5 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
+import { use } from 'react';
 
+import { ProfileContext } from '@/components/Profile/ProfileContext.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -23,4 +26,14 @@ export function useRefreshedProfile(profile: Profile, enabled = true) {
         },
         initialData: profile,
     });
+}
+
+export function useRefreshedProfileInProfilePage(profile: Profile) {
+    const { refreshedSocialProfile } = use(ProfileContext);
+
+    if (refreshedSocialProfile && isSameProfile(refreshedSocialProfile, profile)) {
+        return refreshedSocialProfile;
+    }
+
+    return profile;
 }

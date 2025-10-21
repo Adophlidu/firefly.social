@@ -17,7 +17,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { useProfileHighlighted } from '@/hooks/useProfileHighlighted.js';
-import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
+import { useRefreshedProfileInProfilePage } from '@/hooks/useRefreshedProfile.js';
 import { getLargeTwitterAvatar } from '@/providers/twitter/getLargeTwitterAvatar.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -28,7 +28,7 @@ interface InfoProps {
 export const PROFILE_ACTION_ID = 'profile-action';
 
 export function SocialProfileInfo(props: InfoProps) {
-    const { data: profile = props.profile } = useRefreshedProfile(props.profile);
+    const profile = useRefreshedProfileInProfilePage(props.profile);
     const { data: highlighted } = useProfileHighlighted(props.profile);
 
     const { source, followerCount = 0, followingCount = 0 } = profile;

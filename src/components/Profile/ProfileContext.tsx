@@ -1,18 +1,49 @@
 'use client';
 
-import { createContext, type PropsWithChildren } from 'react';
+import { skipToken, useQuery } from '@tanstack/react-query';
+import { createContext, type PropsWithChildren, useMemo } from 'react';
 
+import { Source } from '@/constants/enum.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface WalletProfileProps {
+interface ProfileContextProviderProps {
     profiles: FireflyProfile[];
     identity?: FireflyIdentity;
+    socialProfile: Profile | null;
 }
 
-export const ProfileContext = createContext<WalletProfileProps>({
+export const ProfileContext = createContext<
+    Omit<ProfileContextProviderProps, 'socialProfile'> & {
+        refreshedSocialProfile: Profile | null;
+    }
+>({
     profiles: [],
+    refreshedSocialProfile: null,
 });
 
-export function WalletProfileProvider({ children, ...value }: PropsWithChildren<WalletProfileProps>) {
-    return <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>;
+export function ProfileContextProvider({ children, ...value }: PropsWithChildren<ProfileContextProviderProps>) {
+    const { socialProfile } = value;
+    const currentProfile = useCurrentProfile(socialProfile?.source || Source.Farcaster);
+    const { data: refreshedProfile } = useQuery({
+        enabled: !!socialProfile,
+        staleTime: 0,
+        refetchOnWindowFocus: 'always',
+        refetchOnReconnect: 'always',
+        queryKey: ['profile', socialProfile?.source, socialProfile?.profileId, currentProfile?.profileId],
+        queryFn: !socialProfile
+            ? skipToken
+            : () => resolveSocialMediaProvider(socialProfile.source).getProfileById(socialProfile.profileId, true),
+    });
+    const cachedValue = useMemo(
+        () => ({
+            ...value,
+            refreshedSocialProfile: refreshedProfile || null,
+        }),
+        [refreshedProfile, value],
+    );
+
+    return <ProfileContext.Provider value={cachedValue}>{children}</ProfileContext.Provider>;
 }

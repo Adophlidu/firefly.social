@@ -3,7 +3,7 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 import { NoSSR } from '@/components/NoSSR.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { FireflyAccountInfo } from '@/components/Profile/FireflyAccountInfo.js';
-import { WalletProfileProvider } from '@/components/Profile/ProfileContext.js';
+import { ProfileContextProvider } from '@/components/Profile/ProfileContext.js';
 import { ProfileInfoCard } from '@/components/Profile/ProfileInfoCard.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
@@ -105,7 +105,7 @@ export default async function Layout(props: Props) {
                 {!socialProfile && !walletProfile ? (
                     <SuspendedAccountFallback />
                 ) : (
-                    <WalletProfileProvider profiles={profiles} identity={identity}>
+                    <ProfileContextProvider profiles={profiles} identity={identity} socialProfile={socialProfile}>
                         <ProfileInfoCard
                             source={source}
                             socialProfile={socialProfile}
@@ -113,7 +113,7 @@ export default async function Layout(props: Props) {
                             profiles={profiles}
                         />
                         <NoSSR>{props.children}</NoSSR>
-                    </WalletProfileProvider>
+                    </ProfileContextProvider>
                 )}
             </HydrationBoundary>
         );

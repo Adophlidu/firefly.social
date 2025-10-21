@@ -1,6 +1,5 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import { EditProfileButton } from '@/components/EditProfile/EditProfileButton.js';
@@ -12,10 +11,10 @@ import { classNames } from '@/helpers/classNames.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useRefreshedProfileInProfilePage } from '@/hooks/useRefreshedProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileActionProps {
@@ -24,17 +23,7 @@ interface ProfileActionProps {
 }
 
 export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps }: ProfileActionProps) {
-    const currentProfile = useCurrentProfile(initialProfile.source);
-    const profileId = initialProfile.profileId;
-    const { data } = useQuery({
-        queryKey: ['profile', initialProfile.source, initialProfile.profileId, currentProfile?.profileId],
-        initialData: initialProfile,
-        queryFn: async () => {
-            return resolveSocialMediaProvider(initialProfile.source).getProfileById(profileId);
-        },
-    });
-
-    const profile = data ?? initialProfile;
+    const profile = useRefreshedProfileInProfilePage(initialProfile);
     const profiles = useCurrentFireflyProfilesAll();
     const identity = resolveFireflyIdentity(profile);
     const isRelatedProfile = identity ? profiles.some((x) => isSameFireflyIdentity(x.identity, identity)) : false;
