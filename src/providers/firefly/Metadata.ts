@@ -219,7 +219,7 @@ class FireflyMetadata {
     async createSparksAccountMetadata(accountId: string, pathname: string) {
         try {
             const response = await fetchMetadataApi(
-                urlcat(FIREFLY_WORKER_HOST, '/metadata/sparks-account', {
+                urlcat('/metadata/sparks-account', {
                     accountId,
                     pathname,
                 }),
