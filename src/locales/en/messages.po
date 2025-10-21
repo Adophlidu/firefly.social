@@ -1271,6 +1271,10 @@ msgstr "Copy address"
 msgid "Mobile QR login"
 msgstr "Mobile QR login"
 
+#. placeholder {0}: resolveSourceName(source)
+msgid "Sign in to {0}"
+msgstr "Sign in to {0}"
+
 msgid "Bio"
 msgstr "Bio"
 

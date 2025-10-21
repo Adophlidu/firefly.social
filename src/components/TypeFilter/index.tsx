@@ -8,7 +8,7 @@ import { captureTypeFilterClickEvent } from '@/providers/telemetry/captureFilter
 
 interface BaseProps<T extends string> extends HTMLProps<HTMLDivElement> {
     multiple?: boolean;
-    options?: Array<{ value: T; label: string | ReactNode }>;
+    options?: Array<{ value: T; label: string | ReactNode | ((value: T, selected: boolean) => ReactNode) }>;
 }
 
 interface SingleOptionProps<T extends string = string> extends BaseProps<T> {
@@ -18,7 +18,7 @@ interface SingleOptionProps<T extends string = string> extends BaseProps<T> {
 
 interface MultipleOptionProps<T extends string = string> extends BaseProps<T> {
     selectedOptions?: T[];
-    onOptionsChange?: (options: T[]) => void;
+    onOptionsChange?: (options: T[], newValue: T) => void;
 }
 
 function TypeFilter<T extends string = string>(props: SingleOptionProps<T>): ReactNode;
@@ -53,7 +53,7 @@ function TypeFilter<T extends string = string>({
                                     newOptions = selected
                                         ? selectedOptions.filter((x) => x !== option.value)
                                         : [...selectedOptions, option.value];
-                                    onOptionsChange?.(newOptions);
+                                    onOptionsChange?.(newOptions, option.value);
                                 } else {
                                     onOptionChange?.(option.value);
                                 }
@@ -64,12 +64,18 @@ function TypeFilter<T extends string = string>({
                                 }
                             }}
                         >
-                            {selected ? (
-                                <RadioOn className="size-4 text-highlight" />
+                            {typeof option.label === 'function' ? (
+                                option.label(option.value, selected)
                             ) : (
-                                <RadioOff className="size-4 text-secondaryLine" />
+                                <>
+                                    {selected ? (
+                                        <RadioOn className="size-4 text-highlight" />
+                                    ) : (
+                                        <RadioOff className="size-4 text-secondaryLine" />
+                                    )}
+                                    <div className="text-sm font-semibold text-main">{option.label}</div>
+                                </>
                             )}
-                            <div className="text-sm font-semibold text-main">{option.label}</div>
                         </div>
                     );
                 })}

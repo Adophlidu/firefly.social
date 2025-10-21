@@ -1276,6 +1276,10 @@ msgstr "複製地址"
 msgid "Mobile QR login"
 msgstr "行動版二維碼登入"
 
+#. placeholder {0}: resolveSourceName(source)
+msgid "Sign in to {0}"
+msgstr ""
+
 msgid "Bio"
 msgstr "個人簡介"
 

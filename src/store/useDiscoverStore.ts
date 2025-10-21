@@ -9,7 +9,7 @@ import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 
 interface DiscoverState {
     postTimelinePlatforms: Record<HomeTab, SocialSource[]>;
-    setFilteredPlatform: (tab: HomeTab, source: SocialSource) => void;
+    setFilteredPlatform: (tab: HomeTab, source: SocialSource | SocialSource[]) => void;
     resetFilteredPlatform: (tab: HomeTab) => void;
 }
 
@@ -22,7 +22,7 @@ const useDiscoverStoreBase = create<DiscoverState, [['zustand/persist', unknown]
             },
             setFilteredPlatform(tab, source) {
                 set((state) => {
-                    state.postTimelinePlatforms[tab] = [source];
+                    state.postTimelinePlatforms[tab] = Array.isArray(source) ? source : [source];
                 });
             },
             resetFilteredPlatform(tab) {
@@ -54,7 +54,7 @@ export function useDiscoverStoreWithTab(tab: HomeTab) {
 
     return {
         selectedSources,
-        setFilteredPlatform: (source: SocialSource) => setFilteredPlatform(tab, source),
+        setFilteredPlatform: (source: SocialSource | SocialSource[]) => setFilteredPlatform(tab, source),
         resetFilteredPlatform: () => resetFilteredPlatform(tab),
     };
 }
