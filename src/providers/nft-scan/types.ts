@@ -74,6 +74,7 @@ export namespace EVM {
         video_uri?: string;
         deployPlatform?: string;
         deployPlatformLogo?: string;
+        collection?: Collection;
     }
 
     export interface AssetsGroup {

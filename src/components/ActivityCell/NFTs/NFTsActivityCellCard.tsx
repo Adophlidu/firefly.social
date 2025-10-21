@@ -51,7 +51,7 @@ export function NFTsActivityCellCard(props: NFTsActivityCellCardProps) {
     const { tokenId, chainId, feed } = props;
     const { event_type: action, owner: ownerAddress, contract_address: address, bookmarked, detail: data } = feed;
     if (!data) return null;
-    const imageURL = data.image_uri || data.content_uri || data.nftscan_uri!;
+    const imageURL = data.image_uri || data.content_uri || data.nftscan_uri || data.collection?.logo_url!;
 
     const isPoap = action === TransEventType.Poap;
     const isVideo = imageURL?.match(/\.(mp4|webm|ogg|avi|mkv)$/i);
@@ -88,6 +88,7 @@ export function NFTsActivityCellCard(props: NFTsActivityCellCardProps) {
                             )}
                             alt="nft-card"
                             fallbackClassName=""
+                            fallback={data.nftscan_uri || data.collection?.logo_url}
                             width={200}
                             height={200}
                         />
