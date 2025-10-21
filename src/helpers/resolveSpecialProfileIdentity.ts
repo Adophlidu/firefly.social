@@ -2,7 +2,7 @@
 import type { Source } from '@/constants/enum.js';
 
 const NOT_CASE_SENSITIVE: Record<string, string> = {
-    realmasknetwork: 'realMaskNetwork',
+    realmasknetwork: 'masknetwork',
 };
 
 export function resolveSpecialProfileIdentity<T extends { source: Source; id: string }>({ source, id }: T): T {

@@ -75,8 +75,8 @@ export default function More() {
             <div className="flex w-full flex-col gap-4">
                 {[
                     {
-                        title: <Trans>Follow @realMaskNetwork on X</Trans>,
-                        link: '/profile/x/realMaskNetwork',
+                        title: <Trans>Follow @masknetwork on X</Trans>,
+                        link: '/profile/x/masknetwork',
                         logo: SmallXIcon,
                     },
                     {

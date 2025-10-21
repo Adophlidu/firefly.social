@@ -553,7 +553,8 @@
         "inprogress",
         "ordercheck",
         "notfill",
-        "rpcs"
+        "rpcs",
+        "masknetwork"
     ],
     "flagWords": [],
     "ignorePaths": [
