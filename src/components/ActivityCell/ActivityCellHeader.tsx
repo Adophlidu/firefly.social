@@ -1,56 +1,78 @@
 import type { HTMLProps, ReactNode } from 'react';
 import type { Address } from 'viem';
 
-import { Link } from '@/components/Link.js';
+import { ConditionalLink } from '@/components/ConditionalLink.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { stopPropagation } from '@/helpers/stopEvent.js';
 
 export interface ActivityCellHeaderProps extends HTMLProps<HTMLDivElement> {
-    address: Address;
+    address?: Address | null;
     displayName?: ReactNode;
+    username?: ReactNode;
     time?: number | string | Date | null;
     icon?: ReactNode;
+    authorUrl?: string | null;
+    target?: string;
 }
 
 export function ActivityCellHeader({
     address,
     displayName,
+    username,
     time,
     icon,
+    authorUrl: externalAuthorUrl,
+    target,
     className,
     children,
     ...rest
 }: ActivityCellHeaderProps) {
-    const authorUrl = getProfileUrl({ source: Source.Wallet, profileId: address });
+    const authorUrl =
+        externalAuthorUrl ?? (address ? getProfileUrl({ source: Source.Wallet, profileId: address }) : null);
+    const addressText = address ? formatAddressEthereum(address, 4) : '';
+    const mainContent = displayName || addressText;
 
     return (
         <header className={classNames('flex items-start gap-3', className)} {...rest}>
-            <div className="flex flex-1 grow flex-row items-center truncate text-medium leading-6 max-md:max-w-[calc(100%_-_56px)]">
-                <Link
+            <div className="flex flex-1 grow flex-row items-center truncate text-[15px] leading-6 max-md:max-w-[calc(100%_-_56px)]">
+                <ConditionalLink
                     href={authorUrl}
-                    onClick={stopPropagation}
                     className="block min-w-0 max-w-full truncate font-bold text-main"
+                    target={target}
                 >
-                    {displayName ? displayName : formatAddressEthereum(address, 4)}
-                </Link>
-                {displayName ? (
-                    <Link
+                    {mainContent}
+                </ConditionalLink>
+
+                {displayName && !username ? (
+                    <ConditionalLink
                         href={authorUrl}
                         className="ml-2 block max-w-full shrink-0 truncate text-secondary max-md:hidden"
+                        target={target}
                     >
-                        <address className="not-italic">{formatAddressEthereum(address, 4)}</address>
-                    </Link>
+                        <address className="not-italic">{addressText}</address>
+                    </ConditionalLink>
                 ) : null}
+
+                {displayName && username ? (
+                    <ConditionalLink
+                        href={authorUrl}
+                        className="ml-2 block max-w-full shrink-0 truncate text-secondary max-md:hidden"
+                        target={target}
+                    >
+                        @{username}
+                    </ConditionalLink>
+                ) : null}
+
                 {time ? (
                     <Time dateTime={time} className="mx-1 whitespace-nowrap text-secondary">
                         · <TimestampFormatter time={time} />
                     </Time>
                 ) : null}
+
                 {icon ? <span className="mx-1"> · </span> : null}
                 {icon}
             </div>

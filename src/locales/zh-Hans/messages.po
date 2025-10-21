@@ -1579,6 +1579,9 @@ msgstr "天"
 msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
 msgstr "<0>获取</0><1/><2>从</2><3><4>{0}</4></3>"
 
+msgid "Matters article"
+msgstr ""
+
 msgid "<0>Bought</0><1/>"
 msgstr "<0>购买</0><1/>"
 

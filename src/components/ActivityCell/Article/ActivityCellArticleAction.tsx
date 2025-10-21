@@ -23,6 +23,8 @@ function ArticlePlatformName({ platform }: { platform: ArticlePlatform }) {
             return 'Mirror';
         case ArticlePlatform.Paragraph:
             return 'Paragraph';
+        case ArticlePlatform.Matters:
+            return 'Matters';
         default:
             safeUnreachable(platform);
             return null;

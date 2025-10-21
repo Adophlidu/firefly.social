@@ -74,6 +74,9 @@ const trustedHosts = [
     'pump.fun',
     'polymarket.com',
 
+    // articles platforms
+    'matters.town',
+
     /^([a-zA-Z0-9-]+\.)*firefly\.land$/,
     /^([a-zA-Z0-9-]+\.)*firefly\.social$/,
     /^([a-zA-Z0-9-]+\.)*mask\.social$/,

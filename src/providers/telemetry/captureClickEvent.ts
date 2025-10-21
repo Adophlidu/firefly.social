@@ -1,5 +1,6 @@
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
+import { ArticlePlatform } from '@/providers/types/Article.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 export function captureDraftClickEvent() {
@@ -100,6 +101,54 @@ export function captureNFTViewWebsiteClickEvent(chainId: number, nftCa: string) 
         return TelemetryProvider.captureEvent(EventId.NFT_MINT_CLICK, {
             chain_id: chainId,
             nft_ca: nftCa,
+        });
+    });
+}
+
+export function captureArticleClickEvent(platform: ArticlePlatform, fireflyAccountId: string) {
+    return runInSafeAsync(async () => {
+        switch (platform) {
+            case ArticlePlatform.Mirror:
+                return TelemetryProvider.captureEvent(EventId.MIRROR_ARTICLE_CLICK, {
+                    firefly_account_id: fireflyAccountId,
+                });
+            case ArticlePlatform.Paragraph:
+                return TelemetryProvider.captureEvent(EventId.PARAGRAPH_ARTICLE_CLICK, {
+                    firefly_account_id: fireflyAccountId,
+                });
+            case ArticlePlatform.Matters:
+                return TelemetryProvider.captureEvent(EventId.MATTERS_ARTICLE_CLICK, {
+                    firefly_account_id: fireflyAccountId,
+                });
+            default:
+                return;
+        }
+    });
+}
+
+export function captureArticleShareClickEvent(articleId: string, fireflyAccountId: string) {
+    return runInSafeAsync(async () => {
+        return TelemetryProvider.captureEvent(EventId.ARTICLE_SHARE_CLICK, {
+            article_id: articleId,
+            firefly_account_id: fireflyAccountId,
+        });
+    });
+}
+
+export function captureArticleViewSourceClickEvent(articleId: string, fireflyAccountId: string) {
+    return runInSafeAsync(async () => {
+        return TelemetryProvider.captureEvent(EventId.ARTICLE_VIEW_SOURCE_CLICK, {
+            article_id: articleId,
+            firefly_account_id: fireflyAccountId,
+        });
+    });
+}
+
+export function captureArticleBookmarkSuccessEvent(articleId: string, fireflyAccountId: string) {
+    return runInSafeAsync(async () => {
+        return TelemetryProvider.captureEvent(EventId.ARTICLE_BOOKMARK_SUCCESS, {
+            article_id: articleId,
+            firefly_account_id: fireflyAccountId,
         });
     });
 }

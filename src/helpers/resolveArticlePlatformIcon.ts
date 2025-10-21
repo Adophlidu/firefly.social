@@ -1,5 +1,6 @@
 import type { FunctionComponent, SVGAttributes } from 'react';
 
+import MattersIcon from '@/assets/matters.svg';
 import MirrorIon from '@/assets/mirror.xyz.svg';
 import ParagraphIcon from '@/assets/paragraph.svg';
 import { LimoIcon } from '@/components/LimoIcon.js';
@@ -14,6 +15,7 @@ export const resolveArticlePlatformIcon = createLookupTableResolver<
         [ArticlePlatform.Mirror]: MirrorIon,
         [ArticlePlatform.Paragraph]: ParagraphIcon,
         [ArticlePlatform.Limo]: LimoIcon,
+        [ArticlePlatform.Matters]: MattersIcon,
     },
     null,
 );

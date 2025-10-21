@@ -1579,6 +1579,9 @@ msgstr ""
 msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
 msgstr ""
 
+msgid "Matters article"
+msgstr ""
+
 msgid "<0>Bought</0><1/>"
 msgstr ""
 

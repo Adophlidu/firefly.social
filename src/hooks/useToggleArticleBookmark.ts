@@ -6,6 +6,7 @@ import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueu
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { captureArticleBookmarkSuccessEvent } from '@/providers/telemetry/captureClickEvent.js';
 import type { Article } from '@/providers/types/Article.js';
 
 export function useToggleArticleBookmark() {
@@ -29,6 +30,9 @@ export function useToggleArticleBookmark() {
                         BookmarkType.Text,
                     );
                     enqueueSuccessMessage(t`Article added to your Bookmarks`);
+
+                    captureArticleBookmarkSuccessEvent(article.id, fireflySessionHolder.session.profileId);
+
                     return result;
                 }
             } catch (error) {

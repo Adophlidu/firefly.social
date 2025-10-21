@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { memo, useCallback } from 'react';
 import { useMount } from 'react-use';
@@ -11,11 +10,14 @@ import { SingleArticleHeader } from '@/components/Article/SingleArticleHeader.js
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { Source } from '@/constants/enum.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
+import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
+import { captureArticleClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { type LinkDigested, PayloadType } from '@/types/og.js';
@@ -23,7 +25,6 @@ import type { ResponseJson } from '@/types/utility.js';
 
 export interface SingleArticleProps {
     article: Article;
-    disableAnimate?: boolean;
     listKey?: string;
     index?: number;
     isBookmark?: boolean;
@@ -31,13 +32,13 @@ export interface SingleArticleProps {
 
 export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProps({
     article,
-    disableAnimate,
     listKey,
     index,
     isBookmark,
 }) {
     const router = useRouter();
     const setScrollIndex = useGlobalState.use.setScrollIndex();
+    const identity = useFireflyIdentity(Source.Wallet, article.author.id);
 
     const cover = useQuery({
         queryKey: ['article', 'cover', article.id],
@@ -70,15 +71,14 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
         if (selection && selection.toString().length !== 0) return;
         if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
 
+        captureArticleClickEvent(article.platform, identity.id);
+
         router.push(getArticleUrl(article));
         return;
-    }, [article, index, isMuted, listKey, router, setScrollIndex]);
+    }, [article, index, isMuted, listKey, router, setScrollIndex, identity.id]);
 
     return (
-        <motion.article
-            initial={!disableAnimate ? { opacity: 0 } : false}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+        <article
             className={classNames(
                 'border-b border-line bg-bottom px-3 py-2 hover:bg-bg max-md:px-4 max-md:py-3 md:px-4 md:py-3',
                 {
@@ -97,6 +97,6 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                     <ArticleBody onClick={handleClick} cover={cover?.data ?? undefined} article={article} />
                 </div>
             )}
-        </motion.article>
+        </article>
     );
 });

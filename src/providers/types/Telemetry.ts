@@ -112,6 +112,12 @@ export enum EventId {
     // article
     ARTICLE_COLLECT_SUBMIT = 'article_collect_submit', // ✅
     ARTICLE_COLLECT_SUCCESS = 'article_collect_success', // ✅
+    ARTICLE_BOOKMARK_SUCCESS = 'article_bookmark_success', // ✅
+    ARTICLE_SHARE_CLICK = 'article_share_click', // ✅
+    ARTICLE_VIEW_SOURCE_CLICK = 'article_view_source_click', // ✅
+    MIRROR_ARTICLE_CLICK = 'mirror_article_click', // ✅
+    PARAGRAPH_ARTICLE_CLICK = 'paragraph_article_click', // ✅
+    MATTERS_ARTICLE_CLICK = 'matters_article_click', // ✅
 
     // snapshot
     SNAPSHOT_VOTE_SUBMIT = 'snapshot_vote_submit', // ✅
@@ -814,6 +820,45 @@ export interface Events extends Record<EventId, Event> {
             article_id: string;
             free_mint: boolean;
         } & WalletEventParameters;
+    };
+    [EventId.ARTICLE_BOOKMARK_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            article_id: string;
+        };
+    };
+    [EventId.ARTICLE_SHARE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            article_id: string;
+        };
+    };
+    [EventId.ARTICLE_VIEW_SOURCE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            article_id: string;
+        };
+    };
+    [EventId.MIRROR_ARTICLE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.PARAGRAPH_ARTICLE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.MATTERS_ARTICLE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
     };
     [EventId.POST_FRAME_ACTION_CLICK]: {
         type: EventType.Interact;

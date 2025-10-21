@@ -26,6 +26,7 @@ import { CollectArticleModalRef } from '@/modals/CollectArticleModal.js';
 import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
+import { captureArticleShareClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 interface ArticleActionsProps {
@@ -40,6 +41,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
     const { data: ens } = useEnsName({ address: oldArticle.author.id });
     const isMedium = useIsMedium();
     const url = urlcat(location.origin, getArticleUrl(oldArticle));
+    const isMattersArticle = oldArticle.platform === ArticlePlatform.Matters;
 
     const { data, isLoading } = useQuery({
         queryKey: ['article-detail', oldArticle.id],
@@ -75,7 +77,8 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                     className={classNames('flex w-min items-center hover:text-secondarySuccess md:space-x-2')}
                 >
                     {!(article.platform === ArticlePlatform.Paragraph && !article.origin) &&
-                    article.platform !== ArticlePlatform.Limo ? (
+                    article.platform !== ArticlePlatform.Limo &&
+                    !isMattersArticle ? (
                         <Tooltip content={<Trans>Collect</Trans>} placement="top">
                             <motion.button
                                 onClick={onCollect}
@@ -94,7 +97,9 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                     onClick={() => mutation.mutate(article)}
                 />
                 <Tips identity={identity} handle={article.author.handle || ens} onClick={close} pureWallet />
-                {url ? <ShareAction link={url} /> : null}
+                {url ? (
+                    <ShareAction link={url} onClick={() => captureArticleShareClickEvent(article.id, identity.id)} />
+                ) : null}
             </div>
         </div>
     );

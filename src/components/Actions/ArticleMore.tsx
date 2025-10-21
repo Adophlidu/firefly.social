@@ -15,10 +15,11 @@ import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
-import type { Article } from '@/providers/types/Article.js';
+import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 interface MoreProps {
     article: Article;
@@ -33,7 +34,15 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
     const { data: ens } = useEnsName({ address: author.id });
-    const handleOrEnsOrAddress = author.handle || ens || formatAddress(author.id, 4);
+    const isMattersArticle = article.platform === ArticlePlatform.Matters;
+
+    const isAddress = isMattersArticle ? isValidAddressEthereum(author.info.ethAddress) : true;
+
+    const handleOrEnsOrAddress = isMattersArticle
+        ? formatAddress(author.info.ethAddress, 4)
+        : author.handle || ens || formatAddress(author.id, 4);
+    const address =
+        isMattersArticle && isValidAddressEthereum(author.info.ethAddress) ? author.info.ethAddress : author.id;
 
     return (
         <MoreActionMenu
@@ -50,14 +59,14 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
             }
         >
             <MenuGroup>
-                {!isMyProfile && (
+                {!isMyProfile && isAddress ? (
                     <>
                         <MenuItem>
                             {({ close }) => (
                                 <WatchWalletButton
                                     handleOrEnsOrAddress={handleOrEnsOrAddress}
                                     isFollowing={author.isFollowing}
-                                    address={author.id}
+                                    address={address}
                                     onClick={close}
                                 />
                             )}
@@ -67,7 +76,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                                 <MuteWalletButton
                                     handleOrEnsOrAddress={handleOrEnsOrAddress}
                                     isMuted={author.isMuted}
-                                    address={author.id}
+                                    address={address}
                                     onClick={close}
                                 />
                             )}
@@ -86,7 +95,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                             )}
                         </MenuItem>
                     </>
-                )}
+                ) : null}
                 <MenuItem>{({ close }) => <ReportArticleButton article={article} onClick={close} />}</MenuItem>
             </MenuGroup>
         </MoreActionMenu>

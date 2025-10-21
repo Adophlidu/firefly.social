@@ -25,6 +25,10 @@ const ActivitiesPlatforms = [
         platform: ActivitiesPlatform.Limo,
         label: <Trans>Limo article</Trans>,
     },
+    {
+        platform: ActivitiesPlatform.Matters,
+        label: <Trans>Matters article</Trans>,
+    },
 ];
 
 interface ActivitiesFilterProps {

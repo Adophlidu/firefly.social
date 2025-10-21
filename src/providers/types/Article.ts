@@ -8,6 +8,7 @@ export enum ArticlePlatform {
     Mirror = 'mirror',
     Paragraph = 'paragraph',
     Limo = 'limo',
+    Matters = 'matters',
 }
 
 export enum ArticleType {
@@ -29,6 +30,11 @@ export interface Article {
         isFollowing: boolean;
         /** Article in timeline are all not muted */
         isMuted: boolean;
+        username: string;
+        displayName: string;
+        info: {
+            ethAddress: string;
+        };
     };
     displayInfo: FireflyDisplayInfo;
     origin?: string;
@@ -42,6 +48,9 @@ export interface Article {
     // Paragraph only
     html?: string;
     json?: string;
+
+    // Matters only
+    likeCount?: number;
 }
 
 export interface ArticleCollectable {

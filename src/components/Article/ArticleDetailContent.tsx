@@ -5,6 +5,7 @@ import '@/assets/css/paragraph.css';
 
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
+import { useCallback } from 'react';
 
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
 import { Comeback } from '@/components/Comeback.js';
@@ -18,10 +19,12 @@ import { classNames } from '@/helpers/classNames.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { isTrustedUrl } from '@/helpers/isTrustedUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
+import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
+import { captureArticleViewSourceClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import type { Article } from '@/providers/types/Article.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
@@ -33,8 +36,13 @@ interface ArticleDetailContentProps {
 
 export function ArticleDetailContent({ article, cover }: ArticleDetailContentProps) {
     const isDarkMode = useIsDarkMode();
-
     const isMuted = useIsProfileMuted(Source.Wallet, article.author.id, article.author.isMuted);
+    const articleOrigin = article.origin;
+    const identity = useFireflyIdentity(Source.Wallet, article.author.id);
+
+    const handleViewSourceClick = useCallback(() => {
+        captureArticleViewSourceClickEvent(article.id, identity.id);
+    }, [article.id, identity.id]);
 
     return (
         <div className="min-h-screen">
@@ -72,7 +80,7 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                 </div>
                 {isMuted ? (
                     <CollapsedContent className="mt-2" authorMuted isQuote={false} />
-                ) : article.platform !== ArticlePlatform.Mirror ? (
+                ) : article.platform !== ArticlePlatform.Mirror && article.platform !== ArticlePlatform.Matters ? (
                     <div
                         className={classNames({
                             'limo-article': article.platform === ArticlePlatform.Limo,
@@ -145,12 +153,13 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                     </ArticleMarkup>
                 )}
                 <div className="mt-1 flex items-center gap-2">
-                    {article.origin ? (
+                    {articleOrigin ? (
                         <Link
-                            href={article.origin}
+                            href={articleOrigin}
                             className="flex items-center gap-1 text-xs text-link hover:underline"
                             rel="noreferrer noopener"
                             target="_blank"
+                            onClick={handleViewSourceClick}
                         >
                             <Trans>View Source</Trans>
                         </Link>

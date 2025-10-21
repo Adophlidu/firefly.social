@@ -14,14 +14,16 @@ import { ComposeModalRef } from '@/modals/ComposeModal.js';
 
 interface ShareActionProps {
     link: string;
+    onClick?: () => void;
 }
 
-export const ShareAction = memo(function ShareAction({ link }: ShareActionProps) {
+export const ShareAction = memo(function ShareAction({ link, onClick }: ShareActionProps) {
     return (
         <MoreActionMenu
             button={
                 <Tooltip content={<Trans>Share</Trans>} placement="top">
                     <motion.span
+                        onClick={onClick}
                         whileTap={{ scale: 0.9 }}
                         className="inline-flex size-7 items-center justify-center rounded-full text-second hover:bg-link/[0.2] hover:text-link"
                     >

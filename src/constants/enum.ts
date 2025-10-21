@@ -554,6 +554,7 @@ export enum ActivitiesPlatform {
     Mirror = 'Mirror',
     Paragraph = 'Paragraph',
     Limo = 'Limo',
+    Matters = 'Matters',
 }
 
 export enum PasswordStep {

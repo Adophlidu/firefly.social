@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { memo } from 'react';
 
 import { ActivityCellSnapshotAction } from '@/components/ActivityCell/Snapshot/ActivityCellSnapshotAction.js';
@@ -20,10 +19,7 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
     const label = data.proposal ? formatSnapshotChoice(data.choice, data.proposal.type, data.proposal.choices) : null;
 
     return (
-        <motion.article
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+        <article
             className={'border-b border-line bg-bottom px-3 py-2 hover:bg-bg max-md:px-4 max-md:py-3 md:px-4 md:py-3'}
         >
             <SingleSnapshotHeader data={data} />
@@ -46,6 +42,6 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
                     )}
                 </div>
             )}
-        </motion.article>
+        </article>
     );
 });

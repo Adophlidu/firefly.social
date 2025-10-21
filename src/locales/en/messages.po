@@ -1574,6 +1574,9 @@ msgstr "Days"
 msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
 msgstr "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
 
+msgid "Matters article"
+msgstr "Matters article"
+
 msgid "<0>Bought</0><1/>"
 msgstr "<0>Bought</0><1/>"
 

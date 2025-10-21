@@ -2,10 +2,11 @@ import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 import type { WaitForTransactionReceiptReturnType } from 'wagmi/actions';
 
-import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
+import { BookmarkType, FireflyPlatform, Locale } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { VITALIK_ADDRESS } from '@/constants/index.js';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
+import { getLocalFromClientCookies } from '@/helpers/getCookies.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isZero } from '@/helpers/number.js';
 import {
@@ -41,11 +42,18 @@ class FireflyArticle implements Provider {
         throw new NotImplementedError();
     }
 
-    async discoverArticles(indicator?: PageIndicator, platforms = [ArticlePlatform.Paragraph, ArticlePlatform.Mirror]) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/articles/timeline', {
+    async discoverArticles(
+        indicator?: PageIndicator,
+        platforms = [ArticlePlatform.Paragraph, ArticlePlatform.Mirror, ArticlePlatform.Matters],
+    ) {
+        const userLocale = getLocalFromClientCookies();
+        const languageParam = userLocale === Locale.zhHans || userLocale === Locale.zhHant ? 'cn' : 'en';
+
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/articles/timeline_v2', {
             size: 20,
             platform: platforms.join(','),
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            language: languageParam,
         });
 
         const response = await fireflySessionHolder.fetch<DiscoverArticlesResponse>(url);
@@ -65,7 +73,7 @@ class FireflyArticle implements Provider {
         indicator?: PageIndicator,
         platforms: ArticlePlatform[] = [],
     ) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/timeline/articles');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/timeline/articles_v2');
         const limoPlatform = Array.isArray(address)
             ? address.some((x) => isSameEthereumAddress(VITALIK_ADDRESS, x))
             : isSameEthereumAddress(VITALIK_ADDRESS, address);
@@ -74,11 +82,12 @@ class FireflyArticle implements Provider {
             method: 'POST',
             body: JSON.stringify({
                 platform:
-                    platforms.length > 0 && platforms.length < 3
+                    platforms.length > 0 && platforms.length < 4
                         ? platforms.join(',')
                         : compact([
                               ArticlePlatform.Paragraph,
                               ArticlePlatform.Mirror,
+                              ArticlePlatform.Matters,
                               limoPlatform ? ArticlePlatform.Limo : undefined,
                           ]).join(','),
                 walletAddresses: Array.isArray(address) ? address : [address],

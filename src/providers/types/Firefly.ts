@@ -241,7 +241,13 @@ export interface Article {
     author: string;
     displayInfo: FireflyDisplayInfo;
     authorship: {
-        contributor: string;
+        id: string;
+        avatar: string;
+        userName: string;
+        displayName: string;
+        info: {
+            ethAddress: string;
+        };
     };
     related_urls: string[];
     article_id: string;
