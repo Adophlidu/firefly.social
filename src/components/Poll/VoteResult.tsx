@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 
 import RightAnswerIcon from '@/assets/right-answer.svg';
 import { classNames } from '@/helpers/classNames.js';
+import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import type { PollOption } from '@/providers/types/Poll.js';
 
 interface VoteResultProps {
@@ -46,7 +47,9 @@ export function VoteResult({ option, totalVotes, maxPercent }: VoteResultProps) 
                     <span className="overflow-hidden">{label}</span>
                     {isUserVoted ? <RightAnswerIcon className="mr-2 shrink-0" width={20} height={20} /> : null}
                 </span>
-                <span className={isMaxPercent ? 'text-lightMain' : 'text-third'}>{currentRate.toFixed(2)}%</span>
+                <span className={isMaxPercent ? 'text-lightMain' : 'text-third'}>
+                    {removeTrailingZeros(currentRate.toFixed(2))}%
+                </span>
             </div>
         </div>
     );

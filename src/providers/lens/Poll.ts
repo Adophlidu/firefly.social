@@ -1,5 +1,5 @@
 import { fetchAccount } from '@lens-protocol/client/actions';
-import { first } from 'lodash-es';
+import { first, sumBy } from 'lodash-es';
 import type { Address } from 'viem';
 import { sendEip712Transaction } from 'viem/zksync';
 
@@ -50,11 +50,13 @@ class LensPoll implements Provider {
         pollId,
         frameUrl,
         options,
+        allOptions,
     }: {
         postId: string;
         pollId: string;
         frameUrl: string;
         options: PollOption[];
+        allOptions?: PollOption[];
     }): Promise<VoteResponseData> {
         const currentProfile = getProfileFromStorage(Source.Lens);
         if (!currentProfile?.profileId) throw new Error('No profile found, please login first.');
@@ -95,6 +97,26 @@ class LensPoll implements Provider {
                 await waitForEthereumTransaction(transaction.chainId, hash);
             }),
         );
+
+        if (allOptions?.length) {
+            const selectedIds = options.map((option) => option.id);
+            const voteCount = sumBy(allOptions, (x) => x.votes || 0) + options.length;
+            return {
+                is_success: true,
+                choice_detail: allOptions.map((option) => {
+                    const isSelected = selectedIds.includes(option.id);
+                    const votes = isSelected ? (option.votes || 0) + 1 : option.votes || 0;
+                    return {
+                        id: +option.id,
+                        name: option.label,
+                        count: votes,
+                        is_select: isSelected,
+                        percent: (votes / voteCount) * 100,
+                    };
+                }),
+            };
+        }
+
         return {
             is_success: true,
             choice_detail: options.map((option) => ({

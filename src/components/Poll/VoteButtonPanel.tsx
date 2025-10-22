@@ -56,6 +56,7 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
                     pollId: poll.id,
                     frameUrl: '',
                     options,
+                    allOptions: poll.options,
                 });
                 enqueueSuccessMessage(
                     res.is_success ? <Trans>Voted successfully.</Trans> : <Trans>Failed to vote.</Trans>,
@@ -65,7 +66,7 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
                 throw error;
             }
         },
-        [isMultiple, selectedOptions, poll.id, postId, source, isLogin],
+        [isMultiple, selectedOptions, poll.id, postId, source, isLogin, poll.options],
     );
 
     return (

@@ -128,6 +128,7 @@ export interface Provider {
         pollId: string;
         frameUrl: string;
         options: PollOption[];
+        allOptions?: PollOption[];
     }) => Promise<VoteResponseData>;
 
     /**
