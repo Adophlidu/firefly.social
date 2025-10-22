@@ -374,7 +374,7 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
         <div className="align-center relative w-full px-4">
             <button
                 className={classNames(
-                    'absolute left-0 z-10 flex h-full transform cursor-pointer items-center pl-4 duration-100 hover:text-highlight',
+                    'absolute left-0 z-10 flex h-full cursor-pointer items-center pl-4 duration-100 hover:text-highlight',
                     {
                         'pointer-events-none opacity-0': hiddenLeft,
                     },
@@ -388,7 +388,7 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
             </button>
             <button
                 className={classNames(
-                    'absolute right-0 z-10 flex h-full transform cursor-pointer items-center pr-4 duration-100 hover:text-highlight',
+                    'absolute right-0 z-10 flex h-full cursor-pointer items-center pr-4 duration-100 hover:text-highlight',
                     {
                         'pointer-events-none opacity-0': hiddenRight,
                     },

@@ -287,7 +287,7 @@ function NavigationBar({
     return (
         <Title title={title}>
             <div
-                className={classNames('flex flex-shrink-0 transform gap-2 duration-200', {
+                className={classNames('flex shrink-0 gap-2 duration-200', {
                     'pointer-events-none opacity-0': !showProfileAction,
                 })}
             >

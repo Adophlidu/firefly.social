@@ -136,7 +136,7 @@ export function NFTInfo(props: NFTInfoProps) {
                 <NFTInfoPreview name={name} imageURL={imageURL} video={videoURL} />
             </div>
             <div className="flex w-full flex-1 flex-col md:w-[calc(100%-20px-230px)]">
-                <div className={classNames('flex h-full w-full flex-col', !isMedium ? 'gap-2' : 'justify-between')}>
+                <div className={classNames('flex size-full flex-col', !isMedium ? 'gap-2' : 'justify-between')}>
                     {!isPoap && collection ? (
                         <div className="flex h-5 w-full items-center justify-between text-base font-bold leading-6">
                             <Link className="flex min-w-0 flex-1 items-center" href={collectionUrl}>

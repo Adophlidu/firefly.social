@@ -24,13 +24,13 @@ export function RootView() {
         <RedPacketProvider>
             <div
                 className={classNames(
-                    'flex transform flex-col overflow-hidden rounded-[12px] bg-primaryBottom transition-all',
+                    'flex transform-gpu flex-col overflow-hidden rounded-xl bg-primaryBottom transition-all',
                     location.pathname === '/requirement-rules'
                         ? 'min-h-[400px] min-w-[400px]'
                         : 'min-h-[620px] min-w-[600px]',
                 )}
             >
-                <div className="flex items-center justify-center gap-2 rounded-t-[12px] p-4">
+                <div className="flex items-center justify-center gap-2 rounded-t-xl p-4">
                     {isMain || isFinalView ? (
                         <CloseButton
                             className="!p-0"

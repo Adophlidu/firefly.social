@@ -1,0 +1,78 @@
+diff --git a/lib/rules/classnames-order.js b/lib/rules/classnames-order.js
+index e7e35732ea985e96c026df7d3dd5b4bbd0fe5af5..92575279acbc11a1c7d6cf68058371f5379eca41 100644
+--- a/lib/rules/classnames-order.js
++++ b/lib/rules/classnames-order.js
+@@ -133,7 +133,7 @@ module.exports = {
+             });
+             return;
+           case 'ObjectExpression':
+-            const isUsedByClassNamesPlugin = node.callee && node.callee.name === 'classnames';
++            const isUsedByClassNamesPlugin = node.callee && node.callee.name.toLowerCase() === 'classnames';
+             const isVue = node.key && node.key.type === 'VDirectiveKey';
+             arg.properties.forEach((prop) => {
+               const propVal = isUsedByClassNamesPlugin || isVue ? prop.key : prop.value;
+diff --git a/lib/rules/enforces-negative-arbitrary-values.js b/lib/rules/enforces-negative-arbitrary-values.js
+index 121899358a9fa5086dc0d032c2b7a114aadb8c15..f2c25d6a393194033cefc0ec65ddac5e1caa6eed 100644
+--- a/lib/rules/enforces-negative-arbitrary-values.js
++++ b/lib/rules/enforces-negative-arbitrary-values.js
+@@ -107,7 +107,7 @@ module.exports = {
+             });
+             return;
+           case 'ObjectExpression':
+-            const isUsedByClassNamesPlugin = node.callee && node.callee.name === 'classnames';
++            const isUsedByClassNamesPlugin = node.callee && node.callee.name.toLowerCase() === 'classnames';
+             const isVue = node.key && node.key.type === 'VDirectiveKey';
+             arg.properties.forEach((prop) => {
+               const propVal = isUsedByClassNamesPlugin || isVue ? prop.key : prop.value;
+diff --git a/lib/rules/enforces-shorthand.js b/lib/rules/enforces-shorthand.js
+index 61e84ac2709a215818fd79fe8ba04e0771e036e4..b7e902ab9bbcd0df9a59b9eb26d1c732c57642f4 100644
+--- a/lib/rules/enforces-shorthand.js
++++ b/lib/rules/enforces-shorthand.js
+@@ -201,7 +201,7 @@ module.exports = {
+             });
+             return;
+           case 'ObjectExpression':
+-            const isUsedByClassNamesPlugin = node.callee && node.callee.name === 'classnames';
++            const isUsedByClassNamesPlugin = node.callee && node.callee.name.toLowerCase() === 'classnames';
+             const isVue = node.key && node.key.type === 'VDirectiveKey';
+             arg.properties.forEach((prop) => {
+               const propVal = isUsedByClassNamesPlugin || isVue ? prop.key : prop.value;
+diff --git a/lib/rules/no-arbitrary-value.js b/lib/rules/no-arbitrary-value.js
+index 71cf4595ab38924cdcfb0f441c63c69826a8046a..b2ab41e48e3d47dffd169d9652b99bda34f9578b 100644
+--- a/lib/rules/no-arbitrary-value.js
++++ b/lib/rules/no-arbitrary-value.js
+@@ -107,7 +107,7 @@ module.exports = {
+             });
+             return;
+           case 'ObjectExpression':
+-            const isUsedByClassNamesPlugin = node.callee && node.callee.name === 'classnames';
++            const isUsedByClassNamesPlugin = node.callee && node.callee.name.toLowerCase() === 'classnames';
+             const isVue = node.key && node.key.type === 'VDirectiveKey';
+             arg.properties.forEach((prop) => {
+               const propVal = isUsedByClassNamesPlugin || isVue ? prop.key : prop.value;
+diff --git a/lib/rules/no-unnecessary-arbitrary-value.js b/lib/rules/no-unnecessary-arbitrary-value.js
+index 58904f8a1d90a7884f9641348544e3bfa4e5e047..6cf45177fb57dfaeb8bfa73020a4feec66e5629e 100644
+--- a/lib/rules/no-unnecessary-arbitrary-value.js
++++ b/lib/rules/no-unnecessary-arbitrary-value.js
+@@ -128,7 +128,7 @@ module.exports = {
+             });
+             return;
+           case 'ObjectExpression':
+-            const isUsedByClassNamesPlugin = node.callee && node.callee.name === 'classnames';
++            const isUsedByClassNamesPlugin = node.callee && node.callee.name.toLowerCase() === 'classnames';
+             const isVue = node.key && node.key.type === 'VDirectiveKey';
+             arg.properties.forEach((prop) => {
+               const propVal = isUsedByClassNamesPlugin || isVue ? prop.key : prop.value;
+diff --git a/lib/util/ast.js b/lib/util/ast.js
+index a6ed24d3e697347b3879a8612c9f73b8ce7bef53..a464723b7d5d68d0d192cc53f64caf8216005850 100644
+--- a/lib/util/ast.js
++++ b/lib/util/ast.js
+@@ -299,7 +299,7 @@ function parseNodeRecursive(rootNode, childNode, cb, skipConditional = false, is
+         return;
+       case 'ObjectExpression':
+         childNode.properties.forEach((prop) => {
+-          const isUsedByClassNamesPlugin = (rootNode.callee && rootNode.callee.name === 'classnames') || rootNode.type === 'VAttribute';
++          const isUsedByClassNamesPlugin = (rootNode.callee && rootNode.callee.name.toLowerCase() === 'classnames') || rootNode.type === 'VAttribute';
+ 
+           if (prop.type === 'SpreadElement') {
+             // Ignore spread elements

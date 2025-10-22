@@ -23,7 +23,7 @@ export const RecipientAvatar = memo<RecipientAvatarProps>(function RecipientAvat
         <div className="relative size-9">
             <div
                 className={classNames(
-                    'flex h-full w-full items-center justify-center rounded-full',
+                    'flex size-full items-center justify-center rounded-full',
                     !ensAvatar ? 'bg-[#5E69FF] text-white' : '',
                 )}
                 style={{
@@ -45,7 +45,7 @@ export const RecipientAvatar = memo<RecipientAvatarProps>(function RecipientAvat
             </div>
             <div
                 className={classNames(
-                    'absolute -right-1 bottom-0 z-1 h-[16px] w-[16px] rounded-full border border-white',
+                    'absolute -right-1 bottom-0 z-1 size-4 rounded-full border border-white',
                     isEvm ? 'bg-[#312B37]' : '',
                 )}
             >

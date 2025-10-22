@@ -33,9 +33,7 @@ export const SwiperIndicator = memo<SwiperIndicatorProps>(function SwiperIndicat
                         onChange(index);
                     }}
                 >
-                    <span
-                        className={classNames('h-full w-full bg-highlight', activeIndex === index ? '' : 'opacity-50')}
-                    />
+                    <span className={classNames('size-full bg-highlight', activeIndex === index ? '' : 'opacity-50')} />
                 </ClickableButton>
             ))}
         </div>

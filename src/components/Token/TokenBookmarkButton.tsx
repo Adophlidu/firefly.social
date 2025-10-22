@@ -54,14 +54,7 @@ export const TokenBookmarkButton = memo<Props>(function TokenBookmarkButton({
                     chainId,
                     address,
                 });
-                enqueueSuccessMessage(
-                    <Trans>
-                        Token removed from your Bookmarks.{' '}
-                        <Link href="/bookmarks/tokens" className="underline" onClick={captureBookmarkToastClick}>
-                            View
-                        </Link>
-                    </Trans>,
-                );
+                enqueueSuccessMessage(<Trans>Token removed from your Bookmarks.</Trans>);
             } else {
                 await FireflySocialMediaProvider.bookmarkToken({
                     coinId,

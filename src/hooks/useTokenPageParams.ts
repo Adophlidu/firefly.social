@@ -1,3 +1,4 @@
+import { first, sortBy } from 'lodash-es';
 import { use } from 'react';
 
 import type { TokenPageProps } from '@/app/(normal)/token/[exchange]/[[...slug]]/types.js';
@@ -10,7 +11,7 @@ import {
     TOKEN_CATEGORIES,
     TRACING_CHAINS,
 } from '@/constants/index.js';
-import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
+import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChainId.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
@@ -36,7 +37,7 @@ export function useTokenPageParams({ params, searchParams }: TokenPageProps) {
     const tokenId = token?.id;
     const coinChainId = tokenId ? resolveCoinGeckoCoinChainId(tokenId) : undefined;
     const { data: trending, isPending } = useCoinTrending(tokenId);
-    const firstContract = trending?.contracts?.[0];
+    const firstContract = first(sortBy(trending?.contracts, (x) => (isValidAddress(x.address) ? 0 : 1)));
 
     const address =
         paramAddress ?? (isAddress ? addressSlug : coinChainId ? undefined : firstContract?.address) ?? token?.address;

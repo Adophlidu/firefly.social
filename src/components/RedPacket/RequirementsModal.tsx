@@ -143,7 +143,7 @@ export function RequirementsModal({
         <Modal open={open} onClose={onClose}>
             <div
                 className={classNames(
-                    'group flex min-h-[344px] transform flex-col bg-primaryBottom transition-all max-md:h-[100vh] max-md:w-[100vw] md:min-w-[476px] md:rounded-xl',
+                    'group flex min-h-[344px] flex-col bg-primaryBottom transition-all max-md:h-screen max-md:w-screen md:min-w-[476px] md:rounded-xl',
                     {
                         unclaimed: showResults,
                     },

@@ -176,7 +176,7 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
                         <ClickableButton
                             key={item.url}
                             className={classNames(
-                                'box-content h-16 w-16 overflow-hidden rounded-full border-2',
+                                'box-content size-16 overflow-hidden rounded-full border-2',
                                 selected ? 'border-[#5E69FF]' : 'border-transparent',
                             )}
                             onClick={() => onChange({ ...item, file: null })}
@@ -194,7 +194,7 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
                 })}
                 <ClickableButton
                     className={classNames(
-                        'box-content flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border-2',
+                        'box-content flex size-16 items-center justify-center overflow-hidden rounded-full border-2',
                         customSelected ? 'border-[#5E69FF]' : 'border-transparent',
                     )}
                     style={{

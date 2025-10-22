@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { first, isNumber } from 'lodash-es';
+import { first, isNumber, sortBy } from 'lodash-es';
 import { type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
 import { useUpdateContractParams } from '@/app/(normal)/token/[exchange]/[[...slug]]/useUpdateContractParams.js';
@@ -25,7 +25,7 @@ import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { formatDate } from '@/helpers/formatTimestamp.js';
 import { getChainInfo } from '@/helpers/getChainInfo.js';
-import { isValidTokenAddressSui } from '@/helpers/isValidAddress.js';
+import { isValidAddress, isValidTokenAddressSui } from '@/helpers/isValidAddress.js';
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useDetectToken } from '@/hooks/useDetectToken.js';
@@ -47,7 +47,7 @@ function renderZero(value?: string) {
 
 function InfoRow({ title, description, amount, asInfinite, value, extra, className, ...rest }: InfoRowProps) {
     return (
-        <div className={classNames('flex items-center text-medium', className)} {...rest}>
+        <div className={classNames('flex items-center gap-2 text-medium', className)} {...rest}>
             <span className="whitespace-nowrap text-second">{title}</span>
             {description ? (
                 <Tooltip placement="top" content={description} touch>
@@ -55,11 +55,11 @@ function InfoRow({ title, description, amount, asInfinite, value, extra, classNa
                 </Tooltip>
             ) : null}
             {extra ? (
-                <div className="ml-auto">{extra}</div>
+                <div className="ml-auto min-w-0">{extra}</div>
             ) : (
                 <div
                     className={classNames(
-                        'ml-auto truncate whitespace-nowrap font-inter font-bold text-main',
+                        'ml-auto min-w-0 truncate whitespace-nowrap font-inter font-bold text-main',
                         asInfinite ? 'text-2xl leading-[22.5px]' : 'text-medium',
                     )}
                 >
@@ -96,7 +96,7 @@ export const Overview = memo<TokenOverviewProps>(function Overview({ coinId, cha
 
     const contracts = useMemo(() => {
         if (trending?.contracts) {
-            return trending.contracts;
+            return sortBy(trending.contracts, (x) => (isValidAddress(x.address) ? 0 : 1));
         }
         if (detected?.contract_info) {
             return [
@@ -464,10 +464,7 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                                 placement="top"
                                 touch
                             >
-                                <span
-                                    className="overflow-hidden text-ellipsis text-medium font-bold text-main"
-                                    data-address={address}
-                                >
+                                <span className="truncate text-medium font-bold text-main" data-address={address}>
                                     {formatAddress(address, 4)}
                                 </span>
                             </Tooltip>

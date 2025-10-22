@@ -1324,6 +1324,9 @@ msgstr "Limo 文章"
 msgid "No proxy"
 msgstr "无代理"
 
+msgid "Token removed from your Bookmarks."
+msgstr ""
+
 msgid "There is no data available to display"
 msgstr "没有可显示的数据"
 
@@ -1517,9 +1520,6 @@ msgstr "未找到 {0} 的连接器"
 msgid "Unmute /{0}"
 msgstr "取消隐藏 /{0}"
 
-msgid "Volume(24h) · MC"
-msgstr "24小时交易量 · 市值"
-
 msgid "Report spam"
 msgstr "举报垃圾信息"
 
@@ -1651,6 +1651,9 @@ msgstr "评论"
 
 msgid "Add an existing account"
 msgstr "添加已有的账号"
+
+msgid "Volume(24h) · Market Cap"
+msgstr ""
 
 #. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"
@@ -3805,9 +3808,6 @@ msgstr "输入获奖人数"
 
 msgid "Add"
 msgstr "添加"
-
-msgid "Token removed from your Bookmarks. <0>View</0>"
-msgstr "代币已从你的收藏中移除。<0>查看</0>"
 
 #. placeholder {0}: formatFileSize(maxGifSize)
 msgid "Failed to upload. Gif size exceeds {0}"

@@ -84,7 +84,7 @@ export const TokenIcon = memo(function TokenIcon({
             {!disableBadge && (badgeIcon || chainId || coingeckoChain) ? (
                 <span
                     className={classNames(
-                        'absolute -bottom-[1px] overflow-hidden rounded-full bg-white p-[1px] empty:hidden',
+                        'absolute -bottom-px overflow-hidden rounded-full bg-white p-px empty:hidden',
                         badgeClassName,
                     )}
                     style={{

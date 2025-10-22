@@ -308,7 +308,7 @@ export function LoginBsky() {
                         spellCheck="false"
                         placeholder={DEFAULT_SERVICE_URL}
                         className={classNames(
-                            'w-full border-0 bg-transparent py-2 pl-9 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6',
+                            'w-full border-0 bg-transparent py-2 pl-9 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6',
                             {
                                 'pointer-events-none opacity-0': !editServiceUrl,
                             },
@@ -325,7 +325,7 @@ export function LoginBsky() {
                     />
                     <span
                         className={classNames(
-                            'absolute w-full border-0 bg-transparent py-2 pl-9 text-left placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6',
+                            'absolute w-full border-0 bg-transparent py-2 pl-9 text-left placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6',
                             {
                                 hidden: editServiceUrl,
                             },

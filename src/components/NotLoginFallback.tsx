@@ -73,7 +73,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
         <div
             {...rest}
             className={classNames(
-                'flex flex-grow flex-col items-center justify-center space-y-9 pb-12 pt-[15vh]',
+                'flex grow flex-col items-center justify-center space-y-9 pb-12 pt-[15vh]',
                 className,
             )}
         >

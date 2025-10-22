@@ -101,7 +101,7 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
                         inputRef.current.setSelectionRange(password.length, password.length);
                     }}
                     className={classNames(
-                        'h-11 w-11 rounded-2xl border border-lightLineSecond bg-input text-center text-base font-medium !leading-[44px] text-main dark:bg-lightBg',
+                        'size-11 rounded-2xl border border-lightLineSecond bg-input text-center text-base font-medium !leading-[44px] text-main dark:bg-lightBg',
                     )}
                 >
                     {password[index] ? '*' : ''}

@@ -1319,6 +1319,9 @@ msgstr ""
 msgid "No proxy"
 msgstr ""
 
+msgid "Token removed from your Bookmarks."
+msgstr ""
+
 msgid "There is no data available to display"
 msgstr ""
 
@@ -1512,9 +1515,6 @@ msgstr ""
 msgid "Unmute /{0}"
 msgstr ""
 
-msgid "Volume(24h) · MC"
-msgstr ""
-
 msgid "Report spam"
 msgstr ""
 
@@ -1645,6 +1645,9 @@ msgid "Reply"
 msgstr ""
 
 msgid "Add an existing account"
+msgstr ""
+
+msgid "Volume(24h) · Market Cap"
 msgstr ""
 
 #. placeholder {0}: channel.name
@@ -3799,9 +3802,6 @@ msgid "Enter Number of Winners"
 msgstr ""
 
 msgid "Add"
-msgstr ""
-
-msgid "Token removed from your Bookmarks. <0>View</0>"
 msgstr ""
 
 #. placeholder {0}: formatFileSize(maxGifSize)

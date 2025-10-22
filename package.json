@@ -232,7 +232,8 @@
             "twitter-text@3.1.0": "patches/twitter-text@3.1.0.patch",
             "vite-plugin-storybook-nextjs@1.1.5": "patches/vite-plugin-storybook-nextjs@1.1.5.patch",
             "urlcat@3.1.0": "patches/urlcat@3.1.0.patch",
-            "@sentry/browser@7.120.3": "patches/@sentry__browser@7.120.3.patch"
+            "@sentry/browser@7.120.3": "patches/@sentry__browser@7.120.3.patch",
+            "eslint-plugin-tailwindcss@3.18.2": "patches/eslint-plugin-tailwindcss@3.18.2.patch"
         }
     },
     "eslintConfig": {

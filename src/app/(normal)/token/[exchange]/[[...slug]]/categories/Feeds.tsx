@@ -114,7 +114,7 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
     const router = useRouter();
 
     return (
-        <div {...props} className={classNames('flex flex-grow flex-col gap-2', props.className)}>
+        <div {...props} className={classNames('flex grow flex-col gap-2', props.className)}>
             <div className="flex shrink-0 gap-2">
                 {sources.map((x) => {
                     const isX3ProTab = x === Source.X3Pro;

@@ -233,7 +233,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
                 </div>
                 <div
                     className={classNames(
-                        'ml-auto h-10 min-w-[150px] max-w-[170px] shrink-0 flex-grow overflow-auto',
+                        'ml-auto h-10 min-w-[150px] max-w-[170px] shrink-0 grow overflow-auto',
                         isPending ? 'animate-pulse rounded-lg bg-gray-100 dark:bg-gray-800' : null,
                     )}
                 >

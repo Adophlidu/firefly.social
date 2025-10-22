@@ -64,12 +64,7 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
             }}
         >
             <div className="absolute inset-0">
-                <img
-                    src={src}
-                    {...props}
-                    className={classNames('h-full w-full', props.className)}
-                    alt={props.alt || ''}
-                />
+                <img src={src} {...props} className={classNames('size-full', props.className)} alt={props.alt || ''} />
             </div>
         </div>
     );

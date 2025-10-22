@@ -1324,6 +1324,9 @@ msgstr ""
 msgid "No proxy"
 msgstr "無代理"
 
+msgid "Token removed from your Bookmarks."
+msgstr ""
+
 msgid "There is no data available to display"
 msgstr "暫無可顯示資料"
 
@@ -1517,9 +1520,6 @@ msgstr "未找到 {0} 的連接器"
 msgid "Unmute /{0}"
 msgstr "取消隱藏 /{0}"
 
-msgid "Volume(24h) · MC"
-msgstr ""
-
 msgid "Report spam"
 msgstr "檢舉垃圾訊息"
 
@@ -1651,6 +1651,9 @@ msgstr "留言"
 
 msgid "Add an existing account"
 msgstr "新增現有帳號"
+
+msgid "Volume(24h) · Market Cap"
+msgstr ""
 
 #. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"
@@ -3805,9 +3808,6 @@ msgstr "輸入獲獎人數"
 
 msgid "Add"
 msgstr "新增"
-
-msgid "Token removed from your Bookmarks. <0>View</0>"
-msgstr ""
 
 #. placeholder {0}: formatFileSize(maxGifSize)
 msgid "Failed to upload. Gif size exceeds {0}"

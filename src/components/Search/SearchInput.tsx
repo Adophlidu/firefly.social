@@ -30,7 +30,7 @@ export const SearchInput = memo(function SearchInput({
                 ref={inputRef}
                 {...rest}
                 className={classNames(
-                    `w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6`,
+                    `w-full border-0 bg-transparent py-2 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6`,
                     rest.className,
                 )}
             />

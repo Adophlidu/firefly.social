@@ -24,7 +24,7 @@ export const LoggedInSources = memo(function LoggedInSources() {
                     key={source}
                     style={{ zIndex: index }}
                     className={classNames(
-                        'flex h-6 w-6 items-center justify-center rounded-md border border-white',
+                        'flex size-6 items-center justify-center rounded-md border border-white',
                         index > 0 && sources.length > 1 ? '-ml-1' : undefined,
                         source === Source.Lens ? 'bg-[#00B641]' : 'bg-white',
                     )}

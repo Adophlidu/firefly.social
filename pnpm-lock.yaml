@@ -52,6 +52,9 @@ patchedDependencies:
   dayjs-twitter@0.5.0:
     hash: cuhyqcffld3lmtt6xlopmlcac4
     path: patches/dayjs-twitter@0.5.0.patch
+  eslint-plugin-tailwindcss@3.18.2:
+    hash: wqd3t4enk6x37dshhhfx753wki
+    path: patches/eslint-plugin-tailwindcss@3.18.2.patch
   react-use@17.5.1:
     hash: jdgfodh3ixpexpgf3fwrwvcmtq
     path: patches/react-use@17.5.1.patch
@@ -505,7 +508,7 @@ devDependencies:
     version: 0.12.0(eslint@9.24.0)(typescript@5.7.3)
   eslint-plugin-tailwindcss:
     specifier: ^3.18.2
-    version: 3.18.2(tailwindcss@3.4.17)
+    version: 3.18.2(patch_hash=wqd3t4enk6x37dshhhfx753wki)(tailwindcss@3.4.17)
   eslint-plugin-unicorn:
     specifier: ^58.0.0
     version: 58.0.0(eslint@9.24.0)
@@ -13307,7 +13310,7 @@ packages:
       - typescript
     dev: true
 
-  /eslint-plugin-tailwindcss@3.18.2(tailwindcss@3.4.17):
+  /eslint-plugin-tailwindcss@3.18.2(patch_hash=wqd3t4enk6x37dshhhfx753wki)(tailwindcss@3.4.17):
     resolution: {integrity: sha512-QbkMLDC/OkkjFQ1iz/5jkMdHfiMu/uwujUHLAJK5iwNHD8RTxVTlsUezE0toTZ6VhybNBsk+gYGPDq2agfeRNA==}
     engines: {node: '>=18.12.0'}
     peerDependencies:
@@ -13317,6 +13320,7 @@ packages:
       postcss: 8.5.3
       tailwindcss: 3.4.17
     dev: true
+    patched: true
 
   /eslint-plugin-unicorn@58.0.0(eslint@9.24.0):
     resolution: {integrity: sha512-fc3iaxCm9chBWOHPVjn+Czb/wHS0D2Mko7wkOdobqo9R2bbFObc4LyZaLTNy0mhZOP84nKkLhTUQxlLOZ7EjKw==}

@@ -48,7 +48,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     if (!records.length && !keyword) return null;
 
     const containerClasses = classNames(
-        'max:max-h-[calc(100vh-59px)] absolute -inset-x-[1px] top-10 z-[1000] flex w-full flex-col overflow-auto overflow-hidden bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:border dark:border-line dark:bg-primaryBottom',
+        'max:max-h-[calc(100vh-59px)] absolute -inset-x-px top-10 z-[1000] flex w-full flex-col overflow-auto overflow-hidden bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:border dark:border-line dark:bg-primaryBottom',
         {
             'mt-2 rounded-2xl': !fullScreen,
             'bottom-0 mt-3 h-[calc(100vh-40px)] border-none': fullScreen,

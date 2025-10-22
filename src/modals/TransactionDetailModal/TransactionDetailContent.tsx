@@ -457,7 +457,7 @@ export default memo(function TransactionDetailContent({ transaction }: Transacti
                         })}
                     >
                         <div
-                            className={classNames('h-1 w-1 rounded-full', {
+                            className={classNames('size-1 rounded-full', {
                                 'bg-success': transaction.tx_status === TransactionState.Success,
 
                                 'bg-danger': transaction.tx_status === TransactionState.Failed,

@@ -37,7 +37,7 @@ export function MoreActionMenu({
             <MenuButton
                 disabled={disabled}
                 className={classNames(
-                    'flex flex-shrink-0 items-center text-lightMain transition duration-100 active:scale-90',
+                    'flex shrink-0 items-center text-lightMain transition duration-100 active:scale-90',
                     buttonClassName,
                 )}
                 aria-label="More"

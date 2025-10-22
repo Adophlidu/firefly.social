@@ -154,7 +154,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                     ) : (
                         <div
                             className={classNames('overflow-hidden rounded-lg', {
-                                'size-[120px] flex-shrink-0 flex-grow-0 basis-[120px]': minimal,
+                                'size-[120px] shrink-0 grow-0 basis-[120px]': minimal,
                                 'w-full': !minimal,
                             })}
                         >

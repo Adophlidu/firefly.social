@@ -32,7 +32,7 @@ export const ImageWithLoading = memo<ImageWithLoadingProps>(function ImageWithLo
                 alt={alt || 'Firefly'}
                 src={src}
                 {...rest}
-                className={classNames('h-full w-full', className)}
+                className={classNames('size-full', className)}
                 onLoadStart={() => setLoading(true)}
                 onLoad={() => setLoading(false)}
                 onError={() => setLoading(false)}

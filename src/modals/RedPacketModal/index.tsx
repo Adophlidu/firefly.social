@@ -16,7 +16,7 @@ function PendingComponent() {
     return (
         <div
             className={classNames(
-                'flex min-w-[600px] transform items-center justify-center overflow-hidden rounded-[12px] bg-primaryBottom transition-all',
+                'flex min-w-[600px] items-center justify-center overflow-hidden rounded-xl bg-primaryBottom transition-all',
                 location.pathname === '/main' ? 'min-h-[563px]' : 'min-h-[620px]',
             )}
         >

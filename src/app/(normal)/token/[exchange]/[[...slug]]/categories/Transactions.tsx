@@ -90,7 +90,7 @@ export const Transactions = memo<Props>(function Transactions({
     };
 
     return (
-        <div {...props} className={classNames('flex flex-grow flex-col gap-2', props.className)}>
+        <div {...props} className={classNames('flex grow flex-col gap-2', props.className)}>
             <div className="flex shrink-0 gap-2">
                 {subcategories.map((x) => {
                     const selected = x.value === subcategory;

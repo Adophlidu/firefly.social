@@ -93,7 +93,7 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
                 </div>
                 <data
                     className={classNames(
-                        'flex h-5 shrink-0 items-center justify-end gap-1 text-right font-inter text-sm font-medium max-md:w-auto max-md:min-w-[60px] max-md:px-2',
+                        'flex h-5 shrink-0 items-center justify-end gap-1 text-right font-inter text-sm font-medium max-md:w-auto max-md:min-w-[60px]',
                         priceChange >= 0 ? 'text-success' : 'text-danger',
                     )}
                 >

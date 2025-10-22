@@ -66,7 +66,7 @@ export const TokenAmountInput = memo(function TokenAmountInput() {
             <div className="h-full min-w-0 flex-1">
                 <input
                     className={classNames(
-                        'h-full w-full rounded-xl border bg-transparent text-center outline-none transition-colors placeholder:text-[10px] focus:!border-highlight focus:outline-none focus:ring-0 disabled:cursor-not-allowed md:placeholder:text-[13px]',
+                        'size-full rounded-xl border bg-transparent text-center outline-none transition-colors placeholder:text-[10px] focus:!border-highlight focus:outline-none focus:ring-0 disabled:cursor-not-allowed md:placeholder:text-[13px]',
                         amount ? 'border-main' : 'border-second',
                     )}
                     placeholder={!isMedium ? t`Custom amount` : t`Custom token amount`}

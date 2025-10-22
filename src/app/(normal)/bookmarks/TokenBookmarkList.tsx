@@ -22,7 +22,7 @@ function ListHeader() {
     return (
         <div className="mt-3 flex px-4">
             <div className="font-inter text-[13px] leading-[17px] text-secondary">
-                <Trans>Volume(24h) · MC</Trans>
+                <Trans>Volume(24h) · Market Cap</Trans>
             </div>
             <div className="ml-auto text-right font-inter text-[13px] leading-[17px] text-secondary">
                 Price · Change(24h)

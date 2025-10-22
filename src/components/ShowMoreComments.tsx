@@ -23,7 +23,7 @@ export function ShowMoreComments(props: ShowMoreCommentsProps) {
         >
             <div
                 className={classNames(
-                    'flex w-full cursor-pointer items-center justify-center border-b-[1px] border-b-line py-3 text-link',
+                    'flex w-full cursor-pointer items-center justify-center border-b border-b-line py-3 text-link',
                     className,
                 )}
                 onClick={onClick}

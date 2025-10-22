@@ -281,7 +281,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                             })}
                         >
                             <div
-                                className={classNames('h-2 w-2 rounded-full', {
+                                className={classNames('size-2 rounded-full', {
                                     'bg-success': activity.tx_status === 'success',
                                     'bg-warn': activity.tx_status === 'pending',
                                     'bg-danger': activity.tx_status === 'failed',

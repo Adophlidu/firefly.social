@@ -4,7 +4,7 @@ import { SideTrendingTokens } from '@/components/Token/SideTrendingTokens.js';
 
 export default function Page() {
     return (
-        <div className="flex flex-col gap-6">
+        <div className="mt-4 flex flex-col gap-6">
             <BookmarkedTokens />
             <SideTrendingTokens />
         </div>

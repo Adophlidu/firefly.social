@@ -9,7 +9,7 @@ export function ActivityCellAction({ children, className }: HTMLProps<'div'>) {
         <div
             className={classNames(
                 className,
-                'flex h-6 max-w-[100%] items-center space-x-1 text-sm font-normal leading-6',
+                'flex h-6 max-w-full items-center space-x-1 text-sm font-normal leading-6',
             )}
         >
             {children}

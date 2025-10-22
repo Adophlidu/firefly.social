@@ -137,7 +137,7 @@ export const TokenMarketData = memo(function TokenMarketData({
     const firstContract = first(contracts);
     const chainId = propChainId || token.chainId || firstContract?.chainId;
     const contract = (chainId ? contracts?.find((x) => x.chainId === chainId) : null) || firstContract;
-    const address = runtimeAddress || contract?.address;
+    const address = contract?.address || runtimeAddress; // consistent with contractSelect
     const { data: security } = useTokenSecurity(chainId, address);
     const tradeInfo = useTradeInfo(token, chainId, address);
     const tradeChainId = chainId || tradeInfo.chainId;
@@ -400,7 +400,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                                 >
                                     <div
                                         className={classNames(
-                                            'h-[2px] flex-grow cursor-pointer rounded-[2px] group-hover:bg-third group-hover:dark:bg-secondary',
+                                            'h-[2px] grow cursor-pointer rounded-[2px] group-hover:bg-third group-hover:dark:bg-secondary',
                                             activeTradeHash === trade.hash || activeRecordIndex === i
                                                 ? 'bg-third dark:bg-secondary'
                                                 : 'bg-secondaryLine',

@@ -39,7 +39,7 @@ export function PolymarketActivityRate({ activity }: ActivityRateProps) {
                             />
                             <div
                                 className={classNames(
-                                    'absolute bottom-0 top-0 flex max-w-full flex-col justify-center font-bold',
+                                    'absolute inset-y-0 flex max-w-full flex-col justify-center font-bold',
                                     {
                                         'right-0 pr-7 text-right': isLast,
                                         'left-0 pl-7': !isLast,

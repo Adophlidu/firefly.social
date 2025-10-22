@@ -68,7 +68,7 @@ export default defineConfig([
         },
         settings: {
             tailwindcss: {
-                callees: ['classnames', 'clsx', 'ctl'],
+                callees: ['classNames'],
                 cssFilesRefreshRate: 5_000,
                 removeDuplicates: true,
                 skipClassAttribute: false,
