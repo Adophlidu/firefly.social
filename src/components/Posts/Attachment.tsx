@@ -81,7 +81,9 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
 
     const handleImageError = useCallback(
         (event: SyntheticEvent<HTMLImageElement>) => {
-            if (!asset?.uri) return;
+            if (!asset?.uri || event.currentTarget.src === asset.uri) {
+                return;
+            }
             event.currentTarget.src = asset.uri;
         },
         [asset],

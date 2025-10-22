@@ -28,6 +28,7 @@ export const SingleImage = memo<SingleImageProps>(function SingleImage({
         queryKey: ['single-image', src],
         staleTime: Infinity,
         enabled: !!src,
+        retry: false,
         queryFn: () =>
             new Promise<{ width: number; height: number }>((resolve, reject) => {
                 const image = new Image();
