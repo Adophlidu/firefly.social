@@ -10,7 +10,6 @@ import { DiscoverFilter } from '@/components/HomeTab/DiscoverFilter.js';
 import { Link } from '@/components/Link.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
-import { TypeFilter } from '@/components/TypeFilter/index.js';
 import { HomeTab, NetworkType, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -185,16 +184,9 @@ export function HomeTabs({
                     {source === Source.Posts ? (
                         <DiscoverFilter tab={currentTab} />
                     ) : source === Source.Transactions ? (
-                        <ChainFilter networkType={currentTab === HomeTab.Following ? undefined : NetworkType.Ethereum}>
-                            {isFollowingTab ? (
-                                <TypeFilter
-                                    multiple
-                                    options={txTypeOptions}
-                                    selectedOptions={followingTxTypes}
-                                    onOptionsChange={setFollowingTxTypes}
-                                />
-                            ) : null}
-                        </ChainFilter>
+                        <ChainFilter
+                            networkType={currentTab === HomeTab.Following ? undefined : NetworkType.Ethereum}
+                        />
                     ) : source === Source.Activities ? (
                         <ActivitiesFilter namespace={ActivitiesFilterNamespace.Home} />
                     ) : null}
