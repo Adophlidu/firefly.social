@@ -19,7 +19,7 @@ import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceNa
 import { SnackbarRef } from '@/modals/Snackbar.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
-import { captureCreateFireflyPollEvent } from '@/providers/telemetry/capturePollEvent.js';
+import { captureCreatePollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { commitPoll } from '@/services/poll.js';
@@ -162,13 +162,13 @@ export async function crossPost(
 ) {
     const { updatePostInThread, updatePollId } = useComposeStateStore.getState();
     const { availableSources, poll } = compositePost;
+    let pollId = '';
 
-    // create common poll for farcaster and lens
+    // create common poll for farcaster
     if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
-        const pollId = await commitPoll(poll, readChars(compositePost.chars));
+        pollId = await commitPoll(poll, readChars(compositePost.chars));
 
         updatePollId(pollId);
-        captureCreateFireflyPollEvent(pollId);
     }
 
     const parentPost = Object.values(compositePost.parentPost).find((x) => x);
@@ -266,6 +266,7 @@ export async function crossPost(
 
             const availableSources = difference(updatedCompositePost.availableSources, failedAt);
             if (availableSources.length) {
+                captureCreatePollEvent(availableSources, updatedCompositePost, pollId);
                 captureComposeEvent(type, updatedCompositePost, {
                     failedAt,
                     availableSources,

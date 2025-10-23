@@ -14,7 +14,6 @@ import type {
     ORBSignInResponseData,
     VoteResult,
 } from '@/providers/orb/type.js';
-import { captureCreateOrbPollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { ResponseJson } from '@/types/utility.js';
 
@@ -87,8 +86,6 @@ class Orb {
         if (!post) {
             throw new Error('Post not found');
         }
-
-        captureCreateOrbPollEvent(post.postId);
 
         return { postId: post.postId };
     }

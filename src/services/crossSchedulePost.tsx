@@ -17,7 +17,7 @@ import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedul
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
-import { captureCreateFireflyPollEvent } from '@/providers/telemetry/capturePollEvent.js';
+import { captureCreateFarPollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { commitPoll } from '@/services/poll.js';
 import { schedulePost } from '@/services/post.js';
@@ -38,7 +38,7 @@ export async function createSchedulePostsPayload(
         const pollId = await commitPoll(poll, readChars(chars));
 
         updatePollId(pollId);
-        captureCreateFireflyPollEvent(pollId);
+        captureCreateFarPollEvent(pollId);
     }
 
     const updatedCompositePost = getCompositePost(compositePost.id);
