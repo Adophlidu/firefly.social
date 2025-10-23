@@ -10,7 +10,9 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
 export function isPathnameForceRedirect(pathname: string): boolean {
-    return [PageRoute.Home, PageRoute.FollowingPosts, PageRoute.DiscoverPosts].includes(pathname as PageRoute);
+    return [PageRoute.Home, PageRoute.FollowingPosts, PageRoute.DiscoverPosts, PageRoute.Sparks].includes(
+        pathname as PageRoute,
+    );
 }
 
 export function openLoginModal(props: LoginModalOpenProps | void) {
