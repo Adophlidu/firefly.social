@@ -144,7 +144,7 @@ export async function middleware(request: NextRequest) {
                 id: parsedProfileUrl.id,
                 category: isSocialSource(parsedProfileUrl.source)
                     ? SocialProfileCategory.Feed
-                    : WalletProfileCategory.NFTs,
+                    : WalletProfileCategory.Transactions,
             }),
             request.url,
         );

@@ -21,13 +21,11 @@ export function parseProfileUrl(pathname: string) {
         (source === Source.Wallet || source === Source.WalletMix) && isWalletProfileCategory(category);
     const isProfileFollowPage = isSocialSource(source) && isFollowCategory(category);
     if (isSocialProfile || isWalletProfile || isProfileFollowPage) {
-        return isSocialProfile || isWalletProfile || isProfileFollowPage
-            ? {
-                  id,
-                  category,
-                  source,
-              }
-            : null;
+        return {
+            id,
+            category,
+            source,
+        };
     }
     return null;
 }
