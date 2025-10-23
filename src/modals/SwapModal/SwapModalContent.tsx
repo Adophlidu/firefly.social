@@ -125,7 +125,7 @@ export function SwapModalContent({ open, embed = false, onClose, props, classNam
             : undefined;
 
         const params = {
-            tradeType: TradeType.AUTO,
+            tradeType: isSwap ? TradeType.AUTO : TradeType.BRIDGE,
             lang: LangMap[locale] || 'en_us',
             theme,
             width: window.innerWidth < 440 ? window.innerWidth - 40 : 400,

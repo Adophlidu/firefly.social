@@ -8,7 +8,7 @@ import { type Address } from 'viem';
 
 import { AddressLink, TxLink } from '@/app/(normal)/tx/[chain_id]/[hash]/components/TxLink.js';
 import ExchangeIcon from '@/assets/exchange.svg';
-import LinkOut from '@/assets/link.svg';
+import ExportIcon from '@/assets/export.svg';
 import MoreIcon from '@/assets/more-circle.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
@@ -81,7 +81,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                             size={40}
                         />
                     </Link>
-                    <div className="flex flex-col">
+                    <div className="flex items-center gap-1">
                         <div className="flex items-center gap-x-1 text-medium">
                             <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
                                 {activity.displayInfo?.ensHandle ? (
@@ -259,7 +259,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                             </span>
 
                             <TxLink chainId={activity.chain_id} hash={activity.hash}>
-                                <LinkOut className="size-4" />
+                                <ExportIcon className="size-4" />
                             </TxLink>
                         </div>
                     ) : null}
@@ -301,12 +301,12 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ activity }
                             <Trans>Network</Trans>
                         </span>
                         <div className="flex items-center gap-1">
+                            <span className="text-lightMain">{activity.chain_id === 101 ? 'Solana' : chain?.name}</span>
                             <ChainIcon
                                 chainId={activity.chain_id}
                                 size={15}
                                 networkType={activity.chain_id === 101 ? NetworkType.Solana : NetworkType.Ethereum}
                             />
-                            <span className="text-lightMain">{activity.chain_id === 101 ? 'Solana' : chain?.name}</span>
                         </div>
                     </div>
                     <div className="flex items-center justify-between text-sm">
