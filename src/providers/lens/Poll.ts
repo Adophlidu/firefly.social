@@ -10,15 +10,16 @@ import { LENS_CHAIN_ID } from '@/constants/index.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
+import { isLensOwnerOrManager } from '@/providers/lens/isLensOwnerOrManager.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { OrbProvider } from '@/providers/orb/index.js';
 import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { commitPoll } from '@/services/poll.js';
 
 const fetchAccountOwner = memoizePromise(
@@ -58,17 +59,15 @@ class LensPoll implements Provider {
         options: PollOption[];
         allOptions?: PollOption[];
     }): Promise<VoteResponseData> {
-        const currentProfile = getProfileFromStorage(Source.Lens);
+        const currentProfile = getProfileFromStorage(Source.Lens) as Profile;
         if (!currentProfile?.profileId) throw new Error('No profile found, please login first.');
-
-        const accountOwner = currentProfile.ownedBy?.address || (await fetchAccountOwner(currentProfile.profileId));
-        if (!accountOwner) throw new Error('No owner found for the current profile.');
 
         const walletClient = await getWalletClientRequired(wagmiConfig, {
             chainId: LENS_CHAIN_ID,
         });
-        if (!isSameEthereumAddress(walletClient.account.address, accountOwner)) {
-            throw new Error('Please use the owner wallet of the current profile to execute this action.');
+        const addressType = await isLensOwnerOrManager(walletClient.account.address, currentProfile);
+        if (!addressType) {
+            throw new Error("Please use the owner's or manager's wallet to vote.");
         }
 
         const result = await OrbProvider.vote(
