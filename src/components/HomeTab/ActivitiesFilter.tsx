@@ -4,7 +4,8 @@ import { memo, useMemo } from 'react';
 
 import FilterIcon from '@/assets/filter.svg';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
-import { ActivitiesPlatform } from '@/constants/enum.js';
+import { ActivitiesPlatform, Locale } from '@/constants/enum.js';
+import { useLocale } from '@/helpers/getCookies.js';
 import { captureArticlePlatformFilterTabEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 import { ActivitiesFilterNamespace, useActivitiesFilterStore } from '@/store/useActivitiesFilterStore.js';
 
@@ -37,16 +38,21 @@ interface ActivitiesFilterProps {
 }
 
 export const ActivitiesFilter = memo<ActivitiesFilterProps>(function ActivitiesFilter({ namespace, hasLimo = false }) {
+    const locale = useLocale();
     const { selectedPlatforms, setSelectedPlatforms } = useActivitiesFilterStore(
         namespace,
         !hasLimo ? [ActivitiesPlatform.Limo] : undefined,
     );
 
     const validPlatforms = useMemo(() => {
-        return hasLimo
-            ? ActivitiesPlatforms
-            : ActivitiesPlatforms.filter((x) => x.platform !== ActivitiesPlatform.Limo);
-    }, [hasLimo]);
+        const isChinese = locale === Locale.zhHans || locale === Locale.zhHant;
+
+        return ActivitiesPlatforms.filter((x) => {
+            if (!hasLimo && x.platform === ActivitiesPlatform.Limo) return false;
+            if (x.platform === ActivitiesPlatform.Matters && !isChinese) return false;
+            return true;
+        });
+    }, [hasLimo, locale]);
 
     const filter = (
         <Popover className="relative flex items-center justify-center">
