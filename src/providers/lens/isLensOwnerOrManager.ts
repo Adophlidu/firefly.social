@@ -1,5 +1,5 @@
-import { PageSize } from '@lens-protocol/client';
-import { fetchAccount, fetchAccountManagers } from '@lens-protocol/client/actions';
+import { ManagedAccountsVisibility, PageSize } from '@lens-protocol/client';
+import { fetchAccount, fetchAccountsAvailable } from '@lens-protocol/client/actions';
 import type { Address } from 'viem';
 
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
@@ -33,11 +33,14 @@ export async function isLensOwnerOrManager(
     }
 
     const { items } = await ensureLensResult(
-        fetchAccountManagers(lensSessionHolder.sessionClient, {
+        fetchAccountsAvailable(lensSessionHolder.sdk, {
+            managedBy: safeEvmAddress(address),
             pageSize: PageSize.Fifty,
+            includeOwned: false,
+            hiddenFilter: ManagedAccountsVisibility.All,
         }),
     );
-    if (items.length && items.some((account) => isSameEthereumAddress(account.manager, address))) {
+    if (items.some(({ account }) => isSameEthereumAddress(account.address, profile.profileId))) {
         return { type: 'manager' };
     }
 
