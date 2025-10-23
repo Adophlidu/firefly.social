@@ -3,11 +3,13 @@ import type { HTMLProps } from 'react';
 
 import BuyIcon from '@/assets/polymarket-bought.svg';
 import SellIcon from '@/assets/polymarket-sold.svg';
+import { Link } from '@/components/Link.js';
 import { PolymarketTime } from '@/components/Polymarket/PolymarketTime.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { leftShift, rightShift } from '@/helpers/number.js';
+import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';
 import type { PolymarketTradeData } from '@/providers/types/Firefly.js';
 
 interface PolymarketTradeItemProps extends HTMLProps<HTMLDivElement> {
@@ -61,7 +63,13 @@ export function PolymarketTradeItem({ trade, className }: PolymarketTradeItemPro
                     ) : null}
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <h1 className="text-[13px] font-medium text-main">{trade.title}</h1>
+                    <Link
+                        target="_blank"
+                        href={resolvePolymarketEventUrl(trade.slug)}
+                        className="text-[13px] font-medium text-main hover:underline"
+                    >
+                        {trade.title}
+                    </Link>
                     <div className="flex items-center gap-1">
                         <PolymarketTradeType onlyIcon className="flex !w-auto md:hidden" type={trade.side} />
                         <div

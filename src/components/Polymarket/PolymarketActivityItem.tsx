@@ -21,6 +21,7 @@ import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { toFixed } from '@/helpers/number.js';
+import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import type { PolymarketActivity } from '@/providers/types/Firefly.js';
@@ -96,7 +97,7 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                     <Link
                         target="_blank"
                         className="mt-1.5 block flex-1"
-                        href={`https://polymarket.com/event/${activity.eventSlug}`}
+                        href={resolvePolymarketEventUrl(activity.eventSlug)}
                         onClick={onPolymarketLinkClick}
                     >
                         <ActivityCellPolymarketAction type={activity.side} usdcSize={activity.usdcSize} />

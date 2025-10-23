@@ -1,10 +1,12 @@
 import { Trans } from '@lingui/react/macro';
-import { isUndefined } from 'lodash-es';
+import { first, isUndefined } from 'lodash-es';
 
+import { Link } from '@/components/Link.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
+import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';
 import type { PolymarketPositionData } from '@/providers/types/Firefly.js';
 
 interface PolymarketPositionItemProps {
@@ -19,6 +21,7 @@ export function PolymarketPositionItem({ positionData }: PolymarketPositionItemP
     if (isUndefined(positionData.title)) return null;
 
     const isGreen = ['Yes', 'Up'].includes(positionData.vote_status);
+    const eventSlug = first(positionData.event_slugs);
 
     return (
         <div key={positionData.Id} className="flex items-start gap-3 py-2 md:items-center">
@@ -35,9 +38,19 @@ export function PolymarketPositionItem({ positionData }: PolymarketPositionItemP
             </div>
             <div className="flex min-w-0 flex-1 flex-col items-start gap-2 md:flex-row md:items-center">
                 <div className="flex min-w-0 flex-1 flex-col">
-                    <h3 className="line-clamp-5 w-full break-words text-sm font-bold text-main">
-                        {positionData.title}
-                    </h3>
+                    {eventSlug ? (
+                        <Link
+                            target="_blank"
+                            href={resolvePolymarketEventUrl(eventSlug)}
+                            className="line-clamp-5 w-full break-words text-sm font-bold text-main hover:underline"
+                        >
+                            {positionData.title}
+                        </Link>
+                    ) : (
+                        <h3 className="line-clamp-5 w-full break-words text-sm font-bold text-main">
+                            {positionData.title}
+                        </h3>
+                    )}
                     <div className="flex items-center gap-2 pt-2">
                         <div
                             className={classNames(

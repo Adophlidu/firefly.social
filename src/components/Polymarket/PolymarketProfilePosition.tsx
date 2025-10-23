@@ -15,6 +15,7 @@ interface PolymarketProfilePositionProps {
     address: string;
     proxyAddress?: string;
 }
+const pageSize = 5;
 
 export function PolymarketProfilePosition({ address, proxyAddress }: PolymarketProfilePositionProps) {
     const { data, isLoading } = useQuery({
@@ -24,7 +25,7 @@ export function PolymarketProfilePosition({ address, proxyAddress }: PolymarketP
             return FireflyEndpointProvider.getPolymarketPositionHistory({
                 address: proxyAddress || address,
                 isProxyAddress: !!proxyAddress,
-                limit: 5,
+                limit: pageSize,
                 isClaim: true,
             });
         },
@@ -60,10 +61,12 @@ export function PolymarketProfilePosition({ address, proxyAddress }: PolymarketP
                             </span>
                         </div>
                     </div>
-                    {data?.data?.map((positionData) => (
+                    {data.data.map((positionData) => (
                         <PolymarketPositionItem positionData={positionData} key={positionData.Id} />
                     ))}
-                    <ShowMoreLink href={RouteResolver.polymarketProfile(address, 'positions')} />
+                    {data.data.length >= pageSize ? (
+                        <ShowMoreLink href={RouteResolver.polymarketProfile(address, 'positions')} />
+                    ) : null}
                 </div>
             ) : (
                 <NoResultsFallback

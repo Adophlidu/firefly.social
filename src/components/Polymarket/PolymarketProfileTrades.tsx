@@ -15,13 +15,14 @@ interface PolymarketProfileTradesProps {
     address: string;
     proxyAddress?: string;
 }
+const pageSize = 5;
 
 export function PolymarketProfileTrades({ address }: PolymarketProfileTradesProps) {
     const { data, isLoading } = useQuery({
         queryKey: ['polymarket', 'trades-lite', address],
         staleTime: 1000 * 60 * 5,
         queryFn: async () => {
-            const data = await FireflyEndpointProvider.getPolymarketTradeHistory({ address, limit: 5 });
+            const data = await FireflyEndpointProvider.getPolymarketTradeHistory({ address, limit: pageSize });
             return data.data;
         },
     });
@@ -52,7 +53,9 @@ export function PolymarketProfileTrades({ address }: PolymarketProfileTradesProp
                             trade={trade}
                         />
                     ))}
-                    <ShowMoreLink href={RouteResolver.polymarketProfile(address, 'trades')} />
+                    {data.length >= pageSize ? (
+                        <ShowMoreLink href={RouteResolver.polymarketProfile(address, 'trades')} />
+                    ) : null}
                 </div>
             ) : (
                 <NoResultsFallback
