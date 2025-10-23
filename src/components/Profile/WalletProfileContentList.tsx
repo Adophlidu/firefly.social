@@ -1,8 +1,8 @@
 import { memo } from 'react';
 
 import { ProfileActivities } from '@/components/Activities/ProfileActivities.js';
+import { PolymarketProfileCard } from '@/components/Polymarket/PolymarketProfileCard.js';
 import { NFTs } from '@/components/Profile/NFTs.js';
-import { PolymarketProfile } from '@/components/Profile/PolymarketProfile.js';
 import { ProfilePolymarketList } from '@/components/Profile/ProfilePolymarketList.js';
 import { ProfileTransactions } from '@/components/Transactions/ProfileTransactions.js';
 import { WalletProfileCategory } from '@/constants/enum.js';
@@ -25,7 +25,7 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
         case WalletProfileCategory.Bets:
             return (
                 <>
-                    <PolymarketProfile address={address} />
+                    <PolymarketProfileCard address={address} />
                     <ProfilePolymarketList address={address} />
                 </>
             );

@@ -8,18 +8,13 @@ import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarket
 import { PolymarketMarketsTraded } from '@/components/Polymarket/PolymarketMarketsTraded.js';
 import { PolymarketVolumeTraded } from '@/components/Polymarket/PolymarketVolumeTraded.js';
 import { ToggleVisibleBox } from '@/components/Polymarket/ToggleVisibleBox.js';
+import { toRate } from '@/components/Polymarket/toRate.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import type { PolymarketProfileData } from '@/providers/types/Firefly.js';
 
 interface PolymarketProfileOverviewProps {
     data?: PolymarketProfileData;
     address: string;
-}
-
-function toRate(num?: number | null) {
-    if (num === undefined || num === null) return '-';
-
-    return `${num < 0 ? '-' : ''}${(Math.abs(num) * 100).toFixed(2)}%`;
 }
 
 export function PolymarketProfileOverview({ data, address }: PolymarketProfileOverviewProps) {
