@@ -10,12 +10,10 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
 export function isPathnameForceRedirect(pathname: string): boolean {
-    return [PageRoute.Home, PageRoute.FollowingPosts, PageRoute.DiscoverPosts, PageRoute.Sparks].includes(
-        pathname as PageRoute,
-    );
+    return [PageRoute.Home, PageRoute.FollowingPosts, PageRoute.DiscoverPosts].includes(pathname as PageRoute);
 }
 
-export function openLoginModal(props: LoginModalOpenProps | void) {
+export function openLoginModal(props: LoginModalOpenProps | void, forceOpen = false) {
     if (env.external.NEXT_PUBLIC_FORCE_SIGNUP !== STATUS.Enabled) {
         LoginModalRef.open(props);
         return;
@@ -28,7 +26,7 @@ export function openLoginModal(props: LoginModalOpenProps | void) {
     const accountId = getSessionFromStorage(SessionType.Firefly)?.profileId;
     const hasChecked = preferences.FIREFLY_ACCOUNT_CHECKED_MAP[accountId || ''];
 
-    if (hasChecked || sources.length || !pathname || isPathnameForceRedirect(pathname)) {
+    if (hasChecked || sources.length || !pathname || isPathnameForceRedirect(pathname) || forceOpen) {
         LoginModalRef.open(props);
         return;
     }

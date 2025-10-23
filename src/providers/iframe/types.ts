@@ -28,6 +28,7 @@ export interface IframeBridgeRequestArguments {
     };
     [IframeBridgeMethod.LOGIN]: {
         source?: string;
+        forceOpen?: boolean;
     };
 }
 

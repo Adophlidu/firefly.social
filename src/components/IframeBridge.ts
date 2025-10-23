@@ -23,9 +23,12 @@ const allEvents: {
     [K in IframeBridgeMethod]: (params: IframeBridgeRequestArguments[K]) => Promise<IframeBridgeResponseResult[K]>;
 } = {
     [IframeBridgeMethod.LOGIN]: async (params: IframeBridgeRequestArguments[IframeBridgeMethod.LOGIN]) => {
-        openLoginModal({
-            source: params.source as ProfileSource | undefined,
-        });
+        openLoginModal(
+            {
+                source: params.source as ProfileSource | undefined,
+            },
+            params.forceOpen,
+        );
     },
     [IframeBridgeMethod.COMPOSE]: async (params: IframeBridgeRequestArguments[IframeBridgeMethod.COMPOSE]) => {
         ComposeModalRef.open({

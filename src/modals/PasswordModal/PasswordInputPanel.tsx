@@ -77,6 +77,7 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
                 ref={inputRef}
                 value={password}
                 autoCorrect="off"
+                autoComplete="off"
                 spellCheck="false"
                 inputMode="decimal"
                 onChange={onInputChange}

@@ -27,7 +27,6 @@ export function ConfirmSyncSessionModal({ ref }: Props) {
         onOpen: async ({ profiles }) => {
             setProfiles(profiles);
         },
-        onClose: () => setProfiles([]),
     });
 
     return (
