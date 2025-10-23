@@ -3224,9 +3224,6 @@ msgstr "Your Firefly Account is now connected"
 msgid "Legacy Firefly wallet"
 msgstr "Legacy Firefly wallet"
 
-msgid "Voted successfully."
-msgstr "Voted successfully."
-
 msgid "Social accounts"
 msgstr "Social accounts"
 
@@ -3801,6 +3798,9 @@ msgstr "App Store"
 msgid "Enter Number of Winners"
 msgstr "Enter Number of Winners"
 
+msgid "Please switch to the wallet associated with your Lens account for signature."
+msgstr "Please switch to the wallet associated with your Lens account for signature."
+
 msgid "Add"
 msgstr "Add"
 
@@ -3879,6 +3879,10 @@ msgstr "Solana wallets"
 #. placeholder {0}: formatBalance(x.amount, x.decimals)
 msgid "no less than {0}"
 msgstr "no less than {0}"
+
+#. placeholder {0}: error instanceof Error ? ` ${error.message}` : ''
+msgid "Failed to vote.{0}"
+msgstr "Failed to vote.{0}"
 
 msgid "{viewCount, plural, one {view} other {views}}"
 msgstr "{viewCount, plural, one {view} other {views}}"

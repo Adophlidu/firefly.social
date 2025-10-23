@@ -314,3 +314,11 @@ export class AccountSuspendedError extends Error {
         super(message ?? 'Account suspended.');
     }
 }
+
+export class WalletAddressMismatchError extends Error {
+    override name = 'WalletAddressMismatchError';
+
+    constructor(message?: string) {
+        super(message ?? 'Wallet address mismatch.');
+    }
+}

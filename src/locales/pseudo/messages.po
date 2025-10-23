@@ -3224,9 +3224,6 @@ msgstr ""
 msgid "Legacy Firefly wallet"
 msgstr ""
 
-msgid "Voted successfully."
-msgstr ""
-
 msgid "Social accounts"
 msgstr ""
 
@@ -3801,6 +3798,9 @@ msgstr ""
 msgid "Enter Number of Winners"
 msgstr ""
 
+msgid "Please switch to the wallet associated with your Lens account for signature."
+msgstr ""
+
 msgid "Add"
 msgstr ""
 
@@ -3878,6 +3878,10 @@ msgstr ""
 
 #. placeholder {0}: formatBalance(x.amount, x.decimals)
 msgid "no less than {0}"
+msgstr ""
+
+#. placeholder {0}: error instanceof Error ? ` ${error.message}` : ''
+msgid "Failed to vote.{0}"
 msgstr ""
 
 msgid "{viewCount, plural, one {view} other {views}}"

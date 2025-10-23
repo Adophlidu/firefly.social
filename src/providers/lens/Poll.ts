@@ -5,7 +5,7 @@ import { sendEip712Transaction } from 'viem/zksync';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
+import { NotImplementedError, WalletAddressMismatchError } from '@/constants/error.js';
 import { LENS_CHAIN_ID } from '@/constants/index.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
@@ -67,7 +67,7 @@ class LensPoll implements Provider {
         });
         const addressType = await isLensOwnerOrManager(walletClient.account.address, currentProfile);
         if (!addressType) {
-            throw new Error("Please use the owner's or manager's wallet to vote.");
+            throw new WalletAddressMismatchError();
         }
 
         const result = await OrbProvider.vote(

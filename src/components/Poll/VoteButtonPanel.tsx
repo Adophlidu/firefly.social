@@ -5,9 +5,15 @@ import { useAsyncFn } from 'react-use';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { type SocialSource } from '@/constants/enum.js';
+import { WalletAddressMismatchError } from '@/constants/error.js';
 import { POLL_CHOICE_TYPE } from '@/constants/poll.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import {
+    enqueueErrorMessage,
+    enqueueMessageFromError,
+    enqueueSuccessMessage,
+    enqueueWarningMessage,
+} from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolvePollProvider } from '@/helpers/resolvePollProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -59,10 +65,20 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
                     allOptions: poll.options,
                 });
                 enqueueSuccessMessage(
-                    res.is_success ? <Trans>Voted successfully.</Trans> : <Trans>Failed to vote.</Trans>,
+                    res.is_success ? <Trans>Your vote is in!</Trans> : <Trans>Failed to vote.</Trans>,
                 );
             } catch (error) {
-                enqueueMessageFromError(error, error instanceof Error ? error.message : <Trans>Failed to vote.</Trans>);
+                if (error instanceof WalletAddressMismatchError) {
+                    enqueueWarningMessage(
+                        <Trans>Please switch to the wallet associated with your Lens account for signature.</Trans>,
+                    );
+                    return;
+                }
+
+                enqueueMessageFromError(
+                    error,
+                    <Trans>Failed to vote.{error instanceof Error ? ` ${error.message}` : ''}</Trans>,
+                );
                 throw error;
             }
         },

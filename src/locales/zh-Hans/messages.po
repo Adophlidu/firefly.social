@@ -3229,9 +3229,6 @@ msgstr "你的 Firefly 账户已连接"
 msgid "Legacy Firefly wallet"
 msgstr "旧版 Firefly 钱包"
 
-msgid "Voted successfully."
-msgstr "投票成功。"
-
 msgid "Social accounts"
 msgstr "社交账户"
 
@@ -3806,6 +3803,9 @@ msgstr "Apple Store"
 msgid "Enter Number of Winners"
 msgstr "输入获奖人数"
 
+msgid "Please switch to the wallet associated with your Lens account for signature."
+msgstr ""
+
 msgid "Add"
 msgstr "添加"
 
@@ -3884,6 +3884,10 @@ msgstr "Solana 钱包"
 #. placeholder {0}: formatBalance(x.amount, x.decimals)
 msgid "no less than {0}"
 msgstr "不少于 {0}"
+
+#. placeholder {0}: error instanceof Error ? ` ${error.message}` : ''
+msgid "Failed to vote.{0}"
+msgstr ""
 
 msgid "{viewCount, plural, one {view} other {views}}"
 msgstr "{viewCount, plural, one {查看} other {查看}}"
