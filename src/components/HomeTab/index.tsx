@@ -81,6 +81,8 @@ export function HomeTabs({
     }, [pathname]);
     const isLogin = useIsLoginFirefly();
 
+    const isFollowingTab = currentTab === HomeTab.Following;
+
     return (
         <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
             <div className={!onlyFilter ? 'max-md:hidden' : ''}>
