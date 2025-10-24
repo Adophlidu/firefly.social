@@ -27,6 +27,9 @@ export const PolymarketProfileCard = memo<PolymarketProfileCardProps>(function P
         queryFn: () => FireflyEndpointProvider.getPolymarketProfile(address),
     });
 
+    // TODO: maybe a better way to optimize CLS
+    if (!data) return null;
+
     return (
         <Link
             className="rounded-xl p-4"
