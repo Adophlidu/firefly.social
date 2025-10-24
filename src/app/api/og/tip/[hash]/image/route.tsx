@@ -139,7 +139,7 @@ async function TipOpenGraphImage({
                     ) : (
                         tokenAmount.toFixed(4).replace(/\.?0+$/, '')
                     )}
-                </span>
+                </span>{' '}
                 <span style={{ fontSize: 48, lineHeight: '48px', fontWeight: 500, color: '#fff' }}>{tokenSymbol}</span>
             </div>
             <div

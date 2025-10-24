@@ -120,7 +120,7 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                     <ShrankPrice shrank={formatPrice(fromTokenAmountNum) ?? ''} />
                 ) : (
                     fromTokenAmountNum.toFixed(4).replace(/\.?0+$/, '')
-                )}
+                )}{' '}
                 <span>{swap.from_token?.symbol}</span>
             </div>
 
@@ -176,7 +176,7 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                     <ShrankPrice shrank={formatPrice(toTokenAmountNum) ?? ''} />
                 ) : (
                     toTokenAmountNum.toFixed(4).replace(/\.?0+$/, '')
-                )}
+                )}{' '}
                 <span>{swap.to_token?.symbol}</span>
             </div>
 
