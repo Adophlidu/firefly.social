@@ -72,7 +72,7 @@ export default defineConfig([
                 cssFilesRefreshRate: 5_000,
                 removeDuplicates: true,
                 skipClassAttribute: false,
-                whitelist: ['notranslate'],
+                whitelist: ['notranslate', 'self-.*'],
             },
         },
         rules: {

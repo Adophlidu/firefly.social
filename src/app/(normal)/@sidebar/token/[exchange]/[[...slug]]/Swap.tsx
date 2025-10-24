@@ -1,5 +1,5 @@
 import { first } from 'lodash-es';
-import { memo, useMemo } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
@@ -13,12 +13,13 @@ import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChain
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import type { Contract } from '@/providers/types/Trending.js';
+import { useSwapStore } from '@/store/useSwapStore.js';
 
 const SwapModalContent = dynamic(
     () => import('@/modals/SwapModal/SwapModalContent.js').then((m) => m.SwapModalContent),
     {
         ssr: false,
-        loading: () => <Loading />,
+        loading: () => <Loading className="h-[562px]" />,
     },
 );
 
@@ -77,5 +78,21 @@ export const Swap = memo(function Swap({ token, chainId: propChainId, address: p
               };
     }, [address, chainId, tradeChainId, tradeInfo.address, tradeInfo.supportedChainIds]);
 
-    return <SwapModalContent props={swapOptions} embed open />;
+    const { sidebarSwapOptions, setSidebarSwapReady, setSidebarSwapOptions } = useSwapStore();
+    useEffect(() => {
+        setSidebarSwapReady(true);
+        return () => {
+            setSidebarSwapReady(false);
+            setSidebarSwapOptions(undefined);
+        };
+    }, [setSidebarSwapOptions, setSidebarSwapReady]);
+
+    return (
+        <SwapModalContent
+            props={sidebarSwapOptions || swapOptions}
+            embed
+            open
+            className="h-[562px] [&_.self-content]:flex-1"
+        />
+    );
 });

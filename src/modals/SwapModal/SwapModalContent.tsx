@@ -17,6 +17,7 @@ import { getConnections } from 'wagmi/actions';
 
 import { FireflyWalletChainSelectorWithOkxProviderType } from '@/components/FireflyWallet/FireflyWalletChainSelectorWithOkxProviderType.js';
 import { CloseButton } from '@/components/IconButton.js';
+import { Loading } from '@/components/Loading.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { SOLANA_CHAIN_ID_IN_FIREFLY, SOLANA_CHAIN_ID_IN_OKX } from '@/constants/debank.js';
 import { Locale, OkxProviderType } from '@/constants/enum.js';
@@ -191,7 +192,7 @@ export function SwapModalContent({ open, embed = false, onClose, props, classNam
         <div
             className={classNames(
                 'relative z-10 w-full overflow-hidden bg-white dark:bg-black',
-                !embed ? 'rounded-2xl' : '',
+                !embed ? 'rounded-2xl' : 'flex flex-col',
                 className,
             )}
             {...rest}
@@ -205,12 +206,17 @@ export function SwapModalContent({ open, embed = false, onClose, props, classNam
                     />
                 ) : null}
             </div>
-            <div
-                className="okx-widget-container no-scrollbar max-h-[90svh] min-h-[550px] overflow-auto"
-                ref={(ref) => {
-                    setWidgetRef(ref);
-                }}
-            />
+            <div className="self-content relative z-1 max-h-[90svh] min-h-[550px]">
+                <div className="absolute left-0 top-0 z-0 size-full">
+                    <Loading className="h-full" />
+                </div>
+                <div
+                    className="okx-widget-container no-scrollbar absolute left-0 top-0 size-full overflow-auto"
+                    ref={(ref) => {
+                        setWidgetRef(ref);
+                    }}
+                />
+            </div>
         </div>
     );
 }
