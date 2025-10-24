@@ -4,6 +4,7 @@ export enum IframeBridgeMethod {
     COMPOSE = 'compose',
     LOGIN = 'login',
     ENQUEUE_MESSAGE = 'enqueueMessage',
+    DOWNLOAD_APP = 'downloadApp',
 }
 
 export interface IframeBridgeMessage {
@@ -30,10 +31,12 @@ export interface IframeBridgeRequestArguments {
         source?: string;
         forceOpen?: boolean;
     };
+    [IframeBridgeMethod.DOWNLOAD_APP]: {};
 }
 
 export interface IframeBridgeResponseResult {
     [IframeBridgeMethod.COMPOSE]: void;
     [IframeBridgeMethod.ENQUEUE_MESSAGE]: void;
     [IframeBridgeMethod.LOGIN]: void;
+    [IframeBridgeMethod.DOWNLOAD_APP]: void;
 }

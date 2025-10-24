@@ -18,6 +18,8 @@ import {
     type IframeBridgeRequestArguments,
     type IframeBridgeResponseResult,
 } from '@/providers/iframe/types.js';
+import { openWindow } from '@/helpers/openWindow.js';
+import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 
 const allEvents: {
     [K in IframeBridgeMethod]: (params: IframeBridgeRequestArguments[K]) => Promise<IframeBridgeResponseResult[K]>;
@@ -56,6 +58,13 @@ const allEvents: {
                 safeUnreachable(params.type);
                 break;
         }
+    },
+    [IframeBridgeMethod.DOWNLOAD_APP]: async (
+        params: IframeBridgeRequestArguments[IframeBridgeMethod.DOWNLOAD_APP],
+    ) => {
+        IS_MOBILE_DEVICE
+            ? (window.location.href = 'https://5euxu.app.link/PHvNiyVemIb')
+            : openWindow('https://5euxu.app.link/PHvNiyVemIb');
     },
 };
 
