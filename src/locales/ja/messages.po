@@ -2962,6 +2962,9 @@ msgstr ""
 msgid "{0} muted users"
 msgstr ""
 
+msgid "Open Google Form"
+msgstr ""
+
 #. placeholder {0}: resolveSourcesName( availableSources.filter((x) => MAX_FILE_SIZE_PER_VIDEO[x] === videoSizeLimit), )
 #. placeholder {1}: formatFileSize(videoSizeLimit)
 msgid "Failed to upload on {0}. Video size exceeds {1}"
@@ -3134,6 +3137,9 @@ msgid "Delete"
 msgstr ""
 
 msgid "Available"
+msgstr ""
+
+msgid "<0>Firefly is launching <1>Polymarket trading</1>, connecting onchain prediction markets with your social feed! We welcome you to join as an early contributor, starting with our <2>content bounty tasks</2>!</0><3>💰 Users who produce high-quality content can each earn <4>100 USDC</4>.</3><5>🧩 Create a post on Firefly to share your Polymarket trading story. You can talk about your predictions, trading strategies, insights, successes, or even failures on Polymarket. Submissions will be evaluated based on content quality, creativity, depth, readability, and reach. Winners will be announced on <6>@thefireflyapp</6> and contacted via DM.</5><7>📌 How to participate:</7><8><9><10>Create</10> an article or long thread sharing your <11>Polymarket trading story</11>, and publish it on any social platform supported by Firefly.</9><12><13>Follow & Mention</13> <14>@thefireflyapp</14>.</12><15><16>Register</16> your submission by filling out this form.</15></8>"
 msgstr ""
 
 msgid "So sorry, we cant mint this NFT. Please try again later."
@@ -4676,6 +4682,9 @@ msgid "Trending Token"
 msgstr ""
 
 msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
+msgstr ""
+
+msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
 msgstr ""
 
 msgid "Different Account Detected"

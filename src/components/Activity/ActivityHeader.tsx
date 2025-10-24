@@ -35,16 +35,18 @@ export function ActivityHeader({
                 width={343}
                 height={140}
             />
-            <div className="w-full px-6 py-4">
+            <div className="w-full overflow-hidden pb-2 pl-6 pt-4">
+                <div className="flex h-6 items-center space-x-1.5 whitespace-nowrap text-[13px] leading-6">
+                    <CalendarIcon className="size-4 shrink-0" />
+                    <span>
+                        {dayjs(data.start_time).utc().format(timeTemplate)} -{' '}
+                        {dayjs(data.end_time).utc().format(timeTemplate)} (UTC)
+                    </span>
+                    <ActivityStatusTag status={data.status} />
+                </div>
+            </div>
+            <div className="w-full px-6 pb-4">
                 <div className="w-full space-y-2 border-b border-line pb-4">
-                    <div className="flex h-6 items-center space-x-1.5 whitespace-nowrap text-[13px] leading-6">
-                        <CalendarIcon className="size-4 shrink-0" />
-                        <span>
-                            {dayjs(data.start_time).utc().format(timeTemplate)} -{' '}
-                            {dayjs(data.end_time).utc().format(timeTemplate)} (UTC)
-                        </span>
-                        <ActivityStatusTag status={data.status} />
-                    </div>
                     <h1 className="text-xl font-semibold leading-6">{data.title}</h1>
                     <p className="text-sm leading-6">{parseDescription(data.description)}</p>
                 </div>
