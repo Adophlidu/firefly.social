@@ -4132,9 +4132,6 @@ msgstr "Truth Social"
 msgid "Repost or Quote"
 msgstr "转发或者引用"
 
-msgid "Ca"
-msgstr "合约"
-
 msgid "Buy"
 msgstr "买"
 

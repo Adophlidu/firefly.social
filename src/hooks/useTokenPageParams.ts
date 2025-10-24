@@ -32,7 +32,7 @@ export function useTokenPageParams({ params, searchParams }: TokenPageProps) {
         token_symbol: isAddress ? undefined : exchange,
         coingecko_id: isCex ? slug[0] : undefined,
         chain_id: chainId,
-        address: paramAddress || (isAddress ? exchange : undefined),
+        address: paramAddress || (isAddress ? addressSlug : undefined),
     });
     const tokenId = token?.id;
     const coinChainId = tokenId ? resolveCoinGeckoCoinChainId(tokenId) : undefined;

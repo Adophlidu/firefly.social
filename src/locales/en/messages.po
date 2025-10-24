@@ -4127,9 +4127,6 @@ msgstr "Truth Social"
 msgid "Repost or Quote"
 msgstr "Repost or Quote"
 
-msgid "Ca"
-msgstr "Ca"
-
 msgid "Buy"
 msgstr "Buy"
 

@@ -451,7 +451,7 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
             </div>
             <div className="mt-3 flex flex-col gap-3">
                 <InfoRow
-                    title={<Trans>Ca</Trans>}
+                    title={<Trans>Contract Address</Trans>}
                     extra={
                         <div className="flex items-center gap-1">
                             <ChainIcon chainId={chainId} className="shrink-0" width={16} height={16} />

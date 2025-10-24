@@ -4127,9 +4127,6 @@ msgstr ""
 msgid "Repost or Quote"
 msgstr ""
 
-msgid "Ca"
-msgstr ""
-
 msgid "Buy"
 msgstr ""
 
