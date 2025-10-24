@@ -10,6 +10,7 @@ import {
     TradeType,
 } from '@okxweb3/dex-widget';
 import { CoreChainController } from '@reown/appkit';
+import { produce } from 'immer';
 import { uniq } from 'lodash-es';
 import { type HTMLProps, useEffect, useRef, useState } from 'react';
 import { mainnet } from 'viem/chains';
@@ -21,20 +22,21 @@ import { Loading } from '@/components/Loading.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Locale, OkxProviderType } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { NATIVE_SOLANA_TOKEN_ADDRESS, NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
+import { NATIVE_SOLANA_TOKEN_ADDRESS, NATIVE_TOKEN_ADDRESS, SOLANA_CHAIN_ID_IN_OKX } from '@/constants/okx.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { delay } from '@/helpers/delay.js';
 import { useLocale } from '@/helpers/getCookies.js';
 import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
+import { useSolanaAccount } from '@/hooks/useAccountByNetwork.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { EthereumWalletProvider, SolanaWalletProvider } from '@/providers/okx/WalletProvider.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
+import { SolanaNetworkType } from '@/store/useSolanaActiveNetworkStore.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
-
-export const SOLANA_CHAIN_ID_IN_OKX = 501;
 
 const LangMap = {
     [Locale.en]: 'en_us',
@@ -81,10 +83,14 @@ interface SwapModalContentProps extends HTMLProps<HTMLDivElement> {
 }
 
 export function SwapModalContent({ open, embed = false, onClose, props, className, ...rest }: SwapModalContentProps) {
+    const isPrivyReady = usePrivyWalletStore((x) => x.ready);
+    const solana = useSolanaAccount();
+    const isReady = solana.type === SolanaNetworkType.Privy ? isPrivyReady : true;
     const isSolanaChainId = props?.chainId === SolanaChainId.Mainnet || props?.chainId === SOLANA_CHAIN_ID_IN_OKX;
-    const [providerType, setProviderType] = useState<OkxProviderType>(
+    const [_providerType, setProviderType] = useState<OkxProviderType>(
         isSolanaChainId ? OkxProviderType.SOLANA : OkxProviderType.EVM,
     );
+    const providerType = isSolanaChainId ? OkxProviderType.SOLANA : _providerType;
     const [isLoading, setIsLoading] = useState(false);
     return (
         <div
@@ -113,24 +119,34 @@ export function SwapModalContent({ open, embed = false, onClose, props, classNam
                 <div className="absolute left-0 top-0 z-0 size-full">
                     <Loading className="h-full" />
                 </div>
-                {!isLoading ? (
-                    <SwapModalContentWidget {...rest} providerType={providerType} key={providerType} />
+                {!isLoading && isReady ? (
+                    <SwapModalContentWidget
+                        {...produce(props, (x) => {
+                            if (!x) return;
+                            if (x.chainId === SolanaChainId.Mainnet) {
+                                x.chainId = SOLANA_CHAIN_ID_IN_OKX;
+                            }
+                            if (x.toChainId === SolanaChainId.Mainnet) {
+                                x.toChainId = SOLANA_CHAIN_ID_IN_OKX;
+                            }
+                            if (x.chainIds?.includes(SolanaChainId.Mainnet.toString())) {
+                                x.chainIds.push(SOLANA_CHAIN_ID_IN_OKX.toString());
+                            }
+                        })}
+                        providerType={providerType}
+                        key={providerType}
+                    />
                 ) : null}
             </div>
         </div>
     );
 }
 
-export function SwapModalContentWidget({
+function SwapModalContentWidget({
     providerType,
     ...props
-}: {
+}: SwapModalOpenProps & {
     providerType: OkxProviderType;
-    chainId?: number;
-    toChainId?: number;
-    fromToken?: string;
-    toToken?: string;
-    chainIds?: string[];
 }) {
     const [widgetRef, setWidgetRef] = useState<HTMLDivElement | null>(null);
     const locale = useLocale();
