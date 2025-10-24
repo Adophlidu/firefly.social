@@ -37,7 +37,7 @@ export function FreeMintModal({ ref }: Props) {
 
     return (
         <Modal open={open} onClose={onClose}>
-            <div className="w-[400px] max-w-[90vw] rounded-2xl bg-primaryBottom p-6 transition-all">
+            <div className="relative w-[400px] max-w-[90vw] rounded-2xl bg-primaryBottom p-6 transition-all">
                 <DialogTitle as="h3" className="relative text-center text-main">
                     <CloseButton onClick={onClose} className="absolute -top-1 left-0" />
                     <span className="text-lg font-bold leading-[22px]">

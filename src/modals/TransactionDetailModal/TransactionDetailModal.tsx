@@ -33,7 +33,7 @@ export function TransactionDetailModal({ ref }: Props) {
 
     return (
         <Modal enableClose title={<Trans>Transaction Detail</Trans>} open={open} onClose={() => dispatch?.close()}>
-            <div className="w-[432px] rounded-xl transition-all">
+            <div className="relative w-[432px] rounded-xl transition-all">
                 <TransactionDetailContent transaction={props.transaction} />
             </div>
         </Modal>
