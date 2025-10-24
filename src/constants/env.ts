@@ -57,6 +57,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_THIRD_PARTY_AUTH: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_TIPS: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_WALLET_MIX: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_SPARKS: z.nativeEnum(STATUS).default(STATUS.Disabled),
 
     // sentry
     NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
@@ -129,7 +130,7 @@ export const env = {
         NEXT_PUBLIC_THIRD_PARTY_AUTH: process.env.NEXT_PUBLIC_THIRD_PARTY_AUTH,
         NEXT_PUBLIC_TIPS: process.env.NEXT_PUBLIC_TIPS,
         NEXT_PUBLIC_WALLET_MIX: process.env.NEXT_PUBLIC_WALLET_MIX,
-
+        NEXT_PUBLIC_SPARKS: process.env.NEXT_PUBLIC_SPARKS,
         // sentry
         NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
         NEXT_PUBLIC_SENTRY_REPORT_URL: process.env.NEXT_PUBLIC_SENTRY_REPORT_URL,

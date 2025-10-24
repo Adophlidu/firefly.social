@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
+import { compact } from 'lodash-es';
 import { memo } from 'react';
 
 import CircleShareIcon from '@/assets/circle-share.svg';
@@ -17,7 +18,8 @@ import { HomeEntry } from '@/components/SideBar/HomeEntry.js';
 import { NotificationMenu } from '@/components/SideBar/NotificationMenu.js';
 import { Post } from '@/components/SideBar/Post.js';
 import { Profile } from '@/components/SideBar/Profile.js';
-import { PageRoute } from '@/constants/enum.js';
+import { PageRoute, STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { DEFAULT_EXPLORE_TYPE } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { usePathname } from '@/esm/navigation.js';
@@ -44,7 +46,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                 <li className="flex overflow-hidden">
                     <menu role="list" className="w-full overflow-hidden">
                         <HomeEntry collapsed={collapsed} />
-                        {[
+                        {compact([
                             {
                                 href: resolveExploreUrl(DEFAULT_EXPLORE_TYPE),
                                 name: <Trans>Explore</Trans>,
@@ -66,11 +68,13 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 href: '/profile',
                                 name: <Trans>Profile</Trans>,
                             },
-                            {
-                                href: PageRoute.Sparks,
-                                name: <Trans>Genesis Sparks</Trans>,
-                                match: () => isRoutePathname(pathname, PageRoute.Sparks),
-                            },
+                            env.external.NEXT_PUBLIC_SPARKS === STATUS.Enabled
+                                ? {
+                                      href: PageRoute.Sparks,
+                                      name: <Trans>Genesis Sparks</Trans>,
+                                      match: () => isRoutePathname(pathname, PageRoute.Sparks),
+                                  }
+                                : undefined,
                             {
                                 href: PageRoute.Events,
                                 name: <Trans>Exclusive Events</Trans>,
@@ -83,7 +87,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 selectedIcon: SettingsSelectedIcon,
                                 match: () => isRoutePathname(pathname, PageRoute.Settings),
                             },
-                        ].map((item) => {
+                        ]).map((item) => {
                             const isSelected = Boolean(item.match?.());
                             const Icon = isSelected ? item.selectedIcon : item.icon;
 
