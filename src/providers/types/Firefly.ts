@@ -248,7 +248,7 @@ export interface Article {
         info: {
             ethAddress: string;
         };
-    };
+    } | null;
     related_urls: string[];
     article_id: string;
     cover_img_url: string | null;

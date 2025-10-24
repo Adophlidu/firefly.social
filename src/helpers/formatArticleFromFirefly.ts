@@ -23,7 +23,7 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
                 : article.content.body,
         title: article.content.title,
         author: {
-            handle: isMattersArticle ? article.authorship.displayName : article.displayInfo.ensHandle,
+            handle: (isMattersArticle ? article.authorship?.displayName : article.displayInfo.ensHandle) || 'NaN',
             avatar: article.displayInfo.avatarUrl,
             id: authorId,
             isFollowing: article.followingSources.some(
@@ -31,9 +31,9 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
             ),
             /** Article in timeline are all not muted */
             isMuted: false,
-            username: article.authorship.userName,
-            displayName: article.authorship.displayName,
-            info: article.authorship.info,
+            username: article.authorship?.userName || '',
+            displayName: article.authorship?.displayName || '',
+            info: article.authorship?.info || { ethAddress: '' },
         },
         origin: isMattersArticle
             ? urlcat(MATTERS_ARTICLE_URL, { shortHash: article.article_id })
