@@ -73,6 +73,7 @@ interface PrivyBridgeHandle {
     signMessageWithSolana: SignMessageWithSolana;
     signAllTransactionsWithSolana: (txs: SupportedSolanaTransaction[]) => Promise<SupportedSolanaTransaction[]>;
     signMessageWithEVM: SignMessageWithEVM;
+    isReady: boolean;
 }
 
 const PRIVY_SOLANA_CHAIN = 'solana:mainnet';
@@ -87,6 +88,7 @@ function PrivyBridge({ ref }: { ref: Ref<PrivyBridgeHandle> }) {
     useImperativeHandle(
         ref,
         () => ({
+            isReady: ready,
             getWallets() {
                 return {
                     evmWallets,
@@ -147,7 +149,7 @@ function PrivyBridge({ ref }: { ref: Ref<PrivyBridgeHandle> }) {
                 return txs;
             },
         }),
-        [signMessageWithEVM, evmWallets, solanaWallets, authenticated, signAndSendTransactionSolana],
+        [ready, signMessageWithEVM, evmWallets, solanaWallets, authenticated, signAndSendTransactionSolana],
     );
     const isLoginFirefly = useIsLoginFirefly();
     const subscribe = useCallback((onJwtAuthStateChange: () => void) => {
@@ -208,6 +210,9 @@ function Root({ ref, rootRef }: { ref: Ref<PrivyBridgeHandle>; rootRef: Ref<Priv
                             },
                         },
                     },
+                    externalWallets: {
+                        disableAllExternalWallets: true,
+                    },
                     supportedChains: chains as unknown as PrivyClientConfig['supportedChains'],
                     embeddedWallets: {
                         showWalletUIs: showWalletUI,
@@ -238,6 +243,10 @@ export class PrivyBridgeElement
     disconnectedCallback() {
         this._reactRoot?.unmount();
         this._reactRoot = undefined;
+    }
+
+    get isReady() {
+        return this._ref.current?.isReady ?? false;
     }
 
     public getWallets() {

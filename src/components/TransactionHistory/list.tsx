@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { Fragment } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
+import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { Link } from '@/components/Link.js';
 import { ListInPage } from '@/components/ListInPage.js';
@@ -254,6 +255,16 @@ function TransactionHistoryTokenItem({ item }: { item: TransactionHistoryItem })
     const isSolana = item.chain_id === SolanaChainId.Mainnet;
     const networkType = isSolana ? NetworkType.Solana : NetworkType.Ethereum;
     const chainId = item.chain_id;
+    if (
+        item.category === TransactionHistoryCategory.ContractInteraction &&
+        item.tx_status === TransactionState.Failed
+    ) {
+        return (
+            <div className="size-8 rounded-full">
+                <Avatar size={32} alt="failed" />
+            </div>
+        );
+    }
     if (
         [
             TransactionHistoryCategory.NftReceive,

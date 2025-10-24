@@ -1,7 +1,8 @@
+import { useQuery } from '@tanstack/react-query';
 import { watchAccount } from '@wagmi/core';
 import { useRouter } from 'next/navigation.js';
 import { type PropsWithChildren, useEffect, useRef } from 'react';
-import { useSwitchAccount } from 'wagmi';
+import { useConnect, useSwitchAccount } from 'wagmi';
 
 import { Loading } from '@/components/Loading.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
@@ -13,17 +14,38 @@ import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 
 export function SelectPrivyWalletGuard({ children }: PropsWithChildren) {
-    const isSetupRef = useRef(false);
     const connections = useWalletConnections();
     const connection = connections.find((x) => x.connector?.id === 'network.privy');
     const { ethereum } = useWalletAccountAll();
+    const ready = usePrivyWalletStore((state) => state.ready);
     const evmWallets = usePrivyWalletStore((state) => state.wallets[NetworkType.Ethereum]);
     const { switchAccountAsync } = useSwitchAccount();
+    const { connectAsync } = useConnect();
     const router = useRouter();
     const wallet = evmWallets.find((x) => x.connectorType === 'embedded');
 
+    const isSetupSolanaRef = useRef(false);
+    const { data: isSetupEvm = false } = useQuery({
+        queryKey: ['set-privy-evm-connector', ethereum.address, wallet?.address],
+        async queryFn() {
+            const connector = connection?.connector;
+            if (!wallet || !ethereum || !connector) return false;
+            if (isSameAddress(wallet.address, ethereum.address)) return true;
+            await connector.connect();
+            await connectAsync({ connector });
+            await switchAccountAsync({ connector });
+            return false;
+        },
+        enabled: ready,
+        refetchInterval(query) {
+            if (query.state.data) return;
+            return 2000;
+        },
+    });
+
     // watching evm account
     useEffect(() => {
+        if (!isSetupEvm) return;
         return watchAccount(wagmiConfig, {
             onChange(account) {
                 if (!isSameAddress(wallet?.address, account.address)) {
@@ -31,12 +53,12 @@ export function SelectPrivyWalletGuard({ children }: PropsWithChildren) {
                 }
             },
         });
-    }, [router, wallet?.address]);
+    }, [router, wallet?.address, isSetupEvm]);
 
     // watching solana account
     useEffect(() => {
         return useSolanaActiveNetworkStore.subscribe((state) => {
-            if (!isSetupRef.current) return;
+            if (!isSetupSolanaRef.current) return;
             if (state.activeNetwork !== SolanaNetworkType.Privy) {
                 router.push('/');
             }
@@ -44,14 +66,10 @@ export function SelectPrivyWalletGuard({ children }: PropsWithChildren) {
     }, [router]);
 
     useEffect(() => {
-        if (!ethereum || isSetupRef.current) return;
-        if (wallet && connection?.connector && ethereum && !isSameAddress(wallet?.address, ethereum.address)) {
-            switchAccountAsync({ connector: connection.connector });
-        }
+        if (isSetupSolanaRef.current || !ready) return;
         useSolanaActiveNetworkStore.getState().setActiveNetwork(SolanaNetworkType.Privy);
-        isSetupRef.current = true;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ethereum, wallet]);
+        isSetupSolanaRef.current = true;
+    }, [ready]);
 
     if (!connection || !wallet || !ethereum || !isSameAddress(ethereum.address, wallet.address)) return <Loading />;
     return children;

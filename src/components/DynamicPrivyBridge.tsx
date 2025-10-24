@@ -8,11 +8,13 @@ import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { usePollingSetupPrivyWallet } from '@/hooks/usePollingSetupPrivyWallet.js';
+import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 
 export function DynamicPrivyBridge() {
     const [isSetup, setIsSetup] = useState(false);
     const isLogin = useIsLoginFirefly();
     const { isCreatedPrivyWallet } = useIsCreatedPrivyWallet();
+    const ready = usePrivyWalletStore((x) => x.ready);
     useEffect(() => {
         if (!isLogin || !isCreatedPrivyWallet) return;
         import('@/components/PrivyBridge.js').then(() => {
@@ -34,6 +36,7 @@ export function DynamicPrivyBridge() {
 
     useEffect(() => {
         if (!isLogin) return;
+        if (!ready) return;
         const connector = connectors.find((connector) => connector.id === PRIVY_CONNECTOR_ID);
         if (!connector) return;
         if (!connections.some((c) => c.connector.id === PRIVY_CONNECTOR_ID)) {
@@ -41,7 +44,7 @@ export function DynamicPrivyBridge() {
                 wagmiConfig.state.connections.set(connector.uid, { connector, chainId, accounts } as Connection);
             });
         }
-    }, [connections, connectors, isLogin]);
+    }, [ready, connections, connectors, isLogin]);
 
     usePollingSetupPrivyWallet();
 

@@ -48,10 +48,6 @@ export function createPrivyConnector() {
                     method: 'eth_requestAccounts',
                 });
                 console.info(`[privy] connect`, chainId, accounts);
-                config.emitter.emit('connect', {
-                    accounts,
-                    chainId,
-                });
 
                 if (parameters?.withCapabilities === true) {
                     return {
