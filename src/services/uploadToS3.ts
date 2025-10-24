@@ -26,7 +26,7 @@ const getS3ConnectionConfig = memoizePromiseWithTime(
 );
 
 async function uploadToS3ByBase64(file: File, fileKey: string, s3Config: S3ConnectionConfig) {
-    const response = await fetchJson<ResponseJson<{ url: string }>>(urlcat(FIREFLY_WORKER_HOST, '/s3/upload'), {
+    const response = await fetchJson<ResponseJson<{ url: string }>>(urlcat(FIREFLY_WORKER_HOST, '/s3/upload/upload'), {
         method: 'POST',
         body: JSON.stringify({
             file: await blobToBase64(file),
