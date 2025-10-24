@@ -16,8 +16,10 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolvePollProvider } from '@/helpers/resolvePollProvider.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { runInSafe } from '@/helpers/runInSafe.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Poll, PollOption } from '@/providers/types/Poll.js';
+import { useOrbPollResultStore } from '@/store/useOrbPollResultStore.js';
 
 interface VoteButtonPanelProps {
     source: SocialSource;
@@ -26,15 +28,17 @@ interface VoteButtonPanelProps {
 }
 
 export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPanel({ source, postId, poll }) {
-    const isLogin = useIsLogin(source);
+    const currentProfile = useCurrentProfile(source);
     const [selectedId, setSelectedId] = useState<string>();
     const [selectedOptions, setSelectedOptions] = useState<PollOption[]>([]);
+    const { addPollResult } = useOrbPollResultStore();
 
+    const profileId = currentProfile?.profileId;
     const isMultiple = poll.type === POLL_CHOICE_TYPE.Multiple;
     const [{ loading }, handleVote] = useAsyncFn(
         async (option?: PollOption) => {
             try {
-                if (!isLogin) {
+                if (!profileId) {
                     openLoginModal({ source });
                     return;
                 }
@@ -67,6 +71,13 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
                 enqueueSuccessMessage(
                     res.is_success ? <Trans>Your vote is in!</Trans> : <Trans>Failed to vote.</Trans>,
                 );
+                runInSafe(() =>
+                    addPollResult(
+                        profileId,
+                        postId,
+                        options.map((option) => option.id),
+                    ),
+                );
             } catch (error) {
                 if (error instanceof WalletAddressMismatchError) {
                     enqueueWarningMessage(
@@ -82,7 +93,7 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
                 throw error;
             }
         },
-        [isMultiple, selectedOptions, poll.id, postId, source, isLogin, poll.options],
+        [isMultiple, selectedOptions, poll.id, postId, source, profileId, poll.options, addPollResult],
     );
 
     return (

@@ -1,13 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
+import { sumBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { OrbProvider } from '@/providers/orb/index.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { useOrbPollResultStore } from '@/store/useOrbPollResultStore.js';
 
 export function useRetrievePollFromPost(post: Post) {
     const lensProfile = useCurrentProfile(Source.Lens);
+    const { pollResult } = useOrbPollResultStore();
 
     const poll = post.poll || null;
     const queryLensPoll = post.source === Source.Lens && !!post.hasPoll;
@@ -25,6 +28,32 @@ export function useRetrievePollFromPost(post: Post) {
             }
 
             return poll;
+        },
+        select: (data) => {
+            try {
+                if (!data || !lensProfile) return data;
+                if (data.options.some((option) => option.isVoted)) return data;
+
+                const cachedOptions = pollResult[lensProfile.profileId]?.[post.postId];
+                if (!cachedOptions?.length) return data;
+
+                const voteCount = sumBy(data.options, (option) => option.votes || 0) + cachedOptions.length;
+                return {
+                    ...data,
+                    options: data.options.map((option) => {
+                        const isVoted = cachedOptions.includes(option.id);
+                        const curVotes = isVoted ? (option.votes || 0) + 1 : option.votes || 0;
+                        return {
+                            ...option,
+                            votes: curVotes,
+                            isVoted,
+                            percent: (curVotes / voteCount) * 100,
+                        };
+                    }),
+                };
+            } catch {
+                return data;
+            }
         },
     });
 

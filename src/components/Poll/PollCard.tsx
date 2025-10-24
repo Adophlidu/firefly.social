@@ -4,7 +4,6 @@ import { memo } from 'react';
 import { VoteButtonPanel } from '@/components/Poll/VoteButtonPanel.js';
 import { VoteResult } from '@/components/Poll/VoteResult.js';
 import { POLL_ACTION_ENABLED } from '@/constants/poll.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useRetrievePollFromPost } from '@/hooks/useRetrievePollFromPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -14,7 +13,6 @@ interface PollCardProps {
 }
 
 export const PollCard = memo<PollCardProps>(function PollCard({ post, frameUrl }) {
-    const profile = useCurrentProfile(post.source);
     const { poll } = useRetrievePollFromPost(post);
 
     if (!poll) return null;
