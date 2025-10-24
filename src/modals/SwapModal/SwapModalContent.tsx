@@ -19,12 +19,12 @@ import { FireflyWalletChainSelectorWithOkxProviderType } from '@/components/Fire
 import { CloseButton } from '@/components/IconButton.js';
 import { Loading } from '@/components/Loading.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { SOLANA_CHAIN_ID_IN_FIREFLY, SOLANA_CHAIN_ID_IN_OKX } from '@/constants/debank.js';
 import { Locale, OkxProviderType } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { NATIVE_SOLANA_TOKEN_ADDRESS, NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { delay } from '@/helpers/delay.js';
 import { useLocale } from '@/helpers/getCookies.js';
 import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
@@ -32,6 +32,9 @@ import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { EthereumWalletProvider, SolanaWalletProvider } from '@/providers/okx/WalletProvider.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
+
+export const SOLANA_CHAIN_ID_IN_OKX = 501;
 
 const LangMap = {
     [Locale.en]: 'en_us',
@@ -78,16 +81,65 @@ interface SwapModalContentProps extends HTMLProps<HTMLDivElement> {
 }
 
 export function SwapModalContent({ open, embed = false, onClose, props, className, ...rest }: SwapModalContentProps) {
+    const isSolanaChainId = props?.chainId === SolanaChainId.Mainnet || props?.chainId === SOLANA_CHAIN_ID_IN_OKX;
+    const [providerType, setProviderType] = useState<OkxProviderType>(
+        isSolanaChainId ? OkxProviderType.SOLANA : OkxProviderType.EVM,
+    );
+    const [isLoading, setIsLoading] = useState(false);
+    return (
+        <div
+            className={classNames(
+                'relative z-10 w-full overflow-hidden bg-white dark:bg-black',
+                !embed ? 'rounded-2xl' : 'flex flex-col',
+                className,
+            )}
+            {...rest}
+        >
+            <div className="relative z-10 -mb-4 flex h-14 w-full items-center justify-between bg-white px-6 pt-6 empty:hidden dark:bg-black">
+                {!embed ? <CloseButton className="text-main" onClick={onClose} /> : null}
+                {props?.providerSwitchable ? (
+                    <FireflyWalletChainSelectorWithOkxProviderType
+                        selectedChain={providerType ?? OkxProviderType.EVM}
+                        onSelectChain={async (x) => {
+                            setIsLoading(true);
+                            setProviderType(x);
+                            await delay(1000);
+                            setIsLoading(false);
+                        }}
+                    />
+                ) : null}
+            </div>
+            <div className="self-content relative z-1 max-h-[90svh] min-h-[550px]">
+                <div className="absolute left-0 top-0 z-0 size-full">
+                    <Loading className="h-full" />
+                </div>
+                {!isLoading ? (
+                    <SwapModalContentWidget {...rest} providerType={providerType} key={providerType} />
+                ) : null}
+            </div>
+        </div>
+    );
+}
+
+export function SwapModalContentWidget({
+    providerType,
+    ...props
+}: {
+    providerType?: OkxProviderType;
+    chainId?: number;
+    toChainId?: number;
+    fromToken?: string;
+    toToken?: string;
+    chainIds?: string[];
+}) {
     const [widgetRef, setWidgetRef] = useState<HTMLDivElement | null>(null);
     const locale = useLocale();
-    const [providerType, setProviderType] = useState<OkxProviderType>();
     const isDarkMode = useIsDarkMode();
     const instanceRef = useRef<OkxSwapWidgetHandler | null>(null);
     const propChainId = props?.chainId;
 
-    const isSolanaChainId = propChainId === SOLANA_CHAIN_ID_IN_FIREFLY || propChainId === SOLANA_CHAIN_ID_IN_OKX;
-    const computedProviderType =
-        providerType ?? props?.providerType ?? (isSolanaChainId ? OkxProviderType.SOLANA : OkxProviderType.EVM);
+    const isSolanaChainId = propChainId === SolanaChainId.Mainnet || propChainId === SOLANA_CHAIN_ID_IN_OKX;
+    const computedProviderType = providerType ?? (isSolanaChainId ? OkxProviderType.SOLANA : OkxProviderType.EVM);
     const isEvm = computedProviderType === OkxProviderType.EVM;
 
     const theme = isDarkMode ? THEME.DARK : THEME.LIGHT;
@@ -99,10 +151,9 @@ export function SwapModalContent({ open, embed = false, onClose, props, classNam
 
     const evmProviderRef = useRef(new EthereumWalletProvider());
     const solanaProviderRef = useRef(new SolanaWalletProvider());
-    const visible = open || embed;
 
     useEffect(() => {
-        if (!widgetRef || !visible) return;
+        if (!widgetRef) return;
         const evmProvider = evmProviderRef.current;
         const solanaProvider = solanaProviderRef.current;
         const provider = isEvm ? evmProvider : solanaProvider;
@@ -179,44 +230,20 @@ export function SwapModalContent({ open, embed = false, onClose, props, classNam
                 },
             ],
         });
-        connectWallet();
         instanceRef.current = instance;
 
         return () => {
             instanceRef.current?.destroy();
             instanceRef.current = null;
         };
-    }, [props, locale, theme, open, widgetRef, computedProviderType, isEvm, visible]);
+    }, [props, locale, theme, widgetRef, computedProviderType, isEvm]);
 
     return (
         <div
-            className={classNames(
-                'relative z-10 w-full overflow-hidden bg-white dark:bg-black',
-                !embed ? 'rounded-2xl' : 'flex flex-col',
-                className,
-            )}
-            {...rest}
-        >
-            <div className="relative z-1 -mb-4 flex h-14 w-full items-center justify-between bg-white px-6 pt-6 empty:hidden dark:bg-black">
-                {!embed ? <CloseButton className="text-main" onClick={onClose} /> : null}
-                {props?.providerSwitchable ? (
-                    <FireflyWalletChainSelectorWithOkxProviderType
-                        selectedChain={computedProviderType}
-                        onSelectChain={setProviderType}
-                    />
-                ) : null}
-            </div>
-            <div className="self-content relative z-1 max-h-[90svh] min-h-[550px]">
-                <div className="absolute left-0 top-0 z-0 size-full">
-                    <Loading className="h-full" />
-                </div>
-                <div
-                    className="okx-widget-container no-scrollbar absolute left-0 top-0 size-full overflow-auto"
-                    ref={(ref) => {
-                        setWidgetRef(ref);
-                    }}
-                />
-            </div>
-        </div>
+            className="okx-widget-container no-scrollbar absolute left-0 top-0 size-full overflow-auto"
+            ref={(ref) => {
+                setWidgetRef(ref);
+            }}
+        />
     );
 }
