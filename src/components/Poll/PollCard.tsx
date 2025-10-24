@@ -3,9 +3,7 @@ import { memo } from 'react';
 
 import { VoteButtonPanel } from '@/components/Poll/VoteButtonPanel.js';
 import { VoteResult } from '@/components/Poll/VoteResult.js';
-import { Source } from '@/constants/enum.js';
 import { POLL_ACTION_ENABLED } from '@/constants/poll.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useRetrievePollFromPost } from '@/hooks/useRetrievePollFromPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -27,8 +25,7 @@ export const PollCard = memo<PollCardProps>(function PollCard({ post, frameUrl }
     const showResultsOnly =
         !POLL_ACTION_ENABLED[post.source] ||
         poll.votingStatus === 'closed' ||
-        poll.options.some((option) => option.isVoted) ||
-        (post.source !== Source.Lens && isSameProfile(profile, post.author));
+        poll.options.some((option) => option.isVoted);
 
     if (!showResultsOnly) {
         return <VoteButtonPanel source={post.source} postId={post.postId} poll={poll} />;
