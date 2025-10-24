@@ -184,7 +184,7 @@ export function HomeTabs({
                             networkType={currentTab === HomeTab.Following ? undefined : NetworkType.Ethereum}
                         />
                     ) : source === Source.Activities ? (
-                        <ActivitiesFilter namespace={ActivitiesFilterNamespace.Home} />
+                        <ActivitiesFilter namespace={ActivitiesFilterNamespace.Home} hasMatters={!isFollowingTab} />
                     ) : null}
                 </div>
             ) : null}

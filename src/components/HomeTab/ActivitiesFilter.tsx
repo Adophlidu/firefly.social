@@ -1,6 +1,6 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { memo, useMemo } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 
 import FilterIcon from '@/assets/filter.svg';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
@@ -35,9 +35,14 @@ const ActivitiesPlatforms = [
 interface ActivitiesFilterProps {
     namespace: ActivitiesFilterNamespace;
     hasLimo?: boolean;
+    hasMatters?: boolean;
 }
 
-export const ActivitiesFilter = memo<ActivitiesFilterProps>(function ActivitiesFilter({ namespace, hasLimo = false }) {
+export const ActivitiesFilter = memo<ActivitiesFilterProps>(function ActivitiesFilter({
+    namespace,
+    hasLimo = false,
+    hasMatters = true,
+}) {
     const locale = useLocale();
     const { selectedPlatforms, setSelectedPlatforms } = useActivitiesFilterStore(
         namespace,
@@ -49,10 +54,22 @@ export const ActivitiesFilter = memo<ActivitiesFilterProps>(function ActivitiesF
 
         return ActivitiesPlatforms.filter((x) => {
             if (!hasLimo && x.platform === ActivitiesPlatform.Limo) return false;
-            if (x.platform === ActivitiesPlatform.Matters && !isChinese) return false;
+            if (x.platform === ActivitiesPlatform.Matters && (!hasMatters || !isChinese)) return false;
             return true;
         });
-    }, [hasLimo, locale]);
+    }, [hasLimo, hasMatters, locale]);
+
+    useEffect(() => {
+        const validPlatformValues = validPlatforms.map((x) => x.platform);
+        const invalidSelectedPlatforms = selectedPlatforms.filter(
+            (platform) => !validPlatformValues.includes(platform),
+        );
+
+        if (invalidSelectedPlatforms.length > 0) {
+            const newSelectedPlatforms = selectedPlatforms.filter((platform) => validPlatformValues.includes(platform));
+            setSelectedPlatforms(newSelectedPlatforms);
+        }
+    }, [validPlatforms, selectedPlatforms, setSelectedPlatforms]);
 
     const filter = (
         <Popover className="relative flex items-center justify-center">
