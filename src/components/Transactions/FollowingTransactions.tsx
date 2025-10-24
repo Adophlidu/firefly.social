@@ -13,7 +13,7 @@ import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import type { TransactionsItem } from '@/providers/types/Firefly.js';
-import { availableFollowingTxTypes, useTransactionsStateStore } from '@/store/useTransactionsStore.js';
+import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 
 function shuffleTransactions(list: TransactionsItem[]) {
     const count = Math.floor(Math.random() * 3 + 1); // [1, 3]
@@ -38,13 +38,11 @@ export function FollowingTransactions() {
     const profileIds = useCurrentProfileIds();
     const asyncStatusAll = useAsyncStatusAll();
 
-    const { selectedChainId, followingTxTypes } = useTransactionsStateStore();
-
-    const sources = followingTxTypes.length ? followingTxTypes : availableSources;
+    const { selectedChainId } = useTransactionsStateStore();
 
     const queryResult = useMultiInfiniteQueryPageable<TransactionsItem, Pageable<TransactionsItem, PageIndicator>>(
         ['transactions', 'following', asyncStatusAll, selectedChainId, profileIds],
-        sources.map((source) => ({
+        availableSources.map((source) => ({
             key: source,
             async queryFn({ pageParam }) {
                 if (!isLogin) return createPageable([], createIndicator(undefined, pageParam));
@@ -60,10 +58,9 @@ export function FollowingTransactions() {
         })),
         (data) => {
             const feeds = data.pages.flatMap((page) => page.data);
-            if (!followingTxTypes.length || followingTxTypes.length === availableFollowingTxTypes.length) return feeds;
-            return feeds.filter((x) => followingTxTypes.includes(x.source));
+            return feeds;
         },
-        { formatter: shuffleTransactions },
+        { formatter: shuffleTransactions, gcTime: 10 * 60 * 1000, staleTime: 10 * 60 * 1000 },
     );
 
     if (!profileIds.length) {

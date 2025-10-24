@@ -73,7 +73,7 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
             <input
                 id={SESSION_PASSWORD_INPUT_ID}
                 className="absolute -z-1 size-0 opacity-0"
-                type="password"
+                type="text"
                 ref={inputRef}
                 value={password}
                 autoCorrect="off"

@@ -54,9 +54,7 @@ export function HomeTabs({
     containerClass?: string;
 }) {
     const pathname = usePathname();
-    const { hasOpenSwap, setHasOpenSwap, followingTxTypes, setFollowingTxTypes } = useTransactionsStateStore(
-        NetworkType.Ethereum,
-    );
+    const { hasOpenSwap, setHasOpenSwap } = useTransactionsStateStore(NetworkType.Ethereum);
     const [allTabs, setAllTabs] = useState<Record<HomeTab, Source>>({
         [HomeTab.Discover]: types[HomeTab.Discover][0],
         [HomeTab.Following]: types[HomeTab.Following][0],
@@ -82,8 +80,6 @@ export function HomeTabs({
         } as const;
     }, [pathname]);
     const isLogin = useIsLoginFirefly();
-
-    const isFollowingTab = currentTab === HomeTab.Following;
 
     return (
         <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
