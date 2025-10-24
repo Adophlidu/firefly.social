@@ -125,7 +125,7 @@ export function SwapModalContentWidget({
     providerType,
     ...props
 }: {
-    providerType?: OkxProviderType;
+    providerType: OkxProviderType;
     chainId?: number;
     toChainId?: number;
     fromToken?: string;
@@ -136,11 +136,7 @@ export function SwapModalContentWidget({
     const locale = useLocale();
     const isDarkMode = useIsDarkMode();
     const instanceRef = useRef<OkxSwapWidgetHandler | null>(null);
-    const propChainId = props?.chainId;
-
-    const isSolanaChainId = propChainId === SolanaChainId.Mainnet || propChainId === SOLANA_CHAIN_ID_IN_OKX;
-    const computedProviderType = providerType ?? (isSolanaChainId ? OkxProviderType.SOLANA : OkxProviderType.EVM);
-    const isEvm = computedProviderType === OkxProviderType.EVM;
+    const isEvm = providerType === OkxProviderType.EVM;
 
     const theme = isDarkMode ? THEME.DARK : THEME.LIGHT;
 
@@ -181,7 +177,7 @@ export function SwapModalContentWidget({
             lang: LangMap[locale] || 'en_us',
             theme,
             width: window.innerWidth < 440 ? window.innerWidth - 40 : 400,
-            providerType: resolveProviderType(computedProviderType),
+            providerType: resolveProviderType(providerType),
 
             chainIds: props?.chainIds ? uniq([...props.chainIds, chainId.toString()]) : [],
             tokenPair: isSwap ? tokenPair : undefined,
@@ -236,7 +232,7 @@ export function SwapModalContentWidget({
             instanceRef.current?.destroy();
             instanceRef.current = null;
         };
-    }, [props, locale, theme, widgetRef, computedProviderType, isEvm]);
+    }, [props, locale, theme, widgetRef, providerType, isEvm]);
 
     return (
         <div
