@@ -5,9 +5,9 @@ import { convertTwitterAvatar } from '@/providers/twitter/formatTwitterProfile.j
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export function extractTwitterProfileByOpengraphTitle(title: string) {
-    const [displayName, handle] = title.split(' ');
+    const [displayName, handle] = (title ?? '').split(' ');
     const regex = /\(@([\w_]+)\)/;
-    const match = handle.match(regex);
+    const match = handle?.match(regex);
     if (match) {
         return {
             displayName,
