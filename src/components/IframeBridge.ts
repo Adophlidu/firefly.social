@@ -2,6 +2,7 @@
 
 import { memo, useEffect } from 'react';
 
+import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import type { ProfileSource } from '@/constants/enum.js';
 import {
     enqueueErrorMessage,
@@ -12,14 +13,13 @@ import {
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
+import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';
 import { iframeBridgeProvider } from '@/providers/iframe/IframeBridge.js';
 import {
     IframeBridgeMethod,
     type IframeBridgeRequestArguments,
     type IframeBridgeResponseResult,
 } from '@/providers/iframe/types.js';
-import { openWindow } from '@/helpers/openWindow.js';
-import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 
 const allEvents: {
     [K in IframeBridgeMethod]: (params: IframeBridgeRequestArguments[K]) => Promise<IframeBridgeResponseResult[K]>;
@@ -64,7 +64,7 @@ const allEvents: {
     ) => {
         IS_MOBILE_DEVICE
             ? (window.location.href = 'https://5euxu.app.link/PHvNiyVemIb')
-            : openWindow('https://5euxu.app.link/PHvNiyVemIb');
+            : DownloadMobileAppModalRef.open();
     },
 };
 

@@ -3666,9 +3666,6 @@ msgstr "鑄造收集貼文"
 msgid "Sorry, we are not able to find this token"
 msgstr "抱歉，找不到此代幣"
 
-msgid "Report issue"
-msgstr ""
-
 msgid "Muting..."
 msgstr "隱藏中..."
 

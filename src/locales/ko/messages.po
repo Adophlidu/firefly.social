@@ -3666,9 +3666,6 @@ msgstr ""
 msgid "Sorry, we are not able to find this token"
 msgstr ""
 
-msgid "Report issue"
-msgstr ""
-
 msgid "Muting..."
 msgstr ""
 
