@@ -127,6 +127,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
         }
     }
 
+    // @ts-ignore
     async sendTransaction(
         transaction: TransactionOrVersionedTransaction<SupportedTransactionVersions>,
         connection: web3.Connection,
