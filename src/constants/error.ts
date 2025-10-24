@@ -256,14 +256,6 @@ export class CreateScheduleError extends Error {
     }
 }
 
-export class TransactionSimulationError extends Error {
-    override name = 'TransactionSimulationError';
-
-    constructor(message?: string) {
-        super(message ?? 'Transaction simulation failed.');
-    }
-}
-
 export class OTPExceededMaximumLimit extends Error {
     override name = 'OTPExceededMaximumLimit';
 

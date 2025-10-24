@@ -460,15 +460,6 @@ export enum SimulateStatus {
     Error = 'error',
 }
 
-export enum SimulateType {
-    Swap = 'swap',
-    Send = 'send',
-    Approve = 'approve',
-    Receive = 'receive',
-    Signature = 'signature',
-    Unknown = 'unknown',
-}
-
 export enum ExternalSiteDomain {
     Warpcast = 'warpcast.com',
     Farcaster = 'farcaster.xyz',

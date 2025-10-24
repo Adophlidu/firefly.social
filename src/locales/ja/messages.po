@@ -124,9 +124,6 @@ msgstr ""
 msgid "Unmute successfully."
 msgstr ""
 
-msgid "Simulating"
-msgstr ""
-
 msgid "Interacted Failed"
 msgstr ""
 
@@ -548,9 +545,6 @@ msgstr ""
 msgid "Scheduled"
 msgstr ""
 
-msgid "Pay"
-msgstr ""
-
 msgid "Nickname"
 msgstr ""
 
@@ -609,9 +603,6 @@ msgid "Adding..."
 msgstr ""
 
 msgid "Mint"
-msgstr ""
-
-msgid "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
 msgstr ""
 
 msgid "Market Cap"
@@ -1015,9 +1006,6 @@ msgstr ""
 msgid "Host"
 msgstr ""
 
-msgid "Unsafe: Transaction is at risk"
-msgstr ""
-
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
 msgid "{0, plural, one {# day} other {# days}}"
 msgstr ""
@@ -1356,9 +1344,6 @@ msgid "Update"
 msgstr ""
 
 msgid "Registered account not found. Please switch to another wallet and try again."
-msgstr ""
-
-msgid "Domain"
 msgstr ""
 
 #. placeholder {0}: profile.handle
@@ -1744,9 +1729,6 @@ msgid "Try again"
 msgstr ""
 
 msgid "Failed to create image payload."
-msgstr ""
-
-msgid "Network Fee"
 msgstr ""
 
 msgid "Reset Password"
@@ -2221,9 +2203,6 @@ msgstr ""
 msgid "Cover background"
 msgstr ""
 
-msgid "Verified"
-msgstr ""
-
 msgid "Connected"
 msgstr ""
 
@@ -2600,9 +2579,6 @@ msgstr ""
 msgid "Invalid signer key"
 msgstr ""
 
-msgid "Unverified"
-msgstr ""
-
 msgid "👀 Firefly notifications are off. "
 msgstr ""
 
@@ -2742,9 +2718,6 @@ msgstr ""
 msgid "Article removed from your Bookmarks"
 msgstr ""
 
-msgid "Powered by Tenderly and GoPlus"
-msgstr ""
-
 msgid "Download media"
 msgstr ""
 
@@ -2866,9 +2839,6 @@ msgid "Approve"
 msgstr ""
 
 msgid "Share"
-msgstr ""
-
-msgid "Transaction Simulation"
 msgstr ""
 
 msgid "Trades"
@@ -3013,9 +2983,6 @@ msgid "It is wallet retrieved from public verifiable data registries or our enti
 msgstr ""
 
 msgid "Visit mask.io"
-msgstr ""
-
-msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 msgstr ""
 
 #. placeholder {0}: author.handle
@@ -3329,9 +3296,6 @@ msgid "Failed to open miniapp"
 msgstr ""
 
 msgid "Leaving Firefly"
-msgstr ""
-
-msgid "Sign Typed Data"
 msgstr ""
 
 msgid "24H Volume"
@@ -3988,9 +3952,6 @@ msgstr ""
 msgid "Create a Post"
 msgstr ""
 
-msgid "Unverified: Failed to simulate, <0>try again</0>"
-msgstr ""
-
 msgid "Please confirm login in the app"
 msgstr ""
 
@@ -4075,9 +4036,6 @@ msgid "Neutral"
 msgstr ""
 
 msgid "Turn on notifications to never miss important alerts."
-msgstr ""
-
-msgid "Signature Request"
 msgstr ""
 
 msgid "Total Supply"
@@ -4464,9 +4422,6 @@ msgstr ""
 msgid "Password updated successfully."
 msgstr ""
 
-msgid "Ignore the warnings to continue"
-msgstr ""
-
 msgid "The contract owner has restrictions on trading cooldown."
 msgstr ""
 
@@ -4503,9 +4458,6 @@ msgid "Location"
 msgstr ""
 
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
-msgstr ""
-
-msgid "Error: {message}"
 msgstr ""
 
 msgid "Value"

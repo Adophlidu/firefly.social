@@ -119,9 +119,6 @@ msgstr "Group {id} could not be found."
 msgid "Unmute successfully."
 msgstr "Unmute successfully."
 
-msgid "Simulating"
-msgstr "Simulating"
-
 msgid "Interacted Failed"
 msgstr "Interacted Failed"
 
@@ -543,9 +540,6 @@ msgstr "Bets"
 msgid "Scheduled"
 msgstr "Scheduled"
 
-msgid "Pay"
-msgstr "Pay"
-
 msgid "Nickname"
 msgstr "Nickname"
 
@@ -605,9 +599,6 @@ msgstr "Adding..."
 
 msgid "Mint"
 msgstr "Mint"
-
-msgid "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
-msgstr "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
 
 msgid "Market Cap"
 msgstr "Market Cap"
@@ -1010,9 +1001,6 @@ msgstr "Failed to refund red packet."
 msgid "Host"
 msgstr "Host"
 
-msgid "Unsafe: Transaction is at risk"
-msgstr "Unsafe: Transaction is at risk"
-
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
 msgid "{0, plural, one {# day} other {# days}}"
 msgstr "{0, plural, one {# day} other {# days}}"
@@ -1352,9 +1340,6 @@ msgstr "Update"
 
 msgid "Registered account not found. Please switch to another wallet and try again."
 msgstr "Registered account not found. Please switch to another wallet and try again."
-
-msgid "Domain"
-msgstr "Domain"
 
 #. placeholder {0}: profile.handle
 msgid "Failed to follow @{0} on Lens"
@@ -1740,9 +1725,6 @@ msgstr "Try again"
 
 msgid "Failed to create image payload."
 msgstr "Failed to create image payload."
-
-msgid "Network Fee"
-msgstr "Network Fee"
 
 msgid "Reset Password"
 msgstr "Reset Password"
@@ -2216,9 +2198,6 @@ msgstr "Custom amount is required for this token"
 msgid "Cover background"
 msgstr "Cover background"
 
-msgid "Verified"
-msgstr "Verified"
-
 msgid "Connected"
 msgstr "Connected"
 
@@ -2595,9 +2574,6 @@ msgstr "Total amount"
 msgid "Invalid signer key"
 msgstr "Invalid signer key"
 
-msgid "Unverified"
-msgstr "Unverified"
-
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly notifications are off. "
 
@@ -2737,9 +2713,6 @@ msgstr "This can’t be undone and you’ll lose your draft."
 msgid "Article removed from your Bookmarks"
 msgstr "Article removed from your Bookmarks"
 
-msgid "Powered by Tenderly and GoPlus"
-msgstr "Powered by Tenderly and GoPlus"
-
 msgid "Download media"
 msgstr "Download media"
 
@@ -2862,9 +2835,6 @@ msgstr "Approve"
 
 msgid "Share"
 msgstr "Share"
-
-msgid "Transaction Simulation"
-msgstr "Transaction Simulation"
 
 msgid "Trades"
 msgstr "Trades"
@@ -3009,9 +2979,6 @@ msgstr "It is wallet retrieved from public verifiable data registries or our ent
 
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
-
-msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
-msgstr "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 
 #. placeholder {0}: author.handle
 msgid "Unfollow @{0}"
@@ -3325,9 +3292,6 @@ msgstr "Failed to open miniapp"
 
 msgid "Leaving Firefly"
 msgstr "Leaving Firefly"
-
-msgid "Sign Typed Data"
-msgstr "Sign Typed Data"
 
 msgid "24H Volume"
 msgstr "24H Volume"
@@ -3983,9 +3947,6 @@ msgstr "Mine"
 msgid "Create a Post"
 msgstr "Create a Post"
 
-msgid "Unverified: Failed to simulate, <0>try again</0>"
-msgstr "Unverified: Failed to simulate, <0>try again</0>"
-
 msgid "Please confirm login in the app"
 msgstr "Please confirm login in the app"
 
@@ -4071,9 +4032,6 @@ msgstr "Neutral"
 
 msgid "Turn on notifications to never miss important alerts."
 msgstr "Turn on notifications to never miss important alerts."
-
-msgid "Signature Request"
-msgstr "Signature Request"
 
 msgid "Total Supply"
 msgstr "Total Supply"
@@ -4459,9 +4417,6 @@ msgstr "Unmuted {walletHandle}."
 msgid "Password updated successfully."
 msgstr "Password updated successfully."
 
-msgid "Ignore the warnings to continue"
-msgstr "Ignore the warnings to continue"
-
 msgid "The contract owner has restrictions on trading cooldown."
 msgstr "The contract owner has restrictions on trading cooldown."
 
@@ -4499,9 +4454,6 @@ msgstr "Location"
 
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
-
-msgid "Error: {message}"
-msgstr "Error: {message}"
 
 msgid "Value"
 msgstr "Value"

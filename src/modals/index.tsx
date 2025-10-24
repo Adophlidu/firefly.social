@@ -52,10 +52,6 @@ import {
     TransactionDetailModal,
     TransactionDetailModalRef,
 } from '@/modals/TransactionDetailModal/TransactionDetailModal.js';
-import {
-    TransactionSimulatorModal,
-    TransactionSimulatorModalRef,
-} from '@/modals/TransactionSimulatorModal/TransactionSimulatorModal.js';
 import { WalletConnectModal, WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 
 export const Modals = memo(function Modals() {
@@ -95,7 +91,6 @@ export const Modals = memo(function Modals() {
                 <TipsModal ref={TipsModalRef.register} />
                 <TokenSelectorModal ref={TokenSelectorModalRef.register} />
                 <TransactionDetailModal ref={TransactionDetailModalRef.register} />
-                <TransactionSimulatorModal ref={TransactionSimulatorModalRef.register} />
                 <WalletConnectModal ref={WalletConnectModalRef.register} />
             </IfPathname>
         </NoSSR>

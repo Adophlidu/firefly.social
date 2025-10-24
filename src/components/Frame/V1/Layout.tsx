@@ -8,8 +8,7 @@ import { z } from 'zod';
 
 import { Card } from '@/components/Frame/V1/Card.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { SimulateType, type SocialSource, Source } from '@/constants/enum.js';
-import { TransactionSimulationError } from '@/constants/error.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
@@ -23,7 +22,6 @@ import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { safeUnreachable } from '@/helpers/unreachable.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal.js';
-import { simulate } from '@/modals/TransactionSimulatorModal/simulate.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
@@ -179,12 +177,6 @@ async function getNextFrame(
                         chainId,
                     });
                     if (client.chain.id !== chainId) throw new Error('The chainId mismatch.');
-                    await simulate({
-                        type: SimulateType.Swap,
-                        chainId,
-                        url: frame.url,
-                        transaction: mintTx,
-                    });
                     await client.sendTransaction(mintTx);
                     await captureFrameActionEvent('others', frame, address);
                     return null;
@@ -226,11 +218,6 @@ async function getNextFrame(
                                     : undefined)) as Hex | undefined,
                             value: action.params.value ? BigInt(action.params.value) : BigInt(0),
                         };
-                        await simulate({
-                            url: frame.url,
-                            chainId,
-                            transaction: params,
-                        });
                         const transactionId = await client.sendTransaction(params);
                         const response = await postAction<LinkDigestedResponse<FrameV1>>({
                             address,
@@ -240,7 +227,6 @@ async function getNextFrame(
                         return response.success ? response.data.frame : null;
                     }
                     case MethodType.ETH_SIGN_TYPED_DATA_V4: {
-                        await simulate({ type: SimulateType.Signature, url: frame.url, chainId });
                         const signature = await client.signTypedData(action.params as SignTypedDataParameters);
                         const response = await postAction<LinkDigestedResponse<FrameV1>>({
                             address,
@@ -259,7 +245,6 @@ async function getNextFrame(
                 return null;
         }
     } catch (error) {
-        if (error instanceof TransactionSimulationError) return null;
         enqueueMessageFromError(error, <Trans>Something went wrong. Please try again.</Trans>);
         throw error;
     }

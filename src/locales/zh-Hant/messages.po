@@ -124,9 +124,6 @@ msgstr "未找到群組 {id}。"
 msgid "Unmute successfully."
 msgstr "成功取消隱藏。"
 
-msgid "Simulating"
-msgstr "模擬中"
-
 msgid "Interacted Failed"
 msgstr "互動失敗"
 
@@ -548,9 +545,6 @@ msgstr "投注"
 msgid "Scheduled"
 msgstr "已預約"
 
-msgid "Pay"
-msgstr "支付"
-
 msgid "Nickname"
 msgstr "暱稱"
 
@@ -610,9 +604,6 @@ msgstr "新增中..."
 
 msgid "Mint"
 msgstr "鑄造"
-
-msgid "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
-msgstr "我們的交易模擬與安全檢測未發現問題。但操作前請務必再次確認並謹慎執行。"
 
 msgid "Market Cap"
 msgstr "市值"
@@ -1015,9 +1006,6 @@ msgstr "退款紅包失敗"
 msgid "Host"
 msgstr "主持人"
 
-msgid "Unsafe: Transaction is at risk"
-msgstr "危險：交易存在風險"
-
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
 msgid "{0, plural, one {# day} other {# days}}"
 msgstr "{0, plural, one {# 日} other {# 日}}"
@@ -1357,9 +1345,6 @@ msgstr "更新"
 
 msgid "Registered account not found. Please switch to another wallet and try again."
 msgstr "未發現任意在Firefly註冊帳號，請更改錢包重試。"
-
-msgid "Domain"
-msgstr "網域"
 
 #. placeholder {0}: profile.handle
 msgid "Failed to follow @{0} on Lens"
@@ -1745,9 +1730,6 @@ msgstr "重試"
 
 msgid "Failed to create image payload."
 msgstr "創建圖片失敗。"
-
-msgid "Network Fee"
-msgstr "網路費用"
 
 msgid "Reset Password"
 msgstr "重設密碼"
@@ -2221,9 +2203,6 @@ msgstr "此代幣需要自訂數額"
 msgid "Cover background"
 msgstr "封面背景"
 
-msgid "Verified"
-msgstr "已驗證"
-
 msgid "Connected"
 msgstr "已連接"
 
@@ -2600,9 +2579,6 @@ msgstr "總數額"
 msgid "Invalid signer key"
 msgstr "簽名金鑰無效"
 
-msgid "Unverified"
-msgstr "未驗證"
-
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly 通知未開啟！"
 
@@ -2742,9 +2718,6 @@ msgstr "該行為無法撤銷，您會失去這份草稿"
 msgid "Article removed from your Bookmarks"
 msgstr "文章已從你的書籤中移除"
 
-msgid "Powered by Tenderly and GoPlus"
-msgstr "技術支援：Tenderly & GoPlus"
-
 msgid "Download media"
 msgstr "下載媒體"
 
@@ -2867,9 +2840,6 @@ msgstr "授權"
 
 msgid "Share"
 msgstr "分享"
-
-msgid "Transaction Simulation"
-msgstr "交易模擬"
 
 msgid "Trades"
 msgstr ""
@@ -3014,9 +2984,6 @@ msgstr "此錢包來自公開數據或我們的算法，請先添加錢包再設
 
 msgid "Visit mask.io"
 msgstr "訪問 mask.io"
-
-msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
-msgstr "無法模擬交易或完成安全檢測，請謹慎操作。"
 
 #. placeholder {0}: author.handle
 msgid "Unfollow @{0}"
@@ -3330,9 +3297,6 @@ msgstr "打開 miniapp 失敗"
 
 msgid "Leaving Firefly"
 msgstr "即將離開 Firefly"
-
-msgid "Sign Typed Data"
-msgstr "簽署類型資料"
 
 msgid "24H Volume"
 msgstr "24 小時交易量"
@@ -3988,9 +3952,6 @@ msgstr "我的交易"
 msgid "Create a Post"
 msgstr "創建貼文"
 
-msgid "Unverified: Failed to simulate, <0>try again</0>"
-msgstr "未驗證：模擬失敗，<0>請重試</0>"
-
 msgid "Please confirm login in the app"
 msgstr "請在行動版應用確認登入"
 
@@ -4076,9 +4037,6 @@ msgstr "中立"
 
 msgid "Turn on notifications to never miss important alerts."
 msgstr "開啟通知以掌握重要提醒"
-
-msgid "Signature Request"
-msgstr "簽名請求"
 
 msgid "Total Supply"
 msgstr "總供應量"
@@ -4464,9 +4422,6 @@ msgstr "已取消隱藏 @{walletHandle} 。"
 msgid "Password updated successfully."
 msgstr "密碼變更成功。"
 
-msgid "Ignore the warnings to continue"
-msgstr "忽略警告以繼續"
-
 msgid "The contract owner has restrictions on trading cooldown."
 msgstr "合約擁有者對交易冷卻時間有限制。"
 
@@ -4506,9 +4461,6 @@ msgstr "位置"
 
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "代幣交易次數沒有限制。但詐騙代幣的交易次數可能受到限制（詐騙風險）。"
-
-msgid "Error: {message}"
-msgstr "錯誤：{message}"
 
 msgid "Value"
 msgstr ""
