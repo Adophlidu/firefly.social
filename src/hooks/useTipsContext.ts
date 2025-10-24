@@ -23,6 +23,7 @@ interface TipsContext {
     socialProfiles: Profile[];
     isSending: boolean;
     hasError: boolean;
+    error: Error | null;
     identity: FireflyIdentity;
     post: Post | null;
     selectedUsdtValue?: number;
@@ -42,6 +43,7 @@ function createEmptyContext(): TipsContext {
         pureWallet: false,
         socialProfiles: [],
         isSending: false,
+        error: null,
         hasError: false,
         identity: {
             id: ETH_ZERO_ADDRESS,

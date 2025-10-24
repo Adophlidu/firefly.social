@@ -144,7 +144,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         } catch (error) {
             if (isUserRejectErrorInWallet(error)) return;
 
-            update((prev) => ({ ...prev, hasError: true, isSending: false, hash: null }));
+            update((prev) => ({ ...prev, hasError: true, isSending: false, hash: null, error: error as Error }));
             enqueueMessageFromError(error, <Trans>Failed to send tip.</Trans>);
             throw error;
         }

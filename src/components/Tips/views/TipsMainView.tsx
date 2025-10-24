@@ -1,12 +1,14 @@
 import { Trans } from '@lingui/react/macro';
 
 import ErrorIcon from '@/assets/error-circle.svg';
+import { ActionButton } from '@/components/ActionButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SendWithEVM, SendWithSolana } from '@/components/Tips/SendTipsButton.js';
 import { TipsRecipient } from '@/components/Tips/TipsRecipient.js';
 import { TipsTokenInput } from '@/components/Tips/TipsTokenInput.js';
 import { TokenAmountInput } from '@/components/Tips/TokenAmountInput.js';
 import { NetworkType } from '@/constants/enum.js';
+import { useReportFeedback } from '@/hooks/useReportFeedback.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 
 function LoadingView() {
@@ -24,13 +26,37 @@ function LoadingView() {
 }
 
 function FailedView() {
+    const { error, reset } = TipsContext.useContainer();
+    const [reported, loading, handleReport] = useReportFeedback('Tips Transaction Failed', error?.message ?? '');
     return (
-        <div className="flex flex-col items-center gap-4 bg-lightBottom dark:bg-darkBottom">
-            <ErrorIcon width={64} height={64} />
-            <p className="text-2xl font-semibold text-main">
-                <Trans>Transaction failed</Trans>
-            </p>
-        </div>
+        <>
+            <div className="flex flex-col items-center gap-4 bg-lightBottom dark:bg-darkBottom">
+                <ErrorIcon width={64} height={64} />
+                <p className="text-2xl font-semibold text-main">
+                    <Trans>Transaction failed</Trans>
+                </p>
+                <pre className="mt-4 line-clamp-2 w-full text-sm text-second">{error?.message}</pre>
+            </div>
+            <div className="flex w-full items-center gap-2">
+                <ActionButton
+                    variant="secondary"
+                    className="mt-12 h-10 w-full rounded-lg border-none bg-secondaryLine text-medium"
+                    onClick={() => handleReport()}
+                    disabled={reported}
+                    loading={loading}
+                >
+                    <Trans>Report issue</Trans>
+                </ActionButton>
+                <ActionButton
+                    className="mt-12 h-10 w-full rounded-lg text-medium"
+                    onClick={() => {
+                        reset();
+                    }}
+                >
+                    <Trans>Try again</Trans>
+                </ActionButton>
+            </div>
+        </>
     );
 }
 
@@ -60,7 +86,6 @@ export function TipsMainView() {
         return (
             <div className="flex size-full flex-col justify-between pt-6">
                 <FailedView />
-                {button}
             </div>
         );
     }
