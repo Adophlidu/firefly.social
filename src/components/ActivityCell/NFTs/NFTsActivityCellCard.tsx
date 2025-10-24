@@ -87,7 +87,6 @@ export function NFTsActivityCellCard(props: NFTsActivityCellCardProps) {
                                 },
                             )}
                             alt="nft-card"
-                            fallbackClassName=""
                             fallback={data.nftscan_uri || data.collection?.logo_url}
                             width={200}
                             height={200}
