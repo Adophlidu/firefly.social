@@ -1,11 +1,17 @@
 import { web3 } from '@coral-xyz/anchor';
 import { ConnectedStandardSolanaWallet as ConnectedSolanaWallet } from '@privy-io/react-auth/solana';
 import type { RequestArguments } from '@reown/appkit';
-import type { AnyTransaction, Provider, ProviderEventEmitterMethods } from '@reown/appkit-adapter-solana';
+import type {
+    AnyTransaction,
+    Provider,
+    ProviderEventEmitterMethods,
+    TransactionOrVersionedTransaction,
+} from '@reown/appkit-adapter-solana';
 import {
     BaseWalletAdapter,
     scopePollingDetectionStrategy,
     type SendTransactionOptions,
+    type SupportedTransactionVersions,
     WalletError,
     type WalletName,
     WalletNotConnectedError,
@@ -122,7 +128,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
     }
 
     async sendTransaction(
-        transaction: web3.Transaction | web3.VersionedTransaction,
+        transaction: TransactionOrVersionedTransaction<SupportedTransactionVersions>,
         connection: web3.Connection,
         options: SendTransactionOptions = {},
     ): Promise<web3.TransactionSignature> {
