@@ -10,7 +10,7 @@ export const EmptyStatus = memo(function EmptyStatus({ className, children, ...r
     return (
         <div
             className={classNames(
-                'absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-3 whitespace-nowrap p-[2px] text-second',
+                'absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform-gpu flex-col items-center justify-center gap-3 whitespace-nowrap p-[2px] text-second',
                 className,
             )}
             {...rest}

@@ -157,7 +157,7 @@ export function AddCustomERC721Modal({ ref }: Props) {
 
     return (
         <Modal open={open} onClose={onClose} className="z-50 w-[calc(100%-40px)] md:w-[450px]">
-            <div className="flex h-auto flex-col p-4 pt-0 text-medium text-lightMain shadow-popover">
+            <div className="flex h-auto transform-gpu flex-col rounded-md bg-lightBottom p-4 pt-0 text-medium text-lightMain shadow-popover">
                 <DialogTitle as="h3" className="relative h-14 shrink-0 pt-safe">
                     <CloseIcon
                         onClick={onClose}
