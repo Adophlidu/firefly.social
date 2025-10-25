@@ -2,6 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { useMemo, useRef } from 'react';
 import { useUpdateEffect } from 'react-use';
 
+import { EventSkeleton } from '@/components/Calendar/CalendarCardSkeleton.js';
 import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { useNewsList } from '@/components/Calendar/hooks/useEventList.js';
 import { ElementAnchor } from '@/components/ElementAnchor.js';
@@ -50,25 +51,21 @@ export function NewsList({ date }: NewsListProps) {
 
     if (isLoading && !groups.length) {
         return (
-            <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-2.5 overflow-y-scroll">
-                <div className="pt-3">
-                    <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-3 whitespace-nowrap text-second">
-                        <Loading />
-                    </div>
+            <div className="no-scrollbar relative h-[506px] w-full overflow-y-scroll">
+                <div className="flex flex-col gap-10 pt-10">
+                    {Array.from({ length: 4 }).map((_, index) => {
+                        return <EventSkeleton key={index} />;
+                    })}
                 </div>
             </div>
         );
     }
     if (!groups.length) {
         return (
-            <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-2.5 overflow-y-scroll">
-                <div className="pt-3">
-                    <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-3 whitespace-nowrap text-second">
-                        <EmptyStatus>
-                            <Trans>No content for the last two weeks.</Trans>
-                        </EmptyStatus>
-                    </div>
-                </div>
+            <div className="no-scrollbar relative h-[506px] w-full overflow-y-scroll">
+                <EmptyStatus>
+                    <Trans>No content for the last two weeks.</Trans>
+                </EmptyStatus>
             </div>
         );
     }

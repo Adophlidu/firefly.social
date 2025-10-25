@@ -1,5 +1,17 @@
 import React from 'react';
 
+export function EventSkeleton() {
+    return (
+        <div className="space-y-3">
+            <div className="flex h-6 w-full justify-between rounded">
+                <div className="h-6 w-1/4 rounded bg-bg" />
+            </div>
+            <div className="h-4 w-3/4 rounded bg-bg" />
+            <div className="h-4 w-1/2 rounded bg-bg" />
+        </div>
+    );
+}
+
 export function CalendarCardSkeleton() {
     return (
         <div className="relative flex h-[605px] w-full animate-pulse flex-col rounded-xl border border-line">
@@ -22,17 +34,9 @@ export function CalendarCardSkeleton() {
                 <div className="size-6 rounded-full bg-bg" />
             </div>
             {/* Content Area Skeleton */}
-            <div className="rounded-b-xl p-4">
+            <div className="flex flex-col gap-10 rounded-b-xl p-10">
                 {Array.from({ length: 4 }).map((_, index) => {
-                    return (
-                        <div className="mt-10 space-y-3" key={index}>
-                            <div className="flex h-6 w-full justify-between rounded">
-                                <div className="h-6 w-1/4 rounded bg-bg" />
-                            </div>
-                            <div className="h-4 w-3/4 rounded bg-bg" />
-                            <div className="h-4 w-1/2 rounded bg-bg" />
-                        </div>
-                    );
+                    return <EventSkeleton key={index} />;
                 })}
             </div>
         </div>
