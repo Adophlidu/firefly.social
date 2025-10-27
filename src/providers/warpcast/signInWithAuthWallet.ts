@@ -44,7 +44,7 @@ export async function signInWithAuthWallet(
 
                 const client = await getWalletClientRequired(wagmiConfig);
                 const signature = await client.signMessage({
-                    message: { raw: toHex(message) },
+                    message,
                     account: address,
                 });
                 return signature;
