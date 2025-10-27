@@ -1260,7 +1260,7 @@ class FireflyEndpoint {
 
     async signMessageWithCustodyWallet(fid: string, message: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/farcaster_account/signMessage');
-        const response = await fireflySessionHolder.fetch<Response<{ signatureMessage: string }>>(url, {
+        const response = await fireflySessionHolder.fetchWithSession<Response<{ signatureMessage: string }>>(url, {
             method: 'POST',
             body: JSON.stringify({
                 fid: Number.parseInt(fid, 10),
