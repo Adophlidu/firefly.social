@@ -207,18 +207,12 @@ function fixCollection(collection: EVM.Collection): EVM.Collection {
 class FireflyEndpoint {
     async muteNFT(collectionId: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/mute/collection');
-        await fireflySessionHolder.fetch(
-            url,
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    collection_id: collectionId,
-                }),
-            },
-            {
-                withSession: true,
-            },
-        );
+        await fireflySessionHolder.fetchWithSession(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                collection_id: collectionId,
+            }),
+        });
     }
 
     /**
@@ -229,13 +223,7 @@ class FireflyEndpoint {
             chainId,
             contractAddress: address,
         });
-        await fireflySessionHolder.fetch(
-            url,
-            { method: 'GET' },
-            {
-                withSession: true,
-            },
-        );
+        await fireflySessionHolder.fetchWithSession(url);
     }
 
     async reportArticle(article: Article) {
@@ -257,7 +245,7 @@ class FireflyEndpoint {
      */
     async reportParticle() {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/report/particle/user');
-        return fireflySessionHolder.fetch<void>(url, {
+        return fireflySessionHolder.fetchWithSession<void>(url, {
             method: 'GET',
         });
     }
@@ -268,7 +256,7 @@ class FireflyEndpoint {
 
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/farcaster_account/upSignerConfig');
 
-        await fireflySessionHolder.fetch(url, {
+        await fireflySessionHolder.fetchWithSession(url, {
             method: 'POST',
             body: JSON.stringify({
                 fid: session.profileId,
@@ -1508,7 +1496,7 @@ class FireflyEndpoint {
     async setPasscode(passcode: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/metrics/set-passcode');
 
-        await fireflySessionHolder.fetch(url, {
+        await fireflySessionHolder.fetchWithSession(url, {
             method: 'POST',
             body: JSON.stringify({ passcode: encryptPasscode(passcode) }),
         });
@@ -1530,7 +1518,7 @@ class FireflyEndpoint {
     async updatePasscode(oldPasscode: string, newPasscode: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/metrics/update-passcode');
 
-        await fireflySessionHolder.fetch(url, {
+        await fireflySessionHolder.fetchWithSession(url, {
             method: 'POST',
             body: JSON.stringify({
                 oldPasscode: encryptPasscode(oldPasscode),
@@ -1542,7 +1530,7 @@ class FireflyEndpoint {
     async resetPasscode() {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/metrics/reset-passcode');
 
-        await fireflySessionHolder.fetch(url, {
+        await fireflySessionHolder.fetchWithSession(url, {
             method: 'POST',
         });
     }
