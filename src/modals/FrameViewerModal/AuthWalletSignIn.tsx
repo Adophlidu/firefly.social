@@ -43,8 +43,6 @@ export function AuthWalletSignIn() {
             const wallet = await ensureCreatedFireflyWallet();
             if (!wallet) throw new Error('Failed to ensure Firefly wallet');
 
-            console.warn(`[AuthWalletSignIn] Using address: ${wallet.address}`);
-
             const result = await keyDataOf(fid, wallet.address as `0x${string}`);
 
             // the address key has already registered
@@ -61,10 +59,7 @@ export function AuthWalletSignIn() {
                 },
                 controller.current.signal,
             );
-            return {
-                key,
-                wallet,
-            };
+            return key;
         },
         enabled: !!fid,
     });
@@ -74,16 +69,17 @@ export function AuthWalletSignIn() {
 
         console.log(`[AuthWalletSignIn] sign data=${JSON.stringify(data)}`);
 
-        if (data?.key.token) {
-            await pollingSignerRequestToken(data?.key.token, controller.current.signal);
+        if (data?.token) {
+            await pollingSignerRequestToken(data?.token, controller.current.signal);
             setIsScanned(true);
         }
 
-        if (!data?.wallet.address) throw new Error('No wallet address found for signing');
+        const wallet = await ensureCreatedFireflyWallet();
+        if (!wallet) throw new Error('Failed to ensure Firefly wallet');
 
-        const signed = await signInWithAuthWallet(data.wallet.address as `0x${string}`, frame, `${fid}`, options);
+        const signed = await signInWithAuthWallet(wallet.address as `0x${string}`, frame, `${fid}`, options);
         console.log(
-            `Success to sign in with address=${data.wallet.address}, message=${signed.message}, signature=${signed.signature}`,
+            `Success to sign in with address=${wallet.address}, message=${signed.message}, signature=${signed.signature}`,
         );
 
         setIsSigned(true);
@@ -114,7 +110,7 @@ export function AuthWalletSignIn() {
                         <Trans>Retry</Trans>
                     </ClickableButton>
                 </InfoCard>
-            ) : isScanned || !data?.key.deeplinkUrl ? (
+            ) : isScanned || !data?.deeplinkUrl ? (
                 <>
                     {signError ? (
                         <InfoCard
@@ -147,7 +143,7 @@ export function AuthWalletSignIn() {
                         }}
                     >
                         <ScannableQRCode
-                            url={data.key.deeplinkUrl}
+                            url={data.deeplinkUrl}
                             scanned={isScanned}
                             countdown={isScanned ? 0 : Number.POSITIVE_INFINITY}
                             size={200}
