@@ -72,6 +72,8 @@ export function AuthWalletSignIn() {
     const { error: signError, retry: sign } = useAsyncRetry(async () => {
         if (isUndefined(data) || isRefetching || isLoading) return;
 
+        console.log(`[AuthWalletSignIn] sign data=${JSON.stringify(data)}`);
+
         if (data?.key.token) {
             await pollingSignerRequestToken(data?.key.token, controller.current.signal);
             setIsScanned(true);
