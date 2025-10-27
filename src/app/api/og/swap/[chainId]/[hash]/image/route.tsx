@@ -97,6 +97,7 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
             <div
                 style={{
                     display: 'flex',
+                    gap: '8px',
                     position: 'absolute',
                     top: '350px',
                     left: '156px',
@@ -113,14 +114,16 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                     whiteSpace: 'nowrap',
                 }}
             >
-                -{' '}
-                {fromTokenAmountNum > 1 ? (
-                    nFormatter(fromTokenAmountNum).toUpperCase()
-                ) : fromTokenAmountNum < 0.0001 ? (
-                    <ShrankPrice shrank={formatPrice(fromTokenAmountNum) ?? ''} />
-                ) : (
-                    fromTokenAmountNum.toFixed(4).replace(/\.?0+$/, '')
-                )}{' '}
+                <span>-</span>
+                <span>
+                    {fromTokenAmountNum > 1 ? (
+                        nFormatter(fromTokenAmountNum).toUpperCase()
+                    ) : fromTokenAmountNum < 0.0001 ? (
+                        <ShrankPrice shrank={formatPrice(fromTokenAmountNum) ?? ''} />
+                    ) : (
+                        fromTokenAmountNum.toFixed(4).replace(/\.?0+$/, '')
+                    )}
+                </span>
                 <span>{swap.from_token?.symbol}</span>
             </div>
 
@@ -167,16 +170,19 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
+                    gap: '8px',
                 }}
             >
-                +{' '}
-                {toTokenAmountNum > 1 ? (
-                    nFormatter(toTokenAmountNum).toUpperCase()
-                ) : toTokenAmountNum < 0.0001 ? (
-                    <ShrankPrice shrank={formatPrice(toTokenAmountNum) ?? ''} />
-                ) : (
-                    toTokenAmountNum.toFixed(4).replace(/\.?0+$/, '')
-                )}{' '}
+                <span>+</span>
+                <span>
+                    {toTokenAmountNum > 1 ? (
+                        nFormatter(toTokenAmountNum).toUpperCase()
+                    ) : toTokenAmountNum < 0.0001 ? (
+                        <ShrankPrice shrank={formatPrice(toTokenAmountNum) ?? ''} />
+                    ) : (
+                        toTokenAmountNum.toFixed(4).replace(/\.?0+$/, '')
+                    )}
+                </span>
                 <span>{swap.to_token?.symbol}</span>
             </div>
 
