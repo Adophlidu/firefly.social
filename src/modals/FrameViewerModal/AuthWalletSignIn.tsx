@@ -22,7 +22,7 @@ import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
 import { createSignedKeyPayloadWithAddressVerification } from '@/providers/warpcast/createSignedKeyPayload.js';
 import { keyDataOf } from '@/providers/warpcast/keyDataOf.js';
 import { pollingSignerRequestToken } from '@/providers/warpcast/pollingSignerRequestToken.js';
-import { signInWithAuthWallet } from '@/providers/warpcast/signInWithFarcaster.js';
+import { signInWithAuthWallet } from '@/providers/warpcast/signInWithAuthWallet.js';
 
 export function AuthWalletSignIn() {
     const controller = useAbortController();
@@ -66,8 +66,6 @@ export function AuthWalletSignIn() {
 
     const { error: signError, retry: sign } = useAsyncRetry(async () => {
         if (isUndefined(data) || isRefetching || isLoading) return;
-
-        console.log(`[AuthWalletSignIn] sign data=${JSON.stringify(data)}`);
 
         if (data?.token) {
             await pollingSignerRequestToken(data?.token, controller.current.signal);
