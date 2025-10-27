@@ -10,7 +10,7 @@ import type {
 } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
-import { FireflyPlatform, Source } from '@/constants/enum.js';
+import { FireflyPlatform, Locale, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { TWITTER_PROFILE_SEARCH_REGEXP } from '@/constants/regexp.js';
@@ -41,7 +41,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { formatTweetsPage } from '@/providers/twitter/formatTwitterPost.js';
 import { formatTwitterProfile, formatTwitterProfilePage } from '@/providers/twitter/formatTwitterProfile.js';
-import { formatTwitterProfileFromX3Pro } from '@/providers/twitter/formatTwitterProfileFromX3Pro.js';
+import { formatTwitterProfileFromRootdata } from '@/providers/twitter/formatTwitterProfileFromRootdata.js';
 import { getTwitterProfileHandleFromUrl } from '@/providers/twitter/getTwitterProfileHandleFromUrl.js';
 import { resolveTwitterReplyRestriction } from '@/providers/twitter/resolveTwitterReplyRestriction.js';
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
@@ -65,8 +65,6 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { X3ProProvider } from '@/providers/x3pro/index.js';
-import { X3ProKolListLabel, X3ProOrderType } from '@/providers/x3pro/types.js';
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import { useTwitterRetweetStore } from '@/store/useTwitterRetweetStore.js';
 import type { PartialWith, ResponseJson } from '@/types/utility.js';
@@ -158,13 +156,15 @@ class OfficialSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+    async getSuggestedFollows(
+        indicator?: PageIndicator,
+        _includeFollowingStatus?: boolean,
+        locale?: Locale,
+    ): Promise<Pageable<Profile, PageIndicator>> {
         const pageNo = indicator?.id ? Number.parseInt(indicator.id, 10) : 1;
-        const response = await X3ProProvider.getKolList(X3ProKolListLabel.Web3, X3ProOrderType.Follower, {
-            pageNo: isNaN(pageNo) ? 1 : pageNo,
-        });
-        const data = response.list.map((x) => formatTwitterProfileFromX3Pro(x));
-        const nextIndicator = response.hasNextPage ? createNextIndicator(indicator, `${response.nextPage}`) : undefined;
+        const res = await FireflyEndpointProvider.getTwitterTopPeople(indicator, locale);
+        const data = res.items.map((x) => formatTwitterProfileFromRootdata(x));
+        const nextIndicator = res.items ? createNextIndicator(indicator, `${pageNo + 1}`) : undefined;
         if (twitterSessionHolder.session) {
             const profiles = await OfficialSocialMediaProvider.getProfilesByIds(data.map((x) => x.profileId));
             return createPageable(

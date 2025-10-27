@@ -1234,6 +1234,42 @@ export type Project = {
     rootdataurl: string;
 };
 
+export interface RootdataPeople {
+    people_id: number;
+    /**
+     * Hot Index / Influence Index
+     * @example '86'
+     */
+    score: string;
+    /** url */
+    head_img: string;
+    /** One sentence introduction */
+    one_liner: string;
+    people_name: string;
+    people_detail: {
+        /** numeric string */
+        heat: string;
+        introduce: string;
+        head_image: string;
+        one_liner: string;
+        linkedin: string;
+        investment: string[];
+        /** numeric string */
+        influence: string;
+        people_id: number;
+        top_followers: number;
+        followers: number;
+        education_experience: unknown[];
+        following: number;
+        x: string;
+        heat_rank: number;
+        people_name: string;
+        influence_rank: number;
+        people_x_handle: string;
+        x_id: string;
+    };
+}
+
 export type SearchNFTResponse = Response<{
     list: EVM.Collection[];
 }>;
@@ -1424,6 +1460,8 @@ export type LinkDigestResponse = Response<{
 }>;
 
 export type ProjectResponse = Response<Project[]>;
+
+export type RootdataPeopleResponse = Response<{ total: number; items: RootdataPeople[] }>;
 
 export type GetBookmarksResponse = Response<{
     list: Array<{

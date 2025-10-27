@@ -2768,9 +2768,6 @@ msgstr "Sorry, we are not able to find a wallet for {displayName}."
 msgid "Please switch to {0}"
 msgstr "Please switch to {0}"
 
-msgid "Top 100 Web3 profiles powered by <0>X3</0>"
-msgstr "Top 100 Web3 profiles powered by <0>X3</0>"
-
 msgid "This Lens account has expired, please log in again."
 msgstr "This Lens account has expired, please log in again."
 
@@ -2946,6 +2943,9 @@ msgstr "Remove Poll"
 
 msgid "No activity yet"
 msgstr "No activity yet"
+
+msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
+msgstr "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 
 msgid "Minutes"
 msgstr "Minutes"

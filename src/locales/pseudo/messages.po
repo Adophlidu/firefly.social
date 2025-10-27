@@ -2768,9 +2768,6 @@ msgstr ""
 msgid "Please switch to {0}"
 msgstr ""
 
-msgid "Top 100 Web3 profiles powered by <0>X3</0>"
-msgstr ""
-
 msgid "This Lens account has expired, please log in again."
 msgstr ""
 
@@ -2945,6 +2942,9 @@ msgid "Remove Poll"
 msgstr ""
 
 msgid "No activity yet"
+msgstr ""
+
+msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr ""
 
 msgid "Minutes"

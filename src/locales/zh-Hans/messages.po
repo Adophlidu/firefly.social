@@ -2773,9 +2773,6 @@ msgstr "抱歉，我们无法找到 {displayName} 的钱包。"
 msgid "Please switch to {0}"
 msgstr "请切换到 {0}"
 
-msgid "Top 100 Web3 profiles powered by <0>X3</0>"
-msgstr "权威 Top 100 榜单｜数据来源：<0>X3</0>"
-
 msgid "This Lens account has expired, please log in again."
 msgstr "此 Lens 账号已过期，请重新登录。"
 
@@ -2951,6 +2948,9 @@ msgstr "删除投票"
 
 msgid "No activity yet"
 msgstr "这里空空如也"
+
+msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
+msgstr ""
 
 msgid "Minutes"
 msgstr "分钟"

@@ -3,6 +3,7 @@ import type { BlobRef } from '@atproto/api';
 import {
     type BookmarkType,
     type FireflyPlatform,
+    Locale,
     type ProfileSource,
     type RestrictionType,
     type SocialSource,
@@ -835,9 +836,15 @@ export interface Provider {
      * Retrieves suggested user profiles to follow.
      *
      * @param indicator Optional PageIndicator for pagination.
+     * @param includeFollowingStatus Optional boolean to include following status.
+     * @param locale Optional locale to use.
      * @returns A promise that resolves to a pageable list of Profile objects.
      */
-    getSuggestedFollows: (indicator?: PageIndicator, includeFollowingStatus?: boolean) => Promise<Pageable<Profile>>;
+    getSuggestedFollows: (
+        indicator?: PageIndicator,
+        includeFollowingStatus?: boolean,
+        locale?: Locale,
+    ) => Promise<Pageable<Profile>>;
 
     /**
      * Search profiles.

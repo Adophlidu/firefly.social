@@ -2,14 +2,13 @@
 
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { uniqBy } from 'lodash-es';
+import { sum, uniqBy } from 'lodash-es';
 
-import X3ProIcon from '@/assets/x3pro.svg';
+import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { X3_PRO_URL } from '@/constants/index.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -34,7 +33,14 @@ export function SuggestedFollowUsersList({ source }: Props) {
             return getSuggestedFollowsInPage(source, createIndicator(undefined, pageParam), true);
         },
         initialPageParam: '',
-        getNextPageParam: (lastPage) => (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id,
+        getNextPageParam: (
+            lastPage: Pageable<Profile, PageIndicator>,
+            allPages: Array<Pageable<Profile, PageIndicator>>,
+        ) => {
+            const total = sum(allPages.map((x) => x.data.length));
+            if (total >= 200) return undefined;
+            return (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id;
+        },
         select: (data) =>
             uniqBy(
                 data.pages.flatMap((page) => page?.data ?? []),
@@ -55,12 +61,15 @@ export function SuggestedFollowUsersList({ source }: Props) {
                     footerText:
                         source === Source.Twitter ? (
                             <>
-                                <X3ProIcon width={18} height={18} className="mr-2.5 shrink-0 text-main" />
+                                <Image width={80} height={24} alt="rootdata" src="/image/rootdata.png" />
                                 <span>
                                     <Trans>
-                                        Top 100 Web3 profiles powered by{' '}
-                                        <Link href={X3_PRO_URL} className="text-link hover:underline">
-                                            X3
+                                        Top 200 Web3 profiles powered by{' '}
+                                        <Link
+                                            href="https://www.rootdata.com/people"
+                                            className="text-link hover:underline"
+                                        >
+                                            Rootdata
                                         </Link>
                                     </Trans>
                                 </span>

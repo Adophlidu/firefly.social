@@ -1,4 +1,4 @@
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type Locale, type SocialSource, Source } from '@/constants/enum.js';
 import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -50,11 +50,16 @@ export async function getSuggestedFollowsInCard(source: SocialSource, queryStats
     return result.data ?? [];
 }
 
-export async function getSuggestedFollowsInPage(source: SocialSource, indicator?: PageIndicator, queryStats?: boolean) {
+export async function getSuggestedFollowsInPage(
+    source: SocialSource,
+    indicator?: PageIndicator,
+    queryStats?: boolean,
+    locale?: Locale,
+) {
     const session = getSessionFromStorageBySource(source);
     const provider = resolveSocialMediaProvider(source);
     return getProfilesWithFixedTotal(
-        (indicator) => provider.getSuggestedFollows(indicator, queryStats),
+        (indicator) => provider.getSuggestedFollows(indicator, queryStats, locale),
         (oldData, newData) => [
             ...oldData,
             ...newData.filter(
