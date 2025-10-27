@@ -635,7 +635,7 @@ class FireflyEndpoint {
 
     async getAllConnections() {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
-        const response = await fireflySessionHolder.fetch<GetAllConnectionsResponse>(url, {
+        const response = await fireflySessionHolder.fetchWithSession<GetAllConnectionsResponse>(url, {
             method: 'GET',
         });
         return formatFireflyConnections(response);
