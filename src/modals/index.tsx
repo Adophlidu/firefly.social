@@ -57,6 +57,7 @@ import { WalletConnectModal, WalletConnectModalRef } from '@/modals/WalletConnec
 export const Modals = memo(function Modals() {
     return (
         <NoSSR>
+            {/* Shared Modals */}
             <ComposeModal ref={ComposeModalRef.register} />
             <DisconnectFireflyAccountModal ref={DisconnectFireflyAccountModalRef.register} />
             <DownloadMobileAppModal ref={DownloadMobileAppModalRef.register} />

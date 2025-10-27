@@ -140,7 +140,7 @@ export default function Page(props: Props) {
         } satisfies FrameV2;
 
         const frameHost = new FarcasterFrameHost(context, {
-            frame: () => result.frame.content,
+            frame: () => frame,
             ready: (options?: Partial<ReadyOptions>) => {
                 console.log('[frame client] ready', JSON.stringify(options));
 
@@ -148,12 +148,16 @@ export default function Page(props: Props) {
                 setReady(true);
             },
             close: () => fireflyBridgeProvider.request(SupportedMethod.CLOSE, {}),
-            signIn: (options) =>
-                RelayConfirmationPopoverRef.openAndWaitForClose({
+            signIn: async (options) => {
+                console.log('[frame client] signIn options', JSON.stringify(options));
+                const signature = await RelayConfirmationPopoverRef.openAndWaitForClose({
                     fid: context.client.clientFid,
-                    frame: result.frame.content,
+                    frame,
                     options,
-                }),
+                });
+                console.log('[frame client] signIn result', JSON.stringify(signature));
+                return signature;
+            },
             setPrimaryButton: (options) => {
                 console.log('[frame client] setPrimaryButton', JSON.stringify(options));
                 fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options);
