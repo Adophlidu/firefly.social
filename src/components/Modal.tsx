@@ -113,17 +113,15 @@ export const Modal = memo(function Modal({
                                     )}
                                     onClick={stopPropagation}
                                 >
-                                    <>
-                                        <ModalTitle
-                                            title={title}
-                                            enableClose={enableClose}
-                                            enableBack={enableBack}
-                                            onClose={onClose}
-                                            onBack={onBack}
-                                            className={titleClassName}
-                                        />
-                                        <ModalBody className={panelClassName}>{children}</ModalBody>
-                                    </>
+                                    <ModalTitle
+                                        title={title}
+                                        enableClose={enableClose}
+                                        enableBack={enableBack}
+                                        onClose={onClose}
+                                        onBack={onBack}
+                                        className={titleClassName}
+                                    />
+                                    <ModalBody className={panelClassName}>{children}</ModalBody>
                                 </div>
                             ) : (
                                 children
