@@ -142,11 +142,11 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
             <Transition
                 as={Fragment}
                 enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
+                enterFrom="transform-gpu opacity-0 scale-95"
+                enterTo="transform-gpu opacity-100 scale-100"
                 leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
+                leaveFrom="transform-gpu opacity-100 scale-100"
+                leaveTo="transform-gpu opacity-0 scale-95"
             >
                 <MenuItems className="absolute z-menu flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main outline-none">
                     <MenuItem>
