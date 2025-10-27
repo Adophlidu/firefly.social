@@ -60,7 +60,7 @@ const ethProvider = createEIP1193Provider(async function request(requestArgument
         }
         case EthereumMethodType.ETH_SIGN:
         case EthereumMethodType.PERSONAL_SIGN: {
-            const [address, message] = params as [string, string];
+            const [message, address] = params as [string, string];
             const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
                 chainId: toHex(chainId),
                 address,
