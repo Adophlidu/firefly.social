@@ -11,7 +11,7 @@ function formatTipsAccount(address: string, accountInfo?: TipsAccountInfo) {
         (accountInfo?.firefly_uuid
             ? getStampAvatarByProfileId(Source.Firefly, accountInfo.firefly_uuid)
             : getStampAvatarByProfileId(Source.Wallet, address));
-    const displayName = accountInfo?.firefly_name || formatAddress(address, 6, 2, false);
+    const displayName = accountInfo?.firefly_name || formatAddress(address, 4, 2, false);
 
     return {
         avatar,

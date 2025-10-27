@@ -1,7 +1,7 @@
 import type { Config } from '@wagmi/core';
 import { getConnectors, getWalletClient } from 'wagmi/actions';
 
-import { getPrivyBridge, PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { delay } from '@/helpers/delay.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
