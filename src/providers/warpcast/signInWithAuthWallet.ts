@@ -31,7 +31,7 @@ export async function signInWithAuthWallet(
     const signMessage = async (message: string) => {
         if (fireflyBridgeProvider.supported) {
             return fireflyBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
-                chainId: toHex(EthereumChainId.Mainnet),
+                chainId: toHex(EthereumChainId.Optimism),
                 address,
                 message,
             });
