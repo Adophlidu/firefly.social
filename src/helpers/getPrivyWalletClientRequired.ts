@@ -34,15 +34,3 @@ export async function getPrivyWalletClientRequired(config: Config) {
         connector,
     });
 }
-
-export async function runWithoutPrivyWalletUI<T>(callback: () => Promise<T>) {
-    const bridge = getPrivyBridge();
-    if (!bridge) throw new Error('Privy bridge not found');
-
-    try {
-        await bridge.setShowWalletUI(false);
-        return await callback();
-    } finally {
-        await bridge.setShowWalletUI(true);
-    }
-}

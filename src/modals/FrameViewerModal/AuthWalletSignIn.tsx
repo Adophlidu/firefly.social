@@ -12,7 +12,6 @@ import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { classNames } from '@/helpers/classNames.js';
 import { delay } from '@/helpers/delay.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
-import { runWithoutPrivyWalletUI } from '@/helpers/getPrivyWalletClientRequired.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { InfoCard } from '@/modals/FrameViewerModal/InfoCard.js';
 import { LoadingCard } from '@/modals/FrameViewerModal/LoadingCard.js';
@@ -62,8 +61,10 @@ export function AuthWalletSignIn() {
                 },
                 controller.current.signal,
             );
-
-            return key;
+            return {
+                key,
+                wallet,
+            };
         },
         enabled: !!fid,
     });
@@ -71,12 +72,18 @@ export function AuthWalletSignIn() {
     const { error: signError, retry: sign } = useAsyncRetry(async () => {
         if (isUndefined(data) || isRefetching || isLoading) return;
 
-        if (data?.token) {
-            await pollingSignerRequestToken(data.token, controller.current.signal);
+        if (data?.key.token) {
+            await pollingSignerRequestToken(data?.key.token, controller.current.signal);
             setIsScanned(true);
         }
 
-        const signed = await runWithoutPrivyWalletUI(() => signInWithAuthWallet(frame, `${fid}`, options));
+        if (!data?.wallet.address) throw new Error('No wallet address found for signing');
+
+        const signed = await signInWithAuthWallet(data.wallet.address as `0x${string}`, frame, `${fid}`, options);
+        console.log(
+            `Success to sign in with address=${data.wallet.address}, message=${signed.message}, signature=${signed.signature}`,
+        );
+
         setIsSigned(true);
 
         captureFrameSignInEvent('firefly-wallet', frame);
@@ -105,7 +112,7 @@ export function AuthWalletSignIn() {
                         <Trans>Retry</Trans>
                     </ClickableButton>
                 </InfoCard>
-            ) : isScanned || !data?.deeplinkUrl ? (
+            ) : isScanned || !data?.key.deeplinkUrl ? (
                 <>
                     {signError ? (
                         <InfoCard
@@ -138,7 +145,7 @@ export function AuthWalletSignIn() {
                         }}
                     >
                         <ScannableQRCode
-                            url={data.deeplinkUrl}
+                            url={data.key.deeplinkUrl}
                             scanned={isScanned}
                             countdown={isScanned ? 0 : Number.POSITIVE_INFINITY}
                             size={200}
