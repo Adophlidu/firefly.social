@@ -13,7 +13,7 @@ export interface SwapState {
 
 const SwapState = create<SwapState, [['zustand/immer', unknown]]>(
     immer<SwapState>((set) => ({
-        sidebarSwapReady: true,
+        sidebarSwapReady: false,
         sidebarSwapOptions: undefined,
         setSidebarSwapReady: (ready) => {
             set({
