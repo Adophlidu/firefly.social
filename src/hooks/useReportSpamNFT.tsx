@@ -6,6 +6,8 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
@@ -57,24 +59,34 @@ function filterOutActivities(address: string) {
 }
 
 export function useReportSpamNFT() {
-    return useAsyncFn(async (chainId: number, address: string) => {
-        const confirmed = await ConfirmModalRef.openAndWaitForClose({
-            title: <Trans>Report spam</Trans>,
-            variant: 'normal',
-            content: (
-                <div className="text-main">
-                    <Trans>Are you sure you want to report this collection?</Trans>
-                </div>
-            ),
-        });
-        if (!confirmed) return;
-        try {
-            await FireflyEndpointProvider.reportNFT(chainId, address);
-            filterOutActivities(address);
-            enqueueSuccessMessage(<Trans>Report submitted</Trans>);
-        } catch (error) {
-            enqueueMessageFromError(error, <Trans>Failed to report spam NFT.</Trans>);
-            throw error;
-        }
-    }, []);
+    const isLoginFirefly = useIsLoginFirefly();
+
+    return useAsyncFn(
+        async (chainId: number, address: string) => {
+            if (!isLoginFirefly) {
+                openLoginModal();
+                return;
+            }
+
+            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                title: <Trans>Report spam</Trans>,
+                variant: 'normal',
+                content: (
+                    <div className="text-main">
+                        <Trans>Are you sure you want to report this collection?</Trans>
+                    </div>
+                ),
+            });
+            if (!confirmed) return;
+            try {
+                await FireflyEndpointProvider.reportNFT(chainId, address);
+                filterOutActivities(address);
+                enqueueSuccessMessage(<Trans>Report submitted</Trans>);
+            } catch (error) {
+                enqueueMessageFromError(error, <Trans>Failed to report spam NFT.</Trans>);
+                throw error;
+            }
+        },
+        [isLoginFirefly],
+    );
 }

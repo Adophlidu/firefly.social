@@ -205,16 +205,6 @@ function fixCollection(collection: EVM.Collection): EVM.Collection {
 @SetQueryDataForReportAndDeleteWallet()
 @SetQueryDataForWatchWallet()
 class FireflyEndpoint {
-    async muteNFT(collectionId: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/mute/collection');
-        await fireflySessionHolder.fetchWithSession(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                collection_id: collectionId,
-            }),
-        });
-    }
-
     /**
      * Reports a scam NFT to NFTScan
      */
@@ -236,17 +226,6 @@ class FireflyEndpoint {
                 post_type: 'text',
                 post_id: article.id,
             }),
-        });
-    }
-
-    /**
-     * Kick off the process of connecting particle wallets with firefly account.
-     * @returns
-     */
-    async reportParticle() {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/report/particle/user');
-        return fireflySessionHolder.fetchWithSession<void>(url, {
-            method: 'GET',
         });
     }
 
