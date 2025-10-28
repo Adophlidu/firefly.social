@@ -84,6 +84,10 @@ export enum EthereumMethodType {
     ETH_SYNCING = 'eth_syncing',
     ETH_SUBSCRIBE = 'eth_subscribe',
     ETH_UNSUBSCRIBE = 'eth_unsubscribe',
+    // Explicitly methods for EIP-5792
+    EXT_ETH_WALLET_SEND_CALLS = 'wallet_sendCalls',
+    EXT_ETH_WALLET_GET_CALLS_STATUS = 'wallet_getCallsStatus',
+    EXT_ETH_WALLET_GET_CAPABILITIES = 'wallet_getCapabilities',
 
     NET_VERSION = 'net_version',
 }

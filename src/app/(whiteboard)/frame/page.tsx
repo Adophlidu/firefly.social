@@ -15,6 +15,7 @@ import { EIP6963_PROVIDER_DESCRIPTION, IS_DEVELOPMENT } from '@/constants/index.
 import { bom } from '@/helpers/bom.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { createWagmiLimitedClient } from '@/helpers/createWagmiLimitedClient.js';
+import { eip5792Polyfill } from '@/helpers/eip5792Polyfill.js';
 import { frameSwapToken } from '@/helpers/frameSwapToken.js';
 import { squashCallback } from '@/helpers/squashCallback.js';
 import { waitForWebviewDidLoadEvent } from '@/helpers/waitForWebviewDidLoadEvent.js';
@@ -41,63 +42,65 @@ const connectWalletSquashed = squashCallback(
     },
 );
 
-const ethProvider = createEIP1193Provider(async function request(requestArguments: RequestArguments) {
-    const { method, params } = requestArguments;
+const ethProvider = createEIP1193Provider(
+    eip5792Polyfill(async function request(requestArguments: RequestArguments) {
+        const { method, params } = requestArguments;
 
-    const client = await createWagmiLimitedClient();
-    const chainId = await client.getChainId();
+        const client = await createWagmiLimitedClient();
+        const chainId = await client.getChainId();
 
-    switch (method) {
-        case EthereumMethodType.ETH_ACCOUNTS:
-        case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {
-            const accounts = await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
-                type: Network.EVM,
-            });
-            if (accounts.length) return accounts;
+        switch (method) {
+            case EthereumMethodType.ETH_ACCOUNTS:
+            case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {
+                const accounts = await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
+                    type: Network.EVM,
+                });
+                if (accounts.length) return accounts;
 
-            const account = await connectWalletSquashed();
-            return [account];
+                const account = await connectWalletSquashed();
+                return [account];
+            }
+            case EthereumMethodType.ETH_SIGN:
+            case EthereumMethodType.PERSONAL_SIGN: {
+                const [message, address] = params as [string, string];
+                const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
+                    chainId: toHex(chainId),
+                    address,
+                    message,
+                });
+                return signed;
+            }
+            case EthereumMethodType.ETH_SIGN_TYPED_DATA: {
+                const [address, data] = params as [string, {} | string];
+                const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TYPED_DATA, {
+                    chainId: toHex(chainId),
+                    address,
+                    message: typeof data === 'string' ? data : JSON.stringify(data),
+                });
+                return signed;
+            }
+            case EthereumMethodType.ETH_SIGN_TRANSACTION: {
+                const transaction = params[0] as Transaction;
+                const hash = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, {
+                    chainId: toHex(chainId),
+                    transaction,
+                });
+                return hash;
+            }
+            case EthereumMethodType.ETH_SEND_TRANSACTION: {
+                const transaction = params[0] as Transaction;
+                const hash = await fireflyBridgeProvider.request(SupportedMethod.SEND_TRANSACTION, {
+                    chainId: toHex(chainId),
+                    transaction,
+                });
+                return hash;
+            }
+            default: {
+                return client.request(requestArguments as Parameters<typeof client.request>[0]);
+            }
         }
-        case EthereumMethodType.ETH_SIGN:
-        case EthereumMethodType.PERSONAL_SIGN: {
-            const [message, address] = params as [string, string];
-            const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
-                chainId: toHex(chainId),
-                address,
-                message,
-            });
-            return signed;
-        }
-        case EthereumMethodType.ETH_SIGN_TYPED_DATA: {
-            const [address, data] = params as [string, {} | string];
-            const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TYPED_DATA, {
-                chainId: toHex(chainId),
-                address,
-                message: typeof data === 'string' ? data : JSON.stringify(data),
-            });
-            return signed;
-        }
-        case EthereumMethodType.ETH_SIGN_TRANSACTION: {
-            const transaction = params[0] as Transaction;
-            const hash = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, {
-                chainId: toHex(chainId),
-                transaction,
-            });
-            return hash;
-        }
-        case EthereumMethodType.ETH_SEND_TRANSACTION: {
-            const transaction = params[0] as Transaction;
-            const hash = await fireflyBridgeProvider.request(SupportedMethod.SEND_TRANSACTION, {
-                chainId: toHex(chainId),
-                transaction,
-            });
-            return hash;
-        }
-        default: {
-            return client.request(requestArguments as Parameters<typeof client.request>[0]);
-        }
-    }
-});
+    }),
+);
 
 interface Props extends NextPageProps {}
 

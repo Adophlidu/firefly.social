@@ -7,6 +7,7 @@ import { Image } from '@/components/Image.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { EIP6963_PROVIDER_DESCRIPTION, IS_DEVELOPMENT } from '@/constants/index.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
+import { eip5792Polyfill } from '@/helpers/eip5792Polyfill.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { frameSwapToken } from '@/helpers/frameSwapToken.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -63,35 +64,37 @@ export function FrameViewerModal({ open, onClose, props, setProps }: Props) {
                 },
                 swapToken: frameSwapToken,
             }),
-            ethProvider: createEIP1193Provider(async (parameters) => {
-                const { method, params } = parameters;
+            ethProvider: createEIP1193Provider(
+                eip5792Polyfill(async (parameters) => {
+                    const { method, params } = parameters;
 
-                const client = await getWalletClientRequired(wagmiConfig);
+                    const client = await getWalletClientRequired(wagmiConfig);
 
-                switch (method) {
-                    case EthereumMethodType.ETH_REQUEST_ACCOUNTS:
-                        return [client.account.address];
-                    case EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN:
-                        try {
-                            const chain = params[0] as { chainId: string };
-                            const chainId = Number.parseInt(chain.chainId, 16);
-                            await switchEthereumChain(chainId);
-                        } catch (error) {
-                            enqueueMessageFromError(error, <Trans>Failed to switch chain</Trans>);
-                            throw error;
+                    switch (method) {
+                        case EthereumMethodType.ETH_REQUEST_ACCOUNTS:
+                            return [client.account.address];
+                        case EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN:
+                            try {
+                                const chain = params[0] as { chainId: string };
+                                const chainId = Number.parseInt(chain.chainId, 16);
+                                await switchEthereumChain(chainId);
+                            } catch (error) {
+                                enqueueMessageFromError(error, <Trans>Failed to switch chain</Trans>);
+                                throw error;
+                            }
+                            return;
+                        case EthereumMethodType.ETH_SEND_TRANSACTION: {
+                            await captureFrameActionEvent('others', props.frame, client.account.address, true);
+                            await client.request(parameters as Parameters<typeof client.request>[0]);
+                            await captureFrameActionEvent('others', props.frame, client.account.address);
+                            return;
                         }
-                        return;
-                    case EthereumMethodType.ETH_SEND_TRANSACTION: {
-                        await captureFrameActionEvent('others', props.frame, client.account.address, true);
-                        await client.request(parameters as Parameters<typeof client.request>[0]);
-                        await captureFrameActionEvent('others', props.frame, client.account.address);
-                        return;
+                        default:
+                            const result = await client.request(parameters as Parameters<typeof client.request>[0]);
+                            return result;
                     }
-                    default:
-                        const result = await client.request(parameters as Parameters<typeof client.request>[0]);
-                        return result;
-                }
-            }),
+                }),
+            ),
             miniAppOrigin: '*',
         });
 
