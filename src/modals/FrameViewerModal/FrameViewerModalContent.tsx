@@ -37,7 +37,7 @@ interface Props {
     setProps: React.Dispatch<React.SetStateAction<FrameViewerModalOpenProps | null>>;
 }
 
-export function FrameViewerModal({ open, onClose, props, setProps }: Props) {
+export default function FrameViewerModalContent({ open, props, setProps }: Props) {
     const frameRef = useRef<HTMLIFrameElement | null>(null);
 
     const account = useAccount();

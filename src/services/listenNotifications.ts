@@ -54,6 +54,7 @@ const jobIds = new Set<NodeJS.Timeout>();
 let stopped = false;
 let running = false;
 let activated = false;
+let delayJobId: NodeJS.Timeout | null = null;
 
 function getCurrentProfileId(source: Config['loginSource']) {
     switch (source) {
@@ -131,7 +132,7 @@ async function scheduleListen(config: Config, jobId?: NodeJS.Timeout) {
     jobIds.add(newJobId);
 }
 
-export async function listenNotifications() {
+async function runListeners() {
     if (running) return;
 
     running = true;
@@ -142,6 +143,18 @@ export async function listenNotifications() {
             console.error(`Error listening to notifications for ${config.type}:`, error);
         });
     });
+    delayJobId = null;
+}
+
+export async function listenNotifications(delayMs = 0) {
+    if (delayJobId) return;
+
+    if (delayMs > 0) {
+        delayJobId = setTimeout(runListeners, delayMs);
+        return;
+    }
+
+    runListeners();
 }
 
 export function stopListenNotifications() {
@@ -151,6 +164,11 @@ export function stopListenNotifications() {
     const currentIds = [...jobIds.values()];
     jobIds.clear();
     currentIds.forEach((jobId) => clearTimeout(jobId));
+
+    if (delayJobId) {
+        clearTimeout(delayJobId);
+        delayJobId = null;
+    }
 }
 
 export function getIsActivated() {

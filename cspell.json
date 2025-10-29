@@ -155,7 +155,8 @@
         "zerion",
         "zksync",
         "zora",
-        "zustand"
+        "zustand",
+        "unsubscription"
     ],
     "ignoreWords": [
         "Aave",

@@ -41,7 +41,7 @@ export function SetQueryDataForPosts<T extends ClassType<Provider>>(target: T): 
                         });
                     }
                 });
-                await prefetchPostLinks(
+                prefetchPostLinks(
                     compact(
                         result.data.flatMap((x) => [
                             x.metadata.content?.oembedUrl,

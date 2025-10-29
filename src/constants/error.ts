@@ -314,3 +314,11 @@ export class WalletAddressMismatchError extends Error {
         super(message ?? 'Wallet address mismatch.');
     }
 }
+
+export class ChainConfigMismatchError extends Error {
+    override name = 'ChainConfigMismatchError';
+
+    constructor(message?: string) {
+        super(message ?? 'Chain config mismatch.');
+    }
+}

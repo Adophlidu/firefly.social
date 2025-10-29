@@ -7,12 +7,14 @@ import { CoinGecko } from '@/providers/coingecko/index.js';
 
 export function useNativeTokenPrice(override?: ChainContextOverrides, enabled = true) {
     const { chainId } = useChainContext(override);
-    const nativeToken = getNativeToken(override?.networkType ?? NetworkType.Ethereum, chainId);
 
     return useQuery({
         enabled,
         staleTime: 1000 * 60 * 2, // 2 minutes
-        queryKey: ['native-token', 'price', chainId, nativeToken.address],
-        queryFn: async () => CoinGecko.getFungibleTokenPrice(chainId, nativeToken.address),
+        queryKey: ['native-token', 'price', chainId],
+        queryFn: async () => {
+            const nativeToken = getNativeToken(override?.networkType ?? NetworkType.Ethereum, chainId);
+            return CoinGecko.getFungibleTokenPrice(chainId, nativeToken.address);
+        },
     });
 }

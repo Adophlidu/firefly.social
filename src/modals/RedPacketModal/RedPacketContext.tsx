@@ -13,10 +13,13 @@ import {
 import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useEnsName } from 'wagmi';
+import { switchChain } from 'wagmi/actions';
 
 import WalletIcon from '@/assets/wallet2.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
+import { ChainConfigMismatchError } from '@/constants/error.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { RED_PACKET_DEFAULT_SHARES } from '@/constants/rp.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
@@ -29,7 +32,7 @@ import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/Colle
 import { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
-import type { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
+import { EthereumChainId, type EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export const redPacketRandomTabs = [
     {
@@ -159,6 +162,19 @@ const initialRedPacketContextValue: RedPacketContextValue = {
 
 export const RedPacketContext = createContext<RedPacketContextValue>(initialRedPacketContextValue);
 
+function getNativeTokenWithSwitch(networkType: NetworkType, chainId?: number) {
+    try {
+        return getNativeToken(networkType, chainId);
+    } catch (error) {
+        if (error instanceof ChainConfigMismatchError) {
+            switchChain(wagmiConfig, { chainId: EthereumChainId.Mainnet });
+            return getNativeToken(networkType, EthereumChainId.Mainnet);
+        }
+
+        throw error;
+    }
+}
+
 export function RedPacketProvider({ children }: PropsWithChildren) {
     const { ethereum, solana } = useWalletAccountAll();
 
@@ -179,7 +195,7 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
     });
     const { chainId, account } = useChainContext({ networkType });
 
-    const nativeToken = getNativeToken(networkType, chainId);
+    const nativeToken = getNativeTokenWithSwitch(networkType, chainId);
     const [token = nativeToken, setToken] = useState<FungibleToken<number, number>>();
     const [coverType, setCoverType] = useState<CoverTabType>('default');
     const [fontColor, setFontColor] = useState<FontColorTabType>('golden');

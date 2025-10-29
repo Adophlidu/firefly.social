@@ -724,7 +724,7 @@ msgstr ""
 msgid "Failed to follow @{handle} on {0}."
 msgstr ""
 
-#. placeholder {0}: removeTrailingZeros(toFixed(activity.position, 2))
+#. placeholder {0}: formatAmount(activity.size)
 msgid "×{0} shares"
 msgstr ""
 

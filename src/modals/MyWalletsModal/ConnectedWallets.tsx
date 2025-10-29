@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { mainnet } from '@reown/appkit/networks';
+import { uniqBy } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { type FunctionComponent, memo, type SVGAttributes } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -148,7 +149,10 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
 
     if (isLoadingAllConnections) return <div className="mb-2 h-[122px] w-full animate-pulse rounded-lg bg-bg" />;
     if (!isCreatedPrivyWallet) return null;
-    const privyConnections = allWalletConnections.filter((x) => x.source === 'privy');
+    const privyConnections = uniqBy(
+        allWalletConnections.filter((x) => x.source === 'privy'),
+        (x) => `${x.source}${x.namespace}`,
+    );
 
     return (
         <div className="mb-2 h-[122px] overflow-hidden rounded-lg border border-secondaryLine">

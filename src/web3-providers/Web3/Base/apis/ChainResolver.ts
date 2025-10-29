@@ -1,3 +1,4 @@
+import { ChainConfigMismatchError } from '@/constants/error.js';
 import type { ChainDescriptor } from '@/web3-shared/base/specs.js';
 
 export class ChainResolver<ChainId, SchemaType, NetworkType> {
@@ -8,7 +9,10 @@ export class ChainResolver<ChainId, SchemaType, NetworkType> {
 
     private getDescriptorRequired(chainId: ChainId) {
         const descriptor = this.getDescriptor(chainId);
-        if (!descriptor) throw new Error(`Unknown chainId: ${chainId}. It might too early to access network state.`);
+        if (!descriptor)
+            throw new ChainConfigMismatchError(
+                `Unknown chainId: ${chainId}. It might too early to access network state.`,
+            );
         return descriptor;
     }
 

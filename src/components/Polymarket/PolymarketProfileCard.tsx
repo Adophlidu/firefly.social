@@ -32,7 +32,7 @@ export const PolymarketProfileCard = memo<PolymarketProfileCardProps>(function P
 
     return (
         <Link
-            className="rounded-xl p-4"
+            className="p-4"
             href={RouteResolver.polymarketProfile(address)}
             style={{
                 backgroundColor: '#DADADA33',

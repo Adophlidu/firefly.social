@@ -26,7 +26,7 @@ export function NotificationListener() {
             return;
         }
 
-        listenNotifications();
+        listenNotifications(10000); // delay 10 seconds
 
         return () => {
             stopListenNotifications();

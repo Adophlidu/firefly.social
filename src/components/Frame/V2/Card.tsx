@@ -1,6 +1,6 @@
 import type { AppRouterProgressInstance } from '@bprogress/next';
 import type { Context, SetPrimaryButton } from '@farcaster/miniapp-host';
-import { memo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { FootnoteLink } from '@/components/FootnoteLink.js';
@@ -9,10 +9,11 @@ import { Source } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
 import { frameSwapToken } from '@/helpers/frameSwapToken.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { getProfileFromStorage, type StateCurrentProfile } from '@/helpers/getProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { FrameViewerModalRef } from '@/modals/FrameViewerModal/FrameViewerModal.js';
 import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
@@ -27,9 +28,10 @@ function createFrameHost(
     router: AppRouterProgressInstance,
     options?: {
         setPrimaryButton?: SetPrimaryButton;
+        profile?: StateCurrentProfile | null;
     },
 ): FarcasterFrameHost {
-    const profile = getProfileFromStorage(Source.Farcaster);
+    const profile = options?.profile ?? getProfileFromStorage(Source.Farcaster);
     const fid = Number.parseInt(profile?.profileId ?? '0', 10);
     const context = {
         user: {
@@ -110,7 +112,7 @@ function createFrameHost(
                 ready: false,
                 timeout: false,
                 frame,
-                frameHost: createFrameHost(frame, post, router),
+                frameHost: createFrameHost(frame, post, router, { profile }),
             });
         },
         swapToken: frameSwapToken,
@@ -130,11 +132,13 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
 
     const [primaryButton, setPrimaryButton] = useState<Parameters<SetPrimaryButton>[0] | null>(null);
 
-    const [frameHost] = useState(() => {
+    const profile = useCurrentProfile(Source.Farcaster);
+    const frameHost = useMemo(() => {
         return createFrameHost(frame, post, router, {
             setPrimaryButton,
+            profile,
         });
-    });
+    }, [frame, post, profile, router]);
 
     const onClick = () => {
         const session = getSessionFromStorage(SessionType.Farcaster);

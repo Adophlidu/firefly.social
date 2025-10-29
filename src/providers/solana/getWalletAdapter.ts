@@ -26,7 +26,11 @@ export function getWalletAdapter() {
     const activeNetwork = useSolanaActiveNetworkStore.getState().activeNetwork;
     switch (activeNetwork) {
         case SolanaNetworkType.Appkit:
-            return getAppkitWalletAdapter() ?? PrivySolanaProvider;
+            try {
+                return getAppkitWalletAdapter();
+            } catch {
+                return PrivySolanaProvider;
+            }
         case SolanaNetworkType.Privy:
             return PrivySolanaProvider.publicKey ? PrivySolanaProvider : getAppkitWalletAdapter();
         default:

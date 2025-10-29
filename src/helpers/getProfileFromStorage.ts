@@ -28,7 +28,7 @@ const Schema = z.object({
     }),
 });
 
-type Profile = z.infer<typeof Schema>['state']['currentProfile'];
+export type StateCurrentProfile = z.infer<typeof Schema>['state']['currentProfile'];
 
 const resolveStorageKey = createLookupTableResolver<SocialSource, string>(
     {
@@ -42,7 +42,7 @@ const resolveStorageKey = createLookupTableResolver<SocialSource, string>(
     },
 );
 
-export function getProfileFromStorage<T extends SocialSource>(source: T) {
+export function getProfileFromStorage<T extends SocialSource>(source: T): StateCurrentProfile | null {
     if (!bom.localStorage) return null;
 
     const state = bom.localStorage.getItem(resolveStorageKey(source));
@@ -57,10 +57,10 @@ export function getProfileFromStorage<T extends SocialSource>(source: T) {
     // No profile found
     if (!parsed.data.state.currentProfile) return null;
 
-    return parsed.data.state.currentProfile as Profile;
+    return parsed.data.state.currentProfile as StateCurrentProfile;
 }
 
-export function getProfileAllFromStorage(): Record<SocialSource, Profile | null> {
+export function getProfileAllFromStorage(): Record<SocialSource, StateCurrentProfile | null> {
     const lensProfile = getProfileFromStorage(Source.Lens);
     const farcasterProfile = getProfileFromStorage(Source.Farcaster);
     const twitterProfile = getProfileFromStorage(Source.Twitter);

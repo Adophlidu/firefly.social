@@ -15,13 +15,10 @@ type Props = {
     ref: React.Ref<SingletonModalRefCreator<FrameViewerModalOpenProps>>;
 };
 
-const FrameViewerModalContent = dynamic(
-    () => import('@/modals/FrameViewerModal/FrameViewerModalContent.js').then(async (m) => m.FrameViewerModal),
-    {
-        ssr: false,
-        loading: () => <Loading className="flex-1 bg-primaryBottom" />,
-    },
-);
+const FrameViewerModalContent = dynamic(() => import('@/modals/FrameViewerModal/FrameViewerModalContent.js'), {
+    ssr: false,
+    loading: () => <Loading className="flex-1 bg-primaryBottom" />,
+});
 
 export function FrameViewerModal({ ref }: Props) {
     const [props, setProps] = useState<FrameViewerModalOpenProps | null>(null);

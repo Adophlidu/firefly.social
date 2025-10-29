@@ -17,10 +17,9 @@ import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source, WalletProfileCategory } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
-import { toFixed } from '@/helpers/number.js';
+import { formatAmount } from '@/helpers/polymarket.js';
 import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
@@ -121,10 +120,10 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                                         'border-danger text-danger': !isLeft,
                                     })}
                                 >
-                                    {outcome.toUpperCase()} - {floor(+activity.avgPrice * 100)}¢
+                                    {outcome.toUpperCase()} - {floor(+activity.price * 100)}¢
                                 </span>
                                 <span className="h-6 rounded-lg bg-lightBottom px-2 leading-6 text-lightMain dark:bg-lightBg">
-                                    <Trans>×{removeTrailingZeros(toFixed(activity.position, 2))} shares</Trans>
+                                    <Trans>×{formatAmount(activity.size)} shares</Trans>
                                 </span>
                             </div>
                             {activity.umaResolutionStatus === 'resolved' ? (

@@ -12,7 +12,7 @@ import {
 import { CoreChainController } from '@reown/appkit';
 import { produce } from 'immer';
 import { uniq } from 'lodash-es';
-import { type HTMLProps, useEffect, useRef, useState } from 'react';
+import { type HTMLProps, memo, useEffect, useMemo, useRef, useState } from 'react';
 import { mainnet } from 'viem/chains';
 import { getConnections } from 'wagmi/actions';
 
@@ -82,7 +82,14 @@ interface SwapModalContentProps extends HTMLProps<HTMLDivElement> {
     props?: SwapModalOpenProps;
 }
 
-export function SwapModalContent({ open, embed = false, onClose, props, className, ...rest }: SwapModalContentProps) {
+export const SwapModalContent = memo(function SwapModalContent({
+    open,
+    embed = false,
+    onClose,
+    props,
+    className,
+    ...rest
+}: SwapModalContentProps) {
     const isPrivyReady = usePrivyWalletStore((x) => x.ready);
     const solana = useSolanaAccount();
     const isReady = solana.type === SolanaNetworkType.Privy ? isPrivyReady : true;
@@ -140,7 +147,7 @@ export function SwapModalContent({ open, embed = false, onClose, props, classNam
             </div>
         </div>
     );
-}
+});
 
 function SwapModalContentWidget({
     providerType,
@@ -161,30 +168,28 @@ function SwapModalContentWidget({
         instanceRef.current.updateParams({ theme });
     }, [theme]);
 
-    const evmProviderRef = useRef(new EthereumWalletProvider());
-    const solanaProviderRef = useRef(new SolanaWalletProvider());
+    const evmProvider = useMemo(() => new EthereumWalletProvider(), []);
+    const solanaProvider = useMemo(() => new SolanaWalletProvider(), []);
 
     useEffect(() => {
         if (!widgetRef) return;
-        const evmProvider = evmProviderRef.current;
-        const solanaProvider = solanaProviderRef.current;
         const provider = isEvm ? evmProvider : solanaProvider;
-        const chainId = isEvm ? (props?.chainId ?? mainnet.id) : SOLANA_CHAIN_ID_IN_OKX;
-        const toChainId = props?.toChainId ?? chainId;
+        const chainId = isEvm ? (props.chainId ?? mainnet.id) : SOLANA_CHAIN_ID_IN_OKX;
+        const toChainId = props.toChainId ?? chainId;
         const isSwap = chainId === toChainId;
         const tokenPair = {
             fromChain: chainId,
             toChain: chainId,
-            fromToken: props?.fromToken ?? (isEvm ? NATIVE_TOKEN_ADDRESS : NATIVE_SOLANA_TOKEN_ADDRESS),
-            toToken: props?.toToken,
+            fromToken: props.fromToken ?? (isEvm ? NATIVE_TOKEN_ADDRESS : NATIVE_SOLANA_TOKEN_ADDRESS),
+            toToken: props.toToken,
         };
 
         const bridgeTokenPair = !isSwap
             ? {
                   fromChain: chainId,
                   toChain: toChainId,
-                  fromToken: props?.fromToken ?? (isEvm ? NATIVE_TOKEN_ADDRESS : NATIVE_SOLANA_TOKEN_ADDRESS),
-                  toToken: props?.toToken,
+                  fromToken: props.fromToken ?? (isEvm ? NATIVE_TOKEN_ADDRESS : NATIVE_SOLANA_TOKEN_ADDRESS),
+                  toToken: props.toToken,
               }
             : undefined;
 
@@ -195,7 +200,7 @@ function SwapModalContentWidget({
             width: window.innerWidth < 440 ? window.innerWidth - 40 : 400,
             providerType: resolveProviderType(providerType),
 
-            chainIds: props?.chainIds ? uniq([...props.chainIds, chainId.toString()]) : [],
+            chainIds: props.chainIds ? uniq([...props.chainIds, chainId.toString()]) : [],
             tokenPair: isSwap ? tokenPair : undefined,
             bridgeTokenPair,
         };
@@ -248,7 +253,20 @@ function SwapModalContentWidget({
             instanceRef.current?.destroy();
             instanceRef.current = null;
         };
-    }, [props, locale, theme, widgetRef, providerType, isEvm]);
+    }, [
+        locale,
+        theme,
+        widgetRef,
+        providerType,
+        isEvm,
+        evmProvider,
+        solanaProvider,
+        props.fromToken,
+        props.toToken,
+        props.chainIds,
+        props.toChainId,
+        props.chainId,
+    ]);
 
     return (
         <div

@@ -28,6 +28,7 @@ import { chains } from '@/configs/chains.js';
 import { NetworkType } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { delay } from '@/helpers/delay.js';
+import { runInSafe } from '@/helpers/runInSafe.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
@@ -194,6 +195,30 @@ function Root({ ref, rootRef }: { ref: Ref<PrivyBridgeHandle>; rootRef: Ref<Priv
         }),
         [setShowWalletUI],
     );
+
+    useEffect(() => {
+        const handlePointerUp = (e: PointerEvent) => {
+            runInSafe(() => {
+                if (e.pointerType !== 'touch') return;
+                const target = e.target as HTMLElement | null;
+                if (!target) return;
+                const clickable =
+                    target.closest('#privy-modal-content') &&
+                    (target.closest('button, a, [role="button"]') as HTMLElement | null);
+                if (!clickable) return;
+                const ariaDisabled = clickable.getAttribute('aria-disabled');
+                const isDisabled = clickable.hasAttribute('disabled') || ariaDisabled === 'true';
+                if (isDisabled) return;
+                if (typeof clickable.click === 'function') {
+                    clickable.click();
+                }
+            });
+        };
+        document.addEventListener('pointerup', handlePointerUp, { capture: true });
+        return () => {
+            document.removeEventListener('pointerup', handlePointerUp, { capture: true } as any);
+        };
+    }, []);
 
     return (
         <FireflyLoginRequired>
