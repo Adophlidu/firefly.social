@@ -50,6 +50,13 @@ const ethProvider = createEIP1193Provider(
         const chainId = await client.getChainId();
 
         switch (method) {
+            case EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN: {
+                const { chainId: newChainId } = params[0] as { chainId: string };
+                await fireflyBridgeProvider.request(SupportedMethod.SWITCH_ETHEREUM_CHAIN, {
+                    chainId: newChainId,
+                })
+                return null
+            }
             case EthereumMethodType.ETH_ACCOUNTS:
             case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {
                 const accounts = await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
