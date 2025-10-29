@@ -80,9 +80,7 @@ export function GuidePage({ changeStep }: GuidePageProps) {
                     <SquareButton
                         className="text-black"
                         colorMode="light"
-                        onClick={() => {
-                            DownloadMobileAppModalRef.open();
-                        }}
+                        onClick={() => DownloadMobileAppModalRef.open()}
                     >
                         <div className="flex size-full items-center justify-center gap-3">
                             <Trans>Download App</Trans>
