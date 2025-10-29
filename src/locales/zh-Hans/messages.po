@@ -782,9 +782,6 @@ msgstr "{0, plural, one {引用} other {引用}}"
 msgid "No hidden owner."
 msgstr "无隐藏的所有者。"
 
-msgid "Polymarket bet"
-msgstr "Polymarket 投注"
-
 msgid "Blockchain"
 msgstr "区块链"
 

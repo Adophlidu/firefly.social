@@ -77,10 +77,8 @@ export const ActivitiesFilter = memo<ActivitiesFilterProps>(function ActivitiesF
                 <FilterIcon width={24} height={24} />
             </PopoverButton>
             <PopoverPanel
-                anchor="bottom end"
-                className="z-50 flex min-w-[220px] flex-col gap-2 rounded-lg bg-lightBottom text-main shadow-lightS3 dark:bg-darkBottom"
+                className="absolute right-0 top-10 z-50 flex min-w-[220px] flex-col gap-2 rounded-lg bg-lightBottom text-main shadow-lightS3 dark:bg-darkBottom"
                 transition
-                portal
             >
                 <div className="flex flex-col gap-4 p-4">
                     <TypeFilter

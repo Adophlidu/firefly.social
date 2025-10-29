@@ -134,10 +134,7 @@ export function NotificationSettings({ source }: { source: NotificationSource })
             <PopoverButton className="p-2 outline-none">
                 <FilterIcon className="size-6 shrink-0 text-secondary" width={24} height={24} />
             </PopoverButton>
-            <PopoverPanel
-                anchor="bottom end"
-                className="z-50 flex min-w-[320px] flex-col gap-2 rounded-lg bg-lightBottom text-main shadow-lightS3 dark:bg-darkBottom"
-            >
+            <PopoverPanel className="absolute right-0 top-10 z-50 flex min-w-[320px] flex-col gap-2 rounded-lg bg-lightBottom text-main shadow-lightS3 dark:bg-darkBottom">
                 <div className={'flex flex-col gap-4 p-4'}>
                     <div className="flex justify-between">
                         <span className="text-sm font-semibold">

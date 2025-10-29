@@ -92,7 +92,7 @@ export const Swap = memo(function Swap({ token, chainId: propChainId, address: p
             props={sidebarSwapOptions || swapOptions}
             embed
             open
-            className="h-[562px] [&_.self-content]:flex-1"
+            className="h-[562px] [&_.public-content]:flex-1"
         />
     );
 });

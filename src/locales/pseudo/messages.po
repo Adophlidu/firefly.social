@@ -777,9 +777,6 @@ msgstr ""
 msgid "No hidden owner."
 msgstr ""
 
-msgid "Polymarket bet"
-msgstr ""
-
 msgid "Blockchain"
 msgstr ""
 

@@ -777,9 +777,6 @@ msgstr "{0, plural, one {quote} other {quotes}}"
 msgid "No hidden owner."
 msgstr "No hidden owner."
 
-msgid "Polymarket bet"
-msgstr "Polymarket bet"
-
 msgid "Blockchain"
 msgstr "Blockchain"
 

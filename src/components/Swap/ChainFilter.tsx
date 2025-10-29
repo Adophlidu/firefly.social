@@ -34,10 +34,8 @@ export const ChainFilter = memo(function ChainFilter({ networkType, children }: 
         <Popover className="relative flex items-center justify-center">
             <PopoverButton className="p-2 outline-none">{Icon}</PopoverButton>
             <PopoverPanel
-                anchor="bottom end"
-                className="z-50 flex min-w-[320px] flex-col gap-2 rounded-lg bg-lightBottom text-main shadow-lightS3 dark:bg-darkBottom"
+                className="absolute right-0 top-10 z-50 flex min-w-[320px] flex-col gap-2 rounded-lg bg-lightBottom text-main shadow-lightS3 dark:bg-darkBottom"
                 transition
-                portal
             >
                 <div className="flex flex-col gap-4 p-4">
                     <div className="text-sm font-normal text-second">

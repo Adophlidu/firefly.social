@@ -115,7 +115,7 @@ export function SwapModalContent({ open, embed = false, onClose, props, classNam
                     />
                 ) : null}
             </div>
-            <div className="self-content relative z-1 max-h-[90svh] min-h-[550px]">
+            <div className="public-content relative z-1 max-h-[90svh] min-h-[550px]">
                 <div className="absolute left-0 top-0 z-0 size-full">
                     <Loading className="h-full" />
                 </div>

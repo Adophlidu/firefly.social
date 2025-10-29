@@ -2,7 +2,7 @@
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { type ReactNode, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import ArrowDownCircleIcon from '@/assets/arrow-circle-down.svg';
 import { ActivitiesFilter } from '@/components/HomeTab/ActivitiesFilter.js';
@@ -32,17 +32,6 @@ const tabLabels = {
     [HomeTab.Discover]: <Trans>For You</Trans>,
     [HomeTab.Following]: <Trans>Following</Trans>,
 };
-
-const txTypeOptions: Array<{ value: string; label: ReactNode }> = [
-    {
-        value: Source.Polymarket,
-        label: <Trans>Polymarket bet</Trans>,
-    },
-    {
-        value: Source.Swap,
-        label: <Trans>Token</Trans>,
-    },
-];
 
 export function HomeTabs({
     onlyFilter = false,
