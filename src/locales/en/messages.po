@@ -2065,6 +2065,9 @@ msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention ite
 msgid "Hide more comments"
 msgstr "Hide more comments"
 
+msgid "Failed to switch wallet. Please try again"
+msgstr "Failed to switch wallet. Please try again"
+
 msgid "Like / Repost / Comment"
 msgstr "Like / Repost / Comment"
 

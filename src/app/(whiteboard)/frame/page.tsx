@@ -4,7 +4,6 @@ import { exposeToIframe, type ReadyOptions } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
-import { toHex } from 'viem';
 
 import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/components/FramePage.js';
 import { GhostError } from '@/app/(whiteboard)/components/GhostError.js';
@@ -14,10 +13,9 @@ import { IS_IOS } from '@/constants/browser.js';
 import { EIP6963_PROVIDER_DESCRIPTION, IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
-import { createWagmiLimitedClient } from '@/helpers/createWagmiLimitedClient.js';
 import { eip5792Polyfill } from '@/helpers/eip5792Polyfill.js';
+import { createFireflyWalletClient } from '@/helpers/createFireflyWalletClient.js';
 import { frameSwapToken } from '@/helpers/frameSwapToken.js';
-import { squashCallback } from '@/helpers/squashCallback.js';
 import { waitForWebviewDidLoadEvent } from '@/helpers/waitForWebviewDidLoadEvent.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
 import {
@@ -26,88 +24,17 @@ import {
 } from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
-import { Network, SupportedMethod, type Transaction } from '@/types/bridge.js';
+import { SupportedMethod } from '@/types/bridge.js';
 import type { RequestArguments } from '@/types/ethereum.js';
 import type { FrameV2 } from '@/types/frame.js';
 import type { NextPageProps } from '@/types/utility.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 
-const connectWalletSquashed = squashCallback(
-    () =>
-        fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
-            type: Network.EVM,
-        }),
-    {
-        resolver: () => 'connect-wallet',
-    },
-);
-
-const ethProvider = createEIP1193Provider(
-    eip5792Polyfill(async function request(requestArguments: RequestArguments) {
-        const { method, params } = requestArguments;
-
-        const client = await createWagmiLimitedClient();
-        const chainId = await client.getChainId();
-
-        switch (method) {
-            case EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN: {
-                const { chainId: newChainId } = params[0] as { chainId: string };
-                await fireflyBridgeProvider.request(SupportedMethod.SWITCH_ETHEREUM_CHAIN, {
-                    chainId: newChainId,
-                });
-                return null;
-            }
-            case EthereumMethodType.ETH_ACCOUNTS:
-            case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {
-                const accounts = await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
-                    type: Network.EVM,
-                });
-                if (accounts.length) return accounts;
-
-                const account = await connectWalletSquashed();
-                return [account];
-            }
-            case EthereumMethodType.ETH_SIGN:
-            case EthereumMethodType.PERSONAL_SIGN: {
-                const [message, address] = params as [string, string];
-                const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
-                    chainId: toHex(chainId),
-                    address,
-                    message,
-                });
-                return signed;
-            }
-            case EthereumMethodType.ETH_SIGN_TYPED_DATA: {
-                const [address, data] = params as [string, {} | string];
-                const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TYPED_DATA, {
-                    chainId: toHex(chainId),
-                    address,
-                    message: typeof data === 'string' ? data : JSON.stringify(data),
-                });
-                return signed;
-            }
-            case EthereumMethodType.ETH_SIGN_TRANSACTION: {
-                const transaction = params[0] as Transaction;
-                const hash = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, {
-                    chainId: toHex(chainId),
-                    transaction,
-                });
-                return hash;
-            }
-            case EthereumMethodType.ETH_SEND_TRANSACTION: {
-                const transaction = params[0] as Transaction;
-                const hash = await fireflyBridgeProvider.request(SupportedMethod.SEND_TRANSACTION, {
-                    chainId: toHex(chainId),
-                    transaction,
-                });
-                return hash;
-            }
-            default: {
-                return client.request(requestArguments as Parameters<typeof client.request>[0]);
-            }
-        }
-    }),
-);
+const ethProvider = createEIP1193Provider(eip5792Polyfill(async function request(requestArguments: RequestArguments) {
+    const client = await createFireflyWalletClient();
+    return client.request(requestArguments as Parameters<typeof client.request>[0]);
+}));
 
 interface Props extends NextPageProps {}
 
@@ -157,7 +84,10 @@ export default function Page(props: Props) {
                 if (options) fireflyBridgeProvider.request(SupportedMethod.SET_FRAME_READY_OPTIONS, options);
                 setReady(true);
             },
-            close: () => fireflyBridgeProvider.request(SupportedMethod.CLOSE, {}),
+            close: () => {
+                console.log('[frame client] close');
+                fireflyBridgeProvider.request(SupportedMethod.CLOSE, {});
+            },
             signIn: async (options) => {
                 console.log('[frame client] signIn options', JSON.stringify(options));
                 const signature = await RelayConfirmationPopoverRef.openAndWaitForClose({
@@ -212,6 +142,19 @@ export default function Page(props: Props) {
         };
     }, [supported, frame, frameHost]);
 
+    const onSwitchWallet = async () => {
+        try {
+            await ethProvider.request({
+                method: EthereumMethodType.FIREFLY_FRAME_SWITCH_WALLET,
+                params: [],
+            });
+            bom.location?.reload();
+        } catch (error) {
+            enqueueMessageFromError(error, <Trans>Failed to switch wallet. Please try again</Trans>);
+            throw error;
+        }
+    };
+
     const onReload = () => {
         bom.location?.reload();
     };
@@ -224,7 +167,7 @@ export default function Page(props: Props) {
     if ((!loadingSupported && !supported) || error) {
         return (
             <FramePage>
-                <FramePageTitle frame={frame} onClose={onClose} onReload={onReload}>
+                <FramePageTitle frame={frame} onClose={onClose} onReload={onReload} onSwitchWallet={onSwitchWallet}>
                     Firefly
                 </FramePageTitle>
                 <FramePageBody>
@@ -239,7 +182,7 @@ export default function Page(props: Props) {
 
     return (
         <FramePage>
-            <FramePageTitle frame={frame} onClose={onClose} onReload={onReload}>
+            <FramePageTitle frame={frame} onClose={onClose} onReload={onReload} onSwitchWallet={onSwitchWallet}>
                 {frame ? frame.button.action.name : <Trans>Loading...</Trans>}
             </FramePageTitle>
             <FramePageBody>

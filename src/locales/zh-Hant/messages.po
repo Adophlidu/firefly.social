@@ -2070,6 +2070,9 @@ msgstr "{attentionFactors, plural, one {# 中風險項} other {# 中風險項}}"
 msgid "Hide more comments"
 msgstr "隱藏更多留言"
 
+msgid "Failed to switch wallet. Please try again"
+msgstr ""
+
 msgid "Like / Repost / Comment"
 msgstr "按讚/轉發/留言"
 

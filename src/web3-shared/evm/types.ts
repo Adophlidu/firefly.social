@@ -34,6 +34,8 @@ export enum EthereumSchemaType {
 // Learn more for a full list of supported JSON RPC methods
 // https://eth.wiki/json-rpc/API#json-rpc-methods
 export enum EthereumMethodType {
+    FIREFLY_FRAME_SWITCH_WALLET = 'firefly_frameSwitchWallet',
+
     WATCH_ASSET = 'wallet_watchAsset',
     WATCH_ASSET_LEGACY = 'metamask_watchAsset',
     PERSONAL_SIGN = 'personal_sign',
@@ -84,12 +86,12 @@ export enum EthereumMethodType {
     ETH_SYNCING = 'eth_syncing',
     ETH_SUBSCRIBE = 'eth_subscribe',
     ETH_UNSUBSCRIBE = 'eth_unsubscribe',
+    NET_VERSION = 'net_version',
+
     // Explicitly methods for EIP-5792
     EXT_ETH_WALLET_SEND_CALLS = 'wallet_sendCalls',
     EXT_ETH_WALLET_GET_CALLS_STATUS = 'wallet_getCallsStatus',
     EXT_ETH_WALLET_GET_CAPABILITIES = 'wallet_getCapabilities',
-
-    NET_VERSION = 'net_version',
 }
 
 export enum EthereumNetworkType {

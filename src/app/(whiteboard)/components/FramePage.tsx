@@ -13,6 +13,7 @@ interface FramePageTitleProps {
     children: ReactNode;
     onClose: () => void;
     onReload: () => void;
+    onSwitchWallet: () => void;
 }
 
 interface FramePageBodyProps {
@@ -28,6 +29,7 @@ export const FramePageTitle = memo(function FramePageTitle({
     children,
     onClose,
     onReload,
+    onSwitchWallet,
 }: FramePageTitleProps) {
     return (
         <div className="flex items-center justify-between bg-lightBg px-4 py-3 text-black shadow-md dark:bg-fireflyBrand dark:text-white">
@@ -35,7 +37,7 @@ export const FramePageTitle = memo(function FramePageTitle({
             <div className="flex-1 text-center">
                 <h1 className="text-lg font-medium">{children}</h1>
             </div>
-            <MoreAction selectable={false} frame={frame} onReload={onReload} />
+            <MoreAction selectable={false} frame={frame} onReload={onReload} onSwitchWallet={onSwitchWallet} />
         </div>
     );
 });
