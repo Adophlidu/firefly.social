@@ -57,7 +57,6 @@ import {
     unfollow,
     unmuteAccount,
 } from '@lens-protocol/client/actions';
-import { account } from '@lens-protocol/metadata';
 import { compact, first, flatMap, uniqBy, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -131,6 +130,7 @@ import {
     isReactionNotification,
     isRepostNotification,
 } from '@/providers/lens/isNotification.js';
+import { account } from '@/providers/lens/metadata/Account.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.js';

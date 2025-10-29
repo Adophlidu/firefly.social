@@ -1,13 +1,3 @@
-import {
-    image,
-    link,
-    type MediaImage,
-    type MediaImageMimeType,
-    type MediaVideoMimeType,
-    textOnly,
-    type URI,
-    video,
-} from '@lens-protocol/metadata';
 import { first } from 'lodash-es';
 
 import { HOME_CLUB } from '@/constants/channel.js';
@@ -22,6 +12,11 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';
+import type { MediaImage, MediaImageMimeType, MediaVideoMimeType } from '@/providers/lens/metadata/post/Base.js';
+import { image } from '@/providers/lens/metadata/post/Image.js';
+import { link } from '@/providers/lens/metadata/post/Link.js';
+import { textOnly } from '@/providers/lens/metadata/post/TextOnly.js';
+import { video } from '@/providers/lens/metadata/post/Video.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { OrbProvider } from '@/providers/orb/index.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
@@ -128,7 +123,7 @@ export function createLensPostMetadata(metadata: BaseMetadata, attachments?: Att
                     type: attachments.image.type as MediaImageMimeType,
                 },
                 attachments: attachments.attachments.map<MediaImage>((attachment) => ({
-                    item: attachment.item as URI,
+                    item: attachment.item,
                     type: attachment.type as MediaImageMimeType,
                 })),
             });
@@ -144,7 +139,7 @@ export function createLensPostMetadata(metadata: BaseMetadata, attachments?: Att
                     duration: attachments.video.duration,
                 },
                 attachments: attachments.attachments.map<MediaImage>((attachment) => ({
-                    item: attachment.item as URI,
+                    item: attachment.item,
                     type: attachment.type as MediaImageMimeType,
                 })),
             });
@@ -157,7 +152,7 @@ export function createLensPostMetadata(metadata: BaseMetadata, attachments?: Att
             ...localBaseMetadata,
             sharingLink,
             attachments: attachments?.attachments.map<MediaImage>((attachment) => ({
-                item: attachment.item as URI,
+                item: attachment.item,
                 type: attachment.type as MediaImageMimeType,
             })),
         });

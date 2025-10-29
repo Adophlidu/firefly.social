@@ -39,7 +39,6 @@
         "@heroicons/react": "^2.2.0",
         "@lens-chain/storage-client": "^1.0.6",
         "@lens-protocol/client": "0.0.0-canary-20250430134539",
-        "@lens-protocol/metadata": "2.1.0",
         "@lexical/hashtag": "^0.18.0",
         "@lexical/link": "^0.18.0",
         "@lexical/markdown": "^0.18.0",

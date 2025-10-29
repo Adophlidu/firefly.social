@@ -1,6 +1,5 @@
-import type { AccountMetadata } from '@lens-protocol/metadata';
-
 import { SourceInURL } from '@/constants/enum.js';
+import type { AccountMetadata } from '@/providers/lens/metadata/Account.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 
 export function uploadLensMetadataToS3(metadata: AccountMetadata) {

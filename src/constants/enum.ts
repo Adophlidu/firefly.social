@@ -631,3 +631,11 @@ export enum ExploreSwitchType {
     TrendingNFT = 'trending_nft',
     TruthSocial = 'trump_truth',
 }
+
+export enum MetadataAttributeType {
+    BOOLEAN = 'Boolean',
+    DATE = 'Date',
+    NUMBER = 'Number',
+    STRING = 'String',
+    JSON = 'JSON',
+}
