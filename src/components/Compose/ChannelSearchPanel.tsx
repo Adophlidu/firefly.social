@@ -53,9 +53,9 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
         if (channel.id === 'home' && !channel.imageUrl) {
             return <SocialSourceIcon source={channel.source} className="mr-2 size-6" />;
         }
-
-        const imageUrl = channel.imageUrl;
-        return <Avatar className="mr-2 shrink-0 rounded-full border" src={imageUrl} size={24} alt={channel.name} />;
+        return (
+            <Avatar className="mr-2 shrink-0 rounded-full border" src={channel.imageUrl} size={24} alt={channel.name} />
+        );
     };
 
     const ListBox = (
@@ -65,13 +65,13 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
                     <LoadingIcon />
                 </div>
             ) : isError ? (
-                <div className="m-auto flex h-[100px] items-center justify-center text-center text-sm text-main">
+                <p className="m-auto flex h-[100px] items-center justify-center text-center text-sm text-main">
                     <Trans>Something went wrong. Please try again.</Trans>
-                </div>
+                </p>
             ) : !data?.length ? (
-                <div className="m-auto flex h-[100px] items-center justify-center text-center text-sm text-main">
+                <p className="m-auto flex h-[100px] items-center justify-center text-center text-sm text-main">
                     <Trans>There is no data available for display.</Trans>
-                </div>
+                </p>
             ) : (
                 data.map((channel) => {
                     const isSelected = isSameChannel(channel, selectedChannel[channel.source]);

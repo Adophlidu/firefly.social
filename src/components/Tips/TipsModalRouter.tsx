@@ -3,7 +3,6 @@ import { createMemoryHistory, createRootRoute, createRoute, createRouter } from 
 
 import { Loading } from '@/components/Loading.js';
 import { NoAvailableWallet } from '@/components/Tips/NoAvailableWallet.js';
-import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
 import { RootView } from '@/components/Tips/views/RootView.js';
 import { SuccessView } from '@/components/Tips/views/SuccessView.js';
 import { TipsMainView } from '@/components/Tips/views/TipsMainView.js';
@@ -65,12 +64,7 @@ const recipientSelectRoute = createRoute({
 const loadingRoute = createRoute({
     getParentRoute: () => tipsRootRoute,
     path: TipsRoutePath.LOADING,
-    component: () => (
-        <>
-            <TipsModalHeader />
-            <Loading className="!min-h-[156px]" />
-        </>
-    ),
+    component: () => <Loading className="!min-h-[156px]" />,
 });
 
 const successRoute = createRoute({

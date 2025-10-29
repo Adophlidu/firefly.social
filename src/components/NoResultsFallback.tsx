@@ -15,9 +15,9 @@ export function NoResultsFallback({ icon, message, className, ...rest }: NoResul
             {icon ?? <GhostHoleIcon width={200} height={143} className="text-third" />}
             <div className="mt-3 break-words break-all text-center text-medium font-bold">
                 {message ?? (
-                    <div className="mt-10">
+                    <p className="mt-10">
                         <Trans>There is no data available for display.</Trans>
-                    </div>
+                    </p>
                 )}
             </div>
         </div>

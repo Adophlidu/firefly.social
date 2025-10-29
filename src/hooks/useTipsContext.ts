@@ -12,6 +12,7 @@ import type { Token } from '@/providers/types/Transfer.js';
 export type TipsProfile = FireflyProfile & { address: string; networkType: NetworkType; avatar?: string; ens?: string };
 
 interface TipsContext {
+    open: boolean;
     recipientList: TipsProfile[];
     recipient: TipsProfile | null;
     amount: string;
@@ -33,6 +34,7 @@ const DEFAULT_SELECTED_USDT_VALUE = 5;
 
 function createEmptyContext(): TipsContext {
     return {
+        open: false,
         recipient: null,
         amount: '',
         latestCustomAmount: '',

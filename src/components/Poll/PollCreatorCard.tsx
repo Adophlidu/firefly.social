@@ -49,7 +49,7 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
     return (
         <div
             ref={pollCardRef}
-            className="mt-14 rounded-2xl border border-lightMain bg-lightBottom p-3 dark:bg-darkBottom"
+            className="mt-14 rounded-2xl border border-secondaryLine bg-lightBottom p-3 dark:bg-darkBottom"
         >
             <div className="flex items-center justify-between text-lightMain">
                 <div className="flex items-center gap-2">

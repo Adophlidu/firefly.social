@@ -377,7 +377,7 @@ export function MainView() {
         <div className="rounded-[6px] px-6 pb-6 max-md:max-h-[calc(100vh_-_64px)] max-md:overflow-auto md:w-[400px]">
             <div
                 className={classNames(
-                    'no-scrollbar rounded-[6px] bg-primaryBottom md:max-h-[492px]',
+                    'no-scrollbar rounded-[6px] md:max-h-[492px]',
                     isOpenFireflyAccountMenu ? 'overflow-hidden' : 'overflow-auto',
                 )}
             >

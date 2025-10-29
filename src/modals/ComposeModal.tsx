@@ -321,7 +321,7 @@ function ComposeModalUI({ ref }: Props) {
             disableScrollLock={false}
             disableDialogClose
         >
-            <div className="relative flex h-screen w-screen flex-col overflow-auto bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950 md:h-auto md:w-[600px] md:flex-[0] md:rounded-xl lg:grow-0">
+            <div className="relative flex h-screen w-screen flex-col overflow-auto bg-lightBottom transition-all dark:bg-darkBottom dark:text-gray-950 md:h-auto md:w-[600px] md:flex-[0] md:rounded-xl lg:grow-0">
                 {/* Loading */}
                 {encryptRedPacketProcessing ? (
                     <div className="absolute inset-0 z-50 flex items-center justify-center">
