@@ -45,14 +45,12 @@ export async function createFireflyWalletClient() {
             switch (requestArguments.method) {
                 case EthereumMethodType.FIREFLY_FRAME_SWITCH_WALLET: {
                     const account = await connectWalletSquashed();
-
-                    storage.setItem('account', account);
-
+                    await storage.setItem('account', account);
                     return [account];
                 }
                 case EthereumMethodType.ETH_ACCOUNTS:
                 case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {
-                    const accountFromStore = storage.getItem<string>('account');
+                    const accountFromStore = await storage.getItem<string>('account');
                     if (accountFromStore) return [accountFromStore];
 
                     const accounts = await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
