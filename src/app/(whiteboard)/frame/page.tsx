@@ -15,6 +15,7 @@ import { bom } from '@/helpers/bom.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { eip5792Polyfill } from '@/helpers/eip5792Polyfill.js';
 import { createFireflyWalletClient } from '@/helpers/createFireflyWalletClient.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { frameSwapToken } from '@/helpers/frameSwapToken.js';
 import { waitForWebviewDidLoadEvent } from '@/helpers/waitForWebviewDidLoadEvent.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
@@ -29,7 +30,6 @@ import type { RequestArguments } from '@/types/ethereum.js';
 import type { FrameV2 } from '@/types/frame.js';
 import type { NextPageProps } from '@/types/utility.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
-import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 
 const ethProvider = createEIP1193Provider(eip5792Polyfill(async function request(requestArguments: RequestArguments) {
     const client = await createFireflyWalletClient();
@@ -80,7 +80,6 @@ export default function Page(props: Props) {
             frame: () => frame,
             ready: (options?: Partial<ReadyOptions>) => {
                 console.log('[frame client] ready', JSON.stringify(options));
-
                 if (options) fireflyBridgeProvider.request(SupportedMethod.SET_FRAME_READY_OPTIONS, options);
                 setReady(true);
             },
@@ -96,6 +95,7 @@ export default function Page(props: Props) {
                     options,
                 });
                 console.log('[frame client] signIn result', JSON.stringify(signature));
+
                 return signature;
             },
             setPrimaryButton: (options) => {

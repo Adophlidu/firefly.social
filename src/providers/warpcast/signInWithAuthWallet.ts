@@ -64,6 +64,10 @@ export async function signInWithAuthWallet(
     const siwfMessage = await createSiwfMessage(url, address, fid, options.nonce);
     const signature = await signMessage(siwfMessage);
 
+    console.log(
+        `[signInWithAuthWallet] signed ${JSON.stringify({ url, address, fid, options, siwfMessage, signature })}`,
+    );
+
     return {
         message: siwfMessage,
         signature,

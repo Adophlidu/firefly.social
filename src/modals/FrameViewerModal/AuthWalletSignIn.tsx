@@ -86,6 +86,7 @@ export function AuthWalletSignIn() {
 
         // take a while to present the signed result
         await delay(2000);
+
         onClose(signed);
     }, [data, isRefetching, isLoading]);
 

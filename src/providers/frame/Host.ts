@@ -208,17 +208,17 @@ export class FarcasterFrameHost implements MiniAppHost {
 
     impactOccurred: MiniAppHost['impactOccurred'] = () => {
         console.warn('[frame host]: impactOccurred');
-        throw new NotImplementedError();
+        return Promise.resolve();
     };
 
     notificationOccurred: MiniAppHost['notificationOccurred'] = () => {
         console.warn('[frame host]: notificationOccurred');
-        throw new NotImplementedError();
+        return Promise.resolve();
     };
 
     selectionChanged: MiniAppHost['selectionChanged'] = () => {
         console.warn('[frame host]: selectionChanged');
-        throw new NotImplementedError();
+        return Promise.resolve();
     };
 
     getCapabilities: MiniAppHost['getCapabilities'] = () => {

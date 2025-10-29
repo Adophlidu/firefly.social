@@ -8,7 +8,6 @@ import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
-import { delay } from '@/helpers/delay.js';
 import { frameSwapToken } from '@/helpers/frameSwapToken.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
@@ -73,29 +72,40 @@ function createFrameHost(
 
     const frameHost = new FarcasterFrameHost(context, {
         frame: () => frame,
-        ready: (options) =>
-            FrameViewerModalRef.open({
+        ready: (options) => {
+            console.log('[frame host]: ready options', JSON.stringify(options));
+            return FrameViewerModalRef.open({
                 ready: true,
                 timeout: false,
                 frame,
                 frameHost,
-            }),
+            });
+        },
         signIn: async (options) => {
-            await delay(1000);
-
-            return RelayConfirmationPopoverRef.openAndWaitForClose({
+            console.log('[frame host]: signIn options', JSON.stringify(options));
+            const signature = await RelayConfirmationPopoverRef.openAndWaitForClose({
                 fid: context.client.clientFid,
                 frame,
                 options,
             });
+            console.log('[frame host]: signIn result', JSON.stringify(signature));
+            return signature;
         },
-        close: () => FrameViewerModalRef.close(),
+        close: () => {
+            console.log('[frame host]: close');
+            FrameViewerModalRef.close();
+        },
         setPrimaryButton: options?.setPrimaryButton,
-        viewCast: (hash) => router.push(`/post/farcaster/${hash}`),
-        viewProfile: (profile: Profile) => router.push(`/profile/farcaster/${profile.handle}/feed`),
+        viewCast: (hash) => {
+            console.log('[frame host]: viewCast', hash);
+            router.push(`/post/farcaster/${hash}`);
+        },
+        viewProfile: (profile: Profile) => {
+            console.log('[frame host]: viewProfile', profile);
+            router.push(`/profile/farcaster/${profile.handle}/feed`);
+        },
         openMiniApps: (frame: FrameV2) => {
             console.log('[frame host]: openMiniApps', frame);
-
             FrameViewerModalRef.open({
                 ready: false,
                 timeout: false,
