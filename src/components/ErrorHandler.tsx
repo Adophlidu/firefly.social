@@ -19,7 +19,7 @@ export function ErrorHandler({ error, reset, className }: ErrorHandlerProps) {
     return (
         <div className={classNames('flex h-screen flex-col items-center justify-center', className)}>
             <Image src="/image/radar.png" width={200} height={106} alt="Something went wrong. Please try again." />
-            <div className="mt-11 break-all text-sm font-bold">
+            <div className="mt-11 break-all px-4 text-sm font-bold">
                 {error instanceof FetchError ? (
                     getErrorMessageFromFetchError(error)
                 ) : (

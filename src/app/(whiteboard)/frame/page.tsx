@@ -31,10 +31,12 @@ import type { FrameV2 } from '@/types/frame.js';
 import type { NextPageProps } from '@/types/utility.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
-const ethProvider = createEIP1193Provider(eip5792Polyfill(async function request(requestArguments: RequestArguments) {
-    const client = await createFireflyWalletClient();
-    return client.request(requestArguments as Parameters<typeof client.request>[0]);
-}));
+const ethProvider = createEIP1193Provider(
+    eip5792Polyfill(async function request(requestArguments: RequestArguments) {
+        const client = await createFireflyWalletClient();
+        return client.request(requestArguments as Parameters<typeof client.request>[0]);
+    }),
+);
 
 interface Props extends NextPageProps {}
 

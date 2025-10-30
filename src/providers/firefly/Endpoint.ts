@@ -1084,17 +1084,14 @@ class FireflyEndpoint {
     }
 
     async getTwitterTopPeople(indicator?: PageIndicator, locale?: Locale) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/recommend/x');
         const page = indicator?.id ? Number.parseInt(indicator.id, 10) : 1;
-        const response = await fetchJson<RootdataPeopleResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                page,
-                page_size: 20,
-                rank_type: 'heat',
-                language: locale === Locale.en || !locale ? 'en' : 'cn',
-            }),
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/recommend/x', {
+            page,
+            page_size: 20,
+            rank_type: 'heat',
+            language: locale === Locale.en || !locale ? 'en' : 'cn',
         });
+        const response = await fetchJson<RootdataPeopleResponse>(url);
         return resolveFireflyResponseData(response);
     }
 
