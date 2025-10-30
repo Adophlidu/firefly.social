@@ -9,7 +9,6 @@ import { useMount } from 'react-use';
 import urlcat from 'urlcat';
 
 import ReloadIcon from '@/assets/reload.svg';
-import { CloseButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
@@ -48,28 +47,15 @@ export const SignInWithFireflyAppModal = memo(function SignInWithFireflyAppModal
     }, [dispatch, queryClient]);
 
     return (
-        <Modal onClose={onClose} open={open}>
-            <div className="relative rounded-[12px] bg-primaryBottom text-second transition-all max-md:h-full md:w-[500px]">
-                <Header onClose={onClose} />
-                <div className="flex w-full flex-col items-center space-y-3 px-6 pb-6 text-xs">
+        <Modal size="md" title={<Trans>Sign in with Firefly App</Trans>} enableClose onClose={onClose} open={open}>
+            <div className="relative rounded-[12px] bg-lightBottom text-second transition-all dark:bg-darkBottom">
+                <div className="flex w-full flex-col items-center space-y-3 text-xs">
                     <Content enabled={open} onClose={onClose} />
                 </div>
             </div>
         </Modal>
     );
 });
-
-function Header({ onClose }: { onClose: () => void }) {
-    return (
-        <div className="flex items-center justify-center gap-2 rounded-t-[12px] p-4">
-            <CloseButton onClick={() => onClose()} />
-            <h3 className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                <Trans>Sign in with Firefly App</Trans>
-            </h3>
-            <div className="relative size-6" />
-        </div>
-    );
-}
 
 function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void }) {
     const { data: otp, refetch: refetchOTP } = useQuery({

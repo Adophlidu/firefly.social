@@ -18,7 +18,10 @@ type Props = {
     ref: React.Ref<SingletonModalRefCreator<FreeMintModalOpenProps>>;
 };
 
-const MintModalContent = dynamic(() => import('./MintModalContent.js'), { ssr: false, loading: () => null });
+const MintModalContent = dynamic(() => import('@/modals/FreeMintModal/MintModalContent.js'), {
+    ssr: false,
+    loading: () => null,
+});
 
 export function FreeMintModal({ ref }: Props) {
     const [props, setProps] = useState<FreeMintModalOpenProps>();
