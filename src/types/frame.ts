@@ -1,6 +1,7 @@
 /* cspell:disable */
 
 import type { FrameProtocol } from '@/constants/enum.js';
+import type { LiteralOrString } from '@/types/utility.js';
 
 // #region frame v1
 export type Index = 1 | 2 | 3 | 4;
@@ -219,7 +220,7 @@ export interface FrameV2 {
 
     // Frame spec version. Required.
     // Example: "next"
-    version: Omit<string, 'next'> | 'next';
+    version: LiteralOrString<'next'>;
 
     // Frame image.
     // Max 512 characters.

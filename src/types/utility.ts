@@ -18,6 +18,8 @@ export interface Nothing {}
 
 export type LiteralUnion<U, T = U extends string ? string : U extends number ? number : never> = U | (T & Nothing);
 
+export type LiteralOrString<T extends string> = T | Omit<string, T>;
+
 export type NonUndefined<T> = T extends undefined ? never : T;
 
 // learn more: https://nextjs.org/docs/app/api-reference/file-conventions/route#context-optional

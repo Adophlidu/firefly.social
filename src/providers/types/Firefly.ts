@@ -23,6 +23,7 @@ import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { NotificationType as SocialNotificationType } from '@/providers/types/SocialMedia.js';
+import type { LiteralOrString } from '@/types/utility.js';
 
 export enum EmbedMediaType {
     IMAGE = 'image',
@@ -149,7 +150,7 @@ export interface Notification {
 }
 
 export interface ChannelProfile {
-    active_status: 'active' | Omit<string, 'active'>;
+    active_status: LiteralOrString<'active'>;
     custody_address: string;
     display_name: string;
     fid: number;

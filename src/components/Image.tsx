@@ -7,9 +7,23 @@ import { memo, useCallback, useEffect, useState } from 'react';
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
+import type { LiteralOrString } from '@/types/utility.js';
+
+const resolveFallbackImageUrl = (fallback: LiteralOrString<'avatar' | 'square' | 'rectangle'>, isDarkMode: boolean) => {
+    if (fallback === 'avatar') {
+        return isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
+    }
+    if (fallback === 'square') {
+        return isDarkMode ? '/image/img-fallback-dark.png' : '/image/image-fallback-light.png';
+    }
+    if (fallback === 'rectangle') {
+        return isDarkMode ? '/image/fallback-dark.png' : '/image/fallback-light.png';
+    }
+    return fallback as string;
+};
 
 export interface ImageProps extends NextImageProps {
-    fallback?: string | null;
+    fallback?: LiteralOrString<'avatar' | 'square' | 'rectangle'> | null;
     fallbackClassName?: string;
     ref?: React.ForwardedRef<HTMLImageElement>;
 }
@@ -57,11 +71,7 @@ export const Image = memo(function Image({ onError, onLoad, fallback, fallbackCl
             priority={false}
             {...props}
             onLoad={handleLoad}
-            src={
-                isFailed
-                    ? fallback || (isDarkMode ? '/image/fallback-dark.png' : '/image/fallback-light.png')
-                    : props.src
-            }
+            src={isFailed ? resolveFallbackImageUrl(fallback || 'rectangle', isDarkMode) : props.src}
             className={classNames(
                 props.className,
                 isFailed ? fallbackClassName : undefined,

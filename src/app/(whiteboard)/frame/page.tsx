@@ -32,7 +32,7 @@ import type { NextPageProps } from '@/types/utility.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
 const ethProvider = createEIP1193Provider(
-    eip5792Polyfill(async function request(requestArguments: RequestArguments) {
+    eip5792Polyfill(async (requestArguments: RequestArguments) => {
         const client = await createFireflyWalletClient();
         return client.request(requestArguments as Parameters<typeof client.request>[0]);
     }),
@@ -196,6 +196,7 @@ export default function Page(props: Props) {
                                 src={frame.button.action.splashImageUrl}
                                 width={80}
                                 height={80}
+                                fallback="avatar"
                             />
                         ) : (
                             <FireflyLogo width={80} height={80} />

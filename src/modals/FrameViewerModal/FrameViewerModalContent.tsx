@@ -158,7 +158,13 @@ export default function FrameViewerModalContent({ open, props, setProps }: Props
                         backgroundColor: frame.button.action.splashBackgroundColor,
                     }}
                 >
-                    <Image alt={frame.button.title} width={80} height={80} src={frame.button.action.splashImageUrl} />
+                    <Image
+                        alt={frame.button.title}
+                        width={80}
+                        height={80}
+                        src={frame.button.action.splashImageUrl}
+                        fallback="avatar"
+                    />
                 </div>
             ) : null}
         </>
