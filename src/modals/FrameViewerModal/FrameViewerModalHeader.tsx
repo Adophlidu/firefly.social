@@ -1,14 +1,13 @@
-import { delay, parseJson, parseUrl } from '@dimensiondev/utils';
+import { delay, parseUrl } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { CloseButton } from '@/components/IconButton.js';
 import { Image } from '@/components/Image.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
-import { NetworkType, Source } from '@/constants/enum.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { NetworkType } from '@/constants/enum.js';
+import { useFrameAuthor } from '@/hooks/frame/useFrameAuthor.js';
 import type { FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
@@ -38,20 +37,7 @@ export function FrameViewerModalHeader({ props, setProps, onClose }: FrameViewer
     const { frame } = props;
     const u = parseUrl(frame.button.action.url);
 
-    const authorFid = useMemo(() => {
-        if (!frame.x_manifest?.accountAssociation?.header) return null;
-        const raw = atob(frame.x_manifest.accountAssociation.header);
-        return parseJson<{ fid: number }>(raw)?.fid.toString();
-    }, [frame]);
-    const { data: author } = useQuery({
-        enabled: !!authorFid,
-        queryKey: ['profile', Source.Farcaster, authorFid],
-        queryFn: () => {
-            if (!authorFid) return null;
-            const provider = resolveSocialMediaProvider(Source.Farcaster);
-            return provider.getProfileById(authorFid, true);
-        },
-    });
+    const { data: author } = useFrameAuthor(frame);
 
     return (
         <div className="flex h-[60px] items-center justify-between bg-lightBg px-4 py-3 text-black dark:bg-fireflyBrand dark:text-white">

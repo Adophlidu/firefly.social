@@ -1,7 +1,7 @@
 'use client';
 
 import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
-import { bom } from '@dimensiondev/utils';
+import { bom, parseUrl } from '@dimensiondev/utils';
 import { exposeToIframe, type ReadyOptions } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'react';
@@ -11,6 +11,7 @@ import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/com
 import { GhostError } from '@/app/(whiteboard)/components/GhostError.js';
 import FireflyLogo from '@/assets/firefly.logo.svg';
 import { Image } from '@/components/Image.js';
+import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { IS_IOS } from '@/constants/browser.js';
 import { EIP6963_PROVIDER_DESCRIPTION, IS_DEVELOPMENT } from '@/constants/index.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
@@ -19,6 +20,7 @@ import { eip5792Polyfill } from '@/helpers/eip5792Polyfill.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { frameSwapToken } from '@/helpers/frameSwapToken.js';
 import { waitForWebviewDidLoadEvent } from '@/helpers/waitForWebviewDidLoadEvent.js';
+import { useFrameAuthor } from '@/hooks/frame/useFrameAuthor.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
 import {
     RelayConfirmationPopover,
@@ -121,6 +123,8 @@ export default function Page(props: Props) {
     const frameRef = useRef<HTMLIFrameElement | null>(null);
     const { frame, frameHost } = value ?? {};
 
+    const { data: author } = useFrameAuthor(frame);
+
     useEffect(() => {
         if (!supported) return;
         if (!frameRef.current) return;
@@ -180,11 +184,42 @@ export default function Page(props: Props) {
             </FramePage>
         );
     }
+    const u = frame?.x_url ? parseUrl(frame.x_url) : null;
 
     return (
         <FramePage>
             <FramePageTitle frame={frame} onClose={onClose} onReload={onReload} onSwitchWallet={onSwitchWallet}>
-                {frame ? frame.button.action.name : <Trans>Loading...</Trans>}
+                {frame ? (
+                    <>
+                        {frame.x_manifest?.frame.iconUrl ? (
+                            <Image
+                                src={frame.x_manifest?.frame.iconUrl}
+                                alt={frame.button.title}
+                                width={24}
+                                height={24}
+                                className="rounded-md"
+                            />
+                        ) : null}
+                        <div className={frame.x_manifest?.frame.iconUrl ? 'text-left' : ''}>
+                            <h2 className="font-bold">{frame.x_manifest?.frame.name || frame.button.action.name}</h2>
+                            {author ? (
+                                <div className="flex gap-1 text-xs text-secondary">
+                                    <Trans>by {author.fullHandle || author.displayName}</Trans>
+                                    <ProfileVerifyBadge
+                                        className="flex shrink-0 items-center space-x-1"
+                                        profile={author}
+                                    />
+                                </div>
+                            ) : u ? (
+                                <div className="text-sm text-secondary">{u.host}</div>
+                            ) : null}
+                        </div>
+                    </>
+                ) : (
+                    <span className="text-xs text-second">
+                        <Trans>Loading...</Trans>
+                    </span>
+                )}
             </FramePageTitle>
             <FramePageBody>
                 {!ready || loading || loadingSupported ? (
