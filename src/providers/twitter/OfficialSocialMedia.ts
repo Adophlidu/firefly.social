@@ -163,8 +163,8 @@ class OfficialSocialMedia implements Provider {
     ): Promise<Pageable<Profile, PageIndicator>> {
         const pageNo = indicator?.id ? Number.parseInt(indicator.id, 10) : 1;
         const res = await FireflyEndpointProvider.getTwitterTopPeople(indicator, locale);
-        const data = res.items.map((x) => formatTwitterProfileFromRootdata(x));
-        const nextIndicator = res.items ? createNextIndicator(indicator, `${pageNo + 1}`) : undefined;
+        const data = res.items.filter((x) => x.people_detail.x_id).map((x) => formatTwitterProfileFromRootdata(x));
+        const nextIndicator = res.items.length ? createNextIndicator(indicator, `${pageNo + 1}`) : undefined;
         if (twitterSessionHolder.session) {
             const profiles = await OfficialSocialMediaProvider.getProfilesByIds(data.map((x) => x.profileId));
             return createPageable(
