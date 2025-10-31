@@ -6,6 +6,11 @@ import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { parseJson } from '@dimensiondev/utils';
+
+interface TokenUriMetadata {
+    image: string;
+}
 
 export async function GET(request: NextRequest) {
     const id = request.nextUrl.searchParams.get('id');
@@ -20,8 +25,10 @@ export async function GET(request: NextRequest) {
             functionName: 'tokenURI',
         });
 
-        const jsonData = JSON.parse(Buffer.from((data as string).split(',')[1], 'base64').toString());
-        const base64Image = jsonData.image.split(';base64,').pop();
+        const jsonData = parseJson<TokenUriMetadata>(Buffer.from((data as string).split(',')[1], 'base64').toString());
+        const base64Image = jsonData?.image.split(';base64,').pop();
+        if (!base64Image) throw new Error('Image data not found in tokenURI');
+
         const svgImage = Buffer.from(base64Image, 'base64').toString('utf-8');
 
         return new Response(svgImage, {
