@@ -133,11 +133,7 @@ export function SuggestedFollowsCard() {
     return (
         <section>
             <AsideTitle
-                caption={
-                    <span className="text-xl">
-                        <Trans>You might like</Trans>
-                    </span>
-                }
+                caption={<Trans>You might like</Trans>}
                 more={
                     <Link href={showMoreUrl} className="text-medium text-highlight">
                         <Trans>More</Trans>

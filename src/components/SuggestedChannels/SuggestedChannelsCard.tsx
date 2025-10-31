@@ -39,16 +39,14 @@ export function SuggestedChannelsCard() {
         queryFn: () => fireflyInterface.getTrendingChannels(),
     });
 
-    if (isError || isLoading || !data?.length) return <SuggestedChannelsSkeleton />;
+    if (isError) return null;
+    if (isLoading) return <SuggestedChannelsSkeleton />;
+    if (!data?.length) return null;
 
     return (
         <section>
             <AsideTitle
-                caption={
-                    <span className="text-xl">
-                        <Trans>Trending Channels</Trans>
-                    </span>
-                }
+                caption={<Trans>Trending Channels</Trans>}
                 more={
                     <Link className="text-medium text-highlight" href={resolveExploreUrl(ExploreType.TopChannels)}>
                         <Trans>More</Trans>

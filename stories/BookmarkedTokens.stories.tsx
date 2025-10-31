@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { BookmarkedTokens } from '@/components/Token/BookmarkedTokens.js';
+import BookmarkedTokens from '@/components/Token/BookmarkedTokens.js';
 
 const meta = {
     title: 'Token/BookmarkedTokens',

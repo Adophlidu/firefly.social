@@ -1,32 +1,35 @@
 'use client';
 import { Trans } from '@lingui/react/macro';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import { memo } from 'react';
 
+import { AsideTitle } from '@/components/AsideTitle.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
+import AsideTokensSkeleton from '@/components/Token/AsideTokensSkeleton.js';
 import { Link } from '@/esm/Link.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 
-export function SideTrendingTokens() {
-    const { data, isFetching } = useSuspenseQuery({
+export default memo(function AsideTrendingTokens() {
+    const { data, isFetching } = useQuery({
         queryKey: ['side-trending-tokens'],
         queryFn: () => CoinGecko.getTopTrendingCoins(),
         select: (data) => data.slice(0, 5),
     });
 
-    if (!data.length && !isFetching) {
-        return null;
-    }
+    if (isFetching) return <AsideTokensSkeleton />;
+
+    if (!data?.length) return null;
 
     return (
         <div className="flex flex-col gap-2">
-            <div className="flex px-2">
-                <div className="text-xl font-bold leading-6 text-main">
-                    <Trans>Trending Token</Trans>
-                </div>
-                <Link href="/explore/tokens/trending" className="ml-auto text-medium font-bold text-highlight">
-                    <Trans>More</Trans>
-                </Link>
-            </div>
+            <AsideTitle
+                caption={<Trans>Trending Token</Trans>}
+                more={
+                    <Link href="/explore/tokens/trending" className="text-medium text-highlight">
+                        <Trans>More</Trans>
+                    </Link>
+                }
+            />
             <div>
                 {data.map((x) => (
                     <SearchableTokenItem
@@ -41,4 +44,4 @@ export function SideTrendingTokens() {
             </div>
         </div>
     );
-}
+});

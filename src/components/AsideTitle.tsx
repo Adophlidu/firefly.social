@@ -10,7 +10,7 @@ interface AsideTitleProps extends HTMLProps<HTMLHeadingElement> {
 export const AsideTitle = memo(function AsideTitle({ children, className, ...props }: AsideTitleProps) {
     return (
         <div className={classNames('flex items-center justify-between px-3 pb-4', className)}>
-            <h2 className={'text-lg font-bold leading-none'}>{props.caption}</h2>
+            <h2 className="text-xl font-bold leading-none">{props.caption}</h2>
             {props.more}
         </div>
     );
