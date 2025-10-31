@@ -84,7 +84,8 @@ export const MAX_FILE_SIZE_PER_VIDEO: Limitation = {
     [Source.Lens]: 1024 * 1024 * 1024, // 1GB
     [Source.Farcaster]: 1024 * 1024 * 1024, // 1GB
     [Source.Twitter]: 512 * 1024 * 1024, // 512MB
-    [Source.Bsky]: 50 * 1024 * 1024, // 50MB
+    // https://github.com/bluesky-social/social-app/blob/main/src/lib/constants.ts
+    [Source.Bsky]: 90 * 1024 * 1024, // 90MB
 };
 
 export const MIN_DURATION_PER_VIDEO: Limitation = {
@@ -98,7 +99,8 @@ export const MAX_DURATION_PER_VIDEO: Limitation = {
     [Source.Lens]: Infinity,
     [Source.Farcaster]: Infinity,
     [Source.Twitter]: Infinity,
-    [Source.Bsky]: 60,
+    // https://github.com/bluesky-social/social-app/blob/main/src/lib/constants.ts
+    [Source.Bsky]: 60 * 3, // 3 minutes
 };
 
 export const MIN_WIDTH_PER_VIDEO: Limitation = {
@@ -165,6 +167,7 @@ export const MAX_PROFILE_WEBSITE_SIZE: Limitation = {
     [Source.Bsky]: 0,
 };
 
+// https://github.com/bluesky-social/social-app/blob/main/src/lib/constants.ts
 export const BSKY_IMAGE_LIMITATION = {
     maxWidth: 2000,
     maxHeight: 2000,
