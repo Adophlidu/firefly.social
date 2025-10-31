@@ -19,10 +19,20 @@ export class EthereumWalletProvider implements EthereumProvider {
 
     selectedAddress = '';
     accounts: string[] = [];
+    stack = '';
+    #muted?: boolean = false;
 
-    async getWalletClient(silent?: boolean): Promise<Exclude<GetWalletClientReturnType, null>> {
+    constructor(muted?: boolean) {
+        this.#muted = muted;
+        this.stack = new Error().stack || 'unknown stack';
+    }
+    unmute() {
+        this.#muted = false;
+    }
+
+    async getWalletClient(): Promise<Exclude<GetWalletClientReturnType, null>> {
         if (this.#walletClient) return this.#walletClient;
-        const walletClient = await getWalletClientRequired(wagmiConfig, undefined, { silent });
+        const walletClient = await getWalletClientRequired(wagmiConfig, undefined, { silent: this.#muted });
         this.#walletClient = walletClient;
         return walletClient;
     }
@@ -86,8 +96,8 @@ export class EthereumWalletProvider implements EthereumProvider {
         return walletClient.request(args);
     }
 
-    async enable(silent?: boolean): Promise<void> {
-        const client = await this.getWalletClient(silent);
+    async enable(): Promise<void> {
+        const client = await this.getWalletClient();
         this.selectedAddress = client.account.address;
         this.accounts = [client.account.address];
     }
@@ -99,14 +109,23 @@ export class SolanaWalletProvider implements SolanaProvider {
     isPhantom = false;
     #listeners: Record<string, Set<(...args: any[]) => void>> = {};
     #unwatchFns: Array<() => void> = [];
+    #muted: boolean = false;
+
+    constructor(muted?: boolean) {
+        this.#muted = muted || false;
+    }
+
+    unmute() {
+        this.#muted = false;
+    }
 
     get publicKey() {
         return this.#publicKey!;
     }
 
-    protected async getProvider(silent?: boolean) {
+    protected async getProvider() {
         if (this.#provider && this.#publicKey) return this.#provider;
-        const provider = await getWalletAdaptorRequired({ silent });
+        const provider = await getWalletAdaptorRequired({ silent: this.#muted });
         this.#provider = provider;
         this.#publicKey = provider.publicKey;
         return provider;
@@ -122,8 +141,8 @@ export class SolanaWalletProvider implements SolanaProvider {
         throw new NotImplementedError();
     }
 
-    async connect(silent?: boolean) {
-        const provider = await this.getProvider(silent);
+    async connect() {
+        const provider = await this.getProvider();
         this.#publicKey = provider.publicKey;
         this.#emit('connect', provider.publicKey);
         return { publicKey: provider.publicKey };

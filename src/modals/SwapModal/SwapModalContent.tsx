@@ -138,6 +138,7 @@ export const SwapModalContent = memo(function SwapModalContent({
                                 x.chainIds.push(SOLANA_CHAIN_ID_IN_OKX.toString());
                             }
                         })}
+                        embed={embed}
                         providerType={providerType}
                         key={providerType}
                     />
@@ -166,8 +167,8 @@ function SwapModalContentWidget({ providerType, embed, ...props }: WidgetProps) 
         instanceRef.current.updateParams({ theme });
     }, [theme]);
 
-    const evmProvider = useMemo(() => new EthereumWalletProvider(), []);
-    const solanaProvider = useMemo(() => new SolanaWalletProvider(), []);
+    const evmProvider = useMemo(() => new EthereumWalletProvider(embed), [embed]);
+    const solanaProvider = useMemo(() => new SolanaWalletProvider(embed), [embed]);
 
     useEffect(() => {
         if (!widgetRef) return;
@@ -204,10 +205,11 @@ function SwapModalContentWidget({ providerType, embed, ...props }: WidgetProps) 
         };
 
         const connectWallet = () => {
+            if (embed) provider.unmute();
             if (isEvm) {
-                evmProvider.enable(!embed);
+                evmProvider.enable();
             } else {
-                solanaProvider.connect(!embed);
+                solanaProvider.connect();
             }
         };
         const instance = createOkxSwapWidget(widgetRef, {
