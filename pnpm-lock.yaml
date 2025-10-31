@@ -430,9 +430,6 @@ importers:
       '@tailwindcss/forms':
         specifier: ^0.5.10
         version: 0.5.10(tailwindcss@3.4.17)
-      '@tanstack/react-query-devtools':
-        specifier: ^5.85.5
-        version: 5.85.5(@tanstack/react-query@5.85.5)(react@19.0.0)
       '@testing-library/react':
         specifier: ^16.3.0
         version: 16.3.0(@testing-library/dom@10.4.1)(@types/react-dom@19.0.2)(@types/react@19.0.2)(react-dom@19.0.0)(react@19.0.0)
@@ -9293,26 +9290,12 @@ packages:
 
   /@tanstack/query-core@5.85.5:
     resolution: {integrity: sha512-KO0WTob4JEApv69iYp1eGvfMSUkgw//IpMnq+//cORBzXf0smyRwPLrUvEe5qtAEGjwZTXrjxg+oJNP/C00t6w==}
-
-  /@tanstack/query-devtools@5.84.0:
-    resolution: {integrity: sha512-fbF3n+z1rqhvd9EoGp5knHkv3p5B2Zml1yNRjh7sNXklngYI5RVIWUrUjZ1RIcEoscarUb0+bOvIs5x9dwzOXQ==}
-    dev: true
+    dev: false
 
   /@tanstack/ranger@0.0.3:
     resolution: {integrity: sha512-RYpW7MnEMxKLuskfadeyBfxpU8cUTGrtp5TnCV9PKEgMfrR6vwlk9/1/eU2EvJfYZbDAr1inphL4TGWCcRLAXQ==}
     engines: {node: '>=12'}
     dev: false
-
-  /@tanstack/react-query-devtools@5.85.5(@tanstack/react-query@5.85.5)(react@19.0.0):
-    resolution: {integrity: sha512-6Ol6Q+LxrCZlQR4NoI5181r+ptTwnlPG2t7H9Sp3klxTBhYGunONqcgBn2YKRPsaKiYM8pItpKMdMXMEINntMQ==}
-    peerDependencies:
-      '@tanstack/react-query': 5.85.5
-      react: 19.0.0
-    dependencies:
-      '@tanstack/query-devtools': 5.84.0
-      '@tanstack/react-query': 5.85.5(react@19.0.0)
-      react: 19.0.0
-    dev: true
 
   /@tanstack/react-query-next-experimental@5.85.5(@tanstack/react-query@5.85.5)(next@15.4.7)(react@19.0.0):
     resolution: {integrity: sha512-DX4VQOA16UYPRy/xUOU9U6CNr+p7SQ83G1fkPECPsgnAIsz2/Qm5jNgKX6nR37v0BvIIq8gY4ejYAJynEV1V5A==}
@@ -9333,6 +9316,7 @@ packages:
     dependencies:
       '@tanstack/query-core': 5.85.5
       react: 19.0.0
+    dev: false
 
   /@tanstack/react-ranger@0.0.4(react@19.0.0):
     resolution: {integrity: sha512-3re8xKJ6t3j8eKp6pdKi92FQegsxHipTgsvg7k0DP+SRWt/iJ2F8GSm8DuQVLHiE3R7kX1Q42fQhmku1PdcWOA==}
@@ -20923,7 +20907,6 @@ time:
   /@svgr/webpack@8.1.0: '2023-08-15T06:46:24.158Z'
   /@swc/types@0.1.21: '2025-04-01T05:05:41.270Z'
   /@tailwindcss/forms@0.5.10: '2025-01-07T14:03:20.916Z'
-  /@tanstack/react-query-devtools@5.85.5: '2025-08-19T09:41:55.001Z'
   /@tanstack/react-query-next-experimental@5.85.5: '2025-08-19T09:42:03.166Z'
   /@tanstack/react-query@5.85.5: '2025-08-19T09:41:51.252Z'
   /@tanstack/react-ranger@0.0.4: '2023-11-24T09:24:06.987Z'
