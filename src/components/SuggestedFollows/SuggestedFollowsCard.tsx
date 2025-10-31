@@ -27,9 +27,9 @@ import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
+import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
-import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 
 const getSuggestedFollowersCached = memoizePromise(
     async (source: SocialSource, profileId?: string) => {

@@ -1,3 +1,4 @@
+import { parseJson } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 
 import { LensHubABI } from '@/abis/LensHub.js';
@@ -6,7 +7,6 @@ import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
-import { parseJson } from '@dimensiondev/utils';
 
 interface TokenUriMetadata {
     image: string;
