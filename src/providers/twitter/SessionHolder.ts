@@ -1,4 +1,4 @@
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 

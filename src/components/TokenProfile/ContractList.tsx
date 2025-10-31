@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { MenuItem, MenuItems, type MenuItemsProps } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { type CSSProperties, type HTMLProps, memo, type PropsWithChildren } from 'react';

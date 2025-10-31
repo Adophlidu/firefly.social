@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 
 import { getSingleNFTFeedItemContent } from '@/components/NFTs/VirtualListHelper.js';
 import { PolymarketActivityItem } from '@/components/Polymarket/PolymarketActivityItem.js';

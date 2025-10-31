@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 import { first, last } from 'lodash-es';
 
 const TLD_DOMAIN = [

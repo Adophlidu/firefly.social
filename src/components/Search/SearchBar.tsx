@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { type HTMLProps, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';

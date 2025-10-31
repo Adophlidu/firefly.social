@@ -1,5 +1,5 @@
-import { nativeBridgeProvider, SupportedMethod } from '@firefly/native-bridge';
-import { timeout } from '@firefly/utils';
+import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
+import { timeout } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';

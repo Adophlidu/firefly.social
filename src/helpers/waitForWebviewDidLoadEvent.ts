@@ -1,5 +1,5 @@
-import { nativeBridgeProvider, SupportedEvent } from '@firefly/native-bridge';
-import { delay } from '@firefly/utils';
+import { nativeBridgeProvider, SupportedEvent } from '@dimensiondev/native-bridge';
+import { delay } from '@dimensiondev/utils';
 
 export async function waitForWebviewDidLoadEvent(duration = 5_000): Promise<void> {
     await Promise.race([

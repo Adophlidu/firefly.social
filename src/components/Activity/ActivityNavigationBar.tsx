@@ -1,6 +1,6 @@
 'use client';
 
-import { nativeBridgeProvider } from '@firefly/native-bridge';
+import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
 import type { PropsWithChildren } from 'react';
 
 import { ActivityDesktopNavigationBar } from '@/components/Activity/ActivityDesktopNavigationBar.js';

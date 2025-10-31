@@ -1,4 +1,4 @@
-import { compose } from '@firefly/utils';
+import { compose } from '@dimensiondev/utils';
 import { NextRequest } from 'next/server.js';
 
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';

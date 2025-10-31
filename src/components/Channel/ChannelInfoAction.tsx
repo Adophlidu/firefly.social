@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 
 import { ChannelMoreAction } from '@/components/Channel/ChannelMoreAction.js';

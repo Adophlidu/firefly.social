@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';

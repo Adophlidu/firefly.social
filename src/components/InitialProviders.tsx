@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { memo, type ReactNode, useEffect, useLayoutEffect, useRef } from 'react';
 import { useEffectOnce } from 'react-use';

@@ -1,5 +1,5 @@
-import { nativeBridgeProvider, SupportedMethod } from '@firefly/native-bridge';
-import { createLookupTableResolver } from '@firefly/utils';
+import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
+import { createLookupTableResolver } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 

@@ -1,4 +1,4 @@
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 
 import { PageRoute, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';

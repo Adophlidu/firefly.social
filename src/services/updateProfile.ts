@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { produce } from 'immer';
 import { pickBy } from 'lodash-es';
 

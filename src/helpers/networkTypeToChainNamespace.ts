@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 
 import { NetworkType } from '@/constants/enum.js';
 import type { ChainNamespace } from '@/types/utility.js';

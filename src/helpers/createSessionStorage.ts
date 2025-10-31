@@ -1,4 +1,4 @@
-import { parseJson } from '@firefly/utils';
+import { parseJson } from '@dimensiondev/utils';
 import { z } from 'zod';
 import type { PersistStorage } from 'zustand/middleware';
 

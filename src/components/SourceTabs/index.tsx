@@ -1,5 +1,5 @@
 'use client';
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { type HTMLProps, type PropsWithChildren } from 'react';
 
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';

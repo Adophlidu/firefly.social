@@ -5,7 +5,7 @@ import 'swiper/css/autoplay';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 

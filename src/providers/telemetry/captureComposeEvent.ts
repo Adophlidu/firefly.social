@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 
 import { UnreachableError } from '@/constants/error.js';

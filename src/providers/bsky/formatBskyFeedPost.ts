@@ -9,7 +9,7 @@ import {
     AppBskyFeedThreadgate,
     RichText,
 } from '@atproto/api';
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 import { produce } from 'immer';
 import { compact, first, isUndefined, omitBy } from 'lodash-es';
 

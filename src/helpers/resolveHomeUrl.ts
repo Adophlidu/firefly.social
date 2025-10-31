@@ -1,4 +1,4 @@
-import { unreachable } from '@firefly/utils';
+import { unreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { HomeTab, PageRoute, Source } from '@/constants/enum.js';

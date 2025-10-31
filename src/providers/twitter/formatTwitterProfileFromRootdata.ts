@@ -1,4 +1,4 @@
-import { assert } from '@firefly/utils';
+import { assert } from '@dimensiondev/utils';
 
 import { Source } from '@/constants/enum.js';
 import { TWITTER_MENTION_REGEX } from '@/constants/regexp.js';

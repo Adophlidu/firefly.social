@@ -1,4 +1,4 @@
-import { bom, parseJson } from '@firefly/utils';
+import { bom, parseJson } from '@dimensiondev/utils';
 import { z } from 'zod';
 
 import { LENS_TOKEN_STORAGE_KEY } from '@/constants/index.js';

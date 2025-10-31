@@ -1,5 +1,5 @@
 import { EventPayload, RequestArguments, SupportedEvent, ResponseResult, SupportedMethod } from '@/types';
-import { bom, parseJson, timeout } from '@firefly/utils';
+import { bom, parseJson, timeout } from '@dimensiondev/utils';
 import { uniqueId } from 'lodash-es';
 
 const REQUEST_ONLY_METHODS = [

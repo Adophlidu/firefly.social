@@ -1,4 +1,4 @@
-import { assert } from '@firefly/utils';
+import { assert } from '@dimensiondev/utils';
 import { type Address } from 'viem';
 
 import { RED_PACKETS } from '@/constants/rp.js';

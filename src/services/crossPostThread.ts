@@ -1,4 +1,4 @@
-import { delay, safeUnreachable } from '@firefly/utils';
+import { delay, safeUnreachable } from '@dimensiondev/utils';
 import { plural, t } from '@lingui/core/macro';
 import { compact, difference, first } from 'lodash-es';
 

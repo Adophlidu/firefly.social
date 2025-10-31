@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { BigNumber } from 'bignumber.js';
 import { type HTMLProps, useMemo } from 'react';
 

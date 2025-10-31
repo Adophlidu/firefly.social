@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { cloneElement, type HTMLProps, type ReactElement, type ReactNode, useMemo } from 'react';
 

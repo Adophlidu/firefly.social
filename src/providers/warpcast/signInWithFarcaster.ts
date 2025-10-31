@@ -1,5 +1,5 @@
+import { parseUrl } from '@dimensiondev/utils';
 import type { SignInOptions } from '@farcaster/miniapp-host';
-import { parseUrl } from '@firefly/utils';
 import { type Address, checksumAddress, toHex } from 'viem';
 
 import { SITE_URL } from '@/constants/index.js';

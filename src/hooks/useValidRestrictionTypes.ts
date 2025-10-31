@@ -1,4 +1,4 @@
-import { getEnumAsArray } from '@firefly/utils';
+import { getEnumAsArray } from '@dimensiondev/utils';
 import { useMemo } from 'react';
 
 import { RestrictionType, type SocialSource } from '@/constants/enum.js';

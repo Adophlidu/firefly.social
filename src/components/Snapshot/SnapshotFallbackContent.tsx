@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { Tab } from '@headlessui/react';
 import { IS_APPLE, IS_SAFARI } from '@lexical/utils';
 import { Trans } from '@lingui/react/macro';

@@ -1,4 +1,4 @@
-import { delay } from '@firefly/utils';
+import { delay } from '@dimensiondev/utils';
 import type { UploadMediaV1Params } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 

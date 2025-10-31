@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { Source } from '@/constants/enum.js';

@@ -1,4 +1,4 @@
-import { classNames, safeUnreachable } from '@firefly/utils';
+import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 import dayjs from 'dayjs';

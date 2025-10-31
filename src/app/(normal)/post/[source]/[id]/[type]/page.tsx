@@ -1,6 +1,6 @@
 'use client';
 
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { memo, Suspense, use } from 'react';
 
 import { LikeList } from '@/components/Engagement/LikeList.js';

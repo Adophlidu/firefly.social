@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { STATUS } from '@/constants/enum.js';

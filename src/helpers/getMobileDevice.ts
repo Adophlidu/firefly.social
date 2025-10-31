@@ -1,4 +1,4 @@
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 /**
  * Determine the mobile operating system.
  */

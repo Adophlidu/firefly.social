@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 
 import { FRAME_DEV_SERVER_URL, FRAME_SERVER_URL } from '@/constants/index.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

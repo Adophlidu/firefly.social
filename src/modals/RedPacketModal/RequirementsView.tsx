@@ -1,4 +1,4 @@
-import { getEnumAsArray } from '@firefly/utils';
+import { getEnumAsArray } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 import { Fragment, memo, useCallback, useContext, useState } from 'react';

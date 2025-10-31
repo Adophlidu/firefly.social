@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';

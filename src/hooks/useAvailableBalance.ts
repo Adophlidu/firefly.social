@@ -1,6 +1,6 @@
 'use client';
 
-import { unreachable } from '@firefly/utils';
+import { unreachable } from '@dimensiondev/utils';
 import type { Address } from 'viem';
 
 import { NetworkType } from '@/constants/enum.js';

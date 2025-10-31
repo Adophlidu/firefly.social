@@ -1,4 +1,4 @@
-import { delay } from '@firefly/utils';
+import { delay } from '@dimensiondev/utils';
 import { useState } from 'react';
 
 import { Loading } from '@/components/Loading.js';

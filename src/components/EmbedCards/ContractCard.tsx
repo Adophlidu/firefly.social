@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { memo } from 'react';
 
 import { TokenCard } from '@/components/EmbedCards/TokenCard.js';

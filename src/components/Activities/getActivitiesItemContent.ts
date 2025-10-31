@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 
 import { getArticleItemContent } from '@/components/VirtualList/getArticleItemContent.js';
 import { getSnapshotItemContent } from '@/components/VirtualList/getSnapshotItemContent.js';

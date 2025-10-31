@@ -1,5 +1,5 @@
 'use client';
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';

@@ -1,4 +1,4 @@
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 
 function memoizePromise<T extends (...args: unknown[]) => Promise<unknown>>(
     func: T,

@@ -1,5 +1,5 @@
 'use client';
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { jwtDecode } from 'jwt-decode';
 

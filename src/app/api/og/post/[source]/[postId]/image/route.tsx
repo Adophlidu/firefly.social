@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { compose } from '@firefly/utils';
+import { compose } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';

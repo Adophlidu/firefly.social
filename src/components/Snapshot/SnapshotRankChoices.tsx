@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { Reorder } from 'framer-motion';
 import { memo } from 'react';
 

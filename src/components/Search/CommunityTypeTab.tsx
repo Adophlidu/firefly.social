@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, getEnumAsArray } from '@firefly/utils';
+import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import type { HTMLProps } from 'react';
 

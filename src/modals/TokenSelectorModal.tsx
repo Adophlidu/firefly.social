@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';

@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@firefly/utils';
+import { createLookupTableResolver } from '@dimensiondev/utils';
 
 import { ConnectionPlatform, type ProfileSource, Source, SourceInURL } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';

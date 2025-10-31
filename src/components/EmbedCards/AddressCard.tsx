@@ -1,4 +1,4 @@
-import { classNames, safeUnreachable } from '@firefly/utils';
+import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useLayoutEffect } from 'react';
 

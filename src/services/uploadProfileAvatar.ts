@@ -1,4 +1,4 @@
-import { unreachable } from '@firefly/utils';
+import { unreachable } from '@dimensiondev/utils';
 
 import { type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';

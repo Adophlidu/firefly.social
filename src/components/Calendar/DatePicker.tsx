@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { addMonths, endOfMonth, format, startOfMonth } from 'date-fns';
 import { range } from 'lodash-es';
 import { useState } from 'react';

@@ -1,4 +1,4 @@
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 import { cookies, headers } from 'next/headers.js';
 import { use } from 'react';
 

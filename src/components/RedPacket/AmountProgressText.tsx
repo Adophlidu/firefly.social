@@ -1,4 +1,4 @@
-import { hexToRGBA } from '@firefly/utils';
+import { hexToRGBA } from '@dimensiondev/utils';
 
 import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { formatBalance } from '@/helpers/formatBalance.js';

@@ -1,5 +1,5 @@
-import { nativeBridgeProvider } from '@firefly/native-bridge';
-import { type Mention, type RequestArguments, SupportedMethod } from '@firefly/native-bridge';
+import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
+import { type Mention, type RequestArguments, SupportedMethod } from '@dimensiondev/native-bridge';
 import { useCallback } from 'react';
 
 import { ComposeModalRef } from '@/modals/ComposeModal.js';

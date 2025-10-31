@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 import { type HTMLProps, useEffect, useRef, useState } from 'react';
 

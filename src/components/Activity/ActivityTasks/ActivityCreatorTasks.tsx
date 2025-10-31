@@ -1,7 +1,7 @@
 'use client';
 
-import { nativeBridgeProvider } from '@firefly/native-bridge';
-import { classNames } from '@firefly/utils';
+import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
+import { classNames } from '@dimensiondev/utils';
 import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';

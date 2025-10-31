@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { getAccount } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';

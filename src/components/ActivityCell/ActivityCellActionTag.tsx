@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { cloneElement, type HTMLProps, type PropsWithChildren, type ReactElement } from 'react';
 
 interface Props extends HTMLProps<'div'> {

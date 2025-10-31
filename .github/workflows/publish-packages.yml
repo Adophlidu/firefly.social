@@ -1,0 +1,109 @@
+name: Publish Packages
+
+on:
+    push:
+        tags:
+            - 'packages@*'
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Authenticate NPM
+              uses: DimensionDev/github-token-action@latest
+              with:
+                  registry: true
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.node-version'
+                  registry-url: 'https://npm.pkg.github.com'
+                  scope: '@dimensiondev'
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Build packages
+              run: pnpm run packages:build
+
+            - name: Publish packages
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+                      VERSION="${{ github.event.inputs.version }}"
+                      PACKAGE="${{ github.event.inputs.package }}"
+                      
+                      if [ -n "$PACKAGE" ]; then
+                          # Publish specific package
+                          PACKAGE_DIR=$(echo $PACKAGE | cut -d'/' -f2)
+                          cd packages/$PACKAGE_DIR
+                          
+                          # Bump version (major, minor, patch, or specific version)
+                          npm version $VERSION --no-git-tag-version
+                          
+                          # Publish
+                          cd ../..
+                          pnpm --filter "$PACKAGE" publish --no-git-checks
+                      else
+                          # Publish all packages - bump version first
+                          pnpm -r --filter './packages/*' exec -- npm version $VERSION --no-git-tag-version || true
+                          # Then publish all
+                          pnpm -r --filter './packages/*' publish --no-git-checks
+                      fi
+                  else
+                      # Publish from tag (format: packages@0.1.0)
+                      TAG_NAME="${{ github.ref_name }}"
+                      VERSION=$(echo $TAG_NAME | sed 's/packages@//')
+                      
+                      # Set version for all packages
+                      pnpm -r --filter './packages/*' exec -- npm version $VERSION --no-git-tag-version || true
+                      # Publish all packages
+                      pnpm -r --filter './packages/*' publish --no-git-checks
+                  fi
+
+            - name: Create Git tag and push (if manual dispatch)
+              if: github.event_name == 'workflow_dispatch'
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  if [ "${{ github.event.inputs.version }}" = "" ]; then
+                      exit 0
+                  fi
+
+                  VERSION="${{ github.event.inputs.version }}"
+                  PACKAGE="${{ github.event.inputs.package }}"
+
+                  if [ -n "$PACKAGE" ]; then
+                      PACKAGE_NAME=$(echo $PACKAGE | cut -d'/' -f2)
+                      NEW_VERSION=$(node -p "require('./packages/$PACKAGE_NAME/package.json').version")
+                      git config user.name "github-actions[bot]"
+                      git config user.email "github-actions[bot]@users.noreply.github.com"
+                      git add packages/$PACKAGE_NAME/package.json
+                      git commit -m "chore: bump $PACKAGE to $NEW_VERSION" || exit 0
+                      git tag "$PACKAGE_NAME@$NEW_VERSION" || true
+                      git push origin main --follow-tags || true
+                  else
+                      # Get version from first package
+                      NEW_VERSION=$(node -p "require('./packages/utils/package.json').version")
+                      git config user.name "github-actions[bot]"
+                      git config user.email "github-actions[bot]@users.noreply.github.com"
+                      git add packages/*/package.json
+                      git commit -m "chore: bump packages to $NEW_VERSION" || exit 0
+                      git tag "packages@$NEW_VERSION" || true
+                      git push origin main --follow-tags || true
+                  fi

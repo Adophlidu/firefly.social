@@ -1,5 +1,5 @@
 import type { BlobRef } from '@atproto/api';
-import { delay, parseUrl } from '@firefly/utils';
+import { delay, parseUrl } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { FileMimeType } from '@/constants/enum.js';

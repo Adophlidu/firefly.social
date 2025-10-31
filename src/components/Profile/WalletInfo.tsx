@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, safeUnreachable } from '@firefly/utils';
+import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 

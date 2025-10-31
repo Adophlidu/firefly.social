@@ -1,4 +1,4 @@
-import { parseJson, parseUrl } from '@firefly/utils';
+import { parseJson, parseUrl } from '@dimensiondev/utils';
 import { first, isEmpty } from 'lodash-es';
 
 import { FetchError } from '@/constants/error.js';

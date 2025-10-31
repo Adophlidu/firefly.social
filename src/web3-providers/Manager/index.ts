@@ -1,4 +1,4 @@
-import { unreachable } from '@firefly/utils';
+import { unreachable } from '@dimensiondev/utils';
 
 import { NetworkPluginID } from '@/constants/enum.js';
 import type { Web3Helper } from '@/web3-helpers/index.js';

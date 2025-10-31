@@ -1,4 +1,4 @@
-import { compose } from '@firefly/utils';
+import { compose } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import type { NextRequest } from 'next/server.js';
 import { type Hex } from 'viem';

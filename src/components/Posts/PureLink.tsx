@@ -1,4 +1,4 @@
-import { classNames, parseUrl } from '@firefly/utils';
+import { classNames, parseUrl } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
 import PureLinkIcon from '@/assets/pure-link.svg';

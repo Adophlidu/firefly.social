@@ -1,4 +1,4 @@
-import { isMilliseconds, isUnix } from '@firefly/utils';
+import { isMilliseconds, isUnix } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 
 import { formatDate } from '@/helpers/formatTimestamp.js';

@@ -1,6 +1,6 @@
 /* eslint-disable react/no-danger */
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 
 interface PlayerProps {
     html: string;

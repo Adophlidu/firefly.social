@@ -1,4 +1,4 @@
-import { compose } from '@firefly/utils';
+import { compose } from '@dimensiondev/utils';
 import { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';

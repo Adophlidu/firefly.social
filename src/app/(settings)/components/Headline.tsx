@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import type { HTMLProps } from 'react';
 
 interface HeadlineProps extends HTMLProps<HTMLDivElement> {

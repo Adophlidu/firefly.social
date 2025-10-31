@@ -1,6 +1,6 @@
 import '@/assets/css/notification.css';
 
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 

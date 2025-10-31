@@ -1,6 +1,6 @@
 'use server';
 
-import { parseJson, safeUnreachable } from '@firefly/utils';
+import { parseJson, safeUnreachable } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 import { type Hex, hexToBytes } from 'viem';
 

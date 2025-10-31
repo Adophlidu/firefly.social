@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { type HTMLProps, type ReactNode } from 'react';
 
 import ComeBackIcon from '@/assets/comeback.svg';

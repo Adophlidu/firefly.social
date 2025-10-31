@@ -1,4 +1,4 @@
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 import { find } from 'lodash-es';
 
 import { getLocaleFromCookies } from '@/helpers/getCookies.js';

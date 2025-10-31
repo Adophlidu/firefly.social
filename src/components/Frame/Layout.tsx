@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import type { ReactNode } from 'react';
 
 import { FrameLayout as FrameLayoutV1 } from '@/components/Frame/V1/Layout.js';

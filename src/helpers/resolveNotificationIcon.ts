@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@firefly/utils';
+import { createLookupTableResolver } from '@dimensiondev/utils';
 import { type FunctionComponent, type SVGAttributes } from 'react';
 
 import CollectIcon from '@/assets/collect-large.svg';

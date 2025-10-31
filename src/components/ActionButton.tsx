@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';

@@ -1,4 +1,4 @@
-import { compose, parseJson } from '@firefly/utils';
+import { compose, parseJson } from '@dimensiondev/utils';
 import { NextRequest } from 'next/server.js';
 import type { UploadMediaV1Params } from 'twitter-api-v2';
 import { z } from 'zod';

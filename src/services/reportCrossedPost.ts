@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@firefly/utils';
+import { createLookupTableResolver } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';

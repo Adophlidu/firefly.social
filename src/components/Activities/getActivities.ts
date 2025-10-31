@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 
 import { resolveArticlePlatform } from '@/components/Activities/resolveArticlePlatform.js';

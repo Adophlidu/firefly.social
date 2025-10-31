@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 
 import { UnreachableError } from '@/constants/error.js';
 import type { BskySession } from '@/providers/bsky/Session.js';

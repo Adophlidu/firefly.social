@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { polygon } from 'viem/chains';
 
 import { Source } from '@/constants/enum.js';

@@ -1,4 +1,4 @@
-import { parseJson } from '@firefly/utils';
+import { parseJson } from '@dimensiondev/utils';
 import type { Hex } from 'viem';
 
 import { type MirrorPayload, PayloadType } from '@/types/og.js';

@@ -1,6 +1,6 @@
 'use client';
 
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { Plural, Select, Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { first, uniqBy } from 'lodash-es';

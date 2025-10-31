@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { omitBy } from 'lodash-es';
 import type { HTMLProps, ReactNode } from 'react';
 

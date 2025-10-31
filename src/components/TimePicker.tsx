@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { memo, useRef } from 'react';
 import { useMount } from 'react-use';
 

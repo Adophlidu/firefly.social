@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { type ChangeEvent, memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import { METRICS_PASSWORD_LENGTH, SESSION_PASSWORD_INPUT_ID } from '@/constants/index.js';

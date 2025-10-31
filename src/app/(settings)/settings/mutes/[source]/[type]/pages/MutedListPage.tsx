@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { type ReactNode, Suspense } from 'react';
 
 import { MutedWallets } from '@/app/(settings)/components/MutedWallets.js';

@@ -2,7 +2,7 @@
 
 import '@/assets/css/signup.css';
 
-import { delay, safeUnreachable } from '@firefly/utils';
+import { delay, safeUnreachable } from '@dimensiondev/utils';
 import { AnimatePresence } from 'framer-motion';
 import { useCallback, useRef, useState } from 'react';
 

@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { Fragment, type HTMLProps, memo } from 'react';
 
 import DangerIcon from '@/assets/danger.svg';

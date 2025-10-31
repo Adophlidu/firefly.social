@@ -1,4 +1,4 @@
-import { classNames, delay } from '@firefly/utils';
+import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useRouteContext } from '@tanstack/react-router';
 import { useCallback } from 'react';

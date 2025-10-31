@@ -1,4 +1,4 @@
-import { delay } from '@firefly/utils';
+import { delay } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { ConnectorNotConnectedError } from '@wagmi/core';
 import { first } from 'lodash-es';

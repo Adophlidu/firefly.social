@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';

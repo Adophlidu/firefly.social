@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 
 export function isSameOriginUrl(source: string | URL, target: string | URL) {
     const sourceUrl = typeof source === 'string' ? parseUrl(source) : source;

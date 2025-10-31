@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
 import { memo } from 'react';

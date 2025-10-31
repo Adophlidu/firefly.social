@@ -1,4 +1,4 @@
-import { parseJson } from '@firefly/utils';
+import { parseJson } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
 import { parseHtml } from '@/helpers/parseHtml.js';

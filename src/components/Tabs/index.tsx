@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { createContext, type HTMLProps, type PropsWithChildren, useContext, useMemo } from 'react';
 
 type Variant = 'default' | 'second' | 'solid' | 'subtle';

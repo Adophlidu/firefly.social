@@ -1,4 +1,4 @@
-import { bom, createLookupTableResolver } from '@firefly/utils';
+import { bom, createLookupTableResolver } from '@dimensiondev/utils';
 import { z } from 'zod';
 
 import { type SocialSource, Source } from '@/constants/enum.js';

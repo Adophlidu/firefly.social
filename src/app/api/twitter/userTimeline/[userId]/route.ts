@@ -1,4 +1,4 @@
-import { compose } from '@firefly/utils';
+import { compose } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 import { NextRequest } from 'next/server.js';
 

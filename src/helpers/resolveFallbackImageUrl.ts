@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@firefly/utils';
+import { createLookupTableResolver } from '@dimensiondev/utils';
 
 import { type LoginFallbackSource, Source } from '@/constants/enum.js';
 

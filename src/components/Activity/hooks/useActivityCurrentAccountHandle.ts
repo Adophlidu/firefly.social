@@ -1,5 +1,5 @@
-import { nativeBridgeProvider } from '@firefly/native-bridge';
-import { safeUnreachable } from '@firefly/utils';
+import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
+import { safeUnreachable } from '@dimensiondev/utils';
 
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
 import { type SocialSource, Source } from '@/constants/enum.js';

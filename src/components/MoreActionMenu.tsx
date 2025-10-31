@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { Menu, MenuButton, type MenuProps, Transition } from '@headlessui/react';
 import { Fragment, type MouseEvent, type ReactNode } from 'react';
 

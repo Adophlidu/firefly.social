@@ -1,5 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
-import { classNames, safeUnreachable } from '@firefly/utils';
+import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';

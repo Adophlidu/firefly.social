@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, type ReactNode } from 'react';
 

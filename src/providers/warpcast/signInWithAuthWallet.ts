@@ -1,6 +1,6 @@
+import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
+import { parseUrl } from '@dimensiondev/utils';
 import type { SignInOptions } from '@farcaster/miniapp-host';
-import { nativeBridgeProvider, SupportedMethod } from '@firefly/native-bridge';
-import { parseUrl } from '@firefly/utils';
 import { toHex } from 'viem';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';

@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@firefly/utils';
+import { createLookupTableResolver } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { type SocialSource, Source } from '@/constants/enum.js';

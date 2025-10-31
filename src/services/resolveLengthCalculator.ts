@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@firefly/utils';
+import { createLookupTableResolver } from '@dimensiondev/utils';
 import twitterText from 'twitter-text';
 
 import { type SocialSource, Source } from '@/constants/enum.js';

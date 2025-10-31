@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 
 interface AsideTitleProps extends HTMLProps<HTMLHeadingElement> {

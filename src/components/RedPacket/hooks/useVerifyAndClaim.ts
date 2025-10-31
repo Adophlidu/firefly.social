@@ -1,4 +1,4 @@
-import { unreachable } from '@firefly/utils';
+import { unreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 

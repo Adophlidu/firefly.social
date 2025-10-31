@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import type { HTMLProps, ReactNode } from 'react';
 
 import CheckIcon from '@/assets/check.svg';

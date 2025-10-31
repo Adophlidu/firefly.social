@@ -1,5 +1,5 @@
 'use client';
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { debounce } from 'lodash-es';
 import { useEffect, useState } from 'react';

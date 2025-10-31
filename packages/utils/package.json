@@ -1,5 +1,5 @@
 {
-    "name": "@firefly/utils",
+    "name": "@dimensiondev/utils",
     "version": "0.1.0",
     "description": "Shared utility functions for Firefly projects",
     "type": "module",

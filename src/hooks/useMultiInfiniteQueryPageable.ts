@@ -1,4 +1,4 @@
-import { delay, parseJson } from '@firefly/utils';
+import { delay, parseJson } from '@dimensiondev/utils';
 import { type InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 

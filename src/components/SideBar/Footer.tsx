@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, delay } from '@firefly/utils';
+import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
 import DoubleUser from '@/assets/double-user.svg';

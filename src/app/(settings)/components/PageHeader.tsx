@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import type { PropsWithChildren } from 'react';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';

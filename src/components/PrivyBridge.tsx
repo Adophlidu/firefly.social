@@ -1,7 +1,7 @@
 'use client';
 
 import { web3 } from '@coral-xyz/anchor';
-import { delay } from '@firefly/utils';
+import { delay } from '@dimensiondev/utils';
 import {
     type ConnectedWallet,
     type PrivyClientConfig,

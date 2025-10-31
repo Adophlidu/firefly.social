@@ -1,5 +1,5 @@
 'use client';
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { memo, type SVGProps } from 'react';
 
 import FarcasterIcon from '@/assets/farcaster-fill.svg';

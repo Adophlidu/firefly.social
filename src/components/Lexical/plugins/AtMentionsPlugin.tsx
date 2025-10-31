@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import type { AutoLinkNode } from '@lexical/link';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin.js';

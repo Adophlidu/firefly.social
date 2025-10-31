@@ -1,4 +1,4 @@
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 import { i18n as i18nCore, type Messages, setupI18n } from '@lingui/core';
 import { getI18n, setI18n } from '@lingui/react/server';
 import dayjs from 'dayjs';

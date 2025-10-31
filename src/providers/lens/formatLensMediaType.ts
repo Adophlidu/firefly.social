@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { MediaAudioType, MediaImageType, MediaVideoType } from '@lens-protocol/client';
 
 export function formatLensMediaAudioMimeType(type: MediaAudioType) {

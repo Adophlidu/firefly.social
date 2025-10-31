@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, parseUrl } from '@firefly/utils';
+import { classNames, parseUrl } from '@dimensiondev/utils';
 import type { ImageProps as NextImageProps } from 'next/image.js';
 import { memo, useState } from 'react';
 

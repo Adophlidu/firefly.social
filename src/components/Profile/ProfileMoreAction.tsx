@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { compact, sum } from 'lodash-es';

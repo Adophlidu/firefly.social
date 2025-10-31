@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { Plural } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
 

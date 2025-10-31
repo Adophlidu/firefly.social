@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, safeUnreachable } from '@firefly/utils';
+import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQueries } from '@tanstack/react-query';

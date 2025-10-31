@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { eachDayOfInterval, endOfWeek, startOfWeek } from 'date-fns';
 import { useMemo, useRef } from 'react';
 import { useClickAway } from 'react-use';

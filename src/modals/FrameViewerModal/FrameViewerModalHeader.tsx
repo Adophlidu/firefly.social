@@ -1,4 +1,4 @@
-import { delay, parseJson, parseUrl } from '@firefly/utils';
+import { delay, parseJson, parseUrl } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback, useMemo } from 'react';

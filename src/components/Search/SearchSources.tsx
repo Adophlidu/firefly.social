@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { memo, useMemo } from 'react';
 
 import { SourceNav } from '@/components/SourceNav/SourceNav.js';

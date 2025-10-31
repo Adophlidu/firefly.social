@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 import { LinkIcon } from '@heroicons/react/24/outline';
 import { skipToken, useQuery } from '@tanstack/react-query';
 

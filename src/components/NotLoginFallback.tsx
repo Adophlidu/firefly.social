@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, createLookupTableResolver } from '@firefly/utils';
+import { classNames, createLookupTableResolver } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 

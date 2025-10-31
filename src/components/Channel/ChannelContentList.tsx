@@ -1,6 +1,6 @@
 'use client';
 
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { memo } from 'react';
 
 import { ChannelFollowerList } from '@/components/Channel/ChannelFollowerList.js';

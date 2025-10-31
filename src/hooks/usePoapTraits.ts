@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 

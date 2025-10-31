@@ -1,4 +1,4 @@
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { AccountSuspendedError } from '@/constants/error.js';

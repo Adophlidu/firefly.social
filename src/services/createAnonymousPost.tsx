@@ -1,4 +1,4 @@
-import { delay, safeUnreachable, unreachable } from '@firefly/utils';
+import { delay, safeUnreachable, unreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';

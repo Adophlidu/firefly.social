@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 
 import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';

@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { Fragment, type PropsWithChildren, type ReactNode, useEffect, useRef, useState } from 'react';

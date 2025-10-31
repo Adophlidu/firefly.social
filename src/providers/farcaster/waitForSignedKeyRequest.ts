@@ -1,4 +1,4 @@
-import { delay } from '@firefly/utils';
+import { delay } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { AbortError } from '@/constants/error.js';

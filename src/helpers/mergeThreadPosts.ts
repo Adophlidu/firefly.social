@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, first, last, uniqBy } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';

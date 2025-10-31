@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { compose, safeUnreachable } from '@firefly/utils';
+import { compose, safeUnreachable } from '@dimensiondev/utils';
 import { compact, first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';

@@ -1,4 +1,4 @@
-import { parseUrl, safeUnreachable } from '@firefly/utils';
+import { parseUrl, safeUnreachable } from '@dimensiondev/utils';
 
 import { ExternalSiteDomain, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';

@@ -1,5 +1,5 @@
 {
-    "name": "@firefly/native-bridge",
+    "name": "@dimensiondev/native-bridge",
     "version": "0.1.0",
     "description": "Native bridge for Firefly webview integration (Android/iOS)",
     "type": "module",
@@ -35,7 +35,7 @@
         "access": "restricted"
     },
     "dependencies": {
-        "@firefly/utils": "workspace:^",
+        "@dimensiondev/utils": "workspace:^",
         "lodash-es": "^4.17.21"
     },
     "devDependencies": {

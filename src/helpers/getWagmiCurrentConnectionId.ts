@@ -1,4 +1,4 @@
-import { parseJson } from '@firefly/utils';
+import { parseJson } from '@dimensiondev/utils';
 
 export function getWagmiCurrentConnectionId() {
     const storage = localStorage.getItem('wagmi.store');

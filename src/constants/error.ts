@@ -1,4 +1,4 @@
-import { parseJson } from '@firefly/utils';
+import { parseJson } from '@dimensiondev/utils';
 
 import type { ProfileSource } from '@/constants/enum.js';
 import { parseHtml } from '@/helpers/parseHtml.js';

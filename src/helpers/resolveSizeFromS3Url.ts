@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 
 import { FIREFLY_S3_DOMAIN } from '@/constants/index.js';
 

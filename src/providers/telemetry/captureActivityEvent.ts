@@ -1,7 +1,7 @@
 'use client';
 
-import { nativeBridgeProvider } from '@firefly/native-bridge';
-import { createLookupTableResolver, parseUrl } from '@firefly/utils';
+import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
+import { createLookupTableResolver, parseUrl } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';

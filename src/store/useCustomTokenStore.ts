@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import type { Address } from 'viem';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';

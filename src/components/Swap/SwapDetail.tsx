@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { first } from 'lodash-es';

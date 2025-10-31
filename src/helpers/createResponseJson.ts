@@ -1,4 +1,4 @@
-import { parseJson } from '@firefly/utils';
+import { parseJson } from '@dimensiondev/utils';
 import type { ZodError } from 'zod';
 
 export function createResponseJson(data: unknown, init?: ResponseInit) {

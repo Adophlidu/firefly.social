@@ -1,4 +1,4 @@
-import { nativeBridgeProvider } from '@firefly/native-bridge';
+import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
 import { useAsyncRetry } from 'react-use';
 
 import { InvalidResultError } from '@/constants/error.js';

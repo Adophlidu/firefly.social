@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, parseUrl } from '@firefly/utils';
+import { classNames, parseUrl } from '@dimensiondev/utils';
 import type { LinkProps } from 'next/link.js';
 import { memo } from 'react';
 

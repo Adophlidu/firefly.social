@@ -1,4 +1,4 @@
-import { parseJson } from '@firefly/utils';
+import { parseJson } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 
 import type { FetchError } from '@/constants/error.js';

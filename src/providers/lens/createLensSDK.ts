@@ -1,4 +1,4 @@
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 import { type IStorageProvider, mainnet, PublicClient } from '@lens-protocol/client';
 
 import { LENS_TOKEN_STORAGE_KEY } from '@/constants/index.js';

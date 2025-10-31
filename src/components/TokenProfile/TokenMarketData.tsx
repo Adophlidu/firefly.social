@@ -1,6 +1,6 @@
 'use client';
 
-import { assert, classNames } from '@firefly/utils';
+import { assert, classNames } from '@dimensiondev/utils';
 import { i18n } from '@lingui/core';
 import { Plural, Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';

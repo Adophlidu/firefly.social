@@ -1,4 +1,4 @@
-import { safeUnreachable, unreachable } from '@firefly/utils';
+import { safeUnreachable, unreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 
 import { queryClient } from '@/configs/queryClient.js';

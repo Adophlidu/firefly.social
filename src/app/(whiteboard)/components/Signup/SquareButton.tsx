@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { motion } from 'framer-motion';
 
 import ButtonBg from '@/assets/button-bg.svg';

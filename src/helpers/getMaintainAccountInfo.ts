@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 
 import { Source, TipsDetailViewType } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';

@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, delay } from '@firefly/utils';
+import { classNames, delay } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';

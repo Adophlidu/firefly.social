@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';

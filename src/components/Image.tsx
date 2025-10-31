@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import type { ImageProps as NextImageProps } from 'next/image.js';
 import type { SyntheticEvent } from 'react';
 import { memo, useCallback, useEffect, useState } from 'react';

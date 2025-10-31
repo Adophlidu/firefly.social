@@ -1,6 +1,6 @@
 'use client';
 
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { use, useMemo } from 'react';
 

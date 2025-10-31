@@ -1,4 +1,4 @@
-import { unreachable } from '@firefly/utils';
+import { unreachable } from '@dimensiondev/utils';
 import { useContext } from 'react';
 
 import { useEthereumCreateRedPacketCallback } from '@/components/RedPacket/hooks/useEthereumCreateRedPacketCallback.js';

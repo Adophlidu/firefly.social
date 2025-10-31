@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 

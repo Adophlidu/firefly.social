@@ -1,6 +1,6 @@
-import { nativeBridgeProvider } from '@firefly/native-bridge';
-import { type Chain, Network, SupportedMethod, type Transaction } from '@firefly/native-bridge';
-import { squashCallback } from '@firefly/utils';
+import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
+import { type Chain, Network, SupportedMethod, type Transaction } from '@dimensiondev/native-bridge';
+import { squashCallback } from '@dimensiondev/utils';
 import { createInstance } from 'localforage';
 import { toHex } from 'viem';
 

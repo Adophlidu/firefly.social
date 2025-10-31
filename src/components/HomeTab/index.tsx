@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, getEnumAsArray } from '@firefly/utils';
+import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useMemo, useState } from 'react';

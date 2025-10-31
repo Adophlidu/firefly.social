@@ -1,5 +1,5 @@
 import { AnchorProvider, web3 } from '@coral-xyz/anchor';
-import { createLookupTableResolver } from '@firefly/utils';
+import { createLookupTableResolver } from '@dimensiondev/utils';
 
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';

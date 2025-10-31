@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
 import { DEFAULT_DID_SERVICE_URL } from '@/constants/bsky.js';

@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 import { type Analytics, getAnalytics, logEvent } from 'firebase/analytics';
 import { type FirebaseApp, type FirebaseOptions, initializeApp } from 'firebase/app';
 import { getMessaging, type Messaging, onMessage, type Unsubscribe } from 'firebase/messaging';

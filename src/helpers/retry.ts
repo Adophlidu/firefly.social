@@ -1,4 +1,4 @@
-import { delay } from '@firefly/utils';
+import { delay } from '@dimensiondev/utils';
 
 import { AbortError, InvalidResultError } from '@/constants/error.js';
 

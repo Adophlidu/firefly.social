@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 
 import { Markup } from '@/components/Markup/Markup.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { useMemo } from 'react';
 
 import { EditProfileButton } from '@/components/EditProfile/EditProfileButton.js';

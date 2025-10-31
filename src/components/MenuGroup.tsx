@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { MenuItems, type MenuItemsProps } from '@headlessui/react';
 
 import { stopEvent } from '@/helpers/stopEvent.js';

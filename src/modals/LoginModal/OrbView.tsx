@@ -1,5 +1,5 @@
 'use client';
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import type { AccessToken, IdToken, RefreshToken } from '@lens-protocol/client';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';

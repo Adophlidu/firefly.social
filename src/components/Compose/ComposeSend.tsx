@@ -1,4 +1,4 @@
-import { classNames, delay } from '@firefly/utils';
+import { classNames, delay } from '@dimensiondev/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import { ConnectorNotConnectedError } from '@wagmi/core';
 import { compact, values } from 'lodash-es';

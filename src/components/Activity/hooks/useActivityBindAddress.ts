@@ -1,4 +1,4 @@
-import { nativeBridgeProvider, Network, SupportedMethod } from '@firefly/native-bridge';
+import { nativeBridgeProvider, Network, SupportedMethod } from '@dimensiondev/native-bridge';
 import { t } from '@lingui/core/macro';
 import { useContext } from 'react';
 import { useAsyncFn } from 'react-use';

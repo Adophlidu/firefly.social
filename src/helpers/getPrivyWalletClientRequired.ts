@@ -1,4 +1,4 @@
-import { delay } from '@firefly/utils';
+import { delay } from '@dimensiondev/utils';
 import type { Config } from '@wagmi/core';
 import { getConnectors, getWalletClient } from 'wagmi/actions';
 

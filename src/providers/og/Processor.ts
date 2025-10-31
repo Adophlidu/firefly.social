@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';

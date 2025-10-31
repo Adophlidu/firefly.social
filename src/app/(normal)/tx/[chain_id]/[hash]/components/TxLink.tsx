@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { type PropsWithChildren, useMemo } from 'react';
 
 import { Link } from '@/esm/Link.js';

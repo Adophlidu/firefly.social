@@ -1,6 +1,6 @@
 'use client';
 
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 
 import { SearchChannelContent } from '@/app/(normal)/search/[...slug]/pages/SearchChannelContent.js';
 import { SearchCollectionContent } from '@/app/(normal)/search/[...slug]/pages/SearchCollectionContent.js';

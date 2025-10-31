@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { type CSSProperties, type ReactNode, type Ref, useState } from 'react';
 

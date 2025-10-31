@@ -1,6 +1,6 @@
 'use client';
 
-import { getEnumAsArray } from '@firefly/utils';
+import { getEnumAsArray } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { isServer } from '@tanstack/react-query';
 import { useMediaQuery } from 'usehooks-ts';

@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, safeUnreachable } from '@firefly/utils';
+import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import type { HTMLProps } from 'react';
 
 import VerifyIcon from '@/assets/verify.svg';

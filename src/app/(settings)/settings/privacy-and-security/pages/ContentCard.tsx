@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import type { PropsWithChildren, ReactNode } from 'react';
 
 export function ContentCard({

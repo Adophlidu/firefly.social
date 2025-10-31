@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { type HTMLProps, memo } from 'react';
 

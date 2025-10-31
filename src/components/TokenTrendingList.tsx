@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';

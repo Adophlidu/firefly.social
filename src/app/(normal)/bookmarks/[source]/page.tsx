@@ -1,6 +1,6 @@
 'use client';
 
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { Suspense, use } from 'react';
 
 import { ArticleBookmarkList } from '@/app/(normal)/bookmarks/ArticleBookmarkList.js';

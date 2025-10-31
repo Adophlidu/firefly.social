@@ -1,6 +1,6 @@
 import { uniqueId } from 'lodash-es';
 
-import { bom, timeout } from '@firefly/utils';
+import { bom, timeout } from '@dimensiondev/utils';
 import { getTargetWindow } from '@/getTargetWindow.js';
 import {
     IframeBridgeMethod,

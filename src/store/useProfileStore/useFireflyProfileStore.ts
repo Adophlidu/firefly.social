@@ -1,5 +1,5 @@
 'use client';
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 
 import { AsyncStatus, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';

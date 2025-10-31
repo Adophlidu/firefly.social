@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@firefly/utils';
+import { createLookupTableResolver } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 import { type Address, type Hex, zeroAddress } from 'viem';
 import { base, optimism, polygon, zora } from 'viem/chains';

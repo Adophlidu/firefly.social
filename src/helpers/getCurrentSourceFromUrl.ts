@@ -1,4 +1,4 @@
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 
 import { Source } from '@/constants/enum.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';

@@ -1,4 +1,4 @@
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 import { getAccount } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';

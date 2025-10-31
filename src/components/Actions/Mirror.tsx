@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, safeUnreachable } from '@firefly/utils';
+import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Menu, MenuButton as HeadlessMenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
 import { Plural, Trans } from '@lingui/react/macro';
 import { Fragment, memo, useMemo } from 'react';

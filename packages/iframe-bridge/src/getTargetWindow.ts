@@ -1,4 +1,4 @@
-import { bom, defer, timeout } from '@firefly/utils';
+import { bom, defer, timeout } from '@dimensiondev/utils';
 
 /**
  * Check if a window is fully loaded by waiting for the load event

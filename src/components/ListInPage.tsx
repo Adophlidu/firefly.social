@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
 import { useCallback, useRef } from 'react';
 import type { Components, StateSnapshot, VirtuosoHandle } from 'react-virtuoso';

@@ -1,6 +1,6 @@
 'use client';
 
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 

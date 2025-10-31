@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';

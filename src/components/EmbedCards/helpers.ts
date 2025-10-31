@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 import { compact, groupBy, uniqBy } from 'lodash-es';
 
 import { EMPTY_LIST } from '@/constants/index.js';

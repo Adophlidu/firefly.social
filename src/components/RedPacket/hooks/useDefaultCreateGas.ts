@@ -1,4 +1,4 @@
-import { unreachable } from '@firefly/utils';
+import { unreachable } from '@dimensiondev/utils';
 
 import { useEthereumDefaultGas } from '@/components/RedPacket/hooks/useEthereumDefaultGas.js';
 import { useSolanaDefaultGas } from '@/components/RedPacket/hooks/useSolanaDefaultGas.js';

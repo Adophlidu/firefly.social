@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 
 import { isFrameV1, isFrameV2 } from '@/helpers/frame.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';

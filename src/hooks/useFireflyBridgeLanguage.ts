@@ -1,6 +1,6 @@
 'use client';
 
-import { nativeBridgeProvider, SupportedMethod } from '@firefly/native-bridge';
+import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
 import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 

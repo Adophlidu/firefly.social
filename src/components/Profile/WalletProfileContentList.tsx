@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { memo } from 'react';
 
 import { ProfileActivities } from '@/components/Activities/ProfileActivities.js';

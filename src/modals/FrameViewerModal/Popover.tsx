@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 import { Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { Fragment, memo, type ReactNode } from 'react';

@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, createLookupTableResolver, delay } from '@firefly/utils';
+import { classNames, createLookupTableResolver, delay } from '@dimensiondev/utils';
 import {
     createOkxSwapWidget,
     type EthereumProvider,

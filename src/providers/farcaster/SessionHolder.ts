@@ -1,4 +1,4 @@
-import { nativeBridgeProvider, SupportedMethod } from '@firefly/native-bridge';
+import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
 
 import { fetchJson } from '@/helpers/fetchJson.js';
 import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';

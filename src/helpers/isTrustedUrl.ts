@@ -1,5 +1,5 @@
 // cspell: disable
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 import type { LinkProps } from 'next/link.js';
 
 const trustedHosts = [

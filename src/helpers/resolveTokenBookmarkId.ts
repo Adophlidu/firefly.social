@@ -1,4 +1,4 @@
-import { assert } from '@firefly/utils';
+import { assert } from '@dimensiondev/utils';
 
 import type { BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
 

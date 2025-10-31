@@ -1,4 +1,4 @@
-import { delay } from '@firefly/utils';
+import { delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 

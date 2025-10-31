@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { type ComponentType, memo } from 'react';
 import type { Options } from 'react-markdown';
 import ReactMarkdown from 'react-markdown';

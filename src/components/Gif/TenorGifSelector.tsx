@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { memo, Suspense, useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
 

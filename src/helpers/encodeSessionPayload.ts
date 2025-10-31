@@ -1,4 +1,4 @@
-import { parseJson } from '@firefly/utils';
+import { parseJson } from '@dimensiondev/utils';
 
 export function encodeAsciiPayload(payload: unknown) {
     return btoa(JSON.stringify(payload));

@@ -1,4 +1,4 @@
-import { createLookupTableResolver, safeUnreachable } from '@firefly/utils';
+import { createLookupTableResolver, safeUnreachable } from '@dimensiondev/utils';
 
 import { type LoginSource, type ProfileSource, Source } from '@/constants/enum.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';

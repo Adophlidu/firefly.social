@@ -1,4 +1,4 @@
-import { parseJson, parseUrl, safeUnreachable } from '@firefly/utils';
+import { parseJson, parseUrl, safeUnreachable } from '@dimensiondev/utils';
 import { z } from 'zod';
 
 import { UnreachableError } from '@/constants/error.js';

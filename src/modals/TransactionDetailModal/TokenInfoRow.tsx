@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import { type ReactNode, useMemo } from 'react';
 

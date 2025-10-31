@@ -1,6 +1,6 @@
 'use client';
 
-import { nativeBridgeProvider } from '@firefly/native-bridge';
+import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';

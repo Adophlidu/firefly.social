@@ -1,4 +1,4 @@
-import { classNames, getEnumAsArray } from '@firefly/utils';
+import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQueries } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';

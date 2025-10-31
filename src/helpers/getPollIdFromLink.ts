@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';

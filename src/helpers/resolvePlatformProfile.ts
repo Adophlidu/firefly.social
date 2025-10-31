@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 

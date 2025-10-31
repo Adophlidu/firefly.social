@@ -1,4 +1,4 @@
-import { nativeBridgeProvider, SupportedMethod } from '@firefly/native-bridge';
+import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
 import urlcat from 'urlcat';
 
 import { openWindow } from '@/helpers/openWindow.js';

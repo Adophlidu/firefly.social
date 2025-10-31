@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { memo, useMemo } from 'react';
 
 import ColorfulLensIcon from '@/assets/lens-circle-small.svg';

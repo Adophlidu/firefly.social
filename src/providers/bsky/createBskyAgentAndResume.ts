@@ -1,6 +1,6 @@
 import { type AtpSessionData } from '@atproto/api';
 import { getPdsEndpoint, isValidDidDoc } from '@atproto/common-web';
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 
 import { BskySessionExpiredError } from '@/constants/error.js';
 import { createBskyAgent } from '@/providers/bsky/createBskyAgent.js';

@@ -1,4 +1,4 @@
-import { nativeBridgeProvider, Network, SupportedMethod } from '@firefly/native-bridge';
+import { nativeBridgeProvider, Network, SupportedMethod } from '@dimensiondev/native-bridge';
 import { useCallback } from 'react';
 
 import { useActivityConnectedAddresses } from '@/components/Activity/hooks/useActivityConnectedAddresses.js';

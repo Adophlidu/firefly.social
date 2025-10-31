@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import QRCode from 'react-qr-code';
 
 import ReloadIcon from '@/assets/reload.svg';

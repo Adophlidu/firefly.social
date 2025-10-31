@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import type { TippyProps } from '@tippyjs/react';
 import { type HTMLProps, type ReactNode } from 'react';
 

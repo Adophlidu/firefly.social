@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, delay, safeUnreachable } from '@firefly/utils';
+import { classNames, delay, safeUnreachable } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useMatch, useRouter } from '@tanstack/react-router';

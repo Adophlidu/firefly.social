@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { SearchBar, SearchContextManager } from '@giphy/react-components';
 import { IS_SAFARI } from '@lexical/utils';
 import { t } from '@lingui/core/macro';

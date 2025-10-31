@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useCallback, useMemo, useRef } from 'react';
 import urlcat from 'urlcat';

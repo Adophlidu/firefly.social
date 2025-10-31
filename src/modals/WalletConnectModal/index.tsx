@@ -1,6 +1,6 @@
 'use client';
 
-import { delay } from '@firefly/utils';
+import { delay } from '@dimensiondev/utils';
 import { useAppKitTheme } from '@reown/appkit/react';
 import { RouterProvider } from '@tanstack/react-router';
 

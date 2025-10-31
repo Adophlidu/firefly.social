@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { MemoizePromise } from '@/decorators/MemoizePromise.js';
 
-vi.mock('@firefly/utils', () => ({
+vi.mock('@dimensiondev/utils', () => ({
     bom: { window: {} },
 }));
 

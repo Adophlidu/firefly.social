@@ -1,5 +1,5 @@
 'use client';
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import { getSession, signOut } from 'next-auth/react';
 

@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { Switch as HeadlessSwitch, type SwitchProps } from '@headlessui/react';
 import { memo } from 'react';
 

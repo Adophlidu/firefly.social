@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 
 import CalendarIcon from '@/assets/calendar.svg';

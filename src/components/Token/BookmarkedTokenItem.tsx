@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { type HTMLProps, memo } from 'react';
 
 import { Link } from '@/components/Link.js';

@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { FARCASTER_REPLY_URL, NOT_DEPEND_SECRET, SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';

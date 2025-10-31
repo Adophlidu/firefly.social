@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import type { SVGProps } from 'react';
 
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';

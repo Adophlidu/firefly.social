@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import type { LinkProps } from 'next/link.js';
 import { memo, type PropsWithChildren, useLayoutEffect, useRef } from 'react';
 

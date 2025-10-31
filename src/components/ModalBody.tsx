@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { memo, type PropsWithChildren } from 'react';
 
 interface ModalBodyProps extends PropsWithChildren {

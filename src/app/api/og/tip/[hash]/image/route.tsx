@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { compose } from '@firefly/utils';
+import { compose } from '@dimensiondev/utils';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
 import type { HTMLProps } from 'react';

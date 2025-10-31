@@ -5,8 +5,8 @@ import {
     iframeBridgeProvider,
     type IframeBridgeRequestArguments,
     type IframeBridgeResponseResult,
-} from '@firefly/iframe-bridge';
-import { safeUnreachable } from '@firefly/utils';
+} from '@dimensiondev/iframe-bridge';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { memo, useEffect } from 'react';
 
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';

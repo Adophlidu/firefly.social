@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { memo, type PropsWithChildren, type ReactNode, useDeferredValue, useState } from 'react';
 
 import ArrowDownIcon from '@/assets/arrow-line-down.svg';

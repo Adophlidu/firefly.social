@@ -1,4 +1,4 @@
-import { unreachable } from '@firefly/utils';
+import { unreachable } from '@dimensiondev/utils';
 
 import { NetworkType } from '@/constants/enum.js';
 import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';

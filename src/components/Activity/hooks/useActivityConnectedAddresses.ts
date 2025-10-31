@@ -1,4 +1,4 @@
-import { nativeBridgeProvider, Network, SupportedMethod } from '@firefly/native-bridge';
+import { nativeBridgeProvider, Network, SupportedMethod } from '@dimensiondev/native-bridge';
 import { useQuery } from '@tanstack/react-query';
 
 import { EMPTY_LIST } from '@/constants/index.js';

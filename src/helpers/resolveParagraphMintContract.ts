@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@firefly/utils';
+import { createLookupTableResolver } from '@dimensiondev/utils';
 import { base, optimism, polygon, zora } from 'wagmi/chains';
 
 import { UnreachableError } from '@/constants/error.js';

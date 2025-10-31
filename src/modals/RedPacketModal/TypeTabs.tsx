@@ -1,4 +1,4 @@
-import { unreachable } from '@firefly/utils';
+import { unreachable } from '@dimensiondev/utils';
 import { memo, useCallback, useContext } from 'react';
 
 import { Tab, Tabs } from '@/components/Tabs/index.js';

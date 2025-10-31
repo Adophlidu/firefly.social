@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import type { ImageProps } from 'next/image.js';
 import { memo, useState } from 'react';
 import { useUpdateEffect } from 'react-use';

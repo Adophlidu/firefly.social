@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';

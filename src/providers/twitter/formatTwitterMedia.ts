@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { first, last } from 'lodash-es';
 import type { MediaObjectV2, MediaVariantsV2 } from 'twitter-api-v2';
 

@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 
 import { Source } from '@/constants/enum.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';

@@ -1,4 +1,4 @@
-import { bom, delay } from '@firefly/utils';
+import { bom, delay } from '@dimensiondev/utils';
 import { once } from 'lodash-es';
 
 import { IS_IOS } from '@/constants/browser.js';

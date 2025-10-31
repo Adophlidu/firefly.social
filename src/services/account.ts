@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 

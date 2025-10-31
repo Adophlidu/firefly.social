@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { createMemoryHistory, createRouter, RouterProvider, useRouterState } from '@tanstack/react-router';
 import { useRef } from 'react';
 

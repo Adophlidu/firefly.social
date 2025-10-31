@@ -29,7 +29,8 @@
         "packages:build": "pnpm -r --filter='./packages/*' run build",
         "packages:dev": "pnpm -r --filter='./packages/*' run dev",
         "packages:typecheck": "pnpm -r --filter='./packages/*' run typecheck",
-        "packages:clean": "pnpm -r --filter='./packages/*' run clean"
+        "packages:clean": "pnpm -r --filter='./packages/*' run clean",
+        "packages:publish": "pnpm -r --filter='./packages/*' publish --no-git-checks"
     },
     "dependencies": {
         "@apollo/client": "^3.13.9",
@@ -39,9 +40,9 @@
         "@coral-xyz/anchor": "^0.30.1",
         "@farcaster/core": "^0.18.4",
         "@farcaster/miniapp-host": "^0.2.12",
-        "@firefly/iframe-bridge": "workspace:^",
-        "@firefly/native-bridge": "workspace:^",
-        "@firefly/utils": "workspace:^",
+        "@dimensiondev/iframe-bridge": "workspace:^",
+        "@dimensiondev/native-bridge": "workspace:^",
+        "@dimensiondev/utils": "workspace:^",
         "@floating-ui/react": "^0.27.16",
         "@giphy/js-fetch-api": "^5.6.0",
         "@giphy/react-components": "^9.8.0",

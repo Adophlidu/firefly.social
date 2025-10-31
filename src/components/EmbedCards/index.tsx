@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, safeUnreachable } from '@firefly/utils';
+import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { useQueries } from '@tanstack/react-query';
 import { first, sortBy } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';

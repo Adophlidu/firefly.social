@@ -1,6 +1,6 @@
 import { AppBskyFeedThreadgate, ComAtprotoRepoApplyWrites, RichText } from '@atproto/api';
 import { TID } from '@atproto/common-web';
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, first } from 'lodash-es';
 
 import { BskyEmbedType, RestrictionType } from '@/constants/enum.js';

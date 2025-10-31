@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useLocation } from '@tanstack/react-router';
 import { memo, Suspense, useState } from 'react';

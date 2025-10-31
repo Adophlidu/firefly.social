@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { sortBy } from 'lodash-es';
 import { createContext, type CSSProperties, useContext, useLayoutEffect, useMemo, useRef } from 'react';
 

@@ -1,8 +1,8 @@
 'use client';
 
+import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
+import { bom } from '@dimensiondev/utils';
 import { exposeToIframe, type ReadyOptions } from '@farcaster/miniapp-host';
-import { nativeBridgeProvider, SupportedMethod } from '@firefly/native-bridge';
-import { bom } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';

@@ -1,4 +1,4 @@
-import { compose } from '@firefly/utils';
+import { compose } from '@dimensiondev/utils';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
 

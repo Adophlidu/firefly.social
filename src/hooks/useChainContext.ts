@@ -1,4 +1,4 @@
-import { unreachable } from '@firefly/utils';
+import { unreachable } from '@dimensiondev/utils';
 import { useAccount, useChainId } from 'wagmi';
 
 import { NetworkType } from '@/constants/enum.js';

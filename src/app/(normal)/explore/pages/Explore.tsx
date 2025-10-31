@@ -1,6 +1,6 @@
 'use client';
 
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 
 import { ChannelList } from '@/components/Channel/ChannelList.js';
 import { TrendingNFTs } from '@/components/explore/TrendingNFTs.js';

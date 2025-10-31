@@ -1,7 +1,7 @@
 'use client';
 
-import { nativeBridgeProvider, SupportedMethod } from '@firefly/native-bridge';
-import { classNames } from '@firefly/utils';
+import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
+import { classNames } from '@dimensiondev/utils';
 import { type HTMLProps, useContext } from 'react';
 
 import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';

@@ -1,5 +1,5 @@
-import { nativeBridgeProvider, SupportedMethod } from '@firefly/native-bridge';
-import { safeUnreachable } from '@firefly/utils';
+import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
+import { safeUnreachable } from '@dimensiondev/utils';
 import { IS_IOS } from '@lexical/utils';
 import urlcat from 'urlcat';
 

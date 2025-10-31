@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import type { HTMLProps } from 'react';
 import { type FieldPath, type FieldValues, useFormContext, useWatch } from 'react-hook-form';
 

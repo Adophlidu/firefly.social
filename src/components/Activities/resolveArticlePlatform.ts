@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@firefly/utils';
+import { createLookupTableResolver } from '@dimensiondev/utils';
 
 import { ActivitiesPlatform } from '@/constants/enum.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';

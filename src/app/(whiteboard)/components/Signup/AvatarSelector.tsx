@@ -1,4 +1,4 @@
-import { classNames, safeUnreachable } from '@firefly/utils';
+import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
 import {
     type ChangeEvent,

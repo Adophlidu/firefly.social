@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@firefly/utils';
+import { createLookupTableResolver } from '@dimensiondev/utils';
 
 import { UnreachableError } from '@/constants/error.js';
 import { MattersAPI } from '@/providers/matters/index.js';

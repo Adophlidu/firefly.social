@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';

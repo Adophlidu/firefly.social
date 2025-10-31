@@ -1,4 +1,4 @@
-import { parseUrl } from '@firefly/utils';
+import { parseUrl } from '@dimensiondev/utils';
 import { compact, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';

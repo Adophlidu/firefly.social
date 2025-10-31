@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@firefly/utils';
+import { createLookupTableResolver } from '@dimensiondev/utils';
 import type { FunctionComponent, SVGAttributes } from 'react';
 
 import MattersIcon from '@/assets/matters.svg';

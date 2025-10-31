@@ -1,4 +1,4 @@
-import { parseJson } from '@firefly/utils';
+import { parseJson } from '@dimensiondev/utils';
 import { CoreChainController } from '@reown/appkit';
 import type { ChainAdapter } from '@reown/appkit/react';
 import { useAppKitAccount } from '@reown/appkit/react';

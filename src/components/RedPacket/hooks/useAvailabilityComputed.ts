@@ -1,4 +1,4 @@
-import { unreachable } from '@firefly/utils';
+import { unreachable } from '@dimensiondev/utils';
 
 import { useEthereumAvailabilityComputed } from '@/components/RedPacket/hooks/useEthereumAvailabilityComputed.js';
 import { useSolanaAvailabilityComputed } from '@/components/RedPacket/hooks/useSolanaAvailabilityComputed.js';

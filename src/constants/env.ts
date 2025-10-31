@@ -1,4 +1,4 @@
-import { bom } from '@firefly/utils';
+import { bom } from '@dimensiondev/utils';
 import { z } from 'zod';
 
 import { NODE_ENV, STATUS, VERCEL_NEV } from '@/constants/enum.js';

@@ -1,6 +1,6 @@
 'use client';
 
-import { delay } from '@firefly/utils';
+import { delay } from '@dimensiondev/utils';
 import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LexicalComposer } from '@lexical/react/LexicalComposer.js';

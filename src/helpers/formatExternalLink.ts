@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@firefly/utils';
+import { safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { ExternalSiteDomain, type SocialSource, Source } from '@/constants/enum.js';

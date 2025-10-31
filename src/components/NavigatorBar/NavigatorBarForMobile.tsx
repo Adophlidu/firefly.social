@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 

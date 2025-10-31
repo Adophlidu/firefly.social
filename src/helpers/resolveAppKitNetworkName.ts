@@ -1,4 +1,4 @@
-import { createLookupTableResolver, safeUnreachable } from '@firefly/utils';
+import { createLookupTableResolver, safeUnreachable } from '@dimensiondev/utils';
 
 import type { ChainNamespace } from '@/types/utility.js';
 

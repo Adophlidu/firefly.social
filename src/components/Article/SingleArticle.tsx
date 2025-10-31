@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { first, isUndefined } from 'lodash-es';
 import { memo, useCallback } from 'react';

@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { PropsWithChildren } from 'react';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { compact, sum } from 'lodash-es';

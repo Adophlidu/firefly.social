@@ -1,6 +1,6 @@
 'use client';
 
-import { delay } from '@firefly/utils';
+import { delay } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useMemo, useState } from 'react';

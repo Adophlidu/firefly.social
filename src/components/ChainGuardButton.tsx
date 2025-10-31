@@ -1,4 +1,4 @@
-import { unreachable } from '@firefly/utils';
+import { unreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, type MouseEvent } from 'react';
 import { useAsyncFn } from 'react-use';

@@ -1,4 +1,4 @@
-import { once } from '@firefly/utils';
+import { once } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 
 import { KeyType } from '@/constants/enum.js';

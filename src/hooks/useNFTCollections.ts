@@ -1,4 +1,4 @@
-import { asyncIteratorToArray } from '@firefly/utils';
+import { asyncIteratorToArray } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 
 import { EMPTY_LIST } from '@/constants/index.js';

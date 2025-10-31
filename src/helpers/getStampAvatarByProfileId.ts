@@ -1,4 +1,4 @@
-import { bom, safeUnreachable } from '@firefly/utils';
+import { bom, safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { Source, STATUS } from '@/constants/enum.js';

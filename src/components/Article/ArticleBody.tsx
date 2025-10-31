@@ -3,7 +3,7 @@
 import '@/assets/css/limo.css';
 import '@/assets/css/paragraph.css';
 
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 
 import { ArticleActions } from '@/components/Article/ArticleActions.js';
 import { ArticleAuthor } from '@/components/Article/ArticleAuthor.js';

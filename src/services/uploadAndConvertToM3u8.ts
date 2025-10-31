@@ -1,4 +1,4 @@
-import { delay, parseUrl, safeUnreachable } from '@firefly/utils';
+import { delay, parseUrl, safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { S3ConvertStatus, SourceInURL } from '@/constants/enum.js';

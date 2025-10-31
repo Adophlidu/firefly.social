@@ -1,7 +1,7 @@
 'use client';
 
 import type { web3 } from '@coral-xyz/anchor';
-import { unreachable } from '@firefly/utils';
+import { unreachable } from '@dimensiondev/utils';
 import { ProviderUtil } from '@reown/appkit/store';
 import type { Provider } from '@reown/appkit-adapter-solana';
 

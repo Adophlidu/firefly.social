@@ -1,4 +1,4 @@
-import { getEnumAsArray } from '@firefly/utils';
+import { getEnumAsArray } from '@dimensiondev/utils';
 
 /**
  * Validate if a value is a valid enum value

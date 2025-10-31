@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@firefly/utils';
+import { createLookupTableResolver } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import type { JSX } from 'react';
 

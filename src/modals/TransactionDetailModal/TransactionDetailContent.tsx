@@ -1,4 +1,4 @@
-import { classNames } from '@firefly/utils';
+import { classNames } from '@dimensiondev/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { memo, useCallback, useMemo } from 'react';
