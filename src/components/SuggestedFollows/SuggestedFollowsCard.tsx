@@ -29,6 +29,7 @@ import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
+import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 
 const getSuggestedFollowersCached = memoizePromise(
     async (source: SocialSource, profileId?: string) => {
@@ -60,7 +61,12 @@ export function SuggestedFollowsCard() {
                     runInSafeAsync(() => getSuggestedFollowersCached(source, profileAll[source]?.profileId)),
                 ),
             );
-            return mergeLists(...compact(suggestedProfiles.map((x) => (x.status === 'fulfilled' ? x.value : []))));
+            const results = mergeLists(
+                ...compact(suggestedProfiles.map((x) => (x.status === 'fulfilled' ? x.value : []))),
+            );
+
+            await runInSafeAsync(() => queryMutedProfiles(results.map((x) => ({ source: x.source, id: x.profileId }))));
+            return results;
         },
     });
 

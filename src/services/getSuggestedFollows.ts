@@ -46,7 +46,6 @@ export async function getSuggestedFollowsInCard(source: SocialSource, queryStats
             ].slice(0, 50),
         50,
     );
-    await queryMutedProfiles(result.data.map((x) => ({ source: x.source, id: x.profileId })));
     return result.data ?? [];
 }
 
