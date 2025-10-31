@@ -71,8 +71,6 @@ export const FIREFLY_TELEGRAM_URL = 'https://t.me/fireflyapp';
 export const BSKY_VIDEO_ENDPOINT = 'https://video.bsky.app/xrpc';
 export const NEYNAR_URL = 'https://neynar-proxy.r2d2.to';
 export const FIREFLY_NITTER_URL = 'https://nitter.r2d2.to';
-export const X3_PRO_URL = 'https://x3.pro';
-export const X3_PRO_API_URL = `${X3_PRO_URL}/api/api`; // dual /api
 export const X3_PRO_AVATAR_URL = 'https://x3-media-pro-3.oss-cn-hongkong.aliyuncs.com';
 export const ORB_API_URL = 'https://orbapi.xyz';
 export const ACCOUNT_CONFLICT_SOLUTION_URL =
@@ -82,9 +80,6 @@ export const FARCASTER_POLL_MINI_APP_URL = 'https://polls-miniapps.firefly.socia
 export const FARCASTER_POLL_MINI_APP_URL_DEV = 'https://polls-miniapps-staging.firefly.social';
 
 export const ADVERTISEMENT_JSON_URL = `${FIREFLY_S3_DOMAIN}/advertisement/web.json`;
-
-export const FIREFLY_APP_APP_STORE_URL = 'https://apps.apple.com/us/app/firefly-web3-nft-explorer/id1640183078';
-export const FIREFLY_APP_GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=io.dimension.firefly';
 
 export const FARCASTER_REPLY_COUNTDOWN = 50; // in seconds
 export const ORB_REPLY_COUNTDOWN = 60; // in seconds
@@ -364,11 +359,6 @@ export const MIN_POST_SIZE_PER_THREAD = 3;
 // Contracts
 export const LENS_HUB_PROXY_ADDRESS = '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d';
 export const POAP_CONTRACT_ADDRESS = '0x22C1f6050E56d2876009903609a2cC3fEf83B415';
-
-export const PUDGY_PENGUINS_NFT_ADDRESS = '0xbd3531da5cf5857e7cfaa92426877b022e612cf8';
-export const LIL_PUDGY_NFT_ADDRESS = '0x524cab2ec69124574082676e6f654a18df49a048';
-export const TRUE_PENGU_NFT_ADDRESS = '0x1f63796fd993c0ade182ec018f60ae6b74e6966c';
-export const PENGU_PINS_NFT_ADDRESS = '0x1d8305e851182e3ca4df42d2ca8f3e441141aa8f';
 
 export const ALLOWED_IMAGES_MIMES = [
     FileMimeType.PNG,

@@ -42,9 +42,7 @@ const resolveStorageKey = createLookupTableResolver<SocialSource, string>(
 );
 
 export function getProfileFromStorage<T extends SocialSource>(source: T): StateCurrentProfile | null {
-    if (!bom.localStorage) return null;
-
-    const state = bom.localStorage.getItem(resolveStorageKey(source));
+    const state = bom.localStorage?.getItem(resolveStorageKey(source));
     if (!state) return null;
 
     const parsed = Schema.safeParse(JSON.parse(state));

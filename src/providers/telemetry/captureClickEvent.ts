@@ -33,12 +33,6 @@ export function captureGifClickEvent() {
     });
 }
 
-export function captureVideoAddClickEvent() {
-    return runInSafeAsync(async () => {
-        return TelemetryProvider.captureEvent(EventId.COMPOSE_VIDEO_ADD_CLICK, {});
-    });
-}
-
 export function captureImageAddClickEvent() {
     return runInSafeAsync(async () => {
         return TelemetryProvider.captureEvent(EventId.COMPOSE_IMAGE_ADD_CLICK, {});

@@ -452,14 +452,6 @@ export enum S3ConvertStatus {
     StatusUpdate = 'STATUS_UPDATE',
 }
 
-export enum SimulateStatus {
-    Pending = 'pending',
-    Unverified = 'unverified',
-    Unsafe = 'unsafe',
-    Success = 'success',
-    Error = 'error',
-}
-
 export enum ExternalSiteDomain {
     Warpcast = 'warpcast.com',
     Farcaster = 'farcaster.xyz',

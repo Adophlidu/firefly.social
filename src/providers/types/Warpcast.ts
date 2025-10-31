@@ -25,51 +25,6 @@ export interface SignedKeyRequestResponse extends ErrorResponse {
     };
 }
 
-export interface Cast {
-    hash: string;
-    parentHash: string;
-    parentAuthor: Author;
-    castType?: string;
-    embeds?: {
-        images?: Array<{
-            type: string;
-            sourceUrl: string;
-            url: string;
-            alt: string;
-        }>;
-        processedCastText: string;
-        unknowns: unknown[];
-        urls: Array<{
-            type: string;
-            openGraph: {
-                description: string;
-                domain: string;
-                image: string;
-                logo: string;
-                sourceUrl: string;
-                title: StaticRange;
-                url: string;
-                userLargeImage: boolean;
-            };
-        }>;
-        videos?: Array<{
-            url: string;
-            type: string;
-        }>;
-    };
-    mentions?: Author[];
-    threadHash: string;
-    author: Author;
-    text: string;
-    timestamp: number;
-    replies: Replies;
-    reactions: Reactions;
-    recasts: Recasts;
-    watches: Watches;
-    recast: boolean;
-    viewerContext: ViewerContext;
-}
-
 export interface Author {
     fid: number;
     username: string;

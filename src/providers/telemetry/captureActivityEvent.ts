@@ -1,30 +1,14 @@
 'use client';
 
 import { nativeBridgeProvider } from '@dimensiondev/native-bridge';
-import { createLookupTableResolver, parseUrl } from '@dimensiondev/utils';
+import { parseUrl } from '@dimensiondev/utils';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { ReferralAccountPlatform } from '@/helpers/resolveActivityUrl.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getAllRelatedProfileInfo } from '@/providers/firefly/getAllRelatedProfileInfo.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
-import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId, type Events } from '@/providers/types/Telemetry.js';
-
-const resolveActivityLoginEventId = createLookupTableResolver<SocialSource, EventId>(
-    {
-        [Source.Twitter]: EventId.EVENT_X_LOG_IN_SUCCESS,
-        [Source.Farcaster]: EventId.EVENT_FARCASTER_LOG_IN_SUCCESS,
-        [Source.Lens]: EventId.EVENT_LENS_LOG_IN_SUCCESS,
-        [Source.Bsky]: EventId.EVENT_BSKY_LOG_IN_SUCCESS,
-    },
-    (source) => {
-        throw new UnreachableError('source', source);
-    },
-);
 
 const getFireflyWalletProfile = memoizePromise(
     async function getFireflyWalletProfile() {
@@ -67,31 +51,4 @@ export async function captureActivityEvent<E extends EventId>(
         ...getPublicParameters(eventId, null),
         ...parameters,
     } as Events[E]['parameters']);
-}
-
-export async function captureActivityClaimEvent(address: string, isPremium: boolean) {
-    return runInSafeAsync(async () => {
-        await captureActivityEvent(
-            isPremium ? EventId.EVENT_CLAIM_PREMIUM_SUCCESS : EventId.EVENT_CLAIM_BASIC_SUCCESS,
-            getWalletEventParameters(address),
-        );
-    });
-}
-
-export async function captureActivityConnectWalletEvent(address: string) {
-    return runInSafeAsync(async () => {
-        await captureActivityEvent(EventId.EVENT_CONNECT_WALLET_SUCCESS, getWalletEventParameters(address));
-    });
-}
-
-export async function captureActivityChangeWalletEvent(address: string) {
-    return runInSafeAsync(async () => {
-        await captureActivityEvent(EventId.EVENT_CHANGE_WALLET_SUCCESS, getWalletEventParameters(address));
-    });
-}
-
-export async function captureActivityLoginEventBySocialSource(source: SocialSource) {
-    return runInSafeAsync(async () => {
-        await captureActivityEvent(resolveActivityLoginEventId(source), {});
-    });
 }

@@ -543,10 +543,6 @@ msgstr ""
 msgid "Nickname"
 msgstr ""
 
-#. placeholder {0}: resolveSourceName(source)
-msgid "Followed @{handle} on {0}."
-msgstr ""
-
 msgid "Failed to add wallet"
 msgstr ""
 
@@ -713,10 +709,6 @@ msgid "Bluesky"
 msgstr ""
 
 msgid "True Token"
-msgstr ""
-
-#. placeholder {0}: resolveSourceName(source)
-msgid "Failed to follow @{handle} on {0}."
 msgstr ""
 
 #. placeholder {0}: formatAmount(activity.size)
@@ -1056,10 +1048,6 @@ msgid "Channel {id} could not be found."
 msgstr ""
 
 msgid "Reposted"
-msgstr ""
-
-#. placeholder {0}: resolveSourceName(source)
-msgid "Login {0} successfully."
 msgstr ""
 
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
@@ -3916,9 +3904,6 @@ msgid "No codes found to suspend trading."
 msgstr ""
 
 msgid "This token can self destruct."
-msgstr ""
-
-msgid "Failed to bind address."
 msgstr ""
 
 #. placeholder {0}: percentageToNumber(info.buy_tax)

@@ -1,7 +1,5 @@
 import { z } from 'zod';
 
-export type NonEmptyArray<T> = [T, ...T[]];
-
 const bulletPoint = '· ';
 const issueSeparator = '\n';
 const identifierRegex = /[$_\p{ID_Start}][$\u200c\u200d\p{ID_Continue}]*/u;

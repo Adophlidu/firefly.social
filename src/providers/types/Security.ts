@@ -144,12 +144,6 @@ export interface SecurityMessage<T> {
     shouldHide(info: T): boolean;
 }
 
-export interface StaticSecurityMessage {
-    level: SecurityMessageLevel;
-    title: string;
-    message: string;
-}
-
 export interface SiteSecurity {
     phishing_site: number;
 }

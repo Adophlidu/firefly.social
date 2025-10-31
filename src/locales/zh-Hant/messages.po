@@ -548,10 +548,6 @@ msgstr "已預約"
 msgid "Nickname"
 msgstr "暱稱"
 
-#. placeholder {0}: resolveSourceName(source)
-msgid "Followed @{handle} on {0}."
-msgstr "已在 {0} 上追蹤 @{handle}。"
-
 msgid "Failed to add wallet"
 msgstr "新增錢包失敗"
 
@@ -719,10 +715,6 @@ msgstr "Bluesky"
 
 msgid "True Token"
 msgstr "真實代幣"
-
-#. placeholder {0}: resolveSourceName(source)
-msgid "Failed to follow @{handle} on {0}."
-msgstr "在 {0} 上追蹤 @{handle} 失敗。"
 
 #. placeholder {0}: formatAmount(activity.size)
 msgid "×{0} shares"
@@ -1062,10 +1054,6 @@ msgstr "找不到群組 {id}。"
 
 msgid "Reposted"
 msgstr "轉發了"
-
-#. placeholder {0}: resolveSourceName(source)
-msgid "Login {0} successfully."
-msgstr "成功登入 {0}。"
 
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Today at {0}"
@@ -3922,9 +3910,6 @@ msgstr "未檢測到暫停交易代碼。"
 
 msgid "This token can self destruct."
 msgstr "此代幣具備自毀功能。"
-
-msgid "Failed to bind address."
-msgstr "綁定地址失敗"
 
 #. placeholder {0}: percentageToNumber(info.buy_tax)
 msgid "Buy Tax: {0}%"
