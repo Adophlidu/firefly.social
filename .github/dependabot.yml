@@ -8,7 +8,8 @@ updates:
       open-pull-requests-limit: 10
       versioning-strategy: increase
       ignore:
-          - update-types:
+          - dependency-name: '*'
+            update-types:
                 - version-update:semver-major
                 - version-update:semver-minor
 
@@ -19,7 +20,8 @@ updates:
           interval: 'weekly'
       open-pull-requests-limit: 5
       ignore:
-          - update-types:
+          - dependency-name: '*'
+            update-types:
                 - version-update:semver-major
                 - version-update:semver-minor
 
@@ -29,7 +31,8 @@ updates:
           interval: 'weekly'
       open-pull-requests-limit: 5
       ignore:
-          - update-types:
+          - dependency-name: '*'
+            update-types:
                 - version-update:semver-major
                 - version-update:semver-minor
 
@@ -39,7 +42,8 @@ updates:
           interval: 'weekly'
       open-pull-requests-limit: 5
       ignore:
-          - update-types:
+          - dependency-name: '*'
+            update-types:
                 - version-update:semver-major
                 - version-update:semver-minor
 
@@ -50,6 +54,7 @@ updates:
           interval: 'weekly'
       open-pull-requests-limit: 5
       ignore:
-          - update-types:
+          - dependency-name: '*'
+            update-types:
                 - version-update:semver-major
                 - version-update:semver-minor
