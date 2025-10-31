@@ -1,0 +1,35 @@
+version: 2
+updates:
+    # Root package.json and pnpm workspace
+    - package-ecosystem: 'npm'
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+      open-pull-requests-limit: 10
+      versioning-strategy: increase
+
+    # Workspace packages
+    - package-ecosystem: 'npm'
+      directory: '/packages/iframe-bridge'
+      schedule:
+          interval: 'weekly'
+      open-pull-requests-limit: 5
+
+    - package-ecosystem: 'npm'
+      directory: '/packages/native-bridge'
+      schedule:
+          interval: 'weekly'
+      open-pull-requests-limit: 5
+
+    - package-ecosystem: 'npm'
+      directory: '/packages/utils'
+      schedule:
+          interval: 'weekly'
+      open-pull-requests-limit: 5
+
+    # GitHub Actions
+    - package-ecosystem: 'github-actions'
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+      open-pull-requests-limit: 5
