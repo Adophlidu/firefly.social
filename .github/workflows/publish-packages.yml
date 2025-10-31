@@ -52,52 +52,46 @@ jobs:
 
             - name: Configure npm for pnpm publish
               env:
-                  NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
               run: |
-                  # Ensure auth token is configured for pnpm to publish to GitHub Packages
-                  # pnpm reads from .npmrc in project root and user home directory
-                  echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
-                  # Ensure registry is set (may already exist, but ensure it's there)
+                  echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
                   if ! grep -q "^@dimensiondev:registry" .npmrc 2>/dev/null; then
-                      echo "@dimensiondev:registry=https://npm.pkg.github.com/" >> .npmrc
+                    echo "@dimensiondev:registry=https://npm.pkg.github.com/" >> .npmrc
                   fi
 
             - name: Publish packages
               env:
-                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
               run: |
                   if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-                      VERSION="${{ github.event.inputs.version }}"
-                      PACKAGE="${{ github.event.inputs.package }}"
+                    VERSION="${{ github.event.inputs.version }}"
+                    PACKAGE="${{ github.event.inputs.package }}"
+                    
+                    if [ -n "$PACKAGE" ]; then
+                      PACKAGE_DIR=$(echo $PACKAGE | cut -d'/' -f2)
+                      cd packages/$PACKAGE_DIR
                       
-                      if [ -n "$PACKAGE" ]; then
-                          # Publish specific package
-                          PACKAGE_DIR=$(echo $PACKAGE | cut -d'/' -f2)
-                          cd packages/$PACKAGE_DIR
-                          
-                          # Bump version (major, minor, patch, or specific version)
-                          npm version $VERSION --no-git-tag-version
-                          
-                          # Publish
-                          cd ../..
-                          pnpm --filter "$PACKAGE" publish --no-git-checks
-                      else
-                          # Publish all packages - bump version first
-                          pnpm -r --filter './packages/*' exec -- npm version $VERSION --no-git-tag-version || true
-                          # Then publish all
-                          pnpm -r --filter './packages/*' publish --no-git-checks
+                      # Bump version (major, minor, patch, or specific version)
+                      if [ -n "$VERSION" ]; then
+                        npm version $VERSION --no-git-tag-version
                       fi
-                  else
-                      # Publish from tag (format: packages@0.1.0)
-                      TAG_NAME="${{ github.ref_name }}"
-                      VERSION=$(echo $TAG_NAME | sed 's/packages@//')
                       
-                      # Set version for all packages
-                      pnpm -r --filter './packages/*' exec -- npm version $VERSION --no-git-tag-version || true
+                      cd ../..
+                      pnpm --filter "$PACKAGE" publish --no-git-checks
+                    else
                       # Publish all packages
+                      if [ -n "$VERSION" ]; then
+                        pnpm -r --filter './packages/*' exec -- npm version $VERSION --no-git-tag-version || true
+                      fi
                       pnpm -r --filter './packages/*' publish --no-git-checks
+                    fi
+                  else
+                    # Publish from tag (format: packages@0.1.0)
+                    TAG_NAME="${{ github.ref_name }}"
+                    VERSION=$(echo $TAG_NAME | sed 's/packages@//')
+                    
+                    pnpm -r --filter './packages/*' exec -- npm version $VERSION --no-git-tag-version || true
+                    pnpm -r --filter './packages/*' publish --no-git-checks
                   fi
 
             - name: Create Git tag and push (if manual dispatch)
@@ -105,29 +99,27 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                  if [ "${{ github.event.inputs.version }}" = "" ]; then
-                      exit 0
+                  if [ -z "${{ github.event.inputs.version }}" ]; then
+                    exit 0
                   fi
 
                   VERSION="${{ github.event.inputs.version }}"
                   PACKAGE="${{ github.event.inputs.package }}"
 
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+
                   if [ -n "$PACKAGE" ]; then
-                      PACKAGE_NAME=$(echo $PACKAGE | cut -d'/' -f2)
-                      NEW_VERSION=$(node -p "require('./packages/$PACKAGE_NAME/package.json').version")
-                      git config user.name "github-actions[bot]"
-                      git config user.email "github-actions[bot]@users.noreply.github.com"
-                      git add packages/$PACKAGE_NAME/package.json
-                      git commit -m "chore: bump $PACKAGE to $NEW_VERSION" || exit 0
-                      git tag "$PACKAGE_NAME@$NEW_VERSION" || true
-                      git push origin main --follow-tags || true
+                    PACKAGE_NAME=$(echo $PACKAGE | cut -d'/' -f2)
+                    NEW_VERSION=$(node -p "require('./packages/$PACKAGE_NAME/package.json').version")
+                    git add packages/$PACKAGE_NAME/package.json
+                    git commit -m "chore: bump $PACKAGE to $NEW_VERSION" || true
+                    git tag "$PACKAGE_NAME@$NEW_VERSION" || true
                   else
-                      # Get version from first package
-                      NEW_VERSION=$(node -p "require('./packages/utils/package.json').version")
-                      git config user.name "github-actions[bot]"
-                      git config user.email "github-actions[bot]@users.noreply.github.com"
-                      git add packages/*/package.json
-                      git commit -m "chore: bump packages to $NEW_VERSION" || exit 0
-                      git tag "packages@$NEW_VERSION" || true
-                      git push origin main --follow-tags || true
+                    NEW_VERSION=$(node -p "require('./packages/utils/package.json').version")
+                    git add packages/*/package.json
+                    git commit -m "chore: bump packages to $NEW_VERSION" || true
+                    git tag "packages@$NEW_VERSION" || true
                   fi
+
+                  git push origin main --follow-tags || true
