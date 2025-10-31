@@ -127,11 +127,6 @@ export function NotificationChildConfigItem({ label, description, disabled, ...r
                 <p className="text-base font-bold text-main">
                     {typeof label === 'string' ? notificationLabelMap[label] || label : label}
                 </p>
-                <p className="mt-1 text-medium text-second">
-                    {typeof description === 'string'
-                        ? notificationDescriptionMap[description] || description
-                        : description}
-                </p>
             </div>
         </ClickableButton>
     );

@@ -14,11 +14,41 @@ import { formatNotificationConfigs } from '@/app/(settings)/settings/notificatio
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import type { NotificationConfig } from '@/providers/types/Firefly.js';
 import { NotificationPlatform } from '@/providers/types/Firefly.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
 
+type NotificationGroup = {
+    groupName: string;
+    list: NotificationConfig[];
+};
+
+function restructureNotificationGroups(groups: NotificationGroup[] | null | undefined): NotificationGroup[] | null {
+    if (!groups) return null;
+
+    return groups.map((group, index) => {
+        if (index === 0 || !group.list.length) return group;
+
+        const [firstItem, ...restItems] = group.list;
+
+        return {
+            ...group,
+            list: [
+                {
+                    ...firstItem,
+                    children: [...(firstItem.children || []), ...restItems],
+                },
+            ],
+        };
+    });
+}
+
 export default function NotificationPage() {
-    const { data, isLoading, isRefetching } = useQuery({
+    const {
+        data: rawData,
+        isLoading,
+        isRefetching,
+    } = useQuery({
         queryKey: ['notification-settings', 'config'],
         queryFn: async () => {
             const data = await FireflySocialMediaProvider.getWebNotificationPushSwitch();
@@ -29,6 +59,8 @@ export default function NotificationPage() {
     useEffect(() => {
         setupFirebaseFcmConnection({ force: true, showUi: true });
     }, []);
+
+    const data = restructureNotificationGroups(rawData);
 
     const globalSwitch = first(data)?.list?.find((x) => x.platform === NotificationPlatform.All)?.value;
 
