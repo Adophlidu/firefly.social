@@ -8,7 +8,6 @@ export type Color =
     | `#${string}${string}${string}`
     | `hsl(${number}, ${number}%, ${number}%)`;
 
-
 export enum OrderSide {
     Buy = 0,
     Sell = 1,

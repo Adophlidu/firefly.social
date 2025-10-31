@@ -15,6 +15,6 @@ export function getPollFrameUrl(pollId: string, source?: SocialSource, author?: 
     });
 }
 
-export function getFarcasterPollUrl(pollId: string) {
-    return urlcat(settings.POLL_MINI_APP_URL, '/:pollId', { pollId });
+export function getFarcasterPollUrl(pollId: string, authorHandle?: string) {
+    return urlcat(settings.POLL_MINI_APP_URL, '/:pollId', { pollId, author: authorHandle });
 }
