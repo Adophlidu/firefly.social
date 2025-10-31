@@ -12,14 +12,16 @@ import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 export async function getWalletClientRequired(
     config: Config,
     clientParameters?: GetWalletClientParameters,
-    openProps?: WalletConnectModalOpenProps,
+    openProps?: WalletConnectModalOpenProps & { silent?: boolean },
 ): Promise<Exclude<GetWalletClientReturnType, null>> {
     try {
         await getWalletClient(config, clientParameters);
     } catch (error) {
         if (error instanceof ConnectorNotConnectedError) {
+            const { silent, ...modalOptions } = openProps || {};
+            if (silent) throw error;
             await WalletConnectModalRef.openAndWaitForClose({
-                ...openProps,
+                ...modalOptions,
                 networkType: NetworkType.Ethereum,
             });
         } else if (error instanceof ConnectorChainMismatchError && clientParameters?.chainId) {

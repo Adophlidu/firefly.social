@@ -149,12 +149,12 @@ export const SwapModalContent = memo(function SwapModalContent({
     );
 });
 
-function SwapModalContentWidget({
-    providerType,
-    ...props
-}: SwapModalOpenProps & {
+interface WidgetProps extends SwapModalOpenProps {
     providerType: OkxProviderType;
-}) {
+    embed?: boolean;
+}
+
+function SwapModalContentWidget({ providerType, embed, ...props }: WidgetProps) {
     const [widgetRef, setWidgetRef] = useState<HTMLDivElement | null>(null);
     const locale = useLocale();
     const isDarkMode = useIsDarkMode();
@@ -207,9 +207,9 @@ function SwapModalContentWidget({
 
         const connectWallet = () => {
             if (isEvm) {
-                evmProvider.enable();
+                evmProvider.enable(!embed);
             } else {
-                solanaProvider.connect();
+                solanaProvider.connect(!embed);
             }
         };
         const instance = createOkxSwapWidget(widgetRef, {
@@ -266,6 +266,7 @@ function SwapModalContentWidget({
         props.chainIds,
         props.toChainId,
         props.chainId,
+        embed,
     ]);
 
     return (

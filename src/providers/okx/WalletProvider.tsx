@@ -20,9 +20,9 @@ export class EthereumWalletProvider implements EthereumProvider {
     selectedAddress = '';
     accounts: string[] = [];
 
-    async getWalletClient(): Promise<Exclude<GetWalletClientReturnType, null>> {
+    async getWalletClient(silent?: boolean): Promise<Exclude<GetWalletClientReturnType, null>> {
         if (this.#walletClient) return this.#walletClient;
-        const walletClient = await getWalletClientRequired(wagmiConfig);
+        const walletClient = await getWalletClientRequired(wagmiConfig, undefined, { silent });
         this.#walletClient = walletClient;
         return walletClient;
     }
@@ -86,8 +86,8 @@ export class EthereumWalletProvider implements EthereumProvider {
         return walletClient.request(args);
     }
 
-    async enable(): Promise<void> {
-        const client = await this.getWalletClient();
+    async enable(silent?: boolean): Promise<void> {
+        const client = await this.getWalletClient(silent);
         this.selectedAddress = client.account.address;
         this.accounts = [client.account.address];
     }
@@ -104,9 +104,9 @@ export class SolanaWalletProvider implements SolanaProvider {
         return this.#publicKey!;
     }
 
-    protected async getProvider() {
+    protected async getProvider(silent?: boolean) {
         if (this.#provider && this.#publicKey) return this.#provider;
-        const provider = await getWalletAdaptorRequired();
+        const provider = await getWalletAdaptorRequired({ silent });
         this.#provider = provider;
         this.#publicKey = provider.publicKey;
         return provider;
@@ -122,8 +122,8 @@ export class SolanaWalletProvider implements SolanaProvider {
         throw new NotImplementedError();
     }
 
-    async connect() {
-        const provider = await this.getProvider();
+    async connect(silent?: boolean) {
+        const provider = await this.getProvider(silent);
         this.#publicKey = provider.publicKey;
         this.#emit('connect', provider.publicKey);
         return { publicKey: provider.publicKey };

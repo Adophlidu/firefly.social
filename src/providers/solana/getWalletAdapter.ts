@@ -44,13 +44,15 @@ export function getWalletAdaptorConnected() {
     return provider as Provider & { publicKey: web3.PublicKey };
 }
 
-export async function getWalletAdaptorRequired(openProps?: WalletConnectModalOpenProps) {
+export async function getWalletAdaptorRequired(openProps?: WalletConnectModalOpenProps & { silent?: boolean }) {
     try {
         return getWalletAdaptorConnected();
     } catch (error) {
         if (error instanceof WalletNotConnectedError) {
+            const { silent, ...modalOptions } = openProps || {};
+            if (silent) throw error;
             await WalletConnectModalRef.openAndWaitForClose({
-                ...openProps,
+                ...modalOptions,
                 networkType: NetworkType.Solana,
             });
         } else {
