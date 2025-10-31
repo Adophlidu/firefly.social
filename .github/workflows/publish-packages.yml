@@ -4,9 +4,19 @@ on:
     push:
         tags:
             - 'packages@*'
+    workflow_dispatch:
+        inputs:
+            version:
+                description: 'Version bump (major, minor, patch) or specific version (e.g., 1.2.3). Leave empty to publish current version.'
+                required: false
+                type: string
+            package:
+                description: 'Specific package to publish (e.g., @dimensiondev/utils). Leave empty to publish all packages.'
+                required: false
+                type: string
 
 permissions:
-    contents: read
+    contents: write
     packages: write
 
 jobs:
