@@ -1,6 +1,13 @@
 import type { CurrencyType, NetworkPluginID, TokenType } from '@/constants/enum.js';
-import type { Color } from '@/types/color.js';
 import type { LiteralUnion } from '@/types/utility.js';
+
+export type Color =
+    | `rgb(${number}, ${number}, ${number})`
+    | `rgba(${number}, ${number}, ${number}, ${number})`
+    | `#${string}${string}${string}${string}${string}${string}`
+    | `#${string}${string}${string}`
+    | `hsl(${number}, ${number}%, ${number}%)`;
+
 
 export enum OrderSide {
     Buy = 0,

@@ -2,6 +2,7 @@ export interface PriceRecord {
     date: number;
     value: number;
 }
+
 export interface TradeRecord {
     chainId: number;
     hash: string;
