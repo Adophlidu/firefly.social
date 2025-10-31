@@ -1,8 +1,9 @@
+import { parseUrl } from '@firefly/utils';
+
 import { Link } from '@/components/Link.js';
 import { PureLink } from '@/components/Posts/PureLink.js';
 import { Image } from '@/esm/Image.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import type { OpenGraph } from '@/types/og.js';
 

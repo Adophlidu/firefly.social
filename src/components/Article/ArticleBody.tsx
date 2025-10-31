@@ -3,6 +3,8 @@
 import '@/assets/css/limo.css';
 import '@/assets/css/paragraph.css';
 
+import { classNames } from '@firefly/utils';
+
 import { ArticleActions } from '@/components/Article/ArticleActions.js';
 import { ArticleAuthor } from '@/components/Article/ArticleAuthor.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -11,7 +13,6 @@ import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { Source } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';

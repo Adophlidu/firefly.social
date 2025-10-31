@@ -1,6 +1,4 @@
-import { bom } from '@/helpers/bom.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
-
+import { bom, parseUrl } from '@firefly/utils';
 /**
  * Determines whether the provided link matches the specified host.
  * @param {string} link - The URL to be checked.

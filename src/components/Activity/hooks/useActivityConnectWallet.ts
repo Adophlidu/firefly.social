@@ -1,15 +1,14 @@
+import { nativeBridgeProvider, Network, SupportedMethod } from '@firefly/native-bridge';
 import { useCallback } from 'react';
 
 import { useActivityConnectedAddresses } from '@/components/Activity/hooks/useActivityConnectedAddresses.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { Network, SupportedMethod } from '@/types/bridge.js';
 
 export function useActivityConnectWallet() {
     const connectedAddresses = useActivityConnectedAddresses();
     return useCallback(async () => {
-        if (fireflyBridgeProvider.supported) {
-            const address = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
+        if (nativeBridgeProvider.supported) {
+            const address = await nativeBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
                 type: Network.All,
             });
             await connectedAddresses.refetch();

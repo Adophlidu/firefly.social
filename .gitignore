@@ -57,3 +57,7 @@ src/locales/**/*.ts
 
 .cursor/
 .claude/
+
+# packages build output and dependencies
+packages/*/dist/
+packages/*/node_modules/

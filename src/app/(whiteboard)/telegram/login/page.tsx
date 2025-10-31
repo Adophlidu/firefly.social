@@ -1,5 +1,6 @@
 'use client';
 
+import { delay } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { use, useMemo } from 'react';
@@ -11,7 +12,6 @@ import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { Source } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { createDummyProfileFromThirdPartySession } from '@/helpers/createDummyProfile.js';
-import { delay } from '@/helpers/delay.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';

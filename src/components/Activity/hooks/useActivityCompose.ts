@@ -1,13 +1,13 @@
+import { nativeBridgeProvider } from '@firefly/native-bridge';
+import { type Mention, type RequestArguments, SupportedMethod } from '@firefly/native-bridge';
 import { useCallback } from 'react';
 
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { type Mention, type RequestArguments, SupportedMethod } from '@/types/bridge.js';
 import { type Chars } from '@/types/chars.js';
 
 export function useActivityCompose() {
     return useCallback((chars: Chars) => {
-        if (fireflyBridgeProvider.supported) {
+        if (nativeBridgeProvider.supported) {
             const params = Array.isArray(chars)
                 ? chars.reduce<Omit<RequestArguments[SupportedMethod.COMPOSE], 'activity'>>(
                       (acc, part) => {
@@ -34,7 +34,7 @@ export function useActivityCompose() {
                   )
                 : { text: chars, mentions: [] };
 
-            fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
+            nativeBridgeProvider.request(SupportedMethod.COMPOSE, {
                 activity: `${location.origin}${location.pathname}`,
                 ...params,
             });

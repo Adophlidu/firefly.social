@@ -1,4 +1,5 @@
 import { type Context, type MiniAppHost, type SignInOptions } from '@farcaster/miniapp-host';
+import { assert } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 import { first } from 'lodash-es';
 import type { UnwrapPromise } from 'next/dist/lib/coalesced-function.js';
@@ -7,7 +8,6 @@ import urlcat from 'urlcat';
 import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';
-import { assert } from '@/helpers/assert.js';
 import { createDummyChannel } from '@/helpers/createDummyChannel.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileById } from '@/helpers/getProfileById.js';

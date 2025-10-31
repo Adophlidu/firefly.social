@@ -1,9 +1,9 @@
+import { nativeBridgeProvider, SupportedMethod } from '@firefly/native-bridge';
+
 import { fetchJson } from '@/helpers/fetchJson.js';
 import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
-import { SupportedMethod } from '@/types/bridge.js';
 
 class FireflySessionHolder extends SessionHolder<FireflySession> {
     fetchWithSessionGiven(session: FireflySession) {
@@ -16,8 +16,8 @@ class FireflySessionHolder extends SessionHolder<FireflySession> {
     }
 
     override async fetchWithSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
-        const authToken = fireflyBridgeProvider.supported
-            ? await fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {})
+        const authToken = nativeBridgeProvider.supported
+            ? await nativeBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {})
             : this.sessionRequired.token;
 
         return fetchJson<T>(

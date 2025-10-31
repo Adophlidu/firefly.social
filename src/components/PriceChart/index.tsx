@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { type CSSProperties, type HTMLProps, memo, useMemo, useState } from 'react';
 import { Area, AreaChart, Customized, ResponsiveContainer, Tooltip, YAxis } from 'recharts';
 import type { AxisDomain } from 'recharts/types/util/types.js';
@@ -10,7 +11,6 @@ import {
     type TraderLayerOptions,
 } from '@/components/PriceChart/TraderLayer.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatBalance, trimZero } from '@/helpers/formatBalance.js';
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
 import type { PriceRecord, TradeRecord } from '@/types/token.js';

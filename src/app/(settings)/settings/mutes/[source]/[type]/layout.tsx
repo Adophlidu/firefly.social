@@ -1,9 +1,9 @@
+import { createLookupTableResolver } from '@firefly/utils';
 import type { MessageDescriptor } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
 import { type ReactNode } from 'react';
 
 import { MuteType, Source, SourceInURL } from '@/constants/enum.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';

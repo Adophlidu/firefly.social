@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
@@ -13,7 +14,6 @@ import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { openWindow } from '@/helpers/openWindow.js';

@@ -1,10 +1,10 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { useQuery } from '@tanstack/react-query';
 
 import { ChannelMoreAction } from '@/components/Channel/ChannelMoreAction.js';
 import { ToggleFollowChannelButton } from '@/components/Channel/ToggleFollowChannelButton.js';
-import { classNames } from '@/helpers/classNames.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';

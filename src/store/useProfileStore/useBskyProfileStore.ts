@@ -1,12 +1,11 @@
 'use client';
-
+import { bom } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 import { jwtDecode } from 'jwt-decode';
 
 import { sentryClient } from '@/configs/sentryClient.js';
 import { AsyncStatus } from '@/constants/enum.js';
 import { BskySessionExpiredError, FetchError } from '@/constants/error.js';
-import { bom } from '@/helpers/bom.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { runInSafe } from '@/helpers/runInSafe.js';

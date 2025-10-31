@@ -1,8 +1,8 @@
+import { classNames } from '@firefly/utils';
 import type { HTMLProps } from 'react';
 import { type FieldPath, type FieldValues, useFormContext, useWatch } from 'react-hook-form';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface FormInputContainerProps<
     TFieldValues extends FieldValues = FieldValues,

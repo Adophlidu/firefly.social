@@ -1,11 +1,11 @@
 'use client';
 
+import { delay } from '@firefly/utils';
 import { useAppKitTheme } from '@reown/appkit/react';
 import { RouterProvider } from '@tanstack/react-router';
 
 import { Modal } from '@/components/Modal.js';
 import { ClickOrigin, type NetworkType } from '@/constants/enum.js';
-import { delay } from '@/helpers/delay.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';

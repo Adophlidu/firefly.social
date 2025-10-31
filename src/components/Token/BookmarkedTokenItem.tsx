@@ -1,9 +1,9 @@
+import { classNames } from '@firefly/utils';
 import { type HTMLProps, memo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { TokenBookmarkButton } from '@/components/Token/TokenBookmarkButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
-import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isValidAddress } from '@/helpers/isValidAddress.js';

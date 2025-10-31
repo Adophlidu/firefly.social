@@ -1,3 +1,4 @@
+import { parseUrl } from '@firefly/utils';
 import { compact, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
@@ -6,7 +7,6 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isIpfsCID } from '@/helpers/isIpfsCID.js';
 import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveSizeFromS3Url } from '@/helpers/resolveSizeFromS3Url.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';

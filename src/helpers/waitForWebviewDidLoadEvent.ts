@@ -1,11 +1,10 @@
-import { delay } from '@/helpers/delay.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { SupportedEvent } from '@/types/bridge.js';
+import { nativeBridgeProvider, SupportedEvent } from '@firefly/native-bridge';
+import { delay } from '@firefly/utils';
 
 export async function waitForWebviewDidLoadEvent(duration = 5_000): Promise<void> {
     await Promise.race([
         new Promise<void>((resolve) => {
-            fireflyBridgeProvider.on(SupportedEvent.WEBVIEW_DID_FINISH_LOAD, () => resolve());
+            nativeBridgeProvider.on(SupportedEvent.WEBVIEW_DID_FINISH_LOAD, () => resolve());
         }),
         delay(duration),
     ]);

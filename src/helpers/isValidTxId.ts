@@ -1,8 +1,8 @@
+import { safeUnreachable } from '@firefly/utils';
 import bs58 from 'bs58';
 import { isHash } from 'viem';
 
 import { NetworkType } from '@/constants/enum.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 
 function isValidSignature(signature: string) {
     try {

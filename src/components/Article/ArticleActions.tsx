@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
@@ -15,7 +16,6 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType, Source } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';

@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
@@ -15,7 +16,6 @@ import ShadowLeftArrow from '@/assets/left-arrow-shadow.svg';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SignupStep, Source } from '@/constants/enum.js';
 import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
-import { classNames } from '@/helpers/classNames.js';
 import { downloadUrlWithProxy } from '@/helpers/downloadMediaObjects.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

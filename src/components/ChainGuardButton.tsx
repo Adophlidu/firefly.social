@@ -1,3 +1,4 @@
+import { unreachable } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, type MouseEvent } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -6,7 +7,6 @@ import { switchChain } from 'wagmi/actions';
 import { ActionButton, type ActionButtonProps } from '@/components/ActionButton.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
-import { unreachable } from '@/helpers/unreachable.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 

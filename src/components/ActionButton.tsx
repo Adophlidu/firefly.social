@@ -1,7 +1,7 @@
+import { classNames } from '@firefly/utils';
 import { memo } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
 
 export interface ActionButtonProps extends ClickableButtonProps {
     variant?: 'primary' | 'secondary' | 'danger';

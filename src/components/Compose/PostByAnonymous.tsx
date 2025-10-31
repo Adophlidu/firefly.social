@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 
@@ -8,7 +9,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';

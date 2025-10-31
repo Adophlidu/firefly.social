@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -7,7 +8,6 @@ import { useCountdown } from 'usehooks-ts';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { useRouter } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';

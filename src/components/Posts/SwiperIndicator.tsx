@@ -1,7 +1,7 @@
+import { classNames } from '@firefly/utils';
 import { memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface SwiperIndicatorProps {
     activeIndex?: number;

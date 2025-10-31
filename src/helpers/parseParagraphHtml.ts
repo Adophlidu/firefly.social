@@ -1,7 +1,7 @@
+import { parseJson } from '@firefly/utils';
 import { first } from 'lodash-es';
 
 import { parseHtml } from '@/helpers/parseHtml.js';
-import { parseJson } from '@/helpers/parseJson.js';
 import type { ParagraphJSONContent } from '@/providers/paragraph/type.js';
 
 export function parseParagraphHtml(htmlString: string, jsonString: string) {

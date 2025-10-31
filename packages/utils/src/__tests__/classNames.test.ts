@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { classNames } from '@/helpers/classNames.js';
+import { classNames } from '../classNames';
 
 describe('classNames', () => {
     describe('basic functionality', () => {
@@ -87,13 +87,13 @@ describe('classNames', () => {
                 classNames({
                     btn: true,
                     primary: false,
-                    large: 0,
-                    rounded: '',
-                    disabled: null,
-                    active: undefined,
-                    visible: 'truthy',
-                    count: 42,
-                }),
+                    large: 0 as unknown as boolean,
+                    rounded: '' as unknown as boolean,
+                    disabled: null as unknown as boolean,
+                    active: undefined as unknown as boolean,
+                    visible: 'truthy' as unknown as boolean,
+                    count: 42 as unknown as boolean,
+                } as Record<string, boolean>),
             ).toBe('btn visible count');
         });
     });
@@ -219,14 +219,14 @@ describe('classNames', () => {
         test('should exercise all code paths', () => {
             // Test all branches and conditions
             const result = classNames(
-                null, // falsy check: if (!item) continue
-                undefined, // falsy check: if (!item) continue
-                '', // string type: typeof item === 'string'
-                'valid-string', // string type: typeof item === 'string'
-                {}, // object type: typeof item === 'object' (empty object)
-                { 'true-class': true }, // object type with truthy value
-                { 'false-class': false }, // object type with falsy value
-                { 'multi-true': true, 'multi-false': false, 'multi-true-2': true }, // multiple object entries
+                null,
+                undefined,
+                '',
+                'valid-string',
+                {},
+                { 'true-class': true },
+                { 'false-class': false },
+                { 'multi-true': true, 'multi-false': false, 'multi-true-2': true },
             );
 
             expect(result).toBe('valid-string true-class multi-true multi-true-2');
@@ -248,7 +248,7 @@ describe('classNames', () => {
                 null,
                 undefined,
                 '',
-                ' ', // string with spaces
+                ' ',
             );
 
             expect(result).toBe('base-class conditional-class active');

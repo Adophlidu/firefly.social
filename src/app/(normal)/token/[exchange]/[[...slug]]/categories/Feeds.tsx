@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQueries } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -17,7 +18,6 @@ import { SearchType, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_TOKEN_FEEDS_SOURCES, X3_PRO_CHAIN_IDS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatTokenMentionUser } from '@/helpers/formatTokenMentionUser.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useX3ProTokenInfo } from '@/hooks/token/useX3ProTokenInfo.js';

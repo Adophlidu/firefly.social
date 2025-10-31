@@ -1,9 +1,9 @@
 'use client';
 
+import { unreachable } from '@firefly/utils';
 import type { Address } from 'viem';
 
 import { NetworkType } from '@/constants/enum.js';
-import { unreachable } from '@/helpers/unreachable.js';
 import { type ChainContextOverrides } from '@/hooks/useChainContext.js';
 import { useEVMAvailableBalance } from '@/hooks/useEVMAvailableBalance.js';
 import { useSolanaAvailableBalance } from '@/hooks/useSolanaAvailableBalance.js';

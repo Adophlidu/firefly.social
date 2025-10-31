@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
@@ -12,7 +13,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { EstimatedCost } from '@/components/Tips/EstimatedCost.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { NetworkType } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isUserRejectErrorInWallet } from '@/helpers/isUserRejectErrorInWallet.js';

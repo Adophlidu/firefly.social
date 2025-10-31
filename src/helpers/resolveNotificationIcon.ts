@@ -1,3 +1,4 @@
+import { createLookupTableResolver } from '@firefly/utils';
 import { type FunctionComponent, type SVGAttributes } from 'react';
 
 import CollectIcon from '@/assets/collect-large.svg';
@@ -7,7 +8,6 @@ import MessagesIcon from '@/assets/message2.svg';
 import MirrorIcon from '@/assets/mirror-large.svg';
 import ScheduleIcon from '@/assets/schedule.svg';
 import TipsIcon from '@/assets/tips.svg';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { NotificationType } from '@/providers/types/SocialMedia.js';
 
 export const resolveNotificationIcon = createLookupTableResolver<

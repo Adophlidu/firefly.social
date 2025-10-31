@@ -1,8 +1,8 @@
 import type { MiniAppHost } from '@farcaster/miniapp-host';
+import { delay } from '@firefly/utils';
 
 import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/debank.js';
 import { OkxProviderType } from '@/constants/enum.js';
-import { delay } from '@/helpers/delay.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';

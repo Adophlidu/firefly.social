@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
@@ -5,7 +6,6 @@ import { useAsyncFn } from 'react-use';
 
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useCallbackRef } from '@/hooks/useCallbackRef.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { DesktopLinkInfoStatus, type DesktopLinkInfoStatusData } from '@/providers/types/Firefly.js';

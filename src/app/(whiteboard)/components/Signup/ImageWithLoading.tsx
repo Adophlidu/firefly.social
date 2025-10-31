@@ -1,12 +1,12 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import type { ImageProps } from 'next/image.js';
 import { memo, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Image } from '@/esm/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface ImageWithLoadingProps extends ImageProps {
     wrapperClassName?: string;

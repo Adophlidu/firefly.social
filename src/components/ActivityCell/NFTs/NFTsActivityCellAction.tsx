@@ -1,5 +1,6 @@
 'use client';
 
+import { safeUnreachable } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 
 import AcquiredIcon from '@/assets/acquired.svg';
@@ -18,7 +19,6 @@ import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { type EVM as NFTScanEVM, TransEventType } from '@/providers/nft-scan/types.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';

@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 
@@ -30,8 +31,7 @@ import {
     SUPPORTED_MULTIPLE_EMBED_SOURCES,
 } from '@/constants/index.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
-import { getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
+import { getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayloadFromText.js';
 import { getPollIdFromLink } from '@/helpers/getPollIdFromLink.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

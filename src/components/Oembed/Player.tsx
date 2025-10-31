@@ -1,6 +1,6 @@
 /* eslint-disable react/no-danger */
 
-import { classNames } from '@/helpers/classNames.js';
+import { classNames } from '@firefly/utils';
 
 interface PlayerProps {
     html: string;

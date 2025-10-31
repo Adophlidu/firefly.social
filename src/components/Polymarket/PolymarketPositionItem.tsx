@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { first, isUndefined } from 'lodash-es';
 
 import { Link } from '@/components/Link.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { Image } from '@/esm/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';
 import type { PolymarketPositionData } from '@/providers/types/Firefly.js';

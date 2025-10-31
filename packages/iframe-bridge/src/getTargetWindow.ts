@@ -1,6 +1,4 @@
-import { bom } from '@/helpers/bom.js';
-import { defer } from '@/helpers/defer.js';
-import { timeout } from '@/helpers/timeout.js';
+import { bom, defer, timeout } from '@firefly/utils';
 
 /**
  * Check if a window is fully loaded by waiting for the load event

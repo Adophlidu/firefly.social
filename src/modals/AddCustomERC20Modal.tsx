@@ -1,5 +1,6 @@
 'use client';
 
+import { delay } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useMemo, useState } from 'react';
@@ -15,7 +16,6 @@ import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { privyVisibleChains, visibleChains } from '@/configs/chains.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { delay } from '@/helpers/delay.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';

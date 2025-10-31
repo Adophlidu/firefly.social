@@ -2,6 +2,7 @@
 
 import '@/assets/css/signup.css';
 
+import { delay, safeUnreachable } from '@firefly/utils';
 import { AnimatePresence } from 'framer-motion';
 import { useCallback, useRef, useState } from 'react';
 
@@ -15,8 +16,6 @@ import { queryClient } from '@/configs/queryClient.js';
 import { PageRoute, SignupStep } from '@/constants/enum.js';
 import { SIGNUP_AUDIO_ID } from '@/constants/index.js';
 import { redirect, RedirectType } from '@/esm/navigation.js';
-import { delay } from '@/helpers/delay.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';

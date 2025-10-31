@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { omitBy } from 'lodash-es';
 import type { HTMLProps, ReactNode } from 'react';
 
@@ -7,7 +8,6 @@ import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { ChainId } from '@/types/frame.js';

@@ -1,6 +1,5 @@
+import { classNames } from '@firefly/utils';
 import { type HTMLProps, memo, type ReactNode } from 'react';
-
-import { classNames } from '@/helpers/classNames.js';
 
 interface AsideTitleProps extends HTMLProps<HTMLHeadingElement> {
     caption: ReactNode;

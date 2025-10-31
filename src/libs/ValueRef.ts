@@ -1,4 +1,4 @@
-import { defer } from '@/helpers/defer.js';
+import { defer } from '@firefly/utils';
 
 export type ValueComparer<T> = (a: T, b: T) => boolean;
 const defaultComparer: ValueComparer<any> = (a, b) => a === b;

@@ -1,8 +1,8 @@
+import { compose } from '@firefly/utils';
 import { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
-import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

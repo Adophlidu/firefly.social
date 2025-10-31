@@ -1,9 +1,9 @@
+import { classNames } from '@firefly/utils';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { Fragment, type PropsWithChildren, type ReactNode } from 'react';
 import { useEnsName } from 'wagmi';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';

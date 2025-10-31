@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@firefly/utils';
 import { compact, first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
@@ -14,7 +15,6 @@ import { resolveSessionHolder, resolveSessionHolderFromProfileSource } from '@/h
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { ConfirmFireflyModalRef } from '@/modals/ConfirmFireflyModal.js';
 import { ConfirmSyncSessionModalRef } from '@/modals/ConfirmSyncSessionModal.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';

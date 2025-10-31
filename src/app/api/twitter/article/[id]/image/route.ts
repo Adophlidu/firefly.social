@@ -1,7 +1,7 @@
+import { compose } from '@firefly/utils';
 import type { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
-import { compose } from '@/helpers/compose.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { parseHtml } from '@/helpers/parseHtml.js';

@@ -1,5 +1,6 @@
+import { createLookupTableResolver } from '@firefly/utils';
+
 import { FileMimeType } from '@/constants/enum.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
 export const resolveExtFromMimeType = createLookupTableResolver<FileMimeType, string>(
     {

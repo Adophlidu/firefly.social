@@ -1,13 +1,12 @@
+import { bom } from '@firefly/utils';
 import { useQuery } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { DEFAULT_THEME } from '@/constants/rp.js';
-import { bom } from '@/helpers/bom.js';
 import { minus, toFixed } from '@/helpers/number.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-
 /** pass rpid or themeId */
 export interface RedPacketCoverOptions {
     rpid?: RedPacketJSONPayload['rpid'];

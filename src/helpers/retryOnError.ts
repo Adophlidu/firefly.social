@@ -1,4 +1,4 @@
-import { delay } from '@/helpers/delay.js';
+import { delay } from '@firefly/utils';
 
 export async function retryOnError<P>(
     retries: number,

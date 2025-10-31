@@ -1,3 +1,4 @@
+import { classNames, safeUnreachable } from '@firefly/utils';
 import { compact } from 'lodash-es';
 import {
     type ChangeEvent,
@@ -20,9 +21,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Source } from '@/constants/enum.js';
 import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

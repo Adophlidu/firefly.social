@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { useQuery } from '@tanstack/react-query';
 import { type HTMLProps, memo } from 'react';
 
@@ -7,7 +8,6 @@ import { Avatar } from '@/components/Avatar.js';
 import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { resolveChannelName } from '@/helpers/resolveChannelName.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

@@ -1,3 +1,4 @@
+import { classNames, safeUnreachable } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
@@ -22,7 +23,6 @@ import {
     TimeoutError,
 } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import {
     enqueueInfoMessage,
     enqueueMessageFromError,
@@ -30,7 +30,6 @@ import {
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';

@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -12,7 +13,6 @@ import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { chains } from '@/configs/chains.js';
 import { MintStatus, NetworkType } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
 import { FreeMintModal, FreeMintModalRef } from '@/modals/FreeMintModal/index.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';

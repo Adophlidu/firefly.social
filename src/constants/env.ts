@@ -1,7 +1,7 @@
+import { bom } from '@firefly/utils';
 import { z } from 'zod';
 
 import { NODE_ENV, STATUS, VERCEL_NEV } from '@/constants/enum.js';
-import { bom } from '@/helpers/bom.js';
 
 const InternalEnvSchema = z.object({
     TWITTER_CLIENT_ID: z.string(),

@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { first } from 'lodash-es';
@@ -20,7 +21,6 @@ import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { chains } from '@/configs/chains.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';

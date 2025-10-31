@@ -1,11 +1,11 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { createMemoryHistory, createRouter, RouterProvider, useRouterState } from '@tanstack/react-router';
 import { useRef } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { routeTree } from '@/modals/RedPacketModal/routes.js';

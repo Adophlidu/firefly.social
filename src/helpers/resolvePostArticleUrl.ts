@@ -1,5 +1,6 @@
+import { safeUnreachable } from '@firefly/utils';
+
 import { Source } from '@/constants/enum.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function resolvePostArticleUrl(post: Post) {

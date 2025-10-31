@@ -1,8 +1,8 @@
+import { classNames } from '@firefly/utils';
 import { DialogTitle } from '@headlessui/react';
 import { memo } from 'react';
 
 import { BackButton, CloseButton } from '@/components/IconButton.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface ModalTitleProps {
     className?: string;

@@ -1,10 +1,9 @@
 'use client';
-
+import { bom } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 import { getSession, signOut } from 'next-auth/react';
 
 import { AsyncStatus, Source } from '@/constants/enum.js';
-import { bom } from '@/helpers/bom.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';

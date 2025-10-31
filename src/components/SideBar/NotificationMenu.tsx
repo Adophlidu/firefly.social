@@ -1,5 +1,6 @@
 import '@/assets/css/notification.css';
 
+import { safeUnreachable } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 
@@ -12,7 +13,6 @@ import { NotificationSourceType, PageRoute, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useNewestNotification } from '@/hooks/useNewestNotification.js';
 import { captureNotificationMenuClick } from '@/providers/telemetry/captureNotificationEvent.js';
 

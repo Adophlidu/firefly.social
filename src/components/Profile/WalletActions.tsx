@@ -1,4 +1,5 @@
 'use client';
+import { safeUnreachable } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from 'next/navigation.js';
 import urlcat from 'urlcat';
@@ -12,7 +13,6 @@ import { SITE_URL } from '@/constants/index.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';

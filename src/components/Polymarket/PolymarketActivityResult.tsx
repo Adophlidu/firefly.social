@@ -1,6 +1,6 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 
-import { classNames } from '@/helpers/classNames.js';
 import { computeVolume } from '@/helpers/polymarket.js';
 import type { PolymarketActivity } from '@/providers/types/Firefly.js';
 

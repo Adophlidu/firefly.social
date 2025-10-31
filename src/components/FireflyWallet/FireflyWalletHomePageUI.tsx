@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { type PropsWithChildren, type ReactNode } from 'react';
 
@@ -8,7 +9,6 @@ import CopyIcon from '@/assets/copy-2.svg';
 import ReceiveIcon from '@/assets/qrcode.svg';
 import SendIcon from '@/assets/send2.svg';
 import SwapIcon from '@/assets/swap2.svg';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { useCopyText } from '@/hooks/useCopyText.js';

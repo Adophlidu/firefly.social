@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { memo } from 'react';
 
 import CalendarIcon from '@/assets/calendar.svg';
@@ -12,7 +13,6 @@ import { Link } from '@/components/Link.js';
 import { NFTVideo } from '@/components/NFTDetail/NFTInfoPreview.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
-import { classNames } from '@/helpers/classNames.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';

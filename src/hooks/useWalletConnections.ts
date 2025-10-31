@@ -1,3 +1,4 @@
+import { parseJson } from '@firefly/utils';
 import { CoreChainController } from '@reown/appkit';
 import type { ChainAdapter } from '@reown/appkit/react';
 import { useAppKitAccount } from '@reown/appkit/react';
@@ -9,7 +10,6 @@ import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { NetworkType, WalletSource } from '@/constants/enum.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { parseJson } from '@/helpers/parseJson.js';
 import { resolveNamespace } from '@/helpers/resolveNamespace.js';
 import { useSolanaAccount, useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';

@@ -1,9 +1,9 @@
+import { classNames } from '@firefly/utils';
 import { first } from 'lodash-es';
 import { type ReactNode, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { Image } from '@/esm/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { isZero, multipliedBy } from '@/helpers/number.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';

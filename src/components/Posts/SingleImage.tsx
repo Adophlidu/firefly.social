@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
+import { classNames } from '@firefly/utils';
 import { useQuery } from '@tanstack/react-query';
 import { type HTMLProps, memo } from 'react';
 
-import { classNames } from '@/helpers/classNames.js';
 import { computeSize } from '@/helpers/computeSize.js';
 
 interface SingleImageProps extends HTMLProps<HTMLImageElement> {

@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { compose, safeUnreachable } from '@firefly/utils';
 import { compact, first } from 'lodash-es';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
@@ -21,7 +22,6 @@ import ColoredTwitterSVG from '@/assets/x-circle-light.svg?url';
 import TwitterSVG from '@/assets/x-fill.svg?url';
 import { NetworkType, type ProfilePageSource, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL, SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE } from '@/constants/index.js';
-import { compose } from '@/helpers/compose.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
@@ -31,7 +31,6 @@ import { isSocialSource, isWalletSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getAllRelatedProfileInfo } from '@/providers/firefly/getAllRelatedProfileInfo.js';
 import type { WalletProfiles } from '@/providers/types/Firefly.js';

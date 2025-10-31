@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
@@ -5,7 +6,6 @@ import PollIcon from '@/assets/poll.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SORTED_POLL_SOURCES } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';

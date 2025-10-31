@@ -1,4 +1,5 @@
 'use client';
+import { safeUnreachable } from '@firefly/utils';
 import type { SVGProps } from 'react';
 
 import AppleDarkIcon from '@/assets/apple.dark.svg';
@@ -11,7 +12,6 @@ import FireflyIcon from '@/assets/logo.svg';
 import TelegramIcon from '@/assets/telegram.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type ProfileSource, Source } from '@/constants/enum.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 

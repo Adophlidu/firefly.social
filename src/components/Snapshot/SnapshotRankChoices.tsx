@@ -1,8 +1,8 @@
+import { classNames } from '@firefly/utils';
 import { Reorder } from 'framer-motion';
 import { memo } from 'react';
 
 import ReorderIcon from '@/assets/reorder.svg';
-import { classNames } from '@/helpers/classNames.js';
 
 interface SnapshotRankChoicesProps {
     choices: string[];

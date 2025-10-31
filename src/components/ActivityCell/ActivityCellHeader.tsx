@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import type { HTMLProps, ReactNode } from 'react';
 import type { Address } from 'viem';
 
@@ -5,7 +6,6 @@ import { ConditionalLink } from '@/components/ConditionalLink.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Source } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 

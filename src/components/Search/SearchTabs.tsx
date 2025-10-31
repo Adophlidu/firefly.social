@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { type JSX, memo, useMemo } from 'react';
 
@@ -7,7 +8,6 @@ import { Link } from '@/components/Link.js';
 import { ClubType, SearchType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SEARCH_TYPE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { usePathname } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';

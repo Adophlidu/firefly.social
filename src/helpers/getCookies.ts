@@ -1,8 +1,8 @@
+import { bom } from '@firefly/utils';
 import { cookies, headers } from 'next/headers.js';
 import { use } from 'react';
 
 import { Locale, SiteCookies } from '@/constants/enum.js';
-import { bom } from '@/helpers/bom.js';
 import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 
 export function resolveLocale(locale: string): Locale {

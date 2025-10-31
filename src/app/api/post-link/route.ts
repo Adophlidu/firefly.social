@@ -1,8 +1,8 @@
+import { compose } from '@firefly/utils';
 import { compact } from 'lodash-es';
 import type { NextRequest } from 'next/server.js';
 
 import { getClassifyPostLink } from '@/app/api/post-link/getClassifyPostLink.js';
-import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 

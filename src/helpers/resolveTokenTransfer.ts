@@ -1,6 +1,7 @@
+import { createLookupTableResolver } from '@firefly/utils';
+
 import { NetworkType } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import { EthereumTransfer } from '@/providers/ethereum/Transfer.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';

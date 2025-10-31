@@ -1,7 +1,7 @@
+import { classNames } from '@firefly/utils';
 import type { HTMLProps, JSX } from 'react';
 
 import { Link } from '@/components/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 
 type SourceNavProps<T> = {
     sources: T[];

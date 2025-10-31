@@ -1,6 +1,5 @@
+import { classNames } from '@firefly/utils';
 import { type ReactNode } from 'react';
-
-import { classNames } from '@/helpers/classNames.js';
 
 interface SubtitleProps extends React.HTMLAttributes<HTMLDivElement> {
     children?: ReactNode;

@@ -1,5 +1,6 @@
 'use client';
 
+import { safeUnreachable } from '@firefly/utils';
 import { memo, Suspense, use } from 'react';
 
 import { LikeList } from '@/components/Engagement/LikeList.js';
@@ -8,7 +9,6 @@ import { RepostList } from '@/components/Engagement/RepostList.js';
 import { Loading } from '@/components/Loading.js';
 import { EngagementType, type SocialSource, type SocialSourceInURL } from '@/constants/enum.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface ContentListProps {

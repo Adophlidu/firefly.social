@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -27,7 +28,6 @@ import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { SnapshotState, SourceInURL } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';

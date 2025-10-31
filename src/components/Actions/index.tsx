@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { type HTMLProps, memo } from 'react';
@@ -17,7 +18,6 @@ import { PageRoute, Source } from '@/constants/enum.js';
 import { NotFoundError } from '@/constants/error.js';
 import { ENABLED_BOOKMARK_SOURCES } from '@/constants/index.js';
 import { usePathname } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

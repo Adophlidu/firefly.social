@@ -1,8 +1,8 @@
+import { classNames } from '@firefly/utils';
 import { memo, type PropsWithChildren, type ReactNode, useDeferredValue, useState } from 'react';
 
 import ArrowDownIcon from '@/assets/arrow-line-down.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface ToggleVisibleBoxProps {
     label: ReactNode;

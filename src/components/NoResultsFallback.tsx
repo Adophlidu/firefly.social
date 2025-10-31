@@ -1,8 +1,8 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import type { HTMLProps, ReactNode } from 'react';
 
 import GhostHoleIcon from '@/assets/ghost.svg';
-import { classNames } from '@/helpers/classNames.js';
 
 export interface NoResultsFallbackProps extends HTMLProps<HTMLDivElement> {
     message?: ReactNode;

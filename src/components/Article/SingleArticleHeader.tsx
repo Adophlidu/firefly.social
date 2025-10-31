@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { memo } from 'react';
 import { useEnsName } from 'wagmi';
 
@@ -7,7 +8,6 @@ import { ArticleMoreAction } from '@/components/Actions/ArticleMore.js';
 import { ActivityCellHeader } from '@/components/ActivityCell/ActivityCellHeader.js';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getArticleAuthorTarget, getArticleAuthorUrl } from '@/helpers/getArticleAuthorUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';

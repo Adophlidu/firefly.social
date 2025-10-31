@@ -1,10 +1,10 @@
+import { bom } from '@firefly/utils';
 import urlcat from 'urlcat';
 
 import { AccountSuspendedError } from '@/constants/error.js';
 import { FIREFLY_NITTER_URL } from '@/constants/index.js';
 import { LimitConcurrency } from '@/decorators/LimitConcurrency.js';
 import { MemoizePromise } from '@/decorators/MemoizePromise.js';
-import { bom } from '@/helpers/bom.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import {
     type GetProfileResponse,

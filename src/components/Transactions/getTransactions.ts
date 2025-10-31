@@ -1,8 +1,8 @@
+import { safeUnreachable } from '@firefly/utils';
 import { polygon } from 'viem/chains';
 
 import { Source } from '@/constants/enum.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { PolymarketActivity, SwapActivity, TransactionsItem } from '@/providers/types/Firefly.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';

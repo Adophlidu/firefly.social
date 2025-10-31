@@ -1,5 +1,6 @@
 'use client';
 
+import { safeUnreachable } from '@firefly/utils';
 import { Suspense, use } from 'react';
 
 import { ArticleBookmarkList } from '@/app/(normal)/bookmarks/ArticleBookmarkList.js';
@@ -10,7 +11,6 @@ import { Loading } from '@/components/Loading.js';
 import { SnapshotBookmarkList } from '@/components/Snapshot/SnapshotBookmarkList.js';
 import { type BookmarkSource, Source, SourceInURL } from '@/constants/enum.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import type { NextPageProps } from '@/types/utility.js';
 

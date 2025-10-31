@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Popover } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { type PropsWithChildren } from 'react';
@@ -8,7 +9,6 @@ import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
-import { classNames } from '@/helpers/classNames.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';

@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable.js';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin.js';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin.js';
@@ -15,7 +16,6 @@ import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js
 import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlugin.js';
 import { CharTag } from '@/constants/enum.js';
 import { writeChars } from '@/helpers/chars.js';
-import { classNames } from '@/helpers/classNames.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { type Chars, type ComplexChars } from '@/types/chars.js';
 

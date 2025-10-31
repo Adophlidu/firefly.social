@@ -29,6 +29,7 @@ export default defineConfig([
         '**/tailwind.config.cjs',
         '.storybook',
         '*.d.ts',
+        'dist',
         'tests',
         'eslint.config.mjs',
         'vitest.config.ts',

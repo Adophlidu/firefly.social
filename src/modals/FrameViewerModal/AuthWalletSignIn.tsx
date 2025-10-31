@@ -1,3 +1,4 @@
+import { classNames, delay } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { rootRouteId, useRouteContext } from '@tanstack/react-router';
@@ -9,8 +10,6 @@ import { useAccount } from 'wagmi';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
-import { classNames } from '@/helpers/classNames.js';
-import { delay } from '@/helpers/delay.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { InfoCard } from '@/modals/FrameViewerModal/InfoCard.js';

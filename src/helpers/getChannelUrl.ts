@@ -1,6 +1,7 @@
+import { safeUnreachable } from '@firefly/utils';
+
 import { Source } from '@/constants/enum.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export function getChannelUrl(channel: Channel) {

@@ -1,7 +1,8 @@
+import { classNames } from '@firefly/utils';
+
 import { ProfileInfo } from '@/components/Profile/ProfileInfo.js';
 import { WalletMixInfo } from '@/components/Profile/WalletMixInfo.js';
 import { type ProfilePageSource, Source } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

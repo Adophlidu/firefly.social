@@ -1,5 +1,6 @@
+import { safeUnreachable } from '@firefly/utils';
+
 import { UnreachableError } from '@/constants/error.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';

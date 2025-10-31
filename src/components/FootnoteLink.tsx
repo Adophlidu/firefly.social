@@ -1,7 +1,7 @@
+import { parseUrl } from '@firefly/utils';
 import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 
 interface FootnoteLinkProps {

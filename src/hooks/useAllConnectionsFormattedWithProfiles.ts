@@ -1,3 +1,4 @@
+import { unreachable } from '@firefly/utils';
 import { useQueries } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
 
@@ -5,7 +6,6 @@ import { Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { unreachable } from '@/helpers/unreachable.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import type { LensConnection } from '@/providers/types/Firefly.js';
 import {

@@ -1,5 +1,6 @@
+import { createLookupTableResolver } from '@firefly/utils';
+
 import { UnreachableError } from '@/constants/error.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { MattersAPI } from '@/providers/matters/index.js';
 import { MirrorAPI } from '@/providers/mirror/index.js';
 import { ParagraphAPI } from '@/providers/paragraph/index.js';

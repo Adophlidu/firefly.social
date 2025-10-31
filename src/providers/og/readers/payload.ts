@@ -1,6 +1,6 @@
+import { parseJson } from '@firefly/utils';
 import type { Hex } from 'viem';
 
-import { parseJson } from '@/helpers/parseJson.js';
 import { type MirrorPayload, PayloadType } from '@/types/og.js';
 
 interface Payload {

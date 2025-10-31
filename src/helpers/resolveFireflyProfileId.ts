@@ -1,7 +1,8 @@
+import { safeUnreachable } from '@firefly/utils';
+
 import { Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { ProfileLike } from '@/providers/types/SocialMedia.js';

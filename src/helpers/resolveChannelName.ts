@@ -1,5 +1,6 @@
+import { safeUnreachable } from '@firefly/utils';
+
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 function getChannelName(source: SocialSource, name: string, channelPrefix = true) {

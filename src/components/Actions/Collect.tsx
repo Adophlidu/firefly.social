@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
@@ -6,7 +7,6 @@ import CollectIcon from '@/assets/collect.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { PostCollect } from '@/components/Posts/PostCollect.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { CollectPostModalRef } from '@/modals/CollectPostModal.js';

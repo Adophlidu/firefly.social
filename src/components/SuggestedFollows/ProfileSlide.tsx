@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';
@@ -7,7 +8,6 @@ import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

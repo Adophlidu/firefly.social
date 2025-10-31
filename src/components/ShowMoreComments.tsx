@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { uniq } from 'lodash-es';
 import type { HTMLProps } from 'react';
 
 import LineArrowUpSVG from '@/assets/line-arrow-up.svg';
 import { Image } from '@/components/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface ShowMoreCommentsProps extends HTMLProps<HTMLDivElement> {
     avatarUrls?: string[];

@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { isServer } from '@tanstack/react-query';
 import { memo, type ReactNode, useEffect, useLayoutEffect, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
@@ -7,7 +8,6 @@ import { useEffectOnce } from 'react-use';
 import { SnackbarProvider } from '@/components/Snackbar.js';
 import { sentryClient } from '@/configs/sentryClient.js';
 import { usePathname } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

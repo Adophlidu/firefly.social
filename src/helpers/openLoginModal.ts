@@ -1,6 +1,7 @@
+import { bom } from '@firefly/utils';
+
 import { PageRoute, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { bom } from '@/helpers/bom.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { CreateFireflyAccountGuideModalRef } from '@/modals/CreateFireflyAccountGuideModal/index.js';

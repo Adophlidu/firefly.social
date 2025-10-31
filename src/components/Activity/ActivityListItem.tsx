@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { useState } from 'react';
@@ -9,7 +10,6 @@ import ActivityEndedDialog from '@/components/Activity/ActivityEndedDialog.js';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 import { type ActivityListItem as TypeActivityListItem, ActivityStatus } from '@/providers/types/Firefly.js';
 
 export function getActivityListItem(index: number, data: TypeActivityListItem) {

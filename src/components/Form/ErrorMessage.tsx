@@ -1,7 +1,6 @@
+import { classNames } from '@firefly/utils';
 import type { HTMLProps } from 'react';
 import { type Control, useFormState } from 'react-hook-form';
-
-import { classNames } from '@/helpers/classNames.js';
 
 interface ErrorMessageProps extends HTMLProps<HTMLParagraphElement> {
     name: string;

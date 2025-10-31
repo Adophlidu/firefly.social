@@ -1,8 +1,8 @@
+import { classNames } from '@firefly/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
 
 import { Image } from '@/components/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {

@@ -1,5 +1,6 @@
+import { classNames } from '@firefly/utils';
+
 import CardBg from '@/assets/card-bg.svg';
-import { classNames } from '@/helpers/classNames.js';
 
 interface CardProps extends React.HTMLProps<HTMLDivElement> {}
 

@@ -1,5 +1,5 @@
 'use client';
-
+import { bom } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { debounce } from 'lodash-es';
 import { useEffect, useState } from 'react';
@@ -10,7 +10,6 @@ import AppleIcon from '@/assets/apple-small.svg';
 import GoogleStoreIcon from '@/assets/google-store.svg';
 import { SignupStep } from '@/constants/enum.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
-import { bom } from '@/helpers/bom.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { FireflyAccountSVG } from '@/modals/CreateFireflyAccountGuideModal/FireflyAccountSVG.js';
 import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';

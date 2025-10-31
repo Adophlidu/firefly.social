@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { type CSSProperties, type ReactNode, type Ref, useState } from 'react';
 
@@ -5,7 +6,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
-import { classNames } from '@/helpers/classNames.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';

@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import { sortBy } from 'lodash-es';
 import { createContext, type CSSProperties, useContext, useLayoutEffect, useMemo, useRef } from 'react';
 
 import { AvatarRadius, SafePadding } from '@/components/PriceChart/config.js';
 import { TraderAvatar } from '@/components/PriceChart/TraderAvatar.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import type { PriceRecord, TradeRecord } from '@/types/token.js';
 
 export interface TooltipState {

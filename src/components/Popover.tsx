@@ -1,7 +1,7 @@
+import { classNames } from '@firefly/utils';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, type ReactNode } from 'react';
 
-import { classNames } from '@/helpers/classNames.js';
 import { useDisableScrollPassive } from '@/hooks/useDisableScrollPassive.js';
 
 interface PopoverProps {

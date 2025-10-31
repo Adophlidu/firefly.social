@@ -1,8 +1,8 @@
+import { compose } from '@firefly/utils';
 import { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { TWITTER_USER_OPTIONS } from '@/constants/twitter.js';
-import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';

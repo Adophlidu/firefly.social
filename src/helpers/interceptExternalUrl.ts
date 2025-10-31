@@ -1,9 +1,9 @@
+import { parseUrl, safeUnreachable } from '@firefly/utils';
+
 import { ExternalSiteDomain, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';

@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import type { HTMLProps, ReactNode } from 'react';
 import { memo } from 'react';
@@ -10,7 +11,6 @@ import DraftIconIcon from '@/assets/draft.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface IconButtonProps extends ClickableButtonProps {
     tooltip?: ReactNode;

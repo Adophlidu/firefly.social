@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { memo, Suspense, useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
 
@@ -5,7 +6,6 @@ import SearchIcon from '@/assets/search.svg';
 import { TenorGifList } from '@/components/Gif/TenorGifList.js';
 import { Loading } from '@/components/Loading.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { IGif } from '@/types/giphy.js';
 

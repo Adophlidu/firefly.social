@@ -1,11 +1,11 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import type { PropsWithChildren } from 'react';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import ComebackIcon from '@/assets/comeback.svg';
 import { PageRoute } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 
 type PageHeaderProps = PropsWithChildren<{

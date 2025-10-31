@@ -1,5 +1,6 @@
+import { delay } from '@firefly/utils';
+
 import { AbortError, InvalidResultError } from '@/constants/error.js';
-import { delay } from '@/helpers/delay.js';
 
 interface Options {
     times?: number;

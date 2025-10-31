@@ -1,10 +1,10 @@
+import { once } from '@firefly/utils';
 import type { NextRequest } from 'next/server.js';
 
 import { KeyType } from '@/constants/enum.js';
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
-import { once } from '@/helpers/once.js';
 import { getLensThreadByPostId } from '@/providers/lens/getLensThreadByPostId.js';
 
 const getThreadByPostId = memoizeWithRedis(getLensThreadByPostId, {

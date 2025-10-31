@@ -1,7 +1,6 @@
 // cspell: disable
+import { parseUrl } from '@firefly/utils';
 import type { LinkProps } from 'next/link.js';
-
-import { parseUrl } from '@/helpers/parseUrl.js';
 
 const trustedHosts = [
     // explorer hosts

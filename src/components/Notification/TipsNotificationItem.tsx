@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import type { Address } from 'viem';
@@ -20,7 +21,6 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useDefaultFireflyAvatar } from '@/hooks/useDefaultFireflyAvatar.js';
 import type { TipsNotificationData } from '@/providers/types/Firefly.js';
 

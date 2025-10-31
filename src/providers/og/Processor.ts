@@ -1,9 +1,9 @@
+import { parseUrl } from '@firefly/utils';
 import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { MIRROR_HOSTNAME_REGEXP } from '@/constants/regexp.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { getMirrorPayload } from '@/providers/og/readers/payload.js';
 import { type LinkDigested, type OpenGraph } from '@/types/og.js';
 import type { ResponseJson } from '@/types/utility.js';

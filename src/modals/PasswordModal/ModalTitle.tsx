@@ -1,8 +1,8 @@
+import { safeUnreachable } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 
 interface ModalTitleProps {
     workflow: PasswordWorkflow;

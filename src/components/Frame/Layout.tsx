@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@firefly/utils';
 import type { ReactNode } from 'react';
 
 import { FrameLayout as FrameLayoutV1 } from '@/components/Frame/V1/Layout.js';
@@ -6,7 +7,6 @@ import { Oembed } from '@/components/Oembed/index.js';
 import { FrameProtocol, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { isFrameV1, isFrameV2 } from '@/helpers/frame.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Frame } from '@/types/frame.js';
 

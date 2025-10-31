@@ -1,7 +1,7 @@
+import { classNames } from '@firefly/utils';
 import { motion } from 'framer-motion';
 
 import RightAnswerIcon from '@/assets/right-answer.svg';
-import { classNames } from '@/helpers/classNames.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import type { PollOption } from '@/providers/types/Poll.js';
 

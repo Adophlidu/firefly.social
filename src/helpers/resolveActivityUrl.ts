@@ -1,9 +1,9 @@
+import { createLookupTableResolver } from '@firefly/utils';
 import urlcat from 'urlcat';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
 export enum ReferralAccountPlatform {
     X = 'x',

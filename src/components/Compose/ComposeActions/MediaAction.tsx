@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Popover } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo, useState } from 'react';
@@ -8,7 +9,6 @@ import { Media } from '@/components/Compose/Media.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { FileMimeType } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import {
     getCurrentPostGifLimits,
     getCurrentPostImageLimits,

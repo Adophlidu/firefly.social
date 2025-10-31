@@ -1,10 +1,10 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import type { LinkProps } from 'next/link.js';
 import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 
 interface Props extends LinkProps {

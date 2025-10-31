@@ -1,7 +1,7 @@
+import { anySignal } from '@firefly/utils';
 import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
-import { anySignal } from '@/helpers/anySignal.js';
 import { fetchCachedJSON } from '@/helpers/fetchJson.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';

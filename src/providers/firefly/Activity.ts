@@ -1,3 +1,5 @@
+import { nativeBridgeProvider, SupportedMethod } from '@firefly/native-bridge';
+import { safeUnreachable } from '@firefly/utils';
 import { IS_IOS } from '@lexical/utils';
 import urlcat from 'urlcat';
 
@@ -18,9 +20,7 @@ import {
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type {
     CheckBuyResponse,
@@ -44,12 +44,11 @@ import type {
 } from '@/providers/types/Firefly.js';
 import type { Friendship } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
-import { SupportedMethod } from '@/types/bridge.js';
 
 class FireflyActivity implements Provider {
     async fetch<T>(url: string, init?: RequestInit) {
-        const authToken = fireflyBridgeProvider.supported
-            ? await runInSafeAsync(() => fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {}))
+        const authToken = nativeBridgeProvider.supported
+            ? await runInSafeAsync(() => nativeBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {}))
             : undefined;
         return authToken
             ? await fireflySessionHolder.fetchWithSession<T>(url, init)
@@ -113,7 +112,7 @@ class FireflyActivity implements Provider {
 
     async claimActivitySBT(address: string, activityName: string, claimApiExtraParams?: Record<string, unknown>) {
         let claimPlatform: 'web' | 'ios' | 'android' = 'web';
-        if (fireflyBridgeProvider.supported) claimPlatform = IS_IOS ? 'ios' : 'android';
+        if (nativeBridgeProvider.supported) claimPlatform = IS_IOS ? 'ios' : 'android';
         const response = await fireflySessionHolder.fetchWithSession<MintActivitySBTResponse>(
             urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/mint/activity/sbt'),
             {
@@ -193,7 +192,7 @@ class FireflyActivity implements Provider {
             sourceFarcasterProfileId?: number;
         },
     ) {
-        if (fireflyBridgeProvider.supported) {
+        if (nativeBridgeProvider.supported) {
             switch (source) {
                 case Source.Farcaster:
                     await fireflySessionHolder.fetchWithSession(
@@ -210,7 +209,7 @@ class FireflyActivity implements Provider {
                 case Source.Lens:
                     throw new NotImplementedError();
                 case Source.Twitter:
-                    await fireflyBridgeProvider.request(SupportedMethod.FOLLOW_TWITTER_USER, {
+                    await nativeBridgeProvider.request(SupportedMethod.FOLLOW_TWITTER_USER, {
                         id: profileId,
                     });
                     return;
@@ -251,9 +250,9 @@ class FireflyActivity implements Provider {
                 });
             }
             case Source.Twitter: {
-                if (fireflyBridgeProvider.supported) {
+                if (nativeBridgeProvider.supported) {
                     return (
-                        (await fireflyBridgeProvider.request(SupportedMethod.IS_TWITTER_USER_FOLLOWING, {
+                        (await nativeBridgeProvider.request(SupportedMethod.IS_TWITTER_USER_FOLLOWING, {
                             id: profileId,
                         })) === 'true'
                     );

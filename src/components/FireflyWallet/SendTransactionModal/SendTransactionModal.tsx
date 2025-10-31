@@ -1,4 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
+import { classNames, safeUnreachable } from '@firefly/utils';
 import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -50,7 +51,6 @@ import { TokenItem } from '@/components/Tips/TokenItem.js';
 import { chains, privyVisibleChains } from '@/configs/chains.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { NetworkType } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatLamportsToSol } from '@/helpers/formatLamportsToSol.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
@@ -61,7 +61,6 @@ import { ETH_ZERO_ADDRESS, isZeroAddressEthereum, SOL_ZERO_ADDRESS } from '@/hel
 import { isGreaterThanOrEqualTo, multipliedBy } from '@/helpers/number.js';
 import { resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useAuthHeightTextarea } from '@/hooks/useAuthHeightTextarea.js';
 import { useExpandableTokens } from '@/hooks/useExpandableTokens.js';

@@ -1,10 +1,10 @@
+import { safeUnreachable } from '@firefly/utils';
 import { compact, first, last, uniqBy } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 function mergeThreadPostsForFarcaster(posts: Post[]) {

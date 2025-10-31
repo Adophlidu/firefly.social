@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { compose } from '@firefly/utils';
 import dayjs from 'dayjs';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
@@ -13,7 +14,6 @@ import OGBackgroundSVG from '@/assets/og-background.svg?url';
 import TwitterSVG from '@/assets/x-circle-light.svg?url';
 import { type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
-import { compose } from '@/helpers/compose.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { getImageMetaFromUrl } from '@/helpers/getImageMetaFromUrl.js';
 import { narrowToSocialSourceInURL } from '@/helpers/narrowToSocialSource.js';

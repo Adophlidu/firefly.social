@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
@@ -13,7 +14,6 @@ import { Modal } from '@/components/Modal.js';
 import { queryClient } from '@/configs/queryClient.js';
 import type { ThirdPartySource } from '@/constants/enum.js';
 import { SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { stopEvent } from '@/helpers/stopEvent.js';

@@ -1,7 +1,7 @@
+import { classNames } from '@firefly/utils';
 import type { HTMLProps, ReactNode } from 'react';
 
 import { PageHeader } from '@/app/(settings)/components/PageHeader.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 
 interface SettingsSectionProps extends Omit<HTMLProps<HTMLDivElement>, 'title'> {

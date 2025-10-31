@@ -1,9 +1,9 @@
 import { AppBskyFeedThreadgate, ComAtprotoRepoApplyWrites, RichText } from '@atproto/api';
 import { TID } from '@atproto/common-web';
+import { safeUnreachable } from '@firefly/utils';
 import { compact, first } from 'lodash-es';
 
 import { BskyEmbedType, RestrictionType } from '@/constants/enum.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { refreshSessionAndUpdateStore } from '@/providers/bsky/refreshSessionAndUpdateStore.js';
 import { resolveBskyEmbed } from '@/providers/bsky/resolveBskyEmbed.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';

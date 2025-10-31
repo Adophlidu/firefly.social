@@ -1,10 +1,9 @@
 'use client';
-
+import { bom } from '@firefly/utils';
 import { useEffect, useRef } from 'react';
 
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
-import { bom } from '@/helpers/bom.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';

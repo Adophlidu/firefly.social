@@ -1,12 +1,12 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import Lock from '@/assets/lock.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostBodyContent, type PostBodyContentProps } from '@/components/Posts/PostBodyContent.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useDecryptPost } from '@/hooks/useDecryptPost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 

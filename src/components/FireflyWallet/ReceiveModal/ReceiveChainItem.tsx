@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import type { HTMLProps, ReactNode } from 'react';
 
 import CheckIcon from '@/assets/check.svg';
@@ -6,7 +7,6 @@ import QrCodeIcon from '@/assets/qrcode.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 

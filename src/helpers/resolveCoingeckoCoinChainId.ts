@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { createLookupTableResolver } from '@firefly/utils';
 
 /**
  * Get chain id of native coin on coingecko

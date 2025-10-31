@@ -1,10 +1,10 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { type PropsWithChildren, useMemo } from 'react';
 
 import { Link } from '@/esm/Link.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';

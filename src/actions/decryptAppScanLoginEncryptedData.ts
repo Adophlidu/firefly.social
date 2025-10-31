@@ -1,5 +1,6 @@
 'use server';
 
+import { parseJson, safeUnreachable } from '@firefly/utils';
 import { compact } from 'lodash-es';
 import { type Hex, hexToBytes } from 'viem';
 
@@ -7,9 +8,7 @@ import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { HIDDEN_SECRET } from '@/constants/index.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
-import { parseJson } from '@/helpers/parseJson.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';

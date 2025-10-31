@@ -1,4 +1,5 @@
-import { assert } from '@/helpers/assert.js';
+import { assert } from '@firefly/utils';
+
 import type { BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
 
 /**

@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames, safeUnreachable } from '@firefly/utils';
 import { useQueries } from '@tanstack/react-query';
 import { first, sortBy } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
@@ -10,9 +11,7 @@ import { DomainCard, DomainCardIndicator } from '@/components/EmbedCards/DomainC
 import { extractEmbedResources, isAvailableAddress } from '@/components/EmbedCards/helpers.js';
 import { EmbedLinkCard, LinkCardIndicator } from '@/components/EmbedCards/LinkCard.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useClassifyPostLinks } from '@/hooks/useClassifyPostLink.js';
 import { useResolveEnsDomains } from '@/hooks/useResolveEnsDomains.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';

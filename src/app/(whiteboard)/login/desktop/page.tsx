@@ -1,11 +1,11 @@
 'use client';
 
+import { bom } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { use, useMemo } from 'react';
 
 import FullLogo from '@/assets/logo-full.svg';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
-import { bom } from '@/helpers/bom.js';
 import { DeviceType } from '@/types/device.js';
 import type { NextPageProps } from '@/types/utility.js';
 

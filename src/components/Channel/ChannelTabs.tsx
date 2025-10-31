@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { ChannelTabType, type SocialSource } from '@/constants/enum.js';
 import { CHANNEL_TAB_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 
 interface ChannelTabsProps {

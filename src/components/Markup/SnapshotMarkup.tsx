@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { type ComponentType, memo } from 'react';
 import type { Options } from 'react-markdown';
 import ReactMarkdown from 'react-markdown';
@@ -9,7 +10,6 @@ import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { SNAPSHOT_IPFS_GATEWAY_URL } from '@/constants/index.js';
 import { BIO_TWITTER_PROFILE_REGEX, MENTION_REGEX, SYMBOL_REGEX, URL_REGEX } from '@/constants/regexp.js';
-import { classNames } from '@/helpers/classNames.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { Pluggable } from '@/types/utility.js';

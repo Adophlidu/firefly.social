@@ -1,6 +1,7 @@
+import { assert } from '@firefly/utils';
+
 import { Source } from '@/constants/enum.js';
 import { TWITTER_MENTION_REGEX } from '@/constants/regexp.js';
-import { assert } from '@/helpers/assert.js';
 import type { RootdataPeople } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { ProfileStatus } from '@/providers/types/SocialMedia.js';

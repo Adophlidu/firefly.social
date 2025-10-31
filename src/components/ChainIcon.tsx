@@ -1,10 +1,10 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveCoinGeckoChainIcon } from '@/helpers/resolveCoinGeckoChainIcon.js';

@@ -1,11 +1,11 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { cloneElement, type HTMLProps, type ReactElement, type ReactNode, useMemo } from 'react';
 
 import ArrowDownIcon from '@/assets/arrow-line-down.svg';
 import CheckIcon from '@/assets/check.svg';
-import { classNames } from '@/helpers/classNames.js';
 
 export interface FireflyWalletChainSelectorProps<C extends string = string> {
     chains: Array<{ value: C; label: ReactNode; icon: ReactElement<HTMLProps<'svg'>> }>;

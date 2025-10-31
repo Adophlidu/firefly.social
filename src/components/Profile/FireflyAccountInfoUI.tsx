@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import type { HTMLProps } from 'react';
 
@@ -5,7 +6,6 @@ import { Avatar } from '@/components/Avatar.js';
 import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import type { FireflyAccountProfile } from '@/providers/types/Firefly.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';

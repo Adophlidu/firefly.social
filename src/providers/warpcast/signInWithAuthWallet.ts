@@ -1,14 +1,13 @@
 import type { SignInOptions } from '@farcaster/miniapp-host';
+import { nativeBridgeProvider, SupportedMethod } from '@firefly/native-bridge';
+import { parseUrl } from '@firefly/utils';
 import { toHex } from 'viem';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { getPrivyBridge } from '@/connectors/PrivyConnector.js';
 import { SITE_URL } from '@/constants/index.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { createSiwfMessage } from '@/providers/warpcast/signInWithFarcaster.js';
-import { SupportedMethod } from '@/types/bridge.js';
 import type { FrameV2 } from '@/types/frame.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
@@ -29,8 +28,8 @@ export async function signInWithAuthWallet(
     options: SignInOptions,
 ) {
     const signMessage = async (message: string) => {
-        if (fireflyBridgeProvider.supported) {
-            return fireflyBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
+        if (nativeBridgeProvider.supported) {
+            return nativeBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
                 chainId: toHex(EthereumChainId.Optimism),
                 address,
                 message,

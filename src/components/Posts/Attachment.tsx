@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { memo, type SyntheticEvent, useCallback } from 'react';
@@ -18,7 +19,6 @@ import {
     SUPPORTED_PREVIEW_MEDIA_TYPES,
 } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 

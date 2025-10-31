@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { eachDayOfInterval, endOfWeek, startOfWeek } from 'date-fns';
 import { useMemo, useRef } from 'react';
 import { useClickAway } from 'react-use';
@@ -7,7 +8,6 @@ import { DatePicker, type DatePickerProps } from '@/components/Calendar/DatePick
 import { useAvailableDates } from '@/components/Calendar/hooks/useAvailableDates.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { EventProvider } from '@/types/calendar.js';
 
 interface DatePickerTabProps extends DatePickerProps {

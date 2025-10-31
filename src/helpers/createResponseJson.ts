@@ -1,6 +1,5 @@
+import { parseJson } from '@firefly/utils';
 import type { ZodError } from 'zod';
-
-import { parseJson } from '@/helpers/parseJson.js';
 
 export function createResponseJson(data: unknown, init?: ResponseInit) {
     const status = init?.status ?? 200;

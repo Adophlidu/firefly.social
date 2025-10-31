@@ -1,6 +1,7 @@
+import { createLookupTableResolver } from '@firefly/utils';
+
 import { Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import type { BlockFields } from '@/providers/types/Firefly.js';
 
 export const getPlatformQueryKey = createLookupTableResolver<Source, BlockFields>(

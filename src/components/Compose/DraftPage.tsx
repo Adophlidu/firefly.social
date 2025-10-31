@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useLocation } from '@tanstack/react-router';
 import { memo, Suspense, useState } from 'react';
@@ -7,7 +8,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { DraftList } from '@/components/Compose/DraftList.js';
 import { ScheduleTaskList } from '@/components/Compose/ScheduleTaskList.js';
 import { Loading } from '@/components/Loading.js';
-import { classNames } from '@/helpers/classNames.js';
 import { captureScheduleTabClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 
 export enum DraftPageTab {

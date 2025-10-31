@@ -1,3 +1,4 @@
+import { parseUrl } from '@firefly/utils';
 import { LinkIcon } from '@heroicons/react/24/outline';
 import { skipToken, useQuery } from '@tanstack/react-query';
 
@@ -14,7 +15,6 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { XIcon } from '@/components/XIcon.js';
 import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { ClubUrl } from '@/providers/types/Trending.js';

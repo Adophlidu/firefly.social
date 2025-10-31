@@ -1,3 +1,4 @@
+import { parseUrl } from '@firefly/utils';
 import urlcat from 'urlcat';
 
 import { STATUS } from '@/constants/enum.js';
@@ -5,7 +6,6 @@ import { env } from '@/constants/env.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { LinkDigested } from '@/types/og.js';
 import type { ResponseJson } from '@/types/utility.js';

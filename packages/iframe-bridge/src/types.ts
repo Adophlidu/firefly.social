@@ -1,4 +1,6 @@
-import type { Chars } from '@/types/chars.js';
+// Simplified Chars type for iframe bridge use
+// For full Chars type support, use the main project types
+export type Chars = string;
 
 export enum IframeBridgeMethod {
     COMPOSE = 'compose',

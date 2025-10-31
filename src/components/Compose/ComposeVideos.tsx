@@ -1,8 +1,8 @@
+import { classNames } from '@firefly/utils';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo, useMemo } from 'react';
 
 import { RemoveButton } from '@/components/RemoveButton.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { MediaObject } from '@/types/compose.js';
 

@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { SearchBar, SearchContextManager } from '@giphy/react-components';
 import { IS_SAFARI } from '@lexical/utils';
 import { t } from '@lingui/core/macro';
@@ -12,7 +13,6 @@ import { GiphyGifList } from '@/components/Gif/GiphyGifList.js';
 import { GiphyTabType } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { Image } from '@/esm/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { IGif } from '@/types/giphy.js';
 

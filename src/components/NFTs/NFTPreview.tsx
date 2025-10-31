@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
@@ -15,7 +16,6 @@ import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';

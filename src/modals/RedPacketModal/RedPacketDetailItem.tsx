@@ -1,3 +1,4 @@
+import { classNames, safeUnreachable } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 import dayjs from 'dayjs';
@@ -9,12 +10,10 @@ import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { FireflyPlatform, NetworkPluginID, NetworkType, type SocialSource } from '@/constants/enum.js';
 import { SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
 import { RedPacketActionButton } from '@/modals/RedPacketModal/RedPacketActionButton.js';

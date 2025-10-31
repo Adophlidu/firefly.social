@@ -1,8 +1,8 @@
+import { safeUnreachable } from '@firefly/utils';
 import dayjs from 'dayjs';
 
 import { UnreachableError } from '@/constants/error.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { getComposeEventParameters, type Options } from '@/providers/telemetry/getComposeEventParameters.js';
 import { getPostEventId, getPostEventParameters } from '@/providers/telemetry/getPostEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';

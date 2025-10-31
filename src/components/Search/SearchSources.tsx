@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { memo, useMemo } from 'react';
 
 import { SourceNav } from '@/components/SourceNav/SourceNav.js';
@@ -9,7 +10,6 @@ import {
     SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES,
     SORTED_SOCIAL_SOURCES,
 } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';

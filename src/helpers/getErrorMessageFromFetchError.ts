@@ -1,7 +1,7 @@
+import { parseJson } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 
 import type { FetchError } from '@/constants/error.js';
-import { parseJson } from '@/helpers/parseJson.js';
 
 export function getErrorMessageFromFetchError(error: FetchError): string {
     const parsedResponse = parseJson<{

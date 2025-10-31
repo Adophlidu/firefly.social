@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { PropsWithChildren } from 'react';
 
@@ -13,7 +14,6 @@ import SmallLogo from '@/assets/logo-small.svg';
 import SignupBg from '@/assets/signup-bg.svg';
 import TwitterLogo from '@/assets/x-logo.svg';
 import { SignupStep, Source } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 
 type PageBackgroundProps = PropsWithChildren<{

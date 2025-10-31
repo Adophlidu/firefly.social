@@ -1,6 +1,7 @@
+import { parseJson } from '@firefly/utils';
+
 import type { ProfileSource } from '@/constants/enum.js';
 import { parseHtml } from '@/helpers/parseHtml.js';
-import { parseJson } from '@/helpers/parseJson.js';
 
 export class AbortError extends Error {
     override name = 'AbortError';

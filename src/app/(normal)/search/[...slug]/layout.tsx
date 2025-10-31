@@ -1,3 +1,4 @@
+import { createLookupTableResolver } from '@firefly/utils';
 import type { MessageDescriptor } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
 import { last } from 'lodash-es';
@@ -7,7 +8,6 @@ import { SearchSources } from '@/components/Search/SearchSources.js';
 import { SearchTabs } from '@/components/Search/SearchTabs.js';
 import { ClubType, SearchType, SourceInURL } from '@/constants/enum.js';
 import { notFound, redirect } from '@/esm/navigation/server.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';

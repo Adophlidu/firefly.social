@@ -1,12 +1,11 @@
 'use client';
 
+import { classNames, parseUrl } from '@firefly/utils';
 import type { ImageProps as NextImageProps } from 'next/image.js';
 import { memo, useState } from 'react';
 
 import { Image as NextImage } from '@/esm/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { useDefaultFireflyAvatar } from '@/hooks/useDefaultFireflyAvatar.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 

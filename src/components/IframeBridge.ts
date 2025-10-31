@@ -1,5 +1,12 @@
 'use client';
 
+import {
+    IframeBridgeMethod,
+    iframeBridgeProvider,
+    type IframeBridgeRequestArguments,
+    type IframeBridgeResponseResult,
+} from '@firefly/iframe-bridge';
+import { safeUnreachable } from '@firefly/utils';
 import { memo, useEffect } from 'react';
 
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
@@ -11,15 +18,8 @@ import {
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';
-import { iframeBridgeProvider } from '@/providers/iframe/IframeBridge.js';
-import {
-    IframeBridgeMethod,
-    type IframeBridgeRequestArguments,
-    type IframeBridgeResponseResult,
-} from '@/providers/iframe/types.js';
 
 const allEvents: {
     [K in IframeBridgeMethod]: (params: IframeBridgeRequestArguments[K]) => Promise<IframeBridgeResponseResult[K]>;

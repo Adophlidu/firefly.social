@@ -1,3 +1,4 @@
+import { parseUrl } from '@firefly/utils';
 import urlcat from 'urlcat';
 
 import { getPostFromUrl } from '@/app/api/post-link/getPostFromUrl.js';
@@ -9,7 +10,6 @@ import { EVM_ADDRESS, TWEET_SPACE_REGEX } from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveNFTDataFromUrl } from '@/helpers/resolveNFTDataFromUrl.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';

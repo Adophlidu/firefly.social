@@ -1,6 +1,6 @@
+import { compose } from '@firefly/utils';
 import { NextRequest } from 'next/server.js';
 
-import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { encodeAsciiPayload } from '@/helpers/encodeSessionPayload.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

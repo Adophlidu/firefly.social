@@ -1,7 +1,7 @@
+import { compose } from '@firefly/utils';
 import { NextRequest } from 'next/server.js';
 
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
-import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { patchTweetsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';

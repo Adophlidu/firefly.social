@@ -1,7 +1,7 @@
+import { parseUrl } from '@firefly/utils';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 
-import { parseUrl } from '@/helpers/parseUrl.js';
 import type { EVM as NFTScanEVM } from '@/providers/nft-scan/types.js';
 import type { NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
 

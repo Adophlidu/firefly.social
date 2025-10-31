@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback, useMemo } from 'react';
@@ -8,7 +9,6 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';

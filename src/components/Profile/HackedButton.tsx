@@ -1,8 +1,8 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface HackedButtonProps extends Omit<ClickableButtonProps, 'children'> {}
 

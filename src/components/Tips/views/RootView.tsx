@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { Outlet, useRouterState } from '@tanstack/react-router';
 
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { TipsModalRef } from '@/modals/TipsModal/index.js';

@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import { memo } from 'react';
 
 import EvmDashIcon from '@/assets/evm-dash.svg';
 import WalletIcon from '@/assets/wallet-icon.svg';
 import { Image } from '@/components/Image.js';
 import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { type TipsProfile } from '@/hooks/useTipsContext.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';

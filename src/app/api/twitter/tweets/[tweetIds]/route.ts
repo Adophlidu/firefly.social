@@ -1,8 +1,8 @@
+import { compose } from '@firefly/utils';
 import type { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
-import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { patchTweetsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

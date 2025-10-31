@@ -1,4 +1,4 @@
-import { bom } from '@/helpers/bom.js';
+import { bom } from '@firefly/utils';
 
 function memoizePromise<T extends (...args: unknown[]) => Promise<unknown>>(
     func: T,

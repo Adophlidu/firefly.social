@@ -1,5 +1,4 @@
-import { bom } from '@/helpers/bom.js';
-
+import { bom } from '@firefly/utils';
 /**
  * Get user's locale for metadata
  *

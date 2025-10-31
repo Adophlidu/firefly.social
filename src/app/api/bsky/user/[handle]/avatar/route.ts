@@ -1,7 +1,7 @@
+import { compose } from '@firefly/utils';
 import type { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
-import { compose } from '@/helpers/compose.js';
 import { createRedirectResponse } from '@/helpers/createRedirectResponse.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';

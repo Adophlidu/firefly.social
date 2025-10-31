@@ -1,8 +1,7 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { cloneElement, type HTMLProps, type PropsWithChildren, type ReactElement } from 'react';
-
-import { classNames } from '@/helpers/classNames.js';
 
 interface Props extends HTMLProps<'div'> {
     icon: ReactElement<any>;

@@ -1,7 +1,8 @@
+import { safeUnreachable } from '@firefly/utils';
+
 import { getArticleItemContent } from '@/components/VirtualList/getArticleItemContent.js';
 import { getSnapshotItemContent } from '@/components/VirtualList/getSnapshotItemContent.js';
 import { Source } from '@/constants/enum.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { ActivitiesItem } from '@/providers/types/Firefly.js';
 
 export function getActivitiesItemContent(index: number, data: ActivitiesItem, listKey: string) {

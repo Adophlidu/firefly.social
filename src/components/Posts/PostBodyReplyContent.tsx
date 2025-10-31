@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo, useEffect, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';

@@ -1,9 +1,9 @@
+import { compose } from '@firefly/utils';
 import { pick } from 'lodash-es';
 import type { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
-import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { patchPostClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';

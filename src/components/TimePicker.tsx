@@ -1,9 +1,8 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { memo, useRef } from 'react';
 import { useMount } from 'react-use';
-
-import { classNames } from '@/helpers/classNames.js';
 
 export interface TimePickerProps {
     open: boolean;

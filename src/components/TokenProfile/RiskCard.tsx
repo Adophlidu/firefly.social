@@ -1,8 +1,8 @@
+import { classNames } from '@firefly/utils';
 import { Fragment, type HTMLProps, memo } from 'react';
 
 import DangerIcon from '@/assets/danger.svg';
 import WarningIcon from '@/assets/warning.svg';
-import { classNames } from '@/helpers/classNames.js';
 import {
     type AddressSecurity,
     type SecurityMessage,

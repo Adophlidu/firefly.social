@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import type { HTMLProps } from 'react';
 import { memo } from 'react';
 
@@ -5,7 +6,6 @@ import { Avatar } from '@/components/Avatar.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { Link } from '@/esm/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';

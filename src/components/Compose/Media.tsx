@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Popover, Transition } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -16,7 +17,6 @@ import {
     GIF_MEDIA_SOURCE_CONFIG,
     SUPPORTED_VIDEO_SOURCES,
 } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import {
     getCurrentPostGifLimits,
     getCurrentPostImageLimits,

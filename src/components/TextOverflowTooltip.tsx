@@ -1,10 +1,10 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import type { TippyProps } from '@tippyjs/react';
 import { cloneElement, memo, type ReactElement, type ReactNode } from 'react';
 
 import { Tippy } from '@/esm/Tippy.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';
 
 interface TextOverflowTooltipProps extends Omit<TippyProps, 'ref' | 'title' | 'children'> {

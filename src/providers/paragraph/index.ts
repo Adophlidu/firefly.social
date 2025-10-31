@@ -1,3 +1,4 @@
+import { createLookupTableResolver } from '@firefly/utils';
 import urlcat from 'urlcat';
 import { type Address, type Hex, zeroAddress } from 'viem';
 import { base, optimism, polygon, zora } from 'viem/chains';
@@ -8,7 +9,6 @@ import { chains } from '@/configs/chains.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NotImplementedError, UnreachableError } from '@/constants/error.js';
 import { PARAGRAPH_COLLECT_FEE, PARAGRAPH_COLLECT_FEE_IN_POLYGON } from '@/constants/index.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { rightShift } from '@/helpers/number.js';

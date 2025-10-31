@@ -1,9 +1,9 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { formatTokenItemAmount } from '@/components/Tips/formatTokenItemAmount.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { multipliedBy } from '@/helpers/number.js';
 import type { Token as RawToken } from '@/hooks/useCustomFungibleTokens.js';

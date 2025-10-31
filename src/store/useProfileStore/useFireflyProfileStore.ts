@@ -1,8 +1,8 @@
 'use client';
+import { bom } from '@firefly/utils';
 
 import { AsyncStatus, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
-import { bom } from '@/helpers/bom.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';

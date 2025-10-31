@@ -1,7 +1,6 @@
+import { classNames } from '@firefly/utils';
 import type { HTMLProps } from 'react';
 import { type FieldPath, type FieldValues, type RegisterOptions, useFormContext, useFormState } from 'react-hook-form';
-
-import { classNames } from '@/helpers/classNames.js';
 
 function inputClassName({
     error,

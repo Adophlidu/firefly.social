@@ -1,9 +1,9 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { type HTMLProps, type ReactNode } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface OptionButtonProps extends Omit<HTMLProps<HTMLButtonElement>, 'label'> {
     label: ReactNode;

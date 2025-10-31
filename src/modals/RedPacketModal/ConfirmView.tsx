@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { compact, flatten } from 'lodash-es';
@@ -19,7 +20,6 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType } from '@/constants/enum.js';
 import { ALLOWED_COVER_MIMES } from '@/constants/index.js';
 import { DEFAULT_THEME_ID } from '@/constants/rp.js';
-import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatCurrency } from '@/helpers/formatCurrency.js';

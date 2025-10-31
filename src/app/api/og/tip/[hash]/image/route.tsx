@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { compose } from '@firefly/utils';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
 import type { HTMLProps } from 'react';
@@ -14,7 +15,6 @@ import TipOGBackgroundSVG from '@/assets/tip-og-background.svg?url';
 import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
-import { compose } from '@/helpers/compose.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';

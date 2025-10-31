@@ -1,5 +1,6 @@
+import { unreachable } from '@firefly/utils';
+
 import { NetworkType } from '@/constants/enum.js';
-import { unreachable } from '@/helpers/unreachable.js';
 import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
 import { SolanaChainResolver } from '@/web3-providers/Web3/Solana/apis/ResolverAPI.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';

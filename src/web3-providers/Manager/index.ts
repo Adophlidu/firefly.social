@@ -1,5 +1,6 @@
+import { unreachable } from '@firefly/utils';
+
 import { NetworkPluginID } from '@/constants/enum.js';
-import { unreachable } from '@/helpers/unreachable.js';
 import type { Web3Helper } from '@/web3-helpers/index.js';
 import { NETWORK_DESCRIPTORS as evm_networks } from '@/web3-shared/evm/descriptors.js';
 import { NETWORK_DESCRIPTORS as solana_networks } from '@/web3-shared/solana/descriptors.js';

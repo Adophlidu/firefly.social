@@ -1,5 +1,6 @@
+import { safeUnreachable } from '@firefly/utils';
+
 import { NetworkType } from '@/constants/enum.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 
 export function resolveNetworkIcon(networkType: NetworkType, isDarkMode: boolean) {
     switch (networkType) {

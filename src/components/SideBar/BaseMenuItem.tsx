@@ -1,9 +1,9 @@
+import { classNames } from '@firefly/utils';
 import type { TippyProps } from '@tippyjs/react';
 import { type HTMLProps, type ReactNode } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface BaseMenuItemProps extends HTMLProps<HTMLAnchorElement> {
     isSelected: boolean;

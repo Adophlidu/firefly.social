@@ -1,10 +1,10 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo, useRef } from 'react';
 
 import { ClearButton } from '@/components/IconButton.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface SearchInputProps extends HTMLProps<HTMLInputElement> {
     onClear?: () => void;

@@ -1,17 +1,16 @@
+import { nativeBridgeProvider, SupportedMethod } from '@firefly/native-bridge';
+import { createLookupTableResolver } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
 import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityLoginEventBySocialSource } from '@/providers/telemetry/captureActivityEvent.js';
-import { SupportedMethod } from '@/types/bridge.js';
 
 const resolveFireflyBridgePlatformFromSocialSource = createLookupTableResolver<SocialSource, FireflyPlatform>(
     {
@@ -29,9 +28,9 @@ export function useLoginInActivity() {
     const queryFireflyBridgeAuthorization = useFireflyBridgeAuthorization();
     const { refetch } = useActivityConnections();
     return useAsyncFn(async (source: SocialSource) => {
-        if (fireflyBridgeProvider.supported) {
+        if (nativeBridgeProvider.supported) {
             try {
-                const result = await fireflyBridgeProvider.request(SupportedMethod.LOGIN, {
+                const result = await nativeBridgeProvider.request(SupportedMethod.LOGIN, {
                     platform: resolveFireflyBridgePlatformFromSocialSource(source),
                 });
                 await queryFireflyBridgeAuthorization.refetch();

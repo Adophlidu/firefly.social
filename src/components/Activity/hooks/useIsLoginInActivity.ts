@@ -1,6 +1,7 @@
+import { safeUnreachable } from '@firefly/utils';
+
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 
 export function useIsLoginInActivity(source?: SocialSource | SocialSource[]) {
     const { data } = useActivityConnections();

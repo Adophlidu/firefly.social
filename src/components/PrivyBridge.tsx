@@ -1,6 +1,7 @@
 'use client';
 
 import { web3 } from '@coral-xyz/anchor';
+import { delay } from '@firefly/utils';
 import {
     type ConnectedWallet,
     type PrivyClientConfig,
@@ -27,7 +28,6 @@ import { FireflyLoginRequired } from '@/components/FireflyLoginRequired.js';
 import { chains } from '@/configs/chains.js';
 import { NetworkType } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { delay } from '@/helpers/delay.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

@@ -1,7 +1,7 @@
+import { classNames } from '@firefly/utils';
 import { type ReactNode } from 'react';
 
 import { Link } from '@/components/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 
 export interface InlineTargetProps {
     href: string;

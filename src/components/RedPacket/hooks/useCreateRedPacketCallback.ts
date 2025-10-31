@@ -1,9 +1,9 @@
+import { unreachable } from '@firefly/utils';
 import { useContext } from 'react';
 
 import { useEthereumCreateRedPacketCallback } from '@/components/RedPacket/hooks/useEthereumCreateRedPacketCallback.js';
 import { useSolanaCreateRedPacketCallback } from '@/components/RedPacket/hooks/useSolanaCreateRedPacketCallback.js';
 import { NetworkType } from '@/constants/enum.js';
-import { unreachable } from '@/helpers/unreachable.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 

@@ -1,10 +1,10 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { useQuery } from '@tanstack/react-query';
 
 import { ThreadBody, type ThreadBodyProps } from '@/components/Posts/ThreadBody.js';
 import type { SocialSource } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 
 export interface ThreadBodyWithQuery extends Omit<ThreadBodyProps, 'post'> {

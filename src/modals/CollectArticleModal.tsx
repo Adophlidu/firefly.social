@@ -1,10 +1,10 @@
+import { delay } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 
 import { ArticleCollect } from '@/components/Article/ArticleCollect.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
-import { delay } from '@/helpers/delay.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';

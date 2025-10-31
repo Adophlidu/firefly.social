@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import { Dialog, Transition } from '@headlessui/react';
 import { noop } from 'lodash-es';
 import { Fragment, memo, type ReactNode, useRef } from 'react';
 
 import { ModalBody } from '@/components/ModalBody.js';
 import { ModalTitle } from '@/components/ModalTitle.js';
-import { classNames } from '@/helpers/classNames.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 
 export interface ModalProps {

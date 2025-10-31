@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import type { HTMLProps } from 'react';
 
@@ -6,7 +7,6 @@ import SellIcon from '@/assets/polymarket-sold.svg';
 import { Link } from '@/components/Link.js';
 import { PolymarketTime } from '@/components/Polymarket/PolymarketTime.js';
 import { Image } from '@/esm/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { leftShift, rightShift } from '@/helpers/number.js';
 import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';

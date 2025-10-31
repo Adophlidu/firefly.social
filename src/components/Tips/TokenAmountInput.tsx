@@ -1,9 +1,9 @@
+import { classNames } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 import { memo, useCallback } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 

@@ -1,8 +1,8 @@
+import { unreachable } from '@firefly/utils';
 import { memo, useCallback, useContext } from 'react';
 
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { NetworkType } from '@/constants/enum.js';
-import { unreachable } from '@/helpers/unreachable.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { RedPacketContext, redPacketTypeTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
 

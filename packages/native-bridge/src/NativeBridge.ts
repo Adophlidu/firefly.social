@@ -1,15 +1,6 @@
+import { EventPayload, RequestArguments, SupportedEvent, ResponseResult, SupportedMethod } from '@/types';
+import { bom, parseJson, timeout } from '@firefly/utils';
 import { uniqueId } from 'lodash-es';
-
-import { bom } from '@/helpers/bom.js';
-import { parseJson } from '@/helpers/parseJson.js';
-import { timeout } from '@/helpers/timeout.js';
-import {
-    type EventPayload,
-    type RequestArguments,
-    type ResponseResult,
-    SupportedEvent,
-    SupportedMethod,
-} from '@/types/bridge.js';
 
 const REQUEST_ONLY_METHODS = [
     SupportedMethod.SHARE,
@@ -47,7 +38,7 @@ function callNativeMethod<T extends SupportedMethod>(method: T, id: string, para
     throw new Error(`Failed to call native method: ${method} ${JSON.stringify(params)}`);
 }
 
-class FireflyBridgeProvider {
+export class NativeBridgeProvider {
     private callbacks = new Map<string, (payload: Payload) => void>();
     private events = new Map<string, Set<(payload: Payload) => void>>();
 
@@ -124,4 +115,4 @@ class FireflyBridgeProvider {
     }
 }
 
-export const fireflyBridgeProvider = new FireflyBridgeProvider();
+export const nativeBridgeProvider = new NativeBridgeProvider();

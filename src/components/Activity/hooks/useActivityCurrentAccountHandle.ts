@@ -1,8 +1,9 @@
+import { nativeBridgeProvider } from '@firefly/native-bridge';
+import { safeUnreachable } from '@firefly/utils';
+
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
 export function useActivityCurrentAccountHandle(source: SocialSource) {
     const { data } = useActivityConnections();
@@ -30,7 +31,7 @@ export function useActivityCurrentAccountHandle(source: SocialSource) {
 export function useActivityCurrentAccountProfileId(source: SocialSource): string | undefined {
     const profile = useCurrentProfile(source);
     const { data } = useActivityConnections();
-    if (fireflyBridgeProvider.supported) {
+    if (nativeBridgeProvider.supported) {
         switch (source) {
             case Source.Farcaster:
                 const fid = data?.rawConnections.farcaster.connected[0]?.fid;

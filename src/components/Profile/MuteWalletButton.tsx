@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 import { memo, useState } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { classNames } from '@/helpers/classNames.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 enum State {

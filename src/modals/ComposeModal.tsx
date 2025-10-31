@@ -1,5 +1,6 @@
 'use client';
 
+import { delay } from '@firefly/utils';
 import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LexicalComposer } from '@lexical/react/LexicalComposer.js';
@@ -19,7 +20,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { CharTag, FileMimeType, type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST, RP_HASH_TAG, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { delay } from '@/helpers/delay.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';

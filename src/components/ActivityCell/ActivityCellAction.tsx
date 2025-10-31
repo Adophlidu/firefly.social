@@ -1,8 +1,7 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import type { HTMLProps } from 'react';
-
-import { classNames } from '@/helpers/classNames.js';
 
 export function ActivityCellAction({ children, className }: HTMLProps<'div'>) {
     return (

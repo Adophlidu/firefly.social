@@ -1,8 +1,8 @@
+import { compose } from '@firefly/utils';
 import type { NextRequest } from 'next/server.js';
 
 import { KeyType } from '@/constants/enum.js';
 import { MalformedError } from '@/constants/error.js';
-import { compose } from '@/helpers/compose.js';
 import { createRedirectResponse } from '@/helpers/createRedirectResponse.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

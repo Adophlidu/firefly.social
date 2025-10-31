@@ -1,5 +1,6 @@
+import { parseUrl } from '@firefly/utils';
+
 import { FIREFLY_S3_DOMAIN } from '@/constants/index.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 
 export function resolveSizeFromS3Url(s3Url: string) {
     const u = parseUrl(s3Url);

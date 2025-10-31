@@ -1,10 +1,10 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import type { HTMLProps } from 'react';
 import { memo } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface LoadingProps extends HTMLProps<HTMLDivElement> {
     minHeight?: number | string;

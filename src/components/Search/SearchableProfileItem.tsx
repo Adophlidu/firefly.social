@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { first } from 'lodash-es';
 import { type HTMLProps, memo } from 'react';
 import { useEnsAvatar } from 'wagmi';
@@ -7,7 +8,6 @@ import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { FireflyPlatform, type ProfilePageSource, Source } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

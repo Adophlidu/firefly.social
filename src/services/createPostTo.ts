@@ -1,8 +1,9 @@
+import { safeUnreachable } from '@firefly/utils';
+
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { mergeMediaObjects } from '@/helpers/mergeMediaObjects.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Poll } from '@/providers/types/Poll.js';

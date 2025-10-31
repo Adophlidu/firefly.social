@@ -1,6 +1,5 @@
+import { classNames } from '@firefly/utils';
 import type { PropsWithChildren, ReactNode } from 'react';
-
-import { classNames } from '@/helpers/classNames.js';
 
 export function ContentCard({
     label,

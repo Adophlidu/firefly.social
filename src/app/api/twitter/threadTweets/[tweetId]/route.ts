@@ -1,7 +1,7 @@
+import { compose } from '@firefly/utils';
 import type { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
-import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getThreadTweets } from '@/helpers/getThreadTweets.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

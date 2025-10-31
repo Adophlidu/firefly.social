@@ -1,12 +1,12 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { type HTMLProps, useRef, useState } from 'react';
 
 import PauseIcon from '@/assets/pause.svg';
 import PlayIcon from '@/assets/play.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NFTImage } from '@/components/NFTImage.js';
-import { classNames } from '@/helpers/classNames.js';
 
 const iconClassName = 'size-4 text-primaryBottom';
 

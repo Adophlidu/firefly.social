@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { Outlet, useLocation, useRouter, useRouterState } from '@tanstack/react-router';
 
 import HistoryIcon from '@/assets/history.svg';
 import QuestionIcon from '@/assets/question.svg';
 import { BackButton, CloseButton } from '@/components/IconButton.js';
-import { classNames } from '@/helpers/classNames.js';
 import { RedPacketModalRef } from '@/modals/RedPacketModal/index.js';
 import { RedPacketProvider } from '@/modals/RedPacketModal/RedPacketContext.js';
 

@@ -1,8 +1,8 @@
+import { delay } from '@firefly/utils';
 import type { Config } from '@wagmi/core';
 import { getConnectors, getWalletClient } from 'wagmi/actions';
 
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
-import { delay } from '@/helpers/delay.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';

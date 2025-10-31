@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import { addMonths, endOfMonth, format, startOfMonth } from 'date-fns';
 import { range } from 'lodash-es';
 import { useState } from 'react';
 
 import RightArrowIcon from '@/assets/right-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
 
 export interface DatePickerProps {
     open: boolean;

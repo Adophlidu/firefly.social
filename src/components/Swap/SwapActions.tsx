@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -24,7 +25,6 @@ import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source, TxReactionType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { downloadImage } from '@/helpers/downloadImage.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';

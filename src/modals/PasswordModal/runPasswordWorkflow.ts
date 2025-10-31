@@ -1,3 +1,4 @@
+import { safeUnreachable, unreachable } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -5,7 +6,6 @@ import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { safeUnreachable, unreachable } from '@/helpers/unreachable.js';
 import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
 import { isStrongDigitPassword, isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';

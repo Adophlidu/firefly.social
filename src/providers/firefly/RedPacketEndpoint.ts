@@ -1,9 +1,9 @@
+import { bom } from '@firefly/utils';
 import urlcat from 'urlcat';
 import type { Hex } from 'viem';
 
 import { EMPTY_LIST, FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
 import { RedPacketMetaKey } from '@/constants/rp.js';
-import { bom } from '@/helpers/bom.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { toFixed } from '@/helpers/number.js';

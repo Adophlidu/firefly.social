@@ -1,5 +1,7 @@
 'use client';
 
+import { nativeBridgeProvider, SupportedMethod } from '@firefly/native-bridge';
+import { classNames } from '@firefly/utils';
 import { type HTMLProps, useContext } from 'react';
 
 import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';
@@ -9,13 +11,10 @@ import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShar
 import { IS_ANDROID } from '@/constants/browser.js';
 import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { SupportedMethod } from '@/types/bridge.js';
 
 interface Props extends HTMLProps<'div'> {}
 
@@ -58,8 +57,7 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
                                 comeback();
                                 return;
                             }
-                            if (fireflyBridgeProvider.supported)
-                                fireflyBridgeProvider.request(SupportedMethod.BACK, {});
+                            if (nativeBridgeProvider.supported) nativeBridgeProvider.request(SupportedMethod.BACK, {});
                             else comeback();
                         }}
                     >
@@ -71,10 +69,10 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
                         onClick={() => {
                             captureActivityEvent(EventId.EVENT_SHARE_CLICK, {});
                             if (pathname === PageRoute.Events) {
-                                fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: location.href });
+                                nativeBridgeProvider.request(SupportedMethod.SHARE, { text: location.href });
                                 return;
                             }
-                            fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: shareUrl });
+                            nativeBridgeProvider.request(SupportedMethod.SHARE, { text: shareUrl });
                         }}
                     >
                         <ShareIcon width={24} height={24} />

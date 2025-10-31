@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -13,7 +14,6 @@ import GoogleIcon from '@/assets/google-small.svg';
 import TelegramIcon from '@/assets/telegram.svg';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Source, SourceInURL, type ThirdPartySource } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';

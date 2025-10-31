@@ -1,6 +1,7 @@
+import { safeUnreachable } from '@firefly/utils';
+
 import { isFrameV1, isFrameV2 } from '@/helpers/frame.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import type { Frame } from '@/types/frame.js';

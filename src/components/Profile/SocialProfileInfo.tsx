@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 
 import { Avatar } from '@/components/Avatar.js';
@@ -12,7 +13,6 @@ import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
 import { ENABLED_FOLLOWING_LIST_SOURCES } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

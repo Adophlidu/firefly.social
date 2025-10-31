@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import type { AutoLinkNode } from '@lexical/link';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin.js';
@@ -20,7 +21,6 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { composeSearchProfiles, formatSearchProfile, sortSearchProfiles } from '@/helpers/formatSearchProfile.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';

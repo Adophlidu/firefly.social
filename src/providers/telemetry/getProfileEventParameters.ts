@@ -1,8 +1,9 @@
+import { safeUnreachable } from '@firefly/utils';
+
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 import {
     type BskyEventParameters,

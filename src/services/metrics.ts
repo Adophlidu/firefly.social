@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -17,7 +18,6 @@ import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';

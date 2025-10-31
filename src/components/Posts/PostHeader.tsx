@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { memo } from 'react';
 
 import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';
@@ -15,7 +16,6 @@ import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { PostMoreAction } from '@/components/TrumpTruthSocial/PostMoreAction.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

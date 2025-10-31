@@ -1,5 +1,7 @@
 'use client';
 
+import { nativeBridgeProvider } from '@firefly/native-bridge';
+import { classNames } from '@firefly/utils';
 import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
@@ -8,10 +10,8 @@ import { Link } from '@/components/Activity/Link.js';
 import { IS_ANDROID } from '@/constants/browser.js';
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_TELEGRAM_URL } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
 const VIEW_EXAMPLE_URL_EN = 'https://x.com/thefireflyapp/article/1929723999019548966';
 const SUBMIT_FORM_URL_ZH =
@@ -97,7 +97,7 @@ export function ActivityCreatorTasks() {
             </div>
             <div
                 className={classNames(
-                    fireflyBridgeProvider.supported && IS_ANDROID ? 'pb-safe-or-8' : 'pb-safe-or-4 max-md:pb-safe-or-2',
+                    nativeBridgeProvider.supported && IS_ANDROID ? 'pb-safe-or-8' : 'pb-safe-or-4 max-md:pb-safe-or-2',
                 )}
             />
         </div>

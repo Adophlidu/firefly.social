@@ -1,8 +1,8 @@
 import type { SignInOptions } from '@farcaster/miniapp-host';
+import { parseUrl } from '@firefly/utils';
 import { type Address, checksumAddress, toHex } from 'viem';
 
 import { SITE_URL } from '@/constants/index.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { custodyOf } from '@/providers/warpcast/custodyOf.js';
 import type { FrameV2 } from '@/types/frame.js';

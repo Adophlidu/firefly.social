@@ -1,9 +1,9 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 
 import CloseIcon from '@/assets/close.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface RemoveButtonProps extends ClickableButtonProps {
     tooltip?: string;

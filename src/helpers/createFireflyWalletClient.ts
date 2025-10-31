@@ -1,10 +1,10 @@
+import { nativeBridgeProvider } from '@firefly/native-bridge';
+import { type Chain, Network, SupportedMethod, type Transaction } from '@firefly/native-bridge';
+import { squashCallback } from '@firefly/utils';
 import { createInstance } from 'localforage';
 import { toHex } from 'viem';
 
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
-import { squashCallback } from '@/helpers/squashCallback.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { type Chain, Network, SupportedMethod, type Transaction } from '@/types/bridge.js';
 import type { RequestArguments } from '@/types/ethereum.js';
 import { EthereumChainId, EthereumMethodType } from '@/web3-shared/evm/types.js';
 
@@ -14,7 +14,7 @@ const storage = createInstance({
 
 const connectWalletSquashed = squashCallback(
     () =>
-        fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
+        nativeBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
             type: Network.EVM,
         }),
     {
@@ -53,7 +53,7 @@ export async function createFireflyWalletClient() {
                     const accountFromStore = await storage.getItem<string>('account');
                     if (accountFromStore) return [accountFromStore];
 
-                    const accounts = await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
+                    const accounts = await nativeBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
                         type: Network.EVM,
                     });
                     if (accounts.length) return accounts;
@@ -74,7 +74,7 @@ export async function createFireflyWalletClient() {
                 case EthereumMethodType.ETH_SIGN:
                 case EthereumMethodType.PERSONAL_SIGN: {
                     const [message, address] = requestArguments.params as [string, string];
-                    const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
+                    const signed = await nativeBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
                         chainId: toHex(chainId),
                         address,
                         message,
@@ -83,7 +83,7 @@ export async function createFireflyWalletClient() {
                 }
                 case EthereumMethodType.ETH_SIGN_TYPED_DATA: {
                     const [address, data] = requestArguments.params as [string, {} | string];
-                    const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TYPED_DATA, {
+                    const signed = await nativeBridgeProvider.request(SupportedMethod.SIGN_TYPED_DATA, {
                         chainId: toHex(chainId),
                         address,
                         message: typeof data === 'string' ? data : JSON.stringify(data),
@@ -92,7 +92,7 @@ export async function createFireflyWalletClient() {
                 }
                 case EthereumMethodType.ETH_SIGN_TRANSACTION: {
                     const transaction = requestArguments.params[0] as Transaction;
-                    const hash = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, {
+                    const hash = await nativeBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, {
                         chainId: toHex(chainId),
                         transaction,
                     });
@@ -100,7 +100,7 @@ export async function createFireflyWalletClient() {
                 }
                 case EthereumMethodType.ETH_SEND_TRANSACTION: {
                     const transaction = requestArguments.params[0] as Transaction;
-                    const hash = await fireflyBridgeProvider.request(SupportedMethod.SEND_TRANSACTION, {
+                    const hash = await nativeBridgeProvider.request(SupportedMethod.SEND_TRANSACTION, {
                         chainId: toHex(chainId),
                         transaction,
                     });

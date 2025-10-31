@@ -1,5 +1,3 @@
-import { EMPTY_LIST } from '@/constants/index.js';
-
 /**
  * Query meta tag with name or property s
  * @param s
@@ -24,7 +22,7 @@ export const qAll = (document: Document, s: string) => {
     if (firstTry.length > 0) return firstTry;
     const secondTry = document.querySelectorAll(`meta[property="${s}"]`);
     if (secondTry.length > 0) return secondTry;
-    return EMPTY_LIST;
+    return [];
 };
 
 /**

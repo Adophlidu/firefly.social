@@ -1,8 +1,8 @@
+import { classNames } from '@firefly/utils';
 import { Menu, MenuButton, type MenuProps, Transition } from '@headlessui/react';
 import { Fragment, type MouseEvent, type ReactNode } from 'react';
 
 import { type SocialSource } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';

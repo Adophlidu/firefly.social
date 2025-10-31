@@ -1,6 +1,7 @@
+import { classNames } from '@firefly/utils';
+
 import LinkIcon from '@/assets/link-square.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';
 import { ActionType, type FrameButton } from '@/types/frame.js';
 

@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { useQuery } from '@tanstack/react-query';
 import { first, isUndefined } from 'lodash-es';
 import { memo, useCallback } from 'react';
@@ -13,7 +14,6 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';

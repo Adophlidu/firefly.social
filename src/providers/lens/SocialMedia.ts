@@ -1,3 +1,4 @@
+import { unreachable } from '@firefly/utils';
 import {
     type Account,
     AccountReportReason,
@@ -93,7 +94,6 @@ import {
 import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
-import { unreachable } from '@/helpers/unreachable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';

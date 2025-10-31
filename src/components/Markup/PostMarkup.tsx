@@ -1,5 +1,6 @@
+import { classNames } from '@firefly/utils';
+
 import { Markup } from '@/components/Markup/Markup.js';
-import { classNames } from '@/helpers/classNames.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostMarkupProps {

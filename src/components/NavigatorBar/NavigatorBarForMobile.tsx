@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { first } from 'lodash-es';
 import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
@@ -15,7 +16,6 @@ import { SearchRecommendation } from '@/components/Search/SearchRecommendation.j
 import { IS_FIREFOX } from '@/constants/browser.js';
 import { PageRoute } from '@/constants/enum.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
 import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';

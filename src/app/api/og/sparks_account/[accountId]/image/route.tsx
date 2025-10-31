@@ -1,9 +1,9 @@
+import { compose } from '@firefly/utils';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
 
 import { SparksAccountOgImage } from '@/app/api/og/sparks_account/[accountId]/image/SparksAccountOgImage.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/index.js';
-import { compose } from '@/helpers/compose.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

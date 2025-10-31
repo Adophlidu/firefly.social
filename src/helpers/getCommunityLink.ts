@@ -1,4 +1,5 @@
-import { parseUrl } from '@/helpers/parseUrl.js';
+import { parseUrl } from '@firefly/utils';
+
 import type { ClubUrl } from '@/providers/types/Trending.js';
 
 export function getClubLink(links: string[]): ClubUrl[] {

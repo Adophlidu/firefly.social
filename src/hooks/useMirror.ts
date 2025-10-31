@@ -1,10 +1,10 @@
+import { safeUnreachable } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
 import { Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { checkFarcasterInvalidSignerKey } from '@/providers/farcaster/checkFarcasterInvalidSignerKey.js';

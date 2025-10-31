@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { skipToken, useQuery } from '@tanstack/react-query';
 import { type HTMLProps, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
@@ -11,7 +12,6 @@ import { SearchRecommendation } from '@/components/Search/SearchRecommendation.j
 import { Section } from '@/components/Semantic/Section.js';
 import { PageRoute, SearchType } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isValidAddress, isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';

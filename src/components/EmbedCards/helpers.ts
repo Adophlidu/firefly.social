@@ -1,3 +1,4 @@
+import { parseUrl } from '@firefly/utils';
 import { compact, groupBy, uniqBy } from 'lodash-es';
 
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -9,7 +10,6 @@ import {
     LENS_HANDLE_REGEXP,
     URL_REGEX,
 } from '@/constants/regexp.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import type { DetectAddressResponse } from '@/providers/types/Firefly.js';
 
 type AddressRecord = NonNullable<DetectAddressResponse['data']>['list'][number];

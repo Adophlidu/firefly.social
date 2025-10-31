@@ -1,5 +1,6 @@
+import { parseUrl } from '@firefly/utils';
+
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';

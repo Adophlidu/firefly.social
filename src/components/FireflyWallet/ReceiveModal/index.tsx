@@ -1,3 +1,4 @@
+import { classNames, delay } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { AnimatePresence, motion } from 'framer-motion';
 import { type ReactNode, useState } from 'react';
@@ -9,8 +10,6 @@ import {
     type ReceiveChainItemProps,
 } from '@/components/FireflyWallet/ReceiveModal/ReceiveChainItem.js';
 import { Modal } from '@/components/Modal.js';
-import { classNames } from '@/helpers/classNames.js';
-import { delay } from '@/helpers/delay.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 
 interface Props {

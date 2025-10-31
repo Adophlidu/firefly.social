@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Checkbox } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode } from 'react';
@@ -9,7 +10,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Switch } from '@/components/Switch/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import type { NotificationPlatform, NotificationPushType } from '@/providers/types/Firefly.js';
 

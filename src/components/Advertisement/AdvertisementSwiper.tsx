@@ -5,6 +5,7 @@ import 'swiper/css/autoplay';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+import { safeUnreachable } from '@firefly/utils';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -13,7 +14,6 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { AdFunctionType, AdvertisementType } from '@/constants/enum.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { Advertisement } from '@/types/advertisement.js';
 
 interface Props extends React.HTMLProps<'div'> {

@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
@@ -18,7 +19,6 @@ import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { FreeMintButton } from '@/components/NFTs/FreeMintButton.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Source } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';

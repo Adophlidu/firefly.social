@@ -1,5 +1,6 @@
 'use client';
 
+import { delay } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 
 import { AddWalletButton } from '@/app/(settings)/components/AddWalletButton.js';
@@ -12,7 +13,6 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { delay } from '@/helpers/delay.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 

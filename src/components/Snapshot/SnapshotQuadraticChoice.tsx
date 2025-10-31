@@ -1,9 +1,9 @@
+import { classNames } from '@firefly/utils';
 import { memo } from 'react';
 
 import MinusIcon from '@/assets/snapshot/minus.svg';
 import PlusIcon from '@/assets/snapshot/plus.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface SnapshotQuadraticChoiceProps {
     label: string;

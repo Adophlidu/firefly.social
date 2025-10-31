@@ -1,7 +1,7 @@
+import { getEnumAsArray } from '@firefly/utils';
 import { useMemo } from 'react';
 
 import { RestrictionType, type SocialSource } from '@/constants/enum.js';
-import { getEnumAsArray } from '@/helpers/getEnumAsArray.js';
 import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
 
 export function useValidRestrictionTypes(sources: SocialSource[]) {

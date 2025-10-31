@@ -1,9 +1,9 @@
+import { safeUnreachable } from '@firefly/utils';
 import { type Draft, produce } from 'immer';
 import { first } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import type { Source } from '@/constants/enum.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { type Notification, NotificationType, type Post, type Profile } from '@/providers/types/SocialMedia.js';
 
 type Patcher = (old: Draft<Notification>) => void;

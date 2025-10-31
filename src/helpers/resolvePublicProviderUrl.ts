@@ -1,7 +1,7 @@
+import { createLookupTableResolver } from '@firefly/utils';
 import { first } from 'lodash-es';
 import { monadTestnet, polygon } from 'viem/chains';
 
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getRPCConstant } from '@/web3-shared/evm/constants.js';
 
 const resolve = createLookupTableResolver<number, string | null>(

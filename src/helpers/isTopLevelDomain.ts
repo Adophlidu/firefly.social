@@ -1,8 +1,7 @@
 /* cspell:disable */
 
+import { parseUrl } from '@firefly/utils';
 import { first, last } from 'lodash-es';
-
-import { parseUrl } from '@/helpers/parseUrl.js';
 
 const TLD_DOMAIN = [
     '.aaa',

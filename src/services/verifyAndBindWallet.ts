@@ -1,10 +1,10 @@
+import { safeUnreachable } from '@firefly/utils';
 import bs58 from 'bs58';
 import { type Address } from 'viem';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { ClickOrigin, NetworkType } from '@/constants/enum.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { getWalletAdaptorRequired, WalletNotConnectedError } from '@/providers/solana/getWalletAdapter.js';
 

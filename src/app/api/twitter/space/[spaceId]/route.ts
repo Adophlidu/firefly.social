@@ -1,8 +1,8 @@
+import { compose } from '@firefly/utils';
 import type { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
 import { SPACE_OPTIONS } from '@/constants/twitter.js';
-import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createAppOnlyTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';

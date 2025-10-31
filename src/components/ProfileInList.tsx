@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Plural, Trans } from '@lingui/react/macro';
 import { isUndefined } from 'lodash-es';
 import type { Components } from 'react-markdown';
@@ -9,7 +10,6 @@ import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isBadProfile } from '@/helpers/isBadProfile.js';

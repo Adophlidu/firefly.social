@@ -1,6 +1,6 @@
 'use client';
 
-export type EncryptedPayload = readonly [string | Uint8Array, '1' | '2', string | null];
+type EncryptedPayload = readonly [string | Uint8Array, '1' | '2', string | null];
 
 const POST_DATA_REGEX = /(?:.*)PostData_(v1|v2)=(.*)/;
 

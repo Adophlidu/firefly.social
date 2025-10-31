@@ -1,9 +1,9 @@
+import { bom } from '@firefly/utils';
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
 import { FetchError, NetworkError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';
-import { bom } from '@/helpers/bom.js';
 import { getNextFetchers, type NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 import type { Fetcher } from '@/types/utility.js';
 

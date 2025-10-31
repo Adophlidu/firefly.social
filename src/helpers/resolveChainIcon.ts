@@ -1,4 +1,5 @@
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { createLookupTableResolver } from '@firefly/utils';
+
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 

@@ -1,10 +1,10 @@
+import { parseUrl } from '@firefly/utils';
 import { type Analytics, getAnalytics, logEvent } from 'firebase/analytics';
 import { type FirebaseApp, type FirebaseOptions, initializeApp } from 'firebase/app';
 import { getMessaging, type Messaging, onMessage, type Unsubscribe } from 'firebase/messaging';
 
 import { env } from '@/constants/env.js';
 import { SITE_NAME } from '@/constants/index.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 
 function createFirebaseApp() {
     const firebaseConfig: FirebaseOptions = {

@@ -1,8 +1,7 @@
+import { bom, parseJson } from '@firefly/utils';
 import { z } from 'zod';
 
 import { LENS_TOKEN_STORAGE_KEY } from '@/constants/index.js';
-import { bom } from '@/helpers/bom.js';
-import { parseJson } from '@/helpers/parseJson.js';
 import type { LensCredentials } from '@/providers/types/Lens.js';
 
 const Schema = z.object({

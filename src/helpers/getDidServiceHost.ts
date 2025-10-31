@@ -1,7 +1,7 @@
+import { parseUrl } from '@firefly/utils';
 import { first } from 'lodash-es';
 
 import { DEFAULT_DID_SERVICE_URL } from '@/constants/bsky.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 
 export function getDidServiceHost(didDoc: {} | undefined) {
     const doc = didDoc as { service?: Array<{ serviceEndpoint: string }> } | undefined;

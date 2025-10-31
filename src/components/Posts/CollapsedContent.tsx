@@ -1,9 +1,9 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps } from 'react';
 
 import EyeSlash from '@/assets/eye-slash.svg';
 import TrashIcon from '@/assets/trash.svg';
-import { classNames } from '@/helpers/classNames.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     authorMuted?: boolean;

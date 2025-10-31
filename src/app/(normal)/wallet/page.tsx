@@ -1,5 +1,6 @@
 'use client';
 
+import { safeUnreachable } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { compact } from 'lodash-es';
@@ -26,7 +27,6 @@ import { useRouter } from '@/esm/navigation.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { plus } from '@/helpers/number.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';

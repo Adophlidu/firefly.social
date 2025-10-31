@@ -1,6 +1,7 @@
+import { createLookupTableResolver } from '@firefly/utils';
+
 import { ConnectionPlatform, type ProfileSource, Source, SourceInURL } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import type { WalletConnection } from '@/providers/types/Firefly.js';
 
 export const resolveConnectionPlatform = createLookupTableResolver<

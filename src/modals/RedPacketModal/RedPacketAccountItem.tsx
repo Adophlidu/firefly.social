@@ -1,9 +1,9 @@
+import { classNames } from '@firefly/utils';
 import { memo } from 'react';
 
 import LinkOut from '@/assets/link.svg';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';

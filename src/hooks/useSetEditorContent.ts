@@ -1,10 +1,10 @@
+import { safeUnreachable } from '@firefly/utils';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { $createParagraphNode, $createTextNode, $getRoot, ParagraphNode } from 'lexical';
 import { useCallback } from 'react';
 
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { CharTag } from '@/constants/enum.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { type Chars, type ComplexChars } from '@/types/chars.js';
 
 function updateParagraphNode(paragraphNode: ParagraphNode, chars: ComplexChars) {

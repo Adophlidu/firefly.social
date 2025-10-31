@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
@@ -11,7 +12,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { FireflyPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveTokenBookmarkId } from '@/helpers/resolveTokenBookmarkId.js';
 import { useHasBookmarked } from '@/hooks/useHasBookmarked.js';

@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@firefly/utils';
 import {
     type AnyMedia,
     type AnyPost,
@@ -17,7 +18,6 @@ import { formatLensImageUrl } from '@/helpers/formatImageUrl.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { resolveSizeFromS3Url } from '@/helpers/resolveSizeFromS3Url.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { formatLensChannelFromPostGroup } from '@/providers/lens/formatLensChannel.js';
 import {
     formatLensMediaAudioMimeType,

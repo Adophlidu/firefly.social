@@ -1,3 +1,5 @@
+import { safeUnreachable } from '@firefly/utils';
+
 import { NetworkType } from '@/constants/enum.js';
 import {
     MESSAGE_MAX_LENGTH,
@@ -5,7 +7,6 @@ import {
     RED_PACKET_MAX_SHARES,
     RED_PACKET_MAX_SHARES_SOLANA,
 } from '@/constants/rp.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 
 export function getRpMaxShares(networkType: NetworkType) {
     switch (networkType) {

@@ -1,6 +1,8 @@
 'use client';
 
 import { exposeToIframe, type ReadyOptions } from '@farcaster/miniapp-host';
+import { nativeBridgeProvider, SupportedMethod } from '@firefly/native-bridge';
+import { bom } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
@@ -11,10 +13,9 @@ import FireflyLogo from '@/assets/firefly.logo.svg';
 import { Image } from '@/components/Image.js';
 import { IS_IOS } from '@/constants/browser.js';
 import { EIP6963_PROVIDER_DESCRIPTION, IS_DEVELOPMENT } from '@/constants/index.js';
-import { bom } from '@/helpers/bom.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
-import { eip5792Polyfill } from '@/helpers/eip5792Polyfill.js';
 import { createFireflyWalletClient } from '@/helpers/createFireflyWalletClient.js';
+import { eip5792Polyfill } from '@/helpers/eip5792Polyfill.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { frameSwapToken } from '@/helpers/frameSwapToken.js';
 import { waitForWebviewDidLoadEvent } from '@/helpers/waitForWebviewDidLoadEvent.js';
@@ -23,9 +24,7 @@ import {
     RelayConfirmationPopover,
     RelayConfirmationPopoverRef,
 } from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
-import { SupportedMethod } from '@/types/bridge.js';
 import type { RequestArguments } from '@/types/ethereum.js';
 import type { FrameV2 } from '@/types/frame.js';
 import type { NextPageProps } from '@/types/utility.js';
@@ -57,7 +56,7 @@ export default function Page(props: Props) {
             console.log('[frame client] load event');
         }
 
-        const result = await fireflyBridgeProvider.request(SupportedMethod.GET_FRAME_CONTEXT, {});
+        const result = await nativeBridgeProvider.request(SupportedMethod.GET_FRAME_CONTEXT, {});
         console.log('[frame client] context', JSON.stringify(result));
 
         if (!result.user) throw new Error('No user found in frame context');
@@ -76,18 +75,18 @@ export default function Page(props: Props) {
             ...result.frame.content,
             x_url: result.frame.originalUrl,
             x_version: 2,
-        } satisfies FrameV2;
+        } as FrameV2;
 
         const frameHost = new FarcasterFrameHost(context, {
             frame: () => frame,
             ready: (options?: Partial<ReadyOptions>) => {
                 console.log('[frame client] ready', JSON.stringify(options));
-                if (options) fireflyBridgeProvider.request(SupportedMethod.SET_FRAME_READY_OPTIONS, options);
+                if (options) nativeBridgeProvider.request(SupportedMethod.SET_FRAME_READY_OPTIONS, options);
                 setReady(true);
             },
             close: () => {
                 console.log('[frame client] close');
-                fireflyBridgeProvider.request(SupportedMethod.CLOSE, {});
+                nativeBridgeProvider.request(SupportedMethod.CLOSE, {});
             },
             signIn: async (options) => {
                 console.log('[frame client] signIn options', JSON.stringify(options));
@@ -102,7 +101,7 @@ export default function Page(props: Props) {
             },
             setPrimaryButton: (options) => {
                 console.log('[frame client] setPrimaryButton', JSON.stringify(options));
-                fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options);
+                nativeBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options);
             },
             eip6963RequestProvider: () => {
                 endpointRef.current?.emit({
@@ -162,7 +161,7 @@ export default function Page(props: Props) {
     };
 
     const onClose = () => {
-        if (supported) fireflyBridgeProvider.request(SupportedMethod.CLOSE, {});
+        if (supported) nativeBridgeProvider.request(SupportedMethod.CLOSE, {});
         else bom.window?.close();
     };
 

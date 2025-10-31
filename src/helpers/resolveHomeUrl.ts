@@ -1,8 +1,8 @@
+import { unreachable } from '@firefly/utils';
 import urlcat from 'urlcat';
 
 import { HomeTab, PageRoute, Source } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { unreachable } from '@/helpers/unreachable.js';
 
 export function resolveHomeUrl(tab: HomeTab, source: Source) {
     switch (tab) {

@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 
 import YesIcon from '@/assets/green-yes.svg';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
-import { classNames } from '@/helpers/classNames.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useCurrentAvailableProfile } from '@/hooks/useCurrentProfile.js';

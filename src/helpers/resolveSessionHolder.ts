@@ -1,6 +1,7 @@
+import { createLookupTableResolver } from '@firefly/utils';
+
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';

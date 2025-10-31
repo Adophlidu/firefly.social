@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { createLookupTableResolver } from '@firefly/utils';
 
 // https://docs.coingecko.com/reference/networks-list
 export const resolveCoinGeckoChain = createLookupTableResolver<number, string | undefined>(

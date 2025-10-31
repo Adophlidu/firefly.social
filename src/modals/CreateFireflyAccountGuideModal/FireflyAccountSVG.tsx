@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { motion } from 'framer-motion';
 
 import BskyLogo from '@/assets/bsky-circle-logo.svg';
@@ -6,7 +7,6 @@ import FireflyAccountBg from '@/assets/firefly-account-bg.svg';
 import LensLogo from '@/assets/lens-logo.svg';
 import MessageLogo from '@/assets/message-logo.svg';
 import TwitterLogo from '@/assets/x-logo.svg';
-import { classNames } from '@/helpers/classNames.js';
 
 interface FireflyAccountSVGProps extends React.HTMLAttributes<HTMLDivElement> {
     width?: number | string;

@@ -1,9 +1,9 @@
+import { bom } from '@firefly/utils';
 import { i18n as i18nCore, type Messages, setupI18n } from '@lingui/core';
 import { getI18n, setI18n } from '@lingui/react/server';
 import dayjs from 'dayjs';
 
 import { Locale } from '@/constants/enum.js';
-import { bom } from '@/helpers/bom.js';
 import { getLocaleFromCookies, getLocalFromClientCookies, resolveLanguageLocale } from '@/helpers/getCookies.js';
 import { messages as en } from '@/locales/en/messages.js';
 import { messages as zhHans } from '@/locales/zh-Hans/messages.js';

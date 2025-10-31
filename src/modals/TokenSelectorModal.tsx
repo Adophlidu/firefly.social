@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@firefly/utils';
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';
@@ -10,7 +11,6 @@ import { Modal } from '@/components/Modal.js';
 import { SearchTokenPanel } from '@/components/Search/SearchTokenPanel.js';
 import { NetworkType } from '@/constants/enum.js';
 import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';

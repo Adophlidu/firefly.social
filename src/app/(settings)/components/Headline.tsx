@@ -1,6 +1,5 @@
+import { classNames } from '@firefly/utils';
 import type { HTMLProps } from 'react';
-
-import { classNames } from '@/helpers/classNames.js';
 
 interface HeadlineProps extends HTMLProps<HTMLDivElement> {
     hideInMobile?: boolean;

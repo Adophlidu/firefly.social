@@ -1,3 +1,4 @@
+import { unreachable } from '@firefly/utils';
 import { useAppKitAccount } from '@reown/appkit/react';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { first } from 'lodash-es';
@@ -6,7 +7,6 @@ import { useAccount } from 'wagmi';
 
 import { PrivySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { NetworkType } from '@/constants/enum.js';
-import { unreachable } from '@/helpers/unreachable.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';

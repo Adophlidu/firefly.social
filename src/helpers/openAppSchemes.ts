@@ -1,9 +1,8 @@
+import { bom, delay } from '@firefly/utils';
 import { once } from 'lodash-es';
 
 import { IS_IOS } from '@/constants/browser.js';
 import { env } from '@/constants/env.js';
-import { bom } from '@/helpers/bom.js';
-import { delay } from '@/helpers/delay.js';
 import type { Schemes } from '@/types/device.js';
 
 const eventIdSet = new Set<string>();

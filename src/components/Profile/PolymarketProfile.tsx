@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
@@ -9,7 +10,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { PolymarketMarketsTraded } from '@/components/Polymarket/PolymarketMarketsTraded.js';
 import { Link } from '@/esm/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';

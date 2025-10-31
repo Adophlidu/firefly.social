@@ -1,4 +1,5 @@
 /* cspell:disable */
+import { safeUnreachable } from '@firefly/utils';
 import satori from 'satori';
 import urlcat from 'urlcat';
 
@@ -9,7 +10,6 @@ import { UnreachableError } from '@/constants/error.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { loadTwemojiUrls } from '@/helpers/loadTwemojiUrls.js';
 import { removeVS16s } from '@/helpers/removeVS16s.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { settings } from '@/settings/index.js';

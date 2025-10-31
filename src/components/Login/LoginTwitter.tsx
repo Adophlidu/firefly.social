@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { signIn } from 'next-auth/react';
 import type { HTMLProps } from 'react';
@@ -7,7 +8,6 @@ import urlcat from 'urlcat';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {}

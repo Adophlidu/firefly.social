@@ -1,6 +1,7 @@
+import { createLookupTableResolver } from '@firefly/utils';
+
 import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
 export const resolveFireflyPlatform = createLookupTableResolver<Source, FireflyPlatform | null>(
     {

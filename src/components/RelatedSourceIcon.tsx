@@ -1,10 +1,10 @@
 'use client';
+import { safeUnreachable } from '@firefly/utils';
 import { memo, type SVGProps } from 'react';
 
 import FarcasterIcon from '@/assets/farcaster-fill.svg';
 import LensIcon from '@/assets/lens-fill.svg';
 import XIcon from '@/assets/x-fill.svg';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 import { RelatedWalletSource } from '@/providers/types/Firefly.js';
 

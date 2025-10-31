@@ -1,14 +1,13 @@
 import { uniqueId } from 'lodash-es';
 
-import { bom } from '@/helpers/bom.js';
-import { timeout } from '@/helpers/timeout.js';
-import { getTargetWindow } from '@/providers/iframe/getTargetWindow.js';
+import { bom, timeout } from '@firefly/utils';
+import { getTargetWindow } from '@/getTargetWindow.js';
 import {
-    type IframeBridgeMessage,
     IframeBridgeMethod,
+    type IframeBridgeMessage,
     type IframeBridgeRequestArguments,
     type IframeBridgeResponseResult,
-} from '@/providers/iframe/types.js';
+} from '@/types.js';
 
 const REQUEST_ONLY_METHODS = [IframeBridgeMethod.LOGIN, IframeBridgeMethod.COMPOSE, IframeBridgeMethod.ENQUEUE_MESSAGE];
 
@@ -37,7 +36,7 @@ async function sendMessage<T extends IframeBridgeMethod>(
     targetWindow.postMessage(message, { targetOrigin: '*' });
 }
 
-class IframeBridgeProvider {
+export class IframeBridgeProvider {
     private callbacks = new Map<string, (payload: Payload) => void>();
     private messageListener?: (event: MessageEvent) => void;
 

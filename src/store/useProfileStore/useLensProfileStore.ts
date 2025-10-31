@@ -1,7 +1,7 @@
 'use client';
+import { bom } from '@firefly/utils';
 
 import { AsyncStatus } from '@/constants/enum.js';
-import { bom } from '@/helpers/bom.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getLensProfileByHandle } from '@/providers/lens/getLensProfileByHandle.js';
 import { resumeLensSession } from '@/providers/lens/resumeLensSession.js';

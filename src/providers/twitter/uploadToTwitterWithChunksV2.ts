@@ -1,9 +1,9 @@
+import { delay } from '@firefly/utils';
 import type { UploadMediaV1Params } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { FileMimeType, UploadMediaStatus } from '@/constants/enum.js';
 import { TimeoutError, UnreachableError } from '@/constants/error.js';
-import { delay } from '@/helpers/delay.js';
 import { getTwitterMediaCategory } from '@/providers/twitter/getTwitterMediaCategory.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { FinishUploadResponseV2, GetUploadStatusResponseV2, UploadMediaResponseV2 } from '@/types/twitter.js';

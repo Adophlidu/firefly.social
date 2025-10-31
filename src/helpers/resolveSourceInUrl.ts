@@ -1,3 +1,5 @@
+import { createLookupTableResolver } from '@firefly/utils';
+
 import {
     type ExploreSource,
     type ExploreSourceInURL,
@@ -12,7 +14,6 @@ import {
     TrendingType,
 } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
 export const resolveSourceInUrlForApi = createLookupTableResolver<Source, SourceInURL>(
     {

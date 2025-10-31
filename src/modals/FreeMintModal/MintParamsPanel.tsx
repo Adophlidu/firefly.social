@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
@@ -5,7 +6,6 @@ import { type HTMLProps, memo, type ReactNode } from 'react';
 
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { chains } from '@/configs/chains.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isZero, leftShift, multipliedBy, plus } from '@/helpers/number.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';

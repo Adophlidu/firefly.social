@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 import { switchChain } from 'wagmi/actions';
@@ -11,7 +12,6 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/debank.js';
 import { NetworkType, OkxProviderType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';

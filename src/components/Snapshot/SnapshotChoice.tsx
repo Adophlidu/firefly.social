@@ -1,8 +1,8 @@
+import { classNames } from '@firefly/utils';
 import { memo } from 'react';
 
 import SelectedIcon from '@/assets/selected.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface SnapshotChoiceProps {
     selected?: boolean;

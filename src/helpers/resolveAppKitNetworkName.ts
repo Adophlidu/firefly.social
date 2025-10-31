@@ -1,5 +1,5 @@
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
+import { createLookupTableResolver, safeUnreachable } from '@firefly/utils';
+
 import type { ChainNamespace } from '@/types/utility.js';
 
 export const resolveAppKitNetworkName = createLookupTableResolver<ChainNamespace, string>(

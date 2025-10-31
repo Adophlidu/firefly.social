@@ -1,7 +1,7 @@
+import { createLookupTableResolver } from '@firefly/utils';
 import { base, optimism, polygon, zora } from 'wagmi/chains';
 
 import { UnreachableError } from '@/constants/error.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
 export const resolveParagraphMintContract = createLookupTableResolver<number, string>(
     {

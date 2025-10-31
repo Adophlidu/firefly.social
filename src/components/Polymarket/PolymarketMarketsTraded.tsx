@@ -1,12 +1,12 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { type HTMLProps, memo } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
-import { classNames } from '@/helpers/classNames.js';
 import { PolymarketDataApi } from '@/providers/polymarket/DataApi.js';
 
 interface PolymarketMarketsTradedProps extends HTMLProps<HTMLDivElement> {

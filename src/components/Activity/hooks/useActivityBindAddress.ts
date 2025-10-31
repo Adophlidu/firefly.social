@@ -1,3 +1,4 @@
+import { nativeBridgeProvider, Network, SupportedMethod } from '@firefly/native-bridge';
 import { t } from '@lingui/core/macro';
 import { useContext } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -11,18 +12,16 @@ import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { AddWalletModalRef } from '@/modals/AddWalletModal/index.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityConnectWalletEvent } from '@/providers/telemetry/captureActivityEvent.js';
-import { Network, SupportedMethod } from '@/types/bridge.js';
 
 export function useActivityBindAddress(source: SocialSource | SocialSource[], chainId: number) {
     const { onChangeAddress } = useContext(ActivityContext);
     const { refetch: refetchActivityClaimCondition } = useActivityClaimCondition(source);
     const { data: { connected = EMPTY_LIST } = {}, refetch } = useActivityConnections();
     return useAsyncFn(async () => {
-        if (fireflyBridgeProvider.supported) {
+        if (nativeBridgeProvider.supported) {
             await runInSafeAsync(async () => {
-                const address = await fireflyBridgeProvider.request(SupportedMethod.BIND_WALLET, {
+                const address = await nativeBridgeProvider.request(SupportedMethod.BIND_WALLET, {
                     type: isValidChainIdSolana(chainId) ? Network.Solana : Network.EVM,
                 });
                 onChangeAddress(address);
@@ -54,9 +53,9 @@ export function usePureActivityBindAddress(chainId?: number) {
     const { onChangeAddress } = useContext(ActivityContext);
     const { data: { connected = EMPTY_LIST } = {}, refetch } = useActivityConnections();
     return useAsyncFn(async () => {
-        if (fireflyBridgeProvider.supported) {
+        if (nativeBridgeProvider.supported) {
             await runInSafeAsync(async () => {
-                const address = await fireflyBridgeProvider.request(SupportedMethod.BIND_WALLET, {
+                const address = await nativeBridgeProvider.request(SupportedMethod.BIND_WALLET, {
                     type: chainId ? (isValidChainIdSolana(chainId) ? Network.Solana : Network.EVM) : Network.All,
                 });
                 onChangeAddress(address);

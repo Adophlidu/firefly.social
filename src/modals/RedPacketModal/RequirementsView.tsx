@@ -1,3 +1,4 @@
+import { getEnumAsArray } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 import { Fragment, memo, useCallback, useContext, useState } from 'react';
@@ -9,7 +10,6 @@ import MinusIcon from '@/assets/minus.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { getEnumAsArray } from '@/helpers/getEnumAsArray.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import { NonFungibleTokenCollectionSelectModalRef } from '@/modals/NonFungibleCollectionSelectModal/index.js';
 import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/common.js';

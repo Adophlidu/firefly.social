@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -7,7 +8,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { WalletAddressMismatchError } from '@/constants/error.js';
 import { POLL_CHOICE_TYPE } from '@/constants/poll.js';
-import { classNames } from '@/helpers/classNames.js';
 import {
     enqueueErrorMessage,
     enqueueMessageFromError,

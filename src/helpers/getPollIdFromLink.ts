@@ -1,5 +1,6 @@
+import { parseUrl } from '@firefly/utils';
+
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { settings } from '@/settings/index.js';
 

@@ -1,13 +1,13 @@
 'use client';
 
+import { nativeBridgeProvider } from '@firefly/native-bridge';
+import { createLookupTableResolver, parseUrl } from '@firefly/utils';
+
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { ReferralAccountPlatform } from '@/helpers/resolveActivityUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { getAllRelatedProfileInfo } from '@/providers/firefly/getAllRelatedProfileInfo.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
@@ -41,7 +41,7 @@ export async function captureActivityEvent<E extends EventId>(
 ) {
     if (!parameters.firefly_account_id) delete parameters.firefly_account_id; // filter undefined or null
 
-    if (fireflyBridgeProvider.supported) {
+    if (nativeBridgeProvider.supported) {
         const response = await getFireflyWalletProfile();
         if (response?.fireflyAccountId) parameters.firefly_account_id = response.fireflyAccountId;
     }

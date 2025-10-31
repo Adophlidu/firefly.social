@@ -1,3 +1,4 @@
+import { createLookupTableResolver } from '@firefly/utils';
 import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -5,7 +6,6 @@ import urlcat from 'urlcat';
 import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

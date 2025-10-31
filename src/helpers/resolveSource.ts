@@ -1,3 +1,5 @@
+import { createLookupTableResolver } from '@firefly/utils';
+
 import {
     FireflyPlatform,
     type ProfileSource,
@@ -7,7 +9,6 @@ import {
     SourceInURL,
 } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 

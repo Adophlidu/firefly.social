@@ -1,8 +1,6 @@
 import { AtpAgent, type AtpSessionData, type AtpSessionEvent } from '@atproto/api';
+import { bom, parseJson } from '@firefly/utils';
 import { memoize } from 'lodash-es';
-
-import { bom } from '@/helpers/bom.js';
-import { parseJson } from '@/helpers/parseJson.js';
 
 const BSKY_SESSION_STORAGE_KEY = 'bsky-session-sdk-hosted';
 

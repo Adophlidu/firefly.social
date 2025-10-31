@@ -1,7 +1,7 @@
+import { classNames } from '@firefly/utils';
 import { type HTMLProps } from 'react';
 
 import { Image } from '@/esm/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 
 export function BaseNotFound(props: HTMLProps<HTMLDivElement>) {
     return (

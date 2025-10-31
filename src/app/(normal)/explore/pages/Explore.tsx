@@ -1,11 +1,12 @@
 'use client';
 
+import { safeUnreachable } from '@firefly/utils';
+
 import { ChannelList } from '@/components/Channel/ChannelList.js';
 import { TrendingNFTs } from '@/components/explore/TrendingNFTs.js';
 import { SuggestedFollowUsersList } from '@/components/SuggestedFollows/SuggestedFollowUsersList.js';
 import { TokenTrendingList } from '@/components/TokenTrendingList.js';
 import { type ExploreSource, ExploreType, type SocialSource, TrendingType } from '@/constants/enum.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 
 interface Props {
     source: ExploreSource;

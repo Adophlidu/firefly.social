@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { Image } from '@/components/Image.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { createIndicator, createNextIndicator, createPageable } from '@/helpers/pageable.js';
 import { fetchTenorGifs } from '@/services/fetchTenorGifs.js';
 import type { IGif } from '@/types/giphy.js';

@@ -1,4 +1,5 @@
-import { classNames } from '@/helpers/classNames.js';
+import { classNames } from '@firefly/utils';
+
 import { computeVolume, toFixedTrimmed } from '@/helpers/polymarket.js';
 import type { PolymarketActivity } from '@/providers/types/Firefly.js';
 

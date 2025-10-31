@@ -1,6 +1,7 @@
+import { safeUnreachable } from '@firefly/utils';
+
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { UsageType } from '@/types/rp.js';
 

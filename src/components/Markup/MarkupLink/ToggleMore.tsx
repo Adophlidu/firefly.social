@@ -1,9 +1,9 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo, useCallback, useState } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';

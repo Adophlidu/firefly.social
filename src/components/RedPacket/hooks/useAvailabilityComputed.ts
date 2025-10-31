@@ -1,8 +1,9 @@
+import { unreachable } from '@firefly/utils';
+
 import { useEthereumAvailabilityComputed } from '@/components/RedPacket/hooks/useEthereumAvailabilityComputed.js';
 import { useSolanaAvailabilityComputed } from '@/components/RedPacket/hooks/useSolanaAvailabilityComputed.js';
 import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
-import { unreachable } from '@/helpers/unreachable.js';
 import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { EVMNetworkResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';

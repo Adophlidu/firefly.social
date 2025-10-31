@@ -9,6 +9,7 @@ import {
     AppBskyFeedThreadgate,
     RichText,
 } from '@atproto/api';
+import { parseUrl } from '@firefly/utils';
 import { produce } from 'immer';
 import { compact, first, isUndefined, omitBy } from 'lodash-es';
 
@@ -16,7 +17,6 @@ import { RestrictionType, Source } from '@/constants/enum.js';
 import { TENOR_GIF_REGEXP } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { type Attachment, type Post, type Profile, SessionType } from '@/providers/types/SocialMedia.js';

@@ -1,7 +1,7 @@
+import { classNames } from '@firefly/utils';
 import QRCode from 'react-qr-code';
 
 import ReloadIcon from '@/assets/reload.svg';
-import { classNames } from '@/helpers/classNames.js';
 
 interface Props {
     size?: number;

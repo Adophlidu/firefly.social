@@ -1,9 +1,9 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { type ButtonHTMLAttributes, type DetailedHTMLProps, memo } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { classNames } from '@/helpers/classNames.js';
 
 export interface ClickableButtonProps
     extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {

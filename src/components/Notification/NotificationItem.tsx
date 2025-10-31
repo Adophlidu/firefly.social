@@ -1,5 +1,6 @@
 'use client';
 
+import { safeUnreachable } from '@firefly/utils';
 import { Plural, Select, Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { first, uniqBy } from 'lodash-es';
@@ -22,7 +23,6 @@ import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { toProfileId } from '@/helpers/isSameProfile.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import type { ScheduleNotification, TipsNotification } from '@/providers/types/Firefly.js';
 import { type Notification, NotificationType } from '@/providers/types/SocialMedia.js';

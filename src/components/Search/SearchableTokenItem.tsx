@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { type HTMLProps, memo } from 'react';
@@ -5,7 +6,6 @@ import { type HTMLProps, memo } from 'react';
 import { Link } from '@/components/Link.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';

@@ -1,8 +1,9 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
+
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { Source } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 
 export function ChannelInfoBio({ description }: { description?: string }) {
     return (

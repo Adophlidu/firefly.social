@@ -1,4 +1,5 @@
 'use client';
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { type Address } from 'viem';
@@ -17,7 +18,6 @@ import { WalletEnsName } from '@/components/Tips/WalletEnsName.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { TipsDetailViewType } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { getMaintainAccountInfo } from '@/helpers/getMaintainAccountInfo.js';

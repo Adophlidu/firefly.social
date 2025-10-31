@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
@@ -5,7 +6,6 @@ import { BookmarkSourceTabs } from '@/app/(normal)/bookmarks/[source]/BookmarkSo
 import { TimelineTitle } from '@/components/TimelineTitle.js';
 import { Source } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { classNames } from '@/helpers/classNames.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBookmarkSource } from '@/helpers/isSource.js';

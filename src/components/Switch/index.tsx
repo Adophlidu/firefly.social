@@ -1,8 +1,8 @@
+import { classNames } from '@firefly/utils';
 import { Switch as HeadlessSwitch, type SwitchProps } from '@headlessui/react';
 import { memo } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface Props extends Omit<SwitchProps, 'className'> {
     loading?: boolean;

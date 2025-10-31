@@ -1,8 +1,9 @@
+import { safeUnreachable } from '@firefly/utils';
+
 import { Source, TipsDetailViewType } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import type { TipsAccountInfo, TipsDetail as TipsDetailType } from '@/providers/types/Firefly.js';
 
 function formatTipsAccount(address: string, accountInfo?: TipsAccountInfo) {

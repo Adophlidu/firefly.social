@@ -1,4 +1,4 @@
-import { parseJson } from '@/helpers/parseJson.js';
+import { parseJson } from '@firefly/utils';
 
 export function encodeAsciiPayload(payload: unknown) {
     return btoa(JSON.stringify(payload));

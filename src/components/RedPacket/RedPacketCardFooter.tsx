@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 
@@ -10,7 +11,6 @@ import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';

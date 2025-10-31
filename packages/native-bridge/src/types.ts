@@ -1,9 +1,8 @@
 import type { Context, ReadyOptions } from '@farcaster/miniapp-host';
 import type { Address, Hex } from 'viem';
 
-import type { FireflyPlatform } from '@/constants/enum.js';
-import type { FrameV2 } from '@/types/frame.js';
-import type { PartialWith } from '@/types/utility.js';
+// Local copy to avoid depending on app-level utility types
+type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;
 
 export enum Theme {
     Auto = 'auto',
@@ -83,7 +82,7 @@ export interface Chain {
 
 export interface MentionProfile {
     platform_id: string;
-    platform: FireflyPlatform;
+    platform: string; // FireflyPlatform (app-level) replaced with string to avoid coupling
     handle: string;
     name: string;
     namespace: string;
@@ -117,7 +116,7 @@ export interface RequestArguments {
         id: string;
     };
     [SupportedMethod.FOLLOW_TWITTER_USER]: {
-        id: string; // e.g., 952921795316912133
+        id: string;
     };
     [SupportedMethod.UPDATE_NAVIGATOR_BAR]: {
         show: boolean;
@@ -127,7 +126,7 @@ export interface RequestArguments {
         url: string;
     };
     [SupportedMethod.LOGIN]: {
-        platform: FireflyPlatform;
+        platform: string; // FireflyPlatform (app-level) replaced with string to avoid coupling
     };
     [SupportedMethod.SHARE]: {
         text: string;
@@ -190,6 +189,25 @@ export interface RequestArguments {
 
 type StringifyBoolean = 'true' | 'false';
 
+// Minimal FrameV2 shape to avoid app-level dependencies
+interface FrameV2 {
+    x_url: string;
+    x_version: 2;
+    x_manifest?: unknown | null;
+    version: string;
+    imageUrl: string;
+    button: {
+        title: string;
+        action: {
+            type: 'launch_frame';
+            name: string;
+            url: string;
+            splashImageUrl: string;
+            splashBackgroundColor: string;
+        };
+    };
+}
+
 export interface ResponseResult {
     [SupportedMethod.GET_SUPPORTED_METHODS]: SupportedMethod[];
     [SupportedMethod.GET_AUTHORIZATION]: string;
@@ -197,14 +215,11 @@ export interface ResponseResult {
     [SupportedMethod.GET_LANGUAGE]: string;
     [SupportedMethod.GET_WALLET_ADDRESS]: string[];
     [SupportedMethod.CONNECT_WALLET]: string;
-    [SupportedMethod.BIND_WALLET]: string; // address
+    [SupportedMethod.BIND_WALLET]: string;
     [SupportedMethod.UPDATE_NAVIGATOR_BAR]: void;
     [SupportedMethod.OPEN_URL]: void;
-    [SupportedMethod.BIND_WALLET]: string; // address
     [SupportedMethod.IS_TWITTER_USER_FOLLOWING]: StringifyBoolean;
     [SupportedMethod.FOLLOW_TWITTER_USER]: StringifyBoolean;
-    [SupportedMethod.UPDATE_NAVIGATOR_BAR]: void;
-    [SupportedMethod.OPEN_URL]: void;
     [SupportedMethod.LOGIN]: StringifyBoolean;
     [SupportedMethod.SHARE]: void;
     [SupportedMethod.COMPOSE]: void;
@@ -218,7 +233,7 @@ export interface ResponseResult {
             originalUrl: string;
         };
     };
-    [SupportedMethod.GET_CHAIN_ID]: string; // hex string
+    [SupportedMethod.GET_CHAIN_ID]: string;
     [SupportedMethod.SIGN_TRANSACTION]: string;
     [SupportedMethod.SEND_TRANSACTION]: string;
     [SupportedMethod.SIGN_MESSAGE]: string;

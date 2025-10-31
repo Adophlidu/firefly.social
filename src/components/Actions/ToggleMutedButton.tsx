@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useMemo, useRef } from 'react';
 import { useHover } from 'usehooks-ts';
@@ -5,7 +6,6 @@ import { useHover } from 'usehooks-ts';
 import MuteIcon from '@/assets/mute.svg';
 import UnmuteIcon from '@/assets/unmute.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
 
 enum MuteLabel {
     Mute = 'Mute',

@@ -1,6 +1,5 @@
+import { classNames } from '@firefly/utils';
 import { type HTMLProps, memo } from 'react';
-
-import { classNames } from '@/helpers/classNames.js';
 
 export const MenuButton = memo(function MenuButton(props: HTMLProps<HTMLButtonElement>) {
     return (

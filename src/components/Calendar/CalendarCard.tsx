@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
@@ -9,7 +10,6 @@ import { EventList } from '@/components/Calendar/EventList.js';
 import { useAvailableDates } from '@/components/Calendar/hooks/useAvailableDates.js';
 import { NewsList } from '@/components/Calendar/NewsList.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { EventProvider } from '@/types/calendar.js';
 
 export function CalendarCard() {

@@ -1,5 +1,6 @@
 'use client';
 
+import { delay } from '@firefly/utils';
 import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -16,7 +17,6 @@ import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { chains } from '@/configs/chains.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { delay } from '@/helpers/delay.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';

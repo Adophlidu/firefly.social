@@ -1,8 +1,8 @@
+import { parseJson } from '@firefly/utils';
 import { z } from 'zod';
 import type { PersistStorage } from 'zustand/middleware';
 
 import { AsyncStatus } from '@/constants/enum.js';
-import { parseJson } from '@/helpers/parseJson.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';

@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { memo, useCallback, useMemo } from 'react';
@@ -17,7 +18,6 @@ import { Link } from '@/components/Link.js';
 import { isUnlimit } from '@/components/TransactionHistory/list.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { getChainName } from '@/helpers/getChainName.js';

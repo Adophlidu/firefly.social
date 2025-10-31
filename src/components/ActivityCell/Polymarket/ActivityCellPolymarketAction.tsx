@@ -1,5 +1,6 @@
 'use client';
 
+import { safeUnreachable } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import type { PropsWithChildren } from 'react';
 
@@ -9,7 +10,6 @@ import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction
 import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellActionTag.js';
 import { PolymarketBetType } from '@/constants/enum.js';
 import { formatAmount } from '@/helpers/polymarket.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 
 export function ActivityCellPolymarketAction({
     type,

@@ -1,10 +1,10 @@
+import { compose } from '@firefly/utils';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { createResponseJsonFromOrb } from '@/app/api/orb/poll/createResponseJsonFromOrb.js';
 import { ORB_POLL_ENDPOINT } from '@/constants/poll.js';
-import { compose } from '@/helpers/compose.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

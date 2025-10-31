@@ -1,9 +1,8 @@
+import { classNames, parseUrl } from '@firefly/utils';
 import { first } from 'lodash-es';
 
 import PureLinkIcon from '@/assets/pure-link.svg';
 import { Link } from '@/components/Link.js';
-import { classNames } from '@/helpers/classNames.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 
 interface PureLinkProps {

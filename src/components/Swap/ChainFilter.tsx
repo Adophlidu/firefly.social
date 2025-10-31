@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { memo, type ReactNode, useMemo, useState } from 'react';
@@ -8,7 +9,6 @@ import EvmChainsIcon from '@/assets/evm-chains.svg';
 import FilterIcon from '@/assets/filter.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { NetworkType } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { captureChainFilterTabEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 

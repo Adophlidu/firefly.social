@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import { memo, useMemo } from 'react';
 
 import ColorfulLensIcon from '@/assets/lens-circle-small.svg';
 import XSquareLightIcon from '@/assets/x-square-light.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 
 export const LoggedInSources = memo(function LoggedInSources() {

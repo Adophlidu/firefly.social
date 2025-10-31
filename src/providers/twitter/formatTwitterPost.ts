@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@firefly/utils';
 import { compact, find, first, last } from 'lodash-es';
 import type { ApiV2Includes, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
@@ -10,7 +11,6 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { formatTwitterMedia } from '@/providers/twitter/formatTwitterMedia.js';
 import { convertTwitterAvatar, formatTwitterProfileStatus } from '@/providers/twitter/formatTwitterProfile.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';

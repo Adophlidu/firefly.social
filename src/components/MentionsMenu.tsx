@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import type { LexicalEditor } from 'lexical';
 import { compact, first } from 'lodash-es';
@@ -8,7 +9,6 @@ import EditProfileIcon from '@/assets/edit-profile.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { FireflyPlatform } from '@/constants/enum.js';
 import { SORTED_CROSS_AT_SOCIAL_SOURCES } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { EditCrossAtModal, EditCrossAtModalRef } from '@/modals/EditCrossAtModal.js';

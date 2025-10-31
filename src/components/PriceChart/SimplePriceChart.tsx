@@ -1,7 +1,7 @@
+import { classNames } from '@firefly/utils';
 import { type HTMLProps, memo } from 'react';
 import { Line, LineChart, ResponsiveContainer, YAxis } from 'recharts';
 
-import { classNames } from '@/helpers/classNames.js';
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
 import type { PriceRecord } from '@/types/token.js';
 

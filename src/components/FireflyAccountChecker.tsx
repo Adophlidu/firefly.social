@@ -1,11 +1,10 @@
 'use client';
-
+import { bom } from '@firefly/utils';
 import { useEffect } from 'react';
 import { useTimeoutFn } from 'react-use';
 
 import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
-import { bom } from '@/helpers/bom.js';
 import { isPathnameForceRedirect } from '@/helpers/openLoginModal.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';

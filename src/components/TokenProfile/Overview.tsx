@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { first, isNumber, sortBy } from 'lodash-es';
@@ -18,7 +19,6 @@ import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link as OriginalLink } from '@/esm/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddress, formatTokenAddressSui } from '@/helpers/formatAddress.js';
 import { formatAge } from '@/helpers/formatAge.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';

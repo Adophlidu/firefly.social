@@ -241,8 +241,8 @@ const config: NextConfig = {
             perf_hooks: false,
         };
 
-        const parseHTMLServer = resolve(__dirname, 'src/helpers/parseHtml.ts');
-        const parseHTMLClient = resolve(__dirname, 'src/helpers/parseHtmlNative.ts');
+        const parseHTMLServer = resolve(__dirname, 'src/helpers/parseHtml.js');
+        const parseHTMLClient = resolve(__dirname, 'src/helpers/parseHtmlNative.js');
         if (!context.isServer) {
             config.resolve.alias[parseHTMLServer] = parseHTMLClient;
         } else {

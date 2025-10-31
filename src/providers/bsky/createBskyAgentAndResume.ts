@@ -1,8 +1,8 @@
 import { type AtpSessionData } from '@atproto/api';
 import { getPdsEndpoint, isValidDidDoc } from '@atproto/common-web';
+import { parseUrl } from '@firefly/utils';
 
 import { BskySessionExpiredError } from '@/constants/error.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { createBskyAgent } from '@/providers/bsky/createBskyAgent.js';
 import { isBskyTokenExpired } from '@/providers/bsky/isBskyTokenExpired.js';
 import { retryOnBskyWhenNetworkError } from '@/providers/bsky/retryOnBskyWhenNetworkError.js';

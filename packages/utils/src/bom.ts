@@ -2,11 +2,6 @@ interface CustomWindow extends Window {
     opera: string;
     MSStream: object;
 
-    VERCEL_IP_TIMEZONE: string;
-    VERCEL_IP_CITY: string;
-    VERCEL_IP_COUNTRY: string;
-    VERCEL_IP_REGION: string;
-
     webkit?: {
         messageHandlers?: {
             [key: string]: {};
@@ -18,10 +13,13 @@ interface CustomWindow extends Window {
     FireflyApi?: {
         callNativeMethod: (method: string, id: string, params: string) => void;
     };
-
-    _firebaseFcm: unknown;
 }
 
+/**
+ * Browser Object Model (BOM) utilities for safe access to browser APIs
+ * Provides safe access to window, document, location, navigator, and localStorage
+ * Returns null when running in non-browser environments (like SSR)
+ */
 export const bom = {
     get window() {
         return typeof self === 'undefined' ? null : (self as unknown as CustomWindow);

@@ -1,8 +1,8 @@
+import { classNames } from '@firefly/utils';
 import type { SVGProps } from 'react';
 
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import RadioYesIcon from '@/assets/radio.yes.svg';
-import { classNames } from '@/helpers/classNames.js';
 
 interface Props extends SVGProps<SVGAElement> {
     size?: number;

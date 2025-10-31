@@ -1,9 +1,9 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

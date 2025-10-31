@@ -1,5 +1,6 @@
+import { createLookupTableResolver } from '@firefly/utils';
+
 import { type LoginFallbackSource, Source } from '@/constants/enum.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
 export const resolveFallbackImageUrl = createLookupTableResolver<LoginFallbackSource, string>(
     {

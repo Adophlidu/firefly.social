@@ -1,9 +1,9 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { memo } from 'react';
 
 import ComeBackIcon from '@/assets/comeback.svg';
-import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 
 interface ComebackProps {

@@ -1,5 +1,6 @@
+import { createLookupTableResolver } from '@firefly/utils';
+
 import { ActivitiesPlatform } from '@/constants/enum.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';
 
 export const resolveArticlePlatform = createLookupTableResolver<ActivitiesPlatform, ArticlePlatform | undefined>(

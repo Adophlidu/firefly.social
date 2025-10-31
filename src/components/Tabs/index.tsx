@@ -1,8 +1,7 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { createContext, type HTMLProps, type PropsWithChildren, useContext, useMemo } from 'react';
-
-import { classNames } from '@/helpers/classNames.js';
 
 type Variant = 'default' | 'second' | 'solid' | 'subtle';
 

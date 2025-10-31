@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 
@@ -9,7 +10,6 @@ import MoreIcon from '@/assets/more-fill.svg';
 import TrashIcon from '@/assets/trash.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useDeleteFireflyAccount } from '@/hooks/useDeleteFireflyAccount.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';

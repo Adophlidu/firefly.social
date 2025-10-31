@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { compact, sum } from 'lodash-es';
@@ -15,7 +16,6 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { SearchType, Source } from '@/constants/enum.js';
 import { SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';

@@ -1,3 +1,4 @@
+import { delay } from '@firefly/utils';
 import { t } from '@lingui/core/macro';
 import { ConnectorNotConnectedError } from '@wagmi/core';
 import { first } from 'lodash-es';
@@ -6,7 +7,6 @@ import { type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { CreateScheduleError } from '@/constants/error.js';
 import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
-import { delay } from '@/helpers/delay.js';
 import {
     enqueueInfoMessage,
     enqueueMessageFromError,

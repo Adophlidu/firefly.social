@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames, delay } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 
 import DoubleUser from '@/assets/double-user.svg';
@@ -8,8 +9,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { WalletConnectButton } from '@/components/WalletConnectButton.js';
 import { SignupStep } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
-import { delay } from '@/helpers/delay.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';

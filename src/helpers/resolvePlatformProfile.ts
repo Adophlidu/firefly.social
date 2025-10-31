@@ -1,4 +1,5 @@
-import { safeUnreachable } from '@/helpers/unreachable.js';
+import { safeUnreachable } from '@firefly/utils';
+
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 export function resolvePlatformProfileUrl(platform: FireflyRedPacketAPI.PlatformType, handle: string) {

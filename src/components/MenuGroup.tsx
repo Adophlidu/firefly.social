@@ -1,6 +1,6 @@
+import { classNames } from '@firefly/utils';
 import { MenuItems, type MenuItemsProps } from '@headlessui/react';
 
-import { classNames } from '@/helpers/classNames.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 
 interface MenuGroupProps extends MenuItemsProps {

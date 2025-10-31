@@ -1,4 +1,5 @@
 'use client';
+import { classNames } from '@firefly/utils';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
@@ -9,7 +10,6 @@ import { ActivityCellHeader } from '@/components/ActivityCell/ActivityCellHeader
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { SourceInURL } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 

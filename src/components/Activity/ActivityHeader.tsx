@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc.js';
 
 import CalendarIcon from '@/assets/activity-calendar.svg';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { Image } from '@/components/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 function parseDescription(description: string) {

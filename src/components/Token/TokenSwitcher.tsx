@@ -1,3 +1,4 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { isNumber } from 'lodash-es';
 import { type HTMLProps, memo, useState } from 'react';
@@ -5,7 +6,6 @@ import { type HTMLProps, memo, useState } from 'react';
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import PriceArrow from '@/assets/price-arrow.svg';
 import { TokenIcon } from '@/components/TokenIcon.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { type SearchTokenInfo, TokenPlatformType } from '@/providers/types/Firefly.js';
 

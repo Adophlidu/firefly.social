@@ -1,5 +1,6 @@
+import { bom } from '@firefly/utils';
+
 import { Source } from '@/constants/enum.js';
-import { bom } from '@/helpers/bom.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 
 export function getCurrentSourceFromUrl() {

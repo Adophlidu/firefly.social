@@ -1,4 +1,4 @@
-import { getEnumAsArray } from '@/helpers/getEnumAsArray.js';
+import { getEnumAsArray } from '@firefly/utils';
 
 /**
  * Validate if a value is a valid enum value

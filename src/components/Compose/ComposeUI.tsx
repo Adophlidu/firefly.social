@@ -1,3 +1,4 @@
+import { classNames, safeUnreachable } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -13,10 +14,8 @@ import { useUpdateImages } from '@/components/Compose/useUpdateImages.js';
 import { useUpdateVideos } from '@/components/Compose/useUpdateVideos.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { isImageFileType, isMediaFileType, isVideoFileType } from '@/helpers/isMediaFileType.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { isValidPostImage } from '@/helpers/validatePostFile.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';

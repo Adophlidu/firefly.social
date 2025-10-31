@@ -1,8 +1,8 @@
+import { delay } from '@firefly/utils';
 import urlcat from 'urlcat';
 
 import { AbortError } from '@/constants/error.js';
 import { WARPCAST_ROOT_URL_V2 } from '@/constants/index.js';
-import { delay } from '@/helpers/delay.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 

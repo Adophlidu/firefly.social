@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, type ReactNode, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -19,7 +20,6 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';

@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@firefly/utils';
 import urlcat from 'urlcat';
 
 import { CharTag, type SocialSource, Source } from '@/constants/enum.js';
@@ -10,7 +11,6 @@ import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import type { Chars, PromoteLinkChars } from '@/types/chars.js';

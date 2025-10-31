@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useMemo } from 'react';
 
@@ -22,7 +23,6 @@ import {
     WALLET_PROFILE_TAB_TYPES,
 } from '@/constants/index.js';
 import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';

@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@firefly/utils';
 import urlcat from 'urlcat';
 
 import { ExternalSiteDomain, type SocialSource, Source } from '@/constants/enum.js';
@@ -8,7 +9,6 @@ import { getUrlSiteType } from '@/helpers/interceptExternalUrl.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { trimify } from '@/helpers/trimify.js';
-import { safeUnreachable } from '@/helpers/unreachable.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';

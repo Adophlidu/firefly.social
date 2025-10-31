@@ -1,10 +1,10 @@
+import { classNames } from '@firefly/utils';
 import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';
 
 import EditProfileIcon from '@/assets/edit-profile.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { EditProfileDialog } from '@/components/EditProfile/EditProfileDialog.js';
-import { classNames } from '@/helpers/classNames.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

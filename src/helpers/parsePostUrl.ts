@@ -1,5 +1,6 @@
+import { parseUrl } from '@firefly/utils';
+
 import { isSocialSource } from '@/helpers/isSource.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
 export function parseOldPostUrl(url: URL) {

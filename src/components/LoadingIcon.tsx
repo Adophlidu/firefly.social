@@ -1,8 +1,8 @@
+import { classNames } from '@firefly/utils';
 import type { HTMLProps } from 'react';
 import { memo } from 'react';
 
 import Loading from '@/assets/loading.svg';
-import { classNames } from '@/helpers/classNames.js';
 
 interface LoadingIconProps extends HTMLProps<SVGElement> {
     size?: number;

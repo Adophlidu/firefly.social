@@ -1,8 +1,8 @@
+import { bom } from '@firefly/utils';
 import { getAccount } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
-import { bom } from '@/helpers/bom.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { runInSafe } from '@/helpers/runInSafe.js';

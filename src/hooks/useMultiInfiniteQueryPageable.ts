@@ -1,7 +1,7 @@
+import { delay, parseJson } from '@firefly/utils';
 import { type InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
-import { delay } from '@/helpers/delay.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -9,7 +9,6 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { parseJson } from '@/helpers/parseJson.js';
 
 const INITIAL_PARAM = 'INITIAL_PARAM';
 

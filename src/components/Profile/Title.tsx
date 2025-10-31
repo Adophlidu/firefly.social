@@ -1,9 +1,9 @@
 'use client';
 
+import { classNames } from '@firefly/utils';
 import { type HTMLProps, type ReactNode } from 'react';
 
 import ComeBackIcon from '@/assets/comeback.svg';
-import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 
 export function Title({ title, className, children }: Omit<HTMLProps<'div'>, 'title'> & { title?: ReactNode | null }) {

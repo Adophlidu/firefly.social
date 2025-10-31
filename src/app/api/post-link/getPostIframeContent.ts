@@ -1,8 +1,8 @@
 /* cspell:disable */
+import { parseUrl } from '@firefly/utils';
 import urlcat from 'urlcat';
 
 import { isYouTubeUrl } from '@/helpers/isYouTubeUrl.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 
 // URLs that are manually picked to be embedded that dont have embed metatags
 const pickUrlSites = ['open.spotify.com', 'kick.com', 'tiktok.com'];
