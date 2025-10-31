@@ -40,10 +40,23 @@ jobs:
             - name: Build packages
               run: pnpm run packages:build
 
+            - name: Configure npm for pnpm publish
+              env:
+                  NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  # Ensure auth token is configured for pnpm to publish to GitHub Packages
+                  # pnpm reads from .npmrc in project root and user home directory
+                  echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
+                  # Ensure registry is set (may already exist, but ensure it's there)
+                  if ! grep -q "^@dimensiondev:registry" .npmrc 2>/dev/null; then
+                      echo "@dimensiondev:registry=https://npm.pkg.github.com/" >> .npmrc
+                  fi
+
             - name: Publish packages
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
                   if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
                       VERSION="${{ github.event.inputs.version }}"
