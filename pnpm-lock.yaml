@@ -429,7 +429,7 @@ importers:
         version: 0.1.21
       '@tailwindcss/forms':
         specifier: ^0.5.10
-        version: 0.5.10(tailwindcss@3.4.17)
+        version: 0.5.10(tailwindcss@3.4.18)
       '@testing-library/react':
         specifier: ^16.3.0
         version: 16.3.0(@testing-library/dom@10.4.1)(@types/react-dom@19.0.2)(@types/react@19.0.2)(react-dom@19.0.0)(react@19.0.0)
@@ -513,7 +513,7 @@ importers:
         version: 0.12.0(eslint@9.24.0)(typescript@5.9.3)
       eslint-plugin-tailwindcss:
         specifier: ^3.18.2
-        version: 3.18.2(patch_hash=wqd3t4enk6x37dshhhfx753wki)(tailwindcss@3.4.17)
+        version: 3.18.2(patch_hash=wqd3t4enk6x37dshhhfx753wki)(tailwindcss@3.4.18)
       eslint-plugin-unicorn:
         specifier: ^58.0.0
         version: 58.0.0(eslint@9.24.0)
@@ -548,11 +548,11 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       tailwindcss:
-        specifier: ^3.4.17
-        version: 3.4.17
+        specifier: ^3.4.18
+        version: 3.4.18
       tailwindcss-safe-area:
         specifier: ^0.6.0
-        version: 0.6.0(tailwindcss@3.4.17)
+        version: 0.6.0(tailwindcss@3.4.18)
       twitter-text:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=pb247chqhjl5b5xlo4i7mpxnni)
@@ -9960,13 +9960,13 @@ packages:
       '@swc/counter': 0.1.3
     dev: true
 
-  /@tailwindcss/forms@0.5.10(tailwindcss@3.4.17):
+  /@tailwindcss/forms@0.5.10(tailwindcss@3.4.18):
     resolution: {integrity: sha512-utI1ONF6uf/pPNO68kmN1b8rEwNXv3czukalo8VtJH8ksIkZXr3Q3VYudZLkCsDd4Wku120uF02hYK25XGPorw==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1 || >= 4.0.0-alpha.20 || >= 4.0.0-beta.1'
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 3.4.17
+      tailwindcss: 3.4.18
     dev: true
 
   /@tanstack/history@1.115.0:
@@ -14608,7 +14608,7 @@ packages:
       - typescript
     dev: true
 
-  /eslint-plugin-tailwindcss@3.18.2(patch_hash=wqd3t4enk6x37dshhhfx753wki)(tailwindcss@3.4.17):
+  /eslint-plugin-tailwindcss@3.18.2(patch_hash=wqd3t4enk6x37dshhhfx753wki)(tailwindcss@3.4.18):
     resolution: {integrity: sha512-QbkMLDC/OkkjFQ1iz/5jkMdHfiMu/uwujUHLAJK5iwNHD8RTxVTlsUezE0toTZ6VhybNBsk+gYGPDq2agfeRNA==}
     engines: {node: '>=18.12.0'}
     peerDependencies:
@@ -14616,7 +14616,7 @@ packages:
     dependencies:
       fast-glob: 3.3.3
       postcss: 8.5.3
-      tailwindcss: 3.4.17
+      tailwindcss: 3.4.18
     dev: true
     patched: true
 
@@ -18048,24 +18048,7 @@ packages:
       postcss: 8.5.3
     dev: true
 
-  /postcss-load-config@4.0.2(postcss@8.5.3):
-    resolution: {integrity: sha512-bSVhyJGL00wMVoPUzAVAnbEoWyqRxkjv64tUl427SKnPrENtq6hJwUojroMz2VB+Q1edmi4IfrAPpami5VVgMQ==}
-    engines: {node: '>= 14'}
-    peerDependencies:
-      postcss: '>=8.0.9'
-      ts-node: '>=9.0.0'
-    peerDependenciesMeta:
-      postcss:
-        optional: true
-      ts-node:
-        optional: true
-    dependencies:
-      lilconfig: 3.1.3
-      postcss: 8.5.3
-      yaml: 2.7.1
-    dev: true
-
-  /postcss-load-config@6.0.1(postcss@8.5.3):
+  /postcss-load-config@6.0.1(jiti@1.21.7)(postcss@8.5.3):
     resolution: {integrity: sha512-oPtTM4oerL+UXmx+93ytZVN82RrlY/wPUV8IeDxFrzIjXOLF1pN+EmKPLbubvKHT2HC20xXsCAH2Z+CKV6Oz/g==}
     engines: {node: '>= 18'}
     peerDependencies:
@@ -18083,6 +18066,7 @@ packages:
       yaml:
         optional: true
     dependencies:
+      jiti: 1.21.7
       lilconfig: 3.1.3
       postcss: 8.5.3
     dev: true
@@ -19913,17 +19897,17 @@ packages:
     resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
     dev: false
 
-  /tailwindcss-safe-area@0.6.0(tailwindcss@3.4.17):
+  /tailwindcss-safe-area@0.6.0(tailwindcss@3.4.18):
     resolution: {integrity: sha512-5PM3CKquzmaa6mow64zWJ0438/yGSqdPfjaXtwNDb31LezNWqFoGPSbvrW12T8iB4EBjeWot+qAA9nbUqqf3sw==}
     engines: {node: '>=16'}
     peerDependencies:
       tailwindcss: ^2.0.0 || >=3.0.0
     dependencies:
-      tailwindcss: 3.4.17
+      tailwindcss: 3.4.18
     dev: true
 
-  /tailwindcss@3.4.17:
-    resolution: {integrity: sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==}
+  /tailwindcss@3.4.18:
+    resolution: {integrity: sha512-6A2rnmW5xZMdw11LYjhcI5846rt9pbLSabY5XPxo+XWdxwZaFEn47Go4NzFiHu9sNNmr/kXivP1vStfvMaK1GQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
@@ -19944,13 +19928,14 @@ packages:
       postcss: 8.5.3
       postcss-import: 15.1.0(postcss@8.5.3)
       postcss-js: 4.0.1(postcss@8.5.3)
-      postcss-load-config: 4.0.2(postcss@8.5.3)
+      postcss-load-config: 6.0.1(jiti@1.21.7)(postcss@8.5.3)
       postcss-nested: 6.2.0(postcss@8.5.3)
       postcss-selector-parser: 6.1.2
       resolve: 1.22.10
       sucrase: 3.35.0
     transitivePeerDependencies:
-      - ts-node
+      - tsx
+      - yaml
     dev: true
 
   /tapable@2.2.1:
@@ -20306,7 +20291,7 @@ packages:
       joycon: 3.1.1
       picocolors: 1.1.1
       postcss: 8.5.3
-      postcss-load-config: 6.0.1(postcss@8.5.3)
+      postcss-load-config: 6.0.1(jiti@1.21.7)(postcss@8.5.3)
       resolve-from: 5.0.0
       rollup: 4.39.0
       source-map: 0.8.0-beta.0
@@ -21572,12 +21557,6 @@ packages:
     engines: {node: '>=18'}
     dev: true
 
-  /yaml@2.7.1:
-    resolution: {integrity: sha512-10ULxpnOCQXxJvBgxsn9ptjq6uviG/htZKk9veJGhlqn3w/DxQ631zFF+nlQXLwmImeS5amR2dl2U8sg6U9jsQ==}
-    engines: {node: '>= 14'}
-    hasBin: true
-    dev: true
-
   /yargs-parser@18.1.3:
     resolution: {integrity: sha512-o50j0JeToy/4K6OZcaQmW6lyXXKhq7csREXcDwk2omFPJEwUNOVtJKvmDr9EI1fAJZUyZcRF7kxGBWmRXudrCQ==}
     engines: {node: '>=6'}
@@ -21912,7 +21891,7 @@ time:
   /svgo-loader@4.0.0: '2023-01-21T06:39:04.523Z'
   /swiper@11.2.10: '2025-06-28T15:06:21.075Z'
   /tailwindcss-safe-area@0.6.0: '2024-08-25T17:31:22.552Z'
-  /tailwindcss@3.4.17: '2024-12-17T19:36:41.075Z'
+  /tailwindcss@3.4.18: '2025-10-01T15:31:37.586Z'
   /ts-results-es@4.2.0: '2024-05-28T09:14:13.577Z'
   /tsup@8.5.0: '2025-05-16T13:41:43.362Z'
   /tweetnacl@1.0.3: '2020-02-10T19:49:05.829Z'
