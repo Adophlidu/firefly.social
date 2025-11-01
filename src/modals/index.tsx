@@ -65,6 +65,7 @@ export const Modals = memo(function Modals() {
             <LogoutModal ref={LogoutModalRef.register} />
             <SignInWithFireflyAppModal ref={SignInWithFireflyAppModalRef.register} />
             <Snackbar ref={SnackbarRef.register} />
+            <WalletConnectModal ref={WalletConnectModalRef.register} />
 
             <IfPathname isNotOneOf={WHITEBOARD_ROUTES}>
                 <AddCustomERC20Modal ref={AddCustomERC20ModalRef.register} />
@@ -92,7 +93,6 @@ export const Modals = memo(function Modals() {
                 <TipsModal ref={TipsModalRef.register} />
                 <TokenSelectorModal ref={TokenSelectorModalRef.register} />
                 <TransactionDetailModal ref={TransactionDetailModalRef.register} />
-                <WalletConnectModal ref={WalletConnectModalRef.register} />
             </IfPathname>
         </NoSSR>
     );
