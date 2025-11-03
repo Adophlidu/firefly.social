@@ -98,7 +98,7 @@
         "immer": "10.1.1",
         "jwt-decode": "^4.0.0",
         "lexical": "^0.18.0",
-        "linkedom": "^0.18.11",
+        "linkedom": "^0.18.12",
         "localforage": "^1.10.0",
         "lodash-es": "^4.17.21",
         "next": "^15.4.7",
