@@ -128,7 +128,9 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
             </div>
             <div className="flex gap-x-1">
                 <span className="flex items-center gap-x-1 font-bold">
-                    {post?.availableSources.map((y) => <SocialSourceIcon key={y} source={y} size={20} />)}
+                    {post?.availableSources.map((y) => (
+                        <SocialSourceIcon key={y} source={y} size={20} />
+                    ))}
                 </span>
                 <span className="text-[13px] font-medium leading-6 text-secondary">
                     <Trans>Saved on {dayjs(draft.createdAt).format('ddd, MMM DD, YYYY [at] h:mm A')}</Trans>

@@ -186,7 +186,7 @@
         "eslint-plugin-unused-imports": "^4.1.4",
         "next-statoscope": "^1.0.1",
         "postcss": "^8.5.3",
-        "prettier": "^3.5.3",
+        "prettier": "^3.6.2",
         "prettier-plugin-tailwindcss": "^0.6.11",
         "rollup": "^4.39.0",
         "rollup-plugin-swc3": "^0.10.4",
