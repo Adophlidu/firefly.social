@@ -238,8 +238,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.0(patch_hash=cuhyqcffld3lmtt6xlopmlcac4)
       dompurify:
-        specifier: ^3.2.5
-        version: 3.2.5
+        specifier: ^3.2.7
+        version: 3.2.7
       emoji-picker-react:
         specifier: ^4.12.2
         version: 4.12.2(react@19.0.0)
@@ -13989,8 +13989,8 @@ packages:
     dependencies:
       domelementtype: 2.3.0
 
-  /dompurify@3.2.5:
-    resolution: {integrity: sha512-mLPd29uoRe9HpvwP2TxClGQBzGXeEC/we/q+bFlmPPmj2p2Ugl3r6ATu/UU1v77DXNcehiBg9zsr1dREyA/dJQ==}
+  /dompurify@3.2.7:
+    resolution: {integrity: sha512-WhL/YuveyGXJaerVlMYGWhvQswa7myDG17P7Vu65EWC05o8vfeNbvNf4d/BOvH99+ZW+LlQsc1GDKMa1vNK6dw==}
     optionalDependencies:
       '@types/trusted-types': 2.0.7
     dev: false
@@ -21823,7 +21823,7 @@ time:
   /cspell@7.3.9: '2023-11-07T10:44:47.679Z'
   /date-fns@2.30.0: '2023-04-30T02:49:47.228Z'
   /dayjs@1.11.13: '2024-08-20T14:59:52.917Z'
-  /dompurify@3.2.5: '2025-04-03T13:17:50.913Z'
+  /dompurify@3.2.7: '2025-09-17T11:48:05.339Z'
   /dotenv@16.4.7: '2024-12-03T17:21:39.065Z'
   /emoji-picker-react@4.12.2: '2025-03-12T22:03:45.023Z'
   /esbuild@0.25.10: '2025-09-17T16:19:20.336Z'
