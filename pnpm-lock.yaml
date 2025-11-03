@@ -109,8 +109,8 @@ importers:
         specifier: ^5.6.0
         version: 5.6.0
       '@giphy/react-components':
-        specifier: ^9.8.0
-        version: 9.8.0(react-dom@19.0.0)(react@19.0.0)(styled-components@6.1.19)
+        specifier: ^10.1.0
+        version: 10.1.0(react-dom@19.0.0)(react@19.0.0)(styled-components@6.1.19)
       '@headlessui/react':
         specifier: 2.1.10
         version: 2.1.10(patch_hash=roq3pv4art7yqmupqbnd3ablue)(react-dom@19.0.0)(react@19.0.0)
@@ -3484,8 +3484,8 @@ packages:
       uuid: 9.0.1
     dev: false
 
-  /@giphy/react-components@9.8.0(react-dom@19.0.0)(react@19.0.0)(styled-components@6.1.19):
-    resolution: {integrity: sha512-rtx3HBa+cHKen+lMuvSH/rPX+fYvFuZWXP9i9i6nVBkPakd5niZC4ZD9NjM09LJpmUw69eUdqDVhoUgqfLEB2A==}
+  /@giphy/react-components@10.1.0(react-dom@19.0.0)(react@19.0.0)(styled-components@6.1.19):
+    resolution: {integrity: sha512-MVtLwLBkYs75gs5OMEcr+c5Ld3Xg0wtvgF06jHk6xQPWWj/801WwYPEOndATkHnKAojiZb2YKc9RJm2XdPYJfw==}
     peerDependencies:
       react: 19.0.0
       styled-components: '>= 5'
@@ -14922,6 +14922,7 @@ packages:
 
   /intersection-observer@0.12.2:
     resolution: {integrity: sha512-7m1vEcPCxXYI8HqnL8CKI6siDyD+eIWSwgB3DZA+ZTogxk9I4CDnj4wilt9x/+/QbHI4YG5YZNmC6458/e9Ktg==}
+    deprecated: The Intersection Observer polyfill is no longer needed and can safely be removed. Intersection Observer has been Baseline since 2019.
     dev: false
 
   /iron-webcrypto@1.2.1:
@@ -20854,7 +20855,7 @@ time:
   /@farcaster/miniapp-host@0.2.12: '2025-09-05T16:45:18.036Z'
   /@floating-ui/react@0.27.16: '2025-08-21T06:33:44.461Z'
   /@giphy/js-fetch-api@5.6.0: '2024-05-28T16:39:28.633Z'
-  /@giphy/react-components@9.8.0: '2024-11-05T16:50:07.282Z'
+  /@giphy/react-components@10.1.0: '2025-07-08T16:16:15.609Z'
   /@heroicons/react@2.2.0: '2024-11-18T15:33:27.317Z'
   /@lens-chain/storage-client@1.0.6: '2025-08-19T19:29:05.046Z'
   /@lens-protocol/client@0.0.0-canary-20250430134539: '2025-04-30T13:48:09.961Z'
