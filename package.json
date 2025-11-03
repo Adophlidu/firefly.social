@@ -115,7 +115,7 @@
         "react-qr-code": "^2.0.18",
         "react-use": "17.5.1",
         "react-virtuoso": "^4.12.6",
-        "recharts": "^2.15.3",
+        "recharts": "^2.15.4",
         "remark-breaks": "^4.0.0",
         "remark-linkify-regex": "^1.2.1",
         "satori": "^0.11.3",
