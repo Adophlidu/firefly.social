@@ -208,8 +208,8 @@ importers:
         specifier: ^0.0.4
         version: 0.0.4(react@19.0.0)
       '@tanstack/react-router':
-        specifier: ^1.115.2
-        version: 1.115.2(react-dom@19.0.0)(react@19.0.0)
+        specifier: ^1.115.3
+        version: 1.115.3(react-dom@19.0.0)(react@19.0.0)
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@19.0.0)(react@19.0.0)
@@ -284,7 +284,7 @@ importers:
         version: 4.24.13(next@15.4.7)(react-dom@19.0.0)(react@19.0.0)
       nuqs:
         specifier: ^2.7.1
-        version: 2.7.1(@tanstack/react-router@1.115.2)(next@15.4.7)(react@19.0.0)
+        version: 2.7.1(@tanstack/react-router@1.115.3)(next@15.4.7)(react@19.0.0)
       plyr-react:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.8.3)(react@19.0.0)
@@ -9980,16 +9980,16 @@ packages:
       react: 19.0.0
     dev: false
 
-  /@tanstack/react-router@1.115.2(react-dom@19.0.0)(react@19.0.0):
-    resolution: {integrity: sha512-KWRtoDp1odMUUd0m7utTot3NsAxfb/W8UlPG5omtS0TCl8F+ErwurjS6Qn7rKg7q0CF8KcFDvhhBC1cXnOpoSQ==}
+  /@tanstack/react-router@1.115.3(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-5mV9t0hW/gMdUeBabY+/lU3HuvGdaYUMDvlLpCG5dQJXBU0UzHwPAM2xy2UTte9Ty1tqxJqeA7DQoyNe/u5SEw==}
     engines: {node: '>=12'}
     peerDependencies:
       react: 19.0.0
       react-dom: 19.0.0
     dependencies:
       '@tanstack/history': 1.115.0
-      '@tanstack/react-store': 0.7.0(react-dom@19.0.0)(react@19.0.0)
-      '@tanstack/router-core': 1.115.0
+      '@tanstack/react-store': 0.7.7(react-dom@19.0.0)(react@19.0.0)
+      '@tanstack/router-core': 1.115.3
       jsesc: 3.1.0
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
@@ -9997,13 +9997,13 @@ packages:
       tiny-warning: 1.0.3
     dev: false
 
-  /@tanstack/react-store@0.7.0(react-dom@19.0.0)(react@19.0.0):
-    resolution: {integrity: sha512-S/Rq17HaGOk+tQHV/yrePMnG1xbsKZIl/VsNWnNXt4XW+tTY8dTlvpJH2ZQ3GRALsusG5K6Q3unAGJ2pd9W/Ng==}
+  /@tanstack/react-store@0.7.7(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-qqT0ufegFRDGSof9D/VqaZgjNgp4tRPHZIJq2+QIHkMUtHjaJ0lYrrXjeIUJvjnTbgPfSD1XgOMEt0lmANn6Zg==}
     peerDependencies:
       react: 19.0.0
       react-dom: 19.0.0
     dependencies:
-      '@tanstack/store': 0.7.0
+      '@tanstack/store': 0.7.7
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       use-sync-external-store: 1.5.0(react@19.0.0)
@@ -10031,17 +10031,17 @@ packages:
       react-dom: 19.0.0(react@19.0.0)
     dev: false
 
-  /@tanstack/router-core@1.115.0:
-    resolution: {integrity: sha512-5XgesPkppANSnR3lrzakjx5+Vx1q4azI1t+kG2ZFvcLG8iRiJ564bDB1W3X2PZQgfKD78jDO/uWAcJTHH4sXuw==}
+  /@tanstack/router-core@1.115.3:
+    resolution: {integrity: sha512-gynHs72LHVg05fuJTwZZYhDL4VNEAK0sXz7IqiBv7a3qsYeEmIZsGaFr9sVjTkuF1kbrFBdJd5JYutzBh9Uuhw==}
     engines: {node: '>=12'}
     dependencies:
       '@tanstack/history': 1.115.0
-      '@tanstack/store': 0.7.0
+      '@tanstack/store': 0.7.7
       tiny-invariant: 1.3.3
     dev: false
 
-  /@tanstack/store@0.7.0:
-    resolution: {integrity: sha512-CNIhdoUsmD2NolYuaIs8VfWM467RK6oIBAW4nPEKZhg1smZ+/CwtCdpURgp7nxSqOaV9oKkzdWD80+bC66F/Jg==}
+  /@tanstack/store@0.7.7:
+    resolution: {integrity: sha512-xa6pTan1bcaqYDS9BDpSiS63qa6EoDkPN9RsRaxHuDdVDNntzq3xNwR5YKTU/V3SkSyC9T4YVOPh2zRQN0nhIQ==}
     dev: false
 
   /@tanstack/virtual-core@3.13.10:
@@ -17259,7 +17259,7 @@ packages:
       esm-env: 1.2.2
     dev: false
 
-  /nuqs@2.7.1(@tanstack/react-router@1.115.2)(next@15.4.7)(react@19.0.0):
+  /nuqs@2.7.1(@tanstack/react-router@1.115.3)(next@15.4.7)(react@19.0.0):
     resolution: {integrity: sha512-3WDgrOZWat0QyOheyljTlXK4TGFh1JKSLvXMgusMDcTyMJXe1xL8+q3zuQ6ke1vyeGnpJwztlZl2aDkMW2eIUg==}
     peerDependencies:
       '@remix-run/react': '>=2'
@@ -17281,7 +17281,7 @@ packages:
         optional: true
     dependencies:
       '@standard-schema/spec': 1.0.0
-      '@tanstack/react-router': 1.115.2(react-dom@19.0.0)(react@19.0.0)
+      '@tanstack/react-router': 1.115.3(react-dom@19.0.0)(react@19.0.0)
       next: 15.4.7(@babel/core@7.28.5)(react-dom@19.0.0)(react@19.0.0)
       react: 19.0.0
     dev: false
@@ -21796,7 +21796,7 @@ time:
   /@tanstack/react-query-next-experimental@5.85.5: '2025-08-19T09:42:03.166Z'
   /@tanstack/react-query@5.85.5: '2025-08-19T09:41:51.252Z'
   /@tanstack/react-ranger@0.0.4: '2023-11-24T09:24:06.987Z'
-  /@tanstack/react-router@1.115.2: '2025-04-07T20:27:41.175Z'
+  /@tanstack/react-router@1.115.3: '2025-04-11T17:19:55.545Z'
   /@testing-library/react@16.3.0: '2025-04-02T17:03:38.791Z'
   /@tippyjs/react@4.2.6: '2021-10-29T12:39:32.094Z'
   /@types/bs58@4.0.4: '2023-11-07T19:50:29.016Z'
