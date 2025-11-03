@@ -310,8 +310,8 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0(@types/react@19.0.2)(react@19.0.0)
       react-qr-code:
-        specifier: ^2.0.15
-        version: 2.0.15(react@19.0.0)
+        specifier: ^2.0.18
+        version: 2.0.18(react@19.0.0)
       react-use:
         specifier: 17.5.1
         version: 17.5.1(patch_hash=jdgfodh3ixpexpgf3fwrwvcmtq)(react-dom@19.0.0)(react@19.0.0)
@@ -18507,8 +18507,8 @@ packages:
       - supports-color
     dev: false
 
-  /react-qr-code@2.0.15(react@19.0.0):
-    resolution: {integrity: sha512-MkZcjEXqVKqXEIMVE0mbcGgDpkfSdd8zhuzXEl9QzYeNcw8Hq2oVIzDLWuZN2PQBwM5PWjc2S31K8Q1UbcFMfw==}
+  /react-qr-code@2.0.18(react@19.0.0):
+    resolution: {integrity: sha512-v1Jqz7urLMhkO6jkgJuBYhnqvXagzceg3qJUWayuCK/c6LTIonpWbwxR1f1APGd4xrW/QcQEovNrAojbUz65Tg==}
     peerDependencies:
       react: 19.0.0
     dependencies:
@@ -21862,7 +21862,7 @@ time:
   /react-dom@19.0.0: '2024-12-05T18:10:30.516Z'
   /react-hook-form@7.53.2: '2024-11-08T22:15:09.008Z'
   /react-markdown@9.1.0: '2025-02-20T11:57:00.191Z'
-  /react-qr-code@2.0.15: '2024-06-20T19:39:50.287Z'
+  /react-qr-code@2.0.18: '2025-07-06T20:47:33.365Z'
   /react-virtuoso@4.12.6: '2025-03-29T05:07:41.680Z'
   /react@19.0.0: '2024-12-05T18:10:21.804Z'
   /recharts@2.15.3: '2025-04-18T04:58:59.165Z'
