@@ -220,8 +220,8 @@ importers:
         specifier: ^2.21.2
         version: 2.21.2(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0)(typescript@5.9.3)(use-sync-external-store@1.5.0)(viem@2.37.9)
       bignumber.js:
-        specifier: 9.1.2
-        version: 9.1.2
+        specifier: 9.3.1
+        version: 9.3.1
       bs58:
         specifier: ^6.0.0
         version: 6.0.0
@@ -7625,7 +7625,7 @@ packages:
       '@solana/buffer-layout': 4.0.1
       '@solana/web3.js': 1.98.4(typescript@5.9.3)
       bigint-buffer: 1.1.5
-      bignumber.js: 9.1.2
+      bignumber.js: 9.3.1
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -11962,8 +11962,8 @@ packages:
       bindings: 1.5.0
     dev: false
 
-  /bignumber.js@9.1.2:
-    resolution: {integrity: sha512-2/mKyZH9K85bzOEfhXDBFZTGd1CTs+5IHpeFQo9luiBG7hghdC851Pj2WAhb6E3R6b9tZj/XKhbg4fum+Kepug==}
+  /bignumber.js@9.3.1:
+    resolution: {integrity: sha512-Ko0uX15oIUS7wJ3Rb30Fs6SkVbLmPBAKdlm7q9+ak9bbIeFf0MwuBsQV6z7+X768/cHsfg+WlysDWJcmthjsjQ==}
     dev: false
 
   /binary-extensions@2.3.0:
@@ -20919,7 +20919,7 @@ time:
   /@vercel/kv@1.0.1: '2023-12-08T09:14:03.153Z'
   /@wagmi/core@2.21.2: '2025-09-25T20:26:54.624Z'
   /autoprefixer@10.4.21: '2025-03-09T13:27:24.235Z'
-  /bignumber.js@9.1.2: '2023-08-28T12:15:45.587Z'
+  /bignumber.js@9.3.1: '2025-07-11T16:38:38.424Z'
   /bs58@6.0.0: '2024-06-24T10:53:43.455Z'
   /buffer@6.0.3: '2020-11-23T02:51:27.107Z'
   /core-js-compat@3.42.0: '2025-04-29T18:04:00.682Z'
