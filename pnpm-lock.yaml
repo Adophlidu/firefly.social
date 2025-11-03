@@ -316,8 +316,8 @@ importers:
         specifier: 17.5.1
         version: 17.5.1(patch_hash=jdgfodh3ixpexpgf3fwrwvcmtq)(react-dom@19.0.0)(react@19.0.0)
       react-virtuoso:
-        specifier: ^4.12.6
-        version: 4.12.6(react-dom@19.0.0)(react@19.0.0)
+        specifier: ^4.12.8
+        version: 4.12.8(react-dom@19.0.0)(react@19.0.0)
       recharts:
         specifier: ^2.15.4
         version: 2.15.4(react-dom@19.0.0)(react@19.0.0)
@@ -17720,8 +17720,8 @@ packages:
     dev: false
     patched: true
 
-  /react-virtuoso@4.12.6(react-dom@19.0.0)(react@19.0.0):
-    resolution: {integrity: sha512-bfvS6aCL1ehXmq39KRiz/vxznGUbtA27I5I24TYCe1DhMf84O3aVNCIwrSjYQjkJGJGzY46ihdN8WkYlemuhMQ==}
+  /react-virtuoso@4.12.8(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-NMMKfDBr/+xZZqCQF3tN1SZsh6FwOJkYgThlfnsPLkaEhdyQo0EuWUzu3ix6qjnI7rYwJhMwRGoJBi+aiDfGsA==}
     peerDependencies:
       react: 19.0.0
       react-dom: 19.0.0
@@ -20977,7 +20977,7 @@ time:
   /react-hook-form@7.53.2: '2024-11-08T22:15:09.008Z'
   /react-markdown@9.1.0: '2025-02-20T11:57:00.191Z'
   /react-qr-code@2.0.18: '2025-07-06T20:47:33.365Z'
-  /react-virtuoso@4.12.6: '2025-03-29T05:07:41.680Z'
+  /react-virtuoso@4.12.8: '2025-05-31T06:24:45.380Z'
   /react@19.0.0: '2024-12-05T18:10:21.804Z'
   /recharts@2.15.4: '2025-06-20T21:43:56.808Z'
   /remark-breaks@4.0.0: '2023-09-22T16:45:41.061Z'
