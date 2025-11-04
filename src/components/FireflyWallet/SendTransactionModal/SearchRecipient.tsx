@@ -21,7 +21,7 @@ import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { searchIdentity } from '@/providers/firefly/endpoints/searchIdentity.js';
 import { lookup } from '@/services/ens.js';
 
 export function SearchRecipient({
@@ -43,7 +43,7 @@ export function SearchRecipient({
         queryFn: async ({ pageParam }) => {
             if (!debouncedKeyword) return;
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
-            const res = await fireflyEndpointProvider.searchIdentity(debouncedKeyword, {
+            const res = await searchIdentity(debouncedKeyword, {
                 size: 20,
                 indicator,
             });

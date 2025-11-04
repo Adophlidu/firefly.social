@@ -3,7 +3,7 @@ import { first } from 'lodash-es';
 import { useCallback, useMemo } from 'react';
 
 import { createIndicator } from '@/helpers/pageable.js';
-import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
+import { fireflyRedPacketProvider } from '@/providers/firefly/RedPacket.js';
 
 export function useEthereumClaimedInfo(rpid: string) {
     const {
@@ -16,7 +16,7 @@ export function useEthereumClaimedInfo(rpid: string) {
         queryKey: ['fireflyClaimHistory', rpid],
         initialPageParam: '',
         queryFn: async ({ pageParam }) => {
-            return FireflyRedPacketEndpoint.getClaimHistory(rpid, createIndicator(undefined, pageParam as string));
+            return fireflyRedPacketProvider.getClaimHistory(rpid, createIndicator(undefined, pageParam as string));
         },
         getNextPageParam: (lastPage) => lastPage?.cursor,
     });

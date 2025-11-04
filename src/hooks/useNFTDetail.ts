@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function useNFTDetail(
@@ -16,7 +16,7 @@ export function useNFTDetail(
         queryKey: ['nft-detail', address, tokenId, chainId],
         async queryFn() {
             if (!enabled) return;
-            return fireflyEndpointProvider.getNFTDetail(chainId, address!, tokenId!);
+            return fireflyNftProvider.getNFTDetail(chainId, address!, tokenId!);
         },
     });
 }

@@ -5,7 +5,8 @@ import { notFound } from '@/esm/navigation/server.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isValidTxId } from '@/helpers/isValidTxId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getSwapActivityByHash } from '@/providers/firefly/endpoints/getSwapActivityByHash.js';
+import { getTipsTransactionDetail } from '@/providers/firefly/endpoints/getTipsTransactionDetail.js';
 
 export async function generateMetadata({ params }: { params: { chain_id: string; hash: string } }): Promise<Metadata> {
     const { chain_id, hash } = params;
@@ -14,12 +15,10 @@ export async function generateMetadata({ params }: { params: { chain_id: string;
     if (!isValidTxId(hash)) notFound();
 
     // Try to get Tip transaction details
-    const tipsData = await runInSafeAsync(() =>
-        fireflyEndpointProvider.getTipsTransactionDetail(hash, TipsNotificationType.Tip),
-    );
+    const tipsData = await runInSafeAsync(() => getTipsTransactionDetail(hash, TipsNotificationType.Tip));
 
     // Try to get Swap transaction details
-    const swapData = await runInSafeAsync(() => fireflyEndpointProvider.getSwapActivityByHash(hash, chainId));
+    const swapData = await runInSafeAsync(() => getSwapActivityByHash(hash, chainId));
 
     // If both transaction types don't exist, return 404
     if (!tipsData && !swapData) {

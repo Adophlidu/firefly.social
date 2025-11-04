@@ -6,7 +6,7 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { reportArticle } from '@/providers/firefly/endpoints/reportArticle.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -18,7 +18,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 export function ReportArticleButton({ article, ref, onReport, onClick, ...rest }: Props) {
     const mutation = useMutation({
         mutationFn: async () => {
-            await fireflyEndpointProvider.reportArticle(article);
+            await reportArticle(article);
             enqueueSuccessMessage(<Trans>Report submitted</Trans>);
         },
     });

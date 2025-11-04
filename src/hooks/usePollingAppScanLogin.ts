@@ -7,7 +7,7 @@ import { useAsyncFn } from 'react-use';
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useCallbackRef } from '@/hooks/useCallbackRef.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getDesktopStatus } from '@/providers/firefly/endpoints/getDesktopStatus.js';
 import { DesktopLinkInfoStatus, type DesktopLinkInfoStatusData } from '@/providers/types/Firefly.js';
 import { loginWithAppScan } from '@/services/loginWithAppScan.js';
 
@@ -32,7 +32,7 @@ export function usePollingAppScanLogin(
         queryKey: ['desktop-session-status', session],
         queryFn() {
             if (!session) return;
-            return fireflyEndpointProvider.getDesktopStatus(session);
+            return getDesktopStatus(session);
         },
         refetchInterval(query) {
             if (query.state.data?.status === DesktopLinkInfoStatus.Expired) return false;

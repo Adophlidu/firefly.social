@@ -3,7 +3,8 @@ import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { ExploreSwitchType } from '@/constants/enum.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getExploreSwitchConfigList } from '@/providers/firefly/endpoints/getExploreSwitchConfigList.js';
+import { setExploreSwitchConfig } from '@/providers/firefly/endpoints/setExploreSwitchConfig.js';
 import type { GetExploreSwitchConfigResponse } from '@/providers/types/Firefly.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
@@ -39,7 +40,7 @@ export function useExploreDataSwitchConfig(switchType: ExploreSwitchType, update
         queryKey: ['explore-switch', accountId],
         enabled: !!accountId,
         staleTime: 1000 * 60 * 60,
-        queryFn: () => fireflyEndpointProvider.getExploreSwitchConfigList(),
+        queryFn: () => getExploreSwitchConfigList(),
     });
 
     const [{ loading }, toggleSwitch] = useAsyncFn(
@@ -51,7 +52,7 @@ export function useExploreDataSwitchConfig(switchType: ExploreSwitchType, update
                 if (updateStateBeforeApi) {
                     updateQuery(accountId, switchType, newStatus);
                 }
-                await fireflyEndpointProvider.setExploreSwitchConfig(ExploreSwitchType.TruthSocial, newStatus);
+                await setExploreSwitchConfig(ExploreSwitchType.TruthSocial, newStatus);
                 if (!updateStateBeforeApi) {
                     updateQuery(accountId, switchType, newStatus);
                 }

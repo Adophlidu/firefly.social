@@ -33,7 +33,8 @@ import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useToggleTipLikeStatus } from '@/hooks/useToggleTipLikeStatus.js';
 import { type ComposeModalOpenProps, ComposeModalRef } from '@/modals/ComposeModal.js';
 import { ShareImageModalRef } from '@/modals/ShareImageModal/index.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { createTxReaction } from '@/providers/firefly/endpoints/createTxReaction.js';
+import { getTipsTransactionDetail } from '@/providers/firefly/endpoints/getTipsTransactionDetail.js';
 import { type MentionChars } from '@/types/chars.js';
 
 interface TipsTransactionActionsProps extends HTMLProps<HTMLDivElement> {
@@ -107,7 +108,7 @@ export function TipsTransactionActions({
         queryKey: ['tips', txHash, isLogin],
         enabled: autoQuery && isLogin,
         queryFn: async () => {
-            return fireflyEndpointProvider.getTipsTransactionDetail(txHash, TipsNotificationType.Tip);
+            return getTipsTransactionDetail(txHash, TipsNotificationType.Tip);
         },
     });
 
@@ -149,12 +150,7 @@ export function TipsTransactionActions({
             );
             if (success) {
                 runInSafeAsync(() =>
-                    fireflyEndpointProvider.createTxReaction(
-                        TxReactionType.ShareTip,
-                        chainId.toString(),
-                        txHash,
-                        fromAddress,
-                    ),
+                    createTxReaction(TxReactionType.ShareTip, chainId.toString(), txHash, fromAddress),
                 );
                 updateTipsReactionStatus(txHash, TxReactionType.ShareTip, true);
             }

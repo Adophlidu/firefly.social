@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
+import { fireflyRedPacketProvider } from '@/providers/firefly/RedPacket.js';
 
 export function useRedPacketThemes() {
     return useQuery({
         queryKey: ['red-packet', 'themes'],
-        queryFn: async () => FireflyRedPacketEndpoint.getThemes(),
+        queryFn: async () => fireflyRedPacketProvider.getThemes(),
     });
 }

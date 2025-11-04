@@ -1,4 +1,3 @@
-import { bom } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 import type { Hex } from 'viem';
 
@@ -6,7 +5,6 @@ import { EMPTY_LIST, FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
 import { RedPacketMetaKey } from '@/constants/rp.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { toFixed } from '@/helpers/number.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -21,11 +19,8 @@ import { settings } from '@/settings/index.js';
 import type { RedPacketMetadata } from '@/types/rp.js';
 import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
-const SITE_URL = bom.location?.origin ?? '';
-
-// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
-export class FireflyRedPacketEndpoint {
-    static async createCover(metadata: RedPacketMetadata) {
+class FireflyRedPacket {
+    async createCover(metadata: RedPacketMetadata) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/maskTypedMessage/create');
         const { data } = await fireflySessionHolder.fetch<FireflyRedPacketAPI.CreateCoverResponse>(url, {
             method: 'POST',
@@ -39,7 +34,7 @@ export class FireflyRedPacketEndpoint {
         });
         return data;
     }
-    static async parse(options: FireflyRedPacketAPI.ParseOptions) {
+    async parse(options: FireflyRedPacketAPI.ParseOptions) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/misc/redpacket/parse');
         const { data } = await fireflySessionHolder.fetch<FireflyRedPacketAPI.ParseResponse>(url, {
             method: 'POST',
@@ -48,75 +43,19 @@ export class FireflyRedPacketEndpoint {
         return data;
     }
 
-    static async getThemes() {
+    async getThemes() {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/themeList');
         const { data } = await fetchJson<FireflyRedPacketAPI.ThemeListResponse>(url);
         return data.list;
     }
 
-    static async getPayloadUrls(
-        from: string,
-        amount?: string,
-        type?: string,
-        symbol?: string,
-        decimals?: number,
-        message?: string,
-    ) {
-        const themes = await FireflyRedPacketEndpoint.getThemes();
-
-        return themes.map((theme) => ({
-            themeId: theme.tid,
-            backgroundImageUrl: theme.cover.bg_image,
-            backgroundColor: theme.cover.bg_color,
-            url: urlcat(SITE_URL, '/api/rp', {
-                'theme-id': theme.tid,
-                usage: 'payload',
-                from,
-                amount: toFixed(amount),
-                type,
-                symbol,
-                decimals,
-                message,
-            }),
-        }));
-    }
-
-    static async getPayloadUrlByThemeId(
-        themeId: string,
-        from: string,
-        amount?: string,
-        type?: string,
-        symbol?: string,
-        decimals?: number,
-    ) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/redpacket/themeById', {
-            themeId,
-        });
-        const { data } = await fetchJson<FireflyRedPacketAPI.ThemeByIdResponse>(url);
-
-        return {
-            themeId,
-            url: urlcat(SITE_URL, '/api/rp', {
-                'theme-id': themeId,
-                usage: 'payload',
-                from,
-                amount,
-                type,
-                symbol,
-                decimals,
-            }),
-            backgroundImageUrl: data.cover.bg_image,
-            backgroundColor: data.cover.bg_color,
-        };
-    }
-
-    static async getTheme(options: FireflyRedPacketAPI.ThemeByIdOptions) {
+    async getTheme(options: FireflyRedPacketAPI.ThemeByIdOptions) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/redpacket/themeById', options);
         const { data } = await fetchJson<FireflyRedPacketAPI.ThemeByIdResponse>(url);
         return data;
     }
 
-    static async createTheme(options: FireflyRedPacketAPI.CreateThemeOptions) {
+    async createTheme(options: FireflyRedPacketAPI.CreateThemeOptions) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/createTheme');
         const res = await fetchJson<FireflyRedPacketAPI.CreateThemeResponse>(url, {
             method: 'POST',
@@ -128,39 +67,7 @@ export class FireflyRedPacketEndpoint {
         return res.data.tid;
     }
 
-    static async getCoverUrlByRpid(
-        rpid: string,
-        symbol?: string,
-        decimals?: number,
-        shares?: number,
-        amount?: string,
-        from?: string,
-        message?: string,
-        remainingAmount?: string,
-        remainingShares?: string,
-    ) {
-        const theme = await FireflyRedPacketEndpoint.getTheme({ rpid });
-
-        return {
-            themeId: theme.tid,
-            backgroundImageUrl: theme.normal.bg_image,
-            backgroundColor: theme.normal.bg_color,
-            url: urlcat(SITE_URL, '/api/rp', {
-                'theme-id': theme.tid,
-                usage: 'cover',
-                symbol,
-                decimals,
-                shares,
-                amount: toFixed(amount),
-                from,
-                message,
-                'remaining-amount': toFixed(remainingAmount),
-                'remaining-shares': toFixed(remainingShares),
-            }),
-        };
-    }
-
-    static async createPublicKey(
+    async createPublicKey(
         themeId: string,
         shareFrom: string,
         strategies: FireflyRedPacketAPI.ClaimStrategy[],
@@ -178,7 +85,7 @@ export class FireflyRedPacketEndpoint {
         return data.publicKey;
     }
 
-    static async updateClaimStrategy(
+    async updateClaimStrategy(
         rpid: string,
         reactions: FireflyRedPacketAPI.PostReaction[],
         claimPlatform: FireflyRedPacketAPI.ClaimPlatform[],
@@ -198,7 +105,7 @@ export class FireflyRedPacketEndpoint {
         });
     }
 
-    static async createClaimSignature(options: FireflyRedPacketAPI.CheckClaimStrategyStatusOptions): Promise<Hex> {
+    async createClaimSignature(options: FireflyRedPacketAPI.CheckClaimStrategyStatusOptions): Promise<Hex> {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/claim');
         const { data } = await fetchJson<FireflyRedPacketAPI.ClaimResponse>(url, {
             method: 'POST',
@@ -207,7 +114,7 @@ export class FireflyRedPacketEndpoint {
         return data.signedMessage;
     }
 
-    static async getHistory<
+    async getHistory<
         T extends FireflyRedPacketAPI.ActionType,
         R = T extends FireflyRedPacketAPI.ActionType.Claim
             ? FireflyRedPacketAPI.RedPacketClaimedInfo
@@ -238,7 +145,7 @@ export class FireflyRedPacketEndpoint {
         );
     }
 
-    static async getClaimHistory(
+    async getClaimHistory(
         redpacket_id: string,
         indicator?: PageIndicator,
     ): Promise<FireflyRedPacketAPI.RedPacketClaimListInfo> {
@@ -253,14 +160,15 @@ export class FireflyRedPacketEndpoint {
         return { ...data, chain_id: Number(data.chain_id) };
     }
 
-    static async checkClaimStrategyStatus(options: FireflyRedPacketAPI.CheckClaimStrategyStatusOptions) {
+    async checkClaimStrategyStatus(options: FireflyRedPacketAPI.CheckClaimStrategyStatusOptions) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/redpacket/checkClaimStrategyStatus');
         return fetchJson<FireflyRedPacketAPI.CheckClaimStrategyStatusResponse>(url, {
             method: 'POST',
             body: JSON.stringify(options),
         });
     }
-    static async finishClaiming(
+
+    async finishClaiming(
         rpid: string,
         platform: FireflyRedPacketAPI.PlatformType,
         profileId: string,
@@ -285,7 +193,7 @@ export class FireflyRedPacketEndpoint {
         });
     }
 
-    static async checkGasFreeStatus(chainId: EthereumChainId, wallet: string) {
+    async checkGasFreeStatus(chainId: EthereumChainId, wallet: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/checkGasFreeRedPacketClaimStatus', {
             wallet,
             chainId,
@@ -298,7 +206,7 @@ export class FireflyRedPacketEndpoint {
         return data.substituteGasStatus;
     }
 
-    static async claimForGasFree(
+    async claimForGasFree(
         rpid: string,
         address: string,
         profile: (
@@ -345,3 +253,6 @@ export class FireflyRedPacketEndpoint {
         return data.hash;
     }
 }
+
+export { FireflyRedPacket };
+export const fireflyRedPacketProvider = new FireflyRedPacket();

@@ -40,8 +40,9 @@ import {
 import { getFarcasterFriendship } from '@/providers/farcaster/getFarcasterFriendship.js';
 import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoints/getFireflyBookmarkIds.js';
+import { getSingleCoin } from '@/providers/firefly/endpoints/getSingleCoin.js';
+import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
@@ -1170,7 +1171,7 @@ class FireflySocialMedia implements Provider {
         const nftIds = data.list.map((x) => x.post_id);
         const groups = groupNFTParamsByChainId(nftIds);
         const promises = Object.entries(groups).map(([chainId, tuples]) => {
-            return fireflyEndpointProvider.getNFTDetails(
+            return fireflyNftProvider.getNFTDetails(
                 +chainId,
                 tuples.map((x) => {
                     return { contract_address: x[1], token_id: x[2] };
@@ -1216,9 +1217,15 @@ class FireflySocialMedia implements Provider {
                     const chainId = +parts[0];
                     const address = parts[1];
                     if (!address) return null;
-                    return fireflyEndpointProvider.getTokenByAddress(chainId, address);
-                } else if (item.post_id) {
-                    return fireflyEndpointProvider.getTokenByCoinId(item.post_id);
+                    return getSingleCoin({
+                        chain_id: chainId,
+                        address,
+                    });
+                }
+                if (item.post_id) {
+                    return getSingleCoin({
+                        coingecko_id: item.post_id,
+                    });
                 }
                 return null;
             }),

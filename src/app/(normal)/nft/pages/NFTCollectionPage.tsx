@@ -4,13 +4,13 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { NFTCollection } from '@/components/CollectionDetail/NFTCollection.js';
 import { notFound } from '@/esm/navigation.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
 
 export function NFTCollectionPage({ chainId, address }: { chainId: number; address: string }) {
     const { data } = useSuspenseQuery({
         queryKey: ['nft-collection', chainId, address],
         async queryFn() {
-            return fireflyEndpointProvider.getCollection(chainId, address);
+            return fireflyNftProvider.getCollection(chainId, address);
         },
     });
 

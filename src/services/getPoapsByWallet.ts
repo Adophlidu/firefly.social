@@ -1,12 +1,12 @@
 import { FireflyPlatform } from '@/constants/enum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoints/getFireflyBookmarkIds.js';
+import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export async function getPoapsByWallet(address: string) {
-    const poaps = await fireflyEndpointProvider.getPOAPs(address);
+    const poaps = await fireflyNftProvider.getPOAPs(address);
     const nftIds = poaps.map((item) =>
         `${EthereumChainId.xDai}.${POAP_CONTRACT_ADDRESS}.${item.tokenId}`.toLowerCase(),
     );

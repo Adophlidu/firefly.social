@@ -5,7 +5,7 @@ import { Source } from '@/constants/enum.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { patchActivitiesQuery } from '@/helpers/patchActivitiesQuery.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
-import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
+import type { FireflyWallet } from '@/providers/firefly/Wallet.js';
 import type { Article } from '@/providers/types/Article.js';
 import { type PolymarketActivity, WatchType } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/utility.js';
@@ -55,13 +55,13 @@ function toggleWatch(address: string, status: boolean) {
 const METHODS_BE_OVERRIDDEN = ['watchWallet', 'unwatchWallet'] as const;
 
 export function SetQueryDataForWatchWallet() {
-    return function decorator<T extends ClassType<FireflyEndpoint>>(target: T): T {
+    return function decorator<T extends ClassType<FireflyWallet>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
-            const method = target.prototype[key] as FireflyEndpoint[K];
+            const method = target.prototype[key] as FireflyWallet[K];
 
             Object.defineProperty(target.prototype, key, {
                 value: async (address: string) => {
-                    const m = method as (address: string) => ReturnType<FireflyEndpoint[K]>;
+                    const m = method as (address: string) => ReturnType<FireflyWallet[K]>;
                     const status = key === 'watchWallet';
                     try {
                         toggleWatch(address, status);

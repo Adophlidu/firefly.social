@@ -19,7 +19,8 @@ import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { isProfileMutedAll } from '@/providers/firefly/endpoints/isProfileMutedAll.js';
+import { muteProfileAll } from '@/providers/firefly/endpoints/muteProfileAll.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -54,9 +55,9 @@ function MuteAllProfileBase({ identity, onClose, className }: MuteAllProfileBase
             if (!confirmed) return;
             const source = identity.source;
             if (!isProfilePageSource(source)) return;
-            const isMutedAll = await fireflyEndpointProvider.isProfileMutedAll(source, identity.id);
+            const isMutedAll = await isProfileMutedAll(source, identity.id);
             if (!isMutedAll) {
-                await fireflyEndpointProvider.muteProfileAll(identity);
+                await muteProfileAll(identity);
 
                 const mutedIdentities = await muteAllSocialProfiles(identity);
                 const relationships = [...mutedIdentities, { snsId: identity.id, snsPlatform: identity.source }];

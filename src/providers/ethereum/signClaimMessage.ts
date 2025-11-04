@@ -3,7 +3,7 @@ import { signMessage } from 'viem/accounts';
 
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import type { ClaimRedPacketContext } from '@/providers/ethereum/RedPacket.js';
-import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
+import { fireflyRedPacketProvider } from '@/providers/firefly/RedPacket.js';
 
 export async function signClaimMessage(context: ClaimRedPacketContext) {
     const { account, payload } = context;
@@ -23,7 +23,7 @@ export async function signClaimMessage(context: ClaimRedPacketContext) {
     const me = await getCurrentClaimProfile(context.source);
     if (!me) return;
 
-    return FireflyRedPacketEndpoint.createClaimSignature({
+    return fireflyRedPacketProvider.createClaimSignature({
         rpid,
         profile: me,
         wallet: {

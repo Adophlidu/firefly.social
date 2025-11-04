@@ -16,7 +16,7 @@ import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProf
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
-import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
+import { fireflyRedPacketProvider } from '@/providers/firefly/RedPacket.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
@@ -152,9 +152,9 @@ class Provider {
 
         const claimWithSponsorHash = await runInSafeAsync(async () => {
             const me = await getCurrentClaimProfile(source);
-            const sponsorable = await FireflyRedPacketEndpoint.checkGasFreeStatus(chainId, account);
+            const sponsorable = await fireflyRedPacketProvider.checkGasFreeStatus(chainId, account);
             if (!sponsorable || !me?.profileId) return;
-            return FireflyRedPacketEndpoint.claimForGasFree(rpid, account, {
+            return fireflyRedPacketProvider.claimForGasFree(rpid, account, {
                 needLensAndFarcasterHandle: true,
                 platform: resolveRedPacketPlatformType(source),
                 profileId: me.profileId,

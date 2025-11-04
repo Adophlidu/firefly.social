@@ -3,7 +3,10 @@ import { polygon } from 'viem/chains';
 
 import { Source } from '@/constants/enum.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { discoverNFTs } from '@/providers/firefly/endpoints/discoverNFTs.js';
+import { getFollowingNFTs } from '@/providers/firefly/endpoints/getFollowingNFTs.js';
+import { getFollowingSwapTimeline } from '@/providers/firefly/endpoints/getFollowingSwapTimeline.js';
+import { getSwapTimelineByAddress } from '@/providers/firefly/endpoints/getSwapTimelineByAddress.js';
 import type { PolymarketActivity, SwapActivity, TransactionsItem } from '@/providers/types/Firefly.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 
@@ -62,8 +65,7 @@ function createTransactionsFetcher(
 }
 
 export const getFollowingTransactions = createTransactionsFetcher(
-    (indicator, chainId) =>
-        fireflyEndpointProvider.getFollowingSwapTimeline(chainId ? [chainId] : [], undefined, indicator, 30),
+    (indicator, chainId) => getFollowingSwapTimeline(chainId ? [chainId] : [], undefined, indicator, 30),
     (indicator) => Promise.resolve(createPageable([] as PolymarketActivity[], createIndicator(indicator))),
     (indicator) => Promise.resolve(createPageable([] as NFTFeedV3[], createIndicator(indicator))),
 );
@@ -71,7 +73,7 @@ export const getFollowingTransactions = createTransactionsFetcher(
 export const getForYouTransactions = createTransactionsFetcher(
     () => Promise.resolve(createPageable([] as SwapActivity[], createIndicator(undefined))),
     () => Promise.resolve(createPageable([] as PolymarketActivity[], createIndicator(undefined))),
-    (indicator, chainId) => fireflyEndpointProvider.discoverNFTs({ indicator, chainId }),
+    (indicator, chainId) => discoverNFTs({ indicator, chainId }),
 );
 
 export function getProfileTransactions(
@@ -82,11 +84,10 @@ export function getProfileTransactions(
     chainId?: number,
 ) {
     const fetcher = createTransactionsFetcher(
-        (indicator, chainId) =>
-            fireflyEndpointProvider.getSwapTimelineByAddress(addresses, chainId ? [chainId] : [], undefined, indicator),
+        (indicator, chainId) => getSwapTimelineByAddress(addresses, chainId ? [chainId] : [], undefined, indicator),
         () => Promise.resolve(createPageable([] as PolymarketActivity[], createIndicator(undefined))),
         (indicator, chainId) =>
-            fireflyEndpointProvider.getFollowingNFTs({
+            getFollowingNFTs({
                 indicator,
                 chainId,
                 walletAddress: address,

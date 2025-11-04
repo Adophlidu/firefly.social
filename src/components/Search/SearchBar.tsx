@@ -16,7 +16,7 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isValidAddress, isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';
 import { useComeBack } from '@/hooks/useComeback.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
@@ -32,7 +32,7 @@ function useDetectAddress(address?: string) {
         queryKey: ['detect-address', address],
         staleTime: 1000 * 60 * 60,
         enabled: isAddress,
-        queryFn: isAddress ? () => fireflyEndpointProvider.detectAddress(address) : skipToken,
+        queryFn: isAddress ? () => fireflyWalletProvider.detectAddress(address) : skipToken,
         select: (data) => data?.list[0],
     });
 }

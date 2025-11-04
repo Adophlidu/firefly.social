@@ -2,12 +2,12 @@
 
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export const searchTokenByAddress = memoizePromise(
     async function searchTokenByAddress(address: string) {
-        const detected = await fireflyEndpointProvider.detectAddress(address);
+        const detected = await fireflyWalletProvider.detectAddress(address);
         const token = detected?.list.find((x) => x.address_type === 'contract');
         if (!token?.contract_info) return null;
 

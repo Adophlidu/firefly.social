@@ -122,10 +122,6 @@ msgstr ""
 msgid "Interacted Failed"
 msgstr ""
 
-#. placeholder {0}: dayjs(data.qrcode.validateTill).utc().format('YYYY/MM/DD HH:mm')
-msgid "Valid until: {0} (UTC)"
-msgstr ""
-
 msgid "Refunded"
 msgstr ""
 
@@ -2360,9 +2356,6 @@ msgstr ""
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr ""
 
-msgid "Redeem Code"
-msgstr ""
-
 msgid "Enter your password to verify your identity."
 msgstr ""
 
@@ -3300,9 +3293,6 @@ msgid "Powered by"
 msgstr ""
 
 msgid "Stay in the loop with Firefly!"
-msgstr ""
-
-msgid "The code not found"
 msgstr ""
 
 msgid "So sorry, we are not able to mint this NFT at the moment."
@@ -4300,11 +4290,6 @@ msgid "NFT Mint Failed"
 msgstr ""
 
 msgid "Hidden owner."
-msgstr ""
-
-#. placeholder {0}: data.qrcode.qrcode
-#. placeholder {1}: data.qrcode.redeemedAt ? '(Used)' : ''
-msgid "Code: {0} {1}"
 msgstr ""
 
 msgid "Scheduled Post"

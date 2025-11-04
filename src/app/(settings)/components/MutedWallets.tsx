@@ -4,7 +4,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { WalletItem } from '@/components/WalletItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getBlockedWallets } from '@/providers/firefly/endpoints/getBlockedWallets.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 const getMutedWalletItem = (index: number, profile: WalletProfile, listKey: string) => {
@@ -17,7 +17,7 @@ export function MutedWallets() {
         staleTime: 0,
         queryFn: async ({ pageParam }) => {
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
-            return await fireflyEndpointProvider.getBlockedWallets(indicator);
+            return await getBlockedWallets(indicator);
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,

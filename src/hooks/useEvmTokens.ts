@@ -6,7 +6,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isGreaterThan, multipliedBy } from '@/helpers/number.js';
 import { useCustomFungibleTokens } from '@/hooks/useCustomFungibleTokens.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getTokensByAddress } from '@/providers/firefly/endpoints/getTokensByAddress.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 function sortTokensByUsdValue(tokens: Token[]) {
@@ -19,7 +19,7 @@ export const useEvmTokens = (address?: string) => {
         enabled: !!address,
         queryFn: async () => {
             if (!address) return [];
-            return await fireflyEndpointProvider.getTokensByAddress(address);
+            return await getTokensByAddress(address);
         },
     });
     const customTokens = useCustomFungibleTokens();

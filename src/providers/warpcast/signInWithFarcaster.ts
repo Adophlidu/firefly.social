@@ -3,7 +3,7 @@ import type { SignInOptions } from '@farcaster/miniapp-host';
 import { type Address, checksumAddress, toHex } from 'viem';
 
 import { SITE_URL } from '@/constants/index.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { farcasterAccountProvider } from '@/providers/firefly/FarcasterAccount.js';
 import { custodyOf } from '@/providers/warpcast/custodyOf.js';
 import type { FrameV2 } from '@/types/frame.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
@@ -40,7 +40,7 @@ export async function signInWithFarcaster(frame: FrameV2, fid: string, options: 
     const message = await createSiwfMessage(url, address, fid, options.nonce);
 
     // Assume we have a BE api endpoint that can sign the message
-    const signature = await fireflyEndpointProvider.signMessageWithCustodyWallet(fid, toHex(message));
+    const signature = await farcasterAccountProvider.signMessageWithCustodyWallet(fid, toHex(message));
 
     return {
         message,

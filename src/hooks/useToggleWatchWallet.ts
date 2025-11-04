@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import type { Address } from 'viem';
 
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import {
     captureWalletFollowEvent,
     captureWalletUnfollowEvent,
@@ -21,12 +21,12 @@ export function useToggleWatchWallet({ handleOrEnsOrAddress, address, following 
         mutationFn: async () => {
             try {
                 if (following) {
-                    const result = await fireflyEndpointProvider.unwatchWallet(address);
+                    const result = await fireflyWalletProvider.unwatchWallet(address);
                     enqueueSuccessMessage(t`Unfollowed ${handleOrEnsOrAddress} on Firefly`);
                     captureWalletUnfollowEvent();
                     return result;
                 }
-                const result = await fireflyEndpointProvider.watchWallet(address);
+                const result = await fireflyWalletProvider.watchWallet(address);
                 setupFirebaseFcmConnection({ force: true, showUi: true });
                 enqueueSuccessMessage(t`Followed ${handleOrEnsOrAddress} on Firefly`);
                 captureWalletFollowEvent();

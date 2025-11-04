@@ -8,7 +8,7 @@ import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } fro
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
 import { isStrongDigitPassword, isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyMetricsProvider } from '@/providers/firefly/Metrics.js';
 import { mergeMetrics, uploadMetrics } from '@/services/metrics.js';
 
 type NextStepConfig =
@@ -32,7 +32,7 @@ function checkPassword(password: string) {
 }
 
 async function verifyPasscodeOnServer(password: string): Promise<boolean> {
-    const response = await fireflyEndpointProvider.checkPasscode(password, true);
+    const response = await fireflyMetricsProvider.checkPasscode(password, true);
     if (response.code === FireflyResponseCode.SUCCESS) return true;
 
     if (
@@ -81,9 +81,9 @@ async function setPassword(
                 return;
             }
             if (shouldReset) {
-                await fireflyEndpointProvider.resetPasscode();
+                await fireflyMetricsProvider.resetPasscode();
             }
-            await fireflyEndpointProvider.setPasscode(password);
+            await fireflyMetricsProvider.setPasscode(password);
             if (autoUploadMetrics) {
                 await runInSafeAsync(() => uploadMetrics(password));
             }
@@ -133,7 +133,7 @@ async function changePassword(
                 enqueueWarningMessage(t`The passwords you entered don’t match. Please try again.`);
                 return;
             }
-            await fireflyEndpointProvider.updatePasscode(passwords[PasswordStep.SetPassword], password);
+            await fireflyMetricsProvider.updatePasscode(passwords[PasswordStep.SetPassword], password);
             if (autoUploadMetrics) {
                 await runInSafeAsync(() => mergeMetrics(password, false));
             }

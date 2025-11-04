@@ -12,7 +12,7 @@ import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
@@ -27,13 +27,13 @@ export function MuteWalletButton({ handleOrEnsOrAddress, address, isMuted, ref, 
     const mutation = useMutation({
         mutationFn: async () => {
             if (isMuted) {
-                const result = await fireflyEndpointProvider.unblockWallet(address);
+                const result = await fireflyWalletProvider.unblockWallet(address);
                 queryClient.setQueryData(['address-is-muted', address], false);
                 captureMuteEvent(EventId.UNMUTE_SUCCESS, address);
                 enqueueSuccessMessage(<Trans>Unmuted {handleOrEnsOrAddress}.</Trans>);
                 return result;
             } else {
-                const result = await fireflyEndpointProvider.blockWallet(address);
+                const result = await fireflyWalletProvider.blockWallet(address);
                 queryClient.setQueryData(['address-is-muted', address], true);
                 enqueueSuccessMessage(<Trans>Muted {handleOrEnsOrAddress}.</Trans>);
                 captureMuteEvent(EventId.MUTE_SUCCESS, address);

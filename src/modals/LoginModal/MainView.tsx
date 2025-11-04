@@ -50,7 +50,8 @@ import { type LoginModalOpenProps, LoginModalRef } from '@/modals/LoginModal/ind
 import { LogoutModalRef } from '@/modals/LogoutModal.js';
 import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
 import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyAuthProvider } from '@/providers/firefly/Auth.js';
+import { fireflyMetricsProvider } from '@/providers/firefly/Metrics.js';
 import { formatThirdPartyProfileName } from '@/providers/lens/formatThirdPartyProfileName.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import {
@@ -96,7 +97,7 @@ function FireflyAccount({
 
     const [{ loading: queryMetricsStatusLoading }, queryMetricsStatus] = useAsyncFn(async () => {
         try {
-            const status = await fireflyEndpointProvider.getMetricsStatus();
+            const status = await fireflyMetricsProvider.getMetricsStatus();
             if (status.hasSetPasscode) {
                 const password = await verifyAndGetPassword({
                     skipCheck: true,
@@ -303,7 +304,7 @@ export function MainView() {
             setSelectedSource(source);
             switch (source) {
                 case Source.Telegram:
-                    const url = await fireflyEndpointProvider.getTelegramLoginUrl();
+                    const url = await fireflyAuthProvider.getTelegramLoginUrl();
                     if (!url) return;
                     location.href = url;
                     break;

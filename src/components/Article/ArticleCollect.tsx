@@ -23,7 +23,7 @@ import { resolveArticleCollectProvider } from '@/helpers/resolveArticleCollectPr
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { useArticleCollectStatus } from '@/hooks/useArticleCollectable.js';
 import { MintParamsPanel } from '@/modals/FreeMintModal/MintParamsPanel.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyWalletTransactionProvider } from '@/providers/firefly/WalletTransaction.js';
 import { ParagraphAPI } from '@/providers/paragraph/index.js';
 import { captureArticleCollectEvent } from '@/providers/telemetry/captureArticleCollectEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
@@ -64,7 +64,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
 
             if (isFree) {
                 try {
-                    const result = await fireflyEndpointProvider.freeCollectArticle(
+                    const result = await fireflyWalletTransactionProvider.freeCollectArticle(
                         article.id,
                         account.address || '',
                         platform,
@@ -95,7 +95,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
             }
 
             if (article.platform === ArticlePlatform.Paragraph) {
-                const metadata = await fireflyEndpointProvider.getArticleMetadata(article.id, hash);
+                const metadata = await fireflyWalletTransactionProvider.getArticleMetadata(article.id, hash);
                 await ParagraphAPI.addArticleMetadata(metadata);
             }
 

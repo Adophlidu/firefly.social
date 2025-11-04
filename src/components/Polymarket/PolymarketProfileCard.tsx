@@ -13,7 +13,7 @@ import { toRate } from '@/components/Polymarket/toRate.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyPolymarketProvider } from '@/providers/firefly/Polymarket.js';
 import { capturePolymarketProfileLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 
 interface PolymarketProfileCardProps {
@@ -24,7 +24,7 @@ export const PolymarketProfileCard = memo<PolymarketProfileCardProps>(function P
     const { isLoading, data } = useQuery({
         queryKey: ['polymarket', 'profile', address],
         staleTime: 1000 * 60 * 5,
-        queryFn: () => fireflyEndpointProvider.getPolymarketProfile(address),
+        queryFn: () => fireflyPolymarketProvider.getProfile(address),
     });
 
     // TODO: maybe a better way to optimize CLS

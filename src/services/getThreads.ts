@@ -35,6 +35,7 @@ async function getBskyThreads(post: Post) {
 export async function getThreads(post: Post, source: SocialSource) {
     if (source === Source.Twitter) return getTwitterThreads(post);
     if (source === Source.Bsky) return getBskyThreads(post);
+
     const root = post.root ? post.root : post.commentOn ? post.commentOn : post;
     if (!root?.stats?.comments) return createPageable<Post, undefined>(EMPTY_LIST, undefined);
 

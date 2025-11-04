@@ -17,7 +17,7 @@ import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
 import type { PoapHolderToken } from '@/providers/types/NFTs.js';
 
 interface AttendeesProps {
@@ -29,7 +29,7 @@ export function Attendees({ eventId }: AttendeesProps) {
         queryKey: ['poap-event-owners', eventId],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(undefined, pageParam);
-            const result = await fireflyEndpointProvider.getPoapHolders(eventId.toString(), indicator);
+            const result = await fireflyNftProvider.getPoapHolders(eventId.toString(), indicator);
             return result;
         },
         initialPageParam: '',

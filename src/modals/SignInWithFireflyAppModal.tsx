@@ -19,7 +19,7 @@ import { openAppSchemes } from '@/helpers/openAppSchemes.js';
 import { usePollingAppScanLogin } from '@/hooks/usePollingAppScanLogin.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getDesktopLinkInfo } from '@/providers/firefly/endpoints/getDesktopLinkInfo.js';
 import { DeviceType } from '@/types/device.js';
 
 interface Props {
@@ -74,7 +74,7 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
     } = useQuery({
         queryKey: ['desktop-link-info-session'],
         queryFn() {
-            return fireflyEndpointProvider.getDesktopLinkInfo();
+            return getDesktopLinkInfo();
         },
         enabled,
         refetchOnReconnect: false,

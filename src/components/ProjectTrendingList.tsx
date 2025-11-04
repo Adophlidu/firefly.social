@@ -7,14 +7,14 @@ import { Image } from '@/components/Image.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { ProjectItem } from '@/components/ProjectItem.js';
 import { useLocale } from '@/helpers/getCookies.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getTopProjects } from '@/providers/firefly/endpoints/getTopProjects.js';
 
 export function ProjectTrendingList() {
     const locale = useLocale();
     const { data, isFetching } = useSuspenseQuery({
         queryKey: ['explore-projects', locale],
         queryFn: async () => {
-            return fireflyEndpointProvider.getTopProjects(locale);
+            return getTopProjects(locale);
         },
     });
 

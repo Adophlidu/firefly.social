@@ -3,7 +3,8 @@ import { isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getSingleCoin } from '@/providers/firefly/endpoints/getSingleCoin.js';
+import { searchTokenInfos } from '@/providers/firefly/endpoints/searchTokenInfos.js';
 import type { CoinGeckoAsset, CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import type { GetTokenOptions, SearchTokenInfo } from '@/providers/types/Firefly.js';
 import { searchTokenByAddress } from '@/services/searchTokenByAddress.js';
@@ -27,11 +28,11 @@ export const searchToken = memoizePromise(
             const tokens = await getTokens();
             const token = tokens.find((x) => isTokenMatched(x, symbol));
             if (token) return token;
-            const searchTokenInfos = await queryClient.fetchQuery({
+            const tokenInfos = await queryClient.fetchQuery({
                 queryKey: ['search-token', symbol],
-                queryFn: () => fireflyEndpointProvider.searchTokenInfos(symbol),
+                queryFn: () => searchTokenInfos(symbol),
             });
-            searchTokenInfo = searchTokenInfos?.[0];
+            searchTokenInfo = tokenInfos?.[0];
         }
 
         const updatedOptions = {
@@ -39,7 +40,7 @@ export const searchToken = memoizePromise(
             chain_id: searchTokenInfo ? searchTokenInfo.chain_id : chainId,
             address: searchTokenInfo ? searchTokenInfo.contract_address : options.address,
         };
-        const coin = await fireflyEndpointProvider.getSingleCoin(updatedOptions);
+        const coin = await getSingleCoin(updatedOptions);
         const isRuntimePrecise = !!(updatedOptions.chain_id && updatedOptions.address);
 
         if (isRuntimePrecise && coin && !coin.id) {

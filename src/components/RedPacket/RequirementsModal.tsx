@@ -29,7 +29,7 @@ import { isZero } from '@/helpers/number.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { EVMExplorerResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
@@ -42,7 +42,7 @@ function NFTList({ nfts }: NFTListProps) {
         queries: nfts.map((nft) => ({
             queryKey: ['nft-contract', nft.chainId, nft.contractAddress],
             queryFn: async () => {
-                return fireflyEndpointProvider.getCollection(+nft.chainId, nft.contractAddress);
+                return fireflyNftProvider.getCollection(+nft.chainId, nft.contractAddress);
             },
         })),
     });

@@ -127,10 +127,6 @@ msgstr "成功取消隱藏。"
 msgid "Interacted Failed"
 msgstr "互動失敗"
 
-#. placeholder {0}: dayjs(data.qrcode.validateTill).utc().format('YYYY/MM/DD HH:mm')
-msgid "Valid until: {0} (UTC)"
-msgstr "有效期：{0}（UTC）"
-
 msgid "Refunded"
 msgstr "已退款"
 
@@ -2365,9 +2361,6 @@ msgstr "確認要斷開該帳號及相關錢包與 Firefly 社交圖譜的綁定
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "於 Firefly 上取消追蹤 {handleOrEnsOrAddress}"
 
-msgid "Redeem Code"
-msgstr "核銷碼"
-
 msgid "Enter your password to verify your identity."
 msgstr "請輸入密碼以驗證您的身份。"
 
@@ -3306,9 +3299,6 @@ msgstr "技術支援："
 
 msgid "Stay in the loop with Firefly!"
 msgstr "透過 Firefly 掌握最新動態！"
-
-msgid "The code not found"
-msgstr ""
 
 msgid "So sorry, we are not able to mint this NFT at the moment."
 msgstr "很抱歉，目前無法鑄造此 NFT。"
@@ -4306,11 +4296,6 @@ msgstr "鑄造 NFT 失敗"
 
 msgid "Hidden owner."
 msgstr "隱藏的擁有者。"
-
-#. placeholder {0}: data.qrcode.qrcode
-#. placeholder {1}: data.qrcode.redeemedAt ? '(Used)' : ''
-msgid "Code: {0} {1}"
-msgstr ""
 
 msgid "Scheduled Post"
 msgstr "預約貼文"

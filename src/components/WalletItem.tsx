@@ -17,7 +17,7 @@ import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidA
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 interface WalletItemProps {
@@ -37,8 +37,8 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
     const isLogin = useIsLogin();
     const mutation = useMutation({
         mutationFn: () => {
-            if (isMuted) return fireflyEndpointProvider.unblockWallet(address);
-            return fireflyEndpointProvider.blockWallet(address);
+            if (isMuted) return fireflyWalletProvider.unblockWallet(address);
+            return fireflyWalletProvider.blockWallet(address);
         },
     });
 

@@ -5,7 +5,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { GridListInPage, type GridListInPageProps } from '@/components/GridListInPage.js';
 import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
 import { ErcType } from '@/providers/nft-scan/types.js';
 import { fillBookmarkStatusForNonFungibleAssets } from '@/services/fillBookmarkStatusForNFT.js';
 
@@ -25,7 +25,7 @@ export function NFTList(props: NFTListProps) {
                 pageParam ? { index: 1, id: pageParam, __type__: 'PageIndicator' } : undefined,
                 pageParam,
             );
-            const response = await fireflyEndpointProvider.getCollectionItems(chainId, address, indicator);
+            const response = await fireflyNftProvider.getCollectionItems(chainId, address, indicator);
 
             return {
                 ...response,

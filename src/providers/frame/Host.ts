@@ -15,7 +15,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { farcasterAccountProvider } from '@/providers/firefly/FarcasterAccount.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { FrameLoader } from '@/providers/frame/Loader.js';
 import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
@@ -90,7 +90,7 @@ export class FarcasterFrameHost implements MiniAppHost {
         const fid = `${this.context.client.clientFid}`;
 
         // sign in with custody wallet
-        const checked = await fireflyEndpointProvider.checkCustodyWallet(fid);
+        const checked = await farcasterAccountProvider.checkCustodyWallet(fid);
         if (checked) {
             const signed = await signInWithFarcaster(frame, fid, options);
 

@@ -4,7 +4,7 @@ import { compact, first } from 'lodash-es';
 import { RedPacketMetaKey, SolanaRedPacketMetaKey } from '@/constants/rp.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
-import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
+import { fireflyRedPacketProvider } from '@/providers/firefly/RedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 /**
@@ -24,7 +24,7 @@ export function useParseRedPacket(account: string, post: Post, enabled = true) {
         queryKey: ['red-packet', 'parse', source, image, account, currentProfile?.profileId],
         queryFn: async () => {
             if (!image) return;
-            return FireflyRedPacketEndpoint.parse({
+            return fireflyRedPacketProvider.parse({
                 image: {
                     imageUrl: image,
                 },

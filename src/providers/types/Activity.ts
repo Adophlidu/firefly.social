@@ -1,12 +1,6 @@
 import type { Address } from 'viem';
 
-import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
-import type {
-    ActivityInfoResponse,
-    ActivityListItem,
-    FireflyWalletConnection,
-    Response,
-} from '@/providers/types/Firefly.js';
+import type { FireflyWalletConnection, Response } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export enum Level {
@@ -242,17 +236,5 @@ export type SearchQrcodeResponse = Response<{
 }>;
 
 export interface Provider {
-    getActivityClaimCondition: (name: string, address?: string) => Promise<CheckResponse['data']>;
-
-    getActivityInfo: (name: string) => Promise<ActivityInfoResponse['data']>;
-
-    getActivityList: (indicator?: PageIndicator, size?: number) => Promise<Pageable<ActivityListItem, PageIndicator>>;
-
-    claimActivitySBT: (
-        address: string,
-        activityName: string,
-        claimApiExtraParams?: Record<string, unknown>,
-    ) => Promise<MintActivitySBTResponse['data']>;
-
     getAllConnections: () => Promise<{ connected: FireflyWalletConnection[]; related: FireflyWalletConnection[] }>;
 }

@@ -38,8 +38,9 @@ import {
 } from '@/helpers/pageable.js';
 import { resolveTcoLink } from '@/helpers/resolveTcoLink.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getTwitterTopPeople } from '@/providers/firefly/endpoints/getTwitterTopPeople.js';
 import { getTwitterUserInfo } from '@/providers/firefly/endpoints/getTwitterUserInfo.js';
+import { farcasterAccountProvider } from '@/providers/firefly/FarcasterAccount.js';
 import { formatTweetsPage } from '@/providers/twitter/formatTwitterPost.js';
 import { formatTwitterProfile, formatTwitterProfilePage } from '@/providers/twitter/formatTwitterProfile.js';
 import { formatTwitterProfileFromRootdata } from '@/providers/twitter/formatTwitterProfileFromRootdata.js';
@@ -163,7 +164,7 @@ class OfficialSocialMedia implements Provider {
         locale?: Locale,
     ): Promise<Pageable<Profile, PageIndicator>> {
         const pageNo = indicator?.id ? Number.parseInt(indicator.id, 10) : 1;
-        const res = await fireflyEndpointProvider.getTwitterTopPeople(indicator, locale);
+        const res = await getTwitterTopPeople(indicator, locale);
         const data = res.items.filter((x) => x.people_detail.x_id).map((x) => formatTwitterProfileFromRootdata(x));
         const nextIndicator = res.items.length ? createNextIndicator(indicator, `${pageNo + 1}`) : undefined;
         if (twitterSessionHolder.session) {
@@ -549,7 +550,7 @@ class OfficialSocialMedia implements Provider {
         );
         if (!response.success) throw new Error(response.error.message);
 
-        await runInSafeAsync(() => fireflyEndpointProvider.blockProfileFor(FireflyPlatform.Twitter, profileId));
+        await runInSafeAsync(() => farcasterAccountProvider.blockProfileFor(FireflyPlatform.Twitter, profileId));
         return response.data?.muting === true;
     }
     async unblockProfile(profileId: string): Promise<boolean> {
@@ -564,7 +565,7 @@ class OfficialSocialMedia implements Provider {
         );
         if (!response.success) throw new Error(response.error.message);
 
-        await runInSafeAsync(() => fireflyEndpointProvider.unblockProfileFor(FireflyPlatform.Twitter, profileId));
+        await runInSafeAsync(() => farcasterAccountProvider.unblockProfileFor(FireflyPlatform.Twitter, profileId));
         return response.data?.muting === false;
     }
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {

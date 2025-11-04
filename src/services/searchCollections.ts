@@ -4,7 +4,8 @@ import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { searchCollections as searchCollectionsEndpoint } from '@/providers/firefly/endpoints/searchCollections.js';
+import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const SEARCH_CHAIN_ID_LIST = [
@@ -19,7 +20,7 @@ const SEARCH_CHAIN_ID_LIST = [
 
 const searchCollectionByAddress = memoizePromise(
     async function searchCollectionByAddress(address: string) {
-        const detected = await fireflyEndpointProvider.detectCollection(address);
+        const detected = await fireflyNftProvider.detectCollection(address);
         if (detected?.chain_id && !SEARCH_CHAIN_ID_LIST.includes(detected.chain_id)) {
             return null;
         }
@@ -35,6 +36,6 @@ export async function searchCollections(keyword: string) {
         const collection = await runInSafeAsync(() => searchCollectionByAddress(formatted));
         return createPageable(collection ? [collection] : EMPTY_LIST, createIndicator());
     } else {
-        return fireflyEndpointProvider.searchCollections(keyword);
+        return searchCollectionsEndpoint(keyword);
     }
 }

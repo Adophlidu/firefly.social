@@ -4,7 +4,8 @@ import { TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isValidTxId } from '@/helpers/isValidTxId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getSwapActivityByHash } from '@/providers/firefly/endpoints/getSwapActivityByHash.js';
+import { getTipsTransactionDetail } from '@/providers/firefly/endpoints/getTipsTransactionDetail.js';
 import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
@@ -34,12 +35,10 @@ export default async function Page(props: Props) {
 
     if (!isValidTxId(hash)) notFound();
 
-    const tipsData = await runInSafeAsync(() =>
-        fireflyEndpointProvider.getTipsTransactionDetail(hash, TipsNotificationType.Tip),
-    );
+    const tipsData = await runInSafeAsync(() => getTipsTransactionDetail(hash, TipsNotificationType.Tip));
     if (tipsData) return <TipsDetail tipsData={tipsData} view={view} />;
 
-    const swapData = await runInSafeAsync(() => fireflyEndpointProvider.getSwapActivityByHash(hash, chainId));
+    const swapData = await runInSafeAsync(() => getSwapActivityByHash(hash, chainId));
     if (swapData) return <SwapDetail activity={swapData} />;
 
     notFound();

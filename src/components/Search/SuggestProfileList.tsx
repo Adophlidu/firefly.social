@@ -14,7 +14,7 @@ import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { searchIdentity } from '@/providers/firefly/endpoints/searchIdentity.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
 interface SuggestProfileListProps {
@@ -28,7 +28,7 @@ export const SuggestProfileList = memo<SuggestProfileListProps>(function Suggest
         queryKey: ['search-suggest', 'profiles', query],
         staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: async () => {
-            const result = await fireflyEndpointProvider.searchIdentity(query, {
+            const result = await searchIdentity(query, {
                 size: 5,
                 indicator: undefined,
             });

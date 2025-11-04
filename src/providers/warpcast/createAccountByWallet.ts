@@ -7,7 +7,7 @@ import { FireflyAccountAbsentError, FireflyAlreadyBoundError } from '@/constants
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { farcasterAccountProvider } from '@/providers/firefly/FarcasterAccount.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
@@ -20,7 +20,7 @@ async function createAccount(signal?: AbortSignal) {
         message: originalMessage,
         account: account.address,
     });
-    const loginResponse = await fireflyEndpointProvider.loginFarcasterWithWallet(
+    const loginResponse = await farcasterAccountProvider.loginFarcasterWithWallet(
         account.address,
         originalMessage,
         signatureMessage,

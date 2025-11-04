@@ -2,7 +2,7 @@ import { skipToken, useQuery } from '@tanstack/react-query';
 
 import { EMPTY_LIST } from '@/constants/index.js';
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getTokenPriceStats } from '@/providers/firefly/endpoints/getTokenPriceStats.js';
 
 export function useCoinPriceStats(
     coinId: string | null | undefined,
@@ -19,7 +19,7 @@ export function useCoinPriceStats(
         queryFn:
             coinId || (chainId && address)
                 ? async () => {
-                      return fireflyEndpointProvider.getTokenPriceStats({
+                      return getTokenPriceStats({
                           coingecko_id: coinId,
                           chain_id: chainId,
                           address,

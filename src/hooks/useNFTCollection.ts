@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function useNFTCollection(address: string, chainId: EthereumChainId = EthereumChainId.Mainnet, enabled = true) {
@@ -8,7 +8,7 @@ export function useNFTCollection(address: string, chainId: EthereumChainId = Eth
         enabled,
         queryKey: ['nft-collection', chainId, address],
         async queryFn() {
-            return fireflyEndpointProvider.getCollection(chainId, address);
+            return fireflyNftProvider.getCollection(chainId, address);
         },
     });
 }

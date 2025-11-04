@@ -21,7 +21,7 @@ import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { getMaintainAccountInfo } from '@/helpers/getMaintainAccountInfo.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getTipsTransactionDetail } from '@/providers/firefly/endpoints/getTipsTransactionDetail.js';
 import type { TipsDetail } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import type { NextRequestContext } from '@/types/utility.js';
@@ -322,7 +322,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const searchParams = new URL(request.url).searchParams;
     const view = (searchParams.get('view') as TipsDetailViewType) || TipsDetailViewType.Sender;
 
-    const tipData = await fireflyEndpointProvider.getTipsTransactionDetail(params.hash, TipsNotificationType.Tip);
+    const tipData = await getTipsTransactionDetail(params.hash, TipsNotificationType.Tip);
 
     if (!tipData) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
 

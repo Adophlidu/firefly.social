@@ -2,7 +2,7 @@ import { skipToken, useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 
 import { type ProfilePageSource, SparksAccountStatus } from '@/constants/enum.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { checkGenesisSparksAccounts } from '@/providers/firefly/endpoints/checkGenesisSparksAccounts.js';
 
 const checkedAccountIds = new Set<string>();
 
@@ -22,7 +22,7 @@ export function useProfileHighlighted(
         queryKey: ['profile-highlight-status', profile?.source, profile?.profileId, profile?.handle],
         queryFn: enabled
             ? async () => {
-                  const records = await fireflyEndpointProvider.checkGenesisSparksAccounts(profile.source, [
+                  const records = await checkGenesisSparksAccounts(profile.source, [
                       { id: profile.profileId, handle: profile.handle },
                   ]);
                   return first(records?.infoList || []);

@@ -3,13 +3,13 @@ import { uniqBy } from 'lodash-es';
 import { type SocialSource, SparksAccountStatus } from '@/constants/enum.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { checkGenesisSparksAccounts } from '@/providers/firefly/endpoints/checkGenesisSparksAccounts.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/utility.js';
 
 async function fillAuthorHighlightStatusForPosts(posts: Post[], source: SocialSource) {
     const records = await runInSafeAsync(() =>
-        fireflyEndpointProvider.checkGenesisSparksAccounts(
+        checkGenesisSparksAccounts(
             source,
             uniqBy(
                 posts.map((p) => ({ id: p.author.profileId, handle: p.author.handle })),

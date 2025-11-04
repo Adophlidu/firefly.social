@@ -2,7 +2,8 @@ import { useMutation } from '@tanstack/react-query';
 
 import { TxReactionType } from '@/constants/enum.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { createTxReaction } from '@/providers/firefly/endpoints/createTxReaction.js';
+import { removeTxReaction } from '@/providers/firefly/endpoints/removeTxReaction.js';
 
 interface Options {
     txHash: string;
@@ -17,14 +18,9 @@ export function useToggleTipLikeStatus({ txHash, chainId, liked, fromAddress }: 
         mutationFn: async () => {
             let result;
             if (liked) {
-                result = await fireflyEndpointProvider.removeTxReaction(TxReactionType.LikeTip, [txHash]);
+                result = await removeTxReaction(TxReactionType.LikeTip, [txHash]);
             } else {
-                result = await fireflyEndpointProvider.createTxReaction(
-                    TxReactionType.LikeTip,
-                    chainId.toString(),
-                    txHash,
-                    fromAddress,
-                );
+                result = await createTxReaction(TxReactionType.LikeTip, chainId.toString(), txHash, fromAddress);
             }
             if (result) {
                 updateTipsReactionStatus(txHash, TxReactionType.LikeTip, !liked);

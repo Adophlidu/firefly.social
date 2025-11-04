@@ -20,7 +20,7 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyMetricsProvider } from '@/providers/firefly/Metrics.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { captureAccountLoginEvent } from '@/providers/telemetry/captureAccountEvent.js';
@@ -145,11 +145,11 @@ export async function uploadMetrics(passcode: string) {
         throw new Error('No valid metrics data to upload.');
     }
 
-    return await fireflyEndpointProvider.uploadMetrics(passcode, validMetrics);
+    return await fireflyMetricsProvider.uploadMetrics(passcode, validMetrics);
 }
 
 export async function downloadAccounts() {
-    const response = await fireflyEndpointProvider.downloadMetaInfo();
+    const response = await fireflyMetricsProvider.downloadMetaInfo();
 
     return response.metrics;
 }
@@ -163,7 +163,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
 
     const validLocalMetrics = compact(localMetrics);
 
-    const remoteMetricsResponse = await fireflyEndpointProvider.downloadMetrics(passcode);
+    const remoteMetricsResponse = await fireflyMetricsProvider.downloadMetrics(passcode);
     const remoteMetrics = remoteMetricsResponse.metrics.map(({ identity, ...metric }) => metric);
 
     // merge local metrics with remote metrics, if local metrics is not in remote metrics, add it to remote metrics
@@ -181,7 +181,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
         }
     }
 
-    await fireflyEndpointProvider.uploadMetrics(passcode, compact(mergedMetrics));
+    await fireflyMetricsProvider.uploadMetrics(passcode, compact(mergedMetrics));
 
     for (const info of remoteMetrics) {
         if (

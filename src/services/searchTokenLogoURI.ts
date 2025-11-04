@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { searchTokens } from '@/providers/firefly/endpoints/searchTokens.js';
 
 export async function searchTokenLogoURI({
     address,
@@ -13,8 +13,7 @@ export async function searchTokenLogoURI({
 }): Promise<string | null> {
     for (const query of [address, symbol, name]) {
         if (!query) continue;
-        const logoURI = await fireflyEndpointProvider
-            .searchTokens(query)
+        const logoURI = await searchTokens(query)
             .then((x) => x.data[0]?.largeLogo)
             .catch(() => null);
         if (logoURI) return logoURI;

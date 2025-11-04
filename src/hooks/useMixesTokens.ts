@@ -8,14 +8,14 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { formatTokenFromFireflyTokenAsset } from '@/helpers/formatTokenFromFireflyTokenAsset.js';
 import { minus, multipliedBy } from '@/helpers/number.js';
 import { useCustomFungibleTokens } from '@/hooks/useCustomFungibleTokens.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getMultiChainTokenList } from '@/providers/firefly/endpoints/getMultiChainTokenList.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useMixesTokens({ evmAddress, solanaAddress }: { evmAddress?: Address; solanaAddress?: string }) {
     const query = useQuery({
         queryKey: ['multi-chain-tokens', evmAddress, solanaAddress],
         async queryFn() {
-            return fireflyEndpointProvider.getMultiChainTokenList(
+            return getMultiChainTokenList(
                 compact([evmAddress, solanaAddress]),
                 privyVisibleChains.map<number>((x) => x.id).concat(SolanaChainId.Mainnet),
             );

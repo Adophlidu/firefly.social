@@ -29,7 +29,7 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { searchIdentity } from '@/providers/firefly/endpoints/searchIdentity.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
@@ -190,7 +190,7 @@ export function MentionsPlugin(): JSX.Element | null {
         queryKey: ['searchProfiles', availableSources, debounceQuery, profileIds.join('_')],
         queryFn: async () => {
             if (!debounceQuery) return;
-            const data = await fireflyEndpointProvider.searchIdentity(debounceQuery, {
+            const data = await searchIdentity(debounceQuery, {
                 platforms: availableSources,
                 size: 50,
             });

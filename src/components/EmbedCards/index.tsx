@@ -14,7 +14,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { useClassifyPostLinks } from '@/hooks/useClassifyPostLink.js';
 import { useResolveEnsDomains } from '@/hooks/useResolveEnsDomains.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface EmbedEntry {
@@ -32,7 +32,7 @@ const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInner({ em
     const addressQueries = useQueries({
         queries: addresses.map(({ value: address }) => ({
             queryKey: ['detect-address', address],
-            queryFn: () => fireflyEndpointProvider.detectAddress(address),
+            queryFn: () => fireflyWalletProvider.detectAddress(address),
         })),
         combine(result) {
             return result.map((query) => {

@@ -6,7 +6,7 @@ import { sendTransaction, waitForTransactionReceipt } from 'wagmi/actions';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { MintStatus } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyWalletTransactionProvider } from '@/providers/firefly/WalletTransaction.js';
 import { captureMintNFTEvent } from '@/providers/telemetry/captureMintEvent.js';
 import type { SponsorMintOptions } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -21,7 +21,7 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
                 chainId: mintTarget.chainId,
                 buyCount: mintCount,
             };
-            const latestParams = await fireflyEndpointProvider.getSponsorMintStatus(options);
+            const latestParams = await fireflyWalletTransactionProvider.getSponsorMintStatus(options);
             const mintStatus = latestParams.mintStatus;
             if (mintStatus === MintStatus.NotSupported) {
                 enqueueWarningMessage(t`So sorry, we are not able to mint this NFT at the moment.`);
@@ -42,7 +42,7 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
             if (latestParams.gasStatus) {
                 try {
                     captureMintNFTEvent(EventId.MINT_NFT_SUBMIT, ...eventOptions);
-                    await fireflyEndpointProvider.mintNFTBySponsor(options);
+                    await fireflyWalletTransactionProvider.mintNFTBySponsor(options);
                     captureMintNFTEvent(EventId.MINT_NFT_SUCCESS, ...eventOptions);
                 } catch (error) {
                     if (error instanceof Error && error.message.includes('insufficient funds')) {

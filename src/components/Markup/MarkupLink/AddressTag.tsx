@@ -8,7 +8,7 @@ import { Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 
 interface AddressTagProps extends Omit<MarkupLinkProps, 'post'> {
     title: string;
@@ -17,7 +17,7 @@ interface AddressTagProps extends Omit<MarkupLinkProps, 'post'> {
 export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, address }) {
     const { data, isLoading } = useQuery({
         queryKey: ['detect-address', address],
-        queryFn: () => fireflyEndpointProvider.detectAddress(address),
+        queryFn: () => fireflyWalletProvider.detectAddress(address),
         select: (data) => data?.list[0],
     });
 

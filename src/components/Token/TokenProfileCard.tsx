@@ -26,7 +26,8 @@ import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useTokenCoin } from '@/hooks/useTokenCoin.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { searchTokenInfos } from '@/providers/firefly/endpoints/searchTokenInfos.js';
+import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 
 export function TokenProfileCardSkeleton(props: HTMLProps<HTMLDivElement>) {
     return (
@@ -82,7 +83,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
     const [openSwitcher, setOpenSwitcher] = useState(false);
     const { data: tokenInfos = EMPTY_LIST, isLoading } = useQuery({
         queryKey: ['search-token', symbol],
-        queryFn: () => fireflyEndpointProvider.searchTokenInfos(symbol),
+        queryFn: () => searchTokenInfos(symbol),
     });
     const [coin, setCoin] = useTokenCoin(symbol);
     const selectedToken = useMemo(() => {
@@ -99,7 +100,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
     const address = selectedToken?.contract_address;
     const { data: detected } = useQuery({
         queryKey: ['detect-address', address],
-        queryFn: () => fireflyEndpointProvider.detectAddress(address),
+        queryFn: () => fireflyWalletProvider.detectAddress(address),
         select: (data) => {
             if (!data) return;
             const tokens = data.list.filter((x) => {

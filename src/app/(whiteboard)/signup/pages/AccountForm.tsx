@@ -22,7 +22,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { trimify } from '@/helpers/trimify.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { updateProfile } from '@/providers/firefly/endpoints/updateProfile.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 
 interface AccountFormProps {
@@ -92,7 +92,7 @@ export function AccountForm({ changeStep }: AccountFormProps) {
             }
 
             const s3Url = await uploadToS3(avatarFile);
-            await fireflyEndpointProvider.updateProfile({
+            await updateProfile({
                 displayName: nickname,
                 avatar: s3Url,
             });

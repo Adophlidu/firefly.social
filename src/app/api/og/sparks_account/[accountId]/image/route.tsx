@@ -7,7 +7,7 @@ import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/index.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getSparksAccountDetails } from '@/providers/firefly/endpoints/getSparksAccountDetails.js';
 import { FansStatus, OgStatus } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import type { NextRequestContext } from '@/types/utility.js';
@@ -25,9 +25,7 @@ export const GET = compose(
         const params = await context?.params;
         if (!params?.accountId) return createProxyImageResponse(sparksDefaultOgImage);
 
-        const accountInfo = await runInSafeAsync(() =>
-            fireflyEndpointProvider.getSparksAccountDetails(params.accountId!),
-        );
+        const accountInfo = await runInSafeAsync(() => getSparksAccountDetails(params.accountId!));
 
         const isNotBoundX =
             accountInfo?.isOg === OgStatus.isNotBoundX && accountInfo?.isFans === FansStatus.isNotBoundX;

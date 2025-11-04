@@ -19,7 +19,7 @@ import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
 import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { updateProfile } from '@/providers/firefly/endpoints/updateProfile.js';
 import { captureEditProfileSuccessEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { FireflyProfileUpdateParams } from '@/providers/types/Firefly.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
@@ -41,7 +41,7 @@ export function EditFireflyProfileForm() {
                 displayName: values.displayName,
             };
             if (values.avatar) params.avatar = await uploadToS3(values.avatar);
-            await fireflyEndpointProvider.updateProfile(params);
+            await updateProfile(params);
             await queryClient.refetchQueries({ queryKey: ['wallet-profiles'] });
             await queryClient.refetchQueries({ queryKey: ['allConnections'] });
             await queryClient.refetchQueries({ queryKey: ['firefly-profile'] });

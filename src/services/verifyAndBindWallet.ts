@@ -5,8 +5,8 @@ import { type Address } from 'viem';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { ClickOrigin, NetworkType } from '@/constants/enum.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { getMessageToSignForBindWallet } from '@/providers/firefly/endpoints/getMessageToSignForBindWallet.js';
+import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import { getWalletAdaptorRequired, WalletNotConnectedError } from '@/providers/solana/getWalletAdapter.js';
 
 export async function verifyAndBindWallet(network: NetworkType, checkExistedConnection?: (address: string) => boolean) {
@@ -22,7 +22,7 @@ export async function verifyAndBindWallet(network: NetworkType, checkExistedConn
                 message: { raw: message },
                 account: address as Address,
             });
-            return fireflyEndpointProvider.verifyAndBindWallet(message, signature);
+            return fireflyWalletProvider.verifyAndBindWallet(message, signature);
         }
         case NetworkType.Solana: {
             const adapter = await getWalletAdaptorRequired({
@@ -30,10 +30,10 @@ export async function verifyAndBindWallet(network: NetworkType, checkExistedConn
             });
             const address = adapter.publicKey.toBase58();
             if (checkExistedConnection?.(address)) return;
-            const hexMessage = await fireflyEndpointProvider.getMessageToSignMessageForBindSolanaWallet(address);
+            const hexMessage = await fireflyWalletProvider.getMessageToSignMessageForBindSolanaWallet(address);
             const message = bs58.decode(bs58.encode(Buffer.from(hexMessage.substring(2), 'hex')));
             const signature = Buffer.from(await adapter.signMessage(message)).toString('hex');
-            return fireflyEndpointProvider.verifyAndBindSolanaWallet(address, hexMessage, signature);
+            return fireflyWalletProvider.verifyAndBindSolanaWallet(address, hexMessage, signature);
         }
         default:
             safeUnreachable(network);

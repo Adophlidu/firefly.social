@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { HaidilaoCodeDialog } from '@/components/Activity/HaidilaoCodeDialog.js';
 import { RecipientItem } from '@/components/FireflyWallet/SendTransactionModal/RecipientItem.js';
 
 const meta = {
@@ -17,7 +16,6 @@ export const Default: StoryObj<typeof RecipientItem> = {
     render(args) {
         return (
             <div style={{ width: '240px' }}>
-                <HaidilaoCodeDialog open onClose={() => {}} />
                 <RecipientItem {...args} />
             </div>
         );

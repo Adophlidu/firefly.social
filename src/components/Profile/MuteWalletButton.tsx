@@ -5,7 +5,7 @@ import { memo, useState } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 
 enum State {
     Mute = 'Mute',
@@ -29,8 +29,8 @@ export const ToggleMuteWalletButton = memo(function ToggleMuteWalletButton({
 
     const mutation = useMutation({
         mutationFn: () => {
-            if (isMuted) return fireflyEndpointProvider.unblockWallet(address);
-            return fireflyEndpointProvider.blockWallet(address);
+            if (isMuted) return fireflyWalletProvider.unblockWallet(address);
+            return fireflyWalletProvider.blockWallet(address);
         },
     });
     const loading = mutation.isPending;

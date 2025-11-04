@@ -6,7 +6,8 @@ import { Source, TxReactionType } from '@/constants/enum.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { createTxReaction } from '@/providers/firefly/endpoints/createTxReaction.js';
+import { removeTxReaction } from '@/providers/firefly/endpoints/removeTxReaction.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -64,9 +65,9 @@ export function useChangeSwapLikeStatus(activity?: SwapActivity) {
 
             let result;
             if (activity.is_like) {
-                result = await fireflyEndpointProvider.removeTxReaction(TxReactionType.LikeSwap, [activity.hash]);
+                result = await removeTxReaction(TxReactionType.LikeSwap, [activity.hash]);
             } else {
-                result = await fireflyEndpointProvider.createTxReaction(
+                result = await createTxReaction(
                     TxReactionType.LikeSwap,
                     activity.chain_id.toString(),
                     activity.hash,

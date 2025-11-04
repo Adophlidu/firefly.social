@@ -9,7 +9,7 @@ import { PolymarketTradeItem } from '@/components/Polymarket/PolymarketTradeItem
 import { ShowMoreLink } from '@/components/Polymarket/ShowMoreLink.js';
 import { ToggleVisibleBox } from '@/components/Polymarket/ToggleVisibleBox.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyPolymarketProvider } from '@/providers/firefly/Polymarket.js';
 
 interface PolymarketProfileTradesProps {
     address: string;
@@ -22,7 +22,7 @@ export function PolymarketProfileTrades({ address }: PolymarketProfileTradesProp
         queryKey: ['polymarket', 'trades-lite', address],
         staleTime: 1000 * 60 * 5,
         queryFn: async () => {
-            const data = await fireflyEndpointProvider.getPolymarketTradeHistory({ address, limit: pageSize });
+            const data = await fireflyPolymarketProvider.getTradeHistory({ address, limit: pageSize });
             return data.data;
         },
     });

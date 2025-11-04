@@ -25,7 +25,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { Debank } from '@/providers/debank/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
-import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import { OKX } from '@/providers/okx/index.js';
 import {
     RelatedWalletSource,
@@ -100,7 +100,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
     const { data: walletRelation, isLoading: isLoadingWalletRelation } = useQuery({
         queryKey: ['wallet-relation', profile.address],
         async queryFn() {
-            return fireflyEndpointProvider.getWalletRelation(profile.address);
+            return fireflyWalletProvider.getWalletRelation(profile.address);
         },
     });
 
