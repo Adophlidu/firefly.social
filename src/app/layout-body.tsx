@@ -1,6 +1,6 @@
 import { type ReactNode, Suspense } from 'react';
 
-import { DynamicPrivyBridge } from '@/components/DynamicPrivyBridge.js';
+import { FireflyWallet } from '@/components/FireflyWallet.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
@@ -73,12 +73,6 @@ export function LayoutBody({ agent, children }: LayoutBodyProps) {
                     ) : null}
                 </RouteProgressBar>
 
-                {env.external.NEXT_PUBLIC_PRIVY === STATUS.Enabled && agent !== Agent.FireflyApp ? (
-                    <IfPathname isNotOneOf={WHITEBOARD_ROUTES}>
-                        <DynamicPrivyBridge />
-                    </IfPathname>
-                ) : null}
-
                 {/* delay render */}
                 {agent !== Agent.FireflyApp ? (
                     <IfPathname isNotOneOf={WHITEBOARD_ROUTES}>
@@ -87,6 +81,8 @@ export function LayoutBody({ agent, children }: LayoutBodyProps) {
                         </Suspense>
                     </IfPathname>
                 ) : null}
+
+                <FireflyWallet />
             </Providers>
             <BeforeUnload />
         </>

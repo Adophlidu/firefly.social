@@ -25,6 +25,9 @@ interface GlobalState {
     collapsedConnectWallet: boolean;
     updateCollapsedConnectWallet: (collapsed: boolean) => void;
 
+    fireflyWalletIsOpen: boolean;
+    updateFireflyWalletIsOpen: (isOpen: boolean) => void;
+
     web3StateAsyncStatus: AsyncStatus;
     setWeb3StateAsyncStatus: (status: AsyncStatus) => void;
 }
@@ -81,6 +84,13 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
             updateCollapsedConnectWallet(collapsed) {
                 set((state) => {
                     state.collapsedConnectWallet = collapsed;
+                });
+            },
+
+            fireflyWalletIsOpen: false,
+            updateFireflyWalletIsOpen(isOpen) {
+                set((state) => {
+                    state.fireflyWalletIsOpen = isOpen;
                 });
             },
 

@@ -4,7 +4,6 @@ import type { SignInOptions } from '@farcaster/miniapp-host';
 import { toHex } from 'viem';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { getPrivyBridge } from '@/connectors/PrivyConnector.js';
 import { SITE_URL } from '@/constants/index.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { createSiwfMessage } from '@/providers/warpcast/signInWithFarcaster.js';
@@ -35,21 +34,12 @@ export async function signInWithAuthWallet(
                 message,
             });
         } else {
-            const bridge = getPrivyBridge();
-            if (!bridge) throw new Error('Privy bridge not found');
-
-            try {
-                await bridge.setShowWalletUI(false);
-
-                const client = await getWalletClientRequired(wagmiConfig);
-                const signature = await client.signMessage({
-                    message,
-                    account: address,
-                });
-                return signature;
-            } finally {
-                await bridge.setShowWalletUI(true);
-            }
+            const client = await getWalletClientRequired(wagmiConfig);
+            const signature = await client.signMessage({
+                message,
+                account: address,
+            });
+            return signature;
         }
     };
 

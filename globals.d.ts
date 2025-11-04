@@ -9,15 +9,12 @@ interface Navigator {
 
 namespace React {
     namespace JSX {
-        import type { PrivyBridgeElement } from '@/components/PrivyBridge.js';
-
         interface IntrinsicElements {
             'w3m-connecting-wc-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
             'w3m-all-wallets-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
             'w3m-connecting-external-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
             'w3m-downloads-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
             'w3m-connecting-multi-chain-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
-            'privy-bridge': PrivyBridgeElement;
         }
 
         // https://github.com/remarkjs/react-markdown/issues/877

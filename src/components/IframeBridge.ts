@@ -11,6 +11,7 @@ import { memo, useEffect } from 'react';
 
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import type { ProfileSource } from '@/constants/enum.js';
+import { NotImplementedError } from '@/constants/error.js';
 import {
     enqueueErrorMessage,
     enqueueInfoMessage,
@@ -20,6 +21,7 @@ import {
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';
+import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 
 const allEvents: {
     [K in IframeBridgeMethod]: (params: IframeBridgeRequestArguments[K]) => Promise<IframeBridgeResponseResult[K]>;
@@ -65,6 +67,15 @@ const allEvents: {
         IS_MOBILE_DEVICE
             ? (window.location.href = 'https://5euxu.app.link/PHvNiyVemIb')
             : DownloadMobileAppModalRef.open();
+    },
+    [IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC]: async () => {
+        throw new NotImplementedError();
+    },
+    [IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC]: () => {
+        throw new NotImplementedError();
+    },
+    [IframeBridgeMethod.FIREFLY_WALLET_AUTHORIZED]: async () => {
+        useFireflyWalletStore.getState().setIsAuthorized(true);
     },
 };
 

@@ -32,8 +32,6 @@ import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { EthereumWalletProvider, SolanaWalletProvider } from '@/providers/okx/WalletProvider.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
-import { SolanaNetworkType } from '@/store/useSolanaActiveNetworkStore.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 const LangMap = {
@@ -88,9 +86,8 @@ export const SwapModalContent = memo(function SwapModalContent({
     className,
     ...rest
 }: SwapModalContentProps) {
-    const isPrivyReady = usePrivyWalletStore((x) => x.ready);
     const solana = useSolanaAccount();
-    const isReady = solana.type === SolanaNetworkType.Privy ? isPrivyReady : true;
+    const isReady = !!solana.address;
     const isSolanaChainId = props?.chainId === SolanaChainId.Mainnet || props?.chainId === SOLANA_CHAIN_ID_IN_OKX;
     const [_providerType, setProviderType] = useState<OkxProviderType>(
         isSolanaChainId ? OkxProviderType.SOLANA : OkxProviderType.EVM,

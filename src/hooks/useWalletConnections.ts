@@ -1,10 +1,10 @@
-import { parseJson } from '@dimensiondev/utils';
 import { CoreChainController } from '@reown/appkit';
 import type { ChainAdapter } from '@reown/appkit/react';
 import { useAppKitAccount } from '@reown/appkit/react';
 import { compact, first, uniqBy } from 'lodash-es';
 import { useEffect, useMemo, useState } from 'react';
-import { type Connector, useConnections, useConnectors } from 'wagmi';
+import { useLocalStorage } from 'react-use';
+import { type Connector, useAccount, useConnections, useConnectors } from 'wagmi';
 
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { NetworkType, WalletSource } from '@/constants/enum.js';
@@ -14,15 +14,11 @@ import { resolveNamespace } from '@/helpers/resolveNamespace.js';
 import { useSolanaAccount, useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { restoreDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
-import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
+import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import type { ChainNamespace } from '@/types/utility.js';
 
-function getWagmiCurrentConnectionId() {
-    const storage = localStorage.getItem('wagmi.store');
-    if (!storage) return;
-
-    const wagmiStore = parseJson<{ state: { current: string } }>(storage);
-
+function useWagmiCurrentConnectionId() {
+    const [wagmiStore] = useLocalStorage<{ state: { current: string } } | null>('wagmi.store', null);
     return wagmiStore?.state?.current;
 }
 
@@ -61,13 +57,16 @@ export function useWalletConnections() {
     const solanaWalletIcon = useAppkitConnectedSolanaWalletIcon();
     const { address: solanaAddress } = useAppKitAccount({ namespace: 'solana' });
     const solanaAccount = useSolanaAccount();
-    const solanaWallets = usePrivyWalletStore((state) => state.wallets[NetworkType.Solana]);
+    const solanaWallets = useFireflyWalletStore((state) => state.wallets[NetworkType.Solana]);
+
+    const account = useAccount();
+    const wagmiCurrentConnectionId = useWagmiCurrentConnectionId();
 
     const { data: allFireflyConnections } = useAllConnections();
     const connectors = useConnectors();
 
     const allConnections = useMemo<Connection[]>(() => {
-        const currentConnectionId = getWagmiCurrentConnectionId();
+        const currentConnectionId = account.connector?.uid ?? wagmiCurrentConnectionId;
         const privySolanaAddress = first(solanaWallets)?.address;
         const fireflyConnectedAddress =
             allFireflyConnections?.connected.map((connection) => {
@@ -130,6 +129,8 @@ export function useWalletConnections() {
             return 0;
         });
     }, [
+        account.connector?.uid,
+        wagmiCurrentConnectionId,
         solanaWallets,
         allFireflyConnections?.connected,
         connections,

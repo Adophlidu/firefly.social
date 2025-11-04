@@ -9,7 +9,7 @@ import { NotImplementedError } from '@/constants/error.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { getWalletAdaptorRequired } from '@/providers/solana/getWalletAdapter.js';
-import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
+import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 
 export class EthereumWalletProvider implements EthereumProvider {
@@ -209,7 +209,7 @@ export class SolanaWalletProvider implements SolanaProvider {
             });
             this.#unwatchFns.push(unsubscriptionNetwork);
 
-            const unsubscriptionPrivy = usePrivyWalletStore.subscribe((state) => {
+            const unsubscriptionPrivy = useFireflyWalletStore.subscribe((state) => {
                 const address = state.wallets[NetworkType.Solana][0]?.address;
                 if (!address) return;
                 const pk = new web3.PublicKey(address);

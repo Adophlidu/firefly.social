@@ -1,5 +1,11 @@
 import { web3 } from '@coral-xyz/anchor';
-import { ConnectedStandardSolanaWallet as ConnectedSolanaWallet } from '@privy-io/react-auth/solana';
+import {
+    IframeBridgeMethod,
+    iframeBridgeProvider,
+    SolanaMethod,
+    type SolanaRequestArgument,
+    type SolanaResponse,
+} from '@dimensiondev/iframe-bridge';
 import type { RequestArguments } from '@reown/appkit';
 import type {
     AnyTransaction,
@@ -15,21 +21,17 @@ import {
     WalletError,
     type WalletName,
     WalletNotConnectedError,
-    WalletNotReadyError,
     WalletReadyState,
 } from '@solana/wallet-adapter-base';
-import { first } from 'lodash-es';
+import bs58 from 'bs58';
+import { compact } from 'lodash-es';
 
-import { getPrivyBridge } from '@/connectors/PrivyConnector.js';
-import { NetworkType } from '@/constants/enum.js';
-import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
-import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
-
-function getWallet(): ConnectedSolanaWallet | null {
-    if (typeof window === 'undefined') return null;
-    const wallet = first(usePrivyWalletStore.getState().wallets[NetworkType.Solana]);
-    return wallet ?? null;
-}
+import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
+import { queryClient } from '@/configs/queryClient.js';
+import { NetworkType, WalletSource } from '@/constants/enum.js';
+import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
+import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export const PrivySolanaWalletName = 'Firefly Wallet' as WalletName<'Firefly Wallet'>;
 
@@ -39,8 +41,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
     icon = '/firefly.png';
     supportedTransactionVersions: ReadonlySet<web3.TransactionVersion> = new Set(['legacy', 0]);
 
-    private _connecting = false;
-    private _wallet: ConnectedSolanaWallet | null = null;
+    private _connecting: boolean;
     private _publicKey: web3.PublicKey | null = null;
     private _readyState: WalletReadyState =
         typeof window === 'undefined' || typeof document === 'undefined'
@@ -49,21 +50,19 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
 
     constructor() {
         super();
-        this._wallet = getWallet();
+
+        this._connecting = true;
+        this.getAccounts().then((accounts) => {
+            this._publicKey = accounts.length > 0 ? new web3.PublicKey(accounts[0]) : null;
+            this._connecting = false;
+            this.emit('connect', this._publicKey);
+        });
 
         if (this._readyState !== WalletReadyState.Unsupported) {
             scopePollingDetectionStrategy(() => {
-                const wallet = getWallet();
-                this._wallet = wallet;
-
-                if (wallet?.address) {
-                    this._readyState = WalletReadyState.Installed;
-                    this._publicKey = new web3.PublicKey(wallet.address);
-                    this.emit('readyStateChange', this._readyState);
-                    this.emit('connect', this._publicKey);
-                }
-
-                return !!wallet;
+                this._readyState = WalletReadyState.Installed;
+                this.emit('readyStateChange', this._readyState);
+                return !!document.getElementById(FIREFLY_WALLET_IFRAME_ID);
             });
         }
     }
@@ -95,104 +94,100 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
 
     override async connect(): Promise<void> {
         if (this.connected || this.connecting) return;
-        if (this._readyState !== WalletReadyState.Installed) throw new WalletNotReadyError();
-        try {
-            this._wallet = getWallet();
-            if (this._wallet) {
-                this._publicKey = new web3.PublicKey(this._wallet.address);
-                this._connecting = true;
-                this.emit('connect', this._publicKey);
-            } else {
-                throw new WalletNotConnectedError();
-            }
-        } catch (error: any) {
-            this.emit('error', new WalletError('Failed to connect', error));
-            throw error;
-        } finally {
-            this._connecting = false;
-        }
+        console.info('[privy] solana connect');
     }
 
     async disconnect(): Promise<void> {
-        try {
-            this._wallet?.disconnect();
-        } catch (error: any) {
-            this.emit('error', new WalletError('Failed to disconnect', error));
-            throw error;
-        } finally {
-            this._wallet = null;
-            this._publicKey = null;
-            this._connecting = false;
-            this.emit('disconnect');
-        }
+        console.info('[privy] solana disconnect');
+    }
+
+    async getAccounts() {
+        if (!useFireflyProfileStore.getState().currentProfileSession) return [];
+        const { connected } = await queryClient.ensureQueryData(queryMyAllConnections);
+        const [account] = connected.filter(
+            (connection) => connection.source === WalletSource.Privy && connection.platform === 'solana',
+        );
+        const accounts = compact([account.address]);
+        this._publicKey = accounts.length > 0 ? new web3.PublicKey(accounts[0]) : null;
+        return accounts;
     }
 
     // @ts-ignore
     async sendTransaction(
         transaction: TransactionOrVersionedTransaction<SupportedTransactionVersions>,
-        connection: web3.Connection,
+        connection?: web3.Connection,
         options: SendTransactionOptions = {},
     ): Promise<web3.TransactionSignature> {
-        const wallet = this._wallet;
-        const privyBridge = getPrivyBridge();
-
-        if (!wallet || !privyBridge) {
-            const error = new WalletNotConnectedError();
-            this.emit('error', error);
-            throw error;
-        }
-
         try {
-            const result = await privyBridge.sendTransactionWithSolana({
-                transaction,
-                connection,
-                address: wallet.address,
-            });
-            return result.signature;
+            const signature = (await iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC, {
+                method: SolanaMethod.SignAndSendTransaction,
+                params: {
+                    transaction: bs58.encode(
+                        transaction.serialize({
+                            requireAllSignatures: false,
+                            verifySignatures: false,
+                        }),
+                    ),
+                },
+            } satisfies SolanaRequestArgument<SolanaMethod.SignAndSendTransaction>)) as SolanaResponse<SolanaMethod.SignAndSendTransaction>;
+            return signature;
         } catch (error: any) {
             this.emit('error', new WalletError('Failed to send transaction', error));
             throw error;
         }
     }
 
+    async signAndSendAllTransactions<T extends AnyTransaction[]>(
+        transactions: T,
+    ): Promise<web3.TransactionSignature[]> {
+        const signatures = (await iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC, {
+            method: SolanaMethod.SignAndSendAllTransactions,
+            params: {
+                transactions: transactions.map((transaction) =>
+                    bs58.encode(
+                        transaction.serialize({
+                            requireAllSignatures: false,
+                            verifySignatures: false,
+                        }),
+                    ),
+                ),
+            },
+        } satisfies SolanaRequestArgument<SolanaMethod.SignAndSendAllTransactions>)) as SolanaResponse<SolanaMethod.SignAndSendAllTransactions>;
+        return signatures;
+    }
+
     async signTransaction<T extends web3.Transaction | web3.VersionedTransaction>(transaction: T): Promise<T> {
-        const wallet = this._wallet;
-        const privyBridge = getPrivyBridge();
-
-        if (!wallet || !privyBridge) {
-            const error = new WalletNotConnectedError();
-            this.emit('error', error);
-            throw error;
-        }
-
         try {
-            const connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');
-            const signedTransaction = await privyBridge.signTransactionWithSolana({
-                transaction,
-                connection,
-                address: wallet.address,
-            });
-            return web3.Transaction.from(signedTransaction) as T;
+            const signedTransaction = (await iframeBridgeProvider.request(
+                IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC,
+                {
+                    method: SolanaMethod.SignTransaction,
+                    params: {
+                        transaction: bs58.encode(
+                            transaction.serialize({
+                                requireAllSignatures: false,
+                                verifySignatures: false,
+                            }),
+                        ),
+                    },
+                } satisfies SolanaRequestArgument<SolanaMethod.SignTransaction>,
+            )) as SolanaResponse<SolanaMethod.SignTransaction>;
+            return web3.Transaction.from(bs58.decode(signedTransaction)) as T;
         } catch (error: any) {
-            this.emit('error', new WalletError('Failed to sign transaction', error));
+            this.emit('error', new WalletError('Failed to send transaction', error));
             throw error;
         }
     }
 
     async signMessage(message: Uint8Array): Promise<Uint8Array> {
-        const wallet = this._wallet;
-        const privyBridge = getPrivyBridge();
-
-        if (!wallet || !privyBridge) {
-            const error = new WalletNotConnectedError();
-            this.emit('error', error);
-            throw error;
-        }
-
         try {
-            return await privyBridge.signMessageWithSolana({
-                message,
-            });
+            const signed = (await iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC, {
+                method: SolanaMethod.SignMessage,
+                params: {
+                    message: bs58.encode(message),
+                },
+            } satisfies SolanaRequestArgument<SolanaMethod.SignMessage>)) as SolanaResponse<SolanaMethod.SignMessage>;
+            return bs58.decode(signed);
         } catch (error: any) {
             this.emit('error', new WalletError('Failed to sign message', error));
             throw error;
@@ -208,16 +203,22 @@ export class PrivySolanaWalletProvider implements Provider {
     type = 'ANNOUNCED' as const;
     provider: Provider | null = null;
 
+    protected adapter: PrivySolanaWalletAdapter;
+
+    constructor() {
+        this.adapter = new PrivySolanaWalletAdapter();
+    }
+
     get publicKey() {
-        const wallet = getWallet();
-        if (!wallet) return;
-        return new web3.PublicKey(wallet.address);
+        return this.adapter.publicKey ?? undefined;
     }
 
     async connect(): Promise<string> {
-        const wallet = getWallet();
-        if (!wallet) throw new WalletNotConnectedError();
-        return wallet.address;
+        const res = await WalletConnectModalRef.openAndWaitForClose({ networkType: NetworkType.Solana });
+        if (!res) throw new WalletNotConnectedError();
+        const accounts = await this.getAccounts();
+        if (!accounts?.[0]?.address) throw new WalletNotConnectedError();
+        return accounts?.[0]?.address;
     }
 
     async disconnect(): Promise<void> {
@@ -249,8 +250,7 @@ export class PrivySolanaWalletProvider implements Provider {
     }
 
     async getAccounts(): Promise<Array<{ namespace: 'solana'; address: string; type: 'eoa' }>> {
-        const wallet = getWallet();
-        const address = wallet?.address;
+        const [address] = await this.adapter.getAccounts();
         if (!address) return [];
         return [
             {
@@ -269,61 +269,26 @@ export class PrivySolanaWalletProvider implements Provider {
         transaction: T,
         connection: web3.Connection,
     ): Promise<web3.TransactionSignature> {
-        const wallet = getWallet();
-        const privyBridge = getPrivyBridge();
-        if (!wallet || !privyBridge) {
-            throw new WalletNotConnectedError();
-        }
-        const result = await privyBridge.sendTransactionWithSolana({
-            transaction,
-            connection,
-            address: wallet.address,
-        });
-        return result.signature;
+        return this.adapter.sendTransaction(transaction, connection);
     }
 
     async signAllTransactions<T extends AnyTransaction[]>(transactions: T): Promise<T> {
-        const wallet = getWallet();
-        const privyBridge = getPrivyBridge();
-        if (!wallet || !privyBridge) {
-            throw new WalletNotConnectedError();
-        }
-        return (await privyBridge.signAllTransactionsWithSolana(transactions)) as T;
+        await this.adapter.signAndSendAllTransactions(transactions);
+        return transactions;
     }
 
     async signAndSendTransaction<T extends web3.Transaction | web3.VersionedTransaction>(
         transaction: T,
     ): Promise<web3.TransactionSignature> {
-        const result = await this.signTransaction(transaction);
-        const connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');
-        return this.sendTransaction(result, connection);
+        return this.adapter.sendTransaction(transaction);
     }
 
     async signMessage(message: Uint8Array): Promise<Uint8Array> {
-        const wallet = getWallet();
-        const privyBridge = getPrivyBridge();
-        if (!wallet || !privyBridge) {
-            throw new WalletNotConnectedError();
-        }
-        return await privyBridge.signMessageWithSolana({
-            message,
-        });
+        return this.adapter.signMessage(message);
     }
 
     async signTransaction<T extends web3.Transaction | web3.VersionedTransaction>(transaction: T): Promise<T> {
-        const wallet = getWallet();
-        const privyBridge = getPrivyBridge();
-
-        if (!wallet || !privyBridge) {
-            throw new WalletNotConnectedError();
-        }
-        const connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');
-        const signedTransaction = await privyBridge.signTransactionWithSolana({
-            transaction,
-            connection,
-            address: wallet.address,
-        });
-        return web3.Transaction.from(signedTransaction) as T;
+        return this.adapter.signTransaction(transaction);
     }
 }
 

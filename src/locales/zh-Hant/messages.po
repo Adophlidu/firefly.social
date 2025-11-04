@@ -2415,9 +2415,6 @@ msgstr "標準"
 msgid "Video duration limit reached"
 msgstr "達到影片時長上限"
 
-msgid "Token"
-msgstr "代幣"
-
 msgid "No darkweb transactions found."
 msgstr "未發現暗網交易。"
 
@@ -4389,9 +4386,6 @@ msgstr "由 @{0} 創建"
 msgid "Video"
 msgstr "影片"
 
-msgid "Firefly Wallet"
-msgstr "Firefly 錢包"
-
 msgid "Language"
 msgstr "語言"
 
@@ -4670,9 +4664,6 @@ msgstr "檢測到偽造 KYC。"
 
 msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
 msgstr "可在 <0>設定 > 內容偏好</0> 隨時重新開啟"
-
-msgid "NFT"
-msgstr "NFT"
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"

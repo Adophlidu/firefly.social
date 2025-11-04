@@ -5,13 +5,13 @@ import { compact, first } from 'lodash-es';
 
 import { PrivySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { NetworkType } from '@/constants/enum.js';
-import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
+import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 
 export function useSolanaWalletProvider() {
     const activeNetwork = useSolanaActiveNetworkStore((s) => s.activeNetwork);
     const { walletProvider } = useAppKitProvider<Provider | undefined>('solana');
-    usePrivyWalletStore((state) => state.wallets[NetworkType.Solana]); // will rerender when privy wallet change
+    useFireflyWalletStore((state) => state.wallets[NetworkType.Solana]); // will rerender when privy wallet change
     switch (activeNetwork) {
         case SolanaNetworkType.Appkit:
             return first(compact([walletProvider, PrivySolanaProvider]));

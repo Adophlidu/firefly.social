@@ -9,7 +9,7 @@ import { PrivySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { NetworkType } from '@/constants/enum.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
-import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
+import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
@@ -39,7 +39,7 @@ export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
 export function useSolanaAccount() {
     const { address: solanaAddress } = useAppKitAccount({ namespace: 'solana' });
     const { connection } = useAppKitConnection();
-    const solanaWallets = usePrivyWalletStore((state) => state.wallets[NetworkType.Solana]);
+    const solanaWallets = useFireflyWalletStore((state) => state.wallets[NetworkType.Solana]);
     const { activeNetwork } = useSolanaActiveNetworkStore();
     return useMemo(() => {
         const connections = [

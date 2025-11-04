@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { mainnet } from '@reown/appkit/networks';
 import { uniqBy } from 'lodash-es';
-import { useRouter } from 'next/navigation.js';
 import { type FunctionComponent, memo, type SVGAttributes } from 'react';
 import { useAsyncFn } from 'react-use';
 import { type Connector, useSwitchAccount } from 'wagmi';
@@ -15,7 +14,6 @@ import WalletIcon from '@/assets/wallet.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
-import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit } from '@/configs/appkit.js';
 import { STATUS } from '@/constants/enum.js';
@@ -35,7 +33,8 @@ import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
 import { WalletProfileDataSource } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
+import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 import type { ChainNamespace } from '@/types/utility.js';
 
@@ -74,7 +73,6 @@ function ConnectedItem({
     const { switchAccountAsync } = useSwitchAccount();
     const { data: ensName } = useEnsNameCached(address, undefined, namespace === 'eip155');
     const setActiveNetwork = useSolanaActiveNetworkStore((s) => s.setActiveNetwork);
-    const router = useRouter();
 
     const Icon = IconMap[namespace] || WalletIcon;
 
@@ -90,7 +88,6 @@ function ConnectedItem({
         if (!connected) return;
         if (source === ConnectionSource.Privy) {
             onOpenPrivy?.();
-            router.push('/wallet');
             return;
         }
 
@@ -101,18 +98,7 @@ function ConnectedItem({
         rewriteDisconnectMethod(namespace, connector?.id);
         await syncWalletIdentity({ address, namespace });
         await appkit.open({ view: 'Account' });
-    }, [
-        onOpenPrivy,
-        namespace,
-        connected,
-        connector,
-        source,
-        chainId,
-        address,
-        setActiveNetwork,
-        switchAccountAsync,
-        router,
-    ]);
+    }, [onOpenPrivy, namespace, connected, connector, source, chainId, address, setActiveNetwork, switchAccountAsync]);
 
     const loading = isConnecting || isLoading;
 
@@ -144,8 +130,8 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
     const allWalletConnections = useWalletConnections();
     const { isLoading: isLoadingAllConnections } = usePrivyConnections();
     const { isCreatedPrivyWallet } = useIsCreatedPrivyWallet();
-    const { ready } = usePrivyWalletStore();
-    const loading = !ready;
+    const isAuthorized = useFireflyWalletStore((state) => state.isAuthorized);
+    const loading = !isAuthorized;
 
     if (isLoadingAllConnections) return <div className="mb-2 h-[122px] w-full animate-pulse rounded-lg bg-bg" />;
     if (!isCreatedPrivyWallet) return null;
@@ -156,15 +142,14 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
 
     return (
         <div className="mb-2 h-[122px] overflow-hidden rounded-lg border border-secondaryLine">
-            <Link
-                href="/wallet"
+            <button
                 className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
                 onClick={() => {
                     captureFireflyWalletEvent(EventId.FIREFLY_WALLET_OPEN_SUCCESS, {
                         wallet_address: privyConnections[0].address,
                         MPC_type: WalletProfileDataSource.Privy,
                     });
-                    onOpenWallets?.();
+                    useGlobalState.getState().updateFireflyWalletIsOpen(true);
                 }}
             >
                 <FireflyIcon width={20} height={20} />
@@ -176,7 +161,7 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
                         <Trans>Open</Trans>
                     </span>
                 ) : null}
-            </Link>
+            </button>
             {!privyConnections?.length ? (
                 <div className="flex h-10 items-center justify-center text-sm text-secondary">
                     <Trans>No connected wallet.</Trans>
@@ -198,6 +183,7 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
                             chainId={walletConnection?.chainId}
                             source={ConnectionSource.Privy}
                             onOpenPrivy={() => {
+                                useGlobalState.getState().updateFireflyWalletIsOpen(true);
                                 onOpenWallets?.();
                             }}
                             loading={loading}

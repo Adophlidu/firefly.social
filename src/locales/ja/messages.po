@@ -2415,9 +2415,6 @@ msgstr ""
 msgid "Video duration limit reached"
 msgstr ""
 
-msgid "Token"
-msgstr ""
-
 msgid "No darkweb transactions found."
 msgstr ""
 
@@ -4389,9 +4386,6 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-msgid "Firefly Wallet"
-msgstr ""
-
 msgid "Language"
 msgstr ""
 
@@ -4667,9 +4661,6 @@ msgid "Fake KYC found."
 msgstr ""
 
 msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
-msgstr ""
-
-msgid "NFT"
 msgstr ""
 
 #. placeholder {0}: post.stats.reactions

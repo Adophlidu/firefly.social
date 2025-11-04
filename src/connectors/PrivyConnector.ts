@@ -1,38 +1,38 @@
-import { type Address, numberToHex, RpcError, SwitchChainError } from 'viem';
+'use client';
+
+import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
+import { compact } from 'lodash-es';
+import { type Address, type Hex, numberToHex, RpcError, SwitchChainError, UserRejectedRequestError } from 'viem';
+import { mainnet } from 'viem/chains';
 import { ChainNotConfiguredError, ConnectorChainMismatchError, createConnector, type CreateConnectorFn } from 'wagmi';
 
-import type { PrivyBridgeElement } from '@/components/PrivyBridge.js';
-import { NetworkType } from '@/constants/enum.js';
-import { AbortError, InvalidResultError } from '@/constants/error.js';
-import { retry } from '@/helpers/retry.js';
-import { usePrivyWalletStore } from '@/store/usePrivyWalletsStore.js';
+import { queryClient } from '@/configs/queryClient.js';
+import { WalletSource } from '@/constants/enum.js';
+import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
-export function getPrivyBridge() {
-    if (typeof window === 'undefined') return;
-    return document.querySelector('privy-bridge') as PrivyBridgeElement;
-}
-
-async function getProvider(signal?: AbortSignal) {
-    return retry(
-        async () => {
-            if (typeof window === 'undefined') throw new AbortError();
-            const wallet = usePrivyWalletStore
-                .getState()
-                .wallets[NetworkType.Ethereum].find((x) => x.connectorType === 'embedded');
-            if (!wallet) throw new InvalidResultError();
-            return wallet.getEthereumProvider();
-        },
-        {
-            times: 5,
-            interval: 2000,
-            signal,
-        },
-    );
-}
-
 export const PRIVY_CONNECTOR_ID = 'network.privy';
+
+const INTERACTIVE_METHODS = new Set([
+    'eth_sendTransaction',
+    'eth_sign',
+    'personal_sign',
+    'eth_signTypedData',
+    'eth_signTypedData_v4',
+    'wallet_addEthereumChain',
+    'wallet_switchEthereumChain',
+]);
+
+const provider = {
+    async request<T = unknown>(params: { method: string; params?: unknown[] | object }) {
+        if (INTERACTIVE_METHODS.has(params.method)) {
+            useGlobalState.getState().updateFireflyWalletIsOpen(true);
+        }
+        return (await iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC, params)) as T;
+    },
+};
 
 export function createPrivyConnector() {
     const fn = (config: Parameters<CreateConnectorFn>[0]) => {
@@ -42,12 +42,11 @@ export function createPrivyConnector() {
             type: 'INJECTED',
             icon: '/firefly.png',
             async connect(parameters) {
-                const chainId = await this.getChainId();
-                const provider = await getProvider();
-                const accounts: Address[] = await provider.request({
-                    method: 'eth_requestAccounts',
-                });
-                console.info(`[privy] connect`, chainId, accounts);
+                const chainId = mainnet.id;
+                const accounts = await this.getAccounts();
+                if (!accounts || accounts.length === 0) {
+                    throw new UserRejectedRequestError(new Error('No accounts returned'));
+                }
                 config.emitter.emit('connect', {
                     accounts,
                     chainId,
@@ -81,8 +80,6 @@ export function createPrivyConnector() {
                 if (!chain) throw new SwitchChainError(new ChainNotConfiguredError());
 
                 try {
-                    const provider = await getProvider();
-
                     await provider.request({
                         method: EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN,
                         params: [
@@ -109,33 +106,29 @@ export function createPrivyConnector() {
                 }
             },
             async getChainId() {
-                const provider = await getProvider();
-                const chainId = await provider.request({
+                const chainId = await provider.request<Hex>({
                     method: EthereumMethodType.ETH_CHAIN_ID,
-                    params: [],
                 });
                 return Number.parseInt(chainId, 16);
             },
             async getAccounts() {
-                const wallets =
-                    getPrivyBridge()
-                        ?.getWallets()
-                        .evmWallets.filter((x) => x.connectorType === 'embedded') ?? [];
-                return [...wallets?.map((x) => x.address as Address)];
+                const { connected } = await queryClient.ensureQueryData(queryMyAllConnections);
+                const [account] = connected.filter(
+                    (connection) => connection.source === WalletSource.Privy && connection.platform === 'eth',
+                );
+                const accounts = compact([account.address as Address]);
+                if (!accounts || accounts.length === 0) {
+                    throw new UserRejectedRequestError(new Error('No accounts returned'));
+                }
+                return accounts;
             },
             async getProvider() {
                 const isLogin = !!useFireflyProfileStore.getState().currentProfileSession;
                 if (!isLogin) return;
-                const isAuthorized = !!getPrivyBridge()?.getAuthenticated?.();
-                if (!isAuthorized) return;
-                return getProvider();
+                return provider;
             },
             async isAuthorized() {
-                const isLogin = !!useFireflyProfileStore.getState().currentProfileSession;
-                if (!isLogin) return false;
-                const isAuthorized = !!getPrivyBridge()?.getAuthenticated?.();
-                console.info(`[privy] isAuthorized`, isAuthorized);
-                return isAuthorized;
+                return !!useFireflyProfileStore.getState().currentProfileSession;
             },
             onAccountsChanged(account) {
                 console.log(`[privy] onAccountsChanged`, account);
