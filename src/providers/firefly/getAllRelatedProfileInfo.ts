@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { resolveRelatedProfileParams } from '@/providers/firefly/resolve.js';
+import { convertBskyHandleToDid } from '@/providers/bsky/convertBskyHandleToDid.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import {
     type PlatformIdentityKey,
@@ -39,6 +39,14 @@ async function getWalletProfileWithHacked(profiles: WalletProfile[]) {
         ...profile,
         hacked: walletsStatus.some((x) => isSameAddress(x.address, profile.address) && x.is_hack),
     }));
+}
+
+async function resolveRelatedProfileParams(options?: Partial<Record<PlatformIdentityKey, string>>) {
+    if (options?.bskyHandle) {
+        const did = await convertBskyHandleToDid(options.bskyHandle);
+        if (did) options.bskyDid = did;
+    }
+    return options || {};
 }
 
 export async function getAllRelatedProfileInfo(
