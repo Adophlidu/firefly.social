@@ -4,7 +4,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { CharTag, FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
-import { getAllPlatformProfileByIdentity } from '@/providers/firefly/getAllPlatformProfileByIdentity.js';
+import { getAllPlatformProfileByIdentity } from '@/providers/firefly/endpoints/getAllPlatformProfileByIdentity.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import { type MentionChars } from '@/types/chars.js';
 

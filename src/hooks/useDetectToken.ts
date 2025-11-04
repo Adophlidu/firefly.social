@@ -1,12 +1,12 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
 
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 export function useDetectToken(address: string | undefined, enabled = true) {
     return useQuery({
         enabled: enabled && !!address,
         queryKey: ['detect-address', address],
-        queryFn: address ? () => FireflyEndpointProvider.detectAddress(address) : skipToken,
+        queryFn: address ? () => fireflyEndpointProvider.detectAddress(address) : skipToken,
         select: (data) => {
             if (!data) return;
             const tokens = data.list.filter((x) => {

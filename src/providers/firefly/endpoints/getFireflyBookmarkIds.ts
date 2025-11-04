@@ -8,7 +8,6 @@ import { settings } from '@/settings/index.js';
 
 export async function getFireflyBookmarksByIds(platform: FireflyPlatform, ids: string[], postType = BookmarkType.All) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/query/ids');
-
     const response = await fireflySessionHolder.fetch<GetBookmarksResponse>(url, {
         method: 'POST',
         body: JSON.stringify({

@@ -32,7 +32,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { getAllRelatedProfileInfo } from '@/providers/firefly/getAllRelatedProfileInfo.js';
+import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoints/getAllRelatedProfileInfo.js';
 import type { WalletProfiles } from '@/providers/types/Firefly.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';

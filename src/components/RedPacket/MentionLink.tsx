@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from '@/components/Link.js';
 import { LoadingBase } from '@/components/RedPacket/LoadingBase.js';
 import { resolvePlatformProfileUrl } from '@/helpers/resolvePlatformProfile.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getUserInfoById } from '@/providers/firefly/endpoints/getUserInfoById.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
@@ -19,7 +19,7 @@ export function MentionLink({ platform, profileId, handle }: MentionLinkProps) {
     const { data: twitterHandle, isLoading } = useQuery({
         enabled: isTwitter && !handle,
         queryKey: ['twitter-user-info', profileId],
-        queryFn: () => FireflyEndpointProvider.getUserInfoById(profileId),
+        queryFn: () => getUserInfoById(profileId),
         select(data) {
             return data?.username;
         },

@@ -13,7 +13,7 @@ import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.
 import { trimify } from '@/helpers/trimify.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
 export interface ShareLinkProps {
@@ -55,7 +55,7 @@ const fireflyMention = {
 };
 
 async function searchIdentities(query: string) {
-    const data = await FireflyEndpointProvider.searchIdentity(query);
+    const data = await fireflyEndpointProvider.searchIdentity(query);
     if (!data.data.length) return [];
 
     return compact(data.data.map((x) => formatSearchProfile(x)));

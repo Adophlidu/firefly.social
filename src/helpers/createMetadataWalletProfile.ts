@@ -7,7 +7,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { getWalletProfileByAddressOrEns } from '@/providers/firefly/getWalletProfileByAddressOrEns.js';
+import { getWalletProfileByAddressOrEns } from '@/providers/firefly/endpoints/getWalletProfileByAddressOrEns.js';
 
 export async function createMetadataWalletProfile(pathname: string, addressOrEns: string) {
     const walletProfile = await getWalletProfileByAddressOrEns(addressOrEns, false);

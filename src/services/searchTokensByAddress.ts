@@ -4,12 +4,12 @@ import { compact } from 'lodash-es';
 
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export const searchTokensByAddress = memoizePromise(
     async function searchTokensByAddress(address: string) {
-        const detected = await FireflyEndpointProvider.detectAddress(address);
+        const detected = await fireflyEndpointProvider.detectAddress(address);
         if (!detected) return [];
         return compact(
             detected.list.map((x) => {

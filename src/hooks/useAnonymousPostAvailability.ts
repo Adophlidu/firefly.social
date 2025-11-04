@@ -5,7 +5,7 @@ import { type SocialSource, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SUPPORTED_ANONYMOUS_POST_SOURCES } from '@/constants/index.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { PostByAnonymousRateLimitsResponse } from '@/providers/types/Firefly.js';
 
 export function useAnonymousPostAvailability(): {
@@ -24,7 +24,7 @@ export function useAnonymousPostAvailability(): {
         enabled,
         staleTime: 1000 * 60, // 1 minute
         queryKey: ['rate-limits', 'post-by-anonymous'],
-        queryFn: () => FireflyEndpointProvider.getPostByAnonymousRateLimits(),
+        queryFn: () => fireflyEndpointProvider.getPostByAnonymousRateLimits(),
     });
 
     if (!enabled) {

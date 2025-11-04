@@ -12,7 +12,7 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { resolveNFTDataFromUrl } from '@/helpers/resolveNFTDataFromUrl.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
@@ -91,7 +91,7 @@ export async function getClassifyPostLink(url: string) {
                 const nftParams = resolveNFTDataFromUrl(url);
                 if (!nftParams || !NFTSCAN_CHAIN_IDS.includes(nftParams.chainId)) return null;
 
-                const nft = await FireflyEndpointProvider.getNFTDetail(
+                const nft = await fireflyEndpointProvider.getNFTDetail(
                     nftParams.chainId,
                     nftParams.address,
                     nftParams.tokenId,
@@ -102,7 +102,7 @@ export async function getClassifyPostLink(url: string) {
                 const matched = url.match(EVM_ADDRESS);
                 const address = matched?.[0];
                 if (!address) return null;
-                const collection = await FireflyEndpointProvider.detectCollection(address);
+                const collection = await fireflyEndpointProvider.detectCollection(address);
                 return collection ? { collection } : null;
             },
             async () => {

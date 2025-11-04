@@ -7,7 +7,7 @@ import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js'
 import { UnreachableError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ReportCrossPostResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
@@ -71,7 +71,7 @@ async function report(post: CompositePost) {
     const allSettled = await Promise.allSettled(
         reports.map(async (x) => {
             if (!x) return null;
-            await FireflyEndpointProvider.reportPost(
+            await fireflyEndpointProvider.reportPost(
                 x.platform as FireflyPlatform,
                 x.platform_id,
                 resolvePlatformType(post),

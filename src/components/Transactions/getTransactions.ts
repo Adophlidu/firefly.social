@@ -3,7 +3,7 @@ import { polygon } from 'viem/chains';
 
 import { Source } from '@/constants/enum.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { PolymarketActivity, SwapActivity, TransactionsItem } from '@/providers/types/Firefly.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 
@@ -63,7 +63,7 @@ function createTransactionsFetcher(
 
 export const getFollowingTransactions = createTransactionsFetcher(
     (indicator, chainId) =>
-        FireflyEndpointProvider.getFollowingSwapTimeline(chainId ? [chainId] : [], undefined, indicator, 30),
+        fireflyEndpointProvider.getFollowingSwapTimeline(chainId ? [chainId] : [], undefined, indicator, 30),
     (indicator) => Promise.resolve(createPageable([] as PolymarketActivity[], createIndicator(indicator))),
     (indicator) => Promise.resolve(createPageable([] as NFTFeedV3[], createIndicator(indicator))),
 );
@@ -71,7 +71,7 @@ export const getFollowingTransactions = createTransactionsFetcher(
 export const getForYouTransactions = createTransactionsFetcher(
     () => Promise.resolve(createPageable([] as SwapActivity[], createIndicator(undefined))),
     () => Promise.resolve(createPageable([] as PolymarketActivity[], createIndicator(undefined))),
-    (indicator, chainId) => FireflyEndpointProvider.discoverNFTs({ indicator, chainId }),
+    (indicator, chainId) => fireflyEndpointProvider.discoverNFTs({ indicator, chainId }),
 );
 
 export function getProfileTransactions(
@@ -83,10 +83,10 @@ export function getProfileTransactions(
 ) {
     const fetcher = createTransactionsFetcher(
         (indicator, chainId) =>
-            FireflyEndpointProvider.getSwapTimelineByAddress(addresses, chainId ? [chainId] : [], undefined, indicator),
+            fireflyEndpointProvider.getSwapTimelineByAddress(addresses, chainId ? [chainId] : [], undefined, indicator),
         () => Promise.resolve(createPageable([] as PolymarketActivity[], createIndicator(undefined))),
         (indicator, chainId) =>
-            FireflyEndpointProvider.getFollowingNFTs({
+            fireflyEndpointProvider.getFollowingNFTs({
                 indicator,
                 chainId,
                 walletAddress: address,

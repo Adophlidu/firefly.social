@@ -55,7 +55,7 @@ import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarc
 import { formatFarcasterProfileFromSuggestedFollow } from '@/providers/farcaster/formatFarcasterProfileFromSuggestedFollow.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { getWalletProfileByAddressOrEns } from '@/providers/firefly/getWalletProfileByAddressOrEns.js';
+import { getWalletProfileByAddressOrEns } from '@/providers/firefly/endpoints/getWalletProfileByAddressOrEns.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { formatLensProfileFromSuggestedFollow } from '@/providers/lens/formatLensProfileFromSuggestedFollow.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
@@ -120,12 +120,8 @@ import {
     type PostByAnonymousRateLimitsResponse,
     type PrivyWalletResponse,
     type ProjectResponse,
-    type RelationResponse,
     type Response,
     type RootdataPeopleResponse,
-    type ScheduleNotification,
-    type ScheduleNotificationsResponse,
-    ScheduleTaskStatus,
     type SearchNFTResponse,
     type SearchProfileResponse,
     type SearchTokenInfosResponse,
@@ -137,8 +133,6 @@ import {
     type TakoExternalHostedData,
     type TelegramLoginBotResponse,
     type TipsDetailResponse,
-    type TipsNotification,
-    type TipsNotificationsResponse,
     type TokenAsset,
     type TokenPriceStatsOptions,
     type TokenPriceStatsResponse,
@@ -146,8 +140,6 @@ import {
     type TrendingNFTsResponse,
     type TrumpTruthSocialPostsResponse,
     type TruthSocialPostResponse,
-    type TwitterUserInfoResponse,
-    type TwitterUserV2Response,
     type WalletHistoryTransactionsResponse,
     type WalletProfile,
     type WalletRelationResponse,
@@ -162,7 +154,7 @@ import type {
     PoapHoldersResponse,
     PoapResponse,
 } from '@/providers/types/NFTs.js';
-import { NotificationType, type Post } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 import { encryptPasscode } from '@/services/crypto.js';
 import { getBlockRelation } from '@/services/getBlockRelation.js';
 import { settings } from '@/settings/index.js';
@@ -303,35 +295,6 @@ class FireflyEndpoint {
                 response.data?.suggestedFollowList.map((user) => formatFarcasterProfileFromSuggestedFollow(user)) ?? [];
             return createPageable(profiles, indicator, createIndicator(indicator, `${response.data.cursor}`));
         });
-    }
-
-    async getMessageToSignForBindWallet(address: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/messageToSign', {
-            address,
-        });
-
-        const response = await fireflySessionHolder.fetch<Response<{ message: Hex }>>(url, {
-            method: 'GET',
-        });
-
-        const { message } = resolveFireflyResponseData(response);
-        if (!message) throw new Error('Failed to get message to sign');
-
-        return message;
-    }
-
-    async getNextIDRelations(platform: string, identity: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/relations', {
-            platform,
-            identity,
-        });
-
-        const response = await fireflySessionHolder.fetch<RelationResponse>(url, {
-            method: 'GET',
-        });
-
-        const relations = resolveFireflyResponseData(response);
-        return relations;
     }
 
     async verifyAndBindWallet(signMessage: string, signature: string) {
@@ -510,10 +473,6 @@ class FireflyEndpoint {
         );
     }
 
-    getBlockRelation(conditions: Array<{ snsPlatform: FireflyPlatform; snsId: string }>) {
-        return getBlockRelation(conditions);
-    }
-
     async disconnectAccount(connectionId: string, connectionPlatform: ConnectionPlatform) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/accountConnection');
         await fireflySessionHolder.fetch<EmptyResponse>(url, {
@@ -647,25 +606,6 @@ class FireflyEndpoint {
         };
     }
 
-    async getTwitterUserInfo(screenName: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/twitter/userinfo', {
-            screenName,
-        });
-        const response = await fetchJson<TwitterUserInfoResponse>(url, {
-            method: 'GET',
-        });
-        return resolveFireflyResponseData(response);
-    }
-
-    async getUserInfoById(userId: string) {
-        if (!userId) return null;
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/api/twitter/user/:userId', {
-            userId,
-        });
-        const response = await fetchJson<TwitterUserV2Response>(url);
-        return resolveFireflyResponseData(response);
-    }
-
     async blockWallet(address: string) {
         return block('address', address);
     }
@@ -755,7 +695,6 @@ class FireflyEndpoint {
         size = 25,
     ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/timeline/polymarket');
-
         const response = await fireflySessionHolder.fetch<PolymarketActivityTimeline>(url, {
             method: 'POST',
             body: JSON.stringify({
@@ -1550,29 +1489,6 @@ class FireflyEndpoint {
         return resolveFireflyResponseData(response);
     }
 
-    async getTipsNotifications(indicator?: PageIndicator) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/token_tips/notifications', {
-            page: !indicator?.id || indicator.id === '0' ? 1 : indicator?.id,
-            limit: 20,
-        });
-        const response = await fireflySessionHolder.fetch<TipsNotificationsResponse>(url);
-        const data = resolveFireflyResponseData(response);
-
-        return createPageable(
-            (data?.data || EMPTY_LIST).map<TipsNotification>((x) => ({
-                source: Source.Firefly,
-                type: NotificationType.Tips,
-                data: x,
-                timestamp: new Date(x.timestamp).getTime(),
-                notificationId: `${x.tx_hash}-${x.notification_type}-${x.liker_account_info?.id}`,
-            })),
-            createIndicator(indicator),
-            data?.pagination?.page < data?.pagination?.totalPages
-                ? createNextIndicator(indicator, `${data.pagination.page + 1}`)
-                : undefined,
-        );
-    }
-
     async getTipsTransactionDetail(txHash: string, type: TipsNotificationType) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/token_tips/detail', {
             tx_hash: txHash,
@@ -1666,57 +1582,6 @@ class FireflyEndpoint {
         });
         const response = await fireflySessionHolder.fetch<GetAnonymousPostResponse>(url);
         return resolveFireflyResponseData(response);
-    }
-
-    async getScheduleNotifications(indicator?: PageIndicator) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/notification/schedule-posts', {
-            cursor: indicator?.id && indicator.id !== '0' ? indicator.id : undefined,
-            size: 20,
-        });
-        const response = await fireflySessionHolder.fetch<ScheduleNotificationsResponse>(url);
-
-        const data = resolveFireflyResponseData(response);
-        return createPageable(
-            compact(
-                data.notifications.map((x) => {
-                    const posts = x.posts.filter((post) => post.status !== ScheduleTaskStatus.Pending);
-                    if (!posts.length) return;
-                    const successPosts = posts.filter((post) => post.status === ScheduleTaskStatus.Success);
-                    const failedPosts = posts.filter((post) => post.status === ScheduleTaskStatus.Failed);
-                    const timestamp = first(posts)?.publish_timestamp;
-                    return compact([
-                        successPosts.length
-                            ? {
-                                  source: Source.Firefly,
-                                  type: NotificationType.Schedule,
-                                  data: {
-                                      ...x,
-                                      posts: successPosts,
-                                  },
-                                  timestamp: timestamp ? new Date(timestamp).getTime() : null,
-                                  notificationId: `${NotificationType.Schedule}-${x.task_uuid}-${ScheduleTaskStatus.Success}`,
-                                  status: ScheduleTaskStatus.Success,
-                              }
-                            : null,
-                        failedPosts.length
-                            ? {
-                                  source: Source.Firefly,
-                                  type: NotificationType.Schedule,
-                                  data: {
-                                      ...x,
-                                      posts: failedPosts,
-                                  },
-                                  timestamp: timestamp ? new Date(timestamp).getTime() : null,
-                                  notificationId: `${NotificationType.Schedule}-${x.task_uuid}-${ScheduleTaskStatus.Failed}`,
-                                  status: ScheduleTaskStatus.Failed,
-                              }
-                            : null,
-                    ]) as ScheduleNotification[];
-                }),
-            ).flat(),
-            createIndicator(),
-            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
-        );
     }
 
     async checkGenesisSparksAccounts(
@@ -1878,4 +1743,4 @@ class FireflyEndpoint {
 }
 
 export { FireflyEndpoint };
-export const FireflyEndpointProvider = new FireflyEndpoint();
+export const fireflyEndpointProvider = new FireflyEndpoint();

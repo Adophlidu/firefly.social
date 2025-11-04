@@ -5,7 +5,7 @@ import { waitForDisconnectConfirmation } from '@/app/(settings)/components/waitF
 import DisconnectIcon from '@/assets/disconnect.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface ReportButtonProps {
@@ -19,7 +19,7 @@ export function ReportButton({ connection }: ReportButtonProps) {
             if (!confirmed) return;
             const reason = 'Disconnect';
 
-            await FireflyEndpointProvider.reportAndDeleteWallet(connection, reason);
+            await fireflyEndpointProvider.reportAndDeleteWallet(connection, reason);
             enqueueSuccessMessage(<Trans>Disconnected from your Firefly account</Trans>);
         } catch (error) {
             enqueueMessageFromError(error, <Trans>Failed to disconnect</Trans>);

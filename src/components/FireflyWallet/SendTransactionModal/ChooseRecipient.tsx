@@ -8,7 +8,7 @@ import {
 import { Loading } from '@/components/Loading.js';
 import { NetworkType, type ProfilePageSource, Source } from '@/constants/enum.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
-import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
+import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoints/getAllPlatformProfileFromFirefly.js';
 import { type FireflyProfile, type WalletProfile } from '@/providers/types/Firefly.js';
 
 export function ChooseRecipient({

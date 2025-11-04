@@ -8,7 +8,7 @@ import urlcat from 'urlcat';
 import SparksIcon from '@/assets/sparks-star.svg';
 import SparksSelectedIcon from '@/assets/sparks-star-selected.svg';
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 interface GenesisSparksMenuProps {
@@ -26,7 +26,7 @@ export const GenesisSparksMenu = memo<GenesisSparksMenuProps>(function GenesisSp
         queryKey: ['sparks-account', uid],
         queryFn: () => {
             if (!uid) return;
-            return FireflyEndpointProvider.getSparksAccountDetails(`${uid}`);
+            return fireflyEndpointProvider.getSparksAccountDetails(`${uid}`);
         },
     });
 

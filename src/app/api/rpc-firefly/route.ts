@@ -6,7 +6,8 @@ import {
     createSuccessResponseJson,
     createZodErrorResponseJson,
 } from '@/helpers/createResponseJson.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getWalletProfileByAddressOrEns } from '@/providers/firefly/endpoints/getWalletProfileByAddressOrEns.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
@@ -26,10 +27,19 @@ const MethodParamSchemas = {
     getTruthSocialPostById: z.object({
         truthId: z.string(),
     }),
+    getWalletProfileByAddressOrEns: z.object({
+        addressOrEns: z.string(),
+        isAuthRequired: z.boolean().optional(),
+    }),
 };
 
-// Available methods mapping
-const availableMethods = Object.keys(MethodParamSchemas);
+const availableMethods = {
+    getPostByShortId: fireflyEndpointProvider.getPostByShortId,
+    getTruthSocialPostById: fireflyEndpointProvider.getTruthSocialPostById,
+    getWalletProfileByAddressOrEns,
+};
+
+const availableMethodsList = Object.keys(MethodParamSchemas);
 
 export async function POST(request: NextRequest) {
     try {
@@ -43,9 +53,9 @@ export async function POST(request: NextRequest) {
         const { method, params } = parsedRequest.data;
 
         // Check if method is supported
-        if (!availableMethods.includes(method)) {
+        if (!availableMethodsList.includes(method)) {
             return createErrorResponseJson(
-                `Unsupported method: ${method}. Available methods: ${availableMethods.join(', ')}`,
+                `Unsupported method: ${method}. Available methods: ${availableMethodsList.join(', ')}`,
                 { status: 400 },
             );
         }
@@ -73,7 +83,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Call the method on the FireflyEndpointProvider
-        const result = await (FireflyEndpointProvider[method as keyof typeof FireflyEndpointProvider] as Function)(
+        const result = await (availableMethods[method as keyof typeof availableMethods] as Function)(
             ...Object.values(parsedParams.data),
         );
 

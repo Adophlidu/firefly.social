@@ -35,7 +35,7 @@ import { useChangeSwapLikeStatus } from '@/hooks/useChangeSwapLikeStatus.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 
 interface SwapActionsProps {
@@ -51,7 +51,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
         queryKey: ['swap', activity?.hash, activity?.chain_id],
         queryFn: async () => {
             if (!activity) return;
-            const data = await FireflyEndpointProvider.getSwapActivityByHash(activity.hash, activity.chain_id);
+            const data = await fireflyEndpointProvider.getSwapActivityByHash(activity.hash, activity.chain_id);
             return data;
         },
     });
@@ -74,7 +74,7 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
         });
 
         if (result) {
-            const repostResult = await FireflyEndpointProvider.createTxReaction(
+            const repostResult = await fireflyEndpointProvider.createTxReaction(
                 TxReactionType.ShareSwap,
                 activity.chain_id.toString(),
                 activity.hash,

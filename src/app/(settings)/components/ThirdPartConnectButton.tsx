@@ -9,7 +9,7 @@ import { Source, type ThirdPartySource } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface Props {
     source: ThirdPartySource | Source.Email;
@@ -20,7 +20,7 @@ export function ThirdPartConnectButton({ source }: Props) {
         try {
             switch (source) {
                 case Source.Telegram:
-                    const url = await FireflyEndpointProvider.getTelegramLoginUrl();
+                    const url = await fireflyEndpointProvider.getTelegramLoginUrl();
                     if (!url) return;
                     location.href = url;
                     break;

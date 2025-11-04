@@ -22,7 +22,7 @@ import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfi
 import { getFarcasterSessionType } from '@/providers/farcaster/getFarcasterSessionType.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
@@ -294,7 +294,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        return FireflyEndpointProvider.getFarcasterSuggestFollows(indicator);
+        return fireflyEndpointProvider.getFarcasterSuggestFollows(indicator);
     }
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
@@ -338,7 +338,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async reportProfile(profileId: string) {
-        return FireflyEndpointProvider.reportProfile(profileId);
+        return fireflyEndpointProvider.reportProfile(profileId);
     }
 
     async reportPost(post: Post) {
@@ -346,11 +346,11 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async blockProfile(profileId: string) {
-        return FireflyEndpointProvider.blockProfileFor(FireflyPlatform.Farcaster, profileId);
+        return fireflyEndpointProvider.blockProfileFor(FireflyPlatform.Farcaster, profileId);
     }
 
     async unblockProfile(profileId: string) {
-        return FireflyEndpointProvider.unblockProfileFor(FireflyPlatform.Farcaster, profileId);
+        return fireflyEndpointProvider.unblockProfileFor(FireflyPlatform.Farcaster, profileId);
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {

@@ -18,7 +18,7 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { groupAndSortByDate } from '@/helpers/sortAndGroupByDate.js';
 import { TransactionDetailModalRef } from '@/modals/TransactionDetailModal/TransactionDetailModal.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import {
     TransactionHistoryCategory,
     type TransactionHistoryItem,
@@ -35,7 +35,7 @@ export function TransactionHistory({ chains, address }: Props) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['wallet-transaction-history', address, chains],
         async queryFn({ pageParam }) {
-            return FireflyEndpointProvider.getWalletHistoryTransactions(chains, address, {
+            return fireflyEndpointProvider.getWalletHistoryTransactions(chains, address, {
                 indicator: createIndicator(undefined, pageParam),
             });
         },

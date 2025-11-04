@@ -13,7 +13,8 @@ import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getScheduleNotifications } from '@/providers/firefly/endpoints/getScheduleNotifications.js';
+import { getTipsNotifications } from '@/providers/firefly/endpoints/getTipsNotifications.js';
 import { NotificationType } from '@/providers/types/SocialMedia.js';
 import { listenNotifications } from '@/services/listenNotifications.js';
 import { useNotificationStateStore } from '@/store/useNotificationStore.js';
@@ -50,13 +51,8 @@ export const FireflyNotifications = memo(function FireflyNotifications() {
                 const indicator = createIndicator(undefined, pageParam);
                 if (!isLogin || asyncStatusAll) return createPageable(EMPTY_LIST, indicator);
 
-                if (x === NotificationType.Tips) {
-                    return FireflyEndpointProvider.getTipsNotifications(indicator);
-                }
-
-                if (x === NotificationType.Schedule) {
-                    return FireflyEndpointProvider.getScheduleNotifications(indicator);
-                }
+                if (x === NotificationType.Tips) return getTipsNotifications(indicator);
+                if (x === NotificationType.Schedule) return getScheduleNotifications(indicator);
 
                 return resolveSocialMediaProvider(x).getNotifications(indicator, enableQualityFilter);
             },

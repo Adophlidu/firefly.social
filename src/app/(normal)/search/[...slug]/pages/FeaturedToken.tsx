@@ -9,7 +9,7 @@ import { swapActivityToTradeRecord } from '@/helpers/swapActivityToTradeRecord.j
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useSingleCoin } from '@/hooks/useSingleCoin.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface FeaturedTokenProps extends HTMLProps<HTMLDivElement>, Pick<TokenMarketDataProps, 'token'> {}
 
@@ -28,7 +28,7 @@ export const FeaturedToken = memo<FeaturedTokenProps>(function FeaturedToken({ t
         queryKey: ['swaps', 'following', 'first-100', profileIds, chainId, tokenAddress],
         queryFn: async () => {
             if (!isLoginFirefly || !tokenAddress) return null;
-            return FireflyEndpointProvider.getFollowingSwapTimeline(
+            return fireflyEndpointProvider.getFollowingSwapTimeline(
                 chainId ? [chainId] : [],
                 tokenAddress,
                 undefined,

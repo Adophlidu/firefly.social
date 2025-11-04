@@ -6,7 +6,7 @@ import { NOTIFICATION_PERMISSION_KEY } from '@/constants/index.js';
 import { enqueuePermissionMessage } from '@/helpers/enqueuePermissionMessage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 interface Options {
@@ -67,6 +67,6 @@ export async function setupFirebaseFcmConnection(
         });
         if (!token) return;
 
-        await FireflyEndpointProvider.uploadNotificationSubscription(token, '');
+        await fireflyEndpointProvider.uploadNotificationSubscription(token, '');
     });
 }

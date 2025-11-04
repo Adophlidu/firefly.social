@@ -5,7 +5,7 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isValidChainIdEthereum, isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { parseChainId } from '@/helpers/parseChainId.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
@@ -34,7 +34,7 @@ export default async function Page(props: Props) {
     if (!chainId) notFound();
 
     if (isNFTDetailPage(chainIdOrCollectionId, addressOrTokenId)) {
-        const collection = await FireflyEndpointProvider.getCollection(chainId, addressOrTokenId);
+        const collection = await fireflyEndpointProvider.getCollection(chainId, addressOrTokenId);
         if (collection) {
             const { address, chainId } = resolveCollectionChain(collection);
             return <NFTDetailPage chainId={chainId} address={address} tokenId={addressOrTokenId} />;

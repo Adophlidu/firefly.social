@@ -18,7 +18,7 @@ import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnect
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { formatThirdPartyProfileName } from '@/providers/lens/formatThirdPartyProfileName.js';
 import type { Account } from '@/providers/types/Account.js';
 import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
@@ -117,7 +117,7 @@ export function ThirdPartAccounts() {
         queryKey: ['allConnections', ...allProfileIds],
         enabled: !!allProfileIds.length,
         queryFn: () => {
-            return runInSafeAsync(() => FireflyEndpointProvider.getAllConnections());
+            return runInSafeAsync(() => fireflyEndpointProvider.getAllConnections());
         },
     });
 

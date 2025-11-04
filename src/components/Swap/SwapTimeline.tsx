@@ -17,7 +17,7 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 
@@ -70,14 +70,14 @@ export function SwapTimeline({
             if ((isFollowing && !isLoginFirefly) || (!isFollowing && !address)) return null;
 
             if (!isFollowing && address) {
-                return FireflyEndpointProvider.getSwapTimelineByAddress(
+                return fireflyEndpointProvider.getSwapTimelineByAddress(
                     address,
                     chainId ? [chainId] : [],
                     tokenAddress,
                     createIndicator(undefined, pageParam),
                 );
             } else {
-                return FireflyEndpointProvider.getFollowingSwapTimeline(
+                return fireflyEndpointProvider.getFollowingSwapTimeline(
                     chainId ? [chainId] : [],
                     tokenAddress,
                     createIndicator(undefined, pageParam),

@@ -29,6 +29,7 @@ export async function queryMutedProfiles(identities: FireflyIdentity[]) {
             snsId: x.id,
         }));
     if (!conditions.length) return;
+
     const relations = await getBlockRelation(conditions);
     relations.forEach(({ snsId, snsPlatform, blocked }) => {
         const source = resolveSourceFromFireflyPlatform(snsPlatform);

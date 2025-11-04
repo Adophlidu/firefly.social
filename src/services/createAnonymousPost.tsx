@@ -13,7 +13,7 @@ import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { getFarcasterMediaObjects } from '@/providers/farcaster/getFarcasterMediaObjects.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost, type OrphanPost } from '@/store/useComposeStore.js';
@@ -61,7 +61,7 @@ async function waitForTask(id: string, sources: SocialSource[], retryCount = 20)
         throw new TimeoutError();
     }
 
-    const result = await FireflyEndpointProvider.getAnonymousPostById(id);
+    const result = await fireflyEndpointProvider.getAnonymousPostById(id);
 
     switch (result.status) {
         case 'queued':
@@ -148,7 +148,7 @@ async function createAnonymousPostByFirefly(
         polls: [],
     });
 
-    const result = await FireflyEndpointProvider.createAnonymousPost({
+    const result = await fireflyEndpointProvider.createAnonymousPost({
         text: content,
         embeds: mediaObjects.map((x) => x.url),
         quote: type === 'quote' && parent ? resolvePostReferenceId(parent) : null,

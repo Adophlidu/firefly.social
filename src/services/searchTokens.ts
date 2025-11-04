@@ -3,7 +3,7 @@ import { compact } from 'lodash-es';
 import { isValidAddress } from '@/helpers/isValidAddress.js';
 import { trimify } from '@/helpers/trimify.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { CoinGeckoCoinMarketInfo } from '@/providers/types/CoinGecko.js';
 import type { SearchableToken } from '@/providers/types/Firefly.js';
 import { searchTokensByAddress } from '@/services/searchTokensByAddress.js';
@@ -37,7 +37,7 @@ async function searchByAddress(address: string): Promise<SearchableToken[]> {
 }
 
 async function searchByKeyword(keyword: string, fuzzy?: boolean): Promise<SearchableToken[]> {
-    const infos = await FireflyEndpointProvider.searchTokenInfos(keyword, fuzzy);
+    const infos = await fireflyEndpointProvider.searchTokenInfos(keyword, fuzzy);
     const tokens = infos.map((info) => {
         return {
             platform_type: info.platform_type,

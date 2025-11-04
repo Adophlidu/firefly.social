@@ -11,7 +11,7 @@ import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/for
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -59,7 +59,7 @@ export async function decryptAppScanLoginEncryptedData(
     const authData = parseJson<AuthDataFromApp>(decryptedData);
     if (!authData) return { error: 'Decryption failed.' };
 
-    const allConnectionsFromAuthToken = await FireflyEndpointProvider.getAllConnectionsFromAuthToken(
+    const allConnectionsFromAuthToken = await fireflyEndpointProvider.getAllConnectionsFromAuthToken(
         authData.firefly_account_token,
     );
     const fireflyProfile = formatFireflyAccountProfileFromFireflyConnections(allConnectionsFromAuthToken.account);

@@ -6,7 +6,7 @@ import { InvalidResultError } from '@/constants/error.js';
 import { retry } from '@/helpers/retry.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { privyWalletConnectionsQuery, usePrivyConnections } from '@/hooks/usePrivyConnections.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
@@ -20,7 +20,7 @@ export function useIsCreatedPrivyWallet() {
     const { isLoading, error } = useQuery({
         queryKey: ['create-privy-wallet', currentProfileSession?.profileId, enabled],
         async queryFn() {
-            const data = await FireflyEndpointProvider.createPrivyWallet();
+            const data = await fireflyEndpointProvider.createPrivyWallet();
             if (!data) {
                 sentryClient.captureException(
                     ExceptionId.CREATE_PRIVY_WALLET,

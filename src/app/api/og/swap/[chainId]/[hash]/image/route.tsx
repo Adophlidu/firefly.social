@@ -21,7 +21,7 @@ import { formatPrice } from '@/helpers/formatPrice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveChainIcon } from '@/helpers/resolveChainIcon.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import type { NextRequestContext } from '@/types/utility.js';
@@ -240,7 +240,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const params = await context?.params;
     if (!params?.hash || !params?.chainId) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
 
-    const activity = await FireflyEndpointProvider.getSwapActivityByHash(params.hash, Number(params.chainId));
+    const activity = await fireflyEndpointProvider.getSwapActivityByHash(params.hash, Number(params.chainId));
     if (!activity) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
 
     return createSwapOpenGraphImageResponse({ swap: activity });

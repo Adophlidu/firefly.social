@@ -9,7 +9,7 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
 import type { NonFungibleAsset } from '@/web3-shared/base/specs.js';
 import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
@@ -79,7 +79,7 @@ export function useReportSpamNFT() {
             });
             if (!confirmed) return;
             try {
-                await FireflyEndpointProvider.reportNFT(chainId, address);
+                await fireflyEndpointProvider.reportNFT(chainId, address);
                 filterOutActivities(address);
                 enqueueSuccessMessage(<Trans>Report submitted</Trans>);
             } catch (error) {

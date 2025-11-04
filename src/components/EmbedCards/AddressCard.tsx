@@ -9,13 +9,13 @@ import { WalletCard } from '@/components/EmbedCards/WalletCard.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useWalletProfile } from '@/hooks/useWalletProfile.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 export const AddressCard = memo<AddressCardProps>(function AddressCard(props) {
     const address = props.address;
     const { data: detected } = useQuery({
         queryKey: ['detect-address', address],
-        queryFn: () => FireflyEndpointProvider.detectAddress(address),
+        queryFn: () => fireflyEndpointProvider.detectAddress(address),
         select: (data) => data?.list[0],
     });
     const address_type = detected?.address_type;
@@ -54,7 +54,7 @@ export const AddressCardIndicator = memo<AddressCardIndicatorProps>(function Add
 }) {
     const { data: detected } = useQuery({
         queryKey: ['detect-address', address],
-        queryFn: () => FireflyEndpointProvider.detectAddress(address),
+        queryFn: () => fireflyEndpointProvider.detectAddress(address),
         select: (data) => data?.list[0],
     });
     const contractType = detected?.contract_type;

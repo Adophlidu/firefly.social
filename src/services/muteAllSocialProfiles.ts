@@ -6,8 +6,8 @@ import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { getAllPlatformProfileByIdentity } from '@/providers/firefly/getAllPlatformProfileByIdentity.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getAllPlatformProfileByIdentity } from '@/providers/firefly/endpoints/getAllPlatformProfileByIdentity.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -90,7 +90,7 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
 
     const wallets = socialProfiles.filter((profile) => profile.identity.source === Source.Wallet);
     if (wallets.length) {
-        await Promise.allSettled(wallets.map((profile) => FireflyEndpointProvider.blockWallet(profile.identity.id)));
+        await Promise.allSettled(wallets.map((profile) => fireflyEndpointProvider.blockWallet(profile.identity.id)));
         results.push(
             ...wallets.map((profile) => ({
                 snsId: profile.identity.id,

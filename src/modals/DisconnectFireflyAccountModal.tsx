@@ -20,7 +20,7 @@ import { stopEvent } from '@/helpers/stopEvent.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureAccountDisconnectEvent } from '@/providers/telemetry/captureAccountEvent.js';
 import type { Account } from '@/providers/types/Account.js';
 import { removeAccountByProfileId } from '@/services/account.js';
@@ -44,7 +44,7 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
         try {
             if (!account) return;
             const source = account.profile.profileSource;
-            await FireflyEndpointProvider.disconnectAccount(
+            await fireflyEndpointProvider.disconnectAccount(
                 account.profile.profileId,
                 resolveConnectionPlatform(source),
             );

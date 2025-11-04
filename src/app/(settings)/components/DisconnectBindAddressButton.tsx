@@ -12,7 +12,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { type FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { removeAccountsByProfiles } from '@/services/account.js';
 
@@ -40,7 +40,7 @@ export function DisconnectBindAddressButton({ connection }: DisconnectBindAddres
             const confirmed = await waitForDisconnectConfirmation(connection);
             if (!confirmed) return;
 
-            await FireflyEndpointProvider.disconnectAccount(
+            await fireflyEndpointProvider.disconnectAccount(
                 connection.address,
                 resolveConnectionPlatform(connection.platform),
             );

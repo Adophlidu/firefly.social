@@ -8,7 +8,7 @@ import { Loading } from '@/components/Loading.js';
 import { PolymarketTradeItem } from '@/components/Polymarket/PolymarketTradeItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { PolymarketTradeData } from '@/providers/types/Firefly.js';
 
 interface PolymarketTradeListProps {
@@ -31,7 +31,7 @@ export function PolymarketTradeList({ address }: PolymarketTradeListProps) {
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             try {
-                return await FireflyEndpointProvider.getPolymarketTradeHistory({ address, limit: 25, indicator });
+                return await fireflyEndpointProvider.getPolymarketTradeHistory({ address, limit: 25, indicator });
             } catch {
                 return createPageable([], indicator);
             }

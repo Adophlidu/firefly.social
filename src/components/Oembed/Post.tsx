@@ -6,7 +6,7 @@ import { type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface PostEmbedProps {
@@ -29,7 +29,7 @@ export const PostEmbed = memo<PostEmbedProps>(function PostEmbed({ id, source, i
                 const provider = resolveSocialMediaProvider(currentSource);
                 let post;
                 if (currentSource === Source.Farcaster && handle && id.length <= 10) {
-                    post = await FireflyEndpointProvider.getPostByShortId(
+                    post = await fireflyEndpointProvider.getPostByShortId(
                         id,
                         handle,
                         farcasterSessionHolder.session?.profileId,

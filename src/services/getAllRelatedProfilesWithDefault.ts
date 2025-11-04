@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 
 import { NetworkType, type ProfilePageSource, Source } from '@/constants/enum.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
-import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/getAllPlatformProfileFromFirefly.js';
+import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoints/getAllPlatformProfileFromFirefly.js';
 import type { WalletProfile, WalletProfiles } from '@/providers/types/Firefly.js';
 
 function isEmpty(profiles: WalletProfiles) {

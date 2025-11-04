@@ -20,7 +20,7 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { captureAccountLoginEvent } from '@/providers/telemetry/captureAccountEvent.js';
@@ -145,11 +145,11 @@ export async function uploadMetrics(passcode: string) {
         throw new Error('No valid metrics data to upload.');
     }
 
-    return await FireflyEndpointProvider.uploadMetrics(passcode, validMetrics);
+    return await fireflyEndpointProvider.uploadMetrics(passcode, validMetrics);
 }
 
 export async function downloadAccounts() {
-    const response = await FireflyEndpointProvider.downloadMetaInfo();
+    const response = await fireflyEndpointProvider.downloadMetaInfo();
 
     return response.metrics;
 }
@@ -163,7 +163,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
 
     const validLocalMetrics = compact(localMetrics);
 
-    const remoteMetricsResponse = await FireflyEndpointProvider.downloadMetrics(passcode);
+    const remoteMetricsResponse = await fireflyEndpointProvider.downloadMetrics(passcode);
     const remoteMetrics = remoteMetricsResponse.metrics.map(({ identity, ...metric }) => metric);
 
     // merge local metrics with remote metrics, if local metrics is not in remote metrics, add it to remote metrics
@@ -181,7 +181,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
         }
     }
 
-    await FireflyEndpointProvider.uploadMetrics(passcode, compact(mergedMetrics));
+    await fireflyEndpointProvider.uploadMetrics(passcode, compact(mergedMetrics));
 
     for (const info of remoteMetrics) {
         if (

@@ -5,7 +5,7 @@ import { parseUrl } from '@dimensiondev/utils';
 
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { ReferralAccountPlatform } from '@/helpers/resolveActivityUrl.js';
-import { getAllRelatedProfileInfo } from '@/providers/firefly/getAllRelatedProfileInfo.js';
+import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoints/getAllRelatedProfileInfo.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId, type Events } from '@/providers/types/Telemetry.js';

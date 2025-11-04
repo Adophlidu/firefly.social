@@ -11,7 +11,7 @@ import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { patchFarcasterSessionRequired } from '@/providers/farcaster/patchFarcasterSessionRequired.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
@@ -139,7 +139,7 @@ async function restoreFireflySessionFromGoogle(session: ThirdPartySession, signa
 }
 
 async function restoreFireflySessionFromTelegram(session: ThirdPartySession, signal?: AbortSignal) {
-    const data = await FireflyEndpointProvider.loginTelegram(session.token);
+    const data = await fireflyEndpointProvider.loginTelegram(session.token);
     return new FireflySession(data.uid ?? data.accountId, data.accessToken, session, null, false, data);
 }
 

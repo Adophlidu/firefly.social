@@ -4,7 +4,7 @@ import { estimateFeesPerGas, getBalance } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { isGreaterThan, multipliedBy, plus, ZERO } from '@/helpers/number.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { type Article } from '@/providers/types/Article.js';
 import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
 
@@ -16,7 +16,7 @@ export function useArticleCollectStatus(article: Article) {
         queryFn: async () => {
             try {
                 if (!account.address) return;
-                const data = await FireflyEndpointProvider.getArticleCollectStatus(
+                const data = await fireflyEndpointProvider.getArticleCollectStatus(
                     article.id,
                     account.address,
                     article.platform,

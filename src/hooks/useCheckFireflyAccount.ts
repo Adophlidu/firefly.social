@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { FetchError } from '@/constants/error.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
@@ -21,7 +21,7 @@ export function useCheckFireflyAccount(withSyncing = true, forceQuery = false) {
             if (hasChecked) return { hasFireflyAccount: true };
             if (!accountId) return { hasFireflyAccount: false };
 
-            const connections = await FireflyEndpointProvider.getAllConnections();
+            const connections = await fireflyEndpointProvider.getAllConnections();
             const fireflyAccount = formatFireflyAccountProfileFromFireflyConnections(connections.account, false);
             const hasFireflyAccount = !!fireflyAccount?.displayName || !!fireflyAccount?.avatar;
             if (hasFireflyAccount) {

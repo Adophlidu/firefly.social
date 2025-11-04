@@ -15,7 +15,7 @@ import type { ConnectionPlatform } from '@/constants/enum.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddressEthereum, formatAddressSolana } from '@/helpers/formatAddress.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function PrimaryButton({
@@ -33,7 +33,7 @@ export function PrimaryButton({
 }) {
     const queryClient = useQueryClient();
     const [{ loading }, onSetPrimary] = useAsyncFn(async () => {
-        await FireflyEndpointProvider.updateDefaultConnection(platformId, platform);
+        await fireflyEndpointProvider.updateDefaultConnection(platformId, platform);
         await queryClient.refetchQueries({ queryKey: ['all-profiles'] });
         await queryClient.refetchQueries({ queryKey: ['allConnections'] });
         if (profile?.handle) {

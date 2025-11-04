@@ -12,7 +12,7 @@ import { PolymarketMarketsTraded } from '@/components/Polymarket/PolymarketMarke
 import { Link } from '@/esm/Link.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { capturePolymarketProfileLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 
 interface PolymarketProfileProps {
@@ -23,7 +23,7 @@ export const PolymarketProfile = memo<PolymarketProfileProps>(function Polymarke
     const { isLoading, data } = useQuery({
         queryKey: ['polymarket', 'profile', address],
         staleTime: 1000 * 60 * 5,
-        queryFn: () => FireflyEndpointProvider.getPolymarketProfile(address),
+        queryFn: () => fireflyEndpointProvider.getPolymarketProfile(address),
     });
 
     return (

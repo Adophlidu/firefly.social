@@ -29,7 +29,7 @@ import { isValidAddress, isValidTokenAddressSui } from '@/helpers/isValidAddress
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useDetectToken } from '@/hooks/useDetectToken.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { ClubUrl, Contract } from '@/providers/types/Trending.js';
 
 interface InfoRowProps extends Omit<HTMLProps<HTMLDivElement>, 'title'> {
@@ -314,7 +314,7 @@ interface DexCoinOverviewProps extends HTMLProps<HTMLDivElement> {
 export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOverview({ chainId, address, ...rest }) {
     const { data: detail, isLoading } = useQuery({
         queryKey: ['dex-coin-detail', chainId, address],
-        queryFn: () => FireflyEndpointProvider.getDexCoinDetail(chainId, address),
+        queryFn: () => fireflyEndpointProvider.getDexCoinDetail(chainId, address),
     });
 
     if (!detail) {

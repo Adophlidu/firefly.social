@@ -10,7 +10,7 @@ import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin, useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function useIsProfileMuted(source: Source, profileId: string, blocking?: boolean, enabled = true) {
@@ -37,7 +37,7 @@ export function useIsProfileMuted(source: Source, profileId: string, blocking?: 
         queryFn: async () => {
             const platform = resolveFireflyPlatform(source);
             if (!platform) return undefined;
-            return FireflyEndpointProvider.isProfileMuted(platform, profileId);
+            return fireflyEndpointProvider.isProfileMuted(platform, profileId);
         },
     });
 

@@ -11,7 +11,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isValidAddress } from '@/helpers/isValidAddress.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { TokenPlatformType } from '@/providers/types/Firefly.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
 
@@ -51,9 +51,9 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
             : ['token', 'with-market-data', token.chainId, token.address],
         queryFn: async () => {
             if (isCex) {
-                return FireflyEndpointProvider.getTokenByCoinId(token.id);
+                return fireflyEndpointProvider.getTokenByCoinId(token.id);
             } else if (token.chainId && token.address) {
-                return FireflyEndpointProvider.getTokenByAddress(token.chainId, token.address);
+                return fireflyEndpointProvider.getTokenByAddress(token.chainId, token.address);
             }
             return null;
         },

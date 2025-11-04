@@ -6,7 +6,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface Props extends HTMLProps<HTMLSpanElement> {
@@ -26,7 +26,7 @@ export const ToggleMore = memo<Props>(function ToggleMore({ post, ...rest }) {
                     queryFn: async () => {
                         const ipfs = (post.__original__ as any).embeds[0].url;
                         if (!ipfs) return null;
-                        const result = await FireflyEndpointProvider.getTakoExternalHostedData(ipfs);
+                        const result = await fireflyEndpointProvider.getTakoExternalHostedData(ipfs);
                         return result;
                     },
                 });

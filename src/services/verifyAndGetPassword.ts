@@ -2,7 +2,7 @@ import { PasswordWorkflow } from '@/constants/enum.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
 import type { StepDescriptions } from '@/modals/PasswordModal/StepDescription.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { useTokenPasswordStore } from '@/store/useTokenPasswordStore.js';
 
 interface VerifyAndGetPasswordOptions {
@@ -15,7 +15,7 @@ interface VerifyAndGetPasswordOptions {
 export async function verifyAndGetPassword(config?: VerifyAndGetPasswordOptions) {
     const { skipCheck = false, autoUploadMetrics = true, requireSetPassword = false, descriptions } = config ?? {};
     const localPassword = useTokenPasswordStore.getState().password;
-    const status = await FireflyEndpointProvider.getMetricsStatus();
+    const status = await fireflyEndpointProvider.getMetricsStatus();
     if (!status.hasSetPasscode) {
         if (!requireSetPassword) return null;
         const result = await PasswordModalRef.openAndWaitForClose({
@@ -27,7 +27,7 @@ export async function verifyAndGetPassword(config?: VerifyAndGetPasswordOptions)
         return useTokenPasswordStore.getState().password;
     }
     if (localPassword && !skipCheck) {
-        const result = await FireflyEndpointProvider.checkPasscode(localPassword, true);
+        const result = await fireflyEndpointProvider.checkPasscode(localPassword, true);
         if (result?.code === FireflyResponseCode.SUCCESS) {
             return localPassword;
         }

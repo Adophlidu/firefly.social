@@ -10,7 +10,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { useRouter } from '@/esm/navigation.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureAccountDeleteEvent } from '@/providers/telemetry/captureAccountEvent.js';
 import { removeAllAccounts } from '@/services/account.js';
@@ -89,7 +89,7 @@ export function useDeleteFireflyAccount() {
         try {
             const { accountIdForEvent } = fireflySessionHolder.sessionRequired;
 
-            await FireflyEndpointProvider.deleteAccount();
+            await fireflyEndpointProvider.deleteAccount();
             enqueueSuccessMessage(<Trans>Deleted your Firefly account</Trans>);
             router.replace('/', {
                 showProgress: false,

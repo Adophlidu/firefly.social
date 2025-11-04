@@ -9,7 +9,7 @@ import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 
 export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) {
@@ -23,7 +23,7 @@ export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) 
                 if (!walletAddress) {
                     return createPageable(EMPTY_LIST, indicator);
                 }
-                return FireflyEndpointProvider.getFollowingNFTs({
+                return fireflyEndpointProvider.getFollowingNFTs({
                     indicator: createIndicator(undefined, pageParam),
                     chainId,
                     walletAddress,

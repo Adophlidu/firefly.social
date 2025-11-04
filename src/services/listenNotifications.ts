@@ -5,7 +5,8 @@ import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { getScheduleNotifications } from '@/providers/firefly/endpoints/getScheduleNotifications.js';
+import { getTipsNotifications } from '@/providers/firefly/endpoints/getTipsNotifications.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { type Notification as NotificationObject } from '@/providers/types/SocialMedia.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
@@ -25,13 +26,13 @@ const sourceConfig: Config[] = [
     {
         type: NotificationSourceType.Tips,
         loginSource: Source.Firefly,
-        getNotifications: () => FireflyEndpointProvider.getTipsNotifications(),
+        getNotifications: () => getTipsNotifications(),
     },
     {
         timeout: 1000 * 60 * 2,
         type: NotificationSourceType.Schedule,
         loginSource: Source.Firefly,
-        getNotifications: () => FireflyEndpointProvider.getScheduleNotifications(),
+        getNotifications: () => getScheduleNotifications(),
     },
     {
         type: NotificationSourceType.Farcaster,
