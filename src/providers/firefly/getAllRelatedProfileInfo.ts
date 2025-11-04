@@ -11,6 +11,15 @@ import {
 } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
+const WALLET_PROFILES_FALLBACK: WalletProfiles = {
+    walletProfiles: [],
+    lensProfilesV3: [],
+    farcasterProfiles: [],
+    twitterProfiles: [],
+    solanaWalletProfiles: [],
+    bskyProfiles: [],
+};
+
 export async function getAllRelatedProfileInfo(
     options?: Partial<Record<PlatformIdentityKey, string>>,
     isAuthRequired?: boolean,
@@ -30,16 +39,7 @@ export async function getAllRelatedProfileInfo(
             withSession: isAuthRequired,
         },
     );
-    const data =
-        resolveFireflyResponseData(response) ||
-        ({
-            walletProfiles: [],
-            lensProfilesV3: [],
-            farcasterProfiles: [],
-            twitterProfiles: [],
-            solanaWalletProfiles: [],
-            bskyProfiles: [],
-        } satisfies WalletProfiles);
+    const data = resolveFireflyResponseData(response) || WALLET_PROFILES_FALLBACK;
     if (data.walletProfiles.length) data.walletProfiles = await getWalletProfileWithHacked(data.walletProfiles);
     return data;
 }

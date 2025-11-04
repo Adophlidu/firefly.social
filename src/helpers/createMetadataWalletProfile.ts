@@ -15,7 +15,7 @@ export async function createMetadataWalletProfile(pathname: string, addressOrEns
 
     const title = walletProfile.primary_ens
         ? createPageTitleOG(walletProfile.primary_ens)
-        : createPageTitleOG(`${formatAddress(walletProfile.address, 4)}`);
+        : createPageTitleOG(formatAddress(walletProfile.address, 4));
     const description = walletProfile.address;
     const images = [
         urlcat(SITE_URL, 'api/og/profile/:source/:id/image', {

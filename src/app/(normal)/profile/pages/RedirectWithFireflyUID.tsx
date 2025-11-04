@@ -11,6 +11,7 @@ import type { FireflyProfile } from '@/providers/types/Firefly.js';
 export async function RedirectWithFireflyUID({ uid }: { uid: string }): Promise<ReactNode | never> {
     const relatedProfile = await getAllRelatedProfileInfo({ uid }, false);
     if (!relatedProfile) notFound();
+
     const profiles = formatFireflyProfilesFromWalletProfiles(relatedProfile) as FireflyProfile[];
     const sortProfilesWithSource = SORTED_PROFILE_SOURCES.map((source) => {
         return profiles
@@ -21,8 +22,10 @@ export async function RedirectWithFireflyUID({ uid }: { uid: string }): Promise<
                 return priorityB - priorityA;
             });
     }).filter((profiles) => profiles.length);
+
     const topProfile = sortProfilesWithSource?.[0]?.[0];
     if (!topProfile) notFound();
+
     redirect(
         resolveProfileUrl(topProfile.identity.source as SocialSource, topProfile.displayName),
         RedirectType.replace,

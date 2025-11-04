@@ -277,6 +277,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     if (source === Source.Firefly) {
         const profiles = await getAllRelatedProfileInfo({ uid: id });
         if (!profiles.account) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+
         const avatar = walletProfilesToAvatar(profiles) ?? OG_FALLBACK_AVATAR;
         return createProfileOpenGraphImageResponse({
             avatar,

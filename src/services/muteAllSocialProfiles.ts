@@ -27,10 +27,8 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
 
     if (twitterSession) {
         const twitterProfiles = socialProfiles.filter((profile) => profile.identity.source === Source.Twitter);
-        await runInSafeAsync(() =>
-            Promise.allSettled(
-                twitterProfiles.map((profile) => TwitterSocialMediaProxy.blockProfile(profile.identity.id)),
-            ),
+        await Promise.allSettled(
+            twitterProfiles.map((profile) => TwitterSocialMediaProxy.blockProfile(profile.identity.id)),
         );
         results.push(
             ...twitterProfiles.map((profile) => ({
@@ -66,10 +64,8 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
 
     if (bskySession) {
         const bskyProfiles = socialProfiles.filter((profile) => profile.identity.source === Source.Bsky);
-        await runInSafeAsync(() =>
-            Promise.allSettled(
-                bskyProfiles.map((profile) => BskySocialMediaProvider.blockProfile(profile.identity.id)),
-            ),
+        await Promise.allSettled(
+            bskyProfiles.map((profile) => BskySocialMediaProvider.blockProfile(profile.identity.id)),
         );
         results.push(
             ...bskyProfiles.map((profile) => ({
@@ -81,10 +77,8 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
 
     const farcasterProfiles = socialProfiles.filter((profile) => profile.identity.source === Source.Farcaster);
     if (farcasterProfiles.length) {
-        await runInSafeAsync(() =>
-            Promise.allSettled(
-                farcasterProfiles.map((profile) => FarcasterSocialMediaProvider.blockProfile(profile.identity.id)),
-            ),
+        await Promise.allSettled(
+            farcasterProfiles.map((profile) => FarcasterSocialMediaProvider.blockProfile(profile.identity.id)),
         );
         results.push(
             ...farcasterProfiles.map((profile) => ({
@@ -96,9 +90,7 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
 
     const wallets = socialProfiles.filter((profile) => profile.identity.source === Source.Wallet);
     if (wallets.length) {
-        await runInSafeAsync(() =>
-            Promise.allSettled(wallets.map((profile) => FireflyEndpointProvider.blockWallet(profile.identity.id))),
-        );
+        await Promise.allSettled(wallets.map((profile) => FireflyEndpointProvider.blockWallet(profile.identity.id)));
         results.push(
             ...wallets.map((profile) => ({
                 snsId: profile.identity.id,
