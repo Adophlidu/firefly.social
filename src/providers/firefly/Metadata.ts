@@ -35,6 +35,21 @@ class FireflyMetadata {
         }
     }
 
+    async createWalletProfileMetadata(addressOrEns: string, pathname: string) {
+        try {
+            const response = await fetchMetadataApi(
+                urlcat('/metadata/wallet-profile', {
+                    addressOrEns,
+                    pathname,
+                }),
+            );
+            const metadata = resolveResponseData(response);
+            return metadata;
+        } catch (error) {
+            return createSiteMetadata(pathname);
+        }
+    }
+
     async createPostMetadata(source: string, postId: string, pathname: string) {
         try {
             const response = await fetchMetadataApi(
