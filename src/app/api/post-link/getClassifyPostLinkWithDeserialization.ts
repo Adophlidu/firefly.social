@@ -1,14 +1,37 @@
 import urlcat from 'urlcat';
 
-import type { GetClassifyPostLinkOnActionResult } from '@/app/api/post-link/getClassifyPostLink.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import type { EVM } from '@/providers/nft-scan/types.js';
+import type { SnapshotProposal } from '@/providers/snapshot/type.js';
+import type { Article } from '@/providers/types/Article.js';
+import type { NFTDetail } from '@/providers/types/Firefly.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Frame } from '@/types/frame.js';
+import type { LinkDigested } from '@/types/og.js';
 import type { ResponseJson } from '@/types/utility.js';
 
-export type ClassifyPostLinkResult = GetClassifyPostLinkOnActionResult;
+export interface ClassifyPostLinkResult {
+    oembed?: LinkDigested;
+    frame?: Frame;
+    html?: string;
+    article?: Article;
+    spaceId?: string;
+    snapshot?: SnapshotProposal;
+    nft?: NFTDetail;
+    collection?: EVM.Collection;
+    quote?: Post;
+}
+
+export type GetClassifyPostLinkWithDeserializationMultipleResponse = ResponseJson<
+    Array<{
+        url: string;
+        result: ClassifyPostLinkResult;
+    }>
+>;
 
 export async function deserializeClassifyPostLinkResult(
-    result: GetClassifyPostLinkOnActionResult,
+    result: ClassifyPostLinkResult,
 ): Promise<ClassifyPostLinkResult> {
     return {
         ...result,
@@ -16,8 +39,8 @@ export async function deserializeClassifyPostLinkResult(
 }
 
 export async function getClassifyPostLinkWithDeserialization(url: string): Promise<ClassifyPostLinkResult | null> {
-    const response = await fetchJson<ResponseJson<GetClassifyPostLinkOnActionResult>>(
-        urlcat(`/api/post-link`, {
+    const response = await fetchJson<ResponseJson<ClassifyPostLinkResult>>(
+        urlcat(FIREFLY_WORKER_HOST, `/og`, {
             url,
         }),
     );
@@ -25,36 +48,12 @@ export async function getClassifyPostLinkWithDeserialization(url: string): Promi
     return deserializeClassifyPostLinkResult(response.data);
 }
 
-export async function getClassifyPostLinkWithDeserializationMultiple(urls: string[]): Promise<
-    Array<{
-        url: string;
-        result: ClassifyPostLinkResult;
-    }>
-> {
-    const response = await fetchJson<
-        ResponseJson<
-            Array<{
-                url: string;
-                result: GetClassifyPostLinkOnActionResult;
-            }>
-        >
-    >(
-        urlcat(`/api/post-link`, {
-            'cache-urls': urls.join(','),
+export async function getClassifyPostLinkWithDeserializationMultiple(urls: string[]) {
+    const response = await fetchJson<GetClassifyPostLinkWithDeserializationMultipleResponse>(
+        urlcat(FIREFLY_WORKER_HOST, `/og`, {
+            urls: urls.join(','),
         }),
     );
     if (!response.success) return [];
-
-    return Promise.all(
-        response.data.map(async (x) => {
-            const result = await runInSafeAsync(() => deserializeClassifyPostLinkResult(x.result));
-            return {
-                ...x,
-                result: result || {
-                    ...x.result,
-                    action: undefined,
-                },
-            };
-        }),
-    );
+    return response.data.filter((x) => x.result);
 }

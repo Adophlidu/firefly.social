@@ -40,10 +40,13 @@ export function PostLinkContent({ data, url, post, isInCompose }: PostLinkConten
         return data.quote;
     }, [data?.quote, post]);
 
-    if (!data) return <PureLink url={url} className="mt-2" />;
-
     // If the url occurs in the content, it might be rendered as an embed card as well.
     const isInContent = !!post.metadata.content?.content?.includes(url);
+
+    if (!data) {
+        if (isInContent) return <PureLink url={url} className="mt-2" />;
+        return null;
+    }
 
     return (
         <>
