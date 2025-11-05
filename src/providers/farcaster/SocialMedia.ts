@@ -99,7 +99,7 @@ class FarcasterSocialMedia implements Provider {
 
     getProfileBySession(session: Session): Promise<Profile> {
         const farcasterSession = session as FarcasterSession;
-        return this.getProfileById(farcasterSession.profileId);
+        return FarcasterSocialMediaProvider.getProfileById(farcasterSession.profileId);
     }
 
     actPost(postId: string, options: unknown): Promise<void> {
@@ -174,7 +174,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getCollectedPostsByProfileId(profileId: string, indicator?: PageIndicator) {
-        return this.getPostsByProfileId(profileId, indicator);
+        return FarcasterSocialMediaProvider.getPostsByProfileId(profileId, indicator);
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

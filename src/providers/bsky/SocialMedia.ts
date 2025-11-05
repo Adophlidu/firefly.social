@@ -113,7 +113,7 @@ class BskySocialMedia implements Provider {
         return true;
     }
     async mirrorPost(postId: string, authorId?: number): Promise<string> {
-        const post = await this.getPostById(postId);
+        const post = await BskySocialMediaProvider.getPostById(postId);
         if (!post.metadata.contentURI) throw new Error(`Failed to mirror post postId = ${postId}`);
         const response = await bskySessionHolder.agent.repost(post.metadata.contentURI, post.publicationId);
         return response.uri;
@@ -137,7 +137,7 @@ class BskySocialMedia implements Provider {
         };
     }
     async commentPost(postId: string, post: Post): Promise<{ postId: string; contentURI?: string }> {
-        return this.publishPost(post);
+        return BskySocialMediaProvider.publishPost(post);
     }
     async collectPost(postId: string, collectionId?: string): Promise<void> {
         throw new NotImplementedError();
@@ -152,7 +152,7 @@ class BskySocialMedia implements Provider {
         throw new NotImplementedError();
     }
     async upvotePost(postId: string): Promise<void> {
-        const post = await this.getPostById(postId);
+        const post = await BskySocialMediaProvider.getPostById(postId);
         if (!AppBskyFeedDefs.isThreadViewPost(post.__original__))
             throw new Error(`Failed to like post postId = ${postId}`);
         await bskySessionHolder.agent.like(post.__original__.post.uri, post.__original__.post.cid);
@@ -418,7 +418,7 @@ class BskySocialMedia implements Provider {
             cursor: indicator?.id,
             limit: 25,
         });
-        const data = await this.getProfilesByIds(response.data.followers.map((x) => x.did));
+        const data = await BskySocialMediaProvider.getProfilesByIds(response.data.followers.map((x) => x.did));
         return createPageable(
             data,
             createIndicator(indicator),
@@ -432,7 +432,7 @@ class BskySocialMedia implements Provider {
             cursor: indicator?.id,
             limit: 25,
         });
-        const data = await this.getProfilesByIds(response.data.follows.map((x) => x.did));
+        const data = await BskySocialMediaProvider.getProfilesByIds(response.data.follows.map((x) => x.did));
         return createPageable(
             data,
             createIndicator(indicator),
@@ -446,7 +446,7 @@ class BskySocialMedia implements Provider {
             cursor: indicator?.id,
             limit: 25,
         });
-        const data = await this.getProfilesByIds(response.data.followers.map((x) => x.did));
+        const data = await BskySocialMediaProvider.getProfilesByIds(response.data.followers.map((x) => x.did));
         return createPageable(
             data,
             createIndicator(indicator),

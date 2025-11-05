@@ -136,7 +136,7 @@ class FireflySocialMedia implements Provider {
     }
 
     getChannelById(channelId: string): Promise<Channel> {
-        return this.getChannelByHandle(channelId);
+        return FireflySocialMediaProvider.getChannelByHandle(channelId);
     }
 
     updateProfile(profile: ProfileEditable): Promise<boolean> {
@@ -285,7 +285,7 @@ class FireflySocialMedia implements Provider {
     }
 
     getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return this.getPostsByChannelHandle(channelId, indicator);
+        return FireflySocialMediaProvider.getPostsByChannelHandle(channelId, indicator);
     }
 
     getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -420,9 +420,9 @@ class FireflySocialMedia implements Provider {
 
     getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
         if (isNumericalProfileId(profileIdOrHandle)) {
-            return this.getProfileById(profileIdOrHandle);
+            return FireflySocialMediaProvider.getProfileById(profileIdOrHandle);
         }
-        return this.getProfileByHandle(profileIdOrHandle);
+        return FireflySocialMediaProvider.getProfileByHandle(profileIdOrHandle);
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
@@ -782,7 +782,7 @@ class FireflySocialMedia implements Provider {
 
     async getThreadByPostId(postId: string, localPost?: Post) {
         return farcasterSessionHolder.withSession(async (session) => {
-            const post = localPost ?? (await this.getPostById(postId));
+            const post = localPost ?? (await FireflySocialMediaProvider.getPostById(postId));
 
             const response = await fireflySessionHolder.fetch<ThreadResponse>(
                 urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {

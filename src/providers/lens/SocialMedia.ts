@@ -193,7 +193,7 @@ class LensSocialMedia implements Provider {
     }
 
     async getChannelsByIds(ids: string[]): Promise<Channel[]> {
-        return Promise.all(ids.map((id) => this.getChannelById(id)));
+        return Promise.all(ids.map((id) => LensSocialMediaProvider.getChannelById(id)));
     }
 
     getChannelByHandle(channelHandle: string): Promise<Channel> {
@@ -349,7 +349,7 @@ class LensSocialMedia implements Provider {
     }
 
     async unmirrorPost(postId: string): Promise<void> {
-        await this.deletePost(postId);
+        await LensSocialMediaProvider.deletePost(postId);
     }
 
     // intro is the contentURI of the post
@@ -474,8 +474,9 @@ class LensSocialMedia implements Provider {
     }
 
     async getProfileByIdOrHandle(profileIdOrHandle: string, includeGraphStats?: boolean): Promise<Profile> {
-        if (isValidAddressEthereum(profileIdOrHandle)) return this.getProfileById(profileIdOrHandle, includeGraphStats);
-        return this.getProfileByHandle(profileIdOrHandle, includeGraphStats);
+        if (isValidAddressEthereum(profileIdOrHandle))
+            return LensSocialMediaProvider.getProfileById(profileIdOrHandle, includeGraphStats);
+        return LensSocialMediaProvider.getProfileByHandle(profileIdOrHandle, includeGraphStats);
     }
 
     async getPostById(postId: string, isLegacy = false): Promise<Post> {
