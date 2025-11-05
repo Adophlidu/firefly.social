@@ -48,10 +48,6 @@ import { Snackbar, SnackbarRef } from '@/modals/Snackbar.js';
 import { SwapModal, SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
 import { TipsModal, TipsModalRef } from '@/modals/TipsModal/index.js';
 import { TokenSelectorModal, TokenSelectorModalRef } from '@/modals/TokenSelectorModal.js';
-import {
-    TransactionDetailModal,
-    TransactionDetailModalRef,
-} from '@/modals/TransactionDetailModal/TransactionDetailModal.js';
 import { WalletConnectModal, WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 
 export const Modals = memo(function Modals() {
@@ -92,7 +88,6 @@ export const Modals = memo(function Modals() {
                 <SwapModal ref={SwapModalRef.register} />
                 <TipsModal ref={TipsModalRef.register} />
                 <TokenSelectorModal ref={TokenSelectorModalRef.register} />
-                <TransactionDetailModal ref={TransactionDetailModalRef.register} />
             </IfPathname>
         </NoSSR>
     );

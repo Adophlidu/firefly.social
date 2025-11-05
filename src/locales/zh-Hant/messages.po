@@ -124,9 +124,6 @@ msgstr "未找到群組 {id}。"
 msgid "Unmute successfully."
 msgstr "成功取消隱藏。"
 
-msgid "Interacted Failed"
-msgstr "互動失敗"
-
 msgid "Refunded"
 msgstr "已退款"
 
@@ -151,9 +148,6 @@ msgstr "模板"
 msgid "Failed to collect article."
 msgstr "無法鑄造收集文章。"
 
-msgid "Unlimit"
-msgstr "無限額"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr "在 {0} 引用失敗。"
@@ -173,9 +167,6 @@ msgstr ""
 
 msgid "There is no data available to select."
 msgstr "無可選數據。"
-
-msgid "To"
-msgstr "到"
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "連接錢包時請保持警惕，惡意網站可能會試圖存取您的資金。"
@@ -316,9 +307,6 @@ msgstr "FDV"
 msgid "The task is still in progress, you can check on <0>this page</0> later"
 msgstr "任務仍在進行中，您可稍後在<0>此頁面</0>查看"
 
-msgid "Receive Failed"
-msgstr "接收失敗"
-
 msgid "Functions that can suspend trading"
 msgstr "可暫停交易的功能"
 
@@ -337,17 +325,8 @@ msgstr "密碼驗證"
 msgid "This token is a gas abuser."
 msgstr "此代幣存在 Gas 濫用問題。"
 
-msgid "Address, ENS, or social handle"
-msgstr "錢包地址，ENS 或社交帳號"
-
-msgid "Revoke Failed"
-msgstr "撤銷授權失敗"
-
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr "無法關閉多裝置登入功能，請稍後重試。"
-
-msgid "<0><1/><2>Interacted</2></0><3>with</3><4/>"
-msgstr "<0><1/><2>互動</2></0><3>於</3><4/>"
 
 msgid "{hours, plural, one {# hour left} other {# hours left}}"
 msgstr "{hours, plural, one {剩餘 # 小時} other {剩餘 # 小時}}"
@@ -386,10 +365,6 @@ msgstr "虛假 KYC。"
 #. placeholder {0}: u.host
 msgid "Requested from <0>{0}</0>"
 msgstr "請求來自 <0>{0}</0>"
-
-#. placeholder {0}: transaction.tx_status
-msgid "{0, select, success {Success} fail {Failed} other {Failed}}"
-msgstr "{0, select, success {成功} fail {失敗} other {失敗}}"
 
 msgid "Airdrop Scam"
 msgstr "空投騙局"
@@ -467,10 +442,6 @@ msgstr "密碼無效，請輸入 6 位數字密碼。"
 
 msgid "Potential risk of external call."
 msgstr "存在外部調用風險。"
-
-#. placeholder {0}: selected.name
-msgid "Your {0} Address"
-msgstr "您的 {0} 地址"
 
 msgid "Avg"
 msgstr ""
@@ -600,9 +571,6 @@ msgstr "鑄造"
 msgid "Market Cap"
 msgstr "市值"
 
-msgid "NFT Send Failed"
-msgstr "NFT 發送失敗"
-
 msgid "Contract source code verified"
 msgstr "合約源代碼已驗證"
 
@@ -676,9 +644,6 @@ msgstr "重試"
 msgid "Get {0}"
 msgstr "獲取 {0}"
 
-msgid "TOTAL ASSETS (≈USD)"
-msgstr "資產總額（≈美元）"
-
 msgid "Show less"
 msgstr "折疊"
 
@@ -741,18 +706,12 @@ msgstr "{0} 已隱藏群組"
 msgid "[Video]"
 msgstr "[影片]"
 
-msgid "To Address"
-msgstr "至地址"
-
 msgid "The author is muted by you."
 msgstr "您已隱藏此作者。"
 
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}"
 msgstr "檢舉 @{0} 失敗"
-
-msgid "Approved"
-msgstr "已授權"
 
 msgid "Failed to login profile by orb"
 msgstr "Orb 登入失敗"
@@ -833,9 +792,6 @@ msgstr "自訂"
 
 msgid "Select NFT collection to gate access"
 msgstr "選擇 NFT 系列作為領取門檻"
-
-msgid "From Address"
-msgstr "來自地址"
 
 msgid "Connect Email"
 msgstr "綁定電子郵件"
@@ -923,9 +879,6 @@ msgstr "<0>{0}</0> 由 <1>{1}</1> 建立"
 
 msgid "Sending"
 msgstr "發布中"
-
-msgid "See details"
-msgstr "查看詳情"
 
 msgid "Functions with retrievable ownership"
 msgstr "具有可回收所有權的函式"
@@ -1239,9 +1192,6 @@ msgstr "地址"
 msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgstr "無法在 Firefly 上取消追蹤 {handleOrEnsOrAddress} 。"
 
-msgid "Copy address"
-msgstr "複製地址"
-
 msgid "Mobile QR login"
 msgstr "行動版二維碼登入"
 
@@ -1418,9 +1368,6 @@ msgstr "登入 Firefly"
 msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr "匿名模式下離開此頁面內容將丟失。"
 
-msgid "Approve Failed"
-msgstr "授權失敗"
-
 msgid "Canceled"
 msgstr "已取消"
 
@@ -1439,9 +1386,6 @@ msgstr "獲獎者"
 #. placeholder {0}: post?.author.handle
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "回覆<0><1>@{0}</1></0>"
-
-msgid "Revoke"
-msgstr "撤銷授權"
 
 msgid "Failed Post"
 msgstr "發佈失敗"
@@ -1554,9 +1498,6 @@ msgstr "<0>購買</0><1/>"
 msgid "Sign in with recovery phrase"
 msgstr "透過助記詞登入"
 
-msgid "Recipient"
-msgstr "接收方"
-
 msgid "Mint price"
 msgstr "鑄造價格"
 
@@ -1576,9 +1517,6 @@ msgstr "成本"
 #. placeholder {1}: collection.price_symbol
 msgid "{0}{1} <0>Floor</0>"
 msgstr "{0}{1} <0>地板價</0>"
-
-msgid "Insufficient Gas"
-msgstr "Gas 不足"
 
 msgid "Failed to change password."
 msgstr "變更密碼失敗。"
@@ -1635,9 +1573,6 @@ msgstr "連接中..."
 #. placeholder {1}: data.wait_seconds
 msgid "Limits: <0>{0} posts/day</0> with {1}-second intervals (applies to posts, replies, and quotes)."
 msgstr "限制：<0>每日 {0} 帖</0>，間隔 {1} 秒（適用於貼文、回覆和引用）。"
-
-msgid "Enter amount"
-msgstr "輸入數額"
 
 msgid "Platform fee"
 msgstr "平台費用"
@@ -1777,14 +1712,8 @@ msgstr "成功領取 {0} {symbol} 紅包"
 msgid "No voting power"
 msgstr "無投票權"
 
-msgid "Interacted"
-msgstr "互動"
-
 msgid "Your draft was saved."
 msgstr "草稿已儲存"
-
-msgid "The address could not be found."
-msgstr "找不到該地址。"
 
 msgid "Verify and Claim"
 msgstr "驗證並領取"
@@ -1847,9 +1776,6 @@ msgstr "切換"
 msgid "Drafts"
 msgstr "草稿"
 
-msgid "NFT Receive Failed"
-msgstr "NFT 接收失敗"
-
 msgid "No financial crime involved."
 msgstr "未涉及金融犯罪"
 
@@ -1876,10 +1802,6 @@ msgstr "此代幣合約為開源，詳情請查閱合約代碼。未開源合約
 
 msgid "Darkweb transactions found."
 msgstr "發現暗網交易"
-
-#. placeholder {0}: formatAddress( item.token_approve?.token.address || token.token.address || token.sender || token.recipient, 4, )
-msgid "With <0>{0}</0>"
-msgstr "於 <0>{0}</0>"
 
 #. placeholder {0}: humanize(count)
 msgid "{0} Comments"
@@ -1918,9 +1840,6 @@ msgstr "通往個人化社交體驗的入口。"
 
 msgid "Total amount shared among all winners"
 msgstr "所有獲獎者共享的總數額"
-
-msgid "<0><1/><2>Sent</2></0><3>to</3><4/>"
-msgstr "<0><1/><2>發送</2></0><3>至</3><4/>"
 
 msgid "Leave"
 msgstr "離開"
@@ -1968,9 +1887,6 @@ msgstr "此代幣合約未經驗證，無法檢查代碼。未驗證合約可能
 msgid "Replies"
 msgstr "留言"
 
-msgid "Please note that the wallet address related to social account may be inaccurate or subject to change. Be sure to verify the address before sending."
-msgstr "請注意，與社交帳戶關聯的錢包地址可能不準確或已發生變更。請務必在發送前核實地址。"
-
 msgid "Current Results"
 msgstr "目前結果"
 
@@ -1992,9 +1908,6 @@ msgstr "此代幣非聲明團隊發行，可能是同名詐騙代幣。"
 
 msgid "Search post"
 msgstr "搜尋貼文"
-
-msgid "Enter or search for a recipient wallet"
-msgstr "輸入或搜尋接收方錢包地址"
 
 msgid "Failed to switch chain"
 msgstr "切換鏈失敗"
@@ -2143,9 +2056,6 @@ msgstr "您的貼文將透過以下方式匿名分享：<0/>X (Twitter): <1>@ano
 
 msgid "Circulating Supply"
 msgstr "流通供應量"
-
-msgid "Sent Failed"
-msgstr "發送失敗"
 
 msgid "Failed to switch."
 msgstr "切換失敗"
@@ -2301,13 +2211,6 @@ msgstr "NFT 鑄造成功！"
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "此操作不可逆，並且預約發布任務將被取消。"
 
-msgid "NFT Mint"
-msgstr "NFT 鑄造"
-
-#. placeholder {0}: formatAddress(token.sender, 4)
-msgid "From <0>{0}</0>"
-msgstr "來自 <0>{0}</0>"
-
 msgid "Lens"
 msgstr "Lens"
 
@@ -2366,9 +2269,6 @@ msgstr "請輸入密碼以驗證您的身份。"
 
 msgid "Post your reply"
 msgstr "發布你的留言"
-
-msgid "View on Explorer"
-msgstr "在瀏覽器查看"
 
 #. placeholder {0}: account?.uid
 msgid "UID: {0}"
@@ -2478,10 +2378,6 @@ msgstr "透過 Firefly 的紅包功能，提升你的粉絲數與互動率！"
 msgid "Set @{0} as primary account"
 msgstr "將 @{0} 設為主要帳戶"
 
-#. placeholder {0}: item.project_name
-msgid "on {0}"
-msgstr "在 {0}"
-
 msgid "Unsent posts"
 msgstr "未發布"
 
@@ -2565,9 +2461,6 @@ msgstr "{feeAmount} ${feeSymbol} 付費追蹤"
 
 msgid "Farcaster"
 msgstr "Farcaster"
-
-msgid "NFT Receive"
-msgstr "接收 NFT"
 
 msgid "Replying to"
 msgstr "正在回覆"
@@ -2810,9 +2703,6 @@ msgstr "一鍵跟單"
 msgid "Loading..."
 msgstr "載入中……"
 
-msgid "Approve"
-msgstr "授權"
-
 msgid "Share"
 msgstr "分享"
 
@@ -2860,14 +2750,9 @@ msgid "View engagements"
 msgstr "查看互動數據"
 
 #. placeholder {0}: token.amount ? formatTokenItemAmount(token.amount) : '-'
-#. placeholder {0}: token.balance || '0'
-#. placeholder {1}: token.symbol || '-'
 #. placeholder {1}: token.symbol?.toUpperCase()
 msgid "Balance: {0} {1}"
 msgstr "餘額： {0} {1}"
-
-msgid "This wallet address is invalid"
-msgstr "這個錢包地址無效"
 
 msgid "The contract owner has restrictions on selling."
 msgstr "合約擁有者設有銷售限制。"
@@ -3034,9 +2919,6 @@ msgstr "以 0.1 ETH 兌換 253.97 Virtual。"
 msgid "Light Mode"
 msgstr "淺色模式"
 
-msgid "Transaction Detail"
-msgstr "交易詳情"
-
 #. placeholder {0}: post.source
 msgid "Failed to submit report on {0}."
 msgstr "在 {0} 提交檢舉失敗"
@@ -3170,9 +3052,6 @@ msgstr ""
 
 msgid "This does not appear to be a honeypot."
 msgstr "未檢測到詐騙風險。"
-
-msgid "NFT Send"
-msgstr "發送 NFT"
 
 msgid "Your Firefly Account is now connected"
 msgstr "你的 Firefly 帳戶已連接"
@@ -3348,9 +3227,6 @@ msgstr "框架伺服器處理請求失敗。"
 msgid "Report"
 msgstr "檢舉"
 
-msgid "Failed to transfer"
-msgstr "轉賬失敗"
-
 msgid "Schedule"
 msgstr "定時發佈"
 
@@ -3413,9 +3289,6 @@ msgstr "複製"
 
 msgid "Enter Amount Each"
 msgstr "輸入單筆數額"
-
-msgid "Amount"
-msgstr "數額"
 
 msgid "firefly.eth liked your transaction"
 msgstr "firefly.eth 喜歡您的交易"
@@ -3677,9 +3550,6 @@ msgstr "{0, plural, one {轉發} other {轉發}}"
 msgid "Refresh"
 msgstr "刷新"
 
-msgid "Receive"
-msgstr "接收"
-
 msgid "NFT holder"
 msgstr "NFT 擁有者"
 
@@ -3817,9 +3687,6 @@ msgstr "分享至"
 msgid "Non-sanctioned address."
 msgstr "未受制裁地址。"
 
-msgid "<0><1/><2>Received</2></0><3>from</3><4/>"
-msgstr "<0><1/><2>收到</2></0><3>來自</3><4/>"
-
 msgid "Solana wallets"
 msgstr "Solana 錢包"
 
@@ -3833,9 +3700,6 @@ msgstr ""
 
 msgid "{viewCount, plural, one {view} other {views}}"
 msgstr "{viewCount, plural, one {查看} other {查看}}"
-
-msgid "Swapped Failed"
-msgstr "兌換失敗"
 
 msgid "Only people you follow"
 msgstr "僅限你追蹤的人"
@@ -4016,9 +3880,6 @@ msgstr "總供應量"
 msgid "No tax changes found for personal addresses."
 msgstr "未檢測到個人地址稅率變更。"
 
-msgid "<0><1/><2>Approved</2></0><3>on</3><4/>"
-msgstr "<0><1/><2>已授权</2></0><3>於</3><4/>"
-
 #. placeholder {0}: token.symbol
 msgid "Unlock {0}"
 msgstr "解鎖 {0}"
@@ -4125,16 +3986,8 @@ msgstr ""
 msgid "Clear all requirements"
 msgstr "清除所有條件"
 
-#. placeholder {0}: transaction.token_approve.token.symbol
-msgid "Unlimit {0}"
-msgstr "無限制 {0}"
-
 msgid "Claim Requirements"
 msgstr "領取條件"
-
-#. placeholder {0}: formatAddress(token.recipient, 4)
-msgid "To <0>{0}</0>"
-msgstr "至<0>{0}</0>"
 
 msgid "Oversupply minting."
 msgstr "超額鑄造中"
@@ -4290,9 +4143,6 @@ msgstr "你追蹤的人中沒有人交易過此代幣。"
 
 msgid "Explore now"
 msgstr "開始探索"
-
-msgid "NFT Mint Failed"
-msgstr "鑄造 NFT 失敗"
 
 msgid "Hidden owner."
 msgstr "隱藏的擁有者。"
@@ -4515,9 +4365,6 @@ msgstr "訊息"
 msgid "Continue"
 msgstr "繼續"
 
-msgid "Revoked"
-msgstr "撤銷授權"
-
 msgid "One-time passcode"
 msgstr "一次性驗證碼"
 
@@ -4583,9 +4430,6 @@ msgstr "複製連結"
 
 msgid "Post"
 msgstr "發帖"
-
-msgid "<0><1/><2>Revoked</2></0><3>on</3><4/>"
-msgstr "<0><1/><2>撤銷授權</2></0><3>on</3><4/>"
 
 msgid "Creator:"
 msgstr "創作者："

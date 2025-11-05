@@ -21,11 +21,6 @@ export const Pageable = z.object({
         }),
 });
 
-export const HttpUrl = z
-    .string()
-    .url()
-    .regex(/^(https?:\/\/)/);
-
 export const HttpsUrl = z
     .string()
     .url()

@@ -9,7 +9,6 @@ import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { Provider } from '@/providers/types/Activity.js';
 import type {
     ActivityInfoResponse,
     ActivityListResponse,
@@ -17,7 +16,7 @@ import type {
 } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
-class FireflyActivity implements Provider {
+class FireflyActivity {
     async getFireflyActivityInfo(name: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/activity/info', {
             name,

@@ -3,7 +3,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import type { HTMLProps } from 'react';
 
-import { TrendingNFT } from '@/components/explore/TrendingNFT.js';
+import { TrendingNFT } from '@/components/Explores/TrendingNFT.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { VirtualListFooterBottomText } from '@/components/VirtualList/VirtualListFooterBottomText.js';
 import { fireflyNftProvider } from '@/providers/firefly/Nft.js';

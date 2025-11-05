@@ -25,60 +25,6 @@ export interface SignedKeyRequestResponse extends ErrorResponse {
     };
 }
 
-export interface Author {
-    fid: number;
-    username: string;
-    displayName: string;
-    pfp?: Pfp;
-    followerCount: number;
-    followingCount: number;
-    profile: {
-        bio: {
-            mention: string[];
-            text: string;
-        };
-        location: {
-            description: string;
-            placeId: string;
-        };
-        username: string;
-    };
-}
-
-export interface Pfp {
-    url: string;
-    verified: boolean;
-}
-
-export interface Replies {
-    count: number;
-}
-
-export interface Reactions {
-    count: number;
-}
-
-export interface Recasts {
-    count: number;
-    recasters: Recaster[];
-}
-
-export interface Recaster {
-    fid: number;
-    username: string;
-    displayName: string;
-}
-
-export interface Watches {
-    count: number;
-}
-
-export interface ViewerContext {
-    reacted: boolean;
-    recast: boolean;
-    watched: boolean;
-}
-
 export interface Next {
     cursor: string;
 }

@@ -481,12 +481,6 @@ export enum RelatedWalletSource {
     particle = 'particle',
 }
 
-export enum RelationPlatform {
-    reddit = 'reddit',
-    keybase = 'keybase',
-    github = 'github',
-}
-
 export enum WatchType {
     Wallet = 'wallet',
     SolanaWallet = 'solana',
@@ -643,18 +637,6 @@ export interface FireflyProfile {
     __origin__: WalletProfile | LensV3Profile | FarcasterProfile | TwitterProfile | BskyProfile | null;
 }
 
-export interface Relation {
-    source: string[];
-    identity: {
-        uuid: string;
-        identity: string;
-        platform: RelationPlatform;
-        displayName: string;
-    };
-}
-
-export type RelationResponse = Response<Relation[]>;
-
 export type BookmarkResponse<T> = Response<{
     cursor: number;
     list: Array<{
@@ -786,11 +768,6 @@ export interface FarcasterSuggestedFollowUser {
 
 export type GetFarcasterSuggestedFollowUserResponse = Response<{
     suggestedFollowList: FarcasterSuggestedFollowUser[];
-    cursor: number;
-}>;
-
-export type GetLensSuggestedFollowUserResponse = Response<{
-    suggestedFollowList: Array<[LensV3Profile]>;
     cursor: number;
 }>;
 
@@ -1179,12 +1156,6 @@ export type ActivityInfoResponse = Response<{
     status: ActivityStatus;
 }>;
 
-export type VotingResultResponse = Response<{
-    trump: number;
-    harris: number;
-    tokenIdCount: number;
-}>;
-
 export type PolymarketActivity = {
     asset: string;
     blockNumber: number;
@@ -1446,20 +1417,6 @@ export interface NFTDetail extends EVM.Asset {
     collection: EVM.Collection;
 }
 
-export type LinkDigestResponse = Response<{
-    link: string;
-    type: string;
-    nft?: NFTDetail;
-    lensPost?: unknown;
-    farcasterPost?: unknown;
-    mirror?: unknown;
-    paragraph?: unknown;
-    snapshot?: unknown;
-    twitter?: unknown;
-    twitterXQT?: unknown;
-    farcasterFrames?: unknown;
-}>;
-
 export type ProjectResponse = Response<Project[]>;
 
 export type RootdataPeopleResponse = Response<{ total: number; items: RootdataPeople[] }>;
@@ -1513,15 +1470,6 @@ type FreeMintResult = {
 export type GetSponsorMintStatusResponse = Response<MintMetadata>;
 
 export type MintBySponsorResponse = Response<FreeMintResult>;
-
-export interface GetFollowingCountByNFTParams {
-    collectionAddress: string;
-    chainName: string;
-}
-
-export type GetFollowingCountByNFTResponse = Response<{
-    count: number;
-}>;
 
 export type GetCollectStatusResponse = Response<MintMetadata>;
 
@@ -2069,55 +2017,6 @@ export interface PrivyWallet {
 }
 export type PrivyWalletResponse = Response<PrivyWallet>;
 
-export const enum TransactionHistoryCategory {
-    TokenReceive = 'token_receive',
-    TokenSend = 'token_send',
-    TokenSwap = 'token_swap',
-    TokenApprove = 'token_approve',
-    TokenRevoke = 'token_revoke',
-    NftReceive = 'nft_receive',
-    NftSend = 'nft_send',
-    NftMint = 'nft_mint',
-    ContractInteraction = 'contract_interaction',
-}
-
-export const enum TransactionState {
-    Success = 'success',
-    Failed = 'fail',
-}
-
-export interface TransactionHistoryItem {
-    chain_id: number;
-    hash: string;
-    block_number: number;
-    tx_status: TransactionState;
-    project_logo: string;
-    project_name: string;
-    timestamp: string;
-    to_address: string;
-    from_address: string;
-    token_sends: TransactionHistoryTokenAction[];
-    token_receives: TransactionHistoryTokenAction[];
-    token_approve?: TransactionHistoryTokenApprove;
-    nft_receives: TransactionHistoryNFTAction[];
-    nft_sends: TransactionHistoryNFTAction[];
-    category: TransactionHistoryCategory;
-}
-
-export interface TransactionHistoryNFTAction {
-    nft: {
-        address: string;
-        symbol: string;
-        name: string;
-        token_id: string;
-        logo: string;
-    };
-    amount: string;
-    user_address: string;
-    recipient: string;
-    sender: string;
-}
-
 export interface TrendingNFT {
     contract_address: string;
     contract_name: string;
@@ -2158,34 +2057,6 @@ export interface TrendingNFT {
 }
 
 export type TrendingNFTsResponse = Response<TrendingNFT[]>;
-
-export interface TransactionHistoryToken {
-    address: string;
-    symbol: string;
-    name: string;
-    logo: string;
-    decimal: number;
-    price: string;
-}
-
-export interface TransactionHistoryTokenApprove {
-    token: TransactionHistoryToken;
-    amount: string;
-    spender_address: string;
-}
-
-export interface TransactionHistoryTokenAction {
-    token: TransactionHistoryToken;
-    amount: string;
-    user_address: string;
-    recipient: string;
-    sender: string;
-}
-
-export type WalletHistoryTransactionsResponse = Response<{
-    list: TransactionHistoryItem[];
-    cursor?: string;
-}>;
 
 export interface TokenAsset {
     chainIndex: string;

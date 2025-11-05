@@ -119,9 +119,6 @@ msgstr ""
 msgid "Unmute successfully."
 msgstr ""
 
-msgid "Interacted Failed"
-msgstr ""
-
 msgid "Refunded"
 msgstr ""
 
@@ -146,9 +143,6 @@ msgstr ""
 msgid "Failed to collect article."
 msgstr ""
 
-msgid "Unlimit"
-msgstr ""
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to quote on {0}."
 msgstr ""
@@ -167,9 +161,6 @@ msgid "Failed to add to Bookmarks. {0}"
 msgstr ""
 
 msgid "There is no data available to select."
-msgstr ""
-
-msgid "To"
 msgstr ""
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
@@ -311,9 +302,6 @@ msgstr ""
 msgid "The task is still in progress, you can check on <0>this page</0> later"
 msgstr ""
 
-msgid "Receive Failed"
-msgstr ""
-
 msgid "Functions that can suspend trading"
 msgstr ""
 
@@ -332,16 +320,7 @@ msgstr ""
 msgid "This token is a gas abuser."
 msgstr ""
 
-msgid "Address, ENS, or social handle"
-msgstr ""
-
-msgid "Revoke Failed"
-msgstr ""
-
 msgid "Failed to disable Multi-device login. Please try again later."
-msgstr ""
-
-msgid "<0><1/><2>Interacted</2></0><3>with</3><4/>"
 msgstr ""
 
 msgid "{hours, plural, one {# hour left} other {# hours left}}"
@@ -380,10 +359,6 @@ msgstr ""
 
 #. placeholder {0}: u.host
 msgid "Requested from <0>{0}</0>"
-msgstr ""
-
-#. placeholder {0}: transaction.tx_status
-msgid "{0, select, success {Success} fail {Failed} other {Failed}}"
 msgstr ""
 
 msgid "Airdrop Scam"
@@ -461,10 +436,6 @@ msgid "Invalid password. Please ensure it is a 6-digit number."
 msgstr ""
 
 msgid "Potential risk of external call."
-msgstr ""
-
-#. placeholder {0}: selected.name
-msgid "Your {0} Address"
 msgstr ""
 
 msgid "Avg"
@@ -595,9 +566,6 @@ msgstr ""
 msgid "Market Cap"
 msgstr ""
 
-msgid "NFT Send Failed"
-msgstr ""
-
 msgid "Contract source code verified"
 msgstr ""
 
@@ -671,9 +639,6 @@ msgstr ""
 msgid "Get {0}"
 msgstr ""
 
-msgid "TOTAL ASSETS (≈USD)"
-msgstr ""
-
 msgid "Show less"
 msgstr ""
 
@@ -736,17 +701,11 @@ msgstr ""
 msgid "[Video]"
 msgstr ""
 
-msgid "To Address"
-msgstr ""
-
 msgid "The author is muted by you."
 msgstr ""
 
 #. placeholder {0}: profile.handle
 msgid "Failed to report @{0}"
-msgstr ""
-
-msgid "Approved"
 msgstr ""
 
 msgid "Failed to login profile by orb"
@@ -827,9 +786,6 @@ msgid "Custom"
 msgstr ""
 
 msgid "Select NFT collection to gate access"
-msgstr ""
-
-msgid "From Address"
 msgstr ""
 
 msgid "Connect Email"
@@ -917,9 +873,6 @@ msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr ""
 
 msgid "Sending"
-msgstr ""
-
-msgid "See details"
 msgstr ""
 
 msgid "Functions with retrievable ownership"
@@ -1234,9 +1187,6 @@ msgstr ""
 msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgstr ""
 
-msgid "Copy address"
-msgstr ""
-
 msgid "Mobile QR login"
 msgstr ""
 
@@ -1413,9 +1363,6 @@ msgstr ""
 msgid "Content will be lost when leaving this page in anonymous mode."
 msgstr ""
 
-msgid "Approve Failed"
-msgstr ""
-
 msgid "Canceled"
 msgstr ""
 
@@ -1433,9 +1380,6 @@ msgstr ""
 
 #. placeholder {0}: post?.author.handle
 msgid "REPLY to<0><1>@{0}</1></0>"
-msgstr ""
-
-msgid "Revoke"
 msgstr ""
 
 msgid "Failed Post"
@@ -1549,9 +1493,6 @@ msgstr ""
 msgid "Sign in with recovery phrase"
 msgstr ""
 
-msgid "Recipient"
-msgstr ""
-
 msgid "Mint price"
 msgstr ""
 
@@ -1570,9 +1511,6 @@ msgstr ""
 #. placeholder {0}: collection.floor_price
 #. placeholder {1}: collection.price_symbol
 msgid "{0}{1} <0>Floor</0>"
-msgstr ""
-
-msgid "Insufficient Gas"
 msgstr ""
 
 msgid "Failed to change password."
@@ -1629,9 +1567,6 @@ msgstr ""
 #. placeholder {0}: data.daily_limit
 #. placeholder {1}: data.wait_seconds
 msgid "Limits: <0>{0} posts/day</0> with {1}-second intervals (applies to posts, replies, and quotes)."
-msgstr ""
-
-msgid "Enter amount"
 msgstr ""
 
 msgid "Platform fee"
@@ -1772,13 +1707,7 @@ msgstr ""
 msgid "No voting power"
 msgstr ""
 
-msgid "Interacted"
-msgstr ""
-
 msgid "Your draft was saved."
-msgstr ""
-
-msgid "The address could not be found."
 msgstr ""
 
 msgid "Verify and Claim"
@@ -1842,9 +1771,6 @@ msgstr ""
 msgid "Drafts"
 msgstr ""
 
-msgid "NFT Receive Failed"
-msgstr ""
-
 msgid "No financial crime involved."
 msgstr ""
 
@@ -1870,10 +1796,6 @@ msgid "This token contract is open source. You can check the contract code for d
 msgstr ""
 
 msgid "Darkweb transactions found."
-msgstr ""
-
-#. placeholder {0}: formatAddress( item.token_approve?.token.address || token.token.address || token.sender || token.recipient, 4, )
-msgid "With <0>{0}</0>"
 msgstr ""
 
 #. placeholder {0}: humanize(count)
@@ -1912,9 +1834,6 @@ msgid "Your gateway to a personalized social experience."
 msgstr ""
 
 msgid "Total amount shared among all winners"
-msgstr ""
-
-msgid "<0><1/><2>Sent</2></0><3>to</3><4/>"
 msgstr ""
 
 msgid "Leave"
@@ -1963,9 +1882,6 @@ msgstr ""
 msgid "Replies"
 msgstr ""
 
-msgid "Please note that the wallet address related to social account may be inaccurate or subject to change. Be sure to verify the address before sending."
-msgstr ""
-
 msgid "Current Results"
 msgstr ""
 
@@ -1986,9 +1902,6 @@ msgid "This token is not issued by its declared team. Some scams will create a w
 msgstr ""
 
 msgid "Search post"
-msgstr ""
-
-msgid "Enter or search for a recipient wallet"
 msgstr ""
 
 msgid "Failed to switch chain"
@@ -2137,9 +2050,6 @@ msgid "Your post will be shared anonymously through:<0/>X (Twitter): <1>@anoncas
 msgstr ""
 
 msgid "Circulating Supply"
-msgstr ""
-
-msgid "Sent Failed"
 msgstr ""
 
 msgid "Failed to switch."
@@ -2296,13 +2206,6 @@ msgstr ""
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr ""
 
-msgid "NFT Mint"
-msgstr ""
-
-#. placeholder {0}: formatAddress(token.sender, 4)
-msgid "From <0>{0}</0>"
-msgstr ""
-
 msgid "Lens"
 msgstr ""
 
@@ -2360,9 +2263,6 @@ msgid "Enter your password to verify your identity."
 msgstr ""
 
 msgid "Post your reply"
-msgstr ""
-
-msgid "View on Explorer"
 msgstr ""
 
 #. placeholder {0}: account?.uid
@@ -2473,10 +2373,6 @@ msgstr ""
 msgid "Set @{0} as primary account"
 msgstr ""
 
-#. placeholder {0}: item.project_name
-msgid "on {0}"
-msgstr ""
-
 msgid "Unsent posts"
 msgstr ""
 
@@ -2559,9 +2455,6 @@ msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr ""
 
 msgid "Farcaster"
-msgstr ""
-
-msgid "NFT Receive"
 msgstr ""
 
 msgid "Replying to"
@@ -2805,9 +2698,6 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-msgid "Approve"
-msgstr ""
-
 msgid "Share"
 msgstr ""
 
@@ -2855,13 +2745,8 @@ msgid "View engagements"
 msgstr ""
 
 #. placeholder {0}: token.amount ? formatTokenItemAmount(token.amount) : '-'
-#. placeholder {0}: token.balance || '0'
-#. placeholder {1}: token.symbol || '-'
 #. placeholder {1}: token.symbol?.toUpperCase()
 msgid "Balance: {0} {1}"
-msgstr ""
-
-msgid "This wallet address is invalid"
 msgstr ""
 
 msgid "The contract owner has restrictions on selling."
@@ -3029,9 +2914,6 @@ msgstr ""
 msgid "Light Mode"
 msgstr ""
 
-msgid "Transaction Detail"
-msgstr ""
-
 #. placeholder {0}: post.source
 msgid "Failed to submit report on {0}."
 msgstr ""
@@ -3164,9 +3046,6 @@ msgid "Total Value"
 msgstr ""
 
 msgid "This does not appear to be a honeypot."
-msgstr ""
-
-msgid "NFT Send"
 msgstr ""
 
 msgid "Your Firefly Account is now connected"
@@ -3343,9 +3222,6 @@ msgstr ""
 msgid "Report"
 msgstr ""
 
-msgid "Failed to transfer"
-msgstr ""
-
 msgid "Schedule"
 msgstr ""
 
@@ -3407,9 +3283,6 @@ msgid "Copy"
 msgstr ""
 
 msgid "Enter Amount Each"
-msgstr ""
-
-msgid "Amount"
 msgstr ""
 
 msgid "firefly.eth liked your transaction"
@@ -3672,9 +3545,6 @@ msgstr ""
 msgid "Refresh"
 msgstr ""
 
-msgid "Receive"
-msgstr ""
-
 msgid "NFT holder"
 msgstr ""
 
@@ -3812,9 +3682,6 @@ msgstr ""
 msgid "Non-sanctioned address."
 msgstr ""
 
-msgid "<0><1/><2>Received</2></0><3>from</3><4/>"
-msgstr ""
-
 msgid "Solana wallets"
 msgstr ""
 
@@ -3827,9 +3694,6 @@ msgid "Failed to vote.{0}"
 msgstr ""
 
 msgid "{viewCount, plural, one {view} other {views}}"
-msgstr ""
-
-msgid "Swapped Failed"
 msgstr ""
 
 msgid "Only people you follow"
@@ -4011,9 +3875,6 @@ msgstr ""
 msgid "No tax changes found for personal addresses."
 msgstr ""
 
-msgid "<0><1/><2>Approved</2></0><3>on</3><4/>"
-msgstr ""
-
 #. placeholder {0}: token.symbol
 msgid "Unlock {0}"
 msgstr ""
@@ -4120,15 +3981,7 @@ msgstr ""
 msgid "Clear all requirements"
 msgstr ""
 
-#. placeholder {0}: transaction.token_approve.token.symbol
-msgid "Unlimit {0}"
-msgstr ""
-
 msgid "Claim Requirements"
-msgstr ""
-
-#. placeholder {0}: formatAddress(token.recipient, 4)
-msgid "To <0>{0}</0>"
 msgstr ""
 
 msgid "Oversupply minting."
@@ -4284,9 +4137,6 @@ msgid "No one you follow has traded this token."
 msgstr ""
 
 msgid "Explore now"
-msgstr ""
-
-msgid "NFT Mint Failed"
 msgstr ""
 
 msgid "Hidden owner."
@@ -4508,9 +4358,6 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-msgid "Revoked"
-msgstr ""
-
 msgid "One-time passcode"
 msgstr ""
 
@@ -4575,9 +4422,6 @@ msgid "Copy link"
 msgstr ""
 
 msgid "Post"
-msgstr ""
-
-msgid "<0><1/><2>Revoked</2></0><3>on</3><4/>"
 msgstr ""
 
 msgid "Creator:"
