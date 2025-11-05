@@ -13,7 +13,6 @@ const METHODS_BE_OVERRIDDEN = [
     'getMutualFollowers',
     'getLikeReactors',
     'getRepostReactors',
-    'getSuggestedFollows',
     'searchProfiles',
     'getBlockedProfiles',
 ] as const;
@@ -28,7 +27,6 @@ export function WithMutedProfilesQuery() {
                 value: async (...args: Parameters<Provider[K]>) => {
                     const m = method as unknown as (...args: Parameters<Provider[K]>) => ReturnType<Provider[K]>;
                     const pageable = await m.apply(target, args);
-
                     const identifiers: FireflyIdentity[] = pageable.data.map((x) => ({
                         source: x.source,
                         id: x.profileId,

@@ -10,10 +10,12 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getSuggestedFollowsInPage } from '@/services/getSuggestedFollows.js';
+import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 
 interface Props {
     source: SocialSource;
@@ -29,8 +31,12 @@ export function SuggestedFollowUsersList({ source }: Props) {
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['suggested-follows', source, profile?.profileId, asyncStatus],
-        queryFn({ pageParam }) {
-            return getSuggestedFollowsInPage(source, createIndicator(undefined, pageParam), true);
+        queryFn: async ({ pageParam }) => {
+            const result = await getSuggestedFollowsInPage(source, createIndicator(undefined, pageParam), true);
+            await runInSafeAsync(() =>
+                queryMutedProfiles(result.data.map((x) => ({ source: x.source, id: x.profileId }))),
+            );
+            return result;
         },
         initialPageParam: '',
         getNextPageParam: (
