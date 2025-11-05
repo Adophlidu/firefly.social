@@ -4,7 +4,7 @@ import { CurrencyType } from '@/constants/enum.js';
 import { scale10 } from '@/helpers/number.js';
 import type { LiteralUnion } from '@/types/utility.js';
 
-export interface FormatterCurrencyOptions {
+interface FormatterCurrencyOptions {
     onlyRemainTwoOrZeroDecimal?: boolean;
     fiatCurrencyRate?: number;
     customDecimalConfig?: {

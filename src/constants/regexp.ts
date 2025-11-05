@@ -38,8 +38,6 @@ export const NUMBER_STRING_REGEX = /^[0-9\s+-,]+$/m;
 
 export const TWEET_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z0-9_]*)\/status\/(\d+)/;
 
-export const TWEET_SPACE_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z0-9_]*)\/spaces\/([a-zA-Z0-9_]*)/;
-
 // https://www.lens.xyz/docs/best-practices/onboarding#choosing-a-handle
 export const LENS_HANDLE_REGEXP = /^[a-zA-Z_][a-zA-Z0-9_]{2,26}\.lens$/;
 

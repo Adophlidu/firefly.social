@@ -19,7 +19,3 @@ export async function createPageTitleSSR(
     if (!withSiteName) return title;
     return createPageTitle(title);
 }
-
-export function createPageTitleOG(title: string) {
-    return `View ${title} on Firefly`;
-}

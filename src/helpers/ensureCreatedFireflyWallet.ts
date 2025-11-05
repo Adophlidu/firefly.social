@@ -3,7 +3,7 @@ import { WalletSource } from '@/constants/enum.js';
 import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { createPrivyWallet } from '@/providers/firefly/endpoints/createPrivyWallet.js';
 
-export async function ensureCreatedFireflyWallets() {
+async function ensureCreatedFireflyWallets() {
     const { connected } = await queryClient.fetchQuery(queryMyAllConnections);
     const privyConnections = connected.filter((connection) => connection.source === WalletSource.Privy);
     if (privyConnections.length >= 2) return privyConnections;

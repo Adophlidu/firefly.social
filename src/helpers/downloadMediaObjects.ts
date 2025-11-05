@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { type MediaObject, MediaSource } from '@/types/compose.js';
 
-export async function downloadUrl(url: string, name: string) {
+async function downloadUrl(url: string, name: string) {
     const response = await fetch(url);
     if (!response.ok) {
         throw new Error(`Failed to download file from ${url}: ${response.statusText}`);

@@ -26,7 +26,7 @@ function addThousandSeparators(num: string | number) {
     }
 }
 
-export interface FormatBalanceOptions {
+interface FormatBalanceOptions {
     significant?: number;
     isPrecise?: boolean;
     isFixed?: boolean;

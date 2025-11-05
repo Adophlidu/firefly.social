@@ -12,7 +12,7 @@ export enum ReferralAccountPlatform {
     Bsky = 'b',
 }
 
-export function resolveActivityUrl(
+function resolveActivityUrl(
     name: string,
     options?: {
         platform?: ReferralAccountPlatform;
