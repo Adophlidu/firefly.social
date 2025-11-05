@@ -1,11 +1,11 @@
 import { uniq } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import type { GetClassifyPostLinkWithDeserializationMultipleResponse } from '@/app/api/post-link/getClassifyPostLinkWithDeserialization.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import type { GetClassifyPostLinksResponse } from '@/services/getClassifyPostLink.js';
 
 export async function prefetchPostLinks(urls: string[]) {
     return runInSafeAsync(async () => {
@@ -15,12 +15,11 @@ export async function prefetchPostLinks(urls: string[]) {
         });
         if (notCachedUrls.length <= 0) return;
 
-        const response = await fetchJson<GetClassifyPostLinkWithDeserializationMultipleResponse>(
+        const response = await fetchJson<GetClassifyPostLinksResponse>(
             urlcat(FIREFLY_WORKER_HOST, '/og', {
                 'cache-urls': notCachedUrls.join(','),
             }),
         );
-
         if (!response.success) return;
 
         for (const item of response.data) {

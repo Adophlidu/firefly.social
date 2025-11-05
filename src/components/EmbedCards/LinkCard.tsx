@@ -32,6 +32,7 @@ export const EmbedLinkCard = memo<EmbedLinkCardProps>(function EmbedLinkCard({ l
 interface LinkCardIndicatorProps extends IndicatorProps, Pick<EmbedLinkCardProps, 'link'> {
     onAvailableUpdate: (data: string, available: boolean) => void;
 }
+
 export const LinkCardIndicator = memo<LinkCardIndicatorProps>(function LinkCardIndicator({
     link,
     onAvailableUpdate,

@@ -2,7 +2,7 @@
 
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { useQueries } from '@tanstack/react-query';
-import { first, sortBy } from 'lodash-es';
+import { first, nth, sortBy } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -151,7 +151,7 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
         [oembedUrl, content],
     );
 
-    const classifyResults = useClassifyPostLinks(links);
+    const { data: classifyResults = [] } = useClassifyPostLinks(links);
     const domainResolveResults = useResolveEnsDomains(domains);
 
     // Merge links, addresses and domains
@@ -159,8 +159,9 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
         if (!content) return EMPTY_LIST;
 
         const availableLinks = links.filter((_, i) => {
-            const result = classifyResults[i];
-            return result?.nft || result?.collection;
+            const result = nth(classifyResults, i);
+            if (!result) return false;
+            return !!(result.result.nft || result.result.collection);
         });
         const lowerIgnoredLinks = ignoredLinks.map((x) => x.toLowerCase());
         const availableDomains = domains.filter((domain, i) => {

@@ -13,7 +13,7 @@ import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import { resolveAllOembedUrls, resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
-import { useClassifyPostLink, useClassifyPostLinkMultiple } from '@/hooks/useClassifyPostLink.js';
+import { useClassifyPostLink, useClassifyPostLinks } from '@/hooks/useClassifyPostLink.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Chars } from '@/types/chars.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -57,7 +57,7 @@ function PostLinksSingle({ post, isInCompose = false }: Props) {
 
 function PostLinksMultiple({ post, isInCompose = false, hasRpPayload = false }: Props) {
     const urls = resolveAllOembedUrls(post);
-    const { isLoading, data } = useClassifyPostLinkMultiple(urls);
+    const { isLoading, data } = useClassifyPostLinks(urls);
 
     if (isLoading || !data?.length) return null;
 

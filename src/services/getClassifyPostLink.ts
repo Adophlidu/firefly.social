@@ -23,33 +23,27 @@ export interface ClassifyPostLinkResult {
     quote?: Post;
 }
 
-export type GetClassifyPostLinkWithDeserializationMultipleResponse = ResponseJson<
+export type GetClassifyPostLinkResponse = ResponseJson<ClassifyPostLinkResult>;
+
+export type GetClassifyPostLinksResponse = ResponseJson<
     Array<{
         url: string;
         result: ClassifyPostLinkResult;
     }>
 >;
 
-export async function deserializeClassifyPostLinkResult(
-    result: ClassifyPostLinkResult,
-): Promise<ClassifyPostLinkResult> {
-    return {
-        ...result,
-    } satisfies ClassifyPostLinkResult;
-}
-
-export async function getClassifyPostLinkWithDeserialization(url: string): Promise<ClassifyPostLinkResult | null> {
-    const response = await fetchJson<ResponseJson<ClassifyPostLinkResult>>(
+export async function getClassifyPostLink(url: string) {
+    const response = await fetchJson<GetClassifyPostLinkResponse>(
         urlcat(FIREFLY_WORKER_HOST, `/og`, {
             url,
         }),
     );
     if (!response.success) return null;
-    return deserializeClassifyPostLinkResult(response.data);
+    return response.data;
 }
 
-export async function getClassifyPostLinkWithDeserializationMultiple(urls: string[]) {
-    const response = await fetchJson<GetClassifyPostLinkWithDeserializationMultipleResponse>(
+export async function getClassifyPostLinks(urls: string[]) {
+    const response = await fetchJson<GetClassifyPostLinksResponse>(
         urlcat(FIREFLY_WORKER_HOST, `/og`, {
             urls: urls.join(','),
         }),
