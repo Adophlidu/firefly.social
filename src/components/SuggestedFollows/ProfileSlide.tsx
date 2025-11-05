@@ -51,6 +51,7 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
                     className={classNames('text-xs text-lightMain', hideFollowers ? 'line-clamp-4' : 'line-clamp-2')}
                     source={profile.source}
                     profile={profile}
+                    components={{ a: 'a' }}
                 >
                     {profile.bio ?? '-'}
                 </BioMarkup>

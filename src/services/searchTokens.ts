@@ -10,10 +10,6 @@ import { searchTokensByAddress } from '@/services/searchTokensByAddress.js';
 
 export type TokenWithMarket = SearchableToken & { market?: Partial<CoinGeckoCoinMarketInfo> };
 
-export function isTokenMatched<T extends { name: string; symbol: string }>(token: T, keyword: string) {
-    return [token.name, token.symbol].some((x) => x.toLowerCase() === keyword.replace(/^\$/, '').toLowerCase());
-}
-
 async function searchByAddress(address: string): Promise<SearchableToken[]> {
     try {
         const tokens = await searchTokensByAddress(address);
