@@ -15,22 +15,27 @@ interface AddressTagProps extends Omit<MarkupLinkProps, 'post'> {
     address: string;
 }
 export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, address }) {
+    const isEns = title.endsWith('.eth');
+
     const { data, isLoading } = useQuery({
         queryKey: ['detect-address', address],
         queryFn: () => fireflyWalletProvider.detectAddress(address),
+        enabled: !isEns,
         select: (data) => data?.list[0],
     });
 
-    if (!data || isLoading) return title;
-    const addressType = data.address_type;
-    if (addressType === 'eoa' || addressType === 'soa' || title.endsWith('.eth')) {
+    if ((!data || isLoading) && !isEns) return title;
+
+    const addressType = data?.address_type;
+
+    if (addressType === 'eoa' || addressType === 'soa' || isEns) {
         return (
             <span className="inline-flex h-[18px] items-center gap-1">
                 <Image
                     className="inline size-[15px] shrink-0 rounded-full"
                     unoptimized
                     loading="lazy"
-                    src={getStampAvatarByProfileId(Source.Wallet, title.endsWith('.eth') ? title : address)}
+                    src={getStampAvatarByProfileId(Source.Wallet, isEns ? title : address)}
                     alt=""
                     width={15}
                     height={15}
