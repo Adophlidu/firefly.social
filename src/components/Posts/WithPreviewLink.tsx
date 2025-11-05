@@ -1,11 +1,9 @@
 import { type ReactNode } from 'react';
 
 import { Link } from '@/components/Link.js';
-import { PageRoute } from '@/constants/enum.js';
-import { usePathname } from '@/esm/navigation.js';
 import { getPostImageUrl } from '@/helpers/getPostImageUrl.js';
-import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
+import { useIsPostDetailPage } from '@/hooks/post/useIsPostDetailPage.js';
 import { PreviewMediaModalRef } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -26,8 +24,7 @@ export function WithPreviewLink({
     useModal = false,
     prefetch = false,
 }: WithPreviewLinkProps) {
-    const pathname = usePathname();
-    const isPostPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
+    const isPostPage = useIsPostDetailPage();
 
     const openPreviewModal = () => {
         PreviewMediaModalRef.open({

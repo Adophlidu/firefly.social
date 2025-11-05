@@ -2297,6 +2297,9 @@ msgstr "Signing transaction"
 msgid "Scan the QR code with the <0>Camera app</0> <1/>and give <2>edit permission</2> to sign in instantly"
 msgstr "Scan the QR code with the <0>Camera app</0> <1/>and give <2>edit permission</2> to sign in instantly"
 
+msgid "This mini app works only inside Farcaster. Open it there to check it out."
+msgstr "This mini app works only inside Farcaster. Open it there to check it out."
+
 msgid "Standard"
 msgstr "Standard"
 
@@ -2827,6 +2830,9 @@ msgstr "Failed to fetch profiles."
 
 msgid "Post is decrypting..."
 msgstr "Post is decrypting..."
+
+msgid "Go to Farcaster"
+msgstr "Go to Farcaster"
 
 msgid "Transaction"
 msgstr "Transaction"

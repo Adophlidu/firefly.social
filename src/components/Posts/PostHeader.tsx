@@ -14,14 +14,13 @@ import { Time } from '@/components/Semantic/Time.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { PostMoreAction } from '@/components/TrumpTruthSocial/PostMoreAction.js';
-import { PageRoute, Source } from '@/constants/enum.js';
-import { usePathname } from '@/esm/navigation.js';
+import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
+import { useIsPostDetailPage } from '@/hooks/post/useIsPostDetailPage.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { getLennyUrl } from '@/providers/lens/getLennyUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -45,8 +44,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
     const profileLink = getProfileUrl(author);
 
     const isMedium = useIsMedium('max');
-    const pathname = usePathname();
-    const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
+    const isDetailPage = useIsPostDetailPage();
 
     const identity = resolveFireflyIdentity(author);
     const newLine = !isQuote && (isMedium || (isDetailPage && !isComment && !showDate));

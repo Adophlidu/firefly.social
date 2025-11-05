@@ -2302,6 +2302,9 @@ msgstr "簽署交易"
 msgid "Scan the QR code with the <0>Camera app</0> <1/>and give <2>edit permission</2> to sign in instantly"
 msgstr "使用<0>相機應用</0><1/>掃描QR碼並授予<2>編輯權限</2>以即時登入"
 
+msgid "This mini app works only inside Farcaster. Open it there to check it out."
+msgstr ""
+
 msgid "Standard"
 msgstr "標準"
 
@@ -2832,6 +2835,9 @@ msgstr "取得個人檔案失敗。"
 
 msgid "Post is decrypting..."
 msgstr "貼文解密中..."
+
+msgid "Go to Farcaster"
+msgstr ""
 
 msgid "Transaction"
 msgstr "交易"

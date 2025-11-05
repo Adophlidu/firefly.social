@@ -269,3 +269,9 @@ export type Frame = FrameV1 | FrameV2;
 export interface LinkDigestedResponse<T = Frame> {
     frame: T | null;
 }
+
+export type IframeBlockerResponse = {
+    url: string;
+    isBlocked: boolean;
+    contentSecurityPolicy?: string;
+};

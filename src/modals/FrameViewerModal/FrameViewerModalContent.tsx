@@ -1,5 +1,7 @@
+import { classNames, delay } from '@dimensiondev/utils';
 import { exposeToIframe } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
+import { skipToken, useQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import { useAccount, useChainId } from 'wagmi';
 
@@ -18,6 +20,7 @@ import {
 } from '@/modals/FrameViewerModal/RelayConfirmationPopover.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
+import { checkMiniAppBlocking } from '@/services/frame/checkMiniAppBlocking.js';
 import type { FrameV2 } from '@/types/frame.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
@@ -44,6 +47,21 @@ export default function FrameViewerModalContent({ open, props, setProps }: Props
     const chainId = useChainId();
 
     const endpointRef = useRef<ReturnType<typeof exposeToIframe>['endpoint']>(null);
+    const iframeUrl = props?.frame?.button.action.url;
+
+    const enabledChecking = open && iframeUrl && !props.ready;
+    const { data: isBlocked } = useQuery({
+        enabled: !!enabledChecking,
+        queryKey: ['check-miniapp-blocking', iframeUrl],
+        queryFn: enabledChecking
+            ? async ({ signal }) => {
+                  await delay(5000);
+                  if (signal.aborted) return;
+                  return checkMiniAppBlocking(iframeUrl, signal);
+              }
+            : skipToken,
+        select: (data) => !props?.ready && data?.isBlocked,
+    });
 
     useEffect(() => {
         if (!frameRef.current) return;
@@ -129,14 +147,13 @@ export default function FrameViewerModalContent({ open, props, setProps }: Props
     ]);
 
     if (!open || !props) return null;
-
     const { frame } = props;
 
     return (
         <>
             <RelayConfirmationPopover ref={RelayConfirmationPopoverRef.register} />
             <iframe
-                className="no-scrollbar size-full opacity-100"
+                className={classNames('no-scrollbar size-full opacity-100', isBlocked ? 'hidden' : '')}
                 ref={frameRef}
                 src={frame.button.action.url}
                 allow="clipboard-write 'src'"
@@ -145,7 +162,23 @@ export default function FrameViewerModalContent({ open, props, setProps }: Props
                     backgroundColor: frame.button.action.splashBackgroundColor,
                 }}
             />
-            {props.timeout ? (
+            {isBlocked ? (
+                <div className="absolute inset-0 top-[60px] flex min-h-0 grow flex-col items-center justify-center bg-bg">
+                    <p className="p-2 text-sm font-bold">
+                        <Trans>This mini app works only inside Farcaster. Open it there to check it out.</Trans>
+                    </p>
+                    <a
+                        href={`https://farcaster.xyz/?launchFrameUrl=${frame.button.action.url}`}
+                        className="rounded-lg bg-lightBg px-3 py-2 font-bold text-lightHighlight dark:bg-fireflyBrand dark:text-white"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        <Trans>Go to Farcaster</Trans>
+                    </a>
+                </div>
+            ) : null}
+
+            {isBlocked ? null : props.timeout ? (
                 <div className="absolute inset-0 top-[60px] flex items-center justify-center bg-primaryBottom">
                     <p className="text-sm">
                         <Trans>Something went wrong. Please try again later.</Trans>
