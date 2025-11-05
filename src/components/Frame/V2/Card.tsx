@@ -78,7 +78,6 @@ function createFrameHost(
             console.log('[frame host]: ready options', JSON.stringify(options));
             return FrameViewerModalRef.open({
                 ready: true,
-                timeout: false,
                 frame,
                 frameHost,
             });
@@ -110,7 +109,6 @@ function createFrameHost(
             console.log('[frame host]: openMiniApps', frame);
             FrameViewerModalRef.open({
                 ready: false,
-                timeout: false,
                 frame,
                 frameHost: createFrameHost(frame, post, router, { profile }),
             });
@@ -153,7 +151,6 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
 
         FrameViewerModalRef.open({
             ready: false,
-            timeout: false,
             frame,
             frameHost,
         });
