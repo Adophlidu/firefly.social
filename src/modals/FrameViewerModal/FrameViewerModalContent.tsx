@@ -169,7 +169,7 @@ export default function FrameViewerModalContent({ open, props, setProps }: Props
                 }}
             />
             {machine.is('blocking') ? (
-                <div className="absolute inset-0 top-[60px] flex min-h-0 grow flex-col items-center justify-center bg-bg">
+                <div className="absolute inset-0 top-[60px] flex min-h-0 grow flex-col items-center justify-center bg-bg dark:bg-darkBottom">
                     <p className="p-2 text-sm font-bold">
                         <Trans>This mini app works only inside Farcaster. Open it there to check it out.</Trans>
                     </p>
