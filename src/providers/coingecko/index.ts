@@ -14,7 +14,6 @@ import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import type {
     CoinGeckoAsset,
     CoinGeckoCoinInfo,
-    CoinGeckoCoinMarketInfo,
     CoinGeckoCoinTrending,
     CoinGeckoGainsLoserInfo,
     CoinGeckoMemeCoinTrending,
@@ -213,17 +212,6 @@ export class CoinGecko {
             })(),
         };
         return trendingModifiers(trending);
-    }
-
-    static async getCoinsByIds(coinIds: string[]) {
-        return fetchJson<CoinGeckoCoinMarketInfo[]>(
-            urlcat(COINGECKO_ROOT_URL, '/coins/markets', {
-                ids: coinIds.join(','),
-                vs_currency: 'usd',
-                per_page: 250,
-                page: 1,
-            }),
-        );
     }
 
     static async getTopGainersOrLosers(
