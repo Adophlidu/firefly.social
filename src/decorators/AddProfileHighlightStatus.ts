@@ -1,11 +1,20 @@
 import { uniqBy } from 'lodash-es';
 
-import { type SocialSource, SparksAccountStatus } from '@/constants/enum.js';
+import { type SocialSource, SourceInURL, SparksAccountStatus } from '@/constants/enum.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { checkGenesisSparksAccounts } from '@/providers/firefly/endpoints/checkGenesisSparksAccounts.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/utility.js';
+
+function isSameProfileId(platform: SourceInURL, a: string, b: string) {
+    if (platform === SourceInURL.Lens) {
+        return isSameEthereumAddress(a, b);
+    }
+
+    return a === b;
+}
 
 async function fillAuthorHighlightStatusForPosts(posts: Post[], source: SocialSource) {
     const records = await runInSafeAsync(() =>
@@ -22,7 +31,7 @@ async function fillAuthorHighlightStatusForPosts(posts: Post[], source: SocialSo
     const platform = resolveSourceInUrlForApi(source);
     return posts.map((post, i) => {
         const ogRecord = records.infoList.find(
-            (r) => r.platform === platform && r.platform_id === post.author.profileId,
+            (r) => r.platform === platform && isSameProfileId(platform, r.platform_id, post.author.profileId),
         );
         if (!ogRecord) return post;
 
