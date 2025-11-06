@@ -24,7 +24,8 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { getFarcasterSuggestFollows } from '@/providers/firefly/endpoint/getFarcasterSuggestFollows.js';
 import { reportProfile as reportProfileEndpoint } from '@/providers/firefly/endpoint/reportProfile.js';
-import { farcasterAccountProvider } from '@/providers/firefly/FarcasterAccount.js';
+import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProfileFor.js';
+import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblockProfileFor.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
@@ -348,11 +349,11 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async blockProfile(profileId: string) {
-        return farcasterAccountProvider.blockProfileFor(FireflyPlatform.Farcaster, profileId);
+        return blockProfileFor(FireflyPlatform.Farcaster, profileId);
     }
 
     async unblockProfile(profileId: string) {
-        return farcasterAccountProvider.unblockProfileFor(FireflyPlatform.Farcaster, profileId);
+        return unblockProfileFor(FireflyPlatform.Farcaster, profileId);
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {

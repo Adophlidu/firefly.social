@@ -5,7 +5,7 @@ import { first } from 'lodash-es';
 
 import { ArticleDetailContent } from '@/components/Article/ArticleDetailContent.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
+import { getArticleById } from '@/providers/firefly/article/getArticleById.js';
 import { createArticleMetadata } from '@/providers/firefly/metadata/createArticleMetadata.js';
 import type { Article } from '@/providers/types/Article.js';
 
@@ -23,7 +23,7 @@ interface Props {
 export async function ArticleDetailPage({ id: articleId }: Props) {
     if (!articleId) notFound();
 
-    const article = await FireflyArticleProvider.getArticleById(articleId);
+    const article = await getArticleById(articleId);
     if (!article) notFound();
 
     const coverUrl = await getArticleCoverUrl(article);

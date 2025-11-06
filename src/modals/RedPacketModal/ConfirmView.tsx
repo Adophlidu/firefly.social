@@ -38,7 +38,9 @@ import {
     redPacketFontColorTabs,
 } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { ShareAccountsPopover } from '@/modals/RedPacketModal/ShareAccountsPopover.js';
-import { fireflyRedPacketProvider } from '@/providers/firefly/RedPacket.js';
+import { createPublicKey } from '@/providers/firefly/red-packet/createPublicKey.js';
+import { createTheme as createFireflyTheme } from '@/providers/firefly/red-packet/createTheme.js';
+import { getTheme as getFireflyTheme } from '@/providers/firefly/red-packet/getTheme.js';
 import { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 
@@ -163,7 +165,7 @@ export default memo(function ConfirmView() {
         }
 
         return {
-            publicKey: isEVM ? await fireflyRedPacketProvider.createPublicKey(themeId, shareFrom, strategies) : '',
+            publicKey: isEVM ? await createPublicKey(themeId, shareFrom, strategies) : '',
             claimRequirements: strategies,
         };
     }, [
@@ -210,12 +212,12 @@ export default memo(function ConfirmView() {
             const url = await uploadToS3(blob, 'red-packet-cover');
             // Create two variants for each custom theme
             const [themeId, goldenThemeId] = await Promise.all([
-                fireflyRedPacketProvider.createTheme({ font_color: '#ffffff', image: url }),
-                fireflyRedPacketProvider.createTheme({ font_color: '#FFE4A6', image: url }),
+                createFireflyTheme({ font_color: '#ffffff', image: url }),
+                createFireflyTheme({ font_color: '#FFE4A6', image: url }),
             ]);
             const [theme, goldenTheme] = await Promise.all([
-                fireflyRedPacketProvider.getTheme({ themeId }),
-                fireflyRedPacketProvider.getTheme({ themeId: goldenThemeId }),
+                getFireflyTheme({ themeId }),
+                getFireflyTheme({ themeId: goldenThemeId }),
             ]);
             if (goldenTheme) {
                 themeVariantsMapRef.current.set(url, {

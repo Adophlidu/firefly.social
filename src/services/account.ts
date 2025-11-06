@@ -22,8 +22,9 @@ import { getBskySessionStorage } from '@/providers/bsky/createBskyAgent.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
-import { farcasterAccountProvider } from '@/providers/firefly/FarcasterAccount.js';
-import { fireflyMetricsProvider } from '@/providers/firefly/Metrics.js';
+import { reportFarcasterSigner } from '@/providers/firefly/farcaster-account/reportFarcasterSigner.js';
+import { deleteMetrics } from '@/providers/firefly/metrics/deleteMetrics.js';
+import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
@@ -285,14 +286,14 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             account.session.type === SessionType.Farcaster
         ) {
             console.warn('[addAccount] report farcaster signer');
-            farcasterAccountProvider.reportFarcasterSigner(account.session as FireflySession);
+            reportFarcasterSigner(account.session as FireflySession);
         }
     });
 
     captureAccountLoginEvent(account);
     if (account.fireflySession?.payload?.isNew) captureAccountCreateSuccessEvent(account);
 
-    const syncStatus = await fireflyMetricsProvider.getMetricsStatus();
+    const syncStatus = await getMetricsStatus();
 
     if (!skipSyncAccounts && fireflySession && syncStatus.hasSetPasscode) {
         // No need to wait
@@ -425,7 +426,7 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
         runInSafeAsync(async () => {
             for (const account of accounts) {
                 if (fireflySessionHolder.session && account.session.type === SessionType.Farcaster) {
-                    await farcasterAccountProvider.reportFarcasterSigner(account.session as FireflySession);
+                    await reportFarcasterSigner(account.session as FireflySession);
                 }
             }
         });
@@ -559,7 +560,7 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
             }),
         );
         if (remoteProfiles.some((x) => isSameProfile(x, account.profile))) {
-            await fireflyMetricsProvider.deleteMetrics(passcode, [
+            await deleteMetrics(passcode, [
                 `${resolveSocialSourceInUrl(account.profile.source)}:${account.profile.profileId}`,
             ]);
         }
@@ -609,7 +610,7 @@ export async function removeAccountsByProfiles(profiles: Profile[], signal?: Abo
 
     const passcode = await verifyAndGetPassword();
     if (passcode) {
-        await fireflyMetricsProvider.deleteMetrics(
+        await deleteMetrics(
             passcode,
             profiles.map((x) => `${resolveSocialSourceInUrl(x.source)}:${x.profileId}`),
         );

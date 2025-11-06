@@ -12,7 +12,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
-import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
+import { getCollectionHolders } from '@/providers/firefly/nft/getCollectionHolders.js';
 import type { CollectionHolder } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
@@ -65,7 +65,7 @@ export function TopCollectors(props: TopCollectorsProps) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['top-collectors', chainId, address],
         async queryFn() {
-            return fireflyNftProvider.getCollectionHolders(chainId, address);
+            return getCollectionHolders(chainId, address);
         },
         initialPageParam: '',
         getNextPageParam: () => undefined,

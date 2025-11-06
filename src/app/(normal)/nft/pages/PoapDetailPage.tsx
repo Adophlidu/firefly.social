@@ -10,7 +10,7 @@ import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
 import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation.js';
-import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
+import { getPOAP } from '@/providers/firefly/nft/getPOAP.js';
 import type { NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
 import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
@@ -18,7 +18,7 @@ export function PoapDetailPage({ tokenId }: { tokenId: string }) {
     const { data: poap, isLoading } = useQuery({
         queryKey: ['post-event', tokenId],
         async queryFn() {
-            return fireflyNftProvider.getPOAP(tokenId);
+            return getPOAP(tokenId);
         },
     });
     const traits: NonFungibleTokenTrait[] = useMemo(() => {

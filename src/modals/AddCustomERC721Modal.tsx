@@ -25,7 +25,7 @@ import { useNFTCollections } from '@/hooks/useNFTCollections.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { AddCustomERC20ModalOpenProps } from '@/modals/AddCustomERC20Modal.js';
-import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
+import { getCollection } from '@/providers/firefly/nft/getCollection.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
@@ -79,7 +79,7 @@ function AddCustomERC721Content({
                 onClose();
                 return;
             }
-            const collection = await fireflyNftProvider.getCollection(selectedChain, address);
+            const collection = await getCollection(selectedChain, address);
             if (!collection) {
                 enqueueWarningMessage(<Trans>Sorry, we are not able to find this collection</Trans>);
                 return;

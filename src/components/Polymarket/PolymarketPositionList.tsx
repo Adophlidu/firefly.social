@@ -11,7 +11,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { PolymarketPositionItem } from '@/components/Polymarket/PolymarketPositionItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
-import { fireflyPolymarketProvider } from '@/providers/firefly/Polymarket.js';
+import { getPositionHistory } from '@/providers/firefly/polymarket/getPositionHistory.js';
 import type { PolymarketPositionData } from '@/providers/types/Firefly.js';
 
 interface PolymarketPositionListProps {
@@ -32,7 +32,7 @@ export function PolymarketPositionList({ address, proxyAddress }: PolymarketPosi
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             try {
-                return await fireflyPolymarketProvider.getPositionHistory({
+                return await getPositionHistory({
                     address: proxyAddress || address,
                     isProxyAddress: !!proxyAddress,
                     limit: 25,

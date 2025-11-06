@@ -6,13 +6,13 @@ import type { HTMLProps } from 'react';
 import { TrendingNFT } from '@/components/Explores/TrendingNFT.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { VirtualListFooterBottomText } from '@/components/VirtualList/VirtualListFooterBottomText.js';
-import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
+import { getTrendingNFTs } from '@/providers/firefly/nft/getTrendingNFTs.js';
 
 export function TrendingNFTs(props: HTMLProps<HTMLDivElement>) {
     const { data, isFetching } = useSuspenseQuery({
         queryKey: ['explore-nfts'],
         queryFn: async () => {
-            const nfts = await fireflyNftProvider.getTrendingNFTs(100);
+            const nfts = await getTrendingNFTs(100);
             return nfts.filter((x) => x.contract_name);
         },
     });

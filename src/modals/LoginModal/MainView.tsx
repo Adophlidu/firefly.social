@@ -51,7 +51,7 @@ import { LogoutModalRef } from '@/modals/LogoutModal.js';
 import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
 import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal.js';
 import { getTelegramLoginUrl } from '@/providers/firefly/auth/getTelegramLoginUrl.js';
-import { fireflyMetricsProvider } from '@/providers/firefly/Metrics.js';
+import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { formatThirdPartyProfileName } from '@/providers/lens/formatThirdPartyProfileName.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import {
@@ -97,7 +97,7 @@ function FireflyAccount({
 
     const [{ loading: queryMetricsStatusLoading }, queryMetricsStatus] = useAsyncFn(async () => {
         try {
-            const status = await fireflyMetricsProvider.getMetricsStatus();
+            const status = await getMetricsStatus();
             if (status.hasSetPasscode) {
                 const password = await verifyAndGetPassword({
                     skipCheck: true,

@@ -8,7 +8,7 @@ import { Loading } from '@/components/Loading.js';
 import { PolymarketActivityItem } from '@/components/Polymarket/PolymarketActivityItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
-import { fireflyPolymarketProvider } from '@/providers/firefly/Polymarket.js';
+import { getFollowingPolymarketTimeline } from '@/providers/firefly/polymarket/getFollowingPolymarketTimeline.js';
 import { captureFollowingPolymarketLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { PolymarketActivity } from '@/providers/types/Firefly.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
@@ -26,7 +26,7 @@ export function FollowingPolymarketList() {
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             try {
-                return await fireflyPolymarketProvider.getFollowingPolymarketTimeline('all', indicator);
+                return await getFollowingPolymarketTimeline('all', indicator);
             } catch {
                 return createPageable([], indicator);
             }

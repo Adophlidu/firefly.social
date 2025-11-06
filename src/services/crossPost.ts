@@ -17,7 +17,7 @@ import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { SnackbarRef } from '@/modals/Snackbar.js';
-import { fireflyRedPacketProvider } from '@/providers/firefly/RedPacket.js';
+import { updateClaimStrategy } from '@/providers/firefly/red-packet/updateClaimStrategy.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { captureCreatePollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
@@ -85,13 +85,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
             }),
         );
 
-        await fireflyRedPacketProvider.updateClaimStrategy(
-            rpPayload.metadata.rpid,
-            reactions,
-            claimPlatforms,
-            postOn,
-            rpPayload.publicKey,
-        );
+        await updateClaimStrategy(rpPayload.metadata.rpid, reactions, claimPlatforms, postOn, rpPayload.publicKey);
     }
 }
 

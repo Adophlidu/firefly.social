@@ -8,7 +8,7 @@ import { notFound } from '@/esm/navigation/server.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { fireflyPolymarketProvider } from '@/providers/firefly/Polymarket.js';
+import { getProfile } from '@/providers/firefly/polymarket/getProfile.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
@@ -21,7 +21,7 @@ export default async function PolymarketProfilePage(props: Props) {
     if (!address || !isValidAddressEthereum(address)) notFound();
 
     await setupLocaleForSSR();
-    const polymarketProfile = await runInSafeAsync(() => fireflyPolymarketProvider.getProfile(address));
+    const polymarketProfile = await runInSafeAsync(() => getProfile(address));
 
     return (
         <div>

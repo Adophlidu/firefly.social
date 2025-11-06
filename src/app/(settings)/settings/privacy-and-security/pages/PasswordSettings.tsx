@@ -15,7 +15,8 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
-import { fireflyMetricsProvider } from '@/providers/firefly/Metrics.js';
+import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
+import { resetPasscode } from '@/providers/firefly/metrics/resetPasscode.js';
 import { captureRemovePasscodeEvent } from '@/providers/telemetry/capturePasscodeEvent.js';
 
 function ToggleSyncSessionSwitch({
@@ -59,7 +60,7 @@ function ToggleSyncSessionSwitch({
                 });
                 if (!confirmed) return;
 
-                await fireflyMetricsProvider.resetPasscode();
+                await resetPasscode();
                 queryClient.setQueryData(['session-sync-status', isLogin], false);
                 enqueueSuccessMessage(
                     <Trans>Multi-device login is now turned off and all previously sessions are cleared.</Trans>,
@@ -95,7 +96,7 @@ export const PasswordSettings = memo(function PasswordSettings() {
         queryKey: ['session-sync-status', isLogin],
         enabled: isLogin,
         queryFn: async () => {
-            const response = await fireflyMetricsProvider.getMetricsStatus();
+            const response = await getMetricsStatus();
             return response.hasSetPasscode;
         },
     });

@@ -6,7 +6,7 @@ import { isValidChainIdEthereum, isValidChainIdSolana } from '@/helpers/isValidC
 import { parseChainId } from '@/helpers/parseChainId.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
 import { createNftCollectionMetadata } from '@/providers/firefly/metadata/createNftCollectionMetadata.js';
-import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
+import { getCollection } from '@/providers/firefly/nft/getCollection.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ addressOrTokenId: string; chainIdOrCollectionId: string }> {}
@@ -34,7 +34,7 @@ export default async function Page(props: Props) {
     if (!chainId) notFound();
 
     if (isNFTDetailPage(chainIdOrCollectionId, addressOrTokenId)) {
-        const collection = await fireflyNftProvider.getCollection(chainId, addressOrTokenId);
+        const collection = await getCollection(chainId, addressOrTokenId);
         if (collection) {
             const { address, chainId } = resolveCollectionChain(collection);
             return <NFTDetailPage chainId={chainId} address={address} tokenId={addressOrTokenId} />;

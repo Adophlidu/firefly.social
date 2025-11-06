@@ -3,7 +3,7 @@ import { memo } from 'react';
 
 import { ProfileActivities } from '@/components/Activities/ProfileActivities.js';
 import { PolymarketProfileCard } from '@/components/Polymarket/PolymarketProfileCard.js';
-import { NFTs } from '@/components/Profile/NFTs.js';
+import { ProfileNFTs } from '@/components/Profile/NFTs.js';
 import { ProfilePolymarketList } from '@/components/Profile/ProfilePolymarketList.js';
 import { ProfileTransactions } from '@/components/Transactions/ProfileTransactions.js';
 import { WalletProfileCategory } from '@/constants/enum.js';
@@ -17,7 +17,7 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
 }) {
     switch (type) {
         case WalletProfileCategory.NFTs:
-            return <NFTs address={address} />;
+            return <ProfileNFTs address={address} />;
         case WalletProfileCategory.Activities:
             return <ProfileActivities address={address} />;
         case WalletProfileCategory.Transactions:

@@ -5,7 +5,7 @@ import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
 import { searchCollections as searchCollectionsEndpoint } from '@/providers/firefly/endpoint/searchCollections.js';
-import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
+import { detectCollection } from '@/providers/firefly/nft/detectCollection.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 const SEARCH_CHAIN_ID_LIST = [
@@ -20,7 +20,7 @@ const SEARCH_CHAIN_ID_LIST = [
 
 const searchCollectionByAddress = memoizePromise(
     async function searchCollectionByAddress(address: string) {
-        const detected = await fireflyNftProvider.detectCollection(address);
+        const detected = await detectCollection(address);
         if (detected?.chain_id && !SEARCH_CHAIN_ID_LIST.includes(detected.chain_id)) {
             return null;
         }

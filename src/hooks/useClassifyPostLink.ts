@@ -1,6 +1,6 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
 
-import { getClassifyPostLinks } from '@/services/getClassifyPostLink.js';
+import { getClassifyPostLinks } from '@/providers/firefly/worker/getClassifyPostLinks.js';
 
 export function useClassifyPostLink(url: string | null | undefined) {
     return useQuery({

@@ -36,7 +36,7 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import { fireflyRedPacketProvider } from '@/providers/firefly/RedPacket.js';
+import { createCover } from '@/providers/firefly/red-packet/createCover.js';
 import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -256,7 +256,7 @@ function ComposeModalUI({ ref }: Props) {
             return;
 
         try {
-            const result = await fireflyRedPacketProvider.createCover(rpPayload.metadata as RedPacketMetadata);
+            const result = await createCover(rpPayload.metadata as RedPacketMetadata);
             if (!result.coverImageUrl) {
                 throw new Error('Failed to create red packet cover.');
             }

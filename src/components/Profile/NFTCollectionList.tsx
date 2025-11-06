@@ -14,7 +14,7 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { usePoapsByWallet } from '@/hooks/nft/usePoapsByWallet.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
+import { getUserCollections } from '@/providers/firefly/nft/getUserCollections.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
@@ -93,7 +93,7 @@ export function NFTCollectionList({ addresses, address, onClickCollection }: NFT
             key: [chainId, address].join(','),
             async queryFn({ pageParam }) {
                 const indicator = createIndicator(undefined, pageParam);
-                const response = await fireflyNftProvider.getUserCollections(chainId, address, indicator);
+                const response = await getUserCollections(chainId, address, indicator);
                 return response;
             },
         })),

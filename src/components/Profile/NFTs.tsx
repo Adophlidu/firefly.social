@@ -21,7 +21,7 @@ interface SelectedCollection {
     collection: EVM.CollectionBasics;
 }
 
-export function NFTs({ address, ...rest }: { address: string; addresses?: string[] }) {
+export function ProfileNFTs({ address, ...rest }: { address: string; addresses?: string[] }) {
     const mixAddresses = useWalletMixAddresses(address);
     const addresses = rest.addresses || mixAddresses;
     const [selectedCollection, setSelectedCollection] = useState<SelectedCollection | null>(null);
@@ -73,5 +73,3 @@ export function NFTs({ address, ...rest }: { address: string; addresses?: string
         </div>
     );
 }
-
-export default NFTs;

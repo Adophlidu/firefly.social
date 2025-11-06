@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { EMPTY_LIST } from '@/constants/index.js';
 import { pageableToIterator, type PageIndicator } from '@/helpers/pageable.js';
-import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
+import { getUserCollections } from '@/providers/firefly/nft/getUserCollections.js';
 import type { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 interface Options {
@@ -18,7 +18,7 @@ export function useNFTCollections({ account, chainId, schemaType }: Options) {
             if (!account || !chainId) return EMPTY_LIST;
             return asyncIteratorToArray(
                 pageableToIterator(async (indicator?: PageIndicator) => {
-                    return fireflyNftProvider.getUserCollections(chainId, account, indicator);
+                    return getUserCollections(chainId, account, indicator);
                 }),
             );
         },

@@ -17,12 +17,8 @@ function fetchInterfaceApi<T>(pathname: string, init?: RequestInit) {
     });
 }
 
-class FireflyInterface {
-    async getTrendingChannels() {
-        const response = await fetchInterfaceApi<Channel[]>('/ui/suggested-channels');
-        const channels = resolveResponseData(response);
-        return channels;
-    }
+export async function getTrendingChannels() {
+    const response = await fetchInterfaceApi<Channel[]>('/ui/suggested-channels');
+    const channels = resolveResponseData(response);
+    return channels;
 }
-
-export const fireflyInterface = new FireflyInterface();

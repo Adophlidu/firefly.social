@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { NFTs } from '@/components/Profile/NFTs.js';
+import { ProfileNFTs } from '@/components/Profile/NFTs.js';
 
 const meta = {
     title: 'Profile/NFTs',
-    component: NFTs,
+    component: ProfileNFTs,
     render: (args) => {
         return (
             <div style={{ width: 591 }}>
-                <NFTs {...args} />
+                <ProfileNFTs {...args} />
             </div>
         );
     },
-} satisfies Meta<typeof NFTs>;
+} satisfies Meta<typeof ProfileNFTs>;
 
 type Story = StoryObj<typeof meta>;
 

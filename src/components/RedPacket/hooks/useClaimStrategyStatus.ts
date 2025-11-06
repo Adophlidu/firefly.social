@@ -4,7 +4,7 @@ import { type SocialSource } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
-import { fireflyRedPacketProvider } from '@/providers/firefly/RedPacket.js';
+import { checkClaimStrategyStatus } from '@/providers/firefly/red-packet/checkClaimStrategyStatus.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
 export function useClaimStrategyStatus(payload: RedPacketJSONPayload, source: SocialSource, enabled = true) {
@@ -24,7 +24,7 @@ export function useClaimStrategyStatus(payload: RedPacketJSONPayload, source: So
             const profile = await getCurrentClaimProfile(source);
             if (!profile) return null;
 
-            return fireflyRedPacketProvider.checkClaimStrategyStatus({
+            return checkClaimStrategyStatus({
                 rpid,
                 profile,
                 wallet: {

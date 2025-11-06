@@ -9,7 +9,7 @@ import { PolymarketPositionItem } from '@/components/Polymarket/PolymarketPositi
 import { ShowMoreLink } from '@/components/Polymarket/ShowMoreLink.js';
 import { ToggleVisibleBox } from '@/components/Polymarket/ToggleVisibleBox.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
-import { fireflyPolymarketProvider } from '@/providers/firefly/Polymarket.js';
+import { getPositionHistory } from '@/providers/firefly/polymarket/getPositionHistory.js';
 
 interface PolymarketProfilePositionProps {
     address: string;
@@ -22,7 +22,7 @@ export function PolymarketProfilePosition({ address, proxyAddress }: PolymarketP
         queryKey: ['polymarket', 'positions-lite', address],
         staleTime: 1000 * 60 * 5,
         queryFn: async () => {
-            return fireflyPolymarketProvider.getPositionHistory({
+            return getPositionHistory({
                 address: proxyAddress || address,
                 isProxyAddress: !!proxyAddress,
                 limit: pageSize,

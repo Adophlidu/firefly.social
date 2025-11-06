@@ -20,7 +20,9 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
-import { fireflyMetricsProvider } from '@/providers/firefly/Metrics.js';
+import { downloadMetaInfo } from '@/providers/firefly/metrics/downloadMetaInfo.js';
+import { downloadMetrics } from '@/providers/firefly/metrics/downloadMetrics.js';
+import { uploadMetrics as uploadFireflyMetrics } from '@/providers/firefly/metrics/uploadMetrics.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { captureAccountLoginEvent } from '@/providers/telemetry/captureAccountEvent.js';
@@ -141,15 +143,13 @@ export async function uploadMetrics(passcode: string) {
     const localMetrics = await getLocalMetrics(passcode);
 
     const validMetrics = compact(localMetrics);
-    if (!validMetrics.length) {
-        throw new Error('No valid metrics data to upload.');
-    }
+    if (!validMetrics.length) throw new Error('No valid metrics data to upload.');
 
-    return await fireflyMetricsProvider.uploadMetrics(passcode, validMetrics);
+    return await uploadFireflyMetrics(passcode, validMetrics);
 }
 
 export async function downloadAccounts() {
-    const response = await fireflyMetricsProvider.downloadMetaInfo();
+    const response = await downloadMetaInfo();
 
     return response.metrics;
 }
@@ -163,7 +163,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
 
     const validLocalMetrics = compact(localMetrics);
 
-    const remoteMetricsResponse = await fireflyMetricsProvider.downloadMetrics(passcode);
+    const remoteMetricsResponse = await downloadMetrics(passcode);
     const remoteMetrics = remoteMetricsResponse.metrics.map(({ identity, ...metric }) => metric);
 
     // merge local metrics with remote metrics, if local metrics is not in remote metrics, add it to remote metrics
@@ -181,7 +181,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
         }
     }
 
-    await fireflyMetricsProvider.uploadMetrics(passcode, compact(mergedMetrics));
+    await uploadFireflyMetrics(passcode, compact(mergedMetrics));
 
     for (const info of remoteMetrics) {
         if (

@@ -32,16 +32,6 @@ export type GetClassifyPostLinksResponse = ResponseJson<
     }>
 >;
 
-export async function getClassifyPostLink(url: string) {
-    const response = await fetchJson<GetClassifyPostLinkResponse>(
-        urlcat(FIREFLY_WORKER_HOST, `/og`, {
-            url,
-        }),
-    );
-    if (!response.success) return null;
-    return response.data;
-}
-
 export async function getClassifyPostLinks(urls: string[]) {
     const response = await fetchJson<GetClassifyPostLinksResponse>(
         urlcat(FIREFLY_WORKER_HOST, `/og`, {

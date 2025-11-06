@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useAccount } from 'wagmi';
 
 import { EMPTY_LIST } from '@/constants/index.js';
-import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
+import { getCollections } from '@/providers/firefly/nft/getCollections.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 
 export function useCustomNonFungibleTokens() {
@@ -16,7 +16,7 @@ export function useCustomNonFungibleTokens() {
         queryKey: ['custom-non-fungible-tokens', account.address, paramList],
         async queryFn() {
             if (!account.address) return EMPTY_LIST;
-            return fireflyNftProvider.getCollections(paramList);
+            return getCollections(paramList);
         },
         enabled: paramList.length > 0 && !!account.address,
     });

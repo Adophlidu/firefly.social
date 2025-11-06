@@ -94,7 +94,8 @@ import {
 import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
-import { farcasterAccountProvider } from '@/providers/firefly/FarcasterAccount.js';
+import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProfileFor.js';
+import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblockProfileFor.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
@@ -1068,7 +1069,7 @@ class LensSocialMedia implements Provider {
 
     async blockProfile(profileId: string) {
         await ensureLensResult(muteAccount(lensSessionHolder.sessionClient, { account: safeEvmAddress(profileId) }));
-        await runInSafeAsync(() => farcasterAccountProvider.blockProfileFor(FireflyPlatform.Lens, profileId));
+        await runInSafeAsync(() => blockProfileFor(FireflyPlatform.Lens, profileId));
         return true;
     }
 
@@ -1078,7 +1079,7 @@ class LensSocialMedia implements Provider {
                 account: safeEvmAddress(profileId),
             }),
         );
-        await runInSafeAsync(() => farcasterAccountProvider.unblockProfileFor(FireflyPlatform.Lens, profileId));
+        await runInSafeAsync(() => unblockProfileFor(FireflyPlatform.Lens, profileId));
         return true;
     }
 

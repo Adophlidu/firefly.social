@@ -10,7 +10,7 @@ import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPaylo
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { sharePostAfterClaimed } from '@/helpers/sharePostAfterClaimed.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
-import { fireflyRedPacketProvider } from '@/providers/firefly/RedPacket.js';
+import { finishClaiming } from '@/providers/firefly/red-packet/finishClaiming.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -34,7 +34,7 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
             const profile = await getCurrentClaimProfile(source);
             if (result.tx && profile?.profileId && profile.handle) {
                 await runInSafeAsync(() =>
-                    fireflyRedPacketProvider.finishClaiming(
+                    finishClaiming(
                         payload.rpid,
                         profile.platform,
                         profile.profileId || '',

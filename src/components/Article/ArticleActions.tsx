@@ -25,7 +25,7 @@ import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import { CollectArticleModalRef } from '@/modals/CollectArticleModal.js';
 import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
-import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
+import { getArticleById } from '@/providers/firefly/article/getArticleById.js';
 import { captureArticleShareClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
@@ -45,7 +45,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
 
     const { data, isLoading } = useQuery({
         queryKey: ['article-detail', oldArticle.id],
-        queryFn: () => FireflyArticleProvider.getArticleById(oldArticle.id),
+        queryFn: () => getArticleById(oldArticle.id),
     });
 
     const article = data || oldArticle;

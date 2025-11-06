@@ -7,7 +7,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { PolymarketActivityItem } from '@/components/Polymarket/PolymarketActivityItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { fireflyPolymarketProvider } from '@/providers/firefly/Polymarket.js';
+import { getProfilePolymarketTimeline } from '@/providers/firefly/polymarket/getProfilePolymarketTimeline.js';
 import { captureProfilePolymarketLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
 import type { PolymarketActivity } from '@/providers/types/Firefly.js';
 
@@ -24,7 +24,7 @@ export const ProfilePolymarketList = memo<ProfilePolymarketListProps>(function P
         queryKey: ['polymarket', 'bets-list', address],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
-            return fireflyPolymarketProvider.getProfilePolymarketTimeline(address, 'all', indicator);
+            return getProfilePolymarketTimeline(address, 'all', indicator);
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,

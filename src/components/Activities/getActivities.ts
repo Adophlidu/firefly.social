@@ -4,7 +4,9 @@ import { compact } from 'lodash-es';
 import { resolveArticlePlatform } from '@/components/Activities/resolveArticlePlatform.js';
 import { ActivitiesPlatform, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
-import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
+import { discoverArticles } from '@/providers/firefly/article/discoverArticles.js';
+import { discoverArticlesByAddress } from '@/providers/firefly/article/discoverArticlesByAddress.js';
+import { getFollowingArticles } from '@/providers/firefly/article/getFollowingArticles.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Article, ArticlePlatform } from '@/providers/types/Article.js';
 import type { ActivitiesItem, FollowingSnapshotActivity } from '@/providers/types/Firefly.js';
@@ -69,12 +71,12 @@ function createActivitiesFetcher(
 }
 
 export const getFollowingActivities = createActivitiesFetcher(
-    (indicator, platforms) => FireflyArticleProvider.getFollowingArticles(indicator, platforms),
+    (indicator, platforms) => getFollowingArticles(indicator, platforms),
     (address, indicator) => FireflySocialMediaProvider.getFollowingSnapshotActivity({ address, indicator }),
 );
 
 export const getForYouActivities = createActivitiesFetcher(
-    (indicator, platforms) => FireflyArticleProvider.discoverArticles(indicator, platforms),
+    (indicator, platforms) => discoverArticles(indicator, platforms),
     (address, indicator) => FireflySocialMediaProvider.discoverSnapshotActivity(address, indicator),
 );
 
@@ -86,7 +88,7 @@ export function getProfileActivities(
     connectedAddress?: string,
 ) {
     return createActivitiesFetcher(
-        (indicator, platform) => FireflyArticleProvider.discoverArticlesByAddress(addresses, indicator, platform),
+        (indicator, platform) => discoverArticlesByAddress(addresses, indicator, platform),
         (address, indicator) =>
             FireflySocialMediaProvider.getFollowingSnapshotActivity({
                 address,

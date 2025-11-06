@@ -42,7 +42,7 @@ import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfi
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoint/getFireflyBookmarkIds.js';
 import { getSingleCoin } from '@/providers/firefly/endpoint/getSingleCoin.js';
-import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
+import { getNFTDetails } from '@/providers/firefly/nft/getNFTDetails.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
@@ -1171,7 +1171,7 @@ class FireflySocialMedia implements Provider {
         const nftIds = data.list.map((x) => x.post_id);
         const groups = groupNFTParamsByChainId(nftIds);
         const promises = Object.entries(groups).map(([chainId, tuples]) => {
-            return fireflyNftProvider.getNFTDetails(
+            return getNFTDetails(
                 +chainId,
                 tuples.map((x) => {
                     return { contract_address: x[1], token_id: x[2] };

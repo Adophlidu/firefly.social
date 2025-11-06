@@ -5,7 +5,7 @@ import {
     PARAGRAPH_ARTICLE_REGEXP,
 } from '@/constants/regexp.js';
 import { Md5 } from '@/helpers/md5.js';
-import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
+import { getParagraphArticleIdWithLink } from '@/providers/firefly/article/getParagraphArticleIdWithLink.js';
 
 export async function getArticleIdFromUrl(url: string) {
     if (LIMO_REGEXP.test(url)) {
@@ -20,7 +20,7 @@ export async function getArticleIdFromUrl(url: string) {
     }
 
     if (PARAGRAPH_ARTICLE_REGEXP.test(url)) {
-        return FireflyArticleProvider.getParagraphArticleIdWithLink(url.replace('/view/', '/'));
+        return getParagraphArticleIdWithLink(url.replace('/view/', '/'));
     }
     return;
 }

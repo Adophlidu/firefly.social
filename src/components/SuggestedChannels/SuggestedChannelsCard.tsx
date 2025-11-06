@@ -13,7 +13,7 @@ import { ExploreType } from '@/constants/enum.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
-import { fireflyInterface } from '@/providers/firefly/Interface.js';
+import { getTrendingChannels } from '@/providers/firefly/worker/getTrendingChannels.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 function SuggestedChannelItem({ channel }: { channel: Channel }) {
@@ -36,7 +36,7 @@ export function SuggestedChannelsCard() {
     const { data, isLoading, isError } = useQuery({
         queryKey: ['suggest-channels', ...profileIds],
         staleTime: 1000 * 60 * 5, // 5 minutes
-        queryFn: () => fireflyInterface.getTrendingChannels(),
+        queryFn: () => getTrendingChannels(),
     });
 
     if (isError) return null;

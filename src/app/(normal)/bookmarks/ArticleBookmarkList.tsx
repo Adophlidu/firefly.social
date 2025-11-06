@@ -9,7 +9,7 @@ import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
+import { getBookmarks } from '@/providers/firefly/article/getBookmarks.js';
 
 export function ArticleBookmarkList() {
     const isLogin = useIsLoginFirefly();
@@ -18,7 +18,7 @@ export function ArticleBookmarkList() {
         queryKey: ['posts', Source.Article, 'bookmark', profileIds],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return null;
-            const result = await FireflyArticleProvider.getBookmarks(createIndicator(undefined, pageParam));
+            const result = await getBookmarks(createIndicator(undefined, pageParam));
             return result;
         },
         initialPageParam: '',
