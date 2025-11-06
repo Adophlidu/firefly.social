@@ -29,7 +29,7 @@ export function useTokenPageParams({ params, searchParams }: TokenPageProps) {
 
     const chainId = paramChainId ? +paramChainId : isSolAddress ? SolanaChainId.Mainnet : chainIdSlug;
     const { data: token, isPending: isTokenPending } = useTokenInfo({
-        token_symbol: isAddress ? undefined : exchange,
+        token_symbol: isAddress ? undefined : slug[1],
         coingecko_id: isCex ? slug[0] : undefined,
         chain_id: chainId,
         address: paramAddress || (isAddress ? addressSlug : undefined),
