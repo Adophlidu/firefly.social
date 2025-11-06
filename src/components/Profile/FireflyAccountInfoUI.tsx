@@ -1,9 +1,10 @@
 import { classNames } from '@dimensiondev/utils';
-import { Trans } from '@lingui/react/macro';
+import { t } from '@lingui/core/macro';
 import type { HTMLProps } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { Image } from '@/components/Image.js';
+import { HighlightedText } from '@/components/Profile/HighlightedText.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -37,6 +38,12 @@ export function FireflyAccountInfoUI({
     const avatarWithFallback = avatar || getStampAvatarByProfileId(Source.Firefly, uid);
     const isCurrentProfile = !!currentProfileSession && currentProfileSession?.profileId === profile.uid;
 
+    const accountName = highlighted ? (
+        <HighlightedText text={displayName || t`Firefly User`} />
+    ) : (
+        displayName || t`Firefly User`
+    );
+
     return (
         <div className={classNames('relative flex w-full flex-col items-center bg-primaryBottom pt-2.5', className)}>
             {banner ? (
@@ -53,16 +60,11 @@ export function FireflyAccountInfoUI({
             {children}
             <div className="z-1 flex w-full flex-col items-center px-4">
                 <Avatar size={80} alt="firefly-account" src={avatarWithFallback} />
-                <div
-                    className={classNames(
-                        'h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6',
-                        highlighted ? 'gradient-text' : '',
-                    )}
-                >
+                <div className="h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6">
                     {isCurrentProfile && highlighted ? (
-                        <Link href={`/sparks/${profile.uid}`}>{displayName ?? <Trans>Firefly User</Trans>}</Link>
+                        <Link href={`/sparks/${profile.uid}`}>{accountName}</Link>
                     ) : (
-                        (displayName ?? <Trans>Firefly User</Trans>)
+                        accountName
                     )}
                 </div>
             </div>

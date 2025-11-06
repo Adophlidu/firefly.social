@@ -1,10 +1,12 @@
-import { uniqBy } from 'lodash-es';
+import { compact, uniqBy } from 'lodash-es';
 
-import { type SocialSource, SourceInURL, SparksAccountStatus } from '@/constants/enum.js';
+import { queryClient } from '@/configs/queryClient.js';
+import { type SocialSource, Source, SourceInURL, SparksAccountStatus } from '@/constants/enum.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { runInSafe, runInSafeAsync } from '@/helpers/runInSafe.js';
 import { checkGenesisSparksAccounts } from '@/providers/firefly/endpoints/checkGenesisSparksAccounts.js';
+import type { SparksAccountInfo } from '@/providers/types/Firefly.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/utility.js';
 
@@ -15,35 +17,75 @@ function isSameProfileId(platform: SourceInURL, a: string, b: string) {
 
     return a === b;
 }
+function fillHighlightStatus(
+    post: Post,
+    records: SparksAccountInfo[],
+    idAndHandleList: Array<{ id: string; handle: string }>,
+) {
+    const author = post.author;
+    const platform = resolveSourceInUrlForApi(author.source);
+    const ogRecord = records.find(
+        (r) => r.platform === platform && isSameProfileId(platform, r.platform_id, author.profileId),
+    );
+
+    // update query to reduce redundant calls
+    if (idAndHandleList.find((item) => item.id === author.profileId && item.handle === author.handle)) {
+        runInSafe(() => {
+            queryClient.setQueryData(
+                ['profile-highlight-status', author.source, author.profileId, author.handle],
+                ogRecord || null,
+            );
+        });
+    }
+
+    if (!ogRecord) return post;
+
+    return {
+        ...post,
+        author: {
+            ...post.author,
+            highlighted: (
+                compact([
+                    SparksAccountStatus.Activated,
+                    author.source === Source.Twitter ? SparksAccountStatus.NotActivated : null,
+                ]) as SparksAccountStatus[]
+            ).includes(ogRecord.status),
+        },
+    };
+}
 
 async function fillAuthorHighlightStatusForPosts(posts: Post[], source: SocialSource) {
-    const records = await runInSafeAsync(() =>
-        checkGenesisSparksAccounts(
-            source,
-            uniqBy(
-                posts.map((p) => ({ id: p.author.profileId, handle: p.author.handle })),
-                ({ id, handle }) => `${id}-${handle}`,
-            ),
-        ),
-    );
+    const idAndHandleList = uniqBy(
+        posts
+            .flatMap((p) => {
+                return compact([p, p.root, p.commentOn, ...(p.comments || [])]);
+            })
+            .map((p) => ({ id: p.author.profileId, handle: p.author.handle })),
+        ({ id, handle }) => `${id}-${handle}`,
+    ).filter(({ id, handle }) => {
+        const oldData = runInSafe(() =>
+            queryClient.getQueryData<SparksAccountInfo>(['profile-highlight-status', source, id, handle]),
+        );
+        return oldData === undefined;
+    });
+    if (!idAndHandleList.length) return posts;
+
+    const records = await runInSafeAsync(() => checkGenesisSparksAccounts(source, idAndHandleList));
     if (!records?.infoList?.length) return posts;
 
-    const platform = resolveSourceInUrlForApi(source);
-    return posts.map((post, i) => {
-        const ogRecord = records.infoList.find(
-            (r) => r.platform === platform && isSameProfileId(platform, r.platform_id, post.author.profileId),
-        );
-        if (!ogRecord) return post;
+    return posts.map((post) => {
+        const newPost = fillHighlightStatus(post, records.infoList, idAndHandleList);
+        if (newPost.root) {
+            newPost.root = fillHighlightStatus(newPost.root, records.infoList, idAndHandleList);
+        }
+        if (newPost.commentOn) {
+            newPost.commentOn = fillHighlightStatus(newPost.commentOn, records.infoList, idAndHandleList);
+        }
+        if (newPost.comments?.length) {
+            newPost.comments = newPost.comments.map((p) => fillHighlightStatus(p, records.infoList, idAndHandleList));
+        }
 
-        return {
-            ...post,
-            author: {
-                ...post.author,
-                highlighted: [SparksAccountStatus.Activated, SparksAccountStatus.NotActivated].includes(
-                    ogRecord.status,
-                ),
-            },
-        };
+        return newPost;
     });
 }
 

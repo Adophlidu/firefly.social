@@ -8,6 +8,7 @@ import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { NoSSR } from '@/components/NoSSR.js';
+import { HighlightedText } from '@/components/Profile/HighlightedText.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { Time } from '@/components/Semantic/Time.js';
@@ -22,6 +23,7 @@ import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useIsPostDetailPage } from '@/hooks/post/useIsPostDetailPage.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useProfileHighlighted } from '@/hooks/useProfileHighlighted.js';
 import { getLennyUrl } from '@/providers/lens/getLennyUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -45,6 +47,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
 
     const isMedium = useIsMedium('max');
     const isDetailPage = useIsPostDetailPage();
+    const { data: highlighted } = useProfileHighlighted(author);
 
     const identity = resolveFireflyIdentity(author);
     const newLine = !isQuote && (isMedium || (isDetailPage && !isComment && !showDate));
@@ -97,13 +100,14 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                     <ProfileTippy identity={identity} disabled={post.isTruthSocial}>
                         <Link
                             href={profileLink}
-                            className={classNames(
-                                'mr-1 truncate text-medium font-bold leading-5 text-main',
-                                author.highlighted ? 'gradient-text' : '',
-                            )}
+                            className="mr-1 truncate text-medium font-bold leading-5 text-main"
                             onClick={stopPropagation}
                         >
-                            {author.displayName}
+                            {author.highlighted || highlighted ? (
+                                <HighlightedText text={author.displayName} />
+                            ) : (
+                                author.displayName
+                            )}
                         </Link>
                     </ProfileTippy>
                     {post.isTruthSocial ? (

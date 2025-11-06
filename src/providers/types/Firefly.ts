@@ -2170,14 +2170,15 @@ export type ScheduleNotification = {
     status: ScheduleTaskStatus;
 };
 
+export interface SparksAccountInfo {
+    account_id: string;
+    handle: string;
+    platform: SourceInURL;
+    platform_id: string;
+    status: SparksAccountStatus;
+}
 export type GenesisSparksAccountsResponse = Response<{
-    infoList: Array<{
-        account_id: string;
-        handle: string;
-        platform: SourceInURL;
-        platform_id: string;
-        status: SparksAccountStatus;
-    }>;
+    infoList: SparksAccountInfo[];
 } | null>;
 
 export type GetExploreSwitchConfigResponse = Response<{

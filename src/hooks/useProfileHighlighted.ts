@@ -25,7 +25,7 @@ export function useProfileHighlighted(
                   const records = await checkGenesisSparksAccounts(profile.source, [
                       { id: profile.profileId, handle: profile.handle },
                   ]);
-                  return first(records?.infoList || []);
+                  return first(records?.infoList) || null;
               }
             : skipToken,
         select: (data) => {
