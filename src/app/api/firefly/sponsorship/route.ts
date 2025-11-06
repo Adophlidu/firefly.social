@@ -8,7 +8,7 @@ import { env } from '@/constants/env.js';
 import { createSuccessResponseJson, createZodErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { JWTGenerator } from '@/libs/JWTGenerator.js';
-import { fireflyAuthProvider } from '@/providers/firefly/Auth.js';
+import { generateFarcasterSignatures } from '@/providers/firefly/auth/generateFarcasterSignatures.js';
 import { HexStringSchema } from '@/schemas/index.js';
 
 const BodySchema = z.object({
@@ -30,8 +30,12 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     );
 
     const key = parsed.data.key as Hex;
-    const { sponsorSignature, signedKeyRequestSignature, requestFid } =
-        await fireflyAuthProvider.generateFarcasterSignatures(key, deadline, jwt, request.signal);
+    const { sponsorSignature, signedKeyRequestSignature, requestFid } = await generateFarcasterSignatures(
+        key,
+        deadline,
+        jwt,
+        request.signal,
+    );
 
     return createSuccessResponseJson({
         body: {

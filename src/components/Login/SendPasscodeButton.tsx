@@ -10,7 +10,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { OTPExceededMaximumLimit } from '@/constants/error.js';
 import { EMAIL_REGEX } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { fireflyAuthProvider } from '@/providers/firefly/Auth.js';
+import { generateEmailOTP } from '@/providers/firefly/auth/generateEmailOTP.js';
 
 interface Props {
     email: string;
@@ -36,7 +36,7 @@ export function SendPasscodeButton({ email, disabled }: Props) {
         if (secondsLeft > 0) return;
 
         try {
-            await fireflyAuthProvider.generateEmailOTP(email);
+            await generateEmailOTP(email);
             if (isFirstSendCode) setIsFirstSendCode(false);
             setSecondsLeft(60);
             enqueueSuccessMessage(<Trans>One-time passcode sent to you</Trans>);
