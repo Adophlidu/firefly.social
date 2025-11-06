@@ -1,15 +1,16 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
 
-import { getClassifyPostLink, getClassifyPostLinks } from '@/services/getClassifyPostLink.js';
+import { getClassifyPostLinks } from '@/services/getClassifyPostLink.js';
 
 export function useClassifyPostLink(url: string | null | undefined) {
     return useQuery({
         queryKey: ['classify-post-link', url],
         staleTime: 1000 * 60 * 30, // 30 minutes
-        queryFn: url ? () => getClassifyPostLink(url) : skipToken,
+        queryFn: url ? () => getClassifyPostLinks([url]) : skipToken,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         retry: false,
+        select: (data) => (data.length ? data[0].result : null),
     });
 }
 

@@ -151,7 +151,7 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
         [oembedUrl, content],
     );
 
-    const { data: classifyResults = [] } = useClassifyPostLinks(links);
+    const { data: classifyResults = EMPTY_LIST } = useClassifyPostLinks(links);
     const domainResolveResults = useResolveEnsDomains(domains);
 
     // Merge links, addresses and domains
