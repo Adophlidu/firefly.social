@@ -12,7 +12,7 @@ import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
-import { searchIdentity } from '@/providers/firefly/endpoints/searchIdentity.js';
+import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 import { searchWalletAddress } from '@/services/searchWalletAddress.js';

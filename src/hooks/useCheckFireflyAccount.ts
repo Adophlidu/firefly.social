@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { FetchError } from '@/constants/error.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
-import { getAllConnections } from '@/providers/firefly/endpoints/getAllConnections.js';
+import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 

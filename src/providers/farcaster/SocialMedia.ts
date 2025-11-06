@@ -22,8 +22,8 @@ import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfi
 import { getFarcasterSessionType } from '@/providers/farcaster/getFarcasterSessionType.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { getFarcasterSuggestFollows } from '@/providers/firefly/endpoints/getFarcasterSuggestFollows.js';
-import { reportProfile as reportProfileEndpoint } from '@/providers/firefly/endpoints/reportProfile.js';
+import { getFarcasterSuggestFollows } from '@/providers/firefly/endpoint/getFarcasterSuggestFollows.js';
+import { reportProfile as reportProfileEndpoint } from '@/providers/firefly/endpoint/reportProfile.js';
 import { farcasterAccountProvider } from '@/providers/firefly/FarcasterAccount.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';

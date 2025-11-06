@@ -3,7 +3,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
-import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoints/getAllPlatformProfileFromFirefly.js';
+import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { ProfileLike } from '@/providers/types/SocialMedia.js';
 

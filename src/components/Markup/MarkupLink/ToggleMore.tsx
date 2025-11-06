@@ -6,7 +6,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import { getTakoExternalHostedData } from '@/providers/firefly/endpoints/getTakoExternalHostedData.js';
+import { getTakoExternalHostedData } from '@/providers/firefly/endpoint/getTakoExternalHostedData.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface Props extends HTMLProps<HTMLSpanElement> {

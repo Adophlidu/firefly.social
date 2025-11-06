@@ -35,8 +35,8 @@ import { useChangeSwapLikeStatus } from '@/hooks/useChangeSwapLikeStatus.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import { createTxReaction } from '@/providers/firefly/endpoints/createTxReaction.js';
-import { getSwapActivityByHash } from '@/providers/firefly/endpoints/getSwapActivityByHash.js';
+import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
+import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 
 interface SwapActionsProps {

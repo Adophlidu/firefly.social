@@ -26,7 +26,7 @@ import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useTokenCoin } from '@/hooks/useTokenCoin.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
-import { searchTokenInfos } from '@/providers/firefly/endpoints/searchTokenInfos.js';
+import { searchTokenInfos } from '@/providers/firefly/endpoint/searchTokenInfos.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 
 export function TokenProfileCardSkeleton(props: HTMLProps<HTMLDivElement>) {

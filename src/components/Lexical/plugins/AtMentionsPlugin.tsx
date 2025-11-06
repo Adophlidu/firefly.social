@@ -29,7 +29,7 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
-import { searchIdentity } from '@/providers/firefly/endpoints/searchIdentity.js';
+import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 

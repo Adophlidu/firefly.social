@@ -7,7 +7,7 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ExploreSwitchType, ScrollListKey, SocialProfileCategory, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useExploreDataSwitchConfig } from '@/hooks/useExploreDataSwitchConfig.js';
-import { getTrumpTruthSocialPosts } from '@/providers/firefly/endpoints/getTrumpTruthSocialPosts.js';
+import { getTrumpTruthSocialPosts } from '@/providers/firefly/endpoint/getTrumpTruthSocialPosts.js';
 
 export function TrumpTruthSocialPosts() {
     const { status } = useExploreDataSwitchConfig(ExploreSwitchType.TruthSocial);

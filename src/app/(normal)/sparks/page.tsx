@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { SparksModal } from '@/components/Sparks/SparksModal.js';
-import { createSparksMetadata } from '@/providers/firefly/metadatas/createSparksMetadata.js';
+import { createSparksMetadata } from '@/providers/firefly/metadata/createSparksMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ accountId: string }> {}

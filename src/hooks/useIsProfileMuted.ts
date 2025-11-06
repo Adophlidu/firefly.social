@@ -10,7 +10,7 @@ import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin, useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { isProfileMuted as isProfileMutedEndpoint } from '@/providers/firefly/endpoints/isProfileMuted.js';
+import { isProfileMuted as isProfileMutedEndpoint } from '@/providers/firefly/endpoint/isProfileMuted.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function useIsProfileMuted(source: Source, profileId: string, blocking?: boolean, enabled = true) {

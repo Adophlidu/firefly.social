@@ -8,7 +8,7 @@ import { TokenMarketData, type TokenMarketDataProps } from '@/components/TokenPr
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
-import { getFollowingTraderCount } from '@/providers/firefly/endpoints/getFollowingTraderCount.js';
+import { getFollowingTraderCount } from '@/providers/firefly/endpoint/getFollowingTraderCount.js';
 
 export function useFollowingTraderCount(tokenId: string | null, chainId?: number, address?: string) {
     const search = useSearchParams();

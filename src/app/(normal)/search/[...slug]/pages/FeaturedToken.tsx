@@ -9,7 +9,7 @@ import { swapActivityToTradeRecord } from '@/helpers/swapActivityToTradeRecord.j
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useSingleCoin } from '@/hooks/useSingleCoin.js';
-import { getFollowingSwapTimeline } from '@/providers/firefly/endpoints/getFollowingSwapTimeline.js';
+import { getFollowingSwapTimeline } from '@/providers/firefly/endpoint/getFollowingSwapTimeline.js';
 
 interface FeaturedTokenProps extends HTMLProps<HTMLDivElement>, Pick<TokenMarketDataProps, 'token'> {}
 

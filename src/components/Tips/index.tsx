@@ -18,7 +18,7 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { TipsModalRef } from '@/modals/TipsModal/index.js';
-import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoints/getAllPlatformProfileFromFirefly.js';
+import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

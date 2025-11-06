@@ -2,7 +2,7 @@ import { skipToken, useQuery } from '@tanstack/react-query';
 
 import { EMPTY_LIST } from '@/constants/index.js';
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
-import { getTokenPriceStats } from '@/providers/firefly/endpoints/getTokenPriceStats.js';
+import { getTokenPriceStats } from '@/providers/firefly/endpoint/getTokenPriceStats.js';
 
 export function useCoinPriceStats(
     coinId: string | null | undefined,

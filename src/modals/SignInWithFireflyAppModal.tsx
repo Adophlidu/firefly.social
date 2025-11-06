@@ -19,7 +19,7 @@ import { openAppSchemes } from '@/helpers/openAppSchemes.js';
 import { usePollingAppScanLogin } from '@/hooks/usePollingAppScanLogin.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { getDesktopLinkInfo } from '@/providers/firefly/endpoints/getDesktopLinkInfo.js';
+import { getDesktopLinkInfo } from '@/providers/firefly/endpoint/getDesktopLinkInfo.js';
 import { DeviceType } from '@/types/device.js';
 
 interface Props {

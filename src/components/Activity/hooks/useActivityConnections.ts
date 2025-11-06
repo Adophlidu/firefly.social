@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useCurrentProfileFirstAvailable } from '@/hooks/useCurrentProfile.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
-import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
+import { getAllConnections } from '@/providers/firefly/activity/getAllConnections.js';
 
 export function useActivityConnections() {
     const currentProfileFirstAvailable = useCurrentProfileFirstAvailable();
@@ -17,7 +17,7 @@ export function useActivityConnections() {
             } else {
                 if (!currentProfileFirstAvailable) return; // Not logged in on the web
             }
-            return FireflyActivityProvider.getAllConnections();
+            return getAllConnections();
         },
         refetchInterval: 600000,
     });

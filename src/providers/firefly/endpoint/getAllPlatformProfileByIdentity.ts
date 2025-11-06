@@ -1,5 +1,5 @@
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
-import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoints/getAllPlatformProfileFromFirefly.js';
+import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
 import { type FireflyIdentity, type FireflyProfile } from '@/providers/types/Firefly.js';
 
 export async function getAllPlatformProfileByIdentity(

@@ -10,7 +10,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { createChannelMetadata } from '@/providers/firefly/metadatas/createChannelMetadata.js';
+import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props

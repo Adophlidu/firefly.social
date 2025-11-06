@@ -3,14 +3,13 @@ import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { fetchMetadataApi } from '@/providers/firefly/metadatas/fetchMetadataApi.js';
+import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.js';
 
-export async function createProfileMetadata(source: string, handle: string, pathname: string): Promise<Metadata> {
+export async function createArticleMetadata(articleId: string, pathname: string): Promise<Metadata> {
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/profile', {
-                source,
-                handle,
+            urlcat('/metadata/article', {
+                id: articleId,
                 pathname,
             }),
         );

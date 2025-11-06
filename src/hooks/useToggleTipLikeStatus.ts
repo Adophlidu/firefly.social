@@ -2,8 +2,8 @@ import { useMutation } from '@tanstack/react-query';
 
 import { TxReactionType } from '@/constants/enum.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
-import { createTxReaction } from '@/providers/firefly/endpoints/createTxReaction.js';
-import { removeTxReaction } from '@/providers/firefly/endpoints/removeTxReaction.js';
+import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
+import { removeTxReaction } from '@/providers/firefly/endpoint/removeTxReaction.js';
 
 interface Options {
     txHash: string;

@@ -7,7 +7,7 @@ import { useAsyncFn } from 'react-use';
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useCallbackRef } from '@/hooks/useCallbackRef.js';
-import { getDesktopStatus } from '@/providers/firefly/endpoints/getDesktopStatus.js';
+import { getDesktopStatus } from '@/providers/firefly/endpoint/getDesktopStatus.js';
 import { DesktopLinkInfoStatus, type DesktopLinkInfoStatusData } from '@/providers/types/Firefly.js';
 import { loginWithAppScan } from '@/services/loginWithAppScan.js';
 

@@ -3,23 +3,19 @@ import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { fetchMetadataApi } from '@/providers/firefly/metadatas/fetchMetadataApi.js';
+import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.js';
 
-export async function createTokenMetadata(
-    keyword: string,
+export async function createNftCollectionMetadata(
+    chainIdOrCollectionId: string,
+    addressOrTokenId: string,
     pathname: string,
-    options?: {
-        chainId?: number;
-        address?: string;
-        isCoinId?: boolean;
-    },
 ): Promise<Metadata> {
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/token', {
-                keyword,
+            urlcat('/metadata/nft-collection', {
+                chainIdOrCollectionId,
+                addressOrTokenId,
                 pathname,
-                ...options,
             }),
         );
         const metadata = resolveResponseData(response);

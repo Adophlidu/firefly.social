@@ -5,7 +5,7 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isValidChainIdEthereum, isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { parseChainId } from '@/helpers/parseChainId.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
-import { createNftCollectionMetadata } from '@/providers/firefly/metadatas/createNftCollectionMetadata.js';
+import { createNftCollectionMetadata } from '@/providers/firefly/metadata/createNftCollectionMetadata.js';
 import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
 import type { NextPageProps } from '@/types/utility.js';
 

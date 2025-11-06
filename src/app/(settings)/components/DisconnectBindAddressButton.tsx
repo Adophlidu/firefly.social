@@ -12,7 +12,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
-import { disconnectAccount } from '@/providers/firefly/endpoints/disconnectAccount.js';
+import { disconnectAccount } from '@/providers/firefly/endpoint/disconnectAccount.js';
 import { type FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { removeAccountsByProfiles } from '@/services/account.js';
 

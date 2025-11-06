@@ -5,7 +5,7 @@ import { type Address } from 'viem';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { ClickOrigin, NetworkType } from '@/constants/enum.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { getMessageToSignForBindWallet } from '@/providers/firefly/endpoints/getMessageToSignForBindWallet.js';
+import { getMessageToSignForBindWallet } from '@/providers/firefly/endpoint/getMessageToSignForBindWallet.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import { getWalletAdaptorRequired, WalletNotConnectedError } from '@/providers/solana/getWalletAdapter.js';
 

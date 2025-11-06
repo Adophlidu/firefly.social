@@ -6,7 +6,7 @@ import { type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { getPostByShortId } from '@/providers/firefly/endpoints/getPostByShortId.js';
+import { getPostByShortId } from '@/providers/firefly/endpoint/getPostByShortId.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface PostEmbedProps {

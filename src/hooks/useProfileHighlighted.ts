@@ -2,7 +2,7 @@ import { skipToken, useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 
 import { type ProfilePageSource, SparksAccountStatus } from '@/constants/enum.js';
-import { checkGenesisSparksAccounts } from '@/providers/firefly/endpoints/checkGenesisSparksAccounts.js';
+import { checkGenesisSparksAccounts } from '@/providers/firefly/endpoint/checkGenesisSparksAccounts.js';
 
 const checkedAccountIds = new Set<string>();
 

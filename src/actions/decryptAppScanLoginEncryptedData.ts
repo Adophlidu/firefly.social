@@ -11,7 +11,7 @@ import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/for
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
-import { getAllConnectionsFromAuthToken } from '@/providers/firefly/endpoints/getAllConnectionsFromAuthToken.js';
+import { getAllConnectionsFromAuthToken } from '@/providers/firefly/endpoint/getAllConnectionsFromAuthToken.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';

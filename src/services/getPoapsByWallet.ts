@@ -1,7 +1,7 @@
 import { FireflyPlatform } from '@/constants/enum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoints/getFireflyBookmarkIds.js';
+import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoint/getFireflyBookmarkIds.js';
 import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 

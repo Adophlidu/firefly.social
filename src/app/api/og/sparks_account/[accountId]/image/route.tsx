@@ -7,7 +7,7 @@ import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/index.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { getSparksAccountDetails } from '@/providers/firefly/endpoints/getSparksAccountDetails.js';
+import { getSparksAccountDetails } from '@/providers/firefly/endpoint/getSparksAccountDetails.js';
 import { FansStatus, OgStatus } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import type { NextRequestContext } from '@/types/utility.js';

@@ -21,7 +21,7 @@ import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { getBskySessionStorage } from '@/providers/bsky/createBskyAgent.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { getAllConnections } from '@/providers/firefly/endpoints/getAllConnections.js';
+import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
 import { farcasterAccountProvider } from '@/providers/firefly/FarcasterAccount.js';
 import { fireflyMetricsProvider } from '@/providers/firefly/Metrics.js';
 import { FireflySession } from '@/providers/firefly/Session.js';

@@ -3,14 +3,23 @@ import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { fetchMetadataApi } from '@/providers/firefly/metadatas/fetchMetadataApi.js';
+import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.js';
 
-export async function createEventMetadata(eventName: string, pathname: string): Promise<Metadata> {
+export async function createTokenMetadata(
+    keyword: string,
+    pathname: string,
+    options?: {
+        chainId?: number;
+        address?: string;
+        isCoinId?: boolean;
+    },
+): Promise<Metadata> {
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/event', {
-                name: eventName,
+            urlcat('/metadata/token', {
+                keyword,
                 pathname,
+                ...options,
             }),
         );
         const metadata = resolveResponseData(response);

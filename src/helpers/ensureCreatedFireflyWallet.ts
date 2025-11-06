@@ -1,7 +1,7 @@
 import { queryClient } from '@/configs/queryClient.js';
 import { WalletSource } from '@/constants/enum.js';
 import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
-import { createPrivyWallet } from '@/providers/firefly/endpoints/createPrivyWallet.js';
+import { createPrivyWallet } from '@/providers/firefly/endpoint/createPrivyWallet.js';
 
 async function ensureCreatedFireflyWallets() {
     const { connected } = await queryClient.fetchQuery(queryMyAllConnections);

@@ -29,7 +29,7 @@ import { isValidAddress, isValidTokenAddressSui } from '@/helpers/isValidAddress
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useDetectToken } from '@/hooks/useDetectToken.js';
-import { getDexCoinDetail } from '@/providers/firefly/endpoints/getDexCoinDetail.js';
+import { getDexCoinDetail } from '@/providers/firefly/endpoint/getDexCoinDetail.js';
 import type { ClubUrl, Contract } from '@/providers/types/Trending.js';
 
 interface InfoRowProps extends Omit<HTMLProps<HTMLDivElement>, 'title'> {

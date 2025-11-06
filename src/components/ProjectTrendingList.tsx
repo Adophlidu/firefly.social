@@ -7,7 +7,7 @@ import { Image } from '@/components/Image.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { ProjectItem } from '@/components/ProjectItem.js';
 import { useLocale } from '@/helpers/getCookies.js';
-import { getTopProjects } from '@/providers/firefly/endpoints/getTopProjects.js';
+import { getTopProjects } from '@/providers/firefly/endpoint/getTopProjects.js';
 
 export function ProjectTrendingList() {
     const locale = useLocale();

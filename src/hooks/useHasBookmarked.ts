@@ -3,7 +3,7 @@ import { uniq } from 'lodash-es';
 
 import { type BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoints/getFireflyBookmarkIds.js';
+import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoint/getFireflyBookmarkIds.js';
 
 export function useHasBookmarked(platform: FireflyPlatform, id: string, postType?: BookmarkType, disabled?: boolean) {
     const isLogin = useIsLogin();

@@ -9,7 +9,7 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import { reportNFT } from '@/providers/firefly/endpoints/reportNFT.js';
+import { reportNFT } from '@/providers/firefly/endpoint/reportNFT.js';
 import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
 import type { NonFungibleAsset } from '@/web3-shared/base/specs.js';
 import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';

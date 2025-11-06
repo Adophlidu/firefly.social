@@ -1,6 +1,6 @@
 import { Source } from '@/constants/enum.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
-import { getAllPlatformProfileByIdentity } from '@/providers/firefly/endpoints/getAllPlatformProfileByIdentity.js';
+import { getAllPlatformProfileByIdentity } from '@/providers/firefly/endpoint/getAllPlatformProfileByIdentity.js';
 
 export async function getWalletProfileByAddressOrEns(addressOrEns: string, isAuthRequired: boolean) {
     const identity = { id: addressOrEns, source: Source.Wallet } as const;

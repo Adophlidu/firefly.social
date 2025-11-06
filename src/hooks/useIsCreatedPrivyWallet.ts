@@ -6,7 +6,7 @@ import { InvalidResultError } from '@/constants/error.js';
 import { retry } from '@/helpers/retry.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { privyWalletConnectionsQuery, usePrivyConnections } from '@/hooks/usePrivyConnections.js';
-import { createPrivyWallet } from '@/providers/firefly/endpoints/createPrivyWallet.js';
+import { createPrivyWallet } from '@/providers/firefly/endpoint/createPrivyWallet.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 

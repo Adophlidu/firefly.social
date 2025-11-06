@@ -13,7 +13,7 @@ import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.
 import { trimify } from '@/helpers/trimify.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
-import { searchIdentity } from '@/providers/firefly/endpoints/searchIdentity.js';
+import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
 export interface ShareLinkProps {

@@ -6,7 +6,7 @@ import { NOTIFICATION_PERMISSION_KEY } from '@/constants/index.js';
 import { enqueuePermissionMessage } from '@/helpers/enqueuePermissionMessage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { uploadNotificationSubscription } from '@/providers/firefly/endpoints/uploadNotificationSubscription.js';
+import { uploadNotificationSubscription } from '@/providers/firefly/endpoint/uploadNotificationSubscription.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 interface Options {

@@ -6,7 +6,7 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import { reportArticle } from '@/providers/firefly/endpoints/reportArticle.js';
+import { reportArticle } from '@/providers/firefly/endpoint/reportArticle.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

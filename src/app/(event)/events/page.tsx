@@ -10,13 +10,13 @@ import { ActivityMobileNavigationBar } from '@/components/Activity/ActivityMobil
 import { ListInPage } from '@/components/ListInPage.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
+import { getFireflyActivityList } from '@/providers/firefly/activity/getFireflyActivityList.js';
 
 export default function Page() {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['activity-list'],
         queryFn: async ({ pageParam }) => {
-            return FireflyActivityProvider.getFireflyActivityList({ indicator: createIndicator(undefined, pageParam) });
+            return getFireflyActivityList({ indicator: createIndicator(undefined, pageParam) });
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {

@@ -14,7 +14,7 @@ import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
-import { searchIdentity } from '@/providers/firefly/endpoints/searchIdentity.js';
+import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
 interface SuggestProfileListProps {

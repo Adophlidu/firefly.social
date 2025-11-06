@@ -6,9 +6,9 @@ import {
     createSuccessResponseJson,
     createZodErrorResponseJson,
 } from '@/helpers/createResponseJson.js';
-import { getPostByShortId } from '@/providers/firefly/endpoints/getPostByShortId.js';
-import { getTruthSocialPostById } from '@/providers/firefly/endpoints/getTruthSocialPostById.js';
-import { getWalletProfileByAddressOrEns } from '@/providers/firefly/endpoints/getWalletProfileByAddressOrEns.js';
+import { getPostByShortId } from '@/providers/firefly/endpoint/getPostByShortId.js';
+import { getTruthSocialPostById } from '@/providers/firefly/endpoint/getTruthSocialPostById.js';
+import { getWalletProfileByAddressOrEns } from '@/providers/firefly/endpoint/getWalletProfileByAddressOrEns.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 

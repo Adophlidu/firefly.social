@@ -2,7 +2,7 @@ import { isHex } from 'viem';
 
 import { NetworkType, Source } from '@/constants/enum.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
-import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoints/getAllRelatedProfileInfo.js';
+import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';
 import { type FireflyIdentity } from '@/providers/types/Firefly.js';
 
 function getQueryKey(identity: FireflyIdentity, forceHandle: boolean) {

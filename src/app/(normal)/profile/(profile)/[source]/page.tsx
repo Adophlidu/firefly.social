@@ -4,7 +4,7 @@ import { notFound } from '@/esm/navigation.js';
 import { isNumericalProfileId as isUID } from '@/helpers/isNumericalProfileId.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import { createFireflyProfileMetadata } from '@/providers/firefly/metadatas/createFireflyProfileMetadata.js';
+import { createFireflyProfileMetadata } from '@/providers/firefly/metadata/createFireflyProfileMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 export async function generateMetadata(props: Props) {

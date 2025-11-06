@@ -17,8 +17,8 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { getFollowingSwapTimeline } from '@/providers/firefly/endpoints/getFollowingSwapTimeline.js';
-import { getSwapTimelineByAddress } from '@/providers/firefly/endpoints/getSwapTimelineByAddress.js';
+import { getFollowingSwapTimeline } from '@/providers/firefly/endpoint/getFollowingSwapTimeline.js';
+import { getSwapTimelineByAddress } from '@/providers/firefly/endpoint/getSwapTimelineByAddress.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 

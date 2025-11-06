@@ -33,8 +33,8 @@ import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useToggleTipLikeStatus } from '@/hooks/useToggleTipLikeStatus.js';
 import { type ComposeModalOpenProps, ComposeModalRef } from '@/modals/ComposeModal.js';
 import { ShareImageModalRef } from '@/modals/ShareImageModal/index.js';
-import { createTxReaction } from '@/providers/firefly/endpoints/createTxReaction.js';
-import { getTipsTransactionDetail } from '@/providers/firefly/endpoints/getTipsTransactionDetail.js';
+import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
+import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
 import { type MentionChars } from '@/types/chars.js';
 
 interface TipsTransactionActionsProps extends HTMLProps<HTMLDivElement> {

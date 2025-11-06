@@ -21,7 +21,7 @@ import { formatPrice } from '@/helpers/formatPrice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveChainIcon } from '@/helpers/resolveChainIcon.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { getSwapActivityByHash } from '@/providers/firefly/endpoints/getSwapActivityByHash.js';
+import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import type { NextRequestContext } from '@/types/utility.js';

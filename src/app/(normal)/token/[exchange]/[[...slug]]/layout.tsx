@@ -13,7 +13,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { createTokenMetadata } from '@/providers/firefly/metadatas/createTokenMetadata.js';
+import { createTokenMetadata } from '@/providers/firefly/metadata/createTokenMetadata.js';
 import type { GetTokenOptions } from '@/providers/types/Firefly.js';
 import { searchToken } from '@/services/searchToken.js';
 import type { NextPageProps } from '@/types/utility.js';

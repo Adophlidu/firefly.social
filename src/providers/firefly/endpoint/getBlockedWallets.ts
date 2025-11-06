@@ -9,7 +9,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { getWalletProfileByAddressOrEns } from '@/providers/firefly/endpoints/getWalletProfileByAddressOrEns.js';
+import { getWalletProfileByAddressOrEns } from '@/providers/firefly/endpoint/getWalletProfileByAddressOrEns.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type BlockedUsersResponse, type WalletProfile } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';

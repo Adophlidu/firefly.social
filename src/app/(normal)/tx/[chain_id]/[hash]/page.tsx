@@ -4,9 +4,9 @@ import { TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isValidTxId } from '@/helpers/isValidTxId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { getSwapActivityByHash } from '@/providers/firefly/endpoints/getSwapActivityByHash.js';
-import { getTipsTransactionDetail } from '@/providers/firefly/endpoints/getTipsTransactionDetail.js';
-import { createTransactionMetadata } from '@/providers/firefly/metadatas/createTransactionMetadata.js';
+import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
+import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
+import { createTransactionMetadata } from '@/providers/firefly/metadata/createTransactionMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props

@@ -1,6 +1,6 @@
 import { FireflyPlatform } from '@/constants/enum.js';
 import { getBskyProfileById } from '@/providers/bsky/getBskyProfileById.js';
-import { getBlockRelation } from '@/providers/firefly/endpoints/getBlockRelation.js';
+import { getBlockRelation } from '@/providers/firefly/endpoint/getBlockRelation.js';
 
 export async function isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
     // TODO firefly doesn't support bsky

@@ -6,7 +6,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { createPostMetadata } from '@/providers/firefly/metadatas/createPostMetadata.js';
+import { createPostMetadata } from '@/providers/firefly/metadata/createPostMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 export const revalidate = 60;

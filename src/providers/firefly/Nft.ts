@@ -6,7 +6,7 @@ import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { fixCollection } from '@/providers/firefly/endpoints/fixCollection.js';
+import { fixCollection } from '@/providers/firefly/endpoint/fixCollection.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import {
     type CollectionItemsResponse,

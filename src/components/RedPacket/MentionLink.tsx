@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from '@/components/Link.js';
 import { LoadingBase } from '@/components/RedPacket/LoadingBase.js';
 import { resolvePlatformProfileUrl } from '@/helpers/resolvePlatformProfile.js';
-import { getUserInfoById } from '@/providers/firefly/endpoints/getUserInfoById.js';
+import { getUserInfoById } from '@/providers/firefly/endpoint/getUserInfoById.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 

@@ -21,7 +21,7 @@ import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { getMaintainAccountInfo } from '@/helpers/getMaintainAccountInfo.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { getTipsTransactionDetail } from '@/providers/firefly/endpoints/getTipsTransactionDetail.js';
+import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
 import type { TipsDetail } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import type { NextRequestContext } from '@/types/utility.js';

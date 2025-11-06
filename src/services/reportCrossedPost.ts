@@ -7,7 +7,7 @@ import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js'
 import { UnreachableError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
-import { reportPost } from '@/providers/firefly/endpoints/reportPost.js';
+import { reportPost } from '@/providers/firefly/endpoint/reportPost.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ReportCrossPostResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';

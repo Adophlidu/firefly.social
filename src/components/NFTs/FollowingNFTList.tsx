@@ -9,7 +9,7 @@ import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import { getFollowingNFTs } from '@/providers/firefly/endpoints/getFollowingNFTs.js';
+import { getFollowingNFTs } from '@/providers/firefly/endpoint/getFollowingNFTs.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 
 export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) {

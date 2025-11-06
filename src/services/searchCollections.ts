@@ -4,7 +4,7 @@ import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
-import { searchCollections as searchCollectionsEndpoint } from '@/providers/firefly/endpoints/searchCollections.js';
+import { searchCollections as searchCollectionsEndpoint } from '@/providers/firefly/endpoint/searchCollections.js';
 import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 

@@ -38,8 +38,8 @@ import {
 } from '@/helpers/pageable.js';
 import { resolveTcoLink } from '@/helpers/resolveTcoLink.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { getTwitterTopPeople } from '@/providers/firefly/endpoints/getTwitterTopPeople.js';
-import { getTwitterUserInfo } from '@/providers/firefly/endpoints/getTwitterUserInfo.js';
+import { getTwitterTopPeople } from '@/providers/firefly/endpoint/getTwitterTopPeople.js';
+import { getTwitterUserInfo } from '@/providers/firefly/endpoint/getTwitterUserInfo.js';
 import { farcasterAccountProvider } from '@/providers/firefly/FarcasterAccount.js';
 import { formatTweetsPage } from '@/providers/twitter/formatTwitterPost.js';
 import { formatTwitterProfile, formatTwitterProfilePage } from '@/providers/twitter/formatTwitterProfile.js';

@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import { searchTokens } from '@/providers/firefly/endpoints/searchTokens.js';
+import { searchTokens } from '@/providers/firefly/endpoint/searchTokens.js';
 
 export async function searchTokenLogoURI({
     address,

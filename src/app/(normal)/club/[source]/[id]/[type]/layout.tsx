@@ -6,7 +6,7 @@ import { CHANNEL_TAB_TYPE } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { createChannelMetadata } from '@/providers/firefly/metadatas/createChannelMetadata.js';
+import { createChannelMetadata } from '@/providers/firefly/metadata/createChannelMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props

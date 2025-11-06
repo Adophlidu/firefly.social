@@ -3,7 +3,7 @@ import { compact, uniq } from 'lodash-es';
 import { type SocialSource } from '@/constants/enum.js';
 import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoints/getFireflyBookmarkIds.js';
+import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoint/getFireflyBookmarkIds.js';
 import type { GetBookmarksResponse } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

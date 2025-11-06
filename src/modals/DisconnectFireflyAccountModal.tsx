@@ -20,7 +20,7 @@ import { stopEvent } from '@/helpers/stopEvent.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { disconnectAccount } from '@/providers/firefly/endpoints/disconnectAccount.js';
+import { disconnectAccount } from '@/providers/firefly/endpoint/disconnectAccount.js';
 import { captureAccountDisconnectEvent } from '@/providers/telemetry/captureAccountEvent.js';
 import type { Account } from '@/providers/types/Account.js';
 import { removeAccountByProfileId } from '@/services/account.js';

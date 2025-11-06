@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { isFollowingWallet } from '@/providers/firefly/endpoints/isFollowingWallet.js';
+import { isFollowingWallet } from '@/providers/firefly/endpoint/isFollowingWallet.js';
 
 export function useIsFollowingWallet(address: string, enabled = true) {
     return useQuery({

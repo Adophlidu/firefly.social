@@ -16,7 +16,7 @@ import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { createPostMetadata } from '@/providers/firefly/metadatas/createPostMetadata.js';
+import { createPostMetadata } from '@/providers/firefly/metadata/createPostMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 export const revalidate = 60;

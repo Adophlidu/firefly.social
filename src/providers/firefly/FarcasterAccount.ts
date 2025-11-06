@@ -6,8 +6,8 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { block } from '@/providers/firefly/endpoints/block.js';
-import { unblock } from '@/providers/firefly/endpoints/unblock.js';
+import { block } from '@/providers/firefly/endpoint/block.js';
+import { unblock } from '@/providers/firefly/endpoint/unblock.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { type LoginFarcasterWithWalletResponse, type Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';

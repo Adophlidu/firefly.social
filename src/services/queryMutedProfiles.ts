@@ -5,7 +5,7 @@ import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { getBlockRelation } from '@/providers/firefly/endpoints/getBlockRelation.js';
+import { getBlockRelation } from '@/providers/firefly/endpoint/getBlockRelation.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 

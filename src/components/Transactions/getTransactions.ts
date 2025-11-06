@@ -3,10 +3,10 @@ import { polygon } from 'viem/chains';
 
 import { Source } from '@/constants/enum.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
-import { discoverNFTs } from '@/providers/firefly/endpoints/discoverNFTs.js';
-import { getFollowingNFTs } from '@/providers/firefly/endpoints/getFollowingNFTs.js';
-import { getFollowingSwapTimeline } from '@/providers/firefly/endpoints/getFollowingSwapTimeline.js';
-import { getSwapTimelineByAddress } from '@/providers/firefly/endpoints/getSwapTimelineByAddress.js';
+import { discoverNFTs } from '@/providers/firefly/endpoint/discoverNFTs.js';
+import { getFollowingNFTs } from '@/providers/firefly/endpoint/getFollowingNFTs.js';
+import { getFollowingSwapTimeline } from '@/providers/firefly/endpoint/getFollowingSwapTimeline.js';
+import { getSwapTimelineByAddress } from '@/providers/firefly/endpoint/getSwapTimelineByAddress.js';
 import type { PolymarketActivity, SwapActivity, TransactionsItem } from '@/providers/types/Firefly.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 

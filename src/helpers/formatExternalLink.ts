@@ -11,7 +11,7 @@ import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { trimify } from '@/helpers/trimify.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { getPostByShortId } from '@/providers/firefly/endpoints/getPostByShortId.js';
+import { getPostByShortId } from '@/providers/firefly/endpoint/getPostByShortId.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 async function captureProfileUrl(url: URL, regex: RegExp, source: SocialSource) {

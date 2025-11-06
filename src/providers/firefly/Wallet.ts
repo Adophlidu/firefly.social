@@ -11,8 +11,8 @@ import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWal
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { block } from '@/providers/firefly/endpoints/block.js';
-import { unblock } from '@/providers/firefly/endpoints/unblock.js';
+import { block } from '@/providers/firefly/endpoint/block.js';
+import { unblock } from '@/providers/firefly/endpoint/unblock.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type {
     BindWalletResponse,

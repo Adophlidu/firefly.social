@@ -3,17 +3,19 @@ import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { fetchMetadataApi } from '@/providers/firefly/metadatas/fetchMetadataApi.js';
+import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.js';
 
-export async function createSparksAccountMetadata(accountId: string, pathname: string): Promise<Metadata> {
+export async function createChannelMetadata(source: string, channelId: string, pathname: string): Promise<Metadata> {
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/sparks-account', {
-                accountId,
+            urlcat('/metadata/channel', {
+                source,
+                id: channelId,
                 pathname,
             }),
         );
-        return resolveResponseData(response);
+        const metadata = resolveResponseData(response);
+        return metadata;
     } catch (error) {
         return createSiteMetadata(pathname);
     }

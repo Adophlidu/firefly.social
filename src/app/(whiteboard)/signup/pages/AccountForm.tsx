@@ -22,7 +22,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { trimify } from '@/helpers/trimify.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
-import { updateProfile } from '@/providers/firefly/endpoints/updateProfile.js';
+import { updateProfile } from '@/providers/firefly/endpoint/updateProfile.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 
 interface AccountFormProps {

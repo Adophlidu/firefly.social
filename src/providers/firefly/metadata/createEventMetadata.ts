@@ -3,18 +3,13 @@ import urlcat from 'urlcat';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
-import { fetchMetadataApi } from '@/providers/firefly/metadatas/fetchMetadataApi.js';
+import { fetchMetadataApi } from '@/providers/firefly/metadata/fetchMetadataApi.js';
 
-export async function createNftCollectionMetadata(
-    chainIdOrCollectionId: string,
-    addressOrTokenId: string,
-    pathname: string,
-): Promise<Metadata> {
+export async function createEventMetadata(eventName: string, pathname: string): Promise<Metadata> {
     try {
         const response = await fetchMetadataApi(
-            urlcat('/metadata/nft-collection', {
-                chainIdOrCollectionId,
-                addressOrTokenId,
+            urlcat('/metadata/event', {
+                name: eventName,
                 pathname,
             }),
         );

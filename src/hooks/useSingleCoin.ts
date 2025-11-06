@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getSingleCoin } from '@/providers/firefly/endpoints/getSingleCoin.js';
+import { getSingleCoin } from '@/providers/firefly/endpoint/getSingleCoin.js';
 
 export function useSingleCoin(coinId: string | null | undefined, chainId?: number, address?: string) {
     const enabled = !!coinId || !!(chainId && address);

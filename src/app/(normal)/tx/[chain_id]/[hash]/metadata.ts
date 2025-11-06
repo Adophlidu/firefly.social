@@ -5,8 +5,8 @@ import { notFound } from '@/esm/navigation/server.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isValidTxId } from '@/helpers/isValidTxId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { getSwapActivityByHash } from '@/providers/firefly/endpoints/getSwapActivityByHash.js';
-import { getTipsTransactionDetail } from '@/providers/firefly/endpoints/getTipsTransactionDetail.js';
+import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
+import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
 
 export async function generateMetadata({ params }: { params: { chain_id: string; hash: string } }): Promise<Metadata> {
     const { chain_id, hash } = params;
