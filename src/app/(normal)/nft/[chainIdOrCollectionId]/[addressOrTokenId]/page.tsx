@@ -5,7 +5,7 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isValidChainIdEthereum, isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { parseChainId } from '@/helpers/parseChainId.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
-import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import { createNftCollectionMetadata } from '@/providers/firefly/metadatas/createNftCollectionMetadata.js';
 import { fireflyNftProvider } from '@/providers/firefly/Nft.js';
 import type { NextPageProps } from '@/types/utility.js';
 
@@ -19,7 +19,7 @@ function isNFTDetailPage(chainIdOrCollectionId: string, addressOrTokenId: string
 export async function generateMetadata(props: Props) {
     const { addressOrTokenId, chainIdOrCollectionId } = await props.params;
 
-    return fireflyMetadataProvider.createNftCollectionMetadata(
+    return createNftCollectionMetadata(
         chainIdOrCollectionId,
         addressOrTokenId,
         `/nft/${chainIdOrCollectionId}/${addressOrTokenId}`,

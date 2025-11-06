@@ -6,7 +6,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import { createPostMetadata } from '@/providers/firefly/metadatas/createPostMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 export const revalidate = 60;
@@ -18,7 +18,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     const params = await props.params;
     const pathname = `/post/${params.source}?${new URLSearchParams(searchParams).toString()}`;
     return isSocialSourceInUrl(searchParams.source)
-        ? fireflyMetadataProvider.createPostMetadata(searchParams.source, params.source, pathname)
+        ? createPostMetadata(searchParams.source, params.source, pathname)
         : createSiteMetadata(pathname);
 }
 

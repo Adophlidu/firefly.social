@@ -13,7 +13,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import { createTokenMetadata } from '@/providers/firefly/metadatas/createTokenMetadata.js';
 import type { GetTokenOptions } from '@/providers/types/Firefly.js';
 import { searchToken } from '@/services/searchToken.js';
 import type { NextPageProps } from '@/types/utility.js';
@@ -54,7 +54,7 @@ export async function generateMetadata(props: Props) {
     const isDexCoin = params.exchange === 'dex';
 
     const keyword = isCexCoin ? params.slug?.[0] : isDexCoin ? params.slug?.[1] : params.exchange;
-    return fireflyMetadataProvider.createTokenMetadata(
+    return createTokenMetadata(
         keyword ?? '-',
         params.slug ? `/token/${params.exchange}/${params.slug.join('/')}` : `/token/${params.exchange}`,
         { ...options, isCoinId: isCexCoin ? true : options?.isCoinId },

@@ -1,7 +1,7 @@
 import { NFTDetailPage } from '@/app/(normal)/nft/pages/NFTDetailPage.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { parseChainId } from '@/helpers/parseChainId.js';
-import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import { createNftMetadata } from '@/providers/firefly/metadatas/createNftMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
@@ -13,7 +13,7 @@ interface Props
 
 export async function generateMetadata(props: Props) {
     const { addressOrTokenId, tokenId, chainIdOrCollectionId } = await props.params;
-    return fireflyMetadataProvider.createNftMetadata(
+    return createNftMetadata(
         addressOrTokenId,
         chainIdOrCollectionId,
         tokenId,

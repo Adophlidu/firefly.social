@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 
 import { SparksModal } from '@/components/Sparks/SparksModal.js';
-import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import { createSparksMetadata } from '@/providers/firefly/metadatas/createSparksMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ accountId: string }> {}
 
 export async function generateMetadata(): Promise<Metadata> {
-    return fireflyMetadataProvider.createSparksMetadata();
+    return createSparksMetadata();
 }
 
 export default async function SparksPage(props: Props) {

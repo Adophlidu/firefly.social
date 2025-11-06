@@ -6,7 +6,7 @@ import { isValidTxId } from '@/helpers/isValidTxId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoints/getSwapActivityByHash.js';
 import { getTipsTransactionDetail } from '@/providers/firefly/endpoints/getTipsTransactionDetail.js';
-import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import { createTransactionMetadata } from '@/providers/firefly/metadatas/createTransactionMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
@@ -19,11 +19,7 @@ interface Props
 
 export async function generateMetadata(props: Props) {
     const { chain_id, hash } = await props.params;
-    return fireflyMetadataProvider.createTransactionMetadata(
-        Number.parseInt(chain_id, 10),
-        hash,
-        `/tx/${chain_id}/${hash}`,
-    );
+    return createTransactionMetadata(Number.parseInt(chain_id, 10), hash, `/tx/${chain_id}/${hash}`);
 }
 
 export default async function Page(props: Props) {

@@ -10,7 +10,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import { createChannelMetadata } from '@/providers/firefly/metadatas/createChannelMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
@@ -27,7 +27,7 @@ interface Props
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source = SourceInURL.Farcaster, id } = await props.params;
-    return fireflyMetadataProvider.createChannelMetadata(source, id, `/club/${source}/${id}`);
+    return createChannelMetadata(source, id, `/club/${source}/${id}`);
 }
 
 export default async function Page(props: Props) {

@@ -6,7 +6,7 @@ import { CHANNEL_TAB_TYPE } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import { createChannelMetadata } from '@/providers/firefly/metadatas/createChannelMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
@@ -23,7 +23,7 @@ interface Props
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source = SourceInURL.Farcaster, id, type = ChannelTabType.Posts } = await props.params;
-    return fireflyMetadataProvider.createChannelMetadata(source, id, `/club/${source}/${id}/${type}`);
+    return createChannelMetadata(source, id, `/club/${source}/${id}/${type}`);
 }
 
 export default async function Layout(props: Props) {

@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 
 import { ArticleDetailPage } from '@/app/(normal)/article/[id]/pages/DetailPage.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import { createArticleMetadata } from '@/providers/firefly/metadatas/createArticleMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ id: string }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { id } = await props.params;
-    return fireflyMetadataProvider.createArticleMetadata(id, `/article/${id}`);
+    return createArticleMetadata(id, `/article/${id}`);
 }
 
 export default async function Page(props: Props) {

@@ -16,7 +16,7 @@ import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import { createPostMetadata } from '@/providers/firefly/metadatas/createPostMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 export const revalidate = 60;
@@ -26,7 +26,7 @@ interface Props extends NextPageProps<{ id: string; source: SocialSourceInURL }>
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { source, id } = await props.params;
     return isSocialSourceInUrl(source)
-        ? fireflyMetadataProvider.createPostMetadata(source, id, `/post/${source}/${id}`)
+        ? createPostMetadata(source, id, `/post/${source}/${id}`)
         : createSiteMetadata(`/post/${source}/${id}`);
 }
 

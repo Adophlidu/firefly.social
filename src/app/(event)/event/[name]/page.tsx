@@ -5,7 +5,7 @@ import { dynamic } from '@/esm/dynamic.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
-import { fireflyMetadataProvider } from '@/providers/firefly/Metadata.js';
+import { createEventMetadata } from '@/providers/firefly/metadatas/createEventMetadata.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
 import type { NextPageProps } from '@/types/utility.js';
 
@@ -17,7 +17,7 @@ interface Props extends NextPageProps<{ name: string }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const { name } = await props.params;
-    return fireflyMetadataProvider.createEventMetadata(name, `/event/${name}`);
+    return createEventMetadata(name, `/event/${name}`);
 }
 
 export default async function Page(props: Props) {

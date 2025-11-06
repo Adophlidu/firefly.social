@@ -1,0 +1,22 @@
+import type { Metadata } from 'next';
+import urlcat from 'urlcat';
+
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { resolveResponseData } from '@/helpers/resolveResponseData.js';
+import { fetchMetadataApi } from '@/providers/firefly/metadatas/fetchMetadataApi.js';
+
+export async function createChannelMetadata(source: string, channelId: string, pathname: string): Promise<Metadata> {
+    try {
+        const response = await fetchMetadataApi(
+            urlcat('/metadata/channel', {
+                source,
+                id: channelId,
+                pathname,
+            }),
+        );
+        const metadata = resolveResponseData(response);
+        return metadata;
+    } catch (error) {
+        return createSiteMetadata(pathname);
+    }
+}
