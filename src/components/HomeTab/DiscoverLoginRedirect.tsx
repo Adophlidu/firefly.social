@@ -2,6 +2,7 @@
 import { bom } from '@dimensiondev/utils';
 import { useEffect, useRef } from 'react';
 
+import { PageRoute } from '@/constants/enum.js';
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -23,6 +24,8 @@ export function DiscoverLoginRedirect() {
 
         const pathname = bom.location?.pathname;
         if (isLogin && pathname && isRoutePathname(pathname, '/following/:source', true)) return;
+
+        if (pathname && pathname === PageRoute.DiscoverActivities) return;
 
         router.replace(
             isLogin ? resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE) : resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE),

@@ -35,6 +35,8 @@ export enum PageRoute {
     FollowingPosts = '/following/posts',
     Discover = '/:source',
     DiscoverPosts = '/posts',
+    DiscoverTransactions = '/transactions',
+    DiscoverActivities = '/activities',
     Explore = '/explore',
     Notifications = '/notifications',
     Profile = '/profile',
