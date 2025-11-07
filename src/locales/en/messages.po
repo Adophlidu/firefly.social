@@ -107,9 +107,6 @@ msgstr "Show assets < 1 USD"
 msgid "please<0>change</0>to another wallet."
 msgstr "please<0>change</0>to another wallet."
 
-msgid "Metadata not frozen."
-msgstr "Metadata not frozen."
-
 msgid "Repost or quote"
 msgstr "Repost or quote"
 
@@ -363,9 +360,6 @@ msgstr "Requested from <0>{0}</0>"
 
 msgid "Airdrop Scam"
 msgstr "Airdrop Scam"
-
-msgid "Metadata frozen."
-msgstr "Metadata frozen."
 
 msgid "Sorry, the username or password you entered is incorrect"
 msgstr "Sorry, the username or password you entered is incorrect"
@@ -648,9 +642,6 @@ msgstr "Scan and Get Firefly Mobile App"
 msgid "Undo repost"
 msgstr "Undo repost"
 
-msgid "Proxy contract."
-msgstr "Proxy contract."
-
 msgid "Liquidity"
 msgstr "Liquidity"
 
@@ -710,9 +701,6 @@ msgstr "Failed to report @{0}"
 
 msgid "Failed to login profile by orb"
 msgstr "Failed to login profile by orb"
-
-msgid "Restricted approval."
-msgstr "Restricted approval."
 
 msgid "Report submitted"
 msgstr "Report submitted"
@@ -877,9 +865,6 @@ msgstr "Sending"
 
 msgid "Functions with retrievable ownership"
 msgstr "Functions with retrievable ownership"
-
-msgid "No proxy contract."
-msgstr "No proxy contract."
 
 msgid "Failed to reset password."
 msgstr "Failed to reset password."
@@ -1327,17 +1312,11 @@ msgstr "One-time passcode sent to you"
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 
-msgid "No phishing site found."
-msgstr "No phishing site found."
-
 msgid "Log out"
 msgstr "Log out"
 
 msgid "Oops... Not all the requirements have been met"
 msgstr "Oops... Not all the requirements have been met"
-
-msgid "No restricted approval."
-msgstr "No restricted approval."
 
 msgid "Unmuting..."
 msgstr "Unmuting..."
@@ -2191,9 +2170,6 @@ msgstr "Failed to download image. Please try again later."
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 
-msgid "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
-msgstr "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
-
 msgid "Polymarket PnL"
 msgstr "Polymarket PnL"
 
@@ -2236,9 +2212,6 @@ msgstr "Bookmarked Token"
 
 msgid "Are you sure you want to report this article?"
 msgstr "Are you sure you want to report this article?"
-
-msgid "NFT owner cant bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
-msgstr "NFT owner cant bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
 
 msgid "Failed to create Firefly profile."
 msgstr "Failed to create Firefly profile."
@@ -2527,9 +2500,6 @@ msgstr "The whitelist function is not included. If there is a whitelist, some ad
 msgid "Select Token"
 msgstr "Select Token"
 
-msgid "This NFT contract doesn't have a proxy contract."
-msgstr "This NFT contract doesn't have a proxy contract."
-
 msgid "Your schedule thread has created successfully."
 msgstr "Your schedule thread has created successfully."
 
@@ -2716,9 +2686,6 @@ msgstr "Cancel recast successfully"
 msgid "Failed to create schedule thread posts."
 msgstr "Failed to create schedule thread posts."
 
-msgid "This NFT contract has a proxy contract."
-msgstr "This NFT contract has a proxy contract."
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Failed to send your post to {0}."
 msgstr "Failed to send your post to {0}."
@@ -2869,9 +2836,6 @@ msgstr "Follow Pending"
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 
-msgid "Website is a phishing site."
-msgstr "Website is a phishing site."
-
 msgid "Network cost"
 msgstr "Network cost"
 
@@ -2933,9 +2897,6 @@ msgstr "Insufficient funds"
 #. placeholder {3}: resolveSourceName(post.source)
 msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
 msgstr "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
-
-msgid "No phishing site."
-msgstr "No phishing site."
 
 msgid "Custom amount"
 msgstr "Custom amount"
@@ -3345,9 +3306,6 @@ msgstr "Confirm to disconnect this account from Firefly’s social graph?"
 msgid "The contract owner has no restrictions on selling."
 msgstr "The contract owner has no restrictions on selling."
 
-msgid "No oversupply minting."
-msgstr "No oversupply minting."
-
 msgid "No money laundering found."
 msgstr "No money laundering found."
 
@@ -3386,9 +3344,6 @@ msgstr "Sorry, we are not able to find this collection"
 
 msgid "<0>You</0> reposted"
 msgstr "<0>You</0> reposted"
-
-msgid "NFT owner can bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
-msgstr "NFT owner can bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
@@ -3990,9 +3945,6 @@ msgstr "Clear all requirements"
 msgid "Claim Requirements"
 msgstr "Claim Requirements"
 
-msgid "Oversupply minting."
-msgstr "Oversupply minting."
-
 msgid "Sold"
 msgstr "Sold"
 
@@ -4059,9 +4011,6 @@ msgstr "The connection has timed out. Please try again later."
 
 msgid "Reload page"
 msgstr "Reload page"
-
-msgid "Phishing site."
-msgstr "Phishing site."
 
 msgid "Emoji"
 msgstr "Emoji"
@@ -4163,9 +4112,6 @@ msgstr "Multi-device login is now turned off and all previously sessions are cle
 msgid "Only show holding"
 msgstr "Only show holding"
 
-msgid "The metadata of this NFT is stored in IPFS, AR, generated by contract, or another decentralized way."
-msgstr "The metadata of this NFT is stored in IPFS, AR, generated by contract, or another decentralized way."
-
 msgid "Searching collections"
 msgstr "Searching collections"
 
@@ -4262,9 +4208,6 @@ msgstr "Unexpected step for setting password: {step}."
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
 msgstr "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-
-msgid "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
-msgstr "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 
 msgid "<0>You</0> recasted"
 msgstr "<0>You</0> recasted"
@@ -4381,9 +4324,6 @@ msgstr "This wallet is already linked to a different Firefly account."
 
 msgid "Unmuted {handleOrEnsOrAddress}."
 msgstr "Unmuted {handleOrEnsOrAddress}."
-
-msgid "The metadata of this NFT is not stored in IPFS, AR, generated by contract, or another decentralized way."
-msgstr "The metadata of this NFT is not stored in IPFS, AR, generated by contract, or another decentralized way."
 
 msgid "No trading cooldown function."
 msgstr "No trading cooldown function."

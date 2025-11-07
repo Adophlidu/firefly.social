@@ -2,7 +2,7 @@ import { type Hex, hexToBytes } from 'viem';
 import { signMessage } from 'viem/accounts';
 
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
-import type { ClaimRedPacketContext } from '@/providers/ethereum/RedPacket.js';
+import type { ClaimRedPacketContext } from '@/providers/ethereum/red-packet/types.js';
 import { createClaimSignature } from '@/providers/firefly/red-packet/createClaimSignature.js';
 
 export async function signClaimMessage(context: ClaimRedPacketContext) {

@@ -1,10 +1,10 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
 
-import { CoinGecko } from '@/providers/coingecko/index.js';
+import { getCoinTrending } from '@/providers/coingecko/getCoinTrending.js';
 
 export function useCoinTrending(coinId: string | null | undefined) {
     return useQuery({
         queryKey: ['coingecko', 'trending', coinId],
-        queryFn: coinId ? () => CoinGecko.getCoinTrending(coinId) : skipToken,
+        queryFn: coinId ? () => getCoinTrending(coinId) : skipToken,
     });
 }

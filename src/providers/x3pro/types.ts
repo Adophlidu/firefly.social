@@ -1,19 +1,4 @@
 /* cspell:disable */
-
-export const enum X3ProKolListLabel {
-    PVP = 1,
-    Celebrity = 2,
-    Web3 = 3,
-    Projector = 4,
-    Beauty = 5,
-}
-
-export const enum X3ProOrderType {
-    Latest = 3,
-    Follower = 1,
-    MonitoringRanking = 2,
-}
-
 export type Response<T> =
     | {
           success: true;
@@ -117,8 +102,6 @@ export type Post = {
     viewCount: number;
 };
 
-export type KolList = List<Profile>;
-
 export type PostListResponse = Response<Post[]>;
 
 export enum PostOrderType {
@@ -173,7 +156,7 @@ export interface Token {
 
 export type TokenResult = Response<Token>;
 
-export type MentionUsersRespone = Response<{
+export type MentionUsersResponse = Response<{
     caUrl: string;
     mentionUserCount: number;
     mentionUsers: TokenMentionUser[];

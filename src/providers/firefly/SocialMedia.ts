@@ -46,7 +46,7 @@ import { getNFTDetails } from '@/providers/firefly/nft/getNFTDetails.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
-import { Snapshot } from '@/providers/snapshot/index.js';
+import { getProposals } from '@/providers/snapshot/getProposals.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import type { BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
 import {
@@ -976,7 +976,7 @@ class FireflySocialMedia implements Provider {
         const response = await fireflySessionHolder.fetch<DiscoverSnapshotsResponse>(url);
 
         const data = resolveFireflyResponseData(response);
-        const proposals = await Snapshot.getProposals(
+        const proposals = await getProposals(
             data.result.map((x) => x.metadata.proposal_id),
             address,
         );
@@ -1027,7 +1027,7 @@ class FireflySocialMedia implements Provider {
         );
 
         const data = resolveFireflyResponseData(response);
-        const proposals = await Snapshot.getProposals(
+        const proposals = await getProposals(
             data.result.map((x) => x.metadata.proposal_id),
             address,
         );
@@ -1063,7 +1063,7 @@ class FireflySocialMedia implements Provider {
             const response = await fireflySessionHolder.fetch<BookmarkResponse<FireflySnapshotActivity>>(url);
 
             const data = resolveFireflyResponseData(response);
-            const proposals = await Snapshot.getProposals(
+            const proposals = await getProposals(
                 compact(data.list.map((x) => x.post_content?.metadata.proposal_id)),
                 address,
             );

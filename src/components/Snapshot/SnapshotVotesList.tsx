@@ -18,7 +18,7 @@ import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
-import { Snapshot } from '@/providers/snapshot/index.js';
+import { getVotesById } from '@/providers/snapshot/getVotesById.js';
 import type { SnapshotVote } from '@/providers/snapshot/type.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
@@ -85,7 +85,7 @@ export const SnapshotVotesList = memo<SnapshotVotesListProps>(function SnapshotV
     const { data, fetchNextPage, isFetching, isFetchingNextPage, hasNextPage } = useSuspenseInfiniteQuery({
         queryKey: ['snapshot', 'votes', id],
         queryFn: async ({ pageParam }) => {
-            return Snapshot.getVotesById(id, createIndicator(undefined, pageParam));
+            return getVotesById(id, createIndicator(undefined, pageParam));
         },
         initialPageParam: '0',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,

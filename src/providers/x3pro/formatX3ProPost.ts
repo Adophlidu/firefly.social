@@ -4,15 +4,8 @@ import { Source } from '@/constants/enum.js';
 import { X3_PRO_AVATAR_URL } from '@/constants/index.js';
 import { formatTwitterProfileFromX3Pro } from '@/providers/twitter/formatTwitterProfileFromX3Pro.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
+import { formatX3Id } from '@/providers/x3pro/formatX3Id.js';
 import type { Post as X3ProPost } from '@/providers/x3pro/types.js';
-
-/**
- * remove x_ prefix from post id or profile id
- */
-export function formatX3Id(id: string) {
-    const idPrefix = 'x_';
-    return id.startsWith(idPrefix) ? id.slice(idPrefix.length) : id;
-}
 
 export function formatX3ProPost(origin: X3ProPost, parent?: X3ProPost): Post {
     const postId = formatX3Id(origin.id);

@@ -17,7 +17,7 @@ import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { isLensOwnerOrManager } from '@/providers/lens/isLensOwnerOrManager.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { OrbProvider } from '@/providers/orb/index.js';
+import { vote } from '@/providers/orb/vote.js';
 import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { commitPoll } from '@/services/poll.js';
@@ -70,7 +70,7 @@ class LensPoll implements Provider {
             throw new WalletAddressMismatchError();
         }
 
-        const result = await OrbProvider.vote(
+        const result = await vote(
             postId,
             options.map((x) => +x.id),
         );

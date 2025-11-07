@@ -18,7 +18,7 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
-import { EthereumRedPacket } from '@/providers/ethereum/RedPacket.js';
+import { createRedPacketParams } from '@/providers/ethereum/red-packet/createRedPacketParams.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -87,7 +87,7 @@ export function useEthereumCreateRedPacketCallback(
                 token.schema === EthereumSchemaType.Native ? getEvmNativeTokenAddress(chainId) : token.address;
             if (!tokenAddress) return;
 
-            const redpacketParams = await EthereumRedPacket.createRedPacketParams({
+            const redpacketParams = await createRedPacketParams({
                 creator: account,
                 duration,
                 isRandom,

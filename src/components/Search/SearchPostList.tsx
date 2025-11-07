@@ -12,7 +12,7 @@ import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import { X3ProProvider } from '@/providers/x3pro/index.js';
+import { searchPosts } from '@/providers/x3pro/searchPosts.js';
 import { PostOrderType } from '@/providers/x3pro/types.js';
 
 interface Props {
@@ -50,7 +50,7 @@ export const SearchPostList = memo<Props>(function SearchPostList({
                     }
                     const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
                     if (source === Source.X3Pro) {
-                        return X3ProProvider.searchPosts(keyword, indicator, orderType);
+                        return searchPosts(keyword, indicator, orderType);
                     }
                     const provider = resolveSocialMediaProvider(socialSource);
                     return await provider.searchPosts(keyword.replace(/^#/, ''), indicator, keyword.includes(' '));

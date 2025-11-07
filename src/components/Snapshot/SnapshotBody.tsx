@@ -34,8 +34,11 @@ import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import { Snapshot } from '@/providers/snapshot/index.js';
+import { getProposalLink } from '@/providers/snapshot/getProposalLink.js';
+import { getVotePower } from '@/providers/snapshot/getVotePower.js';
+import { pathQueryVoteResultsByVoter } from '@/providers/snapshot/pathQueryVoteResultsByVoter.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
+import { vote } from '@/providers/snapshot/vote.js';
 import { captureSnapshotVoteEvent } from '@/providers/telemetry/captureSnapshotVoteEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
@@ -137,7 +140,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                             ·
                             <SnapshotIcon width={15} height={15} />
                         </div>
-                        <SnapshotActions activity={activity} link={Snapshot.getProposalLink(snapshot)} />
+                        <SnapshotActions activity={activity} link={getProposalLink(snapshot)} />
                     </div>
                 </div>
 
@@ -193,7 +196,7 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
         queryKey: ['snapshot-votes', snapshot.id, account.address],
         async queryFn() {
             if (!account.address) return null;
-            const votes = await Snapshot.pathQueryVoteResultsByVoter([snapshot.id], account.address);
+            const votes = await pathQueryVoteResultsByVoter([snapshot.id], account.address);
             const target = last(votes.data);
             if (!target) return null;
             return target.choice;
@@ -219,7 +222,7 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
         ],
         queryFn: async () => {
             if (!account.address) return 0;
-            const { vp } = await Snapshot.getVotePower(
+            const { vp } = await getVotePower(
                 account.address,
                 snapshot.network,
                 snapshot.strategies,
@@ -262,7 +265,7 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
             if (!account.address || disabled || !selectedChoices) return;
 
             captureSnapshotVoteEvent(EventId.SNAPSHOT_VOTE_SUBMIT, account.address);
-            const result = await Snapshot.vote({
+            const result = await vote({
                 from: account.address,
                 space: snapshot.space.id,
                 proposal: snapshot.id,

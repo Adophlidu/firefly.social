@@ -8,7 +8,7 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { chains } from '@/configs/chains.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isZero, leftShift, multipliedBy, plus } from '@/helpers/number.js';
-import { CoinGecko } from '@/providers/coingecko/index.js';
+import { getFungibleTokenPrice } from '@/providers/coingecko/getFungibleTokenPrice.js';
 import type { MintMetadata } from '@/providers/types/Firefly.js';
 import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
 
@@ -52,7 +52,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
                 const nativeToken = EVMChainResolver.nativeCurrency(chainId);
                 if (!nativeToken) return;
 
-                const usdPrice = await CoinGecko.getFungibleTokenPrice(chainId, nativeToken.address);
+                const usdPrice = await getFungibleTokenPrice(chainId, nativeToken.address);
                 return formatPrice(multipliedBy(usdPrice || 0, leftShift(totalCost, nativeToken.decimals)).toString());
             } catch {
                 return;

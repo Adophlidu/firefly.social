@@ -10,7 +10,8 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
-import { type CreateRedPacketContext, EthereumRedPacket } from '@/providers/ethereum/RedPacket.js';
+import { createRedPacketParams } from '@/providers/ethereum/red-packet/createRedPacketParams.js';
+import type { CreateRedPacketContext } from '@/providers/ethereum/red-packet/types.js';
 import { EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
 export function useEthereumDefaultGas(context: CreateRedPacketContext, enabled = true) {
@@ -31,7 +32,7 @@ export function useEthereumDefaultGas(context: CreateRedPacketContext, enabled =
             const tokenAddress = token.schema === EthereumSchemaType.Native ? NATIVE_TOKEN_ADDRESS : token.address;
             if (!tokenAddress) return ZERO;
 
-            const params = await EthereumRedPacket.createRedPacketParams(context);
+            const params = await createRedPacketParams(context);
             if (!params) return ZERO;
 
             const value = toFixed(params.params.token?.schema === EthereumSchemaType.Native ? total : 0);

@@ -12,7 +12,10 @@ import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
-import { type ClaimNativeTokenContext, SolanaRedPacket } from '@/providers/solana/RedPacket.js';
+import { claimWithNativeToken } from '@/providers/solana/red-packet/claimWithNativeToken.js';
+import { claimWithSplToken } from '@/providers/solana/red-packet/claimWithSplToken.js';
+import { getClaimedRecord } from '@/providers/solana/red-packet/getClaimedRecord.js';
+import type { ClaimNativeTokenContext } from '@/providers/solana/red-packet/types.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -53,11 +56,11 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, post: Pos
             signature: string;
         } | null = null;
         if (isNativeToken) {
-            result = await SolanaRedPacket.claimWithNativeToken({
+            result = await claimWithNativeToken({
                 ...baseParams,
             });
         } else {
-            result = await SolanaRedPacket.claimWithSplToken({
+            result = await claimWithSplToken({
                 ...baseParams,
                 tokenMint: new web3.PublicKey(payload.token.address),
                 tokenProgram: new web3.PublicKey(payload.tokenProgram || ''),
@@ -69,10 +72,7 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, post: Pos
             queryKey: ['red-packet', 'solana-availability', payload.rpid, account],
         });
 
-        const claimedRecord = await SolanaRedPacket.getClaimedRecord(
-            new web3.PublicKey(accountId),
-            new web3.PublicKey(account),
-        );
+        const claimedRecord = await getClaimedRecord(new web3.PublicKey(accountId), new web3.PublicKey(account));
         const amount = formatBalance(claimedRecord?.amount.toString() || '0', payload.token.decimals);
 
         return { canClaim: true, amount, tx: result.signature };

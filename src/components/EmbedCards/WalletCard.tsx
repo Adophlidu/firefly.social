@@ -24,7 +24,7 @@ import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useWalletRelatedProfiles } from '@/hooks/useWalletRelatedProfiles.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
-import { GoPlus } from '@/providers/goplus/index.js';
+import { getAddressSecurity } from '@/providers/goplus/getAddressSecurity.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import { SolanaExplorerResolver } from '@/web3-providers/Web3/Solana/apis/ResolverAPI.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
@@ -50,7 +50,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
 
     const { data: walletSecurity } = useQuery({
         queryKey: ['wallet', 'security', address],
-        queryFn: async () => GoPlus.getAddressSecurity(address),
+        queryFn: async () => getAddressSecurity(address),
     });
     const addressLink = useMemo(() => {
         if (!networkType) return null;

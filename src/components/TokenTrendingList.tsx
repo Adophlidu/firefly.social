@@ -6,7 +6,9 @@ import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js'
 import { VirtualListFooterBottomText } from '@/components/VirtualList/VirtualListFooterBottomText.js';
 import { TrendingType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { CoinGecko } from '@/providers/coingecko/index.js';
+import { getTopGainersOrLosers } from '@/providers/coingecko/getTopGainersOrLosers.js';
+import { getTopMemeCoins } from '@/providers/coingecko/getTopMemeCoins.js';
+import { getTopTrendingCoins } from '@/providers/coingecko/getTopTrendingCoins.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
 
 interface Props {
@@ -21,11 +23,11 @@ export function TokenTrendingList(props: Props) {
             switch (type) {
                 case TrendingType.TopGainers:
                 case TrendingType.TopLosers:
-                    return CoinGecko.getTopGainersOrLosers(type);
+                    return getTopGainersOrLosers(type);
                 case TrendingType.Trending:
-                    return CoinGecko.getTopTrendingCoins();
+                    return getTopTrendingCoins();
                 case TrendingType.Meme:
-                    return CoinGecko.getTopMemeCoins();
+                    return getTopMemeCoins();
                 default:
                     safeUnreachable(type);
                     return EMPTY_LIST as TokenWithMarket[];

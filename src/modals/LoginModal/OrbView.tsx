@@ -26,7 +26,8 @@ import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFro
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { OrbProvider } from '@/providers/orb/index.js';
+import { initSignIn } from '@/providers/orb/initSignIn.js';
+import { pollSignIn } from '@/providers/orb/pollSignIn.js';
 import { getAccountPairs } from '@/providers/telemetry/captureAccountEvent.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -49,11 +50,7 @@ export function OrbView() {
         countStop: 0,
         isIncrement: false,
     });
-    const {
-        loading: initSignInLoading,
-        value: initSignInData,
-        retry: retryInitSignIn,
-    } = useAsyncRetry(OrbProvider.initSignIn, []);
+    const { loading: initSignInLoading, value: initSignInData, retry: retryInitSignIn } = useAsyncRetry(initSignIn, []);
 
     useAsync(async () => {
         try {
@@ -64,7 +61,7 @@ export function OrbView() {
             startCountdown();
             const result = await retry(
                 async (signal) => {
-                    const pollResult = await OrbProvider.pollSignIn(initSignInData.secret, signal);
+                    const pollResult = await pollSignIn(initSignInData.secret, signal);
 
                     if (!pollResult.processed) throw new InvalidResultError();
 

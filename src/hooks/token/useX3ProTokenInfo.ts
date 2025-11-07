@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { X3ProProvider } from '@/providers/x3pro/index.js';
+import { getTokenByAddress } from '@/providers/x3pro/getTokenByAddress.js';
 
 export function useX3ProTokenInfo(address: string | undefined, enabled = true) {
     return useQuery({
@@ -8,7 +8,7 @@ export function useX3ProTokenInfo(address: string | undefined, enabled = true) {
         queryKey: ['x3-pro', 'token', address],
         queryFn: () => {
             if (!address) return null;
-            return X3ProProvider.getTokenByAddress(address);
+            return getTokenByAddress(address);
         },
     });
 }

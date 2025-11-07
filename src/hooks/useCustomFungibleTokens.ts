@@ -11,7 +11,7 @@ import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { leftShift } from '@/helpers/number.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { CoinGecko } from '@/providers/coingecko/index.js';
+import { getFungibleTokenPrice } from '@/providers/coingecko/getFungibleTokenPrice.js';
 import type { Token as TipsToken } from '@/providers/types/Transfer.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
@@ -59,7 +59,7 @@ export function useCustomFungibleTokens(chainId?: EthereumChainId) {
                             if (chain) {
                                 const price = await queryClient.ensureQueryData({
                                     queryKey: ['fungible', 'token-price', chainId, token.address],
-                                    queryFn: () => CoinGecko.getFungibleTokenPrice(chainId, token.address),
+                                    queryFn: () => getFungibleTokenPrice(chainId, token.address),
                                 });
                                 if (price) {
                                     usdValue = bigUnitBalance.times(price).toNumber();

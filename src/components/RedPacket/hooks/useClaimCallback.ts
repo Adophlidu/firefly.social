@@ -3,7 +3,7 @@ import { useAsyncFn } from 'react-use';
 import type { SocialSource } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { EthereumRedPacket } from '@/providers/ethereum/RedPacket.js';
+import { claimRedPacket } from '@/providers/ethereum/red-packet/claimRedPacket.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
@@ -25,7 +25,7 @@ export function useClaimCallback(
             claimer: account,
             payload,
         });
-        const hash = await EthereumRedPacket.claimRedPacket({
+        const hash = await claimRedPacket({
             contextChainId,
             account,
             source,

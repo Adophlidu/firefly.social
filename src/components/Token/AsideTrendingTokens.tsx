@@ -7,12 +7,12 @@ import { AsideTitle } from '@/components/AsideTitle.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
 import AsideTokensSkeleton from '@/components/Token/AsideTokensSkeleton.js';
 import { Link } from '@/esm/Link.js';
-import { CoinGecko } from '@/providers/coingecko/index.js';
+import { getTopTrendingCoins } from '@/providers/coingecko/getTopTrendingCoins.js';
 
 export default memo(function AsideTrendingTokens() {
     const { data, isFetching } = useQuery({
         queryKey: ['side-trending-tokens'],
-        queryFn: () => CoinGecko.getTopTrendingCoins(),
+        queryFn: () => getTopTrendingCoins(),
         select: (data) => data.slice(0, 5),
     });
 

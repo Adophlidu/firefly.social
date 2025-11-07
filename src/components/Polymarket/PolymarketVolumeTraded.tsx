@@ -5,7 +5,7 @@ import { memo } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
-import { PolymarketLabApi } from '@/providers/polymarket/LabApi.js';
+import { getVolumeTraded } from '@/providers/polymarket/getVolumeTraded.js';
 
 interface PolymarketVolumeTradedProps {
     address: string;
@@ -19,7 +19,7 @@ export const PolymarketVolumeTraded = memo<PolymarketVolumeTradedProps>(function
     const { data, isLoading } = useQuery({
         queryKey: ['polymarket', 'volume-traded', address],
         staleTime: 1000 * 60 * 5,
-        queryFn: () => PolymarketLabApi.getVolumeTraded(proxyAddress || address),
+        queryFn: () => getVolumeTraded(proxyAddress || address),
     });
     const volume = first(data)?.amount;
 

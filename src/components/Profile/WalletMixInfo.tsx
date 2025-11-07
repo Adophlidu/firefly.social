@@ -16,8 +16,8 @@ import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';
-import { Debank } from '@/providers/debank/index.js';
-import { OKX } from '@/providers/okx/index.js';
+import { getUserTotalBalance } from '@/providers/debank/getUserTotalBalance.js';
+import { getUserSolanaTotalValue } from '@/providers/okx/getUserSolanaTotalValue.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 
 interface Props {
@@ -42,9 +42,9 @@ export function WalletMixInfo({ profiles = [] }: Props) {
                     if (!networkType) return null;
                     switch (networkType) {
                         case NetworkType.Ethereum:
-                            return Debank.getUserTotalBalance(address);
+                            return getUserTotalBalance(address);
                         case NetworkType.Solana:
-                            return OKX.getUserSolanaTotalValue(address);
+                            return getUserSolanaTotalValue(address);
                         default:
                             safeUnreachable(networkType);
                             return null;

@@ -4,7 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { minus } from '@/helpers/number.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { SolanaRedPacket } from '@/providers/solana/RedPacket.js';
+import { getClaimedRecord } from '@/providers/solana/red-packet/getClaimedRecord.js';
+import { getRedPacket } from '@/providers/solana/red-packet/getRedPacket.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
 export function useSolanaAvailability(payload: RedPacketJSONPayload, chainId: number, enabled = true) {
@@ -17,9 +18,9 @@ export function useSolanaAvailability(payload: RedPacketJSONPayload, chainId: nu
             try {
                 const accountId = payload.rpid;
 
-                const redPacket = await SolanaRedPacket.getRedPacket(new web3.PublicKey(accountId));
+                const redPacket = await getRedPacket(new web3.PublicKey(accountId));
                 const claimedRecord = account
-                    ? await SolanaRedPacket.getClaimedRecord(new web3.PublicKey(accountId), new web3.PublicKey(account))
+                    ? await getClaimedRecord(new web3.PublicKey(accountId), new web3.PublicKey(account))
                     : null;
 
                 const isExpired = redPacket.duration.add(redPacket.createTime).muln(1000).lt(new BN(Date.now()));

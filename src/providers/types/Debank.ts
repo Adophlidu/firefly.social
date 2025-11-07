@@ -73,11 +73,6 @@ export interface Token<AddressLike = string> {
     time_at: number;
 }
 
-export interface GasPrice {
-    level: 'slow' | 'normal' | 'fast';
-    price: number;
-}
-
 export interface UserTotalBalanceResponse {
     total_usd_value: number;
     chain_list: Array<{

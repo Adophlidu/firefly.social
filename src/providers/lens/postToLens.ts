@@ -18,7 +18,7 @@ import { link } from '@/providers/lens/metadata/post/Link.js';
 import { textOnly } from '@/providers/lens/metadata/post/TextOnly.js';
 import { video } from '@/providers/lens/metadata/post/Video.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { OrbProvider } from '@/providers/orb/index.js';
+import { createPollPost } from '@/providers/orb/createPollPost.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import { type Channel, SessionType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
@@ -179,7 +179,7 @@ async function publishPostForLens(
     restrictions?: RestrictionType[],
 ) {
     if (poll) {
-        const result = await OrbProvider.createPollPost(content, poll);
+        const result = await createPollPost(content, poll);
         return result;
     }
 

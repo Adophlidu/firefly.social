@@ -7,7 +7,7 @@ import { type HTMLProps, memo } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
-import { PolymarketDataApi } from '@/providers/polymarket/DataApi.js';
+import { getTradedMarketsCount } from '@/providers/polymarket/getTradedMarketsCount.js';
 
 interface PolymarketMarketsTradedProps extends HTMLProps<HTMLDivElement> {
     address: string;
@@ -25,7 +25,7 @@ export const PolymarketMarketsTraded = memo<PolymarketMarketsTradedProps>(functi
         queryKey: ['polymarket', 'markets-traded', address],
         enabled,
         staleTime: 1000 * 60 * 5,
-        queryFn: () => PolymarketDataApi.getTradedMarketsCount(proxyAddress || address),
+        queryFn: () => getTradedMarketsCount(proxyAddress || address),
     });
 
     return (

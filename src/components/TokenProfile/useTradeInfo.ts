@@ -5,7 +5,7 @@ import { zeroAddress } from 'viem';
 import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupportedChains.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
-import { CoinGecko } from '@/providers/coingecko/index.js';
+import { getChainIdByCoinId } from '@/providers/coingecko/getChainIdByCoinId.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
@@ -18,7 +18,7 @@ export function useTradeInfo(token: CoinGeckoToken | null | undefined, argChainI
         [supportedChains],
     );
     const firstAvailable = contracts.find((x) => x.chainId && chainIds.includes(x.chainId));
-    const coingeckoChainId = token?.id ? CoinGecko.getChainIdByCoinId(token.id) : undefined;
+    const coingeckoChainId = token?.id ? getChainIdByCoinId(token.id) : undefined;
     const chainId = argChainId || coingeckoChainId || token?.chainId || firstAvailable?.chainId;
 
     if (!chainId || !chainIds.includes(chainId))

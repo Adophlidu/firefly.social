@@ -4,7 +4,9 @@ import { useAsyncFn } from 'react-use';
 import { queryClient } from '@/configs/queryClient.js';
 import type { ChainContextOverrides } from '@/hooks/useChainContext.js';
 import { getTokenAccountByMint } from '@/providers/solana/getTokenAccountByMint.js';
-import { SolanaRedPacket } from '@/providers/solana/RedPacket.js';
+import { getRedPacket } from '@/providers/solana/red-packet/getRedPacket.js';
+import { refundNativeToken } from '@/providers/solana/red-packet/refundNativeToken.js';
+import { refundSplToken } from '@/providers/solana/red-packet/refundSplToken.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useRefundSolanaCallback(rpid?: string, overrides?: ChainContextOverrides) {
@@ -14,9 +16,9 @@ export function useRefundSolanaCallback(rpid?: string, overrides?: ChainContextO
         if (!rpid) throw new Error('Failed to resolve red packet account id.');
 
         const rpAccount = new web3.PublicKey(rpid);
-        const redPacket = await SolanaRedPacket.getRedPacket(rpAccount);
+        const redPacket = await getRedPacket(rpAccount);
         if (redPacket.tokenType === 0) {
-            await SolanaRedPacket.refundNativeToken(rpAccount);
+            await refundNativeToken(rpAccount);
         } else {
             const tokenAccount = await getTokenAccountByMint(
                 chainId,
@@ -25,7 +27,7 @@ export function useRefundSolanaCallback(rpid?: string, overrides?: ChainContextO
             );
             if (!tokenAccount) throw new Error('Failed to get token account.');
 
-            await SolanaRedPacket.refundSplToken({
+            await refundSplToken({
                 accountId: rpAccount,
                 tokenMint: redPacket.tokenAddress,
                 tokenAccount: tokenAccount.pubkey,

@@ -23,10 +23,10 @@ import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
-import { Debank } from '@/providers/debank/index.js';
+import { getUserTotalBalance } from '@/providers/debank/getUserTotalBalance.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
-import { OKX } from '@/providers/okx/index.js';
+import { getUserSolanaTotalValue } from '@/providers/okx/getUserSolanaTotalValue.js';
 import {
     RelatedWalletSource,
     type VerifiedSource,
@@ -111,9 +111,9 @@ export function WalletInfo({ profile }: WalletInfoProps) {
             if (!networkType) return null;
             switch (networkType) {
                 case NetworkType.Ethereum:
-                    return Debank.getUserTotalBalance(address);
+                    return getUserTotalBalance(address);
                 case NetworkType.Solana:
-                    return OKX.getUserSolanaTotalValue(address);
+                    return getUserSolanaTotalValue(address);
                 default:
                     safeUnreachable(networkType);
                     return null;

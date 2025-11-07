@@ -4,7 +4,7 @@ import { sumBy } from 'lodash-es';
 import { Source } from '@/constants/enum.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { OrbProvider } from '@/providers/orb/index.js';
+import { getPoll } from '@/providers/orb/getPoll.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useOrbPollResultStore } from '@/store/useOrbPollResultStore.js';
 
@@ -20,7 +20,7 @@ export function useRetrievePollFromPost(post: Post) {
         enabled: queryLensPoll,
         staleTime: 1000 * 60 * 2, // 2 minutes
         queryFn: async () => {
-            const poll = await OrbProvider.getPoll(post.postId, lensProfile?.profileId);
+            const poll = await getPoll(post.postId, lensProfile?.profileId);
             if (poll) {
                 patchPostQueryData(Source.Lens, post.postId, (draft) => {
                     draft.poll = poll;

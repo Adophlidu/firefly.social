@@ -24,7 +24,9 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import RedPacketIDL from '@/idls/redpacket.json' with { type: 'json' };
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { getTokenAccountByMint } from '@/providers/solana/getTokenAccountByMint.js';
-import { type CreateWithNativeTokenContext, SolanaRedPacket } from '@/providers/solana/RedPacket.js';
+import { createWithNativeToken } from '@/providers/solana/red-packet/createWithNativeToken.js';
+import { createWithSplToken } from '@/providers/solana/red-packet/createWithSplToken.js';
+import type { CreateWithNativeTokenContext } from '@/providers/solana/red-packet/types.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -111,13 +113,13 @@ export function useSolanaCreateRedPacketCallback(
                 | undefined;
             let tokenProgram: web3.PublicKey | undefined;
             if (isNativeToken) {
-                result = await SolanaRedPacket.createWithNativeToken(baseParams);
+                result = await createWithNativeToken(baseParams);
             } else {
                 const tokenAccount = await getTokenAccountByMint(chainId, account, token.address);
                 if (!tokenAccount) throw new Error('Failed to get token account.');
 
                 tokenProgram = tokenAccount.owner;
-                result = await SolanaRedPacket.createWithSplToken({
+                result = await createWithSplToken({
                     ...baseParams,
                     totalAmount: total.toNumber(),
                     tokenMint: new web3.PublicKey(token.address),

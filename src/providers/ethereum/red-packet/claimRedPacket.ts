@@ -1,0 +1,56 @@
+import type { Address, Hex } from 'viem';
+import { getChainId, switchChain, writeContract } from 'wagmi/actions';
+
+import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
+import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
+import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
+import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
+import type { ClaimRedPacketContext } from '@/providers/ethereum/red-packet/types.js';
+import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
+import { checkGasFreeStatus } from '@/providers/firefly/red-packet/checkGasFreeStatus.js';
+import { claimForGasFree } from '@/providers/firefly/red-packet/claimForGasFree.js';
+import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+
+export async function claimRedPacket(context: ClaimRedPacketContext) {
+    const rpid = context.payload.rpid;
+    if (!rpid) return;
+
+    const { account, source, contextChainId, payload } = context;
+    const payloadChainId = payload.token?.chainId;
+    const chainIdByName = EVMChainResolver.chainId('network' in payload ? payload.network! : '');
+    const chainId = payloadChainId || chainIdByName || contextChainId;
+
+    const globalChainId = getChainId(wagmiConfig);
+    if (globalChainId !== chainId) await switchChain(wagmiConfig, { chainId });
+
+    const claimWithSponsorHash = await runInSafeAsync(async () => {
+        const me = await getCurrentClaimProfile(source);
+        const sponsorable = await checkGasFreeStatus(chainId, account);
+        if (!sponsorable || !me?.profileId) return;
+        return claimForGasFree(rpid, account, {
+            needLensAndFarcasterHandle: true,
+            platform: resolveRedPacketPlatformType(source),
+            profileId: me.profileId,
+            handle: me.handle,
+            lensToken: me.lensToken,
+            farcasterMessage: me.farcasterMessage as Hex,
+            farcasterSigner: me.farcasterSigner as Hex,
+            farcasterSignature: me.farcasterSignature as Hex,
+        });
+    });
+    if (claimWithSponsorHash) return claimWithSponsorHash;
+
+    const hash = await writeContract(wagmiConfig, {
+        abi: RED_PACKET_ABI,
+        functionName: 'claim',
+        args: [payload.rpid, await signClaimMessage(context), account],
+        address: getRedPacketContractAddress(chainId),
+        account: account as Address,
+    });
+
+    await waitForEthereumTransaction(chainId, hash);
+    return hash;
+}
