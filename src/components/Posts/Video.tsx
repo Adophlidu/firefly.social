@@ -8,30 +8,8 @@ import {
     UnmuteIcon,
 } from '@livepeer/react/assets';
 import { getSrc } from '@livepeer/react/external';
-import {
-    Container,
-    Controls,
-    ErrorIndicator,
-    FullscreenIndicator,
-    FullscreenTrigger,
-    LoadingIndicator,
-    type MediaScopedProps,
-    MuteTrigger,
-    type PlayerProps,
-    PlayingIndicator,
-    PlayPauseTrigger,
-    Range,
-    Root,
-    Seek,
-    SeekBuffer,
-    Thumb,
-    Time,
-    Track,
-    useMediaContext,
-    Video as LivepeerVideo,
-    Volume,
-    VolumeIndicator,
-} from '@livepeer/react/player';
+import * as Player from '@livepeer/react/player';
+import { type MediaScopedProps, type PlayerProps, useMediaContext } from '@livepeer/react/player';
 import {
     type HTMLProps,
     memo,
@@ -118,30 +96,30 @@ function VideoContent({
     }, [hovered, playing, setHidden]);
 
     return (
-        <Container ref={containerRef} className="bg-black text-white" __scopeMedia={__scopeMedia}>
-            <LivepeerVideo
+        <Player.Container ref={containerRef} className="bg-black text-white" __scopeMedia={__scopeMedia}>
+            <Player.Video
                 loop={loop}
                 className="size-full rounded-md object-contain"
                 poster={poster}
                 muted={autoPlay || autoPlayInViewport}
             />
 
-            <LoadingIndicator asChild>
+            <Player.LoadingIndicator asChild>
                 <div className="flex size-full items-center justify-center">
                     <LoadingIcon className="size-6 animate-spin" />
                 </div>
-            </LoadingIndicator>
+            </Player.LoadingIndicator>
 
-            <ErrorIndicator matcher="all" asChild>
+            <Player.ErrorIndicator matcher="all" asChild>
                 <div className="flex size-full items-center justify-center">
                     <LoadingIcon className="size-6 animate-spin" />
                 </div>
-            </ErrorIndicator>
+            </Player.ErrorIndicator>
             {children ? (
                 children
             ) : (
                 <>
-                    <Controls autoHide={3000} className="flex flex-col-reverse gap-1" onClick={onControlsClick}>
+                    <Player.Controls autoHide={3000} className="flex flex-col-reverse gap-1" onClick={onControlsClick}>
                         <div
                             className="space-y-1 px-1 py-2"
                             style={{
@@ -151,24 +129,24 @@ function VideoContent({
                         >
                             <div className="flex justify-between gap-5 px-3">
                                 <div className="flex flex-1 items-center gap-2.5">
-                                    <PlayPauseTrigger className="size-[25px]" onClick={onControlsClick}>
-                                        <PlayingIndicator asChild matcher={false}>
+                                    <Player.PlayPauseTrigger className="size-[25px]" onClick={onControlsClick}>
+                                        <Player.PlayingIndicator asChild matcher={false}>
                                             <PlayIcon />
-                                        </PlayingIndicator>
-                                        <PlayingIndicator asChild>
+                                        </Player.PlayingIndicator>
+                                        <Player.PlayingIndicator asChild>
                                             <PauseIcon />
-                                        </PlayingIndicator>
-                                    </PlayPauseTrigger>
-                                    <MuteTrigger className="size-[25px]" onClick={onControlsClick}>
-                                        <VolumeIndicator asChild matcher={false}>
+                                        </Player.PlayingIndicator>
+                                    </Player.PlayPauseTrigger>
+                                    <Player.MuteTrigger className="size-[25px]" onClick={onControlsClick}>
+                                        <Player.VolumeIndicator asChild matcher={false}>
                                             <MuteIcon />
-                                        </VolumeIndicator>
-                                        <VolumeIndicator asChild matcher>
+                                        </Player.VolumeIndicator>
+                                        <Player.VolumeIndicator asChild matcher>
                                             <UnmuteIcon />
-                                        </VolumeIndicator>
-                                    </MuteTrigger>
+                                        </Player.VolumeIndicator>
+                                    </Player.MuteTrigger>
 
-                                    <Volume
+                                    <Player.Volume
                                         onClick={onControlsClick}
                                         style={{
                                             position: 'relative',
@@ -181,7 +159,7 @@ function VideoContent({
                                             userSelect: 'none',
                                         }}
                                     >
-                                        <Track
+                                        <Player.Track
                                             style={{
                                                 backgroundColor: 'rgba(255, 255, 255, 0.7)',
                                                 position: 'relative',
@@ -190,7 +168,7 @@ function VideoContent({
                                                 height: '2px',
                                             }}
                                         >
-                                            <Range
+                                            <Player.Range
                                                 style={{
                                                     position: 'absolute',
                                                     backgroundColor: 'white',
@@ -198,8 +176,8 @@ function VideoContent({
                                                     height: '100%',
                                                 }}
                                             />
-                                        </Track>
-                                        <Thumb
+                                        </Player.Track>
+                                        <Player.Thumb
                                             style={{
                                                 display: 'block',
                                                 width: 12,
@@ -208,35 +186,35 @@ function VideoContent({
                                                 borderRadius: 9999,
                                             }}
                                         />
-                                    </Volume>
+                                    </Player.Volume>
 
-                                    <Time />
+                                    <Player.Time />
                                 </div>
-                                <FullscreenTrigger className="size-[25px]">
-                                    <FullscreenIndicator asChild matcher={false}>
+                                <Player.FullscreenTrigger className="size-[25px]">
+                                    <Player.FullscreenIndicator asChild matcher={false}>
                                         <EnterFullscreenIcon />
-                                    </FullscreenIndicator>
-                                    <FullscreenIndicator asChild>
+                                    </Player.FullscreenIndicator>
+                                    <Player.FullscreenIndicator asChild>
                                         <ExitFullscreenIcon />
-                                    </FullscreenIndicator>
-                                </FullscreenTrigger>
+                                    </Player.FullscreenIndicator>
+                                </Player.FullscreenTrigger>
                             </div>
-                            <Seek className="relative flex h-5 touch-none select-none items-center">
-                                <Track className="relative h-[2px] grow rounded-full bg-white bg-opacity-70">
-                                    <SeekBuffer className="absolute h-full rounded-full bg-white bg-opacity-50" />
-                                    <Range className="absolute h-full rounded-full bg-white" />
-                                </Track>
-                                <Thumb className="block size-3 rounded-full bg-white" />
-                            </Seek>
+                            <Player.Seek className="relative flex h-5 touch-none select-none items-center">
+                                <Player.Track className="relative h-[2px] grow rounded-full bg-white bg-opacity-70">
+                                    <Player.SeekBuffer className="absolute h-full rounded-full bg-white bg-opacity-50" />
+                                    <Player.Range className="absolute h-full rounded-full bg-white" />
+                                </Player.Track>
+                                <Player.Thumb className="block size-3 rounded-full bg-white" />
+                            </Player.Seek>
                         </div>
-                    </Controls>
+                    </Player.Controls>
                 </>
             )}
 
             {hidden && playing ? (
                 <span className="absolute bottom-5 left-5 z-10">{formatSecondsToHours(duration - progress)}</span>
             ) : null}
-        </Container>
+        </Player.Container>
     );
 }
 
@@ -259,7 +237,7 @@ export const Video = memo<VideoProps>(function Video({
     return (
         <ClickableArea className={className}>
             {/* Autoplay will not work in many modern browsers without setting mute to 0. */}
-            <Root
+            <Player.Root
                 preload={preload}
                 src={videoSrc}
                 volume={autoPlay ? 0 : 1}
@@ -270,7 +248,7 @@ export const Video = memo<VideoProps>(function Video({
                 <VideoContent loop={loop} poster={poster} autoPlay={autoPlay} autoPlayInViewport={autoPlayInViewport}>
                     {children}
                 </VideoContent>
-            </Root>
+            </Player.Root>
         </ClickableArea>
     );
 });

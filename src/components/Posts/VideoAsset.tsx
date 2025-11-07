@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { PauseIcon, PlayIcon } from '@livepeer/react/assets';
-import { PlayingIndicator, PlayPauseTrigger } from '@livepeer/react/player';
+import * as Player from '@livepeer/react/player';
 
 import Play from '@/assets/play.svg';
 import { Image } from '@/components/Image.js';
@@ -72,14 +72,14 @@ export function VideoAsset({ asset, minimal, source, autoPlay, videoClassName }:
             >
                 {isGif ? (
                     <span className="absolute bottom-[5px] left-2.5 flex items-center" onClick={stopPropagation}>
-                        <PlayPauseTrigger className="size-[25px]">
-                            <PlayingIndicator asChild matcher={false}>
+                        <Player.PlayPauseTrigger className="size-[25px]">
+                            <Player.PlayingIndicator asChild matcher={false}>
                                 <PlayIcon />
-                            </PlayingIndicator>
-                            <PlayingIndicator asChild>
+                            </Player.PlayingIndicator>
+                            <Player.PlayingIndicator asChild>
                                 <PauseIcon />
-                            </PlayingIndicator>
-                        </PlayPauseTrigger>
+                            </Player.PlayingIndicator>
+                        </Player.PlayPauseTrigger>
                         <span className="font-bold text-white">
                             <Trans>GIF</Trans>
                         </span>
