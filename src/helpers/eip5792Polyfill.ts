@@ -392,20 +392,3 @@ async function handleGetCallsStatus(batchId: string, requestHandler: RequestHand
 function generateBatchId(): string {
     return `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`;
 }
-
-/**
- * Clean up completed batches to prevent memory leaks
- */
-export function cleanupCompletedBatches(): void {
-    // In a production environment, you might want to implement
-    // more sophisticated cleanup logic based on age or completion status
-    const now = Date.now();
-    const ttlMs = 10 * 60 * 1000; // 10 minutes TTL
-    for (const [batchId, batch] of callBatches.entries()) {
-        const allConfirmed = batch.statuses.every((status) => status.status === 'confirmed');
-        const expired = now - batch.createdAt > ttlMs;
-        if (allConfirmed || expired) {
-            callBatches.delete(batchId);
-        }
-    }
-}

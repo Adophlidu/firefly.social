@@ -73,6 +73,7 @@ export const NEYNAR_URL = 'https://neynar-proxy.r2d2.to';
 export const FIREFLY_NITTER_URL = 'https://nitter.r2d2.to';
 export const X3_PRO_AVATAR_URL = 'https://x3-media-pro-3.oss-cn-hongkong.aliyuncs.com';
 export const ORB_API_URL = 'https://orbapi.xyz';
+export const CALENDAR_BASE_URL = 'https://mask-network-dev.firefly.land/v1/calendar/';
 export const ACCOUNT_CONFLICT_SOLUTION_URL =
     'https://mask.notion.site/Experience-a-login-conflict-2227d90fdc9b819cabffe6a98d87f901';
 export const ACCOUNT_CONFLICT_SOLUTION_ZH_URL = 'https://mask.notion.site/2327d90fdc9b80c8aba6e217343b304b';

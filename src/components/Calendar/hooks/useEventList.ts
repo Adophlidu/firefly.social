@@ -2,7 +2,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { addDays, startOfDay } from 'date-fns';
 import { uniqBy } from 'lodash-es';
 
-import { CalendarProvider } from '@/providers/calendar/index.js';
+import { getNewsList } from '@/providers/calendar/getNewsList.js';
 
 export function useNewsList(date: Date) {
     const startTime = startOfDay(date).getTime();
@@ -10,7 +10,7 @@ export function useNewsList(date: Date) {
 
     return useInfiniteQuery({
         queryKey: ['calendar-news', startTime, endTime],
-        queryFn: ({ pageParam }) => CalendarProvider.getNewsList(startTime, endTime, pageParam),
+        queryFn: ({ pageParam }) => getNewsList(startTime, endTime, pageParam),
         initialPageParam: undefined as any,
         getNextPageParam: (page) => page.nextIndicator,
         select(data) {

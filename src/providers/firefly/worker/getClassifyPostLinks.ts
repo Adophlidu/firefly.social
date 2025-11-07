@@ -23,8 +23,6 @@ export interface ClassifyPostLinkResult {
     quote?: Post;
 }
 
-export type GetClassifyPostLinkResponse = ResponseJson<ClassifyPostLinkResult>;
-
 export type GetClassifyPostLinksResponse = ResponseJson<
     Array<{
         url: string;

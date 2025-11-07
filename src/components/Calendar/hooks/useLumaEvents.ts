@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { addDays, startOfDay } from 'date-fns';
 
-import { CalendarProvider } from '@/providers/calendar/index.js';
+import { getEventList } from '@/providers/calendar/getEventList.js';
 
 export function useLumaEvents(date: Date) {
     const startTime = startOfDay(date).getTime();
@@ -11,7 +11,7 @@ export function useLumaEvents(date: Date) {
         queryKey: ['luma-events', startTime, endTime],
         initialPageParam: undefined as any,
         queryFn: async ({ pageParam }) => {
-            return CalendarProvider.getEventList(startTime, endTime, pageParam);
+            return getEventList(startTime, endTime, pageParam);
         },
         getNextPageParam(page) {
             return page.nextIndicator;
