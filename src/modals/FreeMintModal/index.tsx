@@ -9,7 +9,7 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { MintMetadata, SponsorMintOptions } from '@/providers/types/Firefly.js';
 
-export interface FreeMintModalOpenProps {
+interface FreeMintModalOpenProps {
     mintTarget: SponsorMintOptions;
     mintParams: MintMetadata;
     onSuccess?: () => void;

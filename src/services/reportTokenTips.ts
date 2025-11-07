@@ -10,7 +10,7 @@ export enum UploadTokenTipsToken {
     ERC1155 = 'erc1155',
 }
 
-export interface UploadTokenTipsParams {
+interface UploadTokenTipsParams {
     from_account_id?: string;
     from_address: string;
     to_account_id?: string;

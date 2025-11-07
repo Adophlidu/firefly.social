@@ -3,7 +3,7 @@ import { memoize } from 'lodash-es';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import type { SearchableToken } from '@/providers/types/Firefly.js';
 
-export const formatMarketToken = memoize(function formatMarketToken(token: SearchableToken) {
+const formatMarketToken = memoize(function formatMarketToken(token: SearchableToken) {
     return {
         id: token.id,
         chainId: token.chainId,

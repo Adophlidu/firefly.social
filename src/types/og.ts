@@ -1,6 +1,6 @@
 import type { Hex } from 'viem';
 
-export interface OpenGraphImage {
+interface OpenGraphImage {
     url: string;
     width: number;
     height: number;

@@ -11,11 +11,11 @@ import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonM
 import { captureTokenSyncNoEvent, captureTokenSyncYesEvent } from '@/providers/telemetry/captureSyncTokenEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export interface ConfirmSyncSessionModalOpenProps {
+interface ConfirmSyncSessionModalOpenProps {
     profiles: Profile[];
 }
 
-export type ConfirmSyncSessionModalCloseProps = boolean;
+type ConfirmSyncSessionModalCloseProps = boolean;
 
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<ConfirmSyncSessionModalOpenProps, ConfirmSyncSessionModalCloseProps>>;

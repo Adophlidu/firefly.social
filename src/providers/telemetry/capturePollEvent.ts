@@ -5,11 +5,11 @@ import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 
-export function captureCreateOrbPollEvent(postId: string) {
+function captureCreateOrbPollEvent(postId: string) {
     return TelemetryProvider.captureEventInSafe(EventId.CREATE_ORB_POLL_SUCCESS, { post_id: postId });
 }
 
-export function captureCreateTwitterPollEvent(pollId: string) {
+function captureCreateTwitterPollEvent(pollId: string) {
     return TelemetryProvider.captureEventInSafe(EventId.CREATE_X_POLL_SUCCESS, { poll_id: pollId });
 }
 

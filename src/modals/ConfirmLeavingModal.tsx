@@ -11,9 +11,9 @@ const WHITELIST: Array<string | ((url: string) => boolean)> = [
     SITE_URL_OFFICIAL,
 ];
 
-export type ConfirmLeavingModalOpenProps = string;
+type ConfirmLeavingModalOpenProps = string;
 
-export type ConfirmLeavingModalCloseProps = boolean;
+type ConfirmLeavingModalCloseProps = boolean;
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<ConfirmLeavingModalOpenProps, ConfirmLeavingModalCloseProps>>;
 };

@@ -19,11 +19,11 @@ import {
 } from '@/providers/telemetry/captureSyncTokenEvent.js';
 import type { Account } from '@/providers/types/Account.js';
 
-export interface ConfirmFireflyModalOpenProps {
+interface ConfirmFireflyModalOpenProps {
     account: Account;
 }
 
-export type ConfirmFireflyModalCloseProps = boolean;
+type ConfirmFireflyModalCloseProps = boolean;
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<ConfirmFireflyModalOpenProps, ConfirmFireflyModalCloseProps>>;
 };

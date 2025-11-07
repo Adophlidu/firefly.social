@@ -30,7 +30,7 @@ type ImageDetails = PartialWith<Omit<ImageMetadataDetails, 'mainContentFocus'>, 
 type ImageOptions = ImageDetails & {
     nft?: NftDetails;
 };
-export type ImageMetadata = NftMetadata & {
+type ImageMetadata = NftMetadata & {
     $schema: PostMetadataSchemaId.IMAGE_LATEST;
     lens: ImageMetadataDetails;
     signature?: string;

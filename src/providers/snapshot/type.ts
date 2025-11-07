@@ -53,7 +53,7 @@ export type SnapshotVote = {
     };
 };
 
-export type SnapshotUser = {
+type SnapshotUser = {
     about: string;
     avatar: string;
     created: number;

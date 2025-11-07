@@ -53,7 +53,7 @@ export function formatFireflyProfileToProfile(profile: FireflyProfile): Profile 
     };
 }
 
-export interface SearchProfile {
+interface SearchProfile {
     account?: FireflyProfile;
     profile: FireflyProfile;
     related: FireflyProfile[];

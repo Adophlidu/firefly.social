@@ -323,7 +323,7 @@ export function formatLensQuoteOrCommentV3(
     };
 }
 
-export function getPostLocale(metadata: FullPostMetadata) {
+function getPostLocale(metadata: FullPostMetadata) {
     if (!metadata.__typename) return 'en';
 
     switch (metadata.__typename) {

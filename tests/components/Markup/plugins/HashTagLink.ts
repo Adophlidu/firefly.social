@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { splitTextChildren } from '@/components/Markup/plugins/HashTagLink.js';
+import { splitTextChildren } from '@/components/Markup/plugins/splitTextChildren.js';
 
 describe('splitTextChildren', () => {
     it('should return a single text node when no match is found', () => {

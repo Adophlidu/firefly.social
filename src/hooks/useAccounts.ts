@@ -12,7 +12,7 @@ export function useAccounts(source: SocialSource) {
     return all[source];
 }
 
-export function useAccountsAll() {
+function useAccountsAll() {
     const lensAccounts = useLensProfileStore.use.accounts();
     const farcasterAccounts = useFarcasterProfileStore.use.accounts();
     const twitterAccounts = useTwitterProfileStore.use.accounts();

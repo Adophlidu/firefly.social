@@ -125,7 +125,7 @@ export interface TokenMentionUser {
     verifyType: number;
 }
 
-export interface Token {
+interface Token {
     address: string;
     avatar: string;
     /** path of avatar url */

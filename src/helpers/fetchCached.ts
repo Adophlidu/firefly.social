@@ -91,7 +91,7 @@ export async function staleCached(info: RequestInfo | URL, init?: RequestInit): 
     return hit;
 }
 
-export function createFetchCached({
+function createFetchCached({
     next = originalFetch,
     duration = Duration.ONE_MINUTE,
 }: {

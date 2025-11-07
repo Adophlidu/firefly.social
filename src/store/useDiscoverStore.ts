@@ -38,7 +38,7 @@ const useDiscoverStoreBase = create<DiscoverState, [['zustand/persist', unknown]
     ),
 );
 
-export const useDiscoverStore = createSelectors(useDiscoverStoreBase);
+const useDiscoverStore = createSelectors(useDiscoverStoreBase);
 
 export function useDiscoverStoreWithTab(tab: HomeTab) {
     const { postTimelinePlatforms, setFilteredPlatform, resetFilteredPlatform } = useDiscoverStore();

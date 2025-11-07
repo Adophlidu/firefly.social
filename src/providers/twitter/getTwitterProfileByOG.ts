@@ -4,7 +4,7 @@ import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import { convertTwitterAvatar } from '@/providers/twitter/formatTwitterProfile.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
-export function extractTwitterProfileByOpengraphTitle(title: string) {
+function extractTwitterProfileByOpengraphTitle(title: string) {
     const [displayName, handle] = (title ?? '').split(' ');
     const regex = /\(@([\w_]+)\)/;
     const match = handle?.match(regex);

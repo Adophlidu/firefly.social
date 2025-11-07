@@ -4,7 +4,7 @@ const bulletPoint = '· ';
 const issueSeparator = '\n';
 const identifierRegex = /[$_\p{ID_Start}][$\u200c\u200d\p{ID_Continue}]*/u;
 
-export class ValidationError extends Error {
+class ValidationError extends Error {
     override name = 'ValidationError' as const;
 }
 

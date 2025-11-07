@@ -38,7 +38,7 @@ function createRedPacketRouter(initialEntries: string[] = ['/main']) {
     });
 }
 
-export interface RedPacketModalOpenProps {
+interface RedPacketModalOpenProps {
     initialPath?: string;
 }
 type Props = {

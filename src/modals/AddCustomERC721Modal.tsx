@@ -135,7 +135,7 @@ function AddCustomERC721Content({
     );
 }
 
-export interface AddCustomERC721ModalOpenProps {
+interface AddCustomERC721ModalOpenProps {
     initialChainId: number;
 }
 type Props = {

@@ -8,7 +8,7 @@ import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { AllConnections } from '@/providers/types/Firefly.js';
 
-export interface SocialConnections {
+interface SocialConnections {
     [Source.Twitter]: AllConnections['twitter'];
     [Source.Farcaster]: AllConnections['farcaster'];
     [Source.Lens]: AllConnections['lens'];

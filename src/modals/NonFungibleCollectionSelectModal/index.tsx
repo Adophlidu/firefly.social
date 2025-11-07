@@ -16,12 +16,12 @@ import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonM
 import { AddCustomERC721ModalRef } from '@/modals/AddCustomERC721Modal.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 
-export interface NonFungibleCollectionSelectModalOpenProps {
+interface NonFungibleCollectionSelectModalOpenProps {
     selected?: Collection | Collection[];
     initialAddTokenChainId?: number;
 }
 
-export type NonFungibleCollectionSelectModalCloseProps = Collection | null;
+type NonFungibleCollectionSelectModalCloseProps = Collection | null;
 type Props = {
     ref: React.Ref<
         SingletonModalRefCreator<NonFungibleCollectionSelectModalOpenProps, NonFungibleCollectionSelectModalCloseProps>

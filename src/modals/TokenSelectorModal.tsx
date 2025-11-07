@@ -20,7 +20,7 @@ import type { Token } from '@/providers/types/Transfer.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
 import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 
-export interface TokenSelectorModalOpenProps {
+interface TokenSelectorModalOpenProps {
     address: string;
     networkType: NetworkType;
     disableBackdropClose?: boolean;
@@ -29,7 +29,7 @@ export interface TokenSelectorModalOpenProps {
     isConnectRequest?: boolean;
 }
 
-export type TokenSelectorModalCloseProps = FungibleToken<EthereumChainId, EthereumSchemaType, Token> | null;
+type TokenSelectorModalCloseProps = FungibleToken<EthereumChainId, EthereumSchemaType, Token> | null;
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>>;
 };

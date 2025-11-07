@@ -10,8 +10,8 @@ import { dynamic } from '@/esm/dynamic.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
-export type ImageEditorOpenProps = Omit<ImageEditorContentProps, 'open' | 'onSave' | 'onClose'>;
-export type ImageEditorCloseProps = File | null;
+type ImageEditorOpenProps = Omit<ImageEditorContentProps, 'open' | 'onSave' | 'onClose'>;
+type ImageEditorCloseProps = File | null;
 
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<ImageEditorOpenProps, ImageEditorCloseProps>>;

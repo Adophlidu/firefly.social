@@ -9,7 +9,7 @@ export function resolveLocale(locale: string): Locale {
     return isValidEnumValue(locale, Locale) ? (locale as Locale) : resolveLanguageLocale(bom.navigator?.language);
 }
 
-export function getClientCookies(name: SiteCookies) {
+function getClientCookies(name: SiteCookies) {
     const pair = bom.document?.cookie.split('; ').find((x) => x.startsWith(`${name}=`));
     if (!pair) return '';
     const [, value] = pair.split('=');
@@ -30,7 +30,7 @@ export function resolveLanguageLocale(language: string | undefined) {
             : Locale.zhHant;
     return Locale.en;
 }
-export async function resolveClientLocale() {
+async function resolveClientLocale() {
     if (bom.document) return resolveLanguageLocale(bom.navigator?.language);
     const acceptLanguageHeader = (await headers()).get('Accept-Language');
     const headerLang = acceptLanguageHeader?.split(',')[0];

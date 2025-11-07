@@ -12,7 +12,7 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
  * @param signal
  * @returns
  */
-export async function getProfileBySession(session: Session, signal?: AbortSignal) {
+async function getProfileBySession(session: Session, signal?: AbortSignal) {
     switch (session.type) {
         case SessionType.Farcaster:
             const provider = resolveSocialMediaProvider(Source.Farcaster);

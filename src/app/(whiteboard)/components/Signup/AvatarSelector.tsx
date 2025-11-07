@@ -25,7 +25,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export type AvatarType = 'pfp' | 'random' | 'custom';
+type AvatarType = 'pfp' | 'random' | 'custom';
 export type AvatarConfig = {
     url: string;
     file?: File | null;

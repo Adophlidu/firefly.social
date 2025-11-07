@@ -304,7 +304,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     return true;
 }
 
-export async function syncMetrics(account?: Account) {
+async function syncMetrics(account?: Account) {
     const remoteAccounts = await downloadAccounts();
     const remoteProfiles = compact(
         remoteAccounts.map(({ metaInfo }) => {

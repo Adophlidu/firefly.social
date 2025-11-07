@@ -1,4 +1,4 @@
-export const enum ResponseCode {
+const enum ResponseCode {
     Success = 0,
     Error = -1,
 }
@@ -81,27 +81,27 @@ export interface User {
     joinDate: number;
 }
 
-export interface PhotoRail {
+interface PhotoRail {
     url: string;
     tweetId: string;
     color: string;
 }
 
-export interface Stats {
+interface Stats {
     replies: number;
     retweets: number;
     likes: number;
     quotes: number;
 }
 
-export interface TweetVideoVariant {
+interface TweetVideoVariant {
     contentType: string;
     url: string;
     bitrate: number;
     resolution: number;
 }
 
-export interface TweetVideo {
+interface TweetVideo {
     durationMs: number;
     url: string;
     thumb: string;
@@ -115,14 +115,14 @@ export interface TweetVideo {
 }
 
 // https://developer.x.com/en/docs/x-for-websites/cards/overview/abouts-cards
-export const enum TweetCardKind {
+const enum TweetCardKind {
     Player = 'player',
     App = 'app',
     SummaryLargeImage = 'summary_large_image',
     Summary = 'summary',
 }
 
-export interface TweetCard {
+interface TweetCard {
     kind: TweetCardKind;
     url: string;
     title: string;
@@ -132,7 +132,7 @@ export interface TweetCard {
     video: TweetVideo | null;
 }
 
-export interface TweetPoll {
+interface TweetPoll {
     options: string[];
     values: number[];
     votes: number;
@@ -143,7 +143,7 @@ export interface TweetPoll {
     durationMinutes: string;
 }
 
-export interface TweetGif {
+interface TweetGif {
     url: string;
     thumb: string;
 }

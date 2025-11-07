@@ -16,7 +16,7 @@ interface PostEmbedProps {
     handle?: string;
 }
 
-export const PostEmbed = memo<PostEmbedProps>(function PostEmbed({ id, source, isInCompose, handle }) {
+const PostEmbed = memo<PostEmbedProps>(function PostEmbed({ id, source, isInCompose, handle }) {
     const currentSource = resolveSocialSource(source);
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 

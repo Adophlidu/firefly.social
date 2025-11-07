@@ -26,7 +26,7 @@ const hosts = [
     /firefly-mask.*-dimension-dev\.vercel\.app/,
     /mask\.io/, // encrypted post payload
 ];
-export function shouldIgnoreLink(link: string) {
+function shouldIgnoreLink(link: string) {
     const url = parseUrl(link);
     if (!url) return false;
     const match = hosts.some((re) => re.test(url.host));
@@ -36,7 +36,7 @@ export function shouldIgnoreLink(link: string) {
     return /^\/post\/farcaster\/0x[a-fA-F0-9]{40}/.test(url.pathname);
 }
 
-export function isTakoPost(link: string) {
+function isTakoPost(link: string) {
     const url = parseUrl(link);
     if (!url) return false;
     if ((url.host === 'takocast.xyz' || url.host === 'app.tako.so') && /\/cast\/?/.test(url.pathname)) {

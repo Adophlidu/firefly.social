@@ -1,4 +1,4 @@
-export interface ErrorResponse {
+interface ErrorResponse {
     errors: Array<{
         message: string;
         reason?: string;
@@ -25,7 +25,7 @@ export interface SignedKeyRequestResponse extends ErrorResponse {
     };
 }
 
-export interface Next {
+interface Next {
     cursor: string;
 }
 

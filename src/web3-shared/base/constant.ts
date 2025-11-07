@@ -35,7 +35,7 @@ export function transformAll<ChainId extends number, T extends Constants>(
     };
 }
 
-export function transform<ChainId extends number, T extends Constants>(
+function transform<ChainId extends number, T extends Constants>(
     chainIdEnum: ChainIdEnum<ChainId>,
     constants: T,
     environment: Record<string, string> = {},

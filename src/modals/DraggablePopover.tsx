@@ -6,7 +6,7 @@ import { Popover } from '@/components/Popover.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
-export interface DraggablePopoverProps {
+interface DraggablePopoverProps {
     backdrop?: boolean;
     content?: ReactNode;
     enableOverflow?: boolean;

@@ -4,7 +4,7 @@ const NAME_SERVICE_RE = /\.(eth|bnb|arb)$/;
 const DOMAIN_RE = /^(?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)+[a-z0-9][-a-z0-9]*[a-z0-9]$/u;
 const ENS_SUBDOMAIN_RE = /\[.{64}?\]\.(?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)+[a-z0-9][-a-z0-9]*[a-z0-9]$/u;
 
-export function isEnsSubdomain(domain: string) {
+function isEnsSubdomain(domain: string) {
     if (!domain) return false;
     domain = domain.toLowerCase();
     if (!domain.endsWith('.eth')) return false;

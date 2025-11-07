@@ -1,19 +1,19 @@
 import type { CurrencyType, NetworkPluginID, TokenType } from '@/constants/enum.js';
 import type { LiteralUnion } from '@/types/utility.js';
 
-export type Color =
+type Color =
     | `rgb(${number}, ${number}, ${number})`
     | `rgba(${number}, ${number}, ${number}, ${number})`
     | `#${string}${string}${string}${string}${string}${string}`
     | `#${string}${string}${string}`
     | `hsl(${number}, ${number}%, ${number}%)`;
 
-export enum OrderSide {
+enum OrderSide {
     Buy = 0,
     Sell = 1,
 }
 
-export enum SourceType {
+enum SourceType {
     // FT assets
     DeBank = 'DeBank',
     Zerion = 'Zerion',
@@ -52,7 +52,7 @@ export enum SourceType {
     Approval = 'Approval',
 }
 
-export enum ActivityType {
+enum ActivityType {
     Transfer = 'Transfer',
     Mint = 'Mint',
     Sale = 'Sale',
@@ -62,14 +62,14 @@ export enum ActivityType {
     CancelOffer = 'CancelOffer',
 }
 
-export interface Identity {
+interface Identity {
     address?: string;
     nickname?: string;
     avatarURL?: string;
     link?: string;
 }
 
-export type Price = Partial<Record<CurrencyType, string>>;
+type Price = Partial<Record<CurrencyType, string>>;
 
 export interface ChainDescriptor<ChainId, SchemaType, NetworkType> {
     ID: string;
@@ -124,7 +124,7 @@ export interface NetworkDescriptor<ChainId, NetworkType> {
     isMainnet: boolean;
 }
 
-export interface Token<ChainId, SchemaType> {
+interface Token<ChainId, SchemaType> {
     /** For NFT, it could be `${chainId}.${contractAddress}.${tokenId}` */
     id: string;
     chainId: ChainId;
@@ -147,7 +147,7 @@ export interface FungibleToken<ChainId, SchemaType, Original = unknown> extends 
     __original__?: Original;
 }
 
-export interface NonFungibleTokenRarity<ChainId> {
+interface NonFungibleTokenRarity<ChainId> {
     chainId: ChainId;
     rank: number;
     url: string;
@@ -156,7 +156,7 @@ export interface NonFungibleTokenRarity<ChainId> {
     source?: SourceType;
 }
 
-export interface NonFungibleTokenContract<ChainId, SchemaType> {
+interface NonFungibleTokenContract<ChainId, SchemaType> {
     chainId: ChainId;
     name: string;
     symbol?: string;
@@ -172,7 +172,7 @@ export interface NonFungibleTokenContract<ChainId, SchemaType> {
     source?: SourceType;
 }
 
-export interface NonFungibleTokenMetadata<ChainId> {
+interface NonFungibleTokenMetadata<ChainId> {
     chainId: ChainId;
     /** Might be the format `TheName #42` */
     name: string;
@@ -208,7 +208,7 @@ export interface NonFungibleTokenMetadata<ChainId> {
     };
 }
 
-export interface SocialLinks {
+interface SocialLinks {
     website?: string;
     email?: string;
     twitter?: string;
@@ -258,7 +258,7 @@ export interface NonFungibleCollection<ChainId, SchemaType> {
     }>;
 }
 
-export interface NonFungibleToken<ChainId, SchemaType> extends Token<ChainId, SchemaType> {
+interface NonFungibleToken<ChainId, SchemaType> extends Token<ChainId, SchemaType> {
     /** the token id */
     tokenId: string;
     /** the address or uid of the token owner */
@@ -282,7 +282,7 @@ export interface NonFungibleTokenTrait {
     displayType?: LiteralUnion<'date' | 'string' | 'number'> | null;
 }
 
-export interface NonFungibleTokenAuction<ChainId, SchemaType> {
+interface NonFungibleTokenAuction<ChainId, SchemaType> {
     /** unix timestamp */
     startAt?: number;
     /** unix timestamp */
@@ -293,7 +293,7 @@ export interface NonFungibleTokenAuction<ChainId, SchemaType> {
     offerTokens?: Array<FungibleToken<ChainId, SchemaType>>;
 }
 
-export interface NonFungibleTokenOrder<ChainId, SchemaType> {
+interface NonFungibleTokenOrder<ChainId, SchemaType> {
     id: string;
     /** chain Id */
     chainId: ChainId;
@@ -321,7 +321,7 @@ export interface NonFungibleTokenOrder<ChainId, SchemaType> {
     source?: SourceType;
 }
 
-export interface NonFungibleTokenEvent<ChainId, SchemaType> {
+interface NonFungibleTokenEvent<ChainId, SchemaType> {
     id: string;
     /** chain Id */
     chainId: ChainId;
@@ -357,7 +357,7 @@ export interface NonFungibleTokenEvent<ChainId, SchemaType> {
     source?: SourceType;
 }
 
-export interface PriceInToken<ChainId, SchemaType> {
+interface PriceInToken<ChainId, SchemaType> {
     amount: string;
     token?: FungibleToken<ChainId, SchemaType>;
     tokenSymbol?: string | null;

@@ -26,7 +26,7 @@ interface SuperFollowProps {
     onClose: () => void;
 }
 
-export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile, showCloseButton = true, onClose }) {
+const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile, showCloseButton = true, onClose }) {
     const account = useAccount();
     const { loading, followModule, isConnected, allowanceModule, hasAmount, hasAllowance, address } =
         useSuperFollowData(profile);

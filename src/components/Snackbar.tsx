@@ -16,7 +16,7 @@ import {
 import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 
-export type SnackbarVariant = 'default' | 'success' | 'error' | 'warning' | 'info';
+type SnackbarVariant = 'default' | 'success' | 'error' | 'warning' | 'info';
 
 export type SnackbarKey = string;
 
@@ -278,7 +278,7 @@ const variantIcons: Record<SnackbarVariant, JSX.Element> = {
 
 export type SnackbarMessage = ReactNode;
 
-export const SnackbarContent = forwardRef<
+const SnackbarContent = forwardRef<
     HTMLDivElement,
     HTMLAttributes<HTMLDivElement> & {
         children: SnackbarMessage;

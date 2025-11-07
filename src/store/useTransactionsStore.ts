@@ -14,7 +14,7 @@ interface TransactionsState {
     setSelectedChainId: (chainId: number | null) => void;
 }
 
-export const chainsList = [
+const chainsList = [
     {
         id: mainnet.id,
         networkType: NetworkType.Ethereum,

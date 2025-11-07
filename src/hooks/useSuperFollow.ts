@@ -11,7 +11,7 @@ import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export function useSuperFollowModule(profile: Profile | null, disabled = false) {
+function useSuperFollowModule(profile: Profile | null, disabled = false) {
     const { data, isLoading } = useQuery({
         queryKey: ['original-profile', profile?.profileId],
         staleTime: 1000 * 60 * 2,

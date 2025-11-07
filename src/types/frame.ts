@@ -29,7 +29,7 @@ export interface FrameButton {
     postUrl?: string;
 }
 
-export interface FrameImage {
+interface FrameImage {
     url: string;
     alt?: string;
     width?: number;
@@ -88,7 +88,7 @@ export interface RedirectUrlResponse {
 // #endregion
 
 // #region frame v2
-export interface FrameConfig {
+interface FrameConfig {
     /**
      * In spec it must be '1', but we allow any string for flexibility
      */
@@ -192,7 +192,7 @@ export interface FrameConfig {
     requiredCapabilities?: string[];
 }
 
-export interface FarcasterManifest {
+interface FarcasterManifest {
     // Metadata associating the domain with a Farcaster account
     accountAssociation: {
         // base64url encoded JFS header.

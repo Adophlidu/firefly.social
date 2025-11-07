@@ -12,7 +12,7 @@ export enum CustomTokenType {
     ERC721 = 'ERC721',
 }
 
-export interface ERC20Token {
+interface ERC20Token {
     type: CustomTokenType.ERC20;
     logoURI: string;
     chainId: EthereumChainId;
@@ -22,7 +22,7 @@ export interface ERC20Token {
     decimals: number;
 }
 
-export interface ERC721Token {
+interface ERC721Token {
     type: CustomTokenType.ERC721;
     chainId: EthereumChainId;
     address: Address;
@@ -31,7 +31,7 @@ export interface ERC721Token {
 
 export type CustomToken = ERC20Token | ERC721Token;
 
-export type TokenIndex = Pick<CustomToken, 'chainId' | 'address' | 'type'>;
+type TokenIndex = Pick<CustomToken, 'chainId' | 'address' | 'type'>;
 
 interface CustomTokensStore {
     tokens: Record<string, CustomToken>;
@@ -42,7 +42,7 @@ interface CustomTokensStore {
     getToken: (token: TokenIndex) => CustomToken | undefined;
 }
 
-export type CustomTokensStorableStore = Pick<CustomTokensStore, 'tokens'>;
+type CustomTokensStorableStore = Pick<CustomTokensStore, 'tokens'>;
 
 function generateTokenKey(token: TokenIndex) {
     const type = token.type;

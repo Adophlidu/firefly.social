@@ -15,7 +15,7 @@ export class WalletNotConnectedError extends Error {
     override name = 'WalletNotConnectedError';
 }
 
-export function getAppkitWalletAdapter() {
+function getAppkitWalletAdapter() {
     if (!('solana' in ProviderUtil.state.providers)) throw new WalletNotConnectedError();
     const provider = ProviderUtil.state.providers.solana as Provider;
     if (!provider) throw new WalletNotConnectedError();

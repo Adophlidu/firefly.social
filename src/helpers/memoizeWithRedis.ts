@@ -33,7 +33,7 @@ function resolveRedisKey(key: KeyType, fieldKey: string) {
     return `${key}:${sum % 10}`;
 }
 
-export function resolveRedisFieldKey(...args: any) {
+function resolveRedisFieldKey(...args: any) {
     return [...args].join('_');
 }
 

@@ -51,7 +51,7 @@ export function isSameSession(session: Session | null, otherSession: Session | n
     }
 }
 
-export function isSameTwitterSessionPayload(
+function isSameTwitterSessionPayload(
     sessionPayload?: SessionPayload | null,
     otherSessionPayload?: SessionPayload | null,
 ) {
@@ -62,10 +62,7 @@ export function isSameTwitterSessionPayload(
     );
 }
 
-export function isSameBskySessionPayload(
-    sessionPayload?: BskySession | null,
-    otherSessionPayload?: BskySession | null,
-) {
+function isSameBskySessionPayload(sessionPayload?: BskySession | null, otherSessionPayload?: BskySession | null) {
     if (!sessionPayload || !otherSessionPayload) return false;
     return (
         sessionPayload.sessionPayload.accessJwt === otherSessionPayload.sessionPayload.accessJwt &&

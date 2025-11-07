@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { MetadataAttributeType } from '@/constants/enum.js';
 
-export function nonEmptySchema(schema: z.ZodString): z.ZodType<string, z.ZodTypeDef, unknown> {
+function nonEmptySchema(schema: z.ZodString): z.ZodType<string, z.ZodTypeDef, unknown> {
     return z.preprocess((val, ctx) => {
         const result = z.string().safeParse(val);
 
@@ -26,27 +26,27 @@ export function nonEmptySchema(schema: z.ZodString): z.ZodType<string, z.ZodType
 }
 
 export const NonEmptyStringSchema = nonEmptySchema(z.string());
-export const BooleanAttributeSchema = z.object({
+const BooleanAttributeSchema = z.object({
     type: z.literal(MetadataAttributeType.BOOLEAN),
     key: NonEmptyStringSchema,
     value: z.enum(['true', 'false']),
 });
-export const DateAttributeSchema = z.object({
+const DateAttributeSchema = z.object({
     type: z.literal(MetadataAttributeType.DATE),
     key: NonEmptyStringSchema,
     value: z.string().datetime(),
 });
-export const NumberAttributeSchema = z.object({
+const NumberAttributeSchema = z.object({
     type: z.literal(MetadataAttributeType.NUMBER),
     key: NonEmptyStringSchema,
     value: NonEmptyStringSchema,
 });
-export const StringAttributeSchema = z.object({
+const StringAttributeSchema = z.object({
     type: z.literal(MetadataAttributeType.STRING),
     key: NonEmptyStringSchema,
     value: NonEmptyStringSchema,
 });
-export const JSONAttributeSchema = z.object({
+const JSONAttributeSchema = z.object({
     type: z.literal(MetadataAttributeType.JSON),
     key: NonEmptyStringSchema,
     value: NonEmptyStringSchema,

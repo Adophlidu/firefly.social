@@ -23,7 +23,7 @@ const ShareImageModalContent = dynamic(
     },
 );
 
-export interface ShareImageModalOpenProps {
+interface ShareImageModalOpenProps {
     imageUrl: string;
     aspectRatio?: string; // optimize CLS with this
 }

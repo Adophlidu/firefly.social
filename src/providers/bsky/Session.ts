@@ -10,7 +10,7 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 
 const BSKY_SESSION_PLACEHOLDER = '[BSKY_SESSION_PLACEHOLDER]';
 
-export type BskySessionPayload = AtpSessionData & {
+type BskySessionPayload = AtpSessionData & {
     didDoc?: {};
     pdsUrl?: string;
 };

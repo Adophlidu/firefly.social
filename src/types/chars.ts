@@ -27,7 +27,7 @@ export interface MentionChars extends Segment {
     profiles: Profile[];
 }
 
-export interface FrameChars extends Segment {
+interface FrameChars extends Segment {
     id: string;
     tag: CharTag.FRAME;
     visible: boolean;
@@ -39,7 +39,7 @@ export interface PromoteLinkChars extends Segment {
     tag: CharTag.PROMOTE_LINK;
 }
 
-export interface PostLinkChars extends Segment {
+interface PostLinkChars extends Segment {
     tag: CharTag.POST_LINK;
     content: string;
     source: SocialSource;

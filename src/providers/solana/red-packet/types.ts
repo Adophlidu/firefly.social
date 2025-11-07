@@ -36,7 +36,7 @@ export interface ClaimSplTokenContext extends ClaimNativeTokenContext {
     tokenProgram: web3.PublicKey;
 }
 
-export interface RefundNativeTokenContext {
+interface RefundNativeTokenContext {
     accountId: web3.PublicKey;
 }
 

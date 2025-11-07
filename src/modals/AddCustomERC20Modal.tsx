@@ -28,7 +28,7 @@ import { searchTokenLogoURI } from '@/services/searchTokenLogoURI.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
-export interface AddCustomERC20ModalContentProps {
+interface AddCustomERC20ModalContentProps {
     onClose: () => void;
     initialChainId?: number;
 }

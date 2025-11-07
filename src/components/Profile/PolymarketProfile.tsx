@@ -19,7 +19,7 @@ interface PolymarketProfileProps {
     address: string;
 }
 
-export const PolymarketProfile = memo<PolymarketProfileProps>(function PolymarketProfile({ address }) {
+const PolymarketProfile = memo<PolymarketProfileProps>(function PolymarketProfile({ address }) {
     const { isLoading, data } = useQuery({
         queryKey: ['polymarket', 'profile', address],
         staleTime: 1000 * 60 * 5,

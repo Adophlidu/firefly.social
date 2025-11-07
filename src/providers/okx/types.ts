@@ -9,7 +9,7 @@ type OKXResponse<T> = {
     data: T;
 };
 
-export interface ChainDex {
+interface ChainDex {
     /** API response string, we convert to number */
     chainId: number;
     chainName: string;

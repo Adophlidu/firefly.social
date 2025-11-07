@@ -13,7 +13,7 @@ import { getFollowingSwapTimeline } from '@/providers/firefly/endpoint/getFollow
 
 interface FeaturedTokenProps extends HTMLProps<HTMLDivElement>, Pick<TokenMarketDataProps, 'token'> {}
 
-export const FeaturedToken = memo<FeaturedTokenProps>(function FeaturedToken({ token, ...props }) {
+const FeaturedToken = memo<FeaturedTokenProps>(function FeaturedToken({ token, ...props }) {
     const { data: coin } = useSingleCoin(token.id);
     const profileIds = useCurrentProfileIds();
     const isLoginFirefly = useIsLoginFirefly();

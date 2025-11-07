@@ -4,7 +4,7 @@ import { classNames } from '@dimensiondev/utils';
 import { memo, useRef } from 'react';
 import { useMount } from 'react-use';
 
-export interface TimePickerProps {
+interface TimePickerProps {
     open: boolean;
     onToggle: (x: boolean) => void;
     value: Date;

@@ -7,7 +7,7 @@ import { createSelectors } from '@/helpers/createSelector.js';
 import type { SearchTokenInfo } from '@/providers/types/Firefly.js';
 
 /** critical data to identify a coin */
-export type StoredCoinInfo = Pick<SearchTokenInfo, 'id' | 'chain' | 'contract_address'>;
+type StoredCoinInfo = Pick<SearchTokenInfo, 'id' | 'chain' | 'contract_address'>;
 
 interface Preferences {
     SHOW_SCHEDULE_POST_TIP: boolean;
@@ -43,7 +43,7 @@ const defaultPreferences: Preferences = {
 
 const STORE_VERSION = 2;
 
-export interface PreferencesState {
+interface PreferencesState {
     rehydrating: boolean;
     preferences: Preferences;
     setHasHydrated(): void;

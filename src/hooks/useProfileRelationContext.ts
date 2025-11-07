@@ -15,7 +15,7 @@ function createEmptyContext(): ProfileRelationContext {
     };
 }
 
-export function useProfileRelationContext(initialState?: ProfileRelationContext) {
+function useProfileRelationContext(initialState?: ProfileRelationContext) {
     const [value, setValue] = useState<ProfileRelationContext>(initialState ?? createEmptyContext());
 
     return {

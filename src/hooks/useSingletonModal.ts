@@ -2,7 +2,7 @@ import { useCallback, useImperativeHandle, useRef, useState } from 'react';
 
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
-export type SingleModalOptions<OpenProps, CloseProps> = {
+type SingleModalOptions<OpenProps, CloseProps> = {
     onOpen?: (props: OpenProps, dispatch: ReturnType<SingletonModalRefCreator<OpenProps, CloseProps>>) => void;
     onClose?: (props: CloseProps, dispatch: ReturnType<SingletonModalRefCreator<OpenProps, CloseProps>>) => void;
     onAbort?: (error: Error, dispatch: ReturnType<SingletonModalRefCreator<OpenProps, CloseProps>>) => void;

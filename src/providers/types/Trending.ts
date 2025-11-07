@@ -1,4 +1,4 @@
-export type CommunityType =
+type CommunityType =
     | 'discord'
     | 'facebook'
     | 'instagram'
@@ -13,7 +13,7 @@ export type CommunityType =
 
 export type ClubUrl = { type: CommunityType; link: string };
 
-export interface Coin {
+interface Coin {
     id: string;
     chainId?: number;
     name: string;
@@ -40,7 +40,7 @@ export interface Coin {
     telegram_url?: string;
 }
 
-export interface Platform {
+interface Platform {
     id: string | number;
     name: string;
     slug: string;
@@ -78,7 +78,7 @@ export interface Contract {
     icon_url?: string;
 }
 
-export interface Market {
+interface Market {
     current_price: string | undefined;
     circulating_supply?: number;
     fully_diluted_valuation?: number;

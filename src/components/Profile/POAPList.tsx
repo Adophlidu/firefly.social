@@ -158,7 +158,7 @@ export function getNFTItemContent(
     return <NFTItemContent index={index} item={item} {...options} />;
 }
 
-export function getPoapItemContent(
+function getPoapItemContent(
     index: number,
     item: Poap,
     options?: {

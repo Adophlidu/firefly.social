@@ -25,7 +25,7 @@ import { captureAccountDisconnectEvent } from '@/providers/telemetry/captureAcco
 import type { Account } from '@/providers/types/Account.js';
 import { removeAccountByProfileId } from '@/services/account.js';
 
-export interface DisconnectFireflyAccountModalProps {
+interface DisconnectFireflyAccountModalProps {
     account: Pick<Account, 'profile' | 'origin'>;
 }
 type Props = {

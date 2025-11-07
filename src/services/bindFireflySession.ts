@@ -194,7 +194,7 @@ async function bindTelegramSessionToFirefly(session: ThirdPartySession, signal?:
     return data;
 }
 
-export async function bindEmailSessionToFirefly(session: ThirdPartySession, signal?: AbortSignal) {
+async function bindEmailSessionToFirefly(session: ThirdPartySession, signal?: AbortSignal) {
     try {
         if (!session.payload?.email || !session.payload?.passcode) throw new Error('Email and passcode are required.');
 

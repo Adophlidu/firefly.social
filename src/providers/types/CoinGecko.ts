@@ -192,7 +192,7 @@ export interface CoinGeckoMemeCoinTrending {
     price_change_percentage_24h: number;
 }
 
-export enum CurrencyType {
+enum CurrencyType {
     NATIVE = 'native',
     BTC = 'btc',
     ETH = 'eth',

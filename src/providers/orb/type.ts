@@ -32,7 +32,7 @@ export interface OrbPollResponse<T> {
     msg?: string;
 }
 
-export interface OrbPollOption {
+interface OrbPollOption {
     myVote: boolean;
     option: string;
     optionKey: number;
@@ -50,7 +50,7 @@ export interface OrbPoll {
     options: OrbPollOption[];
 }
 
-export interface VoteTransaction {
+interface VoteTransaction {
     RPC: string;
     amount: string;
     chainId: number;

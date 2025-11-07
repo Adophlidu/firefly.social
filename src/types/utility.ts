@@ -8,13 +8,13 @@ import ReactMarkdown from 'react-markdown';
 import { ServerErrorCodes } from '@/helpers/createResponseJson.js';
 
 // Non-nullable type
-export type NonNullable<T> = T extends null | undefined ? never : T;
+type NonNullable<T> = T extends null | undefined ? never : T;
 
 // Function parameter types
-export type Parameters<T extends (...args: any) => any> = T extends (...args: infer P) => any ? P : never;
+type Parameters<T extends (...args: any) => any> = T extends (...args: infer P) => any ? P : never;
 
 // https://github.com/microsoft/TypeScript/issues/29729#issuecomment-1483854699
-export interface Nothing {}
+interface Nothing {}
 
 export type LiteralUnion<U, T = U extends string ? string : U extends number ? number : never> = U | (T & Nothing);
 
@@ -47,7 +47,7 @@ export type ResponseJson<T> =
           };
       };
 
-export type SearchParams = Record<string, string | string[] | undefined>;
+type SearchParams = Record<string, string | string[] | undefined>;
 
 export type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;
 

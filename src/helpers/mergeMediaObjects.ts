@@ -1,6 +1,6 @@
 import { type MediaObject } from '@/types/compose.js';
 
-export function mergeMediaObject(dest: MediaObject, source: MediaObject): MediaObject {
+function mergeMediaObject(dest: MediaObject, source: MediaObject): MediaObject {
     if (dest.id !== source.id) throw new Error('Merge media objects with different ids.');
     return {
         ...dest,

@@ -9,7 +9,7 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
 
-export interface SchedulePostModalOpenProps {
+interface SchedulePostModalOpenProps {
     action: 'create' | 'update';
     task?: ScheduleTask;
 }

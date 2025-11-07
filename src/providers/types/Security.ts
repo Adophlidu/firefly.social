@@ -5,7 +5,7 @@ export type GoPlusResponse<T> = {
 };
 type BooleanChar = '0' | '1';
 
-export interface Holder {
+interface Holder {
     address?: string;
     locked?: BooleanChar;
     tag?: string;
@@ -14,7 +14,7 @@ export interface Holder {
     percent?: number;
 }
 
-export interface TokenSecurity {
+interface TokenSecurity {
     token_name?: string;
     token_symbol?: string;
 
@@ -47,7 +47,7 @@ export interface TokenSecurity {
     };
 }
 
-export interface ContractSecurity {
+interface ContractSecurity {
     is_open_source?: BooleanChar;
     is_proxy?: BooleanChar;
     is_mintable?: BooleanChar;
@@ -61,7 +61,7 @@ export interface ContractSecurity {
     gas_abuse?: BooleanChar;
 }
 
-export interface TradingSecurity {
+interface TradingSecurity {
     buy_tax?: string;
     sell_tax?: string;
     slippage_modifiable?: BooleanChar;
@@ -80,7 +80,7 @@ export interface TradingSecurity {
     personal_slippage_modifiable?: BooleanChar;
 }
 
-export interface SecurityItem {
+interface SecurityItem {
     is_high_risk?: boolean;
     risk_item_quantity?: number;
     warn_item_quantity?: number;

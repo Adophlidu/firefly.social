@@ -6,7 +6,7 @@ export type ChainIdEnum<ChainId extends number> = {
 
 export type Primitive = string | number | boolean | symbol | undefined | null | bigint;
 
-export type Constant<T = Primitive | Primitive[]> = {
+type Constant<T = Primitive | Primitive[]> = {
     [key in 'Mainnet']?: T;
 };
 

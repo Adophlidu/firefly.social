@@ -3,7 +3,7 @@ import type { Address } from 'viem';
 import type { EVM, TransEventType } from '@/providers/nft-scan/types.js';
 import { type FireflyDisplayInfo, type FollowingSource, type NFTDetail } from '@/providers/types/Firefly.js';
 
-export interface Response<T> {
+interface Response<T> {
     code: number;
     data: T;
     error?: string[];
@@ -72,7 +72,7 @@ export interface Poap {
     hasBookmarked?: boolean;
 }
 
-export interface PoapDetail {
+interface PoapDetail {
     event: {
         id: number;
         fancy_id: string;

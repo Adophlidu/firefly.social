@@ -27,7 +27,7 @@ export interface AuthDataFromApp {
     social_accounts: SocialAccount[];
 }
 
-export interface SocialAccountTwitter {
+interface SocialAccountTwitter {
     type: SourceInURL.X;
     user_id: string;
     handle: string;
@@ -37,14 +37,14 @@ export interface SocialAccountTwitter {
     accessTokenSecret: string;
 }
 
-export interface SocialAccountFarcaster {
+interface SocialAccountFarcaster {
     type: SourceInURL.Farcaster;
     user_id: string; // fid
     handle: string;
     token: string; // privateKey
 }
 
-export interface SourceAccountLens {
+interface SourceAccountLens {
     type: SourceInURL.Lens;
     user_id: string; // address
     handle: string;
@@ -53,7 +53,7 @@ export interface SourceAccountLens {
     refreshToken: string; // refreshToken
 }
 
-export interface SocialAccountBsky {
+interface SocialAccountBsky {
     type: SourceInURL.Bsky;
     user_id: string; // did
     handle: string;

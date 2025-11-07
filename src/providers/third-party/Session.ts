@@ -6,7 +6,7 @@ import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
-export interface ThirdPartySessionPayload {
+interface ThirdPartySessionPayload {
     // firefly profile
     accessToken?: string;
     accountId?: string;

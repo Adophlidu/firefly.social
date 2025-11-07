@@ -9,7 +9,7 @@ import { useAllProfiles } from '@/hooks/useAllProfiles.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 
-export function useCurrentFireflyProfiles() {
+function useCurrentFireflyProfiles() {
     const profilesAll = useCurrentProfilesAll();
 
     // convert currentProfileAll to currentFireflyProfiles

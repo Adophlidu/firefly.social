@@ -72,9 +72,7 @@ function getLoginType(session?: Session | null): FarcasterLoginType | void {
     if (FarcasterSession.isGrantByPermission(session)) return FarcasterLoginType.NewConnect;
 }
 
-export function getAccountEventParameters(
-    account: Pick<Account, 'profile' | 'origin'> & Partial<Pick<Account, 'session'>>,
-) {
+function getAccountEventParameters(account: Pick<Account, 'profile' | 'origin'> & Partial<Pick<Account, 'session'>>) {
     const source = account.profile.profileSource;
     const accounts = getAccountPairs(source);
     const loginType = getLoginType(account.session);

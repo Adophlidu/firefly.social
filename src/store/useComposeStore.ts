@@ -71,7 +71,7 @@ export interface CompositePost {
     excludeReplyProfileIds?: string[];
 }
 
-export interface ComposeBaseState {
+interface ComposeBaseState {
     type: ComposeType;
     sealedSource: SocialSource | null;
     posts: CompositePost[];
@@ -165,7 +165,7 @@ export function createInitPostState(): Record<SocialSource, null> {
     };
 }
 
-export function createInitSinglePostState(cursor: Cursor): CompositePost {
+function createInitSinglePostState(cursor: Cursor): CompositePost {
     return {
         id: cursor,
         postId: createInitPostState(),

@@ -14,7 +14,7 @@ import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import type { Account } from '@/providers/types/Account.js';
 import { removeAllAccounts, removeCurrentAccount } from '@/services/account.js';
 
-export interface LogoutModalProps {
+interface LogoutModalProps {
     account?: Account;
 }
 type Props = {

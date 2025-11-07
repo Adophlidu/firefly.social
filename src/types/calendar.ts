@@ -1,4 +1,4 @@
-export interface ExtensionInfo {
+interface ExtensionInfo {
     nft_info: {
         token: string;
         total: string;
@@ -6,7 +6,7 @@ export interface ExtensionInfo {
     poster_url: string;
 }
 
-export interface ProjectInfo {
+interface ProjectInfo {
     links: Array<{
         type: string;
         url: string;

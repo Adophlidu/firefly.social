@@ -11,7 +11,7 @@ import type { ReactNode } from 'react';
 import { MentionsMenu } from '@/components/MentionsMenu.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
-export interface SerializedMentionNode extends SerializedLexicalNode {
+interface SerializedMentionNode extends SerializedLexicalNode {
     text: string;
     profiles?: Profile[];
 }

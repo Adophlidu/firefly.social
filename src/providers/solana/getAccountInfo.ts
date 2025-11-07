@@ -7,7 +7,7 @@ enum AccountState {
     Frozen = 2,
 }
 
-export async function getAccountInfo(
+async function getAccountInfo(
     connection: web3.Connection,
     address: web3.PublicKey,
     commitment?: web3.Commitment,

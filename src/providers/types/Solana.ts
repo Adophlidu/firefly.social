@@ -3,7 +3,7 @@ interface RpcResponse<T> {
     result: T | null;
 }
 
-export interface TokenAccount {
+interface TokenAccount {
     isNative: false;
     mint: string;
     owner: string;

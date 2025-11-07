@@ -14,7 +14,7 @@ const localeLikeRegex = /^([a-z]{2})(?:-[A-Z0-9]{2,3})?$/i;
 // #endregion
 
 // #region enum
-export enum ContentWarning {
+enum ContentWarning {
     NSFW = 'NSFW',
     SENSITIVE = 'SENSITIVE',
     SPOILER = 'SPOILER',
@@ -54,12 +54,12 @@ export enum PostMetadataSchemaId {
     TEXT_ONLY_LATEST = 'https://json-schemas.lens.dev/posts/text-only/3.0.0.json',
     VIDEO_LATEST = 'https://json-schemas.lens.dev/posts/video/3.0.0.json',
 }
-export enum NftMetadataAttributeDisplayType {
+enum NftMetadataAttributeDisplayType {
     NUMBER = 'number',
     STRING = 'string',
     DATE = 'date',
 }
-export enum MetadataLicenseType {
+enum MetadataLicenseType {
     CCO = 'CCO',
     CC_BY = 'CC BY',
     CC_BY_ND = 'CC BY-ND',
@@ -109,7 +109,7 @@ export enum MediaImageMimeType {
     WEBP = 'image/webp',
     X_MS_BMP = 'image/x-ms-bmp',
 }
-export enum MediaAudioMimeType {
+enum MediaAudioMimeType {
     WAV = 'audio/wav',
     WAV_VND = 'audio/vnd.wave',
     MP3 = 'audio/mpeg',
@@ -119,7 +119,7 @@ export enum MediaAudioMimeType {
     WEBM_AUDIO = 'audio/webm',
     FLAC = 'audio/flac',
 }
-export enum MediaAudioKind {
+enum MediaAudioKind {
     MUSIC = 'MUSIC',
     PODCAST = 'PODCAST',
     AUDIOBOOK = 'AUDIOBOOK',
@@ -218,13 +218,13 @@ export const Nft721MetadataAttributeSchema: z.ZodType<NftMetadataAttribute, z.Zo
         value: z.union([z.string(), z.number()]).optional(),
     })
     .passthrough();
-export const MetadataLicenseTypeSchema = z.nativeEnum(MetadataLicenseType);
+const MetadataLicenseTypeSchema = z.nativeEnum(MetadataLicenseType);
 export const MediaImageSchema = mediaCommonSchema({
     type: z.nativeEnum(MediaImageMimeType),
     altTag: NonEmptyStringSchema.optional(),
     license: MetadataLicenseTypeSchema.optional(),
 });
-export const MediaAudioSchema = mediaCommonSchema({
+const MediaAudioSchema = mediaCommonSchema({
     type: z.nativeEnum(MediaAudioMimeType),
     cover: URISchema.optional(),
     duration: z.number().positive().int().optional(),
@@ -287,7 +287,7 @@ export interface PostMetadataCommon {
     tags?: string[];
     contentWarning?: ContentWarning;
 }
-export interface NftMetadataAttribute {
+interface NftMetadataAttribute {
     value?: string | number;
     display_type?: NftMetadataAttributeDisplayType;
     trait_type?: string;
@@ -308,7 +308,7 @@ export interface MediaImage {
     altTag?: string;
     license?: MetadataLicenseType;
 }
-export interface MediaAudio {
+interface MediaAudio {
     item: string;
     attributes?: MetadataAttribute[];
     type: MediaAudioMimeType;

@@ -8,7 +8,7 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { AllConnections, FireflyAccountProfile } from '@/providers/types/Firefly.js';
 
-export interface EditFireflyProfileModalOpenProps {
+interface EditFireflyProfileModalOpenProps {
     profile?: FireflyAccountProfile | null;
     connections?: AllConnections;
 }

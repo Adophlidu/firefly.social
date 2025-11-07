@@ -10,7 +10,7 @@ import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
-export interface ConfirmModalOpenProps {
+interface ConfirmModalOpenProps {
     title?: ReactNode;
     content: ReactNode;
     resetSize?: boolean;
@@ -32,7 +32,7 @@ export interface ConfirmModalOpenProps {
 }
 
 /** Dismissing dialog returns null */
-export type ConfirmModalCloseResult = boolean | null;
+type ConfirmModalCloseResult = boolean | null;
 type Props = {
     ref: Ref<SingletonModalRefCreator<ConfirmModalOpenProps, ConfirmModalCloseResult>>;
 };

@@ -195,7 +195,7 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
     );
 }
 
-export interface ConnectedWalletsProps {
+interface ConnectedWalletsProps {
     onOpenWallets?: () => void;
 }
 

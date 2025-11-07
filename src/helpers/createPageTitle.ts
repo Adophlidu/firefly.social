@@ -3,7 +3,7 @@ import { type MessageDescriptor } from '@lingui/core';
 import { SITE_NAME } from '@/constants/index.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
-export function createPageTitle(title: string) {
+function createPageTitle(title: string) {
     return `${title} • ${SITE_NAME}`;
 }
 

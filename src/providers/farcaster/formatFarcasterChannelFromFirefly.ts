@@ -12,7 +12,7 @@ import type {
 } from '@/providers/types/Firefly.js';
 import { type Channel, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
-export function formatChannelProfileFromFirefly(channelProfile: ChannelProfile): Profile {
+function formatChannelProfileFromFirefly(channelProfile: ChannelProfile): Profile {
     return {
         ...createDummyProfile(Source.Farcaster),
         profileId: `${channelProfile.fid}`,
@@ -74,7 +74,7 @@ export function formatChannelFromFirefly(channel: FireflyChannel): Channel {
     return formatted;
 }
 
-export function formatBriefChannelProfileFromFirefly(channelProfile: ChannelProfileBrief): Profile {
+function formatBriefChannelProfileFromFirefly(channelProfile: ChannelProfileBrief): Profile {
     return {
         ...createDummyProfile(Source.Farcaster),
         profileId: `${channelProfile.fid}`,

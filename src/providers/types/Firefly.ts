@@ -126,7 +126,7 @@ export interface Profile {
     uid?: string;
 }
 
-export interface UsersData {
+interface UsersData {
     list: User[];
     total: number;
     next_cursor: string;
@@ -296,7 +296,7 @@ export interface Response<T> {
     error?: string[];
 }
 
-export type Relationship = {
+type Relationship = {
     id: string;
     address: string;
     snsId: string;
@@ -348,7 +348,7 @@ export type SearchCastsResponse = Response<
       }
 >;
 
-export type SearchProfileListItem = Record<SocialSourceInURL | 'eth' | 'solana' | 'ens' | 'account', Profile[] | null>;
+type SearchProfileListItem = Record<SocialSourceInURL | 'eth' | 'solana' | 'ens' | 'account', Profile[] | null>;
 
 export type SearchProfileResponse = Response<{
     list?: SearchProfileListItem[];
@@ -583,7 +583,7 @@ export interface FireflyFarcasterProfile {
 
 export type FireflyFarcasterProfileResponse = Response<FireflyFarcasterProfile>;
 
-export interface TwitterProfile {
+interface TwitterProfile {
     twitter_id: string;
     handle: string;
     source: string;
@@ -591,7 +591,7 @@ export interface TwitterProfile {
     isDefault?: boolean;
 }
 
-export interface BskyProfile {
+interface BskyProfile {
     did: string;
     handle: string;
     isDefault?: boolean;
@@ -711,7 +711,7 @@ export enum ScheduleTaskStatus {
     Success = 'success',
 }
 
-export type ScheduleRelation = {
+type ScheduleRelation = {
     content: string;
     error?: string;
     platform: SocialSourceInURL;
@@ -947,15 +947,15 @@ export type ActivityListResponse = Response<{
     size: number;
 }>;
 
-export enum TwitterUserInfoLabelType {
+enum TwitterUserInfoLabelType {
     BusinessLabel = 'BusinessLabel',
 }
 
-export enum TwitterUserInfoLabelDisplayType {
+enum TwitterUserInfoLabelDisplayType {
     Badge = 'Badge',
 }
 
-export enum TwitterUserInfoLabelUrlType {
+enum TwitterUserInfoLabelUrlType {
     DeepLink = 'DeepLink',
 }
 
@@ -963,7 +963,7 @@ export enum TwitterUserInfoVerifiedType {
     Government = 'Government',
 }
 
-export interface TwitterUserInfoLabel {
+interface TwitterUserInfoLabel {
     url: {
         url: string;
         urlType: TwitterUserInfoLabelUrlType;
@@ -976,7 +976,7 @@ export interface TwitterUserInfoLabel {
     userLabelDisplayType: TwitterUserInfoLabelDisplayType;
 }
 
-export interface TwitterUserInfoEntities {
+interface TwitterUserInfoEntities {
     display_url: string;
     expanded_url: string;
     url: string;
@@ -988,7 +988,7 @@ export enum TwitterUserInfoProfileImageShape {
     Circle = 'Circle',
 }
 
-export interface TwitterUserInfo {
+interface TwitterUserInfo {
     __typename: string;
     id: string;
     rest_id: string;
@@ -1290,7 +1290,7 @@ export interface SearchTokenInfo extends Omit<TokenWithMarketData, 'id'> {
 /** Results from /v2/token/search */
 export type SearchTokenInfosResponse = Response<SearchTokenInfo[]>;
 
-export interface DexCoinDetail {
+interface DexCoinDetail {
     symbol: string;
     name: string;
     decimals: number;
@@ -1590,7 +1590,7 @@ export interface FireflyProfileUpdateParams {
     avatar?: string;
 }
 
-export interface SwapToken {
+interface SwapToken {
     logo: string;
     symbol: string;
     amount_usd: string;
@@ -1998,7 +1998,7 @@ export interface TipsDetail {
 
 export type TipsDetailResponse = Response<TipsDetail | null>;
 
-export interface PrivyWallet {
+interface PrivyWallet {
     accountId: string;
     userId: string;
     createAt: number;
@@ -2195,7 +2195,7 @@ export type GetExploreSwitchConfigResponse = Response<{
     }>;
 }>;
 
-export type OgUser = {
+type OgUser = {
     platform: string;
     platform_id: string;
     handle: string;

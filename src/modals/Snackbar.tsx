@@ -2,14 +2,14 @@ import { type OptionsObject, type SnackbarKey, type SnackbarMessage, useSnackbar
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
-export type SnackbarOpenProps =
+type SnackbarOpenProps =
     | {
           message: SnackbarMessage;
           options?: OptionsObject;
       }
     | SnackbarMessage;
 
-export interface SnackbarCloseProps {
+interface SnackbarCloseProps {
     key?: SnackbarKey;
 }
 type Props = {

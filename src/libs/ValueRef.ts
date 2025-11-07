@@ -1,6 +1,6 @@
 import { defer } from '@dimensiondev/utils';
 
-export type ValueComparer<T> = (a: T, b: T) => boolean;
+type ValueComparer<T> = (a: T, b: T) => boolean;
 const defaultComparer: ValueComparer<any> = (a, b) => a === b;
 export class ValueRef<T> {
     constructor(value: T, isEqual: ValueComparer<T> = defaultComparer) {

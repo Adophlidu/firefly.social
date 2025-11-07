@@ -8,7 +8,7 @@ import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { multipliedBy } from '@/helpers/number.js';
 import type { Token as RawToken } from '@/hooks/useCustomFungibleTokens.js';
 
-export type Token = Pick<
+type Token = Pick<
     RawToken,
     | 'price'
     | 'amount'

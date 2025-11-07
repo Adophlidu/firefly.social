@@ -21,11 +21,11 @@ import { captureComposeCrossAtEvent } from '@/providers/telemetry/captureCompose
 import type { Profile } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
-export interface EditCrossAtModalOpenProps {
+interface EditCrossAtModalOpenProps {
     profiles: Profile[];
 }
 
-export type EditCrossAtModalCloseProps = Profile[] | void;
+type EditCrossAtModalCloseProps = Profile[] | void;
 
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<EditCrossAtModalOpenProps, EditCrossAtModalCloseProps>>;

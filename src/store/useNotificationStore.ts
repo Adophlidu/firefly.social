@@ -6,7 +6,7 @@ import { type NotificationSource, Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { NotificationType } from '@/providers/types/SocialMedia.js';
 
-export type NotificationState = Record<
+type NotificationState = Record<
     NotificationSource,
     {
         types: NotificationType[];

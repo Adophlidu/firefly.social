@@ -14,14 +14,14 @@ export enum ProviderFilter {
     GA = 'google_analytics',
 }
 
-export enum EventType {
+enum EventType {
     Debug = 'debug',
     Access = 'access',
     Exit = 'exit',
     Interact = 'interact',
 }
 
-export enum ExceptionType {
+enum ExceptionType {
     Error = 'Error',
 }
 
@@ -329,13 +329,13 @@ export enum ExceptionId {
     CREATE_PRIVY_WALLET = 'create_privy_wallet',
 }
 
-export interface Event {
+interface Event {
     type: EventType;
     // bypassing the type check
     parameters: {};
 }
 
-export interface Exception {
+interface Exception {
     type: ExceptionType;
     error: Error;
 }
@@ -394,11 +394,11 @@ export interface BskyEventParameters {
     target_bsky_handle: string;
 }
 
-export interface BskyPostEventParameters extends BskyEventParameters {
+interface BskyPostEventParameters extends BskyEventParameters {
     target_bsky_post_id: string;
 }
 
-export interface WalletEventBaseParameters {
+interface WalletEventBaseParameters {
     firefly_account_id: string;
     wallet_type?: 'evm' | 'solana' | 'unknown';
     wallet_address?: string;
@@ -410,11 +410,11 @@ export interface WalletEventParameters extends Exclude<WalletEventBaseParameters
     wallet_name: string;
 }
 
-export interface ActivityWalletEventParameters extends WalletEventParameters {
+interface ActivityWalletEventParameters extends WalletEventParameters {
     activity: string;
 }
 
-export interface LuckyDropEventParameters extends WalletEventParameters {
+interface LuckyDropEventParameters extends WalletEventParameters {
     lucky_drop_id: string;
     amount: string;
     currency: string;
@@ -426,7 +426,7 @@ export interface LuckyDropEventParameters extends WalletEventParameters {
     free_gas: boolean;
 }
 
-export interface ConnectWalletEventParameters extends WalletEventParameters {
+interface ConnectWalletEventParameters extends WalletEventParameters {
     click_location: ClickOrigin;
     click_time: number;
     connect_success_time: number;

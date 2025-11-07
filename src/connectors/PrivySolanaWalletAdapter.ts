@@ -33,7 +33,7 @@ import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
-export const PrivySolanaWalletName = 'Firefly Wallet' as WalletName<'Firefly Wallet'>;
+const PrivySolanaWalletName = 'Firefly Wallet' as WalletName<'Firefly Wallet'>;
 
 export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
     name = PrivySolanaWalletName;
@@ -195,7 +195,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
     }
 }
 
-export class PrivySolanaWalletProvider implements Provider {
+class PrivySolanaWalletProvider implements Provider {
     id = 'privy';
     name = 'PrivySolanaWalletName';
     chain = 'solana' as const;

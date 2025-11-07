@@ -57,14 +57,14 @@ export enum ProfileStatus {
     Inactive = 'inactive',
 }
 
-export interface Reaction {
+interface Reaction {
     reactionId: string;
     type: ReactionType;
     /** time in milliseconds */
     timestamp: number;
 }
 
-export interface Tag {
+interface Tag {
     tagId: string;
     label: string;
 }
@@ -74,7 +74,7 @@ export interface Friendship {
     isFollowedBack: boolean;
 }
 
-export interface ProfileChannel {
+interface ProfileChannel {
     id: string;
     imageURL?: string;
     name: string;
@@ -343,7 +343,7 @@ export interface Post {
     __original__?: unknown;
 }
 
-export interface Comment {
+interface Comment {
     commentId: string;
     /** time in milliseconds */
     timestamp: number;
@@ -353,7 +353,7 @@ export interface Comment {
     hashTagsMentioned?: string[];
 }
 
-export interface BaseNotification {
+interface BaseNotification {
     notificationId: string;
     source: SocialSource;
     /** time in milliseconds */
@@ -394,7 +394,7 @@ export interface MentionNotification extends BaseNotification {
     post?: Post | null;
 }
 
-export interface ActedNotification extends BaseNotification {
+interface ActedNotification extends BaseNotification {
     type: NotificationType.Act;
     post: Post;
     actions: Profile[];

@@ -31,7 +31,7 @@ export function playSignupAudio() {
     updateAudioVolume();
 }
 
-export function stopSignupAudio() {
+function stopSignupAudio() {
     if (audioTimer) {
         clearTimeout(audioTimer);
         audioTimer = null;

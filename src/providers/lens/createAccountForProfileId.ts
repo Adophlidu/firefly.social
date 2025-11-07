@@ -9,11 +9,7 @@ import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
-export async function createAccountWithSessionClient(
-    sessionClient: SessionClient,
-    profile: Profile,
-    signal?: AbortSignal,
-) {
+async function createAccountWithSessionClient(sessionClient: SessionClient, profile: Profile, signal?: AbortSignal) {
     const session = createLensSession(profile.profileId, sessionClient);
 
     const fireflySession = await bindOrRestoreFireflySession(session, signal);

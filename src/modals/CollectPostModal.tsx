@@ -15,7 +15,7 @@ const PostCollect = dynamic(() => import('@/components/Posts/PostCollect.js').th
     loading: () => <Loading minHeight={236} />,
 });
 
-export interface CollectPostModalOpenProps {
+interface CollectPostModalOpenProps {
     post: Post;
 }
 type Props = {

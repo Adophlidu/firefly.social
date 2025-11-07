@@ -10,7 +10,7 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { type Article } from '@/providers/types/Article.js';
 
-export interface CollectArticleModalOpenProps {
+interface CollectArticleModalOpenProps {
     article: Article;
 }
 type Props = {

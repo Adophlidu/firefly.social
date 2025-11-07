@@ -1,4 +1,4 @@
-export class AtUri {
+class AtUri {
     constructor(
         public did: string,
         public host: string,

@@ -13,7 +13,7 @@ import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonM
 import type { FireflyIdentity, FireflyProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-export interface TipsModalOpenProps {
+interface TipsModalOpenProps {
     identity: FireflyIdentity;
     profiles: FireflyProfile[];
     handle: string | null;
@@ -21,7 +21,7 @@ export interface TipsModalOpenProps {
     post?: Post;
 }
 
-export type TipsModalCloseProps = {} | void;
+type TipsModalCloseProps = {} | void;
 
 function formatTipsProfiles(profiles: FireflyProfile[]) {
     const socialProfiles = profiles

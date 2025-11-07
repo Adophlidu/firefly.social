@@ -23,23 +23,23 @@ export enum LensMetadataAttributeKey {
     Poll = 'pollId',
 }
 
-export type OperationResponse<T extends string> = {
+type OperationResponse<T extends string> = {
     __typename: T;
     hash: TxHash;
 };
 
-export type ErrorResponse<T extends string> = {
+type ErrorResponse<T extends string> = {
     __typename: T;
     reason: string;
 };
 
-export type DelegableOperationResult<O extends string, E extends string> =
+type DelegableOperationResult<O extends string, E extends string> =
     | OperationResponse<O>
     | SponsoredTransactionRequest
     | SelfFundedTransactionRequest
     | ErrorResponse<E>;
 
-export type RestrictedOperationResult<E extends string> =
+type RestrictedOperationResult<E extends string> =
     | SponsoredTransactionRequest
     | SelfFundedTransactionRequest
     | ErrorResponse<E>;
