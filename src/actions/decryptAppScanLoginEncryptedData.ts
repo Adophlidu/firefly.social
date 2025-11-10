@@ -86,6 +86,7 @@ export async function decryptAppScanLoginEncryptedData(
                         0,
                         account.refreshToken,
                         account.user_id,
+                        account.idToken,
                     );
                 case SourceInURL.Bsky:
                     return new BskySession(account.user_id, 0, 0, DEFAULT_SERVICE_URL, {

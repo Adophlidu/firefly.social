@@ -9,6 +9,7 @@ import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterC
 import { formatFarcasterChannelFromNeynar } from '@/providers/farcaster/formatFarcasterChannelFromNeynar.js';
 import { formatFarcasterProfileFromNeynar } from '@/providers/farcaster/formatFarcasterProfileFromNeynar.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import type { Account } from '@/providers/types/Account.js';
 import type { Channel as FireflyChannel, NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Channel as NeynarChannel, Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -21,6 +22,7 @@ import {
     type Profile,
     type ProfileBadge,
     type ProfileEditable,
+    type ProfileForSignup,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -385,6 +387,10 @@ class NeynarSocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async createAccount(profile: ProfileForSignup): Promise<Account> {
         throw new NotImplementedError();
     }
 }

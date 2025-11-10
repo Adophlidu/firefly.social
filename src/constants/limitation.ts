@@ -167,6 +167,20 @@ export const MAX_PROFILE_WEBSITE_SIZE: Limitation = {
     [Source.Bsky]: 0,
 };
 
+export const MAX_PROFILE_HANDLE_SIZE: Limitation = {
+    [Source.Farcaster]: 16,
+    [Source.Lens]: 26,
+    [Source.Twitter]: -1,
+    [Source.Bsky]: -1,
+};
+
+export const MIN_PROFILE_HANDLE_SIZE: Limitation = {
+    [Source.Farcaster]: 1,
+    [Source.Lens]: 5,
+    [Source.Twitter]: 1,
+    [Source.Bsky]: 1,
+};
+
 // https://github.com/bluesky-social/social-app/blob/main/src/lib/constants.ts
 export const BSKY_IMAGE_LIMITATION = {
     maxWidth: 2000,

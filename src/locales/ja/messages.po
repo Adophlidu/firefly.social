@@ -109,9 +109,6 @@ msgstr ""
 msgid "Show assets < 1 USD"
 msgstr ""
 
-msgid "please<0>change</0>to another wallet."
-msgstr ""
-
 msgid "Repost or quote"
 msgstr ""
 
@@ -271,9 +268,6 @@ msgstr ""
 msgid "{0} listening"
 msgstr ""
 
-msgid "<0>Connect wallet</0> to sign in<1/>if you registered your Farcaster account on Firefly"
-msgstr ""
-
 #. placeholder {0}: token.market_cap_rank
 msgid "Rank #{0}"
 msgstr ""
@@ -422,6 +416,10 @@ msgstr ""
 msgid "Activities"
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(source)
+msgid "{0} profile created."
+msgstr ""
+
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr ""
 
@@ -441,6 +439,9 @@ msgid "Avg"
 msgstr ""
 
 msgid "FAILED POST"
+msgstr ""
+
+msgid "User Name must start with a letter/number, only _ allowed in between"
 msgstr ""
 
 msgid "Published successfully on {sortedSourceNames}"
@@ -710,6 +711,9 @@ msgstr ""
 msgid "Report submitted"
 msgstr ""
 
+msgid "Username"
+msgstr ""
+
 #. placeholder {0}: post.stats.quotes
 msgid "{0, plural, one {quote} other {quotes}}"
 msgstr ""
@@ -863,6 +867,9 @@ msgstr ""
 #. placeholder {0}: space.name
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
+msgstr ""
+
+msgid "User Name should be at least {minHandleSize} characters"
 msgstr ""
 
 msgid "Sending"
@@ -1653,6 +1660,10 @@ msgstr ""
 msgid "Significant movements in token prices"
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(props.source)
+msgid "Create {0} Profile"
+msgstr ""
+
 msgid "Market"
 msgstr ""
 
@@ -1892,6 +1903,9 @@ msgid "Failed to switch chain"
 msgstr ""
 
 msgid "You haven't traded this token."
+msgstr ""
+
+msgid "Bio should not be blank"
 msgstr ""
 
 msgid "Set"
@@ -2994,6 +3008,9 @@ msgstr ""
 msgid "Download image"
 msgstr ""
 
+msgid "User Name should not be blank"
+msgstr ""
+
 msgid "Sorry, today's free collect quota has been reached."
 msgstr ""
 
@@ -3350,6 +3367,9 @@ msgstr ""
 msgid "<0>You</0> reposted"
 msgstr ""
 
+msgid "User Name can only contain letters, numbers, and -"
+msgstr ""
+
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr ""
 
@@ -3407,6 +3427,9 @@ msgid "Checking wallet status..."
 msgstr ""
 
 msgid "No matching token"
+msgstr ""
+
+msgid "No Farcaster account? <0>Sign up</0> on Firefly"
 msgstr ""
 
 msgid "Win Rate"
@@ -3590,6 +3613,9 @@ msgid "{days}d left"
 msgstr ""
 
 msgid "Money laundering found."
+msgstr ""
+
+msgid "Sign Up"
 msgstr ""
 
 msgid "Share image"
@@ -3845,6 +3871,9 @@ msgstr ""
 msgid "Unlock {0}"
 msgstr ""
 
+msgid "User Name should not exceed {maxBioSize} characters"
+msgstr ""
+
 msgid "Owned"
 msgstr ""
 
@@ -3945,6 +3974,9 @@ msgid "Volume Traded"
 msgstr ""
 
 msgid "Clear all requirements"
+msgstr ""
+
+msgid "please <0>change</0> to another wallet."
 msgstr ""
 
 msgid "Claim Requirements"
@@ -4136,6 +4168,11 @@ msgstr ""
 #. placeholder {1}: timeLeft.minutes
 #. placeholder {2}: timeLeft.seconds
 msgid "{0}h: {1}m: {2}s"
+msgstr ""
+
+#. placeholder {0}: resolveSourceName(source)
+#. placeholder {1}: error instanceof Error ? error.message : ''
+msgid "Failed to create {0} profile.{1}"
 msgstr ""
 
 #. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
@@ -4446,6 +4483,9 @@ msgid "👉 vitalik.eth"
 msgstr ""
 
 msgid "Collectible"
+msgstr ""
+
+msgid "<0>change</0> wallet or <1>sign up</1> on Firefly"
 msgstr ""
 
 msgid "Are you sure you want to report this user?"

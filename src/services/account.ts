@@ -458,6 +458,7 @@ export async function switchAccount(account: Account, signal?: AbortSignal) {
                     now + SEVEN_DAYS,
                     credentials.refreshToken,
                     account.profile.profileId,
+                    credentials.idToken,
                 );
             }
             break;

@@ -50,6 +50,7 @@ import { resolveTwitterReplyRestriction } from '@/providers/twitter/resolveTwitt
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
+import type { Account } from '@/providers/types/Account.js';
 import {
     type NotificationSettings,
     TwitterUserInfoProfileImageShape,
@@ -65,6 +66,7 @@ import {
     type ProfileBadge,
     ProfileBadgePresetColors,
     type ProfileEditable,
+    type ProfileForSignup,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -712,6 +714,10 @@ class OfficialSocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async createAccount(profile: ProfileForSignup): Promise<Account> {
         throw new NotImplementedError();
     }
 }

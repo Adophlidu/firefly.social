@@ -15,6 +15,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { formatFarcasterChannelFromWarpcast } from '@/providers/farcaster/formatFarcasterChannelFromWarpcast.js';
 import { getFarcasterAuthToken } from '@/providers/farcaster/getFarcasterAuthToken.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import type { Account } from '@/providers/types/Account.js';
 import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import {
@@ -26,6 +27,7 @@ import {
     type Profile,
     type ProfileBadge,
     type ProfileEditable,
+    type ProfileForSignup,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -449,6 +451,10 @@ class WarpcastSocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async createAccount(profile: ProfileForSignup): Promise<Account> {
         throw new NotImplementedError();
     }
 }

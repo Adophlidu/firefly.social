@@ -240,6 +240,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                     now + SEVEN_DAYS,
                     data.refresh_token,
                     data.address,
+                    data.identity_token,
                 );
 
                 const account = {

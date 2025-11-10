@@ -29,6 +29,7 @@ import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblock
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
 import {
     NotificationPlatform,
     NotificationPushType,
@@ -44,6 +45,7 @@ import {
     type Profile,
     type ProfileBadge,
     type ProfileEditable,
+    type ProfileForSignup,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -438,6 +440,10 @@ class FarcasterSocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async createAccount(profile: ProfileForSignup): Promise<Account> {
         throw new NotImplementedError();
     }
 }

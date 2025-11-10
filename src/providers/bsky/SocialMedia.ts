@@ -46,6 +46,7 @@ import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import type { Account } from '@/providers/types/Account.js';
 import type { BookmarkResponse, NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import {
@@ -62,6 +63,7 @@ import {
     type Profile,
     type ProfileBadge,
     type ProfileEditable,
+    type ProfileForSignup,
     type Provider,
     type QuoteNotification,
     type ReactionNotification,
@@ -896,6 +898,10 @@ class BskySocialMedia implements Provider {
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
+    }
+
+    async createAccount(profile: ProfileForSignup): Promise<Account> {
+        throw new NotImplementedError();
     }
 }
 

@@ -9,6 +9,7 @@ import {
     type SocialSource,
 } from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
+import type { Account } from '@/providers/types/Account.js';
 import type {
     FireflyIdentity,
     NotificationSettings,
@@ -139,6 +140,8 @@ export interface ProfileLike {
 }
 
 export type ProfileEditable = Partial<Pick<Profile, 'pfp' | 'bio' | 'location' | 'website' | 'displayName'>>;
+
+export type ProfileForSignup = Partial<Pick<Profile, 'displayName' | 'handle' | 'bio' | 'pfp'>>;
 
 export interface MediaObject {
     title?: string;
@@ -1056,4 +1059,9 @@ export interface Provider {
      * Decrypt post
      */
     decryptPost: (post: Post) => Promise<Post | null>;
+
+    /**
+     * Create a new account
+     */
+    createAccount: (profile: ProfileForSignup) => Promise<Account>;
 }

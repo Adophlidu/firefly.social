@@ -16,7 +16,15 @@ export function createLensSession(profileId: string, sessionClient: SessionClien
     const authenticated = ensureLensResultSync(sessionClient.getAuthenticatedUser());
 
     const address = authenticated.address;
-    const { accessToken, refreshToken } = credentials;
+    const { accessToken, refreshToken, idToken } = credentials;
 
-    return new LensSession(profileId, accessToken, now, now + SEVEN_DAYS, refreshToken, address ?? ETH_ZERO_ADDRESS);
+    return new LensSession(
+        profileId,
+        accessToken,
+        now,
+        now + SEVEN_DAYS,
+        refreshToken,
+        address ?? ETH_ZERO_ADDRESS,
+        idToken,
+    );
 }

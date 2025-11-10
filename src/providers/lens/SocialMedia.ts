@@ -97,6 +97,7 @@ import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProfileFor.js';
 import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblockProfileFor.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { createLensAccount } from '@/providers/lens/createLensAccount.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { ensurePostToLensResult } from '@/providers/lens/ensurePostToLensResult.js';
@@ -135,6 +136,7 @@ import { account } from '@/providers/lens/metadata/Account.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.js';
+import type { Account as FireflyAccount } from '@/providers/types/Account.js';
 import {
     NotificationPlatform,
     NotificationPushType,
@@ -151,6 +153,7 @@ import {
     type Profile,
     type ProfileBadge,
     type ProfileEditable,
+    type ProfileForSignup,
     type Provider,
     ReactionType,
     SessionType,
@@ -1307,6 +1310,10 @@ class LensSocialMedia implements Provider {
         );
 
         return result?.totalMembers || 0;
+    }
+
+    async createAccount(profile: ProfileForSignup): Promise<FireflyAccount> {
+        return createLensAccount(profile);
     }
 }
 

@@ -26,6 +26,7 @@ export async function refreshLensSession(sdk: SessionClient) {
                   now + SEVEN_DAYS,
                   refreshToken,
                   walletAddress ?? ETH_ZERO_ADDRESS,
+                  credentials.idToken,
               )
             : null;
     if (!session) throw new Error('Failed to refresh session');

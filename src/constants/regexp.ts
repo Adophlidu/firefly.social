@@ -14,6 +14,8 @@ export const TWITTER_MENTION_REGEX = /@([A-Za-z0-9_]{1,15})/g;
 export const BSKY_MENTION_REGEX = /@([a-zA-Z0-9.-]+)/g;
 export const LENS_MENTION_REGEX = /@(?:lens\/[^\s/@]+|[^\s/@]+\.lens)/gi;
 export const FARCASTER_MENTION_REGEX = /@([a-zA-Z0-9_-]{1,256}\.eth|[^\s()@:%+~#?&=,!?'.]+)/g;
+export const LENS_USERNAME_REGEXP = /^[\dA-Za-z]\w{4,25}$/g; // from hey
+export const FARCASTER_USERNAME_REGEXP = /^[a-zA-Z0-9-]{1,16}$/g;
 
 /** Financial symbol */
 export const SYMBOL_REGEX = /(^|\s)(\$([a-zA-Z0-9]|\p{Script=Han})+)/gu;

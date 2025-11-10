@@ -109,9 +109,6 @@ msgstr "貼文"
 msgid "Show assets < 1 USD"
 msgstr "顯示少於 1 美元的資產"
 
-msgid "please<0>change</0>to another wallet."
-msgstr "請<0>切換</0>至其他錢包。"
-
 msgid "Repost or quote"
 msgstr "轉發或引用"
 
@@ -271,9 +268,6 @@ msgstr ""
 msgid "{0} listening"
 msgstr "{0} 位正在收聽"
 
-msgid "<0>Connect wallet</0> to sign in<1/>if you registered your Farcaster account on Firefly"
-msgstr "若您透過 Firefly 註冊了 Farcaster 帳戶，請<0>連接錢包</0>登入<1/>"
-
 #. placeholder {0}: token.market_cap_rank
 msgid "Rank #{0}"
 msgstr "排名 #{0}"
@@ -422,6 +416,10 @@ msgstr "<0>您</0>與 {0} 人重新轉發"
 msgid "Activities"
 msgstr "活動"
 
+#. placeholder {0}: resolveSourceName(source)
+msgid "{0} profile created."
+msgstr ""
+
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "超過 10% 可能視為高稅率，50% 以上可能導致無法交易。"
 
@@ -442,6 +440,9 @@ msgstr ""
 
 msgid "FAILED POST"
 msgstr "發文失敗"
+
+msgid "User Name must start with a letter/number, only _ allowed in between"
+msgstr ""
 
 msgid "Published successfully on {sortedSourceNames}"
 msgstr "已成功發佈至 {sortedSourceNames}"
@@ -710,6 +711,9 @@ msgstr "Orb 登入失敗"
 msgid "Report submitted"
 msgstr "已檢舉"
 
+msgid "Username"
+msgstr ""
+
 #. placeholder {0}: post.stats.quotes
 msgid "{0, plural, one {quote} other {quotes}}"
 msgstr "{0, plural, one {引用} other {引用}}"
@@ -864,6 +868,9 @@ msgstr "圖片載入失敗，請重試。"
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr "<0>{0}</0> 由 <1>{1}</1> 建立"
+
+msgid "User Name should be at least {minHandleSize} characters"
+msgstr ""
 
 msgid "Sending"
 msgstr "發布中"
@@ -1653,6 +1660,10 @@ msgstr "所有錢包"
 msgid "Significant movements in token prices"
 msgstr "代幣價格重大波動"
 
+#. placeholder {0}: resolveSourceName(props.source)
+msgid "Create {0} Profile"
+msgstr ""
+
 msgid "Market"
 msgstr ""
 
@@ -1893,6 +1904,9 @@ msgstr "切換鏈失敗"
 
 msgid "You haven't traded this token."
 msgstr "你尚未交易此代幣。"
+
+msgid "Bio should not be blank"
+msgstr ""
 
 msgid "Set"
 msgstr "設定"
@@ -2994,6 +3008,9 @@ msgstr "轉發失敗。"
 msgid "Download image"
 msgstr "下載圖片"
 
+msgid "User Name should not be blank"
+msgstr ""
+
 msgid "Sorry, today's free collect quota has been reached."
 msgstr "抱歉，今日免費鑄造收集額度已用盡。"
 
@@ -3350,6 +3367,9 @@ msgstr "抱歉，找不到此系列"
 msgid "<0>You</0> reposted"
 msgstr "<0>您</0>轉發了"
 
+msgid "User Name can only contain letters, numbers, and -"
+msgstr ""
+
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "本合約可能包含增發功能，可能導致代幣大量生成引發價格波動，建議確認是否符合項目方發行說明。"
 
@@ -3408,6 +3428,9 @@ msgstr "錢包狀態檢查中……"
 
 msgid "No matching token"
 msgstr "無符合的代幣"
+
+msgid "No Farcaster account? <0>Sign up</0> on Firefly"
+msgstr ""
 
 msgid "Win Rate"
 msgstr ""
@@ -3591,6 +3614,9 @@ msgstr "剩餘 {days} 日"
 
 msgid "Money laundering found."
 msgstr "檢測到洗錢行為。"
+
+msgid "Sign Up"
+msgstr ""
 
 msgid "Share image"
 msgstr "分享圖片"
@@ -3845,6 +3871,9 @@ msgstr "未檢測到個人地址稅率變更。"
 msgid "Unlock {0}"
 msgstr "解鎖 {0}"
 
+msgid "User Name should not exceed {maxBioSize} characters"
+msgstr ""
+
 msgid "Owned"
 msgstr "擁有"
 
@@ -3946,6 +3975,9 @@ msgstr ""
 
 msgid "Clear all requirements"
 msgstr "清除所有條件"
+
+msgid "please <0>change</0> to another wallet."
+msgstr ""
 
 msgid "Claim Requirements"
 msgstr "領取條件"
@@ -4137,6 +4169,11 @@ msgstr ""
 #. placeholder {2}: timeLeft.seconds
 msgid "{0}h: {1}m: {2}s"
 msgstr "{0}時： {1}分： {2}秒"
+
+#. placeholder {0}: resolveSourceName(source)
+#. placeholder {1}: error instanceof Error ? error.message : ''
+msgid "Failed to create {0} profile.{1}"
+msgstr ""
 
 #. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
 #. placeholder {1}: feed.deployPlatform && feed.deployPlatformLogo ? ( <div className="flex items-center gap-1"> on <Image src={feed.deployPlatformLogo} className="size-[18px] rounded-full" alt={feed.deployPlatform} width={18} height={18} /> <span className="h-6 capitalize leading-6">{feed.deployPlatform}</span> </div> ) : null
@@ -4449,6 +4486,9 @@ msgstr "👉 vitalik.eth"
 
 msgid "Collectible"
 msgstr "NFT"
+
+msgid "<0>change</0> wallet or <1>sign up</1> on Firefly"
+msgstr ""
 
 msgid "Are you sure you want to report this user?"
 msgstr "確定要檢舉此用戶？"

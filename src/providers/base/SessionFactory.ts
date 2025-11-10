@@ -92,6 +92,7 @@ export class SessionFactory {
         // for firefly session, the third part is the signature in base64 encoded
         // for bsky session, the third part is the atp session payload in base64 encoded
         const thirdPart = fragments[3] ?? '';
+        // for lens session, the fourth part is identity token
         // for farcaster session, the fourth part is the sponsorship signature
         // for firefly session, the fourth part is the isNew flag
         const fourthPart = fragments[4] ?? '';
@@ -133,6 +134,7 @@ export class SessionFactory {
                         session.expiresAt,
                         secondPart, // refresh token
                         thirdPart, // wallet address
+                        fourthPart, // identity token
                     );
                 case SessionType.Twitter: {
                     const parsed = TwitterSessionPayloadSchema.safeParse(decodeAsciiPayload(secondPart));

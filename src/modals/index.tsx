@@ -44,6 +44,7 @@ import { RedPacketModal, RedPacketModalRef } from '@/modals/RedPacketModal/index
 import { SchedulePostModal, SchedulePostModalRef } from '@/modals/SchedulePostModal.js';
 import { ShareImageModal, ShareImageModalRef } from '@/modals/ShareImageModal/index.js';
 import { SignInWithFireflyAppModal, SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal.js';
+import { SignupModal, SignupModalRef } from '@/modals/SignupModal/index.js';
 import { Snackbar, SnackbarRef } from '@/modals/Snackbar.js';
 import { SwapModal, SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
 import { TipsModal, TipsModalRef } from '@/modals/TipsModal/index.js';
@@ -62,6 +63,8 @@ export const Modals = memo(function Modals() {
             <SignInWithFireflyAppModal ref={SignInWithFireflyAppModalRef.register} />
             <Snackbar ref={SnackbarRef.register} />
             <WalletConnectModal ref={WalletConnectModalRef.register} />
+            <SignupModal ref={SignupModalRef.register} />
+            <ImageEditorModal ref={ImageEditorModalRef.register} />
 
             <IfPathname isNotOneOf={WHITEBOARD_ROUTES}>
                 <AddCustomERC20Modal ref={AddCustomERC20ModalRef.register} />
@@ -77,7 +80,6 @@ export const Modals = memo(function Modals() {
                 <DraggablePopover ref={DraggablePopoverRef.register} />
                 <EditFireflyProfileModal ref={EditFireflyProfileModalRef.register} />
                 <FrameViewerModal ref={FrameViewerModalRef.register} />
-                <ImageEditorModal ref={ImageEditorModalRef.register} />
                 <MyWalletsModal ref={MyWalletsModalRef.register} />
                 <NonFungibleCollectionSelectModal ref={NonFungibleTokenCollectionSelectModalRef.register} />
                 <PasswordModal ref={PasswordModalRef.register} />

@@ -92,6 +92,7 @@ export function OrbView() {
                 Date.now() + SEVEN_DAYS,
                 result.refreshToken || 'FAKE_LENS_REFRESH_TOKEN',
                 profile.address,
+                result.idToken || '',
             );
 
             const done = await addAccount(

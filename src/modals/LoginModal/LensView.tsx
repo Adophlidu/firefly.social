@@ -14,8 +14,10 @@ import ScanIcon from '@/assets/scan.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { SignupEntry } from '@/components/Profile/SignupEntry.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
-import { Source } from '@/constants/enum.js';
+import { Source, STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { AbortError, FireflyAlreadyBoundError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -25,6 +27,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
+import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
@@ -57,6 +60,7 @@ export const LensView = memo(function LensView() {
     const { history } = router;
 
     const account = useAccount();
+    const { data: canBindMoreAccount } = useCanBindMoreAccount(Source.Lens);
     const { expectedProfile } = useLocation().search as { expectedProfile?: string };
 
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
@@ -218,25 +222,50 @@ export const LensView = memo(function LensView() {
                         {isFetching ? (
                             <LoadingIcon />
                         ) : (
-                            <>
+                            <p>
                                 <span>
                                     <Trans>No Lens profile found,</Trans>
                                 </span>
-                                <span>
+                                <br />
+                                {canBindMoreAccount && env.external.NEXT_PUBLIC_LENS_SIGNUP === STATUS.Enabled ? (
                                     <Trans>
-                                        please
-                                        <span
-                                            className="mx-1 cursor-pointer text-highlight"
+                                        <ClickableButton
+                                            className="mx-1 text-highlight"
                                             onClick={() => {
                                                 WalletConnectModalRef.open();
                                             }}
                                         >
                                             change
-                                        </span>
-                                        to another wallet.
+                                        </ClickableButton>{' '}
+                                        wallet or{' '}
+                                        <SignupEntry
+                                            className="text-highlight"
+                                            source={Source.Lens}
+                                            onClick={() => {
+                                                LoginModalRef.close();
+                                            }}
+                                        >
+                                            sign up
+                                        </SignupEntry>{' '}
+                                        on Firefly
                                     </Trans>
-                                </span>
-                            </>
+                                ) : (
+                                    <span>
+                                        <Trans>
+                                            please{' '}
+                                            <ClickableButton
+                                                className="mx-1 text-highlight"
+                                                onClick={() => {
+                                                    WalletConnectModalRef.open();
+                                                }}
+                                            >
+                                                change
+                                            </ClickableButton>{' '}
+                                            to another wallet.
+                                        </Trans>
+                                    </span>
+                                )}
+                            </p>
                         )}
                     </div>
                 )

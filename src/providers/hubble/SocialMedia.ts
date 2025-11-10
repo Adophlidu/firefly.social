@@ -16,6 +16,7 @@ import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHash.js';
 import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
 import { publishMessage } from '@/providers/hubble/publishMessage.js';
+import type { Account } from '@/providers/types/Account.js';
 import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { CastResponse } from '@/providers/types/Hubble.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -28,6 +29,7 @@ import {
     type Profile,
     type ProfileBadge,
     type ProfileEditable,
+    type ProfileForSignup,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -506,6 +508,10 @@ class HubbleSocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async createAccount(profile: ProfileForSignup): Promise<Account> {
         throw new NotImplementedError();
     }
 }

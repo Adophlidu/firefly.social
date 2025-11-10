@@ -10,9 +10,11 @@ import { UserRejectedRequestError } from 'viem';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { SignupEntry } from '@/components/Profile/SignupEntry.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
-import { FarcasterSignType, FarcasterSignType as SignType, Source } from '@/constants/enum.js';
+import { FarcasterSignType, FarcasterSignType as SignType, Source, STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import {
     AbortError,
     FarcasterPatchSignerError,
@@ -31,6 +33,7 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
+import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';
 import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -153,6 +156,8 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
         countStop: 0,
         isIncrement: false,
     });
+
+    const { data: canBindMoreAccount } = useCanBindMoreAccount(Source.Farcaster);
 
     const [{ loading: loadingByGrantPermission }, onLoginByGrantPermission] = useAsyncFn(async () => {
         controller.current.renew();
@@ -388,12 +393,19 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     >
                                         <Trans>Already signed in before?</Trans>
                                     </button>
-                                ) : signType === SignType.RelayService ? (
+                                ) : signType === SignType.RelayService &&
+                                  canBindMoreAccount &&
+                                  env.external.NEXT_PUBLIC_FARCASTER_SIGNUP === STATUS.Enabled ? (
                                     <Trans>
-                                        <LoginFarcasterWithWalletButton>Connect wallet</LoginFarcasterWithWalletButton>{' '}
-                                        to sign in
-                                        <br />
-                                        if you registered your Farcaster account on Firefly
+                                        No Farcaster account?{' '}
+                                        <SignupEntry
+                                            className="text-highlight"
+                                            source={Source.Farcaster}
+                                            onClick={() => LoginModalRef.close()}
+                                        >
+                                            Sign up
+                                        </SignupEntry>{' '}
+                                        on Firefly
                                     </Trans>
                                 ) : null}
                             </div>

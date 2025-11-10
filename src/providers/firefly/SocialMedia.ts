@@ -48,6 +48,7 @@ import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import { getProposals } from '@/providers/snapshot/getProposals.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
+import type { Account } from '@/providers/types/Account.js';
 import type { BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
 import {
     type BlockChannelResponse,
@@ -94,6 +95,7 @@ import {
     type Profile,
     type ProfileBadge,
     type ProfileEditable,
+    type ProfileForSignup,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -1256,6 +1258,10 @@ class FireflySocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async createAccount(profile: ProfileForSignup): Promise<Account> {
         throw new NotImplementedError();
     }
 }

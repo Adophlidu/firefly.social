@@ -29,6 +29,7 @@ import { NitterAPIProvider } from '@/providers/twitter/Nitter.js';
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
+import type { Account } from '@/providers/types/Account.js';
 import type { NotificationSettings } from '@/providers/types/Firefly.js';
 import { type Pagination, type Tweet, UserTimelineTab } from '@/providers/types/Nitter.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -40,6 +41,7 @@ import {
     type Profile,
     type ProfileBadge,
     type ProfileEditable,
+    type ProfileForSignup,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -527,6 +529,10 @@ class NitterSocialMedia implements Provider {
             return withFullStatusTweetWithPagination(timeline, pagination, indicator);
         });
         return pageable ?? createPageable(EMPTY_LIST, createIndicator(indicator));
+    }
+
+    async createAccount(profile: ProfileForSignup): Promise<Account> {
+        throw new NotImplementedError();
     }
 }
 

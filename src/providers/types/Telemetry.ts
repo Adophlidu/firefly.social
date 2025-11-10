@@ -169,6 +169,8 @@ export enum EventId {
     FARCASTER_PROFILE_UNFOLLOW_SUCCESS = 'farcaster_unfollow_success', // ✅
     FARCASTER_PROFILE_SUPER_FOLLOW_SUBMIT = 'farcaster_superfollow_submit', // ✅
     FARCASTER_PROFILE_SUPER_FOLLOW_SUCCESS = 'farcaster_superfollow_success', // ✅
+    FARCASTER_SIGNUP_ENTRY_CLICK = 'farcaster_sign_up_click',
+    FARCASTER_ACCOUNT_CREATE_SUCCESS = 'farcaster_sign_up_success',
 
     // lens
     LENS_ACCOUNT_LOG_IN_SUCCESS = 'lens_log_in_success', // ✅
@@ -191,6 +193,8 @@ export enum EventId {
     LENS_PROFILE_UNFOLLOW_SUCCESS = 'lens_unfollow_success', // ✅
     LENS_PROFILE_SUPER_FOLLOW_SUBMIT = 'lens_superfollow_submit', // ✅
     LENS_PROFILE_SUPER_FOLLOW_SUCCESS = 'lens_superfollow_success', // ✅
+    LENS_SIGNUP_ENTRY_CLICK = 'lens_sign_up_click',
+    LENS_ACCOUNT_CREATE_SUCCESS = 'lens_sign_up_success',
 
     // x
     X_ACCOUNT_LOG_IN_SUCCESS = 'x_log_in_success', // ✅
@@ -1035,6 +1039,13 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: FarcasterEventParameters & WalletEventParameters;
     };
+    [EventId.FARCASTER_ACCOUNT_CREATE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            farcaster_handle: string;
+            farcaster_id: string;
+        };
+    };
 
     // ----------------
     // lens
@@ -1134,6 +1145,13 @@ export interface Events extends Record<EventId, Event> {
     [EventId.LENS_PROFILE_SUPER_FOLLOW_SUCCESS]: {
         type: EventType.Interact;
         parameters: LensEventParameters & WalletEventParameters;
+    };
+    [EventId.LENS_ACCOUNT_CREATE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            lens_id: string;
+            lens_handle: string;
+        };
     };
 
     // ----------------
