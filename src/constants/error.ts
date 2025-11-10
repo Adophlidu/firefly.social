@@ -316,6 +316,10 @@ export class WalletAddressMismatchError extends Error {
     }
 }
 
+export class WalletNotConnectedError extends Error {
+    override name = 'WalletNotConnectedError';
+}
+
 export class ChainConfigMismatchError extends Error {
     override name = 'ChainConfigMismatchError';
 

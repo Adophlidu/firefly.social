@@ -7,13 +7,10 @@ import type { Provider } from '@reown/appkit-adapter-solana';
 
 import { PrivySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { NetworkType } from '@/constants/enum.js';
+import { WalletNotConnectedError } from '@/constants/error.js';
 import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
-
-export class WalletNotConnectedError extends Error {
-    override name = 'WalletNotConnectedError';
-}
 
 function getAppkitWalletAdapter() {
     if (!('solana' in ProviderUtil.state.providers)) throw new WalletNotConnectedError();

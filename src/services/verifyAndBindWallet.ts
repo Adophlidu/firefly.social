@@ -4,10 +4,11 @@ import { type Address } from 'viem';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { ClickOrigin, NetworkType } from '@/constants/enum.js';
+import { WalletNotConnectedError } from '@/constants/error.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { getMessageToSignForBindWallet } from '@/providers/firefly/endpoint/getMessageToSignForBindWallet.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
-import { getWalletAdaptorRequired, WalletNotConnectedError } from '@/providers/solana/getWalletAdapter.js';
+import { getWalletAdaptorRequired } from '@/providers/solana/getWalletAdapter.js';
 
 export async function verifyAndBindWallet(network: NetworkType, checkExistedConnection?: (address: string) => boolean) {
     switch (network) {
