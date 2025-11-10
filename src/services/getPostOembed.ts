@@ -41,6 +41,7 @@ export async function getPostOembed(url: string, post?: Pick<Post, 'quoteOn'>): 
     if (env.external.NEXT_PUBLIC_OPENGRAPH !== STATUS.Enabled) return null;
     if (post?.quoteOn) return null;
     if (!url || !isValidPostLink(url)) return null;
+
     const response = await fetchJson<ResponseJson<LinkDigested>>(
         urlcat(FIREFLY_WORKER_HOST, '/oembed', {
             link: url,
