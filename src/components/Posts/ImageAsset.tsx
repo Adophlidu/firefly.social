@@ -1,4 +1,5 @@
 'use client';
+
 import { memo, type SyntheticEvent, useCallback, useState } from 'react';
 
 import { Image, type ImageProps } from '@/components/Image.js';

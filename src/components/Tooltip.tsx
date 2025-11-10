@@ -2,14 +2,15 @@ import '@/assets/css/tippy.css';
 
 import { classNames } from '@dimensiondev/utils';
 import type { TippyProps } from '@tippyjs/react';
-import { memo, type ReactNode } from 'react';
+import { memo, type ReactElement, type ReactNode } from 'react';
 
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { Tippy } from '@/esm/Tippy.js';
 
-interface TooltipProps extends TippyProps {
+interface TooltipProps extends Omit<TippyProps, 'children'> {
     content: ReactNode;
     withDelay?: boolean;
+    children: ReactElement;
 }
 
 export const Tooltip = memo<TooltipProps>(function Tooltip({
