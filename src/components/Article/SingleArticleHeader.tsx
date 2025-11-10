@@ -9,10 +9,11 @@ import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { getArticleAuthorTarget, getArticleAuthorUrl } from '@/helpers/getArticleAuthorUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
-import { type Article } from '@/providers/types/Article.js';
+import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 interface SingleArticleHeaderProps {
     article: Article;
@@ -29,7 +30,12 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
     const target = getArticleAuthorTarget(article);
 
     const Icon = !isBookmark ? resolveArticlePlatformIcon(article.platform) : null;
-    const { data: ens } = useEnsName(article.author.id, !article.author.handle);
+    const isMattersArticle = article.platform === ArticlePlatform.Matters;
+    const address =
+        isMattersArticle && isValidAddressEthereum(article.author.info.ethAddress)
+            ? article.author.info.ethAddress
+            : article.author.id;
+    const { data: ens } = useEnsName(address, !article.author.handle);
 
     const avatarProps = {
         className: 'size-10',
@@ -52,7 +58,7 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
             <ActivityCellHeader
                 className="w-full"
                 address={article.author.id}
-                displayName={article.author.handle || ens}
+                displayName={ens || article.author.handle}
                 time={!isBookmark ? article.timestamp : undefined}
                 icon={Icon ? <Icon width={15} height={15} /> : null}
                 username={article.author.username}
