@@ -2,15 +2,72 @@ import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { MATTERS_ARTICLE_URL } from '@/constants/matters.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { parseParagraphHtml } from '@/helpers/parseParagraphHtml.js';
 import { type Article, ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import { type Article as FireflyArticle } from '@/providers/types/Firefly.js';
 import { WatchType } from '@/providers/types/Firefly.js';
 
+function resolveArticleAuthor(article: FireflyArticle): Article['author'] {
+    const isMattersArticle = article.platform === ArticlePlatform.Matters;
+    let handle: string = article.displayInfo.ensHandle || '';
+    let userName: string = '';
+    let displayName: string = '';
+    let info = { ethAddress: '' };
+    const authorId = article.owner;
+    if (article.authorship) {
+        if ('contributor' in article.authorship) {
+            const formattedContributor = formatAddress(article.authorship.contributor, 4);
+            handle = formattedContributor;
+            userName = formattedContributor;
+            displayName = formattedContributor;
+            info = { ethAddress: article.authorship.contributor };
+        } else {
+            handle =
+                (isMattersArticle ? article.authorship?.displayName : article.displayInfo.ensHandle) ||
+                article.authorship?.displayName ||
+                article.authorship?.userName ||
+                'NaN';
+            userName = article.authorship.userName || '';
+            displayName = article.authorship.displayName || '';
+            info = article.authorship.info;
+        }
+    } else if (article.platform === ArticlePlatform.Paragraph) {
+        const match = article.author.match(/https:\/\/paragraph.com\/@(.*)/);
+        const paragraphAuthorHandle = match ? match[1] : '';
+        if (paragraphAuthorHandle) {
+            handle = paragraphAuthorHandle;
+            userName = paragraphAuthorHandle;
+            displayName = paragraphAuthorHandle;
+            info = { ethAddress: authorId };
+        } else if ('paragraph_raw_data' in article) {
+            const paragraphAuthor = first(article.paragraph_raw_data?.contributors);
+            if (paragraphAuthor) {
+                handle = paragraphAuthor;
+                userName = paragraphAuthor;
+                displayName = paragraphAuthor;
+                info = { ethAddress: authorId };
+            }
+        }
+    }
+    return {
+        handle,
+        avatar: article.displayInfo.avatarUrl,
+        id: authorId,
+        isFollowing: article.followingSources.some(
+            (x) => x.type === WatchType.Wallet && isSameEthereumAddress(x.walletAddress, authorId),
+        ),
+        /** Article in timeline are all not muted */
+        isMuted: false,
+        username: userName,
+        displayName,
+        info,
+    };
+}
+
 export function formatArticleFromFirefly(article: FireflyArticle): Article {
     const isMattersArticle = article.platform === ArticlePlatform.Matters;
-    const authorId = article.owner;
     return {
         platform: article.platform,
         type: article.platform === ArticlePlatform.Limo ? ArticleType.Post : article.type,
@@ -22,19 +79,7 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
                   article.paragraph_raw_data.staticHtml)
                 : article.content.body,
         title: article.content.title,
-        author: {
-            handle: (isMattersArticle ? article.authorship?.displayName : article.displayInfo.ensHandle) || 'NaN',
-            avatar: article.displayInfo.avatarUrl,
-            id: authorId,
-            isFollowing: article.followingSources.some(
-                (x) => x.type === WatchType.Wallet && isSameEthereumAddress(x.walletAddress, authorId),
-            ),
-            /** Article in timeline are all not muted */
-            isMuted: false,
-            username: article.authorship?.userName || '',
-            displayName: article.authorship?.displayName || '',
-            info: article.authorship?.info || { ethAddress: '' },
-        },
+        author: resolveArticleAuthor(article),
         origin: isMattersArticle
             ? urlcat(MATTERS_ARTICLE_URL, { shortHash: article.article_id })
             : first(article.related_urls),

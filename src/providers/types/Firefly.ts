@@ -228,6 +228,17 @@ export interface ChannelBrief {
     hostFids?: number[];
 }
 
+interface MirrorArticleAuthorship {
+    contributor: string;
+    signingKey: string;
+    signature: string;
+    signingKeySignature: string;
+    signingKeyMessage: string;
+    algorithm: {
+        name: string;
+        hash: string;
+    };
+}
 export interface Article {
     timestamp: string;
     hash: string;
@@ -241,15 +252,18 @@ export interface Article {
     };
     author: string;
     displayInfo: FireflyDisplayInfo;
-    authorship: {
-        id: string;
-        avatar: string;
-        userName: string;
-        displayName: string;
-        info: {
-            ethAddress: string;
-        };
-    } | null;
+    authorship:
+        | {
+              id: string;
+              avatar: string;
+              userName: string;
+              displayName: string;
+              info: {
+                  ethAddress: string;
+              };
+          }
+        | MirrorArticleAuthorship
+        | null;
     related_urls: string[];
     article_id: string;
     cover_img_url: string | null;
@@ -259,6 +273,7 @@ export interface Article {
         slug: string;
         staticHtml: string;
         json: string;
+        contributors: string[];
     };
 }
 
