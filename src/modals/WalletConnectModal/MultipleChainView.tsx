@@ -75,7 +75,7 @@ export default memo(function MultipleChainView() {
                     return (
                         <ClickableButton
                             disabled={loading}
-                            className="flex items-center gap-3 rounded bg-lightBg py-[7px] pl-2 pr-4 hover:bg-second"
+                            className="flex items-center gap-3 rounded bg-lightBg py-[7px] pl-2 pr-4 hover:bg-highlight/20"
                             key={connector.chain}
                             onClick={() => {
                                 onConnect(connector);
