@@ -146,6 +146,20 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                 ...(retweetedTweet?.entities?.urls ?? []),
             ];
             if (entities.length) entitiesUrls = entities;
+            // Update mentions from retweeted tweet for proper highlighting
+            const retweetedMentions =
+                retweetedTweet?.note_tweet?.entities?.mentions ?? retweetedTweet?.entities?.mentions;
+            if (retweetedMentions) {
+                ret.mentions = retweetedMentions.map((mention) => {
+                    return {
+                        ...createDummyProfile(Source.Twitter),
+                        profileId: mention.id,
+                        displayName: mention.username,
+                        handle: mention.username,
+                        fullHandle: mention.username,
+                    };
+                });
+            }
         }
         const mention = mentions?.sort((a, b) => a.start - b.start)?.[0];
         if (mention) {
