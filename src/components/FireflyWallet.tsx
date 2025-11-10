@@ -46,47 +46,56 @@ export function FireflyWallet() {
 
     return (
         <>
-            <div
-                className={classNames(
-                    'fixed bottom-4 right-4 z-50 size-[calc(100%-32px)] max-h-[600px] max-w-[390px] origin-bottom-right overflow-hidden rounded-xl bg-primaryBottom bg-bottom pt-14 text-main shadow-lg duration-300',
-                    {
-                        'scale-0 opacity-0': !isOpen,
-                    },
-                )}
-            >
-                <div className="absolute left-0 top-0 flex h-14 w-full items-center justify-between whitespace-nowrap bg-lightBg px-5">
-                    {isOpen ? (
-                        <>
-                            <div className="flex items-center text-medium font-medium">
-                                <WalletIcon width={24} height={24} className="mr-2" />
-                                <Trans>Wallet</Trans>
-                            </div>
-                            <button
-                                className="flex size-8 cursor-pointer items-center justify-center rounded-full bg-bg"
-                                onClick={() => useGlobalState.getState().updateFireflyWalletIsOpen(false)}
-                            >
-                                <ArrowLineDownIcon width={20} height={20} />
-                            </button>
-                        </>
-                    ) : null}
+            <div className="fixed bottom-0 left-1/2 z-50 h-0 w-full max-w-[1265px] -translate-x-1/2">
+                <div
+                    className={classNames(
+                        'absolute bottom-0 right-4 z-50 size-[calc(100%-32px)] h-[600px] max-w-[384px] origin-bottom-right overflow-hidden rounded-xl bg-primaryBottom bg-bottom pt-14 text-main shadow-lg duration-300 lg:right-0',
+                        isOpen ? '-translate-y-4' : 'translate-y-[calc(100%-56px)] max-lg:scale-0 max-lg:opacity-0',
+                    )}
+                >
+                    <div
+                        className="absolute left-0 top-0 flex h-14 w-full items-center justify-between whitespace-nowrap bg-lightBg px-5"
+                        onClick={() => {
+                            if (!isOpen) {
+                                useGlobalState.getState().updateFireflyWalletIsOpen(true);
+                            }
+                        }}
+                    >
+                        <div className="flex items-center text-medium font-medium">
+                            <WalletIcon width={24} height={24} className="mr-2" />
+                            <Trans>Wallet</Trans>
+                        </div>
+                        <button
+                            className="flex size-8 cursor-pointer items-center justify-center rounded-full bg-bg"
+                            onClick={() => useGlobalState.getState().updateFireflyWalletIsOpen(false)}
+                        >
+                            <ArrowLineDownIcon
+                                width={20}
+                                height={20}
+                                className={classNames({
+                                    'rotate-180': !isOpen,
+                                })}
+                            />
+                        </button>
+                    </div>
+                    <iframe
+                        id={FIREFLY_WALLET_IFRAME_ID}
+                        src={'/wallet-iframe'}
+                        className={classNames('size-full duration-100', {
+                            'opacity-0': !isOpen,
+                        })}
+                    />
                 </div>
-                <iframe
-                    id={FIREFLY_WALLET_IFRAME_ID}
-                    src={'/wallet-iframe'}
-                    className={classNames('size-full duration-100', {
-                        'opacity-0': !isOpen,
-                    })}
-                />
+                <button
+                    className={classNames(
+                        'absolute bottom-4 right-4 z-50 flex size-12 origin-bottom-right items-center justify-center rounded-2xl bg-lightBg text-main shadow-lg duration-150 lg:right-0 lg:hidden',
+                        isOpen ? 'pointer-events-none scale-[3] opacity-0' : 'cursor-pointer',
+                    )}
+                    onClick={() => useGlobalState.getState().updateFireflyWalletIsOpen(true)}
+                >
+                    <WalletIcon />
+                </button>
             </div>
-            <button
-                className={classNames(
-                    'fixed bottom-4 right-4 z-50 flex size-12 origin-bottom-right items-center justify-center rounded-2xl bg-lightBg text-main shadow-lg duration-150',
-                    isOpen ? 'pointer-events-none scale-[3] opacity-0' : 'cursor-pointer',
-                )}
-                onClick={() => useGlobalState.getState().updateFireflyWalletIsOpen(true)}
-            >
-                <WalletIcon />
-            </button>
         </>
     );
 }
