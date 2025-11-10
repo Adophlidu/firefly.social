@@ -13,7 +13,7 @@ import { EmbedLinkCard, LinkCardIndicator } from '@/components/EmbedCards/LinkCa
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { useClassifyPostLinks } from '@/hooks/useClassifyPostLink.js';
-import { useResolveEnsDomains } from '@/hooks/useResolveEnsDomains.js';
+import { useEnsAddresses } from '@/hooks/useEnsAddress.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -152,7 +152,7 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
     );
 
     const { data: classifyResults = EMPTY_LIST } = useClassifyPostLinks(links);
-    const domainResolveResults = useResolveEnsDomains(domains);
+    const domainResolveResults = useEnsAddresses(domains);
 
     // Merge links, addresses and domains
     const embeds = useMemo(() => {
