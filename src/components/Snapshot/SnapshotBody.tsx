@@ -7,8 +7,7 @@ import { isArray, isEqual, isNumber, isObject, isUndefined, last, sum, values } 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
-import type { Hex } from 'viem';
-import { useAccount, useEnsName } from 'wagmi';
+import { useAccount } from 'wagmi';
 
 import SnapshotIcon from '@/assets/snapshot.svg';
 import { Avatar } from '@/components/Avatar.js';
@@ -32,6 +31,7 @@ import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { getProposalLink } from '@/providers/snapshot/getProposalLink.js';
@@ -69,7 +69,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
         },
     ] as const;
 
-    const ensHandle = useEnsName({ address: author as Hex });
+    const ensHandle = useEnsName(author);
 
     const state =
         snapshot.state === SnapshotState.Closed

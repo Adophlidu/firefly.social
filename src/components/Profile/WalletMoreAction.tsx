@@ -6,7 +6,6 @@ import { t } from '@lingui/core/macro';
 import { compact, sum } from 'lodash-es';
 import { memo } from 'react';
 import type { Address } from 'viem';
-import { useEnsName } from 'wagmi';
 
 import MoreIcon from '@/assets/more-fill.svg';
 import { MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
@@ -17,6 +16,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useFireflyProfileByIdentity } from '@/hooks/useFireflyProfileByIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
@@ -30,7 +30,7 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 }
 
 export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ profile, className, buttonClassName }) {
-    const { data: ens } = useEnsName({ address: profile.address });
+    const { data: ens } = useEnsName(profile.address);
     const { data: isMuted } = useIsWalletMuted(profile.address);
 
     const identity = useFireflyIdentity(Source.Wallet, profile.address);

@@ -22,7 +22,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveNamespace } from '@/helpers/resolveNamespace.js';
-import { useEnsNameCached } from '@/hooks/useEnsNameCached.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
 import { usePrivyConnections } from '@/hooks/usePrivyConnections.js';
 import { ConnectionSource, useWalletConnections } from '@/hooks/useWalletConnections.js';
@@ -71,7 +71,7 @@ function ConnectedItem({
     ...rest
 }: ConnectedItemProps) {
     const { switchAccountAsync } = useSwitchAccount();
-    const { data: ensName } = useEnsNameCached(address, undefined, namespace === 'eip155');
+    const { data: ensName } = useEnsName(address, namespace === 'eip155');
     const setActiveNetwork = useSolanaActiveNetworkStore((s) => s.setActiveNetwork);
 
     const Icon = IconMap[namespace] || WalletIcon;

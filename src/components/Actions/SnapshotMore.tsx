@@ -2,7 +2,6 @@ import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
-import { useEnsName } from 'wagmi';
 
 import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
@@ -17,6 +16,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useToggleSnapshotBookmark } from '@/hooks/useToggleSnapshotBookmark.js';
@@ -34,7 +34,7 @@ export const SnapshotMoreAction = memo<MoreProps>(function SnapshotMoreAction({ 
     const identity = useFireflyIdentity(Source.Wallet, author.id);
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
-    const { data: ens } = useEnsName({ address: author.id });
+    const { data: ens } = useEnsName(author.id);
     const handleOrEnsOrAddress = author.handle || ens || formatAddress(author.id, 4);
 
     return (

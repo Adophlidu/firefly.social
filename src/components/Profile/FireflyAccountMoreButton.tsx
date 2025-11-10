@@ -2,7 +2,6 @@
 
 import { Menu, MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { useEnsName } from 'wagmi';
 
 import MoreIcon from '@/assets/more.svg';
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
@@ -10,6 +9,7 @@ import { MuteAllByProfile, MuteAllByWallet } from '@/components/Actions/MuteAllP
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
@@ -24,7 +24,7 @@ interface Props {
 function MuteAllByWalletProfileMenuItem({ profile }: { profile: WalletProfile }) {
     const identity = useFireflyIdentity(Source.Wallet, profile.address);
     const isMyWallet = useIsMyRelatedProfile(identity.source, identity.id);
-    const { data: ens } = useEnsName({ address: profile.address });
+    const { data: ens } = useEnsName(profile.address);
     if (isMyWallet) return null;
     const ensOrAddress = profile.primary_ens || ens || formatAddress(profile.address, 4);
     return (

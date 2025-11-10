@@ -2,7 +2,6 @@ import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
 import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
-import { useEnsName } from 'wagmi';
 
 import MuteIcon from '@/assets/mute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
@@ -16,6 +15,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
@@ -118,7 +118,7 @@ export const MuteAllByWallet = memo<{
     className?: MuteAllProfileBaseProps['className'];
 }>(function MuteAllByWallet({ address, handle, onClose, className }) {
     const identity = useFireflyIdentity(Source.Wallet, address);
-    const { data: ens } = useEnsName({ address });
+    const { data: ens } = useEnsName(address);
 
     return (
         <MuteAllProfileBase

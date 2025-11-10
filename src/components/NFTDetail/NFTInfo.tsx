@@ -2,8 +2,6 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import type { Hex } from 'viem';
-import { useEnsName } from 'wagmi';
 
 import CalendarIcon from '@/assets/calendar.svg';
 import LocationIcon from '@/assets/location.svg';
@@ -24,11 +22,11 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { useCollectionMarketInfo } from '@/hooks/useCollectionMarketInfo.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import type { NonFungibleTokenTrait } from '@/web3-shared/base/specs.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface NFTInfoProps {
     ownerAddress?: string;
@@ -70,10 +68,7 @@ export function NFTInfo(props: NFTInfoProps) {
         platformLogo,
     } = props;
     const isMedium = useIsMedium();
-    const { data: ensName } = useEnsName({
-        chainId: EthereumChainId.Mainnet,
-        address: ownerAddress as Hex,
-    });
+    const { data: ensName } = useEnsName(ownerAddress);
     const { data: marketInfo } = useCollectionMarketInfo(chainId, contractAddress);
 
     const collectionUrl = contractAddress ? resolveNFTUrl(chainId, contractAddress) : '';

@@ -3,7 +3,6 @@
 import { classNames } from '@dimensiondev/utils';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 import type { Hex } from 'viem';
-import { useEnsName } from 'wagmi';
 
 import PoapIcon from '@/assets/poap.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
@@ -18,6 +17,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { usePoapsByWallet } from '@/hooks/nft/usePoapsByWallet.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
 import type { Poap } from '@/providers/types/NFTs.js';
@@ -36,7 +36,7 @@ function GridItem({ children, ...props }: GridItemProps) {
 }
 
 function Owner({ address }: { address: Hex }) {
-    const { data: ensName } = useEnsName({ address, chainId: EthereumChainId.Mainnet });
+    const { data: ensName } = useEnsName(address);
     return (
         <Link
             href={getProfileUrl({ source: Source.Wallet, profileId: address })}

@@ -19,7 +19,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
-import { useEnsNameCached } from '@/hooks/useEnsNameCached.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
@@ -53,7 +53,7 @@ export function WalletBaseMoreAction({
     const identity = useFireflyIdentity(Source.Wallet, address);
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
-    const { data: ensFromQuery } = useEnsNameCached(address, undefined, autoQueryEns);
+    const { data: ensFromQuery } = useEnsName(address, autoQueryEns);
 
     const ens = originalEns || ensFromQuery;
     const ensOrAddress = ens || formatAddress(address, 4);

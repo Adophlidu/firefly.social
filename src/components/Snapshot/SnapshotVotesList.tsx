@@ -2,8 +2,6 @@ import { classNames } from '@dimensiondev/utils';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useCallback, useMemo, useRef } from 'react';
 import urlcat from 'urlcat';
-import type { Hex } from 'viem';
-import { useEnsName } from 'wagmi';
 
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
@@ -18,9 +16,9 @@ import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import { getVotesById } from '@/providers/snapshot/getVotesById.js';
 import type { SnapshotVote } from '@/providers/snapshot/type.js';
-import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 interface SnapshotVotesListItemProps {
     vote: SnapshotVote;
@@ -32,7 +30,7 @@ const SnapshotVotesListItem = memo<SnapshotVotesListItemProps>(function Snapshot
         source: SourceInURL.Wallet,
     });
 
-    const { data: ens } = useEnsName({ address: vote.voter as Hex, chainId: EthereumChainId.Mainnet });
+    const { data: ens } = useEnsName(vote.voter);
 
     const choiceLabel = formatSnapshotChoice(vote.choice, vote.proposal.type, vote.proposal.choices);
 

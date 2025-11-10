@@ -10,9 +10,6 @@ import {
     useMemo,
     useState,
 } from 'react';
-import type { Address } from 'viem';
-import { mainnet } from 'viem/chains';
-import { useEnsName } from 'wagmi';
 import { switchChain } from 'wagmi/actions';
 
 import WalletIcon from '@/assets/wallet2.svg';
@@ -26,6 +23,7 @@ import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
@@ -178,7 +176,7 @@ function getNativeTokenWithSwitch(networkType: NetworkType, chainId?: number) {
 export function RedPacketProvider({ children }: PropsWithChildren) {
     const { ethereum, solana } = useWalletAccountAll();
 
-    const { data: ensName } = useEnsName({ address: ethereum.address as Address, chainId: mainnet.id });
+    const { data: ensName } = useEnsName(ethereum.address);
     const allProfile = useProfileStoreAll();
     const [message, setMessage] = useState('');
     const [shares, setShares] = useState<number>(RED_PACKET_DEFAULT_SHARES);

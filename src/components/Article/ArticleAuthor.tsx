@@ -1,5 +1,3 @@
-import { useEnsName } from 'wagmi';
-
 import { Avatar } from '@/components/Avatar.js';
 import { ConditionalLink } from '@/components/ConditionalLink.js';
 import { Time } from '@/components/Semantic/Time.js';
@@ -7,6 +5,7 @@ import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getArticleAuthorTarget, getArticleAuthorUrl } from '@/helpers/getArticleAuthorUrl.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import { type Article } from '@/providers/types/Article.js';
 
 interface Props {
@@ -14,7 +13,7 @@ interface Props {
 }
 
 export function ArticleAuthor({ article }: Props) {
-    const { data: ens } = useEnsName({ address: article.author.id, query: { enabled: !article.author.handle } });
+    const { data: ens } = useEnsName(article.author.id, !article.author.handle);
     const Icon = resolveArticlePlatformIcon(article.platform);
 
     const authorUrl = getArticleAuthorUrl(article);

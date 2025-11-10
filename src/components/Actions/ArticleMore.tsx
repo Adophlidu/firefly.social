@@ -2,7 +2,6 @@ import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
-import { useEnsName } from 'wagmi';
 
 import MoreIcon from '@/assets/more.svg';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
@@ -16,6 +15,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
@@ -38,7 +38,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
     const identity = useFireflyIdentity(Source.Wallet, address);
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
-    const { data: ens } = useEnsName({ address: address as `0x${string}` });
+    const { data: ens } = useEnsName(address);
 
     const handleOrEnsOrAddress = isMattersArticle
         ? formatAddress(author.info.ethAddress, 4)

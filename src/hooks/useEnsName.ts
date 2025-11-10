@@ -13,32 +13,27 @@ export async function fetchEnsName(parameters: GetEnsNameParameters) {
     const cacheKey = `${address}-${chainId}`;
 
     if (!runningQueries.has(cacheKey)) {
-        const promise = reverse(parameters.address);
-        runningQueries.set(cacheKey, promise);
-        promise.finally(() => {
-            runningQueries.delete(cacheKey);
-        });
+        runningQueries.set(
+            cacheKey,
+            reverse(parameters.address).finally(() => runningQueries.delete(cacheKey)),
+        );
     }
 
     return runningQueries.get(cacheKey)!;
 }
 
-export function useEnsNameCached(address?: string, parameters?: Omit<GetEnsNameParameters, 'address'>, enabled = true) {
-    const chainId = parameters?.chainId || mainnet.id;
-
+export function useEnsName(address?: string, enabled = true) {
     return useQuery({
-        queryKey: ['ensName', address, chainId],
+        queryKey: ['ensName', address],
         enabled: !!address && enabled,
         staleTime: Infinity,
         retry: 5, // Retry 5 times
         queryFn: !address
             ? skipToken
-            : async () => {
-                  return fetchEnsName({
-                      ...parameters,
+            : () =>
+                  fetchEnsName({
                       address: address as Address,
-                      chainId,
-                  });
-              },
+                      chainId: mainnet.id,
+                  }),
     });
 }

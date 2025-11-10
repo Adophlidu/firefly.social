@@ -1,12 +1,12 @@
 import { classNames } from '@dimensiondev/utils';
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { Fragment, type PropsWithChildren, type ReactNode } from 'react';
-import { useEnsName } from 'wagmi';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 
 function formatAccountName(account?: string) {
     if (!account) return account;
@@ -26,12 +26,7 @@ function ShareAccountsPopoverItem({
     onClick: (name: string) => void;
     disabled?: boolean;
 }) {
-    const { data: ensName } = useEnsName({
-        address: name as `0x${string}`,
-        query: {
-            enabled: isValidAddressEthereum(name),
-        },
-    });
+    const { data: ensName } = useEnsName(name, isValidAddressEthereum(name));
 
     return (
         <ClickableArea

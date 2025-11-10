@@ -13,7 +13,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { ClickOrigin, NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
-import { fetchEnsName } from '@/hooks/useEnsNameCached.js';
+import { fetchEnsName } from '@/hooks/useEnsName.js';
 import { MyWalletsModalRef } from '@/modals/MyWalletsModal/index.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';

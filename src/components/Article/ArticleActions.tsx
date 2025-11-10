@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 import urlcat from 'urlcat';
-import { useAccount, useEnsName } from 'wagmi';
+import { useAccount } from 'wagmi';
 
 import CollectIcon from '@/assets/collect.svg';
 import { Bookmark } from '@/components/Actions/Bookmark.js';
@@ -19,6 +19,7 @@ import { NetworkType, Source } from '@/constants/enum.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -42,7 +43,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
     const address = isMattersArticle ? oldArticle.author.info.ethAddress : oldArticle.author.id;
     const isAddress = isValidAddressEthereum(address);
     const identity = useFireflyIdentity(Source.Wallet, address);
-    const { data: ens } = useEnsName({ address: address as `0x${string}` });
+    const { data: ens } = useEnsName(address);
     const isMedium = useIsMedium();
     const url = urlcat(location.origin, getArticleUrl(oldArticle));
 

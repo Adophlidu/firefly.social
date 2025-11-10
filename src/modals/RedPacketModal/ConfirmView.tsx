@@ -4,7 +4,6 @@ import { BigNumber } from 'bignumber.js';
 import { compact, flatten } from 'lodash-es';
 import { memo, useCallback, useContext, useMemo, useRef } from 'react';
 import { useAsync, useAsyncFn } from 'react-use';
-import { useEnsName } from 'wagmi';
 
 import ArrowLeftIcon from '@/assets/arrow-circle-left.svg';
 import ArrowRightIcon from '@/assets/arrow-circle-right.svg';
@@ -26,6 +25,7 @@ import { formatCurrency } from '@/helpers/formatCurrency.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { multipliedBy, rightShift } from '@/helpers/number.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useSelectFiles } from '@/hooks/useSelectFiles.js';
@@ -89,12 +89,7 @@ export default memo(function ConfirmView() {
     } = useProfileStoreAll();
     const { data: tokenPrice = 0 } = useFungibleTokenPrice(token?.address, { chainId, networkType });
 
-    const { data: shareFromEnsName } = useEnsName({
-        address: shareFrom as `0x${string}`,
-        query: {
-            enabled: isEVM && isValidAddressEthereum(shareFrom),
-        },
-    });
+    const { data: shareFromEnsName } = useEnsName(shareFrom, isEVM && isValidAddressEthereum(shareFrom));
 
     const totalAmount = useMemo(
         () => (isRandom || !rawAmount ? rawAmount : multipliedBy(rawAmount, shares).toFixed()),

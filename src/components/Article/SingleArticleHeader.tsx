@@ -2,7 +2,6 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
-import { useEnsName } from 'wagmi';
 
 import { ArticleMoreAction } from '@/components/Actions/ArticleMore.js';
 import { ActivityCellHeader } from '@/components/ActivityCell/ActivityCellHeader.js';
@@ -12,6 +11,7 @@ import { getArticleAuthorTarget, getArticleAuthorUrl } from '@/helpers/getArticl
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import { type Article } from '@/providers/types/Article.js';
 
 interface SingleArticleHeaderProps {
@@ -29,7 +29,7 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
     const target = getArticleAuthorTarget(article);
 
     const Icon = !isBookmark ? resolveArticlePlatformIcon(article.platform) : null;
-    const { data: ens } = useEnsName({ address: article.author.id, query: { enabled: !article.author.handle } });
+    const { data: ens } = useEnsName(article.author.id, !article.author.handle);
 
     const avatarProps = {
         className: 'size-10',

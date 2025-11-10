@@ -2,7 +2,6 @@
 import { classNames } from '@dimensiondev/utils';
 import { memo } from 'react';
 import urlcat from 'urlcat';
-import { useEnsName } from 'wagmi';
 
 import SnapshotIcon from '@/assets/snapshot.svg';
 import { SnapshotMoreAction } from '@/components/Actions/SnapshotMore.js';
@@ -11,6 +10,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 
 interface SingleSnapshotHeaderProps {
@@ -24,7 +24,7 @@ export const SingleSnapshotHeader = memo<SingleSnapshotHeaderProps>(function Sin
         source: SourceInURL.Wallet,
     });
 
-    const { data: ens } = useEnsName({ address: data.author.id, query: { enabled: !data.author.handle } });
+    const { data: ens } = useEnsName(data.author.id, !data.author.handle);
 
     return (
         <header className={classNames('flex w-full items-start gap-3', className)}>
