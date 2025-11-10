@@ -12,6 +12,7 @@ import { memo, useEffect } from 'react';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import type { ProfileSource } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { useRouter } from '@/esm/navigation.js';
 import {
     enqueueErrorMessage,
     enqueueInfoMessage,
@@ -77,14 +78,40 @@ const allEvents: {
     [IframeBridgeMethod.FIREFLY_WALLET_AUTHORIZED]: async () => {
         useFireflyWalletStore.getState().setIsAuthorized(true);
     },
+    [IframeBridgeMethod.NAVIGATE]: async () => {
+        throw new NotImplementedError();
+    },
+    [IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY]: async () => {
+        throw new NotImplementedError();
+    },
+    [IframeBridgeMethod.FIREFLY_WALLET_SIGN_MESSAGE]: async () => {
+        throw new NotImplementedError();
+    },
 };
 
 export const IframeBridge = memo(function IframeBridge() {
+    const router = useRouter();
     useEffect(() => {
-        iframeBridgeProvider.onRequest((method, params) => allEvents[method](params));
+        iframeBridgeProvider.onRequest(
+            <T extends IframeBridgeMethod>(
+                method: T,
+                params: IframeBridgeRequestArguments[T],
+            ): Promise<IframeBridgeResponseResult[T]> => {
+                if (method === IframeBridgeMethod.NAVIGATE) {
+                    const p = params as IframeBridgeRequestArguments[IframeBridgeMethod.NAVIGATE];
+                    if (p.replace) {
+                        router.replace(p.path);
+                    } else {
+                        router.push(p.path);
+                    }
+                    return Promise.resolve(undefined) as Promise<IframeBridgeResponseResult[T]>;
+                }
+                return allEvents[method](params);
+            },
+        );
 
         return () => iframeBridgeProvider.destroy();
-    }, []);
+    }, [router]);
 
     return null;
 });

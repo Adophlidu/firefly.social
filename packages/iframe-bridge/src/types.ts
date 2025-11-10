@@ -7,11 +7,14 @@ export type Chars = string;
 export enum IframeBridgeMethod {
     COMPOSE = 'compose',
     LOGIN = 'login',
+    NAVIGATE = 'navigate',
     ENQUEUE_MESSAGE = 'enqueueMessage',
     DOWNLOAD_APP = 'downloadApp',
     FIREFLY_WALLET_EVM_RPC = 'evm_rpc',
     FIREFLY_WALLET_SOLANA_RPC = 'solana_rpc',
     FIREFLY_WALLET_AUTHORIZED = 'firefly_wallet_authorized',
+    FIREFLY_WALLET_VISIBILITY = 'firefly_wallet_visibility',
+    FIREFLY_WALLET_SIGN_MESSAGE = 'firefly_wallet_sign_message',
 }
 
 export interface IframeBridgeMessage {
@@ -45,6 +48,18 @@ export interface IframeBridgeRequestArguments {
     };
     [IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC]: SolanaRequestArgument;
     [IframeBridgeMethod.FIREFLY_WALLET_AUTHORIZED]: {};
+    [IframeBridgeMethod.NAVIGATE]: {
+        path: string;
+        replace?: boolean;
+    };
+    [IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY]: {
+        visible: boolean;
+    };
+    [IframeBridgeMethod.FIREFLY_WALLET_SIGN_MESSAGE]: {
+        chainId: string;
+        address: string;
+        message: string;
+    };
 }
 
 export interface IframeBridgeResponseResult {
@@ -55,4 +70,7 @@ export interface IframeBridgeResponseResult {
     [IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC]: EvmRpcResult;
     [IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC]: SolanaResponse;
     [IframeBridgeMethod.FIREFLY_WALLET_AUTHORIZED]: void;
+    [IframeBridgeMethod.NAVIGATE]: void;
+    [IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY]: void;
+    [IframeBridgeMethod.FIREFLY_WALLET_SIGN_MESSAGE]: string;
 }

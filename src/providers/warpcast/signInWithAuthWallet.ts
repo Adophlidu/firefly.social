@@ -1,11 +1,10 @@
+import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
 import { parseUrl } from '@dimensiondev/utils';
 import type { SignInOptions } from '@farcaster/miniapp-host';
 import { toHex } from 'viem';
 
-import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { SITE_URL } from '@/constants/index.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { createSiwfMessage } from '@/providers/warpcast/signInWithFarcaster.js';
 import type { FrameV2 } from '@/types/frame.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
@@ -34,12 +33,11 @@ export async function signInWithAuthWallet(
                 message,
             });
         } else {
-            const client = await getWalletClientRequired(wagmiConfig);
-            const signature = await client.signMessage({
+            return iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_SIGN_MESSAGE, {
+                chainId: toHex(EthereumChainId.Optimism),
+                address,
                 message,
-                account: address,
             });
-            return signature;
         }
     };
 

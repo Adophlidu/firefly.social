@@ -9,7 +9,13 @@ import {
     type IframeBridgeResponseResult,
 } from '@/types.js';
 
-const REQUEST_ONLY_METHODS = [IframeBridgeMethod.LOGIN, IframeBridgeMethod.COMPOSE, IframeBridgeMethod.ENQUEUE_MESSAGE];
+const REQUEST_ONLY_METHODS = [
+    IframeBridgeMethod.LOGIN,
+    IframeBridgeMethod.COMPOSE,
+    IframeBridgeMethod.ENQUEUE_MESSAGE,
+    IframeBridgeMethod.NAVIGATE,
+    IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY,
+];
 
 interface Payload {
     result?: unknown;
