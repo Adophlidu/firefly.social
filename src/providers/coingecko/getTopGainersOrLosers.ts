@@ -4,8 +4,8 @@ import { TrendingType } from '@/constants/enum.js';
 import { COINGECKO_ROOT_URL } from '@/constants/index.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatGainsOrLoser } from '@/providers/coingecko/formatGainsOrLoser.js';
+import type { TokenWithMarket } from '@/providers/firefly/worker/searchTokens.js';
 import type { CoinGeckoGainsLoserInfo } from '@/providers/types/CoinGecko.js';
-import type { TokenWithMarket } from '@/services/searchTokens.js';
 
 export async function getTopGainersOrLosers(
     type: TrendingType.TopGainers | TrendingType.TopLosers,

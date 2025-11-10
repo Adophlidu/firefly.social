@@ -7,8 +7,8 @@ import { useState } from 'react';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
+import { searchTokens, type TokenWithMarket } from '@/providers/firefly/worker/searchTokens.js';
 import { TokenPlatformType } from '@/providers/types/Firefly.js';
-import { searchTokens, type TokenWithMarket } from '@/services/searchTokens.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export function SearchTokenContent() {

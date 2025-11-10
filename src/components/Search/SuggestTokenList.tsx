@@ -8,8 +8,8 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
 import { SearchType } from '@/constants/enum.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
+import { searchTokens } from '@/providers/firefly/worker/searchTokens.js';
 import { TokenPlatformType } from '@/providers/types/Firefly.js';
-import { searchTokens } from '@/services/searchTokens.js';
 
 interface SuggestTokenListProps {
     query: string;

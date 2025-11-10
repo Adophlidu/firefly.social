@@ -14,8 +14,8 @@ import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidA
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { createTokenMetadata } from '@/providers/firefly/metadata/createTokenMetadata.js';
+import { searchToken } from '@/providers/firefly/worker/searchToken.js';
 import type { GetTokenOptions } from '@/providers/types/Firefly.js';
-import { searchToken } from '@/services/searchToken.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 const QueryOptionsSchema = z.object({

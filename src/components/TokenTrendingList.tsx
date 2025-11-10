@@ -9,7 +9,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { getTopGainersOrLosers } from '@/providers/coingecko/getTopGainersOrLosers.js';
 import { getTopMemeCoins } from '@/providers/coingecko/getTopMemeCoins.js';
 import { getTopTrendingCoins } from '@/providers/coingecko/getTopTrendingCoins.js';
-import type { TokenWithMarket } from '@/services/searchTokens.js';
+import type { TokenWithMarket } from '@/providers/firefly/worker/searchTokens.js';
 
 interface Props {
     type: TrendingType.TopGainers | TrendingType.TopLosers | TrendingType.Trending | TrendingType.Meme;

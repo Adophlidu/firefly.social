@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { searchToken } from '@/providers/firefly/worker/searchToken.js';
 import type { GetTokenOptions } from '@/providers/types/Firefly.js';
-import { searchToken } from '@/services/searchToken.js';
 
 export function useTokenInfo(options: GetTokenOptions, enabled = true) {
     return useQuery({

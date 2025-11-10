@@ -2,8 +2,8 @@ import urlcat from 'urlcat';
 
 import { COINGECKO_ROOT_URL } from '@/constants/index.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
+import type { TokenWithMarket } from '@/providers/firefly/worker/searchTokens.js';
 import type { CoinGeckoMemeCoinTrending } from '@/providers/types/CoinGecko.js';
-import type { TokenWithMarket } from '@/services/searchTokens.js';
 
 export async function getTopMemeCoins() {
     const response = await fetchJson<CoinGeckoMemeCoinTrending[]>(

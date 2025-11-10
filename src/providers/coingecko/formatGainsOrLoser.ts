@@ -1,5 +1,5 @@
+import type { TokenWithMarket } from '@/providers/firefly/worker/searchTokens.js';
 import type { CoinGeckoGainsLoserInfo } from '@/providers/types/CoinGecko.js';
-import type { TokenWithMarket } from '@/services/searchTokens.js';
 
 export function formatGainsOrLoser(info: CoinGeckoGainsLoserInfo): TokenWithMarket {
     return {
