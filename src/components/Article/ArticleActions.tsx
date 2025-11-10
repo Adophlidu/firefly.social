@@ -17,6 +17,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
@@ -37,11 +38,13 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
     const isLogin = useIsLoginFirefly();
     const account = useAccount();
     const mutation = useToggleArticleBookmark();
-    const identity = useFireflyIdentity(Source.Wallet, oldArticle.author.id);
-    const { data: ens } = useEnsName({ address: oldArticle.author.id });
+    const isMattersArticle = oldArticle.platform === ArticlePlatform.Matters;
+    const address = isMattersArticle ? oldArticle.author.info.ethAddress : oldArticle.author.id;
+    const isAddress = isValidAddressEthereum(address);
+    const identity = useFireflyIdentity(Source.Wallet, address);
+    const { data: ens } = useEnsName({ address: address as `0x${string}` });
     const isMedium = useIsMedium();
     const url = urlcat(location.origin, getArticleUrl(oldArticle));
-    const isMattersArticle = oldArticle.platform === ArticlePlatform.Matters;
 
     const { data, isLoading } = useQuery({
         queryKey: ['article-detail', oldArticle.id],
@@ -96,7 +99,9 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                     hasBookmarked={article.hasBookmarked}
                     onClick={() => mutation.mutate(article)}
                 />
-                <Tips identity={identity} handle={article.author.handle || ens} onClick={close} pureWallet />
+                {isAddress ? (
+                    <Tips identity={identity} handle={article.author.handle || ens} onClick={close} pureWallet />
+                ) : null}
                 {url ? (
                     <ShareAction link={url} onClick={() => captureArticleShareClickEvent(article.id, identity.id)} />
                 ) : null}

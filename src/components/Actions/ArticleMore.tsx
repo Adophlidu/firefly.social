@@ -30,19 +30,19 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
     const author = article.author;
     const isBusy = mutation.isPending;
 
-    const identity = useFireflyIdentity(Source.Wallet, author.id);
+    const isMattersArticle = article.platform === ArticlePlatform.Matters;
+    const address =
+        isMattersArticle && isValidAddressEthereum(author.info.ethAddress) ? author.info.ethAddress : author.id;
+    const isAddress = address ? isValidAddressEthereum(address) : false;
+
+    const identity = useFireflyIdentity(Source.Wallet, address);
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
-    const { data: ens } = useEnsName({ address: author.id });
-    const isMattersArticle = article.platform === ArticlePlatform.Matters;
-
-    const isAddress = isMattersArticle ? isValidAddressEthereum(author.info.ethAddress) : true;
+    const { data: ens } = useEnsName({ address: address as `0x${string}` });
 
     const handleOrEnsOrAddress = isMattersArticle
         ? formatAddress(author.info.ethAddress, 4)
         : author.handle || ens || formatAddress(author.id, 4);
-    const address =
-        isMattersArticle && isValidAddressEthereum(author.info.ethAddress) ? author.info.ethAddress : author.id;
 
     return (
         <MoreActionMenu
