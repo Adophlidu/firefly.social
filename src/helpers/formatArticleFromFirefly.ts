@@ -12,8 +12,8 @@ import { WatchType } from '@/providers/types/Firefly.js';
 function resolveArticleAuthor(article: FireflyArticle): Article['author'] {
     const isMattersArticle = article.platform === ArticlePlatform.Matters;
     let handle: string = article.displayInfo.ensHandle || '';
-    let userName: string = '';
-    let displayName: string = '';
+    let userName: string = handle;
+    let displayName: string = handle;
     let info = { ethAddress: '' };
     const authorId = article.owner;
     if (article.authorship) {
@@ -33,7 +33,7 @@ function resolveArticleAuthor(article: FireflyArticle): Article['author'] {
             displayName = article.authorship.displayName || '';
             info = article.authorship.info;
         }
-    } else if (article.platform === ArticlePlatform.Paragraph) {
+    } else if (article.platform === ArticlePlatform.Paragraph && !handle) {
         const match = article.author.match(/https:\/\/paragraph.com\/@(.*)/);
         const paragraphAuthorHandle = match ? match[1] : '';
         if (paragraphAuthorHandle) {
