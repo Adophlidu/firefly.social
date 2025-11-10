@@ -49,12 +49,12 @@ export function FireflyWallet() {
             <div className="fixed bottom-0 left-1/2 z-50 h-0 w-full max-w-[1265px] -translate-x-1/2">
                 <div
                     className={classNames(
-                        'absolute bottom-0 right-4 z-50 size-[calc(100%-32px)] h-[600px] max-w-[384px] origin-bottom-right overflow-hidden rounded-xl bg-primaryBottom bg-bottom pt-14 text-main shadow-lg duration-300 lg:right-0',
+                        'absolute bottom-0 right-4 z-50 size-[calc(100%-32px)] h-[600px] max-w-[385px] origin-bottom-right overflow-hidden rounded-xl border border-line bg-primaryBottom bg-bottom pt-14 text-main shadow-lg duration-300 lg:right-0',
                         isOpen ? '-translate-y-4' : 'translate-y-[calc(100%-56px)] max-lg:scale-0 max-lg:opacity-0',
                     )}
                 >
                     <div
-                        className="absolute left-0 top-0 flex h-14 w-full items-center justify-between whitespace-nowrap bg-lightBg px-5"
+                        className="absolute left-0 top-0 flex h-14 w-full items-center justify-between whitespace-nowrap border-b border-b-line bg-lightBg px-5"
                         onClick={() => {
                             if (!isOpen) {
                                 useGlobalState.getState().updateFireflyWalletIsOpen(true);
