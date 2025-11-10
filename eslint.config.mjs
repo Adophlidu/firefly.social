@@ -1,5 +1,5 @@
-import nextPlugin from '@next/eslint-plugin-next';
-import importPlugin from 'eslint-plugin-import';
+import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js';
 import typescriptEslintEslintPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
@@ -9,8 +9,17 @@ import tailwindcss from 'eslint-plugin-tailwindcss';
 import unicorn from 'eslint-plugin-unicorn';
 import unusedImports from 'eslint-plugin-unused-imports';
 import { defineConfig, globalIgnores } from 'eslint/config';
-import reactHooks from 'eslint-plugin-react-hooks';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import renameJsx from './scripts/eslint-plugin-rename-jsx.mjs';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const compat = new FlatCompat({
+    baseDirectory: __dirname,
+    recommendedConfig: js.configs.recommended,
+    allConfig: js.configs.all,
+});
 
 export default defineConfig([
     globalIgnores([
@@ -34,12 +43,11 @@ export default defineConfig([
         'prebuilt',
     ]),
     {
+        extends: compat.extends('next/core-web-vitals'),
+
         plugins: {
-            '@next/next': nextPlugin,
             react,
-            'react-hooks': reactHooks,
             unicorn,
-            import: importPlugin,
             'no-relative-import-paths': noRelativeImportPaths,
             'simple-import-sort': simpleImportSort,
             tailwindcss: tailwindcss,
@@ -245,9 +253,6 @@ export default defineConfig([
                     additionalHooks: '(useAsync|useAsyncFn)\\b',
                 },
             ],
-
-            // Next.js core-web-vitals rules
-            ...nextPlugin.configs['core-web-vitals'].rules,
 
             // Tailwind CSS rules
             'tailwindcss/no-custom-classname': 'warn',

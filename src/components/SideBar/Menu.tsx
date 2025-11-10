@@ -119,7 +119,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                             isSelected={isSelected}
                                             collapsed={collapsed}
                                             menuName={item.name}
-                                            icon={Icon ? <Icon width={20} height={20} /> : <></>}
+                                            icon={Icon ? <Icon width={20} height={20} /> : null}
                                         />
                                     )}
                                 </li>

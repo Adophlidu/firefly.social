@@ -55,20 +55,21 @@ export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({
                 // eslint-disable-next-line react/no-unstable-nested-components
                 img: (props) => {
                     if (!props.src || disableImage) return null;
-                    const src = props.src as string; // FIXME: blob URL issue
-                    images.current = !images.current.includes(src) ? [...images.current, src] : images.current;
-                    const index = images.current.findIndex((uri) => uri === src);
+                    images.current = !images.current.includes(props.src)
+                        ? [...images.current, props.src]
+                        : images.current;
+                    const index = images.current.findIndex((uri) => uri === props.src);
                     return (
                         <ImageAsset
                             className={classNames('cursor-pointer', props.className)}
-                            src={src}
-                            alt={src}
+                            src={props.src}
+                            alt={props.src}
                             width={1000}
                             height={1000}
                             onClick={(event) => {
                                 event.preventDefault();
                                 event.stopPropagation();
-                                if (!src) return;
+                                if (!props.src) return;
                                 PreviewMediaModalRef.open({
                                     index: Math.max(index, 0),
                                     medias: images.current.map((uri) => ({ type: 'Image', uri })),

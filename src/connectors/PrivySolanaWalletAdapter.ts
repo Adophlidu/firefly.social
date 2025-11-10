@@ -29,6 +29,7 @@ import { compact } from 'lodash-es';
 import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { NetworkType, WalletSource } from '@/constants/enum.js';
+import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
@@ -102,7 +103,6 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
 
     async getAccounts() {
         if (!useFireflyProfileStore.getState().currentProfileSession) return [];
-        const { queryMyAllConnections } = await import('@/hooks/useAllConnections.js');
         const { connected } = await queryClient.ensureQueryData(queryMyAllConnections);
         const [account] = connected.filter(
             (connection) => connection.source === WalletSource.Privy && connection.platform === 'solana',

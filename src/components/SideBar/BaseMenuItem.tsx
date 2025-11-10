@@ -1,5 +1,6 @@
 import { classNames } from '@dimensiondev/utils';
-import { type HTMLProps, type ReactElement, type ReactNode } from 'react';
+import type { TippyProps } from '@tippyjs/react';
+import { type HTMLProps, type ReactNode } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -8,7 +9,7 @@ interface BaseMenuItemProps extends HTMLProps<HTMLAnchorElement> {
     isSelected: boolean;
     collapsed: boolean;
     menuName: ReactNode;
-    icon: ReactElement;
+    icon: ReactNode;
 }
 
 export function BaseMenuItem({ isSelected, collapsed, href, icon, menuName, ...rest }: BaseMenuItemProps) {
@@ -23,7 +24,7 @@ export function BaseMenuItem({ isSelected, collapsed, href, icon, menuName, ...r
             <span className="flex items-center gap-x-3 rounded-lg p-2 md:px-4">
                 {collapsed && icon ? (
                     <Tooltip content={menuName} placement="right">
-                        {icon}
+                        {icon as TippyProps['children']}
                     </Tooltip>
                 ) : (
                     icon

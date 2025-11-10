@@ -88,9 +88,5 @@ export const SocialSourceIcon = memo(function SocialSourceIcon({
     const Icon = map[source];
 
     if (!Icon) return null;
-    const isXIcon = Icon === XIcon;
-    if (isXIcon) {
-        return <Icon {...props} style={style} width={size} height={size} isDark={isDark} square={square} />;
-    }
-    return <Icon {...props} style={style} width={size} height={size} />;
+    return <Icon {...props} style={style} width={size} height={size} isDark={isDark} square={square} />;
 });
