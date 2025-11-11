@@ -8,7 +8,7 @@ import { patchActivitiesQuery } from '@/helpers/patchActivitiesQuery.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import type { FireflyWallet } from '@/providers/firefly/Wallet.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
-import type { Article } from '@/providers/types/Article.js';
+import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/utility.js';
@@ -26,6 +26,12 @@ interface DAOPagesData {
     pages: Array<{ data: SnapshotActivity[] }>;
 }
 
+function isArticleAuthorAddressMatch(article: Article, address: string): boolean {
+    if (isSameEthereumAddress(article.author.id, address)) return true;
+    if (article.platform !== ArticlePlatform.Matters) return false;
+    return isSameEthereumAddress(article.author.info.ethAddress, address);
+}
+
 export function setWalletBlockStatus(address: string, status: boolean) {
     const patcher = (old: Draft<PagesData> | undefined) => {
         if (!old) return old;
@@ -33,7 +39,7 @@ export function setWalletBlockStatus(address: string, status: boolean) {
             for (const page of draft.pages) {
                 if (!page) continue;
                 for (const article of page.data) {
-                    if (!isSameEthereumAddress(article.author.id, address)) continue;
+                    if (!isArticleAuthorAddressMatch(article, address)) continue;
                     article.author.isMuted = status;
                 }
             }
@@ -42,7 +48,7 @@ export function setWalletBlockStatus(address: string, status: boolean) {
 
     queryClient.setQueriesData<{ pages: Array<{ data: Article[] }> }>({ queryKey: ['articles'] }, patcher);
     patchActivitiesQuery(Source.Article, (item) => {
-        if (isSameEthereumAddress(item.author.id, address)) {
+        if (isArticleAuthorAddressMatch(item, address)) {
             item.author.isMuted = status;
         }
     });
@@ -51,7 +57,7 @@ export function setWalletBlockStatus(address: string, status: boolean) {
     queryClient.setQueriesData<Article>({ queryKey: ['article-detail'] }, (old) => {
         if (!old) return;
         return produce(old, (draft) => {
-            if (!isSameEthereumAddress(draft.author.id, address)) return;
+            if (!isArticleAuthorAddressMatch(draft, address)) return;
             draft.author.isMuted = status;
         });
     });
