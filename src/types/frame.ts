@@ -194,7 +194,7 @@ interface FrameConfig {
 
 interface FarcasterManifest {
     // Metadata associating the domain with a Farcaster account
-    accountAssociation: {
+    accountAssociation?: {
         // base64url encoded JFS header.
         // See FIP: JSON Farcaster Signatures for details on this format.
         header: string;
