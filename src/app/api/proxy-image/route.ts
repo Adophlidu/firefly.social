@@ -1,16 +1,12 @@
 import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
-import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL } from '@/constants/index.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
+import { fetch } from '@/helpers/fetch.js';
 
 const querySchema = z.object({
     url: z.string(),
 });
-
-function isStampAvatar(url: string) {
-    return url.startsWith(FIREFLY_STAMP_URL) || url.startsWith(FIREFLY_STAMP_DEV_URL);
-}
 
 // proxy image response
 export const GET = async (request: NextRequest) => {
@@ -23,12 +19,8 @@ export const GET = async (request: NextRequest) => {
     }
 
     try {
-        const response = await fetch(url, {
-            headers: isStampAvatar(url)
-                ? {
-                      'User-Agent': 'Mozilla/5.0 (compatible; Firefly/1.0)',
-                  }
-                : undefined,
+        const response = await fetch(url, undefined, {
+            noStrictOK: true,
         });
         if (!response.ok) {
             return new Response('Unable to access the image', {

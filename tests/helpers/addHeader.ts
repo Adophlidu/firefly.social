@@ -16,7 +16,7 @@ describe('addHeader', () => {
     });
 
     describe('when headers is a Headers instance', () => {
-        test('should add new header when key does not exist (force=true by default)', () => {
+        test('should add new header when key does not exist (force=false by default)', () => {
             const headers = new Headers({ 'Content-Type': 'text/plain' });
             const result = addHeader(headers, 'Authorization', 'Bearer token');
 
@@ -25,20 +25,20 @@ describe('addHeader', () => {
             expect((result as Headers).get('Authorization')).toBe('Bearer token');
         });
 
-        test('should overwrite existing header when force=true (default)', () => {
+        test('should not overwrite existing header when force=false (default)', () => {
             const headers = new Headers({ 'Content-Type': 'text/plain' });
             const result = addHeader(headers, 'Content-Type', 'application/json');
 
-            expect(result).toBeInstanceOf(Headers);
-            expect((result as Headers).get('Content-Type')).toBe('application/json');
-        });
-
-        test('should not overwrite existing header when force=false', () => {
-            const headers = new Headers({ 'Content-Type': 'text/plain' });
-            const result = addHeader(headers, 'Content-Type', 'application/json', false);
-
             expect(result).toBe(headers); // Should return original headers unchanged
             expect((result as Headers).get('Content-Type')).toBe('text/plain');
+        });
+
+        test('should overwrite existing header when force=true', () => {
+            const headers = new Headers({ 'Content-Type': 'text/plain' });
+            const result = addHeader(headers, 'Content-Type', 'application/json', true);
+
+            expect(result).toBeInstanceOf(Headers);
+            expect((result as Headers).get('Content-Type')).toBe('application/json');
         });
 
         test('should add new header when force=false and key does not exist', () => {
@@ -60,7 +60,7 @@ describe('addHeader', () => {
     });
 
     describe('when headers is an array', () => {
-        test('should add new header when key does not exist (force=true by default)', () => {
+        test('should add new header when key does not exist (force=false by default)', () => {
             const headers: [string, string][] = [['Content-Type', 'text/plain']];
             const result = addHeader(headers, 'Authorization', 'Bearer token');
 
@@ -70,23 +70,23 @@ describe('addHeader', () => {
             expect(result).toContainEqual(['Authorization', 'Bearer token']);
         });
 
-        test('should add duplicate header when force=true (default)', () => {
+        test('should not add header when force=false (default) and key exists', () => {
             const headers: [string, string][] = [['Content-Type', 'text/plain']];
             const result = addHeader(headers, 'Content-Type', 'application/json');
+
+            expect(result).toBe(headers); // Should return original array unchanged
+            expect(result).toHaveLength(1);
+            expect(result).toContainEqual(['Content-Type', 'text/plain']);
+        });
+
+        test('should add duplicate header when force=true', () => {
+            const headers: [string, string][] = [['Content-Type', 'text/plain']];
+            const result = addHeader(headers, 'Content-Type', 'application/json', true);
 
             expect(Array.isArray(result)).toBe(true);
             expect(result).toHaveLength(2);
             expect(result).toContainEqual(['Content-Type', 'text/plain']);
             expect(result).toContainEqual(['Content-Type', 'application/json']);
-        });
-
-        test('should not add header when force=false and key exists', () => {
-            const headers: [string, string][] = [['Content-Type', 'text/plain']];
-            const result = addHeader(headers, 'Content-Type', 'application/json', false);
-
-            expect(result).toBe(headers); // Should return original array unchanged
-            expect(result).toHaveLength(1);
-            expect(result).toContainEqual(['Content-Type', 'text/plain']);
         });
 
         test('should add new header when force=false and key does not exist', () => {
@@ -118,7 +118,7 @@ describe('addHeader', () => {
     });
 
     describe('when headers is an object', () => {
-        test('should add new header when key does not exist (force=true by default)', () => {
+        test('should add new header when key does not exist (force=false by default)', () => {
             const headers = { 'Content-Type': 'text/plain' };
             const result = addHeader(headers, 'Authorization', 'Bearer token');
 
@@ -128,21 +128,21 @@ describe('addHeader', () => {
             });
         });
 
-        test('should overwrite existing header when force=true (default)', () => {
+        test('should not overwrite existing header when force=false (default)', () => {
             const headers = { 'Content-Type': 'text/plain' };
             const result = addHeader(headers, 'Content-Type', 'application/json');
+
+            expect(result).toBe(headers); // Should return original object unchanged
+            expect(result).toEqual({ 'Content-Type': 'text/plain' });
+        });
+
+        test('should overwrite existing header when force=true', () => {
+            const headers = { 'Content-Type': 'text/plain' };
+            const result = addHeader(headers, 'Content-Type', 'application/json', true);
 
             expect(result).toEqual({
                 'Content-Type': 'application/json',
             });
-        });
-
-        test('should not overwrite existing header when force=false', () => {
-            const headers = { 'Content-Type': 'text/plain' };
-            const result = addHeader(headers, 'Content-Type', 'application/json', false);
-
-            expect(result).toBe(headers); // Should return original object unchanged
-            expect(result).toEqual({ 'Content-Type': 'text/plain' });
         });
 
         test('should add new header when force=false and key does not exist', () => {
@@ -292,13 +292,27 @@ describe('addHeaders', () => {
         expect(result).toContainEqual(['Authorization', 'Bearer token']);
     });
 
-    test('should overwrite existing headers when adding (force=true by default)', () => {
+    test('should not overwrite existing headers when adding (force=false by default)', () => {
         const headers = { 'Content-Type': 'text/plain' };
         const otherHeaders = {
             'Content-Type': 'application/json',
             Authorization: 'Bearer token',
         };
         const result = addHeaders(headers, otherHeaders);
+
+        expect(result).toEqual({
+            'Content-Type': 'text/plain', // Should not be overwritten
+            Authorization: 'Bearer token',
+        });
+    });
+
+    test('should overwrite existing headers when force=true', () => {
+        const headers = { 'Content-Type': 'text/plain' };
+        const otherHeaders = {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer token',
+        };
+        const result = addHeaders(headers, otherHeaders, true);
 
         expect(result).toEqual({
             'Content-Type': 'application/json', // Should be overwritten

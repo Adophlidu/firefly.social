@@ -3,21 +3,39 @@ import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
 import { FetchError, NetworkError } from '@/constants/error.js';
-import { SITE_URL, SITE_URL_OFFICIAL } from '@/constants/index.js';
+import { FIREFLY_USER_AGENT, SITE_URL, SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { addHeaders } from '@/helpers/addHeader.js';
 import { getNextFetchers, type NextFetchersOptions } from '@/helpers/getNextFetchers.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import type { Fetcher } from '@/types/utility.js';
 
 const { fetch: originalFetch } = globalThis;
 
+function isFireflyApi(url: URL) {
+    return [
+        'https://api.firefly.land',
+        'https://api-dev.firefly.land',
+        'https://stamp.firefly.land',
+        'https://stamp-dev.firefly.land',
+        'https://media.firefly.land',
+        'https://mask-network.firefly.land',
+        'https://mask-network-dev.firefly.land',
+    ].includes(url.origin);
+}
+
 function defaultFetcher(input: RequestInfo | URL, init?: RequestInit | undefined) {
+    const u = input instanceof URL ? input : parseUrl(typeof input === 'string' ? input : input.url);
+
     return originalFetch(input, {
         signal: AbortSignal.timeout(3 * 60 * 1000 /* 3 mins */),
         ...init,
-        headers: addHeaders(init?.headers ?? {}, {
-            Referer: SITE_URL_OFFICIAL,
-            'User-Agent': 'Mozilla/5.0 (compatible; Firefly/1.0)',
-        }),
+        headers:
+            u && isFireflyApi(u) && isServer
+                ? addHeaders(init?.headers ?? {}, {
+                      Referer: SITE_URL_OFFICIAL,
+                      'User-Agent': FIREFLY_USER_AGENT,
+                  })
+                : init?.headers,
     });
 }
 

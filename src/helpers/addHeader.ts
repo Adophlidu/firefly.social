@@ -1,4 +1,4 @@
-export function addHeader(headers: HeadersInit, key: string, value: string, force = true): HeadersInit {
+export function addHeader(headers: HeadersInit, key: string, value: string, force = false): HeadersInit {
     if (!headers) return { [key]: value };
 
     if (headers instanceof Headers) {
@@ -25,6 +25,6 @@ export function addHeader(headers: HeadersInit, key: string, value: string, forc
     return headers;
 }
 
-export function addHeaders(headers: HeadersInit, otherHeaders: Record<string, string>): HeadersInit {
-    return Object.entries(otherHeaders).reduce((acc, [key, value]) => addHeader(acc, key, value), headers);
+export function addHeaders(headers: HeadersInit, otherHeaders: Record<string, string>, force = false): HeadersInit {
+    return Object.entries(otherHeaders).reduce((acc, [key, value]) => addHeader(acc, key, value, force), headers);
 }
