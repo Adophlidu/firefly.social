@@ -35,8 +35,8 @@ export function PostLinkContent({ data, url, post, isInCompose }: PostLinkConten
 
     const quote = useMemo(() => {
         if (!data?.quote) return null;
-        if (post.type === 'Mirror' && post.parentPostId === data?.quote?.postId) return null;
-        if (data.quote.postId === post.postId) return null;
+        if (post.type === 'Mirror' && post.parentPostId === data.quote.postId) return null;
+        if (data.quote.postId === post.postId || data.quote.postId === post.quoteOn?.postId) return null;
         return data.quote;
     }, [data?.quote, post]);
 
