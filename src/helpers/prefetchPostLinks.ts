@@ -7,10 +7,11 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { GetClassifyPostLinksResponse } from '@/providers/firefly/worker/getClassifyPostLinks.js';
 
-export async function prefetchPostLinks(urls: string[]) {
+export async function prefetchPostLinks(urlGroups: string[][]) {
     return runInSafeAsync(async () => {
-        const notCachedUrls = uniq(urls).filter((url) => {
-            const data = queryClient.getQueryData(['classify-post-links', url]);
+        const notCachedUrls = uniq(urlGroups).filter((urls) => {
+            if (!urls.length) return false;
+            const data = queryClient.getQueryData(['classify-post-links', ...urls]);
             return !data;
         });
         if (notCachedUrls.length <= 0) return;
@@ -21,10 +22,11 @@ export async function prefetchPostLinks(urls: string[]) {
             }),
         );
         if (!response.success) return;
-
-        for (const item of response.data) {
-            if (!item.result) continue;
-            queryClient.setQueryData(['classify-post-links', item.url], [item]);
+        for (const urls of urlGroups) {
+            const results = response.data.filter((x) => urls.includes(x.url));
+            if (results.length) {
+                queryClient.setQueryData(['classify-post-links', ...urls], results);
+            }
         }
     });
 }
