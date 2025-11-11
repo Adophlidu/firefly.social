@@ -10,7 +10,7 @@ import type { GetClassifyPostLinksResponse } from '@/providers/firefly/worker/ge
 export async function prefetchPostLinks(urls: string[]) {
     return runInSafeAsync(async () => {
         const notCachedUrls = uniq(urls).filter((url) => {
-            const data = queryClient.getQueryData(['classify-post-link', url]);
+            const data = queryClient.getQueryData(['classify-post-links', url]);
             return !data;
         });
         if (notCachedUrls.length <= 0) return;
@@ -24,7 +24,7 @@ export async function prefetchPostLinks(urls: string[]) {
 
         for (const item of response.data) {
             if (!item.result) continue;
-            queryClient.setQueryData(['classify-post-link', item.url], item.result);
+            queryClient.setQueryData(['classify-post-links', item.url], [item]);
         }
     });
 }

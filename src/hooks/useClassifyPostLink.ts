@@ -4,7 +4,7 @@ import { getClassifyPostLinks } from '@/providers/firefly/worker/getClassifyPost
 
 export function useClassifyPostLink(url: string | null | undefined) {
     return useQuery({
-        queryKey: ['classify-post-link', url],
+        queryKey: ['classify-post-links', url],
         staleTime: 1000 * 60 * 30, // 30 minutes
         queryFn: url ? () => getClassifyPostLinks([url]) : skipToken,
         refetchOnMount: false,
@@ -16,7 +16,7 @@ export function useClassifyPostLink(url: string | null | undefined) {
 
 export function useClassifyPostLinks(urls: string[]) {
     return useQuery({
-        queryKey: ['classify-post-link', ...urls],
+        queryKey: ['classify-post-links', ...urls],
         staleTime: 1000 * 60 * 30, // 30 minutes
         queryFn: urls.length ? () => getClassifyPostLinks(urls) : skipToken,
         refetchOnMount: false,
