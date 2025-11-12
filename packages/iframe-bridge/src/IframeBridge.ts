@@ -15,6 +15,7 @@ const REQUEST_ONLY_METHODS = [
     IframeBridgeMethod.ENQUEUE_MESSAGE,
     IframeBridgeMethod.NAVIGATE,
     IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY,
+    IframeBridgeMethod.FIREFLY_WALLET_ADD_SESSION_SIGNER,
 ];
 
 interface Payload {

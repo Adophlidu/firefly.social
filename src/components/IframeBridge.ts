@@ -87,6 +87,9 @@ const allEvents: {
     [IframeBridgeMethod.FIREFLY_WALLET_SIGN_MESSAGE]: async () => {
         throw new NotImplementedError();
     },
+    [IframeBridgeMethod.FIREFLY_WALLET_ADD_SESSION_SIGNER]: async () => {
+        throw new NotImplementedError();
+    },
 };
 
 export const IframeBridge = memo(function IframeBridge() {
