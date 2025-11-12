@@ -1269,10 +1269,6 @@ msgstr ""
 msgid "Registered account not found. Please switch to another wallet and try again."
 msgstr ""
 
-#. placeholder {0}: profile.handle
-msgid "Failed to follow @{0} on Lens"
-msgstr ""
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Quoted on {0}."
 msgstr ""
@@ -1917,9 +1913,6 @@ msgstr ""
 msgid "[Poll]"
 msgstr ""
 
-msgid "Allow Follow Module"
-msgstr ""
-
 msgid "No trades yet"
 msgstr ""
 
@@ -2446,9 +2439,6 @@ msgstr ""
 msgid "👀 Firefly notifications are off. "
 msgstr ""
 
-msgid "Follow for {feeAmount} ${feeSymbol}"
-msgstr ""
-
 msgid "Farcaster"
 msgstr ""
 
@@ -2483,9 +2473,6 @@ msgid "Minting Date"
 msgstr ""
 
 msgid "Failed to create red packet"
-msgstr ""
-
-msgid "This profile doesn't enable super follow"
 msgstr ""
 
 msgid "The page could not be found."
@@ -2625,10 +2612,6 @@ msgid "If this function exists, it is possible for the project owner to regain o
 msgstr ""
 
 msgid "Sorry, we are not able to find a wallet for {displayName}."
-msgstr ""
-
-#. placeholder {0}: formatAddressEthereum(address, 4)
-msgid "Please switch to {0}"
 msgstr ""
 
 msgid "This Lens account has expired, please log in again."
@@ -2930,9 +2913,6 @@ msgid "Content preference"
 msgstr ""
 
 msgid "Now only supporting Solana and BSC tokens. Powered by <0>X3.pro</0>"
-msgstr ""
-
-msgid "Connect your wallet to follow"
 msgstr ""
 
 msgid "Community"
@@ -3585,9 +3565,6 @@ msgid "Something went wrong. Please try again later."
 msgstr ""
 
 msgid "Follow @masknetwork on X"
-msgstr ""
-
-msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr ""
 
 msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
@@ -4279,10 +4256,6 @@ msgid "Last sale"
 msgstr ""
 
 msgid "Bridged"
-msgstr ""
-
-#. placeholder {0}: profile.handle
-msgid "Followed @{0} on Lens"
 msgstr ""
 
 msgid "Claim Now"

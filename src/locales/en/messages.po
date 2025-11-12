@@ -1264,10 +1264,6 @@ msgstr "Update"
 msgid "Registered account not found. Please switch to another wallet and try again."
 msgstr "Registered account not found. Please switch to another wallet and try again."
 
-#. placeholder {0}: profile.handle
-msgid "Failed to follow @{0} on Lens"
-msgstr "Failed to follow @{0} on Lens"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Quoted on {0}."
 msgstr "🎭 Quoted on {0}."
@@ -1912,9 +1908,6 @@ msgstr "Enter Total Amount"
 msgid "[Poll]"
 msgstr "[Poll]"
 
-msgid "Allow Follow Module"
-msgstr "Allow Follow Module"
-
 msgid "No trades yet"
 msgstr "No trades yet"
 
@@ -2441,9 +2434,6 @@ msgstr "Invalid signer key"
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly notifications are off. "
 
-msgid "Follow for {feeAmount} ${feeSymbol}"
-msgstr "Follow for {feeAmount} ${feeSymbol}"
-
 msgid "Farcaster"
 msgstr "Farcaster"
 
@@ -2479,9 +2469,6 @@ msgstr "Minting Date"
 
 msgid "Failed to create red packet"
 msgstr "Failed to create red packet"
-
-msgid "This profile doesn't enable super follow"
-msgstr "This profile doesn't enable super follow"
 
 msgid "The page could not be found."
 msgstr "The page could not be found."
@@ -2621,10 +2608,6 @@ msgstr "If this function exists, it is possible for the project owner to regain 
 
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "Sorry, we are not able to find a wallet for {displayName}."
-
-#. placeholder {0}: formatAddressEthereum(address, 4)
-msgid "Please switch to {0}"
-msgstr "Please switch to {0}"
 
 msgid "This Lens account has expired, please log in again."
 msgstr "This Lens account has expired, please log in again."
@@ -2926,9 +2909,6 @@ msgstr "Content preference"
 
 msgid "Now only supporting Solana and BSC tokens. Powered by <0>X3.pro</0>"
 msgstr "Now only supporting Solana and BSC tokens. Powered by <0>X3.pro</0>"
-
-msgid "Connect your wallet to follow"
-msgstr "Connect your wallet to follow"
 
 msgid "Community"
 msgstr "Community"
@@ -3581,9 +3561,6 @@ msgstr "Something went wrong. Please try again later."
 
 msgid "Follow @masknetwork on X"
 msgstr "Follow @masknetwork on X"
-
-msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
-msgstr "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 
 msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
 msgstr "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
@@ -4275,10 +4252,6 @@ msgstr "Last sale"
 
 msgid "Bridged"
 msgstr "Bridged"
-
-#. placeholder {0}: profile.handle
-msgid "Followed @{0} on Lens"
-msgstr "Followed @{0} on Lens"
 
 msgid "Claim Now"
 msgstr "Claim Now"

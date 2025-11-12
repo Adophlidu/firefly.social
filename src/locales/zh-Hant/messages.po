@@ -1269,10 +1269,6 @@ msgstr "更新"
 msgid "Registered account not found. Please switch to another wallet and try again."
 msgstr "未發現任意在Firefly註冊帳號，請更改錢包重試。"
 
-#. placeholder {0}: profile.handle
-msgid "Failed to follow @{0} on Lens"
-msgstr "在 Lens 上追蹤 @{0} 失敗"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Quoted on {0}."
 msgstr "🎭 已在 {0} 引用。"
@@ -1917,9 +1913,6 @@ msgstr "輸入總數額"
 msgid "[Poll]"
 msgstr "[投票]"
 
-msgid "Allow Follow Module"
-msgstr "允許追蹤模組"
-
 msgid "No trades yet"
 msgstr ""
 
@@ -2446,9 +2439,6 @@ msgstr "簽名金鑰無效"
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly 通知未開啟！"
 
-msgid "Follow for {feeAmount} ${feeSymbol}"
-msgstr "{feeAmount} ${feeSymbol} 付費追蹤"
-
 msgid "Farcaster"
 msgstr "Farcaster"
 
@@ -2484,9 +2474,6 @@ msgstr "鑄造日期"
 
 msgid "Failed to create red packet"
 msgstr "創建紅包失敗"
-
-msgid "This profile doesn't enable super follow"
-msgstr "此帳戶未啟用超級追蹤功能"
 
 msgid "The page could not be found."
 msgstr "無法找到頁面"
@@ -2626,10 +2613,6 @@ msgstr "如果該功能存在，項目方即使放棄所有權後仍可能重新
 
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "抱歉，我們無法找到 {displayName} 的錢包。"
-
-#. placeholder {0}: formatAddressEthereum(address, 4)
-msgid "Please switch to {0}"
-msgstr "請切換到 {0}"
 
 msgid "This Lens account has expired, please log in again."
 msgstr "此 Lens 帳號已過期，請重新登入。"
@@ -2931,9 +2914,6 @@ msgstr "內容偏好"
 
 msgid "Now only supporting Solana and BSC tokens. Powered by <0>X3.pro</0>"
 msgstr "目前僅支援 Solana 和 BSC 代幣。由 <0>X3.pro</0> 提供技術支援"
-
-msgid "Connect your wallet to follow"
-msgstr "連接錢包以追蹤"
 
 msgid "Community"
 msgstr "群組"
@@ -3586,9 +3566,6 @@ msgstr "哎呀... 發生錯誤，請重試。"
 
 msgid "Follow @masknetwork on X"
 msgstr ""
-
-msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
-msgstr "支付<0> {feeAmount} ${feeSymbol} </0>來追蹤以獲得專屬福利！"
 
 msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
 msgstr "如果你之前使用 Farcaster 登入過，請重新連接。<0/>第一次登入？請開啟新的連接。"
@@ -4282,10 +4259,6 @@ msgstr "最新售價"
 
 msgid "Bridged"
 msgstr ""
-
-#. placeholder {0}: profile.handle
-msgid "Followed @{0} on Lens"
-msgstr "在 Lens 上追蹤了 @{0}"
 
 msgid "Claim Now"
 msgstr "立即領取"

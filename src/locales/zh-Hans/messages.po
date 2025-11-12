@@ -1269,10 +1269,6 @@ msgstr "更新"
 msgid "Registered account not found. Please switch to another wallet and try again."
 msgstr "未发现任何在Firefly注册的账号，请更换钱包重试。"
 
-#. placeholder {0}: profile.handle
-msgid "Failed to follow @{0} on Lens"
-msgstr "在 Lens 上关注 @{0} 失败"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Quoted on {0}."
 msgstr "🎭 已在 {0} 引用。"
@@ -1917,9 +1913,6 @@ msgstr "请输入总数额"
 msgid "[Poll]"
 msgstr "[投票]"
 
-msgid "Allow Follow Module"
-msgstr "打开关注模块"
-
 msgid "No trades yet"
 msgstr "无历史交易"
 
@@ -2446,9 +2439,6 @@ msgstr "签名密钥无效"
 msgid "👀 Firefly notifications are off. "
 msgstr "👀 Firefly 通知未开启！"
 
-msgid "Follow for {feeAmount} ${feeSymbol}"
-msgstr "{feeAmount} ${feeSymbol} 付费关注"
-
 msgid "Farcaster"
 msgstr "Farcaster"
 
@@ -2484,9 +2474,6 @@ msgstr "铸造日期"
 
 msgid "Failed to create red packet"
 msgstr "创建红包失败"
-
-msgid "This profile doesn't enable super follow"
-msgstr "此用户未开放超级关注功能"
 
 msgid "The page could not be found."
 msgstr "找不到该页面。"
@@ -2626,10 +2613,6 @@ msgstr "如果该功能存在，项目方即使放弃所有权后仍可能重新
 
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "抱歉，我们无法找到 {displayName} 的钱包。"
-
-#. placeholder {0}: formatAddressEthereum(address, 4)
-msgid "Please switch to {0}"
-msgstr "请切换到 {0}"
 
 msgid "This Lens account has expired, please log in again."
 msgstr "此 Lens 账号已过期，请重新登录。"
@@ -2931,9 +2914,6 @@ msgstr "内容偏好"
 
 msgid "Now only supporting Solana and BSC tokens. Powered by <0>X3.pro</0>"
 msgstr "目前仅支持 Solana 和 BSC 代币。由 <0>X3.pro</0> 提供技术支持"
-
-msgid "Connect your wallet to follow"
-msgstr "连接钱包并关注"
 
 msgid "Community"
 msgstr "圈子"
@@ -3586,9 +3566,6 @@ msgstr "哎呀！出错了。 请再试一次。"
 
 msgid "Follow @masknetwork on X"
 msgstr "在 X 上关注 @ masknetwork"
-
-msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
-msgstr "支付<0>{feeAmount} ${feeSymbol}</0>来关注并获得专属福利！"
 
 msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
 msgstr "如果你之前使用 Farcaster 登录过，请重新连接。<0/>首次使用？请开启新的连接。"
@@ -4282,10 +4259,6 @@ msgstr "最新价"
 
 msgid "Bridged"
 msgstr "已桥接"
-
-#. placeholder {0}: profile.handle
-msgid "Followed @{0} on Lens"
-msgstr "在 Lens 上关注了 @{0}"
 
 msgid "Claim Now"
 msgstr "立即领取"
