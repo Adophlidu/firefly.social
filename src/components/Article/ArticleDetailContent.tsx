@@ -89,7 +89,7 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                     >
                         {/*  The content returned by limo is html. */}
                         <SanitizerDiv
-                            className={classNames('container-fluid markdown-body comment-enabled', {
+                            className={classNames('markdown-body comment-enabled', {
                                 dark: isDarkMode,
                             })}
                             dangerouslySetInnerHTML={{ __html: article.content }}

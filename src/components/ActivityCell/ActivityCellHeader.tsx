@@ -37,33 +37,23 @@ export function ActivityCellHeader({
     const mainContent = displayName || addressText;
 
     return (
-        <header className={classNames('flex items-start gap-3', className)} {...rest}>
+        <div className={classNames('flex items-start gap-3', className)} {...rest}>
             <div className="flex flex-1 grow flex-row items-center truncate text-[15px] leading-6 max-md:max-w-[calc(100%_-_56px)]">
                 <ConditionalLink
                     href={authorUrl}
-                    className="block min-w-0 max-w-full truncate font-bold text-main"
+                    className="block max-w-full truncate font-bold text-main"
                     target={target}
                 >
                     {mainContent}
                 </ConditionalLink>
 
-                {displayName && !username ? (
+                {displayName ? (
                     <ConditionalLink
                         href={authorUrl}
-                        className="ml-2 block max-w-full shrink-0 truncate text-secondary max-md:hidden"
+                        className="ml-2 block min-w-0 max-w-full truncate text-secondary max-md:hidden"
                         target={target}
                     >
-                        <address className="not-italic">{addressText}</address>
-                    </ConditionalLink>
-                ) : null}
-
-                {displayName && username ? (
-                    <ConditionalLink
-                        href={authorUrl}
-                        className="ml-2 block max-w-full shrink-0 truncate text-secondary max-md:hidden"
-                        target={target}
-                    >
-                        @{username}
+                        {username ? <>@{username}</> : <address className="truncate not-italic">{addressText}</address>}
                     </ConditionalLink>
                 ) : null}
 
@@ -77,7 +67,7 @@ export function ActivityCellHeader({
                 {icon}
             </div>
 
-            <div className="flex items-center space-x-2">{children}</div>
-        </header>
+            <div className="flex shrink-0 items-center space-x-2">{children}</div>
+        </div>
     );
 }

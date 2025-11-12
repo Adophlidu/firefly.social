@@ -15,11 +15,11 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
     return (
         <div
             className={classNames(
-                'flex items-center justify-between border-b border-secondaryLine pb-[10px]',
+                'flex min-w-0 items-center justify-between border-b border-secondaryLine pb-[10px]',
                 className,
             )}
         >
-            <ArticleAuthor article={article} />
+            <ArticleAuthor className="min-w-0" article={article} />
             <NoSSR>
                 <ArticleActions article={article} />
             </NoSSR>

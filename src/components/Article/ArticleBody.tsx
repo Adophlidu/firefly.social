@@ -68,8 +68,8 @@ export function ArticleBody({ cover, article, onClick }: Props) {
             >
                 {article.title}
             </h1>
-            <div className="flex items-center justify-between border-b border-secondaryLine pb-[10px]">
-                <ArticleAuthor article={article} />
+            <div className="flex min-w-0 items-center justify-between border-b border-secondaryLine pb-[10px]">
+                <ArticleAuthor className="min-w-0" article={article} />
                 {isMedium ? <ArticleActions article={article} /> : null}
             </div>
             {article.content ? (
@@ -83,7 +83,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
                         >
                             {/*  The content returned by limo is html. */}
                             <SanitizerDiv
-                                className={classNames('container-fluid markdown-body comment-enabled', {
+                                className={classNames('markdown-body comment-enabled', {
                                     dark: isDarkMode,
                                 })}
                                 dangerouslySetInnerHTML={{ __html: article.content }}

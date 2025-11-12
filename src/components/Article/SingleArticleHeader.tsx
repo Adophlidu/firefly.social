@@ -45,7 +45,7 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
     };
 
     return (
-        <header className={classNames('flex w-full items-start gap-3', className)}>
+        <header className={classNames('flex w-full min-w-0 items-start gap-3', className)}>
             <Link href={authorUrl} className="z-1" onClick={stopPropagation} target={target}>
                 <Avatar
                     className={avatarProps.className}
@@ -56,11 +56,11 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
             </Link>
 
             <ActivityCellHeader
-                className="w-full"
+                className="w-full min-w-0"
                 address={article.author.id}
                 displayName={ens || article.author.handle}
                 time={!isBookmark ? article.timestamp : undefined}
-                icon={Icon ? <Icon width={15} height={15} /> : null}
+                icon={Icon ? <Icon className="shrink-0" width={15} height={15} /> : null}
                 username={article.author.username}
                 authorUrl={authorUrl}
                 target={target}

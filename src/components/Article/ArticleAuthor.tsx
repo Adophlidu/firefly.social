@@ -1,3 +1,6 @@
+import { classNames } from '@dimensiondev/utils';
+import type { HTMLProps } from 'react';
+
 import { Avatar } from '@/components/Avatar.js';
 import { ConditionalLink } from '@/components/ConditionalLink.js';
 import { Time } from '@/components/Semantic/Time.js';
@@ -8,11 +11,11 @@ import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { type Article } from '@/providers/types/Article.js';
 
-interface Props {
+interface Props extends HTMLProps<HTMLDivElement> {
     article: Article;
 }
 
-export function ArticleAuthor({ article }: Props) {
+export function ArticleAuthor({ article, ...props }: Props) {
     const { data: ens } = useEnsName(article.author.id, !article.author.handle);
     const Icon = resolveArticlePlatformIcon(article.platform);
 
@@ -31,7 +34,7 @@ export function ArticleAuthor({ article }: Props) {
     const authorName = article.author.handle || ens || formatAddressEthereum(article.author.id, 4);
 
     return (
-        <div className="flex items-center gap-2">
+        <div {...props} className={classNames('flex items-center gap-2', props.className)}>
             <ConditionalLink href={authorUrl} className="z-1" target={target}>
                 {avatar}
             </ConditionalLink>
@@ -48,7 +51,7 @@ export function ArticleAuthor({ article }: Props) {
                 <TimestampFormatter time={article.timestamp} />
             </Time>
 
-            {Icon ? <Icon width={15} height={15} /> : null}
+            {Icon ? <Icon className="shrink-0" width={15} height={15} /> : null}
         </div>
     );
 }
