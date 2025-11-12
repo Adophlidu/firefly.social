@@ -16,7 +16,6 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Link } from '@/components/Link.js';
 import { SnapshotMarkup } from '@/components/Markup/SnapshotMarkup.js';
 import { Time } from '@/components/Semantic/Time.js';
-import { SnapshotActions } from '@/components/Snapshot/SnapshotActions.js';
 import { SnapshotApprovalChoices } from '@/components/Snapshot/SnapshotApprovalChoices.js';
 import { SnapshotQuadraticChoices } from '@/components/Snapshot/SnapshotQuadraticChoices.js';
 import { SnapshotRankChoices } from '@/components/Snapshot/SnapshotRankChoices.js';
@@ -34,7 +33,6 @@ import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import { getProposalLink } from '@/providers/snapshot/getProposalLink.js';
 import { getVotePower } from '@/providers/snapshot/getVotePower.js';
 import { pathQueryVoteResultsByVoter } from '@/providers/snapshot/pathQueryVoteResultsByVoter.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
@@ -140,7 +138,6 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                             ·
                             <SnapshotIcon width={15} height={15} />
                         </div>
-                        <SnapshotActions activity={activity} link={getProposalLink(snapshot)} />
                     </div>
                 </div>
 

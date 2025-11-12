@@ -1,9 +1,10 @@
-import { safeUnreachable } from '@dimensiondev/utils';
 import { type Draft, produce } from 'immer';
 import { first } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import type { Source } from '@/constants/enum.js';
+import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/index.js';
+import type { ScheduleNotification, TipsNotification, UnifiedNotification } from '@/providers/types/Firefly.js';
 import { type Notification, NotificationType, type Post, type Profile } from '@/providers/types/SocialMedia.js';
 
 type Patcher = (old: Draft<Notification>) => void;
@@ -23,32 +24,46 @@ export function patchNotificationQueryData(source: Source, patcher: Patcher) {
 type PostPatcher = (old: Draft<Post>) => void;
 export function patchNotificationQueryDataOnPost(source: Source, patcher: PostPatcher) {
     patchNotificationQueryData(source, (notification) => {
+        if (
+            notification.type === NotificationType.Tips ||
+            notification.type === NotificationType.Schedule ||
+            UNIFIED_NOTIFICATION_TYPES.includes(notification.type as NotificationType)
+        ) {
+            return;
+        }
+
         // Only these these types have interaction.
         let target: Post | undefined = undefined;
         const type = notification.type;
+        type SocialNotification = Exclude<Notification, UnifiedNotification | TipsNotification | ScheduleNotification>;
+        const notif = notification as SocialNotification;
         switch (type) {
-            case NotificationType.Comment:
-                if (notification.comment) {
-                    target = notification.comment;
+            case NotificationType.Comment: {
+                const commentNotif = notif as Extract<SocialNotification, { type: NotificationType.Comment }>;
+                if (commentNotif.comment) {
+                    target = commentNotif.comment;
                 }
                 break;
-            case NotificationType.Mention:
-                if (notification.post) {
-                    target = notification.post;
+            }
+            case NotificationType.Mention: {
+                const mentionNotif = notif as Extract<SocialNotification, { type: NotificationType.Mention }>;
+                if (mentionNotif.post) {
+                    target = mentionNotif.post;
                 }
                 break;
-            case NotificationType.Quote:
-                target = notification.quote;
+            }
+            case NotificationType.Quote: {
+                const quoteNotif = notif as Extract<SocialNotification, { type: NotificationType.Quote }>;
+                target = quoteNotif.quote;
                 break;
+            }
             case NotificationType.Act:
             case NotificationType.Follow:
             case NotificationType.Mirror:
             case NotificationType.Reaction:
-            case NotificationType.Tips:
-            case NotificationType.Schedule:
                 break;
             default:
-                safeUnreachable(type);
+                return;
         }
         if (target) {
             patcher(target);
@@ -59,38 +74,55 @@ export function patchNotificationQueryDataOnPost(source: Source, patcher: PostPa
 type ProfilePatcher = (old: Draft<Profile>) => void;
 export function patchNotificationQueryDataOnAuthor(source: Source, patcher: ProfilePatcher) {
     patchNotificationQueryData(source, (notification) => {
+        if (
+            notification.type === NotificationType.Tips ||
+            notification.type === NotificationType.Schedule ||
+            UNIFIED_NOTIFICATION_TYPES.includes(notification.type as NotificationType)
+        ) {
+            return;
+        }
+
         let target: Profile | undefined = undefined;
         const type = notification.type;
+        type SocialNotification = Exclude<Notification, UnifiedNotification | TipsNotification | ScheduleNotification>;
+        const notif = notification as SocialNotification;
         switch (type) {
-            case NotificationType.Comment:
-                if (notification.comment) {
-                    target = notification.comment.author;
+            case NotificationType.Comment: {
+                const commentNotif = notif as Extract<SocialNotification, { type: NotificationType.Comment }>;
+                if (commentNotif.comment) {
+                    target = commentNotif.comment.author;
                 }
                 break;
+            }
             case NotificationType.Mention:
             case NotificationType.Quote:
-            case NotificationType.Act:
-                if (notification.post) {
-                    target = notification.post.author;
+            case NotificationType.Act: {
+                const postNotif = notif as Extract<
+                    SocialNotification,
+                    { type: NotificationType.Mention | NotificationType.Quote | NotificationType.Act }
+                >;
+                if (postNotif.post) {
+                    target = postNotif.post.author;
                 }
                 break;
-            case NotificationType.Follow:
-                target = first(notification.followers);
+            }
+            case NotificationType.Follow: {
+                const followNotif = notif as Extract<SocialNotification, { type: NotificationType.Follow }>;
+                target = first(followNotif.followers);
                 break;
-            case NotificationType.Mirror:
-                target = first(notification.mirrors);
+            }
+            case NotificationType.Mirror: {
+                const mirrorNotif = notif as Extract<SocialNotification, { type: NotificationType.Mirror }>;
+                target = first(mirrorNotif.mirrors);
                 break;
-            case NotificationType.Reaction:
-                target = first(notification.reactors);
+            }
+            case NotificationType.Reaction: {
+                const reactionNotif = notif as Extract<SocialNotification, { type: NotificationType.Reaction }>;
+                target = first(reactionNotif.reactors);
                 break;
-            case NotificationType.Tips:
-                target = undefined; // TODO: get author
-                break;
-            case NotificationType.Schedule:
-                target = undefined;
-                break;
+            }
             default:
-                safeUnreachable(type);
+                return;
         }
         if (target) {
             patcher(target);

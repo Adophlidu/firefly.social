@@ -3,10 +3,13 @@ import { memo } from 'react';
 import { ActivityCellSnapshotAction } from '@/components/ActivityCell/Snapshot/ActivityCellSnapshotAction.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { SingleSnapshotHeader } from '@/components/Snapshot/SingleSnapshotHeader.js';
+import { SnapshotActions } from '@/components/Snapshot/SnapshotActions.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackContent.js';
+import { SnapshotLike } from '@/components/Snapshot/SnapshotLike.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
+import { getProposalLink } from '@/providers/snapshot/getProposalLink.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 
 interface SingleSnapshotProps {
@@ -40,6 +43,11 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
                     ) : (
                         <SnapshotFallbackContent {...data.fallback_content} />
                     )}
+
+                    <footer className="mt-3 flex items-center justify-between">
+                        <SnapshotLike activity={data} />
+                        <SnapshotActions activity={data} link={data.proposal ? getProposalLink(data.proposal) : ''} />
+                    </footer>
                 </div>
             )}
         </article>

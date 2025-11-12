@@ -2,6 +2,7 @@ import urlcat from 'urlcat';
 
 import { SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { formatPolymarketFromFirefly } from '@/helpers/formatPolymarketFromFirefly.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -25,7 +26,7 @@ export async function getFollowingPolymarketTimeline(
     const data = resolveFireflyResponseData(response);
 
     return createPageable(
-        data?.result || EMPTY_LIST,
+        data?.result.map(formatPolymarketFromFirefly) || EMPTY_LIST,
         createIndicator(indicator),
         data?.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
     );

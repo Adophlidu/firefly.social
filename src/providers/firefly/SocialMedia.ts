@@ -1024,7 +1024,7 @@ class FireflySocialMedia implements Provider {
                 }),
             },
             {
-                withSession: !(walletAddresses && walletAddresses.length > 0),
+                withSession: true,
             },
         );
 

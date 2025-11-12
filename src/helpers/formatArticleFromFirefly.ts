@@ -88,6 +88,8 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
         timestamp: article.timestamp,
         coverUrl: article.cover_img_url,
         hasBookmarked: article.has_bookmarked,
+        isLiked: article.is_like,
+        likeCount: article.like_count,
         followingSources: article.followingSources,
         slug: article.paragraph_raw_data?.slug,
         // paragraph only

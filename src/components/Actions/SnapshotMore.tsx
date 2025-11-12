@@ -1,5 +1,4 @@
 import { MenuItem } from '@headlessui/react';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
@@ -12,7 +11,6 @@ import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
@@ -93,19 +91,6 @@ export const SnapshotMoreAction = memo<MoreProps>(function SnapshotMoreAction({ 
                                 {data.hasBookmarked ? <Trans>Remove from Bookmarks</Trans> : <Trans>Bookmark</Trans>}
                             </span>
                         </MenuButton>
-                    )}
-                </MenuItem>
-                <MenuItem>
-                    {({ close }) => (
-                        <Tips
-                            className="px-3 py-1 !text-main hover:bg-bg"
-                            identity={identity}
-                            handle={ens}
-                            tooltipDisabled
-                            label={t`Send a tip`}
-                            onClick={close}
-                            pureWallet
-                        />
                     )}
                 </MenuItem>
             </MenuGroup>

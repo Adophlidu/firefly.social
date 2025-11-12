@@ -200,6 +200,9 @@ export type SnapshotActivity = {
         isFollowing: boolean;
         isMuted: boolean;
     };
+    isLiked: boolean;
+    likeCount: number;
+    owner: string;
     displayInfo: FireflyDisplayInfo;
     type: 'vote';
     id: string;

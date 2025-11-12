@@ -24,6 +24,13 @@ export const resolveNotificationIcon = createLookupTableResolver<
         [NotificationType.Mention]: MessagesIcon,
         [NotificationType.Tips]: TipsIcon,
         [NotificationType.Schedule]: ScheduleIcon,
+        [NotificationType.LikeMatters]: LikeIcon,
+        [NotificationType.LikeMirror]: LikeIcon,
+        [NotificationType.LikeParagraph]: LikeIcon,
+        [NotificationType.LikeLimo]: LikeIcon,
+        [NotificationType.LikeBets]: LikeIcon,
+        [NotificationType.LikeDAO]: LikeIcon,
+        [NotificationType.LikeNFT]: LikeIcon,
     },
     null,
 );

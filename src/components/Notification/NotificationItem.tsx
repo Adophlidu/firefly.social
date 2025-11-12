@@ -24,11 +24,11 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { toProfileId } from '@/helpers/isSameProfile.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import type { ScheduleNotification, TipsNotification } from '@/providers/types/Firefly.js';
+import type { ScheduleNotification, TipsNotification, UnifiedNotification } from '@/providers/types/Firefly.js';
 import { type Notification, NotificationType } from '@/providers/types/SocialMedia.js';
 
 interface NotificationItemProps {
-    notification: Exclude<Notification, TipsNotification | ScheduleNotification>;
+    notification: Exclude<Notification, TipsNotification | ScheduleNotification | UnifiedNotification>;
 }
 
 export const NotificationItem = memo<NotificationItemProps>(function NotificationItem({ notification }) {
@@ -41,7 +41,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             case NotificationType.Reaction:
                 return notification.reactors;
             case NotificationType.Quote:
-                return [notification.quote.author];
+                return notification.quote ? [notification.quote.author] : undefined;
             case NotificationType.Follow:
                 return notification.followers;
             case NotificationType.Comment:
@@ -93,7 +93,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     </Trans>
                 );
             case NotificationType.Quote:
-                if (!notification.quote.quoteOn?.type) return;
+                if (!notification.quote?.quoteOn?.type) return;
                 return (
                     <Trans>
                         <ProfileLink profile={notification.quote.author} /> quoted your{' '}
@@ -260,6 +260,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     </Link>
                 );
             case NotificationType.Quote:
+                if (!notification.quote || !notification.post) return null;
                 if (isProfileMuted(notification.post.author)) {
                     return <CollapsedContent authorMuted isQuote={false} />;
                 }
@@ -295,7 +296,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 if (!notification.post || isProfileMuted(notification.post.author)) return null;
                 return <PostActions post={notification.post} disablePadding />;
             case NotificationType.Quote:
-                if (isProfileMuted(notification.quote.author)) return null;
+                if (!notification.quote || isProfileMuted(notification.quote.author)) return null;
                 return <PostActions post={notification.quote} disablePadding />;
             case NotificationType.Act:
                 return null;

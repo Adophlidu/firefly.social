@@ -110,6 +110,7 @@ export const resolveSourceFromFireflyPlatform = createLookupTableResolver<Firefl
         [FireflyPlatform.Token]: Source.Tokens,
         [FireflyPlatform.DAOs]: Source.DAOs,
         [FireflyPlatform.Polymarket]: Source.Polymarket,
+        [FireflyPlatform.Bets]: Source.Polymarket,
     },
     (walletSource) => {
         throw new UnreachableError('FireflyPlatform', walletSource);

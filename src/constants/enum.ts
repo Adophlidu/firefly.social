@@ -134,6 +134,7 @@ export enum FireflyPlatform {
     Token = 'token',
     DAOs = 'snapshot',
     Polymarket = 'polymarket',
+    Bets = 'bets',
 }
 
 export enum ConnectionPlatform {
@@ -542,6 +543,14 @@ export enum ActivitiesPlatform {
     Matters = 'Matters',
 }
 
+export enum PlatformId {
+    Mirror = 10096,
+    Paragraph = 10097,
+    Limo = 10098,
+    Matters = 10099,
+    Others = 0,
+}
+
 export enum PasswordStep {
     SetPassword = 'set_password',
     ConfirmPassword = 'confirm_password',
@@ -589,6 +598,13 @@ export enum TipsDetailViewType {
 export enum TxReactionType {
     LikeSwap = 'like_swap',
     LikeTip = 'like_token_tips',
+    LikeMatters = 'like_matters',
+    LikeMirror = 'like_mirror',
+    LikeParagraph = 'like_paragraph',
+    LikeLimo = 'like_limo',
+    LikeDAO = 'like_dao',
+    LikeNFT = 'like_nft',
+    LikeBets = 'like_bets',
     ShareTip = 'repost_token_tips',
     ShareSwap = 'repost_swap',
 }

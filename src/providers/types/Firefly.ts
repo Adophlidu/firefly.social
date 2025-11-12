@@ -275,6 +275,8 @@ export interface Article {
         json: string;
         contributors: string[];
     };
+    is_like?: boolean;
+    like_count?: number;
 }
 
 export interface FireflySnapshotActivity {
@@ -282,6 +284,8 @@ export interface FireflySnapshotActivity {
     timestamp: string;
     hash: string;
     owner: Address;
+    is_like: boolean;
+    like_count: number;
     // only support vote type
     type: 'vote';
     related_urls: string[];
@@ -1202,6 +1206,9 @@ export type PolymarketActivity = {
     wallet: string;
     avgPrice: string;
     position: string;
+    hasBookmarked: boolean;
+    isLiked: boolean;
+    likeCount: number;
 };
 
 export type PolymarketActivityTimeline = Response<{
@@ -2184,6 +2191,34 @@ export type ScheduleNotification = {
     notificationId: string;
     status: ScheduleTaskStatus;
 };
+
+export type UnifiedNotificationData = {
+    type: string;
+    data: {
+        [key: string]: any;
+    };
+    created_at: string;
+};
+
+export type UnifiedNotification = {
+    source: Source.Firefly;
+    type: SocialNotificationType;
+    data: UnifiedNotificationData['data'];
+    timestamp: number;
+    notificationId: string;
+};
+
+export type AllNotificationsResponse = Response<{
+    notifications: UnifiedNotificationData[];
+    pagination: {
+        total: number;
+        page: number;
+        limit: number;
+        totalPages: number;
+        hasNext: boolean;
+        hasPrev: boolean;
+    };
+}>;
 
 export interface SparksAccountInfo {
     account_id: string;

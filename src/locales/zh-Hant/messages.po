@@ -275,6 +275,9 @@ msgstr "排名 #{0}"
 msgid "Mute {walletHandle}"
 msgstr "隱藏 {walletHandle}"
 
+msgid "Polymarket unliked"
+msgstr ""
+
 #. placeholder {0}: sourceNames.slice(0, -1).join(', ')
 #. placeholder {1}: last(sourceNames) ?? ''
 msgid "{0} and {1}"
@@ -560,6 +563,9 @@ msgstr "熱門群組"
 msgid "Adding..."
 msgstr "新增中..."
 
+msgid "Failed to like snapshot."
+msgstr ""
+
 msgid "Mint"
 msgstr "鑄造"
 
@@ -638,6 +644,9 @@ msgstr "重試"
 #. placeholder {0}: decodeURIComponent(connectorName as string)
 msgid "Get {0}"
 msgstr "獲取 {0}"
+
+msgid "Failed to like Polymarket."
+msgstr ""
 
 msgid "Show less"
 msgstr "折疊"
@@ -986,6 +995,9 @@ msgstr "收回讚失敗。"
 
 msgid "{addressName} is already connected."
 msgstr "{addressName} 已經綁定了。"
+
+msgid "Failed to add bookmark."
+msgstr ""
 
 msgid "No Airdrop Scam"
 msgstr "無空投詐騙"
@@ -1467,6 +1479,9 @@ msgstr ""
 msgid "Days"
 msgstr "日"
 
+msgid "Article unliked"
+msgstr ""
+
 #. placeholder {0}: formatAddressEthereum(fromAddress, 4)
 msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
 msgstr "<0>獲得</0><1/><2>來自</2><3><4>{0}</4></3>"
@@ -1629,6 +1644,9 @@ msgstr "重試"
 msgid "Failed to create image payload."
 msgstr "創建圖片失敗。"
 
+msgid "Polymarket liked"
+msgstr ""
+
 msgid "Reset Password"
 msgstr "重設密碼"
 
@@ -1652,6 +1670,9 @@ msgstr ""
 
 msgid "All Wallets"
 msgstr "所有錢包"
+
+msgid "Failed to remove bookmark."
+msgstr ""
 
 msgid "Significant movements in token prices"
 msgstr "代幣價格重大波動"
@@ -1882,6 +1903,9 @@ msgstr "留言"
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr "創建紅包 24 小時後可撤回未領取數額。"
 
+msgid "Snapshot liked"
+msgstr ""
+
 msgid "Only people you mention"
 msgstr "僅您提及的人"
 
@@ -1928,6 +1952,9 @@ msgstr "描述"
 
 msgid "Others"
 msgstr "其他"
+
+msgid "<0>{userName}</0> liked your <1>{itemType}</1>"
+msgstr ""
 
 msgid "Muted wallets"
 msgstr "已隱藏錢包"
@@ -2548,6 +2575,9 @@ msgstr "{followerCount, plural, one {讚} other {讚}}"
 msgid "No stealing attack involved."
 msgstr "未檢測到竊取攻擊。"
 
+msgid "Removed from bookmarks"
+msgstr ""
+
 msgid "Deleted your Firefly account"
 msgstr "你的 Firefly 帳戶已刪除"
 
@@ -2562,6 +2592,9 @@ msgstr "該行為無法撤銷，您會失去這份草稿"
 
 msgid "Article removed from your Bookmarks"
 msgstr "文章已從你的書籤中移除"
+
+msgid "Failed to unlike article."
+msgstr ""
 
 msgid "Download media"
 msgstr "下載媒體"
@@ -2942,6 +2975,9 @@ msgstr "您將不會看到來自 /{0} 的所有貼文"
 
 msgid "The content of this account is currently unavailable"
 msgstr "此帳戶內容目前無法顯示"
+
+msgid "Failed to like article."
+msgstr ""
 
 msgid "Wallet added successfully"
 msgstr "錢包新增成功"
@@ -3455,6 +3491,9 @@ msgstr "隱藏中..."
 msgid "Polls are only available on {0}"
 msgstr "投票僅支援 {0}"
 
+msgid "Added to bookmarks"
+msgstr ""
+
 #. placeholder {0}: post.stats.comments
 msgid "{0, plural, one {comment} other {comments}}"
 msgstr "{0, plural, one {留言} other {留言}}"
@@ -3700,6 +3739,9 @@ msgstr "Dex 代幣"
 
 msgid "Passed"
 msgstr "已通過"
+
+msgid "Article liked"
+msgstr ""
 
 msgid "Something went wrong"
 msgstr "發生錯誤"
@@ -4375,6 +4417,9 @@ msgstr "未涉及惡意挖礦活動。"
 msgid "Refund successfully."
 msgstr "退款成功。"
 
+msgid "Failed to unlike Polymarket."
+msgstr ""
+
 msgid "Remind me later"
 msgstr "稍後提醒"
 
@@ -4410,6 +4455,9 @@ msgstr "檢測到帳戶衝突"
 
 msgid "No connected wallet."
 msgstr "未連接任意錢包。"
+
+msgid "Failed to unlike snapshot."
+msgstr ""
 
 msgid "Hide assets < 1 USD"
 msgstr "隱藏少於 1 美元的資產"
@@ -4449,6 +4497,9 @@ msgstr "檢測到偽造 KYC。"
 
 msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
 msgstr "可在 <0>設定 > 內容偏好</0> 隨時重新開啟"
+
+msgid "Snapshot unliked"
+msgstr ""
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"

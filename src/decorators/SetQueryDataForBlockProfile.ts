@@ -3,9 +3,11 @@ import { first, uniqBy } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/index.js';
 import { toProfileId } from '@/helpers/isSameProfile.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
+import type { ScheduleNotification, TipsNotification, UnifiedNotification } from '@/providers/types/Firefly.js';
 import { type Notification, NotificationType, type Profile, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/utility.js';
 
@@ -55,34 +57,68 @@ export function setBlockStatus(source: SocialSource, profileId: string, status: 
             for (const page of draft.pages) {
                 if (!page) continue;
                 page.data = page.data.filter((notification) => {
+                    if (
+                        notification.type === NotificationType.Tips ||
+                        notification.type === NotificationType.Schedule ||
+                        UNIFIED_NOTIFICATION_TYPES.includes(notification.type as NotificationType)
+                    ) {
+                        return true;
+                    }
+
+                    type SocialNotification = Exclude<
+                        Notification,
+                        UnifiedNotification | TipsNotification | ScheduleNotification
+                    >;
+                    const notif = notification as SocialNotification;
                     switch (notification.type) {
-                        case NotificationType.Comment:
-                            return notification.comment?.author.profileId !== profileId;
-                        case NotificationType.Quote:
-                            const post = [Source.Bsky, Source.Farcaster].includes(notification.source)
-                                ? notification.quote
-                                : notification.post;
-                            return post.author.profileId !== profileId;
+                        case NotificationType.Comment: {
+                            const commentNotif = notif as Extract<
+                                SocialNotification,
+                                { type: NotificationType.Comment }
+                            >;
+                            return commentNotif.comment?.author.profileId !== profileId;
+                        }
+                        case NotificationType.Quote: {
+                            const quoteNotif = notif as Extract<SocialNotification, { type: NotificationType.Quote }>;
+                            const post = [Source.Bsky, Source.Farcaster].includes(quoteNotif.source)
+                                ? quoteNotif.quote
+                                : quoteNotif.post;
+                            return post?.author.profileId !== profileId;
+                        }
                         case NotificationType.Mention:
-                        case NotificationType.Act:
-                            if (!notification.post) return true;
-                            return notification.post.author;
-                        case NotificationType.Follow:
-                            if (notification.followers.length > 1) return true;
-                            const follower = first(notification.followers);
+                        case NotificationType.Act: {
+                            const mentionNotif = notif as Extract<
+                                SocialNotification,
+                                { type: NotificationType.Mention | NotificationType.Act }
+                            >;
+                            if (!mentionNotif.post) return true;
+                            return mentionNotif.post.author.profileId !== profileId;
+                        }
+                        case NotificationType.Follow: {
+                            const followNotif = notif as Extract<SocialNotification, { type: NotificationType.Follow }>;
+                            if (followNotif.followers.length > 1) return true;
+                            const follower = first(followNotif.followers);
                             if (!follower) return true;
                             return follower.profileId !== profileId;
-                        case NotificationType.Mirror:
-                            const mirrors = uniqBy(notification.mirrors, toProfileId);
+                        }
+                        case NotificationType.Mirror: {
+                            const mirrorNotif = notif as Extract<SocialNotification, { type: NotificationType.Mirror }>;
+                            const mirrors = uniqBy(mirrorNotif.mirrors, toProfileId);
                             if (mirrors.length > 1) return true;
                             const reporter = first(mirrors);
                             if (!reporter) return true;
                             return reporter.profileId !== profileId;
-                        case NotificationType.Reaction:
-                            if (notification.reactors.length > 1) return true;
-                            const reactor = first(notification.reactors);
+                        }
+                        case NotificationType.Reaction: {
+                            const reactionNotif = notif as Extract<
+                                SocialNotification,
+                                { type: NotificationType.Reaction }
+                            >;
+                            if (reactionNotif.reactors.length > 1) return true;
+                            const reactor = first(reactionNotif.reactors);
                             if (!reactor) return true;
                             return reactor.profileId !== profileId;
+                        }
                         default:
                             return true;
                     }

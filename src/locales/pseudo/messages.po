@@ -270,6 +270,9 @@ msgstr ""
 msgid "Mute {walletHandle}"
 msgstr ""
 
+msgid "Polymarket unliked"
+msgstr ""
+
 #. placeholder {0}: sourceNames.slice(0, -1).join(', ')
 #. placeholder {1}: last(sourceNames) ?? ''
 msgid "{0} and {1}"
@@ -555,6 +558,9 @@ msgstr ""
 msgid "Adding..."
 msgstr ""
 
+msgid "Failed to like snapshot."
+msgstr ""
+
 msgid "Mint"
 msgstr ""
 
@@ -632,6 +638,9 @@ msgstr ""
 
 #. placeholder {0}: decodeURIComponent(connectorName as string)
 msgid "Get {0}"
+msgstr ""
+
+msgid "Failed to like Polymarket."
 msgstr ""
 
 msgid "Show less"
@@ -980,6 +989,9 @@ msgid "Failed to unlike the post."
 msgstr ""
 
 msgid "{addressName} is already connected."
+msgstr ""
+
+msgid "Failed to add bookmark."
 msgstr ""
 
 msgid "No Airdrop Scam"
@@ -1462,6 +1474,9 @@ msgstr ""
 msgid "Days"
 msgstr ""
 
+msgid "Article unliked"
+msgstr ""
+
 #. placeholder {0}: formatAddressEthereum(fromAddress, 4)
 msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
 msgstr ""
@@ -1624,6 +1639,9 @@ msgstr ""
 msgid "Failed to create image payload."
 msgstr ""
 
+msgid "Polymarket liked"
+msgstr ""
+
 msgid "Reset Password"
 msgstr ""
 
@@ -1646,6 +1664,9 @@ msgid "VALUE"
 msgstr ""
 
 msgid "All Wallets"
+msgstr ""
+
+msgid "Failed to remove bookmark."
 msgstr ""
 
 msgid "Significant movements in token prices"
@@ -1877,6 +1898,9 @@ msgstr ""
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr ""
 
+msgid "Snapshot liked"
+msgstr ""
+
 msgid "Only people you mention"
 msgstr ""
 
@@ -1922,6 +1946,9 @@ msgid "Description"
 msgstr ""
 
 msgid "Others"
+msgstr ""
+
+msgid "<0>{userName}</0> liked your <1>{itemType}</1>"
 msgstr ""
 
 msgid "Muted wallets"
@@ -2543,6 +2570,9 @@ msgstr ""
 msgid "No stealing attack involved."
 msgstr ""
 
+msgid "Removed from bookmarks"
+msgstr ""
+
 msgid "Deleted your Firefly account"
 msgstr ""
 
@@ -2556,6 +2586,9 @@ msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
 msgid "Article removed from your Bookmarks"
+msgstr ""
+
+msgid "Failed to unlike article."
 msgstr ""
 
 msgid "Download media"
@@ -2936,6 +2969,9 @@ msgid "All posts from /{0} will be hidden from you"
 msgstr ""
 
 msgid "The content of this account is currently unavailable"
+msgstr ""
+
+msgid "Failed to like article."
 msgstr ""
 
 msgid "Wallet added successfully"
@@ -3450,6 +3486,9 @@ msgstr ""
 msgid "Polls are only available on {0}"
 msgstr ""
 
+msgid "Added to bookmarks"
+msgstr ""
+
 #. placeholder {0}: post.stats.comments
 msgid "{0, plural, one {comment} other {comments}}"
 msgstr ""
@@ -3694,6 +3733,9 @@ msgid "Dex"
 msgstr ""
 
 msgid "Passed"
+msgstr ""
+
+msgid "Article liked"
 msgstr ""
 
 msgid "Something went wrong"
@@ -4368,6 +4410,9 @@ msgstr ""
 msgid "Refund successfully."
 msgstr ""
 
+msgid "Failed to unlike Polymarket."
+msgstr ""
+
 msgid "Remind me later"
 msgstr ""
 
@@ -4402,6 +4447,9 @@ msgid "Different Account Detected"
 msgstr ""
 
 msgid "No connected wallet."
+msgstr ""
+
+msgid "Failed to unlike snapshot."
 msgstr ""
 
 msgid "Hide assets < 1 USD"
@@ -4441,6 +4489,9 @@ msgid "Fake KYC found."
 msgstr ""
 
 msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
+msgstr ""
+
+msgid "Snapshot unliked"
 msgstr ""
 
 #. placeholder {0}: post.stats.reactions

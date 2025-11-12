@@ -10,6 +10,7 @@ import FilterIcon from '@/assets/filter.svg';
 import { Switch } from '@/components/Switch/index.js';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
 import { type NotificationSource, Source } from '@/constants/enum.js';
+import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/index.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -72,7 +73,7 @@ export function NotificationSettings({ source }: { source: NotificationSource })
             {
                 type: NotificationType.Reaction,
                 text: <Trans>Like</Trans>,
-                types: [NotificationType.Reaction],
+                types: [NotificationType.Reaction, ...UNIFIED_NOTIFICATION_TYPES],
             },
             {
                 type: NotificationType.Follow,

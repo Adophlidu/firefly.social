@@ -7,6 +7,7 @@ import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getArticleAuthorTarget, getArticleAuthorUrl } from '@/helpers/getArticleAuthorUrl.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { type Article } from '@/providers/types/Article.js';
@@ -31,8 +32,10 @@ export function ArticleAuthor({ article, ...props }: Props) {
         />
     );
 
-    const authorName = article.author.handle || ens || formatAddressEthereum(article.author.id, 4);
-
+    const authorName =
+        article.author.handle && !isValidAddressEthereum(article.author.handle)
+            ? article.author.handle
+            : ens || formatAddressEthereum(article.author.id, 4);
     return (
         <div {...props} className={classNames('flex items-center gap-2', props.className)}>
             <ConditionalLink href={authorUrl} className="z-1" target={target}>

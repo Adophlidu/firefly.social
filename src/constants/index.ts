@@ -29,6 +29,7 @@ import {
 } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
+import { NotificationType } from '@/providers/types/SocialMedia.js';
 import type { Runtime } from '@/providers/types/Trending.js';
 import { MediaSource } from '@/types/compose.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
@@ -73,6 +74,7 @@ export const FIREFLY_NITTER_URL = 'https://nitter.r2d2.to';
 export const X3_PRO_AVATAR_URL = 'https://x3-media-pro-3.oss-cn-hongkong.aliyuncs.com';
 export const X3_PRO_HOST = 'https://firefly.r2d2.to';
 export const ORB_API_URL = 'https://orbapi.xyz';
+export const POLYMARKET_URL = 'https://polymarket.com';
 export const CALENDAR_BASE_URL = 'https://mask-network-dev.firefly.land/v1/calendar/';
 export const ACCOUNT_CONFLICT_SOLUTION_URL =
     'https://mask.notion.site/Experience-a-login-conflict-2227d90fdc9b819cabffe6a98d87f901';
@@ -496,3 +498,27 @@ export const EIP6963_PROVIDER_DESCRIPTION = {
 
 export const EVENT_ROUTES: Array<`/${string}`> = ['/event', '/events'];
 export const WHITEBOARD_ROUTES: Array<`/${string}`> = ['/frame', '/login', '/redirect', '/telegram', '/signup'];
+
+export const ARTICLE_LIKE_NOTIFICATION_TYPES: NotificationType[] = [
+    NotificationType.LikeMatters,
+    NotificationType.LikeMirror,
+    NotificationType.LikeParagraph,
+    NotificationType.LikeLimo,
+];
+
+export const UNIFIED_NOTIFICATION_TYPES: NotificationType[] = [
+    ...ARTICLE_LIKE_NOTIFICATION_TYPES,
+    NotificationType.LikeBets,
+    NotificationType.LikeDAO,
+    NotificationType.LikeNFT,
+];
+
+export const SOCIAL_NOTIFICATION_TYPES: NotificationType[] = [
+    NotificationType.Reaction,
+    NotificationType.Comment,
+    NotificationType.Mirror,
+    NotificationType.Quote,
+    NotificationType.Follow,
+    NotificationType.Mention,
+    NotificationType.Act,
+];

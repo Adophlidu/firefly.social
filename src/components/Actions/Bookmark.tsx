@@ -29,16 +29,17 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({
 }) {
     const content = hasBookmarked ? <Trans>Remove from Bookmarks</Trans> : <Trans>Bookmark</Trans>;
 
+    const isDisabled = disabled || loading;
     return (
         <ClickableArea
             className={classNames('flex cursor-pointer items-center space-x-1 text-second md:space-x-2', {
-                'cursor-not-allowed opacity-50': disabled,
+                'cursor-not-allowed opacity-50': isDisabled,
             })}
-            onClick={onClick}
+            onClick={isDisabled ? undefined : onClick}
         >
-            <Tooltip disabled={disabled} placement="top" content={content}>
+            <Tooltip disabled={isDisabled} placement="top" content={content}>
                 <motion.button
-                    disabled={disabled}
+                    disabled={isDisabled}
                     whileTap={{ scale: 0.9 }}
                     className="inline-flex size-7 items-center justify-center rounded-full hover:bg-warn/[.20] hover:text-warn"
                     aria-label="Bookmark"

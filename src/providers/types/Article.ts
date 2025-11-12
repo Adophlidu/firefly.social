@@ -44,13 +44,12 @@ export interface Article {
     hasBookmarked?: boolean;
     slug?: string;
     followingSources: FollowingSource[];
+    isLiked?: boolean;
+    likeCount?: number;
 
     // Paragraph only
     html?: string;
     json?: string;
-
-    // Matters only
-    likeCount?: number;
 }
 
 export interface ArticleCollectable {

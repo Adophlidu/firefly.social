@@ -114,6 +114,7 @@ export enum EventId {
     ARTICLE_COLLECT_SUBMIT = 'article_collect_submit', // ✅
     ARTICLE_COLLECT_SUCCESS = 'article_collect_success', // ✅
     ARTICLE_BOOKMARK_SUCCESS = 'article_bookmark_success', // ✅
+    ARTICLE_LIKE_SUCCESS = 'article_like_success', // ✅
     ARTICLE_SHARE_CLICK = 'article_share_click', // ✅
     ARTICLE_VIEW_SOURCE_CLICK = 'article_view_source_click', // ✅
     MIRROR_ARTICLE_CLICK = 'mirror_article_click', // ✅
@@ -834,6 +835,13 @@ export interface Events extends Record<EventId, Event> {
         } & WalletEventParameters;
     };
     [EventId.ARTICLE_BOOKMARK_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            article_id: string;
+        };
+    };
+    [EventId.ARTICLE_LIKE_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
             firefly_account_id: string;

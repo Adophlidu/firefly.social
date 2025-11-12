@@ -15,6 +15,7 @@ import type {
     NotificationSettings,
     ScheduleNotification,
     TipsNotification,
+    UnifiedNotification,
     WalletProfile,
 } from '@/providers/types/Firefly.js';
 import type { Poll } from '@/providers/types/Poll.js';
@@ -51,6 +52,13 @@ export enum NotificationType {
     Act = 'act',
     Tips = 'tips',
     Schedule = 'schedule',
+    LikeMatters = 'like_matters',
+    LikeMirror = 'like_mirror',
+    LikeParagraph = 'like_paragraph',
+    LikeLimo = 'like_limo',
+    LikeBets = 'like_bets',
+    LikeDAO = 'like_dao',
+    LikeNFT = 'like_nft',
 }
 
 export enum ProfileStatus {
@@ -412,7 +420,8 @@ export type Notification =
     | MentionNotification
     | ActedNotification
     | TipsNotification
-    | ScheduleNotification;
+    | ScheduleNotification
+    | UnifiedNotification;
 
 export interface Channel<T = unknown> {
     source: SocialSource;

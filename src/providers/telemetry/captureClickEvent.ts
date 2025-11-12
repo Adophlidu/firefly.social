@@ -146,3 +146,12 @@ export function captureArticleBookmarkSuccessEvent(articleId: string, fireflyAcc
         });
     });
 }
+
+export function captureArticleLikeSuccessEvent(articleId: string, fireflyAccountId: string) {
+    return runInSafeAsync(async () => {
+        return TelemetryProvider.captureEvent(EventId.ARTICLE_LIKE_SUCCESS, {
+            article_id: articleId,
+            firefly_account_id: fireflyAccountId,
+        });
+    });
+}

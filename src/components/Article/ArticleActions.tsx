@@ -4,12 +4,13 @@ import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import urlcat from 'urlcat';
 import { useAccount } from 'wagmi';
 
 import CollectIcon from '@/assets/collect.svg';
 import { Bookmark } from '@/components/Actions/Bookmark.js';
+import { LikeButton } from '@/components/Actions/LikeButton.js';
 import { ShareAction } from '@/components/Actions/ShareAction.js';
 import { ArticleCollect } from '@/components/Article/ArticleCollect.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -24,6 +25,7 @@ import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
+import { useToggleArticleLike } from '@/hooks/useToggleArticleLike.js';
 import { CollectArticleModalRef } from '@/modals/CollectArticleModal.js';
 import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
@@ -38,7 +40,8 @@ interface ArticleActionsProps {
 export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions({ article: oldArticle }) {
     const isLogin = useIsLoginFirefly();
     const account = useAccount();
-    const mutation = useToggleArticleBookmark();
+    const { mutate: onBookmarkChange, isPending: bookmarkMutationLoading } = useToggleArticleBookmark();
+    const { mutate: onLikeChange, isPending: likeMutationLoading } = useToggleArticleLike();
     const isMattersArticle = oldArticle.platform === ArticlePlatform.Matters;
     const address = isMattersArticle ? oldArticle.author.info.ethAddress : oldArticle.author.id;
     const isAddress = isValidAddressEthereum(address);
@@ -53,6 +56,14 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
     });
 
     const article = data || oldArticle;
+
+    const handleLike = useCallback(() => {
+        onLikeChange(article);
+    }, [onLikeChange, article]);
+
+    const handleBookmark = useCallback(() => {
+        onBookmarkChange(article);
+    }, [onBookmarkChange, article]);
 
     const onCollect = () => {
         if (!isLogin) {
@@ -77,6 +88,12 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
     return (
         <div className="flex items-center justify-end text-second">
             <div className="flex items-center">
+                <LikeButton
+                    isLiked={!!article.isLiked}
+                    likeCount={article.likeCount || 0}
+                    onClick={handleLike}
+                    isPending={likeMutationLoading}
+                />
                 <ClickableArea
                     className={classNames('flex w-min items-center hover:text-secondarySuccess md:space-x-2')}
                 >
@@ -95,10 +112,10 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                     ) : null}
                 </ClickableArea>
                 <Bookmark
-                    loading={isLoading}
+                    loading={isLoading || bookmarkMutationLoading}
                     hiddenCount
                     hasBookmarked={article.hasBookmarked}
-                    onClick={() => mutation.mutate(article)}
+                    onClick={handleBookmark}
                 />
                 {isAddress ? (
                     <Tips identity={identity} handle={article.author.handle || ens} onClick={close} pureWallet />
