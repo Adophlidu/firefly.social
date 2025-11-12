@@ -1,4 +1,4 @@
-import { bom } from '@dimensiondev/utils';
+import { bom, parseUrl } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
@@ -6,7 +6,6 @@ import { FetchError, NetworkError } from '@/constants/error.js';
 import { FIREFLY_USER_AGENT, SITE_URL, SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { addHeaders } from '@/helpers/addHeader.js';
 import { getNextFetchers, type NextFetchersOptions } from '@/helpers/getNextFetchers.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import type { Fetcher } from '@/types/utility.js';
 
 const { fetch: originalFetch } = globalThis;

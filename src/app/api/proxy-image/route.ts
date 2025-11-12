@@ -1,8 +1,8 @@
 import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
-import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { fetch } from '@/helpers/fetch.js';
+import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 
 const querySchema = z.object({
     url: z.string(),

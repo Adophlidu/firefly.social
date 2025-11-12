@@ -4,6 +4,7 @@ import urlcat from 'urlcat';
 
 import { LoginEmailError, NotAllowedError, TimeoutError, UnreachableError } from '@/constants/error.js';
 import { NOT_DEPEND_SECRET, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { fetch } from '@/helpers/fetch.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -22,7 +23,6 @@ import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJson } from '@/types/utility.js';
-import { fetch } from '@/helpers/fetch.js';
 
 async function restoreFireflySessionFromLens(session: LensSession, signal?: AbortSignal) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/lens/login');
