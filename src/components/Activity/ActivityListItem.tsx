@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 
 import CalendarIcon from '@/assets/activity-calendar.svg';
-import ActivityEndedDialog from '@/components/Activity/ActivityEndedDialog.js';
+import { ActivityEndedDialog } from '@/components/Activity/ActivityEndedDialog.js';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';

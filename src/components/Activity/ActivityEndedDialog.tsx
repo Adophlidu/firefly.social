@@ -44,5 +44,3 @@ export function ActivityEndedDialog({ buttonText, data, open = true, ...rest }: 
         </Modal>
     );
 }
-
-export default ActivityEndedDialog;

@@ -9,5 +9,3 @@ export function ActivityTasks({ name }: { name: string; data: ActivityInfoRespon
             return null;
     }
 }
-
-export default ActivityTasks;

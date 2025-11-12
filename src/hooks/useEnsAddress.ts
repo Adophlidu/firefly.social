@@ -7,7 +7,7 @@ import { lookup } from '@/services/ens.js';
 
 const runningQueries = new Map<string, Promise<string | null>>();
 
-export async function fetchEnsAddress(parameters: GetEnsAddressParameters) {
+async function fetchEnsAddress(parameters: GetEnsAddressParameters) {
     const { name } = parameters;
     const chainId = parameters.chainId || mainnet.id;
     const cacheKey = `${name}-${chainId}`;

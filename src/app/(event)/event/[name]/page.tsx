@@ -9,9 +9,18 @@ import { createEventMetadata } from '@/providers/firefly/metadata/createEventMet
 import { ActivityStatus } from '@/providers/types/Firefly.js';
 import type { NextPageProps } from '@/types/utility.js';
 
-const ActivityNavigationBar = dynamic(() => import('@/components/Activity/ActivityNavigationBar.js'), { ssr: false });
-const ActivityTasks = dynamic(() => import('@/components/Activity/ActivityTasks/index.js'), { ssr: false });
-const ActivityEndedDialog = dynamic(() => import('@/components/Activity/ActivityEndedDialog.js'), { ssr: false });
+const ActivityNavigationBar = dynamic(
+    () => import('@/components/Activity/ActivityNavigationBar.js').then((m) => m.ActivityNavigationBar),
+    { ssr: false },
+);
+const ActivityTasks = dynamic(
+    () => import('@/components/Activity/ActivityTasks/index.js').then((m) => m.ActivityTasks),
+    { ssr: false },
+);
+const ActivityEndedDialog = dynamic(
+    () => import('@/components/Activity/ActivityEndedDialog.js').then((m) => m.ActivityEndedDialog),
+    { ssr: false },
+);
 
 interface Props extends NextPageProps<{ name: string }> {}
 
