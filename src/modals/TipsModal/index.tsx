@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { RouterProvider } from '@tanstack/react-router';
+import { useCallback } from 'react';
 
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { NetworkType, Source } from '@/constants/enum.js';
@@ -74,7 +75,7 @@ type Props = {
 function TipsModalUI({ ref }: Props) {
     const { reset, update } = TipsContext.useContainer();
 
-    useSingletonModal(ref, {
+    const [, dispatch] = useSingletonModal(ref, {
         onOpen: async ({ identity, handle, profiles, post, pureWallet = false }) => {
             // avoid UI flicker when closing
             reset();
@@ -118,7 +119,11 @@ function TipsModalUI({ ref }: Props) {
         },
     });
 
-    return <RouterProvider router={router} />;
+    const onClose = useCallback(() => {
+        dispatch?.close();
+    }, [dispatch]);
+
+    return <RouterProvider router={router} context={{ onClose }} />;
 }
 
 export function TipsModal({ ref, ...props }: Props) {
