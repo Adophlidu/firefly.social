@@ -53,7 +53,7 @@ src/locales/**/*.mjs
 src/locales/**/*.ts
 
 
-*storybook.log
+*.log
 
 .cursor/
 .claude/

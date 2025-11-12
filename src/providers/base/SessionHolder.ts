@@ -1,6 +1,6 @@
 import { queryClient } from '@/configs/queryClient.js';
 import { NotImplementedError } from '@/constants/error.js';
-import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
+import type { NextFetchersOptions } from '@/helpers/fetch.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
 import type { Session } from '@/providers/types/Session.js';
 

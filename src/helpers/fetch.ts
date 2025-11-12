@@ -5,8 +5,6 @@ import urlcat from 'urlcat';
 import { FetchError, NetworkError } from '@/constants/error.js';
 import { FIREFLY_USER_AGENT, SITE_URL, SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { addHeaders } from '@/helpers/addHeader.js';
-import { getNextFetchers, type NextFetchersOptions } from '@/helpers/getNextFetchers.js';
-import type { Fetcher } from '@/types/utility.js';
 
 const { fetch: originalFetch } = globalThis;
 
@@ -43,17 +41,22 @@ function resolveRequestInput(input: RequestInfo | URL) {
     return isServer && url?.startsWith('/') ? urlcat(SITE_URL, url) : input;
 }
 
+export interface NextFetchersOptions {
+    /** Threat non-2?? as valid response */
+    noStrictOK?: boolean;
+    /** Avoid adding a content-type when fetching JSON. */
+    noDefaultContentType?: boolean;
+    /** Generates an unequal request key. Requests that share the same key will be squashed into a single one. */
+    resolver?: (request: Request) => Promise<string>;
+}
+
 export async function fetch(
     input: RequestInfo | URL,
     init?: RequestInit,
     options?: NextFetchersOptions,
 ): Promise<Response> {
-    const fetchers = getNextFetchers(options);
-    const fetcher = fetchers.reduceRight<Fetcher>((ff, f) => (r, i) => f(r, i, ff), defaultFetcher);
-
     const requestInput = resolveRequestInput(input);
-
-    const response = await fetcher(requestInput, init);
+    const response = await defaultFetcher(requestInput, init);
     if (!response.ok && bom.navigator?.onLine === false) throw new NetworkError();
     if (!response.ok && !options?.noStrictOK) {
         const fetchError = await FetchError.from(requestInput, response);

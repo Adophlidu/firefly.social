@@ -1,4 +1,4 @@
-import type { SocialSource, SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
+import type { SocialSource, SourceInURL } from '@/constants/enum.js';
 import type { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import type { Pageable } from '@/helpers/pageable.js';
 import type { Response as FireflyResponse } from '@/providers/types/Firefly.js';
@@ -71,18 +71,6 @@ export interface FireflyPoll {
 }
 
 export type GetPollResponse = FireflyResponse<FireflyPoll>;
-
-export interface VoteRequest {
-    poll_id: string;
-    platform: SocialSourceInURL;
-    platform_id: string;
-    choices: number[];
-    lens_token: string;
-    farcaster_signature: string;
-    wallet_address: string;
-    original_message: string;
-    signature_message: string;
-}
 
 export type VoteResponseData = {
     is_success: boolean;

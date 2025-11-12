@@ -1,0 +1,53 @@
+name: TS-Prune Check
+
+on:
+    push:
+        branches:
+            - '**'
+            - '!main'
+            - '!released'
+    workflow_dispatch:
+
+jobs:
+    ts-prune:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Authenticate NPM
+              uses: DimensionDev/github-token-action@latest
+              with:
+                  registry: true
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.node-version'
+
+            - name: Setup Github Actions
+              run: ./scripts/setup-gh-actions.sh
+
+            - uses: pnpm/action-setup@v4
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Run ts-prune and filter
+              id: ts-prune
+              run: |
+                  # Run ts-prune and capture output
+                  npx ts-prune > ts-prune-raw.log || true
+
+                  # Filter the output based on whitelist rules
+                  node scripts/filter-ts-prune.js ts-prune-raw.log ts-prune-filtered.log
+
+                  # Check if filtered log has any non-blank lines (excluding newlines and whitespace-only lines)
+                  if grep -s '[^[:space:]]' ts-prune-filtered.log; then
+                      echo "❌ Found unused exports after filtering:"
+                      echo ""
+                      cat ts-prune-filtered.log
+                      exit 1
+                  else
+                      echo "✅ No unused exports found (after filtering)"
+                  fi

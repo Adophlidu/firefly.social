@@ -1,7 +1,7 @@
 import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
 
+import type { NextFetchersOptions } from '@/helpers/fetch.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 
