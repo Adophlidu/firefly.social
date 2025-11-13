@@ -8,11 +8,20 @@ interface ConditionalLinkProps {
     children: ReactNode;
     className: string;
     target?: string;
+    onClick?: () => void;
 }
 
-export function ConditionalLink({ href, children, className, target }: ConditionalLinkProps) {
+export function ConditionalLink({ href, children, className, target, onClick }: ConditionalLinkProps) {
     return href ? (
-        <Link href={href} onClick={stopPropagation} className={className} target={target}>
+        <Link
+            href={href}
+            onClick={(event) => {
+                stopPropagation(event);
+                onClick?.();
+            }}
+            className={className}
+            target={target}
+        >
             {children}
         </Link>
     ) : (

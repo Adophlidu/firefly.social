@@ -1,7 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 
 import { ArticleMoreAction } from '@/components/Actions/ArticleMore.js';
 import { ActivityCellHeader } from '@/components/ActivityCell/ActivityCellHeader.js';
@@ -19,12 +19,14 @@ interface SingleArticleHeaderProps {
     article: Article;
     className?: string;
     isBookmark?: boolean;
+    onClickLink?: () => void;
 }
 
 export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function SingleArticleHeader({
     article,
     className,
     isBookmark,
+    onClickLink,
 }) {
     const authorUrl = getArticleAuthorUrl(article);
     const target = getArticleAuthorTarget(article);
@@ -44,9 +46,17 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
         alt: article.author.handle || article.author.id,
     };
 
+    const handleAvatarClick = useCallback(
+        (event: React.MouseEvent<HTMLAnchorElement>) => {
+            stopPropagation(event);
+            onClickLink?.();
+        },
+        [onClickLink],
+    );
+
     return (
         <header className={classNames('flex w-full min-w-0 items-start gap-3', className)}>
-            <Link href={authorUrl} className="z-1" onClick={stopPropagation} target={target}>
+            <Link href={authorUrl} className="z-1" onClick={handleAvatarClick} target={target}>
                 <Avatar
                     className={avatarProps.className}
                     src={avatarProps.src}
@@ -64,6 +74,7 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
                 username={article.author.username}
                 authorUrl={authorUrl}
                 target={target}
+                onClickLink={onClickLink}
             >
                 {!isBookmark ? <ArticleMoreAction article={article} /> : null}
             </ActivityCellHeader>

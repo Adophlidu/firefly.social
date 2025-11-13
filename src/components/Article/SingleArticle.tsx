@@ -77,6 +77,10 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
         return;
     }, [article, index, isMuted, listKey, router, setScrollIndex, identity.id]);
 
+    const handleLinkClick = useCallback(() => {
+        if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+    }, [listKey, index, setScrollIndex]);
+
     return (
         <article
             className={classNames(
@@ -88,7 +92,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
             onClick={handleClick}
         >
             {!isBookmark ? <FeedFollowSource source={first(article.followingSources)} /> : null}
-            <SingleArticleHeader article={article} isBookmark={isBookmark} />
+            <SingleArticleHeader article={article} isBookmark={isBookmark} onClickLink={handleLinkClick} />
             {isMuted ? (
                 <CollapsedContent className="mt-2 pl-[52px]" authorMuted isQuote={false} />
             ) : (

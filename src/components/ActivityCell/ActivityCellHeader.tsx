@@ -17,6 +17,7 @@ export interface ActivityCellHeaderProps extends HTMLProps<HTMLDivElement> {
     icon?: ReactNode;
     authorUrl?: string | null;
     target?: string;
+    onClickLink?: () => void;
 }
 
 export function ActivityCellHeader({
@@ -29,6 +30,7 @@ export function ActivityCellHeader({
     target,
     className,
     children,
+    onClickLink,
     ...rest
 }: ActivityCellHeaderProps) {
     const authorUrl =
@@ -43,6 +45,7 @@ export function ActivityCellHeader({
                     href={authorUrl}
                     className="block max-w-full truncate font-bold text-main"
                     target={target}
+                    onClick={onClickLink}
                 >
                     {mainContent}
                 </ConditionalLink>
@@ -52,6 +55,7 @@ export function ActivityCellHeader({
                         href={authorUrl}
                         className="ml-2 block min-w-0 max-w-full truncate text-secondary max-md:hidden"
                         target={target}
+                        onClick={onClickLink}
                     >
                         {username ? <>@{username}</> : <address className="truncate not-italic">{addressText}</address>}
                     </ConditionalLink>
