@@ -70,10 +70,10 @@ export const resolveExploreSourceName = createLookupTableResolver<ExploreSource,
         [Source.Farcaster]: 'Farcaster',
         [Source.Bsky]: 'Bluesky',
         [Source.Twitter]: 'X',
-        [TrendingType.TopGainers]: <Trans>Top Gainers</Trans>,
-        [TrendingType.TopLosers]: <Trans>Top Losers</Trans>,
+        [TrendingType.Newest]: <Trans>Newest</Trans>,
+        [TrendingType.Stocks]: <Trans>Stocks</Trans>,
         [TrendingType.Trending]: <Trans>Trending</Trans>,
-        [TrendingType.Meme]: 'Meme',
+        [TrendingType.TopSearches]: <Trans>Top Searches</Trans>,
     },
     (source) => {
         throw new UnreachableError('source', source);

@@ -600,6 +600,9 @@ msgstr "登入中"
 msgid "Overview"
 msgstr ""
 
+msgid "Stocks"
+msgstr ""
+
 msgid "Sorry, the email you entered is invalid"
 msgstr "抱歉，您輸入的電子郵件無效"
 
@@ -1094,6 +1097,9 @@ msgstr "儲存失敗貼文？"
 msgid "Owners"
 msgstr "持有者"
 
+msgid "6h"
+msgstr ""
+
 msgid "Sorry, give edit permission from Orb is necessary to continue."
 msgstr "抱歉，需透過Orb授予編輯權限方可繼續。"
 
@@ -1176,9 +1182,6 @@ msgstr "找不到相關個人檔案。"
 
 msgid "Collections"
 msgstr "NFT 系列"
-
-msgid "Top Losers"
-msgstr "跌幅榜"
 
 msgid "Profile details"
 msgstr "個人檔案詳情"
@@ -1500,9 +1503,6 @@ msgstr "透過助記詞登入"
 
 msgid "Mint price"
 msgstr "鑄造價格"
-
-msgid "Top Gainers"
-msgstr "漲幅榜"
 
 msgid "Your Bluesky session has expired, please sign in again"
 msgstr "您的 Bluesky 登入狀態已失效，請重新登入"
@@ -2025,6 +2025,9 @@ msgstr "貼文已刪除"
 msgid "Website"
 msgstr "網站"
 
+msgid "Top Searches"
+msgstr ""
+
 msgid "Your TG account is now connected"
 msgstr "您的 Telegram 帳戶已綁定"
 
@@ -2045,9 +2048,15 @@ msgstr "票數"
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr "個人簡介不得超過 {maxBioSize} 字元"
 
+msgid "5 minutes"
+msgstr ""
+
 #. placeholder {0}: activity.tx_status
 msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
 msgstr "{0, select, success {成功} failed {失敗} pending {處理中} other {失敗}}"
+
+msgid "5m"
+msgstr ""
 
 msgid "Tip sent successfully!"
 msgstr "小費發送成功！"
@@ -2168,6 +2177,9 @@ msgstr "<0>/{0}</0> 成員"
 msgid "Requirements"
 msgstr "要求"
 
+msgid "Time range filter"
+msgstr ""
+
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 高風險項} other {# 高風險項}}"
 
@@ -2261,6 +2273,9 @@ msgstr "Firefly 個人檔案建立失敗。"
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "授予紅包智能合約訪問你 {0} 的權限。每個代幣只需執行一次。"
+
+msgid "Price · Change"
+msgstr ""
 
 msgid "NFT holder of any one below"
 msgstr "擁有以下任意 NFT 系列"
@@ -2502,6 +2517,9 @@ msgstr "<0>當前市值與滿足最大供應量時的市值之比。</0> <1>Mkt 
 msgid "Minting Date"
 msgstr "鑄造日期"
 
+msgid "24 hours"
+msgstr ""
+
 msgid "Failed to create red packet"
 msgstr "創建紅包失敗"
 
@@ -2523,6 +2541,9 @@ msgstr "有什麼新鮮事"
 
 msgid "Reauthorize"
 msgstr "重新授權"
+
+msgid "24h"
+msgstr ""
 
 msgid "Like"
 msgstr "讚"
@@ -2595,6 +2616,9 @@ msgstr "該行為無法撤銷，您會失去這份草稿"
 
 msgid "Article removed from your Bookmarks"
 msgstr "文章已從你的書籤中移除"
+
+msgid "6 hours"
+msgstr ""
 
 msgid "Failed to unlike article."
 msgstr ""
@@ -3016,6 +3040,9 @@ msgstr "按讚貼文失敗。"
 
 msgid "Enter the amount that each winner can claim"
 msgstr "輸入每位獲獎者可領取金額"
+
+msgid "Newest"
+msgstr ""
 
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
@@ -3868,6 +3895,9 @@ msgstr "全鏈"
 msgid "Your email is now connected."
 msgstr "您的電子郵件已綁定。"
 
+msgid "Volume · MC"
+msgstr ""
+
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "名稱不得超過 {maxDisplayNameSize} 字元"
 
@@ -4258,6 +4288,9 @@ msgstr "合約擁有者對交易冷卻時間有限制。"
 msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 msgstr "<0>已領取: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> <3>{token_symbol}</3>"
 
+msgid "1 hour"
+msgstr ""
+
 msgid "View on website"
 msgstr "在網站查看"
 
@@ -4288,6 +4321,9 @@ msgid "There is no limit to the number of token transactions. The number of scam
 msgstr "代幣交易次數沒有限制。但詐騙代幣的交易次數可能受到限制（詐騙風險）。"
 
 msgid "Value"
+msgstr ""
+
+msgid "1h"
 msgstr ""
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."

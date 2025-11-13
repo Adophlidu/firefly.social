@@ -224,10 +224,10 @@ export enum ExploreType {
 }
 
 export enum TrendingType {
-    TopGainers = 'top-gainers',
-    TopLosers = 'top-losers',
     Trending = 'trending',
-    Meme = 'meme',
+    Stocks = 'stocks',
+    Newest = 'newest',
+    TopSearches = 'top-searches',
 }
 
 export enum SearchType {
@@ -648,4 +648,11 @@ export enum MetadataAttributeType {
     NUMBER = 'Number',
     STRING = 'String',
     JSON = 'JSON',
+}
+
+export enum TimeRangeFilter {
+    FiveMinutes = 'm5',
+    OneHour = 'h1',
+    SixHours = 'h6',
+    OneDay = 'h24',
 }

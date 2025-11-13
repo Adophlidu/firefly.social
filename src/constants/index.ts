@@ -1,4 +1,5 @@
 /* cspell:disable */
+
 import {
     type BookmarkSource,
     ChannelTabType,
@@ -283,10 +284,10 @@ export const EXPLORE_TYPES: ExploreType[] = [
 export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
     [ExploreType.TopProfiles]: [Source.Twitter, Source.Farcaster, Source.Lens, Source.Bsky],
     [ExploreType.CryptoTrends]: [
-        TrendingType.TopGainers,
-        TrendingType.TopLosers,
         TrendingType.Trending,
-        TrendingType.Meme,
+        TrendingType.Stocks,
+        TrendingType.Newest,
+        TrendingType.TopSearches,
     ],
     [ExploreType.TopChannels]: [Source.Bsky],
 };

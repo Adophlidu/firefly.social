@@ -1309,8 +1309,38 @@ export interface SearchTokenInfo extends Omit<TokenWithMarketData, 'id'> {
     }>;
 }
 
-/** Results from /v2/token/search */
 export type SearchTokenInfosResponse = Response<SearchTokenInfo[]>;
+
+export interface TrendingToken {
+    market_cap_usd: string;
+    volume_usd: {
+        m5: string;
+        m15: string;
+        m30: string;
+        h1: string;
+        h6: string;
+        h24: string;
+    };
+    token_price: string;
+    price_change: {
+        m5: string;
+        m15: string;
+        m30: string;
+        h1: string;
+        h6: string;
+        h24: string;
+    };
+    token_symbol: string;
+    token_name: string;
+    token_icon: string;
+    token_address: string;
+    id: string;
+    chain_id: string;
+    chain_id_num?: number;
+    chain_name: string;
+}
+
+export type TrendingTokensResponse = Response<TrendingToken[]>;
 
 interface DexCoinDetail {
     symbol: string;

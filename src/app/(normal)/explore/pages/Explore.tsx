@@ -23,10 +23,11 @@ export function ExplorePage({ source, type }: Props) {
             const sourceAsTrendingType = source as TrendingType;
 
             switch (sourceAsTrendingType) {
-                case TrendingType.TopGainers:
-                case TrendingType.TopLosers:
                 case TrendingType.Trending:
-                case TrendingType.Meme:
+                    return <TokenTrendingList type={sourceAsTrendingType} />;
+                case TrendingType.Stocks:
+                case TrendingType.Newest:
+                case TrendingType.TopSearches:
                     return <TokenTrendingList type={sourceAsTrendingType} />;
                 default:
                     safeUnreachable(sourceAsTrendingType);

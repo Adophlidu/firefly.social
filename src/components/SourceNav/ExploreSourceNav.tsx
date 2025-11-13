@@ -1,13 +1,17 @@
 'use client';
+import { classNames } from '@dimensiondev/utils';
+import { omit } from 'lodash-es';
 import { type HTMLProps, memo, useMemo } from 'react';
 
+import { FilterPanel } from '@/components/FilterPanel.js';
 import { SourceNav } from '@/components/SourceNav/SourceNav.js';
-import { type ExploreSourceInURL, ExploreType, Source } from '@/constants/enum.js';
+import { type ExploreSourceInURL, ExploreType, Source, TrendingType } from '@/constants/enum.js';
 import { EXPLORE_SOURCES } from '@/constants/index.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveExploreSource } from '@/helpers/resolveSourceInUrl.js';
 import { resolveExploreSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useExploreTrendingFilterStore } from '@/store/useExploreTrendingFilterStore.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     source: ExploreSourceInURL;
@@ -22,16 +26,32 @@ export const ExploreSourceNav = memo<Props>(function ExploreSourceNav({ explore,
             ? allSources?.filter((x) => x !== Source.Bsky)
             : allSources;
     }, [currentBskyProfile, explore]);
+    const { selectedChainId, selectedTimeRange, setSelectedChainId, setSelectedTimeRange } =
+        useExploreTrendingFilterStore();
 
     if (!sources?.length) return null;
 
     return (
-        <SourceNav
-            source={resolveExploreSource(source)}
-            sources={sources}
-            urlResolver={(source) => resolveExploreUrl(explore, source)}
-            nameResolver={resolveExploreSourceName}
-            {...rest}
-        />
+        <div className={classNames('flex items-center justify-between', rest.className)}>
+            <SourceNav
+                source={resolveExploreSource(source)}
+                sources={sources}
+                urlResolver={(source) => resolveExploreUrl(explore, source)}
+                nameResolver={resolveExploreSourceName}
+                {...omit(rest, 'className')}
+            />
+            {explore === ExploreType.CryptoTrends && source !== TrendingType.TopSearches ? (
+                <FilterPanel
+                    disableChainChange={source === TrendingType.Stocks}
+                    enableTimeRange={source === TrendingType.Trending || source === TrendingType.Stocks}
+                    selectedChainId={source === TrendingType.Stocks ? 101 : selectedChainId}
+                    onChainChange={setSelectedChainId}
+                    selectedTimeRange={selectedTimeRange}
+                    onTimeRangeChange={setSelectedTimeRange}
+                    iconSize={14}
+                    chainIconSize={14}
+                />
+            ) : null}
+        </div>
     );
 });

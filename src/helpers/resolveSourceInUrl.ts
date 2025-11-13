@@ -72,10 +72,10 @@ export const resolveExploreSourceInURL = createLookupTableResolver<ExploreSource
         [Source.Lens]: SourceInURL.Lens,
         [Source.Bsky]: SourceInURL.Bsky,
         [Source.Twitter]: SourceInURL.X,
-        [TrendingType.TopGainers]: TrendingType.TopGainers,
-        [TrendingType.TopLosers]: TrendingType.TopLosers,
+        [TrendingType.Newest]: TrendingType.Newest,
+        [TrendingType.Stocks]: TrendingType.Stocks,
         [TrendingType.Trending]: TrendingType.Trending,
-        [TrendingType.Meme]: TrendingType.Meme,
+        [TrendingType.TopSearches]: TrendingType.TopSearches,
     },
     (source) => {
         throw new UnreachableError('source', source);
@@ -89,10 +89,10 @@ export const resolveExploreSource = createLookupTableResolver<ExploreSourceInURL
         [SourceInURL.Bsky]: Source.Bsky,
         [SourceInURL.Twitter]: Source.Twitter,
         [SourceInURL.X]: Source.Twitter,
-        [TrendingType.TopGainers]: TrendingType.TopGainers,
-        [TrendingType.TopLosers]: TrendingType.TopLosers,
+        [TrendingType.Newest]: TrendingType.Newest,
+        [TrendingType.Stocks]: TrendingType.Stocks,
         [TrendingType.Trending]: TrendingType.Trending,
-        [TrendingType.Meme]: TrendingType.Meme,
+        [TrendingType.TopSearches]: TrendingType.TopSearches,
     },
     (source) => {
         throw new UnreachableError('source', source);

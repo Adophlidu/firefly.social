@@ -595,6 +595,9 @@ msgstr "Signing in"
 msgid "Overview"
 msgstr "Overview"
 
+msgid "Stocks"
+msgstr "Stocks"
+
 msgid "Sorry, the email you entered is invalid"
 msgstr "Sorry, the email you entered is invalid"
 
@@ -1089,6 +1092,9 @@ msgstr "Save failed post?"
 msgid "Owners"
 msgstr "Owners"
 
+msgid "6h"
+msgstr "6h"
+
 msgid "Sorry, give edit permission from Orb is necessary to continue."
 msgstr "Sorry, give edit permission from Orb is necessary to continue."
 
@@ -1171,9 +1177,6 @@ msgstr "Profile could not be found."
 
 msgid "Collections"
 msgstr "Collections"
-
-msgid "Top Losers"
-msgstr "Top Losers"
 
 msgid "Profile details"
 msgstr "Profile details"
@@ -1495,9 +1498,6 @@ msgstr "Sign in with recovery phrase"
 
 msgid "Mint price"
 msgstr "Mint price"
-
-msgid "Top Gainers"
-msgstr "Top Gainers"
 
 msgid "Your Bluesky session has expired, please sign in again"
 msgstr "Your Bluesky session has expired, please sign in again"
@@ -2020,6 +2020,9 @@ msgstr "Post was deleted"
 msgid "Website"
 msgstr "Website"
 
+msgid "Top Searches"
+msgstr "Top Searches"
+
 msgid "Your TG account is now connected"
 msgstr "Your TG account is now connected"
 
@@ -2040,9 +2043,15 @@ msgstr "Votes"
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr "Bio should not exceed {maxBioSize} characters"
 
+msgid "5 minutes"
+msgstr "5 minutes"
+
 #. placeholder {0}: activity.tx_status
 msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
 msgstr "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
+
+msgid "5m"
+msgstr "5m"
 
 msgid "Tip sent successfully!"
 msgstr "Tip sent successfully!"
@@ -2163,6 +2172,9 @@ msgstr "Member of <0>/{0}</0>"
 msgid "Requirements"
 msgstr "Requirements"
 
+msgid "Time range filter"
+msgstr "Time range filter"
+
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 
@@ -2256,6 +2268,9 @@ msgstr "Failed to create Firefly profile."
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
+
+msgid "Price · Change"
+msgstr "Price · Change"
 
 msgid "NFT holder of any one below"
 msgstr "NFT holder of any one below"
@@ -2497,6 +2512,9 @@ msgstr "<0>The proportion of current market capitalization compares to market ca
 msgid "Minting Date"
 msgstr "Minting Date"
 
+msgid "24 hours"
+msgstr "24 hours"
+
 msgid "Failed to create red packet"
 msgstr "Failed to create red packet"
 
@@ -2518,6 +2536,9 @@ msgstr "What's happening..."
 
 msgid "Reauthorize"
 msgstr "Reauthorize"
+
+msgid "24h"
+msgstr "24h"
 
 msgid "Like"
 msgstr "Like"
@@ -2590,6 +2611,9 @@ msgstr "This can’t be undone and you’ll lose your draft."
 
 msgid "Article removed from your Bookmarks"
 msgstr "Article removed from your Bookmarks"
+
+msgid "6 hours"
+msgstr "6 hours"
 
 msgid "Failed to unlike article."
 msgstr "Failed to unlike article."
@@ -3011,6 +3035,9 @@ msgstr "Failed to like the post."
 
 msgid "Enter the amount that each winner can claim"
 msgstr "Enter the amount that each winner can claim"
+
+msgid "Newest"
+msgstr "Newest"
 
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
@@ -3863,6 +3890,9 @@ msgstr "All chains"
 msgid "Your email is now connected."
 msgstr "Your email is now connected."
 
+msgid "Volume · MC"
+msgstr "Volume · MC"
+
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "Display Name should not exceed {maxDisplayNameSize} characters"
 
@@ -4253,6 +4283,9 @@ msgstr "The contract owner has restrictions on trading cooldown."
 msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 msgstr "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 
+msgid "1 hour"
+msgstr "1 hour"
+
 msgid "View on website"
 msgstr "View on website"
 
@@ -4282,6 +4315,9 @@ msgstr "There is no limit to the number of token transactions. The number of sca
 
 msgid "Value"
 msgstr "Value"
+
+msgid "1h"
+msgstr "1h"
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "This is not an airdrop scam. Many scams attract users through airdrops."

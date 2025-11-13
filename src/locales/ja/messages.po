@@ -600,6 +600,9 @@ msgstr ""
 msgid "Overview"
 msgstr ""
 
+msgid "Stocks"
+msgstr ""
+
 msgid "Sorry, the email you entered is invalid"
 msgstr ""
 
@@ -1094,6 +1097,9 @@ msgstr ""
 msgid "Owners"
 msgstr ""
 
+msgid "6h"
+msgstr ""
+
 msgid "Sorry, give edit permission from Orb is necessary to continue."
 msgstr ""
 
@@ -1175,9 +1181,6 @@ msgid "Profile could not be found."
 msgstr ""
 
 msgid "Collections"
-msgstr ""
-
-msgid "Top Losers"
 msgstr ""
 
 msgid "Profile details"
@@ -1499,9 +1502,6 @@ msgid "Sign in with recovery phrase"
 msgstr ""
 
 msgid "Mint price"
-msgstr ""
-
-msgid "Top Gainers"
 msgstr ""
 
 msgid "Your Bluesky session has expired, please sign in again"
@@ -2025,6 +2025,9 @@ msgstr ""
 msgid "Website"
 msgstr ""
 
+msgid "Top Searches"
+msgstr ""
+
 msgid "Your TG account is now connected"
 msgstr ""
 
@@ -2045,8 +2048,14 @@ msgstr ""
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr ""
 
+msgid "5 minutes"
+msgstr ""
+
 #. placeholder {0}: activity.tx_status
 msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
+msgstr ""
+
+msgid "5m"
 msgstr ""
 
 msgid "Tip sent successfully!"
@@ -2168,6 +2177,9 @@ msgstr ""
 msgid "Requirements"
 msgstr ""
 
+msgid "Time range filter"
+msgstr ""
+
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
 
@@ -2260,6 +2272,9 @@ msgstr ""
 
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
+msgstr ""
+
+msgid "Price · Change"
 msgstr ""
 
 msgid "NFT holder of any one below"
@@ -2502,6 +2517,9 @@ msgstr ""
 msgid "Minting Date"
 msgstr ""
 
+msgid "24 hours"
+msgstr ""
+
 msgid "Failed to create red packet"
 msgstr ""
 
@@ -2522,6 +2540,9 @@ msgid "What's happening..."
 msgstr ""
 
 msgid "Reauthorize"
+msgstr ""
+
+msgid "24h"
 msgstr ""
 
 msgid "Like"
@@ -2594,6 +2615,9 @@ msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
 msgid "Article removed from your Bookmarks"
+msgstr ""
+
+msgid "6 hours"
 msgstr ""
 
 msgid "Failed to unlike article."
@@ -3015,6 +3039,9 @@ msgid "Failed to like the post."
 msgstr ""
 
 msgid "Enter the amount that each winner can claim"
+msgstr ""
+
+msgid "Newest"
 msgstr ""
 
 #. placeholder {0}: post.author.handle
@@ -3868,6 +3895,9 @@ msgstr ""
 msgid "Your email is now connected."
 msgstr ""
 
+msgid "Volume · MC"
+msgstr ""
+
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr ""
 
@@ -4258,6 +4288,9 @@ msgstr ""
 msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 msgstr ""
 
+msgid "1 hour"
+msgstr ""
+
 msgid "View on website"
 msgstr ""
 
@@ -4286,6 +4319,9 @@ msgid "There is no limit to the number of token transactions. The number of scam
 msgstr ""
 
 msgid "Value"
+msgstr ""
+
+msgid "1h"
 msgstr ""
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
