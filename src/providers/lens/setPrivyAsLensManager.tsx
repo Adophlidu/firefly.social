@@ -15,6 +15,7 @@ import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientFor
 import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWithLensChain.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { captureLensBindManagerEvent } from '@/providers/telemetry/captureLensEvent.js';
 import type { Account } from '@/providers/types/Account.js';
 
 export async function askUserToAgreePermission({ profile }: Account) {
@@ -88,5 +89,9 @@ export async function setPrivyAsLensManager(account: Account): Promise<Boolean> 
         }),
     );
     await handleOperationWithLensChain(txData);
+
+    // 8. capture event
+    captureLensBindManagerEvent(account.profile);
+
     return true;
 }

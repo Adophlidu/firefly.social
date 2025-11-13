@@ -196,6 +196,7 @@ export enum EventId {
     LENS_PROFILE_SUPER_FOLLOW_SUCCESS = 'lens_superfollow_success', // ✅
     LENS_SIGNUP_ENTRY_CLICK = 'lens_sign_up_click',
     LENS_ACCOUNT_CREATE_SUCCESS = 'lens_sign_up_success',
+    LENS_BIND_MANAGER_SUCCESS = 'lens_auto_login_set_success',
 
     // x
     X_ACCOUNT_LOG_IN_SUCCESS = 'x_log_in_success', // ✅
@@ -1157,6 +1158,13 @@ export interface Events extends Record<EventId, Event> {
         parameters: LensEventParameters & WalletEventParameters;
     };
     [EventId.LENS_ACCOUNT_CREATE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            lens_id: string;
+            lens_handle: string;
+        };
+    };
+    [EventId.LENS_BIND_MANAGER_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
             lens_id: string;
