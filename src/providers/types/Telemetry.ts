@@ -1065,6 +1065,8 @@ export interface Events extends Record<EventId, Event> {
             firefly_account_id: string;
             is_token_sync: boolean;
             lens_accounts: AccountPairs;
+            is_manager: boolean;
+            privy_login_type?: 'refresh_page' | 'intercept_api';
         };
     };
     [EventId.LENS_ACCOUNT_LOG_OUT_SUCCESS]: {

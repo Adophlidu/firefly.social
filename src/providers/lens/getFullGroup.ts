@@ -1,8 +1,8 @@
-import { gql } from '@apollo/client';
 import {
     type Account,
     AccountFragment,
     type AccountRequest,
+    graphql,
     type Group,
     GroupFragment,
     type GroupRequest,
@@ -11,15 +11,15 @@ import {
     GroupStatsResponseFragment,
 } from '@lens-protocol/client';
 
-import { lensApolloClient } from '@/configs/lensApolloClient.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { formatLensChannelFromGroup } from '@/providers/lens/formatLensChannel.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export async function getGroupWithMemberCount(groupId: string): Promise<Channel> {
     const groupAddress = safeEvmAddress(groupId);
-    const result = await lensApolloClient.query<
+    const result = await lensSessionHolder.sdk.urql.query<
         {
             group: Group;
             groupStats: GroupStatsResponse;
@@ -28,20 +28,21 @@ export async function getGroupWithMemberCount(groupId: string): Promise<Channel>
             groupRequest: GroupRequest;
             groupStatsRequest: GroupStatsRequest;
         }
-    >({
-        query: gql`
-            query GroupWithStats($groupRequest: GroupRequest!, $groupStatsRequest: GroupStatsRequest!) {
-                group(request: $groupRequest) {
-                    ...Group
+    >(
+        graphql(
+            `
+                query GroupWithStats($groupRequest: GroupRequest!, $groupStatsRequest: GroupStatsRequest!) {
+                    group(request: $groupRequest) {
+                        ...Group
+                    }
+                    groupStats(request: $groupStatsRequest) {
+                        ...GroupStatsResponse
+                    }
                 }
-                groupStats(request: $groupStatsRequest) {
-                    ...GroupStatsResponse
-                }
-            }
-            ${GroupFragment}
-            ${GroupStatsResponseFragment}
-        `,
-        variables: {
+            `,
+            [GroupFragment, GroupStatsResponseFragment],
+        ),
+        {
             groupRequest: {
                 group: groupAddress,
             },
@@ -49,16 +50,9 @@ export async function getGroupWithMemberCount(groupId: string): Promise<Channel>
                 group: groupAddress,
             },
         },
-    });
-    if (result.errors?.length) {
-        throw result.errors[0];
-    }
-    if (result.error) {
-        throw result.error;
-    }
-    if (!result.data?.group) {
-        throw new Error('Group not found');
-    }
+    );
+    if (result.error) throw result.error;
+    if (!result.data?.group) throw new Error('Group not found');
 
     const { group, groupStats } = result.data;
 
@@ -70,7 +64,7 @@ export async function getGroupWithMemberCount(groupId: string): Promise<Channel>
 
 export async function getGroupWithOwner(groupId: string, groupOwner: string): Promise<Channel> {
     const groupAddress = safeEvmAddress(groupId);
-    const result = await lensApolloClient.query<
+    const result = await lensSessionHolder.sdk.urql.query<
         {
             group: Group;
             groupStats: GroupStatsResponse;
@@ -81,28 +75,28 @@ export async function getGroupWithOwner(groupId: string, groupOwner: string): Pr
             groupStatsRequest: GroupStatsRequest;
             accountRequest: AccountRequest;
         }
-    >({
-        query: gql`
-            query FullGroup(
-                $groupRequest: GroupRequest!
-                $groupStatsRequest: GroupStatsRequest!
-                $accountRequest: AccountRequest!
-            ) {
-                group(request: $groupRequest) {
-                    ...Group
+    >(
+        graphql(
+            `
+                query FullGroup(
+                    $groupRequest: GroupRequest!
+                    $groupStatsRequest: GroupStatsRequest!
+                    $accountRequest: AccountRequest!
+                ) {
+                    group(request: $groupRequest) {
+                        ...Group
+                    }
+                    groupStats(request: $groupStatsRequest) {
+                        ...GroupStatsResponse
+                    }
+                    account(request: $accountRequest) {
+                        ...Account
+                    }
                 }
-                groupStats(request: $groupStatsRequest) {
-                    ...GroupStatsResponse
-                }
-                account(request: $accountRequest) {
-                    ...Account
-                }
-            }
-            ${GroupFragment}
-            ${GroupStatsResponseFragment}
-            ${AccountFragment}
-        `,
-        variables: {
+            `,
+            [GroupFragment, AccountFragment, GroupStatsResponseFragment],
+        ),
+        {
             groupRequest: {
                 group: groupAddress,
             },
@@ -113,10 +107,7 @@ export async function getGroupWithOwner(groupId: string, groupOwner: string): Pr
                 address: safeEvmAddress(groupOwner),
             },
         },
-    });
-    if (result.errors?.length) {
-        throw result.errors[0];
-    }
+    );
     if (result.error) {
         throw result.error;
     }

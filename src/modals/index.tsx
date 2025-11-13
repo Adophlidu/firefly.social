@@ -63,6 +63,7 @@ export const Modals = memo(function Modals() {
             <SignInWithFireflyAppModal ref={SignInWithFireflyAppModalRef.register} />
             <Snackbar ref={SnackbarRef.register} />
             <WalletConnectModal ref={WalletConnectModalRef.register} />
+            <ConfirmModal ref={ConfirmModalRef.register} />
             <SignupModal ref={SignupModalRef.register} />
             <ImageEditorModal ref={ImageEditorModalRef.register} />
             <ConfirmFireflyModal ref={ConfirmFireflyModalRef.register} />

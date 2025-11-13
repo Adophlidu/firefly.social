@@ -559,7 +559,8 @@
         "rpcs",
         "masknetwork",
         "TBNL",
-        "DTSA"
+        "DTSA",
+        "urql"
     ],
     "flagWords": [],
     "ignorePaths": [

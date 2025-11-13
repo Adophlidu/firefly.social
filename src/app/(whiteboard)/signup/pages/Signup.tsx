@@ -16,6 +16,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { PageRoute, SignupStep } from '@/constants/enum.js';
 import { SIGNUP_AUDIO_ID } from '@/constants/index.js';
 import { redirect, RedirectType } from '@/esm/navigation.js';
+import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
@@ -52,7 +53,8 @@ interface SignupProps {
 
 export function Signup({ initialStep }: SignupProps) {
     const [step, setStep] = useState<SignupStep>(initialStep || SignupStep.Welcome);
-    const { hasFireflyAccount, displayName, avatar } = useCheckFireflyAccount(false, true);
+    const { hasFireflyAccount } = useCheckFireflyAccount(false, true);
+    const isSyncing = useAsyncStatusAll();
     const { setPreference } = usePreferencesState();
     const { currentProfileSession } = useFireflyProfileStore();
     const hasFinished = useRef<boolean>(false);
@@ -92,7 +94,7 @@ export function Signup({ initialStep }: SignupProps) {
         [currentProfileSession?.profileId, setPreference, setStep],
     );
 
-    if (hasFireflyAccount && !hasFinished.current) {
+    if (hasFireflyAccount && !hasFinished.current && !isSyncing) {
         LoginModalRef.close();
         redirect(PageRoute.FollowingPosts, RedirectType.replace);
     }

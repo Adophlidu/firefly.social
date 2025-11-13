@@ -1,0 +1,130 @@
+diff --git a/dist/clients-BIWijcqE.d.ts b/dist/clients-BIWijcqE.d.ts
+index f3e602f8150e74f15a03aece4107c9636d79f21d..3b81143eec4862f32736c219214ceb0ae6725484 100644
+--- a/dist/clients-BIWijcqE.d.ts
++++ b/dist/clients-BIWijcqE.d.ts
+@@ -1,8 +1,8 @@
+-import { SponsoredTransactionRequest, SelfFundedTransactionRequest, Role, ChallengeRequest, AuthenticationChallenge, SignedAuthChallenge, StandardData, SwitchAccountRequest } from '@lens-protocol/graphql';
+-import { IStorageProvider, IStorage, Credentials } from '@lens-protocol/storage';
+-import { TxHash, ResultAsync, ResultAwareError, EvmAddress, UUID, Result } from '@lens-protocol/types';
+-import { CombinedError, TypedDocumentNode, AnyVariables, Exchange, Client, OperationResultSource, OperationResult as OperationResult$1 } from '@urql/core';
+ import { EnvironmentConfig } from '@lens-protocol/env';
++import { AuthenticationChallenge, ChallengeRequest, Role, SelfFundedTransactionRequest, SignedAuthChallenge, SponsoredTransactionRequest, StandardData, SwitchAccountRequest } from '@lens-protocol/graphql';
++import { Credentials, IStorage, IStorageProvider } from '@lens-protocol/storage';
++import { EvmAddress, Result, ResultAsync, ResultAwareError, TxHash, UUID } from '@lens-protocol/types';
++import { AnyVariables, Client, CombinedError, Exchange, OperationResult as OperationResult$1, OperationResultSource, TypedDocumentNode } from '@urql/core';
+ 
+ declare function isTransactionRequest(request: {
+     __typename: string;
+@@ -256,6 +256,13 @@ type ClientConfig = {
+      * The custom fragments to use.
+      */
+     fragments?: TypedDocumentNode[];
++    /**
++     * A function that will be called to retry obtaining new credentials
++     * when an automatic refresh fails.
++     *
++     * If not provided, the client will not retry and will surface the error.
++     */
++    retryOnAutoRefreshError?: (error: unknown) => Promise<Credentials | null>;
+ };
+ 
+ /**
+@@ -279,6 +286,7 @@ type Context = {
+     storage: IStorageProvider;
+     apiKey?: string;
+     fragments: FragmentResolver;
++    retryOnAutoRefreshError?: (error: unknown) => Promise<Credentials | null>;
+ };
+ /**
+  * @internal
+@@ -501,4 +509,5 @@ declare class SessionClient<TContext extends Context = Context> extends Abstract
+  */
+ type AnyClient<TContext extends Context = Context> = PublicClient<TContext> | SessionClient<TContext>;
+ 
+-export { AuthenticationError as A, type ClientConfig as C, type DelegableOperationResult as D, type ErrorResponse as E, GraphQLErrorCode as G, type LoginParams as L, MetadataIndexingError as M, type OperationHandler as O, PublicClient as P, type RestrictedOperationResult as R, SessionClient as S, TransactionError as T, UnexpectedError as U, ValidationError as V, type Context as a, SigningError as b, type AccessTokenClaims as c, type SignMessage as d, type AnyClient as e, UnauthenticatedError as f, type AuthenticatedUser as g, authenticatedUser as h, configureContext as i, hasExtensionCode as j, TransactionIndexingError as k, isTransactionRequest as l, type OperationResponse as m, type OperationResult as n, type RestrictedOperationHandler as o, type DelegableOperationHandler as p };
++export { AuthenticationError as A, SigningError as b, UnauthenticatedError as f, GraphQLErrorCode as G, authenticatedUser as h, configureContext as i, hasExtensionCode as j, TransactionIndexingError as k, isTransactionRequest as l, MetadataIndexingError as M, PublicClient as P, SessionClient as S, TransactionError as T, UnexpectedError as U, ValidationError as V, type Context as a, type ClientConfig as C, type AccessTokenClaims as c, type DelegableOperationResult as D, type SignMessage as d, type ErrorResponse as E, type AnyClient as e, type AuthenticatedUser as g, type LoginParams as L, type OperationResponse as m, type OperationResult as n, type OperationHandler as O, type RestrictedOperationHandler as o, type DelegableOperationHandler as p, type RestrictedOperationResult as R };
++
+diff --git a/dist/index.js b/dist/index.js
+index b76b02c4d609a411380e390b1c9686e34d564344..10bc4b54487d00072ca117fd1f604ce87e038b5f 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -1,13 +1,13 @@
+ export * from '@lens-protocol/env';
+-import { Role, ChallengeMutation, AuthenticateMutation, RefreshMutation, RevokeAuthenticationMutation, SwitchAccountMutation, TransactionStatusQuery } from '@lens-protocol/graphql';
+ export * from '@lens-protocol/graphql';
+-import { ResultAwareError, err, ok, never, okAsync, ResultAsync, errAsync, signatureFrom, invariant } from '@lens-protocol/types';
+ export * from '@lens-protocol/types';
+-import { jwtDecode } from 'jwt-decode';
+-import { fetchExchange, createClient } from '@urql/core';
+-import { authExchange } from '@urql/exchange-auth';
++import { AuthenticateMutation, ChallengeMutation, RefreshMutation, RevokeAuthenticationMutation, Role, SwitchAccountMutation, TransactionStatusQuery } from '@lens-protocol/graphql';
+ import { CredentialsStorage, InMemoryStorageProvider } from '@lens-protocol/storage';
+-import { visit, Kind } from 'graphql';
++import { ResultAsync, ResultAwareError, err, errAsync, invariant, never, ok, okAsync, signatureFrom } from '@lens-protocol/types';
++import { createClient, fetchExchange } from '@urql/core';
++import { authExchange } from '@urql/exchange-auth';
++import { Kind, visit } from 'graphql';
++import { jwtDecode } from 'jwt-decode';
+ 
+ // src/index.ts
+ var GraphQLErrorCode = /* @__PURE__ */ ((GraphQLErrorCode2) => {
+@@ -310,6 +310,7 @@ function configureContext(from) {
+     origin: from.origin,
+     storage: from.storage ?? new InMemoryStorageProvider(),
+     apiKey: from.apiKey,
++    retryOnAutoRefreshError: from.retryOnAutoRefreshError,
+     fragments: FragmentResolver.from(from.fragments ?? [])
+   };
+ }
+@@ -668,23 +669,35 @@ var SessionClient = class _SessionClient extends AbstractClient {
+           },
+           didAuthError: (error) => hasExtensionCode(error, "UNAUTHENTICATED" /* UNAUTHENTICATED */),
+           refreshAuth: async () => {
+-            const credentials = this.getCredentials().unwrapOr(null) ?? never("Missing refresh token");
+-            const result = await utils.mutate(RefreshMutation, {
+-              request: {
+-                refreshToken: credentials.refreshToken
++            try {
++              const credentials = this.getCredentials().unwrapOr(null) ?? never("Missing refresh token");
++              const result = await utils.mutate(RefreshMutation, {
++                request: {
++                  refreshToken: credentials.refreshToken
++                }
++              });
++              if (result.data) {
++                switch (result.data.value.__typename) {
++                  case "AuthenticationTokens":
++                    await this.storage.set(result.data?.value);
++                    break;
++                  case "ForbiddenError":
++                    throw AuthenticationError.from(result.data.value.reason);
++                  default:
++                    throw AuthenticationError.from(
++                      `Unsupported refresh token response ${result.data.value}`
++                    );
++                }
+               }
+-            });
+-            if (result.data) {
+-              switch (result.data.value.__typename) {
+-                case "AuthenticationTokens":
+-                  await this.storage.set(result.data?.value);
+-                  break;
+-                case "ForbiddenError":
+-                  throw AuthenticationError.from(result.data.value.reason);
+-                default:
+-                  throw AuthenticationError.from(
+-                    `Unsupported refresh token response ${result.data.value}`
+-                  );
++            } catch (error) {
++              const retryHandler = this.parent.context.retryOnAutoRefreshError;
++              if (typeof retryHandler !== 'function') throw error;
++
++              const newCredentials = await retryHandler(error);
++              if (newCredentials) {
++                await this.storage.set(newCredentials);
++              } else {
++                throw error;
+               }
+             }
+           }

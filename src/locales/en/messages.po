@@ -868,6 +868,9 @@ msgstr "Connected accounts"
 msgid "Failed to load image."
 msgstr "Failed to load image."
 
+msgid "Auto Login Permission"
+msgstr "Auto Login Permission"
+
 #. placeholder {0}: space.name
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
@@ -3028,6 +3031,9 @@ msgstr "Sorry, today's free collect quota has been reached."
 msgid "Explore and follow accounts to see the feed"
 msgstr "Explore and follow accounts to see the feed"
 
+msgid "Sign to Authorize"
+msgstr "Sign to Authorize"
+
 msgid "Muted contents"
 msgstr "Muted contents"
 
@@ -4451,6 +4457,9 @@ msgstr "No connected wallet."
 
 msgid "Failed to unlike snapshot."
 msgstr "Failed to unlike snapshot."
+
+msgid "Sign to grant Firefly permission for auto login"
+msgstr "Sign to grant Firefly permission for auto login"
 
 msgid "Hide assets < 1 USD"
 msgstr "Hide assets < 1 USD"

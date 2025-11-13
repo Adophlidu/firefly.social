@@ -92,6 +92,7 @@ function getAccountEventParameters(account: Pick<Account, 'profile' | 'origin'> 
                 lens_id: account.profile.profileId,
                 lens_handle: account.profile.handle,
                 lens_accounts: accounts,
+                is_manager: account.origin === 'force_restore',
             };
         case Source.Twitter:
             return {
@@ -161,10 +162,13 @@ export function captureAccountCreateSuccessEvent(account: Account) {
     });
 }
 
-export async function captureAccountLoginEvent(account: Account) {
+export async function captureAccountLoginEvent(account: Account, extraParams?: Record<string, string>) {
     return runInSafeAsync(async () => {
         const source = account.profile.source;
-        return TelemetryProvider.captureEvent(resolveLoginEventId(source), getAccountEventParameters(account));
+        return TelemetryProvider.captureEvent(resolveLoginEventId(source), {
+            ...getAccountEventParameters(account),
+            ...extraParams,
+        });
     });
 }
 

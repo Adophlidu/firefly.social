@@ -2362,3 +2362,8 @@ export interface PolymarketTradeData {
     volume: string;
     wallet: string;
 }
+
+export type PrivySignMessageResponse = Response<{
+    signature: string;
+    encoding: string;
+}>;

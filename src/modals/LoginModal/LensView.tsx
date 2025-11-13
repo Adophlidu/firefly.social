@@ -16,7 +16,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SignupEntry } from '@/components/Profile/SignupEntry.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
-import { Source, STATUS } from '@/constants/enum.js';
+import { AsyncStatus, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { AbortError, FireflyAlreadyBoundError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -35,11 +35,13 @@ import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { addAccount } from '@/services/account.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export const LensViewBeforeLoad = () => {
     return {
@@ -55,6 +57,7 @@ function Title() {
 
 export const LensView = memo(function LensView() {
     const controller = useAbortController();
+    const { setAsyncStatus } = useGlobalState();
 
     const router = useRouter();
     const { history } = router;
@@ -116,6 +119,8 @@ export const LensView = memo(function LensView() {
         controller.current.renew();
 
         try {
+            setAsyncStatus(Source.Lens, AsyncStatus.Pending);
+
             const { account, sessionClient } = await createAccountForProfileId(
                 currentProfile,
                 true,
@@ -133,6 +138,9 @@ export const LensView = memo(function LensView() {
                 }
                 lensSessionHolder.resumeSession(account.session);
                 lensSessionHolder.setSessionClient(sessionClient);
+
+                await runInSafeAsync(() => setPrivyAsLensManager(account));
+
                 enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Lens)} account is now connected.</Trans>);
             }
 
@@ -148,8 +156,10 @@ export const LensView = memo(function LensView() {
 
             enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
             throw error;
+        } finally {
+            setAsyncStatus(Source.Lens, AsyncStatus.Idle);
         }
-    }, [profiles.length, currentProfile, controller]);
+    }, [profiles.length, currentProfile, controller, setAsyncStatus]);
 
     return (
         <div className="flex flex-col p-6 pt-0 md:w-[400px]">

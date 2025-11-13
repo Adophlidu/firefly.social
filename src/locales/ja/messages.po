@@ -873,6 +873,9 @@ msgstr ""
 msgid "Failed to load image."
 msgstr ""
 
+msgid "Auto Login Permission"
+msgstr ""
+
 #. placeholder {0}: space.name
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
@@ -3033,6 +3036,9 @@ msgstr ""
 msgid "Explore and follow accounts to see the feed"
 msgstr ""
 
+msgid "Sign to Authorize"
+msgstr ""
+
 msgid "Muted contents"
 msgstr ""
 
@@ -4455,6 +4461,9 @@ msgid "No connected wallet."
 msgstr ""
 
 msgid "Failed to unlike snapshot."
+msgstr ""
+
+msgid "Sign to grant Firefly permission for auto login"
 msgstr ""
 
 msgid "Hide assets < 1 USD"

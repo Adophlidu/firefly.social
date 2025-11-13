@@ -873,6 +873,9 @@ msgstr "已綁定的帳號"
 msgid "Failed to load image."
 msgstr "圖片載入失敗，請重試。"
 
+msgid "Auto Login Permission"
+msgstr ""
+
 #. placeholder {0}: space.name
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
@@ -3033,6 +3036,9 @@ msgstr "抱歉，今日免費鑄造收集額度已用盡。"
 msgid "Explore and follow accounts to see the feed"
 msgstr "探索並追蹤帳戶以查看動態"
 
+msgid "Sign to Authorize"
+msgstr ""
+
 msgid "Muted contents"
 msgstr "已隱藏內容"
 
@@ -4457,6 +4463,9 @@ msgid "No connected wallet."
 msgstr "未連接任意錢包。"
 
 msgid "Failed to unlike snapshot."
+msgstr ""
+
+msgid "Sign to grant Firefly permission for auto login"
 msgstr ""
 
 msgid "Hide assets < 1 USD"

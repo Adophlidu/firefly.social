@@ -9,10 +9,12 @@ import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 
+export type OpenProps = WalletConnectModalOpenProps & { silent?: boolean };
+
 export async function getWalletClientRequired(
     config: Config,
     clientParameters?: GetWalletClientParameters,
-    openProps?: WalletConnectModalOpenProps & { silent?: boolean },
+    openProps?: OpenProps,
 ): Promise<Exclude<GetWalletClientReturnType, null>> {
     try {
         await getWalletClient(config, clientParameters);

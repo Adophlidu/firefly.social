@@ -1,16 +1,18 @@
 import { refresh } from '@lens-protocol/client/actions';
+import { jwtDecode } from 'jwt-decode';
 import { noop } from 'lodash-es';
 
 import { sentryClient } from '@/configs/sentryClient.js';
 import { FetchError } from '@/constants/error.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { autoLoginWithPrivy } from '@/providers/lens/autoLoginWithPrivy.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import {
     getLensCredentialsFromStorage,
     updateCredentialsStorage,
 } from '@/providers/lens/getLensCredentialsFromStorage.js';
-import { parseLensAccessToken } from '@/providers/lens/parseLensAccessToken.js';
+import { captureAccountLoginEvent } from '@/providers/telemetry/captureAccountEvent.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
 
 let resumeTask: Promise<string | undefined> | null = null;
@@ -37,11 +39,13 @@ async function runResumeTask(
             return;
         }
 
-        const tokenPayload = parseLensAccessToken(oldCredentials.accessToken);
-        const isExpiringSoon = !!tokenPayload?.exp && Date.now() >= tokenPayload.exp * 1000 - 60 * 1000 * 2; // 2 minutes before expiration
+        const accessToken = jwtDecode(oldCredentials.accessToken);
+        const refreshToken = jwtDecode(oldCredentials.refreshToken);
+        const isAccessTokenExpiring = !!accessToken?.exp && Date.now() >= accessToken.exp * 1000 - 60 * 1000 * 2; // 2 minutes before expiration
+        const isRefreshTokenExpired = !!refreshToken?.exp && Date.now() >= refreshToken.exp * 1000 - 60 * 1000 * 1; // 1 minutes before expiration
 
         // refresh token if it is expiring soon
-        if (isExpiringSoon) {
+        if (isAccessTokenExpiring && !isRefreshTokenExpired) {
             const { lensSessionHolder } = await import('@/providers/lens/SessionHolder.js');
             const refreshedCredentialsResult = await refresh(lensSessionHolder.sdk, {
                 refreshToken: oldCredentials.refreshToken,
@@ -67,6 +71,13 @@ async function runResumeTask(
                 return;
             }
             updateCredentialsStorage(refreshedCredentials);
+        } else if (isRefreshTokenExpired && currentProfileId) {
+            const { sessionClient, account } = await autoLoginWithPrivy(currentProfileId);
+            const credentials = ensureLensResultSync(sessionClient.getCredentials());
+            if (!credentials) throw new Error('No credentials returned from session client');
+
+            updateCredentialsStorage(credentials);
+            captureAccountLoginEvent(account, { privy_login_type: 'refresh_page' });
         }
 
         const { lensSessionHolder } = await import('@/providers/lens/SessionHolder.js');

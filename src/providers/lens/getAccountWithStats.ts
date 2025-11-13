@@ -1,23 +1,23 @@
-import { gql } from '@apollo/client';
 import {
     type Account,
     AccountFragment,
     type AccountRequest,
     type AccountStats,
     type AccountStatsRequest,
+    graphql,
 } from '@lens-protocol/client';
 
-import { lensApolloClient } from '@/configs/lensApolloClient.js';
 import { LENS_PRO_GROUP_ID } from '@/constants/lens.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 async function getAccountWithStats(
     accountRequest: AccountRequest,
     accountStatsRequest: AccountStatsRequest,
 ): Promise<Profile> {
-    const result = await lensApolloClient.query<
+    const result = await lensSessionHolder.sdk.urql.query<
         {
             account: Account;
             accountStats: AccountStats;
@@ -28,36 +28,34 @@ async function getAccountWithStats(
             accountStatsRequest: AccountStatsRequest;
             proGroupId: string;
         }
-    >({
-        query: gql`
-            query FullAccount(
-                $accountRequest: AccountRequest!
-                $accountStatsRequest: AccountStatsRequest!
-                $proGroupId: String!
-            ) {
-                account(request: $accountRequest) {
-                    ...Account
-                    hasSubscribed: isMemberOf(request: { group: $proGroupId })
-                }
-                accountStats(request: $accountStatsRequest) {
-                    graphFollowStats {
-                        followers
-                        following
+    >(
+        graphql(
+            `
+                query FullAccount(
+                    $accountRequest: AccountRequest!
+                    $accountStatsRequest: AccountStatsRequest!
+                    $proGroupId: String!
+                ) {
+                    account(request: $accountRequest) {
+                        ...Account
+                        hasSubscribed: isMemberOf(request: { group: $proGroupId })
+                    }
+                    accountStats(request: $accountStatsRequest) {
+                        graphFollowStats {
+                            followers
+                            following
+                        }
                     }
                 }
-            }
-            ${AccountFragment}
-        `,
-        variables: {
+            `,
+            [AccountFragment],
+        ),
+        {
             accountRequest,
             accountStatsRequest,
             proGroupId: LENS_PRO_GROUP_ID,
         },
-    });
-
-    if (result.errors?.length) {
-        throw result.errors[0];
-    }
+    );
     if (result.error) {
         throw result.error;
     }

@@ -37,6 +37,9 @@ patchedDependencies:
   '@headlessui/react@2.1.10':
     hash: roq3pv4art7yqmupqbnd3ablue
     path: patches/@headlessui__react@2.1.10.patch
+  '@lens-protocol/client@0.0.0-canary-20250430134539':
+    hash: yvbv6hniqydr5uugjzbkatsp4q
+    path: patches/@lens-protocol__client@0.0.0-canary-20250430134539.patch
   '@lexical/react@0.18.0':
     hash: ghdbhcm7dq6jsqa6um6vsyfuny
     path: patches/@lexical__react@0.18.0.patch
@@ -122,7 +125,7 @@ importers:
         version: 1.0.6
       '@lens-protocol/client':
         specifier: 0.0.0-canary-20250430134539
-        version: 0.0.0-canary-20250430134539(typescript@5.9.3)(viem@2.37.9)
+        version: 0.0.0-canary-20250430134539(patch_hash=yvbv6hniqydr5uugjzbkatsp4q)(typescript@5.9.3)(viem@2.37.9)
       '@lexical/hashtag':
         specifier: ^0.18.0
         version: 0.18.0
@@ -4013,7 +4016,7 @@ packages:
     resolution: {integrity: sha512-CchjEt3vKAj5RlHd9sWOGFlHZ9WvQm6edHrn0a2BBPXxOZ0gZwbK6aKOSCySEk0gmDvmy7LB6dGdtNLSFzutHg==}
     dev: false
 
-  /@lens-protocol/client@0.0.0-canary-20250430134539(typescript@5.9.3)(viem@2.37.9):
+  /@lens-protocol/client@0.0.0-canary-20250430134539(patch_hash=yvbv6hniqydr5uugjzbkatsp4q)(typescript@5.9.3)(viem@2.37.9):
     resolution: {integrity: sha512-vVG89Fw27FvSKeV9sxr6OzxKqoP1gib7dT0hj17/4pNt0NMPq5tROyCj4OngWXIpH5Z0OpiFBOR73kBZ4USoTg==}
     peerDependencies:
       '@lens-chain/sdk': ^1.0.0
@@ -4044,6 +4047,7 @@ packages:
       - '@gql.tada/vue-support'
       - typescript
     dev: false
+    patched: true
 
   /@lens-protocol/env@0.0.0-canary-20250430134539:
     resolution: {integrity: sha512-aZqxaeW22tBdz9sc6+7eFHp86sKNzQ1Snabpr9vT4vn8oxlDt6XTQL/Fxhm0e33wQff5/aOirs6iQ7swhTbiZg==}
