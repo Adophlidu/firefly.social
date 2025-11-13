@@ -9,14 +9,12 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ExcludeReplyUserListModal } from '@/components/Posts/ExcludeReplyUserList.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
-import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST, ENABLED_REPLY_SOURCES } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentAvailableProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
-import { getLennyUrl } from '@/providers/lens/getLennyUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -32,8 +30,6 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
     const [open, setOpen] = useState(false);
     const { excludeReplyProfileIds = EMPTY_LIST } = useCompositePost();
     const updateExcludeReplyProfileIds = useComposeStateStore().updateExcludeReplyProfileIds;
-
-    const avatarFallbackUrl = post.source === Source.Lens ? getLennyUrl(post.author.handle) : undefined;
 
     const { data, isLoading } = useQuery({
         queryKey: ['post-thread', post.source, post.postId],
@@ -86,7 +82,7 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
         <>
             <div className="flex gap-3">
                 <div className="flex flex-col items-center">
-                    <ProfileAvatar profile={post.author} enableSourceIcon={false} fallbackUrl={avatarFallbackUrl} />
+                    <ProfileAvatar profile={post.author} enableSourceIcon={false} />
                     <div className="min-h-[40px] flex-1 border-[0.8px] border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-700" />
                 </div>
                 <div className="flex-1 overflow-hidden">
@@ -132,7 +128,7 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
                 {compositePost.isAnonymous ? (
                     <AnonymousAvatar width={isLarge ? 40 : 36} height={isLarge ? 40 : 36} />
                 ) : currentProfile ? (
-                    <ProfileAvatar profile={currentProfile} enableSourceIcon={false} fallbackUrl={avatarFallbackUrl} />
+                    <ProfileAvatar profile={currentProfile} enableSourceIcon={false} />
                 ) : null}
                 <div className="flex flex-1 pt-2">
                     <Editor post={compositePost} replying />

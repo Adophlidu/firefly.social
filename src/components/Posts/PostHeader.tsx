@@ -15,7 +15,6 @@ import { Time } from '@/components/Semantic/Time.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { PostMoreAction } from '@/components/TrumpTruthSocial/PostMoreAction.js';
-import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
@@ -24,7 +23,6 @@ import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useIsPostDetailPage } from '@/hooks/post/useIsPostDetailPage.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useProfileHighlighted } from '@/hooks/useProfileHighlighted.js';
-import { getLennyUrl } from '@/providers/lens/getLennyUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostHeaderProps {
@@ -85,7 +83,6 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                         src={author.pfp || getStampAvatarByProfileId(author.source, author.profileId)}
                         size={isQuote ? 24 : 40}
                         alt={author.profileId}
-                        fallbackUrl={post.source === Source.Lens ? getLennyUrl(author.handle) : undefined}
                     />
                 </Link>
             </ProfileTippy>
