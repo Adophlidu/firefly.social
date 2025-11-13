@@ -1,13 +1,14 @@
 import { memo } from 'react';
 
+import { LikeButton } from '@/components/Actions/LikeButton.js';
 import { ActivityCellSnapshotAction } from '@/components/ActivityCell/Snapshot/ActivityCellSnapshotAction.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { SingleSnapshotHeader } from '@/components/Snapshot/SingleSnapshotHeader.js';
 import { SnapshotActions } from '@/components/Snapshot/SnapshotActions.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackContent.js';
-import { SnapshotLike } from '@/components/Snapshot/SnapshotLike.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
+import { Source } from '@/constants/enum.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import type { SnapshotActivity, SnapshotProposal } from '@/providers/snapshot/type.js';
 
@@ -48,7 +49,7 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
                     )}
 
                     <footer className="mt-3 flex items-center justify-between">
-                        <SnapshotLike activity={data} />
+                        <LikeButton type={Source.DAOs} data={data} />
                         <SnapshotActions activity={data} link={data.proposal ? getProposalLink(data.proposal) : ''} />
                     </footer>
                 </div>

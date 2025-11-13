@@ -67,6 +67,9 @@ msgstr ""
 msgid "No frame found."
 msgstr ""
 
+msgid "Failed to like."
+msgstr ""
+
 msgid "Coins"
 msgstr ""
 
@@ -116,6 +119,9 @@ msgid "Group {id} could not be found."
 msgstr ""
 
 msgid "Unmute successfully."
+msgstr ""
+
+msgid "Failed to like polymarket."
 msgstr ""
 
 msgid "Refunded"
@@ -275,9 +281,6 @@ msgstr ""
 msgid "Mute {walletHandle}"
 msgstr ""
 
-msgid "Polymarket unliked"
-msgstr ""
-
 #. placeholder {0}: sourceNames.slice(0, -1).join(', ')
 #. placeholder {1}: last(sourceNames) ?? ''
 msgid "{0} and {1}"
@@ -330,6 +333,9 @@ msgid "🙌 Just voted “{choice}” on “{0}”"
 msgstr ""
 
 msgid "Ended"
+msgstr ""
+
+msgid "Polymarket liked."
 msgstr ""
 
 msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
@@ -463,6 +469,9 @@ msgid "MARKET"
 msgstr ""
 
 msgid "The token can be bought."
+msgstr ""
+
+msgid "Liked."
 msgstr ""
 
 msgid "Trending"
@@ -646,9 +655,6 @@ msgstr ""
 
 #. placeholder {0}: decodeURIComponent(connectorName as string)
 msgid "Get {0}"
-msgstr ""
-
-msgid "Failed to like Polymarket."
 msgstr ""
 
 msgid "Show less"
@@ -882,6 +888,9 @@ msgstr ""
 #. placeholder {0}: space.name
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
+msgstr ""
+
+msgid "Snapshot unliked."
 msgstr ""
 
 msgid "User Name should be at least {minHandleSize} characters"
@@ -1485,9 +1494,6 @@ msgstr ""
 msgid "Days"
 msgstr ""
 
-msgid "Article unliked"
-msgstr ""
-
 #. placeholder {0}: formatAddressEthereum(fromAddress, 4)
 msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
 msgstr ""
@@ -1647,9 +1653,6 @@ msgstr ""
 msgid "Failed to create image payload."
 msgstr ""
 
-msgid "Polymarket liked"
-msgstr ""
-
 msgid "Reset Password"
 msgstr ""
 
@@ -1700,6 +1703,9 @@ msgid "Group"
 msgstr ""
 
 msgid "Set {formattedAddress} as primary Solana wallet"
+msgstr ""
+
+msgid "Unliked."
 msgstr ""
 
 #. placeholder {0}: index + 1
@@ -1904,9 +1910,6 @@ msgid "Comment"
 msgstr ""
 
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
-msgstr ""
-
-msgid "Snapshot liked"
 msgstr ""
 
 msgid "Only people you mention"
@@ -2236,6 +2239,9 @@ msgstr ""
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr ""
 
+msgid "Failed to unlike polymarket."
+msgstr ""
+
 msgid "Lens"
 msgstr ""
 
@@ -2542,6 +2548,9 @@ msgstr ""
 msgid "Reauthorize"
 msgstr ""
 
+msgid "Failed to unlike."
+msgstr ""
+
 msgid "24h"
 msgstr ""
 
@@ -2828,6 +2837,9 @@ msgid "Failed to upload on {0}. Video size exceeds {1}"
 msgstr ""
 
 msgid "Received time:"
+msgstr ""
+
+msgid "Article unliked."
 msgstr ""
 
 msgid "Random Split"
@@ -3773,9 +3785,6 @@ msgstr ""
 msgid "Passed"
 msgstr ""
 
-msgid "Article liked"
-msgstr ""
-
 msgid "Something went wrong"
 msgstr ""
 
@@ -3896,6 +3905,9 @@ msgid "Your email is now connected."
 msgstr ""
 
 msgid "Volume · MC"
+msgstr ""
+
+msgid "Snapshot liked."
 msgstr ""
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
@@ -4424,6 +4436,9 @@ msgstr ""
 msgid "Unmuted {handleOrEnsOrAddress}."
 msgstr ""
 
+msgid "Polymarket unliked."
+msgstr ""
+
 msgid "No trading cooldown function."
 msgstr ""
 
@@ -4455,9 +4470,6 @@ msgid "No malicious mining activities involved."
 msgstr ""
 
 msgid "Refund successfully."
-msgstr ""
-
-msgid "Failed to unlike Polymarket."
 msgstr ""
 
 msgid "Remind me later"
@@ -4541,9 +4553,6 @@ msgstr ""
 msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
 msgstr ""
 
-msgid "Snapshot unliked"
-msgstr ""
-
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
 msgstr ""
@@ -4555,6 +4564,9 @@ msgid "Collectible"
 msgstr ""
 
 msgid "<0>change</0> wallet or <1>sign up</1> on Firefly"
+msgstr ""
+
+msgid "Article liked."
 msgstr ""
 
 msgid "Are you sure you want to report this user?"

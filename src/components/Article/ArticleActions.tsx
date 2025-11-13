@@ -25,7 +25,6 @@ import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
-import { useToggleArticleLike } from '@/hooks/useToggleArticleLike.js';
 import { CollectArticleModalRef } from '@/modals/CollectArticleModal.js';
 import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
@@ -41,7 +40,6 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
     const isLogin = useIsLoginFirefly();
     const account = useAccount();
     const { mutate: onBookmarkChange, isPending: bookmarkMutationLoading } = useToggleArticleBookmark();
-    const { mutate: onLikeChange, isPending: likeMutationLoading } = useToggleArticleLike();
     const isMattersArticle = oldArticle.platform === ArticlePlatform.Matters;
     const address = isMattersArticle ? oldArticle.author.info.ethAddress : oldArticle.author.id;
     const isAddress = isValidAddressEthereum(address);
@@ -56,10 +54,6 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
     });
 
     const article = data || oldArticle;
-
-    const handleLike = useCallback(() => {
-        onLikeChange(article);
-    }, [onLikeChange, article]);
 
     const handleBookmark = useCallback(() => {
         onBookmarkChange(article);
@@ -88,12 +82,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
     return (
         <div className="flex items-center justify-end text-second">
             <div className="flex items-center">
-                <LikeButton
-                    isLiked={!!article.isLiked}
-                    likeCount={article.likeCount || 0}
-                    onClick={handleLike}
-                    isPending={likeMutationLoading}
-                />
+                <LikeButton type={Source.Article} data={article} />
                 <ClickableArea
                     className={classNames('flex w-min items-center hover:text-secondarySuccess md:space-x-2')}
                 >

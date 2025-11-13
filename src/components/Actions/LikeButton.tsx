@@ -1,4 +1,4 @@
-import { classNames } from '@dimensiondev/utils';
+import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
@@ -7,31 +7,41 @@ import LikeIcon from '@/assets/like.svg';
 import LikedIcon from '@/assets/liked.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { Source } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { type LikeTarget, useToggleLike } from '@/hooks/useToggleLike.js';
 
-interface LikeButtonProps {
-    isLiked: boolean;
-    likeCount: number;
-    onClick: () => void;
-    isPending?: boolean;
+type LikeButtonProps = LikeTarget & {
     disabled?: boolean;
+};
+
+function resolveInitialLikeData({ type, data }: LikeTarget) {
+    switch (type) {
+        case Source.Article:
+        case Source.DAOs:
+        case Source.Polymarket:
+            return { isLiked: data.isLiked, likeCount: data.likeCount || 0 };
+        default:
+            safeUnreachable(type);
+            return { isLiked: false, likeCount: 0 };
+    }
 }
 
-export const LikeButton = memo<LikeButtonProps>(function LikeButton({
-    isLiked,
-    likeCount,
-    onClick,
-    isPending = false,
-    disabled = false,
-}) {
-    const isDisabled = disabled || isPending;
+export const LikeButton = memo<LikeButtonProps>(function LikeButton({ disabled = false, ...baseProps }) {
+    const likeData = resolveInitialLikeData(baseProps);
+    const isLiked = likeData.isLiked ?? false;
+
+    const { mutateAsync, isPending } = useToggleLike(baseProps);
+
+    const isDisabled = isPending || disabled;
 
     return (
         <ClickableArea
             className={classNames('flex w-min cursor-pointer items-center hover:text-danger', {
                 'opacity-50': isDisabled,
             })}
-            onClick={onClick}
+            disabled={isDisabled}
+            onClick={() => mutateAsync(isLiked)}
         >
             <Tooltip
                 content={isLiked ? <Trans>Unlike</Trans> : <Trans>Like</Trans>}
@@ -48,14 +58,14 @@ export const LikeButton = memo<LikeButtonProps>(function LikeButton({
                     ) : (
                         <>
                             {isLiked ? <LikedIcon width={16} height={16} /> : <LikeIcon width={16} height={16} />}
-                            {likeCount > 0 && (
+                            {likeData?.likeCount > 0 && (
                                 <span
                                     className={classNames('text-xs font-bold', {
                                         'text-danger': isLiked,
                                         'text-second': !isLiked,
                                     })}
                                 >
-                                    {nFormatter(likeCount)}
+                                    {nFormatter(likeData.likeCount)}
                                 </span>
                             )}
                         </>

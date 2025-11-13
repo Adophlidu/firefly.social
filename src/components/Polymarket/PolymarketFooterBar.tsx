@@ -9,7 +9,6 @@ import { Source } from '@/constants/enum.js';
 import { POLYMARKET_URL } from '@/constants/index.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useTogglePolymarketBookmark } from '@/hooks/useTogglePolymarketBookmark.js';
-import { useTogglePolymarketLike } from '@/hooks/useTogglePolymarketLike.js';
 import type { PolymarketActivity } from '@/providers/types/Firefly.js';
 
 interface PolymarketFooterBarProps {
@@ -18,16 +17,11 @@ interface PolymarketFooterBarProps {
 
 export const PolymarketFooterBar = memo<PolymarketFooterBarProps>(function PolymarketFooterBar({ activity }) {
     const identity = useFireflyIdentity(Source.Wallet, activity.wallet as Address);
-    const { mutate: toggleLike, isPending: isLikePending } = useTogglePolymarketLike();
     const { mutate: toggleBookmark, isPending: isBookmarkPending } = useTogglePolymarketBookmark();
 
-    const { isLiked, likeCount, hasBookmarked } = activity;
+    const { hasBookmarked } = activity;
 
     const polymarketUrl = `${POLYMARKET_URL}/event/${activity.eventSlug}`;
-
-    const handleLike = useCallback(() => {
-        toggleLike({ activity, isLiked, likeCount });
-    }, [toggleLike, activity, isLiked, likeCount]);
 
     const handleBookmark = useCallback(() => {
         toggleBookmark(activity);
@@ -36,7 +30,7 @@ export const PolymarketFooterBar = memo<PolymarketFooterBarProps>(function Polym
     return (
         <div className="mt-3 flex items-center justify-between text-second">
             <div className="flex items-center">
-                <LikeButton isLiked={isLiked} likeCount={likeCount} onClick={handleLike} isPending={isLikePending} />
+                <LikeButton type={Source.Polymarket} data={activity} />
             </div>
 
             <div className="flex items-center gap-2">

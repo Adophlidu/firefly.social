@@ -67,6 +67,9 @@ msgstr "斷開"
 msgid "No frame found."
 msgstr "未找到 frame。"
 
+msgid "Failed to like."
+msgstr ""
+
 msgid "Coins"
 msgstr "代幣"
 
@@ -117,6 +120,9 @@ msgstr "未找到群組 {id}。"
 
 msgid "Unmute successfully."
 msgstr "成功取消隱藏。"
+
+msgid "Failed to like polymarket."
+msgstr ""
 
 msgid "Refunded"
 msgstr "已退款"
@@ -275,9 +281,6 @@ msgstr "排名 #{0}"
 msgid "Mute {walletHandle}"
 msgstr "隱藏 {walletHandle}"
 
-msgid "Polymarket unliked"
-msgstr ""
-
 #. placeholder {0}: sourceNames.slice(0, -1).join(', ')
 #. placeholder {1}: last(sourceNames) ?? ''
 msgid "{0} and {1}"
@@ -331,6 +334,9 @@ msgstr "🙌 剛在「{0}」投了「{choice}」"
 
 msgid "Ended"
 msgstr "已結束"
+
+msgid "Polymarket liked."
+msgstr ""
 
 msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr "無法在 Firefly 上追蹤 {handleOrEnsOrAddress}。"
@@ -464,6 +470,9 @@ msgstr ""
 
 msgid "The token can be bought."
 msgstr "該代幣可購買。"
+
+msgid "Liked."
+msgstr ""
 
 msgid "Trending"
 msgstr "熱門"
@@ -647,9 +656,6 @@ msgstr "重試"
 #. placeholder {0}: decodeURIComponent(connectorName as string)
 msgid "Get {0}"
 msgstr "獲取 {0}"
-
-msgid "Failed to like Polymarket."
-msgstr ""
 
 msgid "Show less"
 msgstr "折疊"
@@ -883,6 +889,9 @@ msgstr ""
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr "<0>{0}</0> 由 <1>{1}</1> 建立"
+
+msgid "Snapshot unliked."
+msgstr ""
 
 msgid "User Name should be at least {minHandleSize} characters"
 msgstr ""
@@ -1485,9 +1494,6 @@ msgstr ""
 msgid "Days"
 msgstr "日"
 
-msgid "Article unliked"
-msgstr ""
-
 #. placeholder {0}: formatAddressEthereum(fromAddress, 4)
 msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
 msgstr "<0>獲得</0><1/><2>來自</2><3><4>{0}</4></3>"
@@ -1647,9 +1653,6 @@ msgstr "重試"
 msgid "Failed to create image payload."
 msgstr "創建圖片失敗。"
 
-msgid "Polymarket liked"
-msgstr ""
-
 msgid "Reset Password"
 msgstr "重設密碼"
 
@@ -1701,6 +1704,9 @@ msgstr "群組"
 
 msgid "Set {formattedAddress} as primary Solana wallet"
 msgstr "將 {formattedAddress} 設為 Solana 主要錢包"
+
+msgid "Unliked."
+msgstr ""
 
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
@@ -1905,9 +1911,6 @@ msgstr "留言"
 
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr "創建紅包 24 小時後可撤回未領取數額。"
-
-msgid "Snapshot liked"
-msgstr ""
 
 msgid "Only people you mention"
 msgstr "僅您提及的人"
@@ -2236,6 +2239,9 @@ msgstr "NFT 鑄造成功！"
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "此操作不可逆，並且預約發布任務將被取消。"
 
+msgid "Failed to unlike polymarket."
+msgstr ""
+
 msgid "Lens"
 msgstr "Lens"
 
@@ -2542,6 +2548,9 @@ msgstr "有什麼新鮮事"
 msgid "Reauthorize"
 msgstr "重新授權"
 
+msgid "Failed to unlike."
+msgstr ""
+
 msgid "24h"
 msgstr ""
 
@@ -2829,6 +2838,9 @@ msgstr "上傳至 {0} 失敗。影片大小超過 {1}"
 
 msgid "Received time:"
 msgstr "領取時間："
+
+msgid "Article unliked."
+msgstr ""
 
 msgid "Random Split"
 msgstr "隨機分配"
@@ -3773,9 +3785,6 @@ msgstr "Dex 代幣"
 msgid "Passed"
 msgstr "已通過"
 
-msgid "Article liked"
-msgstr ""
-
 msgid "Something went wrong"
 msgstr "發生錯誤"
 
@@ -3896,6 +3905,9 @@ msgid "Your email is now connected."
 msgstr "您的電子郵件已綁定。"
 
 msgid "Volume · MC"
+msgstr ""
+
+msgid "Snapshot liked."
 msgstr ""
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
@@ -4426,6 +4438,9 @@ msgstr "此電子郵件已綁定其他 Firefly 帳戶。"
 msgid "Unmuted {handleOrEnsOrAddress}."
 msgstr "已取消隱藏 {handleOrEnsOrAddress}。"
 
+msgid "Polymarket unliked."
+msgstr ""
+
 msgid "No trading cooldown function."
 msgstr "無交易冷卻機制。"
 
@@ -4458,9 +4473,6 @@ msgstr "未涉及惡意挖礦活動。"
 
 msgid "Refund successfully."
 msgstr "退款成功。"
-
-msgid "Failed to unlike Polymarket."
-msgstr ""
 
 msgid "Remind me later"
 msgstr "稍後提醒"
@@ -4543,9 +4555,6 @@ msgstr "檢測到偽造 KYC。"
 msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
 msgstr "可在 <0>設定 > 內容偏好</0> 隨時重新開啟"
 
-msgid "Snapshot unliked"
-msgstr ""
-
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
 msgstr "{0, plural, one {讚} other {讚}}"
@@ -4557,6 +4566,9 @@ msgid "Collectible"
 msgstr "NFT"
 
 msgid "<0>change</0> wallet or <1>sign up</1> on Firefly"
+msgstr ""
+
+msgid "Article liked."
 msgstr ""
 
 msgid "Are you sure you want to report this user?"
