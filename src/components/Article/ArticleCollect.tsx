@@ -19,13 +19,12 @@ import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isZero } from '@/helpers/number.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import { resolveArticleCollectProvider } from '@/helpers/resolveArticleCollectProvider.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { useArticleCollectStatus } from '@/hooks/useArticleCollectable.js';
 import { MintParamsPanel } from '@/modals/FreeMintModal/MintParamsPanel.js';
 import { freeCollectArticle } from '@/providers/firefly/wallet-transaction/freeCollectArticle.js';
 import { getArticleMetadata } from '@/providers/firefly/wallet-transaction/getArticleMetadata.js';
-import { ParagraphAPI } from '@/providers/paragraph/index.js';
+import { addArticleMetadata } from '@/providers/paragraph/index.js';
 import { captureArticleCollectEvent } from '@/providers/telemetry/captureArticleCollectEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -53,9 +52,6 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
     const [txUrl, setTxUrl] = useState<string>();
     const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
         if (!collectParams || !platform) return;
-
-        const provider = resolveArticleCollectProvider(platform);
-        if (!provider) return;
 
         try {
             let hash = '';
@@ -93,7 +89,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
 
             if (article.platform === ArticlePlatform.Paragraph) {
                 const metadata = await getArticleMetadata(article.id, hash);
-                await ParagraphAPI.addArticleMetadata(metadata);
+                await addArticleMetadata(metadata);
             }
 
             const url = resolveExplorerLink(collectParams.chainId, hash, 'tx');

@@ -395,18 +395,6 @@ export const SUFFIX_NAMES: Record<FileMimeType, string> = {
 
 export const NOTIFICATION_PERMISSION_KEY = 'notification-permission';
 
-// https://support.mirror.xyz/hc/en-us/articles/13729399363220-Platform-fees
-// 0.00069 ETH
-export const MIRROR_COLLECT_FEE = 690000000000000n;
-// 1 matic
-export const MIRROR_COLLECT_FEE_IN_POLYGON = 1000000000000000000n;
-
-// https://docs.paragraph.xyz/docs/advanced/referral-program
-// 0.000777 ETH
-export const PARAGRAPH_COLLECT_FEE = 777000000000000n;
-// 2 matic
-export const PARAGRAPH_COLLECT_FEE_IN_POLYGON = 2000000000000000000n;
-
 export const SEVEN_DAYS = 1000 * 60 * 60 * 24 * 7;
 
 export const MAX_SIZE_PER_CHUNK = 2 * 1024 * 1024; // 2MB
@@ -414,11 +402,6 @@ export const MAX_SIZE_PER_CHUNK = 2 * 1024 * 1024; // 2MB
 export const METRICS_PASSWORD_LENGTH = 6;
 
 export const VITALIK_ADDRESS = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045';
-
-export const MIRROR_OLD_FACTOR_ADDRESSES = [
-    '0x302f746eE2fDC10DDff63188f71639094717a766',
-    '0x2d4b7Ec9923b9cf22d87Ced721e69E1f8eD96a0A',
-];
 
 export const EDIT_PROFILE_FIELDS: Record<SocialSource, ProfileEditableField[]> = {
     [Source.Farcaster]: [ProfileEditableField.DisplayName, ProfileEditableField.Bio],
