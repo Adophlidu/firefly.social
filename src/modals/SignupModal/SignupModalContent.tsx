@@ -17,6 +17,7 @@ import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import { captureSocialSignupSuccessEvent } from '@/providers/telemetry/captureSocialAccountSignupEvent.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { LensCredentials } from '@/providers/types/Lens.js';
@@ -66,6 +67,8 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose }) 
                     } as LensCredentials);
                     const sessionClient = await ensureLensResult(lensSessionHolder.sdk.resumeSession());
                     lensSessionHolder.setSessionClient(sessionClient);
+
+                    await runInSafeAsync(() => setPrivyAsLensManager(account));
                 }
 
                 captureSocialSignupSuccessEvent(account);
