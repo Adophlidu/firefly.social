@@ -1,11 +1,11 @@
 'use client';
 
-import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import PolymarketIcon from '@/assets/polymarket.svg';
+import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { PolymarketMarketsTraded } from '@/components/Polymarket/PolymarketMarketsTraded.js';
@@ -45,7 +45,18 @@ export const PolymarketProfileCard = memo<PolymarketProfileCardProps>(function P
                     <Trans>Polymarket</Trans>
                 </span>
                 {isLoading ? <LoadingIcon size={18} /> : null}
-                <span className="ml-auto text-[13px] font-medium">{formatAddressEthereum(address, 4, 2)}</span>
+                <span className="ml-auto flex items-center text-[13px] font-medium text-second">
+                    {formatAddressEthereum(data.proxy, 4, 2)}
+                    <CopyTextButton
+                        className="ml-2 text-second"
+                        size={14}
+                        text={data.proxy}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }}
+                    />
+                </span>
             </div>
             <div className="mt-4 block md:flex md:flex-wrap md:items-center">
                 <div className="flex shrink-0 items-center md:flex-1">
@@ -63,10 +74,9 @@ export const PolymarketProfileCard = memo<PolymarketProfileCardProps>(function P
                         </span>
                         <div className="relative text-success">
                             <span
-                                className={classNames(
-                                    'text-sm font-semibold',
-                                    !data ? '' : data.pnl < 0 ? 'text-danger' : 'text-success',
-                                )}
+                                className={`text-sm font-semibold ${
+                                    !data ? '' : data.pnl < 0 ? 'text-danger' : 'text-success'
+                                }`}
                             >
                                 {formatPolymarketNumber(data?.pnl, { symbol: true })}
                                 <span className="ml-0.5 text-xs font-normal">{toRate(data?.pnl_rate)}</span>
