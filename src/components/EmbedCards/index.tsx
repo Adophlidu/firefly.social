@@ -160,7 +160,7 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
 
         const availableLinks = links.filter((_, i) => {
             const result = nth(classifyResults, i);
-            if (!result) return false;
+            if (!result?.result) return false;
             return !!(result.result.nft || result.result.collection);
         });
         const lowerIgnoredLinks = ignoredLinks.map((x) => x.toLowerCase());

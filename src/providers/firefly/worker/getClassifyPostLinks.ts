@@ -26,7 +26,7 @@ export interface ClassifyPostLinkResult {
 export type GetClassifyPostLinksResponse = ResponseJson<
     Array<{
         url: string;
-        result: ClassifyPostLinkResult;
+        result: ClassifyPostLinkResult | null;
     }>
 >;
 
@@ -37,5 +37,5 @@ export async function getClassifyPostLinks(urls: string[]) {
         }),
     );
     if (!response.success) return [];
-    return response.data.filter((x) => x.result);
+    return response.data.filter((x) => x.result) as Array<{ url: string; result: ClassifyPostLinkResult }>;
 }
