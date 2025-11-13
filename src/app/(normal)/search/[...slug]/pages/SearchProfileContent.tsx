@@ -9,8 +9,7 @@ import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem
 import { ScrollListKey } from '@/constants/enum.js';
 import { composeSearchProfiles, formatSearchProfile, sortSearchProfiles } from '@/helpers/formatSearchProfile.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
-import { createIndicator, createPageable } from '@/helpers/pageable.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
@@ -45,37 +44,36 @@ export function SearchProfileContent() {
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['search', searchType, searchKeyword, source],
-        queryFn: async ({ pageParam }) => {
+        queryFn: async ({ pageParam, signal }) => {
             if (!searchKeyword) return;
 
             const fireflyIndicator = pageParam.firefly ? createIndicator(undefined, pageParam.firefly) : undefined;
             const twitterIndicator = pageParam.twitter ? createIndicator(undefined, pageParam.twitter) : undefined;
             const bskyIndicator = pageParam.bsky ? createIndicator(undefined, pageParam.bsky) : undefined;
+            const trimmed = formatTwitterSearchKeyword(searchKeyword);
 
-            const data =
+            const [fireflyRes, xRes, bskyRes] = await Promise.allSettled([
                 pageParam.firefly !== noNextPage
-                    ? await searchIdentity(searchKeyword, {
+                    ? searchIdentity(searchKeyword, {
+                          signal,
                           size: 10,
                           indicator: fireflyIndicator,
                       })
-                    : createPageable([], createIndicator());
-
-            const trimmed = formatTwitterSearchKeyword(searchKeyword);
-            const twitterProfiles =
+                    : undefined,
                 pageParam.twitter !== noNextPage && trimmed
-                    ? await runInSafeAsync(() => TwitterSocialMediaProxy.searchProfiles(trimmed, twitterIndicator, 7))
-                    : undefined;
-
-            const bskyProfiles =
+                    ? TwitterSocialMediaProxy.searchProfiles(trimmed, twitterIndicator, 7)
+                    : undefined,
                 pageParam.bsky !== noNextPage
-                    ? await runInSafeAsync(() =>
-                          BskySocialMediaProvider.searchProfiles(searchKeyword, bskyIndicator, 3),
-                      )
-                    : undefined;
+                    ? BskySocialMediaProvider.searchProfiles(searchKeyword, bskyIndicator, 3)
+                    : undefined,
+            ]);
+            const data = fireflyRes.status === 'fulfilled' ? fireflyRes.value : undefined;
+            const twitterProfiles = xRes.status === 'fulfilled' ? xRes.value : undefined;
+            const bskyProfiles = bskyRes.status === 'fulfilled' ? bskyRes.value : undefined;
 
             const socialProfiles = sortSearchProfiles(
                 composeSearchProfiles(
-                    compact(data.data.map((x) => formatSearchProfile(x, searchKeyword))),
+                    compact(data?.data.map((x) => formatSearchProfile(x, searchKeyword))),
                     twitterProfiles?.data || [],
                     bskyProfiles?.data || [],
                 ),
