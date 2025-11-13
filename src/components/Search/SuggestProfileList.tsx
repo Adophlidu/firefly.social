@@ -7,13 +7,11 @@ import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
 import { SearchType, Source } from '@/constants/enum.js';
-import { MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/index.js';
+import { EMPTY_LIST, MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/index.js';
 import { composeSearchProfiles, formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
@@ -24,31 +22,29 @@ interface SuggestProfileListProps {
 
 export const SuggestProfileList = memo<SuggestProfileListProps>(function SuggestProfileList({ query, onSelect }) {
     const isTwitterLogin = useIsLogin(Source.Twitter);
+
     const { data: profiles = [], isLoading } = useQuery({
         queryKey: ['search-suggest', 'profiles', query],
         staleTime: 1000 * 60 * 5, // 5 minutes
-        queryFn: async () => {
-            const result = await searchIdentity(query, {
-                size: 5,
-                indicator: undefined,
-            });
+        queryFn: async ({ signal }) => {
             const trimmed = query.trim().replace(/^@/, '');
-            const xProfilesRes =
-                isTwitterLogin && trimmed
-                    ? await runInSafeAsync(() => TwitterSocialMediaProxy.searchProfiles(trimmed))
-                    : undefined;
-            const bskyProfilesRes = await runInSafeAsync(() => BskySocialMediaProvider.searchProfiles(query));
-
-            const xProfiles = (xProfilesRes?.data || []).slice(0, 1);
-            const bskyProfiles = (bskyProfilesRes?.data || []).slice(0, 1);
+            const [fireflyRes, xRes] = await Promise.allSettled([
+                searchIdentity(query, {
+                    signal,
+                    size: 5,
+                    indicator: undefined,
+                }),
+                isTwitterLogin && trimmed ? TwitterSocialMediaProxy.searchProfiles(trimmed) : undefined,
+            ]);
+            const xProfiles = xRes.status === 'fulfilled' ? xRes.value?.data.slice(0, 1) : EMPTY_LIST;
+            const result = fireflyRes.status === 'fulfilled' ? fireflyRes.value : undefined;
 
             return composeSearchProfiles(
-                compact(result.data.map((x) => formatSearchProfile(x, query))).slice(
+                compact(result?.data.map((x) => formatSearchProfile(x, query))).slice(
                     0,
-                    MAX_RECOMMEND_PROFILE_SIZE - xProfiles.length - bskyProfiles.length,
+                    MAX_RECOMMEND_PROFILE_SIZE - (xProfiles?.length || 0),
                 ),
-                xProfiles,
-                bskyProfiles,
+                xProfiles || EMPTY_LIST,
             );
         },
         enabled: !!query,

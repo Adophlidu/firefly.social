@@ -14,10 +14,12 @@ export async function searchIdentity(
         platforms,
         size = 100,
         indicator,
+        signal,
     }: {
         platforms?: SocialSource[];
         size?: number;
         indicator?: PageIndicator;
+        signal?: AbortSignal;
     } = {},
 ) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
@@ -30,6 +32,7 @@ export async function searchIdentity(
         platform ? `${url}&platform=${platform}` : url,
         {
             method: 'GET',
+            signal,
         },
     );
     const data = resolveFireflyResponseData(response);

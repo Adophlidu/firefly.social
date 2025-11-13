@@ -2,7 +2,7 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounceValue } from 'usehooks-ts';
 
 import SearchIcon from '@/assets/search.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -43,12 +43,12 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     const { keyword, fullScreen = false, autoSearchType, onSearch, onSelect, onClear } = props;
     const { records, addRecord, removeRecord, clearAll } = useSearchHistoryStateStore();
 
-    const debouncedKeyword = useDebounce(keyword, 300);
+    const [debouncedKeyword] = useDebounceValue(keyword, 300);
 
     if (!records.length && !keyword) return null;
 
     const containerClasses = classNames(
-        'max:max-h-[calc(100vh-59px)] absolute -inset-x-px top-10 z-[1000] flex w-full flex-col overflow-auto overflow-hidden bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:border dark:border-line dark:bg-primaryBottom',
+        'max:max-h-[calc(100vh-59px)] absolute -inset-x-px top-10 z-[1000] flex w-full flex-col overflow-auto bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:border dark:border-line dark:bg-primaryBottom',
         {
             'mt-2 rounded-2xl': !fullScreen,
             'bottom-0 mt-3 h-[calc(100vh-40px)] border-none': fullScreen,
@@ -122,7 +122,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                 }}
                             >
                                 <SearchIcon width={18} height={18} className="shrink-0" />
-                                <span className="color-main ml-4 grow truncate py-2">{record}</span>
+                                <span className="ml-4 grow truncate py-2 text-main">{record}</span>
                             </Link>
                             <ClearButton
                                 size={16}
