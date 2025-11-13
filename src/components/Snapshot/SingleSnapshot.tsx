@@ -9,8 +9,11 @@ import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackC
 import { SnapshotLike } from '@/components/Snapshot/SnapshotLike.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
-import { getProposalLink } from '@/providers/snapshot/getProposalLink.js';
-import type { SnapshotActivity } from '@/providers/snapshot/type.js';
+import type { SnapshotActivity, SnapshotProposal } from '@/providers/snapshot/type.js';
+
+function getProposalLink(proposal: SnapshotProposal) {
+    return `https://snapshot.box/#/s:${proposal.space.id}/proposal/${proposal.id}`;
+}
 
 interface SingleSnapshotProps {
     data: SnapshotActivity;
