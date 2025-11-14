@@ -252,7 +252,7 @@ class FireflySocialMedia implements Provider {
         });
         const data = resolveFireflyResponseData(response);
         if (!data.channel) {
-            throw new NotFoundError(`Channel with handle ${channelHandle} not found.`);
+            throw new NotFoundError(`Farcaster channel not found with handle=${channelHandle}.`);
         }
         return formatBriefChannelFromFirefly(data.channel, data.blocked);
     }
@@ -371,9 +371,7 @@ class FireflySocialMedia implements Provider {
                 sourceFid: session?.profileId,
             });
             const response = await fireflySessionHolder.fetch<FireflyFarcasterProfileResponse>(url);
-            if (!response.data) {
-                throw new Error(`Profile ${handle} doesn't exist.`);
-            }
+            if (!response.data) throw new Error(`Farcaster profile not found handle=${handle}.`);
             return formatFireflyFarcasterProfile(response.data);
         });
     }
@@ -415,7 +413,7 @@ class FireflySocialMedia implements Provider {
             });
 
             const post = cast ? formatFarcasterPostFromFirefly(cast) : null;
-            if (!post) throw new NotFoundError('Post not found');
+            if (!post) throw new NotFoundError(`Farcaster post not found with postId=${postId}.`);
             return post;
         });
     }

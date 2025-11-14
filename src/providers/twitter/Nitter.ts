@@ -1,6 +1,7 @@
 import { bom } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
+import { Source } from '@/constants/enum.js';
 import { AccountSuspendedError } from '@/constants/error.js';
 import { FIREFLY_NITTER_URL } from '@/constants/index.js';
 import { LimitConcurrency } from '@/decorators/LimitConcurrency.js';
@@ -74,9 +75,7 @@ class NitterAPI {
             },
         );
         const data = resolveNitterJsonResponse(res);
-        if (data.user.suspended) {
-            throw new AccountSuspendedError();
-        }
+        if (data.user.suspended) throw new AccountSuspendedError(handle, Source.Twitter);
         return data;
     }
 

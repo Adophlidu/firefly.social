@@ -343,7 +343,7 @@ class NitterSocialMedia implements Provider {
     async getProfileByHandle(handle: string): Promise<Profile> {
         if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const { user } = await NitterAPIProvider.getProfileByHandle(handle);
-        if (!user.id || user.id === '0') throw new Error('User not found');
+        if (!user.id || user.id === '0') throw new Error(`Twitter user not found with handle: ${handle}`);
         return formatTwitterProfileFromNitter(user);
     }
 

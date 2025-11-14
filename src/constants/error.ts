@@ -303,8 +303,8 @@ export class TokenExpiredError extends Error {
 export class AccountSuspendedError extends Error {
     override name = 'AccountSuspendedError';
 
-    constructor(message?: string) {
-        super(message ?? 'Account suspended.');
+    constructor(handle: string, source: ProfileSource, message?: string) {
+        super(message ?? `Account suspended with handle=${handle}, source=${source}.`);
     }
 }
 
