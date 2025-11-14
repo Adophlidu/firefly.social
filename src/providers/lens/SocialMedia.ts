@@ -235,7 +235,7 @@ class LensSocialMedia implements Provider {
         const result = await ensureLensResult(
             fetchPosts(getLensClient(), {
                 cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
+                pageSize: indicator?.size && indicator.size <= 10 ? PageSize.Ten : PageSize.Fifty,
                 filter: {
                     feeds: [{ feed: safeEvmAddress(channelId) }],
                     metadata: null,

@@ -263,6 +263,7 @@ class FireflySocialMedia implements Provider {
     ): Promise<Pageable<Channel, PageIndicator>> {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/active_channels', {
             fid: profileId,
+            size: indicator?.size,
         });
         const response = await fetchJson<ChannelsResponse>(url, {
             method: 'GET',

@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import { compact, uniqBy } from 'lodash-es';
 import { useDebounce } from 'usehooks-ts';
 
 import { FF_GARDEN_CHANNEL, HOME_CHANNEL, HOME_CLUB } from '@/constants/channel.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_CHANNEL_SOURCES } from '@/constants/index.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface SearchExtraOptions {
     hasRedPacket: boolean;
@@ -18,33 +19,32 @@ const PROFILE_CHANNELS_LIMIT = 10;
 async function searchChannels(source: SocialSource, keyword: string, { hasRedPacket, profileId }: SearchExtraOptions) {
     const provider = resolveSocialMediaProvider(source);
     if (!keyword && profileId) {
-        const profileChannels = await provider.getChannelsByProfileId(profileId);
-        const commonChannels =
-            source === Source.Farcaster
-                ? [
-                      ...profileChannels.data.slice(0, PROFILE_CHANNELS_LIMIT),
-                      ...(await provider.discoverChannels()).data,
-                  ].filter((x) => !x.unavailable)
-                : profileChannels.data.filter((x) => !x.unavailable);
+        const isFarcaster = source === Source.Farcaster;
+        const promises: Array<Promise<Channel[]> | Channel> = [];
+        const commonChannelsPromise = provider
+            .getChannelsByProfileId(
+                profileId,
+                createIndicator(undefined, undefined, source === Source.Farcaster ? PROFILE_CHANNELS_LIMIT : undefined),
+            )
+            .then((channels) => (isFarcaster ? channels.data : channels.data.filter((x) => !x.unavailable)));
+        promises.push(commonChannelsPromise);
 
-        if (source === Source.Farcaster) {
-            return uniqBy(
-                compact([
-                    HOME_CHANNEL,
-                    hasRedPacket
-                        ? {
-                              ...FF_GARDEN_CHANNEL,
-                              followerCount: (await provider.getChannelById(FF_GARDEN_CHANNEL.id)).followerCount,
-                          }
-                        : null,
-                    ...commonChannels,
-                ]),
-                'id',
-            );
-        } else if (source === Source.Lens) {
-            return uniqBy(compact([HOME_CLUB, ...commonChannels]), 'id');
+        if (isFarcaster) {
+            promises.push(provider.discoverChannels().then((x) => x.data));
+            if (hasRedPacket) {
+                promises.unshift(
+                    Promise.resolve().then(async () => {
+                        const followerCount = (await provider.getChannelById(FF_GARDEN_CHANNEL.id)).followerCount;
+                        return [{ ...FF_GARDEN_CHANNEL, followerCount }];
+                    }),
+                );
+            }
+            promises.unshift(HOME_CHANNEL);
+        } else {
+            promises.unshift(HOME_CLUB);
         }
-        return uniqBy(compact(commonChannels), 'id');
+        const results = await Promise.allSettled(promises);
+        return results.flatMap((x) => (x.status === 'fulfilled' ? x.value : []));
     }
     const response = await provider.searchChannels(keyword);
     return response.data.filter((x) => !x.unavailable);

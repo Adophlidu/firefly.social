@@ -133,7 +133,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        return FireflySocialMediaProvider.getChannelsByProfileId(profileId);
+        return FireflySocialMediaProvider.getChannelsByProfileId(profileId, indicator);
     }
 
     discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {

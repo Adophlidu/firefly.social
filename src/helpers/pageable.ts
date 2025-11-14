@@ -23,29 +23,33 @@ export interface PageIndicator {
     id: string;
     /** The index number of the page. */
     index: number;
+    size?: number;
 }
 
-export function createIndicator(indicator?: PageIndicator, id?: string): PageIndicator {
+export function createIndicator(indicator?: PageIndicator, id?: string, size?: number): PageIndicator {
     const index = indicator?.index ?? 0;
     return {
         __type__: $PageIndicator,
         id: id ?? indicator?.id ?? index.toString(),
         index,
+        size: size ?? indicator?.size,
     };
 }
 
-export function createNextIndicator(indicator?: PageIndicator, id?: string): PageIndicator {
+export function createNextIndicator(indicator?: PageIndicator, id?: string, size?: number): PageIndicator {
     const index = (indicator?.index ?? 0) + 1;
     return typeof id === 'string'
         ? {
               __type__: $PageIndicator,
               id,
               index,
+              size: size ?? indicator?.size,
           }
         : {
               __type__: $PageIndicator,
               id: index.toString(),
               index,
+              size: size ?? indicator?.size,
           };
 }
 
