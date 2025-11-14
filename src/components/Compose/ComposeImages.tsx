@@ -55,7 +55,7 @@ export const ComposeImages = memo(function ComposeImages({ images, readonly = fa
         return (
             <div {...rest} className={classNames('relative', rest.className)}>
                 <ImageAsset
-                    className={'w-full cursor-pointer rounded-lg object-cover'}
+                    className="w-full cursor-pointer rounded-lg object-cover"
                     width={1000}
                     height={1000}
                     src={sanitizeDStorageUrl(resolveMediaObjectUrl(target))}

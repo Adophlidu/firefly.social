@@ -1,3 +1,4 @@
+import { classNames } from '@dimensiondev/utils';
 import { last } from 'lodash-es';
 
 import { ComposeImages } from '@/components/Compose/ComposeImages.js';
@@ -52,7 +53,12 @@ export function ComposeContent(props: ComposeContentProps) {
 
             {/* image */}
             {images.length > 0 ? (
-                <ComposeImages className="mt-2 max-h-[288px] grow overflow-hidden rounded-lg" images={images} />
+                <ComposeImages
+                    className={classNames('mt-2 grow overflow-hidden rounded-lg', {
+                        'max-h-[288px]': images.length > 1 || !images.some((image) => image.isRpPayloadImage),
+                    })}
+                    images={images}
+                />
             ) : null}
 
             {/* video */}
