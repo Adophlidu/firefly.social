@@ -5,6 +5,7 @@ import '@/assets/css/signup.css';
 import { delay, safeUnreachable } from '@dimensiondev/utils';
 import { AnimatePresence } from 'framer-motion';
 import { useCallback, useRef, useState } from 'react';
+import { useUpdateEffect } from 'react-use';
 
 import { AccountForm } from '@/app/(whiteboard)/signup/pages/AccountForm.js';
 import { playSignupAudio } from '@/app/(whiteboard)/signup/pages/audio.js';
@@ -15,7 +16,7 @@ import { SuccessPage } from '@/app/(whiteboard)/signup/pages/SuccessPage.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { PageRoute, SignupStep } from '@/constants/enum.js';
 import { SIGNUP_AUDIO_ID } from '@/constants/index.js';
-import { redirect, RedirectType } from '@/esm/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
@@ -57,6 +58,7 @@ export function Signup({ initialStep }: SignupProps) {
     const isSyncing = useAsyncStatusAll();
     const { setPreference } = usePreferencesState();
     const { currentProfileSession } = useFireflyProfileStore();
+    const router = useRouter();
     const hasFinished = useRef<boolean>(false);
 
     const changeStep = useCallback(
@@ -94,9 +96,15 @@ export function Signup({ initialStep }: SignupProps) {
         [currentProfileSession?.profileId, setPreference, setStep],
     );
 
+    useUpdateEffect(() => {
+        if (currentProfileSession?.profileId) {
+            router.prefetch(PageRoute.FollowingPosts);
+        }
+    }, [currentProfileSession?.profileId]);
+
     if (hasFireflyAccount && !hasFinished.current && !isSyncing) {
         LoginModalRef.close();
-        redirect(PageRoute.FollowingPosts, RedirectType.replace);
+        router.replace(PageRoute.FollowingPosts);
     }
 
     return (

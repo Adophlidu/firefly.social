@@ -479,7 +479,8 @@ export const EIP6963_PROVIDER_DESCRIPTION = {
 };
 
 export const EVENT_ROUTES: Array<`/${string}`> = ['/event', '/events'];
-export const WHITEBOARD_ROUTES: Array<`/${string}`> = ['/frame', '/login', '/redirect', '/telegram', '/signup'];
+export const INTERNAL_ROUTES: Array<`/${string}`> = ['/frame', '/login', '/redirect', '/telegram'];
+export const WHITEBOARD_ROUTES: Array<`/${string}`> = [...INTERNAL_ROUTES, '/signup'];
 
 export const ARTICLE_LIKE_NOTIFICATION_TYPES: NotificationType[] = [
     NotificationType.LikeMatters,

@@ -9,6 +9,7 @@ import { isPathnameForceRedirect } from '@/helpers/openLoginModal.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { CreateFireflyAccountGuideModalRef } from '@/modals/CreateFireflyAccountGuideModal/index.js';
 import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
 
@@ -23,6 +24,7 @@ export function FireflyAccountChecker() {
     const isSyncing = useAsyncStatusAll();
     const { hasFireflyAccount, isLoading } = useCheckFireflyAccount();
     const profiles = useCurrentProfiles();
+    const isLoginFirefly = useIsLoginFirefly();
     const { accounts } = useThirdPartyProfileStore();
     const pathname = usePathname();
     const isForceRedirect = isPathnameForceRedirect(pathname);
@@ -44,7 +46,7 @@ export function FireflyAccountChecker() {
     }, [pathname, hasFireflyAccount, isLoading, isForceRedirect, hasLoggedIn]);
 
     const showLoading = (((!hasFireflyAccount && !hasLoggedIn) || isLoading) && isForceRedirect) || isSyncing;
-    if (!showLoading) {
+    if (!showLoading || !isLoginFirefly) {
         removeGlobalLoading();
     }
 

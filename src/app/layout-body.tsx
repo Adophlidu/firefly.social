@@ -7,7 +7,7 @@ import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { Agent, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { EVENT_ROUTES, WHITEBOARD_ROUTES } from '@/constants/index.js';
+import { EVENT_ROUTES, INTERNAL_ROUTES, WHITEBOARD_ROUTES } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 
 const Modals = dynamic(() => import('@/modals/index.js').then((m) => m.Modals), { ssr: false });
@@ -67,7 +67,7 @@ export function LayoutBody({ agent, children }: LayoutBodyProps) {
                     ) : null}
 
                     {env.external.NEXT_PUBLIC_FORCE_SIGNUP === STATUS.Enabled && agent !== Agent.FireflyApp ? (
-                        <IfPathname isNotOneOf={WHITEBOARD_ROUTES}>
+                        <IfPathname isNotOneOf={INTERNAL_ROUTES}>
                             <FireflyAccountChecker />
                         </IfPathname>
                     ) : null}
