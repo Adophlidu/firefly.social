@@ -76,6 +76,9 @@ msgstr ""
 msgid "Scan this QR code if you’ve used Farcaster to sign in before.<0/><1>First time</1>? Go here to get started."
 msgstr ""
 
+msgid "Tip unliked."
+msgstr ""
+
 msgid "FAILED THREAD POST"
 msgstr ""
 
@@ -894,6 +897,9 @@ msgstr ""
 #. placeholder {0}: space.name
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
+msgstr ""
+
+msgid "Failed to unlike tip."
 msgstr ""
 
 msgid "Snapshot unliked."
@@ -2754,6 +2760,9 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
+msgid "Tip liked."
+msgstr ""
+
 msgid "Trades"
 msgstr ""
 
@@ -3318,6 +3327,9 @@ msgid "Lucky drop created successfully"
 msgstr ""
 
 msgid "Financial crime found."
+msgstr ""
+
+msgid "Failed to like tip."
 msgstr ""
 
 msgid "Feeds for tokens on this chain will be available soon."

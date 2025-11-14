@@ -76,6 +76,9 @@ msgstr "代币"
 msgid "Scan this QR code if you’ve used Farcaster to sign in before.<0/><1>First time</1>? Go here to get started."
 msgstr "如果曾使用过 Farcaster 登录，请扫描此二维码。<0/><1>首次登录</1>？点击此处开始。"
 
+msgid "Tip unliked."
+msgstr ""
+
 msgid "FAILED THREAD POST"
 msgstr "发送帖子串失败"
 
@@ -895,6 +898,9 @@ msgstr ""
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr "<0>{0}</0> 由 <1>{1}</1>"
+
+msgid "Failed to unlike tip."
+msgstr ""
 
 msgid "Snapshot unliked."
 msgstr ""
@@ -2754,6 +2760,9 @@ msgstr "加载中..."
 msgid "Share"
 msgstr "分享"
 
+msgid "Tip liked."
+msgstr ""
+
 msgid "Trades"
 msgstr "交易"
 
@@ -3319,6 +3328,9 @@ msgstr "红包创建成功"
 
 msgid "Financial crime found."
 msgstr "识别为金融犯罪。"
+
+msgid "Failed to like tip."
+msgstr ""
 
 msgid "Feeds for tokens on this chain will be available soon."
 msgstr "暂不支持该链代币的帖子搜索。"

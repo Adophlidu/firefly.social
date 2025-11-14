@@ -2050,6 +2050,14 @@ export interface TipsDetail {
 
 export type TipsDetailResponse = Response<TipsDetail | null>;
 
+export interface TipsLikeStatusData {
+    txHash: string;
+    chainId: number;
+    fromAddress: string;
+    isLiked: boolean;
+    likeCount?: number;
+}
+
 interface PrivyWallet {
     accountId: string;
     userId: string;

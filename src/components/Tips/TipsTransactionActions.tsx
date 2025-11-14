@@ -5,22 +5,21 @@ import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import type { HTMLProps } from 'react';
+import { type HTMLProps, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import ImageDownloadIcon from '@/assets/image-download.svg';
-import LikeIcon from '@/assets/like.svg';
-import LikedIcon from '@/assets/liked.svg';
 import MirrorIcon from '@/assets/mirror.svg';
 import ShareIcon from '@/assets/share.svg';
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
+import { LikeButton } from '@/components/Actions/LikeButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { Source, TipsDetailViewType, TipsNotificationType, TxReactionType } from '@/constants/enum.js';
+import { ExtraLikeType, Source, TipsDetailViewType, TipsNotificationType, TxReactionType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
@@ -30,11 +29,11 @@ import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { useToggleTipLikeStatus } from '@/hooks/useToggleTipLikeStatus.js';
 import { type ComposeModalOpenProps, ComposeModalRef } from '@/modals/ComposeModal.js';
 import { ShareImageModalRef } from '@/modals/ShareImageModal/index.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
 import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
+import type { TipsLikeStatusData } from '@/providers/types/Firefly.js';
 import { type MentionChars } from '@/types/chars.js';
 
 interface TipsTransactionActionsProps extends HTMLProps<HTMLDivElement> {
@@ -113,18 +112,18 @@ export function TipsTransactionActions({
     });
 
     const likedStatus = autoQuery && isLogin ? data?.has_liked : liked;
-    const repostedStatus = autoQuery && isLogin ? data?.has_reposted : reposted;
-
-    const { mutateAsync, isPending } = useToggleTipLikeStatus({
-        txHash,
-        chainId,
-        fromAddress,
-        liked: likedStatus ?? false,
-    });
+    const likeStatusData = useMemo<TipsLikeStatusData>(
+        () => ({
+            txHash,
+            chainId,
+            fromAddress,
+            isLiked: likedStatus ?? false,
+        }),
+        [txHash, chainId, fromAddress, likedStatus],
+    );
 
     const addressForMention = view === TipsDetailViewType.Receiver ? fromAddress : toAddress;
     const accountIdForMention = view === TipsDetailViewType.Receiver ? fromAccountId : toAccountId;
-
     const [{ loading }, handleSharePost] = useAsyncFn(
         async (event: React.MouseEvent) => {
             event.stopPropagation();
@@ -158,6 +157,8 @@ export function TipsTransactionActions({
         [txHash, tokenSymbol, isLogin, addressForMention, view, chainId, fromAddress, accountIdForMention],
     );
 
+    const repostedStatus = autoQuery && isLogin ? data?.has_reposted : reposted;
+
     return (
         <div className={classNames('flex items-center justify-between', className)}>
             <div className="flex items-center gap-2 text-secondary">
@@ -173,30 +174,7 @@ export function TipsTransactionActions({
                         <MirrorIcon className={repostedStatus ? 'text-secondarySuccess' : ''} width={16} height={16} />
                     )}
                 </motion.button>
-                <motion.button
-                    disabled={isLoading || isPending}
-                    whileTap={{ scale: 0.9 }}
-                    className="flex size-7 items-center justify-center"
-                    onClick={async (event) => {
-                        event.stopPropagation();
-
-                        if (!isLogin) {
-                            openLoginModal();
-                            return;
-                        }
-
-                        if (isLoading || isPending) return;
-                        await mutateAsync();
-                    }}
-                >
-                    {isLoading || isPending ? (
-                        <LoadingIcon size={16} />
-                    ) : likedStatus ? (
-                        <LikedIcon width={16} height={16} />
-                    ) : (
-                        <LikeIcon width={16} height={16} />
-                    )}
-                </motion.button>
+                <LikeButton type={ExtraLikeType.Tips} data={likeStatusData} />
             </div>
 
             <MoreActionMenu

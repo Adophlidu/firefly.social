@@ -656,3 +656,7 @@ export enum TimeRangeFilter {
     SixHours = 'h6',
     OneDay = 'h24',
 }
+
+export enum ExtraLikeType {
+    Tips = 'tips',
+}

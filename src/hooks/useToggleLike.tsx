@@ -2,7 +2,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 
-import { PlatformId, Source, TxReactionType } from '@/constants/enum.js';
+import { ExtraLikeType, PlatformId, Source, TxReactionType } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { updateQueryForLikeReaction } from '@/helpers/updateQueryForLikeReaction.js';
@@ -13,7 +13,7 @@ import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import { captureArticleLikeSuccessEvent } from '@/providers/telemetry/captureClickEvent.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
-import type { PolymarketActivity, SwapActivity } from '@/providers/types/Firefly.js';
+import type { PolymarketActivity, SwapActivity, TipsLikeStatusData } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 export type LikeTarget =
@@ -32,6 +32,10 @@ export type LikeTarget =
     | {
           type: Source.Swap;
           data: SwapActivity;
+      }
+    | {
+          type: ExtraLikeType.Tips;
+          data: TipsLikeStatusData;
       };
 interface LikeParams {
     reactionType: TxReactionType;
@@ -104,6 +108,13 @@ function resolveLikeParams({ type, data }: LikeTarget): LikeParams | undefined {
                 reactionId: data.hash,
                 reactionOwnerId: data.owner,
             };
+        case ExtraLikeType.Tips:
+            return {
+                reactionType: TxReactionType.LikeTip,
+                platformId: data.chainId.toString(),
+                reactionId: data.txHash,
+                reactionOwnerId: data.fromAddress,
+            };
         default:
             safeUnreachable(type);
             return undefined;
@@ -119,6 +130,8 @@ function getSuccessMessage(type: LikeTarget['type'], liked: boolean) {
             return liked ? <Trans>Polymarket liked.</Trans> : <Trans>Polymarket unliked.</Trans>;
         case Source.Swap:
             return liked ? <Trans>Swap liked.</Trans> : <Trans>Swap unliked.</Trans>;
+        case ExtraLikeType.Tips:
+            return liked ? <Trans>Tip liked.</Trans> : <Trans>Tip unliked.</Trans>;
         default:
             safeUnreachable(type);
             return liked ? <Trans>Liked.</Trans> : <Trans>Unliked.</Trans>;
@@ -134,6 +147,8 @@ function getErrorMessage(type: LikeTarget['type'], liked: boolean) {
             return liked ? <Trans>Failed to like polymarket.</Trans> : <Trans>Failed to unlike polymarket.</Trans>;
         case Source.Swap:
             return liked ? <Trans>Failed to like swap.</Trans> : <Trans>Failed to unlike swap.</Trans>;
+        case ExtraLikeType.Tips:
+            return liked ? <Trans>Failed to like tip.</Trans> : <Trans>Failed to unlike tip.</Trans>;
         default:
             safeUnreachable(type);
             return liked ? <Trans>Failed to like.</Trans> : <Trans>Failed to unlike.</Trans>;
@@ -147,6 +162,7 @@ function captureLikeEvent({ type, data }: LikeTarget, liked: boolean) {
             return liked ? captureSwapEvent(EventId.EVENT_LIKE_SWAP_CLICK) : undefined;
         case Source.DAOs:
         case Source.Polymarket:
+        case ExtraLikeType.Tips:
             return;
         default:
             safeUnreachable(type);

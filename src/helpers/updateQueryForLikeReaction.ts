@@ -2,8 +2,9 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { Source } from '@/constants/enum.js';
+import { ExtraLikeType, Source, TxReactionType } from '@/constants/enum.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
+import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
 import type { LikeTarget } from '@/hooks/useToggleLike.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import { type Article } from '@/providers/types/Article.js';
@@ -167,6 +168,8 @@ export function updateQueryForLikeReaction(target: LikeTarget, isLiked: boolean)
             return updateQueryForPolymarket(target.data, isLiked);
         case Source.Swap:
             return updateQueryForSwap(target.data, isLiked);
+        case ExtraLikeType.Tips:
+            return updateTipsReactionStatus(target.data.txHash, TxReactionType.LikeTip, !isLiked);
         default:
             safeUnreachable(target);
             return;

@@ -8,7 +8,7 @@ import LikedIcon from '@/assets/liked.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { Source } from '@/constants/enum.js';
+import { ExtraLikeType, Source } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { type LikeTarget, useToggleLike } from '@/hooks/useToggleLike.js';
 
@@ -21,6 +21,7 @@ function resolveInitialLikeData({ type, data }: LikeTarget) {
         case Source.Article:
         case Source.DAOs:
         case Source.Polymarket:
+        case ExtraLikeType.Tips:
             return { isLiked: data.isLiked, likeCount: data.likeCount || 0 };
         case Source.Swap:
             return { isLiked: data.is_like, likeCount: data.like_count || 0 };
