@@ -19,7 +19,6 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
     token,
     className,
     showMarketInfo,
-    onClick,
 }: BookmarkedTokenItemProps) {
     const identityId = token.contract_address || token.symbol || token.symbol;
     if (!token.id && !identityId) return null;
@@ -38,11 +37,7 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
     });
     const priceChange = token.market_data?.price_change_percentage_24h ?? 0;
     return (
-        <Link
-            className={classNames('flex items-center gap-3 px-2 py-3 hover:bg-bg', className)}
-            href={tokenPageUrl}
-            onClick={onClick}
-        >
+        <div className={classNames('flex items-center gap-3 px-2 py-3 hover:bg-bg', className)}>
             <TokenBookmarkButton
                 coinId={token.id}
                 chainId={chainId}
@@ -53,54 +48,58 @@ export const BookmarkedTokenItem = memo(function BookmarkedTokenItem({
                     e.preventDefault();
                 }}
             />
-            <TokenIcon
-                className="size-11 shrink-0 rounded-full"
-                size={44}
-                badgeSize={17}
-                chainId={chainId}
-                address={address}
-                icon={token.image.large || token.image.small}
-                disableBadge={isCex}
-                name={token.name}
-            />
-            <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-x-1 text-medium font-bold text-secondary">
-                    <span className="truncate leading-6 text-lightMain">{token.name}</span>
-                </div>
-                {showMarketInfo ? (
-                    <div className="flex gap-2">
-                        {token.market_data?.volume_usd_24h ? (
-                            <span className="text-sm leading-5 text-second">
-                                ${nFormatter(token.market_data.volume_usd_24h)}
-                            </span>
-                        ) : null}
-                        {token.market_data?.volume_usd_24h && token.market_data.market_cap_usd ? <span>·</span> : null}
-                        {token.market_data?.market_cap_usd ? (
-                            <span className="text-sm leading-5 text-second">
-                                ${nFormatter(token.market_data.market_cap_usd)}
-                            </span>
-                        ) : null}
+            <Link className="flex grow items-center gap-3" shallow href={tokenPageUrl}>
+                <TokenIcon
+                    className="size-11 shrink-0 rounded-full"
+                    size={44}
+                    badgeSize={17}
+                    chainId={chainId}
+                    address={address}
+                    icon={token.image.large || token.image.small}
+                    disableBadge={isCex}
+                    name={token.name}
+                />
+                <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-x-1 text-medium font-bold text-secondary">
+                        <span className="truncate leading-6 text-lightMain">{token.name}</span>
                     </div>
-                ) : null}
-            </div>
-            <div className="flex flex-col justify-end">
-                <div className="text-right font-inter text-base font-semibold leading-6 text-lightMain">
-                    {token.market_data?.token_price_usd ? (
-                        <>${renderShrankPrice(formatPrice(token.market_data.token_price_usd) ?? '')}</>
-                    ) : (
-                        <span className="text-third">--</span>
-                    )}
+                    {showMarketInfo ? (
+                        <div className="flex gap-2">
+                            {token.market_data?.volume_usd_24h ? (
+                                <span className="text-sm leading-5 text-second">
+                                    ${nFormatter(token.market_data.volume_usd_24h)}
+                                </span>
+                            ) : null}
+                            {token.market_data?.volume_usd_24h && token.market_data.market_cap_usd ? (
+                                <span>·</span>
+                            ) : null}
+                            {token.market_data?.market_cap_usd ? (
+                                <span className="text-sm leading-5 text-second">
+                                    ${nFormatter(token.market_data.market_cap_usd)}
+                                </span>
+                            ) : null}
+                        </div>
+                    ) : null}
                 </div>
-                <data
-                    className={classNames(
-                        'flex h-5 shrink-0 items-center justify-end gap-1 text-right font-inter text-sm font-medium max-md:w-auto max-md:min-w-[60px]',
-                        priceChange >= 0 ? 'text-success' : 'text-danger',
-                    )}
-                >
-                    {priceChange !== 0 ? (priceChange > 0 ? '↑ ' : '↓ ') : null}
-                    {priceChange.toFixed(1).replace('-', '')}%
-                </data>
-            </div>
-        </Link>
+                <div className="flex flex-col justify-end">
+                    <div className="text-right font-inter text-base font-semibold leading-6 text-lightMain">
+                        {token.market_data?.token_price_usd ? (
+                            <>${renderShrankPrice(formatPrice(token.market_data.token_price_usd) ?? '')}</>
+                        ) : (
+                            <span className="text-third">--</span>
+                        )}
+                    </div>
+                    <data
+                        className={classNames(
+                            'flex h-5 shrink-0 items-center justify-end gap-1 text-right font-inter text-sm font-medium max-md:w-auto max-md:min-w-[60px]',
+                            priceChange >= 0 ? 'text-success' : 'text-danger',
+                        )}
+                    >
+                        {priceChange !== 0 ? (priceChange > 0 ? '↑ ' : '↓ ') : null}
+                        {priceChange.toFixed(1).replace('-', '')}%
+                    </data>
+                </div>
+            </Link>
+        </div>
     );
 });

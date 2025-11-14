@@ -99,9 +99,7 @@ export const TokenBookmarkButton = memo<Props>(function TokenBookmarkButton({
                     whileTap={{ scale: 0.9 }}
                     className="inline-flex size-5 items-center justify-center rounded-full hover:bg-warn/[.20] hover:text-warn"
                     aria-label="Bookmark"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
+                    onClick={() => {
                         mutate(!!bookmarked);
                         captureTokenBookmarkClickEvent();
                     }}
