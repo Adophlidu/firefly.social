@@ -444,6 +444,9 @@ msgstr ""
 msgid "Potential risk of external call."
 msgstr ""
 
+msgid "Swap liked."
+msgstr ""
+
 msgid "Avg"
 msgstr ""
 
@@ -469,6 +472,9 @@ msgid "MARKET"
 msgstr ""
 
 msgid "The token can be bought."
+msgstr ""
+
+msgid "Failed to like swap."
 msgstr ""
 
 msgid "Liked."
@@ -1113,6 +1119,9 @@ msgid "Sorry, give edit permission from Orb is necessary to continue."
 msgstr ""
 
 msgid "Phishing activities found."
+msgstr ""
+
+msgid "Swap unliked."
 msgstr ""
 
 msgid "Drop type"
@@ -4551,6 +4560,9 @@ msgid "Fake KYC found."
 msgstr ""
 
 msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
+msgstr ""
+
+msgid "Failed to unlike swap."
 msgstr ""
 
 #. placeholder {0}: post.stats.reactions

@@ -444,6 +444,9 @@ msgstr "密码无效，请输入6位数字密码。"
 msgid "Potential risk of external call."
 msgstr "存在外部调用的潜在风险。"
 
+msgid "Swap liked."
+msgstr ""
+
 msgid "Avg"
 msgstr "平均"
 
@@ -470,6 +473,9 @@ msgstr "市场"
 
 msgid "The token can be bought."
 msgstr "该代币可购买。"
+
+msgid "Failed to like swap."
+msgstr ""
 
 msgid "Liked."
 msgstr ""
@@ -1114,6 +1120,9 @@ msgstr "抱歉，需通过Orb授予编辑权限方可继续。"
 
 msgid "Phishing activities found."
 msgstr "发现钓鱼活动。"
+
+msgid "Swap unliked."
+msgstr ""
 
 msgid "Drop type"
 msgstr "红包类型"
@@ -4554,6 +4563,9 @@ msgstr "识别为虚假KYC。"
 
 msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
 msgstr "可在 <0>设置 > 内容偏好</0> 随时重新开启"
+
+msgid "Failed to unlike swap."
+msgstr ""
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"

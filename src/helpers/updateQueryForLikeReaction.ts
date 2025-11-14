@@ -3,10 +3,11 @@ import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
+import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import type { LikeTarget } from '@/hooks/useToggleLike.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import { type Article } from '@/providers/types/Article.js';
-import type { PolymarketActivity } from '@/providers/types/Firefly.js';
+import type { PolymarketActivity, SwapActivity } from '@/providers/types/Firefly.js';
 
 function updateQueryForArticle(article: Article, isLiked: boolean) {
     queryClient.setQueryData<Article>(['article', article.id], (old) => {
@@ -116,6 +117,45 @@ function updateQueryForPolymarket(activity: PolymarketActivity, isLiked: boolean
         },
     );
 }
+function updateQueryForSwap(activity: SwapActivity, isLiked: boolean) {
+    queryClient.setQueriesData<{
+        pages: Array<{ data: SwapActivity[] }>;
+    }>(
+        {
+            queryKey: ['swaps'],
+        },
+        (old) => {
+            if (!old) return old;
+
+            return produce(old, (draft) => {
+                draft.pages.forEach((page) => {
+                    page.data.forEach((oldData) => {
+                        if (oldData.hash === activity.hash) {
+                            oldData.is_like = !isLiked;
+                            oldData.like_count = oldData.like_count + (isLiked ? -1 : 1);
+                        }
+                    });
+                });
+            });
+        },
+    );
+
+    patchTransactionsQuery(Source.Swap, (data) => {
+        if (data.hash === activity.hash) {
+            data.is_like = !isLiked;
+            data.like_count = data.like_count + (isLiked ? -1 : 1);
+        }
+    });
+
+    queryClient.setQueryData<SwapActivity>(['swap', activity.hash, activity.chain_id], (old) => {
+        if (!old) return old;
+
+        return produce(old, (draft) => {
+            draft.is_like = !isLiked;
+            draft.like_count = draft.like_count + (isLiked ? -1 : 1);
+        });
+    });
+}
 
 export function updateQueryForLikeReaction(target: LikeTarget, isLiked: boolean) {
     switch (target.type) {
@@ -125,6 +165,8 @@ export function updateQueryForLikeReaction(target: LikeTarget, isLiked: boolean)
             return updateQueryForSnapshot(target.data, isLiked);
         case Source.Polymarket:
             return updateQueryForPolymarket(target.data, isLiked);
+        case Source.Swap:
+            return updateQueryForSwap(target.data, isLiked);
         default:
             safeUnreachable(target);
             return;

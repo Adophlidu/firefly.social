@@ -11,8 +11,10 @@ import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.
 import { removeTxReaction } from '@/providers/firefly/endpoint/removeTxReaction.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import { captureArticleLikeSuccessEvent } from '@/providers/telemetry/captureClickEvent.js';
+import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
-import type { PolymarketActivity } from '@/providers/types/Firefly.js';
+import type { PolymarketActivity, SwapActivity } from '@/providers/types/Firefly.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 export type LikeTarget =
     | {
@@ -26,10 +28,14 @@ export type LikeTarget =
     | {
           type: Source.Polymarket;
           data: PolymarketActivity;
+      }
+    | {
+          type: Source.Swap;
+          data: SwapActivity;
       };
 interface LikeParams {
     reactionType: TxReactionType;
-    platformId: PlatformId;
+    platformId: PlatformId | string;
     reactionId: string;
     reactionOwnerId: string;
 }
@@ -91,6 +97,13 @@ function resolveLikeParams({ type, data }: LikeTarget): LikeParams | undefined {
                 reactionId: data.transactionHash,
                 reactionOwnerId: data.owner,
             };
+        case Source.Swap:
+            return {
+                reactionType: TxReactionType.LikeSwap,
+                platformId: data.chain_id.toString(),
+                reactionId: data.hash,
+                reactionOwnerId: data.owner,
+            };
         default:
             safeUnreachable(type);
             return undefined;
@@ -104,6 +117,8 @@ function getSuccessMessage(type: LikeTarget['type'], liked: boolean) {
             return liked ? <Trans>Snapshot liked.</Trans> : <Trans>Snapshot unliked.</Trans>;
         case Source.Polymarket:
             return liked ? <Trans>Polymarket liked.</Trans> : <Trans>Polymarket unliked.</Trans>;
+        case Source.Swap:
+            return liked ? <Trans>Swap liked.</Trans> : <Trans>Swap unliked.</Trans>;
         default:
             safeUnreachable(type);
             return liked ? <Trans>Liked.</Trans> : <Trans>Unliked.</Trans>;
@@ -117,9 +132,25 @@ function getErrorMessage(type: LikeTarget['type'], liked: boolean) {
             return liked ? <Trans>Failed to like snapshot.</Trans> : <Trans>Failed to unlike snapshot.</Trans>;
         case Source.Polymarket:
             return liked ? <Trans>Failed to like polymarket.</Trans> : <Trans>Failed to unlike polymarket.</Trans>;
+        case Source.Swap:
+            return liked ? <Trans>Failed to like swap.</Trans> : <Trans>Failed to unlike swap.</Trans>;
         default:
             safeUnreachable(type);
             return liked ? <Trans>Failed to like.</Trans> : <Trans>Failed to unlike.</Trans>;
+    }
+}
+function captureLikeEvent({ type, data }: LikeTarget, liked: boolean) {
+    switch (type) {
+        case Source.Article:
+            return captureArticleLikeSuccessEvent(data.id);
+        case Source.Swap:
+            return liked ? captureSwapEvent(EventId.EVENT_LIKE_SWAP_CLICK) : undefined;
+        case Source.DAOs:
+        case Source.Polymarket:
+            return;
+        default:
+            safeUnreachable(type);
+            return;
     }
 }
 
@@ -152,9 +183,7 @@ export function useToggleLike(target: LikeTarget) {
                 updateQueryForLikeReaction(target, isLiked);
 
                 // capture event
-                if (target.type === Source.Article) {
-                    captureArticleLikeSuccessEvent(target.data.id);
-                }
+                captureLikeEvent(target, !isLiked);
 
                 enqueueSuccessMessage(getSuccessMessage(target.type, !isLiked));
             } catch (error) {

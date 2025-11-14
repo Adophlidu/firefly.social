@@ -6,6 +6,7 @@ import { memo } from 'react';
 import LikeIcon from '@/assets/like.svg';
 import LikedIcon from '@/assets/liked.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -21,6 +22,8 @@ function resolveInitialLikeData({ type, data }: LikeTarget) {
         case Source.DAOs:
         case Source.Polymarket:
             return { isLiked: data.isLiked, likeCount: data.likeCount || 0 };
+        case Source.Swap:
+            return { isLiked: data.is_like, likeCount: data.like_count || 0 };
         default:
             safeUnreachable(type);
             return { isLiked: false, likeCount: 0 };
@@ -51,22 +54,21 @@ export const LikeButton = memo<LikeButtonProps>(function LikeButton({ disabled =
                 <motion.button
                     disabled={isDisabled}
                     whileTap={{ scale: 0.9 }}
-                    className="inline-flex h-7 items-center justify-center gap-1 rounded-full px-1.5 transition-colors hover:bg-danger/20"
+                    className={classNames(
+                        'inline-flex h-7 items-center justify-center gap-1 rounded-full px-1.5 transition-colors hover:bg-danger/20',
+                        {
+                            'text-danger': isLiked,
+                            'text-second': !isLiked,
+                        },
+                    )}
                 >
                     {isPending ? (
-                        <div className="size-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                        <LoadingIcon size={16} className="text-second" />
                     ) : (
                         <>
                             {isLiked ? <LikedIcon width={16} height={16} /> : <LikeIcon width={16} height={16} />}
                             {likeData?.likeCount > 0 && (
-                                <span
-                                    className={classNames('text-xs font-bold', {
-                                        'text-danger': isLiked,
-                                        'text-second': !isLiked,
-                                    })}
-                                >
-                                    {nFormatter(likeData.likeCount)}
-                                </span>
+                                <span className="text-xs font-bold">{nFormatter(likeData.likeCount)}</span>
                             )}
                         </>
                     )}
