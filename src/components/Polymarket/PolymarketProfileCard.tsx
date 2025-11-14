@@ -33,11 +33,12 @@ export const PolymarketProfileCard = memo<PolymarketProfileCardProps>(function P
     return (
         <Link
             className="p-4"
-            href={RouteResolver.polymarketProfile(address)}
+            href={RouteResolver.polymarketProfile(data.proxy)}
             style={{
                 backgroundColor: '#DADADA33',
             }}
             onClick={() => capturePolymarketProfileLinkClick()}
+            data-disable-progress
         >
             <div className="flex items-center gap-2 text-main">
                 <PolymarketIcon className="shrink-0" width={20} height={20} />
@@ -51,6 +52,7 @@ export const PolymarketProfileCard = memo<PolymarketProfileCardProps>(function P
                         className="ml-2 text-second"
                         size={14}
                         text={data.proxy}
+                        data-prevent-progress
                         onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
