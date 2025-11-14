@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { uniqBy } from 'lodash-es';
 import { useDebounce } from 'usehooks-ts';
 
 import { FF_GARDEN_CHANNEL, HOME_CHANNEL, HOME_CLUB } from '@/constants/channel.js';
@@ -40,11 +41,12 @@ async function searchChannels(source: SocialSource, keyword: string, { hasRedPac
                 );
             }
             promises.unshift(HOME_CHANNEL);
-        } else {
+        } else if (source === Source.Lens) {
             promises.unshift(HOME_CLUB);
         }
         const results = await Promise.allSettled(promises);
-        return results.flatMap((x) => (x.status === 'fulfilled' ? x.value : []));
+        const channels = results.flatMap((x) => (x.status === 'fulfilled' ? x.value : []));
+        return uniqBy(channels, (x) => x.id);
     }
     const response = await provider.searchChannels(keyword);
     return response.data.filter((x) => !x.unavailable);
