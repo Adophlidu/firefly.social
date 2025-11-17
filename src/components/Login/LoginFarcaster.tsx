@@ -13,7 +13,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SignupEntry } from '@/components/Profile/SignupEntry.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
-import { FarcasterSignType, FarcasterSignType as SignType, Source, STATUS } from '@/constants/enum.js';
+import { AsyncStatus, FarcasterSignType, FarcasterSignType as SignType, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import {
     AbortError,
@@ -43,9 +43,12 @@ import { createAccountByGrantPermission } from '@/providers/warpcast/createAccou
 import { createAccountByRelayService } from '@/providers/warpcast/createAccountByRelayService.js';
 import { createAccountByWallet } from '@/providers/warpcast/createAccountByWallet.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 async function login(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
+        useGlobalState.getState().setAsyncStatus(Source.Farcaster, AsyncStatus.Pending);
+
         const account = await createAccount();
 
         const done = await addAccount(account, options);
@@ -86,6 +89,8 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
         }
 
         throw error;
+    } finally {
+        useGlobalState.getState().setAsyncStatus(Source.Farcaster, AsyncStatus.Idle);
     }
 }
 

@@ -40,9 +40,7 @@ async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<A
         const done = await addAccount(account, {
             ...options,
             async setAsCurrent({ session }) {
-                useGlobalState.getState().setAsyncStatus(Source.Bsky, AsyncStatus.Pending);
                 await bskySessionHolder.resumeSession(session as BskySession, false);
-                useGlobalState.getState().setAsyncStatus(Source.Bsky, AsyncStatus.Idle);
             },
         });
         if (done) {
@@ -169,11 +167,15 @@ export function LoginBsky() {
         retry: false,
     });
 
+    const { setAsyncStatus } = useGlobalState();
+
     const skipWaitForMetricsSyncing = useShouldSkipWaitMetrics();
     const [{ loading }, login] = useAsyncFn(
         async (username: string, password: string, serviceUrl?: string) => {
             controller.current.renew();
             try {
+                setAsyncStatus(Source.Bsky, AsyncStatus.Pending);
+
                 await loginBsky(
                     async () => {
                         const serviceUrl_ = serviceUrl || DEFAULT_SERVICE_URL;
@@ -229,6 +231,8 @@ export function LoginBsky() {
                 }
                 enqueueMessageFromError(error, <Trans>Oops… Something went wrong. Please try again</Trans>);
                 throw error;
+            } finally {
+                setAsyncStatus(Source.Bsky, AsyncStatus.Idle);
             }
         },
         [controller, serverDescription, skipWaitForMetricsSyncing, setFocus],
