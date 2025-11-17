@@ -1,4 +1,3 @@
-
 import { NotificationSourceType, type ProfileSource, Source } from '@/constants/enum.js';
 import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { isSocialSource } from '@/helpers/isSource.js';

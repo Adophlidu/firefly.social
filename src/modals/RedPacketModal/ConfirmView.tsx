@@ -196,8 +196,8 @@ export default memo(function ConfirmView() {
                 AvatarEditorProps: {
                     border: [0, 30],
                     borderRadius: 0,
-                    height: 336,
-                    width: 480,
+                    width: 1200,
+                    height: 840,
                     style: {
                         borderRadius: 8,
                     },
