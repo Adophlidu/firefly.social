@@ -5,11 +5,11 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchTokenPanel } from '@/components/Search/SearchTokenPanel.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
-import { TipsContext } from '@/hooks/useTipsContext.js';
 import type { Token } from '@/providers/types/Transfer.js';
+import { useTipsStore } from '@/store/useTipsStore.js';
 
 export const TokenSelectorView = memo(function TokenSelectorView() {
-    const { recipient, token: selectedToken, update } = TipsContext.useContainer();
+    const { recipient, token: selectedToken, update } = useTipsStore();
 
     const { value: address, loading } = useAsync(async () => {
         if (!recipient) return;
@@ -19,7 +19,7 @@ export const TokenSelectorView = memo(function TokenSelectorView() {
 
     const onTokenSelected = useCallback(
         (token: Token) => {
-            update((prev) => ({ ...prev, token }));
+            update({ token });
             router.navigate({ to: TipsRoutePath.TIPS, replace: true });
         },
         [update],

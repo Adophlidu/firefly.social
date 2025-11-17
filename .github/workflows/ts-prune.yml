@@ -44,9 +44,6 @@ jobs:
 
                   # Check if filtered log has any non-blank lines (excluding newlines and whitespace-only lines)
                   if grep -s '[^[:space:]]' ts-prune-filtered.log; then
-                      echo "❌ Found unused exports after filtering:"
-                      echo ""
-                      cat ts-prune-filtered.log
                       exit 1
                   else
                       echo "✅ No unused exports found (after filtering)"

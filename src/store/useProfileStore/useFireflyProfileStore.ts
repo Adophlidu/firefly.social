@@ -1,4 +1,5 @@
 'use client';
+
 import { bom } from '@dimensiondev/utils';
 
 import { AsyncStatus, Source } from '@/constants/enum.js';
@@ -7,18 +8,17 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
 import { createProfileState, customSelectors } from '@/store/useProfileStore/createProfileState.js';
 
 const state = createProfileState(
     {},
     {
         name: 'firefly-state',
-        onRehydrateStorage: () => async (state) => {
+        onRehydrateStorage: () => (state) => {
             if (!bom.window || !state) return;
 
             try {
-                const session = state.currentProfileSession || (await restoreFireflySessionAll());
+                const session = state.currentProfileSession;
 
                 if (session) {
                     fireflySessionHolder.resumeSession(session as FireflySession);

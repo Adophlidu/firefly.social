@@ -5,13 +5,13 @@ import { memo, useCallback } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { TipsContext } from '@/hooks/useTipsContext.js';
+import { useTipsStore } from '@/store/useTipsStore.js';
 
 const usdtValueConfigs = [{ usdt: 1 }, { usdt: 5 }, { usdt: 10 }, { usdt: 50 }];
 
 export const TokenAmountInput = memo(function TokenAmountInput() {
     const isMedium = useIsMedium();
-    const { token, amount, selectedUsdtValue, latestCustomAmount, update } = TipsContext.useContainer();
+    const { token, amount, selectedUsdtValue, latestCustomAmount, update } = useTipsStore();
 
     const handleAmountChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,9 +23,9 @@ export const TokenAmountInput = memo(function TokenAmountInput() {
             const RE_MATCH_WHOLE_AMOUNT = new RegExp(`^\\d*\\.?\\d{0,${token?.decimals ?? 18}}$`);
 
             if (RE_MATCH_FRACTION_AMOUNT.test(amount_)) {
-                update((prev) => ({ ...prev, amount: `0${amount_}`, latestCustomAmount: `0${amount_}` }));
+                update({ amount: `0${amount_}`, latestCustomAmount: `0${amount_}` });
             } else if (amount_ === '' || RE_MATCH_WHOLE_AMOUNT.test(amount_)) {
-                update((prev) => ({ ...prev, amount: amount_, latestCustomAmount: amount_ }));
+                update({ amount: amount_, latestCustomAmount: amount_ });
             }
         },
         [token?.decimals, update],
@@ -34,7 +34,7 @@ export const TokenAmountInput = memo(function TokenAmountInput() {
     const handleInputFocus = useCallback(
         (event: React.FocusEvent<HTMLInputElement>) => {
             if (!amount && latestCustomAmount) {
-                update((prev) => ({ ...prev, amount: latestCustomAmount }));
+                update({ amount: latestCustomAmount });
                 // move cursor to the end of the input
                 const input = event.currentTarget;
                 setTimeout(() => {
@@ -57,7 +57,7 @@ export const TokenAmountInput = memo(function TokenAmountInput() {
                             : 'border-second text-second',
                     )}
                     onClick={() => {
-                        update((prev) => ({ ...prev, selectedUsdtValue: config.usdt, amount: '' }));
+                        update({ selectedUsdtValue: config.usdt, amount: '' });
                     }}
                 >
                     ${config.usdt}

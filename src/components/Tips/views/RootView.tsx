@@ -6,16 +6,16 @@ import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { TipsContext } from '@/hooks/useTipsContext.js';
 import { TipsModalRef } from '@/modals/TipsModal/index.js';
+import { useTipsStore } from '@/store/useTipsStore.js';
 
 export function RootView() {
     const isMedium = useIsMedium();
 
     const { location } = useRouterState();
-    const { open, showLoadingView, showFailedView } = TipsContext.useContainer();
-
     const pathname = location.pathname;
+
+    const { open, showLoadingView, showFailedView } = useTipsStore();
 
     const onBack = () => {
         router.history.back();

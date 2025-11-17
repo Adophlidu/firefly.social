@@ -9,7 +9,6 @@ import { MessageType, ReactionType, UserDataType } from '@/constants/farcaster.j
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
 import { isYouTubeUrl } from '@/helpers/isYouTubeUrl.js';
 import { normalizeUrl } from '@/helpers/normalizeUrl.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
@@ -33,6 +32,7 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 
 class HubbleSocialMedia implements Provider {
     getChannelsByIds(ids: string[]): Promise<Channel[]> {
@@ -343,9 +343,9 @@ class HubbleSocialMedia implements Provider {
         }));
 
         // To refresh to pro status
-        await getProfileState(Source.Farcaster).refreshCurrentAccount();
-        const profile = getProfileState(Source.Farcaster).currentProfile;
-        const imageCountLimit = profile?.isProUser
+        const state = useFarcasterProfileStore.getState();
+        await state.refreshCurrentAccount();
+        const imageCountLimit = state.currentProfile?.isProUser
             ? MAX_IMAGE_SIZE_PRO_PER_POST[Source.Farcaster]
             : MAX_IMAGE_SIZE_PER_POST[Source.Farcaster];
 

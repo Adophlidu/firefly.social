@@ -1,12 +1,20 @@
 import { useMemo } from 'react';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type ProfileSource, Source } from '@/constants/enum.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
 import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
+import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
 import { useTwitterProfileStore } from '@/store/useProfileStore/useTwitterProfileStore.js';
 
 export function useProfileStoreAll() {
+    const fireflyStatus = useFireflyProfileStore.use.status();
+    const fireflyAccounts = useFireflyProfileStore.use.accounts();
+    const currentFireflyProfile = useFireflyProfileStore.use.currentProfile();
+    const currentFireflyProfileSession = useFireflyProfileStore.use.currentProfileSession();
+    const clearFirefly = useFireflyProfileStore.use.clear();
+
     const lensStatus = useLensProfileStore.use.status();
     const lensAccounts = useLensProfileStore.use.accounts();
     const currentLensProfile = useLensProfileStore.use.currentProfile();
@@ -31,8 +39,22 @@ export function useProfileStoreAll() {
     const currentBskyProfileSession = useBskyProfileStore.use.currentProfileSession();
     const clearBsky = useBskyProfileStore.use.clear();
 
+    const thirdPartyStatus = useThirdPartyProfileStore.use.status();
+    const thirdPartyAccounts = useThirdPartyProfileStore.use.accounts();
+    const currentThirdPartyProfile = useThirdPartyProfileStore.use.currentProfile();
+    const currentThirdPartyProfileSession = useThirdPartyProfileStore.use.currentProfileSession();
+    const clearThirdParty = useThirdPartyProfileStore.use.clear();
+
     return useMemo(() => {
         const store = {
+            [Source.Firefly]: {
+                status: fireflyStatus,
+                currentProfile: currentFireflyProfile,
+                currentProfileSession: currentFireflyProfileSession,
+                accounts: fireflyAccounts,
+                profiles: fireflyAccounts.map((x) => x.profile),
+                clear: clearFirefly,
+            },
             [Source.Farcaster]: {
                 status: farcasterStatus,
                 currentProfile: currentFarcasterProfile,
@@ -65,9 +87,48 @@ export function useProfileStoreAll() {
                 profiles: bskyAccounts.map((x) => x.profile),
                 clear: clearBsky,
             },
+            [Source.Google]: {
+                status: thirdPartyStatus,
+                currentProfile: currentThirdPartyProfile,
+                currentProfileSession: currentThirdPartyProfileSession,
+                accounts: thirdPartyAccounts,
+                profiles: thirdPartyAccounts.map((x) => x.profile),
+                clear: clearThirdParty,
+            },
+            [Source.Telegram]: {
+                status: thirdPartyStatus,
+                currentProfile: currentThirdPartyProfile,
+                currentProfileSession: currentThirdPartyProfileSession,
+                accounts: thirdPartyAccounts,
+                profiles: thirdPartyAccounts.map((x) => x.profile),
+                clear: clearThirdParty,
+            },
+            [Source.Email]: {
+                status: thirdPartyStatus,
+                currentProfile: currentThirdPartyProfile,
+                currentProfileSession: currentThirdPartyProfileSession,
+                accounts: thirdPartyAccounts,
+                profiles: thirdPartyAccounts.map((x) => x.profile),
+                clear: clearThirdParty,
+            },
+            [Source.Apple]: {
+                status: thirdPartyStatus,
+                currentProfile: currentThirdPartyProfile,
+                currentProfileSession: currentThirdPartyProfileSession,
+                accounts: thirdPartyAccounts,
+                profiles: thirdPartyAccounts.map((x) => x.profile),
+                clear: clearThirdParty,
+            },
         };
-        return store as Record<SocialSource, (typeof store)[SocialSource]>;
+        return store as Record<ProfileSource, (typeof store)[ProfileSource]>;
     }, [
+        // firefly
+        fireflyStatus,
+        currentFireflyProfile,
+        currentFireflyProfileSession,
+        fireflyAccounts,
+        clearFirefly,
+
         // farcaster
         farcasterStatus,
         currentFarcasterProfile,
@@ -95,10 +156,17 @@ export function useProfileStoreAll() {
         currentBskyProfileSession,
         bskyAccounts,
         clearBsky,
+
+        // third party
+        thirdPartyStatus,
+        currentThirdPartyProfile,
+        currentThirdPartyProfileSession,
+        thirdPartyAccounts,
+        clearThirdParty,
     ]);
 }
 
-export function useProfileStore(source: SocialSource) {
+export function useProfileStore(source: ProfileSource) {
     const all = useProfileStoreAll();
     return all[source];
 }

@@ -656,6 +656,13 @@ export interface FireflyProfile {
     __origin__: WalletProfile | LensV3Profile | FarcasterProfile | TwitterProfile | BskyProfile | null;
 }
 
+export interface FireflyTipsProfile extends FireflyProfile {
+    address: string;
+    networkType: NetworkType;
+    avatar?: string;
+    ens?: string;
+}
+
 export type BookmarkResponse<T> = Response<{
     cursor: number;
     list: Array<{
@@ -2000,13 +2007,13 @@ export interface TipsNotificationData {
     tokenName: string;
 }
 
-export type TipsNotification = {
+export interface TipsNotification {
     source: Source.Firefly;
     type: SocialNotificationType.Tips;
     data: TipsNotificationData;
     timestamp: number;
     notificationId: string;
-};
+}
 
 export type TipsNotificationsResponse = Response<{
     data: TipsNotificationData[];

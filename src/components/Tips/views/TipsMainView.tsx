@@ -8,7 +8,7 @@ import { TipsRecipient } from '@/components/Tips/TipsRecipient.js';
 import { TipsTokenInput } from '@/components/Tips/TipsTokenInput.js';
 import { TokenAmountInput } from '@/components/Tips/TokenAmountInput.js';
 import { NetworkType } from '@/constants/enum.js';
-import { TipsContext } from '@/hooks/useTipsContext.js';
+import { useTipsStore } from '@/store/useTipsStore.js';
 
 function LoadingView() {
     return (
@@ -25,7 +25,7 @@ function LoadingView() {
 }
 
 function FailedView() {
-    const { error, reset } = TipsContext.useContainer();
+    const { error, reset } = useTipsStore();
     return (
         <>
             <div className="flex flex-col items-center gap-4 bg-lightBottom dark:bg-darkBottom">
@@ -50,7 +50,7 @@ function FailedView() {
 }
 
 export function TipsMainView() {
-    const { recipient, showLoadingView, showFailedView } = TipsContext.useContainer();
+    const { recipient, showLoadingView, showFailedView } = useTipsStore();
 
     if (!recipient) return null;
 

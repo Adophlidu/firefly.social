@@ -3,12 +3,11 @@ import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { LoginEmailError, NotAllowedError, TimeoutError, UnreachableError } from '@/constants/error.js';
-import { NOT_DEPEND_SECRET, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { NOT_DEPEND_SECRET } from '@/constants/index.js';
 import { fetch } from '@/helpers/fetch.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { patchFarcasterSessionRequired } from '@/providers/farcaster/patchFarcasterSessionRequired.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -206,21 +205,4 @@ export function restoreFireflySession(session: Session, signal?: AbortSignal) {
             safeUnreachable(session.type);
             throw new UnreachableError('[restoreFireflySession] session type', session.type);
     }
-}
-
-/**
- * Restore firefly session from all social sources.
- * @returns
- */
-export async function restoreFireflySessionAll() {
-    for (const source of SORTED_SOCIAL_SOURCES) {
-        const holder = resolveSessionHolder(source);
-        if (!holder?.session) continue;
-
-        const fireflySession = await restoreFireflySession(holder.session);
-        if (!fireflySession) continue;
-
-        return fireflySession;
-    }
-    return null;
 }

@@ -9,10 +9,10 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatTokenItemAmount } from '@/components/Tips/formatTokenItemAmount.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
-import { TipsContext } from '@/hooks/useTipsContext.js';
+import { useTipsStore } from '@/store/useTipsStore.js';
 
 export const TipsTokenInput = memo(function TipsTokenInput() {
-    const { token, recipient } = TipsContext.useContainer();
+    const { token, recipient } = useTipsStore();
 
     const [{ loading }, handleSelectToken] = useAsyncFn(async () => {
         if (!recipient) return;

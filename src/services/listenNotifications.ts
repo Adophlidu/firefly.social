@@ -1,6 +1,7 @@
-import { safeUnreachable } from '@dimensiondev/utils';
 
 import { NotificationSourceType, type ProfileSource, Source } from '@/constants/enum.js';
+import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { isSocialSource } from '@/helpers/isSource.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
@@ -10,10 +11,6 @@ import { getTipsNotifications } from '@/providers/firefly/endpoint/getTipsNotifi
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { type Notification as NotificationObject } from '@/providers/types/SocialMedia.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
-import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
-import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
-import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
-import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 
 interface Config {
     type: NotificationSourceType;
@@ -59,25 +56,8 @@ let activated = false;
 let delayJobId: NodeJS.Timeout | null = null;
 
 function getCurrentProfileId(source: Config['loginSource']) {
-    switch (source) {
-        case Source.Firefly:
-            return useFireflyProfileStore.getState().currentProfileSession?.profileId;
-        case Source.Farcaster:
-            return useFarcasterProfileStore.getState().currentProfile?.profileId;
-        case Source.Lens:
-            return useLensProfileStore.getState().currentProfile?.profileId;
-        case Source.Bsky:
-            return useBskyProfileStore.getState().currentProfile?.profileId;
-        case Source.Twitter:
-        case Source.Telegram:
-        case Source.Google:
-        case Source.Apple:
-        case Source.Email:
-            return null;
-        default:
-            safeUnreachable(source);
-            return null;
-    }
+    if (!isSocialSource(source)) return null;
+    return getProfileFromStorage(source)?.profileId ?? null;
 }
 
 async function scheduleListen(config: Config, jobId?: NodeJS.Timeout) {

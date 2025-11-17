@@ -24,7 +24,7 @@ import {
     WalletReadyState,
 } from '@solana/wallet-adapter-base';
 import bs58 from 'bs58';
-import { compact } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 
 import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
 import { queryClient } from '@/configs/queryClient.js';
@@ -131,7 +131,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
                 },
             } satisfies SolanaRequestArgument<SolanaMethod.SignAndSendTransaction>)) as SolanaResponse<SolanaMethod.SignAndSendTransaction>;
             return signature;
-        } catch (error: any) {
+        } catch (error: unknown) {
             this.emit('error', new WalletError('Failed to send transaction', error));
             throw error;
         }
@@ -173,7 +173,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
                 } satisfies SolanaRequestArgument<SolanaMethod.SignTransaction>,
             )) as SolanaResponse<SolanaMethod.SignTransaction>;
             return web3.Transaction.from(bs58.decode(signedTransaction)) as T;
-        } catch (error: any) {
+        } catch (error: unknown) {
             this.emit('error', new WalletError('Failed to send transaction', error));
             throw error;
         }
@@ -188,7 +188,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
                 },
             } satisfies SolanaRequestArgument<SolanaMethod.SignMessage>)) as SolanaResponse<SolanaMethod.SignMessage>;
             return bs58.decode(signed);
-        } catch (error: any) {
+        } catch (error: unknown) {
             this.emit('error', new WalletError('Failed to sign message', error));
             throw error;
         }
@@ -217,8 +217,9 @@ class PrivySolanaWalletProvider implements Provider {
         const res = await WalletConnectModalRef.openAndWaitForClose({ networkType: NetworkType.Solana });
         if (!res) throw new WalletNotConnectedError();
         const accounts = await this.getAccounts();
-        if (!accounts?.[0]?.address) throw new WalletNotConnectedError();
-        return accounts?.[0]?.address;
+        const account = first(accounts);
+        if (!account?.address) throw new WalletNotConnectedError();
+        return account.address;
     }
 
     async disconnect(): Promise<void> {

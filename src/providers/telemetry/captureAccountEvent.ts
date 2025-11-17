@@ -10,7 +10,6 @@ import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { type AccountPairs, EventId, FarcasterLoginType } from '@/providers/types/Telemetry.js';
-import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
 
 const resolveLoginEventId = createLookupTableResolver<LoginSource, EventId>(
     {
@@ -113,30 +112,21 @@ function getAccountEventParameters(account: Pick<Account, 'profile' | 'origin'> 
                 is_token_sync: account.origin === 'sync',
                 google_id: account.profile.profileId,
                 google_handle: account.profile.handle,
-                google_accounts: useThirdPartyProfileStore
-                    .getState()
-                    .accounts.filter((x) => x.profile.profileSource === Source.Google)
-                    .map((x) => [x.profile.profileId, x.profile.handle]),
+                google_accounts: accounts.filter((x) => x[0] === Source.Google),
             };
         case Source.Apple:
             return {
                 is_token_sync: account.origin === 'sync',
                 apple_id: account.profile.profileId,
                 apple_handle: account.profile.handle,
-                apple_accounts: useThirdPartyProfileStore
-                    .getState()
-                    .accounts.filter((x) => x.profile.profileSource === Source.Apple)
-                    .map((x) => [x.profile.profileId, x.profile.handle]),
+                apple_accounts: accounts.filter((x) => x[0] === Source.Apple),
             };
         case Source.Telegram:
             return {
                 is_token_sync: account.origin === 'sync',
                 telegram_id: account.profile.profileId,
                 telegram_handle: account.profile.handle,
-                telegram_accounts: useThirdPartyProfileStore
-                    .getState()
-                    .accounts.filter((x) => x.profile.profileSource === Source.Telegram)
-                    .map((x) => [x.profile.profileId, x.profile.handle]),
+                telegram_accounts: accounts.filter((x) => x[0] === Source.Telegram),
             };
         case Source.Email:
             return {

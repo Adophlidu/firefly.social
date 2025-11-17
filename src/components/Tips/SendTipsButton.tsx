@@ -21,10 +21,10 @@ import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpe
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
-import { TipsContext } from '@/hooks/useTipsContext.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { reportAndCaptureTipEvent } from '@/services/reportAndCaptureTipEvent.js';
+import { useTipsStore } from '@/store/useTipsStore.js';
 
 interface SendTipsButtonProps {
     connected: boolean;
@@ -42,7 +42,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         amount: customAmount,
         showLoadingView,
         showFailedView,
-    } = TipsContext.useContainer();
+    } = useTipsStore();
 
     const {
         data: value,
@@ -105,7 +105,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         try {
             if (!recipient || !token) return;
 
-            update((prev) => ({ ...prev, hash: null, isSending: true, hasError: false }));
+            update({ hash: null, isSending: true, hasError: false });
             const transfer = resolveTransferProvider(recipient.networkType);
             const network = resolveNetworkProvider(recipient.networkType);
             const hash = await transfer.transfer({
@@ -130,7 +130,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                 isCustomAmount,
             } as const;
             await reportAndCaptureTipEvent(reportOptions);
-            update((prev) => ({ ...prev, hash }));
+            update({ hash });
             await transfer.waitForTransaction(hash, token.chainId);
             // skip awaiting for reporting success
             reportAndCaptureTipEvent({
@@ -140,11 +140,11 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
 
             enqueueSuccessMessage(<Trans>Tip sent successfully!</Trans>);
             router.navigate({ to: TipsRoutePath.SUCCESS });
-            update((prev) => ({ ...prev, isSending: false, hasError: false }));
+            update({ isSending: false, hasError: false });
         } catch (error) {
             if (isUserRejectErrorInWallet(error)) return;
 
-            update((prev) => ({ ...prev, hasError: true, isSending: false, hash: null, error: error as Error }));
+            update({ hasError: true, isSending: false, hash: null, error: error as Error });
             enqueueMessageFromError(error, <Trans>Failed to send tip.</Trans>);
             throw error;
         }
@@ -173,7 +173,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                 className="mt-4 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-lightMain font-bold text-lightBottom dark:text-darkBottom"
                 whileTap={{ scale: 0.98 }}
                 onClick={() => {
-                    update((prev) => ({ ...prev, hash: null, hasError: false }));
+                    update({ hash: null, hasError: false });
                 }}
             >
                 <Trans>Try again</Trans>

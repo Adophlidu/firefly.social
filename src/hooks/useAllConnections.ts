@@ -5,8 +5,8 @@ import { getAllConnectionsFormatted } from '@/providers/firefly/endpoint/getAllC
 
 export const queryMyAllConnections = {
     queryKey: ['allConnections'],
-    async queryFn() {
-        return await getAllConnectionsFormatted();
+    queryFn() {
+        return getAllConnectionsFormatted();
     },
 } as const;
 

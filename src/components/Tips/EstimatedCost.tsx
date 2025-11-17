@@ -6,14 +6,14 @@ import { formatPrice } from '@/helpers/formatPrice.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { isGreaterThan, leftShift, multipliedBy } from '@/helpers/number.js';
 import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
-import { TipsContext } from '@/hooks/useTipsContext.js';
+import { useTipsStore } from '@/store/useTipsStore.js';
 
 interface EstimatedCostProps {
     gas: BigNumber;
 }
 
 export const EstimatedCost = memo<EstimatedCostProps>(function EstimatedCost({ gas }) {
-    const { token, recipient, tokenAmount } = TipsContext.useContainer();
+    const { token, recipient, tokenAmount } = useTipsStore();
 
     const isValidGas = isGreaterThan(gas, 0);
     const { data } = useNativeTokenPrice(

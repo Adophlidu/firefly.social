@@ -67,7 +67,6 @@ export const Modals = memo(function Modals() {
             <SignupModal ref={SignupModalRef.register} />
             <ImageEditorModal ref={ImageEditorModalRef.register} />
             <ConfirmFireflyModal ref={ConfirmFireflyModalRef.register} />
-            <ConfirmModal ref={ConfirmModalRef.register} />
 
             <IfPathname isNotOneOf={WHITEBOARD_ROUTES}>
                 <AddCustomERC20Modal ref={AddCustomERC20ModalRef.register} />

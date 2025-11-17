@@ -7,19 +7,20 @@ import { RecipientAvatar } from '@/components/Tips/RecipientAvatar.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import { captureTipsSwitchWalletEvent } from '@/providers/telemetry/captureTipsEvent.js';
+import type { FireflyTipsProfile } from '@/providers/types/Firefly.js';
+import { useTipsStore } from '@/store/useTipsStore.js';
 
 export function TipsRecipientListView() {
-    const { recipientList, recipient: selectedRecipient, identity, update } = TipsContext.useContainer();
+    const { recipientList, recipient: selectedRecipient, identity, update } = useTipsStore();
 
-    const handleSelectRecipient = (recipient: TipsProfile) => {
+    const handleSelectRecipient = (recipient: FireflyTipsProfile) => {
         if (!isSameAddress(recipient.address, selectedRecipient?.address)) {
-            update((prev) => ({
-                ...prev,
-                recipient,
-                token: selectedRecipient?.networkType !== recipient.networkType ? null : prev.token,
-            }));
+            if (selectedRecipient?.networkType !== recipient.networkType) {
+                update({ recipient, token: null });
+            } else {
+                update({ recipient });
+            }
             captureTipsSwitchWalletEvent(identity, recipient.address);
         }
 

@@ -9,10 +9,16 @@ import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import type { FireflyIdentity, FireflyProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
+import type {
+    FireflyIdentity,
+    FireflyProfile,
+    FireflyTipsProfile,
+    Profile,
+    WalletProfile,
+} from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { useTipsStore } from '@/store/useTipsStore.js';
 
 interface TipsModalOpenProps {
     identity: FireflyIdentity;
@@ -53,7 +59,7 @@ function formatTipsProfiles(profiles: FireflyProfile[]) {
     return { walletProfiles, socialProfiles };
 }
 
-function formatWalletHandle(profiles: TipsProfile[], address: string) {
+function formatWalletHandle(profiles: FireflyTipsProfile[], address: string) {
     const profile = profiles.find((profile) => isSameEthereumAddress(profile.address, address))
         ?.__origin__ as WalletProfile;
     return profile?.primary_ens ?? formatAddressEthereum(address, 4);
@@ -68,12 +74,12 @@ function getSortPriority(walletProfile: WalletProfile, handle: string | null) {
     return 1;
 }
 
-type Props = {
+interface TipModalProps {
     ref: React.Ref<SingletonModalRefCreator<TipsModalOpenProps, TipsModalCloseProps>>;
-};
+}
 
-function TipsModalUI({ ref }: Props) {
-    const { reset, update } = TipsContext.useContainer();
+export function TipsModal({ ref }: TipModalProps) {
+    const { reset, update } = useTipsStore();
 
     const [, dispatch] = useSingletonModal(ref, {
         onOpen: async ({ identity, handle, profiles, post, pureWallet = false }) => {
@@ -83,17 +89,15 @@ function TipsModalUI({ ref }: Props) {
             try {
                 const { walletProfiles, socialProfiles } = formatTipsProfiles(profiles);
 
-                walletProfiles.sort((a, b) => {
-                    return (
+                walletProfiles.sort(
+                    (a, b) =>
                         getSortPriority(b.__origin__ as WalletProfile, handle) -
-                        getSortPriority(a.__origin__ as WalletProfile, handle)
-                    );
-                });
+                        getSortPriority(a.__origin__ as WalletProfile, handle),
+                );
                 if (!walletProfiles.length) {
                     router.navigate({ to: TipsRoutePath.NO_AVAILABLE_WALLET });
                 } else {
-                    update((prev) => ({
-                        ...prev,
+                    update({
                         recipientList: walletProfiles,
                         recipient: walletProfiles[0],
                         identity,
@@ -104,18 +108,18 @@ function TipsModalUI({ ref }: Props) {
                                 : handle,
                         pureWallet,
                         socialProfiles,
-                    }));
+                    });
                     router.navigate({ to: TipsRoutePath.TIPS });
                 }
             } catch (error) {
                 enqueueMessageFromError(error, <Trans>Failed to send tip. Please try again later.</Trans>);
                 throw error;
             } finally {
-                update((prev) => ({ ...prev, open: true }));
+                update({ open: true });
             }
         },
         onClose: () => {
-            update((prev) => ({ ...prev, open: false }));
+            update({ open: false });
         },
     });
 
@@ -124,14 +128,6 @@ function TipsModalUI({ ref }: Props) {
     }, [dispatch]);
 
     return <RouterProvider router={router} context={{ onClose }} />;
-}
-
-export function TipsModal({ ref, ...props }: Props) {
-    return (
-        <TipsContext.Provider>
-            <TipsModalUI {...props} ref={ref} />
-        </TipsContext.Provider>
-    );
 }
 
 export const TipsModalRef = new SingletonModal<TipsModalOpenProps, TipsModalCloseProps>();

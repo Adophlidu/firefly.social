@@ -18,16 +18,16 @@ import { openWindow } from '@/helpers/openWindow.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { TipsContext } from '@/hooks/useTipsContext.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { captureTipsSharePostEvent } from '@/providers/telemetry/captureTipsEvent.js';
+import { useTipsStore } from '@/store/useTipsStore.js';
 
 export function SuccessView() {
     const isLogin = useIsLoginFirefly();
     const { context } = useMatch({ from: rootRouteId });
     const currentChannel = useCurrentVisitingChannel();
 
-    const { token, tokenAmount, recipient, hash, post, identity } = TipsContext.useContainer();
+    const { token, tokenAmount, recipient, hash, post, identity } = useTipsStore();
 
     const [{ loading }, sharePost] = useAsyncFn(async () => {
         try {

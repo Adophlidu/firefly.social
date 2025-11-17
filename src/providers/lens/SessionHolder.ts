@@ -44,9 +44,9 @@ class LensSessionHolder extends SessionHolder<LensSession> {
 
     override async refreshSession() {
         try {
-            const currentSession = useLensProfileStore.getState().currentProfileSession;
             if (!this.lensClientSDK) throw new Error('No lens client SDK found in Lens session holder');
 
+            const currentSession = useLensProfileStore.getState().currentProfileSession;
             const refreshedCredentialsResult = await refresh(this.lensClientSDK, {
                 refreshToken: (currentSession as LensSession).refreshToken,
             });

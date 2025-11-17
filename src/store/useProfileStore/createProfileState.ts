@@ -13,7 +13,7 @@ import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
-import { type Profile, type ProfileEditable } from '@/providers/types/SocialMedia.js';
+import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
 
 interface ProfileState {
     // indicate the store is ready or not in its init phase

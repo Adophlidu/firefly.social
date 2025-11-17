@@ -6,10 +6,10 @@ import ArrowDownIcon from '@/assets/arrow-line-down.svg';
 import { RecipientAvatar } from '@/components/Tips/RecipientAvatar.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { TipsContext } from '@/hooks/useTipsContext.js';
+import { useTipsStore } from '@/store/useTipsStore.js';
 
 export const TipsRecipient = memo(function TipsRecipient() {
-    const { recipient, recipientList } = TipsContext.useContainer();
+    const { recipient, recipientList } = useTipsStore();
 
     const openRecipientSelector = useCallback(() => {
         if (recipientList.length < 2) return;

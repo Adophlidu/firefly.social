@@ -116,9 +116,7 @@ export function ThirdPartAccounts() {
     const { isLoading, data, refetch } = useQuery({
         queryKey: ['allConnections', ...allProfileIds],
         enabled: !!allProfileIds.length,
-        queryFn: () => {
-            return runInSafeAsync(() => getAllConnections());
-        },
+        queryFn: () => runInSafeAsync(() => getAllConnections()),
     });
 
     return (
