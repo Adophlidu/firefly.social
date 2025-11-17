@@ -99,7 +99,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                         <Link
                             href={authorUrl}
                             onClick={stopPropagation}
-                            className="block truncate text-clip text-medium leading-5 text-secondary"
+                            className="block truncate text-medium leading-5 text-secondary"
                         >
                             <Trans>
                                 <strong>{space.name}</strong> by{' '}
@@ -121,7 +121,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                 <Link
                                     href={authorUrl}
                                     onClick={stopPropagation}
-                                    className="block truncate text-clip text-medium leading-5 text-secondary"
+                                    className="block truncate text-medium leading-5 text-secondary"
                                 >
                                     <Trans>
                                         <strong>{space.name}</strong> by{' '}

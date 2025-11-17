@@ -52,7 +52,7 @@ export function TradeFilter({ value, onChange }: Props) {
                                 <MenuItem key={option.id}>
                                     {({ close }) => (
                                         <div
-                                            className="box-border flex min-w-[235px] cursor-pointer flex-row items-center rounded-lg bg-clip-padding p-2 font-inter text-medium text-sm leading-5 text-main hover:bg-bg"
+                                            className="box-border flex min-w-[235px] cursor-pointer flex-row items-center rounded-lg bg-clip-padding p-2 font-inter text-sm text-main hover:bg-bg"
                                             onClick={() => {
                                                 onChange(option.value);
                                                 close();

@@ -62,7 +62,7 @@ export function TokenTrendingListItem({ data }: { data: TokenTrendingData }) {
             </div>
             <div className="flex flex-col justify-end">
                 <div className="text-right font-inter text-base font-semibold leading-6 text-lightMain">
-                    {data.price ? `$${renderShrankPrice(formatPrice(data.price) ?? '')}` : ''}
+                    {data.price ? <>${renderShrankPrice(formatPrice(data.price) ?? '')}</> : ''}
                 </div>
                 {data.priceChange ? (
                     <data

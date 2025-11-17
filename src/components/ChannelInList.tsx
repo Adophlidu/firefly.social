@@ -57,7 +57,7 @@ export const ChannelInList = memo(function ChannelInList({
     return (
         <div
             className={classNames(
-                'flex-start flex cursor-pointer overflow-auto border-b-lightLineSecond hover:bg-bg dark:border-line',
+                'flex cursor-pointer justify-start overflow-auto border-b-lightLineSecond hover:bg-bg dark:border-line',
                 {
                     'border-b p-3': !dense,
                     'px-4 py-2': dense,
@@ -67,7 +67,7 @@ export const ChannelInList = memo(function ChannelInList({
             onClick={onClick}
         >
             <Link
-                className="flex-start flex flex-1 items-center overflow-auto"
+                className="flex flex-1 items-center justify-start overflow-auto"
                 onClick={() => {
                     if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                 }}
@@ -88,14 +88,14 @@ export const ChannelInList = memo(function ChannelInList({
                     </ChannelTippy>
                 </div>
 
-                <div className="flex-start flex max-w-[calc(100%-40px-16px)] flex-1 flex-col overflow-auto">
-                    <div className="flex-start flex items-center gap-1 text-sm font-bold leading-5">
+                <div className="flex max-w-[calc(100%-40px-16px)] flex-1 flex-col justify-start overflow-auto">
+                    <div className="flex items-center justify-start gap-1 text-sm font-bold leading-5">
                         <ChannelTippy channel={channel} className="mr-1 truncate">
                             <span className="text-[18px] leading-6">{channel.name}</span>
                         </ChannelTippy>
                         <SocialSourceIcon mono source={channel.source} size={16} className="shrink-0 text-secondary" />
                     </div>
-                    <div className="flex items-center gap-2 text-medium text-sm leading-6 text-secondary">
+                    <div className="flex items-center gap-2 text-sm leading-6 text-secondary">
                         <ChannelTippy channel={channel}>
                             {isLens || isBsky ? (
                                 channel.lead?.handle ? (

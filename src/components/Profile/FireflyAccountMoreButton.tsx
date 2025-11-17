@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu, MenuItem } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 
 import MoreIcon from '@/assets/more.svg';
@@ -37,10 +37,10 @@ function MuteAllByWalletProfileMenuItem({ profile }: { profile: WalletProfile })
 export function FireflyAccountMoreButton({ profile, walletProfile, profiles = [] }: Props) {
     return (
         <Menu>
-            <Menu.Button className="inline-flex size-8 items-center justify-center rounded-lg bg-bg text-main text-second active:opacity-50 md:hover:opacity-60">
+            <MenuButton className="inline-flex size-8 items-center justify-center rounded-lg bg-bg text-second active:opacity-50 md:hover:opacity-60">
                 <MoreIcon width={22} height={22} className="shrink-0" />
-            </Menu.Button>
-            <Menu.Items
+            </MenuButton>
+            <MenuItems
                 anchor="bottom end"
                 transition
                 className="z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main duration-100 data-[closed]:scale-95 data-[closed]:opacity-0"
@@ -74,7 +74,7 @@ export function FireflyAccountMoreButton({ profile, walletProfile, profiles = []
                         {profiles?.length > 1 ? <MuteAllByWalletProfileMenuItem profile={walletProfile} /> : null}
                     </>
                 ) : null}
-            </Menu.Items>
+            </MenuItems>
         </Menu>
     );
 }
