@@ -3,12 +3,13 @@ import { addAccountManager } from '@lens-protocol/client/actions';
 import { Trans } from '@lingui/react/macro';
 
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
-import { Source } from '@/constants/enum.js';
+import { NetworkType, Source } from '@/constants/enum.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
+import { createPrivyWallet } from '@/providers/firefly/endpoint/createPrivyWallet.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { getLensProfileOwner } from '@/providers/lens/getLensProfileOwner.js';
 import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';
@@ -42,17 +43,27 @@ export async function askUserToAgreePermission({ profile }: Account) {
     });
 }
 
+async function ensureFireflyWalletEVM(createFirst: boolean) {
+    if (!createFirst) {
+        const privyWallet = await ensureCreatedFireflyWallet('eth');
+        return privyWallet?.address;
+    }
+
+    const privyUser = await createPrivyWallet();
+    return privyUser.wallets.find((x) => x.chain === NetworkType.Ethereum)?.publicAddress;
+}
+
 export async function setPrivyAsLensManager(account: Account): Promise<Boolean> {
     if (account.profile.source !== Source.Lens) throw new Error('This function only works for Lens.');
 
     // 1. get privy wallet
-    const privyWallet = await ensureCreatedFireflyWallet('eth');
-    if (!privyWallet?.address) throw new Error('Failed to ensure Firefly wallet');
+    const privyEvmAddress = await ensureFireflyWalletEVM(account.origin === 'signup');
+    if (!privyEvmAddress) throw new Error('Failed to ensure Firefly wallet');
 
     // 2. try adding signer for privy
     runInSafe(() =>
         iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_ADD_SESSION_SIGNER, {
-            address: privyWallet.address,
+            address: privyEvmAddress,
             signers: [], // !: For on-device this should be empty array, only can specify a special signer for TEE
         }),
     );
@@ -67,7 +78,7 @@ export async function setPrivyAsLensManager(account: Account): Promise<Boolean> 
         throw new Error('Only lens owner can bind manager.');
 
     // 5. check if already bound
-    const profiles = await LensSocialMediaProvider.getProfilesByAddress(privyWallet.address);
+    const profiles = await LensSocialMediaProvider.getProfilesByAddress(privyEvmAddress);
     if (profiles.some((x) => isSameEthereumAddress(account.profile.profileId, x.profileId))) {
         throw new Error('This privy wallet is already a owner or manager of current lens account.');
     }
@@ -79,7 +90,7 @@ export async function setPrivyAsLensManager(account: Account): Promise<Boolean> 
     // 7. bind manager
     const txData = await ensureLensResult(
         addAccountManager(lensSessionHolder.sessionClient, {
-            address: safeEvmAddress(privyWallet.address),
+            address: safeEvmAddress(privyEvmAddress),
             permissions: {
                 canSetMetadataUri: true,
                 canTransferNative: true,

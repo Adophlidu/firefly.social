@@ -1,6 +1,5 @@
-import { NetworkType } from '@/constants/enum.js';
+import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { createPrivyWallet } from '@/providers/firefly/endpoint/createPrivyWallet.js';
 import { signMessageWithPrivy } from '@/providers/firefly/endpoint/signMessageWithPrivy.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { createLensSession } from '@/providers/lens/createLensSession.js';
@@ -9,10 +8,7 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 
 async function getProfileNeedToLogin(profileId: string) {
-    const privyUser = await createPrivyWallet();
-    if (!privyUser) throw new Error('No privy user found.');
-
-    const privyEvmWallet = privyUser.wallets.find((x) => x.chain === NetworkType.Ethereum)?.publicAddress;
+    const privyEvmWallet = (await ensureCreatedFireflyWallet('eth'))?.address;
     if (!privyEvmWallet) throw new Error('No privy evm wallet found.');
 
     const profiles = await LensSocialMediaProvider.getProfilesByAddress(privyEvmWallet);
