@@ -1,49 +1,34 @@
-import { SNAPSHOT_GRAPHQL_URL } from '@/constants/index.js';
+import urlcat from 'urlcat';
+
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { plus } from '@/helpers/number.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
-import { UsersQuery, VotesQuery } from '@/providers/snapshot/query.js';
-import type { SnapshotUsers, SnapshotVote, SnapshotVotes } from '@/providers/snapshot/type.js';
+import { resolveResponseData } from '@/helpers/resolveResponseData.js';
+import type { SnapshotVote } from '@/providers/snapshot/type.js';
+import type { ResponseJson } from '@/types/utility.js';
+import { isNumber } from 'lodash-es';
+
+interface WorkerVotesResponse {
+    votes: SnapshotVote[];
+    nextSkip?: number;
+}
 
 export async function getVotesById(id: string, indicator?: PageIndicator) {
-    const votesResponse = await fetchJson<SnapshotVotes>(SNAPSHOT_GRAPHQL_URL, {
-        method: 'POST',
-        body: JSON.stringify({
-            ...VotesQuery,
-            variables: {
-                id,
-                first: 20,
-                orderBy: 'created',
-                orderDirection: 'desc',
-                skip: Number(indicator?.id ?? 0),
-            },
+    const size = indicator?.size ?? 20;
+    const skip = Number(indicator?.id ?? 0);
+
+    const response = await fetchJson<ResponseJson<WorkerVotesResponse>>(
+        urlcat(FIREFLY_WORKER_HOST, '/snapshot/votes', {
+            id,
+            skip,
+            first: size,
         }),
-    });
-
-    const votes = votesResponse.data.votes;
-
-    const usersResponse = await fetchJson<SnapshotUsers>(SNAPSHOT_GRAPHQL_URL, {
-        method: 'POST',
-        body: JSON.stringify({
-            ...UsersQuery,
-            variables: {
-                addresses: votes.map((vote) => vote.voter),
-            },
-        }),
-    });
-
-    const results = votes.map<SnapshotVote>((vote) => {
-        const user = usersResponse.data.users.find((user) => isSameEthereumAddress(user.id, vote.voter));
-        return {
-            ...vote,
-            voterDetail: user,
-        };
-    });
-
-    return createPageable(
-        results,
-        createIndicator(indicator),
-        results.length ? createNextIndicator(indicator, plus(indicator?.id ?? 0, 20).toString()) : null,
     );
+
+    const { votes, nextSkip } = resolveResponseData(response);
+
+    const currentIndicator = createIndicator(indicator, skip.toString(), size);
+    const nextIndicator = isNumber(nextSkip) ? createNextIndicator(indicator, nextSkip.toString(), size) : undefined;
+
+    return createPageable(votes, currentIndicator, nextIndicator);
 }

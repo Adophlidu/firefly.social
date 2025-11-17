@@ -968,7 +968,7 @@ class FireflySocialMedia implements Provider {
         return true;
     }
 
-    async discoverSnapshotActivity(address?: string, indicator?: PageIndicator) {
+    async discoverSnapshotActivity(indicator?: PageIndicator) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/snapshot/timeline', {
             size: 20,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
@@ -977,10 +977,7 @@ class FireflySocialMedia implements Provider {
         const response = await fireflySessionHolder.fetch<DiscoverSnapshotsResponse>(url);
 
         const data = resolveFireflyResponseData(response);
-        const proposals = await getProposals(
-            data.result.map((x) => x.metadata.proposal_id),
-            address,
-        );
+        const proposals = await getProposals(data.result.map((x) => x.metadata.proposal_id));
 
         const activities = data.result.map((x) => {
             const proposal = proposals.find((p) => p.id === x.metadata.proposal_id);
@@ -999,7 +996,6 @@ class FireflySocialMedia implements Provider {
     }
 
     async getFollowingSnapshotActivity({
-        address,
         indicator,
         walletAddresses,
     }: {
@@ -1028,10 +1024,7 @@ class FireflySocialMedia implements Provider {
         );
 
         const data = resolveFireflyResponseData(response);
-        const proposals = await getProposals(
-            data.result.map((x) => x.metadata.proposal_id),
-            address,
-        );
+        const proposals = await getProposals(data.result.map((x) => x.metadata.proposal_id));
 
         const activities = data.result.map<FollowingSnapshotActivity>((x) => {
             const proposal = proposals.find((p) => p.id === x.metadata.proposal_id);
@@ -1049,10 +1042,7 @@ class FireflySocialMedia implements Provider {
         );
     }
 
-    async getSnapshotBookmarks(
-        address?: string,
-        indicator?: PageIndicator,
-    ): Promise<Pageable<SnapshotActivity, PageIndicator>> {
+    async getSnapshotBookmarks(indicator?: PageIndicator): Promise<Pageable<SnapshotActivity, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
                 post_type: BookmarkType.All,
@@ -1064,10 +1054,7 @@ class FireflySocialMedia implements Provider {
             const response = await fireflySessionHolder.fetch<BookmarkResponse<FireflySnapshotActivity>>(url);
 
             const data = resolveFireflyResponseData(response);
-            const proposals = await getProposals(
-                compact(data.list.map((x) => x.post_content?.metadata.proposal_id)),
-                address,
-            );
+            const proposals = await getProposals(compact(data.list.map((x) => x.post_content?.metadata.proposal_id)));
 
             const activities = compact(
                 data.list.map((x) => {

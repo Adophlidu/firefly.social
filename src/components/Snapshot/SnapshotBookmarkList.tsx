@@ -13,18 +13,14 @@ import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 export function SnapshotBookmarkList() {
-    const account = useAccount();
     const isLogin = useIsLoginFirefly();
     const profileIds = useCurrentProfileIds();
 
     const query = useSuspenseInfiniteQuery({
-        queryKey: ['snapshots', account.address, Source.DAOs, 'bookmark', profileIds],
+        queryKey: ['snapshots', Source.DAOs, 'bookmark', profileIds],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return null;
-            const result = await FireflySocialMediaProvider.getSnapshotBookmarks(
-                account.address,
-                createIndicator(undefined, pageParam),
-            );
+            const result = await FireflySocialMediaProvider.getSnapshotBookmarks(createIndicator(undefined, pageParam));
             return result;
         },
         initialPageParam: '',

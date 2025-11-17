@@ -67,12 +67,6 @@ export interface SnapshotVotes {
     };
 }
 
-export interface SnapshotUsers {
-    data: {
-        users: SnapshotUser[];
-    };
-}
-
 export interface SnapshotStrategy {
     name: string;
     network: string;

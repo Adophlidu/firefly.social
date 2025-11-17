@@ -1,6 +1,16 @@
-import { SNAPSHOT_SCORES_URL } from '@/constants/index.js';
+import urlcat from 'urlcat';
+
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
+import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import type { SnapshotStrategy } from '@/providers/snapshot/type.js';
+import type { ResponseJson } from '@/types/utility.js';
+
+interface VotePowerResult {
+    vp: number;
+    vp_by_strategy: number[];
+    vp_state: string;
+}
 
 export async function getVotePower(
     address: string,
@@ -10,24 +20,16 @@ export async function getVotePower(
     space: string,
     delegation: boolean,
 ) {
-    const response = await fetchJson<{ result: { vp: number; vp_by_strategy: number[]; vp_state: string } }>(
-        SNAPSHOT_SCORES_URL,
-        {
-            method: 'POST',
-            body: JSON.stringify({
-                jsonrpc: '2.0',
-                method: 'get_vp',
-                params: {
-                    address,
-                    network,
-                    strategies,
-                    snapshot,
-                    space,
-                    delegation,
-                },
-            }),
-        },
+    const response = await fetchJson<ResponseJson<VotePowerResult>>(
+        urlcat(FIREFLY_WORKER_HOST, '/snapshot/vote-power', {
+            address,
+            network,
+            strategies: JSON.stringify(strategies),
+            snapshot,
+            space,
+            delegation,
+        }),
     );
 
-    return response.result;
+    return resolveResponseData(response);
 }

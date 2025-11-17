@@ -16,10 +16,7 @@ function createActivitiesFetcher(
         indicator?: PageIndicator,
         platform?: ArticlePlatform[],
     ) => Promise<Pageable<Article, PageIndicator>>,
-    fetchSnapshots: (
-        address?: string,
-        indicator?: PageIndicator,
-    ) => Promise<Pageable<FollowingSnapshotActivity, PageIndicator>>,
+    fetchSnapshots: (indicator?: PageIndicator) => Promise<Pageable<FollowingSnapshotActivity, PageIndicator>>,
 ) {
     return async function fetchActivities(
         source: ActivitiesItem['source'],
@@ -52,7 +49,7 @@ function createActivitiesFetcher(
                     return createPageable([], createIndicator(undefined, pageParam));
                 }
 
-                const result = await fetchSnapshots(connectedAddress, createIndicator(undefined, pageParam));
+                const result = await fetchSnapshots(createIndicator(undefined, pageParam));
                 return {
                     ...result,
                     data: result.data.map((item) => ({
@@ -72,12 +69,12 @@ function createActivitiesFetcher(
 
 export const getFollowingActivities = createActivitiesFetcher(
     (indicator, platforms) => getFollowingArticles(indicator, platforms),
-    (address, indicator) => FireflySocialMediaProvider.getFollowingSnapshotActivity({ address, indicator }),
+    (indicator) => FireflySocialMediaProvider.getFollowingSnapshotActivity({ indicator }),
 );
 
 export const getForYouActivities = createActivitiesFetcher(
     (indicator, platforms) => discoverArticles(indicator, platforms),
-    (address, indicator) => FireflySocialMediaProvider.discoverSnapshotActivity(address, indicator),
+    (indicator) => FireflySocialMediaProvider.discoverSnapshotActivity(indicator),
 );
 
 export function getProfileActivities(
@@ -89,9 +86,8 @@ export function getProfileActivities(
 ) {
     return createActivitiesFetcher(
         (indicator, platform) => discoverArticlesByAddress(addresses, indicator, platform),
-        (address, indicator) =>
+        (indicator) =>
             FireflySocialMediaProvider.getFollowingSnapshotActivity({
-                address,
                 indicator,
                 walletAddresses: addresses,
             }),
