@@ -20,11 +20,11 @@ export function LoginButton({ source }: LoginButtonProps) {
             style={{ backgroundColor: 'rgba(124, 127, 163, 0.06)' }}
             onClick={() => {
                 if (source === 'other') {
-                    LoginModalRef.open({ options: { hideSocialLogin: true } });
+                    LoginModalRef.open({ options: { hideSocialLogin: true, skipWaitForMetricsSyncing: false } });
                     return;
                 }
 
-                LoginModalRef.open({ source, options: { noBackButton: true } });
+                LoginModalRef.open({ source, options: { noBackButton: true, skipWaitForMetricsSyncing: false } });
             }}
         >
             {source === 'other' ? (

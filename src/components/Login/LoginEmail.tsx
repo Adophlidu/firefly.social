@@ -13,6 +13,7 @@ import { AsyncStatus, Source } from '@/constants/enum.js';
 import { AbortError, FireflyAlreadyBoundError } from '@/constants/error.js';
 import { EMAIL_REGEX } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { createAccountByPasscode } from '@/providers/email/createAccountByPasscode.js';
@@ -63,6 +64,7 @@ export function LoginEmail() {
 
     const isValidPasscode = passcode.length === 6 && passcode.match(/^\d+$/);
 
+    const skipWaitForMetricsSyncing = useShouldSkipWaitMetrics();
     const [{ loading }, login] = useAsyncFn(async () => {
         controller.current.renew();
         if (!isValidEmail) {
@@ -77,6 +79,7 @@ export function LoginEmail() {
 
         try {
             await loginEmail(() => createAccountByPasscode(email, passcode), {
+                skipWaitForMetricsSyncing,
                 signal: controller.current.signal,
             });
         } catch (error) {
@@ -86,7 +89,7 @@ export function LoginEmail() {
             }
             throw error;
         }
-    }, [controller, email, passcode, isValidEmail, isValidPasscode]);
+    }, [controller, email, passcode, isValidEmail, isValidPasscode, skipWaitForMetricsSyncing]);
 
     return (
         <form className="box-border flex w-[452px] flex-col items-center gap-[20px] px-6 pb-6 max-md:w-full">

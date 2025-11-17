@@ -195,6 +195,8 @@ export interface AccountOptions {
     skipReportFarcasterSigner?: boolean;
     // skip syncing accounts, default: false
     skipSyncAccounts?: boolean;
+    // skip waiting for syncing metrics, default: true
+    skipWaitForMetricsSyncing?: boolean;
     // early return signal
     signal?: AbortSignal;
 }
@@ -207,6 +209,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         skipResumeFireflySession = false,
         skipReportFarcasterSigner = true,
         skipSyncAccounts = false,
+        skipWaitForMetricsSyncing = true,
         signal,
     } = options ?? {};
 
@@ -293,18 +296,21 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     captureAccountLoginEvent(account);
     if (account.fireflySession?.payload?.isNew) captureAccountCreateSuccessEvent(account);
 
-    const syncStatus = await getMetricsStatus();
-
-    if (!skipSyncAccounts && fireflySession && syncStatus.hasSetPasscode) {
-        // No need to wait
-        syncMetrics(account);
+    if (!skipSyncAccounts && fireflySession) {
+        const syncStatus = await getMetricsStatus();
+        if (syncStatus.hasSetPasscode) {
+            const syncPromise = syncMetrics(account);
+            if (skipWaitForMetricsSyncing === false) {
+                await syncPromise;
+            }
+        }
     }
 
     // account has been added to the store
     return true;
 }
 
-async function syncMetrics(account?: Account) {
+async function syncMetrics(account: Account) {
     const remoteAccounts = await downloadAccounts();
     const remoteProfiles = compact(
         remoteAccounts.map(({ metaInfo }) => {

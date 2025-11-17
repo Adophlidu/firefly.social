@@ -19,6 +19,7 @@ import { Link } from '@/esm/Link.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { retry } from '@/helpers/retry.js';
+import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
@@ -51,6 +52,7 @@ export function OrbView() {
         isIncrement: false,
     });
     const { loading: initSignInLoading, value: initSignInData, retry: retryInitSignIn } = useAsyncRetry(initSignIn, []);
+    const skipWaitForMetricsSyncing = useShouldSkipWaitMetrics();
 
     useAsync(async () => {
         try {
@@ -102,6 +104,7 @@ export function OrbView() {
                     fireflySession: await bindOrRestoreFireflySession(session, controller.current.signal),
                 },
                 {
+                    skipWaitForMetricsSyncing,
                     signal: controller.current.signal,
                 },
             );

@@ -54,6 +54,8 @@ export interface LoginModalOpenProps {
         noBackButton?: boolean;
         /** open lens login modal with specified sign type */
         expectedLensSignType?: LensSignType;
+        /** skip waiting for syncing metrics */
+        skipWaitForMetricsSyncing?: boolean;
     };
 }
 type Props = {

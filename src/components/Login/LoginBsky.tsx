@@ -20,6 +20,7 @@ import { AsyncStatus, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { createBskyAgent } from '@/providers/bsky/createBskyAgent.js';
@@ -168,6 +169,7 @@ export function LoginBsky() {
         retry: false,
     });
 
+    const skipWaitForMetricsSyncing = useShouldSkipWaitMetrics();
     const [{ loading }, login] = useAsyncFn(
         async (username: string, password: string, serviceUrl?: string) => {
             controller.current.renew();
@@ -215,6 +217,7 @@ export function LoginBsky() {
                         } satisfies Account;
                     },
                     {
+                        skipWaitForMetricsSyncing,
                         signal: controller.current.signal,
                     },
                 );
@@ -228,7 +231,7 @@ export function LoginBsky() {
                 throw error;
             }
         },
-        [controller, serverDescription, setFocus],
+        [controller, serverDescription, skipWaitForMetricsSyncing, setFocus],
     );
 
     const isValidServiceUrl =

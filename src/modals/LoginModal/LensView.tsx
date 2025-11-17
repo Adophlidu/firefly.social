@@ -26,6 +26,7 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
@@ -65,6 +66,7 @@ export const LensView = memo(function LensView() {
     const account = useAccount();
     const { data: canBindMoreAccount } = useCanBindMoreAccount(Source.Lens);
     const { expectedProfile } = useLocation().search as { expectedProfile?: string };
+    const skipWaitForMetricsSyncing = useShouldSkipWaitMetrics();
 
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
 
@@ -130,6 +132,7 @@ export const LensView = memo(function LensView() {
             const credentials = ensureLensResultSync(sessionClient.getCredentials());
             const done = await addAccount(account, {
                 signal: controller.current.signal,
+                skipWaitForMetricsSyncing,
             });
             if (done) {
                 // move to local storage
@@ -159,7 +162,7 @@ export const LensView = memo(function LensView() {
         } finally {
             setAsyncStatus(Source.Lens, AsyncStatus.Idle);
         }
-    }, [profiles.length, currentProfile, controller, setAsyncStatus]);
+    }, [profiles.length, currentProfile, controller, skipWaitForMetricsSyncing, setAsyncStatus]);
 
     return (
         <div className="flex flex-col p-6 pt-0 md:w-[400px]">

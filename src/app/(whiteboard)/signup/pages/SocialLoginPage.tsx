@@ -109,6 +109,7 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
                                         options: {
                                             noBackButton: true,
                                             expectedLensSignType: LensSignType.OrbScan,
+                                            skipWaitForMetricsSyncing: false,
                                         },
                                     });
                                 }}
