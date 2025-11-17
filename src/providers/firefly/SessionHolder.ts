@@ -6,15 +6,6 @@ import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 
 class FireflySessionHolder extends SessionHolder<FireflySession> {
-    fetchWithSessionGiven(session: FireflySession) {
-        return <T>(url: string, init?: RequestInit) => {
-            return fetchJson<T>(url, {
-                ...init,
-                headers: { ...init?.headers, Authorization: `Bearer ${session.token}` },
-            });
-        };
-    }
-
     override async fetchWithSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
         const authToken = nativeBridgeProvider.supported
             ? await nativeBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {})

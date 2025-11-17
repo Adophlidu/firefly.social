@@ -14,6 +14,7 @@ interface XIconProps extends SVGProps<SVGSVGElement> {
 export function XIcon(props: XIconProps) {
     const isDarkMode = useIsDarkMode();
     const isDark = props.isDark ?? isDarkMode;
-    const Icon = props.square ? (isDark ? XSquareDarkIcon : XSquareLightIcon) : isDark ? XIconDark : XIconLight;
-    return <Icon {...props} />;
+    const { isDark: _, square, ...svgProps } = props;
+    const Icon = square ? (isDark ? XSquareDarkIcon : XSquareLightIcon) : isDark ? XIconDark : XIconLight;
+    return <Icon {...svgProps} />;
 }

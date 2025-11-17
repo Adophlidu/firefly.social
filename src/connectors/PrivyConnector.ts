@@ -10,8 +10,9 @@ import { queryClient } from '@/configs/queryClient.js';
 import { WalletSource } from '@/constants/enum.js';
 import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export const PRIVY_CONNECTOR_ID = 'network.privy';
 
@@ -123,12 +124,11 @@ export function createPrivyConnector() {
                 return accounts;
             },
             async getProvider() {
-                const isLogin = !!useFireflyProfileStore.getState().currentProfileSession;
-                if (!isLogin) return;
-                return provider;
+                const isAuthorized = await this.isAuthorized();
+                return isAuthorized ? provider : null;
             },
             async isAuthorized() {
-                return !!useFireflyProfileStore.getState().currentProfileSession;
+                return !!getSessionFromStorage(SessionType.Firefly);
             },
             onAccountsChanged(account) {
                 console.log(`[privy] onAccountsChanged`, account);

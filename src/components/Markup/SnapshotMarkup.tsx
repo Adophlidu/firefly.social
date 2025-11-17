@@ -24,7 +24,8 @@ const PLUGINS: Pluggable[] = [
 ];
 
 const img = (props: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>) => {
-    const src = sanitizeDStorageUrl(props.src, SNAPSHOT_IPFS_GATEWAY_URL);
+    const propsSrc = props.src as string; // FIXME: blob URL issue
+    const src = sanitizeDStorageUrl(propsSrc, SNAPSHOT_IPFS_GATEWAY_URL);
     return <ImageAsset {...props} src={src} alt={src} width={1000} height={1000} />;
 };
 export const SnapshotMarkup: ComponentType<Options> = memo<Options>(function SnapshotMarkup({ children, ...rest }) {

@@ -1,14 +1,12 @@
-'use client';
-
-import { use } from 'react';
-
 import { SparksModal } from '@/components/Sparks/SparksModal.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ accountId: string }> {}
 
-export default function SparksModalPage(props: Props) {
-    const { accountId } = use(props.params);
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 
+export default async function SparksModalPage(props: Props) {
+    const { accountId } = await props.params;
     return <SparksModal uid={accountId} />;
 }

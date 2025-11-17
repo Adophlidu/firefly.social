@@ -62,12 +62,12 @@ const svgrOptions = {
 const config: NextConfig = {
     productionBrowserSourceMaps: false,
 
+    // Server-only external packages for Turbopack (native modules)
+    serverExternalPackages: ['@napi-rs/image', 'canvas'],
+
     // Note: we run tsc and eslint in other places
     typescript: {
         ignoreBuildErrors: true,
-    },
-    eslint: {
-        ignoreDuringBuilds: true,
     },
     logging: {
         fetches: {
@@ -165,6 +165,20 @@ const config: NextConfig = {
                 hostname: '*.amazonaws.com',
             },
         ],
+    },
+    async redirects() {
+        return [
+            {
+                source: '/profile/far/:path*',
+                destination: '/profile/farcaster/:path*',
+                permanent: true,
+            },
+            {
+                source: '/profile/twitter/:path*',
+                destination: '/profile/x/:path*',
+                permanent: true,
+            },
+        ];
     },
     async headers() {
         return [

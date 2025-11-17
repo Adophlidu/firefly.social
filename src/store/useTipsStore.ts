@@ -1,14 +1,14 @@
-import { useDebounceValue } from 'usehooks-ts';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { Source } from '@/constants/enum.js';
-import { createSelectors } from '@/helpers/createSelector.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { dividedBy } from '@/helpers/number.js';
+import { createSelectors } from '@/helpers/createSelector.js';
 import type { FireflyIdentity, FireflyTipsProfile, Profile } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Token } from '@/providers/types/Transfer.js';
+import { useDebounceValue } from 'usehooks-ts';
 
 interface TipsBaseState {
     open: boolean;

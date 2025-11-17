@@ -25,7 +25,7 @@ function isWhitelisted(filePath) {
         'src/helpers/fetchJson.ts',
         'src/helpers/parseHtmlNative.ts',
         'src/helpers/q.ts',
-        'src/middleware.ts',
+        'src/proxy.ts',
         'src/types/ethereum.ts',
     ];
     if (whitelistedFiles.includes(pathname)) return true;
