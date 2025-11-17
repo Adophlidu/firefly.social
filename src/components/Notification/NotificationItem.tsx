@@ -430,7 +430,8 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                             <AvatarGroup profiles={profiles.slice(0, 5)} />
                             <div className="flex items-center space-x-2">
                                 <SocialSourceIcon mono source={notification.source} className="text-second" />
-                                {notification.timestamp ? (
+                                {notification.timestamp &&
+                                !(notification.type === NotificationType.Reaction && profiles.length > 1) ? (
                                     <span className="text-xs leading-4 text-secondary">
                                         <TimestampFormatter time={notification.timestamp} />
                                     </span>
