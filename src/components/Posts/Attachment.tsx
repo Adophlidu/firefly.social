@@ -124,7 +124,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
 
     return (
         <div
-            className={classNames('flex flex-col gap-3', {
+            className={classNames('flex flex-col gap-3 empty:hidden', {
                 'w-[120px]': minimal,
                 'mt-3': !minimal && !isQuote,
                 'mt-2': isQuote,

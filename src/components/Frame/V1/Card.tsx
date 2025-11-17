@@ -21,7 +21,7 @@ export function Card({ frame, source, readonly = false, loading = false, onButto
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
-        <div className="mt-4 flex flex-col">
+        <div className="mt-4 flex flex-col" data-prevent-progress="true">
             <div
                 className="w-full rounded-xl border border-line bg-bg p-2 text-sm"
                 onClick={(e) => e.stopPropagation()}

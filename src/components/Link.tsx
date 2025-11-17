@@ -36,10 +36,10 @@ export function Link({ href, ref, onClick, ...rest }: LinkProps) {
 
     return (
         <OriginalLink
+            data-prevent-progress={openConfirmModal}
             {...rest}
             target={internalLink ? (!isSelfReference(internalLink) ? '_blank' : '_self') : rest.target}
             href={internalLink || href}
-            data-prevent-progress={openConfirmModal}
             ref={ref}
             onClick={onLinkClick}
         />

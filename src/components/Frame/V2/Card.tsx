@@ -157,7 +157,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
     };
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col" data-prevent-progress="true">
             <div className="flex flex-col overflow-hidden rounded-xl">
                 <Image
                     className="h-auto w-full"
