@@ -10,9 +10,9 @@ export function formatTrendingToken(token: TrendingToken, key?: keyof TrendingTo
         logo: token.token_icon,
         chainId: token.chain_id_num ?? resolveCoinGeckoChainId(token.chain_id) ?? mainnet.id,
         address: token.token_address,
-        volume: key ? token.volume_usd[key] : undefined,
+        volume: key ? token.volume_usd?.[key] : undefined,
         marketCap: token.market_cap_usd,
         price: token.token_price,
-        priceChange: key ? parseFloat(token.price_change[key]) : undefined,
+        priceChange: key ? parseFloat(token.price_change?.[key] ?? '0') : undefined,
     };
 }

@@ -1329,7 +1329,7 @@ export interface TrendingToken {
         h24: string;
     };
     token_price: string;
-    price_change: {
+    price_change?: {
         m5: string;
         m15: string;
         m30: string;

@@ -48,13 +48,13 @@ export function TokenTrendingListItem({ data }: { data: TokenTrendingData }) {
                 </div>
                 <div className="flex gap-2">
                     {data.volume ? (
-                        <span className="text-sm leading-5 text-second">${nFormatter(Number(data.volume))}</span>
+                        <span className="text-sm leading-5 text-second">${nFormatter(Number(data.volume), 2)}</span>
                     ) : (
                         '-'
                     )}
                     <span>·</span>
                     {data.marketCap ? (
-                        <span className="text-sm leading-5 text-second">${nFormatter(Number(data.marketCap))}</span>
+                        <span className="text-sm leading-5 text-second">${nFormatter(Number(data.marketCap), 2)}</span>
                     ) : (
                         '-'
                     )}
@@ -72,7 +72,7 @@ export function TokenTrendingListItem({ data }: { data: TokenTrendingData }) {
                         )}
                     >
                         {data.priceChange !== 0 ? (data.priceChange > 0 ? '↑ ' : '↓ ') : null}
-                        {data.priceChange.toFixed(1).replace('-', '')}%
+                        {data.priceChange.toFixed(2).replace('-', '')}%
                     </data>
                 ) : null}
             </div>
