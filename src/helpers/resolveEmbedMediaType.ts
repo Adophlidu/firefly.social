@@ -39,7 +39,7 @@ function getResourceType(urlString: string) {
         return 'Image';
     }
 
-    if (['png', 'jpeg', 'gif', 'webp', 'bmp', 'jpg'].includes(fileExtension)) {
+    if (['png', 'jpeg', 'gif', 'webp', 'bmp', 'jpg', 'heic', 'heif'].includes(fileExtension)) {
         return 'Image';
     } else if (['mp4', 'webm', 'ogg', 'm3u8', 'mov'].includes(fileExtension)) {
         return 'Video';
