@@ -1,11 +1,14 @@
 version: 2
+
+# Note: Dependabot can be manually triggered via GitHub UI:
+# Go to Insights > Dependabot > Dependabot updates, then click "Check for updates"
 updates:
     # Root package.json and pnpm workspace
     - package-ecosystem: 'npm'
       directory: '/'
       schedule:
           interval: 'weekly'
-      open-pull-requests-limit: 10
+      open-pull-requests-limit: 20
       versioning-strategy: increase
       ignore:
           - dependency-name: '*'
@@ -18,7 +21,7 @@ updates:
       directory: '/packages/iframe-bridge'
       schedule:
           interval: 'weekly'
-      open-pull-requests-limit: 5
+      open-pull-requests-limit: 10
       ignore:
           - dependency-name: '*'
             update-types:
@@ -29,7 +32,7 @@ updates:
       directory: '/packages/native-bridge'
       schedule:
           interval: 'weekly'
-      open-pull-requests-limit: 5
+      open-pull-requests-limit: 10
       ignore:
           - dependency-name: '*'
             update-types:
@@ -40,7 +43,7 @@ updates:
       directory: '/packages/utils'
       schedule:
           interval: 'weekly'
-      open-pull-requests-limit: 5
+      open-pull-requests-limit: 10
       ignore:
           - dependency-name: '*'
             update-types:
@@ -52,7 +55,7 @@ updates:
       directory: '/'
       schedule:
           interval: 'weekly'
-      open-pull-requests-limit: 5
+      open-pull-requests-limit: 10
       ignore:
           - dependency-name: '*'
             update-types:
