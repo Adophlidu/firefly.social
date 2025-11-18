@@ -397,6 +397,9 @@ msgstr "稅率可修改"
 msgid "<0>Burned</0><1/>"
 msgstr "<0>已銷毀</0><1/>"
 
+msgid "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
+msgstr ""
+
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr "🤑 剛領取了一個 #FireflyLuckyDrop 🧧💰✨ {postUrl}"
 
@@ -3448,9 +3451,6 @@ msgstr "抱歉，找不到此系列"
 
 msgid "<0>You</0> reposted"
 msgstr "<0>您</0>轉發了"
-
-msgid "User Name can only contain letters, numbers, and -"
-msgstr ""
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "本合約可能包含增發功能，可能導致代幣大量生成引發價格波動，建議確認是否符合項目方發行說明。"

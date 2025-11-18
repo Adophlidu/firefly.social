@@ -20,6 +20,7 @@ import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { getFarcasterSessionType } from '@/providers/farcaster/getFarcasterSessionType.js';
+import { registerFarcasterAccount } from '@/providers/farcaster/registerFarcasterAccount.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { getFarcasterSuggestFollows } from '@/providers/firefly/endpoint/getFarcasterSuggestFollows.js';
@@ -443,7 +444,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async createAccount(profile: ProfileForSignup): Promise<Account> {
-        throw new NotImplementedError();
+        return registerFarcasterAccount(profile);
     }
 }
 

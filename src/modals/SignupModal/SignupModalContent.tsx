@@ -51,7 +51,10 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose }) 
                     pfp,
                 });
 
-                await bindFireflySession(account.session);
+                // For farcaster, has bound session in backend
+                if (source !== Source.Farcaster) {
+                    await bindFireflySession(account.session);
+                }
                 await addAccount(account, {
                     skipBelongsToCheck: true,
                     skipResumeFireflyAccounts: true,

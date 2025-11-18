@@ -41,7 +41,7 @@ function checkHandleFormat(source: SocialSource, handle: string): true | string 
         case Source.Farcaster: {
             FARCASTER_USERNAME_REGEXP.lastIndex = 0;
             if (!FARCASTER_USERNAME_REGEXP.test(handle)) {
-                return t`User Name can only contain letters, numbers, and -`;
+                return t`User Name can only contain lowercase letters, numbers, and -, and should not start with -`;
             }
 
             return true;
