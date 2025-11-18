@@ -21,6 +21,7 @@ import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { captureTipsSharePostEvent } from '@/providers/telemetry/captureTipsEvent.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
+import { resolveFireflyMention } from '@/helpers/resolveFireflyMention.js';
 
 export function SuccessView() {
     const isLogin = useIsLoginFirefly();
@@ -36,6 +37,14 @@ export function SuccessView() {
                 return;
             }
 
+            const fireflyProfile = post ? resolveFireflyMention(post.source) : null;
+            const fireflyMention = post
+                ? {
+                      ...FIREFLY_MENTION,
+                      content: fireflyProfile ? `@${fireflyProfile.handle}` : FIREFLY_MENTION.content,
+                  }
+                : FIREFLY_MENTION;
+
             const mentionChars = await getMentionCharsByIdentity(identity, post?.source);
             if (mentionChars) {
                 ComposeModalRef.openAndWaitForClose({
@@ -47,7 +56,7 @@ export function SuccessView() {
                         'Hi ',
                         mentionChars,
                         ` , sent you some $${token?.symbol} via `,
-                        FIREFLY_MENTION,
+                        fireflyMention,
                         ' ✨ Keep shinning! \r\n',
                         hash && token?.chainId ? RouteResolver.tx(token.chainId, hash) : '',
                     ],

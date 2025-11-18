@@ -4,7 +4,7 @@ import { CharTag, FireflyPlatform } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 import type { MentionChars } from '@/types/chars.js';
 
-const FIREFLY_TWITTER_PROFILE: Profile = {
+export const FIREFLY_TWITTER_PROFILE: Profile = {
     platform_id: '1583361564479889408',
     platform: FireflyPlatform.Twitter,
     handle: 'thefireflyapp',
@@ -13,7 +13,7 @@ const FIREFLY_TWITTER_PROFILE: Profile = {
     score: 0,
 };
 
-const FIREFLY_FARCASTER_PROFILE: Profile = {
+export const FIREFLY_FARCASTER_PROFILE: Profile = {
     platform_id: '16823',
     platform: FireflyPlatform.Farcaster,
     handle: 'fireflyapp',
@@ -22,7 +22,7 @@ const FIREFLY_FARCASTER_PROFILE: Profile = {
     score: 0,
 };
 
-const FIREFLY_LENS_PROFILE: Profile = {
+export const FIREFLY_LENS_PROFILE: Profile = {
     platform_id: '0x01b000',
     platform: FireflyPlatform.Lens,
     handle: 'fireflyapp',
@@ -31,7 +31,7 @@ const FIREFLY_LENS_PROFILE: Profile = {
     score: 0,
 };
 
-const FIREFLY_BSKY_PROFILE: Profile = {
+export const FIREFLY_BSKY_PROFILE: Profile = {
     platform_id: 'did:plc:i6lchnoqz37rdwxg4mipfgq5',
     platform: FireflyPlatform.Bsky,
     handle: 'fireflyapp.bsky.social',
