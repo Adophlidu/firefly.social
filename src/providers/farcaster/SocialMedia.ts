@@ -27,7 +27,6 @@ import { reportProfile as reportProfileEndpoint } from '@/providers/firefly/endp
 import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProfileFor.js';
 import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblockProfileFor.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import {
@@ -69,11 +68,11 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @AddAuthorHighlightStatusForPosts(Source.Farcaster)
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post, profileId?: string): Promise<{ postId: string }> {
-        return HubbleSocialMediaProvider.quotePost(postId, post, profileId);
+        return NeynarSocialMediaProvider.quotePost(postId, post, profileId);
     }
 
     commentPost(postId: string, post: Post): Promise<{ postId: string }> {
-        return HubbleSocialMediaProvider.commentPost(postId, post);
+        return NeynarSocialMediaProvider.commentPost(postId, post);
     }
 
     collectPost(postId: string, collectionId?: string): Promise<void> {
@@ -240,49 +239,49 @@ class FarcasterSocialMedia implements Provider {
 
     async publishPost(post: Post): Promise<{ postId: string }> {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return HubbleSocialMediaProvider.publishPost(post);
+        if (isGrantByPermission) return NeynarSocialMediaProvider.publishPost(post);
         throw new Error('No session found.');
     }
 
     async deletePost(postId: string): Promise<boolean> {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return HubbleSocialMediaProvider.deletePost(postId);
+        if (isGrantByPermission) return NeynarSocialMediaProvider.deletePost(postId);
         throw new Error('No session found.');
     }
 
     async upvotePost(postId: string, authorId?: number) {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return HubbleSocialMediaProvider.upvotePost(postId, authorId);
+        if (isGrantByPermission) return NeynarSocialMediaProvider.upvotePost(postId, authorId);
         throw new Error('No session found.');
     }
 
     async unvotePost(postId: string, authorId?: number) {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return HubbleSocialMediaProvider.unvotePost(postId, authorId);
+        if (isGrantByPermission) return NeynarSocialMediaProvider.unvotePost(postId, authorId);
         throw new Error('No session found.');
     }
 
     async mirrorPost(postId: string, authorId?: number) {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return HubbleSocialMediaProvider.mirrorPost(postId, authorId);
+        if (isGrantByPermission) return NeynarSocialMediaProvider.mirrorPost(postId, authorId);
         throw new Error('No session found.');
     }
 
     async unmirrorPost(postId: string, authorId?: number) {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return HubbleSocialMediaProvider.unmirrorPost(postId, authorId);
+        if (isGrantByPermission) return NeynarSocialMediaProvider.unmirrorPost(postId, authorId);
         throw new Error('No session found.');
     }
 
     async follow(profileId: string) {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return HubbleSocialMediaProvider.follow(profileId);
+        if (isGrantByPermission) return NeynarSocialMediaProvider.follow(profileId);
         throw new Error('No session found.');
     }
 
     async unfollow(profileId: string) {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return HubbleSocialMediaProvider.unfollow(profileId);
+        if (isGrantByPermission) return NeynarSocialMediaProvider.unfollow(profileId);
         throw new Error('No session found.');
     }
 
@@ -394,14 +393,14 @@ class FarcasterSocialMedia implements Provider {
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
         await Promise.all([
             typeof profile.displayName === 'string'
-                ? HubbleSocialMediaProvider.userDataAdd(UserDataType.DISPLAY, profile.displayName)
+                ? NeynarSocialMediaProvider.userDataAdd(UserDataType.DISPLAY, profile.displayName)
                 : null,
             typeof profile.bio === 'string'
-                ? HubbleSocialMediaProvider.userDataAdd(UserDataType.BIO, profile.bio)
+                ? NeynarSocialMediaProvider.userDataAdd(UserDataType.BIO, profile.bio)
                 : null,
-            profile.pfp ? HubbleSocialMediaProvider.userDataAdd(UserDataType.PFP, profile.pfp) : null,
+            profile.pfp ? NeynarSocialMediaProvider.userDataAdd(UserDataType.PFP, profile.pfp) : null,
             typeof profile.website === 'string'
-                ? HubbleSocialMediaProvider.userDataAdd(UserDataType.URL, profile.website)
+                ? NeynarSocialMediaProvider.userDataAdd(UserDataType.URL, profile.website)
                 : null,
         ]);
         return true;

@@ -6,7 +6,6 @@ import type { FireflyWallet } from '@/providers/firefly/Wallet.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/utility.js';
 
-const METHODS_BE_OVERRIDDEN = ['disconnectWallet'] as const;
 const METHODS_BE_OVERRIDDEN_FOR_REPORT = ['reportAndDeleteWallet'] as const;
 
 function deleteWalletsFromQueryData(address: string) {
@@ -26,29 +25,6 @@ function deleteWalletsFromQueryData(address: string) {
             });
         },
     );
-}
-
-export function SetQueryDataForDeleteWallet() {
-    return function decorator<T extends ClassType<FireflyWallet>>(target: T): T {
-        function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
-            const method = target.prototype[key] as FireflyWallet[K];
-
-            Object.defineProperty(target.prototype, key, {
-                value: async (...args: Parameters<FireflyWallet[K]>) => {
-                    const m = method as unknown as (
-                        ...args: Parameters<FireflyWallet[K]>
-                    ) => ReturnType<FireflyWallet[K]>;
-                    const result = await m.call(target.prototype, ...args);
-                    deleteWalletsFromQueryData(args[0]);
-                    return result;
-                },
-            });
-        }
-
-        METHODS_BE_OVERRIDDEN.forEach(overrideMethod);
-
-        return target;
-    };
 }
 
 export function SetQueryDataForReportAndDeleteWallet() {

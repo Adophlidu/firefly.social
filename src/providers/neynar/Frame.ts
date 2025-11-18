@@ -2,7 +2,7 @@ import { toBytes } from 'viem';
 
 import { MessageType } from '@/constants/farcaster.js';
 import { omitEmptyParams } from '@/helpers/omitEmptyParams.js';
-import { encodeMessageData } from '@/providers/hubble/encodeMessageData.js';
+import { encodeMessageData } from '@/providers/neynar/encodeMessageData.js';
 import type { Provider } from '@/providers/types/Frame.js';
 import type { FrameSignaturePacket } from '@/providers/types/Hubble.js';
 import type { Index } from '@/types/frame.js';
@@ -65,4 +65,4 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
     }
 }
 
-export const HubbleFrameProvider = new FrameProvider();
+export const NeynarFrameProvider = new FrameProvider();

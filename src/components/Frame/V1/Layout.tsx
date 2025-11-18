@@ -22,7 +22,7 @@ import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal.js';
-import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
+import { NeynarFrameProvider } from '@/providers/neynar/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
 import type { Additional } from '@/providers/types/Frame.js';
@@ -89,7 +89,7 @@ async function getNextFrame(
                     ...additional,
                 });
             case Source.Farcaster:
-                return HubbleFrameProvider.generateSignaturePacket(postId, frame.url, button.index, input, {
+                return NeynarFrameProvider.generateSignaturePacket(postId, frame.url, button.index, input, {
                     state: latestFrame && frame.state ? frame.state : undefined,
                     ...additional,
                 });

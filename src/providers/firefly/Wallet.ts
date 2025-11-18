@@ -3,10 +3,7 @@ import urlcat from 'urlcat';
 import type { ConnectionPlatform } from '@/constants/enum.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
-import {
-    SetQueryDataForDeleteWallet,
-    SetQueryDataForReportAndDeleteWallet,
-} from '@/decorators/SetQueryDataForDeleteWallet.js';
+import { SetQueryDataForReportAndDeleteWallet } from '@/decorators/SetQueryDataForReportAndDeleteWallet.js';
 import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
@@ -28,7 +25,6 @@ import { settings } from '@/settings/index.js';
 
 @SetQueryDataForBlockWallet()
 @SetQueryDataForAddWallet()
-@SetQueryDataForDeleteWallet()
 @SetQueryDataForReportAndDeleteWallet()
 @SetQueryDataForWatchWallet()
 class FireflyWallet {
@@ -95,16 +91,6 @@ class FireflyWallet {
         });
         await fireflySessionHolder.fetch<Response<void>>(url, { method: 'DELETE' });
         return true;
-    }
-
-    async disconnectWallet(address: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet');
-        await fireflySessionHolder.fetch<EmptyResponse>(url, {
-            method: 'DELETE',
-            body: JSON.stringify({
-                addresses: [address],
-            }),
-        });
     }
 
     async reportAndDeleteWallet(connection: FireflyWalletConnection, reason: string) {

@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { FarcasterInvalidSignerKey } from '@/constants/error.js';
 import { NEYNAR_URL } from '@/constants/index.js';
 import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
-import { encodeMessageData, type WithMessageData } from '@/providers/hubble/encodeMessageData.js';
+import { encodeMessageData, type WithMessageData } from '@/providers/neynar/encodeMessageData.js';
 import type { Response } from '@/providers/types/Hubble.js';
 
 const ErrorResponseSchema = z.custom<Response<never>>((response) => {

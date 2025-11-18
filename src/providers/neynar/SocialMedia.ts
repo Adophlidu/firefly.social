@@ -1,17 +1,32 @@
+/* cspell:disable */
+
+import { sortBy, toInteger, uniqBy } from 'lodash-es';
+import { toHex } from 'viem';
 import urlcat from 'urlcat';
 
+import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { MessageType, ReactionType, UserDataType } from '@/constants/farcaster.js';
+import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
+import { URL_REGEX } from '@/constants/regexp.js';
 import { EMPTY_LIST, NEYNAR_URL } from '@/constants/index.js';
+import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
+import { isYouTubeUrl } from '@/helpers/isYouTubeUrl.js';
+import { normalizeUrl } from '@/helpers/normalizeUrl.js';
 import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.js';
+import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHash.js';
+import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
-import { formatFarcasterChannelFromNeynar } from '@/providers/farcaster/formatFarcasterChannelFromNeynar.js';
 import { formatFarcasterProfileFromNeynar } from '@/providers/farcaster/formatFarcasterProfileFromNeynar.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import { publishMessage } from '@/providers/neynar/publishMessage.js';
+import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Channel as FireflyChannel, NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
-import type { Channel as NeynarChannel, Profile as NeynarProfile } from '@/providers/types/Neynar.js';
+import type { CastResponse } from '@/providers/types/Hubble.js';
+import type { Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
@@ -68,16 +83,70 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    mirrorPost(postId: string, authorId?: number): Promise<string> {
-        throw new NotImplementedError();
+    async mirrorPost(postId: string, authorId?: number): Promise<string> {
+        if (!authorId) throw new Error('Failed to recast post');
+
+        await publishMessage(() => ({
+            type: MessageType.REACTION_ADD,
+            reactionBody: {
+                type: ReactionType.RECAST,
+                targetCastId: {
+                    fid: authorId,
+                    hash: farcasterPostIdToHash(postId),
+                },
+            },
+        }));
+        // FIXME: should return post id here
+        return null!;
     }
 
-    unmirrorPost(postId: string, authorId?: number): Promise<void> {
-        throw new NotImplementedError();
+    async unmirrorPost(postId: string, authorId?: number): Promise<void> {
+        if (!authorId) throw new Error('Failed to unmirror post.');
+
+        await publishMessage(() => ({
+            type: MessageType.REACTION_REMOVE,
+            reactionBody: {
+                type: ReactionType.RECAST,
+                targetCastId: {
+                    fid: authorId,
+                    hash: farcasterPostIdToHash(postId),
+                },
+            },
+        }));
     }
 
-    quotePost(postId: string, post: Post): Promise<{ postId: string }> {
-        throw new NotImplementedError();
+    async quotePost(postId: string, post: Post, profileId?: string): Promise<{ postId: string }> {
+        const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
+        if (!postId || !post || !profileId) throw new Error('Failed to quote post.');
+
+        const { hash } = await publishMessage<CastResponse>(() => ({
+            type: MessageType.CAST_ADD,
+            castAddBody: {
+                ...result,
+                embedsDeprecated: [],
+                embeds: [
+                    {
+                        castId: {
+                            fid: toInteger(profileId),
+                            hash: farcasterPostIdToHash(postId),
+                        },
+                    },
+                    ...(post.mediaObjects?.map((v) => ({ url: v.url })) ?? []),
+                ],
+                parentCastId:
+                    post.commentOn?.postId && post.commentOn?.author.profileId
+                        ? {
+                              fid: toInteger(post.commentOn.author.profileId),
+                              hash: farcasterPostIdToHash(post.commentOn.postId),
+                          }
+                        : undefined,
+                parentUrl:
+                    !(post.commentOn?.postId && post.commentOn?.author.profileId) && post.parentChannelUrl
+                        ? post.parentChannelUrl
+                        : undefined,
+            },
+        }));
+        return { postId: toHex(new Uint8Array(hash.data)) };
     }
 
     collectPost(postId: string, collectionId?: string): Promise<void> {
@@ -92,26 +161,22 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    commentPost(postId: string, post: Post): Promise<{ postId: string }> {
-        throw new NotImplementedError();
+    async commentPost(postId: string, post: Post): Promise<{ postId: string }> {
+        return this.publishPost(post);
     }
 
-    deletePost(postId: string): Promise<boolean> {
-        throw new NotImplementedError();
+    async deletePost(postId: string): Promise<boolean> {
+        await publishMessage(() => ({
+            type: MessageType.CAST_REMOVE,
+            castRemoveBody: {
+                targetHash: farcasterPostIdToHash(postId),
+            },
+        }));
+        return true;
     }
 
     getChannelById(channelId: string): Promise<Channel> {
-        return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(NEYNAR_URL, '/v2/farcaster/channel', {
-                id: channelId,
-                type: 'id',
-                viewer_fid: session?.profileId,
-            });
-
-            const response = await fetchNeynarJson<{ channel: NeynarChannel }>(url);
-            const { channel } = resolveNeynarResponseData(response);
-            return formatFarcasterChannelFromNeynar(channel);
-        });
+        throw new NotImplementedError();
     }
 
     getChannelByHandle(channelHandle: string): Promise<Channel> {
@@ -158,16 +223,77 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    publishPost(post: Post): Promise<{ postId: string }> {
-        throw new NotImplementedError();
+    async publishPost(post: Post): Promise<{ postId: string }> {
+        const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
+
+        const urls = post.metadata.content?.content?.match(URL_REGEX) || [];
+        const mediaUrls = post.mediaObjects?.map((v) => ({ url: v.url })) ?? [];
+        const contentUrls = sortBy(urls, (x) => (isYouTubeUrl(x) ? -1 : 0)).map((url) => ({
+            url: fixUrlProtocol(url),
+        }));
+
+        // To refresh to pro status
+        const state = useFarcasterProfileStore.getState();
+        await state.refreshCurrentAccount();
+        const imageCountLimit = state.currentProfile?.isProUser
+            ? MAX_IMAGE_SIZE_PRO_PER_POST[Source.Farcaster]
+            : MAX_IMAGE_SIZE_PER_POST[Source.Farcaster];
+
+        // contentUrls might contain urls that already included in mediaUrls. see fw-5498
+        const embeds = uniqBy([...mediaUrls, ...contentUrls], (x) => normalizeUrl(x.url.toLowerCase())).slice(
+            0,
+            imageCountLimit,
+        );
+        const { hash } = await publishMessage<CastResponse>(() => ({
+            type: MessageType.CAST_ADD,
+            castAddBody: {
+                ...result,
+                embedsDeprecated: [],
+                embeds,
+                parentCastId:
+                    post.commentOn?.postId && post.commentOn?.author.profileId
+                        ? {
+                              fid: toInteger(post.commentOn.author.profileId),
+                              hash: farcasterPostIdToHash(post.commentOn.postId),
+                          }
+                        : undefined,
+                parentUrl:
+                    !(post.commentOn?.postId && post.commentOn?.author.profileId) && post.parentChannelUrl
+                        ? post.parentChannelUrl
+                        : undefined,
+            },
+        }));
+        return { postId: toHex(new Uint8Array(hash.data)) };
     }
 
-    upvotePost(postId: string): Promise<void> {
-        throw new NotImplementedError();
+    async upvotePost(postId: string, authorId?: number): Promise<void> {
+        if (!authorId) throw new Error('Failed to upvote post.');
+
+        await publishMessage(() => ({
+            type: MessageType.REACTION_ADD,
+            reactionBody: {
+                type: ReactionType.LIKE,
+                targetCastId: {
+                    fid: authorId,
+                    hash: farcasterPostIdToHash(postId),
+                },
+            },
+        }));
     }
 
-    unvotePost(postId: string): Promise<void> {
-        throw new NotImplementedError();
+    async unvotePost(postId: string, authorId?: number): Promise<void> {
+        if (!authorId) throw new Error('Failed to unvote post.');
+
+        await publishMessage(() => ({
+            type: MessageType.REACTION_REMOVE,
+            reactionBody: {
+                type: ReactionType.LIKE,
+                targetCastId: {
+                    fid: authorId,
+                    hash: farcasterPostIdToHash(postId),
+                },
+            },
+        }));
     }
 
     getProfilesByAddress(address: string): Promise<Profile[]> {
@@ -214,12 +340,26 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    follow(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
+    async follow(profileId: string): Promise<boolean> {
+        await publishMessage(() => ({
+            type: MessageType.LINK_ADD,
+            linkBody: {
+                type: 'follow',
+                targetFid: Number(profileId),
+            },
+        }));
+        return true;
     }
 
-    unfollow(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
+    async unfollow(profileId: string): Promise<boolean> {
+        await publishMessage(() => ({
+            type: MessageType.LINK_REMOVE,
+            linkBody: {
+                type: 'follow',
+                targetFid: Number(profileId),
+            },
+        }));
+        return true;
     }
 
     getFollowers(profileId: string): Promise<Pageable<Profile>> {
@@ -314,8 +454,18 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    updateProfile(profile: ProfileEditable): Promise<boolean> {
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
         throw new NotImplementedError();
+    }
+
+    async userDataAdd(type: UserDataType, value: string) {
+        await publishMessage(() => ({
+            type: MessageType.USER_DATA_ADD,
+            userDataBody: {
+                type,
+                value,
+            },
+        }));
     }
 
     getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
