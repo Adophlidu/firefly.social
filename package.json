@@ -162,7 +162,7 @@
         "@typescript-eslint/eslint-plugin": "^8.29.1",
         "@typescript-eslint/parser": "^8.29.1",
         "@typescript/lib-dom": "npm:@types/web@^0.0.197",
-        "autoprefixer": "10.4.21",
+        "autoprefixer": "10.4.22",
         "buffer": "^6.0.3",
         "core-js-compat": "^3.42.0",
         "cross-fetch": "^4.1.0",
