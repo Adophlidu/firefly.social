@@ -10,7 +10,7 @@ overrides:
   '@floating-ui/react': 0.27.16
   '@noble/curves': 1.9.2
   '@solana/wallet-adapter-base': 0.9.27
-  '@tanstack/react-query-next-experimental': 5.85.5
+  '@tanstack/react-query-next-experimental': 5.85.9
   '@tanstack/react-query': 5.85.5
   '@types/node': 22.10.7
   '@types/react-dom': ^19.2.2
@@ -193,8 +193,8 @@ importers:
         specifier: 5.85.5
         version: 5.85.5(react@19.2.0)
       '@tanstack/react-query-next-experimental':
-        specifier: 5.85.5
-        version: 5.85.5(@tanstack/react-query@5.85.5)(next@16.0.1)(react@19.2.0)
+        specifier: 5.85.9
+        version: 5.85.9(@tanstack/react-query@5.85.5)(next@16.0.1)(react@19.2.0)
       '@tanstack/react-ranger':
         specifier: ^0.0.4
         version: 0.0.4(react@19.2.0)
@@ -9190,8 +9190,8 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /@tanstack/react-query-next-experimental@5.85.5(@tanstack/react-query@5.85.5)(next@16.0.1)(react@19.2.0):
-    resolution: {integrity: sha512-DX4VQOA16UYPRy/xUOU9U6CNr+p7SQ83G1fkPECPsgnAIsz2/Qm5jNgKX6nR37v0BvIIq8gY4ejYAJynEV1V5A==}
+  /@tanstack/react-query-next-experimental@5.85.9(@tanstack/react-query@5.85.5)(next@16.0.1)(react@19.2.0):
+    resolution: {integrity: sha512-zO8ul1kdiuJcOSK7Mepw88Yn9j/DBDWQc8P/PdV0ekLymbKUZ28J8r4Prg9ryqZnhWm7brmtABcucvpOgx/mMQ==}
     peerDependencies:
       '@tanstack/react-query': 5.85.5
       next: ^13 || ^14 || ^15
@@ -20907,7 +20907,7 @@ time:
   /@svgr/webpack@8.1.0: '2023-08-15T06:46:24.158Z'
   /@swc/types@0.1.25: '2025-09-06T11:00:53.225Z'
   /@tailwindcss/forms@0.5.10: '2025-01-07T14:03:20.916Z'
-  /@tanstack/react-query-next-experimental@5.85.5: '2025-08-19T09:42:03.166Z'
+  /@tanstack/react-query-next-experimental@5.85.9: '2025-09-02T12:17:48.528Z'
   /@tanstack/react-query@5.85.5: '2025-08-19T09:41:51.252Z'
   /@tanstack/react-ranger@0.0.4: '2023-11-24T09:24:06.987Z'
   /@tanstack/react-router@1.115.3: '2025-04-11T17:19:55.545Z'
