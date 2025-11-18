@@ -238,8 +238,8 @@ importers:
         specifier: ^11.6.1
         version: 11.6.1
       foxact:
-        specifier: ^0.2.45
-        version: 0.2.45(react@19.2.0)
+        specifier: ^0.2.49
+        version: 0.2.49(react@19.2.0)
       framer-motion:
         specifier: ^12.9.2
         version: 12.9.2(react-dom@19.2.0)(react@19.2.0)
@@ -14305,8 +14305,8 @@ packages:
     dev: false
     optional: true
 
-  /foxact@0.2.45(react@19.2.0):
-    resolution: {integrity: sha512-pizJ+4hlSxs+mZKjJxhcwzY1uR4/7paZGgU/NQLrzY6Q0wa8RBZvhOxzg/HzXRAcglTt2y6DlIqPn85cTNdmcg==}
+  /foxact@0.2.49(react@19.2.0):
+    resolution: {integrity: sha512-9Pbu4IbkaNqtS/H4887/QWegclMpBn54mzbPp3t1mg0iJuB83jpQGBY2fshal50NmchlAFIT/GSWBFsa0YI31Q==}
     peerDependencies:
       react: 19.2.0
     peerDependenciesMeta:
@@ -20934,7 +20934,7 @@ time:
   /eslint-plugin-unused-imports@4.1.4: '2024-09-13T10:01:24.741Z'
   /eslint@9.24.0: '2025-04-04T19:20:41.757Z'
   /firebase@11.6.1: '2025-04-24T15:43:29.242Z'
-  /foxact@0.2.45: '2025-03-19T10:32:32.395Z'
+  /foxact@0.2.49: '2025-06-10T15:22:12.902Z'
   /framer-motion@12.9.2: '2025-04-25T14:02:32.239Z'
   /franc-min@6.2.0: '2024-01-11T13:33:46.729Z'
   /fuse.js@7.1.0: '2025-02-03T00:43:03.870Z'

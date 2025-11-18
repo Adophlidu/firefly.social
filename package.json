@@ -86,7 +86,7 @@
         "dompurify": "^3.2.7",
         "emoji-picker-react": "^4.12.4",
         "firebase": "^11.6.1",
-        "foxact": "^0.2.45",
+        "foxact": "^0.2.49",
         "framer-motion": "^12.9.2",
         "franc-min": "^6.2.0",
         "fuse.js": "^7.1.0",
