@@ -5,7 +5,7 @@ import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import type { NetworkProvider } from '@/providers/types/Network.js';
-import { EVMExplorerResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 class Provider implements NetworkProvider<EthereumChainId, Address, Hash> {

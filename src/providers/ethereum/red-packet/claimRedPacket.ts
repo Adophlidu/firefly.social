@@ -12,7 +12,7 @@ import type { ClaimRedPacketContext } from '@/providers/ethereum/red-packet/type
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { checkGasFreeStatus } from '@/providers/firefly/red-packet/checkGasFreeStatus.js';
 import { claimForGasFree } from '@/providers/firefly/red-packet/claimForGasFree.js';
-import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 export async function claimRedPacket(context: ClaimRedPacketContext) {
     const rpid = context.payload.rpid;

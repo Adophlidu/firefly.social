@@ -23,7 +23,7 @@ import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEve
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { RedPacketCreationSuccessEventArgs, RedPacketMetadata } from '@/types/rp.js';
-import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import type { FungibleToken } from '@/web3-shared/base/specs.js';
 import { EthereumChainId, EthereumSchemaType } from '@/web3-shared/evm/types.js';
 

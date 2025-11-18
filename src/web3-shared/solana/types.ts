@@ -15,8 +15,3 @@ export enum SolanaSchemaType {
 export enum SolanaNetworkType {
     Solana = 'Solana',
 }
-export interface Web3Definition {
-    ChainId: SolanaChainId;
-    SchemaType: SolanaSchemaType;
-    NetworkType: SolanaNetworkType;
-}

@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { EVMExplorerResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 const EXPLORER_CONFIG: Record<number, string> = {
     [84532]: 'https://sepolia.basescan.org',

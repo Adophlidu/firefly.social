@@ -5,7 +5,7 @@ import { multipliedBy, ZERO } from '@/helpers/number.js';
 import { MintButton } from '@/modals/FreeMintModal/MintButton.js';
 import { MintParamsPanel } from '@/modals/FreeMintModal/MintParamsPanel.js';
 import type { MintMetadata, SponsorMintOptions } from '@/providers/types/Firefly.js';
-import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 interface MintModalContentProps {
     mintTarget: SponsorMintOptions;

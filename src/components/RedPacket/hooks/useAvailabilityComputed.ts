@@ -6,8 +6,8 @@ import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { EVMNetworkResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
-import { SolanaNetworkResolver } from '@/web3-providers/Web3/Solana/apis/ResolverAPI.js';
+import { EVMNetworkResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { SolanaNetworkResolver } from '@/web3-providers/solana/ResolverAPI.js';
 import { EthereumChainId, EthereumNetworkType } from '@/web3-shared/evm/types.js';
 import { SolanaChainId, SolanaNetworkType } from '@/web3-shared/solana/types.js';
 

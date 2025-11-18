@@ -40,7 +40,7 @@ import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketCo
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { TokenType } from '@/types/rp.js';
-import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 interface Props {
     payload: RedPacketJSONPayload;

@@ -3,7 +3,7 @@ import { Trans } from '@lingui/react/macro';
 import LinkIcon from '@/assets/link-square.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
-import { EVMExplorerResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import type { NonFungibleCollection } from '@/web3-shared/base/specs.js';
 
 export interface Collection

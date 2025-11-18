@@ -9,7 +9,7 @@ import { multipliedBy, toFixed, ZERO } from '@/helpers/number.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import type { GetDefaultGasOptions } from '@/providers/types/Transfer.js';
-import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 async function estimateGasForErc20Token(

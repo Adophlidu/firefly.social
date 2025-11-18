@@ -24,7 +24,7 @@ import { useArticleCollectStatus } from '@/hooks/useArticleCollectable.js';
 import { MintParamsPanel } from '@/modals/FreeMintModal/MintParamsPanel.js';
 import { freeCollectArticle } from '@/providers/firefly/wallet-transaction/freeCollectArticle.js';
 import { getArticleMetadata } from '@/providers/firefly/wallet-transaction/getArticleMetadata.js';
-import { addArticleMetadata } from '@/providers/paragraph/index.js';
+import { addArticleMetadata } from '@/providers/paragraph/addArticleMetadata.js';
 import { captureArticleCollectEvent } from '@/providers/telemetry/captureArticleCollectEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 import { EventId } from '@/providers/types/Telemetry.js';

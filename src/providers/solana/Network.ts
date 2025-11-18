@@ -1,6 +1,6 @@
 import { getWalletAdapter, getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
 import type { NetworkProvider } from '@/providers/types/Network.js';
-import { SolanaExplorerResolver } from '@/web3-providers/Web3/Solana/apis/ResolverAPI.js';
+import { SolanaExplorerResolver } from '@/web3-providers/solana/ResolverAPI.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 class Provider implements NetworkProvider<SolanaChainId> {

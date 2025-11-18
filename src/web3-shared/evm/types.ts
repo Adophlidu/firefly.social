@@ -117,8 +117,3 @@ export enum EthereumNetworkType {
     Linea = 'Linea',
     Plasma = 'Plasma',
 }
-export interface Web3Definition {
-    ChainId: EthereumChainId;
-    SchemaType: EthereumSchemaType;
-    NetworkType: EthereumNetworkType;
-}

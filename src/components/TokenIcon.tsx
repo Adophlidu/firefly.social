@@ -6,7 +6,7 @@ import { ChainIcon } from '@/components/ChainIcon.js';
 import { type NetworkType } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
-import { EVMChainResolver } from '@/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 export interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
     networkType?: NetworkType;
