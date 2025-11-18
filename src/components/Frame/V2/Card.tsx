@@ -169,7 +169,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
                     }}
                     width={530}
                     height={350}
-                    src={frame.x_manifest?.frame.imageUrl ?? frame.imageUrl}
+                    src={frame.imageUrl ?? frame.x_manifest?.frame.imageUrl}
                     fallback={isDarkMode ? '/image/miniapps-fallback-dark.png' : '/image/miniapps-fallback-light.png'}
                     alt={frame.x_url}
                 />
