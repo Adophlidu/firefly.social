@@ -40,7 +40,7 @@
     },
     "devDependencies": {
         "@types/lodash-es": "^4.17.12",
-        "tsup": "^8.5.0",
+        "tsup": "^8.5.1",
         "typescript": "5.9.3"
     },
     "peerDependencies": {
