@@ -31,9 +31,6 @@ patchedDependencies:
   '@bprogress/react@1.2.6':
     hash: ptpx3qttjiypitnumdwetbkgai
     path: patches/@bprogress__react@1.2.6.patch
-  '@farcaster/core@0.18.4':
-    hash: hngiodc6uoegwmshm6epwtctuy
-    path: patches/@farcaster__core@0.18.4.patch
   '@headlessui/react@2.1.10':
     hash: roq3pv4art7yqmupqbnd3ablue
     path: patches/@headlessui__react@2.1.10.patch
@@ -103,11 +100,11 @@ importers:
         specifier: workspace:^
         version: link:packages/utils
       '@farcaster/core':
-        specifier: ^0.18.4
-        version: 0.18.4(patch_hash=hngiodc6uoegwmshm6epwtctuy)(typescript@5.9.3)(zod@3.24.4)
+        specifier: ^0.18.9
+        version: 0.18.9(typescript@5.9.3)(zod@3.24.4)
       '@farcaster/miniapp-host':
-        specifier: ^0.2.12
-        version: 0.2.12(react@19.2.0)(typescript@5.9.3)(zod@3.24.4)
+        specifier: ^0.2.14
+        version: 0.2.14(react@19.2.0)(typescript@5.9.3)(zod@3.24.4)
       '@floating-ui/react':
         specifier: 0.27.16
         version: 0.27.16(react-dom@19.2.0)(react@19.2.0)
@@ -642,10 +639,6 @@ packages:
   /@adobe/css-tools@4.4.4:
     resolution: {integrity: sha512-Elp+iwUx5rN5+Y8xLt5/GRoG20WGoDCQ/1Fb+1LiGtvwbDavuSk0jhD/eZdckHAuzcDzccnkv+rEjyWfRx18gg==}
     dev: true
-
-  /@adraffy/ens-normalize@1.11.0:
-    resolution: {integrity: sha512-/3DDPKHqqIqxUULp8yP4zODUY1i+2xvVWsv8A79xGWdCAG+8sb0hRh0Rk2QyOJUnnbyPUAZYcpBuRe3nS2OIUg==}
-    dev: false
 
   /@adraffy/ens-normalize@1.11.1:
     resolution: {integrity: sha512-nhCBV3quEgesuf7c7KYfperqSS14T8bYuvJ8PcLJp6znkZpFc0AuW4qBtr8eKVyPPe/8RSr7sglCWPU5eaxwKQ==}
@@ -3097,8 +3090,8 @@ packages:
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
     dev: false
 
-  /@farcaster/core@0.18.4(patch_hash=hngiodc6uoegwmshm6epwtctuy)(typescript@5.9.3)(zod@3.24.4):
-    resolution: {integrity: sha512-3DX0ZYX6tRzufXlAIbL7SezEeLUvZbzsLpx+/8vnGvJZw/f+dT8Rx5UG26Gzayi60DCb/uTOGk7B7VdSc/b0Vw==}
+  /@farcaster/core@0.18.9(typescript@5.9.3)(zod@3.24.4):
+    resolution: {integrity: sha512-qwqTJXhaCJIKL6joHzXgMpWQaVxj0dri3hac0hcPsiHiJiKZw+vRpklXYrdfv53ZM3J5a5y7In41y+g5wc/IZQ==}
     dependencies:
       '@faker-js/faker': 7.6.0
       '@noble/curves': 1.9.2
@@ -3112,10 +3105,9 @@ packages:
       - utf-8-validate
       - zod
     dev: false
-    patched: true
 
-  /@farcaster/miniapp-core@0.3.9(typescript@5.9.3):
-    resolution: {integrity: sha512-7k2AHYycFABUEQFHGqsuZr6P6UQOE2WO4/Qj/kQ1ydKA8QjrWxO4HjiPfnTdvqH0xOKtdavbFOV5lK5bDLkemw==}
+  /@farcaster/miniapp-core@0.4.1(typescript@5.9.3):
+    resolution: {integrity: sha512-20FxHTRToYUKx7CQ8PvIy9OoQ6XjdmF1pRMS7dsj37qdqjVDeEkYoK8yXwnoReZoJRcYwIg8P3i6V8bTWNR5mg==}
     dependencies:
       '@solana/web3.js': 1.98.4(typescript@5.9.3)
       ox: 0.4.4(typescript@5.9.3)(zod@3.25.76)
@@ -3127,12 +3119,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@farcaster/miniapp-host@0.2.12(react@19.2.0)(typescript@5.9.3)(zod@3.24.4):
-    resolution: {integrity: sha512-wsHKbkTj/1zAx0oIVuIpZPQFEtALlB4TvweDthBfzS6EVL9dYjKJFr4SvR2KUXEsD9BNrNCLGEExlKQYIWL6Zw==}
+  /@farcaster/miniapp-host@0.2.14(react@19.2.0)(typescript@5.9.3)(zod@3.24.4):
+    resolution: {integrity: sha512-HMdeogf5Ti2rgxVD1DDBtu4hCjR+xt0W7jCeNxeFUtw/VqjNrYhM9Tou7H4Tr3p14jUJRDYnBbmB/kEsIJAUkA==}
     peerDependencies:
       react: 19.2.0
     dependencies:
-      '@farcaster/miniapp-core': 0.3.9(typescript@5.9.3)
+      '@farcaster/miniapp-core': 0.4.1(typescript@5.9.3)
       ox: 0.4.4(typescript@5.9.3)(zod@3.24.4)
       react: 19.2.0
     transitivePeerDependencies:
@@ -8315,7 +8307,7 @@ packages:
       fast-stable-stringify: 1.0.0
       jayson: 4.2.0
       node-fetch: 2.7.0
-      rpc-websockets: 9.2.0
+      rpc-websockets: 9.3.1
       superstruct: 2.0.2
     transitivePeerDependencies:
       - bufferutil
@@ -8340,7 +8332,7 @@ packages:
       fast-stable-stringify: 1.0.0
       jayson: 4.2.0
       node-fetch: 2.7.0
-      rpc-websockets: 9.2.0
+      rpc-websockets: 9.3.1
       superstruct: 2.0.2
     transitivePeerDependencies:
       - bufferutil
@@ -16599,7 +16591,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@adraffy/ens-normalize': 1.11.0
+      '@adraffy/ens-normalize': 1.11.1
       '@noble/curves': 1.9.2
       '@noble/hashes': 1.8.0
       '@scure/bip32': 1.7.0
@@ -16619,7 +16611,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@adraffy/ens-normalize': 1.11.0
+      '@adraffy/ens-normalize': 1.11.1
       '@noble/curves': 1.9.2
       '@noble/hashes': 1.8.0
       '@scure/bip32': 1.7.0
@@ -16680,7 +16672,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@adraffy/ens-normalize': 1.11.0
+      '@adraffy/ens-normalize': 1.11.1
       '@noble/ciphers': 1.3.0
       '@noble/curves': 1.9.2
       '@noble/hashes': 1.8.0
@@ -16701,7 +16693,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@adraffy/ens-normalize': 1.11.0
+      '@adraffy/ens-normalize': 1.11.1
       '@noble/ciphers': 1.3.0
       '@noble/curves': 1.9.2
       '@noble/hashes': 1.8.0
@@ -16722,7 +16714,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@adraffy/ens-normalize': 1.11.0
+      '@adraffy/ens-normalize': 1.11.1
       '@noble/ciphers': 1.3.0
       '@noble/curves': 1.9.2
       '@noble/hashes': 1.8.0
@@ -18113,8 +18105,8 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /rpc-websockets@9.2.0:
-    resolution: {integrity: sha512-DS/XHdPxplQTtNRKiBCRWGBJfjOk56W7fyFUpiYi9fSTWTzoEMbUkn3J4gB0IMniIEVeAGR1/rzFQogzD5MxvQ==}
+  /rpc-websockets@9.3.1:
+    resolution: {integrity: sha512-bY6a+i/lEtBJ/mUxwsCTgevoV1P0foXTVA7UoThzaIWbM+3NDqorf8NBWs5DmqKTFeA1IoNzgvkWjFCPgnzUiQ==}
     dependencies:
       '@swc/helpers': 0.5.17
       '@types/uuid': 8.3.4
@@ -20815,8 +20807,8 @@ time:
   /@bprogress/next@3.2.11: '2025-04-10T09:35:12.548Z'
   /@coral-xyz/anchor@0.30.1: '2024-06-20T15:28:00.153Z'
   /@crowdin/cli@4.11.0: '2025-09-03T06:19:11.750Z'
-  /@farcaster/core@0.18.4: '2025-07-12T16:14:38.184Z'
-  /@farcaster/miniapp-host@0.2.12: '2025-09-05T16:45:18.036Z'
+  /@farcaster/core@0.18.9: '2025-10-13T15:59:22.123Z'
+  /@farcaster/miniapp-host@0.2.14: '2025-10-16T16:10:18.601Z'
   /@floating-ui/react@0.27.16: '2025-08-21T06:33:44.461Z'
   /@giphy/js-fetch-api@5.6.0: '2024-05-28T16:39:28.633Z'
   /@giphy/react-components@10.1.0: '2025-07-08T16:16:15.609Z'

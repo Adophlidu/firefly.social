@@ -41,8 +41,8 @@
         "@dimensiondev/iframe-bridge": "workspace:^",
         "@dimensiondev/native-bridge": "workspace:^",
         "@dimensiondev/utils": "workspace:^",
-        "@farcaster/core": "^0.18.4",
-        "@farcaster/miniapp-host": "^0.2.12",
+        "@farcaster/core": "^0.18.9",
+        "@farcaster/miniapp-host": "^0.2.14",
         "@floating-ui/react": "^0.27.16",
         "@giphy/js-fetch-api": "^5.6.0",
         "@giphy/react-components": "^10.1.0",
@@ -226,7 +226,6 @@
         },
         "patchedDependencies": {
             "@bprogress/react@1.2.6": "patches/@bprogress__react@1.2.6.patch",
-            "@farcaster/core@0.18.4": "patches/@farcaster__core@0.18.4.patch",
             "@headlessui/react@2.1.10": "patches/@headlessui__react@2.1.10.patch",
             "@lexical/react@0.18.0": "patches/@lexical__react@0.18.0.patch",
             "@livepeer/core@3.2.7": "patches/@livepeer__core@3.2.7.patch",
