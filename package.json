@@ -182,7 +182,7 @@
         "next-statoscope": "^1.0.1",
         "postcss": "^8.5.6",
         "prettier": "^3.6.2",
-        "prettier-plugin-tailwindcss": "^0.6.11",
+        "prettier-plugin-tailwindcss": "^0.6.14",
         "rollup": "^4.39.0",
         "rollup-plugin-swc3": "^0.10.4",
         "rollup-plugin-terser": "^7.0.2",
