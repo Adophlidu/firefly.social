@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { PriceChart } from '@/components/PriceChart/index.js';
 import type { PriceRecord, TradeRecord } from '@/types/token.js';

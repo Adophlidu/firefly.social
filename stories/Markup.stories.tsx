@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 
@@ -8,11 +8,10 @@ type Args = {
 
 const meta = {
     title: 'common/BioMarkup',
-    component: BioMarkup,
-    render: ({ bios }) => {
+    render: ({ bios }: Args) => {
         return (
             <div className="flex flex-col gap-2">
-                {bios.map((bio) => (
+                {bios.map((bio: string) => (
                     <div key={bio} className="flex flex-col gap-2 border p-2">
                         <blockquote className="text-gray text-sm italic text-second">{bio}</blockquote>
                         <BioMarkup key={bio}>{bio}</BioMarkup>

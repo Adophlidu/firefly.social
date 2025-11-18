@@ -1,11 +1,13 @@
-import type { StorybookConfig } from '@storybook/experimental-nextjs-vite';
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
+import type { StorybookConfig } from '@storybook/nextjs-vite';
 import svgr from 'vite-plugin-svgr';
 
 const config: StorybookConfig = {
     stories: ['../stories/**/*.mdx', '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-    addons: ['@storybook/addon-essentials'],
+    addons: [getAbsolutePath('@storybook/addon-docs')],
     framework: {
-        name: '@storybook/experimental-nextjs-vite',
+        name: getAbsolutePath('@storybook/nextjs-vite'),
         options: {},
     },
     staticDirs: ['../public'],
@@ -54,3 +56,7 @@ const config: StorybookConfig = {
     },
 };
 export default config;
+
+function getAbsolutePath(value: string): any {
+    return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
+}
