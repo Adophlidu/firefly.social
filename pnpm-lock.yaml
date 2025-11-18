@@ -416,8 +416,8 @@ importers:
         specifier: ^8.1.0
         version: 8.1.0(typescript@5.9.3)
       '@swc/types':
-        specifier: ^0.1.21
-        version: 0.1.21
+        specifier: ^0.1.25
+        version: 0.1.25
       '@tailwindcss/forms':
         specifier: ^0.5.10
         version: 0.5.10(tailwindcss@3.4.18)
@@ -8947,12 +8947,6 @@ packages:
     dependencies:
       tslib: 2.8.1
     dev: false
-
-  /@swc/types@0.1.21:
-    resolution: {integrity: sha512-2YEtj5HJVbKivud9N4bpPBAyZhj4S2Ipe5LkUG94alTpr7in/GU/EARgPAd3BwU+YOmFVJC2+kjqhGRi3r0ZpQ==}
-    dependencies:
-      '@swc/counter': 0.1.3
-    dev: true
 
   /@swc/types@0.1.25:
     resolution: {integrity: sha512-iAoY/qRhNH8a/hBvm3zKj9qQ4oc2+3w1unPJa2XvTK3XjeLXtzcCingVPw/9e5mn1+0yPqxcBGp9Jf0pkfMb1g==}
@@ -20594,7 +20588,7 @@ time:
   /@storybook/experimental-nextjs-vite@8.6.14: '2025-05-16T11:32:25.000Z'
   /@storybook/react@8.6.14: '2025-05-16T11:33:23.968Z'
   /@svgr/webpack@8.1.0: '2023-08-15T06:46:24.158Z'
-  /@swc/types@0.1.21: '2025-04-01T05:05:41.270Z'
+  /@swc/types@0.1.25: '2025-09-06T11:00:53.225Z'
   /@tailwindcss/forms@0.5.10: '2025-01-07T14:03:20.916Z'
   /@tanstack/react-query-next-experimental@5.85.5: '2025-08-19T09:42:03.166Z'
   /@tanstack/react-query@5.85.5: '2025-08-19T09:41:51.252Z'
