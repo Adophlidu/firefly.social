@@ -1952,9 +1952,6 @@ msgstr ""
 msgid "You haven't traded this token."
 msgstr ""
 
-msgid "Bio should not be blank"
-msgstr ""
-
 msgid "Set"
 msgstr ""
 

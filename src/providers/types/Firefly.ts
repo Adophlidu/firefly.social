@@ -2422,3 +2422,9 @@ export type RegisterFarcasterResponse = Response<{
     data?: unknown;
     error?: string[];
 }>;
+
+export type ReportLensResponse = Response<{
+    ProfileId: string;
+    IsSave: boolean;
+    UpdateAt?: string;
+}>;

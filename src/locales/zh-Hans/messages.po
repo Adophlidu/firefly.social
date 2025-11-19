@@ -1952,9 +1952,6 @@ msgstr "切换失败"
 msgid "You haven't traded this token."
 msgstr "你还没有交易过这个代币呢。"
 
-msgid "Bio should not be blank"
-msgstr ""
-
 msgid "Set"
 msgstr "设置"
 

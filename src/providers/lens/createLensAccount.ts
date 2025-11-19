@@ -1,9 +1,13 @@
+import type { SessionClient } from '@lens-protocol/client';
 import { canCreateUsername, createAccountWithUsername, fetchAccount } from '@lens-protocol/client/actions';
 
 import { env } from '@/constants/env.js';
 import { InvalidResultError } from '@/constants/error.js';
+import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { retry } from '@/helpers/retry.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
+import { reportLensAccount } from '@/providers/firefly/endpoint/reportLensAccount.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { createLensSDK, MemoryStorageProvider } from '@/providers/lens/createLensSDK.js';
 import { createLensSession } from '@/providers/lens/createLensSession.js';
@@ -16,26 +20,58 @@ import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.
 import type { Account } from '@/providers/types/Account.js';
 import type { ProfileForSignup } from '@/providers/types/SocialMedia.js';
 
+const loginOnboardingUser = memoizePromise(
+    async (address: string) => {
+        const walletClient = await getWalletClientForLensChain();
+        const sdk = createLensSDK(new MemoryStorageProvider());
+
+        return ensureLensResult(
+            sdk.login({
+                onboardingUser: {
+                    wallet: address,
+                    app: env.external.NEXT_PUBLIC_LENS_APP_ADDRESS,
+                },
+                signMessage: (message) => walletClient.signMessage({ message }),
+            }),
+        );
+    },
+    (address: string) => `loginOnboardingUser-${address}`,
+);
+const uploadAccountMetadata = memoizePromise(
+    async (profile: ProfileForSignup) => {
+        const accountMetadata = account({
+            id: crypto.randomUUID(),
+            name: profile.displayName,
+            bio: profile.bio || undefined,
+            picture: profile.pfp || undefined,
+        });
+        return uploadLensMetadataToS3(accountMetadata);
+    },
+    (profile) => `${profile.handle}.${profile.displayName}.${profile.bio}.${profile.pfp}`,
+);
+const deployAccountContract = memoizePromise(
+    async (sessionClient: SessionClient, handle: string, metadataUri: string, address: string) => {
+        const txData = await ensureLensResult(
+            createAccountWithUsername(sessionClient, {
+                username: { localName: handle },
+                metadataUri,
+            }),
+        );
+        return handleOperationWithLensChain(txData);
+    },
+    (sessionClient: SessionClient, handle: string, metadataUri: string, address: string) =>
+        `${handle}-${metadataUri}-${address}`,
+);
+
 export async function createLensAccount(profile: ProfileForSignup): Promise<Account> {
     if (!profile.handle) {
         throw new Error('Handle is required to create Lens account');
     }
 
-    const walletClient = await getWalletClientForLensChain();
-
-    const address = safeEvmAddress(walletClient.account.address);
-    const sdk = createLensSDK(new MemoryStorageProvider());
-
     // 1. login to lens
-    const sessionClient = await ensureLensResult(
-        sdk.login({
-            onboardingUser: {
-                wallet: address,
-                app: env.external.NEXT_PUBLIC_LENS_APP_ADDRESS,
-            },
-            signMessage: (message) => walletClient.signMessage({ message }),
-        }),
-    );
+    const walletClient = await getWalletClientForLensChain();
+    const ownerAddress = safeEvmAddress(walletClient.account.address);
+    const sessionClient = await loginOnboardingUser(ownerAddress);
 
     // 2. verify handle
     const result = await ensureLensResult(canCreateUsername(sessionClient, { localName: profile.handle }));
@@ -53,22 +89,10 @@ export async function createLensAccount(profile: ProfileForSignup): Promise<Acco
     }
 
     // 3. create account metadata
-    const accountMetadata = account({
-        id: crypto.randomUUID(),
-        name: profile.displayName,
-        bio: profile.bio || undefined,
-        picture: profile.pfp || undefined,
-    });
-    const metadataUri = await uploadLensMetadataToS3(accountMetadata);
+    const metadataUri = await uploadAccountMetadata(profile);
 
     // 4. deploy account contract
-    const txData = await ensureLensResult(
-        createAccountWithUsername(sessionClient, {
-            username: { localName: profile.handle },
-            metadataUri,
-        }),
-    );
-    const txHash = await handleOperationWithLensChain(txData);
+    const txHash = await deployAccountContract(sessionClient, profile.handle, metadataUri, ownerAddress);
 
     // 5. switch to account owner session
     const lensAccount = await retry(
@@ -89,10 +113,15 @@ export async function createLensAccount(profile: ProfileForSignup): Promise<Acco
     // 6. create firefly account
     const lensProfile = formatLensProfileV3(lensAccount);
     const lensSession = createLensSession(lensProfile.profileId, ownerSessionClient);
-    return {
+    const fireflyAccount = {
         profile: lensProfile,
         origin: 'signup',
         session: lensSession,
         fireflySession: fireflySessionHolder.session ?? undefined,
     } satisfies Account;
+
+    // 7. report account to neo4j
+    await runInSafeAsync(() => reportLensAccount(fireflyAccount));
+
+    return fireflyAccount;
 }

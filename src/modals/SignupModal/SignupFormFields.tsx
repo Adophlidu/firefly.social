@@ -132,7 +132,6 @@ function getFieldsBySource(source: SocialSource): Array<{
             options: {
                 validate(value: string) {
                     if (!value) return true;
-                    if (isBlank(value)) return t`Bio should not be blank`;
 
                     const length = resolveLengthCalculatorFn(value);
                     if (length < minBioSize) return t`Bio should be at least ${minBioSize} characters`;

@@ -1947,9 +1947,6 @@ msgstr "Failed to switch chain"
 msgid "You haven't traded this token."
 msgstr "You haven't traded this token."
 
-msgid "Bio should not be blank"
-msgstr "Bio should not be blank"
-
 msgid "Set"
 msgstr "Set"
 
