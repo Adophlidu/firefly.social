@@ -713,6 +713,9 @@ msgstr "Only people who follow you"
 msgid "Followed by {0} , {1}, and {2} others you follow"
 msgstr "Followed by {0} , {1}, and {2} others you follow"
 
+msgid "Tell us something about you!"
+msgstr "Tell us something about you!"
+
 msgid "Confirm"
 msgstr "Confirm"
 
@@ -2239,6 +2242,9 @@ msgstr "Failed to download image. Please try again later."
 #. placeholder {1}: notification.post.type
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
+
+msgid "User Name should not exceed {maxHandleSize} characters"
+msgstr "User Name should not exceed {maxHandleSize} characters"
 
 msgid "Polymarket PnL"
 msgstr "Polymarket PnL"
@@ -3953,9 +3959,6 @@ msgstr "No tax changes found for personal addresses."
 #. placeholder {0}: token.symbol
 msgid "Unlock {0}"
 msgstr "Unlock {0}"
-
-msgid "User Name should not exceed {maxBioSize} characters"
-msgstr "User Name should not exceed {maxBioSize} characters"
 
 msgid "Owned"
 msgstr "Owned"

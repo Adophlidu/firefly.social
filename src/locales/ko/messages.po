@@ -718,6 +718,9 @@ msgstr ""
 msgid "Followed by {0} , {1}, and {2} others you follow"
 msgstr ""
 
+msgid "Tell us something about you!"
+msgstr ""
+
 msgid "Confirm"
 msgstr ""
 
@@ -2243,6 +2246,9 @@ msgstr ""
 #. placeholder {0}: notification.actions.length
 #. placeholder {1}: notification.post.type
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
+msgstr ""
+
+msgid "User Name should not exceed {maxHandleSize} characters"
 msgstr ""
 
 msgid "Polymarket PnL"
@@ -3957,9 +3963,6 @@ msgstr ""
 
 #. placeholder {0}: token.symbol
 msgid "Unlock {0}"
-msgstr ""
-
-msgid "User Name should not exceed {maxBioSize} characters"
 msgstr ""
 
 msgid "Owned"

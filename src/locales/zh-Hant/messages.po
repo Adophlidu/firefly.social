@@ -718,6 +718,9 @@ msgstr "僅限追蹤您的人"
 msgid "Followed by {0} , {1}, and {2} others you follow"
 msgstr "被您追蹤的 {0}、{1} 及其他 {2} 人追蹤著"
 
+msgid "Tell us something about you!"
+msgstr ""
+
 msgid "Confirm"
 msgstr "確認"
 
@@ -2244,6 +2247,9 @@ msgstr "圖片下載失敗，請重試。"
 #. placeholder {1}: notification.post.type
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}} <4>鑄造收集了你的</4><5>{1, select, Post {貼文} Comment {留言} Quote {引用} Mirror {轉發} other {貼文}}</5>"
+
+msgid "User Name should not exceed {maxHandleSize} characters"
+msgstr ""
 
 msgid "Polymarket PnL"
 msgstr ""
@@ -3958,9 +3964,6 @@ msgstr "未檢測到個人地址稅率變更。"
 #. placeholder {0}: token.symbol
 msgid "Unlock {0}"
 msgstr "解鎖 {0}"
-
-msgid "User Name should not exceed {maxBioSize} characters"
-msgstr ""
 
 msgid "Owned"
 msgstr "擁有"

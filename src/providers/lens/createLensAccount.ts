@@ -73,7 +73,7 @@ export async function createLensAccount(profile: ProfileForSignup): Promise<Acco
     // 5. switch to account owner session
     const lensAccount = await retry(
         async () => {
-            const result = ensureLensResult(fetchAccount(sessionClient, { txHash }));
+            const result = await ensureLensResult(fetchAccount(sessionClient, { txHash }));
             if (!result) throw new InvalidResultError();
 
             return result;

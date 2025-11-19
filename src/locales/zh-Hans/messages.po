@@ -718,6 +718,9 @@ msgstr "仅限关注您的人"
 msgid "Followed by {0} , {1}, and {2} others you follow"
 msgstr "被您关注的 {0}、{1} 和其他 {2} 人关注着"
 
+msgid "Tell us something about you!"
+msgstr ""
+
 msgid "Confirm"
 msgstr "确认"
 
@@ -2244,6 +2247,9 @@ msgstr "图片下载失败，请重试。"
 #. placeholder {1}: notification.post.type
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>铸造收集了你的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {帖子}}</5>"
+
+msgid "User Name should not exceed {maxHandleSize} characters"
+msgstr ""
 
 msgid "Polymarket PnL"
 msgstr "Polymarket 收益"
@@ -3958,9 +3964,6 @@ msgstr "未发现个人地址的税务变更。"
 #. placeholder {0}: token.symbol
 msgid "Unlock {0}"
 msgstr "解锁 {0}"
-
-msgid "User Name should not exceed {maxBioSize} characters"
-msgstr ""
 
 msgid "Owned"
 msgstr "持有"
