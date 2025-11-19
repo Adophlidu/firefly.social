@@ -2,7 +2,6 @@
 
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { useAccount } from 'wagmi';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getSnapshotItemContent } from '@/components/VirtualList/getSnapshotItemContent.js';

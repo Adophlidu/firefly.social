@@ -15,13 +15,13 @@ import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getMentionCharsByIdentity } from '@/helpers/getMentionCharsByIdentity.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { openWindow } from '@/helpers/openWindow.js';
+import { resolveFireflyMention } from '@/helpers/resolveFireflyMention.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { captureTipsSharePostEvent } from '@/providers/telemetry/captureTipsEvent.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
-import { resolveFireflyMention } from '@/helpers/resolveFireflyMention.js';
 
 export function SuccessView() {
     const isLogin = useIsLoginFirefly();

@@ -17,7 +17,7 @@ export function createSelectors<S extends UseBoundStore<StoreApi<object>>>(
 
     for (const k of Object.keys(state)) {
         const key = k as keyof typeof state;
-        if (customSelectors && customSelectors[key]) {
+        if (customSelectors?.[key]) {
             (store.use as any)[k] = () => store(customSelectors[key]!);
         } else {
             (store.use as any)[k] = () => store((s) => s[key]);

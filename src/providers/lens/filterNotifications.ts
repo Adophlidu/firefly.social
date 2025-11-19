@@ -23,8 +23,7 @@ export function filterNotifications(notifications: readonly LensNotification[]) 
             const next = notifications[index + 1];
             const parentId = item.id.split('_')[2];
             if (
-                next &&
-                next.__typename === 'CommentNotification' &&
+                next?.__typename === 'CommentNotification' &&
                 isSameEthereumAddress(next.comment.author.address, session.profileId) &&
                 next.comment.id === parentId
             ) {

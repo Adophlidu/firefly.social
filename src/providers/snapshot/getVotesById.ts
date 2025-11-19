@@ -1,3 +1,4 @@
+import { isNumber } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
@@ -6,7 +7,6 @@ import { createIndicator, createNextIndicator, createPageable, type PageIndicato
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import type { SnapshotVote } from '@/providers/snapshot/type.js';
 import type { ResponseJson } from '@/types/utility.js';
-import { isNumber } from 'lodash-es';
 
 interface WorkerVotesResponse {
     votes: SnapshotVote[];

@@ -1,7 +1,6 @@
 // Use require to avoid Turbopack build issues with native modules
 // This ensures the module is only loaded at runtime, not during build
 function getTransformer() {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { Transformer } = require('@napi-rs/image');
     return Transformer;
 }

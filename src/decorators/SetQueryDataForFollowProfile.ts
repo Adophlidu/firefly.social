@@ -35,7 +35,7 @@ export function setFollowStatus(source: Source, profileId: string, status: boole
     });
 
     queryClient.setQueriesData<Profile>({ queryKey: ['profile', source] }, (old) => {
-        if (!old || old.profileId !== profileId) return old;
+        if (old?.profileId !== profileId) return old;
         return produce(old, (draft) => {
             const field = resolveViewerContextField(old, status);
             draft.viewerContext = {

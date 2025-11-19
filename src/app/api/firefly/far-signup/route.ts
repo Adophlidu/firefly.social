@@ -1,3 +1,9 @@
+import { compose, parseJson } from '@dimensiondev/utils';
+import { first } from 'lodash-es';
+import type { NextRequest } from 'next/server.js';
+import urlcat from 'urlcat';
+import { z } from 'zod';
+
 import { env } from '@/constants/env.js';
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
@@ -6,11 +12,6 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { RegisterFarcasterResponse } from '@/providers/types/Firefly.js';
 import { decryptAes256 } from '@/services/crypto.js';
 import { settings } from '@/settings/index.js';
-import { compose, parseJson } from '@dimensiondev/utils';
-import { first } from 'lodash-es';
-import type { NextRequest } from 'next/server.js';
-import urlcat from 'urlcat';
-import { z } from 'zod';
 
 const BodySchema = z.object({
     handle: z.string().min(1),

@@ -42,7 +42,7 @@ export function setBlockStatus(source: SocialSource, profileId: string, status: 
     };
 
     queryClient.setQueriesData<Profile>({ queryKey: ['profile', source] }, (old) => {
-        if (!old || old.profileId !== profileId) return old;
+        if (old?.profileId !== profileId) return old;
         return produce(old, (draft) => {
             draft.viewerContext = {
                 ...draft.viewerContext,

@@ -67,7 +67,7 @@ export function RelayServiceSignIn() {
 
             captureFrameSignInEvent('siwf', frame);
 
-            if (session && `${signed.fid}` === session.profileId) {
+            if (`${signed.fid}` === session?.profileId) {
                 onClose({
                     authMethod: 'custody',
                     message: signed.message,

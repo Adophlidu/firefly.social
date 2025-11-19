@@ -13,14 +13,16 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import renameJsx from './scripts/eslint-plugin-rename-jsx.mjs';
 
 export default defineConfig([
+    {
+        files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.mjs', '**/*.cjs'],
+    },
     globalIgnores([
-        '**/next.config.ts',
-        '**/lingui.config.js',
-        '**/postcss.config.cjs',
-        '**/tailwind.config.cjs',
-        '.storybook',
+        '*.config.ts',
+        '*.config.js',
+        '*.config.cjs',
         '*.d.ts',
-        'dist',
+        '.storybook',
+        '*.svg',
         'tests',
         'eslint.config.mjs',
         'vitest.config.ts',
@@ -29,9 +31,11 @@ export default defineConfig([
         'public',
         'scripts',
         'setups',
+        'dist',
         '.next/**',
-        '*.svg',
         'prebuilt',
+        'packages/**/dist',
+        'packages/**/node_modules',
     ]),
     {
         plugins: {
@@ -60,6 +64,9 @@ export default defineConfig([
             },
         },
         settings: {
+            react: {
+                version: 'detect',
+            },
             tailwindcss: {
                 callees: ['classNames'],
                 cssFilesRefreshRate: 5_000,

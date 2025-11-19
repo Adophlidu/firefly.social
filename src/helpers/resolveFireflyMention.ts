@@ -1,13 +1,14 @@
-import type { Profile } from '@/providers/types/Firefly.js';
 import { createLookupTableResolver } from '@dimensiondev/utils';
+
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { Source, type SocialSource } from '@/constants/enum.js';
 import {
+    FIREFLY_BSKY_PROFILE,
     FIREFLY_FARCASTER_PROFILE,
     FIREFLY_LENS_PROFILE,
     FIREFLY_TWITTER_PROFILE,
-    FIREFLY_BSKY_PROFILE,
 } from '@/constants/mentions.js';
+import type { Profile } from '@/providers/types/Firefly.js';
 
 export const resolveFireflyMention = createLookupTableResolver<SocialSource, Profile>(
     {

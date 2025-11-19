@@ -8,11 +8,11 @@ import { ChainNotConfiguredError, ConnectorChainMismatchError, createConnector, 
 
 import { queryClient } from '@/configs/queryClient.js';
 import { WalletSource } from '@/constants/enum.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
-import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export const PRIVY_CONNECTOR_ID = 'network.privy';
 

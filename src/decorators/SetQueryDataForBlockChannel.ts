@@ -17,7 +17,7 @@ function setBlockStatus(source: SocialSource, channelId: string, status: boolean
     });
 
     const updater = (old: Channel | undefined) => {
-        if (!old || old.id !== channelId) return old;
+        if (old?.id !== channelId) return old;
 
         return produce(old, (draft) => {
             draft.blocked = status;

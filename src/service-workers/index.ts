@@ -33,7 +33,7 @@ const handleActivate = async (): Promise<void> => {
 
 self.addEventListener('message', (event) => {
     // Impression tracking
-    if (event.data && event.data.type === 'PUBLICATION_VISIBLE') {
+    if (event.data?.type === 'PUBLICATION_VISIBLE') {
         visiblePublicationsSet.add(event.data.id);
         viewerId = event.data.viewerId;
     }

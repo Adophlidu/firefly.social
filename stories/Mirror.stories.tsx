@@ -1,7 +1,7 @@
 import '../src/app/globals.css';
 
-import { action } from 'storybook/actions';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { action } from 'storybook/actions';
 
 import { MirrorUI } from '@/components/Actions/Mirror.js';
 import { Source } from '@/constants/enum.js';

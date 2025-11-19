@@ -1,28 +1,27 @@
 /* cspell:disable */
 
 import { sortBy, toInteger, uniqBy } from 'lodash-es';
-import { toHex } from 'viem';
 import urlcat from 'urlcat';
+import { toHex } from 'viem';
 
 import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { MessageType, ReactionType, UserDataType } from '@/constants/farcaster.js';
+import { EMPTY_LIST, NEYNAR_URL } from '@/constants/index.js';
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { URL_REGEX } from '@/constants/regexp.js';
-import { EMPTY_LIST, NEYNAR_URL } from '@/constants/index.js';
+import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
 import { isYouTubeUrl } from '@/helpers/isYouTubeUrl.js';
 import { normalizeUrl } from '@/helpers/normalizeUrl.js';
-import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveNeynarResponseData } from '@/helpers/resolveNeynarResponseData.js';
 import { farcasterPostIdToHash } from '@/providers/farcaster/farcasterPostIdToHash.js';
-import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
 import { formatChannelFromFirefly } from '@/providers/farcaster/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromNeynar } from '@/providers/farcaster/formatFarcasterProfileFromNeynar.js';
+import { getAllMentionsForFarcaster } from '@/providers/farcaster/getAllMentionsForFarcaster.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { publishMessage } from '@/providers/neynar/publishMessage.js';
-import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Channel as FireflyChannel, NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { CastResponse } from '@/providers/types/Hubble.js';
@@ -41,6 +40,7 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 
 class NeynarSocialMedia implements Provider {
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

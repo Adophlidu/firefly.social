@@ -1,7 +1,8 @@
+import { unreachable } from '@dimensiondev/utils';
+
 import { NetworkPluginID } from '@/constants/enum.js';
 import { NETWORK_DESCRIPTORS as evm_networks } from '@/web3-shared/evm/descriptors.js';
 import { NETWORK_DESCRIPTORS as solana_networks } from '@/web3-shared/solana/descriptors.js';
-import { unreachable } from '@dimensiondev/utils';
 
 function getRegistry(ID: NetworkPluginID) {
     switch (ID) {

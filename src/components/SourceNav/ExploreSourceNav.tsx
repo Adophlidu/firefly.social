@@ -2,11 +2,11 @@
 import { classNames } from '@dimensiondev/utils';
 import { omit } from 'lodash-es';
 import { type HTMLProps, memo, useMemo } from 'react';
-import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
+import { base, bsc, mainnet } from 'viem/chains';
 
 import { FilterPanel } from '@/components/FilterPanel.js';
 import { SourceNav } from '@/components/SourceNav/SourceNav.js';
-import { type ExploreSourceInURL, ExploreType, Source, TrendingType, NetworkType } from '@/constants/enum.js';
+import { type ExploreSourceInURL, ExploreType, NetworkType, Source, TrendingType } from '@/constants/enum.js';
 import { EXPLORE_SOURCES } from '@/constants/index.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveExploreSource } from '@/helpers/resolveSourceInUrl.js';
