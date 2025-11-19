@@ -4322,6 +4322,9 @@ msgstr "1 hour"
 msgid "View on website"
 msgstr "View on website"
 
+msgid "Account disabled due to potential risk. Contact us on <0>Telegram</0> to restore access."
+msgstr "Account disabled due to potential risk. Contact us on <0>Telegram</0> to restore access."
+
 msgid "Please confirm the login with X."
 msgstr "Please confirm the login with X."
 

@@ -1,5 +1,7 @@
 import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
+import { bom } from '@dimensiondev/utils';
 
+import type { FetchError } from '@/constants/error.js';
 import type { NextFetchersOptions } from '@/helpers/fetch.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
@@ -11,14 +13,23 @@ class FireflySessionHolder extends SessionHolder<FireflySession> {
             ? await nativeBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {})
             : this.sessionRequired.token;
 
-        return fetchJson<T>(
-            url,
-            {
-                ...init,
-                headers: { ...init?.headers, Authorization: `Bearer ${authToken}` },
-            },
-            options,
-        );
+        try {
+            return await fetchJson<T>(
+                url,
+                {
+                    ...init,
+                    headers: { ...init?.headers, Authorization: `Bearer ${authToken}` },
+                },
+                options,
+            );
+        } catch (err) {
+            if ((err as FetchError).status === 403) {
+                if (bom.document) {
+                    document.dispatchEvent(new CustomEvent('firefly:logout'));
+                }
+            }
+            throw err;
+        }
     }
 
     override fetchWithoutSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {

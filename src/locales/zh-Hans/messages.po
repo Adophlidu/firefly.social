@@ -4327,6 +4327,9 @@ msgstr ""
 msgid "View on website"
 msgstr "在网站上查看"
 
+msgid "Account disabled due to potential risk. Contact us on <0>Telegram</0> to restore access."
+msgstr ""
+
 msgid "Please confirm the login with X."
 msgstr "请在 X 确认登录。"
 
