@@ -1,6 +1,5 @@
 import { type ReactNode, Suspense } from 'react';
 
-import { FireflyWallet } from '@/components/FireflyWallet.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
@@ -17,6 +16,10 @@ const BeforeUnload = dynamic(() => import('@/components/Compose/BeforeUnload.js'
 });
 
 const IframeBridge = dynamic(() => import('@/components/IframeBridge.js').then((m) => m.IframeBridge), { ssr: false });
+
+const FireflyWallet = dynamic(() => import('@/components/FireflyWallet.js').then((m) => m.FireflyWallet), {
+    ssr: false,
+});
 
 const FireflyAccountChecker = dynamic(
     () => import('@/components/FireflyAccountChecker.js').then((m) => m.FireflyAccountChecker),
@@ -79,10 +82,11 @@ export function LayoutBody({ agent, children }: LayoutBodyProps) {
                         <Suspense>
                             <NotificationListener />
                         </Suspense>
+                        <Suspense>
+                            <FireflyWallet />
+                        </Suspense>
                     </IfPathname>
                 ) : null}
-
-                <FireflyWallet />
             </Providers>
             <BeforeUnload />
         </>
