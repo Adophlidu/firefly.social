@@ -23,6 +23,7 @@ import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 
 interface SignupFormFieldsProps {
     source: SocialSource;
+    disabled?: boolean;
 }
 
 function isBlank(str: string) {
@@ -64,6 +65,7 @@ function getFieldsBySource(source: SocialSource): Array<{
     name: string;
     label: ReactNode;
     prefix?: string;
+    placeholder?: string;
     type: 'text' | 'textarea';
     options?: RegisterOptions;
 }> {
@@ -106,7 +108,7 @@ function getFieldsBySource(source: SocialSource): Array<{
                 },
                 maxLength: {
                     value: maxHandleSize,
-                    message: t`User Name should not exceed ${maxBioSize} characters`,
+                    message: t`User Name should not exceed ${maxHandleSize} characters`,
                 },
                 validate: async (value: string) => {
                     if (isBlank(value)) return t`User Name should not be blank`;
@@ -126,6 +128,7 @@ function getFieldsBySource(source: SocialSource): Array<{
             name: 'bio',
             label: <Trans>Bio</Trans>,
             type: 'textarea',
+            placeholder: t`Tell us something about you!`,
             options: {
                 validate(value: string) {
                     if (!value) return true;
@@ -142,14 +145,21 @@ function getFieldsBySource(source: SocialSource): Array<{
     ];
 }
 
-export const SignupFormFields = memo<SignupFormFieldsProps>(function SignupFormFields({ source }) {
+export const SignupFormFields = memo<SignupFormFieldsProps>(function SignupFormFields({ source, disabled = false }) {
     const fields = useMemo(() => getFieldsBySource(source), [source]);
 
     return (
         <>
-            <ProfileAvatarSelector />
+            <ProfileAvatarSelector disabled={disabled} />
             {fields.map((field) => {
                 const fieldId = `signup-${field.name}`;
+                const inputOptions = {
+                    id: fieldId,
+                    name: field.name,
+                    readOnly: disabled,
+                    options: field.options,
+                    placeholder: field.placeholder,
+                };
 
                 return (
                     <div key={field.name} className="text-left">
@@ -164,16 +174,12 @@ export const SignupFormFields = memo<SignupFormFieldsProps>(function SignupFormF
                             ) : null}
                             {field.type === 'text' ? (
                                 <FormInput
-                                    id={fieldId}
-                                    name={field.name}
-                                    options={field.options}
+                                    {...inputOptions}
                                     className={classNames('mt-1.5', field.prefix ? '!pl-8' : '')}
                                 />
                             ) : field.type === 'textarea' ? (
                                 <FormTextarea
-                                    id={fieldId}
-                                    name={field.name}
-                                    options={field.options}
+                                    {...inputOptions}
                                     className={classNames(
                                         'no-scrollbar mt-1.5 h-[100px] resize-none',
                                         field.prefix ? '!pl-8' : '',

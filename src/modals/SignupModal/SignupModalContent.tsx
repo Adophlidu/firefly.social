@@ -100,7 +100,7 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose }) 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex size-full flex-col">
             <div className="no-scrollbar min-h-0 flex-1 space-y-4 overflow-y-auto px-6 pb-6">
-                <SignupFormFields source={source} />
+                <SignupFormFields source={source} disabled={isSubmitting} />
             </div>
             <div className="px-6 pb-4 pt-2">
                 <ClickableButton
