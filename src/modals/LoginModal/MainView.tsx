@@ -26,7 +26,7 @@ import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { PageRoute, PasswordWorkflow, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
 import { TokenExpiredError } from '@/constants/error.js';
 import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@/constants/index.js';
-import { usePathname } from '@/esm/navigation.js';
+import { usePathname, useRouter as useNextRouter } from '@/esm/navigation.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
@@ -93,6 +93,7 @@ function FireflyAccount({
     connections?: AllConnections;
     onChangeMenuOpenStatus?: (open: boolean) => void;
 }) {
+    const router = useNextRouter();
     const avatar = useFireflyAccountAvatar();
 
     const [{ loading: queryMetricsStatusLoading }, queryMetricsStatus] = useAsyncFn(async () => {
@@ -219,6 +220,8 @@ function FireflyAccount({
                                                 close();
                                                 LoginModalRef.close();
                                                 LogoutModalRef.open();
+
+                                                router.prefetch(PageRoute.Signup);
                                             }}
                                         >
                                             <LogoutIcon className="mr-2 size-[18px]" />

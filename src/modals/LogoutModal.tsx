@@ -5,6 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
+import { PageRoute } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
@@ -81,7 +82,7 @@ export function LogoutModal({ ref }: Props) {
                 await removeAllAccounts();
             }
 
-            router.replace('/', {
+            router.replace(PageRoute.Signup, {
                 disableSameURL: true,
                 showProgress: false,
             });
