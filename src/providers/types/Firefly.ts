@@ -2428,3 +2428,18 @@ export type ReportLensResponse = Response<{
     IsSave: boolean;
     UpdateAt?: string;
 }>;
+
+export interface FarcasterAccountInfo {
+    user_name: string;
+    avatar: string;
+    signer_publickey: string;
+    signer_privatekey: string;
+    display_name: string;
+    account_id: string;
+    bio: string;
+    fid: string;
+    account_raw_id: string;
+}
+
+export type FarcasterAccountInfoResponse = Response<FarcasterAccountInfo[]>;
+export type EncryptedAccountInfoResponse = Response<{ data: string }>;

@@ -13,12 +13,15 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useIsLogin, useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { restoreFarcasterAccountsIfNeeded } from '@/services/restoreFarcasterAccounts.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
+import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 
 export function Footer() {
     const isLogin = useIsLogin();
     const isLoginFirefly = useIsLoginFirefly();
     const isLoading = useAsyncStatusAll();
+    const farcasterAccounts = useFarcasterProfileStore.use.accounts();
 
     return (
         <footer className={classNames('absolute inset-x-0 bottom-20 pl-2 md:pl-6')}>
@@ -30,6 +33,7 @@ export function Footer() {
                             useNavigatorState.getState().updateSidebarOpen(false);
                             await delay(300);
                             openLoginModal();
+                            await restoreFarcasterAccountsIfNeeded(farcasterAccounts);
                         }}
                     />
                 </>

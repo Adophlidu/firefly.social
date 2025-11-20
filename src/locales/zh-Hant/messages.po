@@ -3156,6 +3156,9 @@ msgstr "用戶已拒絕了請求。"
 msgid "👉 To stay updated on trades, enable notifications in your browser settings."
 msgstr "👉 為了隨時掌握交易動態，請在瀏覽器設定中開啟通知。"
 
+msgid "Link up to three accounts"
+msgstr ""
+
 msgid "Total Gains"
 msgstr ""
 
@@ -4478,6 +4481,9 @@ msgstr "確定要繼續嗎？"
 
 msgid "Text"
 msgstr "純文字"
+
+msgid "Reauthorize connected account"
+msgstr ""
 
 msgid "Chain"
 msgstr "鏈"

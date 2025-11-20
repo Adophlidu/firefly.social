@@ -18,6 +18,7 @@ import { removeAllAccounts, removeCurrentAccount } from '@/services/account.js';
 interface LogoutModalProps {
     account?: Account;
 }
+
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<LogoutModalProps | void>>;
 };

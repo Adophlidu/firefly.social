@@ -5,7 +5,7 @@ export enum ServerErrorCodes {
     UNKNOWN = 40001,
 }
 
-function createResponseJson(data: unknown, init?: ResponseInit) {
+export function createResponseJson(data: unknown, init?: ResponseInit) {
     const status = init?.status ?? 200;
 
     return Response.json(data, {

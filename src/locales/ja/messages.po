@@ -3156,6 +3156,9 @@ msgstr ""
 msgid "👉 To stay updated on trades, enable notifications in your browser settings."
 msgstr ""
 
+msgid "Link up to three accounts"
+msgstr ""
+
 msgid "Total Gains"
 msgstr ""
 
@@ -4476,6 +4479,9 @@ msgid "Are you sure you want to continue?"
 msgstr ""
 
 msgid "Text"
+msgstr ""
+
+msgid "Reauthorize connected account"
 msgstr ""
 
 msgid "Chain"

@@ -3156,6 +3156,9 @@ msgstr "用户取消了请求。"
 msgid "👉 To stay updated on trades, enable notifications in your browser settings."
 msgstr "👉 为了随时掌握交易动态，请在浏览器设置中开启通知。"
 
+msgid "Link up to three accounts"
+msgstr ""
+
 msgid "Total Gains"
 msgstr "总收益"
 
@@ -4478,6 +4481,9 @@ msgstr "你确定要继续吗？"
 
 msgid "Text"
 msgstr "文本"
+
+msgid "Reauthorize connected account"
+msgstr ""
 
 msgid "Chain"
 msgstr "链"

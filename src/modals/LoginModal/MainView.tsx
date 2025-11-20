@@ -18,11 +18,14 @@ import PlusIcon from '@/assets/plus.svg';
 import ScanIcon from '@/assets/scan.svg';
 import SwitchIcon from '@/assets/switch.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { PageRoute, PasswordWorkflow, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
 import { TokenExpiredError } from '@/constants/error.js';
 import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@/constants/index.js';
@@ -39,6 +42,7 @@ import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
+import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
@@ -276,6 +280,7 @@ export function MainView() {
     const isLoginFirefly = useIsLoginFirefly();
     const profileStore = useProfileStoreAll();
     const profilesAll = useCurrentProfilesAll();
+    const fireflyProfilesAll = useCurrentFireflyProfilesAll();
 
     const { data, isLoading } = useAllConnections();
 
@@ -403,6 +408,12 @@ export function MainView() {
                         </div>
                         <div className="flex flex-col gap-2">
                             {SORTED_LOGIN_SOCIAL_SOURCES.map((source, index) => {
+                                const accounts = profileStore[source].accounts;
+                                const profileIds = accounts.map((x) => x.profile.profileId);
+                                const profiles = fireflyProfilesAll
+                                    .filter((x) => x.identity.source === source && !profileIds.includes(x.identity.id))
+                                    .slice(0, 3);
+                                const isExceed = accounts.length >= 3;
                                 return (
                                     <div
                                         className="overflow-hidden rounded-lg border border-secondaryLine"
@@ -424,9 +435,15 @@ export function MainView() {
                                                 <ProfileSourceIcon source={source} size={20} />
                                                 <span>{resolveSourceName(source)}</span>
                                             </div>
-                                            <PlusIcon className="size-5" />
+                                            <Tooltip
+                                                content={isExceed ? <Trans>Link up to three accounts</Trans> : null}
+                                            >
+                                                <PlusIcon
+                                                    className={classNames('size-5', isExceed ? 'opacity-40' : '')}
+                                                />
+                                            </Tooltip>
                                         </ClickableButton>
-                                        {profileStore[source].accounts.map((account, index) => {
+                                        {accounts.map((account, index) => {
                                             const isCurrent = isSameProfile(profilesAll[source], account.profile);
                                             return (
                                                 <div
@@ -471,6 +488,20 @@ export function MainView() {
                                                 </div>
                                             );
                                         })}
+                                        {profiles.length > 0 ? (
+                                            <ClickableArea
+                                                className="flex cursor-pointer items-center gap-[10px] border-t border-t-line p-2"
+                                                onClick={() => onClick(source)}
+                                            >
+                                                <AvatarGroup
+                                                    profiles={profiles}
+                                                    AvatarProps={{ className: 'size-5', size: 20 }}
+                                                />
+                                                <span className="text-sm font-normal text-second">
+                                                    <Trans>Reauthorize connected account</Trans>
+                                                </span>
+                                            </ClickableArea>
+                                        ) : null}
                                     </div>
                                 );
                             })}

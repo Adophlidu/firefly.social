@@ -3151,6 +3151,9 @@ msgstr "The user rejected the request."
 msgid "👉 To stay updated on trades, enable notifications in your browser settings."
 msgstr "👉 To stay updated on trades, enable notifications in your browser settings."
 
+msgid "Link up to three accounts"
+msgstr "Link up to three accounts"
+
 msgid "Total Gains"
 msgstr "Total Gains"
 
@@ -4472,6 +4475,9 @@ msgstr "Are you sure you want to continue?"
 
 msgid "Text"
 msgstr "Text"
+
+msgid "Reauthorize connected account"
+msgstr "Reauthorize connected account"
 
 msgid "Chain"
 msgstr "Chain"

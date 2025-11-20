@@ -21,6 +21,7 @@ import type { Account } from '@/providers/types/Account.js';
 import { DesktopLinkInfoStatus, type DesktopLinkInfoStatusData } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { addAccounts } from '@/services/account.js';
+import { restoreFarcasterAccountsIfNeeded } from '@/services/restoreFarcasterAccounts.js';
 
 export interface AuthDataFromApp {
     firefly_account_token: string;
@@ -67,22 +68,25 @@ type SocialSession = FarcasterSession | LensSession | TwitterSession | BskySessi
 export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: string) {
     if (data.status !== DesktopLinkInfoStatus.Confirm) throw new DecryptionError(t`The encrypted data not found.`);
     if (!data.encryptedData) throw new DecryptionError(t`The encrypted data not found.`);
+
     const response = await decryptAppScanLoginEncryptedData(data.encryptedData, otp);
     if ('error' in response) throw new DecryptionError(response.error);
+
     const fireflySession = SessionFactory.createSession<FireflySession>(response.fireflySession);
     const sessions = response.sessions.map((session) => SessionFactory.createSession<SocialSession>(session));
-    const promises = sessions.map(async (session) => {
-        if (session.type === SessionType.Bsky) return null;
-        const source = resolveSourceFromSessionType(session.type) as SocialSource;
-        const profile = await resolveSocialMediaProvider(source).getProfileById(session.profileId);
-        return {
-            origin: 'sync',
-            profile,
-            fireflySession,
-            session,
-        } satisfies Account;
-    });
-    const settled = await Promise.allSettled(promises);
+    const settled = await Promise.allSettled(
+        sessions.map(async (session) => {
+            if (session.type === SessionType.Bsky) return null;
+            const source = resolveSourceFromSessionType(session.type) as SocialSource;
+            const profile = await resolveSocialMediaProvider(source).getProfileById(session.profileId);
+            return {
+                origin: 'sync',
+                profile,
+                fireflySession,
+                session,
+            } satisfies Account;
+        }),
+    );
     const accounts = compact(settled.map((x) => (x.status === 'fulfilled' ? x.value : null)));
     const result = await addAccounts(fireflySession, accounts, {
         async setAsCurrent(account) {
@@ -96,6 +100,9 @@ export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: str
     });
 
     if (result) {
+        // dispatch restore farcaster accounts if needed
+        await restoreFarcasterAccountsIfNeeded(accounts);
+
         await queryClient.refetchQueries({ queryKey: ['all-profiles'] });
         await queryClient.refetchQueries({ queryKey: ['allConnections'] });
     }
