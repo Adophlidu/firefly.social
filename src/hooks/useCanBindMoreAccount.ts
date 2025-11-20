@@ -1,5 +1,6 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
+import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 
 const maxAccountCountPeerSource: Record<SocialSource, number> = {
     [Source.Farcaster]: 3,
@@ -9,15 +10,17 @@ const maxAccountCountPeerSource: Record<SocialSource, number> = {
 };
 
 export function useCanBindMoreAccount(source: SocialSource) {
+    const profileStore = useProfileStoreAll();
     const { data, isLoading, isRefetching, ...rest } = useAllConnections();
+
+    const maxCount = maxAccountCountPeerSource[source];
+    const connectedCount = data?.social[source].connected.length || 0;
+    const loggedInCount = profileStore[source].accounts.length;
 
     return {
         ...rest,
         isLoading,
         isRefetching,
-        data:
-            isLoading || isRefetching || !data
-                ? false
-                : data.social[source].connected.length < maxAccountCountPeerSource[source],
+        data: isLoading || isRefetching || !data ? false : connectedCount < maxCount && loggedInCount < maxCount,
     };
 }
