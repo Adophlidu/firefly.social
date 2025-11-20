@@ -57,7 +57,7 @@ const deployAccountContract = memoizePromise(
                 metadataUri,
             }),
         );
-        return handleOperationWithLensChain(txData);
+        return handleOperationWithLensChain(txData, true, sessionClient);
     },
     (sessionClient: SessionClient, handle: string, metadataUri: string, address: string) =>
         `${handle}-${metadataUri}-${address}`,

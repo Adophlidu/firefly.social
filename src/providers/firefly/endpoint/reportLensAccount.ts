@@ -6,15 +6,15 @@ import type { Account } from '@/providers/types/Account.js';
 import type { ReportLensResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
-export async function reportLensAccount(account: Account) {
+export async function reportLensAccount({ session, profile }: Account) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/lens/report');
     const response = await fireflySessionHolder.fetchWithoutSession<ReportLensResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
-            accessToken: account.session.token,
-            ProfileId: account.profile.profileId,
-            HandlesName: account.profile.handle,
-            LensAddress: account.profile.profileId,
+            accessToken: session.token,
+            ProfileId: profile.profileId,
+            HandlesName: profile.handle,
+            LensAddress: profile.ownedBy?.address || profile.profileId,
         }),
     });
     return resolveFireflyResponseData(response);
