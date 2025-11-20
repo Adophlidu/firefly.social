@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-10-29 12:01\n"
+"PO-Revision-Date: 2025-11-19 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -68,7 +68,7 @@ msgid "No frame found."
 msgstr "未找到 frame。"
 
 msgid "Failed to like."
-msgstr ""
+msgstr "点赞失败。"
 
 msgid "Coins"
 msgstr "代币"
@@ -77,7 +77,7 @@ msgid "Scan this QR code if you’ve used Farcaster to sign in before.<0/><1>Fir
 msgstr "如果曾使用过 Farcaster 登录，请扫描此二维码。<0/><1>首次登录</1>？点击此处开始。"
 
 msgid "Tip unliked."
-msgstr ""
+msgstr "已取消点赞。"
 
 msgid "FAILED THREAD POST"
 msgstr "发送帖子串失败"
@@ -125,7 +125,7 @@ msgid "Unmute successfully."
 msgstr "取消隐藏成功。"
 
 msgid "Failed to like polymarket."
-msgstr ""
+msgstr "点赞失败。"
 
 msgid "Refunded"
 msgstr "已退款"
@@ -342,7 +342,7 @@ msgid "Ended"
 msgstr "已结束"
 
 msgid "Polymarket liked."
-msgstr ""
+msgstr "点赞成功。"
 
 msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr "未能在 Firefly 上关注 @{handleOrEnsOrAddress}。"
@@ -436,7 +436,7 @@ msgstr "活动"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "{0} profile created."
-msgstr ""
+msgstr "已创建 {0} 个人账号。"
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "10% 以上的税率可能被认为是高的税率。超过 50% 的税率可能无法交易。"
@@ -454,7 +454,7 @@ msgid "Potential risk of external call."
 msgstr "存在外部调用的潜在风险。"
 
 msgid "Swap liked."
-msgstr ""
+msgstr "已点赞。"
 
 msgid "Avg"
 msgstr "平均"
@@ -484,10 +484,10 @@ msgid "The token can be bought."
 msgstr "该代币可购买。"
 
 msgid "Failed to like swap."
-msgstr ""
+msgstr "点赞失败。"
 
 msgid "Liked."
-msgstr ""
+msgstr "已点赞。"
 
 msgid "Trending"
 msgstr "热门"
@@ -588,7 +588,7 @@ msgid "Adding..."
 msgstr "添加中..."
 
 msgid "Failed to like snapshot."
-msgstr ""
+msgstr "取消点赞失败。"
 
 msgid "Mint"
 msgstr "铸造"
@@ -625,7 +625,7 @@ msgid "Overview"
 msgstr "概览"
 
 msgid "Stocks"
-msgstr ""
+msgstr "股币"
 
 msgid "Sorry, the email you entered is invalid"
 msgstr "抱歉，你输入的邮箱无效"
@@ -722,7 +722,7 @@ msgid "Followed by {0} , {1}, and {2} others you follow"
 msgstr "被您关注的 {0}、{1} 和其他 {2} 人关注着"
 
 msgid "Tell us something about you!"
-msgstr ""
+msgstr "说点关于你自己的事吧！"
 
 msgid "Confirm"
 msgstr "确认"
@@ -748,7 +748,7 @@ msgid "Report submitted"
 msgstr "已举报"
 
 msgid "Username"
-msgstr ""
+msgstr "用户名"
 
 #. placeholder {0}: post.stats.quotes
 msgid "{0, plural, one {quote} other {quotes}}"
@@ -901,7 +901,7 @@ msgid "Failed to load image."
 msgstr "图片加载失败，请重试。"
 
 msgid "Auto Login Permission"
-msgstr ""
+msgstr "自动登录权限"
 
 #. placeholder {0}: space.name
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
@@ -909,13 +909,13 @@ msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr "<0>{0}</0> 由 <1>{1}</1>"
 
 msgid "Failed to unlike tip."
-msgstr ""
+msgstr "取消点赞失败。"
 
 msgid "Snapshot unliked."
-msgstr ""
+msgstr "已取消点赞。"
 
 msgid "User Name should be at least {minHandleSize} characters"
-msgstr ""
+msgstr "用户名长度至少需要 {minHandleSize} 个字符"
 
 msgid "Sending"
 msgstr "发送中"
@@ -1033,7 +1033,7 @@ msgid "{addressName} is already connected."
 msgstr "{addressName} 已经绑定了。"
 
 msgid "Failed to add bookmark."
-msgstr ""
+msgstr "添加收藏失败。"
 
 msgid "No Airdrop Scam"
 msgstr "没有空投骗局"
@@ -1128,7 +1128,7 @@ msgid "Owners"
 msgstr "拥有者"
 
 msgid "6h"
-msgstr ""
+msgstr "6 小时"
 
 msgid "Sorry, give edit permission from Orb is necessary to continue."
 msgstr "抱歉，需通过Orb授予编辑权限方可继续。"
@@ -1137,7 +1137,7 @@ msgid "Phishing activities found."
 msgstr "发现钓鱼活动。"
 
 msgid "Swap unliked."
-msgstr ""
+msgstr "已取消点赞。"
 
 msgid "Drop type"
 msgstr "红包类型"
@@ -1287,7 +1287,7 @@ msgid "No proxy"
 msgstr "无代理"
 
 msgid "Token removed from your Bookmarks."
-msgstr ""
+msgstr "已取消收藏。"
 
 msgid "There is no data available to display"
 msgstr "没有可显示的数据"
@@ -1390,7 +1390,7 @@ msgid "Privacy and security"
 msgstr "隐私和安全"
 
 msgid "Create your Firefly Profile"
-msgstr "创建 Firefly 个人资料"
+msgstr "创建 Firefly 账户"
 
 msgid "Log in with your X account to view"
 msgstr "使用你的X账户登录以查看"
@@ -1523,7 +1523,7 @@ msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
 msgstr "<0>获取</0><1/><2>从</2><3><4>{0}</4></3>"
 
 msgid "Matters article"
-msgstr ""
+msgstr "Matters 文章"
 
 msgid "<0>Bought</0><1/>"
 msgstr "<0>购买</0><1/>"
@@ -1587,7 +1587,7 @@ msgid "Add an existing account"
 msgstr "添加已有的账号"
 
 msgid "Volume(24h) · Market Cap"
-msgstr ""
+msgstr "市值"
 
 #. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"
@@ -1702,14 +1702,14 @@ msgid "All Wallets"
 msgstr "所有钱包"
 
 msgid "Failed to remove bookmark."
-msgstr ""
+msgstr "移除收藏失败。"
 
 msgid "Significant movements in token prices"
 msgstr "代币价格重大波动"
 
 #. placeholder {0}: resolveSourceName(props.source)
 msgid "Create {0} Profile"
-msgstr ""
+msgstr "创建 {0} 个账户"
 
 msgid "Market"
 msgstr "市场"
@@ -1730,7 +1730,7 @@ msgid "Set {formattedAddress} as primary Solana wallet"
 msgstr "将 {formattedAddress} 设为 Solana 主钱包"
 
 msgid "Unliked."
-msgstr ""
+msgstr "已取消点赞。"
 
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
@@ -2050,7 +2050,7 @@ msgid "Website"
 msgstr "网站"
 
 msgid "Top Searches"
-msgstr ""
+msgstr "热门搜索"
 
 msgid "Your TG account is now connected"
 msgstr "您的 TG 账户已绑定"
@@ -2073,14 +2073,14 @@ msgid "Bio should not exceed {maxBioSize} characters"
 msgstr "个人介绍不可以超过 {maxBioSize} 个字符"
 
 msgid "5 minutes"
-msgstr ""
+msgstr "5 分钟"
 
 #. placeholder {0}: activity.tx_status
 msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
 msgstr "{0, select, success {成功} failed {失败} pending {待处理} other {失败}}"
 
 msgid "5m"
-msgstr ""
+msgstr "5 分钟"
 
 msgid "Tip sent successfully!"
 msgstr "打赏发送成功！"
@@ -2202,7 +2202,7 @@ msgid "Requirements"
 msgstr "条件"
 
 msgid "Time range filter"
-msgstr ""
+msgstr "筛选时间"
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 高风险项} other {# 高风险项}}"
@@ -2249,7 +2249,7 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collec
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>铸造收集了你的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {帖子}}</5>"
 
 msgid "User Name should not exceed {maxHandleSize} characters"
-msgstr ""
+msgstr "用户名长度不能超过 {maxHandleSize} 个字符"
 
 msgid "Polymarket PnL"
 msgstr "Polymarket 收益"
@@ -2264,7 +2264,7 @@ msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "操作无法回滚，并且定时发布任务将会被取消。"
 
 msgid "Failed to unlike polymarket."
-msgstr ""
+msgstr "取消点赞成功。"
 
 msgid "Lens"
 msgstr "Lens"
@@ -2305,7 +2305,7 @@ msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have
 msgstr "授予红包智能合约访问你 {0} 的权限。每个代币只需执行一次。"
 
 msgid "Price · Change"
-msgstr ""
+msgstr "价格变化"
 
 msgid "NFT holder of any one below"
 msgstr "持有以下任意 NFT 系列"
@@ -2548,7 +2548,7 @@ msgid "Minting Date"
 msgstr "铸造日期"
 
 msgid "24 hours"
-msgstr ""
+msgstr "24 小时"
 
 msgid "Failed to create red packet"
 msgstr "创建红包失败"
@@ -2573,10 +2573,10 @@ msgid "Reauthorize"
 msgstr "重新授权"
 
 msgid "Failed to unlike."
-msgstr ""
+msgstr "取消点赞失败。"
 
 msgid "24h"
-msgstr ""
+msgstr "24 小时"
 
 msgid "Like"
 msgstr "点赞"
@@ -2633,7 +2633,7 @@ msgid "No stealing attack involved."
 msgstr "未涉及盗窃攻击。"
 
 msgid "Removed from bookmarks"
-msgstr ""
+msgstr "已移除收藏"
 
 msgid "Deleted your Firefly account"
 msgstr "你的 Firefly 账户已删除"
@@ -2651,10 +2651,10 @@ msgid "Article removed from your Bookmarks"
 msgstr "文章已经从你的收藏中移除"
 
 msgid "6 hours"
-msgstr ""
+msgstr "6 小时"
 
 msgid "Failed to unlike article."
-msgstr ""
+msgstr "取消点赞失败。"
 
 msgid "Download media"
 msgstr "下载媒体"
@@ -2770,7 +2770,7 @@ msgid "Share"
 msgstr "分享"
 
 msgid "Tip liked."
-msgstr ""
+msgstr "点赞成功。"
 
 msgid "Trades"
 msgstr "交易"
@@ -2856,7 +2856,7 @@ msgid "{0} muted users"
 msgstr "{0} 已隐藏用户"
 
 msgid "Open Google Form"
-msgstr ""
+msgstr "打开 Google 表格"
 
 #. placeholder {0}: resolveSourcesName( availableSources.filter((x) => MAX_FILE_SIZE_PER_VIDEO[x] === videoSizeLimit), )
 #. placeholder {1}: formatFileSize(videoSizeLimit)
@@ -2867,7 +2867,7 @@ msgid "Received time:"
 msgstr "接收时间："
 
 msgid "Article unliked."
-msgstr ""
+msgstr "已取消点赞。"
 
 msgid "Random Split"
 msgstr "随机分配"
@@ -2900,7 +2900,7 @@ msgid "Post is decrypting..."
 msgstr "帖子解密中..."
 
 msgid "Go to Farcaster"
-msgstr ""
+msgstr "进入 Farcaster"
 
 msgid "Transaction"
 msgstr "交易"
@@ -3043,7 +3043,7 @@ msgid "The content of this account is currently unavailable"
 msgstr "无法获取这个账户的内容"
 
 msgid "Failed to like article."
-msgstr ""
+msgstr "点赞文章失败。"
 
 msgid "Wallet added successfully"
 msgstr "添加钱包成功"
@@ -3081,7 +3081,7 @@ msgid "Enter the amount that each winner can claim"
 msgstr "输入每个获奖者可以领取的金额"
 
 msgid "Newest"
-msgstr ""
+msgstr "最新"
 
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
@@ -3094,7 +3094,7 @@ msgid "Download image"
 msgstr "下载图片"
 
 msgid "User Name should not be blank"
-msgstr ""
+msgstr "名称不可以为空"
 
 msgid "Sorry, today's free collect quota has been reached."
 msgstr "抱歉，今天的免费铸造收集额度已用完。"
@@ -3339,7 +3339,7 @@ msgid "Financial crime found."
 msgstr "识别为金融犯罪。"
 
 msgid "Failed to like tip."
-msgstr ""
+msgstr "点赞失败。"
 
 msgid "Feeds for tokens on this chain will be available soon."
 msgstr "暂不支持该链代币的帖子搜索。"
@@ -3518,7 +3518,7 @@ msgid "No matching token"
 msgstr "未匹配到代币"
 
 msgid "No Farcaster account? <0>Sign up</0> on Firefly"
-msgstr ""
+msgstr "还没有账号? <0>注册</0>"
 
 msgid "Win Rate"
 msgstr "胜率"
@@ -3564,7 +3564,7 @@ msgid "Polls are only available on {0}"
 msgstr "投票仅支持 {0}"
 
 msgid "Added to bookmarks"
-msgstr ""
+msgstr "已添加书签"
 
 #. placeholder {0}: post.stats.comments
 msgid "{0, plural, one {comment} other {comments}}"
@@ -3688,7 +3688,7 @@ msgid "Enter Number of Winners"
 msgstr "输入获奖人数"
 
 msgid "Please switch to the wallet associated with your Lens account for signature."
-msgstr ""
+msgstr "请切换到与你的 Lens 账户关联的钱包进行签名。"
 
 msgid "Add"
 msgstr "添加"
@@ -3704,7 +3704,7 @@ msgid "Money laundering found."
 msgstr "被识别为洗钱。"
 
 msgid "Sign Up"
-msgstr ""
+msgstr "注册"
 
 msgid "Share image"
 msgstr "分享图片"
@@ -3771,7 +3771,7 @@ msgstr "不少于 {0}"
 
 #. placeholder {0}: error instanceof Error ? ` ${error.message}` : ''
 msgid "Failed to vote.{0}"
-msgstr ""
+msgstr "投票失败。 {0}"
 
 msgid "{viewCount, plural, one {view} other {views}}"
 msgstr "{viewCount, plural, one {查看} other {查看}}"
@@ -3932,10 +3932,10 @@ msgid "Your email is now connected."
 msgstr "您的邮箱已绑定。"
 
 msgid "Volume · MC"
-msgstr ""
+msgstr "市值"
 
 msgid "Snapshot liked."
-msgstr ""
+msgstr "点赞成功。"
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "全名不可以超过 {maxDisplayNameSize} 个字"
@@ -4068,7 +4068,7 @@ msgid "Clear all requirements"
 msgstr "清除所有任务"
 
 msgid "please <0>change</0> to another wallet."
-msgstr ""
+msgstr "请 <0>切换</0> 其他钱包。"
 
 msgid "Claim Requirements"
 msgstr "领取条件"
@@ -4264,7 +4264,7 @@ msgstr "{0}时: {1}分: {2}秒"
 #. placeholder {0}: resolveSourceName(source)
 #. placeholder {1}: error instanceof Error ? error.message : ''
 msgid "Failed to create {0} profile.{1}"
-msgstr ""
+msgstr "创建 {0} 账户 {1} 失败"
 
 #. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
 #. placeholder {1}: feed.deployPlatform && feed.deployPlatformLogo ? ( <div className="flex items-center gap-1"> on <Image src={feed.deployPlatformLogo} className="size-[18px] rounded-full" alt={feed.deployPlatform} width={18} height={18} /> <span className="h-6 capitalize leading-6">{feed.deployPlatform}</span> </div> ) : null
@@ -4325,7 +4325,7 @@ msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{t
 msgstr "<0>已领取: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> <3>{token_symbol}</3>"
 
 msgid "1 hour"
-msgstr ""
+msgstr "1 小时"
 
 msgid "View on website"
 msgstr "在网站上查看"
@@ -4346,8 +4346,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "验证密码时出现意外步骤：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
+msgstr "如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
 "但如果你仍想访问另一个社交账号绑定的 Firefly 钱包，建议你切换账户，而不是删除账户。"
 
 msgid "<0>You</0> recasted"
@@ -4363,7 +4362,7 @@ msgid "Value"
 msgstr "价值"
 
 msgid "1h"
-msgstr ""
+msgstr "1 小时"
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
@@ -4466,7 +4465,7 @@ msgid "Unmuted {handleOrEnsOrAddress}."
 msgstr "已取消隐藏 {handleOrEnsOrAddress}。"
 
 msgid "Polymarket unliked."
-msgstr ""
+msgstr "取消点赞成功。"
 
 msgid "No trading cooldown function."
 msgstr "没有交易冷却功能。"
@@ -4538,10 +4537,10 @@ msgid "No connected wallet."
 msgstr "没有连接任何钱包。"
 
 msgid "Failed to unlike snapshot."
-msgstr ""
+msgstr "取消点赞失败。"
 
 msgid "Sign to grant Firefly permission for auto login"
-msgstr ""
+msgstr "签名授权 Firefly 自动登录权限"
 
 msgid "Hide assets < 1 USD"
 msgstr "隐藏少于 1 美元的资产"
@@ -4583,7 +4582,7 @@ msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
 msgstr "可在 <0>设置 > 内容偏好</0> 随时重新开启"
 
 msgid "Failed to unlike swap."
-msgstr ""
+msgstr "取消点赞失败。"
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
@@ -4599,7 +4598,7 @@ msgid "<0>change</0> wallet or <1>sign up</1> on Firefly"
 msgstr ""
 
 msgid "Article liked."
-msgstr ""
+msgstr "点赞成功。"
 
 msgid "Are you sure you want to report this user?"
 msgstr "你确定要举报这个用户么？"
@@ -4627,3 +4626,4 @@ msgstr "多设备登录"
 
 msgid "Success"
 msgstr "成功"
+
