@@ -226,6 +226,9 @@ msgstr "請輸入新密碼以驗證身份。"
 msgid "Mute @{0}"
 msgstr "隱藏 @{0}"
 
+msgid "Your Lens login token has expired. Please sign in again."
+msgstr ""
+
 #. placeholder {0}: formatFileSize(maxVideoSize)
 msgid "Failed to upload. Video size exceeds {0}"
 msgstr "上傳失敗。影片大小超過 {0}"

@@ -221,6 +221,9 @@ msgstr ""
 msgid "Mute @{0}"
 msgstr ""
 
+msgid "Your Lens login token has expired. Please sign in again."
+msgstr ""
+
 #. placeholder {0}: formatFileSize(maxVideoSize)
 msgid "Failed to upload. Video size exceeds {0}"
 msgstr ""

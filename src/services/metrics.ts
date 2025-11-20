@@ -1,5 +1,6 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
+import { jwtDecode } from 'jwt-decode';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 import { sha256, toHex } from 'viem';
@@ -9,7 +10,7 @@ import { env } from '@/constants/env.js';
 import { TokenExpiredError } from '@/constants/error.js';
 import { SEVEN_DAYS } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getAllAccounts } from '@/helpers/getAllProfiles.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
@@ -18,8 +19,10 @@ import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getPublicKeyInHexFromPrivateKey } from '@/providers/farcaster/ed25519.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
+import { deleteMetrics } from '@/providers/firefly/metrics/deleteMetrics.js';
 import { downloadMetaInfo } from '@/providers/firefly/metrics/downloadMetaInfo.js';
 import { downloadMetrics } from '@/providers/firefly/metrics/downloadMetrics.js';
 import { uploadMetrics as uploadFireflyMetrics } from '@/providers/firefly/metrics/uploadMetrics.js';
@@ -154,6 +157,15 @@ export async function downloadAccounts() {
     return response.metrics;
 }
 
+function isExpiredRefreshToken(token: string) {
+    try {
+        const payload = jwtDecode(token);
+        return !!payload.exp && Date.now() >= payload.exp * 1000 - 60 * 1000;
+    } catch {
+        return false;
+    }
+}
+
 /**
  * merge local metrics with remote metrics
  * @param passcode
@@ -183,6 +195,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
 
     await uploadFireflyMetrics(passcode, compact(mergedMetrics));
 
+    const metricIdsToDelete: string[] = [];
     for (const info of remoteMetrics) {
         if (
             info.metaInfo.platform === 'bluesky' ||
@@ -242,6 +255,14 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                     data.address,
                     data.identity_token,
                 );
+                // TODO: maybe we can check token with api here for each session, but its too slow
+                if (isExpiredRefreshToken(session.refreshToken)) {
+                    metricIdsToDelete.push(`${SourceInURL.Lens}:${profileId}`);
+                    if (enqueueMessage) {
+                        enqueueWarningMessage(t`Your Lens login token has expired. Please sign in again.`);
+                    }
+                    continue;
+                }
 
                 const account = {
                     profile,
@@ -316,6 +337,11 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
             default:
                 safeUnreachable(source);
         }
+    }
+
+    // delete unused metrics
+    if (metricIdsToDelete.length > 0) {
+        runInSafeAsync(() => deleteMetrics(passcode, metricIdsToDelete));
     }
 
     if (enqueueMessage) {
