@@ -2,7 +2,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 
 import { Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { ProfileLike } from '@/providers/types/SocialMedia.js';
@@ -39,9 +39,9 @@ export function resolveFireflyIdentity(profile: ProfileLike | null): FireflyIden
 
 export function resolveCurrentFireflyAccountId() {
     const profile =
-        getProfileFromStorage(Source.Lens) ||
-        getProfileFromStorage(Source.Farcaster) ||
-        getProfileFromStorage(Source.Twitter);
+        getCurrentProfileFromStorage(Source.Lens) ||
+        getCurrentProfileFromStorage(Source.Farcaster) ||
+        getCurrentProfileFromStorage(Source.Twitter);
 
     const identity = resolveFireflyIdentity(profile);
     if (!identity) return;

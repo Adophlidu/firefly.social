@@ -4,7 +4,7 @@ import { Source, SourceInURL } from '@/constants/enum.js';
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { readChars } from '@/helpers/chars.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isYouTubeUrl } from '@/helpers/isYouTubeUrl.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
@@ -74,7 +74,7 @@ export async function createFarcasterSchedulePostPayload(
 
     const urls = content.match(URL_REGEX) || [];
     const contentUrls = sortBy(urls, (x) => (isYouTubeUrl(x) ? -1 : 0)).map((url) => ({ url }));
-    const profile = getProfileState(Source.Farcaster).currentProfile;
+    const profile = getCurrentProfileFromStorage(Source.Farcaster);
     const imageCountLimit = profile?.isProUser
         ? MAX_IMAGE_SIZE_PRO_PER_POST[Source.Farcaster]
         : MAX_IMAGE_SIZE_PER_POST[Source.Farcaster];

@@ -10,9 +10,9 @@ import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage, MessageKey } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getPostFailedAt } from '@/helpers/getPostFailedAt.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
@@ -28,7 +28,7 @@ import { type CompositePost, useComposeStateStore } from '@/store/useComposeStor
 import type { ComposeType } from '@/types/compose.js';
 
 async function refreshProfileFeed(source: SocialSource) {
-    const currentProfile = getProfileFromStorage(source);
+    const currentProfile = getCurrentProfileFromStorage(source);
 
     await queryClient.invalidateQueries({
         queryKey: ['posts', source, 'posts-of', currentProfile?.profileId],
@@ -63,7 +63,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
 
         const claimPlatforms = compact(
             SORTED_SOCIAL_SOURCES.map((x) => {
-                const currentProfile = getProfileFromStorage(x);
+                const currentProfile = getCurrentProfileFromStorage(x);
                 return postId[x] && currentProfile
                     ? {
                           platformId: currentProfile.profileId,
@@ -74,7 +74,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
         );
         const postOn: FireflyRedPacketAPI.PostOn[] = compact(
             SORTED_SOCIAL_SOURCES.map((x) => {
-                const currentProfile = getProfileFromStorage(x);
+                const currentProfile = getCurrentProfileFromStorage(x);
                 return postId[x] && currentProfile
                     ? {
                           platform: resolveRedPacketPlatformType(x),

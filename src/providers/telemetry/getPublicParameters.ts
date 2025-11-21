@@ -1,7 +1,7 @@
 import { bom } from '@dimensiondev/utils';
 
 import { Source } from '@/constants/enum.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
@@ -9,10 +9,10 @@ import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js'
 export function getPublicParameters(eventId: string, previousEventId: string | null) {
     const fireflySession = getSessionFromStorage(SessionType.Firefly);
 
-    const lensProfile = getProfileFromStorage(Source.Lens);
-    const farcasterProfile = getProfileFromStorage(Source.Farcaster);
-    const xProfile = getProfileFromStorage(Source.Twitter);
-    const bskyProfile = getProfileFromStorage(Source.Bsky);
+    const lensProfile = getCurrentProfileFromStorage(Source.Lens);
+    const farcasterProfile = getCurrentProfileFromStorage(Source.Farcaster);
+    const xProfile = getCurrentProfileFromStorage(Source.Twitter);
+    const bskyProfile = getCurrentProfileFromStorage(Source.Bsky);
 
     const developmentAPI = useDeveloperSettingsState.getState().developmentAPI;
 

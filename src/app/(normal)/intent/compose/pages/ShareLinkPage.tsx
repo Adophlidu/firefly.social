@@ -7,7 +7,7 @@ import { CharTag, FireflyPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
 import { formatSearchProfile } from '@/helpers/formatSearchProfile.js';
-import { getProfileAllFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { getCurrentProfileAllFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { trimify } from '@/helpers/trimify.js';
@@ -65,7 +65,7 @@ async function openCompose(props: ShareLinkProps, onFinished: () => void) {
     const query = trimify(props.via || '').replace(/^@/, '');
     const identities = query ? await searchIdentities(query) : [];
 
-    const currentProfiles = getProfileAllFromStorage();
+    const currentProfiles = getCurrentProfileAllFromStorage();
     const matchedIdentity = identities.find((x) => x.profile.handle === query);
 
     const isLogin = Object.values(currentProfiles).some((x) => !!x?.profileId);

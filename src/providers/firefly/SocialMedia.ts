@@ -10,7 +10,7 @@ import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatFireflyNotification } from '@/helpers/formatFireflyNotification.js';
 import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import { isZero } from '@/helpers/number.js';
@@ -334,7 +334,7 @@ class FireflySocialMedia implements Provider {
 
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
-            const profile = getProfileFromStorage(Source.Farcaster);
+            const profile = getCurrentProfileFromStorage(Source.Farcaster);
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/trending_casts', {
                 channelUrl: channel.url,
                 channelHandle: channel.id,

@@ -1,5 +1,5 @@
 import { NotificationSourceType, type ProfileSource, Source } from '@/constants/enum.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -56,7 +56,7 @@ let delayJobId: NodeJS.Timeout | null = null;
 
 function getCurrentProfileId(source: Config['loginSource']) {
     if (!isSocialSource(source)) return null;
-    return getProfileFromStorage(source)?.profileId ?? null;
+    return getCurrentProfileFromStorage(source)?.profileId ?? null;
 }
 
 async function scheduleListen(config: Config, jobId?: NodeJS.Timeout) {

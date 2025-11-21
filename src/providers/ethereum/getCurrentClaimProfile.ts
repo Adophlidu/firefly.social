@@ -1,5 +1,5 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
@@ -8,9 +8,8 @@ import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js'
 import { generateSignaturePacket } from '@/services/generateSignaturePacket.js';
 
 export async function getCurrentClaimProfile(source: SocialSource) {
-    const { currentProfile } = getProfileState(source);
-
     const platform = resolveRedPacketPlatformType(source);
+    const currentProfile = getCurrentProfileFromStorage(source);
 
     if (!platform || !currentProfile) return;
 

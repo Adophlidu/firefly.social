@@ -2,7 +2,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 import {
@@ -13,7 +13,7 @@ import {
 } from '@/providers/types/Telemetry.js';
 
 export function getSelfProfileEventParameters(source: SocialSource) {
-    const selfProfile = getProfileFromStorage(source);
+    const selfProfile = getCurrentProfileFromStorage(source);
     if (!selfProfile) throw new Error(`Not profile found, source = ${source}.`);
 
     switch (source) {
@@ -50,7 +50,7 @@ export function getProfileEventParameters(profile: Profile) {
     const source = profile.source;
     if (!source) throw new Error(`Not source found, source = ${source}.`);
 
-    const selfProfile = getProfileFromStorage(source);
+    const selfProfile = getCurrentProfileFromStorage(source);
     if (!selfProfile) throw new Error(`Not profile found, source = ${source}.`);
 
     switch (source) {

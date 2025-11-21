@@ -26,7 +26,7 @@ import {
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
+import { getProfilesFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -111,8 +111,8 @@ export const LensView = memo(function LensView() {
         },
         select: (profiles) => {
             if (!profiles) return EMPTY_LIST;
-            const { accounts } = getProfileState(Source.Lens);
-            const list = profiles.filter((x) => !accounts.some((y) => isSameProfile(x, y.profile)));
+            const allProfiles = getProfilesFromStorage(Source.Lens);
+            const list = profiles.filter((x) => !allProfiles.some((y) => isSameProfile(x, y)));
             if (expectedProfile) return list.sort((x) => (x.profileId === expectedProfile ? -1 : 0));
             return list;
         },

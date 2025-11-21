@@ -2,8 +2,8 @@ import { uniqBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { isFrameV1 } from '@/helpers/frame.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getFarcasterPollUrl } from '@/helpers/getPollFrameUrl.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
@@ -22,7 +22,7 @@ export function getFarcasterMediaObjects(
     },
 ) {
     const { frames, openGraphs, urls } = compositePost;
-    const profile = getProfileFromStorage(Source.Farcaster);
+    const profile = getCurrentProfileFromStorage(Source.Farcaster);
 
     return uniqBy(
         [

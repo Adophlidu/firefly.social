@@ -11,8 +11,8 @@ import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getPostMediaTypes } from '@/helpers/getPostMediaTypes.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
 import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
@@ -46,7 +46,7 @@ export async function createSchedulePostsPayload(
 
     return Promise.all(
         availableSources.map(async (x) => {
-            const profile = getProfileFromStorage(x);
+            const profile = getCurrentProfileFromStorage(x);
             if (!profile) throw new UnauthorizedError();
             const payload = await resolveCreateSchedulePostPayload(x)(type, updatedCompositePost, isThread, signal);
 

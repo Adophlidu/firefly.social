@@ -1,6 +1,6 @@
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { createPostFragments } from '@/providers/lens/fragments/post/CreatePost.js';
@@ -50,7 +50,7 @@ export async function createLensSchedulePostPayload(
         ? createS3MediaObject(await uploadAndConvertToM3u8(video.file, SourceInURL.Lens, signal), video)
         : null;
 
-    const currentProfile = getProfileFromStorage(Source.Lens);
+    const currentProfile = getCurrentProfileFromStorage(Source.Lens);
     if (!currentProfile?.profileId) throw new Error(`Login required to schedule post on ${sourceName}`);
 
     const metadata = createLensPostMetadata(

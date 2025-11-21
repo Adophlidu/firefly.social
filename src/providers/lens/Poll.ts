@@ -8,7 +8,7 @@ import { Source } from '@/constants/enum.js';
 import { NotImplementedError, WalletAddressMismatchError } from '@/constants/error.js';
 import { LENS_CHAIN_ID } from '@/constants/index.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
@@ -59,7 +59,7 @@ class LensPoll implements Provider {
         options: PollOption[];
         allOptions?: PollOption[];
     }): Promise<VoteResponseData> {
-        const currentProfile = getProfileFromStorage(Source.Lens) as Profile;
+        const currentProfile = getCurrentProfileFromStorage(Source.Lens) as Profile;
         if (!currentProfile?.profileId) throw new Error('No profile found, please login first.');
 
         const walletClient = await getWalletClientRequired(wagmiConfig, {

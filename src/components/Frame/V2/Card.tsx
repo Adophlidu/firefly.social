@@ -9,7 +9,7 @@ import { Source } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
 import { frameSwapToken } from '@/helpers/frameSwapToken.js';
-import { getProfileFromStorage, type StateCurrentProfile } from '@/helpers/getProfileFromStorage.js';
+import { getCurrentProfileFromStorage, type StateProfile } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
@@ -28,10 +28,10 @@ function createFrameHost(
     router: AppRouterProgressInstance,
     options?: {
         setPrimaryButton?: SetPrimaryButton;
-        profile?: StateCurrentProfile | null;
+        profile?: StateProfile | null;
     },
 ): FarcasterFrameHost {
-    const profile = options?.profile ?? getProfileFromStorage(Source.Farcaster);
+    const profile = options?.profile ?? getCurrentProfileFromStorage(Source.Farcaster);
     const fid = Number.parseInt(profile?.profileId ?? '0', 10);
     const context = {
         user: {

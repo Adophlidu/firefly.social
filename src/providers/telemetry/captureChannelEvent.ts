@@ -1,7 +1,7 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
@@ -26,7 +26,7 @@ function getEventId(source: SocialSource, type: 'follow' | 'unfollow') {
 
 function getEventParameters(channel: Channel) {
     const { source } = channel;
-    const profile = getProfileFromStorage(source);
+    const profile = getCurrentProfileFromStorage(source);
 
     switch (source) {
         case Source.Farcaster:

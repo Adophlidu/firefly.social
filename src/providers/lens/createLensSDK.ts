@@ -3,7 +3,7 @@ import { type IStorageProvider, mainnet, PublicClient } from '@lens-protocol/cli
 
 import { Source } from '@/constants/enum.js';
 import { LENS_TOKEN_STORAGE_KEY } from '@/constants/index.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { autoLoginWithPrivy } from '@/providers/lens/autoLoginWithPrivy.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { fragments } from '@/providers/lens/fragments/index.js';
@@ -45,7 +45,7 @@ export function removeLensCredentials(storage: IStorageProvider) {
 
 async function retryOnAutoRefreshError(error: unknown) {
     try {
-        const lensProfile = getProfileFromStorage(Source.Lens);
+        const lensProfile = getCurrentProfileFromStorage(Source.Lens);
         if (!lensProfile) return null;
 
         const { sessionClient, account } = await autoLoginWithPrivy(lensProfile.profileId);

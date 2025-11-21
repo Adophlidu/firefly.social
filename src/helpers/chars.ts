@@ -7,8 +7,7 @@ import {
     MAX_CHAR_SIZE_PRO_PER_POST,
     MAX_CHAR_SIZE_VERIFY_PER_POST,
 } from '@/constants/limitation.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
@@ -29,7 +28,7 @@ export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisibl
         | undefined;
 
     const promoteLink = promoteLinkChars?.content;
-    const profile = source ? getProfileFromStorage(source) : null;
+    const profile = source ? getCurrentProfileFromStorage(source) : null;
     const specifiedUrl = profile ? urlcat(location.origin, getProfileUrl(profile)) : '';
 
     return list
@@ -91,7 +90,7 @@ export function writeChars(chars: Chars, newChars: Chars) {
 }
 
 function resolvePeerPostMaxChars(source: SocialSource, post: CompositePost) {
-    const profile = getProfileState(source).currentProfile;
+    const profile = getCurrentProfileFromStorage(source);
     const currentMax = profile?.isProUser
         ? MAX_CHAR_SIZE_PRO_PER_POST[source]
         : profile?.verified
@@ -107,7 +106,7 @@ function resolvePeerPostMaxChars(source: SocialSource, post: CompositePost) {
 }
 
 function resolveUsedLength(sources: SocialSource[], chars: Chars) {
-    const profile = getProfileState(Source.Twitter).currentProfile;
+    const profile = getCurrentProfileFromStorage(Source.Twitter);
     // X > Bluesky > Farcaster > X premium > Lens
     const sortedSources: SocialSource[] = profile?.verified
         ? [Source.Bsky, Source.Farcaster, Source.Twitter, Source.Lens]

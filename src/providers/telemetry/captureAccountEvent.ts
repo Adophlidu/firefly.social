@@ -2,7 +2,7 @@ import { createLookupTableResolver, safeUnreachable } from '@dimensiondev/utils'
 
 import { type LoginSource, type ProfileSource, Source } from '@/constants/enum.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
+import { getProfilesFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
@@ -60,7 +60,8 @@ const resolveDisconnectEventId = createLookupTableResolver<LoginSource, EventId>
 );
 
 export function getAccountPairs(source: ProfileSource) {
-    return getProfileState(source).accounts.map((x) => [x.profile.profileId, x.profile.handle]) as AccountPairs;
+    const profiles = getProfilesFromStorage(source);
+    return profiles.map((x) => [x.profileId, x.handle]) as AccountPairs;
 }
 
 function getLoginType(session?: Session | null): FarcasterLoginType | void {

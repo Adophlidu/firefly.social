@@ -2,7 +2,7 @@ import { compact } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_POLL_SOURCES } from '@/constants/index.js';
-import { getProfileFromStorage } from '@/helpers/getProfileFromStorage.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
@@ -20,10 +20,10 @@ export function getComposeEventParameters(
     post: CompositePost,
     { draftId, scheduleId, thread = [post], availableSources = [], isCrossQuote = false }: Options = {},
 ): Omit<ComposeEventParameters, 'firefly_account_id'> {
-    const lensProfile = getProfileFromStorage(Source.Lens);
-    const farcasterProfile = getProfileFromStorage(Source.Farcaster);
-    const xProfile = getProfileFromStorage(Source.Twitter);
-    const bskyProfile = getProfileFromStorage(Source.Bsky);
+    const lensProfile = getCurrentProfileFromStorage(Source.Lens);
+    const farcasterProfile = getCurrentProfileFromStorage(Source.Farcaster);
+    const xProfile = getCurrentProfileFromStorage(Source.Twitter);
+    const bskyProfile = getCurrentProfileFromStorage(Source.Bsky);
 
     const hasLens = availableSources.includes(Source.Lens);
     const hasFarcaster = availableSources.includes(Source.Farcaster);
