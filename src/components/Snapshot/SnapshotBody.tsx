@@ -45,9 +45,10 @@ interface Props {
     snapshot: SnapshotProposal;
     link?: string;
     postId?: string;
+    showVote?: boolean;
 }
 
-export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
+export function SnapshotBody({ snapshot, link, postId, activity, showVote = true }: Props) {
     const { choices, scores, symbol, scores_total, votes, space, author } = snapshot;
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
@@ -179,7 +180,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                         </TabPanels>
                     </TabGroup>
                 </div>
-                <SnapshotVote link={link} postId={postId} activity={activity} snapshot={snapshot} />
+                {showVote ? <SnapshotVote link={link} postId={postId} activity={activity} snapshot={snapshot} /> : null}
             </ClickableArea>
         </div>
     );

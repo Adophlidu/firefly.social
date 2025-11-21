@@ -7,16 +7,19 @@ import { memo, useCallback, useMemo } from 'react';
 
 import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';
 import LikeIcon from '@/assets/like.svg';
+import { ActivityCellSnapshotAction } from '@/components/ActivityCell/Snapshot/ActivityCellSnapshotAction.js';
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
 import { Avatar } from '@/components/Avatar.js';
 import { PolymarketBetCell } from '@/components/Polymarket/PolymarketBetCell.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackContent.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { ARTICLE_LIKE_NOTIFICATION_TYPES } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
 import { formatArticleFromNotification } from '@/helpers/formatArticleFromNotification.js';
 import { formatPolymarketFromFirefly } from '@/helpers/formatPolymarketFromFirefly.js';
+import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { formatSnapshotActivityFromNotification } from '@/helpers/formatSnapshotFromNotification.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
@@ -182,7 +185,11 @@ function DAOLikeNotification({ notification }: DAOLikeNotificationProps) {
         return formatSnapshotActivityFromNotification(data);
     }, [data]);
 
-    if (!userName) return null;
+    if (!userName || !daoActivity) return null;
+
+    const label = daoActivity.proposal
+        ? formatSnapshotChoice(daoActivity.choice, daoActivity.proposal?.type, daoActivity.proposal?.choices)
+        : null;
 
     return (
         <UnifiedNotificationBase
@@ -191,17 +198,22 @@ function DAOLikeNotification({ notification }: DAOLikeNotificationProps) {
             title={<LikeNotificationTitle userName={userName} itemType="DAO activity" />}
             isClickable={false}
         >
-            {daoActivity ? (
-                <div className="mt-2 min-w-0 flex-1 overflow-hidden">
-                    {daoActivity.proposal ? (
-                        <div>
-                            <SnapshotBody activity={daoActivity} snapshot={daoActivity.proposal} />
-                        </div>
-                    ) : (
-                        <SnapshotFallbackContent {...daoActivity.fallback_content} />
-                    )}
-                </div>
-            ) : null}
+            <div className="mt-2">
+                <ActivityCellSnapshotAction>
+                    <TextOverflowTooltip className="max-sm:block" placement="top-start" content={label}>
+                        <span className="truncate">{label}</span>
+                    </TextOverflowTooltip>
+                </ActivityCellSnapshotAction>
+            </div>
+            <div className="mt-2 min-w-0 flex-1 overflow-hidden">
+                {daoActivity.proposal ? (
+                    <div>
+                        <SnapshotBody activity={daoActivity} snapshot={daoActivity.proposal} showVote={false} />
+                    </div>
+                ) : (
+                    <SnapshotFallbackContent {...daoActivity.fallback_content} />
+                )}
+            </div>
         </UnifiedNotificationBase>
     );
 }
