@@ -35,15 +35,24 @@ type Props = {
 
 export function SignupModal({ ref }: Props) {
     const [props, setProps] = useState<SignupModalOpenProps>();
+    const [loading, setLoading] = useState(false);
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
             setProps(props);
         },
         onClose: () => {
             setProps(undefined);
+            setLoading(false);
         },
     });
-    const onClose = useCallback((props: SignupModalCloseProps) => dispatch?.close(props), [dispatch]);
+    const onClose = useCallback(
+        (props: SignupModalCloseProps) => {
+            if (!loading) {
+                dispatch?.close(props);
+            }
+        },
+        [dispatch, loading],
+    );
 
     if (!props) return null;
 
@@ -53,10 +62,11 @@ export function SignupModal({ ref }: Props) {
                 <ModalTitle
                     className="!py-3"
                     onClose={onClose}
+                    buttonDisabled={loading}
                     title={<Trans>Create {resolveSourceName(props.source)} Profile</Trans>}
                 />
                 <div className="min-h-0 w-full flex-1 overflow-hidden">
-                    <SignupModalContent source={props.source} onClose={onClose} />
+                    <SignupModalContent source={props.source} onClose={onClose} onLoadingChange={setLoading} />
                 </div>
             </div>
         </Modal>

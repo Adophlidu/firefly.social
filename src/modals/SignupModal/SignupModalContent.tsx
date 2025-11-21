@@ -37,14 +37,17 @@ interface Props {
             account: Account;
         } | void,
     ) => void;
+    onLoadingChange: (status: boolean) => void;
 }
 
-const SignupForm = memo<Props>(function SignupModalContent({ source, onClose }) {
+const SignupForm = memo<Props>(function SignupModalContent({ source, onClose, onLoadingChange }) {
     const form = useFormContext<SignupFormValues>();
 
     const onSubmit = useCallback(
         async (values: SignupFormValues) => {
             try {
+                onLoadingChange(true);
+
                 const pfp = values.pfp ? await uploadProfileAvatar(source, values.pfp) : values.pfp;
                 const account = await resolveSocialMediaProvider(source).createAccount({
                     ...values,
@@ -87,9 +90,11 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose }) 
                     { error },
                 );
                 throw error;
+            } finally {
+                onLoadingChange(false);
             }
         },
-        [source, onClose],
+        [source, onClose, onLoadingChange],
     );
 
     const {
