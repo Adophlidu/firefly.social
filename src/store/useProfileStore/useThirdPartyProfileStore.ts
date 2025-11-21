@@ -1,12 +1,19 @@
 'use client';
+
 import { bom } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { getSession, signOut } from 'next-auth/react';
 
 import { AsyncStatus, Source } from '@/constants/enum.js';
+import { FireflyAlreadyBoundError, ForbiddenError } from '@/constants/error.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import {
+    enqueueForbiddenMessage,
+    enqueueMessageFromError,
+    enqueueSuccessMessage,
+    enqueueWarningMessage,
+} from '@/helpers/enqueueMessage.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
@@ -79,15 +86,20 @@ const state = createProfileState(
 
                 enqueueSuccessMessage(t`Your ${session.type} account is now connected`);
             } catch (error) {
-                if (error instanceof Error && error.message.includes('This apple already bound to the other account')) {
+                if (error instanceof ForbiddenError) {
+                    enqueueForbiddenMessage();
+                    return;
+                }
+                if (error instanceof FireflyAlreadyBoundError) {
                     enqueueWarningMessage(t`This Apple account is already linked to another Firefly account.`);
                     return;
                 }
 
                 enqueueMessageFromError(error, t`Oops... Something went wrong. Please try again`);
+
+                await signOut({ redirect: false });
                 state.clear();
                 thirdPartySessionHolder.removeSession();
-                await signOut({ redirect: false });
             } finally {
                 state.__setStatus__(AsyncStatus.Idle);
             }

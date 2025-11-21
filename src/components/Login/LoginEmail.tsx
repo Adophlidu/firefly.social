@@ -10,9 +10,14 @@ import { ClearButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SendPasscodeButton } from '@/components/Login/SendPasscodeButton.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
-import { AbortError, FireflyAlreadyBoundError } from '@/constants/error.js';
+import { AbortError, FireflyAlreadyBoundError, ForbiddenError } from '@/constants/error.js';
 import { EMAIL_REGEX } from '@/constants/regexp.js';
-import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import {
+    enqueueForbiddenMessage,
+    enqueueMessageFromError,
+    enqueueSuccessMessage,
+    enqueueWarningMessage,
+} from '@/helpers/enqueueMessage.js';
 import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
@@ -37,17 +42,21 @@ async function loginEmail(createAccount: () => Promise<Account>, options?: Omit<
         if (done) {
             enqueueSuccessMessage(<Trans>Your email is now connected.</Trans>);
         }
-
         LoginModalRef.close();
     } catch (error) {
-        // skip if the error is abort error
         if (AbortError.is(error)) return;
-
+        if (error instanceof ForbiddenError) {
+            enqueueForbiddenMessage();
+            return;
+        }
         if (error instanceof FireflyAlreadyBoundError) {
             enqueueWarningMessage(<Trans>This Email is already linked to another Firefly account.</Trans>);
             return;
         }
-
+        if (error instanceof Error) {
+            enqueueMessageFromError(error, <Trans>Connection failed. {error.message}</Trans>);
+            return;
+        }
         throw error;
     }
 }
@@ -61,10 +70,10 @@ export function LoginEmail() {
     const passcodeRef = useRef<HTMLInputElement>(null);
 
     const isValidEmail = EMAIL_REGEX.test(email);
-
     const isValidPasscode = passcode.length === 6 && passcode.match(/^\d+$/);
 
     const skipWaitForMetricsSyncing = useShouldSkipWaitMetrics();
+
     const [{ loading }, login] = useAsyncFn(async () => {
         controller.current.renew();
         if (!isValidEmail) {
@@ -77,18 +86,10 @@ export function LoginEmail() {
             return;
         }
 
-        try {
-            await loginEmail(() => createAccountByPasscode(email, passcode), {
-                skipWaitForMetricsSyncing,
-                signal: controller.current.signal,
-            });
-        } catch (error) {
-            if (error instanceof Error) {
-                enqueueMessageFromError(error, <Trans>Connection failed. {error.message}</Trans>);
-                return;
-            }
-            throw error;
-        }
+        await loginEmail(() => createAccountByPasscode(email, passcode), {
+            skipWaitForMetricsSyncing,
+            signal: controller.current.signal,
+        });
     }, [controller, email, passcode, isValidEmail, isValidPasscode, skipWaitForMetricsSyncing]);
 
     return (

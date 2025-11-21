@@ -1,3 +1,6 @@
+import type { Hex } from 'viem';
+
+import type { FarcasterNetwork } from '@/constants/farcaster.js';
 import type { ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export type NeynarResponse<T> =
@@ -12,6 +15,13 @@ export type NeynarResponse<T> =
 export enum NeynarProStatus {
     Subscribed = 'subscribed',
     Unsubscribed = 'unsubscribed',
+}
+
+export interface CastResponse {
+    hash: {
+        data: number[];
+        type: 'Buffer';
+    };
 }
 
 export interface Profile {
@@ -59,5 +69,32 @@ export interface Profile {
         subscribed_at: string;
         /** @example "2023-11-07T05:31:56Z" */
         expires_at: string;
+    };
+}
+
+export interface SignaturePacket {
+    signer: Hex;
+    messageHash: Hex;
+    messageSignature: Hex;
+}
+
+export interface FrameSignaturePacket {
+    untrustedData: {
+        fid: number;
+        url: string;
+        messageHash: string;
+        timestamp: number;
+        network: FarcasterNetwork;
+        buttonIndex: number;
+        inputText?: string;
+        transactionId?: string;
+        castId: {
+            fid: number;
+            hash: string;
+        };
+        state?: string;
+    };
+    trustedData: {
+        messageBytes: string;
     };
 }

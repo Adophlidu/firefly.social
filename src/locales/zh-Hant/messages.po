@@ -2075,6 +2075,9 @@ msgstr "個人簡介不得超過 {maxBioSize} 字元"
 msgid "5 minutes"
 msgstr ""
 
+msgid "This Bluesky account is already linked to another Firefly account."
+msgstr ""
+
 #. placeholder {0}: activity.tx_status
 msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
 msgstr "{0, select, success {成功} failed {失敗} pending {處理中} other {失敗}}"
@@ -4084,6 +4087,9 @@ msgstr ""
 
 msgid "Failed to read avatar file, please try again."
 msgstr "頭像讀取失敗，請重試"
+
+msgid "This Telegram account is already linked to another Firefly account."
+msgstr ""
 
 msgid "Add Token"
 msgstr "添加代幣"

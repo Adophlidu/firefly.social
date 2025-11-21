@@ -1,4 +1,5 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { Trans } from '@lingui/react/macro';
 import { omit } from 'lodash-es';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -161,4 +162,16 @@ export function enqueueMessageFromError(error: unknown, fallback: SnackbarMessag
 
     // fallback message
     enqueueErrorMessage(fallback, options_);
+}
+
+export function enqueueForbiddenMessage() {
+    enqueueWarningMessage(
+        <Trans>
+            Account disabled due to potential risk. Contact us on{' '}
+            <a href="https://t.me/fireflyapp/48" className="underline" target="_blank">
+                Telegram
+            </a>{' '}
+            to restore access.
+        </Trans>,
+    );
 }

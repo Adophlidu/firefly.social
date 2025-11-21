@@ -1,6 +1,5 @@
 import { type ReactNode } from 'react';
 
-import { AuthGuard } from '@/components/Account/AuthGuard.js';
 import { Advertisement } from '@/components/Advertisement/index.js';
 import { Calendar } from '@/components/Calendar/Calendar.js';
 import { ComposeWatcher } from '@/components/Compose/ComposeWatcher.js';
@@ -99,7 +98,6 @@ export default async function Layout({ children, modal, sidebar }: Props) {
                 <ComposeButton />
             </IfPathname>
             <ComposeWatcher />
-            <AuthGuard />
         </>
     );
 }

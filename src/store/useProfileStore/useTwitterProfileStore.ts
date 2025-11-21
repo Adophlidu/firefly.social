@@ -1,12 +1,15 @@
 'use client';
+
 import { bom } from '@dimensiondev/utils';
+import { t } from '@lingui/core/macro';
 import dayjs from 'dayjs';
 import { getSession, signOut } from 'next-auth/react';
 
 import { AsyncStatus } from '@/constants/enum.js';
-import { AuthenticationError, FetchError } from '@/constants/error.js';
+import { AuthenticationError, FetchError, FireflyAlreadyBoundError, ForbiddenError } from '@/constants/error.js';
 import { HIDDEN_SECRET } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
+import { enqueueForbiddenMessage, enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { addTwitterAccount } from '@/providers/twitter/addTwitterAccount.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
@@ -73,6 +76,19 @@ const state = createProfileState(
                 twitterSessionHolder.resumeSession(TwitterSession.from(sessionPayload.clientId, sessionPayload));
             } catch (error) {
                 if (error instanceof FetchError) return;
+                if (error instanceof ForbiddenError) {
+                    enqueueForbiddenMessage();
+                    return;
+                }
+                if (error instanceof FireflyAlreadyBoundError) {
+                    enqueueWarningMessage(
+                        t`The account you are trying to log in with is already linked to a different Firefly account.`,
+                    );
+                    return;
+                }
+
+                enqueueMessageFromError(error, t`Oops... Something went wrong. Please try again`);
+
                 if (error instanceof AuthenticationError) await signOut({ redirect: false });
                 state.clear();
                 twitterSessionHolder.removeSession();

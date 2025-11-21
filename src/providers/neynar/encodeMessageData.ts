@@ -10,7 +10,7 @@ import type { PartialWith, ResponseJson } from '@/types/utility.js';
 type EncodeMessageDataResponse = ResponseJson<{
     signer: `0x${string}`;
     messageData: MessageData;
-    messageJson: string;
+    messageJson: unknown;
     messageBytes: `0x${string}`;
     messageDataHash: `0x${string}`;
     messageDataSignature: `0x${string}`;

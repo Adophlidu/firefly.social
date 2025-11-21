@@ -18,9 +18,14 @@ import { SignupEntry } from '@/components/Profile/SignupEntry.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { AsyncStatus, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { AbortError, FireflyAlreadyBoundError } from '@/constants/error.js';
+import { AbortError, FireflyAlreadyBoundError, ForbiddenError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import {
+    enqueueForbiddenMessage,
+    enqueueMessageFromError,
+    enqueueSuccessMessage,
+    enqueueWarningMessage,
+} from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -149,14 +154,15 @@ export const LensView = memo(function LensView() {
 
             LoginModalRef.close();
         } catch (error) {
-            // skip if the error is abort error
             if (AbortError.is(error)) return;
-
+            if (error instanceof ForbiddenError) {
+                enqueueForbiddenMessage();
+                return;
+            }
             if (error instanceof FireflyAlreadyBoundError) {
                 enqueueWarningMessage(<Trans>This wallet is already linked to a different Firefly account.</Trans>);
                 return;
             }
-
             enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
             throw error;
         } finally {

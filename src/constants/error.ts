@@ -39,6 +39,14 @@ export class UnauthorizedError extends Error {
     }
 }
 
+export class ForbiddenError extends Error {
+    override name = 'ForbiddenError';
+
+    constructor(message?: string) {
+        super(message ?? 'Forbidden');
+    }
+}
+
 export class NetworkError extends Error {
     override name = 'NetworkError';
 

@@ -40,7 +40,7 @@ async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
         },
     );
 
-    if (response.error?.some((x) => x.includes('This wallet already bound to the other account'))) {
+    if (response.error?.some((x) => x.includes('already bound to the other account'))) {
         throw new FireflyAlreadyBoundError(Source.Lens);
     }
 
@@ -78,10 +78,7 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
     }
 
     // If the farcaster is already bound to another account, throw an error.
-    if (
-        isRelayService &&
-        response.error?.some((x) => x.includes('This farcaster already bound to the other account'))
-    ) {
+    if (isRelayService && response.error?.some((x) => x.includes('already bound to the other account'))) {
         throw new FireflyAlreadyBoundError(Source.Farcaster);
     }
 
@@ -112,7 +109,7 @@ async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: Abo
         },
     );
 
-    if (response.error?.some((x) => x.includes('This Twitter already bound to the other account'))) {
+    if (response.error?.some((x) => x.includes('already bound to the other account'))) {
         throw new FireflyAlreadyBoundError(Source.Twitter);
     }
 
@@ -121,21 +118,28 @@ async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: Abo
 }
 
 async function bindBskySessionToFirefly(session: BskySession, signal?: AbortSignal) {
-    const response = await fireflySessionHolder.fetch<BindResponse>(
-        urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/bsky/binding'),
-        {
-            method: 'POST',
-            body: JSON.stringify({
-                did: session.did,
-                token: session.sessionPayload.accessJwt,
-                serviceEndpoint: getDidServiceHost(session.sessionPayload.didDoc),
-            }),
-            signal,
-        },
-    );
+    try {
+        const response = await fireflySessionHolder.fetch<BindResponse>(
+            urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/bsky/binding'),
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    did: session.did,
+                    token: session.sessionPayload.accessJwt,
+                    serviceEndpoint: getDidServiceHost(session.sessionPayload.didDoc),
+                }),
+                signal,
+            },
+        );
 
-    const data = resolveFireflyResponseData(response);
-    return data;
+        const data = resolveFireflyResponseData(response);
+        return data;
+    } catch (error) {
+        if (error instanceof Error && error.message.includes('already bound to the other account')) {
+            throw new FireflyAlreadyBoundError(Source.Bsky);
+        }
+        throw error;
+    }
 }
 
 async function bindAppleSessionToFirefly(session: ThirdPartySession, signal?: AbortSignal) {
@@ -155,7 +159,7 @@ async function bindAppleSessionToFirefly(session: ThirdPartySession, signal?: Ab
         const data = resolveFireflyResponseData(response);
         return data;
     } catch (error) {
-        if (error instanceof Error && error.message.includes('This apple already bound to the other account')) {
+        if (error instanceof Error && error.message.includes('already bound to the other account')) {
             throw new FireflyAlreadyBoundError(Source.Apple);
         }
         throw error;
@@ -163,35 +167,49 @@ async function bindAppleSessionToFirefly(session: ThirdPartySession, signal?: Ab
 }
 
 async function bindGoogleSessionToFirefly(session: ThirdPartySession, signal?: AbortSignal) {
-    const response = await fireflySessionHolder.fetch<BindResponse>(
-        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindGoogle'),
-        {
-            method: 'POST',
-            body: JSON.stringify({
-                idToken: session.token,
-            }),
-            signal,
-        },
-    );
+    try {
+        const response = await fireflySessionHolder.fetch<BindResponse>(
+            urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindGoogle'),
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    idToken: session.token,
+                }),
+                signal,
+            },
+        );
 
-    const data = resolveFireflyResponseData(response);
-    return data;
+        const data = resolveFireflyResponseData(response);
+        return data;
+    } catch (error) {
+        if (error instanceof Error && error.message.includes('already bound to the other account')) {
+            throw new FireflyAlreadyBoundError(Source.Google);
+        }
+        throw error;
+    }
 }
 
 async function bindTelegramSessionToFirefly(session: ThirdPartySession, signal?: AbortSignal) {
-    const response = await fireflySessionHolder.fetch<BindResponse>(
-        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindTelegram'),
-        {
-            method: 'POST',
-            body: JSON.stringify({
-                telegramToken: session.token,
-            }),
-            signal,
-        },
-    );
+    try {
+        const response = await fireflySessionHolder.fetch<BindResponse>(
+            urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindTelegram'),
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    telegramToken: session.token,
+                }),
+                signal,
+            },
+        );
 
-    const data = resolveFireflyResponseData(response);
-    return data;
+        const data = resolveFireflyResponseData(response);
+        return data;
+    } catch (error) {
+        if (error instanceof Error && error.message.includes('already bound to the other account')) {
+            throw new FireflyAlreadyBoundError(Source.Telegram);
+        }
+        throw error;
+    }
 }
 
 async function bindEmailSessionToFirefly(session: ThirdPartySession, signal?: AbortSignal) {

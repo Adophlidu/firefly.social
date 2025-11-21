@@ -1,11 +1,9 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { Source } from '@/constants/enum.js';
-import { FireflyAlreadyBoundError } from '@/constants/error.js';
-import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -14,8 +12,8 @@ import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
-export async function addTwitterAccount(payload: SessionPayload, isNew = false, signal?: AbortSignal) {
-    const profile = payload ? await TwitterSocialMediaProxy.getProfileById(payload.clientId) : null;
+export async function addTwitterAccount(sessionPayload: SessionPayload, isNew = false, signal?: AbortSignal) {
+    const profile = sessionPayload ? await TwitterSocialMediaProxy.getProfileById(sessionPayload.clientId) : null;
     if (!profile) throw new Error('Failed to fetch user profile');
 
     // hotfix for the missing verified badge
@@ -26,37 +24,26 @@ export async function addTwitterAccount(payload: SessionPayload, isNew = false, 
         if (badges.length > 0) profile.verified = true;
     });
 
-    const session = TwitterSession.from(profile.profileId, payload);
+    const session = TwitterSession.from(profile.profileId, sessionPayload);
 
-    try {
-        const fireflySession = isNew ? await bindOrRestoreFireflySession(session) : undefined;
+    const fireflySession = isNew ? await bindOrRestoreFireflySession(session) : undefined;
 
-        await addAccount(
-            {
-                profile,
-                session,
-                fireflySession,
-            },
-            {
-                skipBelongsToCheck: !isNew,
-                skipResumeFireflyAccounts: !isNew,
-                skipResumeFireflySession: !isNew,
-                skipSyncAccounts: !isNew,
-                signal,
-            },
-        );
+    await addAccount(
+        {
+            profile,
+            session,
+            fireflySession,
+        },
+        {
+            skipBelongsToCheck: !isNew,
+            skipResumeFireflyAccounts: !isNew,
+            skipResumeFireflySession: !isNew,
+            skipSyncAccounts: !isNew,
+            signal,
+        },
+    );
 
-        if (isNew) {
-            enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Twitter)} account is now connected.</Trans>);
-        }
-    } catch (error) {
-        if (error instanceof FireflyAlreadyBoundError) {
-            enqueueWarningMessage(
-                t`The account you are trying to log in with is already linked to a different Firefly account.`,
-            );
-            return;
-        }
-
-        throw error;
+    if (isNew) {
+        enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Twitter)} account is now connected.</Trans>);
     }
 }

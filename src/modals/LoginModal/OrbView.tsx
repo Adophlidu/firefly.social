@@ -1,4 +1,5 @@
 'use client';
+
 import { classNames } from '@dimensiondev/utils';
 import type { AccessToken, IdToken, RefreshToken } from '@lens-protocol/client';
 import { t } from '@lingui/core/macro';
@@ -13,10 +14,15 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { Source } from '@/constants/enum.js';
-import { AbortError, InvalidOrbPermissionError, InvalidResultError } from '@/constants/error.js';
+import { AbortError, ForbiddenError, InvalidOrbPermissionError, InvalidResultError } from '@/constants/error.js';
 import { ORB_REPLY_COUNTDOWN, SEVEN_DAYS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
-import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import {
+    enqueueForbiddenMessage,
+    enqueueMessageFromError,
+    enqueueSuccessMessage,
+    enqueueWarningMessage,
+} from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { retry } from '@/helpers/retry.js';
 import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
@@ -108,8 +114,8 @@ export function OrbView() {
                     signal: controller.current.signal,
                 },
             );
-
             if (!done) return;
+
             updateCredentialsStorage({
                 accessToken: result.accessToken as AccessToken,
                 refreshToken: (result.refreshToken || 'FAKE_LENS_REFRESH_TOKEN') as RefreshToken,
@@ -127,6 +133,10 @@ export function OrbView() {
             });
         } catch (error) {
             if (error instanceof AbortError) return;
+            if (error instanceof ForbiddenError) {
+                enqueueForbiddenMessage();
+                return;
+            }
             if (error instanceof InvalidResultError) {
                 enqueueWarningMessage(
                     <Trans>This QR code is no longer valid. Please scan a new one to continue.</Trans>,
@@ -139,7 +149,6 @@ export function OrbView() {
                 setPollError(error);
                 throw error;
             }
-
             enqueueMessageFromError(error, <Trans>Failed to login lens with orb</Trans>);
             setPollError(error as Error);
             throw error;

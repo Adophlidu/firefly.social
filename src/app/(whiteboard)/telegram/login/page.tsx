@@ -10,9 +10,15 @@ import FullLogo from '@/assets/logo-full.svg';
 import { Loading } from '@/components/Loading.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { Source } from '@/constants/enum.js';
+import { AbortError, FireflyAlreadyBoundError, ForbiddenError } from '@/constants/error.js';
 import { useRouter } from '@/esm/navigation.js';
 import { createDummyProfileFromThirdPartySession } from '@/helpers/createDummyProfile.js';
-import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import {
+    enqueueForbiddenMessage,
+    enqueueMessageFromError,
+    enqueueSuccessMessage,
+    enqueueWarningMessage,
+} from '@/helpers/enqueueMessage.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -37,51 +43,61 @@ export default function Page(props: Props) {
     }, [token]);
 
     useAsync(async () => {
-        if (os === 'web' && token) {
-            try {
-                const session = new ThirdPartySession(
-                    SessionType.Telegram,
-                    '',
-                    token,
-                    Date.now(),
-                    dayjs(Date.now()).add(1, 'y').unix(),
-                );
+        if (os !== 'web' || !token) return;
 
-                const accounts = useThirdPartyProfileStore.getState().accounts;
-                const foundNewSessionFromServer = !accounts.some((x) =>
-                    isSameSession(session, x.session as ThirdPartySession),
-                );
-                if (!foundNewSessionFromServer) return;
+        try {
+            const session = new ThirdPartySession(
+                SessionType.Telegram,
+                '',
+                token,
+                Date.now(),
+                dayjs(Date.now()).add(1, 'y').unix(),
+            );
 
-                const result = await addAccount(
-                    {
-                        session,
-                        profile: createDummyProfileFromThirdPartySession(Source.Telegram, session),
-                        fireflySession: foundNewSessionFromServer
-                            ? await bindOrRestoreFireflySession(session)
-                            : undefined,
-                    },
-                    {
-                        skipBelongsToCheck: !foundNewSessionFromServer,
-                        skipResumeFireflyAccounts: !foundNewSessionFromServer,
-                        skipResumeFireflySession: !foundNewSessionFromServer,
-                        skipSyncAccounts: !foundNewSessionFromServer,
-                    },
-                );
+            const accounts = useThirdPartyProfileStore.getState().accounts;
+            const foundNewSessionFromServer = !accounts.some((x) =>
+                isSameSession(session, x.session as ThirdPartySession),
+            );
+            if (!foundNewSessionFromServer) return;
 
-                if (!result) {
-                    router.replace('/');
-                    return;
-                }
+            const result = await addAccount(
+                {
+                    session,
+                    profile: createDummyProfileFromThirdPartySession(Source.Telegram, session),
+                    fireflySession: foundNewSessionFromServer ? await bindOrRestoreFireflySession(session) : undefined,
+                },
+                {
+                    skipBelongsToCheck: !foundNewSessionFromServer,
+                    skipResumeFireflyAccounts: !foundNewSessionFromServer,
+                    skipResumeFireflySession: !foundNewSessionFromServer,
+                    skipSyncAccounts: !foundNewSessionFromServer,
+                },
+            );
 
-                enqueueSuccessMessage(<Trans>Your TG account is now connected</Trans>);
-
-                await delay(1000);
-
+            if (!result) {
                 router.replace('/');
-            } catch (error) {
-                enqueueMessageFromError(error, <Trans>Oops... Something went wrong. Please try again</Trans>);
+                return;
             }
+
+            enqueueSuccessMessage(<Trans>Your TG account is now connected</Trans>);
+
+            await delay(1000);
+
+            router.replace('/');
+        } catch (error) {
+            if (AbortError.is(error)) return;
+            if (error instanceof ForbiddenError) {
+                enqueueForbiddenMessage();
+                return;
+            }
+            if (error instanceof FireflyAlreadyBoundError) {
+                enqueueWarningMessage(
+                    <Trans>This Telegram account is already linked to another Firefly account.</Trans>,
+                );
+                return;
+            }
+            enqueueMessageFromError(error, <Trans>Oops... Something went wrong. Please try again</Trans>);
+            throw error;
         }
     }, [os, router, token]);
 

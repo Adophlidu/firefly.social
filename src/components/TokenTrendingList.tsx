@@ -5,7 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
-import { type TokenTrendingData,TokenTrendingListItem } from '@/components/TokenTrendingListItem.js';
+import { type TokenTrendingData, TokenTrendingListItem } from '@/components/TokenTrendingListItem.js';
 import { ScrollListKey, Source, TrendingType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';

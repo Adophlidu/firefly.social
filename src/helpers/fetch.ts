@@ -2,7 +2,7 @@ import { bom, parseUrl } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
-import { FetchError, NetworkError } from '@/constants/error.js';
+import { FetchError, ForbiddenError, NetworkError } from '@/constants/error.js';
 import { FIREFLY_USER_AGENT, SITE_URL, SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { addHeaders } from '@/helpers/addHeader.js';
 
@@ -20,9 +20,21 @@ function isFireflyApi(url: URL) {
     ].includes(url.origin);
 }
 
-function defaultFetcher(input: RequestInfo | URL, init?: RequestInit | undefined) {
-    const u = input instanceof URL ? input : parseUrl(typeof input === 'string' ? input : input.url);
+function isFireflyLandApi(url: URL) {
+    return ['https://api.firefly.land', 'https://api-dev.firefly.land'].includes(url.origin);
+}
 
+function resolveRequestUrl(input: RequestInfo | URL) {
+    return input instanceof URL ? input : parseUrl(typeof input === 'string' ? input : input.url);
+}
+
+function resolveRequestInput(input: RequestInfo | URL) {
+    const url = typeof input === 'string' ? input : input instanceof Request ? input.url : undefined;
+    return isServer && url?.startsWith('/') ? urlcat(SITE_URL, url) : input;
+}
+
+function defaultFetcher(input: RequestInfo | URL, init?: RequestInit | undefined) {
+    const u = resolveRequestUrl(input);
     return originalFetch(input, {
         signal: AbortSignal.timeout(3 * 60 * 1000 /* 3 mins */),
         ...init,
@@ -35,12 +47,6 @@ function defaultFetcher(input: RequestInfo | URL, init?: RequestInit | undefined
                 : init?.headers,
     });
 }
-
-function resolveRequestInput(input: RequestInfo | URL) {
-    const url = typeof input === 'string' ? input : input instanceof Request ? input.url : undefined;
-    return isServer && url?.startsWith('/') ? urlcat(SITE_URL, url) : input;
-}
-
 export interface NextFetchersOptions {
     /** Threat non-2?? as valid response */
     noStrictOK?: boolean;
@@ -58,6 +64,16 @@ export async function fetch(
     const requestInput = resolveRequestInput(input);
     const response = await defaultFetcher(requestInput, init);
     if (!response.ok && bom.navigator?.onLine === false) throw new NetworkError();
+
+    // on client the <AuthGuard /> warning will be triggered when a firefly api request is 403 forbidden
+    if (response.status === 403 && bom.document) {
+        const u = resolveRequestUrl(input);
+        if (u && isFireflyLandApi(u)) {
+            bom.document.dispatchEvent(new CustomEvent('firefly:forbidden'));
+            throw new ForbiddenError();
+        }
+    }
+
     if (!response.ok && !options?.noStrictOK) {
         const fetchError = await FetchError.from(requestInput, response);
         fetchError.toThrow();

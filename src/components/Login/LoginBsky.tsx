@@ -17,8 +17,13 @@ import { ClearButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
-import { AbortError } from '@/constants/error.js';
-import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { AbortError, FireflyAlreadyBoundError, ForbiddenError } from '@/constants/error.js';
+import {
+    enqueueForbiddenMessage,
+    enqueueMessageFromError,
+    enqueueSuccessMessage,
+    enqueueWarningMessage,
+} from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
@@ -46,12 +51,17 @@ async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<A
         if (done) {
             enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Bsky)} account is now connected.</Trans>);
         }
-
         LoginModalRef.close();
     } catch (error) {
-        // skip if the error is abort error
         if (AbortError.is(error)) return;
-
+        if (error instanceof ForbiddenError) {
+            enqueueForbiddenMessage();
+            return;
+        }
+        if (error instanceof FireflyAlreadyBoundError) {
+            enqueueWarningMessage(<Trans>This Bluesky account is already linked to another Firefly account.</Trans>);
+            return;
+        }
         throw error;
     }
 }

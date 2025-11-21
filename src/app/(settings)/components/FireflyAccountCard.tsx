@@ -21,8 +21,8 @@ export function FireflyAccountCard() {
     const { data, isLoading, error } = useAllConnections();
 
     const account = data?.fireflyAccount;
-    const [, deleteFireflyAccount] = useDeleteFireflyAccount();
     const avatar = useFireflyAccountAvatar();
+    const [, deleteFireflyAccount] = useDeleteFireflyAccount();
 
     if (!isLoading && (error || !account)) return null;
 

@@ -1,5 +1,4 @@
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 import { ConnectorNotConnectedError } from '@wagmi/core';
@@ -21,11 +20,13 @@ import {
     FireflyAccountAbsentError,
     FireflyAlreadyBoundError,
     FireflyBindTimeoutError,
+    ForbiddenError,
     NotAllowedError,
     TimeoutError,
 } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN } from '@/constants/index.js';
 import {
+    enqueueForbiddenMessage,
     enqueueInfoMessage,
     enqueueMessageFromError,
     enqueueSuccessMessage,
@@ -45,24 +46,28 @@ import { createAccountByWallet } from '@/providers/warpcast/createAccountByWalle
 import { type AccountOptions, addAccount } from '@/services/account.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-async function login(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
+async function loginFarcaster(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
         useGlobalState.getState().setAsyncStatus(Source.Farcaster, AsyncStatus.Pending);
 
         const account = await createAccount();
 
         const done = await addAccount(account, options);
-        if (done)
+        if (done) {
             enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Farcaster)} account is now connected.</Trans>);
+        }
 
         LoginModalRef.close();
         DraggablePopoverRef.close();
     } catch (error) {
+        // skip if the error is abort error
+        if (AbortError.is(error)) return;
+
         // ignore cancel connect wallet error
         if (error instanceof ConnectorNotConnectedError) return;
 
-        // skip if the error is abort error
-        if (AbortError.is(error)) return;
+        // user rejected request
+        if (error instanceof UserRejectedRequestError) return;
 
         // if login timed out, let the user refresh the QR code
         if (error instanceof TimeoutError || error instanceof FireflyBindTimeoutError) {
@@ -70,23 +75,33 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
             return;
         }
 
-        // user rejected request
-        if (error instanceof UserRejectedRequestError) return;
+        // if the user is forbidden to login, show a forbidden message
+        if (error instanceof ForbiddenError) {
+            enqueueForbiddenMessage();
+            return;
+        }
 
-        // failed to patch the signer
-        if (error instanceof FarcasterPatchSignerError) throw error;
-
-        // if any error occurs, close the modal
-        // by this we don't need to do error handling in UI part.
-        LoginModalRef.close();
-        DraggablePopoverRef.close();
         // if the account is already bound to another account, show a warning message
         if (error instanceof FireflyAlreadyBoundError) {
             enqueueWarningMessage(
-                t`The account you are trying to log in with is already linked to a different Firefly account.`,
+                <Trans>
+                    The account you are trying to log in with is already linked to a different Firefly account.
+                </Trans>,
             );
             return;
         }
+
+        if (error instanceof FireflyAccountAbsentError) {
+            enqueueWarningMessage(
+                <Trans>Registered account not found. Please switch to another wallet and try again.</Trans>,
+            );
+            return;
+        }
+
+        // if any unhandled error occurs, close the modal
+        // by this we don't need to do error handling in UI part.
+        LoginModalRef.close();
+        DraggablePopoverRef.close();
 
         throw error;
     } finally {
@@ -99,19 +114,9 @@ function LoginFarcasterWithWalletButton({ children, className }: HTMLProps<'a'>)
     const [{ loading }, onLoginByConnectWallet] = useAsyncFn(async () => {
         controller.current.renew();
         try {
-            await login(() => createAccountByWallet(controller.current.signal));
+            await loginFarcaster(() => createAccountByWallet(controller.current.signal));
         } catch (error) {
-            if (error instanceof FireflyAccountAbsentError) {
-                enqueueWarningMessage(
-                    <Trans>Registered account not found. Please switch to another wallet and try again.</Trans>,
-                );
-            } else if (error instanceof FireflyAlreadyBoundError) {
-                enqueueWarningMessage(
-                    t`The account you are trying to log in with is already linked to a different Firefly account.`,
-                );
-            } else {
-                enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
-            }
+            enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
             throw error;
         }
     }, [controller]);
@@ -169,7 +174,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
     const [{ loading: loadingByGrantPermission }, onLoginByGrantPermission] = useAsyncFn(async () => {
         controller.current.renew();
         try {
-            await login(
+            await loginFarcaster(
                 () => {
                     const account = createAccountByGrantPermission((url) => {
                         resetCountdown();
@@ -197,7 +202,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
         controller.current.renew();
 
         try {
-            await login(
+            await loginFarcaster(
                 async () => {
                     const account = await createAccountByRelayService((url) => {
                         resetCountdown();
@@ -223,13 +228,11 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                 history.replace(`/farcaster?signType=${FarcasterSignType.FireflySponsorship}`);
                 return;
             }
-
             if (IS_MOBILE_DEVICE) {
                 enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
                 history.replace(`/farcaster?signType=${FarcasterSignType.FireflySponsorship}`);
                 return;
             }
-
             enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
             throw error;
         }
@@ -238,7 +241,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
     const [{ loading: loadingBySponsorship }, onLoginByFireflySponsorship] = useAsyncFn(async () => {
         controller.current.renew();
         try {
-            await login(
+            await loginFarcaster(
                 async () => {
                     const account = createAccountByFireflySponsorship((url) => {
                         resetCountdown();
