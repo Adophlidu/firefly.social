@@ -14,7 +14,7 @@ const resolveFallbackImageUrl = (fallback: LiteralOrString<'avatar' | 'square' |
         return isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
     }
     if (fallback === 'square') {
-        return isDarkMode ? '/image/img-fallback-dark.png' : '/image/image-fallback-light.png';
+        return isDarkMode ? '/image/img-fallback-dark.png' : '/image/img-fallback-light.png';
     }
     if (fallback === 'rectangle') {
         return isDarkMode ? '/image/fallback-dark.png' : '/image/fallback-light.png';
