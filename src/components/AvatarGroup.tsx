@@ -1,3 +1,5 @@
+'use client';
+
 import { classNames } from '@dimensiondev/utils';
 import type { HTMLProps } from 'react';
 

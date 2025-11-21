@@ -1,3 +1,5 @@
+'use client';
+
 import { web3 } from '@coral-xyz/anchor';
 import {
     IframeBridgeMethod,
@@ -6,6 +8,7 @@ import {
     type SolanaRequestArgument,
     type SolanaResponse,
 } from '@dimensiondev/iframe-bridge';
+import { bom } from '@dimensiondev/utils';
 import type { RequestArguments } from '@reown/appkit';
 import type {
     AnyTransaction,
@@ -31,6 +34,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { NetworkType, WalletSource } from '@/constants/enum.js';
 import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 const PrivySolanaWalletName = 'Firefly Wallet' as WalletName<'Firefly Wallet'>;
 
@@ -50,12 +54,8 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
     constructor() {
         super();
 
-        this._connecting = true;
-        this.getAccounts().then((accounts) => {
-            this._publicKey = accounts.length > 0 ? new web3.PublicKey(accounts[0]) : null;
-            this._connecting = false;
-            this.emit('connect', this._publicKey);
-        });
+        this._connecting = false;
+        this._initializeAccounts();
 
         if (this._readyState !== WalletReadyState.Unsupported) {
             scopePollingDetectionStrategy(() => {
@@ -64,6 +64,23 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
                 return !!document.getElementById(FIREFLY_WALLET_IFRAME_ID);
             });
         }
+    }
+
+    private async _initializeAccounts() {
+        if (!bom.window) return;
+        this._connecting = true;
+        await this.getAccounts()
+            .then((accounts) => {
+                this._publicKey = accounts.length > 0 ? new web3.PublicKey(accounts[0]) : null;
+                this._connecting = false;
+                if (this._publicKey) {
+                    this.emit('connect', this._publicKey);
+                }
+            })
+            .catch((error) => {
+                this._connecting = false;
+                console.warn('[PrivySolanaWalletAdapter] Failed to initialize accounts:', error);
+            });
     }
 
     emit(message: string, ...args: unknown[]) {
@@ -105,7 +122,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
         const [account] = connected.filter(
             (connection) => connection.source === WalletSource.Privy && connection.platform === 'solana',
         );
-        const accounts = compact([account.address]);
+        const accounts = compact([account?.address]);
         this._publicKey = accounts.length > 0 ? new web3.PublicKey(accounts[0]) : null;
         return accounts;
     }
@@ -117,6 +134,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
         options: SendTransactionOptions = {},
     ): Promise<web3.TransactionSignature> {
         try {
+            useGlobalState.getState().updateFireflyWalletIsOpen(true);
             const signature = (await iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC, {
                 method: SolanaMethod.SignAndSendTransaction,
                 params: {
@@ -138,6 +156,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
     async signAndSendAllTransactions<T extends AnyTransaction[]>(
         transactions: T,
     ): Promise<web3.TransactionSignature[]> {
+        useGlobalState.getState().updateFireflyWalletIsOpen(true);
         const signatures = (await iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC, {
             method: SolanaMethod.SignAndSendAllTransactions,
             params: {
@@ -156,6 +175,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
 
     async signTransaction<T extends web3.Transaction | web3.VersionedTransaction>(transaction: T): Promise<T> {
         try {
+            useGlobalState.getState().updateFireflyWalletIsOpen(true);
             const signedTransaction = (await iframeBridgeProvider.request(
                 IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC,
                 {
@@ -179,6 +199,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
 
     async signMessage(message: Uint8Array): Promise<Uint8Array> {
         try {
+            useGlobalState.getState().updateFireflyWalletIsOpen(true);
             const signed = (await iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC, {
                 method: SolanaMethod.SignMessage,
                 params: {

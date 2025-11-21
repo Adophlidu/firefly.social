@@ -9,6 +9,7 @@ import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { NetworkType, WalletSource } from '@/constants/enum.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
+import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -18,6 +19,7 @@ export const FIREFLY_WALLET_IFRAME_ID = `firefly-wallet-iframe`;
 export function FireflyWallet() {
     const isLoginFirefly = useIsLoginFirefly();
     const isOpen = useGlobalState.use.fireflyWalletIsOpen();
+    const { isCreatedPrivyWallet } = useIsCreatedPrivyWallet();
 
     const allConnectionsQuery = useAllConnections();
     const privyConnections = useMemo(() => {
@@ -42,7 +44,7 @@ export function FireflyWallet() {
         }
     }, [privyConnections]);
 
-    if (!isLoginFirefly) return null;
+    if (!isLoginFirefly || !isCreatedPrivyWallet) return null;
 
     return (
         <>
