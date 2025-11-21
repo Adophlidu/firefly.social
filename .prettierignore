@@ -22,3 +22,4 @@ src/specialFile.js
 # Ignore files based on wildcard patterns
 **/vendor/**/*.js
 pnpm-lock.yaml
+next-env.d.ts

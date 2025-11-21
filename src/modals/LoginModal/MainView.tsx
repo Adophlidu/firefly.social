@@ -42,7 +42,7 @@ import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
-import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
+import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
@@ -280,7 +280,8 @@ export function MainView() {
     const isLoginFirefly = useIsLoginFirefly();
     const profileStore = useProfileStoreAll();
     const profilesAll = useCurrentProfilesAll();
-    const fireflyProfilesAll = useCurrentFireflyProfilesAll();
+    const { data: allConnections } = useAllConnectionsFormattedWithProfiles();
+    const socialConnections = allConnections?.socialConnections || [];
 
     const { data, isLoading } = useAllConnections();
 
@@ -409,10 +410,18 @@ export function MainView() {
                         <div className="flex flex-col gap-2">
                             {SORTED_LOGIN_SOCIAL_SOURCES.map((source, index) => {
                                 const accounts = profileStore[source].accounts;
-                                const profileIds = accounts.map((x) => x.profile.profileId);
-                                const profiles = fireflyProfilesAll
-                                    .filter((x) => x.identity.source === source && !profileIds.includes(x.identity.id))
-                                    .slice(0, 3);
+                                const connectedProfiles = socialConnections
+                                    .flatMap((x) => {
+                                        if (x.source !== source) return [];
+                                        return x.items.filter(({ connection }) => {
+                                            const isConnected =
+                                                ('connectedAt' in connection && connection.connectedAt) ||
+                                                ('connected' in connection && connection.connected);
+                                            return isConnected;
+                                        });
+                                    })
+                                    .slice(0, 3)
+                                    .map((x) => x.profile);
                                 const isExceed = accounts.length >= 3;
                                 return (
                                     <div
@@ -488,13 +497,13 @@ export function MainView() {
                                                 </div>
                                             );
                                         })}
-                                        {profiles.length > 0 ? (
+                                        {connectedProfiles.length > 0 ? (
                                             <ClickableArea
                                                 className="flex cursor-pointer items-center gap-[10px] border-t border-t-line p-2"
                                                 onClick={() => onClick(source)}
                                             >
                                                 <AvatarGroup
-                                                    profiles={profiles}
+                                                    profiles={connectedProfiles}
                                                     AvatarProps={{ className: 'size-5', size: 20 }}
                                                 />
                                                 <span className="text-sm font-normal text-second">
