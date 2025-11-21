@@ -1,23 +1,40 @@
 import urlcat from 'urlcat';
 
+import type { TokenTrendingData } from '@/components/TokenTrendingListItem.js';
 import type { TimeRangeFilter } from '@/constants/enum.js';
 import { formatTrendingToken } from '@/helpers/formatTrendingToken.js';
+import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveTimeRangeSortString } from '@/helpers/resolveTimeRangeName.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { TrendingTokensResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
-export async function getTrendingTokens({ network, sort }: { network?: string; sort?: TimeRangeFilter }) {
+export async function getTrendingTokens({
+    network,
+    sort,
+    indicator,
+}: {
+    network?: string;
+    sort?: TimeRangeFilter;
+    indicator?: PageIndicator;
+}) {
+    const page = !indicator?.id || indicator.id === '0' ? 1 : Number(indicator.id);
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/token/trending', {
-        page: 1,
+        page,
         sort: sort ? resolveTimeRangeSortString(sort) : undefined,
         network,
     });
     const response = await fireflySessionHolder.fetch<TrendingTokensResponse>(url);
     const data = resolveFireflyResponseData(response);
 
-    return data.map((item) => {
+    const formattedData = data.map((item) => {
         return formatTrendingToken(item, sort);
     });
+
+    const currentIndicator = createIndicator(indicator);
+    const hasNextPage = !!data.length;
+    const nextIndicator = hasNextPage ? createNextIndicator(indicator, `${page + 1}`, 20) : undefined;
+
+    return createPageable<TokenTrendingData>(formattedData, currentIndicator, nextIndicator);
 }

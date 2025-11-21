@@ -14,5 +14,7 @@ export function formatTrendingToken(token: TrendingToken, key?: keyof TrendingTo
         marketCap: token.market_cap_usd,
         price: token.token_price,
         priceChange: key ? parseFloat(token.price_change?.[key] ?? '0') : undefined,
+        deployPlatformLogo: token.deploy_platform_logo,
+        deployPlatform: token.deploy_platform,
     };
 }

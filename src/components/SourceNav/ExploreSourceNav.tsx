@@ -2,7 +2,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { omit } from 'lodash-es';
 import { type HTMLProps, memo, useMemo } from 'react';
-import { base, bsc, mainnet } from 'viem/chains';
+import { base, mainnet } from 'viem/chains';
 
 import { FilterPanel } from '@/components/FilterPanel.js';
 import { SourceNav } from '@/components/SourceNav/SourceNav.js';
@@ -30,7 +30,7 @@ const exploreTokenChainList = [
     {
         id: EthereumChainId.BSC,
         networkType: NetworkType.Ethereum,
-        name: bsc.name,
+        name: 'BSC',
     },
     {
         id: EthereumChainId.Base,

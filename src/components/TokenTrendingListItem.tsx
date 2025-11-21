@@ -2,6 +2,7 @@
 
 import { classNames } from '@dimensiondev/utils';
 
+import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -18,6 +19,8 @@ export interface TokenTrendingData {
     price?: string;
     priceChange?: number;
     coinId?: string;
+    deployPlatform?: string;
+    deployPlatformLogo?: string;
 }
 
 export function TokenTrendingListItem({ data }: { data: TokenTrendingData }) {
@@ -31,6 +34,7 @@ export function TokenTrendingListItem({ data }: { data: TokenTrendingData }) {
         name: data.symbol,
         logo_url: data.logo,
     };
+
     return (
         <Link className="flex items-center gap-3 border-b border-line p-4 hover:bg-bg" href={tokenPageUrl}>
             <TokenIcon
@@ -44,11 +48,22 @@ export function TokenTrendingListItem({ data }: { data: TokenTrendingData }) {
             />
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                    <span className="text-base font-semibold leading-6 text-lightMain">{data.symbol}</span>
+                    <span className="flex gap-1 text-base font-semibold leading-6 text-lightMain">
+                        {data.symbol}
+                        {data.deployPlatformLogo ? (
+                            <Image
+                                src={data.deployPlatformLogo}
+                                className="size-4 rounded-full"
+                                alt={data.deployPlatform || 'Mint platform'}
+                                width={15}
+                                height={15}
+                            />
+                        ) : null}
+                    </span>
                 </div>
                 <div className="flex gap-2">
                     {data.volume ? (
-                        <span className="text-sm leading-5 text-second">${nFormatter(Number(data.volume), 2)}</span>
+                        <span className="text-sm leading-5 text-second">${nFormatter(parseFloat(data.volume), 2)}</span>
                     ) : (
                         '-'
                     )}
@@ -72,7 +87,7 @@ export function TokenTrendingListItem({ data }: { data: TokenTrendingData }) {
                         )}
                     >
                         {data.priceChange !== 0 ? (data.priceChange > 0 ? '↑ ' : '↓ ') : null}
-                        {data.priceChange.toFixed(2).replace('-', '')}%
+                        {parseFloat(data.priceChange.toFixed(2)).toString().replace('-', '')}%
                     </data>
                 ) : null}
             </div>

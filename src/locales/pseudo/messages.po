@@ -3554,6 +3554,9 @@ msgstr ""
 msgid "Sorry, we are not able to find this token"
 msgstr ""
 
+msgid "No tokens found"
+msgstr ""
+
 msgid "Muting..."
 msgstr ""
 

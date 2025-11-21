@@ -11,6 +11,7 @@ export const resolveCoinGeckoNetwork = createLookupTableResolver<number, string 
         [EthereumChainId.Arbitrum]: 'arbitrum',
         [EthereumChainId.Optimism]: 'optimism',
         [SolanaChainId.Mainnet]: 'solana',
+        [EthereumChainId.Base]: 'base',
     },
     undefined,
 );

@@ -1329,6 +1329,8 @@ export interface TrendingToken {
         h24: string;
     };
     token_price: string;
+    deploy_platform?: string;
+    deploy_platform_logo?: string;
     price_change?: {
         m5: string;
         m15: string;

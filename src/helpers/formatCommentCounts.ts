@@ -33,6 +33,11 @@ export const nFormatter = (num: number, digits = 1): string => {
     // Remove trailing zeros and round to the specified number of digits
     const rx = /\.0+$|(\.\d*[1-9])0+$/;
 
+    // Handle numbers less than 1
+    if (num < 1 && num > 0) {
+        return num.toFixed(digits).replace(rx, '$1');
+    }
+
     // Find the appropriate SI prefix for the number
     const item = [...lookup].reverse().find(function (item) {
         return num >= item.value;

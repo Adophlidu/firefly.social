@@ -1,11 +1,14 @@
+'use client';
+
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
-import { TokenTrendingListItem } from '@/components/TokenTrendingListItem.js';
-import { VirtualListFooterBottomText } from '@/components/VirtualList/VirtualListFooterBottomText.js';
-import { TrendingType } from '@/constants/enum.js';
+import { ListInPage } from '@/components/ListInPage.js';
+import { type TokenTrendingData,TokenTrendingListItem } from '@/components/TokenTrendingListItem.js';
+import { ScrollListKey, Source, TrendingType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveCoinGeckoNetwork } from '@/helpers/resolveCoinGeckoNetwork.js';
 import { getNewestTokens } from '@/providers/firefly/endpoint/getNewestTokens.js';
 import { getStockTokens } from '@/providers/firefly/endpoint/getStockTokens.js';
@@ -17,11 +20,17 @@ interface Props {
     type: TrendingType;
 }
 
+function getTokenTrendingItemContent(_: number, data: TokenTrendingData) {
+    return <TokenTrendingListItem key={`${data.address}-${data.chainId}`} data={data} />;
+}
+
 export function TokenTrendingList(props: Props) {
     const { selectedChainId, selectedTimeRange } = useExploreTrendingFilterStore();
-    const { data } = useSuspenseQuery({
+
+    const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['explore-trending', props.type, selectedChainId, selectedTimeRange],
-        queryFn: async () => {
+        queryFn: async ({ pageParam }) => {
+            const indicator = createIndicator(undefined, pageParam);
             const type = props.type;
 
             switch (type) {
@@ -29,28 +38,40 @@ export function TokenTrendingList(props: Props) {
                     return getTrendingTokens({
                         network: selectedChainId ? resolveCoinGeckoNetwork(selectedChainId) : undefined,
                         sort: selectedTimeRange,
+                        indicator,
                     });
                 }
                 case TrendingType.Stocks:
                     return getStockTokens({
                         sort: selectedTimeRange,
+                        indicator,
                     });
                 case TrendingType.Newest:
                     return getNewestTokens({
                         network: selectedChainId ? resolveCoinGeckoNetwork(selectedChainId) : undefined,
+                        indicator,
                     });
                 case TrendingType.TopSearches:
-                    return getTopSearchTokens();
+                    return getTopSearchTokens({ indicator });
 
                 default:
                     safeUnreachable(type);
-                    return EMPTY_LIST;
+                    return createPageable<TokenTrendingData>(EMPTY_LIST, indicator);
             }
         },
+        initialPageParam: '',
+        getNextPageParam: (lastPage) => {
+            if (lastPage?.data.length === 0) return undefined;
+            return lastPage?.nextIndicator?.id;
+        },
+        select: (data) => data.pages.flatMap((x) => x?.data || []),
         networkMode: 'always',
         staleTime: 0,
         gcTime: 0,
     });
+
+    const listKey = `${ScrollListKey.TokenTrending}:${props.type}:${selectedChainId}:${selectedTimeRange}`;
+
     return (
         <div>
             <div className="mt-3 flex px-4">
@@ -62,11 +83,18 @@ export function TokenTrendingList(props: Props) {
                 </div>
             </div>
 
-            {data.map((x, index) => (
-                <TokenTrendingListItem key={index} data={x} />
-            ))}
-
-            <VirtualListFooterBottomText />
+            <ListInPage
+                source={Source.Tokens}
+                queryResult={queryResult}
+                VirtualListProps={{
+                    listKey,
+                    computeItemKey: (index, item) => `${item.address}-${item.chainId}-${index}`,
+                    itemContent: getTokenTrendingItemContent,
+                }}
+                NoResultsFallbackProps={{
+                    message: <Trans>No tokens found</Trans>,
+                }}
+            />
         </div>
     );
 }
