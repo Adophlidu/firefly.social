@@ -437,7 +437,7 @@ export function MainView() {
                                                         isLoginFirefly && profileStore[source].accounts.length > 0,
                                                 },
                                             )}
-                                            disabled={switchLoading}
+                                            disabled={switchLoading || isExceed}
                                             onClick={() => onClick(source)}
                                         >
                                             <div className="flex items-center gap-2">
