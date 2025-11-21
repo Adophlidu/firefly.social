@@ -1,4 +1,5 @@
 'use client';
+
 import { memo } from 'react';
 
 import { SwapButton, type SwapButtonProps } from '@/components/TokenProfile/SwapButton.js';

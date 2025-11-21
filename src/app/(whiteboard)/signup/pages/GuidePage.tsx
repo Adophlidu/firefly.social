@@ -1,4 +1,5 @@
 'use client';
+
 import { bom } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { debounce } from 'lodash-es';

@@ -1,4 +1,5 @@
 'use client';
+
 import { bom } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { jwtDecode } from 'jwt-decode';

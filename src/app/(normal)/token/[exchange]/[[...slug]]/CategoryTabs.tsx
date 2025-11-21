@@ -1,4 +1,5 @@
 'use client';
+
 import { Trans } from '@lingui/react/macro';
 import { ReadonlyURLSearchParams, usePathname, useSearchParams } from 'next/navigation.js';
 import { type HTMLProps, memo, type ReactNode } from 'react';

@@ -1,4 +1,5 @@
 'use client';
+
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
 import { queryClient } from '@/configs/queryClient.js';
 import type { NotificationSource } from '@/constants/enum.js';

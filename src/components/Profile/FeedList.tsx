@@ -1,4 +1,5 @@
 'use client';
+
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 
 import ProtectedIcon from '@/assets/protected.svg';

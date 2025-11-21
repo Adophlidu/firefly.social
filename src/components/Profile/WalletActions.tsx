@@ -1,4 +1,5 @@
 'use client';
+
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from 'next/navigation.js';

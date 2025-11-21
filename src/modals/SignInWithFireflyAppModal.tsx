@@ -1,4 +1,5 @@
 'use client';
+
 import { bom, classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery, useQueryClient } from '@tanstack/react-query';

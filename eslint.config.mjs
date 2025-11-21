@@ -11,6 +11,7 @@ import unusedImports from 'eslint-plugin-unused-imports';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import reactHooks from 'eslint-plugin-react-hooks';
 import renameJsx from './scripts/eslint-plugin-rename-jsx.mjs';
+import useClientNewline from './scripts/eslint-plugin-use-client-newline.mjs';
 
 export default defineConfig([
     {
@@ -50,6 +51,7 @@ export default defineConfig([
             '@typescript-eslint': typescriptEslintEslintPlugin,
             'unused-imports': unusedImports,
             'rename-jsx': renameJsx,
+            'use-client-newline': useClientNewline,
         },
 
         languageOptions: {
@@ -77,6 +79,7 @@ export default defineConfig([
         },
         rules: {
             'rename-jsx/rename-jsx-import': 'warn',
+            'use-client-newline/require-newline-after-use-client': 'warn',
             'default-case-last': 'error',
             eqeqeq: 'error',
             'import/no-empty-named-blocks': 'warn',
