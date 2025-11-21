@@ -37,30 +37,6 @@ export type GetBalanceResponse = RpcResponse<{ value: number }>;
 
 export type GetProgramAccountsResponse = RpcResponse<ProgramAccount[]>;
 
-export interface SplToken {
-    chainId: number;
-    address: string;
-    symbol: string;
-    name: string;
-    decimals: number;
-    logoURI: string;
-    tags: string[];
-    extensions: {
-        facebook: string;
-        twitter: string;
-        website: string;
-    };
-}
-
-export interface JupToken extends SplToken {
-    daily_volume: number;
-    created_at: string;
-    freeze_authority: string;
-    mint_authority: string;
-    permanent_delegate: string;
-    minted_at: string;
-}
-
 export type GetTransactionResponse = RpcResponse<{
     meta: {
         err: string | null;
