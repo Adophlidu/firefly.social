@@ -13,6 +13,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { SignupFormFields } from '@/modals/SignupModal/SignupFormFields.js';
+import { checkAndSyncMetrics } from '@/providers/firefly/metrics/checkAndSyncMetrics.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
 import type { LensSession } from '@/providers/lens/Session.js';
@@ -63,6 +64,7 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose, on
                     skipResumeFireflyAccounts: true,
                     skipResumeFireflySession: true,
                     setAsCurrent: true,
+                    skipSyncAccounts: true,
                 });
                 if (source === Source.Lens) {
                     const session = account.session as LensSession;
@@ -81,6 +83,9 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose, on
                 onClose({ account });
                 runInSafeAsync(() => queryClient.refetchQueries({ queryKey: queryMyAllConnections.queryKey }));
                 enqueueSuccessMessage(<Trans>{resolveSourceName(source)} profile created.</Trans>);
+
+                // sync metrics in the final step
+                runInSafeAsync(() => checkAndSyncMetrics(account));
             } catch (error) {
                 enqueueErrorMessage(
                     <Trans>

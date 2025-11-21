@@ -16,15 +16,14 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ConfirmFireflyModalRef } from '@/modals/ConfirmFireflyModal.js';
-import { ConfirmSyncSessionModalRef } from '@/modals/ConfirmSyncSessionModal.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { getBskySessionStorage } from '@/providers/bsky/createBskyAgent.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
 import { reportFarcasterSigner } from '@/providers/firefly/farcaster-account/reportFarcasterSigner.js';
+import { checkAndSyncMetrics } from '@/providers/firefly/metrics/checkAndSyncMetrics.js';
 import { deleteMetrics } from '@/providers/firefly/metrics/deleteMetrics.js';
-import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
@@ -41,7 +40,7 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
-import { downloadAccounts, mergeMetrics, uploadMetrics } from '@/services/metrics.js';
+import { downloadAccounts } from '@/services/metrics.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
@@ -297,72 +296,11 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     if (account.fireflySession?.payload?.isNew) captureAccountCreateSuccessEvent(account);
 
     if (!skipSyncAccounts && fireflySession) {
-        const syncStatus = await getMetricsStatus();
-        if (syncStatus.hasSetPasscode) {
-            const syncPromise = syncMetrics(account);
-            if (skipWaitForMetricsSyncing === false) {
-                await syncPromise;
-            }
-        }
+        await checkAndSyncMetrics(account, skipWaitForMetricsSyncing);
     }
 
     // account has been added to the store
     return true;
-}
-
-async function syncMetrics(account: Account) {
-    const remoteAccounts = await downloadAccounts();
-    const remoteProfiles = compact(
-        remoteAccounts.map(({ metaInfo }) => {
-            if (metaInfo.platform === 'bluesky') {
-                return null;
-            }
-            const source = resolveSocialSource(metaInfo.platform);
-
-            return {
-                ...createDummyProfile(source),
-                profileId: metaInfo.profileId,
-                handle: metaInfo.profileHandle,
-                displayName: metaInfo.name,
-                pfp: metaInfo.avatar,
-            } satisfies Profile;
-        }),
-    );
-
-    const localProfiles = getAllProfiles();
-
-    const profilesToSync = remoteProfiles.filter(
-        (remoteProfile) => !localProfiles.some((localProfile) => isSameProfile(localProfile, remoteProfile)),
-    );
-
-    const profilesToUpload = localProfiles.filter((localProfile) => {
-        return (
-            localProfile.source !== Source.Bsky ||
-            !remoteProfiles.some((remoteProfile) => isSameProfile(localProfile, remoteProfile))
-        );
-    });
-
-    const isOrbTemporaryAccount =
-        account?.profile.source === Source.Lens && !(account.session as LensSession).refreshToken;
-
-    if (profilesToSync.length > 0) {
-        LoginModalRef.close();
-        const confirmed = await ConfirmSyncSessionModalRef.openAndWaitForClose({
-            profiles: profilesToSync.filter((x) => !isSameProfile(x, account?.profile)),
-        });
-
-        if (confirmed) {
-            const password = await verifyAndGetPassword({
-                skipCheck: true,
-            });
-            if (password) mergeMetrics(password);
-        }
-    } else if (profilesToUpload.length > 0 && !isOrbTemporaryAccount) {
-        const passcode = await verifyAndGetPassword();
-        if (passcode) uploadMetrics(passcode);
-    }
-
-    return;
 }
 
 export async function addAccounts(fireflySession: FireflySession, accounts: Account[], options?: AccountOptions) {
