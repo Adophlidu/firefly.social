@@ -36,6 +36,7 @@ import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { checkAndSyncMetrics } from '@/providers/firefly/metrics/checkAndSyncMetrics.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
@@ -137,7 +138,7 @@ export const LensView = memo(function LensView() {
             const credentials = ensureLensResultSync(sessionClient.getCredentials());
             const done = await addAccount(account, {
                 signal: controller.current.signal,
-                skipWaitForMetricsSyncing,
+                skipSyncAccounts: true,
             });
             if (done) {
                 // move to local storage
@@ -146,13 +147,12 @@ export const LensView = memo(function LensView() {
                 }
                 lensSessionHolder.resumeSession(account.session);
                 lensSessionHolder.setSessionClient(sessionClient);
+                LoginModalRef.close();
+                enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Lens)} account is now connected.</Trans>);
 
                 await runInSafeAsync(() => setPrivyAsLensManager(account));
-
-                enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Lens)} account is now connected.</Trans>);
+                await checkAndSyncMetrics(account, skipWaitForMetricsSyncing);
             }
-
-            LoginModalRef.close();
         } catch (error) {
             if (AbortError.is(error)) return;
             if (error instanceof ForbiddenError) {

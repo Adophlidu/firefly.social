@@ -7,6 +7,7 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { WHITEBOARD_ROUTES } from '@/constants/index.js';
 import { AddCustomERC20Modal, AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
 import { AddCustomERC721Modal, AddCustomERC721ModalRef } from '@/modals/AddCustomERC721Modal.js';
+import { AddLensManagerModal, AddLensManagerModalRef } from '@/modals/AddLensManagerModal/index.js';
 import { AddWalletModal, AddWalletModalRef } from '@/modals/AddWalletModal/index.js';
 import { CollectArticleModal, CollectArticleModalRef } from '@/modals/CollectArticleModal.js';
 import { CollectPostModal, CollectPostModalRef } from '@/modals/CollectPostModal.js';
@@ -69,6 +70,7 @@ export const Modals = memo(function Modals() {
             <ConfirmFireflyModal ref={ConfirmFireflyModalRef.register} />
             <PasswordModal ref={PasswordModalRef.register} />
             <ConfirmSyncSessionModal ref={ConfirmSyncSessionModalRef.register} />
+            <AddLensManagerModal ref={AddLensManagerModalRef.register} />
 
             <IfPathname isNotOneOf={WHITEBOARD_ROUTES}>
                 <AddCustomERC20Modal ref={AddCustomERC20ModalRef.register} />
