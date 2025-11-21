@@ -17,7 +17,7 @@ export function MutedWallets() {
         staleTime: 0,
         queryFn: async ({ pageParam }) => {
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
-            return await getBlockedWallets(indicator);
+            return getBlockedWallets(indicator);
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,

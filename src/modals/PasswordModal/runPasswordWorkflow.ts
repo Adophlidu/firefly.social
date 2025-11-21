@@ -187,13 +187,13 @@ export async function runPasswordWorkflow(
 ): Promise<NextStepConfig> {
     switch (workflow) {
         case PasswordWorkflow.Set:
-            return await setPassword(step, passwords, false, autoUploadMetrics);
+            return setPassword(step, passwords, false, autoUploadMetrics);
         case PasswordWorkflow.Change:
-            return await changePassword(step, passwords, autoUploadMetrics);
+            return changePassword(step, passwords, autoUploadMetrics);
         case PasswordWorkflow.Verify:
-            return await verifyPassword(step, passwords);
+            return verifyPassword(step, passwords);
         case PasswordWorkflow.Reset:
-            return await resetPassword(step, passwords, autoUploadMetrics);
+            return resetPassword(step, passwords, autoUploadMetrics);
         default:
             unreachable(workflow);
     }

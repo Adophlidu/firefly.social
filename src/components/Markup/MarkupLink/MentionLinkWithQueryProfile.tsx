@@ -44,7 +44,7 @@ export const MentionLinkWithQueryProfile = memo<Props>(function MentionLinkWithQ
             {
                 queryKey: ['profile', source, handle],
                 async queryFn() {
-                    return await resolveSocialMediaProvider(source).getProfileByIdOrHandle(handle);
+                    return resolveSocialMediaProvider(source).getProfileByIdOrHandle(handle);
                 },
                 enabled: !!handle && source !== Source.Bsky,
                 retry: false,

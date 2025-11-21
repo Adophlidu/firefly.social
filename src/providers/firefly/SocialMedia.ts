@@ -1114,11 +1114,11 @@ class FireflySocialMedia implements Provider {
     }
 
     async bookmarkNFT(nftId: string, owner?: string): Promise<boolean> {
-        return await FireflySocialMediaProvider.bookmark(nftId, FireflyPlatform.NFTs, owner, BookmarkType.All);
+        return FireflySocialMediaProvider.bookmark(nftId, FireflyPlatform.NFTs, owner, BookmarkType.All);
     }
 
     async unbookmarkNFT(nftId: string, owner?: string): Promise<boolean> {
-        return await FireflySocialMediaProvider.unbookmark(nftId);
+        return FireflySocialMediaProvider.unbookmark(nftId);
     }
 
     async bookmarkToken(options: BookmarkTokenOptions) {

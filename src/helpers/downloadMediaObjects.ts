@@ -25,7 +25,7 @@ export async function downloadUrlWithProxy(url: string, name: string) {
 }
 
 export async function downloadMediaObjects(medias: MediaObject[], useThumb = false) {
-    return await Promise.all(
+    return Promise.all(
         medias.map(async (media) => {
             const url =
                 useThumb && media.thumb

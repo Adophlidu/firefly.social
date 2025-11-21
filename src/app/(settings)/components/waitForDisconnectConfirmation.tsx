@@ -21,7 +21,7 @@ export async function getRelatedProfiles({ identities }: FireflyWalletConnection
 export async function waitForDisconnectConfirmation(connection: FireflyWalletConnection) {
     const profiles = await getRelatedProfiles(connection);
 
-    return await ConfirmModalRef.openAndWaitForClose({
+    return ConfirmModalRef.openAndWaitForClose({
         title: <Trans>Disconnect</Trans>,
         content: (
             <div className="-mb-2.5 -mt-4">

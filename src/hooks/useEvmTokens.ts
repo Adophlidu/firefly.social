@@ -19,7 +19,7 @@ export const useEvmTokens = (address?: string) => {
         enabled: !!address,
         queryFn: async () => {
             if (!address) return [];
-            return await getTokensByAddress(address);
+            return getTokensByAddress(address);
         },
     });
     const customTokens = useCustomFungibleTokens();

@@ -8,7 +8,7 @@ import { settings } from '@/settings/index.js';
 export async function checkPasscode(passcode: string, noStrictOK?: boolean) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/metrics/check-passcode');
 
-    return await fireflySessionHolder.fetch<Response<{}>>(
+    return fireflySessionHolder.fetch<Response<{}>>(
         url,
         {
             method: 'POST',

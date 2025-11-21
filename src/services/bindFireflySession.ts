@@ -260,23 +260,23 @@ export async function bindFireflySession(session: Session, signal?: AbortSignal)
 
     switch (session.type) {
         case SessionType.Farcaster:
-            return await bindFarcasterSessionToFirefly(session as FarcasterSession, signal);
+            return bindFarcasterSessionToFirefly(session as FarcasterSession, signal);
         case SessionType.Lens:
-            return await bindLensToFirefly(session as LensSession, signal);
+            return bindLensToFirefly(session as LensSession, signal);
         case SessionType.Twitter:
-            return await bindTwitterSessionToFirefly(session as TwitterSession, signal);
+            return bindTwitterSessionToFirefly(session as TwitterSession, signal);
         case SessionType.Bsky:
-            return await bindBskySessionToFirefly(session as BskySession, signal);
+            return bindBskySessionToFirefly(session as BskySession, signal);
         case SessionType.Firefly:
             throw new NotAllowedError();
         case SessionType.Apple:
-            return await bindAppleSessionToFirefly(session as ThirdPartySession, signal);
+            return bindAppleSessionToFirefly(session as ThirdPartySession, signal);
         case SessionType.Google:
-            return await bindGoogleSessionToFirefly(session as ThirdPartySession, signal);
+            return bindGoogleSessionToFirefly(session as ThirdPartySession, signal);
         case SessionType.Telegram:
-            return await bindTelegramSessionToFirefly(session as ThirdPartySession, signal);
+            return bindTelegramSessionToFirefly(session as ThirdPartySession, signal);
         case SessionType.Email:
-            return await bindEmailSessionToFirefly(session as ThirdPartySession);
+            return bindEmailSessionToFirefly(session as ThirdPartySession);
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('[bindFireflySession] session type', session.type);

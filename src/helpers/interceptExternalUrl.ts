@@ -78,7 +78,7 @@ export async function interceptExternalUrl(url: string) {
     switch (siteType) {
         case ExternalSiteDomain.Warpcast:
         case ExternalSiteDomain.Farcaster:
-            return await formatFarcasterUrl(parsedURL);
+            return formatFarcasterUrl(parsedURL);
         case ExternalSiteDomain.Twitter:
         case ExternalSiteDomain.X:
         case ExternalSiteDomain.Hey:

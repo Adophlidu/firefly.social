@@ -54,8 +54,8 @@ class Provider implements TransferProvider<SolanaChainId> {
 
     async getTransferTransaction(options: TransactionOptions<SolanaChainId>) {
         return this.isNativeToken(options.token)
-            ? await this.getNativeTransferTransaction(options)
-            : await this.getSplTransferTransaction(options);
+            ? this.getNativeTransferTransaction(options)
+            : this.getSplTransferTransaction(options);
     }
 
     async validateGas(options: TransactionOptions<SolanaChainId>) {

@@ -9,7 +9,7 @@ export function useAllProfiles(identity?: FireflyIdentity) {
         queryKey: ['all-profiles', identity?.source, identity?.id],
         async queryFn() {
             if (!identity) return EMPTY_LIST;
-            return await getAllPlatformProfileByIdentity(identity, false);
+            return getAllPlatformProfileByIdentity(identity, false);
         },
         staleTime: 1000 * 60 * 5,
         enabled: !!identity,

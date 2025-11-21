@@ -7,11 +7,11 @@ import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 export async function getProfilesByIds(source: SourceInURL, ids: string[]) {
     switch (source) {
         case SourceInURL.Farcaster:
-            return await FarcasterSocialMediaProvider.getProfilesByIds(ids);
+            return FarcasterSocialMediaProvider.getProfilesByIds(ids);
         case SourceInURL.Lens:
-            return await LensSocialMediaProvider.getProfilesByIds(ids);
+            return LensSocialMediaProvider.getProfilesByIds(ids);
         case SourceInURL.Twitter:
-            return await TwitterSocialMediaProxy.getProfilesByIds(ids);
+            return TwitterSocialMediaProxy.getProfilesByIds(ids);
         case SourceInURL.Firefly:
         case SourceInURL.Article:
         case SourceInURL.Wallet:

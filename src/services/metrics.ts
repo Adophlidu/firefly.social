@@ -112,7 +112,7 @@ async function getMetricsDataToUpload(account: Account, passcode: string) {
 async function getLocalMetrics(passcode: string) {
     const allAccounts = getAllAccounts();
 
-    return await Promise.all(
+    return Promise.all(
         allAccounts.map(async (account) => {
             if (account.profile.source === Source.Bsky) {
                 return null;
@@ -148,7 +148,7 @@ export async function uploadMetrics(passcode: string) {
     const validMetrics = compact(localMetrics);
     if (!validMetrics.length) throw new Error('No valid metrics data to upload.');
 
-    return await uploadFireflyMetrics(passcode, validMetrics);
+    return uploadFireflyMetrics(passcode, validMetrics);
 }
 
 export async function downloadAccounts() {
