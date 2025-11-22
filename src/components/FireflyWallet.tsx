@@ -10,7 +10,7 @@ import WalletIcon from '@/assets/wallet.svg';
 import { NetworkType, WalletSource } from '@/constants/enum.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 

@@ -30,7 +30,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';

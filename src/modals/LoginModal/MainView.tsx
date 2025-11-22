@@ -45,7 +45,7 @@ import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';

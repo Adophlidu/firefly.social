@@ -11,7 +11,7 @@ import { isPathnameForceRedirect } from '@/helpers/openLoginModal.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { CreateFireflyAccountGuideModalRef } from '@/modals/CreateFireflyAccountGuideModal/index.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { removeAllAccounts } from '@/services/account.js';

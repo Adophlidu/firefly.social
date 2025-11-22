@@ -10,7 +10,8 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
-import { useIsLoginDiscoverSource, useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginDiscoverSource } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 
 export function DiscoverLoginRedirect() {
     const router = useRouter();

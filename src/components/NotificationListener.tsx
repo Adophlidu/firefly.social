@@ -6,7 +6,7 @@ import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useNewestNotification } from '@/hooks/useNewestNotification.js';
 import { listenNotifications, stopListenNotifications } from '@/services/listenNotifications.js';
 

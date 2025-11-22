@@ -12,7 +12,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { PasswordWorkflow } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';

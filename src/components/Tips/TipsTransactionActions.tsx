@@ -28,7 +28,7 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { type ComposeModalOpenProps, ComposeModalRef } from '@/modals/ComposeModal.js';
 import { ShareImageModalRef } from '@/modals/ShareImageModal/index.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';

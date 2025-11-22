@@ -9,7 +9,7 @@ import { SnackbarProvider } from '@/components/Snackbar.js';
 import { sentryClient } from '@/configs/sentryClient.js';
 import { usePathname } from '@/esm/navigation.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { recordUserThemeMode } from '@/services/recordUserThemeMode.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';

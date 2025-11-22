@@ -16,7 +16,7 @@ import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFirefly
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { TipsModalRef } from '@/modals/TipsModal/index.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';

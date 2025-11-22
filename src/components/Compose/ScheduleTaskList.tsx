@@ -23,7 +23,7 @@ import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';

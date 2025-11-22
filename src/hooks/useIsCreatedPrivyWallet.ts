@@ -6,7 +6,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { sentryClient } from '@/configs/sentryClient.js';
 import { InvalidResultError } from '@/constants/error.js';
 import { retry } from '@/helpers/retry.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getPrivyWalletConnectionsQuery, usePrivyConnections } from '@/hooks/usePrivyConnections.js';
 import { createPrivyWallet } from '@/providers/firefly/endpoint/createPrivyWallet.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';

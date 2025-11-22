@@ -183,7 +183,7 @@ export const voteArrayTypes = {
     ],
 };
 
-export type SnapshotActivity = {
+export interface SnapshotActivity {
     proposal_id: string;
     proposal?: SnapshotProposal;
     author: {
@@ -209,4 +209,4 @@ export type SnapshotActivity = {
         title: string;
         body: string;
     };
-};
+}

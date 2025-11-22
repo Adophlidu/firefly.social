@@ -14,7 +14,7 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 
 export default function Wallets() {
     const isLogin = useIsLoginFirefly();

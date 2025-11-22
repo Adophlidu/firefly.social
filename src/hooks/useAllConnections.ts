@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getAllConnectionsFormatted } from '@/providers/firefly/endpoint/getAllConnectionsFormatted.js';
 
 export const queryMyAllConnections = {

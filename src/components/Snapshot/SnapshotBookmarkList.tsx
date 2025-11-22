@@ -8,7 +8,7 @@ import { getSnapshotItemContent } from '@/components/VirtualList/getSnapshotItem
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 export function SnapshotBookmarkList() {

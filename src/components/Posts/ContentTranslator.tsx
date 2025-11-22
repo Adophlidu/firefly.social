@@ -10,7 +10,7 @@ import { getTargetLanguage } from '@/helpers/getBrowserLanguage.js';
 import { getLangNameFromLocal } from '@/helpers/getLangNameFromLocal.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { detectLanguage } from '@/services/detectLanguage.js';
 import { Language, translateLanguage } from '@/services/translate.js';

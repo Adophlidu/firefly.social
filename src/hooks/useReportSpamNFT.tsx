@@ -7,7 +7,7 @@ import { Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { reportNFT } from '@/providers/firefly/endpoint/reportNFT.js';
 import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';

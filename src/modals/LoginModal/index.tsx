@@ -5,7 +5,7 @@ import urlcat from 'urlcat';
 import { Modal } from '@/components/Modal.js';
 import { type FarcasterSignType, LensSignType, type ProfileSource, Source } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';

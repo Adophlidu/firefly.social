@@ -22,7 +22,7 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import { CollectArticleModalRef } from '@/modals/CollectArticleModal.js';

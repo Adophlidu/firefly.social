@@ -20,7 +20,7 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
 import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';

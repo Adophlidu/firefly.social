@@ -8,7 +8,7 @@ import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { ActivitiesFilterNamespace, useActivitiesFilterStore } from '@/store/useActivitiesFilterStore.js';
 

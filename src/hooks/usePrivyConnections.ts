@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { WalletSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getAllConnectionsFormatted } from '@/providers/firefly/endpoint/getAllConnectionsFormatted.js';
 
 export function getPrivyWalletConnectionsQuery() {

@@ -15,7 +15,7 @@ import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { getAllNotifications } from '@/providers/firefly/endpoint/getAllNotifications.js';
 import { getScheduleNotifications } from '@/providers/firefly/endpoint/getScheduleNotifications.js';

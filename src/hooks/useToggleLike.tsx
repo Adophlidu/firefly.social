@@ -6,7 +6,7 @@ import { ExtraLikeType, PlatformId, Source, TxReactionType } from '@/constants/e
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { updateQueryForLikeReaction } from '@/helpers/updateQueryForLikeReaction.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { createTxReaction } from '@/providers/firefly/endpoint/createTxReaction.js';
 import { removeTxReaction } from '@/providers/firefly/endpoint/removeTxReaction.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';

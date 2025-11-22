@@ -7,7 +7,7 @@ import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { FarcasterSignType } from '@/constants/enum.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { resolveFarcasterDefaultSignType } from '@/providers/farcaster/resolveFarcasterDefaultSignType.js';
 
 export const FarcasterViewBeforeLoad = () => {

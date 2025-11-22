@@ -17,7 +17,7 @@ import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
 import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';
 import { resolveHomeUrl } from '@/helpers/resolveHomeUrl.js';
 import { resolveSourceUIName } from '@/helpers/resolveSourceName.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { ActivitiesFilterNamespace } from '@/store/useActivitiesFilterStore.js';

@@ -11,7 +11,7 @@ import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Source } from '@/constants/enum.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 

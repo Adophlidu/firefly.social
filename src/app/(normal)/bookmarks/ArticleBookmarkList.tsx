@@ -8,7 +8,7 @@ import { getArticleItemContent } from '@/components/VirtualList/getArticleItemCo
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getBookmarks } from '@/providers/firefly/article/getBookmarks.js';
 
 export function ArticleBookmarkList() {

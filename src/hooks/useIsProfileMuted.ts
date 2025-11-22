@@ -9,7 +9,8 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useIsLogin, useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { isProfileMuted as isProfileMutedEndpoint } from '@/providers/firefly/endpoint/isProfileMuted.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
