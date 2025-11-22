@@ -5,7 +5,7 @@ import { ExternalSiteDomain, type SocialSource, Source } from '@/constants/enum.
 import { SITE_URL } from '@/constants/index.js';
 import { FARCASTER_DETAIL_REGEX, TWEET_REGEX } from '@/constants/regexp.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { getUrlSiteType } from '@/helpers/interceptExternalUrl.js';
+import { getSiteTypeFromUrl } from '@/helpers/getSiteTypeFromUrl.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { trimify } from '@/helpers/trimify.js';
@@ -15,14 +15,9 @@ import { getPostByShortId } from '@/providers/firefly/endpoint/getPostByShortId.
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 async function captureProfileUrl(url: URL, regex: RegExp, source: SocialSource) {
-    const { pathname } = url;
-
-    const matched = regex.exec(pathname);
+    const matched = regex.exec(url.pathname);
     const handle = trimify(matched?.[1] ?? '');
-    if (handle) {
-        return urlcat(SITE_URL, getProfileUrl({ source, handle }));
-    }
-
+    if (handle) return urlcat(SITE_URL, getProfileUrl({ source, handle }));
     return;
 }
 
@@ -120,7 +115,7 @@ async function formatBskyUrl(url: URL) {
 }
 
 export async function formatExternalLink(link: string) {
-    const { siteType, parsedURL } = getUrlSiteType(link) ?? {};
+    const { siteType, parsedURL } = getSiteTypeFromUrl(link) ?? {};
     if (!siteType || !parsedURL) return;
 
     switch (siteType) {

@@ -2,26 +2,12 @@ import { parseUrl, safeUnreachable } from '@dimensiondev/utils';
 
 import { ExternalSiteDomain, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
+import { getSiteTypeFromUrl } from '@/helpers/getSiteTypeFromUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
-
-function parseSiteType(url: string) {
-    return Object.values(ExternalSiteDomain).find((domain) => matchDomainSuffix(url, domain));
-}
-
-export function getUrlSiteType(url: string) {
-    const siteType = parseSiteType(url);
-    if (!siteType) return null;
-
-    const parsedURL = parseUrl(url);
-    if (!parsedURL) return null;
-
-    return { siteType, parsedURL };
-}
 
 async function formatFarcasterUrl(parsedURL: URL) {
     switch (parsedURL.pathname) {
@@ -72,7 +58,7 @@ async function formatFarcasterUrl(parsedURL: URL) {
 }
 
 export async function interceptExternalUrl(url: string) {
-    const { siteType, parsedURL } = getUrlSiteType(url) ?? {};
+    const { siteType, parsedURL } = getSiteTypeFromUrl(url) ?? {};
     if (!siteType || !parsedURL) return false;
 
     switch (siteType) {
