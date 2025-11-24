@@ -154,23 +154,6 @@ export interface CoinGeckoCoinMarketInfo {
     total_volume: number;
 }
 
-export interface CoinGeckoCoinTrending {
-    id: string;
-    symbol: string;
-    name: string;
-    large: string;
-    thumb: string;
-    market_cap_rank: number;
-    data: {
-        price: number;
-        /**  "$1,107,834,290" */
-        market_cap: string;
-        price_change_percentage_24h: {
-            usd: number;
-        };
-    };
-}
-
 enum CurrencyType {
     NATIVE = 'native',
     BTC = 'btc',

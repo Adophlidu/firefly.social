@@ -348,7 +348,7 @@ class LensSocialMedia implements Provider {
     }
 
     // intro is the contentURI of the post
-    async quotePost(postId: string, draftPost: Post, signless?: boolean): Promise<{ postId: string }> {
+    async quotePost(postId: string, draftPost: Post): Promise<{ postId: string }> {
         const intro = draftPost.metadata.content?.content ?? '';
         return ensurePostToLensResult(
             post(lensSessionClientHolder.sessionClient, {

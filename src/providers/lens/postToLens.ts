@@ -260,15 +260,11 @@ async function quotePostForLens(
     );
 
     const contentURI = await GroveStorageProvider.uploadJson(metadata);
-    const post = await lensSocialMediaProvider.quotePost(
-        postId,
-        {
-            ...createDummyPost(Source.Lens, contentURI.uri),
-            restrictions,
-            channel: resolveValidChannel(channel),
-        },
-        profile.signless,
-    );
+    const post = await lensSocialMediaProvider.quotePost(postId, {
+        ...createDummyPost(Source.Lens, contentURI.uri),
+        restrictions,
+        channel: resolveValidChannel(channel),
+    });
     return post;
 }
 

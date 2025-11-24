@@ -1,3 +1,5 @@
+import { toInteger } from 'lodash-es';
+
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
@@ -102,7 +104,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             return farcasterSocialMediaProvider.quotePost(
                 farcasterParentPost.postId,
                 composeDraft('Quote', images, videos, polls),
-                farcasterParentPost.author.profileId,
+                toInteger(farcasterParentPost.author.profileId),
             );
         },
     });

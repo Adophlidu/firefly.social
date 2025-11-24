@@ -508,9 +508,10 @@ export interface Provider {
      *
      * @param postId The ID of the post to quote.
      * @param post The introduction post for the quote.
+     * @param authorId The ID of the author of the post to quote.
      * @returns A promise that resolves to post id.
      */
-    quotePost?: (postId: string, post: Post) => Promise<{ postId: string; contentURI?: string }>;
+    quotePost?: (postId: string, post: Post, authorId?: number) => Promise<{ postId: string; contentURI?: string }>;
 
     /**
      * Comments on a post with the specified post ID and comment text.
@@ -539,17 +540,19 @@ export interface Provider {
      * Upvotes a post with the specified post ID.
      *
      * @param postId The ID of the post to upvote.
+     * @param authorId The ID of the author of the post to upvote.
      * @returns A promise that resolves to a Reaction object.
      */
-    upvotePost: (postId: string) => Promise<void>;
+    upvotePost: (postId: string, authorId?: number) => Promise<void>;
 
     /**
      * Removes an upvote from a post with the specified post ID.
      *
      * @param postId The ID of the post to remove the upvote from.
+     * @param authorId The ID of the author of the post to remove the upvote from.
      * @returns A promise that resolves to void.
      */
-    unvotePost: (postId: string) => Promise<void>;
+    unvotePost: (postId: string, authorId?: number) => Promise<void>;
 
     /**
      * @params ids Array of profile id

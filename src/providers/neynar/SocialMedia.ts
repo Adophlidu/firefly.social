@@ -114,9 +114,9 @@ class NeynarSocialMedia implements Provider {
         }));
     }
 
-    async quotePost(postId: string, post: Post, profileId?: string): Promise<{ postId: string }> {
+    async quotePost(postId: string, post: Post, authorId?: number): Promise<{ postId: string }> {
         const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
-        if (!postId || !post || !profileId) throw new Error('Failed to quote post.');
+        if (!postId || !post || !authorId) throw new Error('Failed to quote post.');
 
         const { hash } = await publishMessage<CastResponse>(() => ({
             type: MessageType.CAST_ADD,
@@ -126,7 +126,7 @@ class NeynarSocialMedia implements Provider {
                 embeds: [
                     {
                         castId: {
-                            fid: toInteger(profileId),
+                            fid: authorId,
                             hash: farcasterPostIdToHash(postId),
                         },
                     },

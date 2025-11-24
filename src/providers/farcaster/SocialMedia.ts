@@ -19,6 +19,7 @@ import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
+import { getFarcasterProfilesByIds } from '@/providers/farcaster/getFarcasterProfilesByIds.js';
 import { getFarcasterSessionType } from '@/providers/farcaster/getFarcasterSessionType.js';
 import { registerFarcasterAccount } from '@/providers/farcaster/registerFarcasterAccount.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -70,8 +71,8 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForPosts
 @AddAuthorHighlightStatusForPosts(Source.Farcaster)
 class FarcasterSocialMedia implements Provider {
-    quotePost(postId: string, post: Post, profileId?: string): Promise<{ postId: string }> {
-        return NeynarSocialMediaProvider.quotePost(postId, post, profileId);
+    quotePost(postId: string, post: Post, authorId?: number): Promise<{ postId: string }> {
+        return NeynarSocialMediaProvider.quotePost(postId, post, authorId);
     }
 
     commentPost(postId: string, post: Post): Promise<{ postId: string }> {
@@ -86,8 +87,8 @@ class FarcasterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getProfilesByIds(ids: string[], viewer?: string): Promise<Profile[]> {
-        return FireflySocialMediaProvider.getProfilesByIds(ids, viewer);
+    getProfilesByIds(ids: string[]): Promise<Profile[]> {
+        return getFarcasterProfilesByIds(ids);
     }
 
     getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
