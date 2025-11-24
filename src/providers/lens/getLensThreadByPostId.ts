@@ -2,7 +2,7 @@ import { first } from 'lodash-es';
 
 import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { getLensCommentsById } from '@/providers/lens/getLensCommentsById.js';
+import { getCommentsByPostId } from '@/providers/lens/getCommentsByPostId.js';
 import { getLensPostById } from '@/providers/lens/getLensPostById.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -17,7 +17,7 @@ export async function getLensThreadByPostId(
 
     const author = post?.author ?? (await getLensPostById(postId)).author;
 
-    const comments = await getLensCommentsById(postId, undefined, false);
+    const comments = await getCommentsByPostId(postId, undefined, false);
     const firstComment = first(comments.data);
 
     if (firstComment && isSameProfile(firstComment?.author, author)) {

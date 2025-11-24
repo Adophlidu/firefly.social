@@ -8,7 +8,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
-import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { getCommentsByProfileId } from '@/providers/lens/getCommentsByProfileId.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 function refreshThreadByPostId(postId: string) {
@@ -53,10 +53,7 @@ export async function getThreads(post: Post, source: SocialSource) {
         const lastPost = last(posts);
         if (!lastPost) return createPageable(posts, undefined);
 
-        const commentsOfLastPost = await lensSocialMediaProvider.getCommentsByProfileId(
-            lastPost.postId,
-            lastPost.author.profileId,
-        );
+        const commentsOfLastPost = await getCommentsByProfileId(lastPost.postId, lastPost.author.profileId);
         if (commentsOfLastPost.data.length === 0) return createPageable(posts, undefined);
 
         const response = await refreshThreadByPostId(root.postId);

@@ -32,9 +32,7 @@ import {
     fetchFollowStatus,
     fetchGroupMembers,
     fetchGroups,
-    fetchGroupStats,
     fetchNotifications,
-    fetchPost,
     fetchPostBookmarks,
     fetchPostReactions,
     fetchPostReferences,
@@ -60,11 +58,10 @@ import { compact, first, flatMap, uniqBy, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
-import { InvalidResultError, NotImplementedError } from '@/constants/error.js';
+import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
-import { SetQueryDataForApprovalLensModule } from '@/decorators/SetQueryDataForApprovalLensModule.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
@@ -75,7 +72,6 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
-import { SetQueryDataForSuperFollowProfile } from '@/decorators/SetQueryDataForSuperFollowProfile.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
@@ -89,7 +85,6 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProfileFor.js';
@@ -110,9 +105,9 @@ import {
 import { formatLensPostRules } from '@/providers/lens/formatLensPostRules.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
 import { getAccountWithStatsById } from '@/providers/lens/getAccountWithStats.js';
+import { getCommentsByPostId } from '@/providers/lens/getCommentsByPostId.js';
 import { getGroupWithMemberCount, getGroupWithOwner } from '@/providers/lens/getFullGroup.js';
 import { getLensClient } from '@/providers/lens/getLensClient.js';
-import { getLensCommentsById } from '@/providers/lens/getLensCommentsById.js';
 import { getLensPostById } from '@/providers/lens/getLensPostById.js';
 import { getLensProfileByHandle } from '@/providers/lens/getLensProfileByHandle.js';
 import { getLensProfileBySession } from '@/providers/lens/getLensProfileBySession.js';
@@ -166,12 +161,10 @@ import type { ResponseJson } from '@/types/utility.js';
 @SetQueryDataForDeletePost(Source.Lens)
 @SetQueryDataForBlockProfile(Source.Lens)
 @SetQueryDataForFollowProfile(Source.Lens)
-@SetQueryDataForSuperFollowProfile(Source.Lens)
 @SetQueryDataForActPost(Source.Lens)
 @SetQueryDataForReportPost(Source.Lens)
 @SetQueryDataForJoinChannel(Source.Lens)
 @SetQueryDataForPosts
-@SetQueryDataForApprovalLensModule
 @AddAuthorHighlightStatusForPosts(Source.Lens)
 class LensSocialMedia implements Provider {
     get type() {
@@ -469,43 +462,12 @@ class LensSocialMedia implements Provider {
         return getLensPostById(postId, isLegacy);
     }
 
-    async getPostByTxHashWithPolling(txHash: string): Promise<Post> {
-        const getPostByTxHash = async (txHash: string): Promise<Post> => {
-            const result = await ensureLensResult(fetchPost(getLensClient(), { txHash }));
-            if (!result) {
-                throw new InvalidResultError();
-            }
-
-            return formatLensPostV3(result);
-        };
-        return retry(() => getPostByTxHash(txHash));
-    }
-
     async getCommentsById(
         postId: string,
         indicator?: PageIndicator,
         hasFilter = true,
     ): Promise<Pageable<Post, PageIndicator>> {
-        return getLensCommentsById(postId, indicator, hasFilter);
-    }
-
-    async getCommentsByProfileId(postId: string, profileId: string, indicator?: PageIndicator) {
-        const result = await ensureLensResult(
-            fetchPostReferences(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                referencedPost: postId,
-                referenceTypes: [PostReferenceType.CommentOn],
-            }),
-        );
-        if (!result) return createPageable([], createIndicator(indicator));
-
-        const posts = result.items.map(formatLensPostV3);
-        return createPageable(
-            posts,
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return getCommentsByPostId(postId, indicator, hasFilter);
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -684,33 +646,12 @@ class LensSocialMedia implements Provider {
         );
     }
 
-    async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        const result = await ensureLensResult(
-            fetchPostReferences(getLensClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                referencedPost: postId,
-                referenceTypes: [PostReferenceType.CommentOn],
-            }),
-        );
-
-        return createPageable(
-            result.items.map(formatLensPostV3),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
-    }
-
     async follow(profileId: string): Promise<boolean> {
         const result = await ensureLensResult(
             follow(lensSessionClientHolder.sessionClient, { account: safeEvmAddress(profileId) }),
         );
         await handleOperationWithLensChain(result);
         return true;
-    }
-
-    async superFollow(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
     }
 
     async unfollow(profileId: string): Promise<boolean> {
@@ -1241,23 +1182,6 @@ class LensSocialMedia implements Provider {
         return true;
     }
 
-    async queryApprovedModuleAllowanceData(
-        spender: string,
-        openAction?: unknown, // TODO: OpenActionModuleType
-        follow?: unknown, // TODO: FollowModuleType
-        reference?: unknown, // TODO: ReferenceModuleType
-    ) {
-        throw new NotImplementedError();
-    }
-
-    async approveModuleAllowance(
-        module: { allowance: { asset: { contract: { address: string } } } }, // TODO: ApprovedAllowanceAmountResultFragment
-        amount: string,
-        currencyAddress?: string,
-    ) {
-        throw new NotImplementedError();
-    }
-
     async joinChannel(channel: Channel): Promise<boolean> {
         const result = await ensureLensResult(
             joinLensGroup(lensSessionClientHolder.sessionClient, {
@@ -1284,16 +1208,6 @@ class LensSocialMedia implements Provider {
 
     async decryptPost(post: Post): Promise<Post | null> {
         throw new NotImplementedError();
-    }
-
-    async getGroupMembersCount(groupId: string): Promise<number> {
-        const result = await ensureLensResult(
-            fetchGroupStats(getLensClient(), {
-                group: safeEvmAddress(groupId),
-            }),
-        );
-
-        return result?.totalMembers || 0;
     }
 
     async createAccount(profile: ProfileForSignup): Promise<FireflyAccount> {
