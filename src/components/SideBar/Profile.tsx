@@ -29,12 +29,14 @@ export function Profile({ collapsed: sideBarCollapsed = false }: ProfileProps) {
         if (profiles.length) {
             const parsedProfileUrl = parseProfileUrl(pathname);
             return parsedProfileUrl
-                ? profiles.some((x) =>
-                      isSameFireflyIdentity(x.identity, {
-                          source: parsedProfileUrl.source,
-                          id: parsedProfileUrl.id,
-                      }),
-                  )
+                ? profiles
+                      .filter((x) => x.identity.source === parsedProfileUrl.source)
+                      .some((x) => {
+                          return isSameFireflyIdentity(
+                              { source: x.identity.source, id: x.handle },
+                              { source: parsedProfileUrl.source, id: parsedProfileUrl.id },
+                          );
+                      })
                 : false;
         }
         return pathname === PageRoute.Profile || !!matchPath(`/profile/:source`, pathname, false);

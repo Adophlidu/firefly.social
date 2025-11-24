@@ -26,6 +26,7 @@ function useCurrentFireflyProfiles() {
                           id: currentFarcasterProfile.profileId,
                           source: Source.Farcaster,
                       },
+                      handle: currentFarcasterProfile.handle,
                       displayName: currentFarcasterProfile.handle,
                       __origin__: null,
                   }
@@ -36,6 +37,7 @@ function useCurrentFireflyProfiles() {
                           id: currentLensProfile.handle,
                           source: Source.Lens,
                       },
+                      handle: currentLensProfile.handle,
                       displayName: currentLensProfile.handle,
                       __origin__: null,
                   }
@@ -46,6 +48,7 @@ function useCurrentFireflyProfiles() {
                           id: currentTwitterProfile.profileId,
                           source: Source.Twitter,
                       },
+                      handle: currentTwitterProfile.handle,
                       displayName: currentTwitterProfile.handle,
                       __origin__: null,
                   }
@@ -56,6 +59,7 @@ function useCurrentFireflyProfiles() {
                           id: currentBskyProfile.handle,
                           source: Source.Bsky,
                       },
+                      handle: currentBskyProfile.handle,
                       displayName: currentBskyProfile.handle,
                       __origin__: null,
                   }

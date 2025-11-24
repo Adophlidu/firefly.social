@@ -652,6 +652,7 @@ export type WalletProfileResponse = Response<WalletProfiles | null>;
 export interface FireflyProfile {
     identity: FireflyIdentity;
     displayName: string;
+    handle: string;
     isDefault?: boolean;
     __origin__: WalletProfile | LensV3Profile | FarcasterProfile | TwitterProfile | BskyProfile | null;
 }
