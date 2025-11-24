@@ -29,6 +29,7 @@ import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProf
 import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblockProfileFor.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
+import { userDataAdd } from '@/providers/neynar/userDataAdd.js';
 import type { Account } from '@/providers/types/Account.js';
 import {
     NotificationPlatform,
@@ -389,16 +390,10 @@ class FarcasterSocialMedia implements Provider {
     }
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
         await Promise.all([
-            typeof profile.displayName === 'string'
-                ? NeynarSocialMediaProvider.userDataAdd(UserDataType.DISPLAY, profile.displayName)
-                : null,
-            typeof profile.bio === 'string'
-                ? NeynarSocialMediaProvider.userDataAdd(UserDataType.BIO, profile.bio)
-                : null,
-            profile.pfp ? NeynarSocialMediaProvider.userDataAdd(UserDataType.PFP, profile.pfp) : null,
-            typeof profile.website === 'string'
-                ? NeynarSocialMediaProvider.userDataAdd(UserDataType.URL, profile.website)
-                : null,
+            typeof profile.displayName === 'string' ? userDataAdd(UserDataType.DISPLAY, profile.displayName) : null,
+            typeof profile.bio === 'string' ? userDataAdd(UserDataType.BIO, profile.bio) : null,
+            profile.pfp ? userDataAdd(UserDataType.PFP, profile.pfp) : null,
+            typeof profile.website === 'string' ? userDataAdd(UserDataType.URL, profile.website) : null,
         ]);
         return true;
     }

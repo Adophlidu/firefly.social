@@ -6,7 +6,7 @@ import { toHex } from 'viem';
 
 import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { MessageType, ReactionType, UserDataType } from '@/constants/farcaster.js';
+import { MessageType, ReactionType } from '@/constants/farcaster.js';
 import { EMPTY_LIST, NEYNAR_URL } from '@/constants/index.js';
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { URL_REGEX } from '@/constants/regexp.js';
@@ -451,16 +451,6 @@ class NeynarSocialMedia implements Provider {
 
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
         throw new NotImplementedError();
-    }
-
-    async userDataAdd(type: UserDataType, value: string) {
-        await publishMessage(() => ({
-            type: MessageType.USER_DATA_ADD,
-            userDataBody: {
-                type,
-                value,
-            },
-        }));
     }
 
     getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
