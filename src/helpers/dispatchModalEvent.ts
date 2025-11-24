@@ -1,21 +1,8 @@
-/**
- * Type-safe modal event system for cross-component modal communication.
- *
- * @example
- * ```ts
- * type MyModalEvents = {
- *   'confirm-modal': {
- *     open: { title: string; content: string };
- *     close: boolean | null;
- *   };
- * };
- *
- * emitModalEvent<MyModalEvents>('confirm-modal', 'open', { title: 'Confirm', content: 'Are you sure?' });
- * ```
- */
-import { MODAL_EVENT_NAME } from '@/constants/event.js';
+import { bom } from '@dimensiondev/utils';
 
-interface ModalEvents {
+import { EVENT_MODAL } from '@/constants/event.js';
+
+export interface ModalEvents {
     'compose-modal': {
         open?: unknown;
         close?: unknown;
@@ -25,18 +12,18 @@ interface ModalEvents {
 
 export function dispatchModalEvent<K extends keyof ModalEvents>(
     name: K,
-    action: 'open' | 'close' | 'abort',
+    action: 'open' | 'close',
     payload: unknown,
+    init?: Omit<CustomEventInit, 'detail'>,
 ): void {
-    document.dispatchEvent(
-        new CustomEvent(`${MODAL_EVENT_NAME}:${name}`, {
+    bom.document?.dispatchEvent(
+        new CustomEvent(`${EVENT_MODAL}:${name}`, {
             detail: {
                 name,
                 action,
-                ...(action === 'abort' ? { error: payload as Error } : { props: payload }),
+                props: payload,
             },
-            bubbles: true,
-            cancelable: true,
+            ...init,
         }),
     );
 }

@@ -12,7 +12,9 @@ import { TimePicker } from '@/components/TimePicker.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { PasswordStep, PasswordWorkflow, Source } from '@/constants/enum.js';
 import { CreateScheduleError, TokenExpiredError } from '@/constants/error.js';
+import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
+import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -99,9 +101,12 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
         } catch (error) {
             if (error instanceof TokenExpiredError && currentLensProfile) {
                 const state = getProfileState(Source.Lens);
-                state.removeAccount({
-                    profile: currentLensProfile,
-                    session: state.currentProfileSession as LensSession,
+                dispatchCustomEvent(EVENT_SOCIAL_ACCOUNT_EXPIRED, {
+                    account: {
+                        profile: currentLensProfile,
+                        session: state.currentProfileSession as LensSession,
+                    },
+                    removeFromStore: true,
                 });
                 disableSource(Source.Lens);
                 enqueueWarningMessage(<Trans>This Lens account has expired, please log in again.</Trans>);

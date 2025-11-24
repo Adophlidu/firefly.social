@@ -13,14 +13,15 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
 import { TokenExpiredError } from '@/constants/error.js';
+import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { ENABLED_REPLY_SETTINGS_POST_SOURCES } from '@/constants/index.js';
+import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import {
     enqueueErrorMessage,
     enqueueMessageFromError,
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -58,8 +59,10 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
             );
         } catch (error) {
             if (error instanceof TokenExpiredError) {
-                const state = getProfileState(account.profile.profileSource);
-                state.removeAccount(account);
+                dispatchCustomEvent(EVENT_SOCIAL_ACCOUNT_EXPIRED, {
+                    account,
+                    removeFromStore: true,
+                });
 
                 enqueueWarningMessage(<Trans>This account has expired, please log in again.</Trans>);
                 return;

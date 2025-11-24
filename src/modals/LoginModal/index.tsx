@@ -70,7 +70,6 @@ export function LoginModal({ ref }: Props) {
     const [props, setProps] = useState<LoginModalOpenProps | null>(null);
 
     const [open, dispatch] = useSingletonModal(ref, {
-        name: 'login-modal',
         onOpen: (props) => {
             setProps(props || null);
             if (props?.source) {

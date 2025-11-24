@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 
-import { MODAL_EVENT_NAME } from '@/constants/event.js';
+import { EVENT_MODAL } from '@/constants/event.js';
+import type { ModalEvents } from '@/helpers/dispatchModalEvent.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 type SingleModalOptions<OpenProps, CloseProps> = {
@@ -8,7 +9,7 @@ type SingleModalOptions<OpenProps, CloseProps> = {
      * Optional modal name for document event support.
      * If provided, the modal will listen to document events for open/close/abort actions.
      */
-    name?: string;
+    name?: keyof ModalEvents;
 
     onOpen?: (props: OpenProps, dispatch: ReturnType<SingletonModalRefCreator<OpenProps, CloseProps>>) => void;
     onClose?: (props: CloseProps, dispatch: ReturnType<SingletonModalRefCreator<OpenProps, CloseProps>>) => void;
@@ -57,8 +58,8 @@ export function useSingletonModal<OpenProps, CloseProps>(
     useImperativeHandle(ref, () => creator, [creator]);
 
     // Listen to document events for open/close/abort actions
+    const { name } = options;
     useEffect(() => {
-        const { name } = options;
         if (!name || !dispatchRef.current) return;
 
         const handleModalEvent = (event: Event) => {
@@ -81,10 +82,10 @@ export function useSingletonModal<OpenProps, CloseProps>(
             }
         };
 
-        const eventName = `${MODAL_EVENT_NAME}:${name}`;
+        const eventName = `${EVENT_MODAL}:${name}`;
         document.addEventListener(eventName, handleModalEvent);
         return () => document.removeEventListener(eventName, handleModalEvent);
-    }, [options.name]);
+    }, [name]);
 
     return [open, dispatchRef.current, mounted, optionsRef] as const;
 }
