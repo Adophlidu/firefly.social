@@ -1,6 +1,6 @@
 import { NotImplementedError } from '@/constants/error.js';
-import { NitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
-import { OfficialSocialMedia, OfficialSocialMediaProvider } from '@/providers/twitter/OfficialSocialMedia.js';
+import { nitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
+import { OfficialSocialMedia, officialSocialMediaProvider } from '@/providers/twitter/OfficialSocialMedia.js';
 
 function createProxy<T>(providers: Array<Partial<T>>): T {
     return new Proxy(
@@ -35,11 +35,11 @@ function createProxy<T>(providers: Array<Partial<T>>): T {
 }
 
 export const twitterSocialMediaProxy = createProxy<OfficialSocialMedia>([
-    OfficialSocialMediaProvider,
-    NitterSocialMediaProvider,
+    officialSocialMediaProvider,
+    nitterSocialMediaProvider,
 ]);
 
 export const nitterSocialMediaProxy = createProxy<OfficialSocialMedia>([
-    NitterSocialMediaProvider,
-    OfficialSocialMediaProvider,
+    nitterSocialMediaProvider,
+    officialSocialMediaProvider,
 ]);

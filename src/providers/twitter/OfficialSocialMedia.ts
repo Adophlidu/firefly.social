@@ -1,7 +1,6 @@
 import { isServer } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import type {
-    SpaceV2SingleResult,
     TweetV2PaginableTimelineResult,
     Tweetv2TimelineResult,
     UserV2,
@@ -167,7 +166,7 @@ class OfficialSocialMedia implements Provider {
         const data = res.items.filter((x) => x.people_detail?.x_id).map((x) => formatTwitterProfileFromRootdata(x));
         const nextIndicator = res.items.length ? createNextIndicator(indicator, `${pageNo + 1}`) : undefined;
         if (twitterSessionHolder.session) {
-            const profiles = await OfficialSocialMediaProvider.getProfilesByIds(data.map((x) => x.profileId));
+            const profiles = await officialSocialMediaProvider.getProfilesByIds(data.map((x) => x.profileId));
             return createPageable(
                 data.map((x) => {
                     const profile = profiles.find(({ profileId }) => profileId === x.profileId);
@@ -627,16 +626,6 @@ class OfficialSocialMedia implements Provider {
     async reportPost(post: Post): Promise<boolean> {
         throw new NotImplementedError();
     }
-    async uploadProfileAvatar(file: File) {
-        const formData = new FormData();
-        formData.set('file', file);
-        const res = await twitterSessionHolder.fetch<ResponseJson<{ pfp: string }>>('/api/twitter/me/avatar', {
-            method: 'PUT',
-            body: formData,
-        });
-        if (!res.success) throw new Error('Failed to avatar.');
-        return res.data.pfp;
-    }
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
         const res = await twitterSessionHolder.fetch<ResponseJson<{}>>('/api/twitter/me', {
             method: 'PUT',
@@ -680,14 +669,6 @@ class OfficialSocialMedia implements Provider {
         ]);
     }
 
-    async getSpace(id: string) {
-        const response = await twitterSessionHolder.fetch<ResponseJson<SpaceV2SingleResult>>(
-            urlcat('/api/twitter/space/:id', { id }),
-        );
-        const data = resolveTwitterResponseData(response, `Failed to fetch space "${id}".`);
-        return data;
-    }
-
     async joinChannel(channel: Channel): Promise<boolean> {
         throw new NotImplementedError();
     }
@@ -718,4 +699,4 @@ class OfficialSocialMedia implements Provider {
     }
 }
 
-export const OfficialSocialMediaProvider = new OfficialSocialMedia();
+export const officialSocialMediaProvider = new OfficialSocialMedia();

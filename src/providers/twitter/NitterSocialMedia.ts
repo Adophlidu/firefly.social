@@ -532,4 +532,4 @@ class NitterSocialMedia implements Provider {
     }
 }
 
-export const NitterSocialMediaProvider = new NitterSocialMedia();
+export const nitterSocialMediaProvider = new NitterSocialMedia();
