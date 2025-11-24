@@ -51,7 +51,7 @@ export default async function Layout(props: Props) {
                         </div>
                         {props.children}
                     </main>
-                    <aside className="sticky top-0 z-1 hidden h-screen w-96 flex-col gap-4 px-4 md:min-w-[384px] lg:flex">
+                    <aside className="sticky top-0 z-1 hidden h-full w-96 flex-col gap-4 px-4 md:min-w-[384px] lg:flex">
                         <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
                             <AsideSearchBar />
                             <SuggestedFollows />
