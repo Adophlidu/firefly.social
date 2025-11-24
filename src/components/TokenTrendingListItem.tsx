@@ -48,12 +48,12 @@ export function TokenTrendingListItem({ data }: { data: TokenTrendingData }) {
             />
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                    <span className="flex gap-1 text-base font-semibold leading-6 text-lightMain">
+                    <span className="flex items-center gap-1 text-base font-semibold leading-6 text-lightMain">
                         {data.symbol}
                         {data.deployPlatformLogo ? (
                             <Image
                                 src={data.deployPlatformLogo}
-                                className="size-4 rounded-full"
+                                className="size-[15px] rounded-full"
                                 alt={data.deployPlatform || 'Mint platform'}
                                 width={15}
                                 height={15}

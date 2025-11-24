@@ -11,16 +11,23 @@ import { ArticlePlatform } from '@/providers/types/Article.js';
 import type { DiscoverArticlesResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
-export async function discoverArticles(
-    indicator?: PageIndicator,
-    platforms = [ArticlePlatform.Paragraph, ArticlePlatform.Mirror, ArticlePlatform.Matters],
-) {
+const defaultPlatforms = [ArticlePlatform.Paragraph, ArticlePlatform.Mirror, ArticlePlatform.Matters];
+
+export async function discoverArticles(indicator?: PageIndicator, platforms = defaultPlatforms) {
     const userLocale = getLocalFromClientCookies();
     const languageParam = userLocale === Locale.zhHans || userLocale === Locale.zhHant ? 'cn' : 'en';
 
+    const platform =
+        platforms && platforms.length > 0
+            ? platforms.join(',')
+            : defaultPlatforms
+                  .filter((x) =>
+                      languageParam === 'cn' ? x !== ArticlePlatform.Matters : x !== ArticlePlatform.Mirror,
+                  )
+                  .join(',');
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/articles/timeline_v2', {
         size: 20,
-        platform: platforms.join(','),
+        platform,
         cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         language: languageParam,
     });
