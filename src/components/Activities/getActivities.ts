@@ -7,7 +7,8 @@ import { createIndicator, createPageable, type Pageable, type PageIndicator } fr
 import { discoverArticles } from '@/providers/firefly/article/discoverArticles.js';
 import { discoverArticlesByAddress } from '@/providers/firefly/article/discoverArticlesByAddress.js';
 import { getFollowingArticles } from '@/providers/firefly/article/getFollowingArticles.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { discoverSnapshotActivity } from '@/providers/firefly/endpoint/discoverSnapshotActivity.js';
+import { getFollowingSnapshotActivity } from '@/providers/firefly/endpoint/getFollowingSnapshotActivity.js';
 import type { Article, ArticlePlatform } from '@/providers/types/Article.js';
 import type { ActivitiesItem, FollowingSnapshotActivity } from '@/providers/types/Firefly.js';
 
@@ -69,12 +70,12 @@ function createActivitiesFetcher(
 
 export const getFollowingActivities = createActivitiesFetcher(
     (indicator, platforms) => getFollowingArticles(indicator, platforms),
-    (indicator) => FireflySocialMediaProvider.getFollowingSnapshotActivity({ indicator }),
+    (indicator) => getFollowingSnapshotActivity({ indicator }),
 );
 
 export const getForYouActivities = createActivitiesFetcher(
     (indicator, platforms) => discoverArticles(indicator, platforms),
-    (indicator) => FireflySocialMediaProvider.discoverSnapshotActivity(indicator),
+    (indicator) => discoverSnapshotActivity(indicator),
 );
 
 export function getProfileActivities(
@@ -87,7 +88,7 @@ export function getProfileActivities(
     return createActivitiesFetcher(
         (indicator, platform) => discoverArticlesByAddress(addresses, indicator, platform),
         (indicator) =>
-            FireflySocialMediaProvider.getFollowingSnapshotActivity({
+            getFollowingSnapshotActivity({
                 indicator,
                 walletAddresses: addresses,
             }),

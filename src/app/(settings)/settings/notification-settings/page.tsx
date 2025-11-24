@@ -13,7 +13,7 @@ import { SettingsSection } from '@/app/(settings)/components/Section.js';
 import { formatNotificationConfigs } from '@/app/(settings)/settings/notification-settings/formatNotificationConfigs.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { getWebNotificationPushSwitch } from '@/providers/firefly/endpoint/getWebNotificationPushSwitch.js';
 import type { NotificationConfig } from '@/providers/types/Firefly.js';
 import { NotificationPlatform } from '@/providers/types/Firefly.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
@@ -51,7 +51,7 @@ export default function NotificationPage() {
     } = useQuery({
         queryKey: ['notification-settings', 'config'],
         queryFn: async () => {
-            const data = await FireflySocialMediaProvider.getWebNotificationPushSwitch();
+            const data = await getWebNotificationPushSwitch();
             return data ? formatNotificationConfigs(data) : null;
         },
     });

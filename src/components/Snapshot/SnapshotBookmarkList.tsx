@@ -9,7 +9,7 @@ import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { getSnapshotBookmarks } from '@/providers/firefly/endpoint/getSnapshotBookmarks.js';
 
 export function SnapshotBookmarkList() {
     const isLogin = useIsLoginFirefly();
@@ -19,7 +19,7 @@ export function SnapshotBookmarkList() {
         queryKey: ['snapshots', Source.DAOs, 'bookmark', profileIds],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return null;
-            const result = await FireflySocialMediaProvider.getSnapshotBookmarks(createIndicator(undefined, pageParam));
+            const result = await getSnapshotBookmarks(createIndicator(undefined, pageParam));
             return result;
         },
         initialPageParam: '',

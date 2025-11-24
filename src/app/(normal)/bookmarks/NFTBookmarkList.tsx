@@ -19,7 +19,7 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { getNFTBookmarks } from '@/providers/firefly/endpoint/getNFTBookmarks.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
 
 function getNFTItemContent(id: string, nft: NFTDetail) {
@@ -81,7 +81,7 @@ function NFTBookmarkListContent() {
         queryKey: ['bookmarks', Source.NFTs, profileIds],
         queryFn: async ({ pageParam }) => {
             try {
-                return await FireflySocialMediaProvider.getNFTBookmarks(createIndicator(undefined, pageParam));
+                return await getNFTBookmarks(createIndicator(undefined, pageParam));
             } catch (error) {
                 enqueueMessageFromError(error, <Trans>Failed to fetch bookmarks.</Trans>);
                 throw error;

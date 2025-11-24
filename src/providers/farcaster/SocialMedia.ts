@@ -25,7 +25,9 @@ import { registerFarcasterAccount } from '@/providers/farcaster/registerFarcaste
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { getFarcasterSuggestFollows } from '@/providers/firefly/endpoint/getFarcasterSuggestFollows.js';
+import { getNotificationPushSwitch } from '@/providers/firefly/endpoint/getNotificationPushSwitch.js';
 import { reportProfile as reportProfileEndpoint } from '@/providers/firefly/endpoint/reportProfile.js';
+import { setNotificationPushSwitch } from '@/providers/firefly/endpoint/setNotificationPushSwitch.js';
 import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProfileFor.js';
 import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblockProfileFor.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -306,7 +308,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getNotificationSettings(): Promise<NotificationSettings> {
-        const settings = await FireflySocialMediaProvider.getNotificationPushSwitch();
+        const settings = await getNotificationPushSwitch();
         const current = settings.list.find((x) => x.title === NotificationTitle.NotificationsMode);
 
         return {
@@ -319,7 +321,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async setNotificationSettings(settings: NotificationSettings) {
-        await FireflySocialMediaProvider.setNotificationPushSwitch({
+        await setNotificationPushSwitch({
             list: [
                 {
                     platform: NotificationPlatform.Priority,

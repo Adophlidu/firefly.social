@@ -11,7 +11,7 @@ import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { getTokenBookmarks } from '@/providers/firefly/endpoint/getTokenBookmarks.js';
 import type { Bookmarkable, TokenWithMarketData } from '@/providers/types/Firefly.js';
 
 function getTokenItemContent(token: Bookmarkable<TokenWithMarketData>) {
@@ -40,7 +40,7 @@ export function TokenBookmarkList() {
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
             try {
-                return await FireflySocialMediaProvider.getTokenBookmarks(createIndicator(undefined, pageParam));
+                return await getTokenBookmarks(createIndicator(undefined, pageParam));
             } catch (error) {
                 enqueueMessageFromError(error, <Trans>Failed to fetch bookmarks.</Trans>);
                 throw error;

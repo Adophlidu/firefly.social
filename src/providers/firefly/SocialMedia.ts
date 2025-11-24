@@ -1,4 +1,4 @@
-import { compact, groupBy, isEmpty } from 'lodash-es';
+import { compact, isEmpty } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
@@ -6,12 +6,9 @@ import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForBookmarkNFT } from '@/decorators/SetQueryDataForBookmarkNFT.js';
 import { SetQueryDataForBookmarkToken } from '@/decorators/SetQueryDataForBookmarkToken.js';
-import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatFireflyNotification } from '@/helpers/formatFireflyNotification.js';
-import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
-import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import { isZero } from '@/helpers/number.js';
 import { omitEmptyParams } from '@/helpers/omitEmptyParams.js';
@@ -23,7 +20,6 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { resolveTokenBookmarkId } from '@/helpers/resolveTokenBookmarkId.js';
@@ -40,21 +36,14 @@ import {
 import { getFarcasterFriendship } from '@/providers/farcaster/getFarcasterFriendship.js';
 import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoint/getFireflyBookmarkIds.js';
-import { getSingleCoin } from '@/providers/firefly/endpoint/getSingleCoin.js';
-import { getNFTDetails } from '@/providers/firefly/nft/getNFTDetails.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
-import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
-import { getProposals } from '@/providers/snapshot/getProposals.js';
-import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
 import {
     type BlockChannelResponse,
     type BlockedChannelsResponse,
     type BlockedUsersResponse,
-    type Bookmarkable,
     type BookmarkResponse,
     type Cast,
     type CastResponse,
@@ -64,16 +53,9 @@ import {
     type ChannelsResponse,
     type CommentsResponse,
     type DiscoverChannelsResponse,
-    type DiscoverSnapshotsResponse,
     type FireflyFarcasterProfileResponse,
-    type FireflySnapshotActivity,
-    type FollowingSnapshotActivity,
     type GetProfilesResponse,
     type MutualFollowersResponse,
-    type NFTBookmarkContent,
-    type NFTDetail,
-    type NotificationConfigsResponse,
-    type NotificationPushSwitchResponse,
     type NotificationResponse,
     type NotificationSettings,
     type PostQuotesResponse,
@@ -81,9 +63,7 @@ import {
     type SearchCastsResponse,
     type SearchChannelsResponse,
     type SearchProfileResponse,
-    type SetNotificationPushSwitchParams,
     type ThreadResponse,
-    type TokenWithMarketData,
     type User,
     type UsersResponse,
 } from '@/providers/types/Firefly.js';
@@ -108,18 +88,6 @@ import { settings } from '@/settings/index.js';
 function ensureFollowersIsNotEmpty(users?: User[]) {
     if (!Array.isArray(users)) return [];
     return users.map(formatFarcasterProfileFromFirefly);
-}
-
-type ParamTuple = [chainId: number, address: string, tokenId: string];
-function groupNFTParamsByChainId(nftIds: string[]) {
-    const tuples = nftIds.map((nftId) => {
-        const parts = nftId.split('.');
-        const chainId = Number.parseInt(parts[0], 10);
-        if (!NFTSCAN_CHAIN_IDS.includes(chainId)) return null;
-        return [chainId, parts[1], parts[2]] as ParamTuple;
-    });
-
-    return groupBy(compact(tuples), (x) => x[0]);
 }
 
 @SetQueryDataForBookmarkNFT()
@@ -964,139 +932,6 @@ class FireflySocialMedia implements Provider {
         return true;
     }
 
-    async discoverSnapshotActivity(indicator?: PageIndicator) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/snapshot/timeline', {
-            size: 20,
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-        });
-
-        const response = await fireflySessionHolder.fetch<DiscoverSnapshotsResponse>(url);
-
-        const data = resolveFireflyResponseData(response);
-        const proposals = await getProposals(data.result.map((x) => x.metadata.proposal_id));
-
-        const activities = data.result.map((x) => {
-            const proposal = proposals.find((p) => p.id === x.metadata.proposal_id);
-
-            return {
-                ...formatSnapshotActivityFromFirefly(x),
-                proposal,
-            };
-        });
-
-        return createPageable(
-            activities,
-            createIndicator(indicator),
-            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
-        );
-    }
-
-    async getFollowingSnapshotActivity({
-        indicator,
-        walletAddresses,
-    }: {
-        address?: string;
-        indicator?: PageIndicator;
-        walletAddresses?: string[];
-    }) {
-        const url = urlcat(
-            settings.FIREFLY_ROOT_URL,
-            walletAddresses && walletAddresses.length > 0 ? '/v1/user/timeline/snapshot' : '/v1/timeline/snapshot',
-        );
-
-        const response = await fireflySessionHolder.fetch<DiscoverSnapshotsResponse>(
-            url,
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    size: 20,
-                    cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-                    walletAddresses,
-                }),
-            },
-            {
-                withSession: true,
-            },
-        );
-
-        const data = resolveFireflyResponseData(response);
-        const proposals = await getProposals(data.result.map((x) => x.metadata.proposal_id));
-
-        const activities = data.result.map<FollowingSnapshotActivity>((x) => {
-            const proposal = proposals.find((p) => p.id === x.metadata.proposal_id);
-
-            return {
-                ...formatSnapshotActivityFromFirefly(x),
-                proposal,
-            };
-        });
-
-        return createPageable(
-            activities,
-            createIndicator(indicator),
-            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
-        );
-    }
-
-    async getSnapshotBookmarks(indicator?: PageIndicator): Promise<Pageable<SnapshotActivity, PageIndicator>> {
-        return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
-                post_type: BookmarkType.All,
-                platforms: FireflyPlatform.DAOs,
-                limit: 25,
-                cursor: indicator?.id || undefined,
-                fid: session?.profileId,
-            });
-            const response = await fireflySessionHolder.fetch<BookmarkResponse<FireflySnapshotActivity>>(url);
-
-            const data = resolveFireflyResponseData(response);
-            const proposals = await getProposals(compact(data.list.map((x) => x.post_content?.metadata.proposal_id)));
-
-            const activities = compact(
-                data.list.map((x) => {
-                    if (!x.post_content) return;
-                    const proposal = proposals.find((p) => p.id === x.post_content?.metadata.proposal_id);
-
-                    return {
-                        ...formatSnapshotActivityFromFirefly(x.post_content),
-                        proposal,
-                    };
-                }),
-            );
-
-            return createPageable(
-                activities,
-                createIndicator(indicator),
-                data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
-            );
-        });
-    }
-
-    async getNotificationPushSwitch() {
-        const response = await fireflySessionHolder.fetch<NotificationPushSwitchResponse>(
-            urlcat(settings.FIREFLY_ROOT_URL, '/v1/notification/pushswitch/get'),
-        );
-        return resolveFireflyResponseData(response);
-    }
-
-    async getWebNotificationPushSwitch() {
-        const response = await fireflySessionHolder.fetch<NotificationConfigsResponse>(
-            urlcat(settings.FIREFLY_ROOT_URL, '/v1/notification/pushswitch/webget'),
-        );
-        return resolveFireflyResponseData(response);
-    }
-
-    async setNotificationPushSwitch(params: SetNotificationPushSwitchParams) {
-        const response = await fireflySessionHolder.fetch<NotificationPushSwitchResponse>(
-            urlcat(settings.FIREFLY_ROOT_URL, '/v1/notification/pushswitch/set'),
-            {
-                method: 'POST',
-                body: JSON.stringify(params),
-            },
-        );
-        return resolveFireflyResponseData(response);
-    }
-
     async joinChannel(channel: Channel): Promise<boolean> {
         throw new NotImplementedError();
     }
@@ -1129,107 +964,6 @@ class FireflySocialMedia implements Provider {
     async unbookmarkToken(options: BookmarkTokenOptions) {
         const bookmarkContentId = resolveTokenBookmarkId(options);
         return FireflySocialMediaProvider.unbookmark(bookmarkContentId);
-    }
-
-    async getNFTBookmarks(indicator?: PageIndicator): Promise<
-        Pageable<
-            {
-                id: string;
-                nft: NFTDetail;
-            },
-            PageIndicator
-        >
-    > {
-        const session = getSessionFromStorage(SessionType.Farcaster);
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
-            post_type: BookmarkType.All,
-            platforms: 'nft',
-            limit: 25,
-            cursor: indicator?.id || undefined,
-            fid: session?.profileId,
-        });
-
-        const response = await fireflySessionHolder.fetch<BookmarkResponse<NFTBookmarkContent>>(url);
-        const data = resolveFireflyResponseData(response);
-
-        const nftIds = data.list.map((x) => x.post_id);
-        const groups = groupNFTParamsByChainId(nftIds);
-        const promises = Object.entries(groups).map(([chainId, tuples]) => {
-            return getNFTDetails(
-                +chainId,
-                tuples.map((x) => {
-                    return { contract_address: x[1], token_id: x[2] };
-                }),
-            );
-        });
-        const allNfts = await Promise.allSettled(promises);
-        const list = allNfts.flatMap((x) => (x.status === 'fulfilled' ? x.value : EMPTY_LIST));
-        const nftMap = new Map(list.map((x) => [resolveNFTIdFromAsset(x), x]));
-
-        return createPageable(
-            compact(
-                nftIds.map((id) => {
-                    const nft = nftMap.get(id.toLowerCase());
-                    return nft ? { id, nft: adjustAssetUris(nft) } : null;
-                }),
-            ),
-            createIndicator(indicator),
-            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
-        );
-    }
-
-    async getTokenBookmarks(
-        indicator?: PageIndicator,
-        limit = 25,
-    ): Promise<Pageable<Bookmarkable<TokenWithMarketData>, PageIndicator>> {
-        const session = getSessionFromStorage(SessionType.Farcaster);
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
-            post_type: BookmarkType.All,
-            platforms: 'token',
-            limit,
-            cursor: indicator?.id || undefined,
-            fid: session?.profileId,
-        });
-
-        const response = await fireflySessionHolder.fetch<BookmarkResponse<void>>(url);
-        const data = resolveFireflyResponseData(response);
-
-        const promises = compact(
-            data.list.map((item) => {
-                if (/^\d+\./.test(item.post_id)) {
-                    const parts = item.post_id.split('.');
-                    const chainId = +parts[0];
-                    const address = parts[1];
-                    if (!address) return null;
-                    return getSingleCoin({
-                        chain_id: chainId,
-                        address,
-                    });
-                }
-                if (item.post_id) {
-                    return getSingleCoin({
-                        coingecko_id: item.post_id,
-                    });
-                }
-                return null;
-            }),
-        );
-        const allTokens = await Promise.allSettled(promises);
-        const list = allTokens.flatMap((x) =>
-            x.status === 'fulfilled' && x.value
-                ? ({ ...x.value, is_bookmarked: true } as Bookmarkable<TokenWithMarketData>)
-                : [],
-        );
-
-        return createPageable(
-            compact(list),
-            createIndicator(indicator),
-            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
-        );
-    }
-
-    async getBookmarksByIds(platform: FireflyPlatform, ids: string[], postType = BookmarkType.All) {
-        return getFireflyBookmarksByIds(platform, ids, postType);
     }
 
     async decryptPost(post: Post): Promise<Post> {

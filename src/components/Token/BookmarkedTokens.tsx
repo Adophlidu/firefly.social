@@ -14,7 +14,7 @@ import { Link } from '@/esm/Link.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { getTokenBookmarks } from '@/providers/firefly/endpoint/getTokenBookmarks.js';
 import { captureBookmarkTokenViewEvent } from '@/providers/telemetry/captureTokenEvent.js';
 
 export default memo(function BookmarkedTokens(props: HTMLProps<HTMLDivElement>) {
@@ -26,7 +26,7 @@ export default memo(function BookmarkedTokens(props: HTMLProps<HTMLDivElement>) 
         queryFn: async () => {
             if (!isLogin) return EMPTY_LIST;
             try {
-                const page = await FireflySocialMediaProvider.getTokenBookmarks(undefined, 5);
+                const page = await getTokenBookmarks(undefined, 5);
                 return page.data;
             } catch (error) {
                 enqueueMessageFromError(error, <Trans>Failed to fetch bookmarks.</Trans>);

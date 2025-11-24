@@ -892,7 +892,8 @@ class LensSocialMedia implements Provider {
     }
 
     async getNotificationSettings(): Promise<NotificationSettings> {
-        const settings = await FireflySocialMediaProvider.getNotificationPushSwitch();
+        const { getNotificationPushSwitch } = await import('@/providers/firefly/endpoint/getNotificationPushSwitch.js');
+        const settings = await getNotificationPushSwitch();
         const current = settings.list.find((x) => x.title === NotificationTitle.NotificationsMode);
 
         return {
@@ -904,7 +905,8 @@ class LensSocialMedia implements Provider {
     }
 
     async setNotificationSettings(settings: NotificationSettings) {
-        await FireflySocialMediaProvider.setNotificationPushSwitch({
+        const { setNotificationPushSwitch } = await import('@/providers/firefly/endpoint/setNotificationPushSwitch.js');
+        await setNotificationPushSwitch({
             list: [
                 {
                     platform: NotificationPlatform.Priority,
