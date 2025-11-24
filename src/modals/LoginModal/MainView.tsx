@@ -420,6 +420,7 @@ export function MainView() {
                                             return isConnected;
                                         });
                                     })
+                                    .filter((x) => !accounts.some((y) => isSameProfile(x.profile, y.profile)))
                                     .slice(0, 3)
                                     .map((x) => x.profile);
                                 const isExceed = accounts.length >= 3;
