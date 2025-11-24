@@ -23,7 +23,7 @@ export interface TokenTrendingData {
     deployPlatformLogo?: string;
 }
 
-export function TokenTrendingListItem({ data }: { data: TokenTrendingData }) {
+export function TokenTrendingListItem({ data, className }: { data: TokenTrendingData; className?: string }) {
     const tokenPageUrl = resolveTokenPageUrl({ identity: data.address, chainId: data.chainId });
     const token = {
         id: data.coinId ?? data.address,
@@ -36,7 +36,10 @@ export function TokenTrendingListItem({ data }: { data: TokenTrendingData }) {
     };
 
     return (
-        <Link className="flex items-center gap-3 border-b border-line p-4 hover:bg-bg" href={tokenPageUrl}>
+        <Link
+            className={classNames('flex items-center gap-3 border-b border-line p-4 hover:bg-bg', className)}
+            href={tokenPageUrl}
+        >
             <TokenIcon
                 className="size-11 shrink-0 rounded-full"
                 size={44}

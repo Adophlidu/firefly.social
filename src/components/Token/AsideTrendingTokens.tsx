@@ -5,8 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import { AsideTitle } from '@/components/AsideTitle.js';
-import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
 import AsideTokensSkeleton from '@/components/Token/AsideTokensSkeleton.js';
+import { TokenTrendingListItem } from '@/components/TokenTrendingListItem.js';
 import { Link } from '@/esm/Link.js';
 import { getTopTrendingCoins } from '@/providers/coingecko/getTopTrendingCoins.js';
 
@@ -33,14 +33,7 @@ export default memo(function AsideTrendingTokens() {
             />
             <div>
                 {data.map((x) => (
-                    <SearchableTokenItem
-                        className="px-2"
-                        key={x.id}
-                        token={x}
-                        showSymbol={false}
-                        showRank={false}
-                        showMarketInfo
-                    />
+                    <TokenTrendingListItem key={x.address} data={x} className="border-none p-3 px-2" />
                 ))}
             </div>
         </div>
