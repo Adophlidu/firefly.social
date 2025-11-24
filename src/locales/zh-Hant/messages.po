@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-11-19 12:01\n"
+"PO-Revision-Date: 2025-11-24 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -125,7 +125,7 @@ msgid "Unmute successfully."
 msgstr "成功取消隱藏。"
 
 msgid "Failed to like polymarket."
-msgstr ""
+msgstr "按赞失敗。"
 
 msgid "Refunded"
 msgstr "已退款"
@@ -436,7 +436,7 @@ msgstr "活動"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "{0} profile created."
-msgstr ""
+msgstr "已建立 {0} 個人檔案。"
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr "超過 10% 可能視為高稅率，50% 以上可能導致無法交易。"
@@ -484,7 +484,7 @@ msgid "The token can be bought."
 msgstr "該代幣可購買。"
 
 msgid "Failed to like swap."
-msgstr ""
+msgstr "按赞失敗。"
 
 msgid "Liked."
 msgstr ""
@@ -588,7 +588,7 @@ msgid "Adding..."
 msgstr "新增中..."
 
 msgid "Failed to like snapshot."
-msgstr ""
+msgstr "取消按赞失敗。"
 
 msgid "Mint"
 msgstr "鑄造"
@@ -877,7 +877,7 @@ msgid "Failed to follow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上追蹤 @{0} 失敗。"
 
 msgid "Failed to decrypt post on {sourceName}."
-msgstr "無法解密 {sourceName} 的貼文"
+msgstr "無法解密 {sourceName} 的貼文。"
 
 msgid "Edit profile"
 msgstr "編輯個人檔案"
@@ -909,10 +909,10 @@ msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr "<0>{0}</0> 由 <1>{1}</1> 建立"
 
 msgid "Failed to unlike tip."
-msgstr ""
+msgstr "取消按赞失敗。"
 
 msgid "Snapshot unliked."
-msgstr ""
+msgstr "已取消按赞。"
 
 msgid "User Name should be at least {minHandleSize} characters"
 msgstr ""
@@ -1027,7 +1027,7 @@ msgid "POST"
 msgstr "貼文"
 
 msgid "Failed to unlike the post."
-msgstr "收回讚失敗。"
+msgstr "取消按讚失敗。"
 
 msgid "{addressName} is already connected."
 msgstr "{addressName} 已經綁定了。"
@@ -1137,7 +1137,7 @@ msgid "Phishing activities found."
 msgstr "發現釣魚活動。"
 
 msgid "Swap unliked."
-msgstr ""
+msgstr "已取消按赞。"
 
 msgid "Drop type"
 msgstr "紅包類型"
@@ -1709,7 +1709,7 @@ msgstr "代幣價格重大波動"
 
 #. placeholder {0}: resolveSourceName(props.source)
 msgid "Create {0} Profile"
-msgstr ""
+msgstr "建立 {0} 個人檔案"
 
 msgid "Market"
 msgstr ""
@@ -1730,7 +1730,7 @@ msgid "Set {formattedAddress} as primary Solana wallet"
 msgstr "將 {formattedAddress} 設為 Solana 主要錢包"
 
 msgid "Unliked."
-msgstr ""
+msgstr "已取消按赞。"
 
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
@@ -1981,7 +1981,7 @@ msgid "Others"
 msgstr "其他"
 
 msgid "<0>{userName}</0> liked your <1>{itemType}</1>"
-msgstr ""
+msgstr "<0>{userName}</0>按赞了你的<1>{itemType}</1>"
 
 msgid "Muted wallets"
 msgstr "已隱藏錢包"
@@ -2267,7 +2267,7 @@ msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "此操作不可逆，並且預約發布任務將被取消。"
 
 msgid "Failed to unlike polymarket."
-msgstr ""
+msgstr "取消按赞成功。"
 
 msgid "Lens"
 msgstr "Lens"
@@ -2308,7 +2308,7 @@ msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have
 msgstr "授予紅包智能合約訪問你 {0} 的權限。每個代幣只需執行一次。"
 
 msgid "Price · Change"
-msgstr ""
+msgstr "價格 | 漲跌幅"
 
 msgid "NFT holder of any one below"
 msgstr "擁有以下任意 NFT 系列"
@@ -2576,7 +2576,7 @@ msgid "Reauthorize"
 msgstr "重新授權"
 
 msgid "Failed to unlike."
-msgstr ""
+msgstr "取消按赞失敗。"
 
 msgid "24h"
 msgstr ""
@@ -2657,7 +2657,7 @@ msgid "6 hours"
 msgstr ""
 
 msgid "Failed to unlike article."
-msgstr ""
+msgstr "取消按赞失敗。"
 
 msgid "Download media"
 msgstr "下載媒體"
@@ -2773,7 +2773,7 @@ msgid "Share"
 msgstr "分享"
 
 msgid "Tip liked."
-msgstr ""
+msgstr "按赞成功。"
 
 msgid "Trades"
 msgstr ""
@@ -2870,7 +2870,7 @@ msgid "Received time:"
 msgstr "領取時間："
 
 msgid "Article unliked."
-msgstr ""
+msgstr "已取消按赞。"
 
 msgid "Random Split"
 msgstr "隨機分配"
@@ -3046,7 +3046,7 @@ msgid "The content of this account is currently unavailable"
 msgstr "此帳戶內容目前無法顯示"
 
 msgid "Failed to like article."
-msgstr ""
+msgstr "按赞文章失敗。"
 
 msgid "Wallet added successfully"
 msgstr "錢包新增成功"
@@ -3697,7 +3697,7 @@ msgid "Enter Number of Winners"
 msgstr "輸入獲獎人數"
 
 msgid "Please switch to the wallet associated with your Lens account for signature."
-msgstr ""
+msgstr "請切換至 Lens 關聯錢包以簽名。"
 
 msgid "Add"
 msgstr "新增"
@@ -3941,10 +3941,10 @@ msgid "Your email is now connected."
 msgstr "您的電子郵件已綁定。"
 
 msgid "Volume · MC"
-msgstr ""
+msgstr "交易量 · 市值"
 
 msgid "Snapshot liked."
-msgstr ""
+msgstr "按赞成功。"
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "名稱不得超過 {maxDisplayNameSize} 字元"
@@ -4358,8 +4358,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "驗證密碼時出現意外步驟：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。\n"
+msgstr "如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。\n"
 "但如果你仍想存取綁定至另一個社交帳號的 Firefly 錢包，建議你切換帳戶，而不是刪除帳戶。"
 
 msgid "<0>You</0> recasted"
@@ -4478,7 +4477,7 @@ msgid "Unmuted {handleOrEnsOrAddress}."
 msgstr "已取消隱藏 {handleOrEnsOrAddress}。"
 
 msgid "Polymarket unliked."
-msgstr ""
+msgstr "取消按赞成功。"
 
 msgid "No trading cooldown function."
 msgstr "無交易冷卻機制。"
@@ -4553,7 +4552,7 @@ msgid "No connected wallet."
 msgstr "未連接任意錢包。"
 
 msgid "Failed to unlike snapshot."
-msgstr ""
+msgstr "取消按赞失敗。"
 
 msgid "Sign to grant Firefly permission for auto login"
 msgstr ""
@@ -4598,7 +4597,7 @@ msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
 msgstr "可在 <0>設定 > 內容偏好</0> 隨時重新開啟"
 
 msgid "Failed to unlike swap."
-msgstr ""
+msgstr "取消按赞失敗。"
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
@@ -4614,7 +4613,7 @@ msgid "<0>change</0> wallet or <1>sign up</1> on Firefly"
 msgstr ""
 
 msgid "Article liked."
-msgstr ""
+msgstr "按赞成功。"
 
 msgid "Are you sure you want to report this user?"
 msgstr "確定要檢舉此用戶？"
@@ -4642,3 +4641,4 @@ msgstr "多裝置登入"
 
 msgid "Success"
 msgstr "成功"
+

@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-11-19 12:01\n"
+"PO-Revision-Date: 2025-11-21 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -4640,3 +4640,4 @@ msgstr ""
 
 msgid "Success"
 msgstr ""
+
