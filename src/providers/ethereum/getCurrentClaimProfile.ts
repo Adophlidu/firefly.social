@@ -3,7 +3,7 @@ import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromSto
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { generateSignaturePacket } from '@/services/generateSignaturePacket.js';
 
@@ -23,7 +23,7 @@ export async function getCurrentClaimProfile(source: SocialSource) {
         : undefined;
 
     if (source === Source.Lens) {
-        const credentials = ensureLensResultSync(lensSessionHolder.sessionClient.getCredentials());
+        const credentials = ensureLensResultSync(lensSessionClientHolder.sessionClient.getCredentials());
         if (!credentials) throw new Error('No lens credentials found');
 
         return {

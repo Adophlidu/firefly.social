@@ -11,12 +11,13 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { reportLensAccount } from '@/providers/firefly/endpoint/reportLensAccount.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { createLensSDK, MemoryStorageProvider } from '@/providers/lens/createLensSDK.js';
+import { createLensClient } from '@/providers/lens/createLensClient.js';
 import { createLensSession } from '@/providers/lens/createLensSession.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
 import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';
 import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWithLensChain.js';
+import { MemoryStorageProvider } from '@/providers/lens/MemoryStorageProvider.js';
 import { account } from '@/providers/lens/metadata/Account.js';
 import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -25,10 +26,9 @@ import type { Profile, ProfileForSignup } from '@/providers/types/SocialMedia.js
 const loginOnboardingUser = memoizePromise(
     async (address: string) => {
         const walletClient = await getWalletClientForLensChain();
-        const sdk = createLensSDK(new MemoryStorageProvider());
-
+        const client = createLensClient(new MemoryStorageProvider());
         return ensureLensResult(
-            sdk.login({
+            client.login({
                 onboardingUser: {
                     wallet: address,
                     app: env.external.NEXT_PUBLIC_LENS_APP_ADDRESS,

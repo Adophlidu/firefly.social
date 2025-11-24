@@ -5,7 +5,7 @@ import urlcat from 'urlcat';
 import CircleSuccessIcon from '@/assets/circle-success.svg';
 import { SITE_URL } from '@/constants/index.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
+import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -38,7 +38,7 @@ export function sharePostAfterClaimed(post: Post, amount: string, symbol?: strin
         variant: 'normal',
         confirmButtonText: <Trans>Share</Trans>,
         onConfirm: () => {
-            ComposeModalRef.open({
+            openComposeModal({
                 type: 'compose',
                 source: post.source,
                 chars: [

@@ -8,19 +8,19 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
-import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
+import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
 export async function addTwitterAccount(sessionPayload: SessionPayload, isNew = false, signal?: AbortSignal) {
-    const profile = sessionPayload ? await TwitterSocialMediaProxy.getProfileById(sessionPayload.clientId) : null;
+    const profile = sessionPayload ? await twitterSocialMediaProxy.getProfileById(sessionPayload.clientId) : null;
     if (!profile) throw new Error('Failed to fetch user profile');
 
     // hotfix for the missing verified badge
     await runInSafeAsync(async () => {
         if (profile.verified) return;
 
-        const badges = await TwitterSocialMediaProxy.getProfileBadges(profile);
+        const badges = await twitterSocialMediaProxy.getProfileBadges(profile);
         if (badges.length > 0) profile.verified = true;
     });
 

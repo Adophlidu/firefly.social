@@ -12,7 +12,7 @@ import { Source } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
+import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends ModalProps {
@@ -26,7 +26,7 @@ export const MentionedByModal = memo<Props>(function MentionedByModal({ users, .
         queries: users.map((user) => ({
             enabled: isTwitterLogin,
             queryKey: ['profile', Source.Twitter, user.profileId, myTwitterProfile?.profileId],
-            queryFn: () => TwitterSocialMediaProxy.getProfileById(user.profileId),
+            queryFn: () => twitterSocialMediaProxy.getProfileById(user.profileId),
         })),
         combine: (result) => result.map((x) => x.data),
     });

@@ -5,7 +5,7 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { getLensProfileOwner } from '@/providers/lens/getLensProfileOwner.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export async function isLensOwnerOrManager(
@@ -22,7 +22,7 @@ export async function isLensOwnerOrManager(
     }
 
     const { items } = await ensureLensResult(
-        fetchAccountsAvailable(lensSessionHolder.sdk, {
+        fetchAccountsAvailable(lensClientHolder.client, {
             managedBy: safeEvmAddress(address),
             pageSize: PageSize.Fifty,
             includeOwned: false,

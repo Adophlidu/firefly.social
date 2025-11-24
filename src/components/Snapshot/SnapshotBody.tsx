@@ -29,9 +29,9 @@ import { SnapshotState, SourceInURL } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
+import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { getVotePower } from '@/providers/snapshot/getVotePower.js';
 import { pathQueryVoteResultsByVoter } from '@/providers/snapshot/pathQueryVoteResultsByVoter.js';
@@ -296,7 +296,7 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
 
             if (confirmed) {
                 const choice = formatSnapshotChoice(selectedChoices, type, choices);
-                ComposeModalRef.open({
+                openComposeModal({
                     type: 'compose',
                     chars: [
                         choice

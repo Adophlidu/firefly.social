@@ -7,7 +7,7 @@ import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
 import { createTwitterMediaObject, resolveImageUrl, resolveUploadId } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { TwitterPollProvider } from '@/providers/twitter/Poll.js';
-import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
+import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import { uploadToTwitter, uploadVideoToTwitter } from '@/providers/twitter/uploadToTwitter.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
@@ -82,16 +82,16 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
             return uploaded.map((x, index) => createTwitterMediaObject(x, downloaded[index]));
         },
         compose: (images, videos, polls) =>
-            TwitterSocialMediaProxy.publishPost(composeDraft('Post', images, videos, polls)),
+            twitterSocialMediaProxy.publishPost(composeDraft('Post', images, videos, polls)),
         reply: (images, videos, polls) => {
             if (!twitterParentPost?.postId) throw new Error('No parent post found.');
-            return TwitterSocialMediaProxy.publishPost(composeDraft('Comment', images, videos, polls), {
+            return twitterSocialMediaProxy.publishPost(composeDraft('Comment', images, videos, polls), {
                 excludeReplyProfileIds,
             });
         },
         quote: (images, videos) => {
             if (!twitterParentPost?.postId) throw new Error('No parent post found.');
-            return TwitterSocialMediaProxy.quotePost(twitterParentPost.postId, composeDraft('Quote', images, videos));
+            return twitterSocialMediaProxy.quotePost(twitterParentPost.postId, composeDraft('Quote', images, videos));
         },
     });
 

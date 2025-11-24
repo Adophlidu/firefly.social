@@ -10,7 +10,7 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
+import { openComposeModal } from '@/helpers/openComposeModal.js';
 
 interface ShareActionProps {
     link: string;
@@ -37,7 +37,7 @@ export const ShareAction = memo(function ShareAction({ link, onClick }: ShareAct
                     {({ close }) => (
                         <MenuButton
                             onClick={() => {
-                                ComposeModalRef.open({
+                                openComposeModal({
                                     chars: link,
                                 });
                                 close();

@@ -8,7 +8,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWithLensChain.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { captureLensBindManagerEvent } from '@/providers/telemetry/captureLensEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -31,7 +31,7 @@ export const AddLensManagerModalContent = memo<Props>(function AddLensManagerMod
 
             // bind manager
             const txData = await ensureLensResult(
-                addAccountManager(lensSessionHolder.sessionClient, {
+                addAccountManager(lensSessionClientHolder.sessionClient, {
                     address: safeEvmAddress(manager),
                     permissions: {
                         canSetMetadataUri: true,

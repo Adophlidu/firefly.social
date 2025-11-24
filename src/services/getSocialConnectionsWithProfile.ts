@@ -4,8 +4,8 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { flatLenConnections } from '@/helpers/formatWalletConnection.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { AllConnections } from '@/providers/types/Firefly.js';
 
 interface SocialConnections {
@@ -36,7 +36,7 @@ export async function getProfileFromSocialConnections(source: SocialSource, soci
         case Source.Farcaster: {
             const ids = getProfileIdsFromSocialConnections(source, social);
             if (!ids.length) return EMPTY_LIST;
-            return FarcasterSocialMediaProvider.getProfilesByIds(ids);
+            return farcasterSocialMediaProvider.getProfilesByIds(ids);
         }
         case Source.Twitter:
         case Source.Bsky: {
@@ -48,7 +48,7 @@ export async function getProfileFromSocialConnections(source: SocialSource, soci
             const connections = flatLenConnections([...social[source].connected, ...social[source].unconnected]);
             const ids = getProfileIdsFromSocialConnections(source, social);
             if (!ids.length) return EMPTY_LIST;
-            return LensSocialMediaProvider.getProfilesByIds(connections.map((x) => x.id));
+            return lensSocialMediaProvider.getProfilesByIds(connections.map((x) => x.id));
         default:
             unreachable(source);
     }

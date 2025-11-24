@@ -19,8 +19,8 @@ import {
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
+import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 
@@ -36,7 +36,7 @@ const allEvents: {
         );
     },
     [IframeBridgeMethod.COMPOSE]: async (params: IframeBridgeRequestArguments[IframeBridgeMethod.COMPOSE]) => {
-        ComposeModalRef.open({
+        openComposeModal({
             type: 'compose',
             chars: params.text,
         });

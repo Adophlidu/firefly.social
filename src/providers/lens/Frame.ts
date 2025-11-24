@@ -8,7 +8,7 @@ import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import type { Additional, Provider } from '@/providers/types/Frame.js';
 import type { FrameSignaturePacket } from '@/providers/types/Lens.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -25,11 +25,11 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
         const session = getSessionFromStorage(SessionType.Lens);
         if (!session) throw new Error('Profile not found');
 
-        const credentials = ensureLensResultSync(lensSessionHolder.sessionClient.getCredentials());
+        const credentials = ensureLensResultSync(lensSessionClientHolder.sessionClient.getCredentials());
         if (!credentials) throw new Error('Credentials not found');
 
         const result = await ensureLensResult(
-            signFrameAction(lensSessionHolder.sessionClient, {
+            signFrameAction(lensSessionClientHolder.sessionClient, {
                 transactionId: ETH_ZERO_ADDRESS,
                 buttonIndex: index,
                 inputText: input ?? '',

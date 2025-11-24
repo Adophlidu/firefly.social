@@ -5,17 +5,17 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getSiteTypeFromUrl } from '@/helpers/getSiteTypeFromUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
 
-async function formatFarcasterUrl(parsedURL: URL) {
-    switch (parsedURL.pathname) {
+async function interceptFarcasterUrl(u: URL) {
+    switch (u.pathname) {
         case '/~/compose': {
-            const embeds = parsedURL.searchParams.getAll('embeds[]');
-            const text = parsedURL.searchParams.get('text');
-            const channelKey = parsedURL.searchParams.get('channelKey');
-            const parentCastHash = parsedURL.searchParams.get('parentCastHash');
+            const embeds = u.searchParams.getAll('embeds[]');
+            const text = u.searchParams.get('text');
+            const channelKey = u.searchParams.get('channelKey');
+            const parentCastHash = u.searchParams.get('parentCastHash');
             const isLoginFarcaster = !!useFarcasterProfileStore.getState().currentProfile;
 
             if (!isLoginFarcaster) {
@@ -25,15 +25,15 @@ async function formatFarcasterUrl(parsedURL: URL) {
                 return true;
             }
 
-            const channel = channelKey ? await FarcasterSocialMediaProvider.getChannelById(channelKey) : undefined;
+            const channel = channelKey ? await farcasterSocialMediaProvider.getChannelById(channelKey) : undefined;
             const parentPost = parentCastHash
-                ? await FarcasterSocialMediaProvider.getPostById(parentCastHash)
+                ? await farcasterSocialMediaProvider.getPostById(parentCastHash)
                 : undefined;
 
             // dynamic import to avoid circular dependency
-            const { ComposeModalRef } = await import('@/modals/ComposeModal.js');
+            const { openComposeModal } = await import('@/helpers/openComposeModal.js');
 
-            ComposeModalRef.open({
+            openComposeModal({
                 type: parentPost ? 'reply' : 'compose',
                 chars: text ? [text] : undefined,
                 source: [Source.Farcaster],
@@ -45,7 +45,7 @@ async function formatFarcasterUrl(parsedURL: URL) {
             return true;
         }
         case '/~/composer-action': {
-            const actionUrl = parseUrl(parsedURL.searchParams.get('url') || '');
+            const actionUrl = parseUrl(u.searchParams.get('url') || '');
             const articleId = await getArticleIdFromUrl(actionUrl?.searchParams.get('url') || '');
             if (!articleId) return false;
 
@@ -64,7 +64,7 @@ export async function interceptExternalUrl(url: string) {
     switch (siteType) {
         case ExternalSiteDomain.Warpcast:
         case ExternalSiteDomain.Farcaster:
-            return formatFarcasterUrl(parsedURL);
+            return interceptFarcasterUrl(parsedURL);
         case ExternalSiteDomain.Twitter:
         case ExternalSiteDomain.X:
         case ExternalSiteDomain.Hey:

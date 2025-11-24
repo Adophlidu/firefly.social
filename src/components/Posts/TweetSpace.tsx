@@ -18,7 +18,7 @@ import { isTomorrow } from '@/helpers/isTomorrow.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { formatTwitterProfile } from '@/providers/twitter/formatTwitterProfile.js';
-import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
+import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
 interface Tag {
     icon?: FunctionComponent<SVGAttributes<SVGElement>>;
@@ -33,7 +33,7 @@ function TweetSpaceContent({ spaceId }: Props) {
     const { data, isLoading, error, refetch } = useQuery({
         queryKey: ['twitter-space', spaceId],
         async queryFn() {
-            const response = await TwitterSocialMediaProxy.getSpace(spaceId);
+            const response = await twitterSocialMediaProxy.getSpace(spaceId);
             return response;
         },
     });

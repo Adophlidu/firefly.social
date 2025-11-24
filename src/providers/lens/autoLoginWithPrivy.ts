@@ -4,14 +4,14 @@ import { signMessageWithPrivy } from '@/providers/firefly/endpoint/signMessageWi
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { createLensSession } from '@/providers/lens/createLensSession.js';
 import { loginLensProfile } from '@/providers/lens/loginLensProfile.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 
 async function getProfileNeedToLogin(profileId: string) {
     const privyEvmWallet = (await ensureCreatedFireflyWallet('eth'))?.address;
     if (!privyEvmWallet) throw new Error('No privy evm wallet found.');
 
-    const profiles = await LensSocialMediaProvider.getProfilesByAddress(privyEvmWallet);
+    const profiles = await lensSocialMediaProvider.getProfilesByAddress(privyEvmWallet);
     if (!profiles.length) throw new Error('The privy wallet does not have managed or owned lens profile.');
 
     const profileToLogin = profiles.find((x) => isSameEthereumAddress(x.profileId, profileId));

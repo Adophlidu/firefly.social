@@ -6,7 +6,7 @@ import { Source } from '@/constants/enum.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 
 export function useTokenBalanceForLoggedInLensProfile(tokenAddress?: string, enabled = true) {
     const profile = useCurrentProfile(Source.Lens);
@@ -15,10 +15,10 @@ export function useTokenBalanceForLoggedInLensProfile(tokenAddress?: string, ena
         queryKey: ['token-balance', Source.Lens, profile?.profileId, tokenAddress],
         enabled: !!profile?.profileId && !!tokenAddress && enabled,
         queryFn: async () => {
-            if (!lensSessionHolder.sessionClient || !tokenAddress) return;
+            if (!lensSessionClientHolder.sessionClient || !tokenAddress) return;
 
             const balanceResult = await ensureLensResult(
-                fetchAccountBalances(lensSessionHolder.sessionClient, {
+                fetchAccountBalances(lensSessionClientHolder.sessionClient, {
                     tokens: [safeEvmAddress(tokenAddress)],
                 }),
             );

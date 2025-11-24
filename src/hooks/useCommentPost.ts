@@ -6,12 +6,12 @@ import { useCallback, useMemo } from 'react';
 import { RestrictionType } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useCommentPost(post: Post, disabled = false) {
@@ -78,7 +78,7 @@ export function useCommentPost(post: Post, disabled = false) {
             return;
         }
         if (!commentDisabled) {
-            ComposeModalRef.open({
+            openComposeModal({
                 type: 'reply',
                 post,
                 source,

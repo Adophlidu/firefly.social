@@ -14,12 +14,12 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { humanize } from '@/helpers/formatCommentCounts.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useAnonymousPostAvailability } from '@/hooks/useAnonymousPostAvailability.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useMirror } from '@/hooks/useMirror.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 function getTooltipContent(source: SocialSource, shares: number) {
@@ -250,7 +250,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, di
     };
 
     const handleQuote = () => {
-        ComposeModalRef.open({
+        openComposeModal({
             type: 'quote',
             post,
             source,

@@ -5,13 +5,13 @@ import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { getAllPlatformProfileByIdentity } from '@/providers/firefly/endpoint/getAllPlatformProfileByIdentity.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
+import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
@@ -28,7 +28,7 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
     if (twitterSession) {
         const twitterProfiles = socialProfiles.filter((profile) => profile.identity.source === Source.Twitter);
         await Promise.allSettled(
-            twitterProfiles.map((profile) => TwitterSocialMediaProxy.blockProfile(profile.identity.id)),
+            twitterProfiles.map((profile) => twitterSocialMediaProxy.blockProfile(profile.identity.id)),
         );
         results.push(
             ...twitterProfiles.map((profile) => ({
@@ -45,13 +45,13 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
         if (!lensNames.length) return results;
         await runInSafeAsync(async () => {
             const lensAccounts = await ensureLensResult(
-                fetchAccountsBulk(lensSessionHolder.sessionClient, {
+                fetchAccountsBulk(lensSessionClientHolder.sessionClient, {
                     usernames: lensNames.map((name) => ({ localName: name })),
                 }),
             );
             const unmutedAccounts = lensAccounts.filter((account) => !account.operations?.isMutedByMe);
             await Promise.allSettled(
-                unmutedAccounts.map((account) => LensSocialMediaProvider.blockProfile(account.address)),
+                unmutedAccounts.map((account) => lensSocialMediaProvider.blockProfile(account.address)),
             );
             results.push(
                 ...unmutedAccounts.map((account) => ({
@@ -78,7 +78,7 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
     const farcasterProfiles = socialProfiles.filter((profile) => profile.identity.source === Source.Farcaster);
     if (farcasterProfiles.length) {
         await Promise.allSettled(
-            farcasterProfiles.map((profile) => FarcasterSocialMediaProvider.blockProfile(profile.identity.id)),
+            farcasterProfiles.map((profile) => farcasterSocialMediaProvider.blockProfile(profile.identity.id)),
         );
         results.push(
             ...farcasterProfiles.map((profile) => ({

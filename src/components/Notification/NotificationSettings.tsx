@@ -13,7 +13,7 @@ import { type NotificationSource, Source } from '@/constants/enum.js';
 import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/index.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { captureQualityFilterOffEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 import { NotificationType } from '@/providers/types/SocialMedia.js';
 import { useNotificationStateStore } from '@/store/useNotificationStore.js';
@@ -46,7 +46,7 @@ export function NotificationSettings({ source }: { source: NotificationSource })
                 await refetch();
             } else {
                 if (source === Source.Farcaster)
-                    await FarcasterSocialMediaProvider.setNotificationSettings({
+                    await farcasterSocialMediaProvider.setNotificationSettings({
                         priority: state,
                     });
             }

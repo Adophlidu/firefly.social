@@ -5,13 +5,13 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 const fetchAccountOwner = memoizePromise(
     async (address: string) => {
         const account = await ensureLensResult(
-            fetchAccount(lensSessionHolder.sdk, { address: safeEvmAddress(address) }),
+            fetchAccount(lensClientHolder.client, { address: safeEvmAddress(address) }),
         );
         return (account?.owner as Address) || null;
     },

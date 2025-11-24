@@ -4,9 +4,9 @@ import { memo } from 'react';
 import { useMount } from 'react-use';
 
 import { useSearchParams } from '@/esm/navigation.js';
+import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
 
 export const ComposeWatcher = memo(function ComposeWatcher() {
     const search = useSearchParams();
@@ -19,7 +19,7 @@ export const ComposeWatcher = memo(function ComposeWatcher() {
 
         if (!modal || !text || !isLogin || !isMedium) return;
 
-        ComposeModalRef.open({
+        openComposeModal({
             type: 'compose',
             chars: [text],
         });

@@ -23,7 +23,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useX3ProTokenInfo } from '@/hooks/token/useX3ProTokenInfo.js';
 import { useX3ProTokenMention } from '@/hooks/token/useX3ProTokenMention.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
+import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { UserV2 } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { PostOrderType, type TokenMentionUser } from '@/providers/x3pro/types.js';
@@ -43,7 +43,7 @@ function useMergeX3KolProfiles(mentionUsers: TokenMentionUser[], enabled: boolea
         queries: twitterIds.map((twitterId) => ({
             enabled,
             queryKey: ['profile', Source.Twitter, twitterId, myTwitterProfile?.profileId],
-            queryFn: () => TwitterSocialMediaProxy.getProfileById(twitterId),
+            queryFn: () => twitterSocialMediaProxy.getProfileById(twitterId),
         })),
         combine: (result) => {
             return result.map((x) => x.data);

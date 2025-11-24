@@ -12,7 +12,7 @@ import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
-import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
+import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 import { searchWalletAddress } from '@/services/searchWalletAddress.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
@@ -61,7 +61,7 @@ export function SearchProfileContent() {
                       })
                     : undefined,
                 pageParam.twitter !== noNextPage && trimmed
-                    ? TwitterSocialMediaProxy.searchProfiles(trimmed, twitterIndicator, 7)
+                    ? twitterSocialMediaProxy.searchProfiles(trimmed, twitterIndicator, 7)
                     : undefined,
                 pageParam.bsky !== noNextPage
                     ? BskySocialMediaProvider.searchProfiles(searchKeyword, bskyIndicator, 3)

@@ -13,9 +13,9 @@ import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } fr
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getPostMediaTypes } from '@/helpers/getPostMediaTypes.js';
+import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { captureCreateFarPollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -98,7 +98,7 @@ export async function crossSchedulePost(
                     <span
                         className="cursor-pointer underline"
                         onClick={() => {
-                            ComposeModalRef.open({
+                            openComposeModal({
                                 initialPath: urlcat('/draft', { tab: DraftPageTab.Scheduled }),
                             });
                         }}

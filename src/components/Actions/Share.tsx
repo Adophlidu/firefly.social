@@ -13,7 +13,7 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SITE_URL } from '@/constants/index.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
+import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -46,7 +46,7 @@ export const Share = memo<ShareProps>(function Share({ className, post, disabled
                     {({ close }) => (
                         <MenuButton
                             onClick={() => {
-                                ComposeModalRef.open({
+                                openComposeModal({
                                     chars: url,
                                 });
                                 close();

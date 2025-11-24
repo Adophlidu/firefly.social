@@ -12,7 +12,7 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
+import { ComposeModalRef } from '@/modals/ComposeModal/index.js';
 import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 

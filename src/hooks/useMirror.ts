@@ -8,10 +8,10 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { checkFarcasterInvalidSignerKey } from '@/providers/farcaster/checkFarcasterInvalidSignerKey.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
-import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
+import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useMirror(post: Post) {
@@ -30,22 +30,22 @@ export function useMirror(post: Post) {
                 switch (source) {
                     case Source.Farcaster: {
                         await (hasMirrored
-                            ? FarcasterSocialMediaProvider.unmirrorPost(postId, Number(post.author.profileId))
-                            : FarcasterSocialMediaProvider.mirrorPost(postId, Number(post.author.profileId)));
+                            ? farcasterSocialMediaProvider.unmirrorPost(postId, Number(post.author.profileId))
+                            : farcasterSocialMediaProvider.mirrorPost(postId, Number(post.author.profileId)));
                         enqueueSuccessMessage(hasMirrored ? t`Cancel recast successfully` : t`Recasted`);
                         return;
                     }
                     case Source.Lens: {
                         await (unmirror
-                            ? LensSocialMediaProvider.unmirrorPost(post.publicationId)
-                            : LensSocialMediaProvider.mirrorPost(postId));
+                            ? lensSocialMediaProvider.unmirrorPost(post.publicationId)
+                            : lensSocialMediaProvider.mirrorPost(postId));
                         enqueueSuccessMessage(unmirror ? t`Cancel repost successfully` : t`Reposted`);
                         return;
                     }
                     case Source.Twitter: {
                         await (hasMirrored
-                            ? TwitterSocialMediaProxy.unmirrorPost(postId)
-                            : TwitterSocialMediaProxy.mirrorPost(postId));
+                            ? twitterSocialMediaProxy.unmirrorPost(postId)
+                            : twitterSocialMediaProxy.mirrorPost(postId));
                         enqueueSuccessMessage(hasMirrored ? t`Cancel repost successfully` : t`Reposted`);
                         return;
                     }

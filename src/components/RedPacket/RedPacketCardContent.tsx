@@ -30,11 +30,11 @@ import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { minus, ZERO } from '@/helpers/number.js';
+import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { usePreloadImage } from '@/helpers/preloadImage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { RedPacketModalRef } from '@/modals/RedPacketModal/index.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
@@ -107,7 +107,7 @@ export function RedPacketCardContent({ payload, post }: Props) {
 
     const handleShare = useCallback(async () => {
         const postUrl = urlcat(SITE_URL, getPostUrl(post));
-        ComposeModalRef.open({
+        openComposeModal({
             type: 'compose',
             chars: [
                 !isClaimed

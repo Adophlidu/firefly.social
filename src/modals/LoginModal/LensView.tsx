@@ -41,9 +41,11 @@ import { createAccountForProfileId } from '@/providers/lens/createAccountForProf
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
+import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -89,9 +91,9 @@ export const LensView = memo(function LensView() {
             try {
                 if (!account.address) return EMPTY_LIST;
 
-                const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
+                const profiles = await lensSocialMediaProvider.getProfilesByAddress(account.address);
                 const lastLoggedIn = await runInSafeAsync(() =>
-                    ensureLensResult(lastLoggedInAccount(lensSessionHolder.sdk, { address: account.address })),
+                    ensureLensResult(lastLoggedInAccount(lensClientHolder.client, { address: account.address })),
                 );
                 return uniqBy(
                     compact([
@@ -146,7 +148,7 @@ export const LensView = memo(function LensView() {
                     updateCredentialsStorage(credentials);
                 }
                 lensSessionHolder.resumeSession(account.session);
-                lensSessionHolder.setSessionClient(sessionClient);
+                lensSessionClientHolder.setSessionClient(sessionClient);
                 LoginModalRef.close();
                 enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Lens)} account is now connected.</Trans>);
 

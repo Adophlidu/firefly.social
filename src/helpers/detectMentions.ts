@@ -3,7 +3,7 @@ import { fetchAccountsBulk } from '@lens-protocol/client/actions';
 import { CharTag, FireflyPlatform } from '@/constants/enum.js';
 import { MENTION_REGEX } from '@/constants/regexp.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
 import { type Chars } from '@/types/chars.js';
 
 export async function detectMentionsForLens(chars: Chars) {
@@ -28,7 +28,7 @@ export async function detectMentionsForLens(chars: Chars) {
     if (!mentions.length) return list;
 
     const accounts = await ensureLensResult(
-        fetchAccountsBulk(lensSessionHolder.sdk, {
+        fetchAccountsBulk(lensClientHolder.client, {
             usernames: mentions.map((mention) => ({ localName: mention.slice(1) })),
         }),
     );

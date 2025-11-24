@@ -2,7 +2,9 @@ import type { ChallengeRequest, SignMessage } from '@lens-protocol/client';
 
 import { env } from '@/constants/env.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
-import { createLensSDK, LocalStorageProvider, MemoryStorageProvider } from '@/providers/lens/createLensSDK.js';
+import { createLensClient } from '@/providers/lens/createLensClient.js';
+import { LocalStorageProvider } from '@/providers/lens/LocalStorageProvider.js';
+import { MemoryStorageProvider } from '@/providers/lens/MemoryStorageProvider.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface LoginOptions {
@@ -13,7 +15,7 @@ interface LoginOptions {
 
 export async function loginLensProfile(profile: Profile, options: LoginOptions) {
     const storage = options.useMemoryStorage ? new MemoryStorageProvider() : new LocalStorageProvider();
-    const sdk = createLensSDK(storage);
+    const client = createLensClient(storage);
 
     const address = safeEvmAddress(options.ownerOrManager);
     const requestOptions: ChallengeRequest =
@@ -32,7 +34,7 @@ export async function loginLensProfile(profile: Profile, options: LoginOptions) 
                       app: env.external.NEXT_PUBLIC_LENS_APP_ADDRESS,
                   },
               };
-    const loginRes = await sdk.login({
+    const loginRes = await client.login({
         signMessage: options.signMessage,
         ...requestOptions,
     });

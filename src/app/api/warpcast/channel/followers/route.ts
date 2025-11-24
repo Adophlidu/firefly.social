@@ -8,7 +8,7 @@ import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { ChannelFollowersResponse } from '@/providers/types/Warpcast.js';
 
 const Schema = z.object({
@@ -39,7 +39,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
         });
     }
 
-    const profiles = await FarcasterSocialMediaProvider.getProfilesByIds(fids, fid);
+    const profiles = await farcasterSocialMediaProvider.getProfilesByIds(fids, fid);
 
     return createSuccessResponseJson({
         followers: profiles,

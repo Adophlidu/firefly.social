@@ -13,7 +13,7 @@ import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
-import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
+import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
 interface SuggestProfileListProps {
     query: string;
@@ -34,7 +34,7 @@ export const SuggestProfileList = memo<SuggestProfileListProps>(function Suggest
                     size: 5,
                     indicator: undefined,
                 }),
-                isTwitterLogin && trimmed ? TwitterSocialMediaProxy.searchProfiles(trimmed) : undefined,
+                isTwitterLogin && trimmed ? twitterSocialMediaProxy.searchProfiles(trimmed) : undefined,
             ]);
             const xProfiles = xRes.status === 'fulfilled' ? xRes.value?.data.slice(0, 1) : EMPTY_LIST;
             const result = fireflyRes.status === 'fulfilled' ? fireflyRes.value : undefined;

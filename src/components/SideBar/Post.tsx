@@ -5,11 +5,11 @@ import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useMounted } from '@/hooks/useMounted.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
 
 interface PostProps {
     collapsed?: boolean;
@@ -30,7 +30,7 @@ export function Post({ collapsed = false }: PostProps) {
                     <ClickableButton
                         className="rounded-full bg-main p-1 text-primaryBottom"
                         onClick={() =>
-                            ComposeModalRef.open({
+                            openComposeModal({
                                 type: 'compose',
                                 channel: currentChannel,
                             })
@@ -45,7 +45,7 @@ export function Post({ collapsed = false }: PostProps) {
                 <ClickableButton
                     className="mt-6 hidden w-full rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
                     onClick={() => {
-                        ComposeModalRef.open({
+                        openComposeModal({
                             type: 'compose',
                             channel: currentChannel,
                         });

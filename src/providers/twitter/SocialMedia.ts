@@ -34,12 +34,12 @@ function createProxy<T>(providers: Array<Partial<T>>): T {
     ) as T;
 }
 
-export const TwitterSocialMediaProxy = createProxy<OfficialSocialMedia>([
+export const twitterSocialMediaProxy = createProxy<OfficialSocialMedia>([
     OfficialSocialMediaProvider,
     NitterSocialMediaProvider,
 ]);
 
-export const NitterSocialMediaProxy = createProxy<OfficialSocialMedia>([
+export const nitterSocialMediaProxy = createProxy<OfficialSocialMedia>([
     NitterSocialMediaProvider,
     OfficialSocialMediaProvider,
 ]);

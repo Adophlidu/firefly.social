@@ -7,10 +7,10 @@ import { PageRoute, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
+import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function ComposeButtonForMobile() {
@@ -34,7 +34,7 @@ export function ComposeButtonForMobile() {
         <ClickableButton
             className="fixed bottom-4 left-4 z-40 flex size-16 items-center justify-center rounded-full bg-fireflyBrand text-white outline-none dark:bg-white dark:text-fireflyBrand"
             onClick={() => {
-                ComposeModalRef.open({
+                openComposeModal({
                     type: isPostPage ? 'reply' : 'compose',
                     post: currentPost,
                     channel: currentChannel,

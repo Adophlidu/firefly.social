@@ -8,9 +8,9 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
+import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Profile, ProfileEditable, ProfileLike } from '@/providers/types/SocialMedia.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
 import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
@@ -46,13 +46,13 @@ function pickProfileDiff(profile: Profile, profileEditable: ProfileEditable): Pr
 export async function updateProfile(profile: Profile, profileEditable: ProfileEditable) {
     switch (profile.source) {
         case Source.Farcaster:
-            await FarcasterSocialMediaProvider.updateProfile(pickProfileDiff(profile, profileEditable));
+            await farcasterSocialMediaProvider.updateProfile(pickProfileDiff(profile, profileEditable));
             break;
         case Source.Lens:
-            await LensSocialMediaProvider.updateProfile(profileEditable);
+            await lensSocialMediaProvider.updateProfile(profileEditable);
             break;
         case Source.Twitter:
-            await TwitterSocialMediaProxy.updateProfile(profileEditable);
+            await twitterSocialMediaProxy.updateProfile(profileEditable);
             break;
         case Source.Bsky:
             await BskySocialMediaProvider.updateProfile(pickProfileDiff(profile, profileEditable));

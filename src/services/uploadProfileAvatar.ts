@@ -1,7 +1,7 @@
 import { unreachable } from '@dimensiondev/utils';
 
 import { type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
-import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
+import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 
 export async function uploadProfileAvatar(source: SocialSource, file: File) {
@@ -10,7 +10,7 @@ export async function uploadProfileAvatar(source: SocialSource, file: File) {
         case Source.Lens:
             return uploadToS3(file, SourceInURL.Lens);
         case Source.Twitter:
-            return TwitterSocialMediaProxy.uploadProfileAvatar(file);
+            return twitterSocialMediaProxy.uploadProfileAvatar(file);
         case Source.Bsky:
             return URL.createObjectURL(file);
         default:

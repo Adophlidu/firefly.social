@@ -35,17 +35,22 @@ import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { createCover } from '@/providers/firefly/red-packet/createCover.js';
 import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
-import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
-import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
-import { type Chars } from '@/types/chars.js';
-import type { ComposeType } from '@/types/compose.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
+import type { Chars } from '@/types/chars.js';
 import type { RedPacketMetadata } from '@/types/rp.js';
+
+export enum CloseAction {
+    Saved = 'saved',
+    Discard = 'discard',
+    None = 'none',
+}
 
 const initialConfig = {
     namespace: 'composer',
@@ -58,29 +63,6 @@ const initialConfig = {
     editorState: null,
     onError: () => {},
 };
-
-export interface ComposeModalOpenProps {
-    type?: ComposeType;
-    chars?: Chars;
-    embeds?: string[];
-    source?: SocialSource | SocialSource[];
-    post?: Post | null;
-    channel?: Channel | null;
-    initialPath?: string;
-    isFailedSchedulePost?: boolean;
-    isAnonymous?: boolean;
-    disabledSources?: SocialSource[];
-}
-
-export enum CloseAction {
-    Saved = 'saved',
-    Discard = 'discard',
-    None = 'none',
-}
-
-export type ComposeModalCloseProps = {
-    post?: CompositePost;
-} | void;
 
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<ComposeModalOpenProps, ComposeModalCloseProps>>;
@@ -115,6 +97,7 @@ function ComposeModalUI({ ref }: Props) {
 
     const setEditorContent = useSetEditorContent();
     const [open, dispatch] = useSingletonModal(ref, {
+        name: 'compose-modal',
         onOpen: ({
             type,
             source,

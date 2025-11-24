@@ -4,9 +4,9 @@ import {
     ValidationError,
 } from '@lens-protocol/client';
 
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { sendSelfFundedTransaction } from '@/providers/lens/sendSelfFundedTransaction.js';
 import { sendSponsoredTransaction } from '@/providers/lens/sendSponsoredTransaction.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { OperationResult } from '@/providers/types/Lens.js';
 
 function isSelfFundedTransactionRequest(x: { __typename: string }): x is SelfFundedTransactionRequest {
@@ -20,7 +20,7 @@ function isSponsoredTransactionRequest(x: { __typename: string }): x is Sponsore
 export async function handleOperationWithLensChain<T extends string, E extends string>(
     result: OperationResult<T, E>,
     waitForTransaction = true,
-    sessionClient = lensSessionHolder.sessionClient,
+    sessionClient = lensSessionClientHolder.sessionClient,
 ) {
     if ('hash' in result) {
         return result.hash;

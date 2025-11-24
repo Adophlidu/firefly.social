@@ -9,10 +9,10 @@ import ScheduleIcon from '@/assets/schedule.svg';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SORTED_SCHEDULE_POST_SOURCES } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
+import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
 import { PostMediaType, type ScheduleNotification, ScheduleTaskStatus } from '@/providers/types/Firefly.js';
 
 interface ScheduleNotificationItemProps {
@@ -50,7 +50,7 @@ export function ScheduleNotificationItem({ data }: ScheduleNotificationItemProps
         if (data.status === ScheduleTaskStatus.Success && firstPost?.post_id) {
             router.push(resolvePostUrl(resolveSocialSource(firstPost.platform), firstPost.post_id));
         } else if (data.status === ScheduleTaskStatus.Failed) {
-            ComposeModalRef.open({
+            openComposeModal({
                 chars: display_info?.content,
                 source: sortedPosts.map((x) => resolveSocialSource(x.platform)),
                 isFailedSchedulePost: true,

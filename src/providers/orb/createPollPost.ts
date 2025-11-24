@@ -3,14 +3,14 @@ import dayjs from 'dayjs';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
+import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { CreatePollResult } from '@/providers/orb/type.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { ResponseJson } from '@/types/utility.js';
 
 export async function createPollPost(pollTitle: string, draftPoll: CompositePoll) {
-    const credentials = ensureLensResultSync(lensSessionHolder.sessionClient.getCredentials());
+    const credentials = ensureLensResultSync(lensSessionClientHolder.sessionClient.getCredentials());
     if (!credentials?.accessToken) {
         throw new Error('No lens access token.');
     }
@@ -30,7 +30,7 @@ export async function createPollPost(pollTitle: string, draftPoll: CompositePoll
         },
     });
     const { hash } = resolveResponseData(response, 'Failed to create poll.');
-    const post = await LensSocialMediaProvider.getPostByTxHashWithPolling(hash);
+    const post = await lensSocialMediaProvider.getPostByTxHashWithPolling(hash);
     if (!post) {
         throw new Error('Post not found');
     }

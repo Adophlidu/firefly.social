@@ -16,7 +16,7 @@ import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { isLensOwnerOrManager } from '@/providers/lens/isLensOwnerOrManager.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
 import { vote } from '@/providers/orb/vote.js';
 import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -25,7 +25,7 @@ import { commitPoll } from '@/services/poll.js';
 const fetchAccountOwner = memoizePromise(
     async (address: string) => {
         const account = await ensureLensResult(
-            fetchAccount(lensSessionHolder.sdk, { address: safeEvmAddress(address) }),
+            fetchAccount(lensClientHolder.client, { address: safeEvmAddress(address) }),
         );
         return (account?.owner as Address) || null;
     },

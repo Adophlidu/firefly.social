@@ -12,7 +12,7 @@ import { SITE_URL } from '@/constants/index.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
+import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 export function SuccessPage() {
@@ -59,7 +59,7 @@ export function SuccessPage() {
                         colorMode="light"
                         className="mt-6"
                         onClick={() => {
-                            ComposeModalRef.open({
+                            openComposeModal({
                                 type: 'compose',
                                 chars: [
                                     'Create your Firefly account now! Join the Web3-native social experience. ',

@@ -6,7 +6,7 @@ import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { getFarcasterMediaObjects } from '@/providers/farcaster/getFarcasterMediaObjects.js';
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
@@ -90,16 +90,16 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             return [pollStub];
         },
         compose: async (images, videos, polls) => {
-            return FarcasterSocialMediaProvider.publishPost(composeDraft('Post', images, videos, polls));
+            return farcasterSocialMediaProvider.publishPost(composeDraft('Post', images, videos, polls));
         },
         reply: async (images, videos, polls) => {
             if (!farcasterParentPost) throw new Error('No parent post found.');
             // for farcaster, post id is read from post.commentOn.postId
-            return FarcasterSocialMediaProvider.commentPost('', composeDraft('Comment', images, videos, polls));
+            return farcasterSocialMediaProvider.commentPost('', composeDraft('Comment', images, videos, polls));
         },
         quote: async (images, videos, polls) => {
             if (!farcasterParentPost) throw new Error('No parent post found.');
-            return FarcasterSocialMediaProvider.quotePost(
+            return farcasterSocialMediaProvider.quotePost(
                 farcasterParentPost.postId,
                 composeDraft('Quote', images, videos, polls),
                 farcasterParentPost.author.profileId,

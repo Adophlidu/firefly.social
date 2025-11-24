@@ -17,7 +17,7 @@ import { image } from '@/providers/lens/metadata/post/Image.js';
 import { link } from '@/providers/lens/metadata/post/Link.js';
 import { textOnly } from '@/providers/lens/metadata/post/TextOnly.js';
 import { video } from '@/providers/lens/metadata/post/Video.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPollPost } from '@/providers/orb/createPollPost.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import { type Channel, SessionType } from '@/providers/types/SocialMedia.js';
@@ -183,7 +183,7 @@ async function publishPostForLens(
         return result;
     }
 
-    const profile = await LensSocialMediaProvider.getProfileById(profileId);
+    const profile = await lensSocialMediaProvider.getProfileById(profileId);
     const title = `Post by #${profile.handle}`;
     const metadata = createLensPostMetadata(
         {
@@ -194,7 +194,7 @@ async function publishPostForLens(
     );
 
     const contentURI = await GroveStorageProvider.uploadJson(metadata);
-    const publicationId = await LensSocialMediaProvider.publishPost({
+    const publicationId = await lensSocialMediaProvider.publishPost({
         publicationId: '',
         postId: metadata.lens.id,
         author: profile,
@@ -218,7 +218,7 @@ async function commentPostForLens(
     video: MediaObject | null,
     channel: Channel | null,
 ) {
-    const profile = await LensSocialMediaProvider.getProfileById(profileId);
+    const profile = await lensSocialMediaProvider.getProfileById(profileId);
 
     const title = `Post by #${profile.handle}`;
     const metadata = createLensPostMetadata(
@@ -230,7 +230,7 @@ async function commentPostForLens(
     );
 
     const contentURI = await GroveStorageProvider.uploadJson(metadata);
-    return LensSocialMediaProvider.commentPost(
+    return lensSocialMediaProvider.commentPost(
         postId,
         {
             ...createDummyPost(Source.Lens, contentURI.uri),
@@ -248,7 +248,7 @@ async function quotePostForLens(
     channel: Channel | null,
     restrictions?: RestrictionType[],
 ) {
-    const profile = await LensSocialMediaProvider.getProfileById(profileId);
+    const profile = await lensSocialMediaProvider.getProfileById(profileId);
 
     const title = `Post by #${profile.handle}`;
     const metadata = createLensPostMetadata(
@@ -260,7 +260,7 @@ async function quotePostForLens(
     );
 
     const contentURI = await GroveStorageProvider.uploadJson(metadata);
-    const post = await LensSocialMediaProvider.quotePost(
+    const post = await lensSocialMediaProvider.quotePost(
         postId,
         {
             ...createDummyPost(Source.Lens, contentURI.uri),

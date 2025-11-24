@@ -1,18 +1,14 @@
 import { bom } from '@dimensiondev/utils';
 
-import { PageRoute, STATUS } from '@/constants/enum.js';
+import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
+import { isPathnameForceRedirect } from '@/helpers/isPathnameForceRedirect.js';
 import { CreateFireflyAccountGuideModalRef } from '@/modals/CreateFireflyAccountGuideModal/index.js';
-import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
-import { LoginModalRef } from '@/modals/LoginModal/index.js';
+import { type LoginModalOpenProps, LoginModalRef } from '@/modals/LoginModal/index.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
-
-export function isPathnameForceRedirect(pathname: string): boolean {
-    return [PageRoute.Home, PageRoute.FollowingPosts, PageRoute.DiscoverPosts].includes(pathname as PageRoute);
-}
 
 export function openLoginModal(props: LoginModalOpenProps | void, forceOpen = false) {
     if (env.external.NEXT_PUBLIC_FORCE_SIGNUP !== STATUS.Enabled) {

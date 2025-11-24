@@ -14,7 +14,7 @@ import { getProfileById } from '@/helpers/getProfileById.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
-import { ComposeModalRef } from '@/modals/ComposeModal.js';
+import { ComposeModalRef } from '@/modals/ComposeModal/index.js';
 import { checkCustodyWallet } from '@/providers/firefly/farcaster-account/checkCustodyWallet.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { FrameLoader } from '@/providers/frame/Loader.js';

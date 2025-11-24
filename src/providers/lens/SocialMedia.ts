@@ -132,9 +132,10 @@ import {
     isReactionNotification,
     isRepostNotification,
 } from '@/providers/lens/isNotification.js';
+import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { account } from '@/providers/lens/metadata/Account.js';
 import type { LensSession } from '@/providers/lens/Session.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.js';
 import type { Account as FireflyAccount } from '@/providers/types/Account.js';
 import {
@@ -190,14 +191,14 @@ class LensSocialMedia implements Provider {
         }
         const group = await getGroupWithMemberCount(channelId);
         const owner = group.ownerId
-            ? await runInSafeAsync(() => LensSocialMediaProvider.getProfileById(group.ownerId!))
+            ? await runInSafeAsync(() => lensSocialMediaProvider.getProfileById(group.ownerId!))
             : undefined;
 
         return { ...group, lead: owner };
     }
 
     async getChannelsByIds(ids: string[]): Promise<Channel[]> {
-        return Promise.all(ids.map((id) => LensSocialMediaProvider.getChannelById(id)));
+        return Promise.all(ids.map((id) => lensSocialMediaProvider.getChannelById(id)));
     }
 
     getChannelByHandle(channelHandle: string): Promise<Channel> {
@@ -267,7 +268,7 @@ class LensSocialMedia implements Provider {
         );
 
         const ownerIds = result.items.map((x) => x.owner);
-        const owners = await runInSafeAsync(() => LensSocialMediaProvider.getProfilesByIds(ownerIds));
+        const owners = await runInSafeAsync(() => lensSocialMediaProvider.getProfilesByIds(ownerIds));
 
         return createPageable(
             (result?.items.map(formatLensChannelFromGroup) ?? EMPTY_LIST).map((x) => ({
@@ -324,7 +325,7 @@ class LensSocialMedia implements Provider {
     }
 
     async deletePost(postId: string): Promise<boolean> {
-        const result = await ensureLensResult(deletePost(lensSessionHolder.sessionClient, { post: postId }));
+        const result = await ensureLensResult(deletePost(lensSessionClientHolder.sessionClient, { post: postId }));
         await handleOperationWithLensChain(result);
         return true;
     }
@@ -333,7 +334,7 @@ class LensSocialMedia implements Provider {
         if (!draftPost.metadata.contentURI) throw new Error('No content to publish.');
 
         return ensurePostToLensResult(
-            post(lensSessionHolder.sessionClient, {
+            post(lensSessionClientHolder.sessionClient, {
                 contentUri: draftPost.metadata.contentURI,
                 rules: formatLensPostRules(draftPost.restrictions),
                 feed: draftPost.channel?.feedId ? safeEvmAddress(draftPost.channel.feedId) : undefined,
@@ -343,7 +344,7 @@ class LensSocialMedia implements Provider {
 
     async mirrorPost(postId: string): Promise<string> {
         const result = await ensurePostToLensResult(
-            repost(lensSessionHolder.sessionClient, {
+            repost(lensSessionClientHolder.sessionClient, {
                 post: postId,
             }),
             false,
@@ -353,14 +354,14 @@ class LensSocialMedia implements Provider {
     }
 
     async unmirrorPost(postId: string): Promise<void> {
-        await LensSocialMediaProvider.deletePost(postId);
+        await lensSocialMediaProvider.deletePost(postId);
     }
 
     // intro is the contentURI of the post
     async quotePost(postId: string, draftPost: Post, signless?: boolean): Promise<{ postId: string }> {
         const intro = draftPost.metadata.content?.content ?? '';
         return ensurePostToLensResult(
-            post(lensSessionHolder.sessionClient, {
+            post(lensSessionClientHolder.sessionClient, {
                 contentUri: intro,
                 quoteOf: { post: postId },
                 rules: formatLensPostRules(draftPost.restrictions),
@@ -370,12 +371,12 @@ class LensSocialMedia implements Provider {
     }
 
     async collectPost(postId: string): Promise<void> {
-        await ensureLensResult(bookmarkPost(lensSessionHolder.sessionClient, { post: postId }));
+        await ensureLensResult(bookmarkPost(lensSessionClientHolder.sessionClient, { post: postId }));
     }
 
     async actPost(postId: string) {
         const result = await ensureLensResult(
-            executePostAction(lensSessionHolder.sessionClient, {
+            executePostAction(lensSessionClientHolder.sessionClient, {
                 post: toPostId(postId),
                 action: {
                     simpleCollect: { selected: true },
@@ -389,7 +390,7 @@ class LensSocialMedia implements Provider {
     async commentPost(postId: string, draftPost: Post, signless?: boolean): Promise<{ postId: string }> {
         const comment = draftPost.metadata.content?.content ?? '';
         return ensurePostToLensResult(
-            post(lensSessionHolder.sessionClient, {
+            post(lensSessionClientHolder.sessionClient, {
                 contentUri: comment,
                 commentOn: { post: postId },
                 feed: draftPost.channel?.id ? safeEvmAddress(draftPost.channel.id) : undefined,
@@ -399,7 +400,7 @@ class LensSocialMedia implements Provider {
 
     async upvotePost(postId: string) {
         const result = await ensureLensResult(
-            addReaction(lensSessionHolder.sessionClient, { post: postId, reaction: PostReactionType.Upvote }),
+            addReaction(lensSessionClientHolder.sessionClient, { post: postId, reaction: PostReactionType.Upvote }),
         );
         switch (result.__typename) {
             case 'AddReactionResponse':
@@ -416,7 +417,7 @@ class LensSocialMedia implements Provider {
 
     async unvotePost(postId: string): Promise<void> {
         const result = await ensureLensResult(
-            undoReaction(lensSessionHolder.sessionClient, { post: postId, reaction: PostReactionType.Downvote }),
+            undoReaction(lensSessionClientHolder.sessionClient, { post: postId, reaction: PostReactionType.Downvote }),
         );
         switch (result.__typename) {
             case 'UndoReactionResponse':
@@ -434,7 +435,7 @@ class LensSocialMedia implements Provider {
     async getProfilesByAddress(address: string): Promise<Profile[]> {
         // TODO: lastLoggedInAccount
         const profiles = await ensureLensResult(
-            fetchAccountsAvailable(lensSessionHolder.sdk, {
+            fetchAccountsAvailable(lensClientHolder.client, {
                 managedBy: safeEvmAddress(address),
                 pageSize: PageSize.Fifty,
                 includeOwned: true,
@@ -479,8 +480,8 @@ class LensSocialMedia implements Provider {
 
     async getProfileByIdOrHandle(profileIdOrHandle: string, includeGraphStats?: boolean): Promise<Profile> {
         if (isValidAddressEthereum(profileIdOrHandle))
-            return LensSocialMediaProvider.getProfileById(profileIdOrHandle, includeGraphStats);
-        return LensSocialMediaProvider.getProfileByHandle(profileIdOrHandle, includeGraphStats);
+            return lensSocialMediaProvider.getProfileById(profileIdOrHandle, includeGraphStats);
+        return lensSocialMediaProvider.getProfileByHandle(profileIdOrHandle, includeGraphStats);
     }
 
     async getPostById(postId: string, isLegacy = false): Promise<Post> {
@@ -546,7 +547,7 @@ class LensSocialMedia implements Provider {
 
     async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await ensureLensResult(
-            fetchTimeline(lensSessionHolder.sessionClient, {
+            fetchTimeline(lensSessionClientHolder.sessionClient, {
                 cursor: ensureCursor(indicator),
                 filter: {
                     eventType: [TimelineEventItemType.Post, TimelineEventItemType.Quote, TimelineEventItemType.Repost],
@@ -721,7 +722,7 @@ class LensSocialMedia implements Provider {
 
     async follow(profileId: string): Promise<boolean> {
         const result = await ensureLensResult(
-            follow(lensSessionHolder.sessionClient, { account: safeEvmAddress(profileId) }),
+            follow(lensSessionClientHolder.sessionClient, { account: safeEvmAddress(profileId) }),
         );
         await handleOperationWithLensChain(result);
         return true;
@@ -733,7 +734,7 @@ class LensSocialMedia implements Provider {
 
     async unfollow(profileId: string): Promise<boolean> {
         const result = await ensureLensResult(
-            unfollow(lensSessionHolder.sessionClient, { account: safeEvmAddress(profileId) }),
+            unfollow(lensSessionClientHolder.sessionClient, { account: safeEvmAddress(profileId) }),
         );
         await handleOperationWithLensChain(result);
         return true;
@@ -833,7 +834,7 @@ class LensSocialMedia implements Provider {
         highSignalFilter?: boolean,
     ): Promise<Pageable<Notification, PageIndicator>> {
         const result = await ensureLensResult(
-            fetchNotifications(lensSessionHolder.sessionClient, {
+            fetchNotifications(lensSessionClientHolder.sessionClient, {
                 cursor: ensureCursor(indicator),
                 filter: {
                     includeLowScore: !highSignalFilter,
@@ -1071,14 +1072,16 @@ class LensSocialMedia implements Provider {
     }
 
     async blockProfile(profileId: string) {
-        await ensureLensResult(muteAccount(lensSessionHolder.sessionClient, { account: safeEvmAddress(profileId) }));
+        await ensureLensResult(
+            muteAccount(lensSessionClientHolder.sessionClient, { account: safeEvmAddress(profileId) }),
+        );
         await runInSafeAsync(() => blockProfileFor(FireflyPlatform.Lens, profileId));
         return true;
     }
 
     async unblockProfile(profileId: string) {
         await ensureLensResult(
-            unmuteAccount(lensSessionHolder.sessionClient, {
+            unmuteAccount(lensSessionClientHolder.sessionClient, {
                 account: safeEvmAddress(profileId),
             }),
         );
@@ -1146,7 +1149,7 @@ class LensSocialMedia implements Provider {
     }
     async bookmark(postId: string): Promise<boolean> {
         await ensureLensResult(
-            bookmarkPost(lensSessionHolder.sessionClient, {
+            bookmarkPost(lensSessionClientHolder.sessionClient, {
                 post: postId,
             }),
         );
@@ -1155,7 +1158,7 @@ class LensSocialMedia implements Provider {
 
     async unbookmark(postId: string): Promise<boolean> {
         await ensureLensResult(
-            undoBookmarkPost(lensSessionHolder.sessionClient, {
+            undoBookmarkPost(lensSessionClientHolder.sessionClient, {
                 post: postId,
             }),
         );
@@ -1164,7 +1167,7 @@ class LensSocialMedia implements Provider {
 
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await ensureLensResult(
-            fetchPostBookmarks(lensSessionHolder.sessionClient, {
+            fetchPostBookmarks(lensSessionClientHolder.sessionClient, {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
             }),
@@ -1200,7 +1203,7 @@ class LensSocialMedia implements Provider {
 
     async reportProfile(profileId: string) {
         await ensureLensResult(
-            reportAccount(lensSessionHolder.sessionClient, {
+            reportAccount(lensSessionClientHolder.sessionClient, {
                 account: safeEvmAddress(profileId),
                 reason: AccountReportReason.RepetitiveSpam, // TODO: user select reason
             }),
@@ -1212,7 +1215,7 @@ class LensSocialMedia implements Provider {
     async reportPost(post: Post) {
         const postId = post.postId;
         await ensureLensResult(
-            reportPost(lensSessionHolder.sessionClient, {
+            reportPost(lensSessionClientHolder.sessionClient, {
                 post: postId,
                 reason: PostReportReason.Scam, // TODO: user select reason
             }),
@@ -1249,7 +1252,7 @@ class LensSocialMedia implements Provider {
         });
         const metadataURI = await uploadLensMetadataToS3(metadata);
         const result = await ensureLensResult(
-            setAccountMetadata(lensSessionHolder.sessionClient, {
+            setAccountMetadata(lensSessionClientHolder.sessionClient, {
                 metadataUri: metadataURI,
             }),
         );
@@ -1276,7 +1279,7 @@ class LensSocialMedia implements Provider {
 
     async joinChannel(channel: Channel): Promise<boolean> {
         const result = await ensureLensResult(
-            joinLensGroup(lensSessionHolder.sessionClient, {
+            joinLensGroup(lensSessionClientHolder.sessionClient, {
                 group: safeEvmAddress(channel.id),
             }),
         );
@@ -1286,7 +1289,7 @@ class LensSocialMedia implements Provider {
 
     async leaveChannel(channel: Channel): Promise<boolean> {
         const result = await ensureLensResult(
-            leaveLensGroup(lensSessionHolder.sessionClient, {
+            leaveLensGroup(lensSessionClientHolder.sessionClient, {
                 group: safeEvmAddress(channel.id),
             }),
         );
@@ -1318,4 +1321,4 @@ class LensSocialMedia implements Provider {
 }
 
 export { LensSocialMedia };
-export const LensSocialMediaProvider = new LensSocialMedia();
+export const lensSocialMediaProvider = new LensSocialMedia();

@@ -12,6 +12,8 @@ import {
     getLensCredentialsFromStorage,
     updateCredentialsStorage,
 } from '@/providers/lens/getLensCredentialsFromStorage.js';
+import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { captureAccountLoginEvent } from '@/providers/telemetry/captureAccountEvent.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
 
@@ -46,8 +48,8 @@ async function runResumeTask(
 
         // refresh token if it is expiring soon
         if (isAccessTokenExpiring && !isRefreshTokenExpired) {
-            const { lensSessionHolder } = await import('@/providers/lens/SessionHolder.js');
-            const refreshedCredentialsResult = await refresh(lensSessionHolder.sdk, {
+            const { lensClientHolder } = await import('@/providers/lens/LensClientHolder.js');
+            const refreshedCredentialsResult = await refresh(lensClientHolder.client, {
                 refreshToken: oldCredentials.refreshToken,
             });
             if (!refreshedCredentialsResult.isOk()) {
@@ -80,8 +82,7 @@ async function runResumeTask(
             captureAccountLoginEvent(account, { privy_login_type: 'refresh_page' });
         }
 
-        const { lensSessionHolder } = await import('@/providers/lens/SessionHolder.js');
-        const sessionClient = await ensureLensResult(lensSessionHolder.sdk.resumeSession());
+        const sessionClient = await ensureLensResult(lensClientHolder.client.resumeSession());
         if (!sessionClient) {
             console.warn('[resume lens] clean the lens store because failed to call sdk.resumeSession');
             onResumeFailure();
@@ -101,7 +102,7 @@ async function runResumeTask(
             return;
         }
 
-        lensSessionHolder.setSessionClient(sessionClient);
+        lensSessionClientHolder.setSessionClient(sessionClient);
 
         const credentials = getLensCredentialsFromStorage();
         if (!credentials?.data?.accessToken) {

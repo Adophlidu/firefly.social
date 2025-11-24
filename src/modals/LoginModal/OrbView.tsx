@@ -30,9 +30,11 @@ import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
+import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { initSignIn } from '@/providers/orb/initSignIn.js';
 import { pollSignIn } from '@/providers/orb/pollSignIn.js';
 import { getAccountPairs } from '@/providers/telemetry/captureAccountEvent.js';
@@ -85,7 +87,7 @@ export function OrbView() {
 
             setScanned(true);
 
-            const profile = await LensSocialMediaProvider.getProfileById(result.user_id);
+            const profile = await lensSocialMediaProvider.getProfileById(result.user_id);
 
             if (!profile.address) throw new Error(t`Failed to login profile by orb`);
 
@@ -123,8 +125,8 @@ export function OrbView() {
             });
             lensSessionHolder.resumeSession(session);
 
-            const sessionClient = await ensureLensResult(lensSessionHolder.sdk.resumeSession());
-            if (sessionClient) lensSessionHolder.setSessionClient(sessionClient);
+            const sessionClient = await ensureLensResult(lensClientHolder.client.resumeSession());
+            if (sessionClient) lensSessionClientHolder.setSessionClient(sessionClient);
 
             LoginModalRef.close();
             enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Lens)} account is now connected</Trans>);

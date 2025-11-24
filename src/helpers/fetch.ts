@@ -3,6 +3,7 @@ import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
 import { FetchError, ForbiddenError, NetworkError } from '@/constants/error.js';
+import { FORBIDDEN_EVENT_NAME } from '@/constants/event.js';
 import { FIREFLY_USER_AGENT, SITE_URL, SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { addHeaders } from '@/helpers/addHeader.js';
 
@@ -69,7 +70,7 @@ export async function fetch(
     if (response.status === 403 && bom.document) {
         const u = resolveRequestUrl(input);
         if (u && isFireflyLandApi(u)) {
-            bom.document.dispatchEvent(new CustomEvent('firefly:forbidden'));
+            bom.document.dispatchEvent(new CustomEvent(FORBIDDEN_EVENT_NAME));
             throw new ForbiddenError();
         }
     }

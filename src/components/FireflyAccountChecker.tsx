@@ -5,9 +5,10 @@ import { useEffect, useRef } from 'react';
 import { useTimeoutFn } from 'react-use';
 
 import { PageRoute } from '@/constants/enum.js';
+import { FORBIDDEN_EVENT_NAME } from '@/constants/event.js';
 import { usePathname } from '@/esm/navigation.js';
 import { enqueueForbiddenMessage } from '@/helpers/enqueueMessage.js';
-import { isPathnameForceRedirect } from '@/helpers/openLoginModal.js';
+import { isPathnameForceRedirect } from '@/helpers/isPathnameForceRedirect.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
@@ -61,7 +62,7 @@ export function FireflyAccountChecker() {
             await delay(5000);
             bom.location.href = PageRoute.Signup;
         };
-        document.addEventListener('firefly:forbidden', logout, { signal: abortController.signal });
+        document.addEventListener(FORBIDDEN_EVENT_NAME, logout, { signal: abortController.signal });
         return () => abortController.abort();
     }, []);
 

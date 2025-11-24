@@ -4,10 +4,10 @@ import { isServer } from '@tanstack/react-query';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import { NitterSocialMediaProxy, TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
+import { nitterSocialMediaProxy, twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
 interface Options {
     /**
@@ -19,9 +19,9 @@ interface Options {
 export function resolveSocialMediaProvider(source: SocialSource, options?: Options) {
     switch (source) {
         case Source.Lens:
-            return LensSocialMediaProvider;
+            return lensSocialMediaProvider;
         case Source.Farcaster:
-            return FarcasterSocialMediaProvider;
+            return farcasterSocialMediaProvider;
         case Source.Twitter:
             const preferred = options?.[Source.Twitter]
                 ? options[Source.Twitter]
@@ -31,12 +31,12 @@ export function resolveSocialMediaProvider(source: SocialSource, options?: Optio
 
             switch (preferred) {
                 case 'nitter':
-                    return NitterSocialMediaProxy;
+                    return nitterSocialMediaProxy;
                 case 'twitter':
-                    return TwitterSocialMediaProxy;
+                    return twitterSocialMediaProxy;
                 default:
                     safeUnreachable(preferred);
-                    return TwitterSocialMediaProxy;
+                    return twitterSocialMediaProxy;
             }
         case Source.Bsky:
             return BskySocialMediaProvider;
