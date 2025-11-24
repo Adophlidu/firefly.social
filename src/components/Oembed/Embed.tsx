@@ -1,8 +1,8 @@
 import { parseUrl } from '@dimensiondev/utils';
 
+import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { PureLink } from '@/components/Posts/PureLink.js';
-import { Image } from '@/esm/Image.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import type { OpenGraph } from '@/types/og.js';
@@ -45,9 +45,10 @@ export function Embed({ og }: EmbedProps) {
                 <div className="rounded-xl border border-line bg-white text-main dark:bg-black">
                     {og.isLarge ? (
                         <Image
-                            className="divider aspect-[16/9] w-full rounded-t-xl object-cover"
+                            className="aspect-[16/9] w-full rounded-t-xl object-cover"
                             unoptimized
                             {...imageProps}
+                            fallback="square"
                             alt=""
                         />
                     ) : null}
@@ -59,6 +60,7 @@ export function Embed({ og }: EmbedProps) {
                                     layout="fill"
                                     src={imageProps.src}
                                     unoptimized
+                                    fallback="square"
                                     alt=""
                                 />
                             </div>
