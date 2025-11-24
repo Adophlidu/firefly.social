@@ -163,10 +163,6 @@ class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getProfilesByAddress(address: string): Promise<Profile[]> {
-        throw new NotImplementedError();
-    }
-
     getHiddenComments(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }

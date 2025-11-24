@@ -84,10 +84,6 @@ class FarcasterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getProfilesByAddress(address: string): Promise<Profile[]> {
-        throw new NotImplementedError();
-    }
-
     getProfilesByIds(ids: string[], viewer?: string): Promise<Profile[]> {
         return FireflySocialMediaProvider.getProfilesByIds(ids, viewer);
     }

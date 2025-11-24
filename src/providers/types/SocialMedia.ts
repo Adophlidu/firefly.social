@@ -552,13 +552,6 @@ export interface Provider {
     unvotePost: (postId: string) => Promise<void>;
 
     /**
-     *
-     * @param address EVM address
-     * @returns A promise that resolves to Profiles array by address.
-     */
-    getProfilesByAddress: (address: string) => Promise<Profile[]>;
-
-    /**
      * @params ids Array of profile id
      */
     getProfilesByIds: (ids: string[]) => Promise<Profile[]>;

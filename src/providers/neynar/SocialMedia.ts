@@ -295,10 +295,6 @@ class NeynarSocialMedia implements Provider {
         }));
     }
 
-    getProfilesByAddress(address: string): Promise<Profile[]> {
-        throw new NotImplementedError();
-    }
-
     getProfileByHandle(handle: string): Promise<Profile> {
         throw new NotImplementedError();
     }

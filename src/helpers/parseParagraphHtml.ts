@@ -2,7 +2,25 @@ import { parseJson } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
 import { parseHtml } from '@/helpers/parseHtml.js';
-import type { ParagraphJSONContent } from '@/providers/paragraph/type.js';
+
+interface ParagraphJSONContent {
+    type: string;
+    attrs?: {
+        tweetData?: {
+            video?: {
+                poster: string;
+                variants: Array<{ type: string; src: string }>;
+            };
+        };
+    };
+    content: Array<{
+        attrs?: {
+            nextheight?: number;
+            nextwidth?: number;
+            src: string;
+        };
+    }>;
+}
 
 export function parseParagraphHtml(htmlString: string, jsonString: string) {
     if (!htmlString || !jsonString) return;

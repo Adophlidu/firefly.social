@@ -157,10 +157,6 @@ class FireflySocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getProfilesByAddress(address: string): Promise<Profile[]> {
-        throw new NotImplementedError();
-    }
-
     async getProfilesByIds(ids: string[], sourceId?: string): Promise<Profile[]> {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/farcasterinfo/list');
         const response = await fireflySessionHolder.fetch<GetProfilesResponse>(url, {

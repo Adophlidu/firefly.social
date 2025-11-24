@@ -41,11 +41,11 @@ import { createAccountForProfileId } from '@/providers/lens/createAccountForProf
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
+import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
 import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
-import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -91,7 +91,7 @@ export const LensView = memo(function LensView() {
             try {
                 if (!account.address) return EMPTY_LIST;
 
-                const profiles = await lensSocialMediaProvider.getProfilesByAddress(account.address);
+                const profiles = await getProfilesByAddress(account.address);
                 const lastLoggedIn = await runInSafeAsync(() =>
                     ensureLensResult(lastLoggedInAccount(lensClientHolder.client, { address: account.address })),
                 );

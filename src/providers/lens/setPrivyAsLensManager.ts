@@ -6,8 +6,8 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { AddLensManagerModalRef } from '@/modals/AddLensManagerModal/index.js';
 import { getLensProfileOwner } from '@/providers/lens/getLensProfileOwner.js';
+import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
 import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';
-import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 
 export async function setPrivyAsLensManager(account: Account): Promise<Boolean> {
@@ -35,7 +35,7 @@ export async function setPrivyAsLensManager(account: Account): Promise<Boolean> 
         throw new Error('Only lens owner can bind manager.');
 
     // 5. check if already bound
-    const profiles = await lensSocialMediaProvider.getProfilesByAddress(privyEvmAddress);
+    const profiles = await getProfilesByAddress(privyEvmAddress);
     if (profiles.some((x) => isSameEthereumAddress(account.profile.profileId, x.profileId))) {
         throw new Error('This privy wallet is already a owner or manager of current lens account.');
     }

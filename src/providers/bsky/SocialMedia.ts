@@ -169,9 +169,6 @@ class BskySocialMedia implements Provider {
             throw new Error(`Failed to unlike post postId = ${postId}`);
         await bskySessionHolder.agent.deleteLike(data.thread.post.viewer.like);
     }
-    async getProfilesByAddress(address: string): Promise<Profile[]> {
-        throw new NotImplementedError();
-    }
     async getProfilesByIds(ids: string[]): Promise<Profile[]> {
         const response = await bskySessionHolder.agent.getProfiles({ actors: ids });
         const data = resolveBskyResponseData(response, `Failed to get profiles ids = ${ids.join(',')}.`);

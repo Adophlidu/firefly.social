@@ -50,7 +50,7 @@ function getQueryTextForSearch(editor: LexicalEditor): QueryText | null {
     return text;
 }
 
-export const getSafeMentionQueryText = (text: string, editor: LexicalEditor, isUpdating: boolean) => {
+export function getSafeMentionQueryText(text: string, editor: LexicalEditor, isUpdating: boolean) {
     if (isUpdating) return { text };
     return getQueryTextForSearch(editor);
-};
+}

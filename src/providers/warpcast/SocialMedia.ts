@@ -71,10 +71,6 @@ class WarpcastSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getProfilesByAddress(address: string): Promise<Profile[]> {
-        throw new NotImplementedError();
-    }
-
     getProfilesByIds(ids: string[]): Promise<Profile[]> {
         throw new NotImplementedError();
     }

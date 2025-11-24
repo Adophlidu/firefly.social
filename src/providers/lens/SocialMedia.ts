@@ -5,7 +5,6 @@ import {
     AccountsOrderBy,
     GroupsOrderBy,
     MainContentFocus,
-    ManagedAccountsVisibility,
     type MetadataAttribute,
     MetadataAttributeType,
     PageSize,
@@ -26,7 +25,6 @@ import {
     fetchAccount,
     fetchAccountRecommendations,
     fetchAccounts,
-    fetchAccountsAvailable,
     fetchAccountsBulk,
     fetchFollowers,
     fetchFollowersYouKnow,
@@ -132,7 +130,6 @@ import {
     isReactionNotification,
     isRepostNotification,
 } from '@/providers/lens/isNotification.js';
-import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { account } from '@/providers/lens/metadata/Account.js';
 import type { LensSession } from '@/providers/lens/Session.js';
@@ -430,22 +427,6 @@ class LensSocialMedia implements Provider {
             default:
                 unreachable(result);
         }
-    }
-
-    async getProfilesByAddress(address: string): Promise<Profile[]> {
-        // TODO: lastLoggedInAccount
-        const profiles = await ensureLensResult(
-            fetchAccountsAvailable(lensClientHolder.client, {
-                managedBy: safeEvmAddress(address),
-                pageSize: PageSize.Fifty,
-                includeOwned: true,
-                hiddenFilter: ManagedAccountsVisibility.All,
-            }),
-        );
-        return profiles.items.map((x) => ({
-            ...formatLensProfileV3(x.account as Account),
-            profileType: x.__typename,
-        }));
     }
 
     async getProfileById(profileId: string, includeGraphStats?: boolean): Promise<Profile> {
