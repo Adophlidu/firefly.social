@@ -109,37 +109,37 @@ async function getMetricsDataToUpload(account: Account, passcode: string) {
     }
 }
 
+export async function getAccountMetricsData(account: Account, passcode: string) {
+    if (account.profile.source === Source.Bsky) {
+        return null;
+    }
+
+    const platform = resolveSocialSourceInUrl(account.profile.source) as MetricsMetaInfo['platform'];
+    const metricsData = await getMetricsDataToUpload(account, passcode);
+    if (!metricsData) return null;
+
+    const metaInfo: MetricsMetaInfo = {
+        platform,
+        profileId: account.profile.profileId,
+        profileHandle: account.profile.handle,
+        name: account.profile.displayName || '',
+        avatar: account.profile.pfp || '',
+        loginTime: Date.now().toString(),
+    };
+
+    return {
+        metaInfo,
+        ciphertext:
+            account.profile.source === Source.Twitter
+                ? (metricsData as string) // Twitter metrics data is already encrypted
+                : encryptCipherText(passcode, JSON.stringify(metricsData)),
+    } satisfies MetricsItemToUpload;
+}
+
 async function getLocalMetrics(passcode: string) {
     const allAccounts = getAllAccounts();
 
-    return Promise.all(
-        allAccounts.map(async (account) => {
-            if (account.profile.source === Source.Bsky) {
-                return null;
-            }
-
-            const platform = resolveSocialSourceInUrl(account.profile.source) as MetricsMetaInfo['platform'];
-            const metricsData = await getMetricsDataToUpload(account, passcode);
-            if (!metricsData) return null;
-
-            const metaInfo: MetricsMetaInfo = {
-                platform,
-                profileId: account.profile.profileId,
-                profileHandle: account.profile.handle,
-                name: account.profile.displayName || '',
-                avatar: account.profile.pfp || '',
-                loginTime: Date.now().toString(),
-            };
-
-            return {
-                metaInfo,
-                ciphertext:
-                    account.profile.source === Source.Twitter
-                        ? (metricsData as string) // Twitter metrics data is already encrypted
-                        : encryptCipherText(passcode, JSON.stringify(metricsData)),
-            } satisfies MetricsItemToUpload;
-        }),
-    );
+    return Promise.all(allAccounts.map((account) => getAccountMetricsData(account, passcode)));
 }
 
 export async function uploadMetrics(passcode: string) {

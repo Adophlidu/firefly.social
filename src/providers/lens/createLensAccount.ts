@@ -1,8 +1,10 @@
 import type { SessionClient } from '@lens-protocol/client';
 import { canCreateUsername, createAccountWithUsername, fetchAccount } from '@lens-protocol/client/actions';
 
+import { Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { InvalidResultError } from '@/constants/error.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -18,7 +20,7 @@ import { handleOperationWithLensChain } from '@/providers/lens/handleOperationWi
 import { account } from '@/providers/lens/metadata/Account.js';
 import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.js';
 import type { Account } from '@/providers/types/Account.js';
-import type { ProfileForSignup } from '@/providers/types/SocialMedia.js';
+import type { Profile, ProfileForSignup } from '@/providers/types/SocialMedia.js';
 
 const loginOnboardingUser = memoizePromise(
     async (address: string) => {
@@ -111,7 +113,13 @@ export async function createLensAccount(profile: ProfileForSignup): Promise<Acco
     const ownerSessionClient = await ensureLensResult(sessionClient.switchAccount({ account: lensAccount.address }));
 
     // 6. create firefly account
-    const lensProfile = formatLensProfileV3(lensAccount);
+    const lensProfile: Profile = {
+        ...formatLensProfileV3(lensAccount),
+        displayName: profile.displayName || '',
+        handle: profile.handle || '',
+        pfp: profile.pfp || getStampAvatarByProfileId(Source.Lens, lensAccount.address),
+        bio: profile.bio || '',
+    };
     const lensSession = createLensSession(lensProfile.profileId, ownerSessionClient);
     const fireflyAccount = {
         profile: lensProfile,

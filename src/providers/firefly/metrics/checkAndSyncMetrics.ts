@@ -8,13 +8,14 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { ConfirmSyncSessionModalRef } from '@/modals/ConfirmSyncSessionModal.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
+import { uploadMetrics as uploadFireflyMetrics } from '@/providers/firefly/metrics/uploadMetrics.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
-import { downloadAccounts, mergeMetrics, uploadMetrics } from '@/services/metrics.js';
+import { downloadAccounts, getAccountMetricsData, mergeMetrics, uploadMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 
-async function syncMetrics(account: Account) {
+async function syncMetrics(account: Account, forceUpload = false) {
     const remoteAccounts = await downloadAccounts();
     const remoteProfiles = compact(
         remoteAccounts.map(({ metaInfo }) => {
@@ -49,6 +50,7 @@ async function syncMetrics(account: Account) {
     const isOrbTemporaryAccount =
         account?.profile.source === Source.Lens && !(account.session as LensSession).refreshToken;
 
+    let metricsPassword: string | null = null;
     if (profilesToSync.length > 0) {
         LoginModalRef.close();
         const confirmed = await ConfirmSyncSessionModalRef.openAndWaitForClose({
@@ -56,24 +58,40 @@ async function syncMetrics(account: Account) {
         });
 
         if (confirmed) {
-            const password = await verifyAndGetPassword({
+            metricsPassword = await verifyAndGetPassword({
                 skipCheck: true,
             });
-            if (password) mergeMetrics(password);
+            if (metricsPassword) mergeMetrics(metricsPassword);
         }
     } else if (profilesToUpload.length > 0 && !isOrbTemporaryAccount) {
-        const passcode = await verifyAndGetPassword();
-        if (passcode) uploadMetrics(passcode);
+        metricsPassword = await verifyAndGetPassword();
+        if (metricsPassword) uploadMetrics(metricsPassword);
+    }
+
+    // force upload
+    if (forceUpload) {
+        metricsPassword = metricsPassword || (await verifyAndGetPassword());
+        if (metricsPassword) {
+            const metricsData = await getAccountMetricsData(account, metricsPassword);
+            if (metricsData) {
+                await uploadFireflyMetrics(metricsPassword, [metricsData]);
+            }
+        }
     }
 
     return;
 }
 
-export async function checkAndSyncMetrics(account: Account, skipWaitForMetricsSyncing?: boolean) {
+interface Options {
+    forceUpload?: boolean;
+    skipWaitForMetricsSyncing?: boolean;
+}
+
+export async function checkAndSyncMetrics(account: Account, options?: Options) {
     const syncStatus = await getMetricsStatus();
     if (syncStatus.hasSetPasscode) {
-        const syncPromise = syncMetrics(account);
-        if (skipWaitForMetricsSyncing === false) {
+        const syncPromise = syncMetrics(account, options?.forceUpload);
+        if (options?.skipWaitForMetricsSyncing === false) {
             await syncPromise;
         }
     }

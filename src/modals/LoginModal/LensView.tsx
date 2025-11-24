@@ -151,7 +151,7 @@ export const LensView = memo(function LensView() {
                 enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Lens)} account is now connected.</Trans>);
 
                 await runInSafeAsync(() => setPrivyAsLensManager(account));
-                await checkAndSyncMetrics(account, skipWaitForMetricsSyncing);
+                await checkAndSyncMetrics(account, { skipWaitForMetricsSyncing });
             }
         } catch (error) {
             if (AbortError.is(error)) return;

@@ -296,7 +296,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     if (account.fireflySession?.payload?.isNew) captureAccountCreateSuccessEvent(account);
 
     if (!skipSyncAccounts && fireflySession) {
-        await checkAndSyncMetrics(account, skipWaitForMetricsSyncing);
+        await checkAndSyncMetrics(account, { skipWaitForMetricsSyncing });
     }
 
     // account has been added to the store

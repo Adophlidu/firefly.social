@@ -85,7 +85,7 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose, on
                 enqueueSuccessMessage(<Trans>{resolveSourceName(source)} profile created.</Trans>);
 
                 // sync metrics in the final step
-                runInSafeAsync(() => checkAndSyncMetrics(account));
+                runInSafeAsync(() => checkAndSyncMetrics(account, { forceUpload: true }));
             } catch (error) {
                 enqueueErrorMessage(
                     <Trans>
