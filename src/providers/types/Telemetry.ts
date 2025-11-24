@@ -172,6 +172,8 @@ export enum EventId {
     FARCASTER_PROFILE_SUPER_FOLLOW_SUCCESS = 'farcaster_superfollow_success', // ✅
     FARCASTER_SIGNUP_ENTRY_CLICK = 'farcaster_sign_up_click',
     FARCASTER_ACCOUNT_CREATE_SUCCESS = 'farcaster_sign_up_success',
+    FARCASTER_LOGIN_FIRST_TIME = 'farcaster_first_time_click',
+    FARCASTER_LOGIN_RECONNECT = 'farcaster_signed_in_before_click',
 
     // lens
     LENS_ACCOUNT_LOG_IN_SUCCESS = 'lens_log_in_success', // ✅

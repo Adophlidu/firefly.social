@@ -38,6 +38,10 @@ import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';
 import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
+import {
+    captureFirstTimeClickInLogin,
+    captureReconnectClickInLogin,
+} from '@/providers/telemetry/captureFarcasterEvent.js';
 import type { Account } from '@/providers/types/Account.js';
 import { createAccountByFireflySponsorship } from '@/providers/warpcast/createAccountByFireflySponsorship.js';
 import { createAccountByGrantPermission } from '@/providers/warpcast/createAccountByGrantPermission.js';
@@ -359,11 +363,12 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                         Scan this QR code if you’ve used Farcaster to sign in before.
                                         <br />
                                         <button
-                                            onClick={() =>
+                                            onClick={() => {
+                                                captureFirstTimeClickInLogin();
                                                 history.replace(
                                                     `/farcaster?signType=${FarcasterSignType.FireflySponsorship}`,
-                                                )
-                                            }
+                                                );
+                                            }}
                                             className="inline text-highlight hover:underline"
                                         >
                                             First time
@@ -398,7 +403,10 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                             <div className="text-center text-xs leading-4 text-second">
                                 {signType === SignType.GrantPermission || signType === SignType.FireflySponsorship ? (
                                     <button
-                                        onClick={() => history.replace(`/farcaster?signType=${SignType.RelayService}`)}
+                                        onClick={() => {
+                                            captureReconnectClickInLogin();
+                                            history.replace(`/farcaster?signType=${SignType.RelayService}`);
+                                        }}
                                         className="inline text-highlight hover:underline"
                                     >
                                         <Trans>Already signed in before?</Trans>
