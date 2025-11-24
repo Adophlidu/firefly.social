@@ -170,17 +170,6 @@ class WarpcastSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async getChannelFollowStatus(channelId: string, fid: string): Promise<boolean> {
-        const response = await fetchJson<ResponseJson<{ following: boolean }>>(
-            urlcat('/api/warpcast/channel/follow/status', {
-                channelId,
-                fid,
-            }),
-        );
-        const data = resolveResponseData(response);
-        return data.following;
-    }
-
     getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         throw new NotImplementedError();
     }

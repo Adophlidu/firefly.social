@@ -50,6 +50,7 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { getChannelFollowStatus } from '@/providers/warpcast/getChannelFollowStatus.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 @WithMutedProfilesQuery()
@@ -113,9 +114,7 @@ class FarcasterSocialMedia implements Provider {
         const session = getSessionFromStorage(SessionType.Farcaster);
         if (!session?.profileId) return channel;
 
-        const following = await runInSafeAsync(() =>
-            WarpcastSocialMediaProvider.getChannelFollowStatus(channelId, session.profileId),
-        );
+        const following = await runInSafeAsync(() => getChannelFollowStatus(channelId, session.profileId));
         channel.isMember = following ?? false;
 
         return channel;
