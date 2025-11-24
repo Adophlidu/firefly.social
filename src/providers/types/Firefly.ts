@@ -1268,7 +1268,7 @@ export interface RootdataPeople {
         influence_rank: number;
         people_x_handle: string;
         x_id: string;
-    };
+    } | null;
 }
 
 export type SearchNFTResponse = Response<{

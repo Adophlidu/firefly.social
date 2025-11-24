@@ -7,8 +7,8 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 import { ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export function formatTwitterProfileFromRootdata(user: RootdataPeople): Profile<RootdataPeople> {
+    assert(user.people_detail?.x_id, '.people_detail.x_id of rootdata user is required');
     const bio = user.people_detail.introduce || user.people_detail.one_liner;
-    assert(user.people_detail.x_id, 'x_id of rootdata user is required');
     return {
         profileId: user.people_detail.x_id,
         profileSource: Source.Twitter,
