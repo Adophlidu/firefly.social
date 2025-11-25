@@ -141,7 +141,7 @@ export const MAX_PROFILE_BIO_SIZE: Limitation = {
 
 export const MIN_PROFILE_BIO_SIZE: Limitation = {
     [Source.Farcaster]: 0,
-    [Source.Lens]: 1,
+    [Source.Lens]: 0,
     [Source.Twitter]: 0,
     [Source.Bsky]: 0,
 };
