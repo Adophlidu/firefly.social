@@ -7,7 +7,7 @@ import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { PolymarketActivity } from '@/providers/types/Firefly.js';
 
 export function useTogglePolymarketBookmark() {
@@ -20,10 +20,10 @@ export function useTogglePolymarketBookmark() {
             const hasBookmarked = activity.hasBookmarked;
             try {
                 if (hasBookmarked) {
-                    await FireflySocialMediaProvider.unbookmark(activity.transactionHash);
+                    await fireflySocialMediaProvider.unbookmark(activity.transactionHash);
                     enqueueSuccessMessage(t`Removed from bookmarks`);
                 } else {
-                    await FireflySocialMediaProvider.bookmark(
+                    await fireflySocialMediaProvider.bookmark(
                         activity.transactionHash,
                         FireflyPlatform.Bets,
                         undefined,

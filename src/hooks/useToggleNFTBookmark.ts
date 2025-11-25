@@ -9,7 +9,7 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { fireflyBookmarkProvider } from '@/providers/firefly/Bookmark.js';
 
 export function useToggleNFTBookmark(options: { owner: string; nftId: string; strict?: boolean }) {
     const isLogin = useIsLogin();
@@ -32,8 +32,8 @@ export function useToggleNFTBookmark(options: { owner: string; nftId: string; st
 
             try {
                 const result = !hasBookmarked
-                    ? await FireflySocialMediaProvider.bookmarkNFT(nftId, owner)
-                    : await FireflySocialMediaProvider.unbookmarkNFT(nftId, owner);
+                    ? await fireflyBookmarkProvider.bookmarkNFT(nftId, owner)
+                    : await fireflyBookmarkProvider.unbookmarkNFT(nftId, owner);
                 if (!result) {
                     throw new Error('Bookmark operation failed.');
                 }

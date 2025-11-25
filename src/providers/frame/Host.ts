@@ -16,7 +16,7 @@ import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/index.js';
 import { checkCustodyWallet } from '@/providers/firefly/farcaster-account/checkCustodyWallet.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { FrameLoader } from '@/providers/frame/Loader.js';
 import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -156,7 +156,7 @@ export class FarcasterFrameHost implements MiniAppHost {
             chars: options.text,
             embeds: options.embeds,
             channel: options.channelKey ? createDummyChannel(Source.Farcaster, options.channelKey) : undefined,
-            post: options.parent ? await FireflySocialMediaProvider.getPostById(options.parent.hash) : undefined,
+            post: options.parent ? await fireflySocialMediaProvider.getPostById(options.parent.hash) : undefined,
         });
 
         if (options.close) {

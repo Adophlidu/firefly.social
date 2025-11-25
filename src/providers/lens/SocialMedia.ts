@@ -87,7 +87,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProfileFor.js';
 import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblockProfileFor.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { createLensAccount } from '@/providers/lens/createLensAccount.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
@@ -1013,7 +1013,7 @@ class LensSocialMedia implements Provider {
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return FireflySocialMediaProvider.getBlockedProfiles(indicator, SourceInURL.Lens);
+        return fireflySocialMediaProvider.getBlockedProfiles(indicator, SourceInURL.Lens);
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
@@ -1144,7 +1144,7 @@ class LensSocialMedia implements Provider {
             }),
         );
         // report to firefly
-        return FireflySocialMediaProvider.reportPost(post);
+        return fireflySocialMediaProvider.reportPost(post);
     }
 
     async updateProfile(profile: ProfileEditable): Promise<boolean> {

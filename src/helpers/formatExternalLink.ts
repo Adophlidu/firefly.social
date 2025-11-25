@@ -12,7 +12,7 @@ import { trimify } from '@/helpers/trimify.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { getPostByShortId } from '@/providers/firefly/endpoint/getPostByShortId.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 async function captureProfileUrl(url: URL, regex: RegExp, source: SocialSource) {
     const matched = regex.exec(url.pathname);
@@ -51,7 +51,7 @@ async function capturePostUrl(url: URL, regex: RegExp, source: SocialSource) {
         if (!handle || !postId) return;
         const post =
             postId.length > 10
-                ? await FireflySocialMediaProvider.getPostById(postId)
+                ? await fireflySocialMediaProvider.getPostById(postId)
                 : await getPostByShortId(postId, handle, farcasterSessionHolder.session?.profileId);
         if (!post) return;
         return urlcat(SITE_URL, resolvePostUrl(source, post.postId));

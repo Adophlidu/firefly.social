@@ -16,7 +16,7 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { resolveTokenBookmarkId } from '@/helpers/resolveTokenBookmarkId.js';
 import { useHasBookmarked } from '@/hooks/useHasBookmarked.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { fireflyBookmarkProvider } from '@/providers/firefly/Bookmark.js';
 import {
     captureBookmarkTokenViewEvent,
     captureTokenBookmarkClickEvent,
@@ -49,14 +49,14 @@ export const TokenBookmarkButton = memo<Props>(function TokenBookmarkButton({
         mutationFn: async (bookmarked: boolean) => {
             if (!isLogin) return;
             if (bookmarked) {
-                await FireflySocialMediaProvider.unbookmarkToken({
+                await fireflyBookmarkProvider.unbookmarkToken({
                     coinId,
                     chainId,
                     address,
                 });
                 enqueueSuccessMessage(<Trans>Token removed from your Bookmarks.</Trans>);
             } else {
-                await FireflySocialMediaProvider.bookmarkToken({
+                await fireflyBookmarkProvider.bookmarkToken({
                     coinId,
                     chainId,
                     address,

@@ -30,7 +30,7 @@ import { reportProfile as reportProfileEndpoint } from '@/providers/firefly/endp
 import { setNotificationPushSwitch } from '@/providers/firefly/endpoint/setNotificationPushSwitch.js';
 import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProfileFor.js';
 import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblockProfileFor.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { userDataAdd } from '@/providers/neynar/userDataAdd.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -94,11 +94,11 @@ class FarcasterSocialMedia implements Provider {
     }
 
     getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
-        return FireflySocialMediaProvider.getProfileByIdOrHandle(profileIdOrHandle);
+        return fireflySocialMediaProvider.getProfileByIdOrHandle(profileIdOrHandle);
     }
 
     getProfileByHandle(handle: string): Promise<Profile> {
-        return FireflySocialMediaProvider.getProfileByHandle(handle);
+        return fireflySocialMediaProvider.getProfileByHandle(handle);
     }
 
     getProfileBySession(session: Session): Promise<Profile> {
@@ -111,7 +111,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getChannelById(channelId: string, includeFollowingStatus?: boolean): Promise<Channel> {
-        const channel = await FireflySocialMediaProvider.getChannelByHandle(channelId);
+        const channel = await fireflySocialMediaProvider.getChannelByHandle(channelId);
         if (!includeFollowingStatus) return channel;
 
         const session = getSessionFromStorage(SessionType.Farcaster);
@@ -132,27 +132,27 @@ class FarcasterSocialMedia implements Provider {
     }
 
     getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        return FireflySocialMediaProvider.getChannelsByProfileId(profileId, indicator);
+        return fireflySocialMediaProvider.getChannelsByProfileId(profileId, indicator);
     }
 
     discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        return FireflySocialMediaProvider.discoverChannels(indicator);
+        return fireflySocialMediaProvider.discoverChannels(indicator);
     }
 
     getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return FireflySocialMediaProvider.getPostsByChannelHandle(channelId, indicator);
+        return fireflySocialMediaProvider.getPostsByChannelHandle(channelId, indicator);
     }
 
     getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return FireflySocialMediaProvider.getPostsByChannelHandle(channelHandle, indicator);
+        return fireflySocialMediaProvider.getPostsByChannelHandle(channelHandle, indicator);
     }
 
     searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        return FireflySocialMediaProvider.searchChannels(q, indicator);
+        return fireflySocialMediaProvider.searchChannels(q, indicator);
     }
 
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return FireflySocialMediaProvider.getChannelTrendingPosts(channel, indicator);
+        return fireflySocialMediaProvider.getChannelTrendingPosts(channel, indicator);
     }
 
     async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -168,11 +168,11 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return FireflySocialMediaProvider.discoverPosts(indicator);
+        return fireflySocialMediaProvider.discoverPosts(indicator);
     }
 
     async discoverPostsById(profileId: string, indicator?: PageIndicator, signal?: AbortSignal) {
-        return FireflySocialMediaProvider.discoverPostsById(profileId, indicator, signal);
+        return fireflySocialMediaProvider.discoverPostsById(profileId, indicator, signal);
     }
 
     async getCollectedPostsByProfileId(profileId: string, indicator?: PageIndicator) {
@@ -180,25 +180,25 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return FireflySocialMediaProvider.getPostsByProfileId(profileId, indicator);
+        return fireflySocialMediaProvider.getPostsByProfileId(profileId, indicator);
     }
 
     async getLikedPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        return FireflySocialMediaProvider.getLikedPostsByProfileId(profileId, indicator);
+        return fireflySocialMediaProvider.getLikedPostsByProfileId(profileId, indicator);
     }
 
     async getRepliesPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        return FireflySocialMediaProvider.getRepliesPostsByProfileId(profileId, indicator);
+        return fireflySocialMediaProvider.getRepliesPostsByProfileId(profileId, indicator);
     }
 
     async getPostById(postId: string): Promise<Post> {
-        return FireflySocialMediaProvider.getPostById(postId);
+        return fireflySocialMediaProvider.getPostById(postId);
     }
 
     async getProfileById(profileId: string) {
@@ -206,23 +206,23 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
-        return FireflySocialMediaProvider.getLikeReactors(postId, indicator);
+        return fireflySocialMediaProvider.getLikeReactors(postId, indicator);
     }
 
     async getRepostReactors(postId: string, indicator?: PageIndicator) {
-        return FireflySocialMediaProvider.getRepostReactors(postId, indicator);
+        return fireflySocialMediaProvider.getRepostReactors(postId, indicator);
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator) {
-        return FireflySocialMediaProvider.getFollowers(profileId, indicator);
+        return fireflySocialMediaProvider.getFollowers(profileId, indicator);
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator) {
-        return FireflySocialMediaProvider.getFollowings(profileId, indicator);
+        return fireflySocialMediaProvider.getFollowings(profileId, indicator);
     }
 
     async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return FireflySocialMediaProvider.getMutualFollowers(profileId, indicator);
+        return fireflySocialMediaProvider.getMutualFollowers(profileId, indicator);
     }
 
     async getPostsLiked(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
@@ -286,7 +286,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return FireflySocialMediaProvider.searchProfiles(q, indicator);
+        return fireflySocialMediaProvider.searchProfiles(q, indicator);
     }
 
     async searchPosts(
@@ -294,7 +294,7 @@ class FarcasterSocialMedia implements Provider {
         indicator?: PageIndicator,
         fullMatch?: boolean,
     ): Promise<Pageable<Post, PageIndicator>> {
-        return FireflySocialMediaProvider.searchPosts(q, indicator, fullMatch);
+        return fireflySocialMediaProvider.searchPosts(q, indicator, fullMatch);
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
@@ -303,7 +303,7 @@ class FarcasterSocialMedia implements Provider {
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
         const { isGrantByPermission } = getFarcasterSessionType();
-        if (isGrantByPermission) return FireflySocialMediaProvider.getNotifications(indicator);
+        if (isGrantByPermission) return fireflySocialMediaProvider.getNotifications(indicator);
         throw new Error('No session found.');
     }
 
@@ -334,11 +334,11 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getThreadByPostId(postId: string, localPost?: Post) {
-        return FireflySocialMediaProvider.getThreadByPostId(postId, localPost);
+        return fireflySocialMediaProvider.getThreadByPostId(postId, localPost);
     }
 
     getCommentsById(postId: string, indicator?: PageIndicator) {
-        return FireflySocialMediaProvider.getCommentsById(postId, indicator);
+        return fireflySocialMediaProvider.getCommentsById(postId, indicator);
     }
 
     async reportProfile(profileId: string) {
@@ -346,7 +346,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async reportPost(post: Post) {
-        return FireflySocialMediaProvider.reportPost(post);
+        return fireflySocialMediaProvider.reportPost(post);
     }
 
     async blockProfile(profileId: string) {
@@ -358,23 +358,23 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return FireflySocialMediaProvider.getBlockedProfiles(indicator, SourceInURL.Farcaster);
+        return fireflySocialMediaProvider.getBlockedProfiles(indicator, SourceInURL.Farcaster);
     }
 
     async blockChannel(channelId: string): Promise<boolean> {
-        return FireflySocialMediaProvider.blockChannel(channelId);
+        return fireflySocialMediaProvider.blockChannel(channelId);
     }
 
     async unblockChannel(channelId: string): Promise<boolean> {
-        return FireflySocialMediaProvider.unblockChannel(channelId);
+        return fireflySocialMediaProvider.unblockChannel(channelId);
     }
 
     async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        return FireflySocialMediaProvider.getBlockedChannels(indicator);
+        return fireflySocialMediaProvider.getBlockedChannels(indicator);
     }
 
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return FireflySocialMediaProvider.getPostsQuoteOn(postId, indicator);
+        return fireflySocialMediaProvider.getPostsQuoteOn(postId, indicator);
     }
     async bookmark(
         postId: string,
@@ -382,13 +382,13 @@ class FarcasterSocialMedia implements Provider {
         profileId?: string,
         postType?: BookmarkType,
     ): Promise<boolean> {
-        return FireflySocialMediaProvider.bookmark(postId, platform, profileId, postType);
+        return fireflySocialMediaProvider.bookmark(postId, platform, profileId, postType);
     }
     async unbookmark(postId: string): Promise<boolean> {
-        return FireflySocialMediaProvider.unbookmark(postId);
+        return fireflySocialMediaProvider.unbookmark(postId);
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return FireflySocialMediaProvider.getBookmarks(indicator);
+        return fireflySocialMediaProvider.getBookmarks(indicator);
     }
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
         await Promise.all([
@@ -400,7 +400,7 @@ class FarcasterSocialMedia implements Provider {
         return true;
     }
     async getHiddenComments(postId: string, indicator?: PageIndicator) {
-        return FireflySocialMediaProvider.getHiddenComments(postId, indicator);
+        return fireflySocialMediaProvider.getHiddenComments(postId, indicator);
     }
 
     async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {

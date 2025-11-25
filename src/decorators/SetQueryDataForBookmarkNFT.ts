@@ -6,7 +6,7 @@ import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import type { PageData } from '@/decorators/types.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveNFTId, resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
-import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
+import type { FireflyBookmark } from '@/providers/firefly/Bookmark.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import type { FollowingNFT, NFTFeedV3, Poap } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/utility.js';
@@ -89,13 +89,13 @@ function toggleBookmark(id: string, status: boolean) {
 }
 
 export function SetQueryDataForBookmarkNFT() {
-    return function decorator<T extends ClassType<FireflySocialMedia>>(target: T): T {
+    return function decorator<T extends ClassType<FireflyBookmark>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
-            const method = target.prototype[key] as FireflySocialMedia[K];
+            const method = target.prototype[key] as FireflyBookmark[K];
 
             Object.defineProperty(target.prototype, key, {
                 value: async (id: string, owner?: string) => {
-                    const m = method as (id: string, owner?: string) => ReturnType<FireflySocialMedia[K]>;
+                    const m = method as (id: string, owner?: string) => ReturnType<FireflyBookmark[K]>;
                     const status = key === 'bookmarkNFT';
 
                     const result = await m.call(target.prototype, id, owner);

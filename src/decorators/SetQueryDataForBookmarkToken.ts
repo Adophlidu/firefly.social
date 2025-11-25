@@ -4,7 +4,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
 import type { PageData } from '@/decorators/types.js';
 import { resolveTokenBookmarkId } from '@/helpers/resolveTokenBookmarkId.js';
-import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
+import type { FireflyBookmark } from '@/providers/firefly/Bookmark.js';
 import type { BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
 import type { TokenWithMarketData } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/utility.js';
@@ -13,6 +13,7 @@ const METHODS_BE_OVERRIDDEN = ['bookmarkToken', 'unbookmarkToken'] as const;
 
 function toggleBookmark(id: string, status: boolean) {
     queryClient.setQueryData(['has-bookmarked', FireflyPlatform.Token, id, true], { status });
+
     if (status === false) {
         queryClient.setQueriesData<TokenWithMarketData[]>(
             {
@@ -60,13 +61,13 @@ function toggleBookmark(id: string, status: boolean) {
 }
 
 export function SetQueryDataForBookmarkToken() {
-    return function decorator<T extends ClassType<FireflySocialMedia>>(target: T): T {
+    return function decorator<T extends ClassType<FireflyBookmark>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
-            const method = target.prototype[key] as FireflySocialMedia[K];
+            const method = target.prototype[key] as FireflyBookmark[K];
 
             Object.defineProperty(target.prototype, key, {
                 value: async (options: BookmarkTokenOptions) => {
-                    const m = method as (options: BookmarkTokenOptions) => ReturnType<FireflySocialMedia[K]>;
+                    const m = method as (options: BookmarkTokenOptions) => ReturnType<FireflyBookmark[K]>;
                     const status = key === 'bookmarkToken';
 
                     const result = await m.call(target.prototype, options);

@@ -4,8 +4,6 @@ import urlcat from 'urlcat';
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { SetQueryDataForBookmarkNFT } from '@/decorators/SetQueryDataForBookmarkNFT.js';
-import { SetQueryDataForBookmarkToken } from '@/decorators/SetQueryDataForBookmarkToken.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatFireflyNotification } from '@/helpers/formatFireflyNotification.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
@@ -22,7 +20,6 @@ import {
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
-import { resolveTokenBookmarkId } from '@/helpers/resolveTokenBookmarkId.js';
 import {
     formatBriefChannelFromFirefly,
     formatChannelFromFirefly,
@@ -39,7 +36,6 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
-import type { BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
 import {
     type BlockChannelResponse,
     type BlockedChannelsResponse,
@@ -90,8 +86,6 @@ function ensureFollowersIsNotEmpty(users?: User[]) {
     return users.map(formatFarcasterProfileFromFirefly);
 }
 
-@SetQueryDataForBookmarkNFT()
-@SetQueryDataForBookmarkToken()
 class FireflySocialMedia implements Provider {
     get type() {
         return SessionType.Farcaster;
@@ -106,7 +100,7 @@ class FireflySocialMedia implements Provider {
     }
 
     getChannelById(channelId: string): Promise<Channel> {
-        return FireflySocialMediaProvider.getChannelByHandle(channelId);
+        return fireflySocialMediaProvider.getChannelByHandle(channelId);
     }
 
     updateProfile(profile: ProfileEditable): Promise<boolean> {
@@ -252,7 +246,7 @@ class FireflySocialMedia implements Provider {
     }
 
     getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return FireflySocialMediaProvider.getPostsByChannelHandle(channelId, indicator);
+        return fireflySocialMediaProvider.getPostsByChannelHandle(channelId, indicator);
     }
 
     getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -385,9 +379,9 @@ class FireflySocialMedia implements Provider {
 
     getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
         if (isNumericalProfileId(profileIdOrHandle)) {
-            return FireflySocialMediaProvider.getProfileById(profileIdOrHandle);
+            return fireflySocialMediaProvider.getProfileById(profileIdOrHandle);
         }
-        return FireflySocialMediaProvider.getProfileByHandle(profileIdOrHandle);
+        return fireflySocialMediaProvider.getProfileByHandle(profileIdOrHandle);
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
@@ -697,7 +691,7 @@ class FireflySocialMedia implements Provider {
         });
         const data = resolveFireflyResponseData(response);
         const fids = compact((data.list || []).flatMap((x) => x.farcaster).map((x) => x?.platform_id));
-        const result = await FireflySocialMediaProvider.getProfilesByIds(fids);
+        const result = await fireflySocialMediaProvider.getProfilesByIds(fids);
 
         return createPageable(
             result,
@@ -747,7 +741,7 @@ class FireflySocialMedia implements Provider {
 
     async getThreadByPostId(postId: string, localPost?: Post) {
         return farcasterSessionHolder.withSession(async (session) => {
-            const post = localPost ?? (await FireflySocialMediaProvider.getPostById(postId));
+            const post = localPost ?? (await fireflySocialMediaProvider.getPostById(postId));
 
             const response = await fireflySessionHolder.fetch<ThreadResponse>(
                 urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {
@@ -944,28 +938,6 @@ class FireflySocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async bookmarkNFT(nftId: string, owner?: string): Promise<boolean> {
-        return FireflySocialMediaProvider.bookmark(nftId, FireflyPlatform.NFTs, owner, BookmarkType.All);
-    }
-
-    async unbookmarkNFT(nftId: string, owner?: string): Promise<boolean> {
-        return FireflySocialMediaProvider.unbookmark(nftId);
-    }
-
-    async bookmarkToken(options: BookmarkTokenOptions) {
-        const bookmarkContentId = resolveTokenBookmarkId(options);
-        return FireflySocialMediaProvider.bookmark(
-            bookmarkContentId,
-            FireflyPlatform.Token,
-            undefined,
-            BookmarkType.All,
-        );
-    }
-    async unbookmarkToken(options: BookmarkTokenOptions) {
-        const bookmarkContentId = resolveTokenBookmarkId(options);
-        return FireflySocialMediaProvider.unbookmark(bookmarkContentId);
-    }
-
     async decryptPost(post: Post): Promise<Post> {
         throw new NotImplementedError();
     }
@@ -983,4 +955,4 @@ class FireflySocialMedia implements Provider {
 }
 
 export { FireflySocialMedia };
-export const FireflySocialMediaProvider = new FireflySocialMedia();
+export const fireflySocialMediaProvider = new FireflySocialMedia();
