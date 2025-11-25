@@ -1,3 +1,4 @@
+import { assign } from 'lodash-es';
 import { useDebounceValue } from 'usehooks-ts';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
@@ -65,12 +66,12 @@ const useTipsStoreBase = create<TipsState, [['zustand/immer', unknown]]>(
 
         update: (nextState) =>
             set((state) => {
-                Object.assign(state, nextState);
+                assign(state, nextState);
             }),
 
         reset: () =>
             set((state) => {
-                Object.assign(state, createInitialState());
+                assign(state, createInitialState());
             }),
     })),
 );

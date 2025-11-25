@@ -1,6 +1,6 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { Outlet, useRouterState } from '@tanstack/react-router';
+import { Outlet, rootRouteId, useMatch, useRouterState } from '@tanstack/react-router';
 
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
@@ -15,7 +15,9 @@ export function RootView() {
     const { location } = useRouterState();
     const pathname = location.pathname;
 
-    const { open, showLoadingView, showFailedView } = useTipsStore();
+    const { context } = useMatch({ from: rootRouteId });
+    const open = context?.open ?? false;
+    const { showLoadingView, showFailedView } = useTipsStore();
 
     const onBack = () => {
         router.history.back();

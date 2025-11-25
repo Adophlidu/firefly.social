@@ -79,10 +79,10 @@ interface TipModalProps {
 }
 
 export function TipsModal({ ref }: TipModalProps) {
-    const { reset, update } = useTipsStore();
+    const { reset, update, open } = useTipsStore();
 
     const [, dispatch] = useSingletonModal(ref, {
-        onOpen: async ({ identity, handle, profiles, post, pureWallet = false }) => {
+        onOpen: ({ identity, handle, profiles, post, pureWallet = false }) => {
             // avoid UI flicker when closing
             reset();
 
@@ -127,7 +127,7 @@ export function TipsModal({ ref }: TipModalProps) {
         dispatch?.close();
     }, [dispatch]);
 
-    return <RouterProvider router={router} context={{ onClose }} />;
+    return <RouterProvider router={router} context={{ onClose, open }} />;
 }
 
 export const TipsModalRef = new SingletonModal<TipsModalOpenProps, TipsModalCloseProps>();
