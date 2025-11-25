@@ -67,6 +67,7 @@ function Title() {
 export const LensView = memo(function LensView() {
     const controller = useAbortController();
     const { setAsyncStatus } = useGlobalState();
+    const [frozenProfiles, setFrozenProfiles] = useState<Profile[]>();
 
     const router = useRouter();
     const { history } = router;
@@ -79,7 +80,7 @@ export const LensView = memo(function LensView() {
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
 
     const {
-        data: profiles = EMPTY_LIST,
+        data: managedProfiles = EMPTY_LIST,
         isLoading,
         isRefetching,
     } = useQuery({
@@ -120,13 +121,15 @@ export const LensView = memo(function LensView() {
         },
     });
 
+    const profiles = frozenProfiles || managedProfiles;
     const currentProfile = selectedProfile || first(profiles);
     const isFetching = isLoading || isRefetching;
 
     const [{ loading }, login] = useAsyncFn(async () => {
-        if (!profiles.length || !currentProfile) return;
+        if (!currentProfile) return;
 
         controller.current.renew();
+        setFrozenProfiles(managedProfiles);
 
         try {
             setAsyncStatus(Source.Lens, AsyncStatus.Pending);
@@ -169,8 +172,9 @@ export const LensView = memo(function LensView() {
             throw error;
         } finally {
             setAsyncStatus(Source.Lens, AsyncStatus.Idle);
+            setFrozenProfiles(undefined);
         }
-    }, [profiles.length, currentProfile, controller, skipWaitForMetricsSyncing, setAsyncStatus]);
+    }, [currentProfile, controller, skipWaitForMetricsSyncing, managedProfiles, setAsyncStatus]);
 
     return (
         <div className="flex flex-col p-6 pt-0 md:w-[400px]">
