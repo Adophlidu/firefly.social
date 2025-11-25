@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-11-24 12:01\n"
+"PO-Revision-Date: 2025-11-25 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -622,7 +622,7 @@ msgid "Signing in"
 msgstr "登入中"
 
 msgid "Overview"
-msgstr ""
+msgstr "總覽"
 
 msgid "Stocks"
 msgstr ""
@@ -748,7 +748,7 @@ msgid "Report submitted"
 msgstr "已檢舉"
 
 msgid "Username"
-msgstr ""
+msgstr "用戶名"
 
 #. placeholder {0}: post.stats.quotes
 msgid "{0, plural, one {quote} other {quotes}}"
@@ -1513,7 +1513,7 @@ msgid "1H"
 msgstr "1小時"
 
 msgid "Current"
-msgstr ""
+msgstr "当前"
 
 msgid "Days"
 msgstr "日"
@@ -2579,7 +2579,7 @@ msgid "Failed to unlike."
 msgstr "取消按赞失敗。"
 
 msgid "24h"
-msgstr ""
+msgstr "24小時"
 
 msgid "Like"
 msgstr "讚"
@@ -2859,7 +2859,7 @@ msgid "{0} muted users"
 msgstr "{0} 已隱藏用戶"
 
 msgid "Open Google Form"
-msgstr ""
+msgstr "打開 Google Form"
 
 #. placeholder {0}: resolveSourcesName( availableSources.filter((x) => MAX_FILE_SIZE_PER_VIDEO[x] === videoSizeLimit), )
 #. placeholder {1}: formatFileSize(videoSizeLimit)
@@ -3715,7 +3715,7 @@ msgid "Money laundering found."
 msgstr "檢測到洗錢行為。"
 
 msgid "Sign Up"
-msgstr ""
+msgstr "註冊"
 
 msgid "Share image"
 msgstr "分享圖片"
@@ -4019,7 +4019,7 @@ msgid "Repost or Quote"
 msgstr "轉發或引用"
 
 msgid "Buy"
-msgstr ""
+msgstr "購買"
 
 msgid "NFT ID"
 msgstr "NFT ID"
@@ -4085,7 +4085,7 @@ msgid "Claim Requirements"
 msgstr "領取條件"
 
 msgid "Sold"
-msgstr ""
+msgstr "售出"
 
 msgid "Failed to read avatar file, please try again."
 msgstr "頭像讀取失敗，請重試"
@@ -4360,8 +4360,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "驗證密碼時出現意外步驟：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。\n"
+msgstr "如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。\n"
 "但如果你仍想存取綁定至另一個社交帳號的 Firefly 錢包，建議你切換帳戶，而不是刪除帳戶。"
 
 msgid "<0>You</0> recasted"
@@ -4374,7 +4373,7 @@ msgid "There is no limit to the number of token transactions. The number of scam
 msgstr "代幣交易次數沒有限制。但詐騙代幣的交易次數可能受到限制（詐騙風險）。"
 
 msgid "Value"
-msgstr ""
+msgstr "价值"
 
 msgid "1h"
 msgstr ""
@@ -4471,7 +4470,7 @@ msgid "Cybercrime."
 msgstr "網路犯罪。"
 
 msgid "Sell"
-msgstr ""
+msgstr "賣出"
 
 msgid "This wallet is already linked to a different Firefly account."
 msgstr "此電子郵件已綁定其他 Firefly 帳戶。"
@@ -4546,7 +4545,7 @@ msgid "Create a post to tell everyone about your participation. Votes can be cha
 msgstr "發貼分享參與過程，提案期間可變更投票。"
 
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
-msgstr ""
+msgstr "如有疑問請<0>聯絡我們</0>，Firefly 保留所有權利。"
 
 msgid "Different Account Detected"
 msgstr "檢測到帳戶衝突"
@@ -4631,7 +4630,7 @@ msgid "Minted"
 msgstr "已鑄造"
 
 msgid "OK"
-msgstr ""
+msgstr "確認"
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"
 msgstr "來自特朗普的 Truth Social 貼文（探索、個人檔案）"
@@ -4644,3 +4643,4 @@ msgstr "多裝置登入"
 
 msgid "Success"
 msgstr "成功"
+
