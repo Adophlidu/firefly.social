@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/react/macro';
+import { useRouter } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -7,11 +8,12 @@ import ArrowDownIcon from '@/assets/arrow-line-down.svg';
 import { Image } from '@/components/Image.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatTokenItemAmount } from '@/components/Tips/formatTokenItemAmount.js';
-import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
+import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 export const TipsTokenInput = memo(function TipsTokenInput() {
+    const router = useRouter();
     const { token, recipient } = useTipsStore();
 
     const [{ loading }, handleSelectToken] = useAsyncFn(async () => {
@@ -22,7 +24,7 @@ export const TipsTokenInput = memo(function TipsTokenInput() {
         if (!account) return;
 
         router.navigate({ to: TipsRoutePath.SELECT_TOKEN });
-    }, [recipient]);
+    }, [router, recipient]);
 
     return (
         <motion.div

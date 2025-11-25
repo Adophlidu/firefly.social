@@ -1,14 +1,16 @@
+import { useRouter } from '@tanstack/react-router';
 import { memo, useCallback } from 'react';
 import { useAsync } from 'react-use';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchTokenPanel } from '@/components/Search/SearchTokenPanel.js';
-import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
+import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 export const TokenSelectorView = memo(function TokenSelectorView() {
+    const router = useRouter();
     const { recipient, token: selectedToken, update } = useTipsStore();
 
     const { value: address, loading } = useAsync(async () => {
@@ -22,7 +24,7 @@ export const TokenSelectorView = memo(function TokenSelectorView() {
             update({ token });
             router.navigate({ to: TipsRoutePath.TIPS, replace: true });
         },
-        [update],
+        [router, update],
     );
 
     const isSelected = useCallback((item: Token) => item.id === selectedToken?.id, [selectedToken]);

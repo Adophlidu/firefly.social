@@ -1,9 +1,16 @@
 import { Trans } from '@lingui/react/macro';
-import { createMemoryHistory, createRootRoute, createRoute, createRouter } from '@tanstack/react-router';
+import {
+    createMemoryHistory,
+    createRootRoute,
+    createRoute,
+    createRouter,
+    RouterProvider,
+} from '@tanstack/react-router';
+import { memo, useMemo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { NoAvailableWallet } from '@/components/Tips/NoAvailableWallet.js';
-import { RootView } from '@/components/Tips/views/RootView.js';
+import { OpenTipsModalContext, RootView } from '@/components/Tips/views/RootView.js';
 import { SuccessView } from '@/components/Tips/views/SuccessView.js';
 import { TipsMainView } from '@/components/Tips/views/TipsMainView.js';
 import { TipsRecipientListView } from '@/components/Tips/views/TipsRecipientListView.js';
@@ -18,76 +25,91 @@ export enum TipsRoutePath {
     SUCCESS = '/success',
 }
 
-const tipsRootRoute = createRootRoute({
-    component: RootView,
-});
+export const TipsModelRouter = memo<{
+    onClose: () => void;
+    open: boolean;
+    initialEntries?: TipsRoutePath[];
+}>(({ onClose, open, initialEntries = [TipsRoutePath.TIPS] }) => {
+    const router = useMemo(() => {
+        const tipsRootRoute = createRootRoute({
+            component: RootView,
+        });
 
-const noAvailableWalletRoute = createRoute({
-    getParentRoute: () => tipsRootRoute,
-    path: TipsRoutePath.NO_AVAILABLE_WALLET,
-    component: NoAvailableWallet,
-});
+        const noAvailableWalletRoute = createRoute({
+            getParentRoute: () => tipsRootRoute,
+            path: TipsRoutePath.NO_AVAILABLE_WALLET,
+            component: NoAvailableWallet,
+        });
 
-const tipsRoute = createRoute({
-    getParentRoute: () => tipsRootRoute,
-    path: TipsRoutePath.TIPS,
-    component: TipsMainView,
-    beforeLoad: () => {
-        return {
-            title: <Trans>Tip</Trans>,
-        };
-    },
-});
+        const tipsRoute = createRoute({
+            getParentRoute: () => tipsRootRoute,
+            path: TipsRoutePath.TIPS,
+            component: TipsMainView,
+            beforeLoad: () => {
+                return {
+                    title: <Trans>Tip</Trans>,
+                };
+            },
+        });
 
-const tokenSelectRoute = createRoute({
-    getParentRoute: () => tipsRootRoute,
-    path: TipsRoutePath.SELECT_TOKEN,
-    component: TokenSelectorView,
-    beforeLoad: () => {
-        return {
-            title: <Trans>Select Token</Trans>,
-        };
-    },
-});
+        const tokenSelectRoute = createRoute({
+            getParentRoute: () => tipsRootRoute,
+            path: TipsRoutePath.SELECT_TOKEN,
+            component: TokenSelectorView,
+            beforeLoad: () => {
+                return {
+                    title: <Trans>Select Token</Trans>,
+                };
+            },
+        });
 
-const recipientSelectRoute = createRoute({
-    getParentRoute: () => tipsRootRoute,
-    path: TipsRoutePath.SELECT_RECIPIENT,
-    component: TipsRecipientListView,
-    beforeLoad: () => {
-        return {
-            title: <Trans>Choose Wallet</Trans>,
-        };
-    },
-});
+        const recipientSelectRoute = createRoute({
+            getParentRoute: () => tipsRootRoute,
+            path: TipsRoutePath.SELECT_RECIPIENT,
+            component: TipsRecipientListView,
+            beforeLoad: () => {
+                return {
+                    title: <Trans>Choose Wallet</Trans>,
+                };
+            },
+        });
 
-const loadingRoute = createRoute({
-    getParentRoute: () => tipsRootRoute,
-    path: TipsRoutePath.LOADING,
-    component: () => <Loading className="!min-h-[156px]" />,
-});
+        const loadingRoute = createRoute({
+            getParentRoute: () => tipsRootRoute,
+            path: TipsRoutePath.LOADING,
+            // eslint-disable-next-line react/no-unstable-nested-components
+            component: () => <Loading className="!min-h-[156px]" />,
+        });
 
-const successRoute = createRoute({
-    getParentRoute: () => tipsRootRoute,
-    path: TipsRoutePath.SUCCESS,
-    component: SuccessView,
-});
+        const successRoute = createRoute({
+            getParentRoute: () => tipsRootRoute,
+            path: TipsRoutePath.SUCCESS,
+            component: SuccessView,
+        });
 
-const routeTree = tipsRootRoute.addChildren([
-    tipsRoute,
-    noAvailableWalletRoute,
-    tokenSelectRoute,
-    loadingRoute,
-    successRoute,
-    recipientSelectRoute,
-]);
+        const routeTree = tipsRootRoute.addChildren([
+            tipsRoute,
+            noAvailableWalletRoute,
+            tokenSelectRoute,
+            loadingRoute,
+            successRoute,
+            recipientSelectRoute,
+        ]);
 
-const memoryHistory = createMemoryHistory({
-    initialEntries: [TipsRoutePath.TIPS],
-});
+        const memoryHistory = createMemoryHistory({
+            initialEntries: initialEntries && initialEntries.length > 0 ? initialEntries : [TipsRoutePath.TIPS],
+        });
 
-export const router = createRouter({
-    routeTree,
-    history: memoryHistory,
-    defaultPendingMinMs: 0,
+        return createRouter({
+            routeTree,
+            history: memoryHistory,
+            defaultPendingMinMs: 0,
+        });
+    }, [initialEntries]);
+
+    return (
+        <OpenTipsModalContext.Provider value={open}>
+            <RouterProvider router={router} context={{ onClose }} />
+        </OpenTipsModalContext.Provider>
+    );
 });

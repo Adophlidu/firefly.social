@@ -1,10 +1,11 @@
 import { Trans } from '@lingui/react/macro';
+import { useRouter } from '@tanstack/react-router';
 
 import WarnIcon from '@/assets/warning-circle.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { AddressLink } from '@/components/Tips/AddressLink.js';
 import { RecipientAvatar } from '@/components/Tips/RecipientAvatar.js';
-import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
+import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { captureTipsSwitchWalletEvent } from '@/providers/telemetry/captureTipsEvent.js';
@@ -12,6 +13,7 @@ import type { FireflyTipsProfile } from '@/providers/types/Firefly.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 export function TipsRecipientListView() {
+    const router = useRouter();
     const { recipientList, recipient: selectedRecipient, identity, update } = useTipsStore();
 
     const handleSelectRecipient = (recipient: FireflyTipsProfile) => {

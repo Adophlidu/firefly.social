@@ -1,8 +1,7 @@
 import { Trans } from '@lingui/react/macro';
-import { RouterProvider } from '@tanstack/react-router';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
-import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
+import { TipsModelRouter, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { TIPS_SUPPORT_NETWORKS } from '@/constants/index.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
@@ -80,6 +79,7 @@ interface TipModalProps {
 
 export function TipsModal({ ref }: TipModalProps) {
     const { reset, update, open } = useTipsStore();
+    const [initialEntries, setInitialEntries] = useState<TipsRoutePath[]>([]);
 
     const [, dispatch] = useSingletonModal(ref, {
         onOpen: ({ identity, handle, profiles, post, pureWallet = false }) => {
@@ -95,8 +95,9 @@ export function TipsModal({ ref }: TipModalProps) {
                         getSortPriority(a.__origin__ as WalletProfile, handle),
                 );
                 if (!walletProfiles.length) {
-                    router.navigate({ to: TipsRoutePath.NO_AVAILABLE_WALLET });
+                    setInitialEntries([TipsRoutePath.NO_AVAILABLE_WALLET]);
                 } else {
+                    setInitialEntries([TipsRoutePath.TIPS]);
                     update({
                         recipientList: walletProfiles,
                         recipient: walletProfiles[0],
@@ -109,7 +110,6 @@ export function TipsModal({ ref }: TipModalProps) {
                         pureWallet,
                         socialProfiles,
                     });
-                    router.navigate({ to: TipsRoutePath.TIPS });
                 }
             } catch (error) {
                 enqueueMessageFromError(error, <Trans>Failed to send tip. Please try again later.</Trans>);
@@ -127,7 +127,7 @@ export function TipsModal({ ref }: TipModalProps) {
         dispatch?.close();
     }, [dispatch]);
 
-    return <RouterProvider router={router} context={{ onClose, open }} />;
+    return <TipsModelRouter onClose={onClose} open={open} initialEntries={initialEntries} />;
 }
 
 export const TipsModalRef = new SingletonModal<TipsModalOpenProps, TipsModalCloseProps>();

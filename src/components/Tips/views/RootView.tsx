@@ -1,22 +1,25 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { Outlet, rootRouteId, useMatch, useRouterState } from '@tanstack/react-router';
+import { Outlet, useRouter, useRouterState } from '@tanstack/react-router';
+import { createContext, useContext } from 'react';
 
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
-import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
+import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { TipsModalRef } from '@/modals/TipsModal/index.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
+export const OpenTipsModalContext = createContext<boolean>(false);
+
 export function RootView() {
     const isMedium = useIsMedium();
+    const router = useRouter();
+    const open = useContext(OpenTipsModalContext);
 
     const { location } = useRouterState();
     const pathname = location.pathname;
 
-    const { context } = useMatch({ from: rootRouteId });
-    const open = context?.open ?? false;
     const { showLoadingView, showFailedView } = useTipsStore();
 
     const onBack = () => {

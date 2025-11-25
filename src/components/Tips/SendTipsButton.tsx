@@ -3,7 +3,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { rootRouteId, useMatch } from '@tanstack/react-router';
+import { rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -11,7 +11,7 @@ import { useAccount } from 'wagmi';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { EstimatedCost } from '@/components/Tips/EstimatedCost.js';
-import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
+import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { NetworkType } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
@@ -32,6 +32,7 @@ interface SendTipsButtonProps {
 }
 
 const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ connected, onConnect }) {
+    const router = useRouter();
     const { context } = useMatch({ from: rootRouteId });
     const {
         token,
@@ -148,7 +149,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             enqueueMessageFromError(error, <Trans>Failed to send tip.</Trans>);
             throw error;
         }
-    }, [connected, onConnect, recipient, token, update, amount, identity, isCustomAmount]);
+    }, [router, connected, onConnect, recipient, token, update, amount, identity, isCustomAmount]);
 
     const isValidating = isLoading || isRefetching;
     const disabled = !connected ? false : isValidating || isSending || !!value?.disabled;

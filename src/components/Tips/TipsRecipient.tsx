@@ -1,21 +1,23 @@
 import { Trans } from '@lingui/react/macro';
+import { useRouter } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
 
 import ArrowDownIcon from '@/assets/arrow-line-down.svg';
 import { RecipientAvatar } from '@/components/Tips/RecipientAvatar.js';
-import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
+import { TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { useTipsStore } from '@/store/useTipsStore.js';
 
 export const TipsRecipient = memo(function TipsRecipient() {
+    const router = useRouter();
     const { recipient, recipientList } = useTipsStore();
 
     const openRecipientSelector = useCallback(() => {
         if (recipientList.length < 2) return;
 
         router.navigate({ to: TipsRoutePath.SELECT_RECIPIENT });
-    }, [recipientList.length]);
+    }, [router, recipientList.length]);
 
     if (!recipient) return null;
 
