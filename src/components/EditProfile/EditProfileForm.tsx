@@ -1,13 +1,12 @@
 import { parseUrl, safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { first } from 'lodash-es';
+import { memo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { EditProfileAvatar } from '@/components/EditProfile/EditProfileAvatar.js';
-import type { ProfileFormValues } from '@/components/EditProfile/EditProfileRouteRoot.js';
 import { ErrorMessage } from '@/components/Form/ErrorMessage.js';
 import { FormInput } from '@/components/Form/FormInput.js';
 import { FormInputContainer } from '@/components/Form/FormInputContainer.js';
@@ -25,7 +24,7 @@ import {
 import { URL_INPUT_REGEX } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import { updateProfile } from '@/services/updateProfile.js';
 import { uploadProfileAvatar } from '@/services/uploadProfileAvatar.js';
@@ -155,9 +154,15 @@ function FormField({ field, profile }: { field: ProfileEditableField; profile: P
     }
 }
 
-export function EditProfileForm() {
-    const { context } = useMatch({ from: rootRouteId });
-    const { profile, onClose } = context as { profile: Profile; onClose?: () => void };
+interface EditProfileFormProps {
+    profile: Profile;
+    onClose: () => void;
+}
+export interface ProfileFormValues extends Omit<ProfileEditable, 'pfp'> {
+    pfp?: File;
+}
+
+export const EditProfileForm = memo<EditProfileFormProps>(function EditProfileForm({ profile, onClose }) {
     const form = useFormContext<ProfileFormValues>();
 
     const {
@@ -230,4 +235,4 @@ export function EditProfileForm() {
             </div>
         </form>
     );
-}
+});

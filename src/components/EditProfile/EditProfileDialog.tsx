@@ -1,5 +1,8 @@
-import { EditProfileRouter } from '@/components/EditProfile/EditProfileRouter.js';
+import { Trans } from '@lingui/react/macro';
+
+import { EditProfileDialogContent } from '@/components/EditProfile/EditProfileDialogContent.js';
 import { Modal } from '@/components/Modal.js';
+import { ModalTitle } from '@/components/ModalTitle.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function EditProfileDialog({
@@ -20,7 +23,10 @@ export function EditProfileDialog({
             disableDialogClose
         >
             <div className="relative flex w-screen grow flex-col overflow-auto bg-primaryBottom shadow-popover transition-all md:h-auto md:max-h-[800px] md:w-[455px] md:rounded-xl lg:grow-0">
-                <EditProfileRouter onClose={onClose} profile={profile} />
+                <div className="relative flex w-screen grow flex-col overflow-auto bg-primaryBottom shadow-popover transition-all md:h-auto md:max-h-[800px] md:w-[455px] md:rounded-xl lg:grow-0">
+                    <ModalTitle title={<Trans>Edit Profile</Trans>} onClose={onClose} />
+                    <EditProfileDialogContent profile={profile} onClose={onClose} />
+                </div>
             </div>
         </Modal>
     );
