@@ -11,9 +11,7 @@ import type { ResponseJson } from '@/types/utility.js';
 
 export async function createPollPost(pollTitle: string, draftPoll: CompositePoll) {
     const credentials = ensureLensResultSync(lensSessionClientHolder.sessionClient.getCredentials());
-    if (!credentials?.accessToken) {
-        throw new Error('No lens access token.');
-    }
+    if (!credentials?.accessToken) throw new Error('No lens access token.');
 
     const response = await fetchJson<ResponseJson<CreatePollResult>>('/api/orb/poll/create', {
         method: 'POST',
@@ -31,9 +29,7 @@ export async function createPollPost(pollTitle: string, draftPoll: CompositePoll
     });
     const { hash } = resolveResponseData(response, 'Failed to create poll.');
     const post = await getPostByTxHashWithPolling(hash);
-    if (!post) {
-        throw new Error('Post not found');
-    }
+    if (!post) throw new Error('Post not found');
 
     return { postId: post.postId };
 }

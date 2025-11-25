@@ -131,7 +131,7 @@ import { account } from '@/providers/lens/metadata/Account.js';
 import type { MetadataAttribute } from '@/providers/lens/metadata/Base.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.js';
-import type { ORBExploreClubsResponse } from '@/providers/orb/type.js';
+import type { ExploreClubsResponse } from '@/providers/orb/type.js';
 import type { Account as FireflyAccount } from '@/providers/types/Account.js';
 import {
     NotificationPlatform,
@@ -225,15 +225,12 @@ class LensSocialMedia implements Provider {
         const skip = indicator?.id ? Number.parseInt(indicator.id, 10) || 0 : 0;
         const limit = 20;
 
-        const url = '/api/orb/explore-clubs';
-        const response = await fireflySessionHolder.fetch<ResponseJson<ORBExploreClubsResponse>>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                category: 'TRENDING_CLUBS',
-                skip: String(skip),
-                limit: String(limit),
-            }),
+        const url = urlcat('/api/orb/explore-clubs', {
+            category: 'TRENDING_CLUBS',
+            skip,
+            limit,
         });
+        const response = await fireflySessionHolder.fetch<ResponseJson<ExploreClubsResponse>>(url);
         const { data } = resolveResponseData(response, 'Failed to fetch explore clubs');
 
         const ownerIds = compact(data.clubs.map((club) => club.metadata?.ownedBy));

@@ -1,17 +1,18 @@
 import type { Address, Hash, Hex } from 'viem';
 
-export interface ORBSignInResponseData {
+export interface OrbResponse<T> {
+    status: 'SUCCESS' | 'ERROR';
+    data: T;
+    msg?: string;
+}
+
+export interface SignInResponseData {
     qrCode: string;
     secret: string;
     deepLink: string;
 }
 
-export interface ORBSignInResponse {
-    status: string;
-    data: ORBSignInResponseData;
-}
-
-export interface ORBPollSignInResponseData {
+export interface PollSignInResponseData {
     processed: boolean;
     source: string;
     user_id: string;
@@ -19,17 +20,6 @@ export interface ORBPollSignInResponseData {
     idToken: string | null;
     accessToken: string | null;
     refreshToken: string | null;
-}
-
-export interface ORBPollSignInResponse {
-    status: string;
-    data: ORBPollSignInResponseData;
-}
-
-export interface OrbPollResponse<T> {
-    status: 'SUCCESS' | 'ERROR';
-    data: T;
-    msg?: string;
 }
 
 interface OrbPollOption {
@@ -75,31 +65,38 @@ export interface CreatePollResult {
     hash: Hash;
 }
 
-export interface ORBExploreClubsResponse {
-    status: string;
-    data: {
-        clubs: Array<{
-            type: string;
-            id: string;
-            metadata?: {
-                name?: string;
-                handle?: string;
-                address?: string;
-                ownedBy?: string;
-                description?: string;
-                picture?: string;
-                cover?: string;
-            };
-            stats?: {
-                totalMembers?: number;
-                timeCreated?: number;
-            };
-        }>;
-        pageInfo?: {
-            total?: number;
-            hasMore?: boolean;
-            next?: string | null;
-            prev?: string | null;
+export type PollResponse = OrbResponse<OrbPoll>;
+
+export type VoteResultResponse = OrbResponse<VoteResult>;
+
+export type SignInResponse = OrbResponse<SignInResponseData>;
+
+export type PollSignInResponse = OrbResponse<PollSignInResponseData>;
+
+export type CreatePollResponse = OrbResponse<CreatePollResult>;
+
+export type ExploreClubsResponse = OrbResponse<{
+    clubs: Array<{
+        type: string;
+        id: string;
+        metadata?: {
+            name?: string;
+            handle?: string;
+            address?: string;
+            ownedBy?: string;
+            description?: string;
+            picture?: string;
+            cover?: string;
         };
+        stats?: {
+            totalMembers?: number;
+            timeCreated?: number;
+        };
+    }>;
+    pageInfo?: {
+        total?: number;
+        hasMore?: boolean;
+        next?: string | null;
+        prev?: string | null;
     };
-}
+}>;

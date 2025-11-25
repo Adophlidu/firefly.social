@@ -1,9 +1,9 @@
 import { Source } from '@/constants/enum.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import type { ORBExploreClubsResponse } from '@/providers/orb/type.js';
+import type { ExploreClubsResponse } from '@/providers/orb/type.js';
 import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 
-type OrbClub = ORBExploreClubsResponse['data']['clubs'][number];
+type OrbClub = ExploreClubsResponse['data']['clubs'][number];
 
 export function formatChannelFromOrb(club: OrbClub, owners?: Profile[]): Channel {
     const createdAt = club.stats?.timeCreated ?? 0;
