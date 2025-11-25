@@ -14,5 +14,10 @@ export const queryMyAllConnections = {
 
 export function useAllConnections(options?: { enabled?: boolean }) {
     const isLogin = useIsLoginFirefly();
-    return useQuery({ ...queryMyAllConnections, enabled: isLogin ?? options?.enabled });
+    const queryResult = useQuery({ ...queryMyAllConnections, enabled: isLogin ?? options?.enabled });
+
+    return {
+        ...queryResult,
+        data: !isLogin ? undefined : queryResult.data,
+    };
 }
