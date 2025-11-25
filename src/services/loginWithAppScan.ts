@@ -10,12 +10,14 @@ import { DecryptionError } from '@/constants/error.js';
 import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import { DesktopLinkInfoStatus, type DesktopLinkInfoStatusData } from '@/providers/types/Firefly.js';
@@ -105,6 +107,11 @@ export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: str
 
         await queryClient.refetchQueries({ queryKey: ['all-profiles'] });
         await queryClient.refetchQueries({ queryKey: ['allConnections'] });
+
+        const lensAccounts = accounts.filter((x) => x.profile.profileSource === Source.Lens);
+        if (lensAccounts.length === 1) {
+            await runInSafeAsync(() => setPrivyAsLensManager(lensAccounts[0]));
+        }
     }
 
     return result;

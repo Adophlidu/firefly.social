@@ -13,7 +13,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
-import { Source } from '@/constants/enum.js';
+import { AsyncStatus, Source } from '@/constants/enum.js';
 import { AbortError, ForbiddenError, InvalidOrbPermissionError, InvalidResultError } from '@/constants/error.js';
 import { ORB_REPLY_COUNTDOWN, SEVEN_DAYS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
@@ -25,6 +25,7 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { retry } from '@/helpers/retry.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
@@ -34,6 +35,7 @@ import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { initSignIn } from '@/providers/orb/initSignIn.js';
 import { pollSignIn } from '@/providers/orb/pollSignIn.js';
@@ -42,6 +44,7 @@ import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export const OrbViewBeforeLoad = () => {
     return {
@@ -51,6 +54,7 @@ export const OrbViewBeforeLoad = () => {
 
 export function OrbView() {
     const controller = useAbortController();
+    const { setAsyncStatus } = useGlobalState();
     const [scanned, setScanned] = useState(false);
     const [pollError, setPollError] = useState<Error | null>(null);
     const [count, { startCountdown, stopCountdown, resetCountdown }] = useCountdown({
@@ -86,6 +90,7 @@ export function OrbView() {
             stopCountdown();
 
             setScanned(true);
+            setAsyncStatus(Source.Lens, AsyncStatus.Pending);
 
             const profile = await lensSocialMediaProvider.getProfileById(result.user_id);
 
@@ -105,17 +110,15 @@ export function OrbView() {
                 result.idToken || '',
             );
 
-            const done = await addAccount(
-                {
-                    profile,
-                    session,
-                    fireflySession: await bindOrRestoreFireflySession(session, controller.current.signal),
-                },
-                {
-                    skipWaitForMetricsSyncing,
-                    signal: controller.current.signal,
-                },
-            );
+            const account = {
+                profile,
+                session,
+                fireflySession: await bindOrRestoreFireflySession(session, controller.current.signal),
+            };
+            const done = await addAccount(account, {
+                skipWaitForMetricsSyncing,
+                signal: controller.current.signal,
+            });
             if (!done) return;
 
             updateCredentialsStorage({
@@ -133,6 +136,8 @@ export function OrbView() {
             TelemetryProvider.captureEvent(EventId.ORB_LOGIN_IN_SUCCESS, {
                 lens_accounts: getAccountPairs(Source.Lens),
             });
+
+            await runInSafeAsync(() => setPrivyAsLensManager(account));
         } catch (error) {
             if (error instanceof AbortError) return;
             if (error instanceof ForbiddenError) {
@@ -156,9 +161,10 @@ export function OrbView() {
             throw error;
         } finally {
             setScanned(false);
+            setAsyncStatus(Source.Lens, AsyncStatus.Idle);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [initSignInData]);
+    }, [initSignInData, setAsyncStatus]);
 
     useUnmount(() => {
         stopCountdown();

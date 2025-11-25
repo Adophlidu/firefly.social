@@ -42,6 +42,7 @@ import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
@@ -58,6 +59,7 @@ import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal
 import { getTelegramLoginUrl } from '@/providers/firefly/auth/getTelegramLoginUrl.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { formatThirdPartyProfileName } from '@/providers/lens/formatThirdPartyProfileName.js';
+import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import {
     captureMobileQrLoginClickEvent,
@@ -347,6 +349,9 @@ export function MainView() {
                 }
 
                 await switchAccount(account);
+                if (source === Source.Lens) {
+                    await runInSafeAsync(() => setPrivyAsLensManager(account));
+                }
 
                 if (
                     isMyProfilePage &&

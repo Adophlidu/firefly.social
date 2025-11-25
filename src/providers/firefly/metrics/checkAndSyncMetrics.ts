@@ -5,17 +5,24 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getAllProfiles } from '@/helpers/getAllProfiles.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ConfirmSyncSessionModalRef } from '@/modals/ConfirmSyncSessionModal.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { uploadMetrics as uploadFireflyMetrics } from '@/providers/firefly/metrics/uploadMetrics.js';
 import { LensSession } from '@/providers/lens/Session.js';
+import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 import { downloadAccounts, getAccountMetricsData, mergeMetrics, uploadMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 
-async function syncMetrics(account: Account, forceUpload = false) {
+interface BaseOptions {
+    forceUpload?: boolean;
+    setLensManager?: boolean;
+}
+
+async function syncMetrics(account: Account, options?: BaseOptions) {
     const remoteAccounts = await downloadAccounts();
     const remoteProfiles = compact(
         remoteAccounts.map(({ metaInfo }) => {
@@ -61,7 +68,13 @@ async function syncMetrics(account: Account, forceUpload = false) {
             metricsPassword = await verifyAndGetPassword({
                 skipCheck: true,
             });
-            if (metricsPassword) mergeMetrics(metricsPassword);
+            if (metricsPassword) {
+                const { newAccounts } = await mergeMetrics(metricsPassword);
+                const lensAccounts = newAccounts.filter((x) => x.profile.profileSource === Source.Lens);
+                if (lensAccounts.length === 1 && options?.setLensManager) {
+                    await runInSafeAsync(() => setPrivyAsLensManager(lensAccounts[0]));
+                }
+            }
         }
     } else if (profilesToUpload.length > 0 && !isOrbTemporaryAccount) {
         metricsPassword = await verifyAndGetPassword();
@@ -69,7 +82,7 @@ async function syncMetrics(account: Account, forceUpload = false) {
     }
 
     // force upload
-    if (forceUpload) {
+    if (options?.forceUpload) {
         metricsPassword = metricsPassword || (await verifyAndGetPassword());
         if (metricsPassword) {
             const metricsData = await getAccountMetricsData(account, metricsPassword);
@@ -82,15 +95,14 @@ async function syncMetrics(account: Account, forceUpload = false) {
     return;
 }
 
-interface Options {
-    forceUpload?: boolean;
+interface Options extends BaseOptions {
     skipWaitForMetricsSyncing?: boolean;
 }
 
 export async function checkAndSyncMetrics(account: Account, options?: Options) {
     const syncStatus = await getMetricsStatus();
     if (syncStatus.hasSetPasscode) {
-        const syncPromise = syncMetrics(account, options?.forceUpload);
+        const syncPromise = syncMetrics(account, options);
         if (options?.skipWaitForMetricsSyncing === false) {
             await syncPromise;
         }

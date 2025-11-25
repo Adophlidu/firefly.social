@@ -196,6 +196,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
     await uploadFireflyMetrics(passcode, compact(mergedMetrics));
 
     const metricIdsToDelete: string[] = [];
+    const newAccounts: Account[] = [];
     for (const info of remoteMetrics) {
         if (
             info.metaInfo.platform === 'bluesky' ||
@@ -283,6 +284,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
 
                 profileState.addAccount(account, !currentSession);
                 captureAccountLoginEvent(account);
+                newAccounts.push(account);
                 break;
             }
 
@@ -306,6 +308,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                 captureAccountLoginEvent(account);
 
                 profileState.addAccount(account, !currentSession);
+                newAccounts.push(account);
 
                 break;
             }
@@ -330,6 +333,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                 } satisfies Account;
                 profileState.addAccount(account, true);
                 captureAccountLoginEvent(account);
+                newAccounts.push(account);
                 break;
             }
             case Source.Bsky:
@@ -347,4 +351,6 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
     if (enqueueMessage) {
         enqueueSuccessMessage(t`Multi-device login sessions synced successfully.`);
     }
+
+    return { newAccounts };
 }
