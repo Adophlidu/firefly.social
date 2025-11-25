@@ -5,8 +5,6 @@ import {
     AccountsOrderBy,
     GroupsOrderBy,
     MainContentFocus,
-    type MetadataAttribute,
-    MetadataAttributeType,
     PageSize,
     postId as toPostId,
     PostReactionType,
@@ -57,7 +55,7 @@ import {
 import { compact, first, flatMap, uniqBy, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, MetadataAttributeType, Source, SourceInURL } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
@@ -127,6 +125,7 @@ import {
 } from '@/providers/lens/isNotification.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { account } from '@/providers/lens/metadata/Account.js';
+import type { MetadataAttribute } from '@/providers/lens/metadata/Base.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.js';
 import type { Account as FireflyAccount } from '@/providers/types/Account.js';
@@ -1153,7 +1152,7 @@ class LensSocialMedia implements Provider {
             profile.website
                 ? {
                       __typename: 'MetadataAttribute',
-                      type: MetadataAttributeType.String,
+                      type: MetadataAttributeType.STRING,
                       key: 'website',
                       value: profile.website,
                   }
@@ -1161,7 +1160,7 @@ class LensSocialMedia implements Provider {
             profile.location
                 ? {
                       __typename: 'MetadataAttribute',
-                      type: MetadataAttributeType.String,
+                      type: MetadataAttributeType.STRING,
                       key: 'location',
                       value: profile.location,
                   }
