@@ -288,7 +288,7 @@ export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
         TrendingType.Newest,
         TrendingType.TopSearches,
     ],
-    [ExploreType.TopChannels]: [Source.Bsky],
+    [ExploreType.TopChannels]: [Source.Bsky, Source.Lens, Source.Farcaster],
 };
 
 export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource | undefined> = {
@@ -296,7 +296,7 @@ export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource | undefin
     [ExploreType.Projects]: undefined,
     [ExploreType.TruthSocial]: undefined,
     [ExploreType.CryptoTrends]: TrendingType.Trending,
-    [ExploreType.TopChannels]: Source.Bsky,
+    [ExploreType.TopChannels]: Source.Lens,
     [ExploreType.NFTs]: TrendingType.Trending,
 };
 

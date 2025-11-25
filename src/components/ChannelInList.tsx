@@ -28,6 +28,7 @@ interface ChannelInListProps extends HTMLProps<HTMLDivElement> {
     noMuteButton?: boolean;
     hideDescription?: boolean;
     showSourceAvatarWhenNoAvatar?: boolean;
+    hideFollowersCount?: boolean;
 }
 
 const overrideComponents = {
@@ -42,6 +43,7 @@ export const ChannelInList = memo(function ChannelInList({
     dense = false,
     hideDescription = false,
     showSourceAvatarWhenNoAvatar = true,
+    hideFollowersCount = true,
     listKey,
     index,
     className,
@@ -107,7 +109,7 @@ export const ChannelInList = memo(function ChannelInList({
                                 <p className="truncate text-medium leading-[22px]">/{channel.id}</p>
                             )}
                         </ChannelTippy>
-                        {isLens ? null : (
+                        {isLens && hideFollowersCount ? null : (
                             <>
                                 <span className="leading-[22px] text-secondary">·</span>
 

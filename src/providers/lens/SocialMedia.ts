@@ -83,16 +83,19 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
+import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProfileFor.js';
 import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblockProfileFor.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { createLensAccount } from '@/providers/lens/createLensAccount.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { ensurePostToLensResult } from '@/providers/lens/ensurePostToLensResult.js';
 import { filterNotifications } from '@/providers/lens/filterNotifications.js';
+import { formatChannelFromOrb } from '@/providers/lens/formatChannelFromOrb.js';
 import { formatLensChannelFromGroup } from '@/providers/lens/formatLensChannel.js';
 import {
     filterFeedsV3,
@@ -128,6 +131,7 @@ import { account } from '@/providers/lens/metadata/Account.js';
 import type { MetadataAttribute } from '@/providers/lens/metadata/Base.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.js';
+import type { ORBExploreClubsResponse } from '@/providers/orb/type.js';
 import type { Account as FireflyAccount } from '@/providers/types/Account.js';
 import {
     NotificationPlatform,
@@ -217,8 +221,34 @@ class LensSocialMedia implements Provider {
         );
     }
 
-    discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new NotImplementedError();
+    async discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        const skip = indicator?.id ? Number.parseInt(indicator.id, 10) || 0 : 0;
+        const limit = 20;
+
+        const url = '/api/orb/explore-clubs';
+        const response = await fireflySessionHolder.fetch<ResponseJson<ORBExploreClubsResponse>>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                category: 'TRENDING_CLUBS',
+                skip: String(skip),
+                limit: String(limit),
+            }),
+        });
+        const { data } = resolveResponseData(response, 'Failed to fetch explore clubs');
+
+        const ownerIds = compact(data.clubs.map((club) => club.metadata?.ownedBy));
+        const owners = await runInSafeAsync(() => lensSocialMediaProvider.getProfilesByIds(ownerIds));
+
+        const channels = data.clubs.map((club) => formatChannelFromOrb(club, owners));
+
+        const hasMore = data.pageInfo?.hasMore ?? channels.length === limit;
+        const nextSkip = data.pageInfo?.next ? Number.parseInt(data.pageInfo.next, 10) : skip + channels.length;
+
+        return createPageable(
+            channels,
+            createIndicator(indicator),
+            hasMore ? createNextIndicator(indicator, `${nextSkip}`) : undefined,
+        );
     }
 
     async getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

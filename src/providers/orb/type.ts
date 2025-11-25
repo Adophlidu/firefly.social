@@ -74,3 +74,32 @@ export interface CreatePollResult {
     type: 'HASH';
     hash: Hash;
 }
+
+export interface ORBExploreClubsResponse {
+    status: string;
+    data: {
+        clubs: Array<{
+            type: string;
+            id: string;
+            metadata?: {
+                name?: string;
+                handle?: string;
+                address?: string;
+                ownedBy?: string;
+                description?: string;
+                picture?: string;
+                cover?: string;
+            };
+            stats?: {
+                totalMembers?: number;
+                timeCreated?: number;
+            };
+        }>;
+        pageInfo?: {
+            total?: number;
+            hasMore?: boolean;
+            next?: string | null;
+            prev?: string | null;
+        };
+    };
+}

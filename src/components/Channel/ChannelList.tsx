@@ -9,7 +9,9 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 const getChannelItemContent = (index: number, channel: Channel, listKey: string) => {
-    return <ChannelInList key={channel.id} channel={channel} listKey={listKey} index={index} />;
+    return (
+        <ChannelInList key={channel.id} channel={channel} listKey={listKey} index={index} hideFollowersCount={false} />
+    );
 };
 
 interface ChannelListProps {
