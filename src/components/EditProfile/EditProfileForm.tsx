@@ -1,7 +1,7 @@
 import { parseUrl, safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
+import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { first } from 'lodash-es';
 import { useFormContext } from 'react-hook-form';
 
@@ -159,7 +159,6 @@ export function EditProfileForm() {
     const { context } = useMatch({ from: rootRouteId });
     const { profile, onClose } = context as { profile: Profile; onClose?: () => void };
     const form = useFormContext<ProfileFormValues>();
-    const { history } = useRouter();
 
     const {
         handleSubmit,
@@ -207,10 +206,9 @@ export function EditProfileForm() {
                                 });
                                 if (!updatedFile) return;
 
-                                form.setValue('pfp', file, {
+                                form.setValue('pfp', updatedFile, {
                                     shouldDirty: true,
                                 });
-                                history.replace('/');
                             }}
                         />
                     </div>
