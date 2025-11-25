@@ -18,6 +18,7 @@ import {
 } from '@/constants/enum.js';
 import {
     LOGIN_SORTED_PROFILE_TAB_TYPE,
+    NFT_ENABLED,
     SORTED_PROFILE_TAB_TYPE,
     VITALIK_ADDRESS,
     WALLET_PROFILE_TAB_TYPES,
@@ -60,7 +61,9 @@ export function ProfileCategoryTabs({
             const tabs =
                 addressType === NetworkType.Solana
                     ? WALLET_PROFILE_TAB_TYPES.solana
-                    : WALLET_PROFILE_TAB_TYPES.ethereum;
+                    : WALLET_PROFILE_TAB_TYPES.ethereum.filter((x) =>
+                          NFT_ENABLED ? true : x !== WalletProfileCategory.NFTs,
+                      );
             return tabs.map((type) => ({ type, title: tabTitles[type] }));
         }
 

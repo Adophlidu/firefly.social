@@ -7,7 +7,7 @@ import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { ToggleEnableButton } from '@/components/TrumpTruthSocial/ToggleEnableButton.js';
 import { ExploreType } from '@/constants/enum.js';
-import { EXPLORE_TYPES } from '@/constants/index.js';
+import { EXPLORE_TYPES, NFT_ENABLED } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
@@ -41,7 +41,7 @@ export default async function Layout(props: Props) {
     return (
         <>
             <SourceTabs className="!z-20 md:!top-[57px]">
-                {EXPLORE_TYPES.map((x) =>
+                {EXPLORE_TYPES.filter((x) => (NFT_ENABLED ? true : x !== ExploreType.NFTs)).map((x) =>
                     x === ExploreType.TruthSocial ? (
                         <NoSSR key={x}>
                             <ToggleEnableButton

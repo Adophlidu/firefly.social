@@ -1,7 +1,18 @@
 import urlcat from 'urlcat';
 
-import { NetworkType, type ProfileCategory, type ProfilePageSource, Source } from '@/constants/enum.js';
-import { LOGIN_SORTED_PROFILE_TAB_TYPE, SORTED_PROFILE_TAB_TYPE, WALLET_PROFILE_TAB_TYPES } from '@/constants/index.js';
+import {
+    NetworkType,
+    type ProfileCategory,
+    type ProfilePageSource,
+    Source,
+    WalletProfileCategory,
+} from '@/constants/enum.js';
+import {
+    LOGIN_SORTED_PROFILE_TAB_TYPE,
+    NFT_ENABLED,
+    SORTED_PROFILE_TAB_TYPE,
+    WALLET_PROFILE_TAB_TYPES,
+} from '@/constants/index.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { resolveProfileSourceInURL } from '@/helpers/resolveSourceInUrl.js';
@@ -28,7 +39,9 @@ function resolveProfileCategory(
         source === Source.Wallet || source === Source.WalletMix
             ? getAddressType(handle || '', false) === NetworkType.Solana
                 ? WALLET_PROFILE_TAB_TYPES.solana
-                : WALLET_PROFILE_TAB_TYPES.ethereum
+                : WALLET_PROFILE_TAB_TYPES.ethereum.filter((x) =>
+                      NFT_ENABLED ? true : x !== WalletProfileCategory.NFTs,
+                  )
             : (isCurrentProfile ? LOGIN_SORTED_PROFILE_TAB_TYPE : SORTED_PROFILE_TAB_TYPE)[source];
     return supportedCategories.includes(category) ? category : getDefaultProfileCategory(source, handle);
 }

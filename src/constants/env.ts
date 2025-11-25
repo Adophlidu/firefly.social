@@ -60,6 +60,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_SPARKS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_LENS_SIGNUP: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_FARCASTER_SIGNUP: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_NFT_FEATURES: z.nativeEnum(STATUS).default(STATUS.Enabled),
 
     // sentry
     NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
@@ -135,6 +136,7 @@ export const env = {
         NEXT_PUBLIC_SPARKS: process.env.NEXT_PUBLIC_SPARKS,
         NEXT_PUBLIC_LENS_SIGNUP: process.env.NEXT_PUBLIC_LENS_SIGNUP,
         NEXT_PUBLIC_FARCASTER_SIGNUP: process.env.NEXT_PUBLIC_FARCASTER_SIGNUP,
+        NEXT_PUBLIC_NFT_FEATURES: process.env.NEXT_PUBLIC_NFT_FEATURES,
 
         // sentry
         NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,

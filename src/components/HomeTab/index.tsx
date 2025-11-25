@@ -12,6 +12,7 @@ import { Link } from '@/components/Link.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
 import { HomeTab, NetworkType, Source } from '@/constants/enum.js';
+import { NFT_ENABLED } from '@/constants/index.js';
 import { usePathname } from '@/esm/navigation.js';
 import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
 import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';
@@ -24,7 +25,9 @@ import { ActivitiesFilterNamespace } from '@/store/useActivitiesFilterStore.js';
 import { useTransactionsStateStore } from '@/store/useTransactionsStore.js';
 
 const types = {
-    [HomeTab.Discover]: [Source.Posts, Source.Transactions, Source.Activities],
+    [HomeTab.Discover]: NFT_ENABLED
+        ? [Source.Posts, Source.Transactions, Source.Activities]
+        : [Source.Posts, Source.Activities],
     [HomeTab.Following]: [Source.Posts, Source.Transactions, Source.Polymarket, Source.Activities],
 };
 const tabLabels = {
