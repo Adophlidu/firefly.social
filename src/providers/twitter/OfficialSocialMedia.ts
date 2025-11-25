@@ -165,7 +165,7 @@ class OfficialSocialMedia implements Provider {
         const res = await getTwitterTopPeople(indicator, locale);
         const data = res.items.filter((x) => x.people_detail?.x_id).map((x) => formatTwitterProfileFromRootdata(x));
         const nextIndicator = res.items.length ? createNextIndicator(indicator, `${pageNo + 1}`) : undefined;
-        if (twitterSessionHolder.session) {
+        if (twitterSessionHolder.session && data.length) {
             const profiles = await officialSocialMediaProvider.getProfilesByIds(data.map((x) => x.profileId));
             return createPageable(
                 data.map((x) => {
@@ -295,6 +295,7 @@ class OfficialSocialMedia implements Provider {
     }
 
     async getProfilesByIds(ids: string[]): Promise<Profile[]> {
+        if (!ids.length) return [];
         const response = await twitterSessionHolder.fetch<ResponseJson<UserV2[]>>('/api/twitter/users', {
             method: 'POST',
             headers: {
@@ -305,7 +306,7 @@ class OfficialSocialMedia implements Provider {
             }),
         });
         const data = resolveTwitterResponseData(response);
-        if (!data.length) return EMPTY_LIST;
+        if (!data.length) return [];
 
         return data.map(formatTwitterProfile);
     }
