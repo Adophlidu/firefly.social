@@ -2,6 +2,7 @@
 
 import { env } from '@/constants/env.js';
 import { useReportFeedback } from '@/hooks/useReportFeedback.js';
+import { ExceptionId } from '@/providers/types/Telemetry.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 export interface ErrorBoundaryError {
@@ -40,6 +41,7 @@ Developer Settings: ${useDeveloperSettingsState.getState().developmentAPI}
 
     const [reported, loading, handleReport] = useReportFeedback(reportTitle, reportBody, {
         enqueueSuccessMessage: false,
+        exceptionId: ExceptionId.UI_CRASH,
     });
 
     return (

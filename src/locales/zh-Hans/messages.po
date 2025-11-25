@@ -3181,6 +3181,14 @@ msgstr "对不起，我们未找到 {0} 的关联钱包。"
 msgid "Draft"
 msgstr "草稿"
 
+#. js-lingui-explicit-id
+msgid "error-report"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "error-reported"
+msgstr ""
+
 msgid "Wallets"
 msgstr "钱包"
 
@@ -3301,9 +3309,6 @@ msgstr "未发现疑似恶意行为。"
 
 msgid "The frame server failed to process the request."
 msgstr "Frame 服务器未能处理请求"
-
-msgid "Report"
-msgstr "举报"
 
 msgid "Schedule"
 msgstr "定时发布"
@@ -3595,9 +3600,6 @@ msgstr "未知状态"
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "将在 <0>{0} <1>{1}</1></0> 发布"
-
-msgid "Reported"
-msgstr "已举报"
 
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts<0/> are sent as scheduled, please make sure that multi-device login remains turned on."
 msgstr "关闭多设备登录将导致定时帖发布失败。为确保帖子<0/>按计划发送，请保持多设备登录开启。"

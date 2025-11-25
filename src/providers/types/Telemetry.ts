@@ -335,6 +335,8 @@ export enum ExceptionId {
     RESUME_BSKY_SESSION = 'resume_bsky_session',
     RESUME_TWITTER_SESSION = 'resume_twitter_session',
     CREATE_PRIVY_WALLET = 'create_privy_wallet',
+    UI_CRASH = 'ui_crash',
+    USER_REPORT = 'user_report',
 }
 
 interface Event {

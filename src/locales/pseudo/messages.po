@@ -3176,6 +3176,14 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
+#. js-lingui-explicit-id
+msgid "error-report"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "error-reported"
+msgstr ""
+
 msgid "Wallets"
 msgstr ""
 
@@ -3295,9 +3303,6 @@ msgid "No suspected malicious behavior found."
 msgstr ""
 
 msgid "The frame server failed to process the request."
-msgstr ""
-
-msgid "Report"
 msgstr ""
 
 msgid "Schedule"
@@ -3589,9 +3594,6 @@ msgstr ""
 #. placeholder {0}: dayjs(scheduleTime).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
-msgstr ""
-
-msgid "Reported"
 msgstr ""
 
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts<0/> are sent as scheduled, please make sure that multi-device login remains turned on."

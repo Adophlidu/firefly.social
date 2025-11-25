@@ -3176,6 +3176,14 @@ msgstr "Sorry, we are not able to find a wallet for {0}."
 msgid "Draft"
 msgstr "Draft"
 
+#. js-lingui-explicit-id
+msgid "error-report"
+msgstr "Report"
+
+#. js-lingui-explicit-id
+msgid "error-reported"
+msgstr "Reported"
+
 msgid "Wallets"
 msgstr "Wallets"
 
@@ -3296,9 +3304,6 @@ msgstr "No suspected malicious behavior found."
 
 msgid "The frame server failed to process the request."
 msgstr "The frame server failed to process the request."
-
-msgid "Report"
-msgstr "Report"
 
 msgid "Schedule"
 msgstr "Schedule"
@@ -3590,9 +3595,6 @@ msgstr "Unknown status"
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "Will send on <0>{0} at <1>{1}</1></0>"
-
-msgid "Reported"
-msgstr "Reported"
 
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts<0/> are sent as scheduled, please make sure that multi-device login remains turned on."
 msgstr "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts<0/> are sent as scheduled, please make sure that multi-device login remains turned on."

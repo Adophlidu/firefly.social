@@ -10,6 +10,7 @@ import { type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
 import { env } from '@/constants/env.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useReportFeedback } from '@/hooks/useReportFeedback.js';
+import { ExceptionId } from '@/providers/types/Telemetry.js';
 
 export interface ErrorReportSnackbarProps {
     id: string;
@@ -52,7 +53,10 @@ export function ErrorReportSnackbar({ id, detail, noReport, icon, message, ref }
         `- Timestamp: ${new Date().toISOString()}`,
     ].join('\n');
 
-    const [reported, loading, handleReport] = useReportFeedback(name, comments, { enqueueSuccessMessage: false });
+    const [reported, loading, handleReport] = useReportFeedback(name, comments, {
+        enqueueSuccessMessage: false,
+        exceptionId: ExceptionId.USER_REPORT,
+    });
 
     return (
         <div ref={ref} className="rounded-[4px] bg-danger">
@@ -116,7 +120,11 @@ export function ErrorReportSnackbar({ id, detail, noReport, icon, message, ref }
                                     }}
                                 >
                                     <BugAntIcon className="mr-1 size-3" />
-                                    {reported ? <Trans>Reported</Trans> : <Trans>Report</Trans>}
+                                    {reported ? (
+                                        <Trans id="error-reported">Reported</Trans>
+                                    ) : (
+                                        <Trans id="error-report">Report</Trans>
+                                    )}
                                 </ClickableButton>
                             )}
                         </div>
