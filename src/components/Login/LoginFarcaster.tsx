@@ -56,7 +56,10 @@ async function loginFarcaster(createAccount: () => Promise<Account>, options?: O
 
         const account = await createAccount();
 
-        const done = await addAccount(account, options);
+        const done = await addAccount(account, {
+            ...options,
+            bindLensManagerOnSyncing: true,
+        });
         if (done) {
             enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Farcaster)} account is now connected.</Trans>);
         }

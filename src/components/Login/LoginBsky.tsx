@@ -44,6 +44,7 @@ async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<A
         const account = await createAccount();
         const done = await addAccount(account, {
             ...options,
+            bindLensManagerOnSyncing: true,
             async setAsCurrent({ session }) {
                 await bskySessionHolder.resumeSession(session as BskySession, false);
             },

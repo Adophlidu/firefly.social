@@ -196,6 +196,8 @@ export interface AccountOptions {
     skipSyncAccounts?: boolean;
     // skip waiting for syncing metrics, default: true
     skipWaitForMetricsSyncing?: boolean;
+    // bind lens manager when lens account synced from remote
+    bindLensManagerOnSyncing?: boolean;
     // early return signal
     signal?: AbortSignal;
 }
@@ -209,6 +211,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         skipReportFarcasterSigner = true,
         skipSyncAccounts = false,
         skipWaitForMetricsSyncing = true,
+        bindLensManagerOnSyncing = false,
         signal,
     } = options ?? {};
 
@@ -296,7 +299,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     if (account.fireflySession?.payload?.isNew) captureAccountCreateSuccessEvent(account);
 
     if (!skipSyncAccounts && fireflySession) {
-        await checkAndSyncMetrics(account, { skipWaitForMetricsSyncing });
+        await checkAndSyncMetrics(account, { skipWaitForMetricsSyncing, setLensManager: bindLensManagerOnSyncing });
     }
 
     // account has been added to the store
