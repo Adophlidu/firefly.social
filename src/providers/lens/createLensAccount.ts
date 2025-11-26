@@ -129,7 +129,7 @@ export async function createLensAccount(profile: ProfileForSignup): Promise<Acco
     } satisfies Account;
 
     // 7. report account to neo4j
-    await runInSafeAsync(() => reportLensAccount(fireflyAccount));
+    await runInSafeAsync(() => reportLensAccount(fireflyAccount, AbortSignal.timeout(60 * 1000)));
 
     return fireflyAccount;
 }

@@ -1,17 +1,22 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
+import { compact } from 'lodash-es';
 import { memo, useCallback } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 
+import { refreshPageCache } from '@/actions/refreshPageCache.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { getCurrentProfileAllFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getWarningMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isUserRejectErrorInWallet } from '@/helpers/isUserRejectErrorInWallet.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { SignupFormFields } from '@/modals/SignupModal/SignupFormFields.js';
@@ -32,6 +37,20 @@ import { uploadProfileAvatar } from '@/services/uploadProfileAvatar.js';
 
 interface SignupFormValues extends Omit<ProfileForSignup, 'pfp'> {
     pfp?: File;
+}
+
+async function refreshProfilePageCache() {
+    const currentProfileAll = getCurrentProfileAllFromStorage();
+    await Promise.allSettled(
+        compact(
+            SORTED_SOCIAL_SOURCES.map(async (x) => {
+                const profile = currentProfileAll[x];
+                if (!profile) return;
+
+                return refreshPageCache(RouteResolver.profile(profile), 'layout');
+            }),
+        ),
+    );
 }
 
 interface Props {
@@ -89,6 +108,8 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose, on
 
                 // sync metrics in the final step
                 runInSafeAsync(() => checkAndSyncMetrics(account, { forceUpload: true }));
+
+                refreshProfilePageCache();
             } catch (error) {
                 if (isUserRejectErrorInWallet(error)) {
                     enqueueWarningMessage(getWarningMessageFromError(error));
