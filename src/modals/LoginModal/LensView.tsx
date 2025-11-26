@@ -16,6 +16,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SignupEntry } from '@/components/Profile/SignupEntry.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
+import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { AsyncStatus, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { AbortError, FireflyAlreadyBoundError, ForbiddenError } from '@/constants/error.js';
@@ -124,6 +125,7 @@ export const LensView = memo(function LensView() {
     const profiles = frozenProfiles || managedProfiles;
     const currentProfile = selectedProfile || first(profiles);
     const isFetching = isLoading || isRefetching;
+    const isPrivy = !!account.address && account.connector?.id === PRIVY_CONNECTOR_ID;
 
     const [{ loading }, login] = useAsyncFn(async () => {
         if (!currentProfile) return;
@@ -252,7 +254,9 @@ export const LensView = memo(function LensView() {
                                     <Trans>No Lens profile found,</Trans>
                                 </span>
                                 <br />
-                                {canBindMoreAccount && env.external.NEXT_PUBLIC_LENS_SIGNUP === STATUS.Enabled ? (
+                                {canBindMoreAccount &&
+                                env.external.NEXT_PUBLIC_LENS_SIGNUP === STATUS.Enabled &&
+                                !isPrivy ? (
                                     <Trans>
                                         <ClickableButton
                                             className="mx-1 text-highlight"
