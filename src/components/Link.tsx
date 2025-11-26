@@ -15,7 +15,7 @@ type LinkProps = React.ComponentProps<typeof OriginalLink>;
 /**
  * Would show a confirmation modal if the link is external and not trusted
  */
-export function Link({ href, ref, onClick, ...rest }: LinkProps) {
+export function Link({ href, onClick, ...rest }: LinkProps) {
     const { data: internalLink } = useInternalLink(href);
     const isTrusted = isTrustedUrl(href);
     const openConfirmModal = !isTrusted && !internalLink && typeof href === 'string';
@@ -40,7 +40,6 @@ export function Link({ href, ref, onClick, ...rest }: LinkProps) {
             {...rest}
             target={internalLink ? (!isSelfReference(internalLink) ? '_blank' : '_self') : rest.target}
             href={internalLink || href}
-            ref={ref}
             onClick={onLinkClick}
         />
     );

@@ -9,11 +9,11 @@ import { useInternalLink } from '@/hooks/useInternalLink.js';
 import { ConfirmLeavingModalRef } from '@/modals/ConfirmLeavingModal.js';
 
 type Props = PropsWithChildren<Omit<LinkProps, 'href'>> &
-    Pick<HTMLProps<HTMLAnchorElement>, 'className' | 'target' | 'ref'> & { href: string } & {
+    Pick<HTMLProps<HTMLAnchorElement>, 'className' | 'target'> & { href: string } & {
         trusted?: boolean;
     };
 
-export function Link({ children, ref, trusted = false, ...props }: Props) {
+export function Link({ children, trusted = false, ...props }: Props) {
     const { href } = props;
     const { data: internalLink } = useInternalLink(href);
 
@@ -34,7 +34,7 @@ export function Link({ children, ref, trusted = false, ...props }: Props) {
     );
 
     return (
-        <OriginalLink ref={ref} {...props} onClick={onLinkClick}>
+        <OriginalLink {...props} onClick={onLinkClick}>
             {children}
         </OriginalLink>
     );
