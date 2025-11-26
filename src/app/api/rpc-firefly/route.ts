@@ -52,6 +52,7 @@ export async function POST(request: NextRequest) {
         }
 
         const { method, params } = parsedRequest.data;
+        console.log(`[/api/rpc-firefly] method: ${method}, params: ${JSON.stringify(params)}`);
 
         // Check if method is supported
         if (!availableMethodsList.includes(method)) {

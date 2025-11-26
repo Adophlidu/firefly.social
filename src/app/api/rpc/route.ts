@@ -11,7 +11,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSourceFromUrl } from '@/helpers/resolveSource.js';
 
 // Base schema for all RPC requests
-const BaseRPCSchema = z.object({
+const BodySchema = z.object({
     method: z.string().min(1, 'Method name is required'),
     source: z.nativeEnum(SourceInURL),
     params: z.record(z.unknown()).optional().default({}),
@@ -60,13 +60,14 @@ const availableMethods = Object.keys(MethodParamSchemas);
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const parsedRequest = BaseRPCSchema.safeParse(body);
 
+        const parsedRequest = BodySchema.safeParse(body);
         if (!parsedRequest.success) {
             return createZodErrorResponseJson(parsedRequest.error, { status: 400 });
         }
 
         const { method, source, params } = parsedRequest.data;
+        console.log(`[/api/rpc] method: ${method}, source: ${source}, params: ${JSON.stringify(params)}`);
 
         // Check if method is supported
         if (!availableMethods.includes(method)) {
@@ -79,7 +80,6 @@ export async function POST(request: NextRequest) {
         // Validate method-specific parameters
         const methodSchema = MethodParamSchemas[method as keyof typeof MethodParamSchemas];
         const parsedParams = methodSchema.safeParse(params);
-
         if (!parsedParams.success) {
             return createZodErrorResponseJson(parsedParams.error, {
                 status: 400,
@@ -108,6 +108,7 @@ export async function POST(request: NextRequest) {
         });
     } catch (error) {
         console.error('RPC API Error:', error);
+
         return createErrorResponseJson(error instanceof Error ? error.message : 'Internal server error', {
             status: 500,
         });

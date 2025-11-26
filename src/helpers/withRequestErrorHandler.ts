@@ -1,16 +1,10 @@
+import { parseJson } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 import { ZodError } from 'zod';
 
 import { ContentTypeError, MalformedError, NotFoundError, UnauthorizedError } from '@/constants/error.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import type { NextRequestContext } from '@/types/utility.js';
-
-function handleZodErrorMessage(error: ZodError) {
-    return (
-        'InvalidParams: ' +
-        error.issues.map((issue) => `(${issue.code})${issue.path.join('.')}: ${issue.message}`).join('; ')
-    );
-}
 
 export function withRequestErrorHandler<P>(options?: { throwError?: boolean }) {
     const { throwError = false } = options ?? {};
@@ -25,7 +19,7 @@ export function withRequestErrorHandler<P>(options?: { throwError?: boolean }) {
                     });
                 }
                 if (error instanceof ZodError) {
-                    return createErrorResponseJson(handleZodErrorMessage(error), {
+                    return createErrorResponseJson(parseJson(error.message) ?? error.message, {
                         status: 400,
                     });
                 }
