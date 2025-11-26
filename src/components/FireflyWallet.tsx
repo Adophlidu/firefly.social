@@ -7,7 +7,8 @@ import type { Address } from 'viem';
 
 import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
 import WalletIcon from '@/assets/wallet.svg';
-import { NetworkType, WalletSource } from '@/constants/enum.js';
+import { NetworkType, PageRoute, WalletSource } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useIsCreatedPrivyWallet } from '@/hooks/useIsCreatedPrivyWallet.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
@@ -20,6 +21,7 @@ export function FireflyWallet() {
     const isLoginFirefly = useIsLoginFirefly();
     const isOpen = useGlobalState.use.fireflyWalletIsOpen();
     const { isCreatedPrivyWallet } = useIsCreatedPrivyWallet();
+    const pathname = usePathname();
 
     const allConnectionsQuery = useAllConnections();
     const privyConnections = useMemo(() => {
@@ -46,9 +48,19 @@ export function FireflyWallet() {
 
     if (!isLoginFirefly || !isCreatedPrivyWallet) return null;
 
+    const isHidePath = pathname.startsWith(PageRoute.Settings);
+
     return (
         <>
-            <div className="fixed bottom-0 left-1/2 z-50 h-0 w-full max-w-[1265px] -translate-x-1/2">
+            <div
+                className={classNames(
+                    'fixed bottom-0 left-1/2 h-0 w-full max-w-[1265px] -translate-x-1/2 duration-100',
+                    isOpen ? 'z-50' : 'z-30',
+                    {
+                        'pointer-events-none translate-y-full opacity-0': isHidePath && !isOpen,
+                    },
+                )}
+            >
                 <div
                     className={classNames(
                         'absolute bottom-0 right-4 z-50 size-[calc(100%-32px)] h-[600px] max-w-[385px] origin-bottom-right overflow-hidden rounded-xl border border-line bg-primaryBottom bg-bottom pt-14 text-main shadow-lg duration-300 lg:right-0',

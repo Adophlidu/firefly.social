@@ -25,11 +25,33 @@ const INTERACTIVE_METHODS = new Set([
 ]);
 
 const provider = {
-    async request<T = unknown>(params: { method: string; params?: unknown[] | object }) {
+    async request<T = unknown>(params: { method: string; params?: unknown[] | object }): Promise<T> {
         if (INTERACTIVE_METHODS.has(params.method)) {
             useGlobalState.getState().updateFireflyWalletIsOpen(true);
         }
-        return (await iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC, params)) as T;
+        return new Promise(async (resolve, reject) => {
+            const unsubscribe = useGlobalState.subscribe((state) => {
+                if (!state.fireflyWalletIsOpen) {
+                    unsubscribe();
+                    reject(new UserRejectedRequestError(new Error()));
+                }
+            });
+            iframeBridgeProvider
+                .request(IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC, params)
+                .then((rpcResult) => {
+                    unsubscribe();
+                    useGlobalState.getState().updateFireflyWalletIsOpen(false);
+                    resolve(rpcResult as T);
+                })
+                .catch((error) => {
+                    unsubscribe();
+                    if (`${error}`.includes('user rejected')) {
+                        reject(new UserRejectedRequestError(new Error()));
+                        return
+                    }
+                    reject(error);
+                });
+        });
     },
 };
 

@@ -7,7 +7,9 @@ import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { getWarningMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { isUserRejectErrorInWallet } from '@/helpers/isUserRejectErrorInWallet.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -88,13 +90,17 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose, on
                 // sync metrics in the final step
                 runInSafeAsync(() => checkAndSyncMetrics(account, { forceUpload: true }));
             } catch (error) {
-                enqueueErrorMessage(
-                    <Trans>
-                        Failed to create {resolveSourceName(source)} profile.
-                        {error instanceof Error ? error.message : ''}
-                    </Trans>,
-                    { error },
-                );
+                if (isUserRejectErrorInWallet(error)) {
+                    enqueueWarningMessage(getWarningMessageFromError(error));
+                } else {
+                    enqueueErrorMessage(
+                        <Trans>
+                            Failed to create {resolveSourceName(source)} profile.
+                            {error instanceof Error ? error.message : ''}
+                        </Trans>,
+                        { error },
+                    );
+                }
                 throw error;
             } finally {
                 onLoadingChange(false);
