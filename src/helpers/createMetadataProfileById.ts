@@ -4,7 +4,7 @@ import { createWalletProfileMetadata } from '@/providers/firefly/metadata/create
 
 export async function createMetadataProfileById(source: ProfilePageSourceInURL, profileId: string, pathname: string) {
     if (source === SourceInURL.Wallet || source === SourceInURL.WalletMix) {
-        return createWalletProfileMetadata(pathname, profileId);
+        return createWalletProfileMetadata(profileId, pathname);
     }
     return createProfileMetadata(source, profileId, pathname);
 }
