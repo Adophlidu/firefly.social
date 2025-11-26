@@ -7,7 +7,14 @@ import { base, mainnet } from 'viem/chains';
 
 import { FilterPanel } from '@/components/FilterPanel.js';
 import { SourceNav } from '@/components/SourceNav/SourceNav.js';
-import { type ExploreSourceInURL, ExploreType, NetworkType, Source, TrendingType } from '@/constants/enum.js';
+import {
+    type ExploreSource,
+    type ExploreSourceInURL,
+    ExploreType,
+    NetworkType,
+    Source,
+    TrendingType,
+} from '@/constants/enum.js';
 import { EXPLORE_SOURCES } from '@/constants/index.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveExploreSource } from '@/helpers/resolveSourceInUrl.js';
@@ -56,6 +63,16 @@ export const ExploreSourceNav = memo<Props>(function ExploreSourceNav({ explore,
     const { selectedChainId, selectedTimeRange, setSelectedChainId, setSelectedTimeRange } =
         useExploreTrendingFilterStore();
 
+    const customNameResolver = useMemo(
+        () => (src: ExploreSource) => {
+            if (explore === ExploreType.TopChannels && src === Source.Lens) {
+                return 'Orb';
+            }
+            return resolveExploreSourceName(src);
+        },
+        [explore],
+    );
+
     if (!sources?.length) return null;
 
     return (
@@ -64,7 +81,7 @@ export const ExploreSourceNav = memo<Props>(function ExploreSourceNav({ explore,
                 source={resolveExploreSource(source)}
                 sources={sources}
                 urlResolver={(source) => resolveExploreUrl(explore, source)}
-                nameResolver={resolveExploreSourceName}
+                nameResolver={customNameResolver}
                 {...omit(rest, 'className')}
             />
             {explore === ExploreType.CryptoTrends && source !== TrendingType.TopSearches ? (

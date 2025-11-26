@@ -47,7 +47,7 @@ const provider = {
                     unsubscribe();
                     if (`${error}`.includes('user rejected')) {
                         reject(new UserRejectedRequestError(new Error()));
-                        return
+                        return;
                     }
                     reject(error);
                 });
