@@ -330,7 +330,7 @@ class FireflySocialMedia implements Provider {
                 sourceFid: session?.profileId,
             });
             const response = await fireflySessionHolder.fetch<FireflyFarcasterProfileResponse>(url);
-            if (!response.data) throw new NotFoundError(`The farcaster profile not found with handle=${handle}.`);
+            if (!response.data) throw new NotFoundError(`The farcaster profile not found with handle: ${handle}.`);
             return formatFireflyFarcasterProfile(response.data);
         });
     }

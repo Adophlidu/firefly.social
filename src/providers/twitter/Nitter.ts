@@ -2,7 +2,7 @@ import { bom } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { AccountSuspendedError } from '@/constants/error.js';
+import { AccountSuspendedError, NotFoundError } from '@/constants/error.js';
 import { FIREFLY_NITTER_URL } from '@/constants/index.js';
 import { LimitConcurrency } from '@/decorators/LimitConcurrency.js';
 import { MemoizePromise } from '@/decorators/MemoizePromise.js';
@@ -74,6 +74,10 @@ class NitterAPI {
                 },
             },
         );
+
+        if (res.error?.includes('User not found'))
+            throw new NotFoundError(`The twitter profile not found with handle: ${handle}`);
+
         const data = resolveNitterJsonResponse(res);
         if (data.user.suspended) throw new AccountSuspendedError(handle, Source.Twitter);
         return data;

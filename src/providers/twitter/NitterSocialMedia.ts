@@ -4,7 +4,7 @@ import type { TweetV2LookupResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
+import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -339,7 +339,8 @@ class NitterSocialMedia implements Provider {
     async getProfileByHandle(handle: string): Promise<Profile> {
         if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const { user } = await NitterAPIProvider.getProfileByHandle(handle);
-        if (!user.id || user.id === '0') throw new Error(`Twitter user not found with handle: ${handle}`);
+        if (!user.id || user.id === '0')
+            throw new NotFoundError(`The twitter profile not found with handle: ${handle}`);
         return formatTwitterProfileFromNitter(user);
     }
 

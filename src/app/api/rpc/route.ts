@@ -2,7 +2,7 @@ import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { SourceInURL } from '@/constants/enum.js';
-import { NotFoundError } from '@/constants/error.js';
+import { AccountSuspendedError, NotFoundError } from '@/constants/error.js';
 import {
     createErrorResponseJson,
     createSuccessResponseJson,
@@ -108,7 +108,10 @@ export async function POST(request: NextRequest) {
             result,
         });
     } catch (error) {
-        if (!(error instanceof NotFoundError)) {
+        const isNotFoundError = error instanceof NotFoundError;
+        const isAccountSuspendedError = error instanceof AccountSuspendedError;
+
+        if (!isNotFoundError && !isAccountSuspendedError) {
             console.error('RPC API Error:', error);
         }
 
