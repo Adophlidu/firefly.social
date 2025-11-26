@@ -107,7 +107,7 @@ export default memo(function ConfirmView() {
 
         const StrategyType = FireflyRedPacketAPI.StrategyType;
         const strategies: FireflyRedPacketAPI.ClaimStrategy[] = [];
-        if (rules && isEVM) {
+        if (rules) {
             if (rules.includes(RequirementType.Follow)) {
                 strategies.push({
                     type: StrategyType.profileFollow,
@@ -159,13 +159,13 @@ export default memo(function ConfirmView() {
             }
         }
 
+        const publicKey = await createPublicKey(themeId, shareFrom, strategies);
         return {
-            publicKey: isEVM ? await createPublicKey(themeId, shareFrom, strategies) : '',
+            publicKey,
             claimRequirements: strategies,
         };
     }, [
         rules,
-        isEVM,
         themeId,
         requireCollections,
         currentLensProfile,
