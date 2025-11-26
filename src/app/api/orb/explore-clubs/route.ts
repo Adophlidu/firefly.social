@@ -10,8 +10,8 @@ import type { ExploreClubsResponse } from '@/providers/orb/type.js';
 
 const ParamsSchema = z.object({
     category: z.enum(['TRENDING_CLUBS']),
-    skip: z.number(),
-    limit: z.number(),
+    skip: z.coerce.number().default(0),
+    limit: z.coerce.number().default(20),
 });
 
 export async function GET(request: NextRequest) {

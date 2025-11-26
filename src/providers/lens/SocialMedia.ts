@@ -131,7 +131,7 @@ import { account } from '@/providers/lens/metadata/Account.js';
 import type { MetadataAttribute } from '@/providers/lens/metadata/Base.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import { uploadLensMetadataToS3 } from '@/providers/lens/uploadLensMetadataToS3.js';
-import type { ExploreClubsResponse } from '@/providers/orb/type.js';
+import type { ExploreClubsData } from '@/providers/orb/type.js';
 import type { Account as FireflyAccount } from '@/providers/types/Account.js';
 import {
     NotificationPlatform,
@@ -230,8 +230,8 @@ class LensSocialMedia implements Provider {
             skip,
             limit,
         });
-        const response = await fireflySessionHolder.fetch<ResponseJson<ExploreClubsResponse>>(url);
-        const { data } = resolveResponseData(response, 'Failed to fetch explore clubs');
+        const response = await fireflySessionHolder.fetch<ResponseJson<ExploreClubsData>>(url);
+        const data = resolveResponseData(response, 'Failed to fetch explore clubs');
 
         const ownerIds = compact(data.clubs.map((club) => club.metadata?.ownedBy));
         const owners = await runInSafeAsync(() => lensSocialMediaProvider.getProfilesByIds(ownerIds));

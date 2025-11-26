@@ -75,7 +75,7 @@ export type PollSignInResponse = OrbResponse<PollSignInResponseData>;
 
 export type CreatePollResponse = OrbResponse<CreatePollResult>;
 
-export type ExploreClubsResponse = OrbResponse<{
+export interface ExploreClubsData {
     clubs: Array<{
         type: string;
         id: string;
@@ -99,4 +99,6 @@ export type ExploreClubsResponse = OrbResponse<{
         next?: string | null;
         prev?: string | null;
     };
-}>;
+}
+
+export type ExploreClubsResponse = OrbResponse<ExploreClubsData>;
