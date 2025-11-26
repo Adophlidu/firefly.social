@@ -22,8 +22,6 @@ const INTERACTIVE_METHODS = new Set([
     'personal_sign',
     'eth_signTypedData',
     'eth_signTypedData_v4',
-    'wallet_addEthereumChain',
-    'wallet_switchEthereumChain',
 ]);
 
 const provider = {
