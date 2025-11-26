@@ -64,7 +64,19 @@ export async function fetch(
     options?: NextFetchersOptions,
 ): Promise<Response> {
     const requestInput = resolveRequestInput(input);
-    const response = await defaultFetcher(requestInput, init);
+    let response: Response;
+
+    try {
+        response = await defaultFetcher(requestInput, init);
+    } catch (error) {
+        // TypeError: Failed to fetch typically indicates network issues
+        if (error instanceof TypeError && error.message.includes('fetch')) {
+            throw new NetworkError(error.message);
+        }
+        // Re-throw other errors
+        throw error;
+    }
+
     if (!response.ok && bom.navigator?.onLine === false) throw new NetworkError();
 
     // on client the <AuthGuard /> warning will be triggered when a firefly api request is 403 forbidden
