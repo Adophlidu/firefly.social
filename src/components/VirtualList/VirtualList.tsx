@@ -24,7 +24,7 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
         if (!rest.useWindowScroll) return;
         window.addEventListener('scroll', onDetectScrollable);
         return () => {
-            window.addEventListener('scroll', onDetectScrollable);
+            window.removeEventListener('scroll', onDetectScrollable);
         };
     }, [rest.useWindowScroll, onDetectScrollable]);
 
