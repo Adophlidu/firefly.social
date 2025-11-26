@@ -53,7 +53,7 @@ export function AddLensManagerModal({ ref }: Props) {
     return (
         <Modal open={open} onClose={onClose}>
             <div className="relative flex w-[400px] max-w-[clamp(386px,90vw,95vw)] flex-col rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
-                <ModalTitle buttonDisabled={loading} title={<Trans>Auto Login Permission</Trans>} onClose={onClose} />
+                <ModalTitle buttonDisabled={loading} title={<Trans>Lens Auto Login</Trans>} onClose={onClose} />
                 <div className="px-6 pb-6 pt-0">
                     <AddLensManagerModalContent {...props} onFinished={onClose} onLoadingChange={setLoading} />
                 </div>

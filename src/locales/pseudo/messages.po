@@ -895,9 +895,6 @@ msgstr ""
 msgid "Failed to load image."
 msgstr ""
 
-msgid "Auto Login Permission"
-msgstr ""
-
 #. placeholder {0}: space.name
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
@@ -3594,6 +3591,9 @@ msgstr ""
 #. placeholder {0}: dayjs(scheduleTime).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
+msgstr ""
+
+msgid "Lens Auto Login"
 msgstr ""
 
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts<0/> are sent as scheduled, please make sure that multi-device login remains turned on."

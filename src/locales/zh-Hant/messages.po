@@ -900,9 +900,6 @@ msgstr "已綁定的帳號"
 msgid "Failed to load image."
 msgstr "圖片載入失敗，請重試。"
 
-msgid "Auto Login Permission"
-msgstr ""
-
 #. placeholder {0}: space.name
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
@@ -3600,6 +3597,9 @@ msgstr "未知狀態"
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "將於 <0>{0} <1>{1}</1></0> 發布"
+
+msgid "Lens Auto Login"
+msgstr ""
 
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts<0/> are sent as scheduled, please make sure that multi-device login remains turned on."
 msgstr "關閉多裝置登入將導致預約貼文發佈失敗。為確保貼文<0/>按計劃發送，請保持多裝置登入開啟。"
