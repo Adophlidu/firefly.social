@@ -1776,20 +1776,8 @@ export type NFTBookmarkContent = {
     following_own_num: 0;
 };
 
-export type LoginFarcasterWithWalletResponse = Response<{
-    signerPublickey: Hex;
-    signerPrivatekey: Hex;
-    accessToken: string;
-    accountId: string;
-    fid: string;
-    isNew: boolean;
-    displayName: string;
-    avatar: string;
-    uid: string;
-    createdAt: string;
-}>;
-
 type Stat = [number, number];
+
 export type TokenPriceStatsResponse = Response<{
     market_caps: Stat[];
     prices: Stat[];

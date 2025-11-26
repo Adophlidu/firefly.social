@@ -46,10 +46,7 @@ export function useVerifyAndBindWallet(
                 enqueueSuccessMessage(t`Wallet added successfully`);
                 onSuccess?.(result);
             } catch (error) {
-                if (
-                    error instanceof Error &&
-                    error.message.includes('This wallet already bound to the other account')
-                ) {
+                if (error instanceof Error && error.message.includes('already bound')) {
                     enqueueWarningMessage(
                         t`Sorry, this wallet is already linked to another Firefly account. Please try a different one.`,
                     );

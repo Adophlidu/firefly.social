@@ -26,6 +26,18 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJson } from '@/types/utility.js';
 
+const isAlreadyBoundError = (error: unknown) => {
+    const message =
+        error instanceof Error
+            ? error.message
+            : typeof error === 'string'
+              ? error
+              : error && typeof error === 'object' && 'message' in error && typeof error.message === 'string'
+                ? (error as { message: string }).message
+                : '';
+    return message.includes('already bound') || message.includes('already been taken');
+};
+
 async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<BindResponse>(
         urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindLens'),
@@ -40,7 +52,7 @@ async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
         },
     );
 
-    if (response.error?.some((x) => x.includes('already bound to the other account'))) {
+    if (response.error?.some(isAlreadyBoundError)) {
         throw new FireflyAlreadyBoundError(Source.Lens);
     }
 
@@ -78,7 +90,7 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
     }
 
     // If the farcaster is already bound to another account, throw an error.
-    if (isRelayService && response.error?.some((x) => x.includes('already bound to the other account'))) {
+    if (isRelayService && response.error?.some(isAlreadyBoundError)) {
         throw new FireflyAlreadyBoundError(Source.Farcaster);
     }
 
@@ -109,7 +121,7 @@ async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: Abo
         },
     );
 
-    if (response.error?.some((x) => x.includes('already bound to the other account'))) {
+    if (response.error?.some(isAlreadyBoundError)) {
         throw new FireflyAlreadyBoundError(Source.Twitter);
     }
 
@@ -135,7 +147,7 @@ async function bindBskySessionToFirefly(session: BskySession, signal?: AbortSign
         const data = resolveFireflyResponseData(response);
         return data;
     } catch (error) {
-        if (error instanceof Error && error.message.includes('already bound to the other account')) {
+        if (isAlreadyBoundError(error)) {
             throw new FireflyAlreadyBoundError(Source.Bsky);
         }
         throw error;
@@ -159,7 +171,7 @@ async function bindAppleSessionToFirefly(session: ThirdPartySession, signal?: Ab
         const data = resolveFireflyResponseData(response);
         return data;
     } catch (error) {
-        if (error instanceof Error && error.message.includes('already bound to the other account')) {
+        if (isAlreadyBoundError(error)) {
             throw new FireflyAlreadyBoundError(Source.Apple);
         }
         throw error;
@@ -182,7 +194,7 @@ async function bindGoogleSessionToFirefly(session: ThirdPartySession, signal?: A
         const data = resolveFireflyResponseData(response);
         return data;
     } catch (error) {
-        if (error instanceof Error && error.message.includes('already bound to the other account')) {
+        if (isAlreadyBoundError(error)) {
             throw new FireflyAlreadyBoundError(Source.Google);
         }
         throw error;
@@ -205,7 +217,7 @@ async function bindTelegramSessionToFirefly(session: ThirdPartySession, signal?:
         const data = resolveFireflyResponseData(response);
         return data;
     } catch (error) {
-        if (error instanceof Error && error.message.includes('already bound to the other account')) {
+        if (isAlreadyBoundError(error)) {
             throw new FireflyAlreadyBoundError(Source.Telegram);
         }
         throw error;
@@ -240,7 +252,7 @@ async function bindEmailSessionToFirefly(session: ThirdPartySession, signal?: Ab
 
         return data;
     } catch (error) {
-        if (error instanceof Error && error.message.includes('Email has already been taken')) {
+        if (isAlreadyBoundError(error)) {
             throw new FireflyAlreadyBoundError(Source.Email);
         }
 

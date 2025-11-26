@@ -39,7 +39,7 @@ export async function createFarcasterFromFirefly(accountInfo: FarcasterAccountIn
             throw new FireflyAccountAbsentError(Source.Farcaster);
         }
 
-        if (error instanceof Error && error.message.includes('This farcaster already bound to the other account')) {
+        if (error instanceof Error && error.message.includes('already bound')) {
             throw new FireflyAlreadyBoundError(Source.Farcaster);
         }
         throw error;
