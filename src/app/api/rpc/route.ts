@@ -2,6 +2,7 @@ import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { SourceInURL } from '@/constants/enum.js';
+import { NotFoundError } from '@/constants/error.js';
 import {
     createErrorResponseJson,
     createSuccessResponseJson,
@@ -107,7 +108,9 @@ export async function POST(request: NextRequest) {
             result,
         });
     } catch (error) {
-        console.error('RPC API Error:', error);
+        if (!(error instanceof NotFoundError)) {
+            console.error('RPC API Error:', error);
+        }
 
         return createErrorResponseJson(error instanceof Error ? error.message : 'Internal server error', {
             status: 500,
