@@ -439,15 +439,16 @@ export function MainView() {
                                     >
                                         <ClickableButton
                                             className={classNames(
-                                                'flex w-full cursor-pointer items-center justify-between p-2',
+                                                'flex w-full items-center justify-between p-2',
+                                                isExceed ? 'cursor-not-allowed' : 'cursor-pointer',
                                                 {
                                                     'bg-bg': !isLoginFirefly ? index % 2 === 0 : true,
                                                     'border-b border-secondaryLine':
                                                         isLoginFirefly && profileStore[source].accounts.length > 0,
                                                 },
                                             )}
-                                            disabled={switchLoading || isExceed}
-                                            onClick={() => onClick(source)}
+                                            disabled={switchLoading}
+                                            onClick={isExceed ? undefined : () => onClick(source)}
                                         >
                                             <div className="flex items-center gap-2">
                                                 <ProfileSourceIcon source={source} size={20} />
