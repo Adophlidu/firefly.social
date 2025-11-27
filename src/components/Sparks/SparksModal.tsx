@@ -7,11 +7,7 @@ import CloseIcon from '@/assets/close.svg';
 import { SITE_URL } from '@/constants/index.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 
-interface SparksModalProps {
-    uid?: string;
-}
-
-export const SparksModal = memo<SparksModalProps>(function SparksModal({ uid }) {
+export const SparksModal = memo(function SparksModal() {
     const onClose = useComeBack();
     return (
         <div className="fixed inset-0 z-modal flex flex-col bg-black/50 backdrop-blur-sm">

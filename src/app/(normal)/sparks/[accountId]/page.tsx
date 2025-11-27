@@ -10,6 +10,5 @@ export async function generateMetadata(props: Props) {
 }
 
 export default async function SparksModalPage(props: Props) {
-    const { accountId } = await props.params;
-    return <SparksModal uid={accountId} />;
+    return <SparksModal />;
 }

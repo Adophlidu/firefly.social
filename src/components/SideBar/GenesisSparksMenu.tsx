@@ -35,7 +35,7 @@ export const GenesisSparksMenu = memo<GenesisSparksMenuProps>(function GenesisSp
 
     const href = useMemo(() => {
         if (uid && (isOgUser || isFansUser))
-            return urlcat('/sparks/:uid', { uid, eligible: isOgUser ? 'KOL' : isFansUser ? 'Fans' : 'No' });
+            return urlcat('/sparks/:uid', { uid: `${uid}`, eligible: isOgUser ? 'KOL' : isFansUser ? 'Fans' : 'No' });
         return '/sparks';
     }, [uid, isOgUser, isFansUser]);
 
