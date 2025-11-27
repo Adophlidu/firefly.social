@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { delay } from '@dimensiondev/utils';
+import { t } from '@lingui/core/macro';
+import { useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { sentryClient } from '@/configs/sentryClient.js';
+import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
 
 interface Options {
@@ -17,15 +20,21 @@ export function useReportFeedback(
         exceptionId: ExceptionId.USER_REPORT,
     },
 ) {
-    const [reported] = useState(false);
+    const [reported, setReported] = useState(false);
+    const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
     const [{ loading }, handleReport] = useAsyncFn(async () => {
-        sentryClient.captureException(options.exceptionId, {
+        setReported(false);
+        await sentryClient.captureException(options.exceptionId, {
             name,
             comments,
         });
-        return;
-    }, [comments, name, options.exceptionId]);
+        await delay(1000);
+        setReported(true);
+        clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(setReported, 1500, false);
+        if (options.enqueueSuccessMessage) enqueueSuccessMessage(t({ id: 'error-reported', message: 'Reported' }));
+    }, [comments, name, options.enqueueSuccessMessage, options.exceptionId]);
 
     return [reported, loading, handleReport] as const;
 }
