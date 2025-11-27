@@ -10,7 +10,7 @@ import { DatePicker } from '@/components/Calendar/DatePicker.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { TimePicker } from '@/components/TimePicker.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { PasswordStep, PasswordWorkflow, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { CreateScheduleError, TokenExpiredError } from '@/constants/error.js';
 import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
@@ -22,9 +22,8 @@ import type { LensSession } from '@/providers/lens/Session.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import { uploadMetrics } from '@/services/metrics.js';
+import { ensureSchedulePostPassword } from '@/services/ensureSchedulePostPassword.js';
 import { updateScheduledPost } from '@/services/post.js';
-import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
@@ -61,27 +60,11 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                 return;
             }
 
-            const password = await verifyAndGetPassword({
-                requireSetPassword: true,
-                descriptions: {
-                    [`${PasswordWorkflow.Verify}-${PasswordStep.VerifyPassword}`]: (
-                        <Trans>
-                            Multi-device login is required for schedule post. Enter your password to confirm your
-                            identity.
-                        </Trans>
-                    ),
-                    [`${PasswordWorkflow.Set}-${PasswordStep.SetPassword}`]: (
-                        <Trans>
-                            Multi-device login is required for schedule post. Set a 6-digit password to verify your
-                            identity.
-                        </Trans>
-                    ),
-                },
-            });
-            if (!password) return;
-
-            await useLensProfileStore.getState().refreshCurrentAccount();
-            await uploadMetrics(password);
+            // update schedule post need to verify password and upload metrics
+            if (action === 'update') {
+                const password = await ensureSchedulePostPassword();
+                if (!password) return;
+            }
 
             if (task) {
                 checkScheduleTime(value);

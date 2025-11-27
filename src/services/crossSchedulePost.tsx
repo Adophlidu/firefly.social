@@ -19,6 +19,7 @@ import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { captureCreateFarPollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { ensureSchedulePostPassword } from '@/services/ensureSchedulePostPassword.js';
 import { commitPoll } from '@/services/poll.js';
 import { schedulePost } from '@/services/post.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -67,6 +68,9 @@ export async function crossSchedulePost(
 ) {
     try {
         checkScheduleTime(scheduleTime);
+
+        const password = await ensureSchedulePostPassword();
+        if (!password) return;
 
         const posts = await createSchedulePostsPayload(type, compositePost, false, signal);
 

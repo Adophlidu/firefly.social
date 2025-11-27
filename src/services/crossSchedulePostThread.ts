@@ -18,6 +18,7 @@ import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { createSchedulePostsPayload } from '@/services/crossSchedulePost.js';
+import { ensureSchedulePostPassword } from '@/services/ensureSchedulePostPassword.js';
 import { schedulePost } from '@/services/post.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
@@ -28,6 +29,9 @@ export async function crossPostScheduleThread(scheduleTime: Date, signal?: Abort
         if (posts.length === 1) throw new Error('A thread must have at least two posts.');
 
         checkScheduleTime(scheduleTime);
+
+        const password = await ensureSchedulePostPassword();
+        if (!password) return;
 
         const results = new Map<
             SocialSourceInURL,

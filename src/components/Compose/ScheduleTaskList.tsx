@@ -18,7 +18,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { PasswordStep, PasswordWorkflow, ScheduleTaskStatus, ScrollListKey } from '@/constants/enum.js';
+import { ScheduleTaskStatus, ScrollListKey } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -33,9 +33,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { PostMediaType, type ScheduleTask } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import { uploadMetrics } from '@/services/metrics.js';
 import { deleteScheduledPost, getScheduledPosts } from '@/services/post.js';
-import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
@@ -106,25 +104,6 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
             return;
         }
 
-        const password = await verifyAndGetPassword({
-            requireSetPassword: true,
-            descriptions: {
-                [`${PasswordWorkflow.Verify}-${PasswordStep.VerifyPassword}`]: (
-                    <Trans>
-                        Multi-device login is required for schedule post. Enter your password to confirm your identity.
-                    </Trans>
-                ),
-                [`${PasswordWorkflow.Set}-${PasswordStep.SetPassword}`]: (
-                    <Trans>
-                        Multi-device login is required for schedule post. Set a 6-digit password to verify your
-                        identity.
-                    </Trans>
-                ),
-            },
-        });
-        if (!password) return;
-
-        await uploadMetrics(password);
         if (isMedium) {
             SchedulePostModalRef.open({
                 action: 'update',
