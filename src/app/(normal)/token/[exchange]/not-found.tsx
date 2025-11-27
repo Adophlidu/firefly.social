@@ -9,8 +9,9 @@ import { useParams } from '@/esm/navigation.js';
 export default function NotFoundToken() {
     const params = useParams<{ exchange: string; slug?: string[] }>();
     const isCex = params.exchange === 'cex';
+    const isDex = params.exchange === 'dex';
     const slug = params.slug || [];
-    const symbol = decodeURIComponent(isCex ? slug[0] : slug[1]);
+    const symbol = decodeURIComponent(isCex || isDex ? slug[0] : params.exchange);
 
     return (
         <NotFound
