@@ -14,6 +14,8 @@
 
 # dev only
 com.chrome.devtools.json
+statoscope.json
+statoscope.html
 
 # production
 /build

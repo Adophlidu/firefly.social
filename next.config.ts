@@ -4,8 +4,8 @@ import createBundleAnalyzer from '@next/bundle-analyzer';
 import { execSync } from 'child_process';
 import { createRequire } from 'module';
 import type { NextConfig } from 'next';
-import createStatoscope from 'next-statoscope';
 import { resolve } from 'path';
+import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
 
 const require = createRequire(import.meta.url);
 
@@ -235,6 +235,21 @@ const config: NextConfig = {
             ],
         );
 
+        // Add Statoscope plugin if enabled (only for client builds)
+        if (process.env.ANALYZE_STATOSCOPE === 'true') {
+            const outputPath = resolve(__dirname);
+            config.plugins.push(
+                new StatoscopeWebpackPlugin({
+                    saveReportTo: resolve(outputPath, 'statoscope.html'),
+                    saveStatsTo: resolve(outputPath, 'statoscope.json'),
+                    saveOnlyStats: true,
+                    watchMode: false,
+                    compressor: 'gzip',
+                    extensions: [],
+                }),
+            );
+        }
+
         config.experiments = {
             ...config.experiments,
             backCompat: false,
@@ -329,16 +344,4 @@ const withBundleAnalyzer = createBundleAnalyzer({
     analyzerMode: 'static',
 });
 
-const withStatoscope = createStatoscope({
-    enabled: process.env.ANALYZE_STATOSCOPE === 'true',
-    open: false,
-    saveReportTo: 'statoscope.html',
-    saveStatsTo: 'statoscope.json',
-    saveOnlyStats: true,
-    additionalStats: [],
-    watchMode: false,
-    compressor: 'gzip',
-    extensions: [],
-});
-
-export default withBundleAnalyzer(withStatoscope(config));
+export default withBundleAnalyzer(config);
