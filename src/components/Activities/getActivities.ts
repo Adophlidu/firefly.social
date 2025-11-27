@@ -27,14 +27,15 @@ function createActivitiesFetcher(
     ) {
         switch (source) {
             case Source.Article: {
-                if (platforms?.includes(ActivitiesPlatform.Snapshot)) {
+                const articlePlatforms = platforms?.length
+                    ? compact(platforms.map((x) => resolveArticlePlatform(x)))
+                    : undefined;
+
+                if (articlePlatforms?.length === 0) {
                     return createPageable([], createIndicator(undefined, pageParam));
                 }
 
-                const result = await fetchArticles(
-                    createIndicator(undefined, pageParam),
-                    compact(platforms ? platforms.map((x) => resolveArticlePlatform(x)) : []),
-                );
+                const result = await fetchArticles(createIndicator(undefined, pageParam), articlePlatforms);
                 return {
                     ...result,
                     data: result.data.map((item) => ({
