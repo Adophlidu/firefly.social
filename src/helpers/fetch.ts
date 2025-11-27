@@ -16,7 +16,6 @@ function isFireflyApi(url: URL) {
         'https://api-dev.firefly.land',
         'https://stamp.firefly.land',
         'https://stamp-dev.firefly.land',
-        'https://media.firefly.land',
         'https://mask-network.firefly.land',
         'https://mask-network-dev.firefly.land',
     ].includes(url.origin);
@@ -26,13 +25,17 @@ function isFireflyLandApi(url: URL) {
     return ['https://api.firefly.land', 'https://api-dev.firefly.land'].includes(url.origin);
 }
 
-function resolveRequestUrl(input: RequestInfo | URL) {
-    return input instanceof URL ? input : parseUrl(typeof input === 'string' ? input : input.url);
+function isStaticMedia(url: URL) {
+    // Static S3 content doesn't need API headers
+    return ['https://media.firefly.land'].includes(url.origin);
 }
 
-function resolveRequestInput(input: RequestInfo | URL) {
-    const url = typeof input === 'string' ? input : input instanceof Request ? input.url : undefined;
-    return isServer && url?.startsWith('/') ? urlcat(SITE_URL, url) : input;
+function resolveRequestUrl(input: RequestInfo | URL) {
+    if (input instanceof URL) return input;
+
+    const urlFromInput = input instanceof Request ? input.url : input;
+    const url = isServer && urlFromInput.startsWith('/') ? urlcat(SITE_URL, urlFromInput) : urlFromInput;
+    return parseUrl(url);
 }
 
 function defaultFetcher(input: RequestInfo | URL, init?: RequestInit | undefined) {
@@ -50,12 +53,12 @@ function defaultFetcher(input: RequestInfo | URL, init?: RequestInit | undefined
     });
 }
 export interface NextFetchersOptions {
+    /** Label the request as static media */
+    forceStaticMedia?: boolean;
     /** Threat non-2?? as valid response */
     noStrictOK?: boolean;
     /** Avoid adding a content-type when fetching JSON. */
     noDefaultContentType?: boolean;
-    /** Generates an unequal request key. Requests that share the same key will be squashed into a single one. */
-    resolver?: (request: Request) => Promise<string>;
 }
 
 export async function fetch(
@@ -63,33 +66,43 @@ export async function fetch(
     init?: RequestInit,
     options?: NextFetchersOptions,
 ): Promise<Response> {
-    const requestInput = resolveRequestInput(input);
+    const u = resolveRequestUrl(input);
+
+    // For static media, use native fetch directly to avoid unnecessary overhead
+    if ((u && isStaticMedia(u)) || options?.forceStaticMedia) {
+        if (!options?.forceStaticMedia) {
+            console.warn(
+                `[fetch] try to fetch a static media (url=${u?.toString()}), better use the native fetch directly to avoid unnecessary overhead.`,
+            );
+        }
+        return originalFetch(input, init);
+    }
+
     let response: Response;
 
     try {
-        response = await defaultFetcher(requestInput, init);
+        response = await defaultFetcher(u ?? input, init);
     } catch (error) {
-        // TypeError: Failed to fetch typically indicates network issues
         if (error instanceof TypeError && error.message.includes('fetch')) {
             throw new NetworkError(error.message);
         }
-        // Re-throw other errors
         throw error;
     }
 
+    // If the request is not successful and the network is offline, throw a network error
     if (!response.ok && bom.navigator?.onLine === false) throw new NetworkError();
 
-    // on client the <AuthGuard /> warning will be triggered when a firefly api request is 403 forbidden
+    // On client side, the <AuthGuard /> warning will be triggered when a firefly api request is 403 forbidden
     if (response.status === 403 && bom.document) {
-        const u = resolveRequestUrl(input);
         if (u && isFireflyLandApi(u)) {
             dispatchCustomEvent(EVENT_FORBIDDEN);
             throw new ForbiddenError();
         }
     }
 
+    // If the request is not successful and the noStrictOK option is not set, throw a fetch error
     if (!response.ok && !options?.noStrictOK) {
-        const fetchError = await FetchError.from(requestInput, response);
+        const fetchError = await FetchError.from(u ?? input, response);
         fetchError.toThrow();
     }
     return response;

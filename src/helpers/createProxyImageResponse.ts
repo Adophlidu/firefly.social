@@ -4,6 +4,7 @@ import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 export async function createProxyImageResponse(url: string) {
     const response = await fetch(url);
     if (!response.ok) return createErrorResponseJson('Unable to access the image');
+
     return new Response(response.body, {
         headers: {
             'Content-Type': response.headers.get('content-type') || 'application/octet-stream',
