@@ -2875,6 +2875,9 @@ msgstr ""
 msgid "No activity yet"
 msgstr ""
 
+msgid "User Name is not available"
+msgstr ""
+
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr ""
 

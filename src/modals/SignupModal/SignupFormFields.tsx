@@ -117,8 +117,8 @@ function getFieldsBySource(source: SocialSource): Array<{
                     if (formatCheck !== true) return formatCheck;
 
                     // TODO: optimize availability check with debounce
-                    // const isAvailable = await checkHandleAvailability(source, value);
-                    // if (!isAvailable) return t`User Name is not available`;
+                    const isAvailable = await checkHandleAvailability(source, value);
+                    if (!isAvailable) return t`User Name is not available`;
 
                     return true;
                 },

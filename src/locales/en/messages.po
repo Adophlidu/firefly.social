@@ -2870,6 +2870,9 @@ msgstr "Remove Poll"
 msgid "No activity yet"
 msgstr "No activity yet"
 
+msgid "User Name is not available"
+msgstr "User Name is not available"
+
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 
