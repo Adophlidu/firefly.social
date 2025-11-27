@@ -1,10 +1,10 @@
 import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 
-import { SITE_URL } from '@/constants/index.js';
+import { FIREFLY_S3_URL, SITE_URL } from '@/constants/index.js';
 
 const bgImageUrl = urlcat(SITE_URL, '/image/sparks-default-card.png');
-const defaultAvatar = 'https://media.firefly.land/og/sparks_account_avatar.png';
+const defaultAvatar = urlcat(FIREFLY_S3_URL, '/og/sparks_account_avatar.png');
 
 /* eslint-disable @next/next/no-img-element */
 function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width' | 'height' | 'style'>) {

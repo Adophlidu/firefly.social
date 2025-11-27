@@ -2,7 +2,7 @@ import { parseUrl } from '@dimensiondev/utils';
 import { compact, last, uniqWith } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { FIREFLY_S3_DOMAIN } from '@/constants/index.js';
+import { FIREFLY_S3_URL } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isIpfsCID } from '@/helpers/isIpfsCID.js';
@@ -19,7 +19,7 @@ function getCoverUriFromUrl(url: string) {
     const parsed = parseUrl(url);
     if (!parsed) return '';
 
-    if (parsed.origin === FIREFLY_S3_DOMAIN && url.endsWith('.m3u8')) {
+    if (parsed.origin === FIREFLY_S3_URL && url.endsWith('.m3u8')) {
         return url.replace(/[^/]+\.m3u8$/, 'thumbnail.jpg');
     }
 

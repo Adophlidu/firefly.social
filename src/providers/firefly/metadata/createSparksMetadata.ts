@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
-import { SITE_URL_OFFICIAL } from '@/constants/index.js';
+import { FIREFLY_S3_URL, SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
 export function createSparksMetadata(): Metadata {
@@ -9,7 +9,7 @@ export function createSparksMetadata(): Metadata {
     const description =
         'Unlock Genesis Sparks status to enjoy faster points, premium invite rewards, and a guaranteed airdrop.';
     const url = urlcat(SITE_URL_OFFICIAL, '/sparks');
-    const ogImageUrl = 'https://media.firefly.land/og/genesis_sparks.png';
+    const ogImageUrl = urlcat(FIREFLY_S3_URL, '/og/genesis_sparks.png');
 
     return createSiteMetadata('/sparks', {
         title,

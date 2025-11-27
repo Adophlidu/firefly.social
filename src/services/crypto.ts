@@ -2,7 +2,7 @@ import crypto from 'crypto';
 
 import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
+import { FIREFLY_ROOT_URL_DEV } from '@/constants/index.js';
 import { settings } from '@/settings/index.js';
 
 export function decryptAes256(cipherText: string, key: string, iv: string) {
@@ -17,7 +17,7 @@ export function encryptAes256(plaintext: string, key: string, iv: string) {
 
 export function encryptPasscode(passcode: string) {
     const pemContent =
-        settings.FIREFLY_ROOT_URL === FIREFLY_DEV_ROOT_URL
+        settings.FIREFLY_ROOT_URL === FIREFLY_ROOT_URL_DEV
             ? env.external.NEXT_PUBLIC_PASSCODE_PUBLIC_KEY_STAGING
             : env.external.NEXT_PUBLIC_PASSCODE_PUBLIC_KEY;
 

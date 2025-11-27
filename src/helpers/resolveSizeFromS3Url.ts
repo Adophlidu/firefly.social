@@ -1,10 +1,10 @@
 import { parseUrl } from '@dimensiondev/utils';
 
-import { FIREFLY_S3_DOMAIN } from '@/constants/index.js';
+import { FIREFLY_S3_URL } from '@/constants/index.js';
 
 export function resolveSizeFromS3Url(s3Url: string) {
     const u = parseUrl(s3Url);
-    if (u?.origin !== FIREFLY_S3_DOMAIN) return null;
+    if (u?.origin !== FIREFLY_S3_URL) return null;
 
     const width = Number.parseInt(u.searchParams.get('w') || '', 10);
     const height = Number.parseInt(u.searchParams.get('h') || '', 10);

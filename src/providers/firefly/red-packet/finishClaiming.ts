@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
+import { FIREFLY_ROOT_URL_DEV } from '@/constants/index.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
@@ -17,7 +17,7 @@ export async function finishClaiming(
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/finishClaiming');
     const session = getSessionFromStorage(SessionType.Firefly);
     const accountId = session?.profileId
-        ? `${settings.FIREFLY_ROOT_URL === FIREFLY_DEV_ROOT_URL ? 'dev' : 'prod'}:${session.profileId}`
+        ? `${settings.FIREFLY_ROOT_URL === FIREFLY_ROOT_URL_DEV ? 'dev' : 'prod'}:${session.profileId}`
         : undefined;
     return fireflySessionHolder.fetch<FireflyRedPacketAPI.Response<string>>(url, {
         method: 'POST',

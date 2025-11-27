@@ -1,9 +1,10 @@
 import { compose } from '@dimensiondev/utils';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
+import urlcat from 'urlcat';
 
 import { SparksAccountOgImage } from '@/app/api/og/sparks_account/[accountId]/image/SparksAccountOgImage.js';
-import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/index.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK, FIREFLY_S3_URL } from '@/constants/index.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
@@ -12,7 +13,7 @@ import { FansStatus, OgStatus } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import type { NextRequestContext } from '@/types/utility.js';
 
-const sparksDefaultOgImage = 'https://media.firefly.land/og/genesis_sparks.png';
+const sparksDefaultOgImage = urlcat(FIREFLY_S3_URL, '/og/genesis_sparks.png');
 
 export const GET = compose(
     withRequestErrorHandler(),
