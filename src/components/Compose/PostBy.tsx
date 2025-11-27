@@ -37,6 +37,7 @@ export function PostBy() {
             }
             if (
                 type !== 'compose' &&
+                type !== 'quote' &&
                 sealedSource &&
                 postFeatures.anonymousPost(sealedSource) &&
                 sealedSource !== source

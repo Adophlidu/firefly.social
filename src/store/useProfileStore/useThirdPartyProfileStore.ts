@@ -33,8 +33,9 @@ const state = createProfileState(
 
             state.upgrade();
 
+            let session: ThirdPartySessionType | null = null;
             try {
-                const session = (await getSession()) as unknown as ThirdPartySessionType;
+                session = (await getSession()) as unknown as ThirdPartySessionType;
                 if (!session?.user || !session.token || session.type === SessionType.Twitter) return;
 
                 const thirdPartySession = session.user?.id
@@ -90,7 +91,7 @@ const state = createProfileState(
                     enqueueForbiddenMessage();
                     return;
                 }
-                if (error instanceof FireflyAlreadyBoundError) {
+                if (error instanceof FireflyAlreadyBoundError && session?.type === SessionType.Apple) {
                     enqueueWarningMessage(t`This Apple account is already linked to another Firefly account.`);
                     return;
                 }
