@@ -7,6 +7,8 @@ import { decryptAppScanLoginEncryptedData } from '@/actions/decryptAppScanLoginE
 import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { DecryptionError } from '@/constants/error.js';
+import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
@@ -94,7 +96,6 @@ export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: str
         async setAsCurrent(account) {
             if (account.profile.source === Source.Lens) {
                 await lensSessionHolder?.resumeSession(account.session as LensSession, true);
-                await runInSafeAsync(() => setPrivyAsLensManager(account));
                 return;
             }
             const sessionHolder = resolveSessionHolderFromProfileSource(account.profile.source);
@@ -108,6 +109,12 @@ export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: str
 
         await queryClient.refetchQueries({ queryKey: ['all-profiles'] });
         await queryClient.refetchQueries({ queryKey: ['allConnections'] });
+
+        const lensProfile = getCurrentProfileFromStorage(Source.Lens);
+        const currentLensAccount = accounts.find((x) => isSameProfile(x.profile, lensProfile));
+        if (currentLensAccount) {
+            await runInSafeAsync(() => setPrivyAsLensManager(currentLensAccount));
+        }
     }
 
     return result;
