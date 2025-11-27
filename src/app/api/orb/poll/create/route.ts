@@ -31,7 +31,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         method: 'POST',
         body: JSON.stringify({
             publicationType: 'TEXT_ONLY',
-            ...parsedData,
+            ...parsedData.data,
         }),
         headers: {
             'x-access-token': lensToken,

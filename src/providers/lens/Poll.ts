@@ -87,7 +87,7 @@ class LensPoll implements Provider {
                     gas: BigInt(transaction.gasLimit),
                     maxFeePerGas: BigInt(transaction.maxFeePerGas),
                     maxPriorityFeePerGas: BigInt(transaction.maxPriorityFeePerGas),
-                    nonce: transaction.nonce,
+                    // nonce: transaction.nonce,
                     paymaster: transaction.paymaster,
                     paymasterInput: transaction.paymasterInput,
                     to: transaction.to,
