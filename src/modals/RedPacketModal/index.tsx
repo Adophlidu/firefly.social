@@ -42,7 +42,7 @@ interface RedPacketModalOpenProps {
     initialPath?: string;
 }
 type Props = {
-    ref: React.Ref<SingletonModalRefCreator<RedPacketModalOpenProps | void>>;
+    ref: React.Ref<SingletonModalRefCreator<RedPacketModalOpenProps | void, string | null | void>>;
 };
 
 export function RedPacketModal({ ref }: Props) {
@@ -63,4 +63,4 @@ export function RedPacketModal({ ref }: Props) {
     );
 }
 
-export const RedPacketModalRef = new SingletonModal<RedPacketModalOpenProps | void>();
+export const RedPacketModalRef = new SingletonModal<RedPacketModalOpenProps | void, string | null | void>();

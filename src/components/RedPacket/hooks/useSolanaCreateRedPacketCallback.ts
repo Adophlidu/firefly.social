@@ -23,6 +23,7 @@ import { rightShift, toFixed } from '@/helpers/number.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import RedPacketIDL from '@/idls/redpacket.json' with { type: 'json' };
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
+import { createCover } from '@/providers/firefly/red-packet/createCover.js';
 import { getTokenAccountByMint } from '@/providers/solana/getTokenAccountByMint.js';
 import { createWithNativeToken } from '@/providers/solana/red-packet/createWithNativeToken.js';
 import { createWithSplToken } from '@/providers/solana/red-packet/createWithSplToken.js';
@@ -161,23 +162,25 @@ export function useSolanaCreateRedPacketCallback(
             });
 
             enqueueSuccessMessage(t`Lucky drop created successfully`);
+            const cover = await createCover(metadata);
+            return cover.coverImageUrl;
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to create red packet`);
             throw error;
         }
     }, [
-        shares,
         token,
         isNativeToken,
+        shares,
+        maxShares,
+        totalAmount,
         randomType,
         message,
         shareFromName,
         account,
-        chainId,
-        totalAmount,
-        claimRequirements,
         total,
         themeId,
-        maxShares,
+        claimRequirements,
+        chainId,
     ]);
 }

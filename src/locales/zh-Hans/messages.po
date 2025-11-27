@@ -1671,9 +1671,6 @@ msgstr "查看详情"
 msgid "Try again"
 msgstr "请重试"
 
-msgid "Failed to create image payload."
-msgstr "创建图片失败。"
-
 msgid "Reset Password"
 msgstr "重置密码"
 

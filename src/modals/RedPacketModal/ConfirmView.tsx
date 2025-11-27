@@ -444,8 +444,9 @@ export default memo(function ConfirmView() {
                 <ActionButton
                     className="rounded-lg"
                     onClick={async () => {
-                        await handleCreate();
-                        RedPacketModalRef.close();
+                        const coverImageUrl = await handleCreate();
+                        // Technically, the encrypted cover image is all we need.
+                        RedPacketModalRef.close(coverImageUrl);
                     }}
                     loading={creatingRedPacket || creatingTheme || loading}
                 >

@@ -87,6 +87,8 @@ interface ComposeBaseState {
 
     // for failed schedule post, show the title
     isFailedSchedulePost?: boolean;
+
+    isBusy?: boolean;
 }
 
 interface ComposeState extends ComposeBaseState {
@@ -116,6 +118,8 @@ interface ComposeState extends ComposeBaseState {
 
     // for failed schedule post, show the title
     updateIsFailedSchedulePost: (isFailedSchedulePost: boolean) => void;
+
+    updateIsBusy: (isBusy: boolean) => void;
 
     // operations upon all posts
     enableSource: (source: SocialSource) => void;
@@ -283,6 +287,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         updateIsFailedSchedulePost: (isFailedSchedulePost) =>
             set((state) => {
                 state.isFailedSchedulePost = isFailedSchedulePost;
+            }),
+        updateIsBusy: (isBusy) =>
+            set((state) => {
+                state.isBusy = isBusy;
             }),
         updateSealedSource: (source) =>
             set((state) => {
@@ -681,6 +689,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     focused: false,
                     posts: [createInitSinglePostState(id)],
                     isFailedSchedulePost: false,
+                    isBusy: false,
                 } satisfies ComposeBaseState;
 
                 Object.assign(state, nextState);

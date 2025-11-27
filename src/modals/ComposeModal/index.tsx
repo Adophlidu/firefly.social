@@ -5,31 +5,26 @@ import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LexicalComposer } from '@lexical/react/LexicalComposer.js';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { RouterProvider } from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
 import { compact, values } from 'lodash-es';
-import { useCallback, useMemo, useRef } from 'react';
-import { useAsync, useUpdateEffect } from 'react-use';
+import { useCallback, useRef } from 'react';
+import { useUpdateEffect } from 'react-use';
 import urlcat from 'urlcat';
 
 import { router } from '@/components/Compose/ComposeRouter.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
-import { CharTag, FileMimeType, type SocialSource } from '@/constants/enum.js';
-import { EMPTY_LIST, RP_HASH_TAG, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
+import { CharTag, type SocialSource } from '@/constants/enum.js';
+import { EMPTY_LIST, SITE_URL } from '@/constants/index.js';
+import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
-import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
-import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
@@ -37,14 +32,12 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/ComposeModal/types.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
-import { createCover } from '@/providers/firefly/red-packet/createCover.js';
 import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { Chars } from '@/types/chars.js';
-import type { RedPacketMetadata } from '@/types/rp.js';
 
 export enum CloseAction {
     Saved = 'saved',
@@ -77,7 +70,6 @@ function ComposeModalUI({ ref }: Props) {
     const {
         posts,
         addUrl,
-        addImage,
         type,
         updateType,
         updateAvailableSources,
@@ -89,9 +81,9 @@ function ComposeModalUI({ ref }: Props) {
         clear,
         updateIsFailedSchedulePost,
         updateDisabledSources,
+        isBusy,
     } = useComposeStateStore();
     const { clearScheduleTime } = useComposeScheduleStateStore();
-    const { rpPayload, availableSources } = useCompositePost();
 
     const [editor] = useLexicalComposerContext();
 
@@ -222,54 +214,6 @@ function ComposeModalUI({ ref }: Props) {
         return CloseAction.Discard;
     }, [isSmall, profilesAll, dispatch]);
 
-    const promoteLink = useMemo(() => {
-        const preferSource = SORTED_SOCIAL_SOURCES.find((x) => availableSources.includes(x) && profilesAll[x]);
-        if (!preferSource) return SITE_URL;
-        const preferProfile = profilesAll[preferSource]!;
-        return urlcat(location.origin, getProfileUrl(preferProfile));
-    }, [profilesAll, availableSources]);
-
-    // Avoid recreating post content for red packet
-    const { loading: encryptRedPacketProcessing } = useAsync(async () => {
-        const { cursor } = useComposeStateStore.getState();
-        const compositePost = getCompositePost(cursor);
-        if (!rpPayload) return;
-        const firstChar = compositePost?.chars[0];
-        if (firstChar && typeof firstChar !== 'string' && 'tag' in firstChar && firstChar.tag === CharTag.FIREFLY_RP)
-            return;
-
-        try {
-            const result = await createCover(rpPayload.metadata as RedPacketMetadata);
-            if (!result.coverImageUrl) {
-                throw new Error('Failed to create red packet cover.');
-            }
-            const coverBlob = await fetchImageAsPNG(result.coverImageUrl, true);
-
-            const chars: Chars = [
-                {
-                    tag: CharTag.FIREFLY_RP,
-                    content: RP_HASH_TAG,
-                    visible: false,
-                },
-                ...(compositePost ? compositePost.chars : []),
-                t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop!`,
-                {
-                    tag: CharTag.PROMOTE_LINK,
-                    content: promoteLink,
-                    visible: false,
-                    sortNo: 5,
-                },
-            ];
-
-            updateChars(chars);
-            setEditorContent(chars);
-            addImage(createLocalMediaObject(new File([coverBlob], 'image.png', { type: FileMimeType.PNG }), true), 0);
-        } catch (error) {
-            enqueueMessageFromError(error, <Trans>Failed to create image payload.</Trans>);
-            throw error;
-        }
-    }, [rpPayload, promoteLink, updateChars, setEditorContent, addImage]);
-
     useUpdateEffect(() => {
         if (type !== 'quote') return;
         const { cursor } = useComposeStateStore.getState();
@@ -306,7 +250,7 @@ function ComposeModalUI({ ref }: Props) {
         >
             <div className="relative flex h-screen w-screen flex-col overflow-auto bg-lightBottom transition-all dark:bg-darkBottom dark:text-gray-950 md:h-auto md:w-[600px] md:flex-[0] md:rounded-xl lg:grow-0">
                 {/* Loading */}
-                {encryptRedPacketProcessing ? (
+                {isBusy ? (
                     <div className="absolute inset-0 z-50 flex items-center justify-center">
                         <LoadingIcon />
                     </div>

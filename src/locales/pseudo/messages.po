@@ -1666,9 +1666,6 @@ msgstr ""
 msgid "Try again"
 msgstr ""
 
-msgid "Failed to create image payload."
-msgstr ""
-
 msgid "Reset Password"
 msgstr ""
 

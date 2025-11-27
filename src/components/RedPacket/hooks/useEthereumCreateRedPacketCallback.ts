@@ -19,6 +19,7 @@ import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { createRedPacketParams } from '@/providers/ethereum/red-packet/createRedPacketParams.js';
+import { createCover } from '@/providers/firefly/red-packet/createCover.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -191,21 +192,21 @@ export function useEthereumCreateRedPacketCallback(
                 metadata,
             });
 
-            if (coverImage) {
-                updateRpPayload({
-                    payloadImage: coverImage,
-                    claimRequirements: claimRequirements ?? EMPTY_LIST,
-                    publicKey,
-                    metadata,
-                });
-            }
+            updateRpPayload({
+                payloadImage: coverImage,
+                claimRequirements: claimRequirements ?? EMPTY_LIST,
+                publicKey,
+                metadata,
+            });
 
             enqueueSuccessMessage(t`Lucky drop created successfully`);
+            const cover = await createCover(metadata);
+            return cover.coverImageUrl;
         } catch (error) {
             if (error instanceof Error) {
                 enqueueMessageFromError(error, t`Failed to create red packet`);
             }
             throw error;
         }
-    }, [redPacketSettings, publicKey, account, chainId, coverImage, claimRequirements, networkType]);
+    }, [redPacketSettings, chainId, account, publicKey, networkType, coverImage, claimRequirements]);
 }

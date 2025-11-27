@@ -58,8 +58,8 @@ export const ComposeUI = memo(function ComposeUI() {
         async (files: File[]) => {
             const validFiles = files.filter((file) => isMediaFileType(file.type));
             if (!validFiles.length) return;
-            const images = validFiles.filter((file) => isImageFileType(file.type));
-            const validImages = [...images].filter((file) => {
+            const validImages = validFiles.filter((file) => {
+                if (!isImageFileType(file.type)) return false;
                 const message = isValidPostImage(availableSources, file);
                 if (message) {
                     enqueueErrorMessage(message);
