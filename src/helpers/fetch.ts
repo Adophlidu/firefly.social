@@ -35,7 +35,7 @@ function resolveRequestUrl(input: RequestInfo | URL) {
 
     const urlFromInput = input instanceof Request ? input.url : input;
     const url = isServer && urlFromInput.startsWith('/') ? urlcat(SITE_URL, urlFromInput) : urlFromInput;
-    return parseUrl(url);
+    return parseUrl(url, { autoFixProtocol: false });
 }
 
 function defaultFetcher(input: RequestInfo | URL, init?: RequestInit | undefined) {

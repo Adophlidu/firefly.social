@@ -1,3 +1,7 @@
+interface ParseUrlOptions {
+    autoFixProtocol?: boolean;
+}
+
 /**
  * Parses the input URL string and returns a URL object.
  * If the input URL is invalid, it tries prepending "https://" and parses again.
@@ -6,8 +10,8 @@
  * @param {string} url - The URL string to be parsed.
  * @returns {URL | null} - The parsed URL object or null if parsing fails.
  */
-export function parseUrl(url: string) {
+export function parseUrl(url: string, { autoFixProtocol = true }: ParseUrlOptions = {}) {
     if (URL.canParse(url)) return new URL(url);
-    if (URL.canParse(`https://${url}`)) return new URL(`https://${url}`);
+    if (autoFixProtocol && URL.canParse(`https://${url}`)) return new URL(`https://${url}`);
     return null;
 }
