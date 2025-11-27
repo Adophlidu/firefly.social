@@ -5,7 +5,7 @@ import { sendEip712Transaction } from 'viem/zksync';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
-import { NotImplementedError, WalletAddressMismatchError } from '@/constants/error.js';
+import { AuthenticationError, NotImplementedError, WalletAddressMismatchError } from '@/constants/error.js';
 import { LENS_CHAIN_ID } from '@/constants/index.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
@@ -60,7 +60,7 @@ class LensPoll implements Provider {
         allOptions?: PollOption[];
     }): Promise<VoteResponseData> {
         const currentProfile = getCurrentProfileFromStorage(Source.Lens) as Profile;
-        if (!currentProfile?.profileId) throw new Error('No profile found, please login first.');
+        if (!currentProfile?.profileId) throw new AuthenticationError('No profile found, please login first.');
 
         const walletClient = await getWalletClientRequired(wagmiConfig, {
             chainId: LENS_CHAIN_ID,

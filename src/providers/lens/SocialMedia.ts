@@ -56,7 +56,7 @@ import { compact, first, flatMap, uniqBy, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { FireflyPlatform, MetadataAttributeType, Source, SourceInURL } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
+import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
@@ -453,7 +453,7 @@ class LensSocialMedia implements Provider {
             return getAccountWithStatsById(profileId);
         }
         const result = await ensureLensResult(fetchAccount(getLensClient(), { address: safeEvmAddress(profileId) }));
-        if (!result) throw new Error('No profile found');
+        if (!result) throw new NotFoundError('No profile found');
 
         return formatLensProfileV3(result);
     }
