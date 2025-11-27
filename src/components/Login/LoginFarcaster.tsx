@@ -51,10 +51,9 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 
 async function loginFarcaster(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
-        useGlobalState.getState().setAsyncStatus(Source.Farcaster, AsyncStatus.Pending);
-
         const account = await createAccount();
 
+        useGlobalState.getState().setAsyncStatus(Source.Farcaster, AsyncStatus.Pending);
         const done = await addAccount(account, {
             ...options,
             bindLensManagerOnSyncing: true,
