@@ -1,5 +1,5 @@
 import { parseUrl } from '@dimensiondev/utils';
-import { compact, last } from 'lodash-es';
+import { compact, last, uniqBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_S3_DOMAIN } from '@/constants/index.js';
@@ -37,14 +37,17 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
         return true;
     });
 
-    const oembedUrls = getEmbedUrls(
-        cast.text,
-        compact(
-            embedUrls
-                .filter((x) => (x.type ? [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type) : true))
-                .map((x) => x.url),
-        ),
-    ).filter((x) => isTopLevelDomain(x) && !attachments.some((a) => a.url === x));
+    const oembedUrls = uniqBy(
+        getEmbedUrls(
+            cast.text,
+            compact(
+                embedUrls
+                    .filter((x) => (x.type ? [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type) : true))
+                    .map((x) => x.url),
+            ),
+        ).filter((x) => isTopLevelDomain(x) && !attachments.some((a) => a.url === x)),
+        (url: string) => url.replace(/\/$/, ''),
+    );
 
     const defaultContent = { content: cast.text, oembedUrl: last(oembedUrls), oembedUrls };
 
