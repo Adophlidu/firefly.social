@@ -94,6 +94,7 @@ export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: str
         async setAsCurrent(account) {
             if (account.profile.source === Source.Lens) {
                 await lensSessionHolder?.resumeSession(account.session as LensSession, true);
+                await runInSafeAsync(() => setPrivyAsLensManager(account));
                 return;
             }
             const sessionHolder = resolveSessionHolderFromProfileSource(account.profile.source);
@@ -107,11 +108,6 @@ export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: str
 
         await queryClient.refetchQueries({ queryKey: ['all-profiles'] });
         await queryClient.refetchQueries({ queryKey: ['allConnections'] });
-
-        const lensAccounts = accounts.filter((x) => x.profile.profileSource === Source.Lens);
-        if (lensAccounts.length === 1) {
-            await runInSafeAsync(() => setPrivyAsLensManager(lensAccounts[0]));
-        }
     }
 
     return result;
