@@ -16,14 +16,13 @@ import {
     MIN_PROFILE_HANDLE_SIZE,
 } from '@/constants/limitation.js';
 import { FARCASTER_USERNAME_REGEXP, LENS_USERNAME_REGEXP } from '@/constants/regexp.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ProfileAvatarSelector } from '@/modals/SignupModal/ProfileAvatarSelector.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 
 interface SignupFormFieldsProps {
     source: SocialSource;
     disabled?: boolean;
+    profileExisted?: boolean;
 }
 
 function isBlank(str: string) {
@@ -54,11 +53,6 @@ function checkHandleFormat(source: SocialSource, handle: string): true | string 
             safeUnreachable(source);
             return true;
     }
-}
-async function checkHandleAvailability(source: SocialSource, handle: string): Promise<boolean> {
-    const profile = await runInSafeAsync(() => resolveSocialMediaProvider(source).getProfileByHandle(handle));
-
-    return !profile;
 }
 
 function getFieldsBySource(source: SocialSource): Array<{
@@ -116,10 +110,6 @@ function getFieldsBySource(source: SocialSource): Array<{
                     const formatCheck = checkHandleFormat(source, value);
                     if (formatCheck !== true) return formatCheck;
 
-                    // TODO: optimize availability check with debounce
-                    const isAvailable = await checkHandleAvailability(source, value);
-                    if (!isAvailable) return t`User Name is not available`;
-
                     return true;
                 },
             },
@@ -144,7 +134,11 @@ function getFieldsBySource(source: SocialSource): Array<{
     ];
 }
 
-export const SignupFormFields = memo<SignupFormFieldsProps>(function SignupFormFields({ source, disabled = false }) {
+export const SignupFormFields = memo<SignupFormFieldsProps>(function SignupFormFields({
+    source,
+    disabled = false,
+    profileExisted = false,
+}) {
     const fields = useMemo(() => getFieldsBySource(source), [source]);
 
     return (
@@ -186,7 +180,13 @@ export const SignupFormFields = memo<SignupFormFieldsProps>(function SignupFormF
                                 />
                             ) : null}
                         </div>
-                        <ErrorMessage className="mt-1.5" name={field.name} />
+                        {profileExisted && field.name === 'handle' ? (
+                            <p className="mt-1.5 text-xs font-medium leading-4 text-fail">
+                                <Trans>User Name is not available</Trans>
+                            </p>
+                        ) : (
+                            <ErrorMessage className="mt-1.5" name={field.name} />
+                        )}
                     </div>
                 );
             })}
