@@ -1,11 +1,12 @@
 import { parseUrl } from '@dimensiondev/utils';
-import { compact, last, uniqBy } from 'lodash-es';
+import { compact, last, uniqWith } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_S3_DOMAIN } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isIpfsCID } from '@/helpers/isIpfsCID.js';
+import { isSameUrl } from '@/helpers/isSameUrl.js';
 import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
 import { resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveSizeFromS3Url } from '@/helpers/resolveSizeFromS3Url.js';
@@ -37,7 +38,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
         return true;
     });
 
-    const oembedUrls = uniqBy(
+    const oembedUrls = uniqWith(
         getEmbedUrls(
             cast.text,
             compact(
@@ -46,7 +47,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
                     .map((x) => x.url),
             ),
         ).filter((x) => isTopLevelDomain(x) && !attachments.some((a) => a.url === x)),
-        (url: string) => url.replace(/\/$/, ''),
+        (a, b) => isSameUrl(a, b),
     );
 
     const defaultContent = { content: cast.text, oembedUrl: last(oembedUrls), oembedUrls };
