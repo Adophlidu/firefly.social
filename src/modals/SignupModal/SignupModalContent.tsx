@@ -11,6 +11,7 @@ import { refreshPageCache } from '@/actions/refreshPageCache.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { FetchError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentProfileAllFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
@@ -131,15 +132,23 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose, on
             } catch (error) {
                 if (isUserRejectErrorInWallet(error)) {
                     enqueueWarningMessage(getWarningMessageFromError(error));
-                } else {
-                    enqueueErrorMessage(
-                        <Trans>
-                            Failed to create {resolveSourceName(source)} profile.
-                            {error instanceof Error ? error.message : ''}
-                        </Trans>,
-                        { error },
-                    );
+                    return;
                 }
+                if (error instanceof FetchError) {
+                    const message = error.errorMessage;
+                    if (message) {
+                        enqueueErrorMessage(message, { error });
+                        return;
+                    }
+                }
+
+                enqueueErrorMessage(
+                    <Trans>
+                        Failed to create {resolveSourceName(source)} profile.
+                        {error instanceof Error ? error.message : ''}
+                    </Trans>,
+                    { error },
+                );
                 throw error;
             } finally {
                 onLoadingChange(false);
