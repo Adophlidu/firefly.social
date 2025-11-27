@@ -227,6 +227,15 @@ const config: NextConfig = {
         if (!config.module.rules) config.module.rules = [];
         config.output.environment = { asyncFunction: true };
 
+        // Suppress bigint-buffer warning about failed to load bindings
+        config.ignoreWarnings = [
+            ...(config.ignoreWarnings || []),
+            {
+                module: /bigint-buffer/,
+            },
+            /bigint.*Failed to load bindings/,
+        ];
+
         config.plugins.push(
             ...[
                 new context.webpack.IgnorePlugin({
