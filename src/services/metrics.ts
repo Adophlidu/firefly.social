@@ -1,4 +1,4 @@
-import { safeUnreachable } from '@dimensiondev/utils';
+import { parseJson, safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { jwtDecode } from 'jwt-decode';
 import { compact } from 'lodash-es';
@@ -153,7 +153,6 @@ export async function uploadMetrics(passcode: string) {
 
 export async function downloadAccounts() {
     const response = await downloadMetaInfo();
-
     return response.metrics;
 }
 
@@ -227,10 +226,6 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
         const source = resolveSocialSource(platform);
         if (!source) continue;
 
-        const decryptedData =
-            source !== Source.Twitter
-                ? (JSON.parse(decryptCipherText(passcode, ciphertext)) as CommonMetricsData)
-                : null;
         const now = Date.now();
         const profileState = getProfileState(source);
         const sessionHolder = resolveSessionHolderFromProfileSource(source);
@@ -246,7 +241,11 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
 
         switch (source) {
             case Source.Lens: {
-                const data = decryptedData as LensMetricsData;
+                const data = parseJson<LensMetricsData>(decryptCipherText(passcode, ciphertext));
+                if (!data) {
+                    console.warn('[mergeMetrics] Failed to decrypt lens metrics data');
+                    continue;
+                }
                 const session = new LensSession(
                     profileId,
                     data.token,
@@ -289,7 +288,12 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
             }
 
             case Source.Farcaster: {
-                const data = decryptedData as FarcasterMetricsData;
+                const data = parseJson<FarcasterMetricsData>(decryptCipherText(passcode, ciphertext));
+                if (!data) {
+                    console.warn('[mergeMetrics] Failed to decrypt farcaster metrics data');
+                    continue;
+                }
+
                 const session = new FarcasterSession(
                     profileId,
                     data.signer_private_key.startsWith('0x') ? data.signer_private_key : `0x${data.signer_private_key}`,

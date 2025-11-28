@@ -1,3 +1,4 @@
+import { parseJson } from '@dimensiondev/utils';
 import { cookies, headers } from 'next/headers.js';
 import type { NextRequest } from 'next/server.js';
 import { getToken, type JWT } from 'next-auth/jwt';
@@ -37,9 +38,17 @@ async function createTwitterSessionPayloadFromJWT(request: NextRequest): Promise
 
 async function createTwitterSessionPayloadFromCookies() {
     const tokenFromCookie = (await cookies()).get('twitterToken');
-    if (!tokenFromCookie?.value) return null;
+    if (!tokenFromCookie?.value) {
+        console.warn('[createTwitterSessionPayloadFromCookies] No twitter token found in cookies');
+        return null;
+    }
 
-    const token = JSON.parse(atob(tokenFromCookie.value)) as SessionPayload;
+    const token = parseJson<SessionPayload>(atob(tokenFromCookie.value));
+    if (!token) {
+        console.warn('[createTwitterSessionPayloadFromCookies] Failed to parse twitter token from cookies');
+        return null;
+    }
+
     return TwitterSessionPayload.revealPayload(token);
 }
 

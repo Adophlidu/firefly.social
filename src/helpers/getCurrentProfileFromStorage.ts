@@ -1,4 +1,4 @@
-import { bom, createLookupTableResolver } from '@dimensiondev/utils';
+import { bom, createLookupTableResolver, parseJson } from '@dimensiondev/utils';
 import { z } from 'zod';
 
 import { type ProfileSource, Source } from '@/constants/enum.js';
@@ -71,7 +71,7 @@ export function getCurrentProfileFromStorage<T extends ProfileSource>(source: T)
     const state = bom.localStorage?.getItem(resolveStorageKey(source));
     if (!state) return null;
 
-    const parsed = Schema.safeParse(JSON.parse(state));
+    const parsed = Schema.safeParse(parseJson(state));
     if (!parsed.success) {
         console.error('Failed to parse profile state from storage', parsed.error);
         return null;
@@ -111,7 +111,7 @@ export function getProfilesFromStorage<T extends ProfileSource>(source: T): Stat
     const state = bom.localStorage?.getItem(resolveStorageKey(source));
     if (!state) return [];
 
-    const parsed = Schema.safeParse(JSON.parse(state));
+    const parsed = Schema.safeParse(parseJson(state));
     if (!parsed.success) {
         console.error('Failed to parse profile state from storage', parsed.error);
         return [];

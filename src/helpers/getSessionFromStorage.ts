@@ -1,4 +1,4 @@
-import { bom, createLookupTableResolver } from '@dimensiondev/utils';
+import { bom, createLookupTableResolver, parseJson } from '@dimensiondev/utils';
 import { z } from 'zod';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -64,7 +64,7 @@ export function getSessionFromStorage<T extends SessionType>(sessionType: T) {
     const state = bom.localStorage.getItem(resolveStorageKey(sessionType));
     if (!state) return null;
 
-    const parsed = Schema.safeParse(JSON.parse(state));
+    const parsed = Schema.safeParse(parseJson(state));
     if (!parsed.success) {
         console.error('Failed to parse session state from storage', parsed.error);
         return null;
