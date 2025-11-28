@@ -8,18 +8,18 @@ import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
-import ColoredBskySVG from '@/assets/bsky-circle.svg?url';
-import BskySVG from '@/assets/bsky-fill.svg?url';
-import ColoredEthSVG from '@/assets/eth-circle.svg?url';
-import ColoredFarcasterSVG from '@/assets/farcaster.svg?url';
-import FarcasterSVG from '@/assets/farcaster-fill.svg?url';
-import ColoredFireflySVG from '@/assets/firefly-circle2.svg?url';
-import ColoredLensSVG from '@/assets/lens.svg?url';
-import LensSVG from '@/assets/lens-fill.svg?url';
-import ColoredSolanaSVG from '@/assets/solana-circle.svg?url';
-import WalletSVG from '@/assets/wallet3.svg?url';
-import ColoredTwitterSVG from '@/assets/x-circle-light.svg?url';
-import TwitterSVG from '@/assets/x-fill.svg?url';
+import ColoredBskySVGAsset from '@/assets/bsky-circle.svg?url';
+import BskySVGAsset from '@/assets/bsky-fill.svg?url';
+import ColoredEthSVGAsset from '@/assets/eth-circle.svg?url';
+import ColoredFarcasterSVGAsset from '@/assets/farcaster.svg?url';
+import FarcasterSVGAsset from '@/assets/farcaster-fill.svg?url';
+import ColoredFireflySVGAsset from '@/assets/firefly-circle2.svg?url';
+import ColoredLensSVGAsset from '@/assets/lens.svg?url';
+import LensSVGAsset from '@/assets/lens-fill.svg?url';
+import ColoredSolanaSVGAsset from '@/assets/solana-circle.svg?url';
+import WalletSVGAsset from '@/assets/wallet3.svg?url';
+import ColoredTwitterSVGAsset from '@/assets/x-circle-light.svg?url';
+import TwitterSVGAsset from '@/assets/x-fill.svg?url';
 import { NetworkType, type ProfilePageSource, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL, SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE } from '@/constants/index.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
@@ -27,6 +27,7 @@ import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { getStaticAssetSrc } from '@/helpers/getStaticAssetSrc.js';
 import { isSocialSource, isWalletSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
@@ -41,7 +42,22 @@ import type { NextRequestContext } from '@/types/utility.js';
 const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
 const OG_BACKGROUND = urlcat(SITE_URL, '/image/profile-og-background.png');
 const OG_AVATAR_SIZE = 284;
-const OG_FONT_FAMILY = 'Bedstead';
+const BASE_FONT_FAMILY = ['Bedstead'];
+const CJK_FONT_FAMILY = ['NotoSansSC'];
+const CJK_CHARACTER_REGEX = /\p{Script=Han}|\p{Script=Hiragana}|\p{Script=Katakana}|\p{Script=Hangul}/u;
+
+const ColoredBskySVG = getStaticAssetSrc(ColoredBskySVGAsset);
+const BskySVG = getStaticAssetSrc(BskySVGAsset);
+const ColoredEthSVG = getStaticAssetSrc(ColoredEthSVGAsset);
+const ColoredFarcasterSVG = getStaticAssetSrc(ColoredFarcasterSVGAsset);
+const FarcasterSVG = getStaticAssetSrc(FarcasterSVGAsset);
+const ColoredFireflySVG = getStaticAssetSrc(ColoredFireflySVGAsset);
+const ColoredLensSVG = getStaticAssetSrc(ColoredLensSVGAsset);
+const LensSVG = getStaticAssetSrc(LensSVGAsset);
+const ColoredSolanaSVG = getStaticAssetSrc(ColoredSolanaSVGAsset);
+const WalletSVG = getStaticAssetSrc(WalletSVGAsset);
+const ColoredTwitterSVG = getStaticAssetSrc(ColoredTwitterSVGAsset);
+const TwitterSVG = getStaticAssetSrc(TwitterSVGAsset);
 
 function resolveSourceIcon(source: ProfilePageSource) {
     return {
@@ -79,8 +95,13 @@ interface ProfileOpenGraphImageProps {
     sources?: ProfilePageSource[];
 }
 
+function getFontPreferences(displayName: string): string[] {
+    return CJK_CHARACTER_REGEX.test(displayName) ? [...CJK_FONT_FAMILY, ...BASE_FONT_FAMILY] : BASE_FONT_FAMILY;
+}
+
 async function ProfileOpenGraphImage({ avatar, displayName, sources, source }: ProfileOpenGraphImageProps) {
     const avatarBase64 = (await fetchAvatarAsBase64(avatar)) ?? OG_FALLBACK_AVATAR;
+    const displayNameFontFamily = getFontPreferences(displayName);
 
     return (
         <div
@@ -172,7 +193,7 @@ async function ProfileOpenGraphImage({ avatar, displayName, sources, source }: P
                             wordWrap: 'break-word',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
-                            fontFamily: OG_FONT_FAMILY,
+                            fontFamily: displayNameFontFamily.join(','),
                             fontWeight: '700',
                             width: 'auto',
                             maxWidth: '750px',
@@ -261,7 +282,7 @@ async function createProfileOpenGraphImageResponse({
         width: 1200,
         height: 630,
         debug,
-        fonts: await getSatoriFonts([OG_FONT_FAMILY]),
+        fonts: await getSatoriFonts(getFontPreferences(props.displayName)),
         headers: {
             'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
         },

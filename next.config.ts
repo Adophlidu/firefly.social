@@ -335,6 +335,10 @@ const config: NextConfig = {
             'twitter-api-v2': './prebuilt/twitter-api-v2.js',
         },
         rules: {
+            '*.svg?url': {
+                loaders: ['raw-loader'],
+                as: '*.js',
+            },
             '*.svg': {
                 loaders: [
                     {

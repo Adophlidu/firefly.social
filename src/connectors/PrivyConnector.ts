@@ -11,6 +11,7 @@ import { WalletSource } from '@/constants/enum.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { EthereumMethodType } from '@/web3-shared/evm/types.js';
 
@@ -24,10 +25,24 @@ const INTERACTIVE_METHODS = new Set([
     'eth_signTypedData_v4',
 ]);
 
+export async function waitForAuthorization(): Promise<void> {
+    if (useFireflyWalletStore.getState().isAuthorized) return;
+    await new Promise<void>((resolve) => {
+        const unsubscribe = useFireflyWalletStore.subscribe((state) => {
+            if (!state.isAuthorized) return;
+            unsubscribe();
+            resolve();
+        });
+    });
+}
+
 const provider = {
     async request<T = unknown>(params: { method: string; params?: unknown[] | object }): Promise<T> {
         if (INTERACTIVE_METHODS.has(params.method)) {
             useGlobalState.getState().updateFireflyWalletIsOpen(true);
+        }
+        if (!useFireflyWalletStore.getState().isAuthorized) {
+            await waitForAuthorization();
         }
         return new Promise(async (resolve, reject) => {
             const unsubscribe = useGlobalState.subscribe((state) => {

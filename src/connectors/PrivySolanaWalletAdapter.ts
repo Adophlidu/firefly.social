@@ -28,12 +28,15 @@ import {
 } from '@solana/wallet-adapter-base';
 import bs58 from 'bs58';
 import { compact, first } from 'lodash-es';
+import { UserRejectedRequestError } from 'viem';
 
 import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { waitForAuthorization } from '@/connectors/PrivyConnector.js';
 import { NetworkType, WalletSource } from '@/constants/enum.js';
 import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 const PrivySolanaWalletName = 'Firefly Wallet' as WalletName<'Firefly Wallet'>;
@@ -117,6 +120,36 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
         console.info('[privy] solana disconnect');
     }
 
+    private async bridgeRequest<M extends SolanaMethod>(params: SolanaRequestArgument<M>) {
+        useGlobalState.getState().updateFireflyWalletIsOpen(true);
+        if (!useFireflyWalletStore.getState().isAuthorized) {
+            await waitForAuthorization();
+        }
+        return new Promise<SolanaResponse<M>>((resolve, reject) => {
+            const unsubscribe = useGlobalState.subscribe((state) => {
+                if (!state.fireflyWalletIsOpen) {
+                    unsubscribe();
+                    reject(new UserRejectedRequestError(new Error()));
+                }
+            });
+            iframeBridgeProvider
+                .request(IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC, params satisfies SolanaRequestArgument<M>)
+                .then((rpcResult) => {
+                    unsubscribe();
+                    useGlobalState.getState().updateFireflyWalletIsOpen(false);
+                    resolve(rpcResult as SolanaResponse<M>);
+                })
+                .catch((error) => {
+                    unsubscribe();
+                    if (`${error}`.includes('user rejected')) {
+                        reject(new UserRejectedRequestError(new Error()));
+                        return;
+                    }
+                    reject(error);
+                });
+        });
+    }
+
     async getAccounts() {
         const { connected } = await queryClient.ensureQueryData(queryMyAllConnections);
         const [account] = connected.filter(
@@ -134,8 +167,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
         options: SendTransactionOptions = {},
     ): Promise<web3.TransactionSignature> {
         try {
-            useGlobalState.getState().updateFireflyWalletIsOpen(true);
-            const signature = (await iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC, {
+            return this.bridgeRequest({
                 method: SolanaMethod.SignAndSendTransaction,
                 params: {
                     transaction: bs58.encode(
@@ -145,8 +177,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
                         }),
                     ),
                 },
-            } satisfies SolanaRequestArgument<SolanaMethod.SignAndSendTransaction>)) as SolanaResponse<SolanaMethod.SignAndSendTransaction>;
-            return signature;
+            });
         } catch (error: unknown) {
             this.emit('error', new WalletError('Failed to send transaction', error));
             throw error;
@@ -156,8 +187,7 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
     async signAndSendAllTransactions<T extends AnyTransaction[]>(
         transactions: T,
     ): Promise<web3.TransactionSignature[]> {
-        useGlobalState.getState().updateFireflyWalletIsOpen(true);
-        const signatures = (await iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC, {
+        return this.bridgeRequest({
             method: SolanaMethod.SignAndSendAllTransactions,
             params: {
                 transactions: transactions.map((transaction) =>
@@ -169,27 +199,22 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
                     ),
                 ),
             },
-        } satisfies SolanaRequestArgument<SolanaMethod.SignAndSendAllTransactions>)) as SolanaResponse<SolanaMethod.SignAndSendAllTransactions>;
-        return signatures;
+        });
     }
 
     async signTransaction<T extends web3.Transaction | web3.VersionedTransaction>(transaction: T): Promise<T> {
         try {
-            useGlobalState.getState().updateFireflyWalletIsOpen(true);
-            const signedTransaction = (await iframeBridgeProvider.request(
-                IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC,
-                {
-                    method: SolanaMethod.SignTransaction,
-                    params: {
-                        transaction: bs58.encode(
-                            transaction.serialize({
-                                requireAllSignatures: false,
-                                verifySignatures: false,
-                            }),
-                        ),
-                    },
-                } satisfies SolanaRequestArgument<SolanaMethod.SignTransaction>,
-            )) as SolanaResponse<SolanaMethod.SignTransaction>;
+            const signedTransaction = await this.bridgeRequest({
+                method: SolanaMethod.SignTransaction,
+                params: {
+                    transaction: bs58.encode(
+                        transaction.serialize({
+                            requireAllSignatures: false,
+                            verifySignatures: false,
+                        }),
+                    ),
+                },
+            });
             return web3.Transaction.from(bs58.decode(signedTransaction)) as T;
         } catch (error: unknown) {
             this.emit('error', new WalletError('Failed to send transaction', error));
@@ -199,13 +224,12 @@ export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
 
     async signMessage(message: Uint8Array): Promise<Uint8Array> {
         try {
-            useGlobalState.getState().updateFireflyWalletIsOpen(true);
-            const signed = (await iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_SOLANA_RPC, {
+            const signed = await this.bridgeRequest({
                 method: SolanaMethod.SignMessage,
                 params: {
                     message: bs58.encode(message),
                 },
-            } satisfies SolanaRequestArgument<SolanaMethod.SignMessage>)) as SolanaResponse<SolanaMethod.SignMessage>;
+            });
             return bs58.decode(signed);
         } catch (error: unknown) {
             this.emit('error', new WalletError('Failed to sign message', error));

@@ -7,15 +7,16 @@ import type { NextRequest } from 'next/server.js';
 import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 
-import BskySVG from '@/assets/bsky-circle.svg?url';
-import FarcasterSVG from '@/assets/farcaster.svg?url';
-import LensSVG from '@/assets/lens.svg?url';
-import OGBackgroundSVG from '@/assets/og-background.svg?url';
-import TwitterSVG from '@/assets/x-circle-light.svg?url';
+import BskySVGAsset from '@/assets/bsky-circle.svg?url';
+import FarcasterSVGAsset from '@/assets/farcaster.svg?url';
+import LensSVGAsset from '@/assets/lens.svg?url';
+import OGBackgroundSVGAsset from '@/assets/og-background.svg?url';
+import TwitterSVGAsset from '@/assets/x-circle-light.svg?url';
 import { type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { getImageMetaFromUrl } from '@/helpers/getImageMetaFromUrl.js';
+import { getStaticAssetSrc } from '@/helpers/getStaticAssetSrc.js';
 import { narrowToSocialSourceInURL } from '@/helpers/narrowToSocialSource.js';
 import { removeCombiningCharacters } from '@/helpers/removeCombiningCharacters.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -24,6 +25,12 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import type { NextRequestContext } from '@/types/utility.js';
+
+const BskySVG = getStaticAssetSrc(BskySVGAsset);
+const FarcasterSVG = getStaticAssetSrc(FarcasterSVGAsset);
+const LensSVG = getStaticAssetSrc(LensSVGAsset);
+const OGBackgroundSVG = getStaticAssetSrc(OGBackgroundSVGAsset);
+const TwitterSVG = getStaticAssetSrc(TwitterSVGAsset);
 
 function resolveSourceIcon(source: SocialSource) {
     return {

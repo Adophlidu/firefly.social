@@ -7,6 +7,9 @@ import type { NextRequest } from 'next/server.js';
 import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 
+import BridgeOGBackgroundSVGAsset from '@/assets/bridge-og-background.svg?url';
+import CopyTradeButtonSVGAsset from '@/assets/copy-trade-button.svg?url';
+import SwapOGBackgroundSVGAsset from '@/assets/swap-og-background.svg?url';
 import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { Source } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
@@ -16,6 +19,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { getStaticAssetSrc } from '@/helpers/getStaticAssetSrc.js';
 import { resolveChainIcon } from '@/helpers/resolveChainIcon.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
@@ -25,9 +29,9 @@ import type { NextRequestContext } from '@/types/utility.js';
 
 const OG_FONT_FAMILY = '"Inter", "NotoSans"';
 const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
-const BRIDGE_OG_BACKGROUND_SVG = urlcat(SITE_URL, '/image/bridge-og-background.svg');
-const COPY_TRADE_BUTTON_SVG = urlcat(SITE_URL, '/image/copy-trade-button.svg');
-const SWAP_OG_BACKGROUND_SVG = urlcat(SITE_URL, '/image/swap-og-background.svg');
+const BRIDGE_OG_BACKGROUND_SVG = getStaticAssetSrc(BridgeOGBackgroundSVGAsset);
+const COPY_TRADE_BUTTON_SVG = getStaticAssetSrc(CopyTradeButtonSVGAsset);
+const SWAP_OG_BACKGROUND_SVG = getStaticAssetSrc(SwapOGBackgroundSVGAsset);
 
 function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width' | 'height' | 'style'>) {
     return <img alt="img" {...props} src={src} />;

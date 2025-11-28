@@ -14,6 +14,7 @@ import {
     voteStringTypes,
     voteTypes,
 } from '@/providers/snapshot/type.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export async function vote(payload: {
     from: string;
@@ -52,8 +53,7 @@ export async function vote(payload: {
         app: message.app ?? '',
         metadata: message.metadata ?? '{}',
     };
-
-    const client = await getWalletClientRequired(wagmiConfig);
+    const client = await getWalletClientRequired(wagmiConfig, { chainId: EthereumChainId.Mainnet });
     const signedTypedData = await client.signTypedData({
         domain: {
             name: SNAPSHOT_NAME,

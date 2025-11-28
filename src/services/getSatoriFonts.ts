@@ -17,6 +17,8 @@ const FONT_CONFIGS: FontConfig[] = [
     { name: 'Inter', url: urlcat(SITE_URL, '/font/Inter-Regular.ttf'), weight: 400, style: 'normal' },
     { name: 'Inter', url: urlcat(SITE_URL, '/font/Inter-Bold.ttf'), weight: 700, style: 'normal' },
     { name: 'NotoSans', url: urlcat(SITE_URL, '/font/NotoSans-Regular.ttf'), weight: 400, style: 'normal' },
+    { name: 'NotoSansSC', url: urlcat(SITE_URL, '/font/NotoSansSC-Regular.ttf'), weight: 400, style: 'normal' },
+    { name: 'NotoSansSC', url: urlcat(SITE_URL, '/font/NotoSansSC-Bold.ttf'), weight: 700, style: 'normal' },
     { name: 'NotoSans', url: urlcat(SITE_URL, '/font/NotoSans-Bold.ttf'), weight: 700, style: 'normal' },
     { name: 'Bedstead', url: urlcat(SITE_URL, '/font/Bedstead-Regular.ttf'), weight: 400, style: 'normal' },
     { name: 'Bedstead', url: urlcat(SITE_URL, '/font/Bedstead-Bold.ttf'), weight: 700, style: 'normal' },

@@ -1,6 +1,6 @@
 import { RedirectProfilePage } from '@/app/(normal)/profile/pages/RedirectProfilePage.js';
 import { RedirectWithFireflyUID } from '@/app/(normal)/profile/pages/RedirectWithFireflyUID.js';
-import { notFound } from '@/esm/navigation.js';
+import { notFound } from '@/esm/navigation/server.js';
 import { isNumericalProfileId as isUID } from '@/helpers/isNumericalProfileId.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
