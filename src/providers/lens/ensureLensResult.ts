@@ -1,10 +1,19 @@
 import type { ResultAsync } from '@lens-protocol/client';
 
-export async function ensureLensResult<T, E>(asyncResult: ResultAsync<T, E>) {
-    const result = await asyncResult;
-    if (!result.isOk()) {
-        throw result.error;
-    }
+import { NotFoundError } from '@/constants/error.js';
 
-    return result.value;
+export async function ensureLensResult<T, E>(asyncResult: ResultAsync<T, E>) {
+    try {
+        const result = await asyncResult;
+        if (!result.isOk()) {
+            throw result.error;
+        }
+
+        return result.value;
+    } catch (error) {
+        if (error instanceof Error && error.message.includes('Unknown post slug supplied')) {
+            throw new NotFoundError(error.message);
+        }
+        throw error;
+    }
 }

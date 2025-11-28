@@ -54,6 +54,7 @@ export default async function Page(props: Props) {
                 </article>
             );
         }
+        notFound();
     }
     await queryClient.prefetchQuery(getPostThreadQuery(source, params.id, post));
 

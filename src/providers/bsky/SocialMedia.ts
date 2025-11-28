@@ -41,7 +41,7 @@ import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { getBskyProfileBySession } from '@/providers/bsky/getBskyProfileBySession.js';
 import { getBskySuggestedUsers } from '@/providers/bsky/getBskySuggestedUsers.js';
 import { publishPostToBsky } from '@/providers/bsky/publishPostToBsky.js';
-import { resolveBskyResponseData } from '@/providers/bsky/resolveBskyResponseData.js';
+import { resolveBskyResponseData, resolveBskyResponseDataAsync } from '@/providers/bsky/resolveBskyResponseData.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -77,19 +77,25 @@ async function getPostById(postId: string): Promise<Post> {
 }
 
 async function getPostByUri(uri: string): Promise<Post> {
-    const response = await bskySessionHolder.agent.getPostThread({
-        uri,
-        depth: 10,
-    });
-    const data = resolveBskyResponseData(response, `Failed to getSinglePost uri = ${uri}.`);
+    const data = await resolveBskyResponseDataAsync(
+        () =>
+            bskySessionHolder.agent.getPostThread({
+                uri,
+                depth: 10,
+            }),
+        `Failed to getSinglePost uri = ${uri}.`,
+    );
+
     const thread = AppBskyFeedDefs.isThreadViewPost(data.thread) ? data.thread : null;
     if (!thread) throw new Error(`No thread found uri = ${uri}.`);
     return formatBskyFeedPost(thread);
 }
 
 async function getProfileById(profileId: string) {
-    const response = await bskySessionHolder.agent.getProfile({ actor: profileId });
-    const data = resolveBskyResponseData(response, `Failed to get profile id = ${profileId}.`);
+    const data = await resolveBskyResponseDataAsync(
+        () => bskySessionHolder.agent.getProfile({ actor: profileId }),
+        `Failed to get profile id = ${profileId}.`,
+    );
     return formatBskyProfile(data);
 }
 

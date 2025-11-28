@@ -1,3 +1,6 @@
+import { Source } from '@/constants/enum.js';
+import { AccountSuspendedError, NotFoundError } from '@/constants/error.js';
+
 interface Response<T> {
     success: boolean;
     data: T;
@@ -8,4 +11,25 @@ export function resolveBskyResponseData<T>(response: Response<T>, message?: stri
     if (!response.success) throw new Error(errorMessage);
 
     return response.data;
+}
+
+export async function resolveBskyResponseDataAsync<T>(resolveResponse: () => Promise<Response<T>>, message?: string) {
+    try {
+        const response = await resolveResponse();
+        return resolveBskyResponseData(response, message);
+    } catch (error) {
+        if (error instanceof Error && error.message.includes('Post not found')) {
+            throw new NotFoundError(error.message);
+        }
+        if (error instanceof Error && error.message.includes('Profile not found')) {
+            throw new NotFoundError(error.message);
+        }
+        if (error instanceof Error && error.message.includes('actor must be a valid did or a handle')) {
+            throw new NotFoundError(error.message);
+        }
+        if (error instanceof Error && error.message.includes('Account has been suspended')) {
+            throw new AccountSuspendedError('', Source.Bsky, message);
+        }
+        throw error;
+    }
 }
