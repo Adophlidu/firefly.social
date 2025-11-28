@@ -14,12 +14,12 @@ import {
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { formatLensChannelFromGroup } from '@/providers/lens/formatLensChannel.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
-import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
+import { getLensClient } from '@/providers/lens/getLensClient.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export async function getGroupWithMemberCount(groupId: string): Promise<Channel> {
     const groupAddress = safeEvmAddress(groupId);
-    const result = await lensClientHolder.client.urql.query<
+    const result = await getLensClient().urql.query<
         {
             group: Group;
             groupStats: GroupStatsResponse;
@@ -64,7 +64,7 @@ export async function getGroupWithMemberCount(groupId: string): Promise<Channel>
 
 export async function getGroupWithOwner(groupId: string, groupOwner: string): Promise<Channel> {
     const groupAddress = safeEvmAddress(groupId);
-    const result = await lensClientHolder.client.urql.query<
+    const result = await getLensClient().urql.query<
         {
             group: Group;
             groupStats: GroupStatsResponse;
