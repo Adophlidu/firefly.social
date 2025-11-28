@@ -1,11 +1,10 @@
 import { compose } from '@dimensiondev/utils';
-import type { NextRequest } from 'next/server.js';
 
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 
-export const POST = compose<(request: NextRequest) => Promise<Response>>(
+export const POST = compose(
     withTwitterRequestErrorHandler,
     withRequestErrorHandler({ throwError: true }),
     async (request) => {

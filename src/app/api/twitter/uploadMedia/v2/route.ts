@@ -1,20 +1,23 @@
 import { compose } from '@dimensiondev/utils';
-import { NextRequest } from 'next/server.js';
 import type { EUploadMimeType } from 'twitter-api-v2';
+import { z } from 'zod';
 
-import { MalformedError } from '@/constants/error.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { getFormDataWithZodSchema } from '@/helpers/getFormDataWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
+import { FileSchema } from '@/schemas/File.js';
 
-export const POST = compose<(request: NextRequest) => Promise<Response>>(
+const FormDataSchema = z.object({
+    file: FileSchema,
+});
+
+export const POST = compose(
     withTwitterRequestErrorHandler,
     withRequestErrorHandler({ throwError: true }),
     async (request) => {
-        const formData = await request.formData();
-        const file = formData.get('file') as File | null;
-        if (!file) throw new MalformedError('file not found');
+        const { file } = await getFormDataWithZodSchema(request, FormDataSchema);
 
         const client = await createTwitterClientV2();
         const media_id = await client.v2.uploadMedia(Buffer.from(await file.arrayBuffer()), {

@@ -1,22 +1,23 @@
 import { compose } from '@dimensiondev/utils';
-import { NextRequest } from 'next/server.js';
+import { z } from 'zod';
 
-import { MalformedError, NotFoundError } from '@/constants/error.js';
+import { NotFoundError } from '@/constants/error.js';
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
 import { tweetV2ToPost } from '@/providers/twitter/formatTwitterPost.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
-import type { NextRequestContext } from '@/types/utility.js';
 
-export const GET = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
+const ParamsSchema = z.object({ userId: z.string() });
+
+export const GET = compose(
     withTwitterRequestErrorHandler,
     withRequestErrorHandler({ throwError: true }),
     async (request, context) => {
-        const userId = (await context?.params)?.userId;
-        if (!userId) throw new MalformedError('userId not found');
+        const { userId } = await getParamsWithZodSchema(ParamsSchema, context);
 
         const client = await createTwitterClientV2();
         const user = await client.v2.user(userId, {

@@ -20,21 +20,22 @@ import ColoredSolanaSVGAsset from '@/assets/solana-circle.svg?url';
 import WalletSVGAsset from '@/assets/wallet3.svg?url';
 import ColoredTwitterSVGAsset from '@/assets/x-circle-light.svg?url';
 import TwitterSVGAsset from '@/assets/x-fill.svg?url';
-import { NetworkType, type ProfilePageSource, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import { NetworkType, type ProfilePageSource, type SocialSource, Source } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL, SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE } from '@/constants/index.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
+import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getStaticAssetSrc } from '@/helpers/getStaticAssetSrc.js';
 import { isSocialSource, isWalletSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getAllRelatedProfileInfo } from '@/providers/firefly/endpoint/getAllRelatedProfileInfo.js';
 import type { WalletProfiles } from '@/providers/types/Firefly.js';
+import { SourceSchema } from '@/schemas/Source.js';
 import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import type { NextRequestContext } from '@/types/utility.js';
@@ -289,11 +290,15 @@ async function createProfileOpenGraphImageResponse({
     });
 }
 
+const ParamsSchema = z.object({
+    id: z.string().optional(),
+    source: SourceSchema,
+    debug: z.coerce.boolean().default(false),
+});
+
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
-    const id = (await context?.params)?.id;
-    if (!id) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
-    const source = resolveSource((await context?.params)?.source as SourceInURL);
-    const debug = z.boolean().safeParse(request.nextUrl.searchParams.has('debug')).data;
+    const { id, debug, source } = await getParamsWithZodSchema(ParamsSchema, context);
+    if (!id || !source) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
 
     if (source === Source.Firefly) {
         const profiles = await getAllRelatedProfileInfo({ uid: id });
@@ -312,12 +317,14 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     if (!isSocialSource(source) && !isWalletSource(source)) {
         return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
     }
+
     const identity = { source, id };
     const profiles = await runInSafeAsync(() => getAllRelatedProfilesWithDefault(identity));
 
     if (isWalletSource(source)) {
         const networkType = getAddressType(id);
         if (!networkType) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+
         return createProfileOpenGraphImageResponse({
             avatar: getStampAvatarByProfileId(Source.Wallet, id, OG_AVATAR_SIZE * 2),
             displayName: formatAddress(id, 4),
@@ -327,11 +334,11 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
         });
     }
 
-    const provider = resolveSocialMediaProvider(source as SocialSource);
-    const profile = await runInSafeAsync(() => provider.getProfileByIdOrHandle(id));
-    if (!profile) {
-        return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
-    }
+    const profile = await runInSafeAsync(() =>
+        resolveSocialMediaProvider(source as SocialSource).getProfileByIdOrHandle(id),
+    );
+    if (!profile) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+
     return createProfileOpenGraphImageResponse({
         avatar: profile.pfp,
         displayName: profile.displayName,

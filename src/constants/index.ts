@@ -323,8 +323,6 @@ export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum, NetworkType.Solana];
 export const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const LENS_MEDIA_SNAPSHOT_URL = 'https://ik.imagekit.io/lens/media-snapshot';
-export const HEY_URL = 'https://hey.xyz';
-export const HEY_API_URL = 'https://api.hey.xyz';
 export const HEY_IMAGEKIT_URL = 'https://ik.imagekit.io/lensterimg';
 export const LENS_CHAIN_ID = 232;
 // TODO: create lens app for firefly

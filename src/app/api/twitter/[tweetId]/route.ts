@@ -1,10 +1,11 @@
 import { compose } from '@dimensiondev/utils';
 import { pick } from 'lodash-es';
 import type { NextRequest } from 'next/server.js';
+import { z } from 'zod';
 
-import { MalformedError } from '@/constants/error.js';
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { patchPostClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
@@ -14,31 +15,13 @@ import { tweetV2ToPost } from '@/providers/twitter/formatTwitterPost.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import type { NextRequestContext } from '@/types/utility.js';
 
-export const DELETE = compose(
-    withTwitterRequestErrorHandler,
-    withRequestErrorHandler({ throwError: true }),
-    async (request: NextRequest, context?: NextRequestContext) => {
-        const tweetId = (await context?.params)?.tweetId;
-        if (!tweetId) throw new MalformedError('tweetId not found');
+const ParamsSchema = z.object({ tweetId: z.string() });
 
-        const client = await createTwitterClientV2();
-        const { data, errors } = await client.v2.deleteTweet(tweetId);
-
-        if (errors?.length) {
-            console.error('[twitter] v2.deleteTweet', errors);
-            return createTwitterErrorResponseJSON(errors);
-        }
-
-        return createSuccessResponseJson(data, { status: 200 });
-    },
-);
-
-export const GET = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
+export const GET = compose(
     withTwitterRequestErrorHandler,
     withRequestErrorHandler({ throwError: true }),
     async (request, context) => {
-        const tweetId = (await context?.params)?.tweetId;
-        if (!tweetId) throw new MalformedError('tweetId not found');
+        const { tweetId } = await getParamsWithZodSchema(ParamsSchema, context);
 
         const client = await createTwitterClientV2();
         const {
@@ -79,5 +62,23 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         }
 
         return createSuccessResponseJson(post);
+    },
+);
+
+export const DELETE = compose(
+    withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
+    async (request: NextRequest, context?: NextRequestContext) => {
+        const { tweetId } = await getParamsWithZodSchema(ParamsSchema, context);
+
+        const client = await createTwitterClientV2();
+        const { data, errors } = await client.v2.deleteTweet(tweetId);
+
+        if (errors?.length) {
+            console.error('[twitter] v2.deleteTweet', errors);
+            return createTwitterErrorResponseJSON(errors);
+        }
+
+        return createSuccessResponseJson(data, { status: 200 });
     },
 );

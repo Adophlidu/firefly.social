@@ -1,9 +1,11 @@
 import { compose } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
+import { z } from 'zod';
 
 import { KeyType } from '@/constants/enum.js';
 import { MalformedError } from '@/constants/error.js';
 import { createRedirectResponse } from '@/helpers/createRedirectResponse.js';
+import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getTwitterProfileByOG } from '@/providers/twitter/getTwitterProfileByOG.js';
@@ -25,11 +27,10 @@ const getTwitterAvatarById = memoizeWithRedis(
     },
 );
 
-type Handler = (request: NextRequest, context?: NextRequestContext<{ userId: string }>) => Promise<Response>;
+const ParamsSchema = z.object({ userId: z.string() });
 
-export const GET = compose<Handler>(withRequestErrorHandler(), async (request, context) => {
-    const twitterId = (await context?.params)?.userId;
-    if (!twitterId) throw new MalformedError('userId not found');
+export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
+    const { userId: twitterId } = await getParamsWithZodSchema(ParamsSchema, context);
     const pfp = await getTwitterAvatarById(twitterId);
     return createRedirectResponse(pfp);
 });

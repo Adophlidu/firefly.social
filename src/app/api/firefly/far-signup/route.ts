@@ -7,11 +7,17 @@ import { z } from 'zod';
 import { env } from '@/constants/env.js';
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
+import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
+import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { RegisterFarcasterResponse } from '@/providers/types/Firefly.js';
 import { decryptAes256 } from '@/services/crypto.js';
 import { settings } from '@/settings/index.js';
+
+const HeadersSchema = z.object({
+    authorization: z.string().min(1, 'Unauthorized'),
+});
 
 const BodySchema = z.object({
     handle: z.string().min(1),
@@ -19,6 +25,7 @@ const BodySchema = z.object({
     pfp: z.string().optional(),
     bio: z.string().optional(),
 });
+
 const SignerDataScheme = z.object({
     accessToken: z.string(),
     accountId: z.string(),
@@ -28,10 +35,8 @@ const SignerDataScheme = z.object({
 });
 
 export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
-    const token = request.headers.get('authorization');
-    if (!token) return createErrorResponseJson('Unauthorized', { status: 401 });
-
-    const profileInfo = BodySchema.parse(await request.json());
+    const { authorization: token } = getHeadersWithZodSchema(request, HeadersSchema);
+    const { handle, displayName, bio, pfp } = await getJsonBodyWithZodSchema(request, BodySchema);
 
     // 1. register fid on chain and bind session
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/farcaster_account/register-with-condition');
@@ -39,10 +44,10 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         method: 'POST',
         body: JSON.stringify({
             conditionType: 'free_register',
-            userName: profileInfo.handle,
-            displayName: profileInfo.displayName,
-            bio: profileInfo.bio,
-            avatar: profileInfo.pfp,
+            userName: handle,
+            displayName,
+            bio,
+            avatar: pfp,
             isForce: false,
         }),
         headers: {
@@ -58,16 +63,8 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     }
 
     // 2. decrypt data
-    const decryptedStr = decryptAes256(
-        result.userInfo,
-        env.internal.SESSION_CIPHER_KEY,
-        env.internal.SESSION_CIPHER_IV,
-    );
-    const jsonData = parseJson<z.infer<typeof SignerDataScheme>>(decryptedStr);
-    if (!jsonData) throw new Error('Failed to convert response data to json.');
+    const decrypted = decryptAes256(result.userInfo, env.internal.SESSION_CIPHER_KEY, env.internal.SESSION_CIPHER_IV);
 
-    const parsed = SignerDataScheme.safeParse(jsonData);
-    if (!parsed.success) throw new Error('Invalid response data.');
-
-    return createSuccessResponseJson(parsed.data);
+    const data = SignerDataScheme.parse(parseJson(decrypted));
+    return createSuccessResponseJson(data);
 });

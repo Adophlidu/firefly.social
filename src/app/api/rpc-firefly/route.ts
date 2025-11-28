@@ -1,19 +1,22 @@
+import { compose } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
-import {
-    createErrorResponseJson,
-    createSuccessResponseJson,
-    createZodErrorResponseJson,
-} from '@/helpers/createResponseJson.js';
+import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
+import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
+import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getPostByShortId } from '@/providers/firefly/endpoint/getPostByShortId.js';
 import { getTruthSocialPostById } from '@/providers/firefly/endpoint/getTruthSocialPostById.js';
 import { getWalletProfileByAddressOrEns } from '@/providers/firefly/endpoint/getWalletProfileByAddressOrEns.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
-// Base schema for all Firefly RPC requests
-const BaseFireflyRPCSchema = z.object({
+const HeadersSchema = z.object({
+    authorization: z.string().min(1, 'Unauthorized'),
+});
+
+const BodySchema = z.object({
     method: z.string().min(1, 'Method name is required'),
     params: z.record(z.unknown()).optional().default({}),
 });
@@ -42,61 +45,40 @@ const availableMethods = {
 
 const availableMethodsList = Object.keys(MethodParamSchemas);
 
-export async function POST(request: NextRequest) {
-    try {
-        const body = await request.json();
-        const parsedRequest = BaseFireflyRPCSchema.safeParse(body);
+export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
+    const { method, params } = await getJsonBodyWithZodSchema(request, BodySchema);
 
-        if (!parsedRequest.success) {
-            return createZodErrorResponseJson(parsedRequest.error, { status: 400 });
-        }
-
-        const { method, params } = parsedRequest.data;
-        console.log(`[/api/rpc-firefly] method: ${method}, params: ${JSON.stringify(params)}`);
-
-        // Check if method is supported
-        if (!availableMethodsList.includes(method)) {
-            return createErrorResponseJson(
-                `Unsupported method: ${method}. Available methods: ${availableMethodsList.join(', ')}`,
-                { status: 400 },
-            );
-        }
-
-        // Validate method-specific parameters
-        const methodSchema = MethodParamSchemas[method as keyof typeof MethodParamSchemas];
-        const parsedParams = methodSchema.safeParse(params);
-
-        if (!parsedParams.success) {
-            return createZodErrorResponseJson(parsedParams.error, {
-                status: 400,
-            });
-        }
-
-        // Extract Authorization header and initialize fireflySessionHolder if token exists
-        const authHeader = request.headers.get('Authorization');
-        if (authHeader) {
-            const token = authHeader.replace('Bearer ', '');
-            if (!token) return createErrorResponseJson('Invalid Authorization header', { status: 400 });
-
-            // Create a minimal FireflySession with the provided token
-            // We use a dummy accountId since we only need the token for API calls
-            const session = new FireflySession('dummy-account-id', token, null, null);
-            fireflySessionHolder.resumeSession(session);
-        }
-
-        // Call the method on the FireflyEndpointProvider
-        const result = await (availableMethods[method as keyof typeof availableMethods] as Function)(
-            ...Object.values(parsedParams.data),
+    // Check if method is supported
+    if (!availableMethodsList.includes(method)) {
+        return createErrorResponseJson(
+            `Unsupported method: ${method}. Available methods: ${availableMethodsList.join(', ')}`,
+            { status: 400 },
         );
-
-        return createSuccessResponseJson({
-            method,
-            result,
-        });
-    } catch (error) {
-        console.error('Firefly RPC API Error:', error);
-        return createErrorResponseJson(error instanceof Error ? error.message : 'Internal server error', {
-            status: 500,
-        });
     }
-}
+
+    // Validate method-specific parameters
+    const methodSchema = MethodParamSchemas[method as keyof typeof MethodParamSchemas];
+    const parsedParams = methodSchema.parse(params);
+
+    // Extract Authorization header and initialize fireflySessionHolder if token exists
+    const headers = getHeadersWithZodSchema(request, HeadersSchema);
+    if (headers.authorization) {
+        const token = headers.authorization.replace('Bearer ', '');
+        if (!token) return createErrorResponseJson('Invalid Authorization header', { status: 400 });
+
+        // Create a minimal FireflySession with the provided token
+        // We use a dummy accountId since we only need the token for API calls
+        const session = new FireflySession('dummy-account-id', token, null, null);
+        fireflySessionHolder.resumeSession(session);
+    }
+
+    // Call the method on the FireflyEndpointProvider
+    const result = await (availableMethods[method as keyof typeof availableMethods] as Function)(
+        ...Object.values(parsedParams),
+    );
+
+    return createSuccessResponseJson({
+        method,
+        result,
+    });
+});

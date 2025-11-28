@@ -1,7 +1,10 @@
+import { compose } from '@dimensiondev/utils';
 import { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
-import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
+import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { waitForSignedKeyRequest } from '@/providers/farcaster/waitForSignedKeyRequest.js';
 
 const Schema = z.object({
@@ -10,15 +13,8 @@ const Schema = z.object({
 
 export const maxDuration = 300;
 
-export async function GET(request: NextRequest) {
-    try {
-        const { token } = Schema.parse({
-            token: request.nextUrl.searchParams.get('token'),
-        });
-        const result = await waitForSignedKeyRequest(request.signal)(token);
-        return createSuccessResponseJson(result);
-    } catch (error) {
-        if (error instanceof Error) return createErrorResponseJson(error.message);
-        return createErrorResponseJson('Unknown error');
-    }
-}
+export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
+    const { token } = getSearchParamsWithZodSchema(request, Schema);
+    const result = await waitForSignedKeyRequest(request.signal)(token);
+    return createSuccessResponseJson(result);
+});

@@ -2,10 +2,12 @@ import { compose } from '@dimensiondev/utils';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
+import { z } from 'zod';
 
 import { SparksAccountOgImage } from '@/app/api/og/sparks_account/[accountId]/image/SparksAccountOgImage.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, FIREFLY_S3_URL } from '@/constants/index.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
+import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getSparksAccountDetails } from '@/providers/firefly/endpoint/getSparksAccountDetails.js';
@@ -15,6 +17,10 @@ import type { NextRequestContext } from '@/types/utility.js';
 
 const sparksDefaultOgImage = urlcat(FIREFLY_S3_URL, '/og/genesis_sparks.png');
 
+const ParamsSchema = z.object({
+    accountId: z.string().optional(),
+});
+
 export const GET = compose(
     withRequestErrorHandler(),
     async (
@@ -23,18 +29,19 @@ export const GET = compose(
             accountId?: string;
         }>,
     ) => {
-        const params = await context?.params;
-        if (!params?.accountId) return createProxyImageResponse(sparksDefaultOgImage);
+        const { accountId } = await getParamsWithZodSchema(ParamsSchema, context);
+        if (!accountId) return createProxyImageResponse(sparksDefaultOgImage);
 
-        const accountInfo = await runInSafeAsync(() => getSparksAccountDetails(params.accountId!));
+        const accountInfo = await runInSafeAsync(() => getSparksAccountDetails(accountId));
 
         const isNotBoundX =
             accountInfo?.isOg === OgStatus.isNotBoundX && accountInfo?.isFans === FansStatus.isNotBoundX;
         const isOgUser = !!accountInfo?.OgList?.length;
         const isFansUser = !!accountInfo?.FansList?.length;
 
-        if (!accountInfo || !isOgUser || (isOgUser && !accountInfo.ogActive) || !isFansUser || isNotBoundX)
+        if (!accountInfo || !isOgUser || (isOgUser && !accountInfo.ogActive) || !isFansUser || isNotBoundX) {
             return createProxyImageResponse(sparksDefaultOgImage);
+        }
 
         return new ImageResponse(<SparksAccountOgImage account={accountInfo} />, {
             width: 1200,

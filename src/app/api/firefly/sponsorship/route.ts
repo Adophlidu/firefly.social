@@ -1,25 +1,22 @@
 import { compose } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import type { NextRequest } from 'next/server.js';
-import { type Hex } from 'viem';
 import { z } from 'zod';
 
 import { env } from '@/constants/env.js';
-import { createSuccessResponseJson, createZodErrorResponseJson } from '@/helpers/createResponseJson.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { JWTGenerator } from '@/libs/JWTGenerator.js';
 import { generateFarcasterSignatures } from '@/providers/firefly/auth/generateFarcasterSignatures.js';
-import { HexStringSchema } from '@/schemas/index.js';
+import { HexString } from '@/schemas/index.js';
 
 const BodySchema = z.object({
-    key: HexStringSchema,
+    key: HexString,
 });
 
 export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
-    const parsed = BodySchema.safeParse(await request.json());
-    if (!parsed.success) return createZodErrorResponseJson(parsed.error, { status: 400 });
-
-    const deadline = dayjs(Date.now()).add(1, 'y').unix();
+    const { key } = await getJsonBodyWithZodSchema(request, BodySchema);
 
     const generator = new JWTGenerator();
     const jwt = await generator.generateSHA256JWT(
@@ -29,7 +26,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         env.internal.FIREFLY_JWT_SECRET,
     );
 
-    const key = parsed.data.key as Hex;
+    const deadline = dayjs(Date.now()).add(1, 'y').unix();
     const { sponsorSignature, signedKeyRequestSignature, requestFid } = await generateFarcasterSignatures(
         key,
         deadline,

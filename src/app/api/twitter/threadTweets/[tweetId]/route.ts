@@ -1,21 +1,21 @@
 import { compose } from '@dimensiondev/utils';
-import type { NextRequest } from 'next/server.js';
+import { z } from 'zod';
 
-import { MalformedError } from '@/constants/error.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getThreadTweets } from '@/helpers/getThreadTweets.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { tweetV2ToPost } from '@/providers/twitter/formatTwitterPost.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
-import type { NextRequestContext } from '@/types/utility.js';
 
-export const GET = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
+const ParamsSchema = z.object({ tweetId: z.string() });
+
+export const GET = compose(
     withTwitterRequestErrorHandler,
     withRequestErrorHandler({ throwError: true }),
     async (request, context) => {
-        const tweetId = (await context?.params)?.tweetId;
-        if (!tweetId) throw new MalformedError('tweetId not found');
+        const { tweetId } = await getParamsWithZodSchema(ParamsSchema, context);
 
         const client = await createTwitterClientV2();
         const { data, includes, errors } = await getThreadTweets(client, tweetId);

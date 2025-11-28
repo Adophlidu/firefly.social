@@ -1,7 +1,9 @@
+import { compose } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 
-export async function GET(request: NextRequest) {
+export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     return createSuccessResponseJson({ message: 'OK' });
-}
+});

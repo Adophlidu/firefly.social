@@ -6,25 +6,28 @@ import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
 import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
+import { z } from 'zod';
 
 import BskySVGAsset from '@/assets/bsky-circle.svg?url';
 import FarcasterSVGAsset from '@/assets/farcaster.svg?url';
 import LensSVGAsset from '@/assets/lens.svg?url';
 import OGBackgroundSVGAsset from '@/assets/og-background.svg?url';
 import TwitterSVGAsset from '@/assets/x-circle-light.svg?url';
-import { type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { getImageMetaFromUrl } from '@/helpers/getImageMetaFromUrl.js';
+import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getStaticAssetSrc } from '@/helpers/getStaticAssetSrc.js';
-import { narrowToSocialSourceInURL } from '@/helpers/narrowToSocialSource.js';
 import { removeCombiningCharacters } from '@/helpers/removeCombiningCharacters.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
+import { SocialSourceSchema } from '@/schemas/Source.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import type { NextRequestContext } from '@/types/utility.js';
+
+const OG_FONT_FAMILY = ['Inter', 'Noto Sans Symbols 2'];
 
 const BskySVG = getStaticAssetSrc(BskySVGAsset);
 const FarcasterSVG = getStaticAssetSrc(FarcasterSVGAsset);
@@ -121,8 +124,6 @@ async function AttachmentImage({ src }: { src: string }) {
         </div>
     );
 }
-
-const OG_FONT_FAMILY = ['Inter', 'Noto Sans Symbols 2'];
 
 async function PostOpenGraphImage({ post }: { post: Post }) {
     const src = resolveAttachmentsSrc(post.metadata.content?.asset);
@@ -235,20 +236,18 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
     );
 }
 
-function getPostById(source: SocialSource, postId: string) {
-    return resolveSocialMediaProvider(source).getPostById(postId);
-}
+const ParamsSchema = z.object({
+    postId: z.string().optional(),
+    source: SocialSourceSchema,
+});
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
-    const postId = (await context?.params)?.postId;
-    const sourceInURL = narrowToSocialSourceInURL((await context?.params)?.source as SourceInURL);
-    const source = resolveSocialSource(sourceInURL);
-    if (!postId) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
-    const post = await getPostById(source, postId);
+    const { postId, source } = await getParamsWithZodSchema(ParamsSchema, context);
+    if (!postId || !source) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
 
-    if (!post) {
-        return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
-    }
+    const post = await resolveSocialMediaProvider(source).getPostById(postId);
+    if (!post) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+
     return new ImageResponse(await PostOpenGraphImage({ post }), {
         width: 1200,
         height: 630,

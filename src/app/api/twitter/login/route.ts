@@ -1,5 +1,4 @@
 import { compose } from '@dimensiondev/utils';
-import { NextRequest } from 'next/server.js';
 
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { encodeAsciiPayload } from '@/helpers/encodeSessionPayload.js';
@@ -8,7 +7,7 @@ import { createTwitterSessionBeforeLogin } from '@/providers/twitter/createTwitt
 import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 
-export const POST = compose<(request: NextRequest) => Promise<Response>>(
+export const POST = compose(
     withTwitterRequestErrorHandler,
     withRequestErrorHandler({ throwError: true }),
     async (request) => {

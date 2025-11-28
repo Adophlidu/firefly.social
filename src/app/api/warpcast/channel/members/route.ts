@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
+import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getFarcasterProfilesByIds } from '@/providers/farcaster/getFarcasterProfilesByIds.js';
 import type { ChannelMembersResponse } from '@/providers/types/Warpcast.js';
@@ -19,7 +19,7 @@ const Schema = z.object({
 });
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
-    const { channelId, fid, limit, cursor } = getSearchParamsFromRequestWithZodObject(request, Schema);
+    const { channelId, fid, limit, cursor } = getSearchParamsWithZodSchema(request, Schema);
 
     const response = await fetchJson<ChannelMembersResponse>(
         urlcat(WARPCAST_ROOT_URL, '/fc/channel-members', {

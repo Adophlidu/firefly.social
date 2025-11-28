@@ -1,8 +1,7 @@
 import { compose } from '@dimensiondev/utils';
-import { NextRequest } from 'next/server.js';
 
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
-import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
+import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { patchTweetsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
@@ -10,16 +9,16 @@ import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitte
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import { Pageable } from '@/schemas/index.js';
 
-export const GET = compose<(request: NextRequest) => Promise<Response>>(
+export const GET = compose(
     withTwitterRequestErrorHandler,
     withRequestErrorHandler({ throwError: true }),
     async (request) => {
-        const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
+        const { cursor, limit } = getSearchParamsWithZodSchema(request, Pageable);
 
         const client = await createTwitterClientV2();
         const { data: result, errors } = await client.v2.bookmarks({
-            max_results: queryParams.limit || 25,
-            pagination_token: queryParams.cursor || undefined,
+            max_results: limit,
+            pagination_token: cursor,
         });
         if (errors?.length) {
             console.error('[twitter] v2.bookmarks', errors);

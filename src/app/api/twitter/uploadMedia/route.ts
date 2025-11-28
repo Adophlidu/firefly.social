@@ -1,13 +1,12 @@
 import { compose, parseJson } from '@dimensiondev/utils';
-import { NextRequest } from 'next/server.js';
-import type { UploadMediaV1Params } from 'twitter-api-v2';
 import { z } from 'zod';
 
-import { MalformedError } from '@/constants/error.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { getFormDataWithZodSchema } from '@/helpers/getFormDataWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
+import { FileSchema } from '@/schemas/File.js';
 
 const UploadSchema = z
     .object({
@@ -20,25 +19,31 @@ const UploadSchema = z
     })
     .optional();
 
-export const POST = compose<(request: NextRequest) => Promise<Response>>(
+const FormDataSchema = z.object({
+    options: z
+        .string()
+        .optional()
+        .transform((val) => {
+            if (!val) return undefined;
+            const parsed = parseJson(val);
+            return parsed || undefined;
+        })
+        .pipe(UploadSchema),
+    file: FileSchema,
+});
+
+export const POST = compose(
     withTwitterRequestErrorHandler,
     withRequestErrorHandler({ throwError: true }),
     async (request) => {
-        const formData = await request.formData();
-        const file = formData.get('file') as File | null;
-        if (!file) throw new MalformedError('file not found');
-
-        const options = (
-            formData.get('options') ? parseJson(formData.get('options') as string) : null
-        ) as Partial<UploadMediaV1Params> | null;
-        const parsedOptions = options ? UploadSchema.safeParse(options) : undefined;
-        if (parsedOptions && !parsedOptions.success) throw parsedOptions.error;
+        const { file, options } = await getFormDataWithZodSchema(request, FormDataSchema);
 
         const client = await createTwitterClientV2();
         const response = await client.v1.uploadMedia(Buffer.from(await file.arrayBuffer()), {
             mimeType: file.type,
-            ...(parsedOptions ? parsedOptions.data : {}),
+            ...(options || {}),
         });
+
         return createSuccessResponseJson({ media_id: response, media_id_string: response });
     },
 );

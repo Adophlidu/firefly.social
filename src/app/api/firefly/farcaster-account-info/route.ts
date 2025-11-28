@@ -6,10 +6,15 @@ import { z } from 'zod';
 import { env } from '@/constants/env.js';
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
+import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { EncryptedAccountInfoResponse } from '@/providers/types/Firefly.js';
 import { decryptAes256 } from '@/services/crypto.js';
 import { settings } from '@/settings/index.js';
+
+const HeadersSchema = z.object({
+    authorization: z.string().min(1, 'Unauthorized'),
+});
 
 const AccountInfoScheme = z.array(
     z.object({
@@ -26,8 +31,7 @@ const AccountInfoScheme = z.array(
 );
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
-    const token = request.headers.get('authorization');
-    if (!token) return createErrorResponseJson('Unauthorized', { status: 401 });
+    const { authorization: token } = getHeadersWithZodSchema(request, HeadersSchema);
 
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/farcaster_account/farcaster-account-info');
     const response = await fetchJson<EncryptedAccountInfoResponse>(
@@ -42,16 +46,11 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     );
     if (!response.data || response.error) {
         const notFoundMessage = 'Farcaster account not found for this user';
-        if (response.error?.[0] === notFoundMessage) {
-            return createSuccessResponseJson([]);
-        }
+        if (response.error?.[0] === notFoundMessage) return createSuccessResponseJson([]);
         return createErrorResponseJson(response.error?.[0] ?? 'Failed to get farcaster account info.', { status: 400 });
     }
     const encrypted = response.data.data;
     const decrypted = decryptAes256(encrypted, env.internal.SESSION_CIPHER_KEY, env.internal.SESSION_CIPHER_IV);
-    const accountInfo = AccountInfoScheme.safeParse(parseJson(decrypted));
-    if (!accountInfo.success) {
-        return createErrorResponseJson(accountInfo.error.message, { status: 500 });
-    }
-    return createSuccessResponseJson(accountInfo.data);
+    const data = AccountInfoScheme.parse(parseJson(decrypted));
+    return createSuccessResponseJson(data);
 });

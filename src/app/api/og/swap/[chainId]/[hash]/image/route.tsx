@@ -6,6 +6,7 @@ import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
 import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
+import { z } from 'zod';
 
 import BridgeOGBackgroundSVGAsset from '@/assets/bridge-og-background.svg?url';
 import CopyTradeButtonSVGAsset from '@/assets/copy-trade-button.svg?url';
@@ -18,6 +19,7 @@ import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
+import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getStaticAssetSrc } from '@/helpers/getStaticAssetSrc.js';
 import { resolveChainIcon } from '@/helpers/resolveChainIcon.js';
@@ -252,11 +254,16 @@ async function createSwapOpenGraphImageResponse({ swap }: { swap: SwapActivity }
     });
 }
 
-export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
-    const params = await context?.params;
-    if (!params?.hash || !params?.chainId) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+const ParamsSchema = z.object({
+    hash: z.string().optional(),
+    chainId: z.coerce.number().optional(),
+});
 
-    const activity = await getSwapActivityByHash(params.hash, Number(params.chainId));
+export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
+    const { hash, chainId } = await getParamsWithZodSchema(ParamsSchema, context);
+    if (!hash || !chainId) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+
+    const activity = await getSwapActivityByHash(hash, chainId);
     if (!activity) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
 
     return createSwapOpenGraphImageResponse({ swap: activity });

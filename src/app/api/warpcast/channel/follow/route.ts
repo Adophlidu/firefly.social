@@ -6,17 +6,21 @@ import { z } from 'zod';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
+import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
+import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 
-const Schema = z.object({
+const ParamsSchema = z.object({
     channelId: z.string(),
 });
 
+const HeadersSchema = z.object({
+    'x-token': z.string().min(1, 'Missing farcaster token'),
+});
+
 export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
-    const { channelId } = getSearchParamsFromRequestWithZodObject(request, Schema);
-    const token = request.headers.get('X-Token');
-    if (!token) throw new Error('Missing farcaster token');
+    const { channelId } = getSearchParamsWithZodSchema(request, ParamsSchema);
+    const { 'x-token': token } = getHeadersWithZodSchema(request, HeadersSchema);
 
     await fetchJson(urlcat(WARPCAST_ROOT_URL, '/fc/channel-follows'), {
         method: 'POST',
@@ -33,9 +37,8 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
 });
 
 export const DELETE = compose(withRequestErrorHandler(), async (request: NextRequest) => {
-    const { channelId } = getSearchParamsFromRequestWithZodObject(request, Schema);
-    const token = request.headers.get('X-Token');
-    if (!token) throw new Error('Missing farcaster token');
+    const { channelId } = getSearchParamsWithZodSchema(request, ParamsSchema);
+    const { 'x-token': token } = getHeadersWithZodSchema(request, HeadersSchema);
 
     await fetchJson(urlcat(WARPCAST_ROOT_URL, '/fc/channel-follows'), {
         method: 'DELETE',

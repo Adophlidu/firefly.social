@@ -5,6 +5,7 @@ import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
 import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
+import { z } from 'zod';
 
 import ArrowRightTickerbitSVGAsset from '@/assets/arrow-right-tickerbit.svg?url';
 import LeftBottomTickerbitSVGAsset from '@/assets/left-bottom-tickerbit.svg?url';
@@ -19,6 +20,7 @@ import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js'
 import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { getMaintainAccountInfo } from '@/helpers/getMaintainAccountInfo.js';
+import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getStaticAssetSrc } from '@/helpers/getStaticAssetSrc.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
@@ -27,7 +29,6 @@ import type { TipsDetail } from '@/providers/types/Firefly.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import type { NextRequestContext } from '@/types/utility.js';
 
-const OG_FONT_FAMILY = '"Inter", "NotoSans"';
 const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
 
 const ArrowRightTickerbitSVG = getStaticAssetSrc(ArrowRightTickerbitSVGAsset);
@@ -57,13 +58,7 @@ function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width'
     return <img alt="img" {...props} src={src} />;
 }
 
-async function TipOpenGraphImage({
-    tip,
-    view = TipsDetailViewType.Sender,
-}: {
-    tip: TipsDetail;
-    view?: TipsDetailViewType;
-}) {
+async function TipOpenGraphImage({ tip }: { tip: TipsDetail }) {
     const tokenIcon = await fetchAvatarAsBase64(tip.token_icon ?? OG_FALLBACK_AVATAR);
 
     const accountInfo = getMaintainAccountInfo(tip, TipsDetailViewType.Sender);
@@ -312,8 +307,8 @@ async function TipOpenGraphImage({
     );
 }
 
-async function createTipOpenGraphImageResponse({ tip, view }: { tip: TipsDetail; view?: TipsDetailViewType }) {
-    return new ImageResponse(await TipOpenGraphImage({ tip, view }), {
+async function createTipOpenGraphImageResponse({ tip }: { tip: TipsDetail }) {
+    return new ImageResponse(await TipOpenGraphImage({ tip }), {
         width: 1200,
         height: 630,
         fonts: await getSatoriFonts(['Inter', 'NotoSans', 'Bedstead']),
@@ -323,16 +318,16 @@ async function createTipOpenGraphImageResponse({ tip, view }: { tip: TipsDetail;
     });
 }
 
+const ParamsSchema = z.object({
+    hash: z.string().optional(),
+});
+
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest, context?: NextRequestContext) => {
-    const params = await context?.params;
-    if (!params?.hash) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+    const { hash } = await getParamsWithZodSchema(ParamsSchema, context);
+    if (!hash) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
 
-    const searchParams = new URL(request.url).searchParams;
-    const view = (searchParams.get('view') as TipsDetailViewType) || TipsDetailViewType.Sender;
+    const tip = await getTipsTransactionDetail(hash, TipsNotificationType.Tip);
+    if (!tip) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
 
-    const tipData = await getTipsTransactionDetail(params.hash, TipsNotificationType.Tip);
-
-    if (!tipData) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
-
-    return createTipOpenGraphImageResponse({ tip: tipData, view });
+    return createTipOpenGraphImageResponse({ tip });
 });

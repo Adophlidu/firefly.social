@@ -1,12 +1,14 @@
+import { compose } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import { NextRequest } from 'next/server.js';
-import type { Hex } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
 import { z } from 'zod';
 
 import { env } from '@/constants/env.js';
-import { createSuccessResponseJson, createZodErrorResponseJson } from '@/helpers/createResponseJson.js';
-import { HexStringSchema } from '@/schemas/index.js';
+import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
+import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { HexString } from '@/schemas/index.js';
 
 const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
     name: 'Farcaster SignedKeyRequestValidator',
@@ -22,14 +24,11 @@ const SIGNED_KEY_REQUEST_TYPE = [
 ] as const;
 
 const BodySchema = z.object({
-    key: HexStringSchema,
+    key: HexString,
 });
 
-export async function POST(request: NextRequest) {
-    const parsed = BodySchema.safeParse(await request.json());
-    if (!parsed.success) return createZodErrorResponseJson(parsed.error, { status: 400 });
-
-    const key = parsed.data.key as Hex;
+export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
+    const { key } = await getJsonBodyWithZodSchema(request, BodySchema);
 
     const deadline = dayjs(Date.now()).add(1, 'y').unix();
     const account = mnemonicToAccount(env.internal.FARCASTER_SIGNER_MNEMONIC);
@@ -57,4 +56,4 @@ export async function POST(request: NextRequest) {
         timestamp: Date.now(),
         expiresAt: deadline * 1000,
     });
-}
+});

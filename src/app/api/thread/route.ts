@@ -1,10 +1,13 @@
-import { once } from '@dimensiondev/utils';
+import { compose, once } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
+import { z } from 'zod';
 
 import { KeyType } from '@/constants/enum.js';
 import { createErrorResponseJson, createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
+import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
+import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getLensThreadByPostId } from '@/providers/lens/getLensThreadByPostId.js';
 
 const getThreadByPostId = memoizeWithRedis(getLensThreadByPostId, {
@@ -22,17 +25,17 @@ const refreshThreadByPostId = once(
     },
 );
 
-export async function GET(request: NextRequest) {
-    const id = request.nextUrl.searchParams.get('id');
-    if (!id) return createErrorResponseJson('Missing id', { status: 400 });
+const SearchParamsSchema = z.object({ id: z.string() });
+
+export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
+    const { id } = getSearchParamsWithZodSchema(request, SearchParamsSchema);
 
     const thread = await getThreadByPostId(id);
     return createSuccessResponseJson(thread);
-}
+});
 
-export async function PUT(request: NextRequest) {
-    const id = request.nextUrl.searchParams.get('id');
-    if (!id) return createErrorResponseJson('Missing id', { status: 400 });
+export const PUT = compose(withRequestErrorHandler(), async (request: NextRequest) => {
+    const { id } = getSearchParamsWithZodSchema(request, SearchParamsSchema);
 
     try {
         await refreshThreadByPostId(id);
@@ -42,4 +45,4 @@ export async function PUT(request: NextRequest) {
             status: 502,
         });
     }
-}
+});

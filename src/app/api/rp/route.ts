@@ -1,11 +1,14 @@
 /* cspell:disable */
 
+import { compose } from '@dimensiondev/utils';
 import { toArray } from 'lodash-es';
 import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { Locale } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, IS_PREVIEW } from '@/constants/index.js';
+import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
+import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createRedPacketImage } from '@/services/createRedPacketImage.js';
 import { TokenType, UsageType } from '@/types/rp.js';
 
@@ -17,7 +20,7 @@ const TokenSchema = z.object({
 
 const CoverSchema = z.object({
     locale: z.nativeEnum(Locale),
-    themeId: z.string(),
+    themeId: z.string().transform((x) => x || ''),
     usage: z.literal(UsageType.Cover),
     from: z.string().refine((x) => (x ? x.length < 50 : true), { message: 'From cannot be longer than 50 characters' }),
     message: z
@@ -44,7 +47,7 @@ const CoverSchema = z.object({
 
 const PayloadSchema = z.object({
     locale: z.nativeEnum(Locale),
-    themeId: z.string(),
+    themeId: z.string().transform((x) => x || ''),
     usage: z.literal(UsageType.Payload),
     from: z.string(),
     amount: z.coerce
@@ -55,75 +58,80 @@ const PayloadSchema = z.object({
     message: z.string(),
 });
 
-function parseParams(params: URLSearchParams) {
-    const usage = params.get('usage') ?? UsageType.Cover;
-    const from = params.get('from') ?? 'unknown';
-    const token = {
-        type: params.get('type') ?? TokenType.Fungible,
-        symbol: params.get('symbol') ?? '?',
-        decimals: params.get('decimals') ?? '0',
-    };
+const ParamsSchema = z.object({
+    usage: z.nativeEnum(UsageType).default(UsageType.Cover),
+    locale: z.nativeEnum(Locale).default(Locale.en),
+    'theme-id': z.string().optional(),
+    from: z.string().default('unknown'),
+    message: z.string().default('Best Wishes!'),
+    amount: z.string().default('0'),
+    'remaining-amount': z.string().optional(),
+    shares: z.string().default('0'),
+    'remaining-shares': z.string().optional(),
+    type: z.nativeEnum(TokenType).default(TokenType.Fungible),
+    symbol: z.string().default('?'),
+    decimals: z.string().default('0'),
+});
 
-    switch (usage) {
-        case UsageType.Cover:
-            return CoverSchema.safeParse({
-                usage,
-                locale: params.get('locale') ?? Locale.en,
-                themeId: params.get('theme-id'),
-                amount: params.get('amount') ?? '0',
-                remainingAmount: params.get('remaining-amount') ?? params.get('amount') ?? '0',
-                shares: params.get('shares') ?? '0',
-                remainingShares: params.get('remaining-shares') ?? params.get('shares') ?? '0',
-                message: params.get('message') ?? 'Best Wishes!',
-                from,
-                token,
-            });
-        case UsageType.Payload:
-            return PayloadSchema.safeParse({
-                usage,
-                locale: params.get('locale') ?? Locale.en,
-                themeId: params.get('theme-id'),
-                amount: params.get('amount') ?? '0',
-                from,
-                token,
-                message: params.get('message') || 'Best Wishes!',
-            });
-        default:
-            return;
+// Discriminated union schema for parsing based on usage
+const RedPacketParamsSchema = ParamsSchema.transform((data) => {
+    // Parse and validate token first
+    const token = TokenSchema.parse({
+        type: data.type,
+        symbol: data.symbol,
+        decimals: data.decimals,
+    });
+
+    // Handle remaining-amount fallback to amount
+    const remainingAmount = data['remaining-amount'] ?? data.amount;
+    // Handle remaining-shares fallback to shares
+    const remainingShares = data['remaining-shares'] ?? data.shares ?? '0';
+
+    if (data.usage === UsageType.Cover) {
+        return CoverSchema.parse({
+            usage: UsageType.Cover,
+            locale: data.locale,
+            themeId: data['theme-id'] ?? '',
+            from: data.from,
+            message: data.message,
+            amount: data.amount,
+            remainingAmount,
+            shares: data.shares ?? '0',
+            remainingShares,
+            token,
+        });
+    } else {
+        return PayloadSchema.parse({
+            usage: UsageType.Payload,
+            locale: data.locale,
+            themeId: data['theme-id'] ?? '',
+            from: data.from,
+            amount: data.amount,
+            token,
+            message: data.message,
+        });
     }
-}
+});
 
-export async function GET(request: NextRequest) {
-    // If no params, throw the usage message.
+export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     if (request.nextUrl.searchParams.size === 0) {
-        const result = CoverSchema.safeParse({
-            locale: Locale.en,
-        });
-        return new Response(result.success ? 'Invalid Params.' : `Full Params: ${result.error.message}`, {
-            status: 400,
-        });
+        return new Response('Invalid Params: No parameters provided', { status: 400 });
     }
 
-    const parsedParams = parseParams(request.nextUrl.searchParams);
-    if (!parsedParams?.success) return new Response(`Invalid Params: ${parsedParams?.error.message}`, { status: 400 });
+    const params = getSearchParamsWithZodSchema(request, ParamsSchema);
+    const redPacketParams = RedPacketParamsSchema.parse(params);
 
-    try {
-        const image = await createRedPacketImage(parsedParams.data, request.signal);
-        const headers = new Headers({
-            'Content-Type': 'image/svg+xml',
-            'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
-        });
+    const image = await createRedPacketImage(redPacketParams, request.signal);
+    const headers = new Headers({
+        'Content-Type': 'image/svg+xml',
+        'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
+    });
 
-        if (IS_PREVIEW) {
-            headers.set('Access-Control-Allow-Origin', '*');
-        }
-
-        return new Response(image, {
-            headers,
-        });
-    } catch (error) {
-        return new Response(`Failed to create image: ${(error as Error).message}`, {
-            status: 500,
-        });
+    if (IS_PREVIEW) {
+        headers.set('Access-Control-Allow-Origin', '*');
     }
-}
+
+    return new Response(image, {
+        headers,
+    });
+});

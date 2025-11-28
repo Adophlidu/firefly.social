@@ -6,9 +6,12 @@ import { ContentTypeError, MalformedError, NotFoundError, UnauthorizedError } fr
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import type { NextRequestContext } from '@/types/utility.js';
 
+type Handler<T> = (request: NextRequest, context?: NextRequestContext<T>) => Promise<Response>;
+
 export function withRequestErrorHandler<P>(options?: { throwError?: boolean }) {
     const { throwError = false } = options ?? {};
-    return (handler: (request: NextRequest, context?: NextRequestContext<P>) => Promise<Response>) => {
+
+    return (handler: Handler<P>) => {
         return async (request: NextRequest, context?: NextRequestContext<P>) => {
             try {
                 return await handler(request, context);

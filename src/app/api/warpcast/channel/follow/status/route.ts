@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { WARPCAST_ROOT_URL_V1 } from '@/constants/index.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
-import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
+import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 
 const Schema = z.object({
@@ -15,7 +15,7 @@ const Schema = z.object({
 });
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
-    const { channelId, fid } = getSearchParamsFromRequestWithZodObject(request, Schema);
+    const { channelId, fid } = getSearchParamsWithZodSchema(request, Schema);
 
     const response = await fetchJson<{ result: { following: boolean } }>(
         urlcat(WARPCAST_ROOT_URL_V1, '/user-channel', {

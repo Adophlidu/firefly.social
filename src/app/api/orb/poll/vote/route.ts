@@ -4,11 +4,16 @@ import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { ORB_POLL_ENDPOINT } from '@/constants/poll.js';
-import { createErrorResponseJson, createZodErrorResponseJson } from '@/helpers/createResponseJson.js';
 import { createResponseJsonFromOrb } from '@/helpers/createResponseJsonFromOrb.js';
 import { fetchOrbJson } from '@/helpers/fetchOrbJson.js';
+import { getHeadersWithZodSchema } from '@/helpers/getHeadersWithZodSchema.js';
+import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { VoteResultResponse } from '@/providers/orb/type.js';
+
+const HeadersSchema = z.object({
+    'x-access-token': z.string().min(1, 'No lens access token.'),
+});
 
 const BodySchema = z.object({
     postId: z.string(),
@@ -16,19 +21,16 @@ const BodySchema = z.object({
 });
 
 export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
-    const lensToken = request.headers.get('x-access-token');
-    if (!lensToken) return createErrorResponseJson('No lens access token.', { status: 400 });
-
-    const parsedData = BodySchema.safeParse(await request.json());
-    if (!parsedData.success) return createZodErrorResponseJson(parsedData.error, { status: 400 });
+    const { 'x-access-token': lensToken } = getHeadersWithZodSchema(request, HeadersSchema);
+    const { postId, pollOptions } = await getJsonBodyWithZodSchema(request, BodySchema);
 
     const url = urlcat(ORB_POLL_ENDPOINT, '/enable-action');
     const response = await fetchOrbJson<VoteResultResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
             task: 'POLL',
-            post: parsedData.data.postId,
-            pollOptions: parsedData.data.pollOptions,
+            post: postId,
+            pollOptions,
         }),
         headers: {
             'x-access-token': lensToken,

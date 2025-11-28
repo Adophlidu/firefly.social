@@ -6,14 +6,14 @@ import { z } from 'zod';
 import { ORB_POLL_ENDPOINT } from '@/constants/poll.js';
 import { createResponseJsonFromOrb } from '@/helpers/createResponseJsonFromOrb.js';
 import { fetchOrbJson } from '@/helpers/fetchOrbJson.js';
-import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
+import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { PollResponse } from '@/providers/orb/type.js';
 
 const ParamsSchema = z.object({ postId: z.string(), profileId: z.string().optional() });
 
 export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
-    const { postId, profileId } = getSearchParamsFromRequestWithZodObject(request, ParamsSchema);
+    const { postId, profileId } = getSearchParamsWithZodSchema(request, ParamsSchema);
 
     const url = urlcat(ORB_POLL_ENDPOINT, '/get-voters');
     const response = await fetchOrbJson<PollResponse>(url, {

@@ -10,7 +10,7 @@ const handler = Auth(authOptions);
 
 export { handler as POST };
 
-export async function GET(request: NextRequest, context: NextRequestContext<{}>) {
+export async function GET(request: NextRequest, context?: NextRequestContext<{}>) {
     if (request.nextUrl.pathname === '/api/auth/signin') {
         return NextResponse.redirect(
             new URL(
@@ -26,7 +26,7 @@ export async function GET(request: NextRequest, context: NextRequestContext<{}>)
         request.nextUrl.pathname === '/api/auth/callback/twitter' &&
         request.cookies.get(MaskDelegateCookieName)?.value
     ) {
-        const res = new NextResponse(
+        const response = new NextResponse(
             `<!doctype html><a id="c" href="#">It's now safe to turn off this page.</a><script>${DeleteCookieScript};c.onclose=()=>window.close()</script>`,
             {
                 headers: {
@@ -35,11 +35,11 @@ export async function GET(request: NextRequest, context: NextRequestContext<{}>)
                 },
             },
         );
-        res.cookies.delete({
+        response.cookies.delete({
             name: MaskDelegateCookieName,
             path: '/api/auth/callback/twitter',
         });
-        return res;
+        return response;
     }
 
     return handler(request, context);

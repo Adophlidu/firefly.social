@@ -4,22 +4,20 @@ import { z } from 'zod';
 
 import { TWITTER_USER_OPTIONS } from '@/constants/twitter.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
-import type { NextRequestContext } from '@/types/utility.js';
 
 const BodySchema = z.object({
     ids: z.array(z.string()).min(1),
 });
 
-export const POST = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
+export const POST = compose(
     withTwitterRequestErrorHandler,
     withRequestErrorHandler({ throwError: true }),
     async (request: NextRequest) => {
-        const parsedBody = BodySchema.safeParse(await request.json());
-        if (!parsedBody.success) throw parsedBody.error;
-        const { ids } = parsedBody.data;
+        const { ids } = await getJsonBodyWithZodSchema(request, BodySchema);
 
         const client = await createTwitterClientV2();
         const { data, errors } = await client.v2.users(ids, {

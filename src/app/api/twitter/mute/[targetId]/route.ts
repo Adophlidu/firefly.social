@@ -1,20 +1,20 @@
 import { compose } from '@dimensiondev/utils';
-import { NextRequest } from 'next/server.js';
+import { z } from 'zod';
 
-import { MalformedError } from '@/constants/error.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
-import type { NextRequestContext } from '@/types/utility.js';
 
-export const POST = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
+const ParamsSchema = z.object({ targetId: z.string() });
+
+export const POST = compose(
     withTwitterRequestErrorHandler,
     withRequestErrorHandler({ throwError: true }),
     async (request, context) => {
-        const targetId = (await context?.params)?.targetId;
-        if (!targetId) throw new MalformedError('targetId not found');
+        const { targetId } = await getParamsWithZodSchema(ParamsSchema, context);
 
         const client = await createTwitterClientV2();
         const { data: me, errors } = await client.v2.me();
@@ -33,12 +33,11 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
     },
 );
 
-export const DELETE = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
+export const DELETE = compose(
     withTwitterRequestErrorHandler,
     withRequestErrorHandler({ throwError: true }),
     async (request, context) => {
-        const targetId = (await context?.params)?.targetId;
-        if (!targetId) throw new MalformedError('targetId not found');
+        const { targetId } = await getParamsWithZodSchema(ParamsSchema, context);
 
         const client = await createTwitterClientV2();
         const { data: me, errors } = await client.v2.me();

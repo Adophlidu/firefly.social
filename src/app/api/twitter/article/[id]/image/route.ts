@@ -1,14 +1,17 @@
 import { compose } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
+import { z } from 'zod';
 
-import { MalformedError } from '@/constants/error.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
+import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { parseHtml } from '@/helpers/parseHtml.js';
 import { qAny } from '@/helpers/q.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import type { NextRequestContext } from '@/types/utility.js';
+
+const ParamsSchema = z.object({ id: z.string() });
 
 function getImageUrl(document: Document): string | null {
     const meta = qAny(document, ['lens:image', 'og:image', 'twitter:image', 'twitter:image:src']);
@@ -19,8 +22,7 @@ export const GET = compose(
     withTwitterRequestErrorHandler,
     withRequestErrorHandler({ throwError: true }),
     async (request: NextRequest, context?: NextRequestContext) => {
-        const articleId = (await context?.params)?.id;
-        if (!articleId) throw new MalformedError('articleId not found');
+        const { id: articleId } = await getParamsWithZodSchema(ParamsSchema, context);
 
         // simulate bot request to get og image
         const response = await fetch(`https://x.com/SingularityDAO/status/${articleId}`, {
