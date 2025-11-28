@@ -2,6 +2,7 @@
 
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { redirect } from 'next/navigation.js';
 import { useState } from 'react';
 
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
@@ -18,7 +19,7 @@ export function SearchTokenContent() {
     const { data: groups } = useSuspenseQuery({
         queryKey: ['search-tokens', searchKeyword],
         queryFn: async () => {
-            if (!searchKeyword) return;
+            if (!searchKeyword) return [];
             return searchTokens(searchKeyword, true);
         },
         select(tokens) {
@@ -58,7 +59,10 @@ export function SearchTokenContent() {
         },
     });
 
-    if (!groups.length) return <NoResultsFallback message={<Empty keyword={searchKeyword} />} />;
+    if (!groups.length) {
+        if (!searchKeyword) redirect('/explore/tokens/trending');
+        return <NoResultsFallback message={<Empty keyword={searchKeyword} />} />;
+    }
 
     return (
         <>
