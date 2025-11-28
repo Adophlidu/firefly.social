@@ -29,11 +29,12 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
 import { SchedulePostModalRef } from '@/modals/SchedulePostModal.js';
+import { deleteScheduledPost } from '@/providers/firefly/post/deleteScheduledPost.js';
+import { getScheduledPosts } from '@/providers/firefly/post/getScheduledPosts.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { PostMediaType, type ScheduleTask } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import { deleteScheduledPost, getScheduledPosts } from '@/services/post.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 

@@ -15,11 +15,11 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { getPostMediaTypes } from '@/helpers/getPostMediaTypes.js';
 import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
+import { schedulePost } from '@/providers/firefly/post/schedulePost.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { createSchedulePostsPayload } from '@/services/crossSchedulePost.js';
 import { ensureSchedulePostPassword } from '@/services/ensureSchedulePostPassword.js';
-import { schedulePost } from '@/services/post.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
 
