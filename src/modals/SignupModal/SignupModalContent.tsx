@@ -1,11 +1,9 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { memo, useCallback } from 'react';
-import { FormProvider, useForm, useFormContext, useWatch } from 'react-hook-form';
-import { useDebounceValue } from 'usehooks-ts';
+import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 
 import { refreshPageCache } from '@/actions/refreshPageCache.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -21,7 +19,6 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { trimify } from '@/helpers/trimify.js';
 import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { SignupFormFields } from '@/modals/SignupModal/SignupFormFields.js';
 import { checkAndSyncMetrics } from '@/providers/firefly/metrics/checkAndSyncMetrics.js';
@@ -69,21 +66,9 @@ interface Props {
 
 const SignupForm = memo<Props>(function SignupModalContent({ source, onClose, onLoadingChange }) {
     const {
-        control,
         handleSubmit,
         formState: { isSubmitting, isDirty, isValid },
     } = useFormContext<SignupFormValues>();
-    const handle = useWatch({ control, name: 'handle' });
-    const [debounceValue] = useDebounceValue(handle, 200);
-    const { data, isLoading } = useQuery({
-        queryKey: ['profile', 'check', source, debounceValue],
-        staleTime: 1000 * 30,
-        queryFn: () => {
-            if (!trimify(debounceValue || '')) return null;
-
-            return resolveSocialMediaProvider(source).getProfileByHandle(debounceValue!);
-        },
-    });
 
     const onSubmit = useCallback(
         async (values: SignupFormValues) => {
@@ -157,12 +142,10 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose, on
         [source, onClose, onLoadingChange],
     );
 
-    const profileExisted = !!debounceValue && !!data;
-
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex size-full flex-col">
             <div className="no-scrollbar min-h-0 flex-1 space-y-4 overflow-y-auto px-6 pb-6">
-                <SignupFormFields profileExisted={profileExisted} source={source} disabled={isSubmitting} />
+                <SignupFormFields source={source} disabled={isSubmitting} />
             </div>
             <div className="px-6 pb-4 pt-2">
                 <ClickableButton
@@ -170,7 +153,7 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose, on
                     enableDefault
                     enablePropagate
                     loading={isSubmitting}
-                    disabled={!isDirty || !isValid || isSubmitting || isLoading || profileExisted}
+                    disabled={!isDirty || !isValid || isSubmitting}
                     className="h-10 w-full rounded-lg bg-main text-medium font-bold text-primaryBottom outline-none"
                 >
                     <Trans>Sign Up</Trans>

@@ -7,6 +7,7 @@ import type { RegisterOptions } from 'react-hook-form';
 import { ErrorMessage } from '@/components/Form/ErrorMessage.js';
 import { FormInput } from '@/components/Form/FormInput.js';
 import { FormTextarea } from '@/components/Form/FormTextarea.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import {
     MAX_PROFILE_BIO_SIZE,
@@ -16,13 +17,15 @@ import {
     MIN_PROFILE_HANDLE_SIZE,
 } from '@/constants/limitation.js';
 import { FARCASTER_USERNAME_REGEXP, LENS_USERNAME_REGEXP } from '@/constants/regexp.js';
+import { autoWithSignal } from '@/helpers/autoWithSignal.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ProfileAvatarSelector } from '@/modals/SignupModal/ProfileAvatarSelector.js';
+import { checkHandleAvailability } from '@/services/checkHandleAvailability.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 
 interface SignupFormFieldsProps {
     source: SocialSource;
     disabled?: boolean;
-    profileExisted?: boolean;
 }
 
 function isBlank(str: string) {
@@ -54,6 +57,8 @@ function checkHandleFormat(source: SocialSource, handle: string): true | string 
             return true;
     }
 }
+
+const validateHandle = autoWithSignal(checkHandleAvailability);
 
 function getFieldsBySource(source: SocialSource): Array<{
     name: string;
@@ -110,6 +115,15 @@ function getFieldsBySource(source: SocialSource): Array<{
                     const formatCheck = checkHandleFormat(source, value);
                     if (formatCheck !== true) return formatCheck;
 
+                    const checked = await runInSafeAsync(() =>
+                        queryClient.fetchQuery({
+                            queryKey: ['profile', 'check', source, value],
+                            staleTime: 1000 * 40,
+                            queryFn: () => validateHandle(source, value),
+                        }),
+                    );
+                    if (checked === false) return t`User Name is not available`;
+
                     return true;
                 },
             },
@@ -134,11 +148,7 @@ function getFieldsBySource(source: SocialSource): Array<{
     ];
 }
 
-export const SignupFormFields = memo<SignupFormFieldsProps>(function SignupFormFields({
-    source,
-    disabled = false,
-    profileExisted = false,
-}) {
+export const SignupFormFields = memo<SignupFormFieldsProps>(function SignupFormFields({ source, disabled = false }) {
     const fields = useMemo(() => getFieldsBySource(source), [source]);
 
     return (
@@ -180,13 +190,7 @@ export const SignupFormFields = memo<SignupFormFieldsProps>(function SignupFormF
                                 />
                             ) : null}
                         </div>
-                        {profileExisted && field.name === 'handle' ? (
-                            <p className="mt-1.5 text-xs font-medium leading-4 text-fail">
-                                <Trans>User Name is not available</Trans>
-                            </p>
-                        ) : (
-                            <ErrorMessage className="mt-1.5" name={field.name} />
-                        )}
+                        <ErrorMessage className="mt-1.5" name={field.name} />
                     </div>
                 );
             })}
