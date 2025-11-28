@@ -73,7 +73,7 @@ import { settings } from '@/settings/index.js';
 
 async function getPostById(postId: string): Promise<Post> {
     const atUri = PostAtUri.fromId(postId).toUri();
-    return getPostById(atUri);
+    return getPostByUri(atUri);
 }
 
 async function getPostByUri(uri: string): Promise<Post> {
@@ -568,7 +568,7 @@ class BskySocialMedia implements Provider {
                                 type: NotificationType.Mirror,
                                 mirrors: [formatBskyProfile(x.author)],
                                 post: await runInSafeAsync(() =>
-                                    x.reasonSubject ? getPostById(x.reasonSubject) : Promise.resolve(null),
+                                    x.reasonSubject ? getPostByUri(x.reasonSubject) : Promise.resolve(null),
                                 ),
                                 timestamp,
                             } satisfies MirrorNotification;
