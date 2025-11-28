@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-11-25 12:01\n"
+"PO-Revision-Date: 2025-11-28 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -2876,7 +2876,7 @@ msgid "No activity yet"
 msgstr "这里空空如也"
 
 msgid "User Name is not available"
-msgstr ""
+msgstr "用户名不可用"
 
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr "热门前 200 榜单｜数据来源：<0> Rootdata </0>"
@@ -3180,7 +3180,7 @@ msgstr "草稿"
 
 #. js-lingui-explicit-id
 msgid "error-report"
-msgstr ""
+msgstr "上报错误"
 
 #. js-lingui-explicit-id
 msgid "error-reported"
@@ -3599,7 +3599,7 @@ msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "将在 <0>{0} <1>{1}</1></0> 发布"
 
 msgid "Lens Auto Login"
-msgstr ""
+msgstr "Lens 自动登录"
 
 msgid "Turning off multi-device login will cause scheduled posts to fail. To ensure that posts<0/> are sent as scheduled, please make sure that multi-device login remains turned on."
 msgstr "关闭多设备登录将导致定时帖发布失败。为确保帖子<0/>按计划发送，请保持多设备登录开启。"
@@ -4360,8 +4360,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "验证密码时出现意外步骤：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
+msgstr "如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
 "但如果你仍想访问另一个社交账号绑定的 Firefly 钱包，建议你切换账户，而不是删除账户。"
 
 msgid "<0>You</0> recasted"
@@ -4644,3 +4643,4 @@ msgstr "多设备登录"
 
 msgid "Success"
 msgstr "成功"
+
