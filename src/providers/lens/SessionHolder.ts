@@ -3,9 +3,12 @@ import { refresh } from '@lens-protocol/client/actions';
 
 import { TokenExpiredError } from '@/constants/error.js';
 import { LENS_TOKEN_STORAGE_KEY } from '@/constants/index.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
+import { autoLoginWithPrivy } from '@/providers/lens/autoLoginWithPrivy.js';
 import { createLensClient } from '@/providers/lens/createLensClient.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
+import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
 import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
 import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
@@ -89,6 +92,19 @@ class LensSessionHolder extends SessionHolder<LensSession> {
 
             return;
         } catch (error) {
+            if (refreshSession) {
+                const result = await runInSafeAsync(() => autoLoginWithPrivy(session.profileId));
+                if (result) {
+                    const credentials = ensureLensResultSync(result.sessionClient.getCredentials());
+                    if (credentials) {
+                        updateCredentialsStorage(credentials);
+                        const sessionClient = await ensureLensResult(lensClientHolder.client.resumeSession());
+                        lensSessionClientHolder.setSessionClient(sessionClient);
+                        return;
+                    }
+                }
+            }
+
             if (error instanceof InvariantError && error.message?.includes('ExpiredSignature')) {
                 throw new TokenExpiredError();
             }
