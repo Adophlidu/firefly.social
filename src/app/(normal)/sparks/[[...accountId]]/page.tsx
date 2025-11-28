@@ -1,11 +1,14 @@
 import { SparksModal } from '@/components/Sparks/SparksModal.js';
 import { createSparksAccountMetadata } from '@/providers/firefly/metadata/createSparksAccountMetadata.js';
+import { createSparksMetadata } from '@/providers/firefly/metadata/createSparksMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
-interface Props extends NextPageProps<{ accountId: string }> {}
+interface Props extends NextPageProps<{ slug?: string[] }> {}
 
 export async function generateMetadata(props: Props) {
-    const { accountId } = await props.params;
+    const { slug } = await props.params;
+    if (!slug?.length) return createSparksMetadata();
+    const accountId = slug[0];
     return createSparksAccountMetadata(accountId, `/sparks/${accountId}`);
 }
 
