@@ -7,9 +7,6 @@ import type { NextRequest } from 'next/server.js';
 import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 
-import BridgeButtonSVG from '@/assets/bridge-og-background.svg?url';
-import CopyTradeButtonSVG from '@/assets/copy-trade-button.svg?url';
-import SwapOGBackgroundSVG from '@/assets/swap-og-background.svg?url';
 import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { Source } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
@@ -28,6 +25,9 @@ import type { NextRequestContext } from '@/types/utility.js';
 
 const OG_FONT_FAMILY = '"Inter", "NotoSans"';
 const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
+const BRIDGE_OG_BACKGROUND_SVG = urlcat(SITE_URL, '/image/bridge-og-background.svg');
+const COPY_TRADE_BUTTON_SVG = urlcat(SITE_URL, '/image/copy-trade-button.svg');
+const SWAP_OG_BACKGROUND_SVG = urlcat(SITE_URL, '/image/swap-og-background.svg');
 
 function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width' | 'height' | 'style'>) {
     return <img alt="img" {...props} src={src} />;
@@ -49,6 +49,11 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
     const avatarUrl = swap.displayInfo?.avatarUrl || getStampAvatarByProfileId(Source.Wallet, swap.owner);
     const avatar = avatarUrl ? await fetchAvatarAsBase64(avatarUrl) : null;
 
+    // Use absolute paths for SVG files
+    const backgroundImageUrl = swap.is_cross_chain ? BRIDGE_OG_BACKGROUND_SVG : SWAP_OG_BACKGROUND_SVG;
+
+    const copyTradeButtonImageUrl = COPY_TRADE_BUTTON_SVG;
+
     return (
         <div
             style={{
@@ -59,11 +64,18 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
             }}
         >
             <Image
-                src={swap.is_cross_chain ? BridgeButtonSVG : SwapOGBackgroundSVG}
+                src={backgroundImageUrl}
                 alt="swap-og-background"
                 width={1200}
                 height={630}
-                style={{ position: 'absolute', top: 0, left: 0, width: '1200px', height: '630px', objectFit: 'cover' }}
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '1200px',
+                    height: '630px',
+                    objectFit: 'cover',
+                }}
             />
             <div style={{ display: 'flex', position: 'absolute', top: '200px', left: '312px' }}>
                 {fromToken ? (
@@ -219,7 +231,7 @@ async function SwapOpenGraphImage({ swap }: { swap: SwapActivity }) {
             </div>
 
             <div style={{ display: 'flex', position: 'absolute', top: '498px', right: '64px' }}>
-                <Image src={CopyTradeButtonSVG} alt="copy-trade-button" width={272} height={48} />
+                <Image src={copyTradeButtonImageUrl} alt="copy-trade-button" width={272} height={48} />
             </div>
         </div>
     );
