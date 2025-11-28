@@ -6,7 +6,7 @@ import { Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { checkFarcasterInvalidSignerKey } from '@/providers/farcaster/checkFarcasterInvalidSignerKey.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -51,8 +51,8 @@ export function useMirror(post: Post) {
                     }
                     case Source.Bsky: {
                         await (hasMirrored
-                            ? BskySocialMediaProvider.unmirrorPost(postId)
-                            : BskySocialMediaProvider.mirrorPost(postId));
+                            ? bskySocialMediaProvider.unmirrorPost(postId)
+                            : bskySocialMediaProvider.mirrorPost(postId));
                         enqueueSuccessMessage(hasMirrored ? t`Cancel repost successfully` : t`Reposted`);
                         return;
                     }

@@ -28,7 +28,7 @@ import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
-import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { searchIdentity } from '@/providers/firefly/endpoint/searchIdentity.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Profile } from '@/providers/types/Firefly.js';
@@ -195,7 +195,7 @@ export function MentionsPlugin(): JSX.Element | null {
                 size: 50,
             });
             const bskyProfiles = availableSources.includes(Source.Bsky)
-                ? await BskySocialMediaProvider.searchProfiles(debounceQuery, undefined, 10)
+                ? await bskySocialMediaProvider.searchProfiles(debounceQuery, undefined, 10)
                 : undefined;
 
             const twitterProfiles = availableSources.includes(Source.Twitter)

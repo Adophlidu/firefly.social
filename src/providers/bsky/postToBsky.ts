@@ -10,7 +10,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { createBskyMediaObject } from '@/providers/bsky/createBskyMediaObject.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { uploadVideoToBsky } from '@/providers/bsky/uploadVideoToBsky.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import type { Post, PostType } from '@/providers/types/SocialMedia.js';
@@ -132,7 +132,7 @@ export async function postToBsky(
         },
         async compose(images, videos) {
             const draft = await composeDraft('Post', images, videos);
-            return BskySocialMediaProvider.publishPost(draft);
+            return bskySocialMediaProvider.publishPost(draft);
         },
         async reply(images, videos) {
             if (
@@ -143,7 +143,7 @@ export async function postToBsky(
             )
                 throw new Error('No parent post found.');
             const draft = await composeDraft('Comment', images, videos);
-            return BskySocialMediaProvider.publishPost(draft);
+            return bskySocialMediaProvider.publishPost(draft);
         },
         async quote(images, videos) {
             if (
@@ -154,7 +154,7 @@ export async function postToBsky(
             )
                 throw new Error('No parent post found.');
             const draft = await composeDraft('Quote', images, videos);
-            return BskySocialMediaProvider.quotePost(bskyParentPost.postId, draft);
+            return bskySocialMediaProvider.quotePost(bskyParentPost.postId, draft);
         },
     });
 

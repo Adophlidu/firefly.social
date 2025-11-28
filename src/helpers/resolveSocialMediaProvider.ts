@@ -3,7 +3,7 @@ import { isServer } from '@tanstack/react-query';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
@@ -39,7 +39,7 @@ export function resolveSocialMediaProvider(source: SocialSource, options?: Optio
                     return twitterSocialMediaProxy;
             }
         case Source.Bsky:
-            return BskySocialMediaProvider;
+            return bskySocialMediaProvider;
         default:
             safeUnreachable(source);
             throw new UnreachableError('social source', source);

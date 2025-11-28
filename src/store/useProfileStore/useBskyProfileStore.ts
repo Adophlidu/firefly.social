@@ -15,14 +15,14 @@ import { isBskyTokenExpired } from '@/providers/bsky/isBskyTokenExpired.js';
 import { retryOnBskyWhenNetworkError } from '@/providers/bsky/retryOnBskyWhenNetworkError.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
 import { createProfileState, customSelectors } from '@/store/useProfileStore/createProfileState.js';
 
 const state = createProfileState(
     {
-        getUpdatedProfile: (profile: Profile) => BskySocialMediaProvider.getProfileById(profile.profileId),
+        getUpdatedProfile: (profile: Profile) => bskySocialMediaProvider.getProfileById(profile.profileId),
     },
     {
         name: 'bsky-state',
@@ -67,7 +67,7 @@ const state = createProfileState(
                 await bskySessionHolder.resumeSession(bskySession, false);
 
                 const profile = await retryOnBskyWhenNetworkError(3, () =>
-                    BskySocialMediaProvider.getProfileById(bskySession.did),
+                    bskySocialMediaProvider.getProfileById(bskySession.did),
                 );
                 const newSession = bskySessionHolder.session ?? bskySession;
                 newSession.sessionPayload = {

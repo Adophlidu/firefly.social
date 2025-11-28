@@ -3,7 +3,7 @@ import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromSto
 import { isSocialSource } from '@/helpers/isSource.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { getScheduleNotifications } from '@/providers/firefly/endpoint/getScheduleNotifications.js';
 import { getTipsNotifications } from '@/providers/firefly/endpoint/getTipsNotifications.js';
@@ -45,7 +45,7 @@ const sourceConfig: Config[] = [
         timeout: 1000 * 60 * 2,
         type: NotificationSourceType.Bsky,
         loginSource: Source.Bsky,
-        getNotifications: () => BskySocialMediaProvider.getNotifications(),
+        getNotifications: () => bskySocialMediaProvider.getNotifications(),
     },
 ];
 const jobIds = new Set<NodeJS.Timeout>();

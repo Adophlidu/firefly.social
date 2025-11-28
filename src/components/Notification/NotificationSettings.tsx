@@ -12,7 +12,7 @@ import { TypeFilter } from '@/components/TypeFilter/index.js';
 import { type NotificationSource, Source } from '@/constants/enum.js';
 import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/index.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
-import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { captureQualityFilterOffEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 import { NotificationType } from '@/providers/types/SocialMedia.js';
@@ -33,14 +33,14 @@ export function NotificationSettings({ source }: { source: NotificationSource })
         staleTime: 1000 * 60 * 3, // 3 minutes
         async queryFn() {
             if (source !== Source.Bsky) return;
-            return BskySocialMediaProvider.getNotificationSettings();
+            return bskySocialMediaProvider.getNotificationSettings();
         },
     });
 
     const [{ loading: switching }, onSwitch] = useAsyncFn(
         async (state: boolean) => {
             if (source === Source.Bsky) {
-                await BskySocialMediaProvider.setNotificationSettings({
+                await bskySocialMediaProvider.setNotificationSettings({
                     priority: state,
                 });
                 await refetch();

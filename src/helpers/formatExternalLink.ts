@@ -9,7 +9,7 @@ import { getSiteTypeFromUrl } from '@/helpers/getSiteTypeFromUrl.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { trimify } from '@/helpers/trimify.js';
-import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { getPostByShortId } from '@/providers/firefly/endpoint/getPostByShortId.js';
 import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -27,7 +27,7 @@ async function captureChannelUrl(url: URL, regex: RegExp, source: SocialSource) 
     if (source === Source.Bsky) {
         const author = trimify(matched?.[1] ?? '');
         const feedName = trimify(matched?.[2] ?? '');
-        const profile = await BskySocialMediaProvider.getProfileByHandle(author);
+        const profile = await bskySocialMediaProvider.getProfileByHandle(author);
         if (!profile) return;
         const channelDid = `${profile.profileId.replace('did:plc:', '')}_${feedName}`;
         return urlcat(SITE_URL, resolveChannelUrl(channelDid, source));
@@ -59,7 +59,7 @@ async function capturePostUrl(url: URL, regex: RegExp, source: SocialSource) {
         const author = trimify(matched?.[1] ?? '');
         const postDid = trimify(matched?.[2] ?? '');
         if (!author || !postDid) return;
-        const profile = await BskySocialMediaProvider.getProfileByHandle(author);
+        const profile = await bskySocialMediaProvider.getProfileByHandle(author);
         if (!profile) return;
         const postId = `${profile.profileId.replace('did:plc:', '')}_${postDid}`;
         return urlcat(SITE_URL, resolvePostUrl(source, postId));

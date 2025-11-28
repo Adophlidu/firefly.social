@@ -4,7 +4,7 @@ import { Source, SourceInURL } from '@/constants/enum.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { getAllPlatformProfileByIdentity } from '@/providers/firefly/endpoint/getAllPlatformProfileByIdentity.js';
 import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
@@ -65,7 +65,7 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
     if (bskySession) {
         const bskyProfiles = socialProfiles.filter((profile) => profile.identity.source === Source.Bsky);
         await Promise.allSettled(
-            bskyProfiles.map((profile) => BskySocialMediaProvider.blockProfile(profile.identity.id)),
+            bskyProfiles.map((profile) => bskySocialMediaProvider.blockProfile(profile.identity.id)),
         );
         results.push(
             ...bskyProfiles.map((profile) => ({

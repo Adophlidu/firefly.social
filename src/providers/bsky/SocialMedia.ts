@@ -71,7 +71,12 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
-async function getSinglePost(uri: string) {
+async function getPostById(postId: string): Promise<Post> {
+    const atUri = PostAtUri.fromId(postId).toUri();
+    return getPostById(atUri);
+}
+
+async function getPostByUri(uri: string): Promise<Post> {
     const response = await bskySessionHolder.agent.getPostThread({
         uri,
         depth: 10,
@@ -80,6 +85,12 @@ async function getSinglePost(uri: string) {
     const thread = AppBskyFeedDefs.isThreadViewPost(data.thread) ? data.thread : null;
     if (!thread) throw new Error(`No thread found uri = ${uri}.`);
     return formatBskyFeedPost(thread);
+}
+
+async function getProfileById(profileId: string) {
+    const response = await bskySessionHolder.agent.getProfile({ actor: profileId });
+    const data = resolveBskyResponseData(response, `Failed to get profile id = ${profileId}.`);
+    return formatBskyProfile(data);
 }
 
 @SetQueryDataForLikePost(Source.Bsky)
@@ -115,7 +126,7 @@ class BskySocialMedia implements Provider {
         return true;
     }
     async mirrorPost(postId: string, authorId?: number): Promise<string> {
-        const post = await BskySocialMediaProvider.getPostById(postId);
+        const post = await getPostById(postId);
         if (!post.metadata.contentURI) throw new Error(`Failed to mirror post postId = ${postId}`);
         const response = await bskySessionHolder.agent.repost(post.metadata.contentURI, post.publicationId);
         return response.uri;
@@ -139,7 +150,7 @@ class BskySocialMedia implements Provider {
         };
     }
     async commentPost(postId: string, post: Post): Promise<{ postId: string; contentURI?: string }> {
-        return BskySocialMediaProvider.publishPost(post);
+        return bskySocialMediaProvider.publishPost(post);
     }
     async collectPost(postId: string, collectionId?: string): Promise<void> {
         throw new NotImplementedError();
@@ -154,7 +165,7 @@ class BskySocialMedia implements Provider {
         throw new NotImplementedError();
     }
     async upvotePost(postId: string): Promise<void> {
-        const post = await BskySocialMediaProvider.getPostById(postId);
+        const post = await getPostById(postId);
         if (!AppBskyFeedDefs.isThreadViewPost(post.__original__))
             throw new Error(`Failed to like post postId = ${postId}`);
         await bskySessionHolder.agent.like(post.__original__.post.uri, post.__original__.post.cid);
@@ -182,23 +193,20 @@ class BskySocialMedia implements Provider {
         return data.feeds.map(formatBskyChannel);
     }
     async getProfileById(profileId: string): Promise<Profile> {
-        const response = await bskySessionHolder.agent.getProfile({ actor: profileId });
-        const data = resolveBskyResponseData(response, `Failed to get profile id = ${profileId}.`);
-        return formatBskyProfile(data);
+        return getProfileById(profileId);
     }
     async getProfileByHandle(handle: string): Promise<Profile> {
         const did = await convertBskyHandleToDid(handle);
-        return this.getProfileById(did || handle);
+        return getProfileById(did || handle);
     }
     async getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
-        return this.getProfileById(profileIdOrHandle);
+        return getProfileById(profileIdOrHandle);
     }
     async getProfileBySession(session: Session): Promise<Profile> {
         return getBskyProfileBySession(session as BskySession);
     }
     async getPostById(postId: string): Promise<Post> {
-        const atUri = PostAtUri.fromId(postId).toUri();
-        return getSinglePost(atUri);
+        return getPostById(postId);
     }
     async getChannelById(channelId: string, includeFollowingStatus?: boolean): Promise<Channel> {
         const atUri = ChannelAtUri.fromId(channelId).toUri();
@@ -417,7 +425,7 @@ class BskySocialMedia implements Provider {
             cursor: indicator?.id,
             limit: 25,
         });
-        const data = await BskySocialMediaProvider.getProfilesByIds(response.data.followers.map((x) => x.did));
+        const data = await bskySocialMediaProvider.getProfilesByIds(response.data.followers.map((x) => x.did));
         return createPageable(
             data,
             createIndicator(indicator),
@@ -431,7 +439,7 @@ class BskySocialMedia implements Provider {
             cursor: indicator?.id,
             limit: 25,
         });
-        const data = await BskySocialMediaProvider.getProfilesByIds(response.data.follows.map((x) => x.did));
+        const data = await bskySocialMediaProvider.getProfilesByIds(response.data.follows.map((x) => x.did));
         return createPageable(
             data,
             createIndicator(indicator),
@@ -445,7 +453,7 @@ class BskySocialMedia implements Provider {
             cursor: indicator?.id,
             limit: 25,
         });
-        const data = await BskySocialMediaProvider.getProfilesByIds(response.data.followers.map((x) => x.did));
+        const data = await bskySocialMediaProvider.getProfilesByIds(response.data.followers.map((x) => x.did));
         return createPageable(
             data,
             createIndicator(indicator),
@@ -494,7 +502,7 @@ class BskySocialMedia implements Provider {
                                 type: NotificationType.Reaction,
                                 reactors: [formatBskyProfile(x.author)],
                                 post: await runInSafeAsync(() =>
-                                    getSinglePost((x.record as { subject: { uri: string } }).subject.uri),
+                                    getPostByUri((x.record as { subject: { uri: string } }).subject.uri),
                                 ),
                                 timestamp,
                             } satisfies ReactionNotification;
@@ -502,8 +510,10 @@ class BskySocialMedia implements Provider {
                             const parentUri = (x.record as { reply: { parent: { uri: string } } })?.reply?.parent?.uri;
                             if (!parentUri) return null;
 
-                            const comment = await runInSafeAsync(() => getSinglePost(x.uri));
-                            const parentPost = await runInSafeAsync(() => getSinglePost(parentUri));
+                            const [comment, parentPost] = await Promise.all([
+                                runInSafeAsync(() => getPostByUri(x.uri)),
+                                runInSafeAsync(() => getPostByUri(parentUri)),
+                            ]);
 
                             return {
                                 source: Source.Bsky,
@@ -530,8 +540,12 @@ class BskySocialMedia implements Provider {
                         case 'quote':
                             if (!x.reasonSubject) return null;
 
-                            const quote = await runInSafeAsync(() => getSinglePost(x.uri));
-                            const targetPost = await runInSafeAsync(() => getSinglePost(x.reasonSubject as string));
+                            const [quote, targetPost] = await Promise.all([
+                                runInSafeAsync(() => getPostByUri(x.uri)),
+                                runInSafeAsync(() =>
+                                    x.reasonSubject ? getPostByUri(x.reasonSubject) : Promise.resolve(null),
+                                ),
+                            ]);
                             if (!quote || !targetPost) return null;
 
                             return {
@@ -553,7 +567,9 @@ class BskySocialMedia implements Provider {
                                 notificationId: x.cid,
                                 type: NotificationType.Mirror,
                                 mirrors: [formatBskyProfile(x.author)],
-                                post: await runInSafeAsync(() => getSinglePost(x.reasonSubject as string)),
+                                post: await runInSafeAsync(() =>
+                                    x.reasonSubject ? getPostById(x.reasonSubject) : Promise.resolve(null),
+                                ),
                                 timestamp,
                             } satisfies MirrorNotification;
                         case 'starterpack-joined':
@@ -667,7 +683,7 @@ class BskySocialMedia implements Provider {
         const data = resolveBskyResponseData(response, `Failed to get like reactors postId = ${postId}.`);
         const likes = data.likes || [];
         const profiles = likes.length
-            ? await runInSafeAsync(() => BskySocialMediaProvider.getProfilesByIds(likes.map((x) => x.actor.did)))
+            ? await runInSafeAsync(() => bskySocialMediaProvider.getProfilesByIds(likes.map((x) => x.actor.did)))
             : [];
 
         return createPageable(
@@ -686,7 +702,7 @@ class BskySocialMedia implements Provider {
         const data = resolveBskyResponseData(response, `Failed to get repost reactors postId = ${postId}.`);
         const repostedBy = data.repostedBy || [];
         const profiles = repostedBy.length
-            ? await runInSafeAsync(() => BskySocialMediaProvider.getProfilesByIds(repostedBy.map((x) => x.did)))
+            ? await runInSafeAsync(() => bskySocialMediaProvider.getProfilesByIds(repostedBy.map((x) => x.did)))
             : [];
 
         return createPageable(
@@ -902,4 +918,4 @@ class BskySocialMedia implements Provider {
     }
 }
 
-export const BskySocialMediaProvider = new BskySocialMedia();
+export const bskySocialMediaProvider = new BskySocialMedia();

@@ -8,7 +8,7 @@ import { createPageable, type Pageable, type PageIndicator } from '@/helpers/pag
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 
 interface Options {
@@ -51,7 +51,7 @@ export async function getBskySuggestedUsers(
     const profiles = result.actors.map(formatBskyProfile);
     const profilesWithStats = queryStats
         ? await runInSafeAsync(() =>
-              BskySocialMediaProvider.getProfilesByIds(profiles.map((profile) => profile.profileId)),
+              bskySocialMediaProvider.getProfilesByIds(profiles.map((profile) => profile.profileId)),
           )
         : undefined;
     if (!profilesWithStats?.length) {

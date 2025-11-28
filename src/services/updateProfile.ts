@@ -7,7 +7,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
@@ -55,7 +55,7 @@ export async function updateProfile(profile: Profile, profileEditable: ProfileEd
             await twitterSocialMediaProxy.updateProfile(profileEditable);
             break;
         case Source.Bsky:
-            await BskySocialMediaProvider.updateProfile(pickProfileDiff(profile, profileEditable));
+            await bskySocialMediaProvider.updateProfile(pickProfileDiff(profile, profileEditable));
             break;
         default:
             safeUnreachable(profile.source);
