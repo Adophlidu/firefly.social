@@ -2,7 +2,7 @@ import { bom } from '@dimensiondev/utils';
 import { find } from 'lodash-es';
 
 import { getLocaleFromCookies } from '@/helpers/getCookies.js';
-import { Language } from '@/services/translate.js';
+import { Language } from '@/types/language.js';
 
 const getBrowserLanguage = () => {
     const browserLanguage = bom.navigator?.language ?? '';

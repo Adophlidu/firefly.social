@@ -1,9 +1,17 @@
+import { EMPTY_LIST } from '@/constants/index.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
+import type { FarcasterAccountInfoResponse } from '@/providers/types/Firefly.js';
 import { createFarcasterFromFirefly } from '@/providers/warpcast/createAccountByFireflyWallet.js';
 import { addAccounts } from '@/services/account.js';
-import { getFarcasterAccountInfos } from '@/services/getFarcasterAccountInfos.js';
+
+async function getFarcasterAccountInfos() {
+    const res = await fireflySessionHolder.fetchWithSession<FarcasterAccountInfoResponse>(
+        '/api/firefly/farcaster-account-info',
+    );
+    return res.data || EMPTY_LIST;
+}
 
 // Local variable to track restoring status per profile ID
 const restoringFarcasterAccounts = new Map<string, 'idle' | 'pending' | 'succeed' | 'failed'>();

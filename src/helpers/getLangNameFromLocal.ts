@@ -1,6 +1,6 @@
 import { find } from 'lodash-es';
 
-import { Language } from '@/services/translate.js';
+import { Language } from '@/types/language.js';
 
 export function getLangNameFromLocal(locale: string) {
     const matchedLang = find(Object.entries(Language), ([_, value]) => {

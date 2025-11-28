@@ -3,7 +3,7 @@
 import { franc } from 'franc-min';
 
 import { MIN_CHAR_LENGTH_TO_TRANSLATE } from '@/constants/index.js';
-import { Language } from '@/services/translate.js';
+import { Language } from '@/types/language.js';
 
 function getLanguageFromCode(code: string): Language | null {
     switch (code) {
