@@ -6,7 +6,7 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
+import type { CompositePost } from '@/types/compose.js';
 
 export function createDummyPost(source: SocialSource, content: string, url?: string, urls?: string[]) {
     return {

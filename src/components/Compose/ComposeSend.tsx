@@ -25,7 +25,8 @@ import { crossSchedulePost } from '@/services/crossSchedulePost.js';
 import { crossPostScheduleThread } from '@/services/crossSchedulePostThread.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
-import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
+import type { CompositePost } from '@/types/compose.js';
 
 interface ComposeSendProps extends HTMLProps<HTMLDivElement> {}
 

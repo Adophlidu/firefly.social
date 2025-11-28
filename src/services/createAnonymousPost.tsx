@@ -17,8 +17,7 @@ import { createAnonymousPost as createAnonymousPostByEndpoint } from '@/provider
 import { getAnonymousPostById } from '@/providers/firefly/endpoint/getAnonymousPostById.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
-import { type CompositePost, type OrphanPost } from '@/store/useComposeStore.js';
-import type { ComposeType } from '@/types/compose.js';
+import type { ComposeType, CompositePost, OrphanPost } from '@/types/compose.js';
 
 const postByFireflySources: SocialSource[] = [Source.Farcaster, Source.Twitter];
 

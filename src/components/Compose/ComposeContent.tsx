@@ -15,7 +15,8 @@ import type { SocialSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
-import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
+import type { CompositePost } from '@/types/compose.js';
 
 interface ComposeContentProps {
     post: CompositePost;

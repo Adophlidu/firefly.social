@@ -23,53 +23,13 @@ import { OpenGraphLoader } from '@/providers/og/Loader.js';
 import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import type { Chars } from '@/types/chars.js';
-import type { ComposeType, MediaObject } from '@/types/compose.js';
+import type { ComposeType, CompositePost, MediaObject } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
 import type { OpenGraph } from '@/types/og.js';
 import type { RedPacketPayload } from '@/types/rp.js';
 
 // post id for tracking the current editable post
 type Cursor = string;
-
-// A recursive version of Post will cause typescript failed to infer the type of the final exports.
-export type OrphanPost = Omit<
-    Post,
-    'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn' | 'firstComment' | 'threads'
->;
-
-// A composite post uses availableSources of the root post.
-export interface CompositePost {
-    id: Cursor;
-
-    // tracking the post id in specific platform if it's posted
-    postId: Record<SocialSource, string | null>;
-    postContentURI: Record<SocialSource, string | null>;
-    // tracking the parent post in specific platform (runtime only)
-    parentPost: Record<SocialSource, OrphanPost | null>;
-    // tracking error
-    postError: Record<SocialSource, Error | null>;
-
-    // shared properties
-    chars: Chars;
-    restriction: RestrictionType;
-    availableSources: SocialSource[];
-    channel: Record<SocialSource, Channel | null>;
-    // Anonymous post
-    isAnonymous: boolean;
-
-    // media objects
-    videos: MediaObject[];
-    images: MediaObject[];
-    urls: string[];
-    poll: CompositePoll | null;
-    rpPayload: RedPacketPayload | null;
-    // parsed frames from urls in chars
-    frames: Frame[];
-    // parsed open graphs from url in chars
-    openGraphs: OpenGraph[];
-
-    excludeReplyProfileIds?: string[];
-}
 
 interface ComposeBaseState {
     type: ComposeType;

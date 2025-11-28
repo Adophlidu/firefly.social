@@ -15,9 +15,8 @@ import { uploadVideoToBsky } from '@/providers/bsky/uploadVideoToBsky.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import type { Post, PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
-import { type CompositePost } from '@/store/useComposeStore.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
-import { type ComposeType, type MediaObject } from '@/types/compose.js';
+import type { ComposeType, CompositePost, MediaObject } from '@/types/compose.js';
 
 export async function postToBsky(
     type: ComposeType,

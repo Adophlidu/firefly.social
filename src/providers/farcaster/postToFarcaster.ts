@@ -14,9 +14,8 @@ import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
-import { type CompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';
-import { type ComposeType, type MediaObject } from '@/types/compose.js';
+import type { ComposeType, CompositePost, MediaObject } from '@/types/compose.js';
 
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
     const { chars, parentPost, images, videos, postId, channel, poll } = compositePost;

@@ -5,7 +5,7 @@ import { SORTED_POLL_SOURCES } from '@/constants/index.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
+import type { CompositePost } from '@/types/compose.js';
 
 export interface Options {
     draftId?: string;

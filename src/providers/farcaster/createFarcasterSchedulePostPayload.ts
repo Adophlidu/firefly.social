@@ -16,8 +16,7 @@ import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
-import { type CompositePost } from '@/store/useComposeStore.js';
-import { type ComposeType } from '@/types/compose.js';
+import type { ComposeType, CompositePost } from '@/types/compose.js';
 
 export interface FarcasterSchedulePostPayload {
     text: string;

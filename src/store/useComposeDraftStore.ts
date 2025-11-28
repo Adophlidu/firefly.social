@@ -8,8 +8,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
-import type { ComposeType, MediaObject } from '@/types/compose.js';
+import type { ComposeType, CompositePost, MediaObject } from '@/types/compose.js';
 
 export interface Draft {
     draftId: string;

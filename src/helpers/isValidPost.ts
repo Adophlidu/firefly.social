@@ -1,6 +1,6 @@
 import { measureChars } from '@/helpers/chars.js';
 import { isValidPoll } from '@/helpers/polls.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
+import type { CompositePost } from '@/types/compose.js';
 
 /**
  * Detect if the post is valid to be published

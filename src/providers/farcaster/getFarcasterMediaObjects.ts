@@ -6,8 +6,7 @@ import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromSto
 import { getFarcasterPollUrl } from '@/helpers/getPollFrameUrl.js';
 import { resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import type { Poll } from '@/providers/types/Poll.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
-import { type MediaObject } from '@/types/compose.js';
+import type { CompositePost, MediaObject } from '@/types/compose.js';
 
 export function getFarcasterMediaObjects(
     compositePost: CompositePost,

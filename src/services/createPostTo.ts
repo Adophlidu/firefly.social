@@ -7,8 +7,8 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { twitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Poll } from '@/providers/types/Poll.js';
-import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
-import type { ComposeType, MediaObject } from '@/types/compose.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
+import type { ComposeType, CompositePost, MediaObject } from '@/types/compose.js';
 
 type Options = Record<
     ComposeType,

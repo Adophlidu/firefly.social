@@ -11,7 +11,7 @@ import { reportPost } from '@/providers/firefly/endpoint/reportPost.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ReportCrossPostResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
+import type { CompositePost } from '@/types/compose.js';
 
 interface Report {
     // client uuid for distinguishing logs

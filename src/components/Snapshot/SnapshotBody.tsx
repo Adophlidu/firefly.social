@@ -7,6 +7,7 @@ import { isArray, isEqual, isNumber, isObject, isUndefined, last, sum, values } 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
+import { getAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
 import SnapshotIcon from '@/assets/snapshot.svg';
@@ -39,7 +40,6 @@ import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/provi
 import { vote } from '@/providers/snapshot/vote.js';
 import { captureSnapshotVoteEvent } from '@/providers/telemetry/captureSnapshotVoteEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import { getAddress } from 'viem';
 
 interface Props {
     activity?: SnapshotActivity;

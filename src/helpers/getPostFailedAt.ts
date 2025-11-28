@@ -1,4 +1,4 @@
-import type { CompositePost } from '@/store/useComposeStore.js';
+import type { CompositePost } from '@/types/compose.js';
 
 /**
  * Return a list of failed social platforms.

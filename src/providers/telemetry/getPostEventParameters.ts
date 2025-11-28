@@ -16,8 +16,7 @@ import {
     type TwitterEventParameters,
     type TwitterPostEventParameters,
 } from '@/providers/types/Telemetry.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
-import type { ComposeType } from '@/types/compose.js';
+import type { ComposeType, CompositePost } from '@/types/compose.js';
 
 const resolveComposeEventId = createLookupTableResolver<SocialSource, EventId>(
     {

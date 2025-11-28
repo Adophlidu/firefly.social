@@ -2,7 +2,7 @@ import { bom, createLookupTableResolver, parseJson } from '@dimensiondev/utils';
 import { z } from 'zod';
 
 import { type ProfileSource, Source } from '@/constants/enum.js';
-import { type Profile,ProfileStatus } from '@/providers/types/SocialMedia.js';
+import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 const ProfileSchema = z
     .object({

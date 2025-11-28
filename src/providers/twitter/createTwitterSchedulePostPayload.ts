@@ -7,8 +7,7 @@ import { createTwitterMediaObject, resolveUploadId } from '@/helpers/resolveMedi
 import { TwitterPollProvider } from '@/providers/twitter/Poll.js';
 import { resolveTwitterReplyRestriction } from '@/providers/twitter/resolveTwitterReplyRestriction.js';
 import { uploadToTwitter, uploadVideoToTwitter } from '@/providers/twitter/uploadToTwitter.js';
-import { type CompositePost } from '@/store/useComposeStore.js';
-import { type ComposeType } from '@/types/compose.js';
+import type { ComposeType, CompositePost } from '@/types/compose.js';
 
 export interface TwitterSchedulePostPayload {
     quote_tweet_id?: string;

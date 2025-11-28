@@ -11,8 +11,8 @@ import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromSto
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
 import type { Chars, PromoteLinkChars } from '@/types/chars.js';
+import type { CompositePost } from '@/types/compose.js';
 
 /**
  * Stringify chars into plain text

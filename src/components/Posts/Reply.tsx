@@ -16,7 +16,8 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentAvailableProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
+import type { CompositePost } from '@/types/compose.js';
 
 interface ReplyProps {
     post: Post;

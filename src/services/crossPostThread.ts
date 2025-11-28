@@ -13,7 +13,8 @@ import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.j
 import { type Post, SessionType } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
-import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
+import type { CompositePost } from '@/types/compose.js';
 
 interface CrossPostThreadOptions {
     progressCallback?: (progress: number) => void;

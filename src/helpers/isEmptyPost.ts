@@ -1,5 +1,5 @@
 import { readChars } from '@/helpers/chars.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
+import type { CompositePost } from '@/types/compose.js';
 
 /**
  * Detect if a post is empty

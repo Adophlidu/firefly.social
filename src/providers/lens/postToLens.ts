@@ -24,8 +24,7 @@ import { type Channel, SessionType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
-import { type CompositePost } from '@/store/useComposeStore.js';
-import { type ComposeType, type MediaObject } from '@/types/compose.js';
+import type { ComposeType, CompositePost, MediaObject } from '@/types/compose.js';
 
 interface BaseMetadata {
     title: string;

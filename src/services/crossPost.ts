@@ -24,8 +24,8 @@ import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js'
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { commitPoll } from '@/services/poll.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
-import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
-import type { ComposeType } from '@/types/compose.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
+import type { ComposeType, CompositePost } from '@/types/compose.js';
 
 async function refreshProfileFeed(source: SocialSource) {
     const currentProfile = getCurrentProfileFromStorage(source);

@@ -1,4 +1,5 @@
-import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
+import type { CompositePost } from '@/types/compose.js';
 
 export function getCompositePost(id?: string) {
     const { posts, cursor } = useComposeStateStore.getState();

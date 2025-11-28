@@ -22,9 +22,9 @@ import { EventId } from '@/providers/types/Telemetry.js';
 import { ensureSchedulePostPassword } from '@/services/ensureSchedulePostPassword.js';
 import { commitPoll } from '@/services/poll.js';
 import { schedulePost } from '@/services/post.js';
-import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensProfileStore } from '@/store/useProfileStore/useLensProfileStore.js';
-import type { ComposeType } from '@/types/compose.js';
+import type { ComposeType, CompositePost } from '@/types/compose.js';
 
 export async function createSchedulePostsPayload(
     type: ComposeType,
