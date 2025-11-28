@@ -1,4 +1,4 @@
-import { AbortError, RecognizableError, XRPCNotSupportedError } from '@/constants/error.js';
+import { AbortError, InvalidAddressError, XRPCNotSupportedError } from '@/constants/error.js';
 
 export function runInSafe<T>(fn: () => T, noThrow = true, defaultValue?: T) {
     try {
@@ -24,7 +24,7 @@ export async function runInSafeAsync<T>(
     } catch (error) {
         if (AbortError.is(error)) return;
 
-        if (error instanceof RecognizableError) return;
+        if (error instanceof InvalidAddressError) return;
 
         // Don't log XRPCNotSupported 404 errors as they're expected and handled gracefully
         if (XRPCNotSupportedError.is(error)) return;

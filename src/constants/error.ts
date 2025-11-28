@@ -300,6 +300,14 @@ export class BskySessionExpiredError extends Error {
     }
 }
 
+export class InvalidAddressError extends Error {
+    override name = 'InvalidAddressError';
+
+    constructor(address: string, message?: string) {
+        super(message ?? `Invalid EVM address: ${address}.`);
+    }
+}
+
 export class TokenExpiredError extends Error {
     override name = 'TokenExpiredError';
 
