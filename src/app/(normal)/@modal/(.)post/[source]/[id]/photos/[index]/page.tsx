@@ -9,7 +9,8 @@ import { use } from 'react';
 
 import { Modal } from '@/components/Modal.js';
 import type { SocialSourceInURL } from '@/constants/enum.js';
-import { useRouter } from '@/esm/navigation.js';
+import { NotFoundError } from '@/constants/error.js';
+import { notFound, useRouter } from '@/esm/navigation.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -33,13 +34,18 @@ export default function Page(props: Props) {
     const { data: post } = useSuspenseQuery({
         queryKey: [currentSource, 'post-detail', postId],
         queryFn: async () => {
-            if (!postId) return;
+            try {
+                if (!postId) return;
 
-            const provider = resolveSocialMediaProvider(currentSource);
-            const post = await provider.getPostById(postId);
-            if (!post) return;
+                const provider = resolveSocialMediaProvider(currentSource);
+                const post = await provider.getPostById(postId);
+                if (!post) notFound();
 
-            return post;
+                return post;
+            } catch (error) {
+                if (error instanceof NotFoundError) notFound();
+                throw error;
+            }
         },
         // The image data of the post will not be changed.
         staleTime: Infinity,

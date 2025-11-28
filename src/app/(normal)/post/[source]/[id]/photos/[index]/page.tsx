@@ -5,6 +5,7 @@ import type { SocialSourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props extends NextPageProps<{ id: string; index: string; source: SocialSourceInURL }> {}
@@ -17,7 +18,7 @@ export default async function Photo(props: Props) {
     const currentSource = resolveSocialSource(source);
     const provider = resolveSocialMediaProvider(currentSource);
 
-    const post = await provider.getPostById(postId);
+    const post = await runInSafeAsync(async () => provider.getPostById(postId));
     if (!post) notFound();
 
     const asset = post.metadata.content?.asset;
