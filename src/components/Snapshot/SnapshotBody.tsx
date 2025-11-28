@@ -39,6 +39,7 @@ import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/provi
 import { vote } from '@/providers/snapshot/vote.js';
 import { captureSnapshotVoteEvent } from '@/providers/telemetry/captureSnapshotVoteEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { getAddress } from 'viem';
 
 interface Props {
     activity?: SnapshotActivity;
@@ -264,7 +265,7 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
 
             captureSnapshotVoteEvent(EventId.SNAPSHOT_VOTE_SUBMIT, account.address);
             const result = await vote({
-                from: account.address,
+                from: getAddress(account.address),
                 space: snapshot.space.id,
                 proposal: snapshot.id,
                 type: snapshot.type,
