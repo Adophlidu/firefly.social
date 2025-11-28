@@ -6,9 +6,9 @@ import type { SocialSource } from '@/constants/enum.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { getPoll } from '@/providers/firefly/poll/getPoll.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getPoll } from '@/services/poll.js';
 
 interface FramePollProps {
     pollId: string;

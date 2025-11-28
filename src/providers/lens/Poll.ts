@@ -14,13 +14,13 @@ import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
+import { commitPoll } from '@/providers/firefly/poll/commitPoll.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { isLensOwnerOrManager } from '@/providers/lens/isLensOwnerOrManager.js';
 import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
 import { vote } from '@/providers/orb/vote.js';
 import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { commitPoll } from '@/services/poll.js';
 
 const fetchAccountOwner = memoizePromise(
     async (address: string) => {

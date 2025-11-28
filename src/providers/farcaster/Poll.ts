@@ -5,9 +5,10 @@ import { NotImplementedError } from '@/constants/error.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
+import { commitPoll } from '@/providers/firefly/poll/commitPoll.js';
+import { voteV2 } from '@/providers/firefly/poll/voteV2.js';
 import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { commitPoll, voteV2 } from '@/services/poll.js';
 
 @SetQueryDataForVote(Source.Farcaster)
 class FarcasterPoll implements Provider {
