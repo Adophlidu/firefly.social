@@ -281,17 +281,6 @@ export class LoginEmailError extends Error {
     }
 }
 
-export class RecognizableError extends Error {
-    override name = 'RecognizableError';
-
-    constructor(
-        message?: string,
-        public isRecognized = false,
-    ) {
-        super(message ?? 'Recognizable error.');
-    }
-}
-
 export class BskySessionExpiredError extends Error {
     override name = 'BskySessionExpiredError';
 

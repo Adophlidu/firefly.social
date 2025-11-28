@@ -2,39 +2,27 @@ import { bom, createLookupTableResolver, parseJson } from '@dimensiondev/utils';
 import { z } from 'zod';
 
 import { type ProfileSource, Source } from '@/constants/enum.js';
+import { type Profile,ProfileStatus } from '@/providers/types/SocialMedia.js';
 
-const ProfileSchema = z.object({
-    profileId: z.string(),
-    handle: z.string(),
-    source: z.union([
-        z.literal(Source.Farcaster),
-        z.literal(Source.Lens),
-        z.literal(Source.Twitter),
-        z.literal(Source.Bsky),
-    ]),
-    profileSource: z.union([
-        z.literal(Source.Firefly),
-        z.literal(Source.Farcaster),
-        z.literal(Source.Lens),
-        z.literal(Source.Twitter),
-        z.literal(Source.Bsky),
-        z.literal(Source.Apple),
-        z.literal(Source.Email),
-        z.literal(Source.Google),
-        z.literal(Source.Telegram),
-    ]),
-    isProUser: z.boolean().optional(),
-    verified: z.boolean().optional(),
-    displayName: z.string().optional(),
-    pfp: z.string().optional(),
-    followingCount: z.number().optional(),
-    followerCount: z.number().optional(),
-    ownedBy: z
-        .object({
-            address: z.string().optional(),
-        })
-        .optional(),
-});
+const ProfileSchema = z
+    .object({
+        profileId: z.string(),
+        profileSource: z.union([
+            z.literal(Source.Firefly),
+            z.literal(Source.Farcaster),
+            z.literal(Source.Lens),
+            z.literal(Source.Twitter),
+            z.literal(Source.Bsky),
+        ]),
+        source: z.union([
+            z.literal(Source.Farcaster),
+            z.literal(Source.Lens),
+            z.literal(Source.Twitter),
+            z.literal(Source.Bsky),
+        ]),
+        status: z.union([z.literal(ProfileStatus.Active), z.literal(ProfileStatus.Inactive)]),
+    })
+    .transform((v) => v as Profile);
 
 const AccountSchema = z.object({
     profile: ProfileSchema,

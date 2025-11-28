@@ -94,6 +94,8 @@ export interface Profile<O = unknown> {
     profileId: string;
     /** the source of profile's session */
     profileSource: ProfileSource;
+    /** the social media source that the profile belongs to */
+    source: SocialSource;
     displayName: string;
     handle: string;
     fullHandle: string;
@@ -125,8 +127,6 @@ export interface Profile<O = unknown> {
         networkType: NetworkType;
         address: string;
     };
-    /** the social media source that the profile belongs to */
-    source: SocialSource;
     /** @deprecated flag the power user - farcaster only */
     isPowerUser?: boolean;
     isProUser?: boolean;

@@ -138,7 +138,6 @@ export async function getAccountMetricsData(account: Account, passcode: string) 
 
 async function getLocalMetrics(passcode: string) {
     const allAccounts = getAllAccounts();
-
     return Promise.all(allAccounts.map((account) => getAccountMetricsData(account, passcode)));
 }
 
