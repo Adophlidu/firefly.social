@@ -24,7 +24,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { ConnectionSource, useWalletConnections } from '@/hooks/useWalletConnections.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { searchTokenLogoURI } from '@/services/searchTokenLogoURI.js';
+import { searchTokenLogoURI } from '@/providers/firefly/endpoint/searchTokenLogoURI.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 

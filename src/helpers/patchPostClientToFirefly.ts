@@ -1,7 +1,7 @@
 import type { TweetV2 } from 'twitter-api-v2';
 
+import { getPostsState, getPostState } from '@/providers/firefly/endpoint/getPostState.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getPostsState, getPostState } from '@/services/getPostState.js';
 
 function patchPostClient<T extends Pick<Post, 'sendFrom'>>(item: T) {
     item.sendFrom = {
