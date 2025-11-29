@@ -37,7 +37,6 @@ const ExternalEnvSchema = z.object({
     // features
     NEXT_PUBLIC_FIREFLY_WALLET_IFRAME: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_ACTIVITY_PARTICLE: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_BANNER_CACHE: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_COMPOSE_GIF: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_FIREFLY_DEV_API: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_IFRAME_BRIDGE: z.nativeEnum(STATUS).default(STATUS.Enabled),
@@ -116,7 +115,6 @@ export const env = {
         NEXT_PUBLIC_SOLANA_RPC_WS_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_WS_URL,
 
         // features
-        NEXT_PUBLIC_BANNER_CACHE: process.env.NEXT_PUBLIC_BANNER_CACHE,
         NEXT_PUBLIC_COMPOSE_GIF: process.env.NEXT_PUBLIC_COMPOSE_GIF,
         NEXT_PUBLIC_FIREFLY_DEV_API: process.env.NEXT_PUBLIC_FIREFLY_DEV_API,
         NEXT_PUBLIC_FORCE_SIGNUP: process.env.NEXT_PUBLIC_FORCE_SIGNUP,

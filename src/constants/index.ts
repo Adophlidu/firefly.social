@@ -81,8 +81,6 @@ export const ACCOUNT_CONFLICT_SOLUTION_ZH_URL = 'https://mask.notion.site/2327d9
 export const FARCASTER_POLL_MINI_APP_URL = 'https://polls-miniapps.firefly.social';
 export const FARCASTER_POLL_MINI_APP_URL_DEV = 'https://polls-miniapps-staging.firefly.social';
 
-export const ADVERTISEMENT_JSON_URL = `${FIREFLY_S3_URL}/advertisement/web.json`;
-
 export const FARCASTER_REPLY_COUNTDOWN = 50; // in seconds
 export const ORB_REPLY_COUNTDOWN = 60; // in seconds
 

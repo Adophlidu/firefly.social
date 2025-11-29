@@ -8,17 +8,12 @@ import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
-import BskySVGAsset from '@/assets/bsky-circle.svg?url';
-import FarcasterSVGAsset from '@/assets/farcaster.svg?url';
-import LensSVGAsset from '@/assets/lens.svg?url';
-import OGBackgroundSVGAsset from '@/assets/og-background.svg?url';
-import TwitterSVGAsset from '@/assets/x-circle-light.svg?url';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { getImageMetaFromUrl } from '@/helpers/getImageMetaFromUrl.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
-import { getStaticAssetSrc } from '@/helpers/getStaticAssetSrc.js';
+import { getPublicSvgUrl } from '@/helpers/getPublicSvgUrl.js';
 import { removeCombiningCharacters } from '@/helpers/removeCombiningCharacters.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
@@ -29,11 +24,11 @@ import type { NextRequestContext } from '@/types/utility.js';
 
 const OG_FONT_FAMILY = ['Inter', 'Noto Sans Symbols 2'];
 
-const BskySVG = getStaticAssetSrc(BskySVGAsset);
-const FarcasterSVG = getStaticAssetSrc(FarcasterSVGAsset);
-const LensSVG = getStaticAssetSrc(LensSVGAsset);
-const OGBackgroundSVG = getStaticAssetSrc(OGBackgroundSVGAsset);
-const TwitterSVG = getStaticAssetSrc(TwitterSVGAsset);
+const BskySVG = getPublicSvgUrl('bsky-circle.svg');
+const FarcasterSVG = getPublicSvgUrl('farcaster.svg');
+const LensSVG = getPublicSvgUrl('lens.svg');
+const OGBackgroundSVG = getPublicSvgUrl('og-background.svg');
+const TwitterSVG = getPublicSvgUrl('x-circle-light.svg');
 
 function resolveSourceIcon(source: SocialSource) {
     return {

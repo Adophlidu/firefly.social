@@ -48,7 +48,7 @@ export function FireflyWallet() {
 
     if (!isLoginFirefly || !isCreatedPrivyWallet) return null;
 
-    const isHidePath = pathname.startsWith(PageRoute.Settings);
+    const isHidePath = pathname.startsWith(PageRoute.Settings) || pathname.startsWith(PageRoute.Explore);
 
     return (
         <>

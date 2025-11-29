@@ -8,9 +8,6 @@ import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
-import BridgeOGBackgroundSVGAsset from '@/assets/bridge-og-background.svg?url';
-import CopyTradeButtonSVGAsset from '@/assets/copy-trade-button.svg?url';
-import SwapOGBackgroundSVGAsset from '@/assets/swap-og-background.svg?url';
 import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { Source } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
@@ -20,8 +17,8 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
+import { getPublicSvgUrl } from '@/helpers/getPublicSvgUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { getStaticAssetSrc } from '@/helpers/getStaticAssetSrc.js';
 import { resolveChainIcon } from '@/helpers/resolveChainIcon.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getSwapActivityByHash } from '@/providers/firefly/endpoint/getSwapActivityByHash.js';
@@ -31,9 +28,10 @@ import type { NextRequestContext } from '@/types/utility.js';
 
 const OG_FONT_FAMILY = '"Inter", "NotoSans"';
 const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
-const BRIDGE_OG_BACKGROUND_SVG = getStaticAssetSrc(BridgeOGBackgroundSVGAsset);
-const COPY_TRADE_BUTTON_SVG = getStaticAssetSrc(CopyTradeButtonSVGAsset);
-const SWAP_OG_BACKGROUND_SVG = getStaticAssetSrc(SwapOGBackgroundSVGAsset);
+
+const BRIDGE_OG_BACKGROUND_SVG = getPublicSvgUrl('bridge-og-background.svg');
+const COPY_TRADE_BUTTON_SVG = getPublicSvgUrl('copy-trade-button.svg');
+const SWAP_OG_BACKGROUND_SVG = getPublicSvgUrl('swap-og-background.svg');
 
 function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width' | 'height' | 'style'>) {
     return <img alt="img" {...props} src={src} />;

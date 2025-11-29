@@ -7,12 +7,6 @@ import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
-import ArrowRightTickerbitSVGAsset from '@/assets/arrow-right-tickerbit.svg?url';
-import LeftBottomTickerbitSVGAsset from '@/assets/left-bottom-tickerbit.svg?url';
-import LeftTopTickerbitSVGAsset from '@/assets/left-top-tickerbit.svg?url';
-import RightBottomTickerbitSVGAsset from '@/assets/right-bottom-tickerbit.svg?url';
-import RightTopTickerbitSVGAsset from '@/assets/right-top-tickerbit.svg?url';
-import TipOGBackgroundSVGAsset from '@/assets/tip-og-background.svg?url';
 import { ShrankPrice } from '@/components/ShrankPrice.js';
 import { TipsDetailViewType, TipsNotificationType } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
@@ -21,7 +15,6 @@ import { fetchAvatarAsBase64 } from '@/helpers/fetchAvatarAsBase64.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { getMaintainAccountInfo } from '@/helpers/getMaintainAccountInfo.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
-import { getStaticAssetSrc } from '@/helpers/getStaticAssetSrc.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { getTipsTransactionDetail } from '@/providers/firefly/endpoint/getTipsTransactionDetail.js';
@@ -30,13 +23,12 @@ import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import type { NextRequestContext } from '@/types/utility.js';
 
 const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
-
-const ArrowRightTickerbitSVG = getStaticAssetSrc(ArrowRightTickerbitSVGAsset);
-const LeftBottomTickerbitSVG = getStaticAssetSrc(LeftBottomTickerbitSVGAsset);
-const LeftTopTickerbitSVG = getStaticAssetSrc(LeftTopTickerbitSVGAsset);
-const RightBottomTickerbitSVG = getStaticAssetSrc(RightBottomTickerbitSVGAsset);
-const RightTopTickerbitSVG = getStaticAssetSrc(RightTopTickerbitSVGAsset);
-const TipOGBackgroundSVG = getStaticAssetSrc(TipOGBackgroundSVGAsset);
+const ArrowRightTickerbitSVG = urlcat(SITE_URL, '/svg/arrow-right-tickerbit.svg');
+const LeftBottomTickerbitSVG = urlcat(SITE_URL, '/svg/left-bottom-tickerbit.svg');
+const LeftTopTickerbitSVG = urlcat(SITE_URL, '/svg/left-top-tickerbit.svg');
+const RightBottomTickerbitSVG = urlcat(SITE_URL, '/svg/right-bottom-tickerbit.svg');
+const RightTopTickerbitSVG = urlcat(SITE_URL, '/svg/right-top-tickerbit.svg');
+const TipOGBackgroundSVG = urlcat(SITE_URL, '/svg/tip-og-background.svg');
 
 function breakLines(str: string, maxCharsPerLine = 15, maxLines = 2) {
     if (!str) return '';
