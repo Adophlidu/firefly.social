@@ -38,7 +38,7 @@ export async function restoreFarcasterAccountsIfNeeded(accounts: Account[]): Pro
 
         if (isSameSession(fireflySessionHolder.session, fireflySession)) {
             const unLoginAccounts = allSettled.filter((x) => x.status === 'fulfilled').map((x) => x.value);
-            await addAccounts(fireflySession, unLoginAccounts);
+            await addAccounts(fireflySession, unLoginAccounts, { skipResumeFireflySession: true });
         }
     } catch (error) {
         restoringFarcasterAccounts.set(fireflySession.profileId, 'failed');
