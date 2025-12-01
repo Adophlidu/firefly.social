@@ -1,4 +1,4 @@
-import { AbortError, InvalidAddressError, XRPCNotSupportedError } from '@/constants/error.js';
+import { AbortError, InvalidAddressError, NftScanError, XRPCNotSupportedError } from '@/constants/error.js';
 
 export function runInSafe<T>(fn: () => T, noThrow = true, defaultValue?: T) {
     try {
@@ -25,6 +25,8 @@ export async function runInSafeAsync<T>(
         if (AbortError.is(error)) return;
 
         if (error instanceof InvalidAddressError) return;
+
+        if (error instanceof NftScanError) return;
 
         // Don't log XRPCNotSupported 404 errors as they're expected and handled gracefully
         if (XRPCNotSupportedError.is(error)) return;

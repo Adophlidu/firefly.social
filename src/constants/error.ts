@@ -362,3 +362,11 @@ export class XRPCNotSupportedError extends Error {
         return isXRPCNotSupported && is404;
     }
 }
+
+export class NftScanError extends Error {
+    override name = 'NftScanError';
+
+    constructor(message?: string) {
+        super(message ?? 'NftScan error.');
+    }
+}
