@@ -38,9 +38,9 @@ export function SearchChannelContent() {
         queryFn: async ({ pageParam }) => {
             try {
                 if (!searchKeyword || (loginRequired && !isLogin)) return;
-                const provider = resolveSocialMediaProvider(currentSocialSource);
                 const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
+                const provider = resolveSocialMediaProvider(currentSocialSource);
                 const channels = await provider.searchChannels(searchKeyword.replace(/^\//, ''), indicator);
                 if (!indicator?.id && currentSocialSource === Source.Lens) {
                     channels.data.reverse();

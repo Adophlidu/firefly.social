@@ -23,11 +23,8 @@ export function ChannelInfo({ channel, source, ...rest }: InfoProps) {
         queryKey: ['channel', channel.source, channel.id, profile?.profileId],
         staleTime: 1000 * 60 * 10, // 10 minutes
         queryFn: async () => {
-            if (needRefetch) {
-                return resolveSocialMediaProvider(channel.source).getChannelById(channel.id);
-            }
-
-            return channel;
+            if (!needRefetch) return channel;
+            return resolveSocialMediaProvider(channel.source).getChannelById(channel.id);
         },
     });
 

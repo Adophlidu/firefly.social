@@ -46,11 +46,8 @@ export const FollowingPostList = memo<{
                 if (!isLogin) return createPageable(EMPTY_LIST, indicator);
                 const profile = profilesAll[source];
                 if (!profile?.profileId) return createPageable(EMPTY_LIST, indicator);
-                return resolveSocialMediaProvider(source).discoverPostsById(
-                    profile.profileId,
-                    pageParam ? indicator : undefined,
-                    signal,
-                );
+                const provider = resolveSocialMediaProvider(source);
+                return provider.discoverPostsById(profile.profileId, pageParam ? indicator : undefined, signal);
             },
         })),
         (data) => {

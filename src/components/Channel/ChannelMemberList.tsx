@@ -22,7 +22,6 @@ export function ChannelMemberList({ channelId, source }: ChannelMemberListProps)
         queryKey: ['profiles', source, 'members-of', channelId],
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
-
             return provider.getChannelMembers(channelId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',

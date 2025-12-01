@@ -37,11 +37,12 @@ export const Like = memo<LikeProps>(function Like({ post, disabled = false, hidd
 
         try {
             const provider = resolveSocialMediaProvider(source);
-            const promise = hasLiked
-                ? provider.unvotePost(postId, Number(author.profileId))
-                : provider.upvotePost(postId, Number(author.profileId));
 
-            await promise;
+            if (hasLiked) {
+                await provider.unvotePost(postId, Number(author.profileId));
+            } else {
+                await provider.upvotePost(postId, Number(author.profileId));
+            }
 
             capturePostActionEvent(hasLiked ? 'unlike' : 'like', post);
             return;

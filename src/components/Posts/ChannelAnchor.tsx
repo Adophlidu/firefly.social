@@ -28,10 +28,7 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({
         queryKey: ['channel', source, id],
         staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: () => {
-            if (!unresolvedChannel.__lazy__) {
-                return unresolvedChannel;
-            }
-
+            if (!unresolvedChannel.__lazy__) return unresolvedChannel;
             return runInSafeAsync(() => resolveSocialMediaProvider(source).getChannelById(id));
         },
     });

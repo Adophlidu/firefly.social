@@ -22,7 +22,6 @@ export function ChannelFollowerList({ channelId, source }: ChannelFollowerListPr
         queryKey: ['profiles', source, 'followers-of', channelId],
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
-
             return provider.getChannelFollowers(channelId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',

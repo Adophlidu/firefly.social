@@ -43,7 +43,6 @@ export const ChannelTag = memo<ChannelTagProps>(function ChannelTag({ title, sou
                 const provider = resolveSocialMediaProvider(source);
                 const result = await provider.getChannelById(channelId);
                 addChannel(source, channelId, result ? result : null);
-
                 return result;
             } catch {
                 addChannel(source, channelId, null);
