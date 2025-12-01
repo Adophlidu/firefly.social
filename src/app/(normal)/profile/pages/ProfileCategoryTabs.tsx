@@ -108,7 +108,7 @@ export function ProfileCategoryTabs({
     const hasLimo = source === Source.Wallet && isSameEthereumAddress(id, VITALIK_ADDRESS);
 
     return (
-        <div className="sticky top-0 z-20 -mt-[60px] flex h-[110px] items-center border-b border-lightLineSecond bg-primaryBottom px-3 pt-[60px] dark:border-line">
+        <div className="sticky top-0 z-20 mt-[-60px] flex h-[110px] items-center border-b border-lightLineSecond bg-primaryBottom px-3 pt-[60px] dark:border-line">
             <nav className="scrollable-tab flex min-w-0 flex-1 gap-1.5">
                 {categories.map(({ type, title }) => {
                     const profileUrl = getProfileUrl({ source, profileId: id, handle: id }, type, isCurrentProfile);

@@ -20,7 +20,7 @@ export function ProfileTransactions({ address }: ProfileTransactionsProps) {
     const addresses = useWalletMixAddresses(address);
 
     const queryResult = useMultiInfiniteQueryPageable<TransactionsItem, Pageable<TransactionsItem, PageIndicator>>(
-        ['transactions', 'profile', address, selectedChainId],
+        ['profile', 'transactions', address, selectedChainId],
         ([Source.Swap, Source.NFTs, Source.Polymarket] as const).map((source) => ({
             key: source,
             async queryFn({ pageParam }) {
