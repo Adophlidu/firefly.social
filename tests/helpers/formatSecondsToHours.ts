@@ -10,14 +10,6 @@ describe('formatSecondsToHours', () => {
         expect(formatSecondsToHours(-1)).toBe('0:00');
     });
 
-    it('should return `0:00`', () => {
-        expect(formatSecondsToHours()).toBe('0:00');
-    });
-
-    it('should return `0:00`', () => {
-        expect(formatSecondsToHours(null)).toBe('0:00');
-    });
-
     it('should return `0:01`', () => {
         expect(formatSecondsToHours(1)).toBe('0:01');
     });

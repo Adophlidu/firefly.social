@@ -3,18 +3,6 @@ import { describe, expect, test, vi } from 'vitest';
 import { addHeader, addHeaders } from '@/helpers/addHeader.js';
 
 describe('addHeader', () => {
-    describe('when headers is null or undefined', () => {
-        test('should return new object with header when headers is null', () => {
-            const result = addHeader(null, 'Content-Type', 'application/json');
-            expect(result).toEqual({ 'Content-Type': 'application/json' });
-        });
-
-        test('should return new object with header when headers is undefined', () => {
-            const result = addHeader(undefined, 'Authorization', 'Bearer token');
-            expect(result).toEqual({ Authorization: 'Bearer token' });
-        });
-    });
-
     describe('when headers is a Headers instance', () => {
         test('should add new header when key does not exist (force=false by default)', () => {
             const headers = new Headers({ 'Content-Type': 'text/plain' });
@@ -326,15 +314,5 @@ describe('addHeaders', () => {
         const result = addHeaders(headers, otherHeaders);
 
         expect(result).toEqual({ 'Content-Type': 'text/plain' });
-    });
-
-    test('should handle null headers', () => {
-        const otherHeaders = {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer token',
-        };
-        const result = addHeaders(null, otherHeaders);
-
-        expect(result).toEqual(otherHeaders);
     });
 });

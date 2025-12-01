@@ -36,6 +36,8 @@ describe('ed25519 helpers', () => {
 
             const message = new Uint8Array([9, 10, 11, 12]);
             const result = await signMessageWithPrivateKey(privateKey, message);
+            if (!result) throw new Error('Signer failed');
+
             const resultInHex = bytesToHex(result);
 
             expect(resultInHex).toBeTruthy();
