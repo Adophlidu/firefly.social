@@ -1,0 +1,454 @@
+/****
+ * Article content for Matters
+ */
+
+.matters-article > .markdown-body {
+    max-width: 758px;
+    overflow: visible !important;
+    position: relative;
+    line-height: 1.75;
+    outline: none;
+}
+
+/* Spacing - Base Rules */
+.matters-article > .markdown-body > * {
+    margin-bottom: 1.8625rem;
+}
+
+.matters-article > .markdown-body > *:has(+ figure) {
+    margin-bottom: 2.8rem;
+}
+
+.matters-article > .markdown-body > *:first-child:not(hr) {
+    margin-top: 1.8625rem;
+}
+
+.matters-article > .markdown-body > *:first-child:is(figure) {
+    margin-top: 2.8rem;
+}
+
+/* Headings spacing */
+.matters-article > .markdown-body h1,
+.matters-article > .markdown-body h2,
+.matters-article > .markdown-body h3,
+.matters-article > .markdown-body h4,
+.matters-article > .markdown-body h5,
+.matters-article > .markdown-body h6 {
+    margin-bottom: 0.93125rem;
+    font-weight: 600;
+    line-height: 1.7;
+}
+
+.matters-article > .markdown-body h1:has(+ figure),
+.matters-article > .markdown-body h2:has(+ figure),
+.matters-article > .markdown-body h3:has(+ figure),
+.matters-article > .markdown-body h4:has(+ figure),
+.matters-article > .markdown-body h5:has(+ figure),
+.matters-article > .markdown-body h6:has(+ figure) {
+    margin-bottom: 1.8625rem;
+}
+
+/* HR spacing */
+.matters-article > .markdown-body hr {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 0.5rem;
+    border: none;
+    margin: calc(1.4rem + 0.93125rem) 0;
+}
+
+.matters-article > .markdown-body hr:has(+ figure) {
+    margin-bottom: 1.8625rem;
+}
+
+.matters-article > .markdown-body hr::before {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 3.5rem;
+    height: 0.5rem;
+    margin: 0 auto;
+    content: '';
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.08) 0.25rem, transparent 0.25rem);
+    background-size: 33.33% 100%;
+    background-repeat: repeat-x;
+}
+
+/* Figure spacing */
+.matters-article > .markdown-body figure {
+    margin: 0 0 3.725rem;
+    position: relative;
+    text-align: center;
+}
+
+.matters-article > .markdown-body figure:has(+ hr, + h1, + h2, + h3, + h4, + h5, + h6) {
+    margin-bottom: 1.8625rem;
+}
+
+.matters-article > .markdown-body figure > figure {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.matters-article > .markdown-body figure figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+    color: #b3b3b3;
+    white-space: pre-wrap;
+}
+
+/* Blockquote spacing */
+.matters-article > .markdown-body blockquote > * + * {
+    margin-top: 1.8625rem;
+}
+
+/* Text */
+.matters-article > .markdown-body p {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: #333;
+    white-space: pre-wrap;
+}
+
+.matters-article > .markdown-body strong,
+.matters-article > .markdown-body b {
+    font-weight: 600;
+}
+
+.matters-article > .markdown-body code {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: #808080;
+    padding: 0.2em 0.4em;
+    background-color: rgba(175, 184, 193, 0.2);
+    border-radius: 3px;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.matters-article > .markdown-body pre {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: #808080;
+    padding: 1rem;
+    background-color: rgba(175, 184, 193, 0.2);
+    border-radius: 4px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.matters-article > .markdown-body pre code {
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+/* Media */
+.matters-article > .markdown-body img,
+.matters-article > .markdown-body video,
+.matters-article > .markdown-body audio {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Audio player */
+.matters-article > .markdown-body figure.audio {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.matters-article > .markdown-body figure.audio audio {
+    display: none;
+}
+
+.matters-article > .markdown-body figure.audio .player {
+    position: relative;
+    padding: 1rem;
+    text-align: left;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 0.125rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.matters-article > .markdown-body figure.audio .player header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.matters-article > .markdown-body figure.audio .player header .meta {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.matters-article > .markdown-body figure.audio .player header .title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    outline: none;
+}
+
+.matters-article > .markdown-body figure.audio .player header .time {
+    font-size: 0.75rem;
+    color: #999c9d;
+}
+
+.matters-article > .markdown-body figure.audio .player header .time .current::before,
+.matters-article > .markdown-body figure.audio .player header .time .duration::before {
+    content: attr(data-time);
+}
+
+.matters-article > .markdown-body figure.audio .player header .time .current[data-time]::after {
+    content: ' / ';
+}
+
+.matters-article > .markdown-body figure.audio .player header .play {
+    flex-shrink: 0;
+    align-self: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-left: 1rem;
+    cursor: pointer;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+ICA8cGF0aCBmaWxsPSIjMEQ2NzYzIiBkPSJNMjAgMzkuNWExOS41IDE5LjUgMCAxIDEgMC0zOSAxOS41IDE5LjUgMCAwIDEgMCAzOXptMC0xLjVhMTggMTggMCAxIDAgMC0zNiAxOCAxOCAwIDAgMCAwIDM2em02Ljk0LTE4YzAgLjMzLS4zMy41Ny0uMzMuNTdsLTkuNTIgNS45Yy0uNjkuNDUtMS4yNi4xMS0xLjI2LS43NVYxNC4yOGMwLS44Ni41Ny0xLjIgMS4yNi0uNzRsOS41MiA1Ljg5cy4zMy4yNC4zMy41N3oiLz48L3N2Zz4=');
+}
+
+.matters-article > .markdown-body figure.audio .player header .play.paused {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+ICA8cGF0aCBmaWxsPSIjMEQ2NzYzIiBkPSJNMjAgMzkuNWExOS41IDE5LjUgMCAxIDEgMC0zOSAxOS41IDE5LjUgMCAwIDEgMCAzOXptMC0xLjVhMTggMTggMCAxIDAgMC0zNiAxOCAxOCAwIDAgMCAwIDM2em00LjA2LTI0LjI1Yy41MiAwIC45NC40Mi45NC45NFYyNS4zYzAgLjUyLS40Mi45NC0uOTQuOTRIMjIuMmEuOTQuOTQgMCAwIDEtLjk0LS45NFYxNC43YzAtLjUyLjQyLS45NC45NC0uOTRoMS44N3ptLTUuMzEuOTRWMjUuM2MwIC41Mi0uNDIuOTQtLjk0Ljk0aC0xLjg3YS45NC45NCAwIDAgMS0uOTQtLjk0VjE0LjdjMC0uNTIuNDItLjk0Ljk0LS45NGgxLjg3Yy41MiAwIC45NC40Mi45NC45NHoiLz48L3N2Zz4=');
+}
+
+.matters-article > .markdown-body figure.audio .player header .play.loading:not(:hover, :focus) {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+ICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPiAgICA8cGF0aCBkPSJNMCAwaDMydjMySDB6Ii8+ICAgIDxwYXRoIHN0cm9rZT0iI0RERCIgc3Ryb2tlLXdpZHRoPSIzIiBkPSJNMiAxNkExNCAxNCAwIDEgMCAxNiAyIi8+ICA8L2c+PC9zdmc+');
+    animation: play-spinning 1s infinite linear;
+}
+
+@keyframes play-spinning {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.matters-article > .markdown-body figure.audio .player footer .progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.matters-article > .markdown-body figure.audio .player footer .progress-bar > span {
+    display: block;
+    width: 0;
+    height: 4px;
+    text-indent: -9999px;
+    background-color: #0d6763;
+}
+
+/* Embed */
+.matters-article > .markdown-body figure[class*='embed'] > .iframe-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: 56.25%;
+    background: #f7f7f7;
+}
+
+.matters-article > .markdown-body figure[class*='embed'] > .iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.matters-article > .markdown-body figure[class*='embed'] > iframe {
+    width: 100%;
+    height: 24rem;
+}
+
+.matters-article > .markdown-body figure.embed-code.likebutton > .iframe-container {
+    height: 200px;
+    padding-top: 0;
+    background: transparent;
+}
+
+/* Blockquote */
+.matters-article > .markdown-body blockquote {
+    position: relative;
+    padding-left: 2rem;
+    color: #808080;
+}
+
+.matters-article > .markdown-body blockquote p {
+    padding: 0;
+    color: inherit;
+}
+
+.matters-article > .markdown-body blockquote::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    content: '';
+    background: #ddd;
+}
+
+/* List */
+.matters-article > .markdown-body ul,
+.matters-article > .markdown-body ol {
+    padding-left: 2.125rem;
+}
+
+.matters-article > .markdown-body li + li,
+.matters-article > .markdown-body li > ul,
+.matters-article > .markdown-body li > ol {
+    margin-top: 0.5rem;
+}
+
+.matters-article > .markdown-body ul {
+    list-style-type: disc;
+}
+
+.matters-article > .markdown-body ul ul {
+    list-style-type: circle;
+}
+
+.matters-article > .markdown-body ul ul ul {
+    list-style-type: square;
+}
+
+.matters-article > .markdown-body ol {
+    list-style-type: decimal;
+}
+
+.matters-article > .markdown-body ol ol {
+    list-style-type: lower-latin;
+}
+
+.matters-article > .markdown-body ol ol ol {
+    list-style-type: lower-roman;
+}
+
+/* Headings */
+.matters-article > .markdown-body h1 {
+    font-size: 1.5rem;
+}
+
+.matters-article > .markdown-body h2 {
+    font-size: 1.3125rem;
+}
+
+.matters-article > .markdown-body h3 {
+    font-size: 1.1875rem;
+}
+
+.matters-article > .markdown-body h4 {
+    font-size: 1rem;
+}
+
+.matters-article > .markdown-body h5 {
+    font-size: 0.875rem;
+}
+
+.matters-article > .markdown-body h6 {
+    font-size: 0.75rem;
+    color: #777;
+}
+
+@media (min-width: 640px) {
+    .matters-article > .markdown-body h1 {
+        font-size: 2.25rem;
+    }
+
+    .matters-article > .markdown-body h2 {
+        font-size: 1.5rem;
+    }
+
+    .matters-article > .markdown-body h3 {
+        font-size: 1.25rem;
+    }
+}
+
+/* Links */
+.matters-article > .markdown-body a {
+    padding-bottom: 2px;
+    color: #333;
+    border-bottom: 1px solid currentcolor;
+}
+
+.matters-article > .markdown-body a:hover,
+.matters-article > .markdown-body a:active,
+.matters-article > .markdown-body a:focus {
+    color: #0a524f;
+}
+
+.matters-article > .markdown-body a.mention {
+    color: #808080;
+    text-decoration: none;
+    border-bottom: 0;
+}
+
+/* fix frequent misuse of links */
+.matters-article > .markdown-body u > a,
+.matters-article > .markdown-body ins > a {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+/* Dark mode support */
+.matters-article.dark > .markdown-body p,
+.matters-article.dark > .markdown-body h1,
+.matters-article.dark > .markdown-body h2,
+.matters-article.dark > .markdown-body h3,
+.matters-article.dark > .markdown-body h4,
+.matters-article.dark > .markdown-body h5 {
+    color: #fafafa;
+}
+
+.matters-article.dark > .markdown-body h6 {
+    color: #c0bcbc;
+}
+
+.matters-article.dark > .markdown-body a {
+    color: #fafafa;
+}
+
+.matters-article.dark > .markdown-body a:hover,
+.matters-article.dark > .markdown-body a:active,
+.matters-article.dark > .markdown-body a:focus {
+    color: #77e1cd;
+}
+
+.matters-article.dark > .markdown-body blockquote {
+    color: #c0bcbc;
+}
+
+.matters-article.dark > .markdown-body blockquote::before {
+    background: #8b8b8b;
+}
+
+.matters-article.dark > .markdown-body code {
+    color: #fefefe;
+    background-color: rgba(110, 118, 129, 0.4);
+}
+
+.matters-article.dark > .markdown-body pre {
+    color: #fefefe;
+    background-color: rgba(110, 118, 129, 0.4);
+}
+
+.matters-article.dark > .markdown-body pre code {
+    background-color: transparent;
+}

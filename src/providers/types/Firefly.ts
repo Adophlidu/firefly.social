@@ -250,6 +250,10 @@ export interface Article {
         body: string;
         title: string;
     };
+    contents: {
+        content: string;
+        title: string;
+    };
     author: string;
     displayInfo: FireflyDisplayInfo;
     authorship:

@@ -2,6 +2,7 @@
 
 import '@/assets/css/limo.css';
 import '@/assets/css/paragraph.css';
+import '@/assets/css/matters.css';
 
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
@@ -80,14 +81,15 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                 </div>
                 {isMuted ? (
                     <CollapsedContent className="mt-2" authorMuted isQuote={false} />
-                ) : article.platform !== ArticlePlatform.Mirror && article.platform !== ArticlePlatform.Matters ? (
+                ) : article.platform !== ArticlePlatform.Mirror ? (
                     <div
                         className={classNames({
                             'limo-article': article.platform === ArticlePlatform.Limo,
                             'paragraph-article': article.platform === ArticlePlatform.Paragraph,
+                            'matters-article': article.platform === ArticlePlatform.Matters,
                         })}
                     >
-                        {/*  The content returned by limo is html. */}
+                        {/*  The content returned by limo, paragraph, and matters is html. */}
                         <SanitizerDiv
                             className={classNames('markdown-body comment-enabled', {
                                 dark: isDarkMode,

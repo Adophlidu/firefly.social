@@ -68,16 +68,20 @@ function resolveArticleAuthor(article: FireflyArticle): Article['author'] {
 
 export function formatArticleFromFirefly(article: FireflyArticle): Article {
     const isMattersArticle = article.platform === ArticlePlatform.Matters;
+    const contentBody =
+        article.platform === ArticlePlatform.Paragraph &&
+        article.paragraph_raw_data?.staticHtml &&
+        article.paragraph_raw_data.json
+            ? (parseParagraphHtml(article.paragraph_raw_data.staticHtml, article.paragraph_raw_data.json) ??
+              article.paragraph_raw_data.staticHtml)
+            : isMattersArticle
+              ? article.contents.content
+              : article.content.body;
+
     return {
         platform: article.platform,
         type: article.platform === ArticlePlatform.Limo ? ArticleType.Post : article.type,
-        content:
-            article.platform === ArticlePlatform.Paragraph &&
-            article.paragraph_raw_data?.staticHtml &&
-            article.paragraph_raw_data.json
-                ? (parseParagraphHtml(article.paragraph_raw_data.staticHtml, article.paragraph_raw_data.json) ??
-                  article.paragraph_raw_data.staticHtml)
-                : article.content.body,
+        content: contentBody,
         title: article.content.title,
         author: resolveArticleAuthor(article),
         origin: isMattersArticle
