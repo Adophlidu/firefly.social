@@ -30,7 +30,9 @@ export async function runInSafeAsync<T>(
         if (XRPCNotSupportedError.is(error)) return;
 
         if (!noThrow) throw error;
-        console.error(`[runInSafeAsync] ${(error as Error).message}`, error);
+
+        console.warn(`[runInSafeAsync] ${(error as Error).message}`, error);
+
         return;
     }
 }
