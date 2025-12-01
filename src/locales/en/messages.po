@@ -2064,6 +2064,9 @@ msgstr "Bio should not exceed {maxBioSize} characters"
 msgid "5 minutes"
 msgstr "5 minutes"
 
+msgid "Search <0>posts</0>, <1>users</1>, <2>tokens</2>..."
+msgstr "Search <0>posts</0>, <1>users</1>, <2>tokens</2>..."
+
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr "This Bluesky account is already linked to another Firefly account."
 

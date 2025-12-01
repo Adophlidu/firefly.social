@@ -2069,6 +2069,9 @@ msgstr "个人介绍不可以超过 {maxBioSize} 个字符"
 msgid "5 minutes"
 msgstr "5 分钟"
 
+msgid "Search <0>posts</0>, <1>users</1>, <2>tokens</2>..."
+msgstr ""
+
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr "这个 Bluesky 账号已绑定到另一个 Firefly 账户。"
 

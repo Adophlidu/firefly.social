@@ -33,6 +33,7 @@ export const SuggestProfileList = memo<SuggestProfileListProps>(function Suggest
                     signal,
                     size: 5,
                     indicator: undefined,
+                    excludes: [Source.Bsky],
                 }),
                 isTwitterLogin && trimmed ? twitterSocialMediaProxy.searchProfiles(trimmed) : undefined,
             ]);

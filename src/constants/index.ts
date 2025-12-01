@@ -194,7 +194,7 @@ export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [
     Source.Lens,
     Source.Wallet,
 ];
-export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Bsky] as const;
+export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Twitter, Source.Lens, Source.Bsky] as const;
 export const SORTED_TOKEN_FEEDS_SOURCES = [Source.Twitter, Source.X3Pro, Source.Farcaster, Source.Lens, Source.Bsky];
 export const SORTED_CROSS_AT_SOCIAL_SOURCES = [Source.Twitter, Source.Farcaster, Source.Lens, Source.Bsky] as const;
 export const SORTED_SCHEDULE_POST_SOURCES = [Source.Twitter, Source.Farcaster, Source.Lens, Source.Bsky] as const;

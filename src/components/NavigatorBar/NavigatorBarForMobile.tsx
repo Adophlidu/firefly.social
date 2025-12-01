@@ -195,7 +195,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
             {showRecommendation && !isSearchPage ? (
                 <SearchRecommendation
                     fullScreen
-                    keyword={searchKeyword}
+                    keyword={inputText}
                     onSearch={closeRecommendation}
                     onSelect={closeRecommendation}
                     onClear={() => inputRef.current?.focus()}

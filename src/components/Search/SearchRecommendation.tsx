@@ -29,18 +29,18 @@ interface SearchRecommendationProps {
     onClear?: () => void;
 }
 
-function fixSearchUrl(isSearchPage: boolean, query: string, searchType: SearchType, source: Source) {
-    if (!isSearchPage) return resolveSearchUrl(query);
+function fixSearchUrl(isBasicSearch: boolean, query: string, searchType: SearchType, source: Source) {
+    if (isBasicSearch) return resolveSearchUrl(query);
 
     return resolveSearchUrl(query, searchType, source);
 }
 
 export function SearchRecommendation(props: SearchRecommendationProps) {
+    const { keyword, fullScreen = false, autoSearchType, onSearch, onSelect, onClear } = props;
     const pathname = usePathname();
     const isSearchPage = isRoutePathname(pathname, PageRoute.Search);
     const { searchType, source } = useSearchStateStore();
 
-    const { keyword, fullScreen = false, autoSearchType, onSearch, onSelect, onClear } = props;
     const { records, addRecord, removeRecord, clearAll } = useSearchHistoryStateStore();
 
     const [debouncedKeyword] = useDebounceValue(keyword, 300);
@@ -48,9 +48,9 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     if (!records.length && !keyword) return null;
 
     const containerClasses = classNames(
-        'max:max-h-[calc(100vh-59px)] absolute -inset-x-px top-10 z-[1000] flex w-full flex-col overflow-auto bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:border dark:border-line dark:bg-primaryBottom',
+        'max:max-h-[calc(100vh-59px)] absolute -inset-x-px top-10 z-[1000] flex w-full flex-col overflow-auto bg-white dark:border dark:border-line dark:bg-primaryBottom',
         {
-            'mt-2 rounded-2xl': !fullScreen,
+            'mt-2 rounded-2xl shadow-[0_4px_30px_0_rgba(0,0,0,0.1)]': !fullScreen,
             'bottom-0 mt-3 h-[calc(100vh-40px)] border-none': fullScreen,
         },
     );
@@ -59,12 +59,8 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     if (keyword) {
         return (
             <div className={containerClasses}>
-                <h2 className="p-3 pb-0 text-sm font-bold leading-[18px]">
-                    <Trans>Posts</Trans>
-                </h2>
-                <Link
-                    className="my-2 flex cursor-pointer items-center px-3 py-2 text-left hover:bg-bg"
-                    href={fixSearchUrl(isSearchPage, keyword, searchType, source)}
+                <div
+                    className="relative mb-4 mt-3 flex cursor-pointer items-center gap-3 px-3 text-left hover:bg-bg"
                     onClick={() =>
                         onSearch?.({
                             q: keyword,
@@ -72,9 +68,63 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                         })
                     }
                 >
-                    <SearchIcon width={18} height={18} className="shrink-0" />
-                    <span className="ml-4 min-w-0 truncate">{keyword}</span>
-                </Link>
+                    <SearchIcon width={20} height={20} className="ml-0.5 shrink-0" />
+                    <div className="flex flex-col">
+                        <Link
+                            className="link-overlay block min-w-0 truncate leading-[18px]"
+                            href={fixSearchUrl(!isSearchPage, keyword, searchType, source)}
+                        >
+                            {keyword}
+                        </Link>
+                        <div className="text-sm leading-[18px] text-second">
+                            <Trans>
+                                Search{' '}
+                                <Link
+                                    className="relative z-1 text-highlight hover:underline"
+                                    href={fixSearchUrl(false, keyword, SearchType.Posts, source)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onSearch?.({
+                                            q: keyword,
+                                            type: SearchType.Posts,
+                                        });
+                                    }}
+                                >
+                                    posts
+                                </Link>
+                                ,{' '}
+                                <Link
+                                    className="relative z-1 text-highlight hover:underline"
+                                    href={fixSearchUrl(false, keyword, SearchType.Profiles, source)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onSearch?.({
+                                            q: keyword,
+                                            type: SearchType.Profiles,
+                                        });
+                                    }}
+                                >
+                                    users
+                                </Link>
+                                ,{' '}
+                                <Link
+                                    className="relative z-1 text-highlight hover:underline"
+                                    href={fixSearchUrl(false, keyword, SearchType.Tokens, source)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onSearch?.({
+                                            q: keyword,
+                                            type: SearchType.Tokens,
+                                        });
+                                    }}
+                                >
+                                    tokens
+                                </Link>
+                                ...
+                            </Trans>
+                        </div>
+                    </div>
+                </div>
 
                 {debouncedKeyword && (isSymbol || isValidAddressEthereum(debouncedKeyword)) ? (
                     <>
