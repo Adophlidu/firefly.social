@@ -63,3 +63,6 @@ src/locales/**/*.ts
 # packages build output and dependencies
 packages/*/dist/
 packages/*/node_modules/
+
+# image comparison artifacts
+.image-comparison/

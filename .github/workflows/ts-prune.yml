@@ -40,7 +40,7 @@ jobs:
                   npx ts-prune > ts-prune-raw.log || true
 
                   # Filter the output based on whitelist rules
-                  node scripts/filter-ts-prune.js ts-prune-raw.log ts-prune-filtered.log
+                  node scripts/filter-ts-prune.mjs ts-prune-raw.log ts-prune-filtered.log
 
                   # Check if filtered log has any non-blank lines (excluding newlines and whitespace-only lines)
                   if grep -s '[^[:space:]]' ts-prune-filtered.log; then
