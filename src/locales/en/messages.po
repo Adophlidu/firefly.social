@@ -3493,6 +3493,9 @@ msgstr "Saved on {0} at {1}"
 msgid "No profile found"
 msgstr "No profile found"
 
+msgid "Failed to switch wallet."
+msgstr "Failed to switch wallet."
+
 msgid "Clubs"
 msgstr "Clubs"
 

@@ -16,11 +16,11 @@ export function createRedPacketProgram(chainId: SolanaChainId, requireWallet = f
     if (hit) return hit;
 
     if (requireWallet) {
-        const program = new Program(RedPacketIDL as Redpacket, getAnchorProvider(chainId));
+        const program = new Program<Redpacket>(RedPacketIDL, getAnchorProvider(chainId));
         storage.set(key, program);
         return program;
     }
     const connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');
-    const program = new Program(RedPacketIDL as Redpacket, { connection });
+    const program = new Program<Redpacket>(RedPacketIDL, { connection });
     return program;
 }

@@ -1,0 +1,73 @@
+import { CoreAssetUtil, CoreConnectionController, CoreConnectorController, CoreRouterController } from '@reown/appkit';
+import { memo, useEffect, useState } from 'react';
+import urlcat from 'urlcat';
+
+import { WalletChainConfig, WalletId } from '@/constants/reown.js';
+import type { AppkitWalletItem } from '@/hooks/appkit/useAppkitWalletList.js';
+import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
+import { selectWallet } from '@/modals/WalletConnectModal/selectWallet.js';
+import { WalletItem } from '@/modals/WalletConnectModal/WalletItem.js';
+
+interface AppkitWalletProps {
+    item: AppkitWalletItem;
+}
+
+function onWalletClick(item: AppkitWalletItem) {
+    const { subtype, wallet } = item;
+    const walletName = wallet.name ? encodeURIComponent(wallet.name) : undefined;
+
+    if (subtype === 'featured' || subtype === 'recent') {
+        selectWallet(wallet);
+        return;
+    }
+
+    if (subtype === 'custom') {
+        CoreRouterController.state.data = { wallet, redirectView: undefined };
+        walletRouter.navigate({
+            to: urlcat('/connecting-wc', { name: walletName }),
+        });
+        return;
+    }
+
+    const connector = CoreConnectorController.getConnector({
+        id: wallet.id,
+        rdns: wallet.rdns,
+    });
+    if (connector) {
+        CoreRouterController.state.data = { connector, redirectView: undefined };
+        walletRouter.navigate({ to: urlcat('/connecting', { name: walletName }) });
+    } else {
+        CoreRouterController.state.data = { wallet, redirectView: undefined };
+        walletRouter.navigate({
+            to: urlcat('/connecting-wc', { name: walletName }),
+        });
+    }
+}
+
+export const AppkitWallet = memo<AppkitWalletProps>(function AppkitWallet({ item }) {
+    const [connections, setConnections] = useState(CoreConnectionController.state.connections);
+
+    useEffect(() => {
+        const unsubscribes = [CoreConnectionController.subscribeKey('connections', (val) => setConnections(val))];
+
+        return () => {
+            unsubscribes.forEach((unsubscribe) => unsubscribe());
+        };
+    }, []);
+
+    const wallet = item.wallet;
+    const imageSrc = CoreAssetUtil.getWalletImage(wallet);
+    const hasWcConnection = CoreConnectionController.hasAnyConnection('walletConnect');
+
+    return (
+        <WalletItem
+            data-wallet-type={`wallet-${item.subtype}`}
+            installed={false}
+            disabled={hasWcConnection}
+            name={wallet.name}
+            icon={imageSrc}
+            chains={WalletChainConfig[wallet.id as WalletId] || []}
+            onClick={() => onWalletClick(item)}
+        />
+    );
+});

@@ -1,45 +1,20 @@
-import { compact } from 'lodash-es';
-import { useMemo } from 'react';
-
-import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
-import {
-    AllWalletsEntry,
-    AnnouncedWallets,
-    FeaturedWallets,
-    InjectedWallets,
-    MultipleChainWallets,
-    WalletConnect,
-} from '@/modals/WalletConnectModal/WalletList.js';
+import { useAppkitWalletList } from '@/hooks/appkit/useAppkitWalletList.js';
+import { AllWalletsEntry } from '@/modals/WalletConnectModal/AllWalletsEntry.js';
+import { AppkitConnector } from '@/modals/WalletConnectModal/AppkitConnector.js';
+import { AppkitWallet } from '@/modals/WalletConnectModal/AppkitWallet.js';
 
 export function WalletListView() {
-    const { connectors, featuredWallets, chainNamespace } = WalletConnectContext.useContainer();
-
-    const filteredConnectors = useMemo(() => {
-        if (!chainNamespace) return connectors;
-
-        return compact(
-            connectors.map((connector) => {
-                switch (connector.type) {
-                    case 'MULTI_CHAIN':
-                        const validConnector = connector.connectors?.find((x) => x.chain === chainNamespace);
-                        return validConnector ? { ...connector, connectors: [validConnector] } : null;
-                    case 'ANNOUNCED':
-                    case 'INJECTED':
-                        return connector.chain === chainNamespace ? connector : null;
-                    default:
-                        return null;
-                }
-            }),
-        );
-    }, [connectors, chainNamespace]);
+    const appkitWallets = useAppkitWalletList();
 
     return (
         <div className="space-y-2">
-            <MultipleChainWallets connectors={filteredConnectors} />
-            <InjectedWallets connectors={filteredConnectors} />
-            <AnnouncedWallets connectors={filteredConnectors} />
-            <FeaturedWallets wallets={featuredWallets} />
-            <WalletConnect connectors={connectors} />
+            {appkitWallets.map((item) =>
+                item.kind === 'connector' ? (
+                    <AppkitConnector item={item} key={`${item.kind}-${item.subtype}-${item.connector.id}`} />
+                ) : item.kind === 'wallet' ? (
+                    <AppkitWallet item={item} key={`${item.kind}-${item.subtype}-${item.wallet.id}`} />
+                ) : null,
+            )}
             <AllWalletsEntry />
         </div>
     );

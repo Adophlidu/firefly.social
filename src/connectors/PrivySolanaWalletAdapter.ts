@@ -9,7 +9,7 @@ import {
     type SolanaResponse,
 } from '@dimensiondev/iframe-bridge';
 import { bom } from '@dimensiondev/utils';
-import type { RequestArguments } from '@reown/appkit';
+import type { Provider as CoreProvider, RequestArguments } from '@reown/appkit';
 import type {
     AnyTransaction,
     Provider,
@@ -244,7 +244,7 @@ class PrivySolanaWalletProvider implements Provider {
     chain = 'solana' as const;
     chains = [];
     type = 'ANNOUNCED' as const;
-    provider: Provider | null = null;
+    public readonly provider = this as CoreProvider;
 
     protected adapter: PrivySolanaWalletAdapter;
 

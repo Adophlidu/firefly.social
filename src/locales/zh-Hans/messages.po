@@ -3498,6 +3498,9 @@ msgstr "保存于 {1} {0}"
 msgid "No profile found"
 msgstr "找不到任何账户"
 
+msgid "Failed to switch wallet."
+msgstr ""
+
 msgid "Clubs"
 msgstr "圈子"
 

@@ -13,7 +13,6 @@ import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveNamespace } from '@/helpers/resolveNamespace.js';
 import { useSolanaAccount, useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
-import { restoreDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import type { ChainNamespace } from '@/types/utility.js';
 
@@ -140,10 +139,6 @@ export function useWalletConnections() {
         connectors,
         ethereum.address,
     ]);
-
-    useEffect(() => {
-        return restoreDisconnectMethod;
-    }, []);
 
     return allConnections;
 }

@@ -1,0 +1,116 @@
+import { t } from '@lingui/core/macro';
+import { CoreConnectionController } from '@reown/appkit';
+import { mainnet, solana } from '@reown/appkit/networks';
+import { type FunctionComponent, type SVGAttributes } from 'react';
+import { useAsyncFn } from 'react-use';
+
+import EvmIcon from '@/assets/evm.svg';
+import SolanaIcon from '@/assets/solana.svg';
+import SwitchIcon from '@/assets/switch.svg';
+import WalletIcon from '@/assets/wallet.svg';
+import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { Image } from '@/components/Image.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { appkit } from '@/configs/appkit.js';
+import { NetworkType } from '@/constants/enum.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
+import { type AppKitAccount } from '@/hooks/useAppKitAccounts.js';
+import { useEnsName } from '@/hooks/useEnsName.js';
+import { ConnectionSource } from '@/hooks/useWalletConnections.js';
+import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
+import type { ChainNamespace } from '@/types/utility.js';
+
+const IconMap: Record<ChainNamespace, FunctionComponent<SVGAttributes<SVGElement>>> = {
+    eip155: EvmIcon,
+    solana: SolanaIcon,
+    bip122: WalletIcon,
+    polkadot: WalletIcon,
+    cosmos: WalletIcon,
+    sui: WalletIcon,
+    ton: WalletIcon,
+    stacks: WalletIcon,
+};
+
+export function AppKitAccountItem({
+    address,
+    network,
+    namespace,
+    connected,
+    walletIcon,
+    connection,
+    source,
+    onOpenPrivy,
+    ...rest
+}: AppKitAccount & {
+    onOpenPrivy?: () => void;
+}) {
+    const { data: ensName } = useEnsName(address, namespace === 'eip155');
+    const setActiveNetwork = useSolanaActiveNetworkStore((s) => s.setActiveNetwork);
+
+    const Icon = IconMap[namespace] || WalletIcon;
+
+    const [{ loading }, onConnectionClick] = useAsyncFn(async () => {
+        try {
+            if (namespace === 'solana') {
+                setActiveNetwork(
+                    source === ConnectionSource.Privy ? SolanaNetworkType.Privy : SolanaNetworkType.Appkit,
+                );
+            }
+
+            appkit.updateRemoteFeatures({ multiWallet: true });
+            if (connected || !connection) {
+                const appkitNetwork =
+                    connection?.caipNetwork ||
+                    (network === NetworkType.Solana ? solana : network === NetworkType.Ethereum ? mainnet : null);
+                if (appkitNetwork) {
+                    await appkit.switchNetwork(appkitNetwork);
+                }
+                if (source === ConnectionSource.Privy) {
+                    onOpenPrivy?.();
+                    return;
+                }
+
+                await appkit.open({ view: 'Account' });
+                return;
+            }
+
+            await CoreConnectionController.switchConnection({
+                connection,
+                address,
+                namespace,
+                closeModalOnConnect: false,
+            });
+            if (source === ConnectionSource.Privy) {
+                onOpenPrivy?.();
+                return;
+            }
+        } catch (error) {
+            enqueueErrorMessage(t`Failed to switch wallet.`);
+        }
+    }, [address, connection, connected, namespace, network, source, onOpenPrivy, setActiveNetwork]);
+
+    return (
+        <ClickableButton
+            key={address}
+            className="flex h-10 w-full items-center justify-between gap-2 px-2 text-main"
+            onClick={onConnectionClick}
+            disabled={loading}
+            {...rest}
+        >
+            <Icon className="shrink-0" width={20} height={20} />
+            {walletIcon ? (
+                <Image src={walletIcon.trim()} alt="" className="size-5 shrink-0" width={20} height={20} />
+            ) : null}
+            <span className="min-w-0 flex-1 truncate text-left">{ensName || formatAddress(address, 4)}</span>
+            {loading ? (
+                <LoadingIcon size={20} />
+            ) : connected ? (
+                <CircleCheckboxIcon size={20} checked />
+            ) : (
+                <SwitchIcon width={20} height={20} />
+            )}
+        </ClickableButton>
+    );
+}

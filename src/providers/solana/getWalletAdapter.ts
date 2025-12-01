@@ -2,7 +2,7 @@
 
 import type { web3 } from '@coral-xyz/anchor';
 import { unreachable } from '@dimensiondev/utils';
-import { ProviderUtil } from '@reown/appkit/store';
+import { CoreProviderController } from '@reown/appkit';
 import type { Provider } from '@reown/appkit-adapter-solana';
 
 import { PrivySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
@@ -13,8 +13,8 @@ import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 
 function getAppkitWalletAdapter() {
-    if (!('solana' in ProviderUtil.state.providers)) throw new WalletNotConnectedError();
-    const provider = ProviderUtil.state.providers.solana as Provider;
+    if (!('solana' in CoreProviderController.state.providers)) throw new WalletNotConnectedError();
+    const provider = CoreProviderController.state.providers.solana as Provider;
     if (!provider) throw new WalletNotConnectedError();
     return provider;
 }

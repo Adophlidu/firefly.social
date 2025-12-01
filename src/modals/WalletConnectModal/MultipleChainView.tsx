@@ -2,11 +2,12 @@ import { Trans } from '@lingui/react/macro';
 import {
     type Connector,
     CoreAssetUtil,
+    CoreConnectionController,
     CoreConnectorController,
     CoreHelperUtil,
     CoreRouterController,
 } from '@reown/appkit';
-import { memo, useSyncExternalStore } from 'react';
+import { useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
@@ -15,15 +16,24 @@ import { Image } from '@/components/Image.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { resolveAppKitNetworkName } from '@/helpers/resolveAppKitNetworkName.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
-import { checkIfConnectedAndSwitch } from '@/modals/WalletConnectModal/checkIfConnectedAndSwitch.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 import { captureConnectWalletSubmit } from '@/providers/telemetry/captureConnectWalletSubmit.js';
 
-export default memo(function MultipleChainView() {
-    const { connectedId, origin } = WalletConnectContext.useContainer();
+export default function MultipleChainView() {
+    const { origin } = WalletConnectContext.useContainer();
 
-    const connectorState = useSyncExternalStore(CoreConnectorController.subscribe, () => CoreConnectorController.state);
-    const activeConnector = connectorState.activeConnector;
+    const [activeConnector, setActiveConnector] = useState(CoreConnectorController.state.activeConnector);
+    const [connections, setConnections] = useState(CoreConnectionController.state.connections);
+
+    useEffect(() => {
+        const unsubscribes = [
+            CoreConnectorController.subscribeKey('activeConnector', (val) => setActiveConnector(val)),
+            CoreConnectionController.subscribeKey('connections', (val) => setConnections(val)),
+        ];
+        return () => {
+            unsubscribes.forEach((unsubscribe) => unsubscribe());
+        };
+    }, []);
 
     const [{ loading }, onConnect] = useAsyncFn(
         async (provider: Connector) => {
@@ -33,14 +43,18 @@ export default memo(function MultipleChainView() {
                 return;
             }
 
-            if (await checkIfConnectedAndSwitch(connector, connectedId)) {
-                return;
-            }
-
             if (connector.id === 'walletConnect') {
-                walletRouter.navigate({ to: CoreHelperUtil.isMobile() ? '/all-wallets' : '/connecting-wc' });
+                const isMobile = CoreHelperUtil.isMobile();
+                if (!isMobile) {
+                    CoreRouterController.state.data = { redirectView: undefined };
+                }
+                walletRouter.navigate({ to: isMobile ? '/all-wallets' : '/connecting-wc' });
             } else {
-                CoreRouterController.state.data = { connector };
+                CoreRouterController.state.data = {
+                    connector,
+                    redirectView: undefined,
+                    wallet: activeConnector?.explorerWallet,
+                };
                 walletRouter.navigate({
                     to: urlcat('/connecting', {
                         name: encodeURIComponent(connector.name),
@@ -48,7 +62,7 @@ export default memo(function MultipleChainView() {
                 });
             }
         },
-        [activeConnector, connectedId],
+        [activeConnector],
     );
 
     if (!activeConnector) return null;
@@ -70,12 +84,15 @@ export default memo(function MultipleChainView() {
             </div>
             <div className="flex w-full flex-col gap-2">
                 {activeConnector.connectors?.map((connector) => {
+                    if (!connector.name) return null;
+
                     const chainImage = CoreAssetUtil.getChainImage(connector.chain);
+                    const isAlreadyConnected = false;
 
                     return (
                         <ClickableButton
                             disabled={loading}
-                            className="flex items-center gap-3 rounded bg-lightBg py-[7px] pl-2 pr-4 hover:bg-highlight/20"
+                            className="group flex items-center gap-3 rounded bg-lightBg py-[7px] pl-2 pr-4 hover:bg-highlight/20"
                             key={connector.chain}
                             onClick={() => {
                                 onConnect(connector);
@@ -96,11 +113,16 @@ export default memo(function MultipleChainView() {
                                     className="size-10 rounded"
                                 />
                             ) : null}
-                            <span>{resolveAppKitNetworkName(connector.chain)}</span>
+                            <span className="group-hover:font-medium">{resolveAppKitNetworkName(connector.chain)}</span>
+                            {isAlreadyConnected ? (
+                                <span className="ml-auto flex h-7 items-center rounded bg-success/20 px-1 text-[13px] text-success">
+                                    <Trans>Connected</Trans>
+                                </span>
+                            ) : null}
                         </ClickableButton>
                     );
                 })}
             </div>
         </div>
     );
-});
+}

@@ -3498,6 +3498,9 @@ msgstr ""
 msgid "No profile found"
 msgstr ""
 
+msgid "Failed to switch wallet."
+msgstr ""
+
 msgid "Clubs"
 msgstr ""
 

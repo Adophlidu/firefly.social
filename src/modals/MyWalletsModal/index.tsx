@@ -2,6 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { useCallback } from 'react';
 
 import { Modal } from '@/components/Modal.js';
+import { appkit } from '@/configs/appkit.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConnectedWallets } from '@/modals/MyWalletsModal/ConnectedWallets.js';
@@ -11,7 +12,11 @@ type Props = {
 };
 
 export function MyWalletsModal({ ref }: Props) {
-    const [open, dispatch] = useSingletonModal(ref, {});
+    const [open, dispatch] = useSingletonModal(ref, {
+        onOpen: () => {
+            appkit.updateRemoteFeatures({ multiWallet: true });
+        },
+    });
 
     const onClose = useCallback(() => dispatch?.close(), [dispatch]);
 
