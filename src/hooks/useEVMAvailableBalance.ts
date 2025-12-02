@@ -1,12 +1,13 @@
 'use client';
 
 import { useMemo } from 'react';
-import { useBalance, useEstimateFeesPerGas } from 'wagmi';
+import { useEstimateFeesPerGas } from 'wagmi';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import { isGreaterThan, multipliedBy, ZERO } from '@/helpers/number.js';
+import { useBalanceOf } from '@/hooks/useBalanceOf.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 
 export function useEVMAvailableBalance(
@@ -18,19 +19,7 @@ export function useEVMAvailableBalance(
     const isNativeToken = isZeroAddressEthereum(address);
     const { chainId, isEIP1559, account } = useChainContext(overrides);
 
-    const { data: nativeBalance } = useBalance({
-        address: account as `0x${string}`,
-        config: wagmiConfig,
-        chainId,
-        query: { enabled },
-    });
-    const { data: balance } = useBalance({
-        token: !isNativeToken ? address : undefined,
-        address: account as `0x${string}`,
-        config: wagmiConfig,
-        chainId,
-        query: { enabled },
-    });
+    const { data: balance } = useBalanceOf(chainId, account as `0x${string}`, address, enabled);
 
     const { data } = useEstimateFeesPerGas({
         chainId,
@@ -49,7 +38,7 @@ export function useEVMAvailableBalance(
                 ...balance,
                 origin: balance,
                 gasFee,
-                insufficientGas: isGreaterThan(gasFee, nativeBalance?.value.toString() ?? 0),
+                insufficientGas: isGreaterThan(gasFee, balance?.value.toString() ?? 0),
             };
 
         const result = balance.value - BigInt(gasFee.toNumber());
@@ -61,5 +50,5 @@ export function useEVMAvailableBalance(
             origin: balance,
             insufficientGas: result < 0,
         };
-    }, [isNativeToken, balance, isEIP1559, gas, gasPrice, maxFeePerGas, nativeBalance?.value, enabled]);
+    }, [isNativeToken, balance, isEIP1559, gas, gasPrice, maxFeePerGas, balance?.value, enabled]);
 }

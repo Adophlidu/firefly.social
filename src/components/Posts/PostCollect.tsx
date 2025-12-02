@@ -19,7 +19,6 @@ import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { useTokenBalanceInPostCollect } from '@/hooks/useTokenBalanceInPostCollect.js';
 import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';
@@ -37,6 +36,13 @@ function formatTimeLeft(endTime: string) {
     if (minutes >= 1) return <Trans>{minutes}m left</Trans>;
     return <Trans>1m left</Trans>;
 }
+function getCollectModuleData(collectModule: Post['collectModule']) {
+    return {
+        timeLeft: collectModule?.endsAt ? formatTimeLeft(collectModule?.endsAt) : undefined,
+        isSoldOut: collectModule?.collectLimit ? collectModule?.collectedCount >= collectModule?.collectLimit : false,
+        isTimeout: collectModule?.endsAt ? dayjs(collectModule?.endsAt).isBefore(dayjs()) : false,
+    };
+}
 
 interface PostCollectProps {
     post: Post;
@@ -45,21 +51,15 @@ interface PostCollectProps {
 
 export function PostCollect({ post, onClose }: PostCollectProps) {
     const account = useAccount();
-    const collectModule = post.collectModule;
-    const timeLeft = collectModule?.endsAt ? formatTimeLeft(collectModule?.endsAt) : undefined;
-
-    const isSoldOut = collectModule?.collectLimit
-        ? collectModule?.collectedCount >= collectModule?.collectLimit
-        : false;
-
-    const isTimeout = collectModule?.endsAt ? dayjs(collectModule?.endsAt).isBefore(dayjs()) : false;
-
+    const currentProfile = useCurrentProfile(post.source);
     const [followLoading, toggleFollow] = useToggleFollow(post.author);
 
-    const isLogin = useIsLogin(post.source);
-    const myProfile = useCurrentProfile(post.source);
+    const collectModule = post.collectModule;
+    const { timeLeft, isSoldOut, isTimeout } = getCollectModuleData(collectModule);
+
+    const isLogin = !!currentProfile?.profileId;
     const { data: profile = null, isLoading: queryProfileLoading } = useQuery({
-        queryKey: ['profile', post.source, post.author.profileId, myProfile?.profileId],
+        queryKey: ['profile', post.source, post.author.profileId, currentProfile?.profileId],
         enabled: collectModule?.followerOnly && isLogin,
         queryFn: async () => {
             return resolveSocialMediaProvider(post.source).getProfileByIdOrHandle(post.author.handle);

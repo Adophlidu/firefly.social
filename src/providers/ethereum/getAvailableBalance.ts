@@ -1,7 +1,6 @@
 import type { Address } from 'viem';
-import { getBalance } from 'wagmi/actions';
 
-import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { getBalanceOf } from '@/helpers/getBalanceOf.js';
 import { isLessThan, minus } from '@/helpers/number.js';
 import { getDefaultGas } from '@/providers/ethereum/getDefaultGas.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
@@ -12,11 +11,7 @@ import type { EthereumChainId } from '@/web3-shared/evm/types.js';
 export async function getAvailableBalance(options: TransactionOptions<EthereumChainId, Address>) {
     const { token } = options;
     const account = await EthereumNetwork.getAccount();
-    const balance = await getBalance(wagmiConfig, {
-        address: account,
-        chainId: token.chainId,
-        token: EthereumTransfer.isNativeToken(token) ? undefined : token.id,
-    });
+    const balance = await getBalanceOf(token.chainId, account, token.id);
     if (EthereumTransfer.isNativeToken(token)) {
         const { gas } = await getDefaultGas(options);
         const available = minus(balance.value.toString(), gas);
