@@ -101,7 +101,7 @@ export function AppKitAccountItem({
         >
             <Icon className="shrink-0" width={20} height={20} />
             {walletIcon ? (
-                <Image src={walletIcon.trim()} alt="" className="size-5 shrink-0" width={20} height={20} />
+                <Image src={walletIcon.trim()} alt="" className="size-5 shrink-0 rounded" width={20} height={20} />
             ) : null}
             <span className="min-w-0 flex-1 truncate text-left">{ensName || formatAddress(address, 4)}</span>
             {loading ? (

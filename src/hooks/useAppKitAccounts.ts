@@ -10,6 +10,7 @@ import { compact } from 'lodash-es';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { NetworkType } from '@/constants/enum.js';
+import { walletConnectIcon, walletConnectId } from '@/constants/reown.js';
 import { networkTypeToChainNamespace } from '@/helpers/networkTypeToChainNamespace.js';
 import { ConnectionSource } from '@/hooks/useWalletConnections.js';
 import type { ChainNamespace } from '@/types/utility.js';
@@ -23,6 +24,7 @@ export interface AppKitAccount {
     connection?: Connection;
     walletIcon?: string;
     isLoading?: boolean;
+    connectorId?: string;
 }
 
 function parseCaipAddress(caipAddress: CaipAddress) {
@@ -59,6 +61,7 @@ function connectionToAccounts(connection: Connection, network: NetworkType) {
                 walletIcon: connectorImage,
                 namespace,
                 connection,
+                connectorId: connector?.id,
                 source: connector?.id === 'network.privy' ? ConnectionSource.Privy : ConnectionSource.Appkit,
             } satisfies AppKitAccount;
         }),
@@ -145,7 +148,8 @@ export function useAppKitAccountsByNetwork(network: NetworkType) {
 
         const connector = CoreConnectorController.getConnectorById(connectorId);
         const connection = connections.find((c) => c.connectorId?.toLowerCase() === connector?.id.toLowerCase());
-        const connectorImage = CoreAssetUtil.getConnectorImage(connector);
+        const connectorImage =
+            connector?.id === walletConnectId ? walletConnectIcon : CoreAssetUtil.getConnectorImage(connector);
 
         return {
             address: plainAddress,
@@ -155,6 +159,7 @@ export function useAppKitAccountsByNetwork(network: NetworkType) {
             connection,
             walletIcon: connectorImage,
             namespace: chainNamespace,
+            connectorId: connector?.id,
             source: connector?.id === 'network.privy' ? ConnectionSource.Privy : ConnectionSource.Appkit,
         };
     }, [chainNamespace, activeConnectorIds, caipAddress, network, connections, hasAnyConnections]);

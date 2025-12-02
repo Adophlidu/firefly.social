@@ -2,7 +2,7 @@ import { CoreAssetUtil, CoreConnectionController, CoreConnectorController, CoreR
 import { memo, useEffect, useState } from 'react';
 import urlcat from 'urlcat';
 
-import { WalletChainConfig, WalletId } from '@/constants/reown.js';
+import { WalletChainConfig, walletConnectId, WalletId } from '@/constants/reown.js';
 import type { AppkitWalletItem } from '@/hooks/appkit/useAppkitWalletList.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 import { selectWallet } from '@/modals/WalletConnectModal/selectWallet.js';
@@ -57,7 +57,7 @@ export const AppkitWallet = memo<AppkitWalletProps>(function AppkitWallet({ item
 
     const wallet = item.wallet;
     const imageSrc = CoreAssetUtil.getWalletImage(wallet);
-    const hasWcConnection = CoreConnectionController.hasAnyConnection('walletConnect');
+    const hasWcConnection = CoreConnectionController.hasAnyConnection(walletConnectId);
 
     return (
         <WalletItem

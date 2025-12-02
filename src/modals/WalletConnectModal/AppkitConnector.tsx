@@ -10,6 +10,7 @@ import { memo, useEffect, useState } from 'react';
 import urlcat from 'urlcat';
 
 import ScanIcon from '@/assets/scan.svg';
+import { walletConnectIcon, walletConnectId } from '@/constants/reown.js';
 import type { AppkitConnectorItem } from '@/hooks/appkit/useAppkitWalletList.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 import { WalletItem } from '@/modals/WalletConnectModal/WalletItem.js';
@@ -68,7 +69,7 @@ function onConnectorClick(item: AppkitConnectorItem) {
     }
 
     if (subtype === 'announced') {
-        if (connector.id === 'walletConnect') {
+        if (connector.id === walletConnectId) {
             if (CoreHelperUtil.isMobile()) {
                 walletRouter.navigate({ to: '/all-wallets' });
             } else {
@@ -128,14 +129,14 @@ export const AppkitConnector = memo<AppkitConnectorProps>(function AppkitConnect
         (c) => c.connectorId?.toLowerCase() === connector.id?.toLowerCase(),
     );
 
-    const hasWcConnection = CoreConnectionController.hasAnyConnection('walletConnect');
+    const hasWcConnection = CoreConnectionController.hasAnyConnection(walletConnectId);
     const isWalletConnect = item.subtype === 'walletConnect';
     const disabled = isWalletConnect || item.subtype === 'external' ? hasWcConnection : false;
 
     return (
         <WalletItem
             data-wallet-type={item.subtype}
-            icon={isWalletConnect ? '/image/walletConnect.png' : imageSrc}
+            icon={isWalletConnect ? walletConnectIcon : imageSrc}
             name={connector.name}
             installed
             disabled={disabled}

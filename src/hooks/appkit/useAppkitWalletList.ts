@@ -7,6 +7,7 @@ import {
 } from '@reown/appkit';
 import { useEffect, useMemo, useState } from 'react';
 
+import { walletConnectId } from '@/constants/reown.js';
 import { ConnectorUtil } from '@/libs/appkit/ConnectorUtil.js';
 
 export interface AppkitConnectorItem {
@@ -43,7 +44,7 @@ export function useAppkitWalletList() {
 
         const byType = ConnectorUtil.getConnectorsByType(connectors, recommended, featured);
         const announced = ConnectorUtil.processConnectorsByType(
-            byType.announced.filter((c) => c.id !== 'walletConnect'),
+            byType.announced.filter((c) => c.id !== walletConnectId),
         );
         const injected = ConnectorUtil.processConnectorsByType(byType.injected);
         const multiChain = ConnectorUtil.processConnectorsByType(
@@ -57,7 +58,7 @@ export function useAppkitWalletList() {
         byType.featured.forEach((w) => items.push({ kind: 'wallet', subtype: 'featured', wallet: w }));
 
         const isMobile = CoreHelperUtil.isMobile();
-        const wcConnector = connectors.find((c) => c.id === 'walletConnect');
+        const wcConnector = connectors.find((c) => c.id === walletConnectId);
         if (!isMobile && wcConnector) {
             items.push({ kind: 'connector', subtype: 'walletConnect', connector: wcConnector });
         }

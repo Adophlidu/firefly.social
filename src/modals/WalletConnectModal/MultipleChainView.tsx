@@ -13,6 +13,7 @@ import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
+import { walletConnectId } from '@/constants/reown.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { resolveAppKitNetworkName } from '@/helpers/resolveAppKitNetworkName.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
@@ -43,7 +44,7 @@ export default function MultipleChainView() {
                 return;
             }
 
-            if (connector.id === 'walletConnect') {
+            if (connector.id === walletConnectId) {
                 const isMobile = CoreHelperUtil.isMobile();
                 if (!isMobile) {
                     CoreRouterController.state.data = { redirectView: undefined };
