@@ -63,7 +63,7 @@ const config: NextConfig = {
     productionBrowserSourceMaps: false,
 
     // Server-only external packages for Turbopack (native modules)
-    serverExternalPackages: ['@napi-rs/image', 'canvas'],
+    serverExternalPackages: ['@napi-rs/image', 'canvas', 'pino', 'pino-pretty', 'thread-stream'],
 
     // Note: we run tsc and eslint in other places
     typescript: {
