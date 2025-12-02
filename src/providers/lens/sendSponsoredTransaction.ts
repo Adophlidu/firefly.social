@@ -1,12 +1,13 @@
 import type { Eip712TransactionRequest, TxHash } from '@lens-protocol/client';
-import { sendEip712Transaction } from 'viem/zksync';
 
+import { LENS_CHAIN_ID } from '@/constants/index.js';
+import { sendCustomEip712Transaction } from '@/helpers/sendCustomEip712Transaction.js';
 import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';
 
 export async function sendSponsoredTransaction(raw: Eip712TransactionRequest): Promise<TxHash> {
     const walletClient = await getWalletClientForLensChain();
 
-    return sendEip712Transaction(walletClient, {
+    return sendCustomEip712Transaction(LENS_CHAIN_ID, {
         account: walletClient.account,
         data: raw.data,
         gas: BigInt(raw.gasLimit),

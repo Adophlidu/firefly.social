@@ -1,7 +1,6 @@
 import { fetchAccount } from '@lens-protocol/client/actions';
 import { first, sumBy } from 'lodash-es';
 import type { Address } from 'viem';
-import { sendEip712Transaction } from 'viem/zksync';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
@@ -13,6 +12,7 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
+import { sendCustomEip712Transaction } from '@/helpers/sendCustomEip712Transaction.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { commitPoll } from '@/providers/firefly/poll/commitPoll.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
@@ -81,13 +81,12 @@ class LensPoll implements Provider {
 
         await Promise.all(
             result.transactions.map(async (transaction) => {
-                const hash = await sendEip712Transaction(walletClient, {
+                const hash = await sendCustomEip712Transaction(LENS_CHAIN_ID, {
                     account: walletClient.account,
                     data: transaction.data,
                     gas: BigInt(transaction.gasLimit),
                     maxFeePerGas: BigInt(transaction.maxFeePerGas),
                     maxPriorityFeePerGas: BigInt(transaction.maxPriorityFeePerGas),
-                    // nonce: transaction.nonce,
                     paymaster: transaction.paymaster,
                     paymasterInput: transaction.paymasterInput,
                     to: transaction.to,
