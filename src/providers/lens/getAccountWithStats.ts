@@ -10,14 +10,14 @@ import {
 import { LENS_PRO_GROUP_ID } from '@/constants/lens.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
-import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
+import { getLensClient } from '@/providers/lens/getLensClient.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 async function getAccountWithStats(
     accountRequest: AccountRequest,
     accountStatsRequest: AccountStatsRequest,
 ): Promise<Profile> {
-    const result = await lensClientHolder.client.urql.query<
+    const result = await getLensClient().urql.query<
         {
             account: Account;
             accountStats: AccountStats;
