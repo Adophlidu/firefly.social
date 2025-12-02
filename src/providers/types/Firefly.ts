@@ -251,7 +251,7 @@ export interface Article {
         title: string;
     };
     contents: {
-        content: string;
+        body: string;
         title: string;
     };
     author: string;

@@ -75,7 +75,7 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
             ? (parseParagraphHtml(article.paragraph_raw_data.staticHtml, article.paragraph_raw_data.json) ??
               article.paragraph_raw_data.staticHtml)
             : isMattersArticle
-              ? article.contents.content
+              ? article.contents.body
               : article.content.body;
 
     return {
