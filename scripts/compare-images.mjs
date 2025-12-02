@@ -29,10 +29,10 @@ const imagePairs = [
         dynamicUrl: `${BASE_URL}/api/og/swap/1/0xd650cbe2a82b0c996770807f0fa0cf17b86bd0ccd0457efd6495efcc6b3cefbb/image`,
         staticPath: 'public/og/swap_10_0xd650cbe2a82b0c996770807f0fa0cf17b86bd0ccd0457efd6495efcc6b3cefbb_image.png',
     },
-    {
-        dynamicUrl: `${BASE_URL}/api/og/tip/0x6295f5852d76b3eabac63d73ed3cb64bfeac47fdd7f1a7412dd7590d3565cd50/image`,
-        staticPath: 'public/og/tip_0x6295f5852d76b3eabac63d73ed3cb64bfeac47fdd7f1a7412dd7590d3565cd50_image.png',
-    },
+    // {
+    //     dynamicUrl: `${BASE_URL}/api/og/tip/0x6295f5852d76b3eabac63d73ed3cb64bfeac47fdd7f1a7412dd7590d3565cd50/image`,
+    //     staticPath: 'public/og/tip_0x6295f5852d76b3eabac63d73ed3cb64bfeac47fdd7f1a7412dd7590d3565cd50_image.png',
+    // },
 ];
 
 // Configuration

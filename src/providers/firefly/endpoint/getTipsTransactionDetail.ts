@@ -13,6 +13,5 @@ export async function getTipsTransactionDetail(txHash: string, type: TipsNotific
     });
     const response = await fireflySessionHolder.fetch<TipsDetailResponse>(url);
     const data = resolveFireflyResponseData(response);
-
     return data;
 }
