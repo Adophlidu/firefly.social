@@ -9,7 +9,7 @@ import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
-import { reportLensAccount } from '@/providers/firefly/endpoint/reportLensAccount.js';
+import { reportLensAccount } from '@/providers/firefly/report/reportLensAccount.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { createLensClient } from '@/providers/lens/createLensClient.js';
 import { createLensSession } from '@/providers/lens/createLensSession.js';

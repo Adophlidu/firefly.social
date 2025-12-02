@@ -16,7 +16,7 @@ import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
 import { WithMutedProfilesQuery } from '@/decorators/WithMutedProfilesQuery.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
-import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFarcasterProfileById } from '@/providers/farcaster/getFarcasterProfileById.js';
 import { getFarcasterProfilesByIds } from '@/providers/farcaster/getFarcasterProfilesByIds.js';
@@ -26,10 +26,10 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { getFarcasterSuggestFollows } from '@/providers/firefly/endpoint/getFarcasterSuggestFollows.js';
 import { getNotificationPushSwitch } from '@/providers/firefly/endpoint/getNotificationPushSwitch.js';
-import { reportProfile as reportProfileEndpoint } from '@/providers/firefly/endpoint/reportProfile.js';
 import { setNotificationPushSwitch } from '@/providers/firefly/endpoint/setNotificationPushSwitch.js';
 import { blockProfileFor } from '@/providers/firefly/farcaster-account/blockProfileFor.js';
 import { unblockProfileFor } from '@/providers/firefly/farcaster-account/unblockProfileFor.js';
+import { reportProfile } from '@/providers/firefly/report/reportProfile.js';
 import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { userDataAdd } from '@/providers/neynar/userDataAdd.js';
@@ -342,7 +342,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async reportProfile(profileId: string) {
-        return reportProfileEndpoint(profileId);
+        return reportProfile(profileId);
     }
 
     async reportPost(post: Post) {
