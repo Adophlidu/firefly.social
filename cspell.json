@@ -562,7 +562,8 @@
         "masknetwork",
         "TBNL",
         "DTSA",
-        "urql"
+        "urql",
+        "okex"
     ],
     "flagWords": [],
     "ignorePaths": [
