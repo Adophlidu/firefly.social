@@ -2,7 +2,6 @@
 
 import { bom } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { debounce } from 'lodash-es';
 import { useEffect, useState } from 'react';
 
 import { ShadowInAndOut } from '@/app/(whiteboard)/components/Signup/ShadowInAndOut.js';
@@ -12,6 +11,7 @@ import GoogleStoreIcon from '@/assets/google-store.svg';
 import { SignupStep } from '@/constants/enum.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
+import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';
 import { FireflyAccountSVG } from '@/modals/CreateFireflyAccountGuideModal/FireflyAccountSVG.js';
 import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';
 
@@ -31,16 +31,19 @@ export function GuidePage({ changeStep }: GuidePageProps) {
     const { isLoading } = useCheckFireflyAccount(false, true);
     const [fontSizes, setFontSizes] = useState(computeFontSize());
 
-    useEffect(() => {
-        const onWindowSizeChange = debounce(() => {
-            setFontSizes(computeFontSize());
-        }, 100);
+    // Throttle resize handler using requestAnimationFrame for optimal performance
+    const throttledResize = useThrottledCallback(() => {
+        setFontSizes(computeFontSize());
+    });
 
-        bom.window?.addEventListener('resize', onWindowSizeChange);
+    useEffect(() => {
+        bom.window?.addEventListener('resize', throttledResize, { passive: true });
         return () => {
-            bom.window?.removeEventListener('resize', onWindowSizeChange);
+            bom.window?.removeEventListener('resize', throttledResize);
+            // Cancel any pending animation frame on cleanup
+            throttledResize.cancel();
         };
-    }, []);
+    }, [throttledResize]);
 
     return (
         <div className="no-scrollbar absolute inset-0 z-1 flex flex-col items-center justify-center gap-[6.875%] md:flex-row">

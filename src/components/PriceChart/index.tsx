@@ -13,6 +13,7 @@ import {
 import { EMPTY_LIST } from '@/constants/index.js';
 import { formatBalance, trimZero } from '@/helpers/formatBalance.js';
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
+import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';
 import type { PriceRecord, TradeRecord } from '@/types/token.js';
 
 interface TradeTooltipProps extends HTMLProps<HTMLDivElement> {
@@ -104,6 +105,9 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
     const [containerWidth, setContainerWidth] = useState(560);
     const isOverflow = tooltipState ? tooltipState.x + 20 + tooltipWidth > containerWidth : false;
 
+    // Throttle resize handler for better performance
+    const throttledSetContainerWidth = useThrottledCallback(setContainerWidth);
+
     const tooltipStyle: CSSProperties | undefined = tooltipState
         ? {
               left: `${isOverflow ? Math.min(tooltipState.x, containerWidth - SafePadding) - 20 - tooltipWidth : Math.max(tooltipState.x, SafePadding) + 20}px`,
@@ -115,7 +119,7 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
     return (
         <div {...props} className={classNames('relative overflow-visible', props.className)}>
             <TraderLayerContext value={traderLayerValue}>
-                <ResponsiveContainer width="100%" height="100%" onResize={setContainerWidth}>
+                <ResponsiveContainer width="100%" height="100%" onResize={throttledSetContainerWidth}>
                     <AreaChart
                         data={records}
                         onMouseMove={(e) => {

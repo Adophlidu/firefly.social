@@ -39,6 +39,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { useCurrentProfile, useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
+import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
 import {
     type FireflyIdentity,
@@ -350,6 +351,9 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
         setHiddenRight(Math.round(target.scrollLeft) >= Math.trunc(target.scrollWidth - target.clientWidth));
     }, []);
 
+    // Throttle scroll handler for better performance
+    const throttledHandleButtons = useThrottledCallback(handleButtons);
+
     const ref = useRef<HTMLDivElement>(null);
     useEffect(() => {
         const element = ref.current;
@@ -402,7 +406,7 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
             <div
                 className="no-scrollbar align-center relative flex w-full overflow-auto pb-2.5 pt-2"
                 ref={ref}
-                onScroll={(e) => handleButtons(e.currentTarget)}
+                onScroll={(e) => throttledHandleButtons(e.currentTarget)}
                 id={PROFILE_SOURCE_TABS_CONTAINER_ID}
             >
                 {children}
