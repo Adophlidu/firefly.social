@@ -7,11 +7,11 @@ import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSc
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
-import { FileSchema } from '@/schemas/File.js';
+import { AnyFileSchema } from '@/schemas/File.js';
 import { AppendMediaSchema } from '@/schemas/Media.js';
 
 const FormDataSchema = z.object({
-    media: FileSchema,
+    media: AnyFileSchema,
 });
 
 export const POST = compose(
