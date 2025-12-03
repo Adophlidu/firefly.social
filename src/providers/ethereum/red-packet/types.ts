@@ -19,7 +19,7 @@ export interface CreateRedPacketContext {
 }
 
 export interface ClaimRedPacketContext {
-    contextChainId: EthereumChainId;
+    contextChainId: number;
     account: string;
     source: SocialSource;
     payload: RedPacketJSONPayload;

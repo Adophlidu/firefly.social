@@ -10,16 +10,19 @@ import type { ClaimSplTokenContext } from '@/providers/solana/red-packet/types.j
 export async function claimWithSplToken(context: ClaimSplTokenContext) {
     const program = getProgram();
     const receiver = getCreator();
-    const { accountId, claimer, tokenMint, tokenProgram } = context;
+    const { accountId, publicKey, message, tokenMint, tokenProgram } = context;
 
+    if (!publicKey || !message) {
+        throw new Error('Public key and message are required');
+    }
     const receiverTokenAccount = getAssociatedTokenAddressSync(tokenMint, receiver, true, tokenProgram);
     const vault = getAssociatedTokenAddressSync(tokenMint, accountId, true, tokenProgram);
-
-    const message = Buffer.concat([accountId.toBytes(), receiver.toBytes()]);
+    const publicKeyBytes = new web3.PublicKey(publicKey).toBytes();
+    const messageBuffer = Buffer.from(message, 'base64');
     const ed25519Instruction = web3.Ed25519Program.createInstructionWithPublicKey({
-        publicKey: claimer.publicKey.toBytes(),
-        message,
-        signature: sign.detached(message, claimer.secretKey),
+        publicKey: publicKeyBytes,
+        message: messageBuffer,
+        signature: sign.detached(messageBuffer, publicKeyBytes),
     });
 
     const signature = await runRPC(

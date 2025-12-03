@@ -159,7 +159,7 @@ export default memo(function ConfirmView() {
             }
         }
 
-        const publicKey = await createPublicKey(themeId, shareFrom, strategies);
+        const publicKey = await createPublicKey(themeId, shareFrom, strategies, networkType);
         return {
             publicKey,
             claimRequirements: strategies,
@@ -173,6 +173,7 @@ export default memo(function ConfirmView() {
         currentTwitterProfile,
         chainId,
         shareFrom,
+        networkType,
     ]);
 
     const shareFromName = shareFromEnsName ?? shareFrom;
@@ -402,7 +403,7 @@ export default memo(function ConfirmView() {
                     </span>
                 </div>
 
-                {rules.length && isEVM ? (
+                {rules.length ? (
                     <div className="flex justify-between text-sm font-bold leading-[18px]">
                         <label>
                             <Trans>Claim requirements</Trans>

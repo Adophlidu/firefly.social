@@ -27,8 +27,10 @@ export interface CreateWithSplTokenContext extends CreateWithNativeTokenContext 
 }
 
 export interface ClaimNativeTokenContext {
+    signedMessage: string;
+    message?: string;
+    publicKey?: string;
     accountId: web3.PublicKey;
-    claimer: web3.Keypair;
 }
 
 export interface ClaimSplTokenContext extends ClaimNativeTokenContext {

@@ -15,14 +15,8 @@ import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 
-export function useEthereumVerifyAndClaim(
-    payload: RedPacketJSONPayload,
-    source: SocialSource,
-    post: Post,
-    enabled = true,
-) {
+export function useEthereumVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, enabled = true) {
     const { address: account } = useAccount();
 
     const signedMessage = 'privateKey' in payload ? payload.privateKey : payload.password;

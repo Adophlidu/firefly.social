@@ -41,6 +41,7 @@ function treeShakePayloadInfo(payload: RedPacketJSONPayload): RedPacketMetadata 
 
 export function useSolanaCreateRedPacketCallback(
     shareFromName: string,
+    publicKey: string,
     claimRequirements: FireflyRedPacketAPI.ClaimStrategy[] | undefined,
 ) {
     const {
@@ -57,7 +58,7 @@ export function useSolanaCreateRedPacketCallback(
     const isNativeToken = isZeroAddressSolana(token.address);
     const total = rightShift(totalAmount, token?.decimals);
     const themeId = theme?.tid ?? DEFAULT_THEME_ID;
-    const message = originalMessage || t`Best Wishes!`;
+    const message = originalMessage || t`Hope this sparks a smile.`;
     const maxShares = getRpMaxShares(networkType);
 
     return useAsyncFn(async () => {
@@ -69,17 +70,16 @@ export function useSolanaCreateRedPacketCallback(
             if (shares > maxShares)
                 throw new Error(`The number of people who can claim the lucky drop should be less than ${maxShares}.`);
 
-            const claimer = web3.Keypair.generate();
             const baseParams: CreateWithNativeTokenContext = {
                 owners: shares,
                 totalAmount: BigNumber(totalAmount).toNumber(),
                 duration: RED_PACKET_DURATION,
                 ifSpiltRandom: randomType === 'random',
-                publicKeyForClaimSignature: claimer.publicKey,
+                publicKeyForClaimSignature: new web3.PublicKey(publicKey),
                 message,
                 authorDisplayName: shareFromName,
             };
-            const password = Buffer.from(claimer.secretKey).toString('hex');
+            const password = '';
             const payload = {
                 sender: {
                     address: account,
@@ -157,7 +157,7 @@ export function useSolanaCreateRedPacketCallback(
                     message,
                 }),
                 claimRequirements: claimRequirements ?? [],
-                publicKey: claimer.publicKey.toBase58(),
+                publicKey,
                 metadata,
             });
 

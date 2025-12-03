@@ -71,7 +71,7 @@ export default function MainView() {
         duration: RED_PACKET_DURATION,
         isRandom,
         name: 'Unknown User',
-        message: message || t`Best Wishes!`,
+        message: message || t`Hope this sparks a smile.`,
         shares: shares || 0,
         token: token
             ? (omit(token, ['logoURI']) as FungibleToken<
@@ -224,7 +224,7 @@ export default function MainView() {
             return;
         }
 
-        history.push(isEVM ? '/requirements' : '/confirm');
+        history.push('/requirements');
     }, [originBalance, chainId, isNotEnoughAllowance, history, token.address, isEVM, refetchAllowance]);
     // #endregion
 
@@ -302,7 +302,7 @@ export default function MainView() {
                             <input
                                 value={message}
                                 onChange={onMessageChange}
-                                placeholder={t`Best Wishes!`}
+                                placeholder={t`Hope this sparks a smile.`}
                                 className="w-full border-0 bg-transparent py-2 placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0"
                             />
                         </label>

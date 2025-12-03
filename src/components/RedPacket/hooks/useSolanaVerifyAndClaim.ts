@@ -4,7 +4,7 @@ import { useAsyncFn } from 'react-use';
 
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { NetworkType } from '@/constants/enum.js';
+import { NetworkType, type SocialSource } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
@@ -12,19 +12,21 @@ import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { claimWithNativeToken } from '@/providers/solana/red-packet/claimWithNativeToken.js';
 import { claimWithSplToken } from '@/providers/solana/red-packet/claimWithSplToken.js';
 import { getClaimedRecord } from '@/providers/solana/red-packet/getClaimedRecord.js';
-import type { ClaimNativeTokenContext } from '@/providers/solana/red-packet/types.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 
-export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, post: Post, enabled = true) {
+export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, enabled = true) {
     const isNativeToken = isZeroAddressSolana(payload.token?.address);
 
     const walletProvider = useSolanaWalletProvider();
-    const { account } = useChainContext({ networkType: getNetworkTypeFromRpPayload(payload) });
-    const { data, isFetching, refetch: recheckClaimStatus } = useClaimStrategyStatus(payload, post.source, enabled);
+    const { account, chainId: contextChainId } = useChainContext({
+        chainId: payload.chainId,
+        networkType: getNetworkTypeFromRpPayload(payload),
+    });
+    const { data, isFetching, refetch: recheckClaimStatus } = useClaimStrategyStatus(payload, source, enabled);
 
     const [{ loading }, handleClaim] = useAsyncFn(async () => {
         const accountId = payload.rpid;
@@ -35,7 +37,13 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, post: Pos
         }
 
         if (!payload.token) throw new Error('Token is missing');
-        if (!accountId || !payload.password || (!isNativeToken && !payload.tokenProgram))
+        const signedMessage = await signClaimMessage({
+            contextChainId,
+            account,
+            source,
+            payload,
+        });
+        if (!accountId || !signedMessage || (!isNativeToken && !payload.tokenProgram))
             throw new Error('Invalid red packet');
 
         const { data } = await recheckClaimStatus();
@@ -46,22 +54,23 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, post: Pos
             return { canClaim: false };
         }
 
-        const baseParams: ClaimNativeTokenContext = {
-            accountId: new web3.PublicKey(accountId),
-            claimer: web3.Keypair.fromSecretKey(Uint8Array.from(Buffer.from(payload.password, 'hex'))),
-        };
-
         let result: {
             accountId: web3.PublicKey;
             signature: string;
         } | null = null;
         if (isNativeToken) {
             result = await claimWithNativeToken({
-                ...baseParams,
+                signedMessage: signedMessage?.signedMessage,
+                message: signedMessage?.message,
+                publicKey: signedMessage?.publicKey,
+                accountId: new web3.PublicKey(accountId),
             });
         } else {
             result = await claimWithSplToken({
-                ...baseParams,
+                signedMessage: signedMessage?.signedMessage,
+                message: signedMessage?.message,
+                publicKey: signedMessage?.publicKey,
+                accountId: new web3.PublicKey(accountId),
                 tokenMint: new web3.PublicKey(payload.token.address),
                 tokenProgram: new web3.PublicKey(payload.tokenProgram || ''),
             });
@@ -79,7 +88,6 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, post: Pos
     }, [
         payload.rpid,
         payload.token,
-        payload.password,
         payload.tokenProgram,
         walletProvider?.publicKey,
         isNativeToken,

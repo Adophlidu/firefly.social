@@ -119,7 +119,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
     );
 
     const logoUrl = token_logo !== 'missing.png' ? token_logo : undefined;
-    const message = rp_msg || <Trans>Best Wishes!</Trans>;
+    const message = rp_msg || <Trans>Hope this sparks a smile.</Trans>;
 
     return (
         <div className="light mb-3 flex w-full flex-col rounded-lg bg-white p-0">

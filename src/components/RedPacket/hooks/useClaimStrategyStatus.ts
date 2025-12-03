@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { type SocialSource } from '@/constants/enum.js';
+import { NetworkType, type SocialSource } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
@@ -25,6 +25,7 @@ export function useClaimStrategyStatus(payload: RedPacketJSONPayload, source: So
             if (!profile) return null;
 
             return checkClaimStrategyStatus({
+                isSolana: getNetworkTypeFromRpPayload(payload) === NetworkType.Solana,
                 rpid,
                 profile,
                 wallet: {

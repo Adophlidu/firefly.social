@@ -299,6 +299,9 @@ export namespace FireflyRedPacketAPI {
 
     export type ClaimResponse = Response<{
         signedMessage: Hex;
+        // only for solana
+        message?: string;
+        publicKey?: string;
     }>;
 
     export type HistoryResponse = Response<{
@@ -362,6 +365,7 @@ export namespace FireflyRedPacketAPI {
     export type ParseResponse = Response<ParseResult>;
 
     export type CheckClaimStrategyStatusOptions = {
+        isSolana: boolean;
         rpid: string;
         profile: {
             needLensAndFarcasterHandle?: boolean;

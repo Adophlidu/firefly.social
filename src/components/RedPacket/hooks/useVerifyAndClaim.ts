@@ -21,10 +21,13 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
     const [ethereumStatus, claimWithEthereum] = useEthereumVerifyAndClaim(
         payload,
         source,
-        post,
         networkType === NetworkType.Ethereum,
     );
-    const [solanaStatus, claimWithSolana] = useSolanaVerifyAndClaim(payload, post, networkType === NetworkType.Solana);
+    const [solanaStatus, claimWithSolana] = useSolanaVerifyAndClaim(
+        payload,
+        post.source,
+        networkType === NetworkType.Solana,
+    );
 
     const [{ loading }, handleClaim] = useAsyncFn(async () => {
         try {

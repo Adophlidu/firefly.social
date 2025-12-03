@@ -48,7 +48,7 @@ export function useEthereumCreateRedPacketCallback(
             duration: RED_PACKET_DURATION,
             isRandom: randomType === 'random',
             name: shareFromName,
-            message: message || t`Best Wishes!`,
+            message: message || t`Hope this sparks a smile.`,
             shares: shares || 0,
             token: token
                 ? (omit(token, ['logoURI']) as FungibleToken<

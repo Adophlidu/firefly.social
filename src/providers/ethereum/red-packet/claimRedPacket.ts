@@ -42,11 +42,12 @@ export async function claimRedPacket(context: ClaimRedPacketContext) {
         });
     });
     if (claimWithSponsorHash) return claimWithSponsorHash;
+    const signed = await signClaimMessage(context);
 
     const hash = await writeContract(wagmiConfig, {
         abi: RED_PACKET_ABI,
         functionName: 'claim',
-        args: [payload.rpid, await signClaimMessage(context), account],
+        args: [payload.rpid, signed?.signedMessage, account],
         address: getRedPacketContractAddress(chainId),
         account: account as Address,
     });

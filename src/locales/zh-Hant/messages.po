@@ -778,6 +778,9 @@ msgstr "隱藏"
 msgid "Failed to bookmark NFT."
 msgstr "無法收藏 NFT。"
 
+msgid "Hope this sparks a smile."
+msgstr ""
+
 msgid "Firefly wallet"
 msgstr "Firefly 錢包"
 
@@ -817,9 +820,6 @@ msgstr "詐騙相關地址。"
 
 msgid "Custom"
 msgstr "自訂"
-
-msgid "Select NFT collection to gate access"
-msgstr "選擇 NFT 系列作為領取門檻"
 
 msgid "Connect Email"
 msgstr "綁定電子郵件"
@@ -1854,9 +1854,6 @@ msgstr "搜尋代幣中"
 msgid "{0}+"
 msgstr "{0}+"
 
-msgid "Best Wishes!"
-msgstr "祝萬事大吉！"
-
 msgid "Sold Out"
 msgstr "已售罄"
 
@@ -2519,9 +2516,6 @@ msgstr "Farcaster"
 
 msgid "Replying to"
 msgstr "正在回覆"
-
-msgid "Add another NFT gate"
-msgstr "新增其他 NFT 門檻"
 
 msgid "All posts and activities from this user will be hidden from you"
 msgstr "來自此用戶的所有貼文和動態將對你隱藏"

@@ -1,15 +1,22 @@
-import { unreachable } from '@dimensiondev/utils';
 
-import { useEthereumAvailabilityComputed } from '@/components/RedPacket/hooks/useEthereumAvailabilityComputed.js';
-import { useSolanaAvailabilityComputed } from '@/components/RedPacket/hooks/useSolanaAvailabilityComputed.js';
+import { type QueryObserverResult, type RefetchOptions,useQuery } from '@tanstack/react-query';
+import { compact } from 'lodash-es';
+import { useCallback } from 'react';
+
+import { useAvailability } from '@/components/RedPacket/hooks/useAvailability.js';
+import { useCheckSponsorableGasFee } from '@/components/RedPacket/hooks/useCheckSponsorableGasFee.js';
+import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
+import { useParseRedPacket } from '@/components/RedPacket/hooks/useParseRedPacket.js';
 import { NetworkType } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
-import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
+import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
+import { type RedPacketJSONPayload,RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { EVMNetworkResolver } from '@/web3-providers/evm/ResolverAPI.js';
-import { SolanaNetworkResolver } from '@/web3-providers/solana/ResolverAPI.js';
-import { EthereumChainId, EthereumNetworkType } from '@/web3-shared/evm/types.js';
-import { SolanaChainId, SolanaNetworkType } from '@/web3-shared/solana/types.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 /**
  * Fetch the red packet info from the chain
@@ -18,42 +25,106 @@ import { SolanaChainId, SolanaNetworkType } from '@/web3-shared/solana/types.js'
 export function useAvailabilityComputed(payload: RedPacketJSONPayload, post: Post) {
     const payloadChainId = payload.token?.chainId as number | undefined;
     const networkType = getNetworkTypeFromRpPayload(payload);
+    const { account } = useChainContext({ networkType });
+    const { data: availability, refetch: recheckAvailability } = useAvailability(payload);
 
-    const evmChainId =
-        payloadChainId ??
-        (payload.network
-            ? EVMNetworkResolver.networkChainId(payload.network as EthereumNetworkType) || EthereumChainId.Mainnet
-            : EthereumChainId.Mainnet);
-    const solanaChainId =
-        payloadChainId ??
-        (payload.network
-            ? SolanaNetworkResolver.networkChainId(payload.network as SolanaNetworkType) || SolanaChainId.Mainnet
-            : SolanaChainId.Mainnet);
+    const { parsed } = useParseRedPacket(account, post);
 
-    const evmAvailability = useEthereumAvailabilityComputed(
-        { ...payload, chainId: evmChainId },
-        post,
+    const chainId =
+        payloadChainId ?? (networkType === NetworkType.Ethereum ? EthereumChainId.Mainnet : SolanaChainId.Mainnet);
+    const checkAvailability = recheckAvailability as (
+        options?: RefetchOptions,
+    ) => Promise<QueryObserverResult<typeof availability>>;
+
+    const { data: password } = useQuery({
+        queryKey: ['red-packet', 'signed-message', account, post.source, payload],
+        queryFn: async () => {
+            const signed = await signClaimMessage({
+                account,
+                contextChainId: chainId,
+                source: post.source,
+                payload,
+            });
+            return signed?.signedMessage;
+        },
+    });
+
+    const signedMessage = 'privateKey' in payload ? payload.privateKey : payload.password;
+    const { data, refetch, isFetching, isLoading } = useClaimStrategyStatus(payload, post.source, !signedMessage);
+
+    const recheckClaimStatus = useCallback(async () => {
+        const { data } = await refetch();
+        return data?.data?.canClaim;
+    }, [refetch]);
+
+    const { data: isSponsorable = false } = useCheckSponsorableGasFee(
+        payloadChainId,
+        account,
         networkType === NetworkType.Ethereum,
     );
-    const solanaAvailability = useSolanaAvailabilityComputed(
-        { ...payload, chainId: solanaChainId },
-        post,
-        networkType === NetworkType.Solana,
-    );
 
-    switch (networkType) {
-        case NetworkType.Ethereum:
-            return {
-                ...evmAvailability,
-                parsedChainId: evmChainId,
-            };
-        case NetworkType.Solana:
-            return {
-                ...solanaAvailability,
-                isBlacklist: false,
-                parsedChainId: solanaChainId,
-            };
-        default:
-            unreachable(networkType);
-    }
+    const redpacket = parsed?.redpacket;
+    if (!availability || (!payload.password && !data))
+        return {
+            parsedChainId: chainId,
+            isEmpty: !!redpacket?.isEmpty,
+            isClaimed: !!redpacket?.isClaimed || !!redpacket?.isFireflyClaimed,
+            isExpired: !!redpacket?.isExpired,
+            isBlacklist: !!redpacket?.isBlacklist,
+            isSponsorable,
+            availability,
+            checkAvailability,
+            payload,
+            claimStrategyStatus: null,
+            checkingClaimStatus: isFetching,
+            recheckClaimStatus,
+            password,
+            checkStrategyData: {
+                data,
+                refetch,
+                isFetching,
+                isLoading,
+            },
+            computed: {
+                canClaim: !!data?.data?.canClaim,
+                canRefund: false,
+                listOfStatus: EMPTY_LIST as RedPacketStatus[],
+            },
+        };
+    const isEmpty = availability.balance === '0';
+    const isExpired = availability.expired;
+    const isClaimed = redpacket?.isClaimed || redpacket?.isFireflyClaimed || availability.claimed_amount !== '0';
+    const isRefunded = isEmpty && availability.claimed < availability.total;
+    const isCreator = isSameAddress(payload?.sender.address ?? '', account);
+    const isPasswordValid = !!(password && password !== 'PASSWORD INVALID');
+    // For a central RedPacket, we don't need to check about if the password is valid
+    const canClaimByContract = !isExpired && !isEmpty && !isClaimed;
+    const canClaim = payload.password ? canClaimByContract && isPasswordValid : canClaimByContract;
+
+    return {
+        parsedChainId: chainId,
+        isClaimed,
+        isEmpty,
+        isSponsorable,
+        isExpired,
+        isBlacklist: redpacket?.isBlacklist,
+        availability,
+        checkAvailability,
+        claimStrategyStatus: data?.data,
+        recheckClaimStatus,
+        checkingClaimStatus: isFetching,
+        password,
+        computed: {
+            canClaim,
+            canRefund: isExpired && !isEmpty && isCreator,
+            canSend: !isEmpty && !isExpired && !isRefunded && isCreator,
+            isPasswordValid,
+            listOfStatus: compact([
+                isClaimed ? RedPacketStatus.claimed : undefined,
+                isEmpty ? RedPacketStatus.empty : undefined,
+                isRefunded ? isCreator && RedPacketStatus.refunded : undefined,
+                isExpired ? RedPacketStatus.expired : undefined,
+            ]),
+        },
+    };
 }

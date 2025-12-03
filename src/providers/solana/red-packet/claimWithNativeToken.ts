@@ -1,5 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
-import { sign } from 'tweetnacl';
+import { bs58 } from '@coral-xyz/anchor/dist/cjs/utils/bytes/index.js';
 
 import { getCreator } from '@/providers/solana/red-packet/getCreator.js';
 import { getProgram } from '@/providers/solana/red-packet/getProgram.js';
@@ -9,14 +9,21 @@ import type { ClaimNativeTokenContext } from '@/providers/solana/red-packet/type
 export async function claimWithNativeToken(context: ClaimNativeTokenContext) {
     const program = getProgram();
     const receiver = getCreator();
-    const { accountId, claimer } = context;
+    const { signedMessage, message, publicKey, accountId } = context;
 
-    const message = Buffer.concat([accountId.toBuffer(), receiver.toBuffer()]);
+    if (!message || !publicKey) {
+        throw new Error('Message and publicKey are required');
+    }
 
-    const claimerSignature = sign.detached(message, claimer.secretKey);
+    const claimerSignature = bs58.decode(signedMessage);
+
+    const messageBuffer = Buffer.from(message, 'base64');
+
+    const publicKeyBytes = new web3.PublicKey(publicKey).toBytes();
+
     const ed25519Instruction = web3.Ed25519Program.createInstructionWithPublicKey({
-        message,
-        publicKey: claimer.publicKey.toBytes(),
+        message: messageBuffer,
+        publicKey: publicKeyBytes,
         signature: claimerSignature,
     });
 

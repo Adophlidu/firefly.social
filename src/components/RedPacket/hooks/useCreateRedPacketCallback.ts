@@ -14,7 +14,7 @@ export function useCreateRedPacketCallback(
 ) {
     const { networkType } = useContext(RedPacketContext);
     const createEthereumRedPacket = useEthereumCreateRedPacketCallback(shareFromName, publicKey, claimRequirements);
-    const createSolanaRedPacket = useSolanaCreateRedPacketCallback(shareFromName, claimRequirements);
+    const createSolanaRedPacket = useSolanaCreateRedPacketCallback(shareFromName, publicKey, claimRequirements);
 
     switch (networkType) {
         case NetworkType.Ethereum:

@@ -8,12 +8,11 @@ import { getClaimedRecord } from '@/providers/solana/red-packet/getClaimedRecord
 import { getRedPacket } from '@/providers/solana/red-packet/getRedPacket.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
-export function useSolanaAvailability(payload: RedPacketJSONPayload, chainId: number, enabled = true) {
+export function useSolanaAvailability(payload: RedPacketJSONPayload) {
     const { account } = useChainContext({ networkType: getNetworkTypeFromRpPayload(payload) });
 
     return useQuery({
         queryKey: ['red-packet', 'solana-availability', payload.rpid, account],
-        enabled,
         queryFn: async () => {
             try {
                 const accountId = payload.rpid;

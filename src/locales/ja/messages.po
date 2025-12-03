@@ -778,6 +778,9 @@ msgstr ""
 msgid "Failed to bookmark NFT."
 msgstr ""
 
+msgid "Hope this sparks a smile."
+msgstr ""
+
 msgid "Firefly wallet"
 msgstr ""
 
@@ -816,9 +819,6 @@ msgid "Honeypot related address."
 msgstr ""
 
 msgid "Custom"
-msgstr ""
-
-msgid "Select NFT collection to gate access"
 msgstr ""
 
 msgid "Connect Email"
@@ -1854,9 +1854,6 @@ msgstr ""
 msgid "{0}+"
 msgstr ""
 
-msgid "Best Wishes!"
-msgstr ""
-
 msgid "Sold Out"
 msgstr ""
 
@@ -2518,9 +2515,6 @@ msgid "Farcaster"
 msgstr ""
 
 msgid "Replying to"
-msgstr ""
-
-msgid "Add another NFT gate"
 msgstr ""
 
 msgid "All posts and activities from this user will be hidden from you"

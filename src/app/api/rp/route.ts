@@ -63,7 +63,7 @@ const ParamsSchema = z.object({
     locale: z.nativeEnum(Locale).default(Locale.en),
     'theme-id': z.string().optional(),
     from: z.string().default('unknown'),
-    message: z.string().default('Best Wishes!'),
+    message: z.string().default('Hope this sparks a smile.'),
     amount: z.string().default('0'),
     'remaining-amount': z.string().optional(),
     shares: z.string().default('0'),
