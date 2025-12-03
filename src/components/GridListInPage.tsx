@@ -2,7 +2,7 @@
 
 import { classNames } from '@dimensiondev/utils';
 import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
-import { useCallback, useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import type { GridComponents } from 'react-virtuoso';
 
 import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
@@ -58,16 +58,22 @@ export function GridListInPage<T = unknown, C = unknown>({
         return <NoResultsFallback {...NoResultsFallbackProps} />;
     }
 
-    const Context = {
-        hasNextPage,
-        fetchNextPage,
-        isFetching,
-        itemsRendered: itemsRendered.current,
-        ...VirtualGridListProps?.context,
-    };
+    const Context = useMemo(
+        () => ({
+            hasNextPage,
+            fetchNextPage,
+            isFetching,
+            itemsRendered: itemsRendered.current,
+            ...VirtualGridListProps?.context,
+        }),
+        [hasNextPage, fetchNextPage, isFetching, VirtualGridListProps?.context],
+    );
     // force type casting to avoid type error
     const List = VirtualGridList<T, C>;
-    const Components = (VirtualGridListProps?.components ?? EMPTY_OBJECT) as GridComponents<C>;
+    const Components = useMemo(
+        () => (VirtualGridListProps?.components ?? EMPTY_OBJECT) as GridComponents<C>,
+        [VirtualGridListProps?.components],
+    );
 
     return (
         <div className={className}>

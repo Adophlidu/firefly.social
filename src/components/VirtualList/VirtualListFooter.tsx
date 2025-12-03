@@ -32,7 +32,7 @@ export const VirtualListFooter = memo<VirtualListFooterProps>(function VirtualLi
         if (inView && context?.hasNextPage && !context.isFetching) {
             context.fetchNextPage?.();
         }
-    }, [context?.isFetching, context?.hasNextPage, inView, context?.fetchNextPage, context]);
+    }, [context?.isFetching, context?.hasNextPage, inView, context?.fetchNextPage]);
 
     if (!context?.hasNextPage) {
         if (!context?.isScrollable) return null;

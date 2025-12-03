@@ -2,7 +2,7 @@
 
 import { classNames } from '@dimensiondev/utils';
 import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
-import { useCallback, useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import type { Components, StateSnapshot, VirtuosoHandle } from 'react-virtuoso';
 
 import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
@@ -50,7 +50,6 @@ export function ListInPage<T = unknown, C = unknown>({
     const isLogin = useIsLogin(isNotSocialSource ? undefined : currentSocialSource);
 
     const itemsRendered = useRef(false);
-
     const virtuoso = useRef<VirtuosoHandle>(null);
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = queryResult;
@@ -82,17 +81,24 @@ export function ListInPage<T = unknown, C = unknown>({
 
     // force type casting to avoid type error
     const List = VirtualList<T, C>;
-    const Components = {
-        Footer: VirtualListFooter,
-        ...(VirtualListProps?.components ?? {}),
-    } as Components<T, C>;
-    const Context = {
-        hasNextPage,
-        fetchNextPage,
-        isFetching,
-        itemsRendered: itemsRendered.current,
-        ...(VirtualListProps?.context ?? {}),
-    };
+    const Components = useMemo(
+        () =>
+            ({
+                Footer: VirtualListFooter,
+                ...(VirtualListProps?.components ?? {}),
+            }) as Components<T, C>,
+        [VirtualListProps?.components],
+    );
+    const Context = useMemo(
+        () => ({
+            hasNextPage,
+            fetchNextPage,
+            isFetching,
+            itemsRendered: itemsRendered.current,
+            ...(VirtualListProps?.context ?? {}),
+        }),
+        [hasNextPage, fetchNextPage, isFetching, VirtualListProps?.context],
+    );
     const cachedState = listKey ? virtuosoState.cached[listKey] : undefined;
 
     return (

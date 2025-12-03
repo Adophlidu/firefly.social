@@ -2,7 +2,7 @@
 
 import { classNames } from '@dimensiondev/utils';
 import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
-import { useCallback, useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { type TableComponents } from 'react-virtuoso';
 
 import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
@@ -58,14 +58,20 @@ export function TableListInPage<T = unknown, C = unknown>({
 
     // force type casting to avoid type error
     const List = VirtualTableList<T, C>;
-    const Components = (VirtualTableListProps?.components ?? EMPTY_OBJECT) as TableComponents<T, C>;
-    const Context = {
-        hasNextPage,
-        fetchNextPage,
-        isFetching,
-        itemsRendered: itemsRendered.current,
-        ...(VirtualTableListProps?.context ?? EMPTY_OBJECT),
-    };
+    const Components = useMemo(
+        () => (VirtualTableListProps?.components ?? EMPTY_OBJECT) as TableComponents<T, C>,
+        [VirtualTableListProps?.components],
+    );
+    const Context = useMemo(
+        () => ({
+            hasNextPage,
+            fetchNextPage,
+            isFetching,
+            itemsRendered: itemsRendered.current,
+            ...(VirtualTableListProps?.context ?? EMPTY_OBJECT),
+        }),
+        [hasNextPage, fetchNextPage, isFetching, VirtualTableListProps?.context],
+    );
 
     return (
         <div className={className}>

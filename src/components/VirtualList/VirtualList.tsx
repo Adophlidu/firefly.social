@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useId } from 'react';
+import { useEffect, useId, useMemo } from 'react';
 import { useWindowSize } from 'react-use';
 import { Virtuoso, type VirtuosoHandle, type VirtuosoProps } from 'react-virtuoso';
 
@@ -28,6 +28,8 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
         };
     }, [rest.useWindowScroll, onDetectScrollable]);
 
+    const context = useMemo(() => ({ ...rest.context, isScrollable }) as Context, [rest.context, isScrollable]);
+
     return (
         <Virtuoso
             overscan={height}
@@ -35,7 +37,7 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
             id={listId}
             {...rest}
             data-use-window-scroll={!!rest.useWindowScroll}
-            context={{ ...rest.context, isScrollable } as Context}
+            context={context}
             isScrolling={(isScrolling) => {
                 onDetectScrollable();
                 rest.isScrolling?.(isScrolling);
