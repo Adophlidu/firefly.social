@@ -23,7 +23,7 @@ export const GET = compose(
         const client = await createTwitterClientV2();
         const { data, errors } = await client.v2.userTimeline(userId, {
             ...TWITTER_TIMELINE_OPTIONS,
-            pagination_token: cursor,
+            pagination_token: cursor || undefined,
             max_results: limit,
             exclude: ['replies'],
         });
