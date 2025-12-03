@@ -90,31 +90,33 @@ export default async function Layout(props: Props) {
 
         return (
             <HydrationBoundary state={dehydrate(queryClient)}>
-                <FireflyAccountInfo
-                    relatedProfile={relatedProfile}
-                    identity={identity}
-                    socialProfile={socialProfile}
-                    walletProfile={walletProfile}
-                />
-                <ProfileSourceTabs
-                    profiles={profiles}
-                    identity={identity}
-                    socialProfile={socialProfile}
-                    identityFromUrl={identityFromUrl}
-                />
-                {!socialProfile && !walletProfile ? (
-                    <SuspendedAccountFallback />
-                ) : (
-                    <ProfileContextProvider profiles={profiles} identity={identity} socialProfile={socialProfile}>
-                        <ProfileInfoCard
-                            source={source}
-                            socialProfile={socialProfile}
-                            walletProfile={walletProfile}
-                            profiles={profiles}
-                        />
-                        <NoSSR>{props.children}</NoSSR>
-                    </ProfileContextProvider>
-                )}
+                <ProfileContextProvider profiles={profiles} identity={identity} socialProfile={socialProfile}>
+                    <FireflyAccountInfo
+                        relatedProfile={relatedProfile}
+                        identity={identity}
+                        socialProfile={socialProfile}
+                        walletProfile={walletProfile}
+                    />
+                    <ProfileSourceTabs
+                        profiles={profiles}
+                        identity={identity}
+                        socialProfile={socialProfile}
+                        identityFromUrl={identityFromUrl}
+                    />
+                    {!socialProfile && !walletProfile ? (
+                        <SuspendedAccountFallback />
+                    ) : (
+                        <>
+                            <ProfileInfoCard
+                                source={source}
+                                socialProfile={socialProfile}
+                                walletProfile={walletProfile}
+                                profiles={profiles}
+                            />
+                            <NoSSR>{props.children}</NoSSR>
+                        </>
+                    )}
+                </ProfileContextProvider>
             </HydrationBoundary>
         );
     } catch (error) {
