@@ -46,7 +46,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
                     src={cover}
                     width={510}
                     height={260}
-                    className="mb-3 w-full cursor-pointer rounded-lg object-cover"
+                    className="mb-3 max-h-[260px] w-full cursor-pointer rounded-lg object-cover"
                     alt={cover}
                     onClick={(event) => {
                         event.stopPropagation();
