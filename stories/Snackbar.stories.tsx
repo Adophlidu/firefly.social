@@ -26,6 +26,7 @@ const meta: Meta<typeof SnackbarProvider> = {
 };
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 function SnackbarDemo() {

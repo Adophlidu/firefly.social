@@ -7,6 +7,7 @@ import { updateQueryForPosts } from '@/helpers/updateQueryForPosts.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 type Patcher = (old: Draft<Post>) => void;
+
 export type Matcher = string | ((post: Draft<Post> | null | undefined) => boolean);
 
 /**

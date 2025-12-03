@@ -99,9 +99,11 @@ function isCall(x: unknown): x is Call {
     const c = x as any;
     if (c.to !== undefined && !isAddress(c.to)) return false;
     if (c.from !== undefined && !isAddress(c.from)) return false;
+
     for (const k of ['data', 'value', 'gas', 'gasPrice', 'maxFeePerGas', 'maxPriorityFeePerGas'] as const) {
         if (c[k] !== undefined && !isHex(c[k])) return false;
     }
+
     return true;
 }
 

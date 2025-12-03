@@ -51,6 +51,7 @@ export const generateVideoCover = (file: File, count: number): Promise<Blob[]> =
                         covers.push(currentCover);
                     }
                 }
+
                 resolve(covers);
             };
         } catch {

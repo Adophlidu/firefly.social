@@ -10,6 +10,7 @@ import { EthereumChainId as ChainId } from '@/web3-shared/evm/types.js';
  */
 
 const RedPacketPluginID = 'com.maskbook.red_packet';
+
 export const RedPacketMetaKey = `${RedPacketPluginID}:1`;
 export const SolanaRedPacketMetaKey = `${RedPacketPluginID}_solana:1`;
 

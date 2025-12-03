@@ -39,6 +39,7 @@ export class Md5 {
         for (i = 0; i < 4; i += 1) {
             offset = i * 8;
             n = x[i];
+
             for (j = 0; j < 8; j += 2) {
                 ho[offset + 1 + j] = hc.charAt(n & 0x0f);
                 n >>>= 4;
@@ -46,6 +47,7 @@ export class Md5 {
                 n >>>= 4;
             }
         }
+
         return ho.join('');
     }
 
@@ -249,6 +251,7 @@ export class Md5 {
                 buf32[0] = buf32[16];
             }
         }
+
         this._bufferLength = bufLen;
         return this;
     }
@@ -262,9 +265,11 @@ export class Md5 {
 
         for (;;) {
             i = Math.min(str.length - j, 64 - bufLen);
+
             while (i--) {
                 buf8[bufLen++] = str.charCodeAt(j++);
             }
+
             if (bufLen < 64) {
                 break;
             }
@@ -272,6 +277,7 @@ export class Md5 {
             Md5._md5cycle(this._state, buf32);
             bufLen = 0;
         }
+
         this._bufferLength = bufLen;
         return this;
     }
@@ -285,9 +291,11 @@ export class Md5 {
 
         for (;;) {
             i = Math.min(input.length - j, 64 - bufLen);
+
             while (i--) {
                 buf8[bufLen++] = input[j++];
             }
+
             if (bufLen < 64) {
                 break;
             }
@@ -295,6 +303,7 @@ export class Md5 {
             Md5._md5cycle(this._state, buf32);
             bufLen = 0;
         }
+
         this._bufferLength = bufLen;
         return this;
     }

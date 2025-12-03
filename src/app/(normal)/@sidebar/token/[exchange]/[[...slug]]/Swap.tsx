@@ -28,6 +28,7 @@ interface Props {
     address?: string;
     token: CoinGeckoToken | null | undefined;
 }
+
 export const Swap = memo(function Swap({ token, chainId: propChainId, address: propAddress }: Props) {
     const search = useSearchParams();
     const runtimeAddress = search.get('address') || propAddress || token?.address;

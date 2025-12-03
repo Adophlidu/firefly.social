@@ -29,6 +29,7 @@ export function setBlockStatus(source: SocialSource, profileId: string, status: 
         return produce(oldData, (draft) => {
             for (const page of draft.pages) {
                 if (!page) continue;
+
                 for (const mutedProfile of page.data) {
                     if (mutedProfile.profileId !== profileId) continue;
 

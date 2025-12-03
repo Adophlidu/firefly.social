@@ -31,6 +31,7 @@ export function LimitConcurrency(limit: number, options?: Options) {
             const current = currentPriority === -1 ? Infinity : currentPriority;
             if (insertPriority < current) break;
         }
+
         queue.splice(i, 0, task);
     }
 
@@ -38,6 +39,7 @@ export function LimitConcurrency(limit: number, options?: Options) {
         if (queue.length > 0 && activeCount < limit) {
             const { resolve, reject, fn, args } = queue.shift()!;
             activeCount += 1;
+
             try {
                 resolve(await fn(...args));
             } catch (error) {
@@ -51,6 +53,7 @@ export function LimitConcurrency(limit: number, options?: Options) {
 
     return function <T extends { new (...args: any[]): {} }>(constructor: T) {
         if (options?.disabled?.() === true) return;
+
         for (const key of Object.getOwnPropertyNames(constructor.prototype)) {
             const descriptor = Object.getOwnPropertyDescriptor(constructor.prototype, key);
             if (descriptor && typeof descriptor.value === 'function' && key !== 'constructor') {

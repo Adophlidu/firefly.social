@@ -25,6 +25,7 @@ export default memo(function BookmarkedTokens(props: HTMLProps<HTMLDivElement>) 
         queryKey: ['bookmarks', 'aside', Source.Tokens, profileIds],
         queryFn: async () => {
             if (!isLogin) return EMPTY_LIST;
+
             try {
                 const page = await getTokenBookmarks(undefined, 5);
                 return page.data;

@@ -40,6 +40,7 @@ interface WalletInfoProps {
 }
 
 export const WALLET_PROFILE_ACTION_ID = 'profile-action';
+
 const HIDDEN_NET_WORTH = true;
 
 function resolveVerifiedText({ source, provider }: VerifiedSource) {
@@ -109,6 +110,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
         queryKey: ['wallet', 'total-balance', networkType, address],
         queryFn: async () => {
             if (!networkType) return null;
+
             switch (networkType) {
                 case NetworkType.Ethereum:
                     return getUserTotalBalance(address);

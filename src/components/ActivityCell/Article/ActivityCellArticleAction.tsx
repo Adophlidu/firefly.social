@@ -58,5 +58,6 @@ export function ActivityCellArticleAction({ type, platform }: Props) {
             safeUnreachable(type);
             return null;
     }
+
     return <ActivityCellAction>{action}</ActivityCellAction>;
 }

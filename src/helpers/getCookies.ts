@@ -30,6 +30,7 @@ export function resolveLanguageLocale(language: string | undefined) {
             : Locale.zhHant;
     return Locale.en;
 }
+
 async function resolveClientLocale() {
     if (bom.document) return resolveLanguageLocale(bom.navigator?.language);
     const acceptLanguageHeader = (await headers()).get('Accept-Language');

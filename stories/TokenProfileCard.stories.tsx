@@ -16,6 +16,7 @@ const meta = {
 } satisfies Meta<typeof TokenProfileCard>;
 
 type Story = StoryObj<typeof meta>;
+
 export const Card: Story = {
     args: {
         symbol: 'MASK',

@@ -414,6 +414,7 @@ interface WalletEventBaseParameters {
     wallet_address?: string;
     wallet_app_name?: string;
 }
+
 export interface WalletEventParameters extends Exclude<WalletEventBaseParameters, 'wallet_type'> {
     wallet_type: 'evm' | 'solana' | 'unknown';
     wallet_address: string;

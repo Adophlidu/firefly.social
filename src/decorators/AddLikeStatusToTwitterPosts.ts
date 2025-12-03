@@ -8,11 +8,13 @@ import type { ClassType } from '@/types/utility.js';
 function addLikeStatusToTweet(profileId: string, post: Post): Post {
     return produce(post, (draft) => {
         draft.hasLiked = useTwitterLikeStore.getState().isLiked(profileId, post.postId);
+
         for (const x of ['commentOn', 'root', 'quoteOn', 'mirrorOn'] as const) {
             if (x in draft && draft[x]) {
                 draft[x] = addLikeStatusToTweet(profileId, draft[x]);
             }
         }
+
         return draft;
     });
 }
@@ -63,6 +65,7 @@ export function AddLikeStatusToTwitterPosts() {
                 },
             });
         }
+
         METHODS_BE_OVERRIDDEN.forEach(overrideMethod);
 
         return target;

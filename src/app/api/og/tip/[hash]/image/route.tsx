@@ -39,6 +39,7 @@ function breakLines(str: string, maxCharsPerLine = 15, maxLines = 2) {
         if (start >= str.length) break;
         lines.push(str.slice(start, end));
     }
+
     let result = lines.join('\n');
     if (str.length > maxCharsPerLine * maxLines) {
         result = result.slice(0, -1) + '…';

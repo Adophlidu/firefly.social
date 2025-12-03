@@ -86,6 +86,7 @@ export function useDeleteFireflyAccount() {
             ),
         });
         if (!confirmed) return;
+
         try {
             await deleteAccount();
             enqueueSuccessMessage(<Trans>Deleted your Firefly account</Trans>);

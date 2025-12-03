@@ -24,6 +24,7 @@ export function splitTextChildren(regex: RegExp, text: string): Node[] {
         });
         lastIndex = match.index + match[0].length;
     }
+
     if (lastIndex < text.length) {
         newChildren.push({
             type: 'text',

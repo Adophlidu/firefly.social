@@ -20,6 +20,7 @@ interface TradeTooltipProps extends HTMLProps<HTMLDivElement> {
     y: number;
     trade: TradeRecord | null;
 }
+
 function TradeTooltip({ x, y, trade, className, ...rest }: TradeTooltipProps) {
     if (!trade) return null;
 

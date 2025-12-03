@@ -23,6 +23,7 @@ const labels: Record<TokenCategory, ReactNode> = {
 function resolveTab(pathname: string, category: TokenCategory, params: ReadonlyURLSearchParams) {
     return urlcat(pathname, { ...Object.fromEntries(params), category });
 }
+
 export const CategoryTabs = memo<Props>(function CategoryTabs({ token, ...rest }) {
     const search = useSearchParams();
     const pathname = usePathname();

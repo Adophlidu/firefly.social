@@ -37,6 +37,7 @@ export function ReportArticleButton({ article, ref, onReport, onClick, ...rest }
                     variant: 'normal',
                 });
                 if (!confirmed) return;
+
                 try {
                     await mutation.mutateAsync();
                 } catch (error) {

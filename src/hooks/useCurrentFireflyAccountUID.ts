@@ -11,6 +11,7 @@ export function useCurrentFireflyAccountUID(): string | undefined {
             if (account.session.type !== SessionType.Firefly) continue;
             return (account.session as FireflySession).payload?.uid;
         }
+
         return undefined;
     }, [accounts]);
 }

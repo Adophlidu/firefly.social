@@ -43,6 +43,7 @@ interface ComposeImagesProps extends HTMLProps<HTMLDivElement> {
     images: MediaObject[];
     readonly?: boolean;
 }
+
 export const ComposeImages = memo(function ComposeImages({ images, readonly = false, ...rest }: ComposeImagesProps) {
     const { removeImage } = useComposeStateStore();
     const size = images.length;

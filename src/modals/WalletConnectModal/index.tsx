@@ -17,6 +17,7 @@ export interface WalletConnectModalOpenProps {
     networkType?: NetworkType;
     customTitle?: string;
 }
+
 interface WalletConnectModalCloseProps {
     networkType: NetworkType;
 }

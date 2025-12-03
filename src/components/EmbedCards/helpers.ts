@@ -13,6 +13,7 @@ import {
 import type { DetectAddressResponse } from '@/providers/types/Firefly.js';
 
 type AddressRecord = NonNullable<DetectAddressResponse['data']>['list'][number];
+
 export function isAvailableAddress(x: AddressRecord) {
     return !(x.type === 'solana' && x.contract_type === 'program') && x.contract_type !== 'unknown';
 }
@@ -26,6 +27,7 @@ const hosts = [
     /firefly-mask.*-dimension-dev\.vercel\.app/,
     /mask\.io/, // encrypted post payload
 ];
+
 function shouldIgnoreLink(link: string) {
     const url = parseUrl(link);
     if (!url) return false;

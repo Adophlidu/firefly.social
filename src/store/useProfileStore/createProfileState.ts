@@ -105,6 +105,7 @@ export function createProfileState(
                 updateCurrentProfile: (params) =>
                     set((state) => {
                         if (!state.currentProfile) return;
+
                         function update(original: WritableDraft<Profile>) {
                             if (params.pfp) original.pfp = params.pfp;
                             if (typeof params.displayName === 'string') original.displayName = params.displayName;
@@ -112,7 +113,9 @@ export function createProfileState(
                             if (typeof params.location === 'string') original.location = params.location;
                             if (typeof params.website === 'string') original.website = params.website;
                         }
+
                         update(state.currentProfile);
+
                         for (const account of state.accounts) {
                             if (account.profile.profileId !== state.currentProfile.profileId) continue;
                             update(account.profile);

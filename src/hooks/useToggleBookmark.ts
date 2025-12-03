@@ -18,6 +18,7 @@ export function useToggleBookmark(source: SocialSource) {
                 openLoginModal({ source: post.source });
                 return;
             }
+
             try {
                 const provider = resolveSocialMediaProvider(post.source);
                 const result = hasBookmarked

@@ -53,6 +53,7 @@ const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInner({ em
 
     const availableEmbeds = embeds.filter((x) => {
         if (unavailableEmbeds.includes(x.value)) return false;
+
         switch (x.type) {
             case 'url':
             case 'domain':

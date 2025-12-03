@@ -14,6 +14,7 @@ interface UploadDropAreaProps extends HTMLProps<HTMLDivElement> {
     loading?: boolean;
     onDropFiles: (files: File[]) => Promise<void>;
 }
+
 export function UploadDropArea({ loading, children, ref, onDrop, onDropFiles, ...props }: UploadDropAreaProps) {
     const [isDragging, setIsDragging] = useState(false);
     const [canDrop, setCanDrop] = useState(true);

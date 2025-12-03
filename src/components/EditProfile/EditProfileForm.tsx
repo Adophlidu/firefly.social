@@ -158,6 +158,7 @@ interface EditProfileFormProps {
     profile: Profile;
     onClose: () => void;
 }
+
 export interface ProfileFormValues extends Omit<ProfileEditable, 'pfp'> {
     pfp?: File;
 }

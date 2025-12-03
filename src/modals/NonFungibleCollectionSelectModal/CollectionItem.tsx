@@ -17,6 +17,7 @@ export interface Collection
 interface CollectionProps {
     collection: Collection;
 }
+
 export function CollectionItem({ collection }: CollectionProps) {
     const link = EVMExplorerResolver.addressLink(collection.chainId, collection.address!);
     return (

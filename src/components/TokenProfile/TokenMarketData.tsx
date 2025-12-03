@@ -65,6 +65,7 @@ function wrapLink(node: ReactNode, url: string, enabled: boolean) {
         </Link>
     );
 }
+
 export interface TokenMarketDataProps extends HTMLProps<HTMLDivElement> {
     chainId?: number;
     address?: string;

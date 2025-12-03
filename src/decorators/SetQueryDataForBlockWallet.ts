@@ -38,6 +38,7 @@ export function setWalletBlockStatus(address: string, status: boolean) {
         return produce(old, (draft) => {
             for (const page of draft.pages) {
                 if (!page) continue;
+
                 for (const article of page.data) {
                     if (!isArticleAuthorAddressMatch(article, address)) continue;
                     article.author.isMuted = status;
@@ -86,6 +87,7 @@ export function setWalletBlockStatus(address: string, status: boolean) {
         return produce(old, (draft) => {
             for (const page of draft.pages) {
                 if (!page) continue;
+
                 for (const profile of page.data) {
                     if (!isSameEthereumAddress(profile.address, address)) continue;
                     profile.blocked = status;
@@ -103,6 +105,7 @@ export function setWalletBlockStatus(address: string, status: boolean) {
         return produce(old, (draft) => {
             for (const page of draft.pages) {
                 if (!page) continue;
+
                 for (const activity of page.data) {
                     if (isSameAddress(activity.author.id, address)) {
                         activity.author.isMuted = status;

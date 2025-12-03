@@ -184,6 +184,7 @@ export function LoginBsky() {
     const [{ loading }, login] = useAsyncFn(
         async (username: string, password: string, serviceUrl?: string) => {
             controller.current.renew();
+
             try {
                 setAsyncStatus(Source.Bsky, AsyncStatus.Pending);
 

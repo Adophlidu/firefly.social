@@ -7,6 +7,7 @@ import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 interface Props extends Pick<TokenMarketDataProps, 'tradeRecords' | 'range' | 'traderCount'> {
     symbol: string;
 }
+
 function WrapTokenMarketData({ symbol, ...rest }: Props) {
     const { data: token, isLoading } = useTokenInfo({ token_symbol: symbol });
     const [chainId, setChainId] = useState<number | undefined>();

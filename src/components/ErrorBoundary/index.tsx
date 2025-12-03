@@ -23,15 +23,19 @@ export class ErrorBoundary extends Component<Partial<CrashProps>> {
         let type = 'UnknownError';
         let message = 'unknown error';
         if (!this.state.error) return { stack, type, message };
+
         try {
             stack = String(this.state.error.stack!) || '<stack not available>';
         } catch {}
+
         try {
             type = String(this.state.error.name) || '<type not available>';
         } catch {}
+
         try {
             message = String(this.state.error.message) || '<message not available>';
         } catch {}
+
         return { stack, type, message };
     }
 }

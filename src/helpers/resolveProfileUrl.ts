@@ -45,6 +45,7 @@ function resolveProfileCategory(
             : (isCurrentProfile ? LOGIN_SORTED_PROFILE_TAB_TYPE : SORTED_PROFILE_TAB_TYPE)[source];
     return supportedCategories.includes(category) ? category : getDefaultProfileCategory(source, handle);
 }
+
 /**
  * ! Please don't use this function directly, use `getProfileUrl` instead.
  */

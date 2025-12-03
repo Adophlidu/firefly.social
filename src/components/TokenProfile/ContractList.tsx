@@ -66,6 +66,7 @@ export const ContractList = memo<Props>(function ContractList({
 interface ContractItemProps extends HTMLProps<HTMLDivElement> {
     contract: Contract;
 }
+
 function ContractItem({ contract, ...rest }: ContractItemProps) {
     const chain = getChainInfo(contract.runtime, contract.chainId);
     const name = chain?.name || contract.runtime;

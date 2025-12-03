@@ -37,6 +37,7 @@ import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';
 interface NFTListProps {
     nfts: FireflyRedPacketAPI.NftOwnedStrategyPayload[];
 }
+
 function NFTList({ nfts }: NFTListProps) {
     const queries = useQueries({
         queries: nfts.map((nft) => ({
@@ -115,6 +116,7 @@ interface RequirementsModalProps {
     onVerifyAndClaim: () => void;
 }
 const StrategyType = FireflyRedPacketAPI.StrategyType;
+
 export function RequirementsModal({
     open,
     post,

@@ -44,6 +44,7 @@ export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisibl
             }
             if (x.visible && strategy === 'invisible') return '';
             if (!x.visible && strategy === 'visible') return '';
+
             switch (x.tag) {
                 case CharTag.FIREFLY_RP:
                     return `${x.content}\n`;

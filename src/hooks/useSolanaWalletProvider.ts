@@ -12,6 +12,7 @@ export function useSolanaWalletProvider() {
     const activeNetwork = useSolanaActiveNetworkStore((s) => s.activeNetwork);
     const { walletProvider } = useAppKitProvider<Provider | undefined>('solana');
     useFireflyWalletStore((state) => state.wallets[NetworkType.Solana]); // will rerender when privy wallet change
+
     switch (activeNetwork) {
         case SolanaNetworkType.Appkit:
             return first(compact([walletProvider, PrivySolanaProvider]));

@@ -22,6 +22,7 @@ export async function prefetchPostLinks(urlGroups: string[][]) {
             }),
         );
         if (!response.success) return;
+
         for (const urls of urlGroups) {
             const results = response.data.filter((x) => x.result && urls.includes(x.url));
             if (results.length) {

@@ -22,6 +22,7 @@ const setQueryDataForChannel = (channel: Channel, isMuted: boolean) => {
             return produce(oldData, (draft) => {
                 for (const page of draft.pages) {
                     if (!page) continue;
+
                     for (const mutedChannel of page.data) {
                         if (!isSameChannel(mutedChannel, channel)) continue;
                         mutedChannel.blocked = isMuted;

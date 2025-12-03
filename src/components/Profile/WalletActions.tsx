@@ -39,6 +39,7 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
                         wallet_address: profile.address,
                         MPC_type: WalletProfileDataSource.Privy,
                     });
+
                     switch (profile.dataSource) {
                         case WalletProfileDataSource.Particle:
                             openWindow(urlcat(SITE_URL, '/particle-recovery', { type }));

@@ -71,6 +71,7 @@ export function useAllConnectionsFormattedWithProfiles(options?: { enabled?: boo
                                           >({ connection }: T) {
                                               return connection.isDefault ? 1 : 0;
                                           }
+
                                           return getPriority(b) - getPriority(a);
                                       }),
                               };

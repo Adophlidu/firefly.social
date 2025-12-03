@@ -11,6 +11,7 @@ function nonEmptySchema(schema: z.ZodString): z.ZodType<string, z.ZodTypeDef, un
                 // why fatal = true? see: https://github.com/colinhacks/zod/pull/2912#issuecomment-2010989328
                 ctx.addIssue({ ...issue, fatal: true });
             }
+
             return z.NEVER;
         }
 
@@ -26,6 +27,7 @@ function nonEmptySchema(schema: z.ZodString): z.ZodType<string, z.ZodTypeDef, un
 }
 
 export const NonEmptyStringSchema = nonEmptySchema(z.string());
+
 const BooleanAttributeSchema = z.object({
     type: z.literal(MetadataAttributeType.BOOLEAN),
     key: NonEmptyStringSchema,
@@ -51,6 +53,7 @@ const JSONAttributeSchema = z.object({
     key: NonEmptyStringSchema,
     value: NonEmptyStringSchema,
 });
+
 export const MetadataAttributeSchema = z.discriminatedUnion('type', [
     BooleanAttributeSchema,
     DateAttributeSchema,

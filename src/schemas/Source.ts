@@ -9,6 +9,7 @@ export const SourceSchema = z
     .optional()
     .transform((v) => {
         if (!v) return;
+
         try {
             return resolveSource(v as SourceInURL);
         } catch {
@@ -21,6 +22,7 @@ export const SocialSourceSchema = z
     .optional()
     .transform((v) => {
         if (!v) return;
+
         try {
             const sourceInURL = narrowToSocialSourceInURL(v as SourceInURL);
             return resolveSocialSource(sourceInURL);

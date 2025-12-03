@@ -10,6 +10,7 @@ import { type Chars, type ComplexChars } from '@/types/chars.js';
 function updateParagraphNode(paragraphNode: ParagraphNode, chars: ComplexChars) {
     const { tag, visible } = chars;
     if (!visible) return;
+
     switch (tag) {
         case CharTag.FIREFLY_RP:
             paragraphNode.append($createTextNode(`${chars.content}\n`));

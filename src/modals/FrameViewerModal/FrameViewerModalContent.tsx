@@ -44,6 +44,7 @@ function createEthProvider(frame: Frame) {
                         enqueueMessageFromError(error, <Trans>Failed to switch chain</Trans>);
                         throw error;
                     }
+
                     return;
                 case EthereumMethodType.ETH_SEND_TRANSACTION: {
                     await captureFrameActionEvent('others', frame, client.account.address, true);

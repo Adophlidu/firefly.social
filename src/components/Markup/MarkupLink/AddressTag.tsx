@@ -14,6 +14,7 @@ interface AddressTagProps extends Omit<MarkupLinkProps, 'post'> {
     title: string;
     address: string;
 }
+
 export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, address }) {
     const isEns = title.endsWith('.eth');
 

@@ -10,6 +10,7 @@ interface SimplePriceChartProps extends HTMLProps<HTMLDivElement> {
 }
 
 const YAxisDomain = ['auto', 'auto'];
+
 export const SimplePriceChart = memo<SimplePriceChartProps>(function SimplePriceChart({ records, ...rest }) {
     const isUp = useIsPriceUp(records);
     const stroke = isUp ? 'rgb(var(--color-success))' : 'rgb(var(--color-danger))';

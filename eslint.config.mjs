@@ -107,6 +107,32 @@ export default defineConfig([
             'no-irregular-whitespace': 'warn',
             'no-label-var': 'error',
             'no-misleading-character-class': 'error',
+            'no-multiple-empty-lines': [
+                'error',
+                {
+                    max: 1,
+                    maxEOF: 1,
+                    maxBOF: 0,
+                },
+            ],
+            'padding-line-between-statements': [
+                'warn',
+                // Require blank lines before and after function declarations (but allow consecutive)
+                { blankLine: 'always', prev: '*', next: 'function' },
+                { blankLine: 'always', prev: 'function', next: '*' },
+                { blankLine: 'any', prev: 'function', next: 'function' },
+                // Require blank lines before control flow statements (for/while/switch/try)
+                { blankLine: 'always', prev: '*', next: ['for', 'while', 'switch', 'try'] },
+                { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['for', 'while', 'switch', 'try'] },
+                { blankLine: 'always', prev: ['for', 'while', 'switch', 'try'], next: '*' },
+                // Require blank lines before and after export statements (but allow consecutive exports)
+                { blankLine: 'always', prev: '*', next: 'export' },
+                { blankLine: 'always', prev: 'export', next: '*' },
+                { blankLine: 'any', prev: 'export', next: 'export' },
+                // Require blank lines before and after class declarations
+                { blankLine: 'always', prev: '*', next: 'class' },
+                { blankLine: 'always', prev: 'class', next: '*' },
+            ],
             'no-new-wrappers': 'error',
             'no-plusplus': 'error',
             'no-regex-spaces': 'error',

@@ -20,6 +20,7 @@ interface CollectProps {
     collected?: boolean;
     hiddenCount?: boolean;
 }
+
 export const Collect = memo<CollectProps>(function Collect({
     count,
     disabled = false,

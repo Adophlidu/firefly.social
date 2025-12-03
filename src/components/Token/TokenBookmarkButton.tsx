@@ -26,6 +26,7 @@ import type { BookmarkTokenOptions } from '@/providers/types/Bookmark.js';
 interface Props extends ClickableAreaProps, BookmarkTokenOptions {
     bookmarked?: boolean;
 }
+
 export const TokenBookmarkButton = memo<Props>(function TokenBookmarkButton({
     disabled = false,
     coinId,

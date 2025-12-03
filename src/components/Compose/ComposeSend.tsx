@@ -47,6 +47,7 @@ export function ComposeSend(props: ComposeSendProps) {
     const [{ loading }, handlePost] = useAsyncFn(
         async (isRetry = false) => {
             if (checkPostMedias()) return;
+
             try {
                 controller.current.renew();
 

@@ -16,6 +16,7 @@ interface PostListProps {
     channel: Channel;
     source: SocialSource;
 }
+
 export function PostList({ channel, source }: PostListProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const channelId = channel.id;

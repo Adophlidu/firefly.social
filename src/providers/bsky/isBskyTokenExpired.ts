@@ -11,5 +11,6 @@ export function isBskyTokenExpired(token?: string, interval = 0) {
     } catch (e) {
         console.warn('[Bsky]: could not decode jwt');
     }
+
     return true;
 }

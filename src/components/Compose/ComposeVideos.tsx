@@ -9,6 +9,7 @@ import type { MediaObject } from '@/types/compose.js';
 interface ComposeVideoProps extends HTMLProps<HTMLDivElement> {
     video: MediaObject;
 }
+
 function ComposeVideo({ video, ...rest }: ComposeVideoProps) {
     const { removeVideo } = useComposeStateStore();
     const blobURL = useMemo(() => (video?.file ? URL.createObjectURL(video.file) : ''), [video?.file]);
@@ -25,6 +26,7 @@ function ComposeVideo({ video, ...rest }: ComposeVideoProps) {
 interface ComposeVideosProps extends HTMLProps<HTMLDivElement> {
     videos: MediaObject[];
 }
+
 export const ComposeVideos = memo(function ComposeVideos({ videos, ...rest }: ComposeVideosProps) {
     const size = videos.length;
 

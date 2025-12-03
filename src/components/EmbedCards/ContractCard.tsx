@@ -11,6 +11,7 @@ interface ContractCardProps extends AddressCardProps {
     chainId: number;
     contractType: Exclude<DetectedAddress['contract_type'], 'program' | 'unknown'>;
 }
+
 export const ContractCard = memo<ContractCardProps>(function ContractCard({ contractType, chainId, ...rest }) {
     const isCollection = ['ERC721', 'ERC1155', 'nft'].includes(contractType);
     const { data: collection } = useNFTCollection(rest.address, chainId, isCollection);

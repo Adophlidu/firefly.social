@@ -4,6 +4,7 @@ interface Options {
     maxWidth: number;
     maxHeight: number;
 }
+
 export function computeSize(width: number, height: number, { minWidth, minHeight, maxWidth, maxHeight }: Options) {
     const ratio = width / height;
 

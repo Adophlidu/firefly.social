@@ -1,4 +1,5 @@
 import { bom, parseUrl } from '@dimensiondev/utils';
+
 /**
  * Determines whether the provided link matches the specified host.
  * @param {string} link - The URL to be checked.

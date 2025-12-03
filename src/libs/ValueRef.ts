@@ -2,6 +2,7 @@ import { defer } from '@dimensiondev/utils';
 
 type ValueComparer<T> = (a: T, b: T) => boolean;
 const defaultComparer: ValueComparer<any> = (a, b) => a === b;
+
 export class ValueRef<T> {
     constructor(value: T, isEqual: ValueComparer<T> = defaultComparer) {
         this._value = value;
@@ -14,6 +15,7 @@ export class ValueRef<T> {
         const oldVal = this._value;
         if (this.isEqual(newVal, oldVal)) return;
         this._value = newVal;
+
         for (const fn of this.watcher) {
             try {
                 fn(newVal, oldVal);

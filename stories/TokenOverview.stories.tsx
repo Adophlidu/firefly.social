@@ -5,6 +5,7 @@ import { Overview, type TokenOverviewProps } from '@/components/TokenProfile/Ove
 interface Props extends TokenOverviewProps {
     coinId: string;
 }
+
 function WrapTokenOverview({ coinId, chainId, address }: Props) {
     return (
         <div style={{ width: 567 }}>

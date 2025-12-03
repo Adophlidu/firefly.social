@@ -9,6 +9,7 @@ interface Props extends Omit<SwitchProps, 'className'> {
     className?: string;
     size?: 'small' | 'medium';
 }
+
 export const Switch = memo<Props>(function Switch({ className, loading, size = 'medium', ...rest }) {
     return (
         <HeadlessSwitch

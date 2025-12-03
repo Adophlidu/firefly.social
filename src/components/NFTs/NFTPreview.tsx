@@ -247,6 +247,7 @@ interface CollectionPreviewProps {
     showTradeInfo?: boolean;
     className?: string;
 }
+
 export const CollectionPreviewer = memo(function CollectionPreviewer({
     collection,
     showTradeInfo,

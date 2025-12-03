@@ -19,6 +19,7 @@ function toggleWatch(address: string, status: boolean) {
         return produce(old, (draft) => {
             for (const page of draft.pages) {
                 if (!page) continue;
+
                 for (const article of page.data) {
                     if (!isSameEthereumAddress(article.author.id, address)) continue;
                     article.author.isFollowing = status;

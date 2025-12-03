@@ -4,6 +4,7 @@ import { type Address, isAddress } from 'viem';
 export function isValidAddressSolana(address?: string, strict = true) {
     const length = address?.length;
     if (!length || length < 32 || length > 44) return false;
+
     try {
         new web3.PublicKey(address);
         return true;

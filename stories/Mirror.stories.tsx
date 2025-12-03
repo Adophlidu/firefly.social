@@ -19,6 +19,7 @@ const meta = {
 } satisfies Meta<typeof MirrorUI>;
 
 type Story = StoryObj<typeof meta>;
+
 export const Primary: Story = {
     args: {
         source: Source.Lens,

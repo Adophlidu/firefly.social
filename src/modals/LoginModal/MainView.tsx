@@ -314,6 +314,7 @@ export function MainView() {
     const [{ loading }, onAuthClick] = useAsyncFn(async (source: ThirdPartySource) => {
         try {
             setSelectedSource(source);
+
             switch (source) {
                 case Source.Telegram:
                     const url = await getTelegramLoginUrl();

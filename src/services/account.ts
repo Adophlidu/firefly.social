@@ -462,6 +462,7 @@ export async function switchAccount(account: Account, signal?: AbortSignal) {
         default:
             safeUnreachable(profileSource);
     }
+
     state.addAccount(
         {
             ...account,

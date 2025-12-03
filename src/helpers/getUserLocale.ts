@@ -1,4 +1,5 @@
 import { bom } from '@dimensiondev/utils';
+
 /**
  * Get user's locale for metadata
  *

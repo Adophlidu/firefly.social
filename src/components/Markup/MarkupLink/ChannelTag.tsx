@@ -39,6 +39,7 @@ export const ChannelTag = memo<ChannelTagProps>(function ChannelTag({ title, sou
         staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: async () => {
             if (!channelId || !source) return;
+
             try {
                 const provider = resolveSocialMediaProvider(source);
                 const result = await provider.getChannelById(channelId);

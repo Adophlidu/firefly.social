@@ -9,6 +9,7 @@ export function captureTokenBookmarkClickEvent() {
 }
 
 type Source = Events[EventId.BOOKMARK_TOKEN_VIEW]['parameters']['source'];
+
 export function captureBookmarkTokenViewEvent(source: Source) {
     return runInSafeAsync(() => {
         return TelemetryProvider.captureEvent(EventId.BOOKMARK_TOKEN_VIEW, { source });

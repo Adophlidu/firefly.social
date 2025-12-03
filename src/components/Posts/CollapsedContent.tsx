@@ -9,6 +9,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
     authorMuted?: boolean;
     isQuote: boolean;
 }
+
 export function CollapsedContent({ isQuote, authorMuted: muted, ...rest }: Props) {
     return (
         <div {...rest}>

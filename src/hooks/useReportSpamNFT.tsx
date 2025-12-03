@@ -78,6 +78,7 @@ export function useReportSpamNFT() {
                 ),
             });
             if (!confirmed) return;
+
             try {
                 await reportNFT(chainId, address);
                 filterOutActivities(address);

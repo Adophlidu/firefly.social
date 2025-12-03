@@ -18,6 +18,7 @@ import { type Post } from '@/providers/types/SocialMedia.js';
 
 export function resolveTweetReplySettings(replySettings?: TweetV2['reply_settings']): RestrictionType[] {
     if (!replySettings) return [RestrictionType.Everyone];
+
     switch (replySettings) {
         case 'everyone':
             return [RestrictionType.Everyone];
@@ -109,6 +110,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         while (endCommentOn?.commentOn) {
             endCommentOn = endCommentOn?.commentOn;
         }
+
         const hasReplied = repliedTweet?.referenced_tweets?.find((tweet) => tweet.type === 'replied_to');
         if (!hasReplied) {
             ret.root = tweetV2ToPost(repliedTweet, includes);

@@ -20,6 +20,7 @@ interface AccountMetadataDetails {
     attributes?: MetadataAttribute[];
 }
 type AccountOptions = PartialWith<AccountMetadataDetails, 'id'>;
+
 export type AccountMetadata = {
     $schema: AccountMetadataSchemaId;
     lens: AccountMetadataDetails;

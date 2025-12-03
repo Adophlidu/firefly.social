@@ -43,6 +43,7 @@ function parseBio(text: string) {
         }
         anchorElement.innerHTML = anchorElement.href;
     }
+
     // `document.body.textContent` or `document.textContent` is not working
     return document.children[0].textContent;
 }

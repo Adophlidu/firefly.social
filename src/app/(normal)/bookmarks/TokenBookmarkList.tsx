@@ -39,6 +39,7 @@ export function TokenBookmarkList() {
         queryKey: ['bookmarks', Source.Tokens, profileIds],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
+
             try {
                 return await getTokenBookmarks(createIndicator(undefined, pageParam));
             } catch (error) {

@@ -60,6 +60,7 @@ export function ProfileVerifyBadge({ profile, className }: Props) {
                         iconEl
                     );
                 }
+
                 switch (icon.source) {
                     case Source.Farcaster:
                         return <VerifyIcon key={i} className="size-4 shrink-0 text-[#855DCD]" width={16} height={16} />;

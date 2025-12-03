@@ -15,6 +15,7 @@ const meta = {
 } satisfies Meta<typeof BookmarkedTokens>;
 
 type Story = StoryObj<typeof meta>;
+
 export const Default: Story = {
     args: {
         className: 'w-[415px]',

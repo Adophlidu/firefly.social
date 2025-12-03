@@ -51,6 +51,7 @@ export function setFollowStatus(source: Source, profileId: string, status: boole
         return produce(old, (draft) => {
             for (const page of draft.pages) {
                 if (!page) continue;
+
                 for (const profile of page.data) {
                     if (profile.profileId === profileId) {
                         patcher(profile, status);
@@ -68,11 +69,13 @@ export function setFollowStatus(source: Source, profileId: string, status: boole
     queryClient.setQueriesData<PagesData>({ queryKey: ['suggested-follows', source], type: 'active' }, profilesPatcher);
     queryClient.setQueriesData<Profile[]>({ queryKey: ['suggested-follows-lite'] }, (profiles) => {
         if (!profiles) return profiles;
+
         for (const profile of profiles) {
             if (profile.profileId === profileId) {
                 patcher(profile, status);
             }
         }
+
         return profiles;
     });
 
@@ -91,6 +94,7 @@ export function setFollowStatus(source: Source, profileId: string, status: boole
             }
         }
     }
+
     queryClient.setQueriesData<{ pages: Array<{ data: Notification[] }> }>({ queryKey: ['notifications'] }, (old) => {
         if (!old?.pages) return old;
         return produce(old, (draft) => {
@@ -122,6 +126,7 @@ export function SetQueryDataForFollowProfile(source: Source) {
                 value: async (profileId: string) => {
                     const status = key === 'follow';
                     setFollowStatus(source, profileId, status);
+
                     try {
                         const m = method as (profileId: string) => Promise<boolean>;
                         return await m?.call(target.prototype, profileId);

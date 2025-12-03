@@ -30,6 +30,7 @@ function shouldCrossPost(index: number, post: CompositePost) {
 
 async function getParentPostById(source: SocialSource, postId: string, contentURI?: string) {
     if (!postId) throw new Error(`Failed to get parent post by id: ${postId}.`);
+
     switch (source) {
         case Source.Farcaster: {
             // in a thread, posts will sometimes be lost if we post too quickly
@@ -99,6 +100,7 @@ export async function crossPostThread({ progressCallback, isRetry = false, signa
     progressCallback?.(0);
 
     SnackbarRef.close({ key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY });
+
     for (const [index, _] of posts.entries()) {
         const { posts: allPosts } = useComposeStateStore.getState();
 

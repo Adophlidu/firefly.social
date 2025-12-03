@@ -26,11 +26,13 @@ import { ImageEditorModalRef } from '@/modals/ImageEditorModal.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 type AvatarType = 'pfp' | 'random' | 'custom';
+
 export type AvatarConfig = {
     url: string;
     file?: File | null;
     type: AvatarType;
 };
+
 interface AvatarSelectorProps {
     avatar: string;
     avatarType: AvatarType;

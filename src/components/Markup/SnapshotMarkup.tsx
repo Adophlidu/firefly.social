@@ -28,6 +28,7 @@ const img = (props: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageEle
     const src = sanitizeDStorageUrl(propsSrc, SNAPSHOT_IPFS_GATEWAY_URL);
     return <ImageAsset {...props} src={src} alt={src} width={1000} height={1000} />;
 };
+
 export const SnapshotMarkup: ComponentType<Options> = memo<Options>(function SnapshotMarkup({ children, ...rest }) {
     return (
         <ReactMarkdown

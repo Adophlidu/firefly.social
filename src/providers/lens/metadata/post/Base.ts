@@ -9,6 +9,7 @@ import {
 
 // #region constant
 export const DEFAULT_LOCALE = 'en';
+
 const localeRegex = /^[a-z]{2}(?:-[a-zA-Z]{2})?$/;
 const localeLikeRegex = /^([a-z]{2})(?:-[A-Z0-9]{2,3})?$/i;
 // #endregion
@@ -19,6 +20,7 @@ enum ContentWarning {
     SENSITIVE = 'SENSITIVE',
     SPOILER = 'SPOILER',
 }
+
 export enum PostMainFocus {
     VIDEO = 'VIDEO',
     IMAGE = 'IMAGE',
@@ -54,6 +56,7 @@ export enum PostMetadataSchemaId {
     TEXT_ONLY_LATEST = 'https://json-schemas.lens.dev/posts/text-only/3.0.0.json',
     VIDEO_LATEST = 'https://json-schemas.lens.dev/posts/video/3.0.0.json',
 }
+
 enum NftMetadataAttributeDisplayType {
     NUMBER = 'number',
     STRING = 'string',
@@ -97,6 +100,7 @@ enum MetadataLicenseType {
     TBNL_NC_DTSA_NPL_Ledger = 'TBNL-NC-DTSA-NPL-Ledger',
     TBNL_NC_ND_NPL_Ledger = 'TBNL-NC-ND-NPL-Ledger',
 }
+
 export enum MediaImageMimeType {
     AVIF = 'image/avif',
     BMP = 'image/bmp',
@@ -109,6 +113,7 @@ export enum MediaImageMimeType {
     WEBP = 'image/webp',
     X_MS_BMP = 'image/x-ms-bmp',
 }
+
 enum MediaAudioMimeType {
     WAV = 'audio/wav',
     WAV_VND = 'audio/vnd.wave',
@@ -127,6 +132,7 @@ enum MediaAudioKind {
     SOUND = 'SOUND',
     OTHER = 'OTHER',
 }
+
 export enum MediaVideoMimeType {
     GLTF = 'model/gltf+json',
     GLTF_BINARY = 'model/gltf-binary',
@@ -150,9 +156,11 @@ function mediaCommonSchema<Augmentation extends z.ZodRawShape>(augmentation: Aug
         })
         .extend(augmentation);
 }
+
 const MediaLikeShape = z.object({
     type: z.string(),
 });
+
 function hasMediaLikeShape(val: unknown): val is z.infer<typeof MediaLikeShape> {
     return MediaLikeShape.safeParse(val).success;
 }
@@ -196,7 +204,9 @@ function resolveAnyMediaSchema(val: unknown) {
 }
 
 export const MetadataIdSchema = NonEmptyStringSchema;
+
 const LocaleRegexSchema = z.string().regex(localeRegex, 'Should be a valid Locale Identifier.');
+
 export const LocaleSchema: z.ZodType<string, z.ZodTypeDef, unknown> = LocaleRegexSchema.catch((ctx) => {
     // attempts to recover the language code at least
     const match = localeLikeRegex.exec(ctx.input);
@@ -218,12 +228,15 @@ export const Nft721MetadataAttributeSchema: z.ZodType<NftMetadataAttribute, z.Zo
         value: z.union([z.string(), z.number()]).optional(),
     })
     .passthrough();
+
 const MetadataLicenseTypeSchema = z.nativeEnum(MetadataLicenseType);
+
 export const MediaImageSchema = mediaCommonSchema({
     type: z.nativeEnum(MediaImageMimeType),
     altTag: NonEmptyStringSchema.optional(),
     license: MetadataLicenseTypeSchema.optional(),
 });
+
 const MediaAudioSchema = mediaCommonSchema({
     type: z.nativeEnum(MediaAudioMimeType),
     cover: URISchema.optional(),
@@ -236,6 +249,7 @@ const MediaAudioSchema = mediaCommonSchema({
     kind: z.nativeEnum(MediaAudioKind).optional(),
     lyrics: URISchema.optional(),
 });
+
 export const MediaVideoSchema = mediaCommonSchema({
     type: z.nativeEnum(MediaVideoMimeType),
     altTag: NonEmptyStringSchema.optional(),
@@ -287,11 +301,13 @@ export interface PostMetadataCommon {
     tags?: string[];
     contentWarning?: ContentWarning;
 }
+
 interface NftMetadataAttribute {
     value?: string | number;
     display_type?: NftMetadataAttributeDisplayType;
     trait_type?: string;
 }
+
 export interface NftMetadata {
     description?: string | null;
     external_url?: string | null;
@@ -308,6 +324,7 @@ export interface MediaImage {
     altTag?: string;
     license?: MetadataLicenseType;
 }
+
 interface MediaAudio {
     item: string;
     attributes?: MetadataAttribute[];
@@ -322,6 +339,7 @@ interface MediaAudio {
     kind?: MediaAudioKind;
     lyrics?: string;
 }
+
 export interface MediaVideo {
     item: string;
     attributes?: MetadataAttribute[];

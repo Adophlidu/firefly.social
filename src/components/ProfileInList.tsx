@@ -29,6 +29,7 @@ const overrideComponents: Components = {
     p: PlainParagraph,
     br: VoidLineBreak,
 };
+
 export function ProfileInList({ profile, noFollowButton, listKey, index }: ProfileInListProps) {
     const isMedium = useIsMedium('max');
 

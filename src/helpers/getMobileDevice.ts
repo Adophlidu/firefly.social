@@ -1,4 +1,5 @@
 import { bom } from '@dimensiondev/utils';
+
 /**
  * Determine the mobile operating system.
  */

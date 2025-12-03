@@ -21,6 +21,7 @@ interface ShareProps extends HTMLProps<HTMLDivElement> {
     post: Post;
     disabled?: boolean;
 }
+
 export const Share = memo<ShareProps>(function Share({ className, post, disabled = false }) {
     const url = urlcat(SITE_URL, getPostUrl(post));
 

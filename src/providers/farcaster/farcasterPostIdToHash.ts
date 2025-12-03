@@ -6,5 +6,6 @@ export function farcasterPostIdToHash(postId: string) {
         const byteValue = Number.parseInt(hexWithoutPrefix.substr(i, 2), 16);
         uint8Array[i / 2] = byteValue;
     }
+
     return uint8Array;
 }

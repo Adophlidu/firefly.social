@@ -31,6 +31,7 @@ import { MediaSource } from '@/types/compose.js';
 interface MediaProps {
     close: () => void;
 }
+
 export const Media = memo(function Media({ close }: MediaProps) {
     const imageInputRef = useRef<HTMLInputElement>(null);
     const videoInputRef = useRef<HTMLInputElement>(null);

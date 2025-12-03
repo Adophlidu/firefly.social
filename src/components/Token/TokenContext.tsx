@@ -10,6 +10,7 @@ interface TokenContextProps {
     tradeRecords: TradeRecord[];
     setTradeRecords: Dispatch<SetStateAction<TradeRecord[]>>;
 }
+
 export const TokenContext = createContext<TokenContextProps>({
     tradeRecords: EMPTY_LIST,
     setTradeRecords: noop,

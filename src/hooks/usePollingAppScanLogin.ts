@@ -44,6 +44,7 @@ export function usePollingAppScanLogin(
     const [{ loading }, login] = useAsyncFn(
         async (data: DesktopLinkInfoStatusData, otp: string) => {
             if (data?.status !== DesktopLinkInfoStatus.Confirm || !otp || !data?.encryptedData) return;
+
             try {
                 const isSigned = await loginWithAppScan(data, otp);
                 if (isSigned) onSuccessRef.current?.();

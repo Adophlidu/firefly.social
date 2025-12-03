@@ -29,6 +29,7 @@ export interface SignupModalOpenProps {
 export type SignupModalCloseProps = {
     account: Account;
 } | void;
+
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<SignupModalOpenProps, SignupModalCloseProps>>;
 };

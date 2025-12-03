@@ -18,5 +18,6 @@ export async function searchTokenLogoURI({
             .catch(() => null);
         if (logoURI) return logoURI;
     }
+
     return null;
 }

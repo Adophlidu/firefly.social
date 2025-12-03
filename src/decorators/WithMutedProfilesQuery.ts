@@ -20,6 +20,7 @@ const METHODS_BE_OVERRIDDEN = [
 export function WithMutedProfilesQuery() {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         if (isServer) return target;
+
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
             const method = target.prototype[key] as Provider[K];
             if (!method) return;

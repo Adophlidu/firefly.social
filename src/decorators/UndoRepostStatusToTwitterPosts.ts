@@ -43,6 +43,7 @@ export function UndoRepostStatusToTwitterPosts() {
                 },
             });
         }
+
         METHODS_BE_OVERRIDDEN.forEach(overrideMethod);
 
         return target;

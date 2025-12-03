@@ -12,6 +12,7 @@ interface ArticleHeaderProps {
     article: Article;
     className?: string;
 }
+
 export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ article, className }) {
     return (
         <div

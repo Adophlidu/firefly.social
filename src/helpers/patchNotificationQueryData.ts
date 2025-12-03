@@ -22,6 +22,7 @@ export function patchNotificationQueryData(source: Source, patcher: Patcher) {
 }
 
 type PostPatcher = (old: Draft<Post>) => void;
+
 export function patchNotificationQueryDataOnPost(source: Source, patcher: PostPatcher) {
     patchNotificationQueryData(source, (notification) => {
         if (
@@ -65,6 +66,7 @@ export function patchNotificationQueryDataOnPost(source: Source, patcher: PostPa
             default:
                 return;
         }
+
         if (target) {
             patcher(target);
         }
@@ -72,6 +74,7 @@ export function patchNotificationQueryDataOnPost(source: Source, patcher: PostPa
 }
 
 type ProfilePatcher = (old: Draft<Profile>) => void;
+
 export function patchNotificationQueryDataOnAuthor(source: Source, patcher: ProfilePatcher) {
     patchNotificationQueryData(source, (notification) => {
         if (
@@ -124,6 +127,7 @@ export function patchNotificationQueryDataOnAuthor(source: Source, patcher: Prof
             default:
                 return;
         }
+
         if (target) {
             patcher(target);
         }

@@ -52,6 +52,7 @@ function defaultFetcher(input: RequestInfo | URL, init?: RequestInit | undefined
                 : init?.headers,
     });
 }
+
 export interface NextFetchersOptions {
     /** Label the request as static media */
     forceStaticMedia?: boolean;

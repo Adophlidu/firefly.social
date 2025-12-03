@@ -34,6 +34,7 @@ export function SetQueryDataForPosts<T extends ClassType<Provider>>(target: T): 
                         for (const identity of [post.author.profileId, post.author.handle]) {
                             queryKeyGroups.push(['profile', post.source, identity]);
                         }
+
                         queryKeyGroups.forEach((queryKey) => {
                             if (!queryClient.getQueryData(queryKey)) {
                                 queryClient.setQueryData(queryKey, post.author);

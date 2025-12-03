@@ -94,6 +94,7 @@ self.addEventListener('notificationclick', (event) => {
                 for (const client of clientList) {
                     if (client.url === link && 'focus' in client) return client.focus();
                 }
+
                 if (typeof self.clients.openWindow === 'function') return self.clients.openWindow(link);
             }),
     );

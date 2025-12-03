@@ -34,6 +34,7 @@ export function openWindow(
     for (const [name, value] of Object.entries(features.behaviors ?? {})) {
         if (value) flags.push(`${name}=1`);
     }
+
     if (!features.opener) flags.push('noopener');
     if (!features.referrer) flags.push('noreferrer');
     if (Number.isFinite(features.width)) flags.push(`width=${features.width}`);

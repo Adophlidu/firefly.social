@@ -55,6 +55,7 @@ export function useCommentPost(post: Post, disabled = false) {
                         safeUnreachable(restriction);
                 }
             }
+
             return isDisabled;
         }
         return false;

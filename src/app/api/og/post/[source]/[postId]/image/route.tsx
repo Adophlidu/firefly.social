@@ -41,6 +41,7 @@ function resolveSourceIcon(source: SocialSource) {
 
 function resolveAttachmentsSrc(asset?: Attachment) {
     if (!asset) return null;
+
     switch (asset.type) {
         case 'Image':
             return asset.uri;

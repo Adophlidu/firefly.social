@@ -20,6 +20,7 @@ const meta = {
 } satisfies Meta<Args>;
 
 type Story = StoryObj<typeof meta>;
+
 export const Symbol: Story = {
     args: {
         tokens: [

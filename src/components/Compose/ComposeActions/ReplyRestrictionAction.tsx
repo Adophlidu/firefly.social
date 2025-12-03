@@ -16,6 +16,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 interface ActionProps {
     hasError: boolean;
 }
+
 export const ReplyRestrictionAction = memo(function ReplyRestrictionAction({ hasError }: ActionProps) {
     const isMedium = useIsMedium();
 

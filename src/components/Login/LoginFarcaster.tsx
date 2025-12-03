@@ -139,6 +139,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
 
     const [{ loading: loadingByGrantPermission }, onLoginByGrantPermission] = useAsyncFn(async () => {
         controller.current.renew();
+
         try {
             await loginFarcaster(
                 () => {
@@ -206,6 +207,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
 
     const [{ loading: loadingBySponsorship }, onLoginByFireflySponsorship] = useAsyncFn(async () => {
         controller.current.renew();
+
         try {
             await loginFarcaster(
                 async () => {
@@ -233,6 +235,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
 
     const onClick = (signType: FarcasterSignType | null) => {
         if (!signType) return;
+
         switch (signType) {
             case SignType.GrantPermission:
                 onLoginByGrantPermission();

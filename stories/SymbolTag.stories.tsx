@@ -8,6 +8,7 @@ const meta = {
 } satisfies Meta<typeof SymbolTag>;
 
 type Story = StoryObj<typeof meta>;
+
 export const Symbol: Story = {
     args: {
         title: '$ETH',

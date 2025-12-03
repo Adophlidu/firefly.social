@@ -39,9 +39,11 @@ interface Props
 function updateSearch(originSearch: string, patch: Record<string, string>) {
     const newSearch = new URLSearchParams(originSearch);
     newSearch.delete('isCoinId');
+
     for (const [key, value] of new URLSearchParams(patch).entries()) {
         newSearch.set(key, value);
     }
+
     return newSearch.size ? `?${newSearch.toString()}` : '';
 }
 

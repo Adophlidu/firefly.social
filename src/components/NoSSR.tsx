@@ -11,6 +11,7 @@ function Inner({ children }: NoSSRProps) {
     noSSR();
     return children;
 }
+
 export function NoSSR({ children }: NoSSRProps) {
     return (
         <Suspense>

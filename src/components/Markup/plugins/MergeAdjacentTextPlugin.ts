@@ -25,6 +25,7 @@ function mergeAdjacentText<T extends PhrasingContent | RootContent>(nodes: T[]):
             result.push(node);
         }
     }
+
     if (buffer !== null) {
         result.push({
             type: 'text',

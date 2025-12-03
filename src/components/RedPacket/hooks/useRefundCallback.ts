@@ -24,6 +24,7 @@ export function useRefundCallback(rpid?: string, overrides?: ChainContextOverrid
             captureLuckyDropEvent('pre-refund', {
                 claimer: account,
             });
+
             switch (networkType) {
                 case NetworkType.Ethereum:
                     await refundEVM();
@@ -34,6 +35,7 @@ export function useRefundCallback(rpid?: string, overrides?: ChainContextOverrid
                 default:
                     unreachable(networkType);
             }
+
             captureLuckyDropEvent('refund', {
                 claimer: account,
             });
@@ -55,6 +57,7 @@ export function useRefundCallback(rpid?: string, overrides?: ChainContextOverrid
                     return produce(old, (draft) => {
                         for (const page of draft.pages) {
                             if (!page) continue;
+
                             for (const item of page.data) {
                                 if (item.redpacket_id === rpid)
                                     item.redpacket_status = FireflyRedPacketAPI.RedPacketStatus.Refund;

@@ -15,6 +15,7 @@ const meta = {
 } satisfies Meta<typeof TokenCard>;
 
 type Story = StoryObj<typeof meta>;
+
 export const Card: Story = {
     args: {
         address: 'BefmaTp3ur3Jed492AyPy9gPKdJm3Fvvjt36qyyyXGZk',

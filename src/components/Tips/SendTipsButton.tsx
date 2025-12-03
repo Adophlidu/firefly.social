@@ -103,6 +103,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             onConnect();
             return;
         }
+
         try {
             if (!recipient || !token) return;
 

@@ -28,9 +28,11 @@ export interface TraderLayerOptions {
 export const TraderLayerContext = createContext<TraderLayerOptions>({
     tradeRecords: EMPTY_LIST,
 });
+
 TraderLayerContext.displayName = 'TraderLayerContext';
 
 const AvatarSize = 2 * AvatarRadius;
+
 export function TraderLayer(props: any) {
     const {
         tradeRecords = EMPTY_LIST,

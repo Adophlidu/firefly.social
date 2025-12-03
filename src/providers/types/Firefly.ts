@@ -239,6 +239,7 @@ interface MirrorArticleAuthorship {
         hash: string;
     };
 }
+
 export interface Article {
     timestamp: string;
     hash: string;
@@ -894,6 +895,7 @@ interface EmailConnection {
     platform: string;
     connected?: boolean;
 }
+
 export interface FireflyConnection {
     account_id: { high: number; low: number };
     id: string;
@@ -2077,6 +2079,7 @@ interface PrivyWallet {
         },
     ];
 }
+
 export type PrivyWalletResponse = Response<PrivyWallet>;
 
 export interface TrendingNFT {

@@ -170,6 +170,7 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
         </li>
     );
 });
+
 export function MentionsPlugin(): JSX.Element | null {
     const isDarkMode = useIsDarkMode();
     const ref = useRef<HTMLDivElement>(null!);

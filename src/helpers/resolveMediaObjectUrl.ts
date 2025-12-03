@@ -75,6 +75,7 @@ function resolveMediaObjectBy(key: 'urls' | 'uploadIds') {
 }
 
 export const resolveMediaObjectUrl = resolveMediaObjectBy('urls');
+
 const resolveMediaObjectUploadId = resolveMediaObjectBy('uploadIds');
 
 const resolveImageSources = createLookupTableResolver<SocialSource, MediaSource[]>(

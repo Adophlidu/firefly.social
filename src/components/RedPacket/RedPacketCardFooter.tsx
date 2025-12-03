@@ -36,6 +36,7 @@ interface Props {
     payload: RedPacketJSONPayload;
     onClaim: () => void;
 }
+
 export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     post,
     canClaim,

@@ -37,6 +37,7 @@ export type LikeTarget =
           type: ExtraLikeType.Tips;
           data: TipsLikeStatusData;
       };
+
 interface LikeParams {
     reactionType: TxReactionType;
     platformId: PlatformId | string;

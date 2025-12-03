@@ -11,6 +11,7 @@ interface Options {
     chainId?: number;
     schemaType?: EthereumSchemaType;
 }
+
 export function useNFTCollections({ account, chainId, schemaType }: Options) {
     return useQuery({
         queryKey: ['nft-collections', account, chainId, schemaType],

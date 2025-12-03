@@ -3,6 +3,7 @@ export type GoPlusResponse<T> = {
     message: 'OK' | string;
     result: T;
 };
+
 type BooleanChar = '0' | '1';
 
 interface Holder {

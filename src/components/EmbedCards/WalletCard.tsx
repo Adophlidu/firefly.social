@@ -54,6 +54,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
     });
     const addressLink = useMemo(() => {
         if (!networkType) return null;
+
         switch (networkType) {
             case NetworkType.Ethereum:
                 return BlockScanExplorerResolver.addressLink(EthereumChainId.Mainnet, address);

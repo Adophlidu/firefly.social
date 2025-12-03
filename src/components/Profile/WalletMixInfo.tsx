@@ -40,6 +40,7 @@ export function WalletMixInfo({ profiles = [] }: Props) {
                 queryKey: ['wallet', 'total-balance', networkType, address],
                 async queryFn() {
                     if (!networkType) return null;
+
                     switch (networkType) {
                         case NetworkType.Ethereum:
                             return getUserTotalBalance(address);

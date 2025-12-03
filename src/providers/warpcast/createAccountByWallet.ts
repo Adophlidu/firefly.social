@@ -9,6 +9,7 @@ interface Options {
     address?: string;
     signal?: AbortSignal;
 }
+
 export async function createFarcasterSessionBySigner({ publickey, privatekey, fid, address, signal }: Options) {
     const payload = await createSignedKeyPayloadWithPublicKey(publickey, signal);
     const key = await createSignedKey(payload.body, signal);

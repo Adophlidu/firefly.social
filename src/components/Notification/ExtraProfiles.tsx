@@ -7,6 +7,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 interface Props {
     profiles: Profile[];
 }
+
 export function ExtraProfiles({ profiles }: Props) {
     return (
         <Trans>

@@ -15,6 +15,7 @@ interface ActionProps {
     hasError: boolean;
     source: SocialSource;
 }
+
 export const ChooseChannelAction = memo(function ChooseChannelAction({ hasError, source }: ActionProps) {
     const isMedium = useIsMedium();
     const { channel } = useCompositePost();

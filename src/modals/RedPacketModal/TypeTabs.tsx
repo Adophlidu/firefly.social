@@ -32,6 +32,7 @@ export const TypeTabs = memo<TypeTabsProps>(function TypeTabs({ onChange }) {
                 default:
                     unreachable(newType);
             }
+
             setToken(undefined);
             setRawAmount('');
             setNetworkType(newType);
