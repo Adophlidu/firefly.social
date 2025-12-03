@@ -74,9 +74,7 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
         article.paragraph_raw_data.json
             ? (parseParagraphHtml(article.paragraph_raw_data.staticHtml, article.paragraph_raw_data.json) ??
               article.paragraph_raw_data.staticHtml)
-            : isMattersArticle
-              ? article.contents.body
-              : article.content.body;
+            : article.content.body;
 
     return {
         platform: article.platform,
@@ -99,5 +97,7 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
         // paragraph only
         json: article.paragraph_raw_data?.json,
         displayInfo: article.displayInfo,
+        // matters only
+        htmlContent: isMattersArticle ? article.contents.body : undefined,
     };
 }

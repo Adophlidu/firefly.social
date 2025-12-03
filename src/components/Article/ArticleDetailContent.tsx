@@ -94,7 +94,12 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                             className={classNames('markdown-body comment-enabled', {
                                 dark: isDarkMode,
                             })}
-                            dangerouslySetInnerHTML={{ __html: article.content }}
+                            dangerouslySetInnerHTML={{
+                                __html:
+                                    article.platform === ArticlePlatform.Matters
+                                        ? (article.htmlContent ?? article.content)
+                                        : article.content,
+                            }}
                             onClick={async (event) => {
                                 event.stopPropagation();
                                 event.preventDefault();

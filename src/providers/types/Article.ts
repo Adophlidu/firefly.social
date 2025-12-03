@@ -48,4 +48,7 @@ export interface Article {
     // Paragraph only
     html?: string;
     json?: string;
+
+    // Matters only
+    htmlContent?: string;
 }

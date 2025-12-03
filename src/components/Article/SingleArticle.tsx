@@ -14,6 +14,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
+import { extractFirstImageFromHtml } from '@/helpers/extractFirstImageFromHtml.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
@@ -53,6 +54,9 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                 if (payload.success && payload.data.payload?.type === PayloadType.Mirror) {
                     return payload.data.payload.cover;
                 }
+            }
+            if (article.platform === ArticlePlatform.Matters && article.htmlContent) {
+                return extractFirstImageFromHtml(article.htmlContent);
             }
             return null;
         },
