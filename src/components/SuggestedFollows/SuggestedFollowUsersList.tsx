@@ -3,6 +3,7 @@
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { sum, uniqBy } from 'lodash-es';
+import { useMemo } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
@@ -54,6 +55,25 @@ export function SuggestedFollowUsersList({ source }: Props) {
             ),
     });
 
+    const listContext = useMemo(
+        () => ({
+            footerText:
+                source === Source.Twitter ? (
+                    <>
+                        <Image width={80} height={24} alt="rootdata" src="/image/rootdata.png" />
+                        <span>
+                            <Trans>
+                                Top 200 Web3 profiles powered by{' '}
+                                <Link href="https://www.rootdata.com/people" className="text-link hover:underline">
+                                    Rootdata
+                                </Link>
+                            </Trans>
+                        </span>
+                    </>
+                ) : null,
+        }),
+        [source],
+    );
     return (
         <ListInPage
             source={source}
@@ -63,25 +83,7 @@ export function SuggestedFollowUsersList({ source }: Props) {
                 key: `${ScrollListKey.SuggestedUsers}:${source}`,
                 computeItemKey: (index, item) => `${item.profileId}-${index}`,
                 itemContent: (index, item) => getSuggestedFollowUserInList(index, item),
-                context: {
-                    footerText:
-                        source === Source.Twitter ? (
-                            <>
-                                <Image width={80} height={24} alt="rootdata" src="/image/rootdata.png" />
-                                <span>
-                                    <Trans>
-                                        Top 200 Web3 profiles powered by{' '}
-                                        <Link
-                                            href="https://www.rootdata.com/people"
-                                            className="text-link hover:underline"
-                                        >
-                                            Rootdata
-                                        </Link>
-                                    </Trans>
-                                </span>
-                            </>
-                        ) : null,
-                },
+                context: listContext,
             }}
             NoResultsFallbackProps={{
                 className: 'md:pt-[228px] max-md:py-20',

@@ -49,7 +49,7 @@ export function ListInPage<T = unknown, C = unknown>({
     const currentSocialSource = narrowToSocialSource(source);
     const isLogin = useIsLogin(isNotSocialSource ? undefined : currentSocialSource);
 
-    const itemsRendered = useRef(false);
+    const itemsRenderedRef = useRef(false);
     const virtuoso = useRef<VirtuosoHandle>(null);
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = queryResult;
@@ -89,15 +89,16 @@ export function ListInPage<T = unknown, C = unknown>({
             }) as Components<T, C>,
         [VirtualListProps?.components],
     );
+    const itemsRendered = itemsRenderedRef.current;
     const Context = useMemo(
         () => ({
             hasNextPage,
             fetchNextPage,
             isFetching,
-            itemsRendered: itemsRendered.current,
-            ...(VirtualListProps?.context ?? {}),
+            itemsRendered,
+            ...VirtualListProps?.context,
         }),
-        [hasNextPage, fetchNextPage, isFetching, VirtualListProps?.context],
+        [hasNextPage, fetchNextPage, isFetching, itemsRendered, VirtualListProps?.context],
     );
     const cachedState = listKey ? virtuosoState.cached[listKey] : undefined;
 
@@ -107,7 +108,7 @@ export function ListInPage<T = unknown, C = unknown>({
             data={data}
             endReached={onEndReached}
             itemSize={(el: HTMLElement) => {
-                if (!itemsRendered.current) itemsRendered.current = true;
+                if (!itemsRenderedRef.current) itemsRenderedRef.current = true;
                 return el.getBoundingClientRect().height;
             }}
             {...(VirtualListProps as VirtualListProps<T, C>)}

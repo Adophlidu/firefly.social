@@ -36,7 +36,7 @@ export function TableListInPage<T = unknown, C = unknown>({
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
 
-    const itemsRendered = useRef(false);
+    const itemsRenderedRef = useRef(false);
     const isLogin = useIsLogin(currentSocialSource);
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = queryResult;
@@ -62,15 +62,16 @@ export function TableListInPage<T = unknown, C = unknown>({
         () => (VirtualTableListProps?.components ?? EMPTY_OBJECT) as TableComponents<T, C>,
         [VirtualTableListProps?.components],
     );
+    const itemsRendered = itemsRenderedRef.current;
     const Context = useMemo(
         () => ({
             hasNextPage,
             fetchNextPage,
             isFetching,
-            itemsRendered: itemsRendered.current,
-            ...(VirtualTableListProps?.context ?? EMPTY_OBJECT),
+            itemsRendered,
+            ...VirtualTableListProps?.context,
         }),
-        [hasNextPage, fetchNextPage, isFetching, VirtualTableListProps?.context],
+        [hasNextPage, fetchNextPage, isFetching, itemsRendered, VirtualTableListProps?.context],
     );
 
     return (
@@ -81,7 +82,7 @@ export function TableListInPage<T = unknown, C = unknown>({
                 endReached={onEndReached}
                 {...VirtualTableListProps}
                 itemSize={(el: HTMLElement) => {
-                    if (!itemsRendered.current) itemsRendered.current = true;
+                    if (!itemsRenderedRef.current) itemsRenderedRef.current = true;
                     return el.getBoundingClientRect().height;
                 }}
                 context={Context as C}
