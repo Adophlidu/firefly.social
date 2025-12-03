@@ -34,8 +34,9 @@ export interface ClaimNativeTokenContext {
 }
 
 export interface ClaimSplTokenContext extends ClaimNativeTokenContext {
-    tokenMint: web3.PublicKey;
-    tokenProgram: web3.PublicKey;
+    tokenAddress: string;
+    chainId: number;
+    account: string;
 }
 
 interface RefundNativeTokenContext {

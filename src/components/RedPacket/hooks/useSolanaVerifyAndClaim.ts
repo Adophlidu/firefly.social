@@ -43,8 +43,7 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: S
             source,
             payload,
         });
-        if (!accountId || !signedMessage || (!isNativeToken && !payload.tokenProgram))
-            throw new Error('Invalid red packet');
+        if (!accountId || !signedMessage) throw new Error('Invalid red packet');
 
         const { data } = await recheckClaimStatus();
         if (data?.data && !data.data.canClaim) {
@@ -71,8 +70,9 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: S
                 message: signedMessage?.message,
                 publicKey: signedMessage?.publicKey,
                 accountId: new web3.PublicKey(accountId),
-                tokenMint: new web3.PublicKey(payload.token.address),
-                tokenProgram: new web3.PublicKey(payload.tokenProgram || ''),
+                account,
+                chainId: contextChainId,
+                tokenAddress: payload.token.address,
             });
         }
         if (!result) throw new Error('Failed to claim red packet');
