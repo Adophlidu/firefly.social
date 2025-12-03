@@ -86,6 +86,7 @@ export const SearchableTokenItem = memo(function SearchableTokenItem({
                 address={token.address}
                 icon={token.largeLogo}
                 disableBadge={isCex}
+                name={token.name}
             />
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-x-1 text-medium font-bold text-secondary">
