@@ -408,47 +408,69 @@
 }
 
 /* Dark mode support */
-.matters-article.dark > .markdown-body p,
-.matters-article.dark > .markdown-body h1,
-.matters-article.dark > .markdown-body h2,
-.matters-article.dark > .markdown-body h3,
-.matters-article.dark > .markdown-body h4,
-.matters-article.dark > .markdown-body h5 {
+.matters-article > .markdown-body.dark p,
+.matters-article > .markdown-body.dark h1,
+.matters-article > .markdown-body.dark h2,
+.matters-article > .markdown-body.dark h3,
+.matters-article > .markdown-body.dark h4,
+.matters-article > .markdown-body.dark h5 {
     color: #fafafa;
 }
 
-.matters-article.dark > .markdown-body h6 {
+.matters-article > .markdown-body.dark h6 {
     color: #c0bcbc;
 }
 
-.matters-article.dark > .markdown-body a {
+.matters-article > .markdown-body.dark a {
     color: #fafafa;
 }
 
-.matters-article.dark > .markdown-body a:hover,
-.matters-article.dark > .markdown-body a:active,
-.matters-article.dark > .markdown-body a:focus {
+.matters-article > .markdown-body.dark a:hover,
+.matters-article > .markdown-body.dark a:active,
+.matters-article > .markdown-body.dark a:focus {
     color: #77e1cd;
 }
 
-.matters-article.dark > .markdown-body blockquote {
+.matters-article > .markdown-body.dark blockquote {
     color: #c0bcbc;
 }
 
-.matters-article.dark > .markdown-body blockquote::before {
+.matters-article > .markdown-body.dark blockquote::before {
     background: #8b8b8b;
 }
 
-.matters-article.dark > .markdown-body code {
+.matters-article > .markdown-body.dark code {
     color: #fefefe;
     background-color: rgba(110, 118, 129, 0.4);
 }
 
-.matters-article.dark > .markdown-body pre {
+.matters-article > .markdown-body.dark pre {
     color: #fefefe;
     background-color: rgba(110, 118, 129, 0.4);
 }
 
-.matters-article.dark > .markdown-body pre code {
+.matters-article > .markdown-body.dark pre code {
     background-color: transparent;
+}
+
+/* HR dark mode */
+.matters-article > .markdown-body.dark hr::before {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0.25rem, transparent 0.25rem);
+}
+
+/* Figure caption dark mode */
+.matters-article > .markdown-body.dark figure figcaption {
+    color: #8b8b8b;
+}
+
+/* List dark mode */
+.matters-article > .markdown-body.dark ul,
+.matters-article > .markdown-body.dark ol,
+.matters-article > .markdown-body.dark li {
+    color: #fafafa;
+}
+
+/* Mention link dark mode */
+.matters-article > .markdown-body.dark a.mention {
+    color: #a0a0a0;
 }
