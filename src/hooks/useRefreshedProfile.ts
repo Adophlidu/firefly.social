@@ -29,11 +29,11 @@ export function useRefreshedProfile(profile: Profile, enabled = true) {
 }
 
 export function useRefreshedProfileInProfilePage(profile: Profile) {
-    const { refreshedSocialProfile } = use(ProfileContext);
+    const { refreshedSocialProfile, isRefreshing } = use(ProfileContext);
 
     if (refreshedSocialProfile && isSameProfile(refreshedSocialProfile, profile)) {
-        return refreshedSocialProfile;
+        return { profile: refreshedSocialProfile, isRefreshing };
     }
 
-    return profile;
+    return { profile, isRefreshing: false };
 }

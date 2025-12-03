@@ -29,7 +29,7 @@ interface InfoProps {
 export const PROFILE_ACTION_ID = 'profile-action';
 
 export function SocialProfileInfo(props: InfoProps) {
-    const profile = useRefreshedProfileInProfilePage(props.profile);
+    const { profile } = useRefreshedProfileInProfilePage(props.profile);
     const { data: highlighted } = useProfileHighlighted(props.profile);
 
     const { source, followerCount = 0, followingCount = 0 } = profile;

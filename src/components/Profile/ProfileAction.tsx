@@ -23,7 +23,7 @@ interface ProfileActionProps {
 }
 
 export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps }: ProfileActionProps) {
-    const profile = useRefreshedProfileInProfilePage(initialProfile);
+    const { profile, isRefreshing } = useRefreshedProfileInProfilePage(initialProfile);
     const profiles = useCurrentFireflyProfilesAll();
     const identity = resolveFireflyIdentity(profile);
     const isRelatedProfile = identity ? profiles.some((x) => isSameFireflyIdentity(x.identity, identity)) : false;
@@ -42,6 +42,8 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
         });
         if (isRelatedProfile)
             return <ProfileLoginStatus profile={profile} className={classNames(socialThemeClassName, 'z-1')} />;
+        if (isRefreshing) return null;
+
         return (
             <FollowButton
                 profile={profile}
@@ -55,7 +57,7 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
                 })}
             />
         );
-    }, [isEditableProfile, isMedium, isRelatedProfile, profile]);
+    }, [isEditableProfile, isMedium, isRelatedProfile, profile, isRefreshing]);
 
     return (
         <>
