@@ -17,7 +17,7 @@ export function DiscoverLoginRedirect() {
     const router = useRouter();
     const isLogin = useIsLoginDiscoverSource();
     const isLoginFirefly = useIsLoginFirefly();
-    const prevLoginRef = useRef<boolean>(null);
+    const prevLoginRef = useRef<boolean>(isLogin);
     const isSyncing = useAsyncStatusAll();
 
     useEffect(() => {
@@ -29,13 +29,18 @@ export function DiscoverLoginRedirect() {
 
         if (pathname && pathname === PageRoute.DiscoverActivities) return;
 
-        router.replace(
-            isLogin ? resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE) : resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE),
-            {
-                showProgress: false,
-                disableSameURL: true,
-            },
-        );
+        const timer = setTimeout(() => {
+            router.replace(
+                isLogin ? resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE) : resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE),
+                {
+                    showProgress: false,
+                    disableSameURL: true,
+                },
+            );
+        });
+        return () => {
+            clearTimeout(timer);
+        };
     }, [isLogin, router, isSyncing, isLoginFirefly]);
 
     return null;
