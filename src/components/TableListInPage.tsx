@@ -68,10 +68,10 @@ export function TableListInPage<T = unknown, C = unknown>({
             hasNextPage,
             fetchNextPage,
             isFetching,
-            itemsRendered,
+            itemsRendered: itemsRenderedRef.current,
             ...VirtualTableListProps?.context,
         }),
-        [hasNextPage, fetchNextPage, isFetching, itemsRendered, VirtualTableListProps?.context],
+        [hasNextPage, fetchNextPage, isFetching, VirtualTableListProps?.context],
     );
 
     return (

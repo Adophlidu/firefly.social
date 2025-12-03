@@ -95,10 +95,10 @@ export function ListInPage<T = unknown, C = unknown>({
             hasNextPage,
             fetchNextPage,
             isFetching,
-            itemsRendered,
+            itemsRendered: itemsRenderedRef.current,
             ...VirtualListProps?.context,
         }),
-        [hasNextPage, fetchNextPage, isFetching, itemsRendered, VirtualListProps?.context],
+        [hasNextPage, fetchNextPage, isFetching, VirtualListProps?.context],
     );
     const cachedState = listKey ? virtuosoState.cached[listKey] : undefined;
 

@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 import MessagesIcon from '@/assets/messages.svg';
 import { CommentsFooter, type CommentsFooterProps } from '@/components/Comments/CommentsFooter.js';
@@ -45,6 +45,14 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
         },
     });
 
+    const context = useMemo(
+        () => ({
+            postId,
+            source,
+        }),
+        [postId, source],
+    );
+
     return (
         <>
             <ListInPage<Post, CommentsFooterProps['context']>
@@ -56,10 +64,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                     computeItemKey: (index, post) => `${post.postId}-${index}`,
                     itemContent: (index, post) =>
                         getPostItemContent(index, post, `${ScrollListKey.Comment}:${postId}`, { isComment: true }),
-                    context: {
-                        postId,
-                        source,
-                    },
+                    context,
                     components: {
                         Footer: CommentsFooter,
                     },

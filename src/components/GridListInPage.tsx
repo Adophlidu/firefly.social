@@ -38,7 +38,7 @@ export function GridListInPage<T = unknown, C = unknown>({
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
 
-    const itemsRendered = useRef(true);
+    const itemsRenderedRef = useRef(true);
     const isLogin = useIsLogin(currentSocialSource);
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = queryResult;
@@ -63,7 +63,7 @@ export function GridListInPage<T = unknown, C = unknown>({
             hasNextPage,
             fetchNextPage,
             isFetching,
-            itemsRendered: itemsRendered.current,
+            itemsRendered: itemsRenderedRef.current,
             ...VirtualGridListProps?.context,
         }),
         [hasNextPage, fetchNextPage, isFetching, VirtualGridListProps?.context],
