@@ -3786,9 +3786,6 @@ msgstr "no less than {0}"
 msgid "Failed to vote.{0}"
 msgstr "Failed to vote.{0}"
 
-msgid "{viewCount, plural, one {view} other {views}}"
-msgstr "{viewCount, plural, one {view} other {views}}"
-
 msgid "Only people you follow"
 msgstr "Only people you follow"
 

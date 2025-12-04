@@ -19,7 +19,6 @@ import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { resolvePostEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     post: Post;
@@ -111,11 +110,6 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     onSetScrollIndex,
 }: Props) {
     const pathname = usePathname();
-    const publicationViews = useImpressionsStore.use.publicationViews();
-    const viewCount = useMemo(
-        () => publicationViews.find((x) => x.id === post.postId)?.views,
-        [publicationViews, post],
-    );
 
     const comments = post.stats?.comments ? (
         <data value={post.stats.comments}>
@@ -162,12 +156,6 @@ export const PostStatistics = memo<Props>(function PostStatistics({
             </data>
         </EngagementLink>
     ) : null;
-    const views = viewCount ? (
-        <data value={viewCount}>
-            <span className="mr-[2px] font-bold">{viewCount}</span>
-            <Plural value={viewCount} one="view" other="views" />
-        </data>
-    ) : null;
     const pollVotes = post.poll ? <PollVotes poll={post.poll} /> : null;
 
     const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
@@ -202,7 +190,6 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                   mirrors,
                   quotes,
                   collects,
-                  views,
                   pollVotes,
                   sendFrom && !hideSource ? (
                       <Trans>

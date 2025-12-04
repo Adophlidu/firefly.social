@@ -9,12 +9,11 @@ import { CommentsFooter, type CommentsFooterProps } from '@/components/Comments/
 import { HideComments } from '@/components/HideComments.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
+import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface CommentListProps {
     postId: string;
@@ -27,7 +26,6 @@ const CommentListComponents = {
 };
 
 export const CommentList = memo<CommentListProps>(function CommentList({ postId, source, excludePostIds = [] }) {
-    const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'comments', postId],
         queryFn: async ({ pageParam }) => {
@@ -36,10 +34,6 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
             const provider = resolveSocialMediaProvider(source);
             const comments = await provider.getCommentsById(postId, createIndicator(undefined, pageParam));
 
-            if (source === Source.Lens) {
-                const ids = comments.data.flatMap((x) => [x.postId]);
-                await fetchAndStoreViews(ids);
-            }
             return comments;
         },
         initialPageParam: '',

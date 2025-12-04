@@ -12,7 +12,6 @@ import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface FeedListProps {
     profileId: string;
@@ -20,8 +19,6 @@ interface FeedListProps {
 }
 
 export function FeedList({ profileId, source }: FeedListProps) {
-    const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
-
     const isLogin = useIsLogin(source);
     const { data: profile } = useSuspenseQuery({
         queryKey: ['profile-protected', source, profileId, isLogin],
@@ -50,10 +47,6 @@ export function FeedList({ profileId, source }: FeedListProps) {
             const pageIndicator = createIndicator(undefined, pageParam);
             const posts = await provider.getPostsByProfileId(profileId, pageIndicator);
 
-            if (source === Source.Lens) {
-                const ids = posts.data.map((x) => x.postId);
-                await fetchAndStoreViews(ids);
-            }
             return posts;
         },
         initialPageParam: '',

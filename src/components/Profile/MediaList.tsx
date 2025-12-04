@@ -8,7 +8,6 @@ import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface MediaListProps {
     profileId: string;
@@ -16,8 +15,6 @@ interface MediaListProps {
 }
 
 export function MediaList({ profileId, source }: MediaListProps) {
-    const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
-
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'posts-of', 'medias', profileId],
 
@@ -26,10 +23,6 @@ export function MediaList({ profileId, source }: MediaListProps) {
             const provider = resolveSocialMediaProvider(source, { [Source.Twitter]: 'nitter' });
             const posts = await provider.getMediaPostsByProfileId(profileId, createIndicator(undefined, pageParam));
 
-            if (source === Source.Lens) {
-                const ids = posts.data.flatMap((x) => [x.postId]);
-                await fetchAndStoreViews(ids);
-            }
             return posts;
         },
         initialPageParam: '',

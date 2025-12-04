@@ -10,7 +10,6 @@ import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface PostListProps {
     channel: Channel;
@@ -18,7 +17,6 @@ interface PostListProps {
 }
 
 export function PostList({ channel, source }: PostListProps) {
-    const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const channelId = channel.id;
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'posts-of', channelId],
@@ -29,10 +27,6 @@ export function PostList({ channel, source }: PostListProps) {
             const provider = resolveSocialMediaProvider(source);
             const posts = await provider.getPostsByChannelId(id, createIndicator(undefined, pageParam));
 
-            if (source === Source.Lens) {
-                const ids = posts.data.flatMap((x) => [x.postId]);
-                await fetchAndStoreViews(ids);
-            }
             return posts;
         },
         initialPageParam: '',

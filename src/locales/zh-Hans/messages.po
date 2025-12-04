@@ -3791,9 +3791,6 @@ msgstr "不少于 {0}"
 msgid "Failed to vote.{0}"
 msgstr "投票失败。 {0}"
 
-msgid "{viewCount, plural, one {view} other {views}}"
-msgstr "{viewCount, plural, one {查看} other {查看}}"
-
 msgid "Only people you follow"
 msgstr "只有你关注的人"
 
