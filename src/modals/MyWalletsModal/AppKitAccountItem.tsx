@@ -104,7 +104,7 @@ export function AppKitAccountItem({
                 <Image src={walletIcon.trim()} alt="" className="size-5 shrink-0 rounded" width={20} height={20} />
             ) : null}
             <span className="min-w-0 flex-1 truncate text-left">{ensName || formatAddress(address, 4)}</span>
-            {loading ? (
+            {rest.isLoading || loading ? (
                 <LoadingIcon size={20} />
             ) : connected ? (
                 <CircleCheckboxIcon size={20} checked />

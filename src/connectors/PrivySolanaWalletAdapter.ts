@@ -17,7 +17,7 @@ import type {
     TransactionOrVersionedTransaction,
 } from '@reown/appkit-adapter-solana';
 import {
-    BaseWalletAdapter,
+    BaseMessageSignerWalletAdapter,
     scopePollingDetectionStrategy,
     type SendTransactionOptions,
     type SupportedTransactionVersions,
@@ -41,7 +41,7 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 
 const PrivySolanaWalletName = 'Firefly Wallet' as WalletName<'Firefly Wallet'>;
 
-export class PrivySolanaWalletAdapter extends BaseWalletAdapter {
+export class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
     name = PrivySolanaWalletName;
     url = 'https://firefly.social/';
     icon = '/firefly.png';

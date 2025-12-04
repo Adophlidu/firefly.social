@@ -42,7 +42,7 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
     if (isLoadingAllConnections) return <div className="mb-2 h-[122px] w-full animate-pulse rounded-lg bg-bg" />;
     if (!isCreatedPrivyWallet) return null;
     const privyConnections = uniqBy(
-        walletAccounts.filter((x) => x.source === 'privy'),
+        allWalletConnections.filter((x) => x.source === ConnectionSource.Privy),
         (x) => `${x.source}${x.namespace}`,
     );
 
@@ -77,17 +77,21 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
                     const walletConnection = allWalletConnections.find((x) =>
                         isSameAddress(x.address, connection.address),
                     );
+                    const account = walletAccounts.find((x) => isSameAddress(x.address, walletConnection?.address));
                     const networkType = getAddressType(connection.address);
                     if (!networkType) return null;
                     return (
                         <AppKitAccountItem
-                            key={`privy-${connection.network}-${connection.address}`}
-                            {...connection}
-                            connected={!!walletConnection?.connected}
+                            key={`privy-${connection.namespace}-${connection.address}`}
+                            {...account}
+                            walletIcon={undefined}
+                            isLoading={loading}
+                            connected={!!connection?.connected}
                             namespace={resolveNamespace(networkType)}
                             address={connection.address}
                             source={ConnectionSource.Privy}
                             onOpenPrivy={onOpenPrivy}
+                            network={networkType}
                         />
                     );
                 })
@@ -101,7 +105,8 @@ interface ConnectedWalletsProps {
 }
 
 export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }: ConnectedWalletsProps) {
-    const walletAccounts = useAppKitAccounts().filter((x) => x.source === ConnectionSource.Appkit);
+    const walletAccounts = useAppKitAccounts();
+    const allWalletConnections = useWalletConnections().filter((x) => x.source === ConnectionSource.Appkit);
 
     const [{ loading }, openWallets] = useAsyncFn(async () => {
         appkit.updateRemoteFeatures({ multiWallet: true });
@@ -125,16 +130,19 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
                     </span>
                     {loading ? <LoadingIcon size={20} /> : <PlusIcon width={20} height={20} />}
                 </ClickableButton>
-                {!walletAccounts.length ? (
+                {!allWalletConnections.length ? (
                     <div className="flex h-20 items-center justify-center text-sm text-secondary">
                         <Trans>No connected wallet.</Trans>
                     </div>
                 ) : (
-                    walletAccounts.map((walletAccount) => {
+                    allWalletConnections.map((connection) => {
+                        const walletAccount = walletAccounts.find((x) => isSameAddress(x.address, connection.address));
+                        if (!walletAccount) return null;
                         return (
                             <AppKitAccountItem
                                 key={`appkit-${walletAccount.network}-${walletAccount.address}`}
                                 {...walletAccount}
+                                connected={connection.connected}
                             />
                         );
                     })

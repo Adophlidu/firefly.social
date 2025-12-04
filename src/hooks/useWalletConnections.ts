@@ -115,7 +115,7 @@ export function useWalletConnections() {
                           namespace: 'solana' as ChainNamespace,
                           connected: isSameAddress(privySolanaAddress, solanaAccount.address),
                           connector: undefined,
-                          walletIcon: solanaWalletIcon,
+                          walletIcon: '/firefly.png',
                           source: ConnectionSource.Privy,
                       }
                     : null,

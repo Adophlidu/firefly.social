@@ -2,7 +2,6 @@
 
 import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { useRouter } from 'next/navigation.js';
 import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -19,11 +18,11 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { captureFireflyWalletEvent } from '@/providers/telemetry/captureFireflyWalletEvent.js';
 import { type WalletProfile, WalletProfileDataSource } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function WalletActions({ profile }: { profile: WalletProfile }) {
     const isMyWallets = useIsMyRelatedProfile(Source.Wallet, profile.address);
     const isMedium = useIsMedium();
-    const router = useRouter();
 
     if (isMyWallets && isMPCWallet(profile)) {
         const type = isValidAddressEthereum(profile.address)
@@ -45,7 +44,7 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
                             openWindow(urlcat(SITE_URL, '/particle-recovery', { type }));
                             break;
                         case WalletProfileDataSource.Privy:
-                            router.push('/wallet');
+                            useGlobalState.getState().updateFireflyWalletIsOpen(true);
                             break;
                         default:
                             safeUnreachable(profile.dataSource);
