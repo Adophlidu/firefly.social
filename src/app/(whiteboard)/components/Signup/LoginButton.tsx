@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import AddIcon from '@/assets/add-small.svg';
 import OtherIcon from '@/assets/other.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import type { SocialSource } from '@/constants/enum.js';
+import {type SocialSource } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 

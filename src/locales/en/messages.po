@@ -580,9 +580,6 @@ msgstr "The minimum amount for each share is {0} {1}"
 msgid "ACTIVITY"
 msgstr "ACTIVITY"
 
-msgid "Trending Channels"
-msgstr "Trending Channels"
-
 msgid "Adding..."
 msgstr "Adding..."
 
@@ -3850,6 +3847,9 @@ msgstr "This token can self destruct."
 #. placeholder {0}: percentageToNumber(info.buy_tax)
 msgid "Buy Tax: {0}%"
 msgstr "Buy Tax: {0}%"
+
+msgid "Trending Clubs"
+msgstr "Trending Clubs"
 
 #. placeholder {0}: post.mirrors.find((profile) => !isSameProfile(profile, currentProfile)) ?.displayName
 msgid "<0>You</0> and {0} recasted"

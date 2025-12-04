@@ -56,6 +56,7 @@ function Title() {
 
 export function FarcasterView() {
     const { signType, isLoading } = useSignType();
+
     if (isLoading) {
         return (
             <div className="box-border flex flex-col rounded-xl p-6 pt-0 md:w-[500px]">

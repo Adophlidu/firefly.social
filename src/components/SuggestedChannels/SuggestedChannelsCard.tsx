@@ -46,7 +46,7 @@ export function SuggestedChannelsCard() {
     return (
         <section>
             <AsideTitle
-                caption={<Trans>Trending Channels</Trans>}
+                caption={<Trans>Trending Clubs</Trans>}
                 more={
                     <Link className="text-medium text-highlight" href={resolveExploreUrl(ExploreType.TopChannels)}>
                         <Trans>More</Trans>

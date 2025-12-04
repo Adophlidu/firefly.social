@@ -12,7 +12,7 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -86,7 +86,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                 })}
                 onClick={() => {
                     if (isDisabled) {
-                        enqueueErrorMessage(<Trans>Cannot choose due to account mismatch.</Trans>);
+                        enqueueWarningMessage(<Trans>Cannot choose due to account mismatch.</Trans>);
                         return;
                     }
 

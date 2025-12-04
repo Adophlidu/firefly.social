@@ -71,6 +71,7 @@ export const Modals = memo(function Modals() {
             <PasswordModal ref={PasswordModalRef.register} />
             <ConfirmSyncSessionModal ref={ConfirmSyncSessionModalRef.register} />
             <AddLensManagerModal ref={AddLensManagerModalRef.register} />
+            <DraggablePopover ref={DraggablePopoverRef.register} />
 
             <IfPathname isNotOneOf={WHITEBOARD_ROUTES}>
                 <AddCustomERC20Modal ref={AddCustomERC20ModalRef.register} />
@@ -80,7 +81,6 @@ export const Modals = memo(function Modals() {
                 <CollectPostModal ref={CollectPostModalRef.register} />
                 <ConfirmLeavingModal ref={ConfirmLeavingModalRef.register} />
                 <CreateFireflyAccountGuideModal ref={CreateFireflyAccountGuideModalRef.register} />
-                <DraggablePopover ref={DraggablePopoverRef.register} />
                 <EditFireflyProfileModal ref={EditFireflyProfileModalRef.register} />
                 <FrameViewerModal ref={FrameViewerModalRef.register} />
                 <MyWalletsModal ref={MyWalletsModalRef.register} />

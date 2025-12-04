@@ -51,27 +51,33 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
         useComposeStateStore();
     const { availableSources, images, isAnonymous } = useCompositePost();
 
-    const [{ loading }, login] = useAsyncFn(async (account: Account) => {
-        try {
-            await switchAccount(account);
-            enqueueSuccessMessage(
-                <Trans>Your {resolveSourceName(account.profile.source)} account is now connected.</Trans>,
-            );
-        } catch (error) {
-            if (error instanceof SessionExpiredError) {
-                dispatchCustomEvent(EVENT_SOCIAL_ACCOUNT_EXPIRED, {
-                    account,
-                    removeFromStore: true,
-                });
+    const [{ loading }, login] = useAsyncFn(
+        async (account: Account) => {
+            try {
+                await switchAccount(account);
+                if (!availableSources.includes(account.profile.source)) {
+                    enableSource(account.profile.source);
+                }
+                enqueueSuccessMessage(
+                    <Trans>Your {resolveSourceName(account.profile.source)} account is now connected.</Trans>,
+                );
+            } catch (error) {
+                if (error instanceof SessionExpiredError) {
+                    dispatchCustomEvent(EVENT_SOCIAL_ACCOUNT_EXPIRED, {
+                        account,
+                        removeFromStore: true,
+                    });
 
-                enqueueWarningMessage(<Trans>This account has expired, please log in again.</Trans>);
-                return;
+                    enqueueWarningMessage(<Trans>This account has expired, please log in again.</Trans>);
+                    return;
+                }
+
+                enqueueMessageFromError(error, <Trans>Failed to sign in.</Trans>);
+                throw error;
             }
-
-            enqueueMessageFromError(error, <Trans>Failed to sign in.</Trans>);
-            throw error;
-        }
-    }, []);
+        },
+        [availableSources],
+    );
 
     const toggleSource = useCallback(
         (profile: Profile) => {

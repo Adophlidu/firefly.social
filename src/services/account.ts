@@ -43,6 +43,7 @@ import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 import { downloadAccounts } from '@/services/metrics.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
+import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
@@ -591,6 +592,8 @@ export async function removeCurrentAccount(source: SocialSource) {
 }
 
 export async function removeAllAccounts() {
+    const { removeAllDrafts } = useComposeDraftStateStore();
+
     const allAccounts = SORTED_SOCIAL_SOURCES.flatMap((x) => getProfileState(x).accounts);
 
     await Promise.all(
@@ -626,6 +629,9 @@ export async function removeAllAccounts() {
     );
 
     await removeFireflyAccountIfNeeded();
+
+    // clear all drafts after logout
+    removeAllDrafts();
 
     captureAccountLogoutAllEvent(allAccounts);
 }

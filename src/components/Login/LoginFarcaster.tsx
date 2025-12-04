@@ -256,6 +256,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
 
     useMount(() => {
         if (loadingByGrantPermission || loadingByRelayService || loadingBySponsorship) return;
+
         if (IS_MOBILE_DEVICE && !signType) {
             DraggablePopoverRef.open({
                 content: (
@@ -293,8 +294,9 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                     </div>
                 ),
             });
+        } else {
+            onClick(signType);
         }
-        onClick(signType);
     });
 
     useUnmount(() => {

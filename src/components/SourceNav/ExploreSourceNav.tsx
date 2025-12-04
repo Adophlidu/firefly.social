@@ -66,7 +66,7 @@ export const ExploreSourceNav = memo<Props>(function ExploreSourceNav({ explore,
     const customNameResolver = useMemo(
         () => (src: ExploreSource) => {
             if (explore === ExploreType.TopChannels && src === Source.Lens) {
-                return 'Orb';
+                return 'Lens';
             }
             return resolveExploreSourceName(src);
         },

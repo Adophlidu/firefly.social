@@ -21,6 +21,7 @@ const ProfileSchema = z
             z.literal(Source.Bsky),
         ]),
         status: z.union([z.literal(ProfileStatus.Active), z.literal(ProfileStatus.Inactive)]),
+        handle: z.string().nullable(),
     })
     .transform((v) => v as Profile);
 

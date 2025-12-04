@@ -26,6 +26,7 @@ interface ComposeDraftState {
     drafts: Draft[];
     addDraft: (draft: Draft) => void;
     removeDraft: (id: string) => void;
+    removeAllDrafts: () => void;
 }
 
 const useComposeStateBase = create<ComposeDraftState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
@@ -48,6 +49,11 @@ const useComposeStateBase = create<ComposeDraftState, [['zustand/persist', unkno
             removeDraft: (draftId: string) => {
                 set((state) => {
                     state.drafts = state.drafts.filter((x) => x.draftId !== draftId);
+                });
+            },
+            removeAllDrafts: () => {
+                set((state) => {
+                    state.drafts = [];
                 });
             },
         })),

@@ -585,9 +585,6 @@ msgstr ""
 msgid "ACTIVITY"
 msgstr ""
 
-msgid "Trending Channels"
-msgstr ""
-
 msgid "Adding..."
 msgstr ""
 
@@ -3854,6 +3851,9 @@ msgstr ""
 
 #. placeholder {0}: percentageToNumber(info.buy_tax)
 msgid "Buy Tax: {0}%"
+msgstr ""
+
+msgid "Trending Clubs"
 msgstr ""
 
 #. placeholder {0}: post.mirrors.find((profile) => !isSameProfile(profile, currentProfile)) ?.displayName

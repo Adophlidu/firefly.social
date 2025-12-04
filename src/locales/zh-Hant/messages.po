@@ -585,9 +585,6 @@ msgstr "每份最低數額為 {0} {1}"
 msgid "ACTIVITY"
 msgstr ""
 
-msgid "Trending Channels"
-msgstr "熱門群組"
-
 msgid "Adding..."
 msgstr "新增中..."
 
@@ -3855,6 +3852,9 @@ msgstr "此代幣具備自毀功能。"
 #. placeholder {0}: percentageToNumber(info.buy_tax)
 msgid "Buy Tax: {0}%"
 msgstr "買入稅：{0}%"
+
+msgid "Trending Clubs"
+msgstr ""
 
 #. placeholder {0}: post.mirrors.find((profile) => !isSameProfile(profile, currentProfile)) ?.displayName
 msgid "<0>You</0> and {0} recasted"
