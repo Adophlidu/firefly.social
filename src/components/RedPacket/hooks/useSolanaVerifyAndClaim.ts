@@ -37,13 +37,6 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: S
         }
 
         if (!payload.token) throw new Error('Token is missing');
-        const signedMessage = await signClaimMessage({
-            contextChainId,
-            account,
-            source,
-            payload,
-        });
-        if (!accountId || !signedMessage) throw new Error('Invalid red packet');
 
         const { data } = await recheckClaimStatus();
         if (data?.data && !data.data.canClaim) {
@@ -52,6 +45,14 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: S
             else enqueueErrorMessage(t`You are not eligible to claim this red packet`);
             return { canClaim: false };
         }
+
+        const signedMessage = await signClaimMessage({
+            contextChainId,
+            account,
+            source,
+            payload,
+        });
+        if (!accountId || !signedMessage) throw new Error('Invalid red packet');
 
         let result: {
             accountId: web3.PublicKey;
@@ -77,10 +78,17 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: S
         }
         if (!result) throw new Error('Failed to claim red packet');
 
-        await queryClient.refetchQueries({
-            queryKey: ['red-packet', 'solana-availability', payload.rpid, account],
-        });
-
+        await Promise.allSettled([
+            queryClient.refetchQueries({
+                queryKey: ['red-packet', 'parse', source],
+            }),
+            queryClient.refetchQueries({
+                queryKey: ['red-packet', 'claim', payload.rpid],
+            }),
+            queryClient.refetchQueries({
+                queryKey: ['red-packet', 'solana-availability', payload.rpid, account],
+            }),
+        ]);
         const claimedRecord = await getClaimedRecord(new web3.PublicKey(accountId), new web3.PublicKey(account));
         const amount = formatBalance(claimedRecord?.amount.toString() || '0', payload.token.decimals);
 

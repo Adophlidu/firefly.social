@@ -6,7 +6,7 @@ import type { CreateRedPacketContext } from '@/providers/ethereum/red-packet/typ
 export function useSolanaDefaultGas(context: CreateRedPacketContext, enabled = true) {
     return useQuery({
         enabled,
-        queryKey: ['red-packet', 'create-gas', context.chainId, context.creator, JSON.stringify(context), enabled],
+        queryKey: ['red-packet', 'create-gas', context.chainId, context.creator, enabled],
         queryFn: () => {
             return ZERO;
         },

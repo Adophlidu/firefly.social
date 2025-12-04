@@ -20,12 +20,18 @@ export const GET = compose(
         const { tweetId } = await getParamsWithZodSchema(ParamsSchema, context);
         const { cursor, limit } = getSearchParamsWithZodSchema(request, Pageable);
 
-        const client = await createAppOnlyTwitterClientV2();
-        const { data, errors } = await client.v2.searchAll(`in_reply_to_tweet_id:${tweetId}`, {
+        const params = {
             ...TWITTER_TIMELINE_OPTIONS,
-            next_token: cursor,
             max_results: limit,
-        });
+        };
+
+        const client = await createAppOnlyTwitterClientV2();
+
+        if (cursor) {
+            params.next_token = cursor;
+        }
+
+        const { data, errors } = await client.v2.searchAll(`in_reply_to_tweet_id:${tweetId}`, params);
         if (errors?.length) console.error('[twitter] v2.search', errors);
 
         return createSuccessResponseJson({

@@ -9,7 +9,7 @@ export function resolvePlatformProfileUrl(platform: FireflyRedPacketAPI.Platform
         case FireflyRedPacketAPI.PlatformType.Lens:
             return `/profile/lens/${handle}`;
         case FireflyRedPacketAPI.PlatformType.Twitter:
-            return `/profile/twitter/${handle}`;
+            return `/profile/x/${handle}`;
         case FireflyRedPacketAPI.PlatformType.Bsky:
             return `/profile/bsky/${handle}`;
 
