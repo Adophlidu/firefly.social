@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 
 import { sentryClient } from '@/configs/sentryClient.js';
 import { AsyncStatus } from '@/constants/enum.js';
-import { BskySessionExpiredError, FetchError } from '@/constants/error.js';
+import { FetchError, SessionExpiredError } from '@/constants/error.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
@@ -92,7 +92,7 @@ const state = createProfileState(
                 if (error instanceof FetchError) return;
                 console.warn('[bsky store] clean the local store because of the error', error);
 
-                const clearSession = error instanceof BskySessionExpiredError;
+                const clearSession = error instanceof SessionExpiredError;
                 if (clearSession) {
                     removeBskySessionStorage(bskySession.did);
                 }

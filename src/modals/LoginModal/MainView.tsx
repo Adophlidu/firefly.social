@@ -27,7 +27,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { PageRoute, PasswordWorkflow, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
-import { TokenExpiredError } from '@/constants/error.js';
+import { SessionExpiredError } from '@/constants/error.js';
 import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@/constants/index.js';
 import { usePathname, useRouter as useNextRouter } from '@/esm/navigation.js';
@@ -373,7 +373,7 @@ export function MainView() {
 
                 enqueueSuccessMessage(<Trans>Switch Done!</Trans>);
             } catch (error) {
-                if (error instanceof TokenExpiredError) {
+                if (error instanceof SessionExpiredError) {
                     dispatchCustomEvent(EVENT_SOCIAL_ACCOUNT_EXPIRED, {
                         account,
                         removeFromStore: true,

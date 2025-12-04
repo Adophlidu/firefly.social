@@ -2,7 +2,8 @@ import { type AtpSessionData } from '@atproto/api';
 import { getPdsEndpoint, isValidDidDoc } from '@atproto/common-web';
 import { parseUrl } from '@dimensiondev/utils';
 
-import { BskySessionExpiredError } from '@/constants/error.js';
+import { Source } from '@/constants/enum.js';
+import { SessionExpiredError } from '@/constants/error.js';
 import { createBskyAgent } from '@/providers/bsky/createBskyAgent.js';
 import { isBskyTokenExpired } from '@/providers/bsky/isBskyTokenExpired.js';
 import { retryOnBskyWhenNetworkError } from '@/providers/bsky/retryOnBskyWhenNetworkError.js';
@@ -35,7 +36,7 @@ export async function createBskyAgentAndResume(session: BskySession) {
             );
         }
     } catch (e) {
-        if (!prevSession.refreshJwt) throw new BskySessionExpiredError('no refresh token found');
+        if (!prevSession.refreshJwt) throw new SessionExpiredError(Source.Bsky, 'no refresh token found');
 
         try {
             /**
@@ -65,7 +66,7 @@ export async function createBskyAgentAndResume(session: BskySession) {
                 'error' in err &&
                 ['ExpiredToken', 'InvalidToken'].includes(err.error as string)
             ) {
-                throw new BskySessionExpiredError(`${err.error}-${err.message}`);
+                throw new SessionExpiredError(Source.Bsky, `${err.error}-${err.message}`);
             }
 
             throw err;

@@ -1,7 +1,8 @@
 import { parseJson } from '@dimensiondev/utils';
 
-import type { ProfileSource } from '@/constants/enum.js';
+import type { ProfileSource, SocialSource } from '@/constants/enum.js';
 import { parseHtml } from '@/helpers/parseHtml.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 export class AbortError extends Error {
     override name = 'AbortError';
@@ -281,27 +282,11 @@ export class LoginEmailError extends Error {
     }
 }
 
-export class BskySessionExpiredError extends Error {
-    override name = 'BskySessionExpiredError';
-
-    constructor(message?: string) {
-        super(message ?? 'Bsky session expired.');
-    }
-}
-
 export class InvalidAddressError extends Error {
     override name = 'InvalidAddressError';
 
     constructor(address: string, message?: string) {
         super(message ?? `Invalid EVM address: ${address}.`);
-    }
-}
-
-export class TokenExpiredError extends Error {
-    override name = 'TokenExpiredError';
-
-    constructor(message?: string) {
-        super(message ?? 'Token has been expired.');
     }
 }
 
@@ -368,5 +353,16 @@ export class NftScanError extends Error {
 
     constructor(message?: string) {
         super(message ?? 'NftScan error.');
+    }
+}
+
+export class SessionExpiredError extends Error {
+    override name = 'SessionExpiredError';
+
+    constructor(
+        public source: SocialSource,
+        message?: string,
+    ) {
+        super(message ?? `${resolveSourceName(source)} session has been expired.`);
     }
 }

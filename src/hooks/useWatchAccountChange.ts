@@ -5,10 +5,8 @@ import { PageRoute } from '@/constants/enum.js';
 import { EVENT_FORBIDDEN, EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { listenCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { enqueueForbiddenMessage } from '@/helpers/enqueueMessage.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { removeAllAccounts } from '@/services/account.js';
-import { deleteMetricsByLocalPassword } from '@/services/deleteMetricsByLocalPassword.js';
+import { removeAccountByProfileId, removeAllAccounts, removeCurrentAccount } from '@/services/account.js';
 
 export function useWatchAccountChange() {
     const isForbiddenErrorRef = useRef(false);
@@ -36,12 +34,13 @@ export function useWatchAccountChange() {
         listenCustomEvent(
             EVENT_SOCIAL_ACCOUNT_EXPIRED,
             async (e) => {
-                const { account, removeFromStore } = e.detail;
-                if (removeFromStore) {
-                    const state = getProfileState(account.profile.profileSource);
-                    state.removeAccount(account);
+                const { account, removeFromStore, source } = e.detail;
+                if (!removeFromStore) return;
+                if (account) {
+                    await removeAccountByProfileId(account.profile.profileSource, account.profile.profileId);
+                } else if (source) {
+                    await removeCurrentAccount(source);
                 }
-                await deleteMetricsByLocalPassword(account);
             },
             { signal: abortController.signal },
         );

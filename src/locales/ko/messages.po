@@ -359,6 +359,10 @@ msgstr ""
 msgid "Translate post"
 msgstr ""
 
+#. placeholder {0}: resolveSourcesName(failedAt, '/')
+msgid "Your {0} login token has expired. Please sign in again."
+msgstr ""
+
 msgid "Free"
 msgstr ""
 

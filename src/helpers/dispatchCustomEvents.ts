@@ -1,11 +1,12 @@
 import { bom } from '@dimensiondev/utils';
 
+import type { SocialSource } from '@/constants/enum.js';
 import type { EVENT_FORBIDDEN, EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import type { Account } from '@/providers/types/Account.js';
 
 interface CustomEvents {
     [EVENT_FORBIDDEN]: void;
-    [EVENT_SOCIAL_ACCOUNT_EXPIRED]: { account: Account; removeFromStore?: boolean };
+    [EVENT_SOCIAL_ACCOUNT_EXPIRED]: { account?: Account; removeFromStore?: boolean; source?: SocialSource };
 }
 
 export function dispatchCustomEvent<K extends keyof CustomEvents>(

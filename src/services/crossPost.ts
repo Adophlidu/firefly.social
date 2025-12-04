@@ -5,14 +5,23 @@ import { compact, difference, first } from 'lodash-es';
 import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { SessionExpiredError } from '@/constants/error.js';
+import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
-import { enqueueErrorsMessage, enqueueSuccessMessage, MessageKey } from '@/helpers/enqueueMessage.js';
+import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
+import {
+    enqueueErrorsMessage,
+    enqueueSuccessMessage,
+    enqueueWarningMessage,
+    MessageKey,
+} from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getPostFailedAt } from '@/helpers/getPostFailedAt.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
@@ -154,7 +163,7 @@ export async function crossPost(
         signal,
     }: CrossPostOptions = {},
 ) {
-    const { updatePostInThread, updatePollId } = useComposeStateStore.getState();
+    const { updatePostInThread, updatePollId, disableSource } = useComposeStateStore.getState();
     const { availableSources, poll } = compositePost;
     let pollId = '';
 
@@ -237,14 +246,28 @@ export async function crossPost(
                     enqueueSuccessMessage(t`Your post was sent to ${resolveSourceName(x)}.`);
                 }
             });
-            enqueueErrorsMessage(
-                t`Your post failed to send to ${resolveSourcesName(failedAt, '/')}. Click 'Retry' to attempt posting again.`,
-                {
-                    errors: compact(allErrors),
-                    key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY,
-                    persist: true,
-                },
-            );
+            const expiredSources = allErrors.filter((x) => x instanceof SessionExpiredError).map((x) => x.source);
+            if (expiredSources.length) {
+                expiredSources.forEach((x) => {
+                    dispatchCustomEvent(EVENT_SOCIAL_ACCOUNT_EXPIRED, { source: x });
+                    const { accounts } = getProfileState(x);
+                    if (accounts.length <= 1) {
+                        disableSource(x);
+                    }
+                });
+                enqueueWarningMessage(
+                    t`Your ${resolveSourcesName(failedAt, '/')} login token has expired. Please sign in again.`,
+                );
+            } else {
+                enqueueErrorsMessage(
+                    t`Your post failed to send to ${resolveSourcesName(failedAt, '/')}. Click 'Retry' to attempt posting again.`,
+                    {
+                        errors: compact(allErrors),
+                        key: MessageKey.COMPOSE_ERROR_NOTIFICATION_KEY,
+                        persist: true,
+                    },
+                );
+            }
         } else {
             if (availableSources.length === 1) {
                 const target = first(availableSources);

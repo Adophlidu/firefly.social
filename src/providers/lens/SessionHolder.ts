@@ -1,7 +1,8 @@
 import { InvariantError } from '@lens-protocol/client';
 import { refresh } from '@lens-protocol/client/actions';
 
-import { TokenExpiredError } from '@/constants/error.js';
+import { Source } from '@/constants/enum.js';
+import { SessionExpiredError } from '@/constants/error.js';
 import { LENS_TOKEN_STORAGE_KEY } from '@/constants/index.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
@@ -39,7 +40,7 @@ class LensSessionHolder extends SessionHolder<LensSession> {
             const refreshedCredentials = refreshedCredentialsResult.value;
             if (refreshedCredentials.__typename === 'ForbiddenError') {
                 // revoked or expired
-                throw new TokenExpiredError('ForbiddenError');
+                throw new SessionExpiredError(Source.Lens, 'ForbiddenError');
             }
 
             updateCredentialsStorage(refreshedCredentials);
@@ -51,7 +52,7 @@ class LensSessionHolder extends SessionHolder<LensSession> {
             return session;
         } catch (error) {
             if (error instanceof InvariantError && error.message?.includes('ExpiredSignature')) {
-                throw new TokenExpiredError();
+                throw new SessionExpiredError(Source.Lens);
             }
             throw error;
         }
@@ -79,7 +80,7 @@ class LensSessionHolder extends SessionHolder<LensSession> {
                     const refreshedCredentials = refreshedCredentialsResult.value;
                     if (refreshedCredentials.__typename === 'ForbiddenError') {
                         // revoked or expired
-                        throw new TokenExpiredError('ForbiddenError');
+                        throw new SessionExpiredError(Source.Lens, 'ForbiddenError');
                     }
                     updateCredentialsStorage(refreshedCredentials);
                     const sessionClient = await ensureLensResult(lensClientHolder.client.resumeSession());
@@ -106,7 +107,7 @@ class LensSessionHolder extends SessionHolder<LensSession> {
             }
 
             if (error instanceof InvariantError && error.message?.includes('ExpiredSignature')) {
-                throw new TokenExpiredError();
+                throw new SessionExpiredError(Source.Lens);
             }
             throw error;
         }

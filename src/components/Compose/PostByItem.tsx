@@ -12,7 +12,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
-import { TokenExpiredError } from '@/constants/error.js';
+import { SessionExpiredError } from '@/constants/error.js';
 import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { ENABLED_REPLY_SETTINGS_POST_SOURCES } from '@/constants/index.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
@@ -58,7 +58,7 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
                 <Trans>Your {resolveSourceName(account.profile.source)} account is now connected.</Trans>,
             );
         } catch (error) {
-            if (error instanceof TokenExpiredError) {
+            if (error instanceof SessionExpiredError) {
                 dispatchCustomEvent(EVENT_SOCIAL_ACCOUNT_EXPIRED, {
                     account,
                     removeFromStore: true,

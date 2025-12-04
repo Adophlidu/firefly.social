@@ -7,7 +7,7 @@ import { sha256, toHex } from 'viem';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { TokenExpiredError } from '@/constants/error.js';
+import { SessionExpiredError } from '@/constants/error.js';
 import { SEVEN_DAYS } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -273,7 +273,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                     try {
                         await lensSessionHolder.resumeSession(session, true);
                     } catch (error) {
-                        if (error instanceof TokenExpiredError) {
+                        if (error instanceof SessionExpiredError) {
                             continue;
                         }
                         throw error;
