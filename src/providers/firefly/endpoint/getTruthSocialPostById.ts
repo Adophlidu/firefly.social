@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { formatPostsFromTruthSocial } from '@/helpers/formatPostsFromTruthSocial.js';
@@ -11,7 +12,7 @@ export async function getTruthSocialPostById(truthId: string): Promise<Post | nu
         truth_id: truthId,
     });
     const response = await fireflySessionHolder.fetch<TruthSocialPostResponse>(url);
-    if (!response.data) return null;
+    if (!response.data || isEmpty(response.data)) return null;
 
     return formatPostsFromTruthSocial(response.data);
 }
