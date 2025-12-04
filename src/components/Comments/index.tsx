@@ -22,6 +22,10 @@ interface CommentListProps {
     excludePostIds?: string[];
 }
 
+const CommentListComponents = {
+    Footer: CommentsFooter,
+};
+
 export const CommentList = memo<CommentListProps>(function CommentList({ postId, source, excludePostIds = [] }) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const queryResult = useSuspenseInfiniteQuery({
@@ -65,9 +69,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                     itemContent: (index, post) =>
                         getPostItemContent(index, post, `${ScrollListKey.Comment}:${postId}`, { isComment: true }),
                     context,
-                    components: {
-                        Footer: CommentsFooter,
-                    },
+                    components: CommentListComponents,
                 }}
                 NoResultsFallbackProps={{
                     icon: <MessagesIcon width={24} height={24} />,

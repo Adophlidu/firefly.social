@@ -31,6 +31,10 @@ function ListHeader() {
     );
 }
 
+const TokenBookmarkListComponents = {
+    Header: ListHeader,
+};
+
 export function TokenBookmarkList() {
     const isLogin = useIsLogin();
     const profileIds = useCurrentProfileIds();
@@ -67,9 +71,7 @@ export function TokenBookmarkList() {
                 itemContent: (_, item) => {
                     return getTokenItemContent(item);
                 },
-                components: {
-                    Header: ListHeader,
-                },
+                components: TokenBookmarkListComponents,
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

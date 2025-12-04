@@ -35,6 +35,11 @@ function GridItem({ children, ...props }: GridItemProps) {
     return <div {...props}>{children}</div>;
 }
 
+const TenorGifListComponents = {
+    List: GridList,
+    Item: GridItem,
+};
+
 interface TenorGifListProps {
     keyword: string;
     onSelected: (gif: IGif) => void;
@@ -69,7 +74,7 @@ export function TenorGifList({ keyword, onSelected }: TenorGifListProps) {
             VirtualGridListProps={{
                 useWindowScroll: false,
                 className: 'no-scrollbar',
-                components: { List: GridList, Item: GridItem },
+                components: TenorGifListComponents,
                 itemContent: (_, item) => {
                     return getItemContent(item, onSelected);
                 },

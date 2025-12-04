@@ -74,6 +74,11 @@ function GridItem({ children, ...props }: GridItemProps) {
     return <div {...props}>{children}</div>;
 }
 
+const NFTBookmarkListComponents = {
+    List: GridList,
+    Item: GridItem,
+};
+
 function NFTBookmarkListContent() {
     const profileIds = useCurrentProfileIds();
 
@@ -99,10 +104,7 @@ function NFTBookmarkListContent() {
         <GridListInPage
             queryResult={queryResult}
             VirtualGridListProps={{
-                components: {
-                    List: GridList,
-                    Item: GridItem,
-                },
+                components: NFTBookmarkListComponents,
                 itemContent: (index, item) => getNFTItemContent(item.id, item.nft),
             }}
             NoResultsFallbackProps={{

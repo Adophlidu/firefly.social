@@ -21,6 +21,36 @@ interface TopCollectorsProps {
     address: string;
 }
 
+function TopCollectorsTable(props: React.HTMLAttributes<HTMLTableElement>) {
+    return <table className="w-full table-fixed px-3" {...props} />;
+}
+
+function TopCollectorsTableRow(props: React.HTMLAttributes<HTMLTableRowElement>) {
+    return <tr className="text-center text-base font-normal leading-[30px]" {...props} />;
+}
+
+function TopCollectorsFixedHeader() {
+    return (
+        <tr className="text-medium font-bold leading-6">
+            <th className="w-10 pb-2 pr-2 text-left">#</th>
+            <th className="px-2 pb-2 text-left">
+                <Trans>Address</Trans>
+            </th>
+            <th className={'w-[80px] pb-2 pl-2 text-right lg:pr-2 lg:text-center'}>
+                <Trans>Owned</Trans>
+            </th>
+            <th className="hidden w-[80px] whitespace-nowrap pb-2 pl-2 text-right lg:table-cell">
+                <Trans>%Owned</Trans>
+            </th>
+        </tr>
+    );
+}
+
+const TopCollectorsComponents = {
+    Table: TopCollectorsTable,
+    TableRow: TopCollectorsTableRow,
+};
+
 function getTopCollectorsItemContent(index: number, item: CollectionHolder) {
     const addressOrEns = item.address;
     const profileLink =
@@ -76,29 +106,8 @@ export function TopCollectors(props: TopCollectorsProps) {
         <TableListInPage
             queryResult={queryResult}
             VirtualTableListProps={{
-                components: {
-                    // eslint-disable-next-line react/no-unstable-nested-components
-                    Table: (props) => <table className="w-full table-fixed px-3" {...props} />,
-                    // eslint-disable-next-line react/no-unstable-nested-components
-                    TableRow: (props) => <tr className="text-center text-base font-normal leading-[30px]" {...props} />,
-                },
-                // eslint-disable-next-line react/no-unstable-nested-components
-                fixedHeaderContent: () => {
-                    return (
-                        <tr className="text-medium font-bold leading-6">
-                            <th className="w-10 pb-2 pr-2 text-left">#</th>
-                            <th className="px-2 pb-2 text-left">
-                                <Trans>Address</Trans>
-                            </th>
-                            <th className={'w-[80px] pb-2 pl-2 text-right lg:pr-2 lg:text-center'}>
-                                <Trans>Owned</Trans>
-                            </th>
-                            <th className="hidden w-[80px] whitespace-nowrap pb-2 pl-2 text-right lg:table-cell">
-                                <Trans>%Owned</Trans>
-                            </th>
-                        </tr>
-                    );
-                },
+                components: TopCollectorsComponents,
+                fixedHeaderContent: TopCollectorsFixedHeader,
                 key: `${ScrollListKey.TopCollectors}:${address}:${chainId}`,
                 computeItemKey: (index, item) => `${item.address}-${item.address}-${index}`,
                 itemContent: (index, item) => getTopCollectorsItemContent(index, item),
