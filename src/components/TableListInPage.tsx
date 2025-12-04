@@ -56,13 +56,8 @@ export function TableListInPage<T = unknown, C = unknown>({
         return <NoResultsFallback {...NoResultsFallbackProps} />;
     }
 
-    // force type casting to avoid type error
     const List = VirtualTableList<T, C>;
-    const Components = useMemo(
-        () => (VirtualTableListProps?.components ?? EMPTY_OBJECT) as TableComponents<T, C>,
-        [VirtualTableListProps?.components],
-    );
-    const itemsRendered = itemsRenderedRef.current;
+
     const Context = useMemo(
         () => ({
             hasNextPage,
@@ -71,7 +66,7 @@ export function TableListInPage<T = unknown, C = unknown>({
             itemsRendered: itemsRenderedRef.current,
             ...VirtualTableListProps?.context,
         }),
-        [hasNextPage, fetchNextPage, isFetching, VirtualTableListProps?.context],
+        [hasNextPage, fetchNextPage, isFetching, VirtualTableListProps?.context, itemsRenderedRef.current],
     );
 
     return (
@@ -86,7 +81,7 @@ export function TableListInPage<T = unknown, C = unknown>({
                     return el.getBoundingClientRect().height;
                 }}
                 context={Context as C}
-                components={Components}
+                components={(VirtualTableListProps?.components ?? EMPTY_OBJECT) as TableComponents<T, C>}
                 className={classNames('max-md:no-scrollbar', VirtualTableListProps?.className)}
             />
             <VirtualListFooter context={Context} />

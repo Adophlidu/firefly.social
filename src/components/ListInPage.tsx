@@ -71,16 +71,19 @@ export function ListInPage<T = unknown, C = unknown>({
 
     const listKey = VirtualListProps?.listKey;
 
-    const onScrolling = (scrolling: boolean) => {
-        if (!scrolling && listKey) {
-            virtuoso.current?.getState((state: StateSnapshot) => {
-                setVirtuosoState('temporary', listKey, state);
-            });
-        }
-    };
+    const isScrolling = useCallback(
+        (scrolling: boolean) => {
+            if (!scrolling && listKey) {
+                virtuoso.current?.getState((state: StateSnapshot) => {
+                    setVirtuosoState('temporary', listKey, state);
+                });
+            }
+        },
+        [listKey, setVirtuosoState],
+    );
 
-    // force type casting to avoid type error
     const List = VirtualList<T, C>;
+
     const Components = useMemo(
         () =>
             ({
@@ -89,7 +92,7 @@ export function ListInPage<T = unknown, C = unknown>({
             }) as Components<T, C>,
         [VirtualListProps?.components],
     );
-    const itemsRendered = itemsRenderedRef.current;
+
     const Context = useMemo(
         () => ({
             hasNextPage,
@@ -98,9 +101,8 @@ export function ListInPage<T = unknown, C = unknown>({
             itemsRendered: itemsRenderedRef.current,
             ...VirtualListProps?.context,
         }),
-        [hasNextPage, fetchNextPage, isFetching, VirtualListProps?.context],
+        [hasNextPage, fetchNextPage, isFetching, VirtualListProps?.context, itemsRenderedRef.current],
     );
-    const cachedState = listKey ? virtuosoState.cached[listKey] : undefined;
 
     return (
         <List
@@ -116,8 +118,8 @@ export function ListInPage<T = unknown, C = unknown>({
             context={Context as C}
             components={Components}
             className={classNames('max-md:no-scrollbar', className)}
-            isScrolling={onScrolling}
-            restoreStateFrom={cachedState}
+            isScrolling={isScrolling}
+            restoreStateFrom={listKey ? virtuosoState.cached[listKey] : undefined}
             virtuosoRef={virtuoso}
         />
     );

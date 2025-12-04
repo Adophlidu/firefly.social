@@ -2,7 +2,7 @@
 
 import { classNames } from '@dimensiondev/utils';
 import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useMemo } from 'react';
 import type { GridComponents } from 'react-virtuoso';
 
 import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
@@ -38,7 +38,6 @@ export function GridListInPage<T = unknown, C = unknown>({
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
 
-    const itemsRenderedRef = useRef(true);
     const isLogin = useIsLogin(currentSocialSource);
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = queryResult;
@@ -58,21 +57,17 @@ export function GridListInPage<T = unknown, C = unknown>({
         return <NoResultsFallback {...NoResultsFallbackProps} />;
     }
 
+    const List = VirtualGridList<T, C>;
+
     const Context = useMemo(
         () => ({
             hasNextPage,
             fetchNextPage,
             isFetching,
-            itemsRendered: itemsRenderedRef.current,
+            itemsRendered: true,
             ...VirtualGridListProps?.context,
         }),
         [hasNextPage, fetchNextPage, isFetching, VirtualGridListProps?.context],
-    );
-    // force type casting to avoid type error
-    const List = VirtualGridList<T, C>;
-    const Components = useMemo(
-        () => (VirtualGridListProps?.components ?? EMPTY_OBJECT) as GridComponents<C>,
-        [VirtualGridListProps?.components],
     );
 
     return (
@@ -83,7 +78,7 @@ export function GridListInPage<T = unknown, C = unknown>({
                 endReached={onEndReached}
                 {...VirtualGridListProps}
                 context={Context as C}
-                components={Components}
+                components={(VirtualGridListProps?.components ?? EMPTY_OBJECT) as GridComponents<C>}
                 className={classNames('max-md:no-scrollbar', VirtualGridListProps?.className)}
             />
             {hiddenFooter ? null : <VirtualListFooter context={Context} />}
