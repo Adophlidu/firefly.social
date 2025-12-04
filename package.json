@@ -202,6 +202,8 @@
     "pnpm": {
         "overrides": {
             "@floating-ui/react": "0.27.16",
+            "@floating-ui/react-dom": "2.1.6",
+            "@floating-ui/utils": "0.2.10",
             "@noble/curves": "1.9.2",
             "@reown/appkit": "1.8.14",
             "@solana/wallet-adapter-base": "0.9.27",
