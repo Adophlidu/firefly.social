@@ -15,10 +15,6 @@ const ActivitiesPlatforms = [
         label: <Trans>Snapshot DAO</Trans>,
     },
     {
-        platform: ActivitiesPlatform.Mirror,
-        label: <Trans>Mirror article</Trans>,
-    },
-    {
         platform: ActivitiesPlatform.Paragraph,
         label: <Trans>Paragraph article</Trans>,
     },

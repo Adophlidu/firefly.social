@@ -4223,9 +4223,6 @@ msgstr ""
 msgid "No blackmail activities involved."
 msgstr ""
 
-msgid "Mirror article"
-msgstr ""
-
 msgid "No Lens profile found,"
 msgstr ""
 

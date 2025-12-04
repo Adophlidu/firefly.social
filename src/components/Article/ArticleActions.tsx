@@ -1,21 +1,15 @@
 'use client';
 
-import { classNames } from '@dimensiondev/utils';
-import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
 import urlcat from 'urlcat';
 import { useAccount } from 'wagmi';
 
-import CollectIcon from '@/assets/collect.svg';
 import { Bookmark } from '@/components/Actions/Bookmark.js';
 import { LikeButton } from '@/components/Actions/LikeButton.js';
 import { ShareAction } from '@/components/Actions/ShareAction.js';
 import { ArticleCollect } from '@/components/Article/ArticleCollect.js';
-import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
-import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
@@ -83,6 +77,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
         <div className="flex items-center justify-end text-second">
             <div className="flex items-center">
                 <LikeButton type={Source.Article} data={article} />
+                {/* TODO: Collect feature temporarily hidden, may be needed later
                 <ClickableArea
                     className={classNames('flex w-min items-center hover:text-secondarySuccess md:space-x-2')}
                 >
@@ -100,6 +95,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                         </Tooltip>
                     ) : null}
                 </ClickableArea>
+                */}
                 <Bookmark
                     loading={isLoading || bookmarkMutationLoading}
                     hiddenCount

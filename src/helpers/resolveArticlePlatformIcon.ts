@@ -2,7 +2,6 @@ import { createLookupTableResolver } from '@dimensiondev/utils';
 import type { FunctionComponent, SVGAttributes } from 'react';
 
 import MattersIcon from '@/assets/matters.svg';
-import MirrorIon from '@/assets/mirror.xyz.svg';
 import ParagraphIcon from '@/assets/paragraph.svg';
 import { LimoIcon } from '@/components/LimoIcon.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';
@@ -12,7 +11,7 @@ export const resolveArticlePlatformIcon = createLookupTableResolver<
     FunctionComponent<SVGAttributes<SVGElement>> | null
 >(
     {
-        [ArticlePlatform.Mirror]: MirrorIon,
+        [ArticlePlatform.Mirror]: ParagraphIcon,
         [ArticlePlatform.Paragraph]: ParagraphIcon,
         [ArticlePlatform.Limo]: LimoIcon,
         [ArticlePlatform.Matters]: MattersIcon,

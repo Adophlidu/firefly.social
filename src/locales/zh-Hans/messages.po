@@ -4228,9 +4228,6 @@ msgstr "状态"
 msgid "No blackmail activities involved."
 msgstr "未发现勒索行为。"
 
-msgid "Mirror article"
-msgstr "Mirror 文章"
-
 msgid "No Lens profile found,"
 msgstr "未找到 Lens 账号，"
 

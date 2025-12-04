@@ -20,7 +20,7 @@ function ArticlePlatformName({ platform }: { platform: ArticlePlatform }) {
         case ArticlePlatform.Limo:
             return 'Limo';
         case ArticlePlatform.Mirror:
-            return 'Mirror';
+            return 'Paragraph';
         case ArticlePlatform.Paragraph:
             return 'Paragraph';
         case ArticlePlatform.Matters:

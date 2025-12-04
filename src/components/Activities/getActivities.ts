@@ -28,7 +28,16 @@ function createActivitiesFetcher(
         switch (source) {
             case Source.Article: {
                 const articlePlatforms = platforms?.length
-                    ? compact(platforms.map((x) => resolveArticlePlatform(x)))
+                    ? compact(
+                          platforms.flatMap((x) => {
+                              const platform = resolveArticlePlatform(x);
+                              // When Paragraph is selected, also include Mirror (Mirror merged into Paragraph)
+                              if (x === ActivitiesPlatform.Paragraph) {
+                                  return [platform, resolveArticlePlatform(ActivitiesPlatform.Mirror)];
+                              }
+                              return platform;
+                          }),
+                      )
                     : undefined;
 
                 if (articlePlatforms?.length === 0) {
