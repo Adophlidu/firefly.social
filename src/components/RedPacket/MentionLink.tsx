@@ -41,10 +41,7 @@ export function MentionLink({ platform, profileId, handle }: MentionLinkProps) {
 
     return (
         <Link
-            href={resolvePlatformProfileUrl(
-                platform,
-                platform === FireflyRedPacketAPI.PlatformType.Farcaster ? profileId : screenName,
-            )}
+            href={resolvePlatformProfileUrl(platform, screenName)}
             target="_blank"
             className="text-base leading-[18px] text-highlight"
         >

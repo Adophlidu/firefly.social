@@ -94,7 +94,7 @@ export function useSolanaCreateRedPacketCallback(
                 duration: baseParams.duration,
                 creation_time: Date.now(),
                 token,
-                network: env.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled ? 'devnet' : 'mainnet-beta',
+                network: env.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled ? 'devnet' : 'Solana',
                 contract_address: RedPacketIDL.address,
                 contract_version: RED_PACKET_CONTRACT_VERSION,
                 txid: '',
