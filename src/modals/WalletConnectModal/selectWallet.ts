@@ -9,6 +9,8 @@ import {
 } from '@reown/appkit';
 import urlcat from 'urlcat';
 
+import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
+import { WalletId } from '@/constants/reown.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 
 const CUSTOM_DEEPLINK_WALLETS = {
@@ -91,8 +93,8 @@ export function selectWallet(wallet: WcWallet) {
         rdns: wallet.rdns,
     });
 
-    if (CoreChainController.state?.activeChain === 'solana') {
-        redirectSolanaLinkInNeed(connector?.explorerId || wallet.id, CoreChainController.state.activeChain);
+    if (wallet.id === WalletId.Phantom && IS_MOBILE_DEVICE) {
+        redirectSolanaLinkInNeed(connector?.explorerId || wallet.id, 'solana');
     }
 
     if (connector) {
