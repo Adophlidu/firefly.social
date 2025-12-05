@@ -15,6 +15,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { createPostMetadata } from '@/providers/firefly/metadata/createPostMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
@@ -39,7 +40,7 @@ export default async function Page(props: Props) {
     const source = resolveSocialSource(params.source);
 
     const queryClient = new QueryClient(queryClientConfig);
-    const post = await queryClient.ensureQueryData(getPostDetailQuery(source, params.id));
+    const post = await runInSafeAsync(() => queryClient.ensureQueryData(getPostDetailQuery(source, params.id)));
     if (!post) {
         if (isRequestedLoginSource(source)) {
             return (
