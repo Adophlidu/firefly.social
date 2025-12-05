@@ -30,7 +30,7 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
 
     const [open, setOpen] = useState(false);
     const { excludeReplyProfileIds = EMPTY_LIST } = useCompositePost();
-    const updateExcludeReplyProfileIds = useComposeStateStore().updateExcludeReplyProfileIds;
+    const updateExcludeReplyProfileIds = useComposeStateStore.use.updateExcludeReplyProfileIds();
 
     const { data, isLoading } = useQuery({
         queryKey: ['post-thread', post.source, post.postId],
