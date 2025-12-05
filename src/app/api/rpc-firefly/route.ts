@@ -13,7 +13,7 @@ import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
 const HeadersSchema = z.object({
-    authorization: z.string().min(1, 'Unauthorized'),
+    authorization: z.string().min(1, 'Unauthorized').optional(),
 });
 
 const BodySchema = z.object({
@@ -33,7 +33,7 @@ const MethodParamSchemas = {
     }),
     getWalletProfileByAddressOrEns: z.object({
         addressOrEns: z.string(),
-        isAuthRequired: z.boolean().optional(),
+        isAuthRequired: z.boolean().default(false),
     }),
 };
 
