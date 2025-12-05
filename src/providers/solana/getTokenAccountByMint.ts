@@ -1,43 +1,57 @@
 import { web3 } from '@coral-xyz/anchor';
-import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
+import { TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { requestRPC } from '@/providers/solana/requestRPC.js';
-import type { GetProgramAccountsResponse } from '@/providers/types/Solana.js';
+
+type TokenAccountsByOwnerResponse = {
+    result?: {
+        value?: Array<{
+            pubkey?: string;
+            account?: {
+                data?: {
+                    parsed?: {
+                        info?: {
+                            mint?: string;
+                        };
+                    };
+                };
+                owner?: string;
+            };
+        }>;
+    };
+};
 
 async function resolver(chainId: number, account: string, mintAddress: string) {
-    const programs = await requestRPC<GetProgramAccountsResponse>(chainId, {
-        method: 'getProgramAccounts',
-        params: [
-            TOKEN_PROGRAM_ID.toBase58(),
-            {
-                encoding: 'jsonParsed',
-                filters: [
-                    {
-                        dataSize: 165,
-                    },
-                    {
-                        memcmp: {
-                            offset: 32,
-                            bytes: account,
-                        },
-                    },
-                ],
-            },
-        ],
-    });
+    const programIds = [TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID];
 
-    const program = programs?.result?.find((program) =>
-        isSameAddress(program.account.data.parsed.info.mint, mintAddress),
-    );
+    for (const programId of programIds) {
+        const accounts = await requestRPC<TokenAccountsByOwnerResponse>(chainId, {
+            method: 'getTokenAccountsByOwner',
+            params: [
+                account,
+                { mint: mintAddress },
+                {
+                    programId: programId.toBase58(),
+                    encoding: 'jsonParsed',
+                },
+            ],
+        });
 
-    return program
-        ? {
-              pubkey: new web3.PublicKey(program.pubkey),
-              owner: new web3.PublicKey(program.account.owner),
-          }
-        : null;
+        const tokenAccount = accounts.result?.value?.[0];
+        if (tokenAccount?.pubkey && tokenAccount.account?.owner) {
+            const mint = tokenAccount.account.data?.parsed?.info?.mint;
+            if (mint && isSameAddress(mint, mintAddress)) {
+                return {
+                    pubkey: new web3.PublicKey(tokenAccount.pubkey),
+                    owner: new web3.PublicKey(tokenAccount.account.owner),
+                };
+            }
+        }
+    }
+
+    return null;
 }
 
 export const getTokenAccountByMint = memoizePromise(resolver, (...args) => args.join('-'));

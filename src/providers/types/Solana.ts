@@ -35,8 +35,6 @@ interface ProgramAccount {
 
 export type GetBalanceResponse = RpcResponse<{ value: number }>;
 
-export type GetProgramAccountsResponse = RpcResponse<ProgramAccount[]>;
-
 export type GetTransactionResponse = RpcResponse<{
     meta: {
         err: string | null;
