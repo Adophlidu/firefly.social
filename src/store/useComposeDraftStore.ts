@@ -1,4 +1,5 @@
 import { type Draft as WritableDraft, produce } from 'immer';
+import { useMemo } from 'react';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -7,6 +8,7 @@ import type { SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 import { createSelectors } from '@/helpers/createSelector.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import type { ComposeType, CompositePost, MediaObject } from '@/types/compose.js';
 
@@ -20,28 +22,37 @@ export interface Draft {
     // tracking the currently editing post
     cursor: string;
     sealedSource?: SocialSource | null;
+    // the fid when creating a draft.
+    createBy?: string;
 }
 
 interface ComposeDraftState {
     drafts: Draft[];
+    getDrafts: (accountId?: string | null) => Draft[];
     addDraft: (draft: Draft) => void;
     removeDraft: (id: string) => void;
-    removeAllDrafts: () => void;
 }
+
+const getCurrentAccountId = () => fireflySessionHolder.session?.profileId;
 
 const useComposeStateBase = create<ComposeDraftState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
     persist(
-        immer<ComposeDraftState>((set) => ({
+        immer<ComposeDraftState>((set, get) => ({
             drafts: EMPTY_LIST,
+            getDrafts: () => {
+                const key = getCurrentAccountId();
+                return get().drafts.filter((draft) => !draft.createBy || draft.createBy === key);
+            },
             addDraft: (draft: Draft) =>
                 set((state) => {
-                    const index = state.drafts.findIndex((x) => x.draftId === draft.draftId);
+                    const newDraft = draft.createBy ? draft : { ...draft, createBy: getCurrentAccountId() };
+                    const index = state.drafts.findIndex((x) => x.draftId === newDraft.draftId);
                     if (index === -1) {
-                        state.drafts = [...state.drafts, draft] as Array<WritableDraft<Draft>>;
+                        state.drafts = [...state.drafts, newDraft] as Array<WritableDraft<Draft>>;
                     } else {
                         state.drafts = [
                             ...state.drafts.slice(0, index),
-                            draft,
+                            newDraft,
                             ...state.drafts.slice(index + 1),
                         ] as Array<WritableDraft<Draft>>;
                     }
@@ -49,11 +60,6 @@ const useComposeStateBase = create<ComposeDraftState, [['zustand/persist', unkno
             removeDraft: (draftId: string) => {
                 set((state) => {
                     state.drafts = state.drafts.filter((x) => x.draftId !== draftId);
-                });
-            },
-            removeAllDrafts: () => {
-                set((state) => {
-                    state.drafts = [];
                 });
             },
         })),
@@ -85,3 +91,14 @@ const useComposeStateBase = create<ComposeDraftState, [['zustand/persist', unkno
 );
 
 export const useComposeDraftStateStore = createSelectors(useComposeStateBase);
+
+export function useComposeDraftState() {
+    const { drafts, removeDraft, getDrafts } = useComposeDraftStateStore();
+
+    const result = useMemo(() => getDrafts(), [drafts]);
+
+    return {
+        drafts: result,
+        removeDraft,
+    };
+}

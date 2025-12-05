@@ -36,7 +36,7 @@ export function MentionLink({ platform, profileId, handle }: MentionLinkProps) {
 
     if (isLoading) return <LoadingBase size={12} width={12} height={12} />;
 
-    const screenName = isTwitter ? twitterHandle || handle : isLens ? lensHandle : handle;
+    const screenName = isTwitter ? twitterHandle || handle : isLens && !handle ? lensHandle : handle;
     if (!screenName) return <span>the creator</span>;
 
     return (

@@ -20,7 +20,7 @@ import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import { captureDraftDeleteClickEvent } from '@/providers/telemetry/captureClickEvent.js';
-import { type Draft, useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
+import { type Draft, useComposeDraftState } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
 import { MediaSource } from '@/types/compose.js';
@@ -142,7 +142,8 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
 
 export const DraftList = memo(function DraftList() {
     const profiles = useCurrentProfiles();
-    const { drafts, removeDraft } = useComposeDraftStateStore();
+
+    const { drafts, removeDraft } = useComposeDraftState();
     const { updateChars, apply, focused, currentDraftId, clear } = useComposeStateStore();
     const { updateScheduleTime } = useComposeScheduleStateStore();
     const setEditorContent = useSetEditorContent();

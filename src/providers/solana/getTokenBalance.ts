@@ -1,10 +1,27 @@
-import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
+import { TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { requestRPC } from '@/providers/solana/requestRPC.js';
-import type { GetBalanceResponse, GetProgramAccountsResponse } from '@/providers/types/Solana.js';
+import type { GetBalanceResponse } from '@/providers/types/Solana.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import type { SolanaChainId } from '@/web3-shared/solana/types.js';
+
+type TokenAccountsByOwnerResponse = {
+    result?: {
+        value?: Array<{
+            account?: {
+                data?: {
+                    parsed?: {
+                        info?: {
+                            tokenAmount?: { amount: string; decimals: number; uiAmountString: string };
+                            mint?: string;
+                        };
+                    };
+                };
+            };
+        }>;
+    };
+};
 
 export async function getNativeTokenBalance(address: string, chainId: number) {
     const data = await requestRPC<GetBalanceResponse>(chainId, {
@@ -15,34 +32,28 @@ export async function getNativeTokenBalance(address: string, chainId: number) {
 }
 
 export async function getSplTokenBalance(tokenAddress: string, address: string, chainId: number) {
-    const programs = await requestRPC<GetProgramAccountsResponse>(chainId, {
-        method: 'getProgramAccounts',
-        params: [
-            TOKEN_PROGRAM_ID.toBase58(),
-            {
-                encoding: 'jsonParsed',
-                filters: [
-                    {
-                        dataSize: 165,
-                    },
-                    {
-                        memcmp: {
-                            offset: 32,
-                            bytes: address,
-                        },
-                    },
-                ],
-            },
-        ],
-    });
+    const programIds = [TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID];
 
-    const tokenProgram = programs.result?.find((program) => {
-        const account = program.account.data.parsed.info;
-        if (account.tokenAmount.decimals === 0) return false;
-        return account.mint === tokenAddress;
-    });
+    for (const programId of programIds) {
+        const accounts = await requestRPC<TokenAccountsByOwnerResponse>(chainId, {
+            method: 'getTokenAccountsByOwner',
+            params: [
+                address,
+                { mint: tokenAddress },
+                {
+                    programId: programId.toBase58(),
+                    encoding: 'jsonParsed',
+                },
+            ],
+        });
 
-    return tokenProgram?.account.data.parsed.info;
+        const accountInfo = accounts.result?.value?.[0]?.account?.data?.parsed?.info;
+        if (accountInfo?.tokenAmount?.decimals !== undefined) {
+            return accountInfo;
+        }
+    }
+
+    return;
 }
 
 export async function getTokenBalance(token: Pick<Token<SolanaChainId>, 'id'>, address: string, chainId: number) {
@@ -50,6 +61,6 @@ export async function getTokenBalance(token: Pick<Token<SolanaChainId>, 'id'>, a
 
     const tokenAccount = await getSplTokenBalance(token.id, address, chainId);
     return {
-        value: tokenAccount?.tokenAmount.amount.toString() || '0',
+        value: tokenAccount?.tokenAmount?.amount?.toString() ?? '0',
     };
 }
