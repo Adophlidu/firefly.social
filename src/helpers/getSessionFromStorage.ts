@@ -2,6 +2,7 @@ import { bom, createLookupTableResolver, parseJson } from '@dimensiondev/utils';
 import { z } from 'zod';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { resolveProfileStorageKeyBySessionType } from '@/helpers/resolveProfileStorageKey.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -29,23 +30,6 @@ type SessionTypes = {
     [SessionType.Telegram]: ThirdPartySession;
 };
 
-const resolveStorageKey = createLookupTableResolver<SessionType, string>(
-    {
-        [SessionType.Bsky]: 'bsky-state',
-        [SessionType.Twitter]: 'twitter-state',
-        [SessionType.Farcaster]: 'farcaster-state',
-        [SessionType.Lens]: 'lens-state',
-        [SessionType.Firefly]: 'firefly-state',
-        [SessionType.Apple]: 'third-party-state',
-        [SessionType.Email]: 'third-party-state',
-        [SessionType.Google]: 'third-party-state',
-        [SessionType.Telegram]: 'third-party-state',
-    },
-    (sessionType) => {
-        throw new Error(`Unknown session type: ${sessionType}`);
-    },
-);
-
 const resolveStorageKeyBySource = createLookupTableResolver<SocialSource, SessionType>(
     {
         [Source.Bsky]: SessionType.Bsky,
@@ -61,7 +45,7 @@ const resolveStorageKeyBySource = createLookupTableResolver<SocialSource, Sessio
 export function getSessionFromStorage<T extends SessionType>(sessionType: T) {
     if (!bom.localStorage) return null;
 
-    const state = bom.localStorage.getItem(resolveStorageKey(sessionType));
+    const state = bom.localStorage.getItem(resolveProfileStorageKeyBySessionType(sessionType));
     if (!state) return null;
 
     const parsed = Schema.safeParse(parseJson(state));

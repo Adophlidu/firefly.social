@@ -1,10 +1,9 @@
-import { AppBskyFeedThreadgate, ComAtprotoRepoApplyWrites, RichText } from '@atproto/api';
+import { type $Typed, AppBskyFeedThreadgate, ComAtprotoRepoApplyWrites, RichText } from '@atproto/api';
 import { TID } from '@atproto/common-web';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, first } from 'lodash-es';
 
 import { BskyEmbedType, RestrictionType } from '@/constants/enum.js';
-import { refreshSessionAndUpdateStore } from '@/providers/bsky/refreshSessionAndUpdateStore.js';
 import { resolveBskyEmbed } from '@/providers/bsky/resolveBskyEmbed.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -12,7 +11,9 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 function resolveRestriction(
     restrictions: RestrictionType[],
 ):
-    | Array<AppBskyFeedThreadgate.MentionRule | AppBskyFeedThreadgate.FollowingRule | AppBskyFeedThreadgate.ListRule>
+    | Array<
+          AppBskyFeedThreadgate.MentionRule | AppBskyFeedThreadgate.FollowingRule | AppBskyFeedThreadgate.FollowerRule
+      >
     | undefined {
     if (restrictions.find((v) => v === RestrictionType.Everyone)) return;
     if (restrictions.find((v) => v === RestrictionType.Nobody)) return [];
@@ -70,7 +71,7 @@ interface Options {
 
 type PublishPostFunction = (post: Post, isQuote: boolean, options?: Options) => Promise<{ cid: string; uri: string }>;
 
-const executePublish: PublishPostFunction = async (post, isQuote, options) => {
+export const publishPostToBsky: PublishPostFunction = async (post, isQuote, options) => {
     const did = bskySessionHolder.agent.assertDid;
     const rkey = TID.next().toString();
     const uri = `at://${did}/app.bsky.feed.post/${rkey}`;
@@ -81,7 +82,7 @@ const executePublish: PublishPostFunction = async (post, isQuote, options) => {
         await richText.detectFacets(bskySessionHolder.agent);
     }
 
-    const writes: ComAtprotoRepoApplyWrites.Create[] = [
+    const writes: Array<$Typed<ComAtprotoRepoApplyWrites.Create>> = [
         {
             $type: 'com.atproto.repo.applyWrites#create',
             collection: 'app.bsky.feed.post',
@@ -152,32 +153,9 @@ const executePublish: PublishPostFunction = async (post, isQuote, options) => {
         validate: true,
     });
     const postData = first(result.data?.results);
-    if (!result.success || !postData) {
+    if (!result.success || !postData || !ComAtprotoRepoApplyWrites.isCreateResult(postData)) {
         throw new Error('Failed to publish post to Bsky');
     }
 
     return { cid: postData.cid, uri: postData.uri } as { cid: string; uri: string };
-};
-
-export const publishPostToBsky: PublishPostFunction = async (post, isQuote, options) => {
-    try {
-        // ensure token valid
-        await refreshSessionAndUpdateStore();
-
-        return executePublish(post, isQuote, options);
-    } catch (error) {
-        console.error('[Bsky] posting error', error);
-
-        if (
-            error instanceof Error &&
-            'error' in error &&
-            ['ExpiredToken', 'InvalidToken'].includes(error.error as string)
-        ) {
-            await refreshSessionAndUpdateStore(true);
-
-            return executePublish(post, isQuote, options);
-        }
-
-        throw error;
-    }
 };

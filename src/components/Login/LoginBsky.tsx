@@ -28,7 +28,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
-import { createBskyAgent } from '@/providers/bsky/createBskyAgent.js';
+import { createPublicBskyAgent } from '@/providers/bsky/createBskyAgent.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { retryOnBskyWhenNetworkError } from '@/providers/bsky/retryOnBskyWhenNetworkError.js';
 import { BskySession } from '@/providers/bsky/Session.js';
@@ -165,7 +165,7 @@ export function LoginBsky() {
             if (!parsed.success) return null;
 
             try {
-                const agent = createBskyAgent(url);
+                const agent = createPublicBskyAgent(url);
                 const result = await agent.com.atproto.server.describeServer(undefined, { signal });
                 return result.data;
             } catch (error) {
@@ -191,8 +191,8 @@ export function LoginBsky() {
                 await loginBsky(
                     async () => {
                         const serviceUrl_ = serviceUrl || DEFAULT_SERVICE_URL;
-                        const agent = createBskyAgent(serviceUrl_);
-                        const response = await agent.login({
+                        const agent = createPublicBskyAgent(serviceUrl_);
+                        const response = await agent.com.atproto.server.createSession({
                             identifier: formatBskyLoginIdentifier(
                                 username,
                                 serviceUrl_,
@@ -209,6 +209,7 @@ export function LoginBsky() {
                                     actor: response.data.did,
                                 },
                                 {
+                                    headers: { authorization: `Bearer ${response.data.accessJwt}` },
                                     signal: controller.current.signal,
                                 },
                             ),
@@ -247,7 +248,7 @@ export function LoginBsky() {
                 setAsyncStatus(Source.Bsky, AsyncStatus.Idle);
             }
         },
-        [controller, serverDescription, skipWaitForMetricsSyncing, setFocus],
+        [controller, serverDescription, skipWaitForMetricsSyncing, setAsyncStatus, setFocus],
     );
 
     const isValidServiceUrl =

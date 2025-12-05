@@ -1532,9 +1532,6 @@ msgstr ""
 msgid "Mint price"
 msgstr ""
 
-msgid "Your Bluesky session has expired, please sign in again"
-msgstr ""
-
 msgid "Follow @fireflyappcn on X"
 msgstr ""
 
@@ -2203,9 +2200,6 @@ msgid "Time range filter"
 msgstr ""
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
-msgstr ""
-
-msgid "Failed to restore your Bluesky session, you can refresh the page to try again or sign in again."
 msgstr ""
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
@@ -3118,6 +3112,11 @@ msgstr ""
 
 #. placeholder {0}: post.stats.mirrors
 msgid "{0, plural, one {repost} other {reposts}}"
+msgstr ""
+
+#. placeholder {0}: account.profile.handle
+#. placeholder {1}: resolveSourceName(source)
+msgid "Failed to resume session for @{0} on {1}, you can refresh the page to try again."
 msgstr ""
 
 msgid "Total Value"
@@ -4320,6 +4319,11 @@ msgid "Language"
 msgstr ""
 
 msgid "Address on Watching Lists"
+msgstr ""
+
+#. placeholder {0}: expiredAccounts .map((x) => `@${x.profile.handle}`) .join(', ')
+#. placeholder {1}: resolveSourceName(source)
+msgid "Session expired for {0} on {1}."
 msgstr ""
 
 msgid "FREE"

@@ -1,6 +1,6 @@
 import { parseJson } from '@dimensiondev/utils';
 import { z } from 'zod';
-import type { PersistStorage } from 'zustand/middleware';
+import type { PersistStorage, StorageValue } from 'zustand/middleware';
 
 import { AsyncStatus } from '@/constants/enum.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
@@ -35,11 +35,29 @@ interface State {
     version: number;
 }
 
-interface SessionState {
+export interface SessionState {
     status: AsyncStatus;
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
+}
+
+export function setSessionStateToStorage(storageKey: string, newValue: StorageValue<SessionState>) {
+    const state = newValue.state as SessionState;
+    localStorage.setItem(
+        storageKey,
+        JSON.stringify({
+            ...newValue,
+            state: {
+                ...state,
+                accounts: state.accounts.map((account) => ({
+                    ...account,
+                    session: account.session.serialize(),
+                })),
+                currentProfileSession: state.currentProfileSession ? state.currentProfileSession?.serialize() : null,
+            },
+        }),
+    );
 }
 
 export function createSessionStorage(): PersistStorage<SessionState> {
@@ -89,23 +107,7 @@ export function createSessionStorage(): PersistStorage<SessionState> {
             }
         },
         setItem(name, newValue) {
-            const state = newValue.state as SessionState;
-            localStorage.setItem(
-                name,
-                JSON.stringify({
-                    ...newValue,
-                    state: {
-                        ...state,
-                        accounts: state.accounts.map((account) => ({
-                            ...account,
-                            session: account.session.serialize(),
-                        })),
-                        currentProfileSession: state.currentProfileSession
-                            ? state.currentProfileSession?.serialize()
-                            : null,
-                    },
-                }),
-            );
+            setSessionStateToStorage(name, newValue);
         },
         removeItem(name) {
             localStorage.removeItem(name);

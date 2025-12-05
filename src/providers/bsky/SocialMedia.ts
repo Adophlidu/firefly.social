@@ -1,4 +1,4 @@
-import { AppBskyFeedDefs, moderatePost } from '@atproto/api';
+import { AppBskyActorProfile, AppBskyFeedDefs, moderatePost } from '@atproto/api';
 import { BlockedActorError } from '@atproto/api/dist/client/types/app/bsky/feed/getAuthorFeed.js';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
@@ -34,6 +34,7 @@ import {
 } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ChannelAtUri, PostAtUri } from '@/providers/bsky/AtUri.js';
+import { AppBskyFeed } from '@/providers/bsky/contentChecker.js';
 import { convertBskyHandleToDid } from '@/providers/bsky/convertBskyHandleToDid.js';
 import { formatBskyChannel } from '@/providers/bsky/formatBskyChannel.js';
 import { formatBskyFeedPost, formatBskyPost, formatBskyThreadPosts } from '@/providers/bsky/formatBskyFeedPost.js';
@@ -86,7 +87,7 @@ async function getPostByUri(uri: string): Promise<Post> {
         `Failed to getSinglePost uri = ${uri}.`,
     );
 
-    const thread = AppBskyFeedDefs.isThreadViewPost(data.thread) ? data.thread : null;
+    const thread = AppBskyFeed.isThreadViewPost(data.thread) ? data.thread : null;
     if (!thread) throw new Error(`No thread found uri = ${uri}.`);
     return formatBskyFeedPost(thread);
 }
@@ -143,7 +144,7 @@ class BskySocialMedia implements Provider {
             depth: 0,
         });
         const data = resolveBskyResponseData(response, `Failed to unmirror post postId = ${postId}`);
-        if (!AppBskyFeedDefs.isThreadViewPost(data.thread) || !data.thread.post.viewer?.repost)
+        if (!AppBskyFeed.isThreadViewPost(data.thread) || !data.thread.post.viewer?.repost)
             throw new Error(`Failed to unmirror post postId = ${postId}`);
         await bskySessionHolder.agent.deleteRepost(data.thread.post.viewer.repost);
     }
@@ -172,8 +173,7 @@ class BskySocialMedia implements Provider {
     }
     async upvotePost(postId: string): Promise<void> {
         const post = await getPostById(postId);
-        if (!AppBskyFeedDefs.isThreadViewPost(post.__original__))
-            throw new Error(`Failed to like post postId = ${postId}`);
+        if (!AppBskyFeed.isThreadViewPost(post.__original__)) throw new Error(`Failed to like post postId = ${postId}`);
         await bskySessionHolder.agent.like(post.__original__.post.uri, post.__original__.post.cid);
     }
     async unvotePost(postId: string): Promise<void> {
@@ -182,7 +182,7 @@ class BskySocialMedia implements Provider {
             depth: 0,
         });
         const data = resolveBskyResponseData(response, `Failed to unlike post postId = ${postId}`);
-        if (!AppBskyFeedDefs.isThreadViewPost(data.thread) || !data.thread.post.viewer?.like)
+        if (!AppBskyFeed.isThreadViewPost(data.thread) || !data.thread.post.viewer?.like)
             throw new Error(`Failed to unlike post postId = ${postId}`);
         await bskySessionHolder.agent.deleteLike(data.thread.post.viewer.like);
     }
@@ -260,13 +260,13 @@ class BskySocialMedia implements Provider {
         });
         const data = resolveBskyResponseData(response, `Failed to getCommentsById atUri = ${atUri}.`);
         const did = bskySessionHolder.session?.did;
-        if (!AppBskyFeedDefs.isThreadViewPost(data.thread)) {
+        if (!AppBskyFeed.isThreadViewPost(data.thread)) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
         }
         const preferences = await runInSafeAsync(() => bskySessionHolder.agent.getPreferences());
         const replies = compact(
             data.thread.replies?.map((x) => {
-                if (!AppBskyFeedDefs.isThreadViewPost(x)) return null;
+                if (!AppBskyFeed.isThreadViewPost(x)) return null;
                 if (preferences) {
                     const moderationDecision = moderatePost(x.post, {
                         userDid: did,
@@ -540,7 +540,7 @@ class BskySocialMedia implements Provider {
                                 source: Source.Bsky,
                                 notificationId: x.cid,
                                 type: NotificationType.Mention,
-                                post: formatBskyFeedPost({ post: x }),
+                                post: formatBskyFeedPost({ post: x } as AppBskyFeedDefs.FeedViewPost),
                                 timestamp,
                             } satisfies MentionNotification;
                         case 'quote':
@@ -631,7 +631,7 @@ class BskySocialMedia implements Provider {
         const data = resolveBskyResponseData(response, `Failed to search profiles by query = ${q}.`);
 
         return createPageable(
-            data.actors.map(formatBskyProfile),
+            data.actors.map((x) => formatBskyProfile(x)),
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
@@ -666,7 +666,7 @@ class BskySocialMedia implements Provider {
         );
     }
     async getThreadByPostId(postId: string, localPost?: Post): Promise<Post[]> {
-        const uri = AppBskyFeedDefs.isPostView(localPost?.__original__)
+        const uri = AppBskyFeed.isPostView(localPost?.__original__)
             ? localPost?.__original__.uri
             : PostAtUri.fromId(postId).toUri();
         const response = await bskySessionHolder.agent.getPostThread({
@@ -674,7 +674,7 @@ class BskySocialMedia implements Provider {
             depth: 10,
         });
         const data = resolveBskyResponseData(response, `Failed to getThreadByPostId uri = ${uri}.`);
-        const thread = AppBskyFeedDefs.isThreadViewPost(data.thread) ? data.thread : null;
+        const thread = AppBskyFeed.isThreadViewPost(data.thread) ? data.thread : null;
         if (!thread) throw new Error(`No thread found uri = ${uri}.`);
 
         return formatBskyThreadPosts(thread);
@@ -792,7 +792,7 @@ class BskySocialMedia implements Provider {
         });
         const data = resolveBskyResponseData(response, 'Failed to get blocked profiles.');
         return createPageable(
-            data.mutes.map(formatBskyProfile),
+            data.mutes.map((x) => formatBskyProfile(x)),
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
@@ -817,7 +817,7 @@ class BskySocialMedia implements Provider {
     }
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
         await bskySessionHolder.agent.upsertProfile(async (existing) => {
-            const nextProfileData = existing || {};
+            const nextProfileData = (existing || {}) as AppBskyActorProfile.Main;
 
             if (has(profile, 'displayName')) {
                 nextProfileData.displayName = profile.displayName;
@@ -844,7 +844,7 @@ class BskySocialMedia implements Provider {
         });
         const data = resolveBskyResponseData(response, `Failed to getHiddenComments atUri = ${atUri}.`);
         const did = bskySessionHolder.session?.did;
-        if (!AppBskyFeedDefs.isThreadViewPost(data.thread) || !did) {
+        if (!AppBskyFeed.isThreadViewPost(data.thread) || !did) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
         }
         const preferences = await runInSafeAsync(() => bskySessionHolder.agent.getPreferences());
@@ -853,7 +853,7 @@ class BskySocialMedia implements Provider {
         }
         const replies = compact(
             data.thread.replies?.map((x) => {
-                if (!AppBskyFeedDefs.isThreadViewPost(x)) return null;
+                if (!AppBskyFeed.isThreadViewPost(x)) return null;
                 const moderationDecision = moderatePost(x.post, {
                     userDid: did,
                     prefs: preferences.moderationPrefs,
@@ -896,7 +896,7 @@ class BskySocialMedia implements Provider {
         const postThreadRes = await bskySessionHolder.agent.getPostThread({
             uri: pinnedPost?.uri,
         });
-        if (!postThreadRes.success || !AppBskyFeedDefs.isThreadViewPost(postThreadRes.data.thread)) return null;
+        if (!postThreadRes.success || !AppBskyFeed.isThreadViewPost(postThreadRes.data.thread)) return null;
         return formatBskyFeedPost(postThreadRes.data.thread);
     }
     async decryptPost(post: Post): Promise<Post | null> {

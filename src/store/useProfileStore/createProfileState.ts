@@ -8,14 +8,14 @@ import { immer } from 'zustand/middleware/immer';
 import { AsyncStatus } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { type CustomSelectors } from '@/helpers/createSelector.js';
-import { createSessionStorage } from '@/helpers/createSessionStorage.js';
+import { createSessionStorage, type SessionState } from '@/helpers/createSessionStorage.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
 
-interface ProfileState {
+export interface ProfileState {
     // indicate the store is ready or not in its init phase
     status: AsyncStatus;
     // internally used in this store
@@ -36,13 +36,6 @@ interface ProfileState {
     clear: (clearSession?: boolean) => void;
 }
 
-interface ProfileStatePersisted {
-    status: AsyncStatus;
-    accounts: Account[];
-    currentProfile: Profile | null;
-    currentProfileSession: Session | null;
-}
-
 export const customSelectors: CustomSelectors<ProfileState> = {
     currentProfile: (state) => (state.status === AsyncStatus.Pending ? null : state.currentProfile),
 };
@@ -52,7 +45,7 @@ export function createProfileState(
         getUpdatedProfile?: (profile: Profile) => Promise<Profile | null>;
         refreshCurrentAccountSession?: () => Promise<Session | null>;
     },
-    options: PersistOptions<ProfileState, ProfileStatePersisted>,
+    options: PersistOptions<ProfileState, SessionState>,
 ) {
     return create<ProfileState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
         persist(

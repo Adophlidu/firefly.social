@@ -18,8 +18,8 @@ export function formatBskyChannel(original: AppBskyFeedDefs.GeneratorView): Chan
         parentUrl: original.uri,
         followerCount: original.likeCount || 0,
         lead: formatBskyProfile(original.creator),
-        blocked: original.viewer?.muted as boolean,
-        isMember: !!original.viewer?.following,
+        blocked: false,
+        isMember: !!original.viewer?.like,
         canJoin: true,
     };
 }

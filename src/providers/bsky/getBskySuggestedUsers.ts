@@ -48,7 +48,7 @@ export async function getBskySuggestedUsers(
         return createPageable([], indicator);
     }
 
-    const profiles = result.actors.map(formatBskyProfile);
+    const profiles = result.actors.map((x) => formatBskyProfile(x));
     const profilesWithStats = queryStats
         ? await runInSafeAsync(() =>
               bskySocialMediaProvider.getProfilesByIds(profiles.map((profile) => profile.profileId)),

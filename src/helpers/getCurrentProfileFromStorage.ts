@@ -1,66 +1,17 @@
-import { bom, createLookupTableResolver, parseJson } from '@dimensiondev/utils';
+import { bom, parseJson } from '@dimensiondev/utils';
 import { z } from 'zod';
 
 import { type ProfileSource, Source } from '@/constants/enum.js';
-import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
-
-const ProfileSchema = z
-    .object({
-        profileId: z.string(),
-        profileSource: z.union([
-            z.literal(Source.Firefly),
-            z.literal(Source.Farcaster),
-            z.literal(Source.Lens),
-            z.literal(Source.Twitter),
-            z.literal(Source.Bsky),
-        ]),
-        source: z.union([
-            z.literal(Source.Farcaster),
-            z.literal(Source.Lens),
-            z.literal(Source.Twitter),
-            z.literal(Source.Bsky),
-        ]),
-        status: z.union([z.literal(ProfileStatus.Active), z.literal(ProfileStatus.Inactive)]),
-        handle: z.string().nullable(),
-    })
-    .transform((v) => v as Profile);
-
-const AccountSchema = z.object({
-    profile: ProfileSchema,
-    session: z.string(),
-});
-
-const Schema = z.object({
-    state: z.object({
-        accounts: z.array(AccountSchema),
-        currentProfile: ProfileSchema.nullable(),
-    }),
-});
+import { resolveProfileStorageKey } from '@/helpers/resolveProfileStorageKey.js';
+import { type ProfileSchema, ProfileStoreSchema } from '@/schemas/profile.js';
 
 export type StateProfile = z.infer<typeof ProfileSchema>;
 
-const resolveStorageKey = createLookupTableResolver<ProfileSource, string>(
-    {
-        [Source.Firefly]: 'firefly-state',
-        [Source.Bsky]: 'bsky-state',
-        [Source.Twitter]: 'twitter-state',
-        [Source.Farcaster]: 'farcaster-state',
-        [Source.Lens]: 'lens-state',
-        [Source.Apple]: 'third-party-state',
-        [Source.Email]: 'third-party-state',
-        [Source.Google]: 'third-party-state',
-        [Source.Telegram]: 'third-party-state',
-    },
-    (source) => {
-        throw new Error(`Unknown profile source: ${source}`);
-    },
-);
-
 export function getCurrentProfileFromStorage<T extends ProfileSource>(source: T): StateProfile | null {
-    const state = bom.localStorage?.getItem(resolveStorageKey(source));
+    const state = bom.localStorage?.getItem(resolveProfileStorageKey(source));
     if (!state) return null;
 
-    const parsed = Schema.safeParse(parseJson(state));
+    const parsed = ProfileStoreSchema.safeParse(parseJson(state));
     if (!parsed.success) {
         console.error('Failed to parse profile state from storage', parsed.error);
         return null;
@@ -97,10 +48,10 @@ export function getCurrentProfileAllFromStorage(): Record<ProfileSource, StatePr
 }
 
 export function getProfilesFromStorage<T extends ProfileSource>(source: T): StateProfile[] {
-    const state = bom.localStorage?.getItem(resolveStorageKey(source));
+    const state = bom.localStorage?.getItem(resolveProfileStorageKey(source));
     if (!state) return [];
 
-    const parsed = Schema.safeParse(parseJson(state));
+    const parsed = ProfileStoreSchema.safeParse(parseJson(state));
     if (!parsed.success) {
         console.error('Failed to parse profile state from storage', parsed.error);
         return [];

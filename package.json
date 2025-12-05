@@ -35,7 +35,7 @@
     },
     "dependencies": {
         "@apollo/client": "^3.13.9",
-        "@atproto/api": "^0.13.35",
+        "@atproto/api": "^0.18.4",
         "@atproto/common-web": "^0.4.3",
         "@bprogress/next": "^3.2.11",
         "@coral-xyz/anchor": "^0.32.1",

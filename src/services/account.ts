@@ -17,7 +17,6 @@ import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ConfirmFireflyModalRef } from '@/modals/ConfirmFireflyModal.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
-import { getBskySessionStorage } from '@/providers/bsky/createBskyAgent.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
@@ -412,22 +411,9 @@ export async function switchAccount(account: Account, signal?: AbortSignal) {
         }
         case Source.Bsky: {
             const bskySession = session as BskySession;
-            const sdkSession = getBskySessionStorage()?.[bskySession.did];
-            if (sdkSession?.accessJwt && sdkSession.refreshJwt) {
-                bskySession.sessionPayload = {
-                    ...bskySession.sessionPayload,
-                    accessJwt: sdkSession.accessJwt,
-                    refreshJwt: sdkSession.refreshJwt,
-                    did: bskySession.did,
-                };
-            }
 
+            // TODO: check token
             await bskySessionHolder.resumeSession(bskySession, false);
-
-            const now = Date.now();
-            session = new BskySession(bskySession.did, now, now, bskySession.serviceUrl, {
-                ...(bskySessionHolder.agent.sessionManager.session || bskySession.sessionPayload),
-            });
             break;
         }
         case Source.Twitter: {

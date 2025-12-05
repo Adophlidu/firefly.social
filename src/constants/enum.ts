@@ -501,10 +501,6 @@ export enum BskyEmbedType {
     RecordWithMedia = 'app.bsky.embed.recordWithMedia',
 }
 
-export enum BskyFacetType {
-    Link = 'app.bsky.richtext.facet#link',
-}
-
 export enum ProfileEditableField {
     DisplayName = 'displayName',
     Website = 'website',

@@ -1532,9 +1532,6 @@ msgstr "透過助記詞登入"
 msgid "Mint price"
 msgstr "鑄造價格"
 
-msgid "Your Bluesky session has expired, please sign in again"
-msgstr "您的 Bluesky 登入狀態已失效，請重新登入"
-
 msgid "Follow @fireflyappcn on X"
 msgstr "在 X 追蹤 @fireflyappcn"
 
@@ -2204,9 +2201,6 @@ msgstr ""
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 高風險項} other {# 高風險項}}"
-
-msgid "Failed to restore your Bluesky session, you can refresh the page to try again or sign in again."
-msgstr "無法恢復您的 Bluesky 登入狀態，您可以刷新頁面再試一次，或重新登入。"
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "包含自毀功能，項目方可能具備合約銷毀權限。"
@@ -3119,6 +3113,11 @@ msgstr "流通量指市場可公開交易的代幣數量，類似於流通股概
 #. placeholder {0}: post.stats.mirrors
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {轉發} other {轉發}}"
+
+#. placeholder {0}: account.profile.handle
+#. placeholder {1}: resolveSourceName(source)
+msgid "Failed to resume session for @{0} on {1}, you can refresh the page to try again."
+msgstr ""
 
 msgid "Total Value"
 msgstr ""
@@ -4321,6 +4320,11 @@ msgstr "語言"
 
 msgid "Address on Watching Lists"
 msgstr "關注名單地址"
+
+#. placeholder {0}: expiredAccounts .map((x) => `@${x.profile.handle}`) .join(', ')
+#. placeholder {1}: resolveSourceName(source)
+msgid "Session expired for {0} on {1}."
+msgstr ""
 
 msgid "FREE"
 msgstr "免費"

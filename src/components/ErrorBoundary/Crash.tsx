@@ -1,7 +1,5 @@
 'use client';
 
-import { Trans } from '@lingui/react/macro';
-
 import { env } from '@/constants/env.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useReportFeedback } from '@/hooks/useReportFeedback.js';
@@ -74,7 +72,7 @@ Developer Settings: ${developmentAPI}
                             className="rounded-md border border-blue-500 px-2 py-1 text-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
                             onClick={copied ? undefined : () => handleCopy()}
                         >
-                            {copied ? <Trans>Copied</Trans> : <Trans>Copy</Trans>}
+                            {copied ? 'Copied' : 'Copy'}
                         </button>
                     </div>
                 </div>

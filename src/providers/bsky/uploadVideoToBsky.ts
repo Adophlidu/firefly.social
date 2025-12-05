@@ -7,6 +7,7 @@ import { BSKY_VIDEO_ENDPOINT } from '@/constants/index.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { resolveExtFromMimeType } from '@/helpers/resolveExtFromMimeType.js';
+import { getPdsUrlFromSession } from '@/providers/bsky/getPdsUrlFromSession.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
@@ -37,7 +38,12 @@ async function getServiceAuthToken(
     { aud, lxm, exp }: { aud?: string; lxm: string; exp?: number },
     signal?: AbortSignal,
 ) {
-    const pdsAud = getServiceAuthAudFromUrl(bskySessionHolder.agent.dispatchUrl);
+    const bskySession = getSessionFromStorage(SessionType.Bsky);
+    if (!bskySession) throw new Error('No Bsky profile found');
+
+    const dispatchUrl = getPdsUrlFromSession(bskySession) || bskySession.serviceUrl;
+
+    const pdsAud = getServiceAuthAudFromUrl(dispatchUrl);
     if (!pdsAud) {
         throw new Error('Agent does not have a PDS URL');
     }

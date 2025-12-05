@@ -2,13 +2,14 @@ import type { AppBskyEmbedExternal, AppBskyEmbedImages, AppBskyEmbedVideo, RichT
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { BskyEmbedType, BskyFacetType, FileMimeType } from '@/constants/enum.js';
+import { BskyEmbedType, FileMimeType } from '@/constants/enum.js';
 import { BSKY_IMAGE_LIMITATION } from '@/constants/limitation.js';
 import { base64ToFile } from '@/helpers/base64ToFile.js';
 import { blobToBase64 } from '@/helpers/blobToBase64.js';
 import { compressImage } from '@/helpers/compressImage.js';
 import { fetchBlob } from '@/helpers/fetchBlob.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { AppBskyEmbed } from '@/providers/bsky/contentChecker.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { getPostOembed } from '@/providers/firefly/worker/getPostOembed.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -54,9 +55,9 @@ export async function resolveBskyEmbed(post: Post, richText?: RichText) {
     }
 
     const linkFacet = richText?.facets?.find((facet) =>
-        facet.features.some((feature) => feature.$type === BskyFacetType.Link),
+        facet.features.some((feature) => AppBskyEmbed.isLinkFacet(feature)),
     );
-    const linkFeature = linkFacet?.features.find((feature) => feature.$type === BskyFacetType.Link);
+    const linkFeature = linkFacet?.features.find((feature) => AppBskyEmbed.isLinkFacet(feature));
     const link = linkFeature?.uri && typeof linkFeature.uri === 'string' ? linkFeature.uri : undefined;
     if (link) {
         const urlData = await runInSafeAsync(() => getPostOembed(link));
@@ -84,5 +85,5 @@ export async function resolveBskyEmbed(post: Post, richText?: RichText) {
         } satisfies AppBskyEmbedExternal.Main;
     }
 
-    return undefined;
+    return;
 }

@@ -139,6 +139,7 @@ export interface Profile<O = unknown> {
     /** highlight handle if true */
     highlighted?: boolean;
     __original__?: O;
+    __lazy__?: boolean;
 }
 
 export interface ProfileLike {
