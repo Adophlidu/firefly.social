@@ -1,7 +1,6 @@
 import { parseJson } from '@dimensiondev/utils';
 
 import type { ProfileSource, SocialSource } from '@/constants/enum.js';
-import { parseHtml } from '@/helpers/parseHtml.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 export class AbortError extends Error {
@@ -56,19 +55,6 @@ export class NetworkError extends Error {
     }
 }
 
-async function getResponseText(response: Response): Promise<string> {
-    try {
-        const text = await response.clone().text();
-        if (response.headers.get('content-type')?.includes('text/html')) {
-            const dom = parseHtml(text);
-            return dom.querySelector('title')?.textContent || 'Internal service error';
-        }
-        return text;
-    } catch {
-        return '';
-    }
-}
-
 export class FetchError extends Error {
     override name = 'FetchError';
 
@@ -90,9 +76,8 @@ export class FetchError extends Error {
         throw this;
     }
 
-    static async from(input: RequestInfo | URL | string, response: Response, message?: string) {
+    static from(input: RequestInfo | URL | string, response: Response, text: string, message?: string) {
         const method = typeof input === 'string' ? 'GET' : input instanceof URL ? 'GET' : input.method.toUpperCase();
-        const text = await getResponseText(response);
 
         return new FetchError(
             message ??

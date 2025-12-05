@@ -1714,7 +1714,7 @@ export type SwapActivityTimeline = Response<{
 
 export type FollowingTraderCountResponse = Response<{ total: number }>;
 
-export type CollectionResponse = Response<EVM.Collection>;
+export type CollectionResponse = Response<EVM.Collection | null>;
 export type CollectionsResponse = Response<{ collections: EVM.Collection[]; cursor: string }>;
 
 export type NFTDetailsResponse = Response<{
