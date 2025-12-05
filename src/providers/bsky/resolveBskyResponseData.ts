@@ -18,17 +18,20 @@ export async function resolveBskyResponseDataAsync<T>(resolveResponse: () => Pro
         const response = await resolveResponse();
         return resolveBskyResponseData(response, message);
     } catch (error) {
-        if (error instanceof Error && error.message.includes('Post not found')) {
-            throw new NotFoundError(error.message);
-        }
-        if (error instanceof Error && error.message.includes('Profile not found')) {
-            throw new NotFoundError(error.message);
-        }
-        if (error instanceof Error && error.message.includes('actor must be a valid did or a handle')) {
-            throw new NotFoundError(error.message);
-        }
-        if (error instanceof Error && error.message.includes('Account has been suspended')) {
-            throw new AccountSuspendedError('', Source.Bsky, message);
+        if (error instanceof Error) {
+            const message = error.message;
+            if (message.includes('Post not found')) {
+                throw new NotFoundError(message);
+            }
+            if (message.includes('Profile not found')) {
+                throw new NotFoundError(message);
+            }
+            if (message.includes('actor must be a valid did or a handle')) {
+                throw new NotFoundError(message);
+            }
+            if (message.includes('Account has been suspended') || message.includes('Account is deactivated')) {
+                throw new AccountSuspendedError('', Source.Bsky, message);
+            }
         }
         throw error;
     }
