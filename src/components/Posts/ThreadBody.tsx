@@ -39,6 +39,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
     index,
 }) {
     const router = useRouter();
+    const { setScrollIndex } = useGlobalState();
 
     const pathname = usePathname();
     const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
@@ -79,7 +80,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                 showDate={!!isDetail && !isLast}
                 post={post}
                 onClickProfileLink={() => {
-                    if (listKey && !isUndefined(index)) useGlobalState.getState().setScrollIndex(listKey, index);
+                    if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                 }}
             />
             <div className="flex">
@@ -108,8 +109,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                                     disabled={post.isHidden}
                                     disablePadding
                                     onSetScrollIndex={() => {
-                                        if (listKey && !isUndefined(index))
-                                            useGlobalState.getState().setScrollIndex(listKey, index);
+                                        if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                                     }}
                                 />
                             )

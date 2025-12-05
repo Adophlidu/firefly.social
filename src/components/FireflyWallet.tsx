@@ -22,6 +22,8 @@ export function FireflyWallet() {
     const isOpen = useGlobalState.use.fireflyWalletIsOpen();
     const { isCreatedPrivyWallet } = useIsCreatedPrivyWallet();
     const pathname = usePathname();
+    const { setWallet } = useFireflyWalletStore();
+    const { updateFireflyWalletIsOpen } = useGlobalState();
 
     const allConnectionsQuery = useAllConnections();
     const privyConnections = useMemo(() => {
@@ -29,22 +31,21 @@ export function FireflyWallet() {
         const { connected } = allConnectionsQuery.data;
         return connected.filter((connection) => connection.source === WalletSource.Privy);
     }, [allConnectionsQuery.data]);
+
     useEffect(() => {
         for (const connection of privyConnections) {
             switch (connection.platform) {
                 case 'eth':
-                    useFireflyWalletStore
-                        .getState()
-                        .setWallet(NetworkType.Ethereum, [{ address: connection.address as Address }]);
+                    setWallet(NetworkType.Ethereum, [{ address: connection.address as Address }]);
                     break;
                 case 'solana':
-                    useFireflyWalletStore.getState().setWallet(NetworkType.Solana, [{ address: connection.address }]);
+                    setWallet(NetworkType.Solana, [{ address: connection.address }]);
                     break;
                 default:
                     safeUnreachable(connection.platform);
             }
         }
-    }, [privyConnections]);
+    }, [privyConnections, setWallet]);
 
     if (!isLoginFirefly || !isCreatedPrivyWallet) return null;
 
@@ -71,7 +72,7 @@ export function FireflyWallet() {
                         className="absolute left-0 top-0 flex h-14 w-full items-center justify-between whitespace-nowrap border-b border-b-line bg-lightBg px-5"
                         onClick={() => {
                             if (!isOpen) {
-                                useGlobalState.getState().updateFireflyWalletIsOpen(true);
+                                updateFireflyWalletIsOpen(true);
                             }
                         }}
                     >
@@ -81,7 +82,7 @@ export function FireflyWallet() {
                         </div>
                         <button
                             className="flex size-8 cursor-pointer items-center justify-center rounded-full bg-bg"
-                            onClick={() => useGlobalState.getState().updateFireflyWalletIsOpen(false)}
+                            onClick={() => updateFireflyWalletIsOpen(false)}
                         >
                             <ArrowLineDownIcon
                                 width={20}
@@ -105,7 +106,7 @@ export function FireflyWallet() {
                         'absolute bottom-4 right-4 z-50 flex size-12 origin-bottom-right items-center justify-center rounded-2xl bg-lightBg text-main shadow-lg duration-150 lg:right-0 lg:hidden',
                         isOpen ? 'pointer-events-none scale-[3] opacity-0' : 'cursor-pointer',
                     )}
-                    onClick={() => useGlobalState.getState().updateFireflyWalletIsOpen(true)}
+                    onClick={() => updateFireflyWalletIsOpen(true)}
                 >
                     <WalletIcon />
                 </button>

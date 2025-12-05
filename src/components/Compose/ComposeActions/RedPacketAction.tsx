@@ -35,6 +35,7 @@ export const RedPacketAction = memo<RedPacketActionProps>(function RedPacketActi
     const { switchChainAsync } = useSwitchChain();
     const setEditorContent = useSetEditorContent();
     const profilesAll = useCurrentProfilesAll();
+    const { cursor, updateChars, addImage, updateIsBusy } = useComposeStateStore();
 
     const promoteLink = useMemo(() => {
         const preferSource = SORTED_SOCIAL_SOURCES.find((x) => availableSources.includes(x) && profilesAll[x]);
@@ -56,7 +57,6 @@ export const RedPacketAction = memo<RedPacketActionProps>(function RedPacketActi
 
         const result = await RedPacketModalRef.openAndWaitForClose();
         if (result) {
-            const { cursor, updateChars, addImage, updateIsBusy } = useComposeStateStore.getState();
             const compositePost = getCompositePost(cursor);
             const firstChar = compositePost?.chars[0];
             if (
@@ -95,7 +95,18 @@ export const RedPacketAction = memo<RedPacketActionProps>(function RedPacketActi
                 updateIsBusy(false);
             }
         }
-    }, [ethereum, solana.address, chainId, switchChainAsync, promoteLink, setEditorContent]);
+    }, [
+        ethereum,
+        solana.address,
+        chainId,
+        switchChainAsync,
+        promoteLink,
+        setEditorContent,
+        cursor,
+        updateChars,
+        addImage,
+        updateIsBusy,
+    ]);
 
     const invalidSources = availableSources.filter((x) => !ENABLED_RP_SOURCES.includes(x));
     const rpDisabled = disabled || !!invalidSources.length || !availableSources.length;

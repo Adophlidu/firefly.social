@@ -23,6 +23,7 @@ export function Footer() {
     const isLoginFirefly = useIsLoginFirefly();
     const isLoading = useAsyncStatusAll();
     const farcasterAccounts = useFarcasterProfileStore.use.accounts();
+    const { updateSidebarOpen } = useNavigatorState();
 
     return (
         <footer className={classNames('absolute inset-x-0 bottom-20 pl-2 md:pl-6')}>
@@ -31,7 +32,7 @@ export function Footer() {
                     <WalletConnectButton className="mb-6" />
                     <AccountConnectButton
                         onClick={async () => {
-                            useNavigatorState.getState().updateSidebarOpen(false);
+                            updateSidebarOpen(false);
                             await delay(300);
                             openLoginModal();
                             await restoreFarcasterAccountsIfNeeded(farcasterAccounts);
@@ -44,7 +45,7 @@ export function Footer() {
                         disabled={isLoading}
                         className="mr-2 flex min-w-[120px] items-center justify-center rounded-lg bg-lightMain px-4 py-2 text-lg leading-6 text-primaryBottom"
                         onClick={async () => {
-                            useNavigatorState.getState().updateSidebarOpen(false);
+                            updateSidebarOpen(false);
                             await delay(300);
                             location.href = RouteResolver.signup(SignupStep.LoginSocialPlatform);
                         }}

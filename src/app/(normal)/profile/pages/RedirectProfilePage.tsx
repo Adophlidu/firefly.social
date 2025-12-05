@@ -13,16 +13,18 @@ import { usePreferencesState } from '@/store/usePreferenceStore.js';
 export function RedirectProfilePage({ source }: { source: SocialSource }): ReactNode | never {
     const currentProfile = useCurrentProfile(source);
     const profile = resolveFireflyIdentity(currentProfile);
+    const { setIdentity } = useFireflyIdentityState();
+    const { resetPreferences } = usePreferencesState();
 
     useEffect(() => {
         if (source) {
-            useFireflyIdentityState.getState().setIdentity({
+            setIdentity({
                 source,
                 id: profile?.id || '',
             });
-            usePreferencesState.getState().resetPreferences();
+            resetPreferences();
         }
-    }, [source, profile?.id]);
+    }, [source, profile?.id, setIdentity, resetPreferences]);
 
     // profile link should be shareable
     if (profile && currentProfile) {

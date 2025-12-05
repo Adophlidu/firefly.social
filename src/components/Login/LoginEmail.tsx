@@ -28,15 +28,23 @@ import type { Account } from '@/providers/types/Account.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-async function loginEmail(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
+async function loginEmail(
+    createAccount: () => Promise<Account>,
+    {
+        setAsyncStatus,
+        ...options
+    }: Omit<AccountOptions, 'source'> & {
+        setAsyncStatus: (source: Source.Email, status: AsyncStatus) => void;
+    },
+) {
     try {
         const account = await createAccount();
         const done = await addAccount(account, {
             ...options,
             async setAsCurrent({ session }) {
-                useGlobalState.getState().setAsyncStatus(Source.Email, AsyncStatus.Pending);
+                setAsyncStatus(Source.Email, AsyncStatus.Pending);
                 thirdPartySessionHolder.resumeSession(session as ThirdPartySession);
-                useGlobalState.getState().setAsyncStatus(Source.Email, AsyncStatus.Idle);
+                setAsyncStatus(Source.Email, AsyncStatus.Idle);
             },
         });
         if (done) {
@@ -63,6 +71,7 @@ async function loginEmail(createAccount: () => Promise<Account>, options?: Omit<
 
 export function LoginEmail() {
     const controller = useAbortController();
+    const { setAsyncStatus } = useGlobalState();
     const [email, setEmail] = useState('');
     const [passcode, setPasscode] = useState('');
 
@@ -87,10 +96,11 @@ export function LoginEmail() {
         }
 
         await loginEmail(() => createAccountByPasscode(email, passcode), {
+            setAsyncStatus,
             skipWaitForMetricsSyncing,
             signal: controller.current.signal,
         });
-    }, [controller, email, passcode, isValidEmail, isValidPasscode, skipWaitForMetricsSyncing]);
+    }, [controller, email, passcode, isValidEmail, isValidPasscode, skipWaitForMetricsSyncing, setAsyncStatus]);
 
     return (
         <form className="box-border flex w-[452px] flex-col items-center gap-[20px] px-6 pb-6 max-md:w-full">

@@ -82,8 +82,11 @@ function ComposeModalUI({ ref }: Props) {
         updateIsFailedSchedulePost,
         updateDisabledSources,
         isBusy,
+        cursor,
+        currentDraftId,
+        sealedSource,
     } = useComposeStateStore();
-    const { clearScheduleTime } = useComposeScheduleStateStore();
+    const { clearScheduleTime, scheduleTime } = useComposeScheduleStateStore();
 
     const [editor] = useLexicalComposerContext();
 
@@ -139,10 +142,9 @@ function ComposeModalUI({ ref }: Props) {
 
     const isSmall = useIsSmall('max');
 
+    const { addDraft } = useComposeDraftStateStore();
+
     const onClose = useCallback(async () => {
-        const { addDraft } = useComposeDraftStateStore.getState();
-        const { posts, cursor, currentDraftId, type, sealedSource } = useComposeStateStore.getState();
-        const { scheduleTime } = useComposeScheduleStateStore.getState();
         const compositePost = getCompositePost(cursor);
         const { availableSources = EMPTY_LIST, isAnonymous } = compositePost ?? {};
         if (posts.some((x) => !isEmptyPost(x))) {
@@ -212,11 +214,10 @@ function ComposeModalUI({ ref }: Props) {
             dispatch?.close();
         }
         return CloseAction.Discard;
-    }, [isSmall, profilesAll, dispatch]);
+    }, [isSmall, profilesAll, dispatch, addDraft, posts, cursor, currentDraftId, type, sealedSource, scheduleTime]);
 
     useUpdateEffect(() => {
         if (type !== 'quote') return;
-        const { cursor } = useComposeStateStore.getState();
         const compositePost = getCompositePost(cursor);
         if (!compositePost) return;
         const parentPost = Object.values(compositePost.parentPost).find((x) => x);

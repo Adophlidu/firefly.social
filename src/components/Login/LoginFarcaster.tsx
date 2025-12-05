@@ -49,11 +49,19 @@ import { createAccountByRelayService } from '@/providers/warpcast/createAccountB
 import { type AccountOptions, addAccount } from '@/services/account.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-async function loginFarcaster(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
+async function loginFarcaster(
+    createAccount: () => Promise<Account>,
+    {
+        setAsyncStatus,
+        ...options
+    }: Omit<AccountOptions, 'source'> & {
+        setAsyncStatus: (source: Source.Farcaster, status: AsyncStatus) => void;
+    },
+) {
     try {
         const account = await createAccount();
 
-        useGlobalState.getState().setAsyncStatus(Source.Farcaster, AsyncStatus.Pending);
+        setAsyncStatus(Source.Farcaster, AsyncStatus.Pending);
         const done = await addAccount(account, {
             ...options,
             bindLensManagerOnSyncing: true,
@@ -110,7 +118,7 @@ async function loginFarcaster(createAccount: () => Promise<Account>, options?: O
 
         throw error;
     } finally {
-        useGlobalState.getState().setAsyncStatus(Source.Farcaster, AsyncStatus.Idle);
+        setAsyncStatus(Source.Farcaster, AsyncStatus.Idle);
     }
 }
 
@@ -120,6 +128,7 @@ interface LoginFarcasterProps {
 
 export function LoginFarcaster({ signType }: LoginFarcasterProps) {
     const controller = useAbortController();
+    const { setAsyncStatus } = useGlobalState();
 
     const [url, setUrl] = useState('');
     const [scanned, setScanned] = useState(false);
@@ -157,13 +166,18 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
 
                     return account;
                 },
-                { skipReportFarcasterSigner: false, signal: controller.current.signal, skipWaitForMetricsSyncing },
+                {
+                    setAsyncStatus,
+                    skipReportFarcasterSigner: false,
+                    skipWaitForMetricsSyncing,
+                    signal: controller.current.signal,
+                },
             );
         } catch (error) {
             enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
             throw error;
         }
-    }, [controller, skipWaitForMetricsSyncing, resetCountdown, startCountdown, stopCountdown]);
+    }, [controller, skipWaitForMetricsSyncing, resetCountdown, startCountdown, stopCountdown, setAsyncStatus]);
 
     const [{ loading: loadingByRelayService }, onLoginByRelayService] = useAsyncFn(async () => {
         controller.current.renew();
@@ -185,7 +199,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
 
                     return account;
                 },
-                { signal: controller.current.signal, skipWaitForMetricsSyncing },
+                { setAsyncStatus, signal: controller.current.signal, skipWaitForMetricsSyncing },
             );
         } catch (error) {
             if (error instanceof FarcasterPatchSignerError) {
@@ -203,7 +217,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
             enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
             throw error;
         }
-    }, [controller, history, skipWaitForMetricsSyncing, resetCountdown, startCountdown, stopCountdown]);
+    }, [controller, history, skipWaitForMetricsSyncing, resetCountdown, startCountdown, stopCountdown, setAsyncStatus]);
 
     const [{ loading: loadingBySponsorship }, onLoginByFireflySponsorship] = useAsyncFn(async () => {
         controller.current.renew();
@@ -225,13 +239,18 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
 
                     return account;
                 },
-                { skipReportFarcasterSigner: false, signal: controller.current.signal, skipWaitForMetricsSyncing },
+                {
+                    setAsyncStatus,
+                    skipReportFarcasterSigner: false,
+                    signal: controller.current.signal,
+                    skipWaitForMetricsSyncing,
+                },
             );
         } catch (error) {
             enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
             throw error;
         }
-    }, [controller, skipWaitForMetricsSyncing, resetCountdown, startCountdown, stopCountdown]);
+    }, [controller, skipWaitForMetricsSyncing, resetCountdown, startCountdown, stopCountdown, setAsyncStatus]);
 
     const onClick = (signType: FarcasterSignType | null) => {
         if (!signType) return;

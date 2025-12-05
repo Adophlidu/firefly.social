@@ -23,6 +23,7 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
     const comeback = useComeBack();
     const { name } = useContext(ActivityContext);
     const shareUrl = useActivityShareUrl(name);
+    const routeChanged = useGlobalState.use.routeChanged();
 
     return (
         <>
@@ -53,7 +54,7 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
                     <button
                         className="size-6 cursor-pointer"
                         onClick={() => {
-                            if (pathname !== PageRoute.Events && useGlobalState.getState().routeChanged) {
+                            if (pathname !== PageRoute.Events && routeChanged) {
                                 comeback();
                                 return;
                             }

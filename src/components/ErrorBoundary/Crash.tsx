@@ -27,6 +27,7 @@ export interface CrashProps extends React.PropsWithChildren<ErrorBoundaryError> 
     onRetry: () => void;
 }
 export function CrashUI({ onRetry, ...error }: CrashProps) {
+    const developmentAPI = useDeveloperSettingsState.use.developmentAPI();
     // crash report, will send to GitHub
     const reportTitle = `[Crash] ${error.type}: ${error.message}`;
     const reportBody = `I was *doing something...*, then application reports an error.
@@ -39,7 +40,7 @@ Error stack:
 
 Version: ${env.shared.VERSION}
 Commit Hash: ${env.shared.COMMIT_HASH}
-Developer Settings: ${useDeveloperSettingsState.getState().developmentAPI}
+Developer Settings: ${developmentAPI}
 `;
 
     const [reported, loading, handleReport] = useReportFeedback(reportTitle, reportBody, {

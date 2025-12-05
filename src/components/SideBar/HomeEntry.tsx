@@ -20,6 +20,7 @@ interface HomeEntryProps {
 export function HomeEntry({ collapsed }: HomeEntryProps) {
     const pathname = usePathname();
     const isLogin = useIsLoginDiscoverSource();
+    const { updateSidebarOpen } = useNavigatorState();
 
     const homeUrl = isLogin ? resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE) : resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE);
 
@@ -31,7 +32,7 @@ export function HomeEntry({ collapsed }: HomeEntryProps) {
         <li
             className="flex w-full rounded-lg text-main outline-none"
             onClick={() => {
-                useNavigatorState.getState().updateSidebarOpen(false);
+                updateSidebarOpen(false);
             }}
         >
             <BaseMenuItem

@@ -39,6 +39,7 @@ interface MenuProps {
 export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const pathname = usePathname();
     const isDesktop = useIsLarge();
+    const { updateSidebarOpen } = useNavigatorState();
 
     return (
         <nav className="relative flex min-h-[658px] flex-1 flex-col">
@@ -96,7 +97,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                     className="flex w-full rounded-lg text-main outline-none"
                                     key={item.href}
                                     onClick={() => {
-                                        useNavigatorState.getState().updateSidebarOpen(false);
+                                        updateSidebarOpen(false);
                                     }}
                                 >
                                     {{

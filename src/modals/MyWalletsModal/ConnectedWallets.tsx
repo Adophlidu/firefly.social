@@ -34,10 +34,11 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
     const isAuthorized = useFireflyWalletStore((state) => state.isAuthorized);
     const loading = !isAuthorized;
 
+    const { updateFireflyWalletIsOpen } = useGlobalState();
     const onOpenPrivy = useCallback(() => {
-        useGlobalState.getState().updateFireflyWalletIsOpen(true);
+        updateFireflyWalletIsOpen(true);
         onOpenWallets?.();
-    }, [onOpenWallets]);
+    }, [onOpenWallets, updateFireflyWalletIsOpen]);
 
     if (isLoadingAllConnections) return <div className="mb-2 h-[122px] w-full animate-pulse rounded-lg bg-bg" />;
     if (!isCreatedPrivyWallet) return null;
@@ -55,7 +56,7 @@ function FireflyWalletPanel({ onOpenWallets }: { onOpenWallets?: () => void }) {
                         wallet_address: privyConnections[0].address,
                         MPC_type: WalletProfileDataSource.Privy,
                     });
-                    useGlobalState.getState().updateFireflyWalletIsOpen(true);
+                    updateFireflyWalletIsOpen(true);
                 }}
             >
                 <FireflyIcon width={20} height={20} />
