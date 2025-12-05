@@ -38,6 +38,7 @@ import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
 const PrivySolanaWalletName = 'Firefly Wallet' as WalletName<'Firefly Wallet'>;
 
@@ -151,7 +152,10 @@ export class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
     }
 
     async getAccounts() {
-        const { connected } = await queryClient.ensureQueryData(queryMyAllConnections);
+        const isLogin = useFireflyProfileStore.getState().currentProfileSession;
+        const connected = isLogin
+            ? await queryClient.ensureQueryData(queryMyAllConnections).then((res) => res.connected)
+            : [];
         const [account] = connected.filter(
             (connection) => connection.source === WalletSource.Privy && connection.platform === 'solana',
         );
