@@ -126,7 +126,7 @@ export function PostBy() {
                 leaveTo="opacity-0 translate-y-1"
             >
                 <PopoverPanel
-                    anchor="top start"
+                    anchor="top"
                     portal
                     modal
                     static
