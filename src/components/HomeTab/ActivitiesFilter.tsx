@@ -9,25 +9,6 @@ import { useLocale } from '@/helpers/getCookies.js';
 import { captureArticlePlatformFilterTabEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 import { ActivitiesFilterNamespace, useActivitiesFilterStore } from '@/store/useActivitiesFilterStore.js';
 
-const ActivitiesPlatforms = [
-    {
-        platform: ActivitiesPlatform.Snapshot,
-        label: <Trans>Snapshot DAO</Trans>,
-    },
-    {
-        platform: ActivitiesPlatform.Paragraph,
-        label: <Trans>Paragraph article</Trans>,
-    },
-    {
-        platform: ActivitiesPlatform.Limo,
-        label: <Trans>Limo article</Trans>,
-    },
-    {
-        platform: ActivitiesPlatform.Matters,
-        label: <Trans>Matters article</Trans>,
-    },
-];
-
 interface ActivitiesFilterProps {
     namespace: ActivitiesFilterNamespace;
     hasLimo?: boolean;
@@ -48,7 +29,24 @@ export const ActivitiesFilter = memo<ActivitiesFilterProps>(function ActivitiesF
     const validPlatforms = useMemo(() => {
         const isChinese = locale === Locale.zhHans || locale === Locale.zhHant;
 
-        return ActivitiesPlatforms.filter((x) => {
+        return [
+            {
+                platform: ActivitiesPlatform.Snapshot,
+                label: <Trans>Snapshot DAO</Trans>,
+            },
+            {
+                platform: ActivitiesPlatform.Paragraph,
+                label: <Trans>Paragraph article</Trans>,
+            },
+            {
+                platform: ActivitiesPlatform.Limo,
+                label: <Trans>Limo article</Trans>,
+            },
+            {
+                platform: ActivitiesPlatform.Matters,
+                label: <Trans>Matters article</Trans>,
+            },
+        ].filter((x) => {
             if (!hasLimo && x.platform === ActivitiesPlatform.Limo) return false;
             if (x.platform === ActivitiesPlatform.Matters && (!hasMatters || !isChinese)) return false;
             return true;
@@ -67,7 +65,7 @@ export const ActivitiesFilter = memo<ActivitiesFilterProps>(function ActivitiesF
         }
     }, [validPlatforms, selectedPlatforms, setSelectedPlatforms]);
 
-    const filter = (
+    return (
         <Popover className="relative flex items-center justify-center">
             <PopoverButton className="p-2 outline-none">
                 <FilterIcon width={24} height={24} />
@@ -92,5 +90,4 @@ export const ActivitiesFilter = memo<ActivitiesFilterProps>(function ActivitiesF
             </PopoverPanel>
         </Popover>
     );
-    return filter;
 });
