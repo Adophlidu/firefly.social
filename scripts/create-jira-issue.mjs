@@ -358,11 +358,15 @@ const issueData = {
         issuetype: {
             name: values.type || 'Task',
         },
-        priority: {
-            name: values.priority || 'Medium',
-        },
     },
 };
+
+// Add priority if provided
+if (values.priority) {
+    issueData.fields.priority = {
+        name: values.priority,
+    };
+}
 
 // Add labels if provided
 if (values.labels) {
