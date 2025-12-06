@@ -23,6 +23,7 @@ overrides:
   crypto-js@<4.2.0: '>=4.2.0'
   elliptic: '>=6.6.1'
   isows: 1.0.7
+  pino: 10.1.0
   react-dom: 19.2.1
   react-use: 17.5.1
   react: 19.2.1
@@ -277,7 +278,7 @@ importers:
         specifier: ^2.7.3
         version: 2.7.3(@tanstack/react-router@1.115.3)(next@16.0.7)(react@19.2.1)
       pino:
-        specifier: ^10.1.0
+        specifier: 10.1.0
         version: 10.1.0
       plyr-react:
         specifier: ^5.3.0
@@ -10005,7 +10006,7 @@ packages:
     resolution: {integrity: sha512-DDktPBFdmt5d7U3sbp4e3fQHNS1b6amsR8FmtOnt6L2SnV7VfcZr8VmAGL12zetAR+4fndegbREmX0P8Mw6eDg==}
     dependencies:
       '@walletconnect/safe-json': 1.0.2
-      pino: 10.0.0
+      pino: 10.1.0
     dev: false
 
   /@walletconnect/relay-api@1.0.11:
@@ -15957,23 +15958,6 @@ packages:
     resolution: {integrity: sha512-e906FRY0+tV27iq4juKzSYPbUj2do2X2JX4EzSca1631EB2QJQUqGbDuERal7LCtOpxl6x3+nvo9NPZcmjkiFA==}
     dev: false
 
-  /pino@10.0.0:
-    resolution: {integrity: sha512-eI9pKwWEix40kfvSzqEP6ldqOoBIN7dwD/o91TY5z8vQI12sAffpR/pOqAD1IVVwIVHDpHjkq0joBPdJD0rafA==}
-    hasBin: true
-    dependencies:
-      atomic-sleep: 1.0.0
-      on-exit-leak-free: 2.1.2
-      pino-abstract-transport: 2.0.0
-      pino-std-serializers: 7.0.0
-      process-warning: 5.0.0
-      quick-format-unescaped: 4.0.4
-      real-require: 0.2.0
-      safe-stable-stringify: 2.5.0
-      slow-redact: 0.3.2
-      sonic-boom: 4.2.0
-      thread-stream: 3.1.0
-    dev: false
-
   /pino@10.1.0:
     resolution: {integrity: sha512-0zZC2ygfdqvqK8zJIr1e+wT1T/L+LF6qvqvbzEQ6tiMAoTqEVK9a1K3YRu8HEUvGEvNqZyPJTtb2sNIoTkB83w==}
     hasBin: true
@@ -17425,10 +17409,6 @@ packages:
       mrmime: 2.0.1
       totalist: 3.0.1
     dev: true
-
-  /slow-redact@0.3.2:
-    resolution: {integrity: sha512-MseHyi2+E/hBRqdOi5COy6wZ7j7DxXRz9NkseavNYSvvWC06D8a5cidVZX3tcG5eCW3NIyVU4zT63hw0Q486jw==}
-    dev: false
 
   /snake-case@3.0.4:
     resolution: {integrity: sha512-LAOh4z89bGQvl9pFfNF8V146i7o7/CqFPbqzYgP+yYzDIDeS9HaNFtXABamRW+AQzEVODcvE79ljJ+8a9YSdMg==}
