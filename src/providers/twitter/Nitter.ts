@@ -2,7 +2,7 @@ import { bom } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { AccountSuspendedError, NotFoundError } from '@/constants/error.js';
+import { AccountSuspendedError, NitterError, NotFoundError } from '@/constants/error.js';
 import { FIREFLY_NITTER_URL } from '@/constants/index.js';
 import { LimitConcurrency } from '@/decorators/LimitConcurrency.js';
 import { MemoizePromise } from '@/decorators/MemoizePromise.js';
@@ -16,8 +16,8 @@ import {
     UserTimelineTab,
 } from '@/providers/types/Nitter.js';
 
-function resolveNitterJsonResponse<T>({ data, error }: Response<T>): T {
-    if (error) throw new Error(error);
+function resolveNitterJsonResponse<T>(url: string, { data, error }: Response<T>): T {
+    if (error) throw new NitterError(url, error);
     return data as T;
 }
 
@@ -34,51 +34,46 @@ class NitterAPI {
             cursor?: string;
         },
     ) {
-        const res = await fetchJson<GetTweetStatusResponse>(
-            urlcat(FIREFLY_NITTER_URL, '/api/:name/status/:id', {
-                name,
-                id,
-                cursor: options?.cursor,
-            }),
-            {
-                next: {
-                    revalidate: 5,
-                },
+        const url = urlcat(FIREFLY_NITTER_URL, '/api/:name/status/:id', {
+            name,
+            id,
+            cursor: options?.cursor,
+        });
+        const response = await fetchJson<GetTweetStatusResponse>(url, {
+            next: {
+                revalidate: 5,
             },
-        );
-        return resolveNitterJsonResponse(res);
+        });
+        return resolveNitterJsonResponse(url, response);
     }
 
     @MemoizePromise((id) => id)
     async convertUserIdToHandle(id: string) {
-        const res = await fetchJson<Response<{ username: string }>>(
-            urlcat(FIREFLY_NITTER_URL, '/api/i/user/:id', {
-                id,
-            }),
-            {
-                cache: 'force-cache',
-            },
-        );
-        return resolveNitterJsonResponse(res);
+        const url = urlcat(FIREFLY_NITTER_URL, '/api/i/user/:id', {
+            id,
+        });
+        const response = await fetchJson<Response<{ username: string }>>(url, {
+            cache: 'force-cache',
+        });
+        return resolveNitterJsonResponse(url, response);
     }
 
     @MemoizePromise((handle) => handle)
     async getProfileByHandle(handle: string) {
-        const res = await fetchJson<GetProfileResponse>(
-            urlcat(FIREFLY_NITTER_URL, '/api/:handle/profile', {
-                handle,
-            }),
-            {
-                next: {
-                    revalidate: 5,
-                },
+        const url = urlcat(FIREFLY_NITTER_URL, '/api/:handle/profile', {
+            handle,
+        });
+        const response = await fetchJson<GetProfileResponse>(url, {
+            next: {
+                revalidate: 5,
             },
-        );
+        });
 
-        if (res.error?.includes('User not found'))
+        if (response.error?.includes('User not found')) {
             throw new NotFoundError(`The twitter profile not found with handle: ${handle}`);
+        }
 
-        const data = resolveNitterJsonResponse(res);
+        const data = resolveNitterJsonResponse(url, response);
         if (data.user.suspended) throw new AccountSuspendedError(handle, Source.Twitter);
         return data;
     }
@@ -100,12 +95,12 @@ class NitterAPI {
                   handle,
                   cursor: options?.cursor,
               });
-        const res = await fetchJson<GetUserTimelineResponse>(url, {
+        const response = await fetchJson<GetUserTimelineResponse>(url, {
             next: {
                 revalidate: 1,
             },
         });
-        return resolveNitterJsonResponse(res);
+        return resolveNitterJsonResponse(url, response);
     }
 
     @MemoizePromise((query, options) => `${query}-${options?.cursor}`)
@@ -121,12 +116,12 @@ class NitterAPI {
             cursor: options?.cursor,
             f: options?.type,
         });
-        const res = await fetchJson<SearchResponse>(url, {
+        const response = await fetchJson<SearchResponse>(url, {
             next: {
                 revalidate: 1,
             },
         });
-        return resolveNitterJsonResponse(res);
+        return resolveNitterJsonResponse(url, response);
     }
 }
 

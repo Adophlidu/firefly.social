@@ -95,11 +95,9 @@ export async function fetch(
     if (!response.ok && bom.navigator?.onLine === false) throw new NetworkError();
 
     // On client side, the <AuthGuard /> warning will be triggered when a firefly api request is 403 forbidden
-    if (response.status === 403 && bom.document) {
-        if (u && isFireflyLandApi(u)) {
-            dispatchCustomEvent(EVENT_FORBIDDEN);
-            throw new ForbiddenError();
-        }
+    if (response.status === 403 && bom.document && u && isFireflyLandApi(u)) {
+        dispatchCustomEvent(EVENT_FORBIDDEN);
+        throw new ForbiddenError();
     }
 
     // If the request is not successful and the noStrictOK option is not set, throw a fetch error

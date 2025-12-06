@@ -33,7 +33,7 @@ export async function runInSafeAsync<T>(
 
         if (!noThrow) throw error;
 
-        console.warn(`[runInSafeAsync] ${(error as Error).message}`, error);
+        console.warn(`[runInSafeAsync] ${error}`);
 
         return;
     }

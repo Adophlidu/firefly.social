@@ -351,3 +351,11 @@ export class SessionExpiredError extends Error {
         super(message ?? `${resolveSourceName(source)} session has been expired.`);
     }
 }
+
+export class NitterError extends Error {
+    override name = 'NitterError';
+
+    constructor(url: string, message?: string) {
+        super(`[NitterError] ${url} ${message || 'Unknown nitter error.'}`);
+    }
+}
