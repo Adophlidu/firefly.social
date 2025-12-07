@@ -9,7 +9,7 @@ import {
 } from '@livepeer/react/assets';
 import { getSrc } from '@livepeer/react/external';
 import * as Player from '@livepeer/react/player';
-import { type MediaScopedProps, type PlayerProps, useMediaContext } from '@livepeer/react/player';
+import { type MediaScopedProps, type PlayerProps, useMediaContext, useStore } from '@livepeer/react/player';
 import {
     type HTMLProps,
     memo,
@@ -23,7 +23,6 @@ import {
 } from 'react';
 import { useIntersection } from 'react-use';
 import { useHover } from 'usehooks-ts';
-import { useStore } from 'zustand';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { formatSecondsToHours } from '@/helpers/formatSeconds.js';
