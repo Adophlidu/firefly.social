@@ -29,7 +29,6 @@ export async function autoLoginWithPrivy(profileId: string) {
 
     // 2. login lens
     const sessionClient = await loginLensProfile(profileToLogin, {
-        useMemoryStorage: true,
         ownerOrManager: privyEvmWallet,
         signMessage: async (message) => {
             const result = await signMessageWithPrivy(message);

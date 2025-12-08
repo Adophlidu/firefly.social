@@ -40,11 +40,8 @@ import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { checkAndSyncMetrics } from '@/providers/firefly/metrics/checkAndSyncMetrics.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
-import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
-import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
 import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
-import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
@@ -136,24 +133,13 @@ export const LensView = memo(function LensView() {
         try {
             setAsyncStatus(Source.Lens, AsyncStatus.Pending);
 
-            const { account, sessionClient } = await createAccountForProfileId(
-                currentProfile,
-                true,
-                controller.current.signal,
-            );
-
-            const credentials = ensureLensResultSync(sessionClient.getCredentials());
+            const { account } = await createAccountForProfileId(currentProfile, controller.current.signal);
             const done = await addAccount(account, {
                 signal: controller.current.signal,
                 skipSyncAccounts: true,
             });
             if (done) {
-                // move to local storage
-                if (credentials) {
-                    updateCredentialsStorage(credentials);
-                }
-                lensSessionHolder.resumeSession(account.session);
-                lensSessionClientHolder.setSessionClient(sessionClient);
+                await lensSessionHolder.resumeSession(account.session);
                 LoginModalRef.close();
                 enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Lens)} account is now connected.</Trans>);
 

@@ -2,12 +2,13 @@
 
 import { bom } from '@dimensiondev/utils';
 
-import { AsyncStatus } from '@/constants/enum.js';
+import { AsyncStatus, Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getLensProfileByHandle } from '@/providers/lens/getLensProfileByHandle.js';
-import { resumeLensSession } from '@/providers/lens/resumeLensSession.js';
+import type { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
+import { ensureProfileSessionInStore } from '@/services/ensureProfileSessionInStore.js';
 import { createProfileState, customSelectors } from '@/store/useProfileStore/createProfileState.js';
 
 const state = createProfileState(
@@ -24,9 +25,12 @@ const state = createProfileState(
 
             try {
                 state.__setStatus__(AsyncStatus.Pending);
-                await resumeLensSession(state.currentProfile?.profileId, () => {
-                    state.clear();
-                });
+                await ensureProfileSessionInStore(Source.Lens, state);
+
+                const currentSession = state.currentProfileSession as LensSession | null;
+                if (currentSession) {
+                    await lensSessionHolder.resumeSession(currentSession);
+                }
             } finally {
                 state.__setStatus__(AsyncStatus.Idle);
             }

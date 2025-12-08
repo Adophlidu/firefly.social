@@ -27,20 +27,20 @@ const state = createProfileState(
 
             state.upgrade();
 
-            const bskySession = state.currentProfileSession as BskySession | null;
-            if (!bskySession) {
-                state.clear();
-                return;
-            }
-
             try {
                 state.__setStatus__(AsyncStatus.Pending);
-
                 await ensureProfileSessionInStore(Source.Bsky, state);
-                await bskySessionHolder.resumeSession(bskySession);
+
+                const bskySession = state.currentProfileSession as BskySession | null;
+                if (bskySession) {
+                    await bskySessionHolder.resumeSession(bskySession);
+                }
             } catch (error) {
                 console.error(`[bsky store] error occurs when restore profile store ${error}`);
                 if (error instanceof FetchError) return;
+
+                const bskySession = state.currentProfileSession as BskySession | null;
+                if (!bskySession) return;
 
                 sentryClient.captureException(ExceptionId.RESUME_BSKY_SESSION, error, {
                     profileId: bskySession.did,

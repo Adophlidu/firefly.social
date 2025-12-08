@@ -43,7 +43,7 @@ export const customSelectors: CustomSelectors<ProfileState> = {
 export function createProfileState(
     provider: {
         getUpdatedProfile?: (profile: Profile) => Promise<Profile | null>;
-        refreshCurrentAccountSession?: () => Promise<Session | null>;
+        refreshCurrentAccountSession?: (session?: Session | null) => Promise<Session | null>;
     },
     options: PersistOptions<ProfileState, SessionState>,
 ) {
@@ -144,10 +144,10 @@ export function createProfileState(
                     });
                 },
                 refreshCurrentAccount: async () => {
-                    const { currentProfile: profile } = get();
+                    const { currentProfile: profile, currentProfileSession } = get();
                     if (!profile) return;
 
-                    const session = await provider.refreshCurrentAccountSession?.();
+                    const session = await provider.refreshCurrentAccountSession?.(currentProfileSession);
 
                     const updatedProfile = await provider.getUpdatedProfile?.(profile);
                     if (!updatedProfile) return;

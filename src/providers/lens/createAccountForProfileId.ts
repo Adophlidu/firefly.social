@@ -19,10 +19,9 @@ async function createAccountWithSessionClient(sessionClient: SessionClient, prof
     } satisfies Account;
 }
 
-export async function createAccountForProfileId(profile: Profile, useMemoryStorage = false, signal?: AbortSignal) {
+export async function createAccountForProfileId(profile: Profile, signal?: AbortSignal) {
     const walletClient = await getWalletClientForLensChain();
     const sessionClient = await loginLensProfile(profile, {
-        useMemoryStorage,
         ownerOrManager: walletClient.account.address,
         signMessage: (message) => walletClient.signMessage({ message }),
     });

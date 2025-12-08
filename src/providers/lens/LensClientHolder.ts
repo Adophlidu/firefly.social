@@ -1,14 +1,13 @@
 import { PublicClient } from '@lens-protocol/client';
 
-import { createLensClient } from '@/providers/lens/createLensClient.js';
-import { LocalStorageProvider } from '@/providers/lens/LocalStorageProvider.js';
+import { createLensPublicClient } from '@/providers/lens/createLensClient.js';
 
 class LensClientHolder {
     private lensClient: PublicClient | null = null;
 
     get client() {
         if (!this.lensClient) {
-            this.lensClient = createLensClient(new LocalStorageProvider());
+            this.lensClient = createLensPublicClient();
         }
         return this.lensClient;
     }

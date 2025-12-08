@@ -1,4 +1,3 @@
-import { unreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 
 import { type SocialSource } from '@/constants/enum.js';
@@ -6,30 +5,9 @@ import { SessionExpiredError } from '@/constants/error.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { ensureBskySessionIsValid } from '@/providers/bsky/ensureBskySessionIsValid.js';
-import type { BskySession } from '@/providers/bsky/Session.js';
 import type { Account } from '@/providers/types/Account.js';
-import type { Session } from '@/providers/types/Session.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
+import { ensureSessionIsValid } from '@/services/ensureSessionIsValid.js';
 import type { ProfileState } from '@/store/useProfileStore/createProfileState.js';
-
-async function ensureSessionIsValid(session: Session) {
-    switch (session.type) {
-        case SessionType.Bsky:
-            return ensureBskySessionIsValid(session as BskySession);
-        case SessionType.Lens:
-        case SessionType.Farcaster:
-        case SessionType.Twitter:
-        case SessionType.Firefly:
-        case SessionType.Apple:
-        case SessionType.Google:
-        case SessionType.Telegram:
-        case SessionType.Email:
-            return session;
-        default:
-            throw unreachable(session.type);
-    }
-}
 
 export async function ensureProfileSessionInStore(source: SocialSource, state: ProfileState) {
     if (!state.currentProfile || !state.currentProfileSession) {

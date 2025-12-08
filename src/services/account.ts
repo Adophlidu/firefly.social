@@ -3,7 +3,7 @@ import { compact, first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
-import { SEVEN_DAYS, SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getAllProfiles } from '@/helpers/getAllProfiles.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
@@ -272,7 +272,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         if (typeof setAsCurrent === 'function') {
             await setAsCurrent(account);
         } else if (setAsCurrent) {
-            sessionHolder.resumeSession(account.session);
+            await sessionHolder.resumeSession(account.session);
         }
     }
 
@@ -390,23 +390,12 @@ export async function switchAccount(account: Account, signal?: AbortSignal) {
     const profileSource = account.profile.profileSource;
     const { state, sessionHolder } = getContext(profileSource);
 
-    let session = account.session;
+    const session = account.session;
 
     switch (profileSource) {
         case Source.Lens: {
-            const credentials = await lensSessionHolder.resumeSession(account.session as LensSession, true);
-            if (credentials) {
-                const now = Date.now();
-                session = new LensSession(
-                    account.profile.profileId,
-                    credentials.accessToken,
-                    now,
-                    now + SEVEN_DAYS,
-                    credentials.refreshToken,
-                    account.profile.profileId,
-                    credentials.idToken,
-                );
-            }
+            const lensSession = session as LensSession;
+            await lensSessionHolder.resumeSession(lensSession);
             break;
         }
         case Source.Bsky: {

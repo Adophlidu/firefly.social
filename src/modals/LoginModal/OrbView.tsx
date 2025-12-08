@@ -1,7 +1,6 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
-import type { AccessToken, IdToken, RefreshToken } from '@lens-protocol/client';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
@@ -16,6 +15,7 @@ import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
 import { AbortError, ForbiddenError, InvalidOrbPermissionError, InvalidResultError } from '@/constants/error.js';
 import { ORB_REPLY_COUNTDOWN, SEVEN_DAYS } from '@/constants/index.js';
+import { FAKE_REFRESH_TOKEN } from '@/constants/lens.js';
 import { Link } from '@/esm/Link.js';
 import {
     enqueueForbiddenMessage,
@@ -29,10 +29,6 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
-import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
-import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
-import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
-import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
@@ -105,7 +101,7 @@ export function OrbView() {
                 result.accessToken,
                 Date.now(),
                 Date.now() + SEVEN_DAYS,
-                result.refreshToken || 'FAKE_LENS_REFRESH_TOKEN',
+                result.refreshToken || FAKE_REFRESH_TOKEN,
                 profile.address,
                 result.idToken || '',
             );
@@ -121,15 +117,7 @@ export function OrbView() {
             });
             if (!done) return;
 
-            updateCredentialsStorage({
-                accessToken: result.accessToken as AccessToken,
-                refreshToken: (result.refreshToken || 'FAKE_LENS_REFRESH_TOKEN') as RefreshToken,
-                idToken: result.idToken as IdToken,
-            });
-            lensSessionHolder.resumeSession(session);
-
-            const sessionClient = await ensureLensResult(lensClientHolder.client.resumeSession());
-            if (sessionClient) lensSessionClientHolder.setSessionClient(sessionClient);
+            await lensSessionHolder.resumeSession(session);
 
             LoginModalRef.close();
             enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Lens)} account is now connected</Trans>);

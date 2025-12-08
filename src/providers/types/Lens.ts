@@ -1,8 +1,5 @@
 import type {
-    AccessToken,
     FrameLensManagerSignatureResultFragment,
-    IdToken,
-    RefreshToken,
     SelfFundedTransactionRequest,
     SponsoredTransactionRequest,
     TxHash,
@@ -47,12 +44,6 @@ type RestrictedOperationResult<E extends string> =
 export type OperationResult<O extends string, E extends string> =
     | DelegableOperationResult<O, E>
     | RestrictedOperationResult<E>;
-
-export interface LensCredentials {
-    accessToken: AccessToken;
-    refreshToken: RefreshToken;
-    idToken: IdToken;
-}
 
 declare module '@lens-protocol/client' {
     export interface Account {

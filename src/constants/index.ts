@@ -326,7 +326,6 @@ export const HEY_IMAGEKIT_URL = 'https://ik.imagekit.io/lensterimg';
 export const LENS_CHAIN_ID = 232;
 // TODO: create lens app for firefly
 export const FIREFLY_LENS_V3_APP = '0xaC19aa2402b3AC3f9Fe471D4783EC68595432465';
-export const LENS_TOKEN_STORAGE_KEY = 'lens.mainnet.credentials';
 
 // Named transforms for ImageKit
 export const IMAGE_KIT_AVATAR = 'tr:w-300,h-300';

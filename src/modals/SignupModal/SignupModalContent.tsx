@@ -22,15 +22,9 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { SignupFormFields } from '@/modals/SignupModal/SignupFormFields.js';
 import { checkAndSyncMetrics } from '@/providers/firefly/metrics/checkAndSyncMetrics.js';
-import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
-import { updateCredentialsStorage } from '@/providers/lens/getLensCredentialsFromStorage.js';
-import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
-import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
-import type { LensSession } from '@/providers/lens/Session.js';
 import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import { captureSocialSignupSuccessEvent } from '@/providers/telemetry/captureSocialAccountSignupEvent.js';
 import type { Account } from '@/providers/types/Account.js';
-import type { LensCredentials } from '@/providers/types/Lens.js';
 import type { ProfileForSignup } from '@/providers/types/SocialMedia.js';
 import { addAccount } from '@/services/account.js';
 import { bindFireflySession } from '@/services/bindFireflySession.js';
@@ -93,15 +87,6 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose, on
                     skipSyncAccounts: true,
                 });
                 if (source === Source.Lens) {
-                    const session = account.session as LensSession;
-                    updateCredentialsStorage({
-                        accessToken: session.token,
-                        refreshToken: session.refreshToken,
-                        idToken: session.identityToken,
-                    } as LensCredentials);
-                    const sessionClient = await ensureLensResult(lensClientHolder.client.resumeSession());
-                    lensSessionClientHolder.setSessionClient(sessionClient);
-
                     await runInSafeAsync(() => setPrivyAsLensManager(account));
                 }
 
