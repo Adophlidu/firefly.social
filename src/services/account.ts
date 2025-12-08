@@ -3,8 +3,11 @@ import { compact, first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
+import { SessionExpiredError } from '@/constants/error.js';
+import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
+import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { getAllProfiles } from '@/helpers/getAllProfiles.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
@@ -39,6 +42,7 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
+import { ensureSessionIsValid } from '@/services/ensureSessionIsValid.js';
 import { downloadAccounts } from '@/services/metrics.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
@@ -390,7 +394,17 @@ export async function switchAccount(account: Account, signal?: AbortSignal) {
     const profileSource = account.profile.profileSource;
     const { state, sessionHolder } = getContext(profileSource);
 
-    const session = account.session;
+    let session = account.session;
+
+    // check session
+    try {
+        session = await ensureSessionIsValid(session);
+    } catch (error) {
+        if (error instanceof SessionExpiredError) {
+            dispatchCustomEvent(EVENT_SOCIAL_ACCOUNT_EXPIRED, { account });
+            throw error;
+        }
+    }
 
     switch (profileSource) {
         case Source.Lens: {
@@ -400,9 +414,7 @@ export async function switchAccount(account: Account, signal?: AbortSignal) {
         }
         case Source.Bsky: {
             const bskySession = session as BskySession;
-
-            // TODO: check token
-            await bskySessionHolder.resumeSession(bskySession, false);
+            await bskySessionHolder.resumeSession(bskySession);
             break;
         }
         case Source.Twitter: {

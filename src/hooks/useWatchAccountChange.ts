@@ -1,10 +1,12 @@
 import { bom, delay } from '@dimensiondev/utils';
+import { t } from '@lingui/core/macro';
 import { useEffect, useRef } from 'react';
 
 import { PageRoute } from '@/constants/enum.js';
 import { EVENT_FORBIDDEN, EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { listenCustomEvent } from '@/helpers/dispatchCustomEvents.js';
-import { enqueueForbiddenMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueForbiddenMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { removeAccountByProfileId, removeAllAccounts, removeCurrentAccount } from '@/services/account.js';
 
@@ -34,12 +36,21 @@ export function useWatchAccountChange() {
         listenCustomEvent(
             EVENT_SOCIAL_ACCOUNT_EXPIRED,
             async (e) => {
-                const { account, removeFromStore, source } = e.detail;
+                const { account, removeFromStore = true, source } = e.detail;
                 if (!removeFromStore) return;
                 if (account) {
                     await removeAccountByProfileId(account.profile.profileSource, account.profile.profileId);
                 } else if (source) {
                     await removeCurrentAccount(source);
+                }
+
+                const message = account
+                    ? t`This account has expired, please log in again.`
+                    : source
+                      ? t`Your ${resolveSourceName(source)} login token has expired. Please sign in again.`
+                      : undefined;
+                if (message) {
+                    enqueueWarningMessage(message);
                 }
             },
             { signal: abortController.signal },

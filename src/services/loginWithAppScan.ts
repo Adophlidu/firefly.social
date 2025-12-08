@@ -18,13 +18,13 @@ import { BskySession } from '@/providers/bsky/Session.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import { DesktopLinkInfoStatus, type DesktopLinkInfoStatusData } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { addAccounts } from '@/services/account.js';
+import { ensureSessionIsValid } from '@/services/ensureSessionIsValid.js';
 import { restoreFarcasterAccountsIfNeeded } from '@/services/restoreFarcasterAccounts.js';
 
 export interface AuthDataFromApp {
@@ -81,25 +81,22 @@ export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: str
     const settled = await Promise.allSettled(
         sessions.map(async (session) => {
             if (session.type === SessionType.Bsky) return null;
+            const newSession = await ensureSessionIsValid(session);
             const source = resolveSourceFromSessionType(session.type) as SocialSource;
             const profile = await resolveSocialMediaProvider(source).getProfileById(session.profileId);
             return {
                 origin: 'sync',
                 profile,
                 fireflySession,
-                session,
+                session: newSession,
             } satisfies Account;
         }),
     );
     const accounts = compact(settled.map((x) => (x.status === 'fulfilled' ? x.value : null)));
     const result = await addAccounts(fireflySession, accounts, {
         async setAsCurrent(account) {
-            if (account.profile.source === Source.Lens) {
-                await lensSessionHolder?.resumeSession(account.session as LensSession, true);
-                return;
-            }
             const sessionHolder = resolveSessionHolderFromProfileSource(account.profile.source);
-            sessionHolder?.resumeSession(account.session);
+            await sessionHolder?.resumeSession(account.session);
         },
     });
 

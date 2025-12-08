@@ -3,7 +3,7 @@ import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
 
 class ThirdPartySessionHolder extends SessionHolder<ThirdPartySession> {
-    override resumeSession(session: ThirdPartySession) {
+    override async resumeSession(session: ThirdPartySession) {
         this.internalSession = session;
     }
 

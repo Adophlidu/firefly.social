@@ -359,7 +359,7 @@ msgstr ""
 msgid "Translate post"
 msgstr ""
 
-#. placeholder {0}: resolveSourcesName(failedAt, '/')
+#. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
 msgstr ""
 

@@ -34,7 +34,7 @@ export class SessionHolder<T extends Session> {
         throw new NotImplementedError();
     }
 
-    resumeSession(session: T) {
+    async resumeSession(session: T): Promise<void> {
         this.removeQueries();
         this.internalSession = session;
     }

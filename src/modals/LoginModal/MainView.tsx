@@ -28,11 +28,9 @@ import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { PageRoute, PasswordWorkflow, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
-import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@/constants/index.js';
 import { usePathname, useRouter as useNextRouter } from '@/esm/navigation.js';
-import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
-import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
@@ -373,15 +371,7 @@ export function MainView() {
 
                 enqueueSuccessMessage(<Trans>Switch Done!</Trans>);
             } catch (error) {
-                if (error instanceof SessionExpiredError) {
-                    dispatchCustomEvent(EVENT_SOCIAL_ACCOUNT_EXPIRED, {
-                        account,
-                        removeFromStore: true,
-                    });
-
-                    enqueueWarningMessage(<Trans>This account has expired, please log in again.</Trans>);
-                    return;
-                }
+                if (error instanceof SessionExpiredError) return;
 
                 enqueueMessageFromError(error, <Trans>Failed to switch.</Trans>);
                 throw error;

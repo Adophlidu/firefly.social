@@ -45,7 +45,7 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
         });
     }
 
-    override resumeSession(session: TwitterSession) {
+    override async resumeSession(session: TwitterSession) {
         this.internalSession = session;
     }
 

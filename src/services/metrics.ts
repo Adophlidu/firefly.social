@@ -26,6 +26,7 @@ import { deleteMetrics } from '@/providers/firefly/metrics/deleteMetrics.js';
 import { downloadMetaInfo } from '@/providers/firefly/metrics/downloadMetaInfo.js';
 import { downloadMetrics } from '@/providers/firefly/metrics/downloadMetrics.js';
 import { uploadMetrics as uploadFireflyMetrics } from '@/providers/firefly/metrics/uploadMetrics.js';
+import { ensureLensSessionIsValid } from '@/providers/lens/ensureLensSessionIsValid.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { captureAccountLoginEvent } from '@/providers/telemetry/captureAccountEvent.js';
@@ -245,7 +246,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                     console.warn('[mergeMetrics] Failed to decrypt lens metrics data');
                     continue;
                 }
-                const session = new LensSession(
+                let session = new LensSession(
                     profileId,
                     data.token,
                     now,
@@ -254,13 +255,16 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                     data.address,
                     data.identity_token,
                 );
-                // TODO: maybe we can check token with api here for each session, but its too slow
-                if (isExpiredRefreshToken(session.refreshToken)) {
-                    metricIdsToDelete.push(`${SourceInURL.Lens}:${profileId}`);
-                    if (enqueueMessage) {
-                        enqueueWarningMessage(t`Your Lens login token has expired. Please sign in again.`);
+                try {
+                    session = await ensureLensSessionIsValid(session);
+                } catch (error) {
+                    if (error instanceof SessionExpiredError) {
+                        metricIdsToDelete.push(`${SourceInURL.Lens}:${profileId}`);
+                        if (enqueueMessage) {
+                            enqueueWarningMessage(t`Your Lens login token has expired. Please sign in again.`);
+                        }
+                        continue;
                     }
-                    continue;
                 }
 
                 const account = {
@@ -270,14 +274,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                 } satisfies Account;
 
                 if (!currentSession) {
-                    try {
-                        await lensSessionHolder.resumeSession(session, true);
-                    } catch (error) {
-                        if (error instanceof SessionExpiredError) {
-                            continue;
-                        }
-                        throw error;
-                    }
+                    await lensSessionHolder.resumeSession(session);
                 }
 
                 profileState.addAccount(account, !currentSession);

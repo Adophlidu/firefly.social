@@ -4,6 +4,7 @@ import type { HTMLProps } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { SessionExpiredError } from '@/constants/error.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
@@ -26,6 +27,8 @@ export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStat
         try {
             await switchAccount(account);
         } catch (error) {
+            if (error instanceof SessionExpiredError) return;
+
             enqueueMessageFromError(error, <Trans>Failed to switch.</Trans>);
             throw error;
         }

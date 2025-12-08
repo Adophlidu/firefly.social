@@ -67,7 +67,7 @@ export async function ensureProfileSessionInStore(source: SocialSource, state: P
                 .join(', ')} on ${resolveSourceName(source)}.`,
         );
     }
-    if (!state.accounts.length) {
+    if (!state.accounts.length || !state.currentProfile) {
         state.clear();
     }
 }
