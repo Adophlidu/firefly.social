@@ -1,10 +1,10 @@
 import { Source } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
-import { createPublicBskyAgent } from '@/providers/bsky/createBskyAgent.js';
+import { createBskyPublicAgent } from '@/providers/bsky/createBskyAgent.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 
 export async function refreshBskySession(oldSession: BskySession): Promise<BskySession> {
-    const agent = createPublicBskyAgent(oldSession.serviceUrl);
+    const agent = createBskyPublicAgent(oldSession.serviceUrl);
     try {
         const refreshJwt = oldSession.sessionPayload.refreshJwt;
         if (!refreshJwt) {

@@ -28,7 +28,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
-import { createPublicBskyAgent } from '@/providers/bsky/createBskyAgent.js';
+import { createBskyPublicAgent } from '@/providers/bsky/createBskyAgent.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { retryOnBskyWhenNetworkError } from '@/providers/bsky/retryOnBskyWhenNetworkError.js';
 import { BskySession } from '@/providers/bsky/Session.js';
@@ -165,7 +165,7 @@ export function LoginBsky() {
             if (!parsed.success) return null;
 
             try {
-                const agent = createPublicBskyAgent(url);
+                const agent = createBskyPublicAgent(url);
                 const result = await agent.com.atproto.server.describeServer(undefined, { signal });
                 return result.data;
             } catch (error) {
@@ -191,7 +191,7 @@ export function LoginBsky() {
                 await loginBsky(
                     async () => {
                         const serviceUrl_ = serviceUrl || DEFAULT_SERVICE_URL;
-                        const agent = createPublicBskyAgent(serviceUrl_);
+                        const agent = createBskyPublicAgent(serviceUrl_);
                         const response = await agent.com.atproto.server.createSession({
                             identifier: formatBskyLoginIdentifier(
                                 username,

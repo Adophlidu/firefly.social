@@ -1,10 +1,10 @@
-import { createPublicBskyAgent } from '@/providers/bsky/createBskyAgent.js';
+import { createBskyPublicAgent } from '@/providers/bsky/createBskyAgent.js';
 import { refreshBskySession } from '@/providers/bsky/refreshBskySession.js';
 import { retryOnBskyWhenNetworkError } from '@/providers/bsky/retryOnBskyWhenNetworkError.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 
 export async function ensureBskySessionIsValid(session: BskySession) {
-    const agent = createPublicBskyAgent(session.serviceUrl);
+    const agent = createBskyPublicAgent(session.serviceUrl);
 
     try {
         const serverSession = await retryOnBskyWhenNetworkError(2, async () => {
