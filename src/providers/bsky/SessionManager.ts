@@ -10,7 +10,6 @@ import { updateCurrentSessionToStorage } from '@/helpers/updateCurrentSessionToS
 import { getPdsUrlFromSession } from '@/providers/bsky/getPdsUrlFromSession.js';
 import { isErrorResponse } from '@/providers/bsky/isErrorResponse.js';
 import { refreshBskySession } from '@/providers/bsky/refreshBskySession.js';
-import { BskySession } from '@/providers/bsky/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export class SessionManager {
@@ -117,19 +116,9 @@ export class SessionManager {
         if (!bskySession?.sessionPayload?.refreshJwt) return;
 
         const res = await refreshBskySession(bskySession);
-        if (res?.accessJwt && res.refreshJwt) {
-            const oldSession = getSessionFromStorage(SessionType.Bsky);
-            if (!oldSession) return;
+        const oldSession = getSessionFromStorage(SessionType.Bsky);
+        if (!oldSession) return;
 
-            const now = Date.now();
-            updateCurrentSessionToStorage(
-                Source.Bsky,
-                new BskySession(oldSession.did, now, now, oldSession.serviceUrl, {
-                    ...oldSession.sessionPayload,
-                    accessJwt: res.accessJwt,
-                    refreshJwt: res.refreshJwt,
-                }),
-            );
-        }
+        updateCurrentSessionToStorage(Source.Bsky, res);
     }
 }

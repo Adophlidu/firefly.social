@@ -19,15 +19,8 @@ export async function ensureBskySessionIsValid(session: BskySession) {
         });
     } catch (err) {
         if (err instanceof Error && 'error' in err && ['ExpiredToken', 'InvalidToken'].includes(err.error as string)) {
-            const newSessionRes = await retryOnBskyWhenNetworkError(2, () => refreshBskySession(session));
-            const now = Date.now();
-            return new BskySession(newSessionRes.did, now, now, session.serviceUrl, {
-                ...session.sessionPayload,
-                accessJwt: newSessionRes.accessJwt,
-                refreshJwt: newSessionRes.refreshJwt,
-                active: true,
-                didDoc: newSessionRes.didDoc,
-            });
+            const newSession = await retryOnBskyWhenNetworkError(2, () => refreshBskySession(session));
+            return newSession;
         }
 
         throw err;
