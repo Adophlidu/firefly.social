@@ -2,6 +2,7 @@ import { compact } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
+import { getAccountMetricsData } from '@/helpers/getAccountMetricsData.js';
 import { getAllProfiles } from '@/helpers/getAllProfiles.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -12,7 +13,7 @@ import { uploadMetrics as uploadFireflyMetrics } from '@/providers/firefly/metri
 import { LensSession } from '@/providers/lens/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
-import { downloadAccounts, getAccountMetricsData, mergeMetrics, uploadMetrics } from '@/services/metrics.js';
+import { downloadAccounts, mergeMetrics, uploadMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
 
 interface Options {
