@@ -5,6 +5,7 @@ import { Source } from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { prefetchPostLinks } from '@/helpers/prefetchPostLinks.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';
+import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 import type { ClassType } from '@/types/utility.js';
 
 const METHODS_BE_OVERRIDDEN = [
@@ -42,6 +43,14 @@ export function SetQueryDataForPosts<T extends ClassType<Provider>>(target: T): 
                         });
                     }
                 });
+
+                const identifiers = result.data.map((x) => ({
+                    source: x.source,
+                    id: x.author.profileId,
+                }));
+
+                await queryMutedProfiles(identifiers);
+
                 await prefetchPostLinks(
                     result.data.map((x) =>
                         compact([x.metadata.content?.oembedUrl, ...(x.metadata.content?.oembedUrls ?? [])]),

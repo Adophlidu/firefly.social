@@ -79,16 +79,16 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
             );
 
             if (repostResult) {
-                queryClient.setQueryData(['swap', activity.hash, activity.chain_id], (old: SwapActivity) => {
+                queryClient.setQueryData(['swap', activity.hash, activity.chain_id], (old?: SwapActivity) => {
                     return {
                         ...old,
-                        repost_count: old.repost_count + 1,
+                        repost_count: (old?.repost_count || 0) + 1,
                         is_repost: true,
                     };
                 });
 
-                patchTransactionsQuery(Source.Swap, (data) => {
-                    if (data.hash === activity.hash) {
+                patchTransactionsQuery(Source.Swap, (data?: SwapActivity) => {
+                    if (data && data.hash === activity.hash) {
                         data.repost_count = data.repost_count + 1;
                         data.is_repost = true;
                     }

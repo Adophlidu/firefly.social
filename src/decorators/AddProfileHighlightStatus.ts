@@ -90,11 +90,9 @@ async function fillAuthorHighlightStatusForPosts(posts: Post[], source: SocialSo
 }
 
 const METHODS_BE_OVERRIDDEN = [
-    'getCommentsById',
     'discoverPosts',
     'discoverPostsById',
     'getPostsByProfileId',
-    'getHiddenComments',
     'getMediaPostsByProfileId',
     'getRepliesPostsByProfileId',
 ] as const;
