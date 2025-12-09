@@ -21,8 +21,6 @@ import { RouteResolver } from '@/helpers/RouteResolver.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { SignupFormFields } from '@/modals/SignupModal/SignupFormFields.js';
-import { checkAndSyncMetrics } from '@/providers/firefly/metrics/checkAndSyncMetrics.js';
-import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import { captureSocialSignupSuccessEvent } from '@/providers/telemetry/captureSocialAccountSignupEvent.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { ProfileForSignup } from '@/providers/types/SocialMedia.js';
@@ -84,19 +82,13 @@ const SignupForm = memo<Props>(function SignupModalContent({ source, onClose, on
                     skipResumeFireflyAccounts: true,
                     skipResumeFireflySession: true,
                     setAsCurrent: true,
-                    skipSyncAccounts: true,
+                    forceUploadMetrics: true,
                 });
-                if (source === Source.Lens) {
-                    await runInSafeAsync(() => setPrivyAsLensManager(account));
-                }
 
                 captureSocialSignupSuccessEvent(account);
                 onClose({ account });
                 runInSafeAsync(() => queryClient.refetchQueries({ queryKey: queryMyAllConnections.queryKey }));
                 enqueueSuccessMessage(<Trans>{resolveSourceName(source)} profile created.</Trans>);
-
-                // sync metrics in the final step
-                runInSafeAsync(() => checkAndSyncMetrics(account, { forceUpload: true }));
 
                 refreshProfilePageCache();
             } catch (error) {

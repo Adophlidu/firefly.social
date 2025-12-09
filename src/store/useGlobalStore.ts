@@ -30,6 +30,9 @@ interface GlobalState {
 
     web3StateAsyncStatus: AsyncStatus;
     setWeb3StateAsyncStatus: (status: AsyncStatus) => void;
+
+    isSyncingMetrics: boolean;
+    setIsSyncingMetrics: (status: boolean) => void;
 }
 
 const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
@@ -98,6 +101,13 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
             setWeb3StateAsyncStatus(status) {
                 set((state) => {
                     state.web3StateAsyncStatus = status;
+                });
+            },
+
+            isSyncingMetrics: false,
+            setIsSyncingMetrics(status) {
+                set((state) => {
+                    state.isSyncingMetrics = status;
                 });
             },
         })),

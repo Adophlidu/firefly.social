@@ -18,7 +18,6 @@ import {
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
-import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { createAccountByPasscode } from '@/providers/email/createAccountByPasscode.js';
@@ -81,8 +80,6 @@ export function LoginEmail() {
     const isValidEmail = EMAIL_REGEX.test(email);
     const isValidPasscode = passcode.length === 6 && passcode.match(/^\d+$/);
 
-    const skipWaitForMetricsSyncing = useShouldSkipWaitMetrics();
-
     const [{ loading }, login] = useAsyncFn(async () => {
         controller.current.renew();
         if (!isValidEmail) {
@@ -97,10 +94,9 @@ export function LoginEmail() {
 
         await loginEmail(() => createAccountByPasscode(email, passcode), {
             setAsyncStatus,
-            skipWaitForMetricsSyncing,
             signal: controller.current.signal,
         });
-    }, [controller, email, passcode, isValidEmail, isValidPasscode, skipWaitForMetricsSyncing, setAsyncStatus]);
+    }, [controller, email, passcode, isValidEmail, isValidPasscode, setAsyncStatus]);
 
     return (
         <form className="box-border flex w-[452px] flex-col items-center gap-[20px] px-6 pb-6 max-md:w-full">

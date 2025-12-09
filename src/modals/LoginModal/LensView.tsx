@@ -32,18 +32,15 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
-import { checkAndSyncMetrics } from '@/providers/firefly/metrics/checkAndSyncMetrics.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
 import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -73,7 +70,6 @@ export const LensView = memo(function LensView() {
     const account = useAccount();
     const { data: canBindMoreAccount } = useCanBindMoreAccount(Source.Lens);
     const { expectedProfile } = useLocation().search as { expectedProfile?: string };
-    const skipWaitForMetricsSyncing = useShouldSkipWaitMetrics();
 
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
 
@@ -136,15 +132,11 @@ export const LensView = memo(function LensView() {
             const { account } = await createAccountForProfileId(currentProfile, controller.current.signal);
             const done = await addAccount(account, {
                 signal: controller.current.signal,
-                skipSyncAccounts: true,
             });
             if (done) {
                 await lensSessionHolder.resumeSession(account.session);
                 LoginModalRef.close();
                 enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Lens)} account is now connected.</Trans>);
-
-                await runInSafeAsync(() => setPrivyAsLensManager(account));
-                await checkAndSyncMetrics(account, { skipWaitForMetricsSyncing, setLensManager: true });
             }
         } catch (error) {
             if (AbortError.is(error)) return;
@@ -162,7 +154,7 @@ export const LensView = memo(function LensView() {
             setAsyncStatus(Source.Lens, AsyncStatus.Idle);
             setFrozenProfiles(undefined);
         }
-    }, [currentProfile, controller, skipWaitForMetricsSyncing, managedProfiles, setAsyncStatus]);
+    }, [currentProfile, controller, managedProfiles, setAsyncStatus]);
 
     return (
         <div className="flex flex-col p-6 pt-0 md:w-[400px]">

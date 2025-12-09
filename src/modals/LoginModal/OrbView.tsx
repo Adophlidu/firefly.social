@@ -25,13 +25,10 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { retry } from '@/helpers/retry.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { initSignIn } from '@/providers/orb/initSignIn.js';
 import { pollSignIn } from '@/providers/orb/pollSignIn.js';
@@ -60,7 +57,6 @@ export function OrbView() {
         isIncrement: false,
     });
     const { loading: initSignInLoading, value: initSignInData, retry: retryInitSignIn } = useAsyncRetry(initSignIn, []);
-    const skipWaitForMetricsSyncing = useShouldSkipWaitMetrics();
 
     useAsync(async () => {
         try {
@@ -112,7 +108,6 @@ export function OrbView() {
                 fireflySession: await bindOrRestoreFireflySession(session, controller.current.signal),
             };
             const done = await addAccount(account, {
-                skipWaitForMetricsSyncing,
                 signal: controller.current.signal,
             });
             if (!done) return;
@@ -124,8 +119,6 @@ export function OrbView() {
             TelemetryProvider.captureEvent(EventId.ORB_LOGIN_IN_SUCCESS, {
                 lens_accounts: getAccountPairs(Source.Lens),
             });
-
-            await runInSafeAsync(() => setPrivyAsLensManager(account));
         } catch (error) {
             if (error instanceof AbortError) return;
             if (error instanceof ForbiddenError) {

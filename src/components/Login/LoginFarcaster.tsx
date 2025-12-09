@@ -33,7 +33,6 @@ import {
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';
 import { DraggablePopoverRef } from '@/modals/DraggablePopover.js';
@@ -62,10 +61,7 @@ async function loginFarcaster(
         const account = await createAccount();
 
         setAsyncStatus(Source.Farcaster, AsyncStatus.Pending);
-        const done = await addAccount(account, {
-            ...options,
-            bindLensManagerOnSyncing: true,
-        });
+        const done = await addAccount(account, options);
         if (done) {
             enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Farcaster)} account is now connected.</Trans>);
         }
@@ -144,7 +140,6 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
     });
 
     const { data: canBindMoreAccount } = useCanBindMoreAccount(Source.Farcaster);
-    const skipWaitForMetricsSyncing = useShouldSkipWaitMetrics();
 
     const [{ loading: loadingByGrantPermission }, onLoginByGrantPermission] = useAsyncFn(async () => {
         controller.current.renew();
@@ -169,7 +164,6 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                 {
                     setAsyncStatus,
                     skipReportFarcasterSigner: false,
-                    skipWaitForMetricsSyncing,
                     signal: controller.current.signal,
                 },
             );
@@ -177,7 +171,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
             enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
             throw error;
         }
-    }, [controller, skipWaitForMetricsSyncing, resetCountdown, startCountdown, stopCountdown, setAsyncStatus]);
+    }, [controller, resetCountdown, startCountdown, stopCountdown, setAsyncStatus]);
 
     const [{ loading: loadingByRelayService }, onLoginByRelayService] = useAsyncFn(async () => {
         controller.current.renew();
@@ -199,7 +193,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
 
                     return account;
                 },
-                { setAsyncStatus, signal: controller.current.signal, skipWaitForMetricsSyncing },
+                { setAsyncStatus, signal: controller.current.signal },
             );
         } catch (error) {
             if (error instanceof FarcasterPatchSignerError) {
@@ -217,7 +211,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
             enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
             throw error;
         }
-    }, [controller, history, skipWaitForMetricsSyncing, resetCountdown, startCountdown, stopCountdown, setAsyncStatus]);
+    }, [controller, history, resetCountdown, startCountdown, stopCountdown, setAsyncStatus]);
 
     const [{ loading: loadingBySponsorship }, onLoginByFireflySponsorship] = useAsyncFn(async () => {
         controller.current.renew();
@@ -243,14 +237,13 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                     setAsyncStatus,
                     skipReportFarcasterSigner: false,
                     signal: controller.current.signal,
-                    skipWaitForMetricsSyncing,
                 },
             );
         } catch (error) {
             enqueueMessageFromError(error, <Trans>Failed to login.</Trans>);
             throw error;
         }
-    }, [controller, skipWaitForMetricsSyncing, resetCountdown, startCountdown, stopCountdown, setAsyncStatus]);
+    }, [controller, resetCountdown, startCountdown, stopCountdown, setAsyncStatus]);
 
     const onClick = (signType: FarcasterSignType | null) => {
         if (!signType) return;

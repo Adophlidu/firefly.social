@@ -25,7 +25,6 @@ import {
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useShouldSkipWaitMetrics } from '@/hooks/login/useShouldSkipWaitMetrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { createBskyPublicAgent } from '@/providers/bsky/createBskyAgent.js';
@@ -44,7 +43,6 @@ async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<A
         const account = await createAccount();
         const done = await addAccount(account, {
             ...options,
-            bindLensManagerOnSyncing: true,
             async setAsCurrent({ session }) {
                 await bskySessionHolder.resumeSession(session as BskySession, false);
             },
@@ -179,8 +177,6 @@ export function LoginBsky() {
     });
 
     const { setAsyncStatus } = useGlobalState();
-
-    const skipWaitForMetricsSyncing = useShouldSkipWaitMetrics();
     const [{ loading }, login] = useAsyncFn(
         async (username: string, password: string, serviceUrl?: string) => {
             controller.current.renew();
@@ -232,7 +228,6 @@ export function LoginBsky() {
                         } satisfies Account;
                     },
                     {
-                        skipWaitForMetricsSyncing,
                         signal: controller.current.signal,
                     },
                 );
@@ -248,7 +243,7 @@ export function LoginBsky() {
                 setAsyncStatus(Source.Bsky, AsyncStatus.Idle);
             }
         },
-        [controller, serverDescription, skipWaitForMetricsSyncing, setAsyncStatus, setFocus],
+        [controller, serverDescription, setAsyncStatus, setFocus],
     );
 
     const isValidServiceUrl =

@@ -19,6 +19,7 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
 
 interface SocialLoginPageProps {
@@ -59,6 +60,7 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
     const isLoginFirefly = useIsLoginFirefly();
     const { accounts } = useThirdPartyProfileStore();
     const { isLoading } = useCheckFireflyAccount();
+    const { isSyncingMetrics } = useGlobalState();
 
     const canGoNext = isLogin || accounts.length > 0;
 
@@ -141,9 +143,9 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
                     </div>
                     <div className="h-14 w-full shrink-0 bg-white pt-2 text-center">
                         <SquareButton
-                            disabled={!canGoNext || isLoading}
+                            disabled={!canGoNext}
                             onClick={handleNext}
-                            loading={loading || isLoading}
+                            loading={loading || isLoading || isSyncingMetrics}
                         >
                             <span className="text-base font-medium">
                                 <Trans>Next</Trans>

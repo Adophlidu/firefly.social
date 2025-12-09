@@ -29,6 +29,7 @@ import { uploadMetrics as uploadFireflyMetrics } from '@/providers/firefly/metri
 import { ensureLensSessionIsValid } from '@/providers/lens/ensureLensSessionIsValid.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import { captureAccountLoginEvent } from '@/providers/telemetry/captureAccountEvent.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { resolveTwitterResponseData } from '@/providers/twitter/resolveTwitterResponseData.js';
@@ -272,12 +273,12 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                     session,
                     origin: 'sync',
                 } satisfies Account;
-
+                profileState.addAccount(account, !currentSession);
                 if (!currentSession) {
                     await lensSessionHolder.resumeSession(session);
+                    await runInSafeAsync(() => setPrivyAsLensManager(account));
                 }
 
-                profileState.addAccount(account, !currentSession);
                 captureAccountLoginEvent(account);
                 newAccounts.push(account);
                 break;

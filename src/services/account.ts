@@ -30,6 +30,7 @@ import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import {
     captureAccountConflictEvent,
     captureAccountCreateSuccessEvent,
@@ -46,6 +47,7 @@ import { ensureSessionIsValid } from '@/services/ensureSessionIsValid.js';
 import { downloadAccounts } from '@/services/metrics.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
@@ -197,10 +199,10 @@ export interface AccountOptions {
     skipReportFarcasterSigner?: boolean;
     // skip syncing accounts, default: false
     skipSyncAccounts?: boolean;
-    // skip waiting for syncing metrics, default: true
-    skipWaitForMetricsSyncing?: boolean;
-    // bind lens manager when lens account synced from remote
-    bindLensManagerOnSyncing?: boolean;
+    // bind lens manager
+    bindLensManager?: boolean;
+    // force upload session to metrics for account, default: false
+    forceUploadMetrics?: boolean;
     // early return signal
     signal?: AbortSignal;
 }
@@ -213,8 +215,8 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         skipResumeFireflySession = false,
         skipReportFarcasterSigner = true,
         skipSyncAccounts = false,
-        skipWaitForMetricsSyncing = true,
-        bindLensManagerOnSyncing = false,
+        bindLensManager = true,
+        forceUploadMetrics = false,
         signal,
     } = options ?? {};
 
@@ -222,6 +224,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     const fireflySession = getFireflySession(account);
     const currentFireflySession = getProfileState(Source.Firefly).currentProfileSession as FireflySession | null;
+    const setAsCurrentProfile = typeof setAsCurrent === 'boolean' ? setAsCurrent : true;
 
     // check if the account belongs to the current firefly session
     const belongsTo =
@@ -272,7 +275,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     // add account to store cause it's from the same firefly session
     if (belongsTo && account.session.type !== SessionType.Firefly) {
-        state.addAccount(account, typeof setAsCurrent === 'boolean' ? setAsCurrent : true);
+        state.addAccount(account, setAsCurrentProfile);
         if (typeof setAsCurrent === 'function') {
             await setAsCurrent(account);
         } else if (setAsCurrent) {
@@ -298,11 +301,19 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         }
     });
 
+    if (account.profile.profileSource === Source.Lens && bindLensManager && setAsCurrent && belongsTo) {
+        await runInSafeAsync(() => setPrivyAsLensManager(account));
+    }
+
     captureAccountLoginEvent(account);
     if (account.fireflySession?.payload?.isNew) captureAccountCreateSuccessEvent(account);
 
     if (!skipSyncAccounts && fireflySession) {
-        await checkAndSyncMetrics(account, { skipWaitForMetricsSyncing, setLensManager: bindLensManagerOnSyncing });
+        // no need to wait, and we use another status to record
+        useGlobalState.getState().setIsSyncingMetrics(true);
+        checkAndSyncMetrics(account, { bindLensManager, forceUploadMetrics }).finally(() => {
+            useGlobalState.getState().setIsSyncingMetrics(false);
+        });
     }
 
     // account has been added to the store
@@ -390,7 +401,15 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
     return true;
 }
 
-export async function switchAccount(account: Account, signal?: AbortSignal) {
+export async function switchAccount(
+    account: Account,
+    options?: {
+        bindLensManager?: boolean;
+        signal?: AbortSignal;
+    },
+) {
+    const { bindLensManager = true, signal } = options ?? {};
+
     const profileSource = account.profile.profileSource;
     const { state, sessionHolder } = getContext(profileSource);
 
@@ -457,6 +476,10 @@ export async function switchAccount(account: Account, signal?: AbortSignal) {
         },
         true,
     );
+
+    if (account.profile.profileSource === Source.Lens && bindLensManager) {
+        await runInSafeAsync(() => setPrivyAsLensManager(account));
+    }
 }
 
 async function removeAccount(account: Account, signal?: AbortSignal) {
@@ -466,7 +489,7 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
     if (isSameProfile(state.currentProfile, account.profile)) {
         const nextAccount = state.accounts.find((x) => !isSameAccount(account, x));
         if (nextAccount) {
-            await switchAccount(nextAccount, signal);
+            await switchAccount(nextAccount, { signal, bindLensManager: false });
             state.removeAccount(account);
         } else {
             state.removeAccount(account);
@@ -522,7 +545,7 @@ export async function removeAccountsByProfiles(profiles: Profile[], signal?: Abo
         if (isSameProfile(state.currentProfile, profile)) {
             const nextAccount = state.accounts.find((x) => !isSameAccount(account, x));
             if (nextAccount) {
-                await switchAccount(nextAccount, signal);
+                await switchAccount(nextAccount, { signal, bindLensManager: false });
                 state.removeAccount(account);
             } else {
                 state.removeAccount(account);
