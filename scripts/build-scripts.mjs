@@ -13,14 +13,14 @@ for (const [key, value] of Object.entries(process.env || {})) {
 }
 
 const buildConfigs = [
-    { entryPoints: ['./src/service-workers/index.ts'], outfile: 'public/sw.js', target: 'es2020' },
+    { entryPoints: ['src/service-workers/index.ts'], outfile: 'public/sw.js', target: 'es2020' },
     {
-        entryPoints: ['./src/service-workers/firebase-messaging-sw.ts'],
+        entryPoints: ['src/service-workers/firebase-messaging-sw.ts'],
         outfile: 'public/firebase-messaging-sw.js',
         target: 'esnext',
     },
     {
-        entryPoints: ['./node_modules/twitter-api-v2/dist/esm/index.js'],
+        entryPoints: ['node_modules/twitter-api-v2/dist/esm/index.js'],
         outfile: 'prebuilt/twitter-api-v2.js',
         target: 'es2020',
         external: ['fs', 'https', 'crypto', 'zlib'],

@@ -580,6 +580,7 @@
         "dist/**",
         "build/**",
         ".next/**",
+        "docs/**",
         "public/**",
         "src/providers/hubble/proto",
         "src/assets/**",
