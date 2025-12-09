@@ -122,6 +122,9 @@ msgstr "Unmute successfully."
 msgid "Failed to like polymarket."
 msgstr "Failed to like polymarket."
 
+msgid "Copy to clipboard"
+msgstr "Copy to clipboard"
+
 msgid "Refunded"
 msgstr "Refunded"
 
@@ -292,6 +295,9 @@ msgstr "Malicious mining activities found."
 
 msgid "Collecting"
 msgstr "Collecting"
+
+msgid "Your recovery phrase is like a password, keep it secret."
+msgstr "Your recovery phrase is like a password, keep it secret."
 
 msgid "Open"
 msgstr "Open"
@@ -601,6 +607,9 @@ msgstr "The contract owner has restrictions on personal slippage."
 msgid "Anti whale can be modified."
 msgstr "Anti whale can be modified."
 
+msgid "I understand"
+msgstr "I understand"
+
 #. placeholder {0}: first(post.mirrors)?.displayName
 msgid "<0>{0}</0> reposted"
 msgstr "<0>{0}</0> reposted"
@@ -770,6 +779,9 @@ msgstr "Oops! Your account is currently blocked. Reach out to support for more d
 
 msgid "Mutes"
 msgstr "Mutes"
+
+msgid "Keep Your Recovery Phrase Safe"
+msgstr "Keep Your Recovery Phrase Safe"
 
 msgid "Failed to bookmark NFT."
 msgstr "Failed to bookmark NFT."
@@ -2543,6 +2555,9 @@ msgstr "The page could not be found."
 msgid "Change Password"
 msgstr "Change Password"
 
+msgid "If you enter it in another app, it can steal your funds and Farcaster account."
+msgstr "If you enter it in another app, it can steal your funds and Farcaster account."
+
 #. placeholder {0}: failedAt.length
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
@@ -2582,6 +2597,9 @@ msgstr "Super Follow"
 
 msgid "Cryptocurrency mixer found."
 msgstr "Cryptocurrency mixer found."
+
+msgid "Export recovery phrase"
+msgstr "Export recovery phrase"
 
 msgid "Pick a way to sign in"
 msgstr "Pick a way to sign in"
@@ -3797,6 +3815,9 @@ msgstr "The signer is not authorized to perform the requested operation. Please 
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr "The account you are trying to log in with is already linked to a different Firefly account."
 
+msgid "Your Recovery Phrase"
+msgstr "Your Recovery Phrase"
+
 msgid "Username or email address"
 msgstr "Username or email address"
 
@@ -4094,6 +4115,9 @@ msgstr "Sold"
 msgid "Failed to read avatar file, please try again."
 msgstr "Failed to read avatar file, please try again."
 
+msgid "We do not recommend ever sharing it with any app or person."
+msgstr "We do not recommend ever sharing it with any app or person."
+
 msgid "This Telegram account is already linked to another Firefly account."
 msgstr "This Telegram account is already linked to another Firefly account."
 
@@ -4255,6 +4279,9 @@ msgstr "Multi-device login is now turned off and all previously sessions are cle
 msgid "Only show holding"
 msgstr "Only show holding"
 
+msgid "Failed to get recovery phrase. Please try again."
+msgstr "Failed to get recovery phrase. Please try again."
+
 msgid "Searching collections"
 msgstr "Searching collections"
 
@@ -4343,6 +4370,9 @@ msgstr "The contract owner has restrictions on trading cooldown."
 #. placeholder {1}: formatBalance(total_amounts, token_decimal ?? 18, { significant: 2, isPrecise: true, })
 msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 msgstr "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
+
+msgid "Keep it safe and do not share"
+msgstr "Keep it safe and do not share"
 
 msgid "1 hour"
 msgstr "1 hour"

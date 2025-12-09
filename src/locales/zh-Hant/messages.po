@@ -127,6 +127,9 @@ msgstr "成功取消隱藏。"
 msgid "Failed to like polymarket."
 msgstr "按赞失敗。"
 
+msgid "Copy to clipboard"
+msgstr ""
+
 msgid "Refunded"
 msgstr "已退款"
 
@@ -297,6 +300,9 @@ msgstr "發現惡意挖礦活動。"
 
 msgid "Collecting"
 msgstr "收集中"
+
+msgid "Your recovery phrase is like a password, keep it secret."
+msgstr ""
 
 msgid "Open"
 msgstr "開啟"
@@ -606,6 +612,9 @@ msgstr "合約擁有者設有個人滑點限制。"
 msgid "Anti whale can be modified."
 msgstr "鯨魚限制機制可被修改。"
 
+msgid "I understand"
+msgstr ""
+
 #. placeholder {0}: first(post.mirrors)?.displayName
 msgid "<0>{0}</0> reposted"
 msgstr "<0>{0}</0> 轉發了"
@@ -775,6 +784,9 @@ msgstr "您的帳戶已被封鎖，請聯繫客服了解詳情。"
 
 msgid "Mutes"
 msgstr "隱藏"
+
+msgid "Keep Your Recovery Phrase Safe"
+msgstr ""
 
 msgid "Failed to bookmark NFT."
 msgstr "無法收藏 NFT。"
@@ -2548,6 +2560,9 @@ msgstr "無法找到頁面"
 msgid "Change Password"
 msgstr "變更密碼"
 
+msgid "If you enter it in another app, it can steal your funds and Farcaster account."
+msgstr ""
+
 #. placeholder {0}: failedAt.length
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {由於某些錯誤，你的貼文在 {firstPlatform} 发布失败。请点击重试。} two {由於某些錯誤，你的貼文在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {你的帖子发布失败。请点击重试。}}"
@@ -2587,6 +2602,9 @@ msgstr "超級追蹤"
 
 msgid "Cryptocurrency mixer found."
 msgstr "發現加密貨幣混幣器。"
+
+msgid "Export recovery phrase"
+msgstr ""
 
 msgid "Pick a way to sign in"
 msgstr "選擇登入方式"
@@ -3802,6 +3820,9 @@ msgstr "簽名者無權執行此操作，請重新授權。"
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr "您嘗試登入的帳戶已綁定其他 Firefly 帳戶。"
 
+msgid "Your Recovery Phrase"
+msgstr ""
+
 msgid "Username or email address"
 msgstr "用戶名或電子郵件"
 
@@ -4099,6 +4120,9 @@ msgstr "售出"
 msgid "Failed to read avatar file, please try again."
 msgstr "頭像讀取失敗，請重試"
 
+msgid "We do not recommend ever sharing it with any app or person."
+msgstr ""
+
 msgid "This Telegram account is already linked to another Firefly account."
 msgstr ""
 
@@ -4260,6 +4284,9 @@ msgstr "多裝置登入功能已關閉，將清除所有已加密的登入授權
 msgid "Only show holding"
 msgstr ""
 
+msgid "Failed to get recovery phrase. Please try again."
+msgstr ""
+
 msgid "Searching collections"
 msgstr "NFT 系列搜尋中"
 
@@ -4348,6 +4375,9 @@ msgstr "合約擁有者對交易冷卻時間有限制。"
 #. placeholder {1}: formatBalance(total_amounts, token_decimal ?? 18, { significant: 2, isPrecise: true, })
 msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 msgstr "<0>已領取: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> <3>{token_symbol}</3>"
+
+msgid "Keep it safe and do not share"
+msgstr ""
 
 msgid "1 hour"
 msgstr ""

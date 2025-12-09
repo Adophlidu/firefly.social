@@ -127,6 +127,9 @@ msgstr ""
 msgid "Failed to like polymarket."
 msgstr ""
 
+msgid "Copy to clipboard"
+msgstr ""
+
 msgid "Refunded"
 msgstr ""
 
@@ -296,6 +299,9 @@ msgid "Malicious mining activities found."
 msgstr ""
 
 msgid "Collecting"
+msgstr ""
+
+msgid "Your recovery phrase is like a password, keep it secret."
 msgstr ""
 
 msgid "Open"
@@ -606,6 +612,9 @@ msgstr ""
 msgid "Anti whale can be modified."
 msgstr ""
 
+msgid "I understand"
+msgstr ""
+
 #. placeholder {0}: first(post.mirrors)?.displayName
 msgid "<0>{0}</0> reposted"
 msgstr ""
@@ -774,6 +783,9 @@ msgid "Oops! Your account is currently blocked. Reach out to support for more de
 msgstr ""
 
 msgid "Mutes"
+msgstr ""
+
+msgid "Keep Your Recovery Phrase Safe"
 msgstr ""
 
 msgid "Failed to bookmark NFT."
@@ -2548,6 +2560,9 @@ msgstr ""
 msgid "Change Password"
 msgstr ""
 
+msgid "If you enter it in another app, it can steal your funds and Farcaster account."
+msgstr ""
+
 #. placeholder {0}: failedAt.length
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
@@ -2586,6 +2601,9 @@ msgid "Super Follow"
 msgstr ""
 
 msgid "Cryptocurrency mixer found."
+msgstr ""
+
+msgid "Export recovery phrase"
 msgstr ""
 
 msgid "Pick a way to sign in"
@@ -3802,6 +3820,9 @@ msgstr ""
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr ""
 
+msgid "Your Recovery Phrase"
+msgstr ""
+
 msgid "Username or email address"
 msgstr ""
 
@@ -4099,6 +4120,9 @@ msgstr ""
 msgid "Failed to read avatar file, please try again."
 msgstr ""
 
+msgid "We do not recommend ever sharing it with any app or person."
+msgstr ""
+
 msgid "This Telegram account is already linked to another Firefly account."
 msgstr ""
 
@@ -4260,6 +4284,9 @@ msgstr ""
 msgid "Only show holding"
 msgstr ""
 
+msgid "Failed to get recovery phrase. Please try again."
+msgstr ""
+
 msgid "Searching collections"
 msgstr ""
 
@@ -4347,6 +4374,9 @@ msgstr ""
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts, token_decimal ?? 18, { significant: 2, isPrecise: true, })
 msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
+msgstr ""
+
+msgid "Keep it safe and do not share"
 msgstr ""
 
 msgid "1 hour"

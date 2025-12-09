@@ -41,6 +41,7 @@ import {
 } from '@/modals/NonFungibleCollectionSelectModal/index.js';
 import { PasswordModal, PasswordModalRef } from '@/modals/PasswordModal/index.js';
 import { PreviewMediaModal, PreviewMediaModalRef } from '@/modals/PreviewMediaModal/PreviewMediaModal.js';
+import { RecoveryPhraseModal, RecoveryPhraseModalRef } from '@/modals/RecoveryPhraseModal.js';
 import { RedPacketModal, RedPacketModalRef } from '@/modals/RedPacketModal/index.js';
 import { SchedulePostModal, SchedulePostModalRef } from '@/modals/SchedulePostModal.js';
 import { ShareImageModal, ShareImageModalRef } from '@/modals/ShareImageModal/index.js';
@@ -92,6 +93,7 @@ export const Modals = memo(function Modals() {
                 <SwapModal ref={SwapModalRef.register} />
                 <TipsModal ref={TipsModalRef.register} />
                 <TokenSelectorModal ref={TokenSelectorModalRef.register} />
+                <RecoveryPhraseModal ref={RecoveryPhraseModalRef.register} />
             </IfPathname>
         </NoSSR>
     );

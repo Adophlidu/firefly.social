@@ -1,17 +1,25 @@
 'use client';
 
+import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { PrimaryButton } from '@/app/(settings)/components/PrimaryButton.js';
 import DisconnectIcon from '@/assets/disconnect.svg';
 import InfoIcon from '@/assets/info-outline.svg';
+import MoreIcon from '@/assets/more-fill.svg';
+import SecurityIcon from '@/assets/security2.svg';
+import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorHandler } from '@/components/ErrorHandler.js';
 import { Loading } from '@/components/Loading.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { MenuGroup } from '@/components/MenuGroup.js';
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -23,6 +31,8 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { DisconnectFireflyAccountModalRef } from '@/modals/DisconnectFireflyAccountModal.js';
+import { RecoveryPhraseModalRef } from '@/modals/RecoveryPhraseModal.js';
+import { checkBatchCustodyWallet } from '@/providers/firefly/endpoint/checkBatchCustodyWallet.js';
 import type { Account } from '@/providers/types/Account.js';
 
 function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'origin'> }) {
@@ -79,7 +89,32 @@ function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'ori
 export function AccountCards() {
     const { data, isLoading, error, refetch } = useAllConnectionsFormattedWithProfiles();
 
-    if (isLoading) {
+    const farcasterFids = useMemo(() => {
+        if (!data) return [];
+        return data.socialConnections
+            .filter(({ source }) => source === Source.Farcaster)
+            .flatMap(({ items }) =>
+                items
+                    .filter(({ connection }) => {
+                        return (
+                            ('connectedAt' in connection && connection.connectedAt) ||
+                            ('connected' in connection && connection.connected)
+                        );
+                    })
+                    .map(({ profile }) => profile.profileId),
+            );
+    }, [data]);
+
+    const { data: custodyWalletData, isLoading: isCustodyWalletLoading } = useQuery({
+        queryKey: ['checkBatchCustodyWallet', farcasterFids.sort()],
+        queryFn: async () => {
+            if (farcasterFids.length === 0) return {};
+            return checkBatchCustodyWallet(farcasterFids);
+        },
+        enabled: farcasterFids.length > 0,
+    });
+
+    if (isLoading || isCustodyWalletLoading) {
         return <Loading />;
     }
 
@@ -113,6 +148,8 @@ export function AccountCards() {
                                     const isConnected =
                                         ('connectedAt' in connection && connection.connectedAt) ||
                                         ('connected' in connection && connection.connected);
+
+                                    const isCustodyWallet = custodyWalletData?.[profile.profileId] === true;
                                     return (
                                         <motion.div
                                             key={profile.profileId}
@@ -156,9 +193,58 @@ export function AccountCards() {
                                                 enableDefaultAvatar={profile.source === Source.Lens}
                                             />
                                             <ProfileName profile={profile} />
-                                            {isConnected ? (
-                                                <DisconnectButton account={{ profile, origin: account?.origin }} />
-                                            ) : null}
+                                            <div className="ml-auto flex items-center gap-2">
+                                                {isConnected ? (
+                                                    <>
+                                                        {source === Source.Farcaster && (
+                                                            <MoreActionMenu
+                                                                button={
+                                                                    <motion.div
+                                                                        whileTap={{ scale: 0.9 }}
+                                                                        className="inline-flex size-5 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link"
+                                                                    >
+                                                                        <MoreIcon
+                                                                            width={20}
+                                                                            height={20}
+                                                                            className="size-5 shrink-0 text-second"
+                                                                        />
+                                                                    </motion.div>
+                                                                }
+                                                                loginRequired={false}
+                                                            >
+                                                                <MenuGroup>
+                                                                    {isCustodyWallet ? (
+                                                                        <MenuItem>
+                                                                            {({ close }) => (
+                                                                                <MenuButton
+                                                                                    onClick={async () => {
+                                                                                        close();
+                                                                                        await RecoveryPhraseModalRef.openAndWaitForClose(
+                                                                                            {
+                                                                                                fid: profile.profileId,
+                                                                                            },
+                                                                                        );
+                                                                                    }}
+                                                                                >
+                                                                                    <span className="flex items-center gap-2 font-bold leading-[22px] text-main">
+                                                                                        <SecurityIcon className="size-[18px]" />
+                                                                                        <Trans>
+                                                                                            Export recovery phrase
+                                                                                        </Trans>
+                                                                                    </span>
+                                                                                </MenuButton>
+                                                                            )}
+                                                                        </MenuItem>
+                                                                    ) : null}
+                                                                </MenuGroup>
+                                                            </MoreActionMenu>
+                                                        )}
+                                                        <DisconnectButton
+                                                            account={{ profile, origin: account?.origin }}
+                                                        />
+                                                    </>
+                                                ) : null}
+                                            </div>
                                         </motion.div>
                                     );
                                 })}

@@ -2441,3 +2441,6 @@ export interface FarcasterAccountInfo {
 
 export type FarcasterAccountInfoResponse = Response<FarcasterAccountInfo[]>;
 export type EncryptedAccountInfoResponse = Response<{ data: string }>;
+
+export type CheckBatchCustodyWalletResponse = Response<{ [key: string]: boolean }>;
+export type GetMnemonicPhraseByFidResponse = Response<{ data: string }>;
