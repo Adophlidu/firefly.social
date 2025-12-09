@@ -1,4 +1,4 @@
-name: Regenerate Package Analysis
+name: Generate Package Analysis
 
 on:
     pull_request:
@@ -36,8 +36,11 @@ jobs:
             - name: Install dependencies
               run: pnpm install
 
-            - name: Regenerate Package Analysis
+            - name: Generate Package Analysis
               run: node scripts/generate-package-analysis.mjs
+
+            - name: Prettify Package Analysis
+              run: npx prettier --write docs/PACKAGE_ANALYSIS.md
 
             - name: Commit and Push changes if necessary
               run: |
