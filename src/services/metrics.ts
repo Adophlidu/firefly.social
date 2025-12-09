@@ -74,7 +74,7 @@ async function getMetricsDataToUpload(account: Account, passcode: string) {
                 ...commonData,
                 token: session.token,
                 refresh_token: session.refreshToken,
-                identity_token: session.identityToken,
+                identity_token: session.token,
                 address: account.profile.profileId,
             } satisfies LensMetricsData;
         }

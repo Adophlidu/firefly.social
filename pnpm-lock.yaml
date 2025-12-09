@@ -86,8 +86,8 @@ importers:
         specifier: ^0.18.4
         version: 0.18.4
       '@atproto/common-web':
-        specifier: ^0.4.3
-        version: 0.4.3
+        specifier: ^0.4.6
+        version: 0.4.6
       '@bprogress/next':
         specifier: ^3.2.11
         version: 3.2.11(next@16.0.7)(react-dom@19.2.1)(react@19.2.1)
@@ -737,15 +737,6 @@ packages:
       await-lock: 2.2.2
       multiformats: 9.9.0
       tlds: 1.256.0
-      zod: 3.25.76
-    dev: false
-
-  /@atproto/common-web@0.4.3:
-    resolution: {integrity: sha512-nRDINmSe4VycJzPo6fP/hEltBcULFxt9Kw7fQk6405FyAWZiTluYHlXOnU7GkQfeUK44OENG1qFTBcmCJ7e8pg==}
-    dependencies:
-      graphemer: 1.4.0
-      multiformats: 9.9.0
-      uint8arrays: 3.1.1
       zod: 3.25.76
     dev: false
 
@@ -13645,6 +13636,7 @@ packages:
 
   /graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
+    dev: true
 
   /graphql-tag@2.12.6(graphql@16.12.0):
     resolution: {integrity: sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==}
@@ -19743,7 +19735,7 @@ packages:
 time:
   /@apollo/client@3.13.9: '2025-07-29T14:56:11.763Z'
   /@atproto/api@0.18.4: '2025-12-02T17:12:41.274Z'
-  /@atproto/common-web@0.4.3: '2025-09-09T10:34:51.025Z'
+  /@atproto/common-web@0.4.6: '2025-12-02T17:12:36.443Z'
   /@bprogress/next@3.2.11: '2025-04-10T09:35:12.548Z'
   /@coral-xyz/anchor@0.32.1: '2025-10-10T02:34:12.654Z'
   /@crowdin/cli@4.11.0: '2025-09-03T06:19:11.750Z'
