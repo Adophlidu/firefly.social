@@ -1,33 +1,47 @@
 import { classNames } from '@dimensiondev/utils';
-import type { HTMLProps } from 'react';
-import { type FieldPath, type FieldValues, type RegisterOptions, useFormContext, useFormState } from 'react-hook-form';
+import type { HTMLProps, ReactNode } from 'react';
+import {
+    type FieldPath,
+    type FieldValues,
+    type RegisterOptions,
+    useFormContext,
+    useFormState,
+    useWatch,
+} from 'react-hook-form';
 
 interface TextareaProps<
     TFieldValues extends FieldValues = FieldValues,
     TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> extends HTMLProps<HTMLTextAreaElement> {
+> extends Omit<HTMLProps<HTMLTextAreaElement>, 'placeholder'> {
     name: TFieldName;
+    placeholder?: ReactNode;
     options?: RegisterOptions<TFieldValues, TFieldName>;
 }
 
 export function FormTextarea<
     TFieldValues extends FieldValues = FieldValues,
     TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({ name, options, className, ...props }: TextareaProps<TFieldValues, TFieldName>) {
+>({ name, options, className, placeholder, ...props }: TextareaProps<TFieldValues, TFieldName>) {
     const { register, control } = useFormContext<TFieldValues>();
     const { errors } = useFormState({ control });
+    const value = useWatch<TFieldValues>({ control, name });
     const error = errors[name];
     return (
-        <textarea
-            className={classNames(
-                'w-full rounded-2xl border-none bg-bg text-main !outline-offset-0 ring-0 duration-100 focus:bg-transparent focus:outline-1',
-                error ? 'focus:shadow-inputDanger focus:ring-fail/50' : 'focus:ring-highlight/50',
-                className,
-            )}
-            autoComplete="off"
-            spellCheck="false"
-            {...props}
-            {...register(name, options)}
-        />
+        <div className="w-full">
+            <textarea
+                className={classNames(
+                    'w-full rounded-2xl border-none bg-bg text-main !outline-offset-0 ring-0 duration-100 focus:bg-transparent focus:outline-1',
+                    error ? 'focus:shadow-inputDanger focus:ring-fail/50' : 'focus:ring-highlight/50',
+                    className,
+                )}
+                autoComplete="off"
+                spellCheck="false"
+                {...props}
+                {...register(name, options)}
+            />
+            {placeholder && !value ? (
+                <span className="pointer-events-none absolute left-0 pl-3 pt-2 text-secondary">{placeholder}</span>
+            ) : null}
+        </div>
     );
 }

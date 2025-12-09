@@ -1,10 +1,9 @@
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo, type ReactNode, useMemo } from 'react';
 import type { RegisterOptions } from 'react-hook-form';
 
-import { ErrorMessage } from '@/components/Form/ErrorMessage.js';
+import { ErrorMessage, ValidationErrorCode } from '@/components/Form/ErrorMessage.js';
 import { FormInput } from '@/components/Form/FormInput.js';
 import { FormTextarea } from '@/components/Form/FormTextarea.js';
 import { queryClient } from '@/configs/queryClient.js';
@@ -36,7 +35,7 @@ function checkHandleFormat(source: SocialSource, handle: string): true | string 
         case Source.Lens: {
             LENS_USERNAME_REGEXP.lastIndex = 0;
             if (!LENS_USERNAME_REGEXP.test(handle)) {
-                return t`User Name must start with a letter/number, only _ allowed in between`;
+                return ValidationErrorCode.LENS_HANDLE_ERROR;
             }
 
             return true;
@@ -44,7 +43,7 @@ function checkHandleFormat(source: SocialSource, handle: string): true | string 
         case Source.Farcaster: {
             FARCASTER_USERNAME_REGEXP.lastIndex = 0;
             if (!FARCASTER_USERNAME_REGEXP.test(handle)) {
-                return t`User Name can only contain lowercase letters, numbers, and -, and should not start with -`;
+                return ValidationErrorCode.FAR_HANDLE_ERROR;
             }
 
             return true;
@@ -60,14 +59,25 @@ function checkHandleFormat(source: SocialSource, handle: string): true | string 
 
 const validateHandle = autoWithSignal(checkHandleAvailability);
 
-function getFieldsBySource(source: SocialSource): Array<{
+interface BaseFieldConfig {
     name: string;
     label: ReactNode;
     prefix?: string;
-    placeholder?: string;
-    type: 'text' | 'textarea';
     options?: RegisterOptions;
-}> {
+}
+type FieldConfig = BaseFieldConfig &
+    (
+        | {
+              type: 'text';
+              placeholder?: string;
+          }
+        | {
+              type: 'textarea';
+              placeholder?: ReactNode;
+          }
+    );
+
+function getFieldsBySource(source: SocialSource): FieldConfig[] {
     const maxBioSize = MAX_PROFILE_BIO_SIZE[source] ?? 0;
     const minBioSize = MIN_PROFILE_BIO_SIZE[source] ?? 0;
     const minHandleSize = MIN_PROFILE_HANDLE_SIZE[source] ?? 0;
@@ -84,10 +94,10 @@ function getFieldsBySource(source: SocialSource): Array<{
             options: {
                 required: true,
                 validate(value: string) {
-                    if (isBlank(value)) return t`Display Name should not be blank`;
+                    if (isBlank(value)) return ValidationErrorCode.NAME_EMPTY_ERROR;
 
                     if (resolveLengthCalculatorFn(value) > maxDisplayNameSize) {
-                        return t`Display Name should not exceed ${maxDisplayNameSize} characters`;
+                        return `${ValidationErrorCode.NAME_MAX_SIZE_ERROR}:${maxDisplayNameSize}`;
                     }
 
                     return true;
@@ -103,14 +113,14 @@ function getFieldsBySource(source: SocialSource): Array<{
                 required: true,
                 minLength: {
                     value: minHandleSize,
-                    message: t`User Name should be at least ${minHandleSize} characters`,
+                    message: `${ValidationErrorCode.HANDLE_MIN_SIZE_ERROR}:${minHandleSize}`,
                 },
                 maxLength: {
                     value: maxHandleSize,
-                    message: t`User Name should not exceed ${maxHandleSize} characters`,
+                    message: `${ValidationErrorCode.HANDLE_MAX_SIZE_ERROR}:${maxHandleSize}`,
                 },
                 validate: async (value: string) => {
-                    if (isBlank(value)) return t`User Name should not be blank`;
+                    if (isBlank(value)) return ValidationErrorCode.HANDLE_EMPTY_ERROR;
 
                     const formatCheck = checkHandleFormat(source, value);
                     if (formatCheck !== true) return formatCheck;
@@ -122,7 +132,7 @@ function getFieldsBySource(source: SocialSource): Array<{
                             queryFn: () => validateHandle(source, value),
                         }),
                     );
-                    if (checked === false) return t`User Name is not available`;
+                    if (checked === false) return ValidationErrorCode.HANDLE_NOT_AVAILABLE_ERROR;
 
                     return true;
                 },
@@ -132,14 +142,14 @@ function getFieldsBySource(source: SocialSource): Array<{
             name: 'bio',
             label: <Trans>Bio</Trans>,
             type: 'textarea',
-            placeholder: t`Tell us something about you!`,
+            placeholder: <Trans>Tell us something about you!</Trans>,
             options: {
                 validate(value: string) {
                     if (!value) return true;
 
                     const length = resolveLengthCalculatorFn(value);
-                    if (length < minBioSize) return t`Bio should be at least ${minBioSize} characters`;
-                    if (length > maxBioSize) return t`Bio should not exceed ${maxBioSize} characters`;
+                    if (length < minBioSize) return `${ValidationErrorCode.BIO_MIN_SIZE_ERROR}:${minBioSize}`;
+                    if (length > maxBioSize) return `${ValidationErrorCode.BIO_MAX_SIZE_ERROR}:${maxBioSize}`;
 
                     return true;
                 },
@@ -169,22 +179,23 @@ export const SignupFormFields = memo<SignupFormFieldsProps>(function SignupFormF
                         <label className="text-sm font-bold text-main" htmlFor={fieldId}>
                             {field.label}
                         </label>
-                        <div className="relative">
+                        <div className="relative mt-1.5">
                             {field.prefix ? (
-                                <span className="absolute left-0 top-1.5 h-12 pl-3 text-center text-medium leading-[48px] text-main">
+                                <span className="absolute left-0 top-0 h-12 pl-3 text-center text-medium leading-[48px] text-main">
                                     {field.prefix}
                                 </span>
                             ) : null}
                             {field.type === 'text' ? (
                                 <FormInput
                                     {...inputOptions}
-                                    className={classNames('mt-1.5', field.prefix ? '!pl-8' : '')}
+                                    placeholder={field.placeholder}
+                                    className={field.prefix ? '!pl-8' : ''}
                                 />
                             ) : field.type === 'textarea' ? (
                                 <FormTextarea
                                     {...inputOptions}
                                     className={classNames(
-                                        'no-scrollbar mt-1.5 h-[100px] resize-none',
+                                        'no-scrollbar h-[100px] resize-none',
                                         field.prefix ? '!pl-8' : '',
                                     )}
                                 />

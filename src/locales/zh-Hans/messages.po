@@ -912,9 +912,6 @@ msgstr "取消点赞失败。"
 msgid "Snapshot unliked."
 msgstr "已取消点赞。"
 
-msgid "User Name should be at least {minHandleSize} characters"
-msgstr "用户名长度至少需要 {minHandleSize} 个字符"
-
 msgid "Sending"
 msgstr "发送中"
 
@@ -1136,6 +1133,9 @@ msgstr "发现钓鱼活动。"
 
 msgid "Swap unliked."
 msgstr "已取消点赞。"
+
+msgid "Bio should not exceed {extra} characters"
+msgstr ""
 
 msgid "Drop type"
 msgstr "红包类型"
@@ -2240,9 +2240,6 @@ msgstr "图片下载失败，请重试。"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>铸造收集了你的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {帖子}}</5>"
 
-msgid "User Name should not exceed {maxHandleSize} characters"
-msgstr "用户名长度不能超过 {maxHandleSize} 个字符"
-
 msgid "Polymarket PnL"
 msgstr "Polymarket 收益"
 
@@ -2538,6 +2535,9 @@ msgstr "铸造日期"
 
 msgid "24 hours"
 msgstr "24 小时"
+
+msgid "Bio should be at least {extra} characters"
+msgstr ""
 
 msgid "Failed to create red packet"
 msgstr "创建红包失败"
@@ -3078,6 +3078,9 @@ msgstr "输入每个获奖者可以领取的金额"
 msgid "Newest"
 msgstr "最新"
 
+msgid "User Name should not exceed {extra} characters"
+msgstr ""
+
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr "🤑 刚刚通过 @{0} 在 {postUrl} 领取了一个 #FireflyLuckyDrop 🧧💰✨ ！"
@@ -3249,6 +3252,9 @@ msgstr "已暂停"
 
 msgid "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
 msgstr "合约中没有代理。代理意味着合约所有者可以修改代币的功能，并可能影响价格。"
+
+msgid "User Name should be at least {extra} characters"
+msgstr ""
 
 msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
 msgstr "{totalVotes, plural, one {{totalVotes} 投票} other {{totalVotes} 投票}}"
@@ -4552,6 +4558,9 @@ msgstr "发贴分享你的参与，提案期间可以更改投票。"
 
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
 msgstr "如有任何疑问，请<0>联系我们</0>。版权所有 © Firefly。"
+
+msgid "Display Name should not exceed {extra} characters"
+msgstr ""
 
 msgid "Different Account Detected"
 msgstr "检测到账户冲突"

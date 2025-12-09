@@ -912,9 +912,6 @@ msgstr "取消按赞失敗。"
 msgid "Snapshot unliked."
 msgstr "已取消按赞。"
 
-msgid "User Name should be at least {minHandleSize} characters"
-msgstr ""
-
 msgid "Sending"
 msgstr "發布中"
 
@@ -1136,6 +1133,9 @@ msgstr "發現釣魚活動。"
 
 msgid "Swap unliked."
 msgstr "已取消按赞。"
+
+msgid "Bio should not exceed {extra} characters"
+msgstr ""
 
 msgid "Drop type"
 msgstr "紅包類型"
@@ -2240,9 +2240,6 @@ msgstr "圖片下載失敗，請重試。"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}} <4>鑄造收集了你的</4><5>{1, select, Post {貼文} Comment {留言} Quote {引用} Mirror {轉發} other {貼文}}</5>"
 
-msgid "User Name should not exceed {maxHandleSize} characters"
-msgstr ""
-
 msgid "Polymarket PnL"
 msgstr ""
 
@@ -2537,6 +2534,9 @@ msgid "Minting Date"
 msgstr "鑄造日期"
 
 msgid "24 hours"
+msgstr ""
+
+msgid "Bio should be at least {extra} characters"
 msgstr ""
 
 msgid "Failed to create red packet"
@@ -3078,6 +3078,9 @@ msgstr "輸入每位獲獎者可領取金額"
 msgid "Newest"
 msgstr ""
 
+msgid "User Name should not exceed {extra} characters"
+msgstr ""
+
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr "🤑 剛從 @{0} 領取了一個 #FireflyLuckyDrop 🧧💰✨ {postUrl} ！"
@@ -3249,6 +3252,9 @@ msgstr "已暫停"
 
 msgid "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
 msgstr "合約未包含代理機制。代理合約允許持有者修改代幣功能並可能影響價格。"
+
+msgid "User Name should be at least {extra} characters"
+msgstr ""
 
 msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
 msgstr "{totalVotes, plural, one {{totalVotes} 票} other {{totalVotes} 票}}"
@@ -4552,6 +4558,9 @@ msgstr "發貼分享參與過程，提案期間可變更投票。"
 
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
 msgstr "如有疑問請<0>聯絡我們</0>，Firefly 保留所有權利。"
+
+msgid "Display Name should not exceed {extra} characters"
+msgstr ""
 
 msgid "Different Account Detected"
 msgstr "檢測到帳戶衝突"

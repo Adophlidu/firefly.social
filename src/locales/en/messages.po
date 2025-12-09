@@ -907,9 +907,6 @@ msgstr "Failed to unlike tip."
 msgid "Snapshot unliked."
 msgstr "Snapshot unliked."
 
-msgid "User Name should be at least {minHandleSize} characters"
-msgstr "User Name should be at least {minHandleSize} characters"
-
 msgid "Sending"
 msgstr "Sending"
 
@@ -1131,6 +1128,9 @@ msgstr "Phishing activities found."
 
 msgid "Swap unliked."
 msgstr "Swap unliked."
+
+msgid "Bio should not exceed {extra} characters"
+msgstr "Bio should not exceed {extra} characters"
 
 msgid "Drop type"
 msgstr "Drop type"
@@ -2235,9 +2235,6 @@ msgstr "Failed to download image. Please try again later."
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 
-msgid "User Name should not exceed {maxHandleSize} characters"
-msgstr "User Name should not exceed {maxHandleSize} characters"
-
 msgid "Polymarket PnL"
 msgstr "Polymarket PnL"
 
@@ -2533,6 +2530,9 @@ msgstr "Minting Date"
 
 msgid "24 hours"
 msgstr "24 hours"
+
+msgid "Bio should be at least {extra} characters"
+msgstr "Bio should be at least {extra} characters"
 
 msgid "Failed to create red packet"
 msgstr "Failed to create red packet"
@@ -3073,6 +3073,9 @@ msgstr "Enter the amount that each winner can claim"
 msgid "Newest"
 msgstr "Newest"
 
+msgid "User Name should not exceed {extra} characters"
+msgstr "User Name should not exceed {extra} characters"
+
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
@@ -3244,6 +3247,9 @@ msgstr "Suspended"
 
 msgid "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
 msgstr "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
+
+msgid "User Name should be at least {extra} characters"
+msgstr "User Name should be at least {extra} characters"
 
 msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
 msgstr "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
@@ -4545,6 +4551,9 @@ msgstr "Create a post to tell everyone about your participation. Votes can be ch
 
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
 msgstr "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
+
+msgid "Display Name should not exceed {extra} characters"
+msgstr "Display Name should not exceed {extra} characters"
 
 msgid "Different Account Detected"
 msgstr "Different Account Detected"

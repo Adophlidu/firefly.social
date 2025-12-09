@@ -912,9 +912,6 @@ msgstr ""
 msgid "Snapshot unliked."
 msgstr ""
 
-msgid "User Name should be at least {minHandleSize} characters"
-msgstr ""
-
 msgid "Sending"
 msgstr ""
 
@@ -1135,6 +1132,9 @@ msgid "Phishing activities found."
 msgstr ""
 
 msgid "Swap unliked."
+msgstr ""
+
+msgid "Bio should not exceed {extra} characters"
 msgstr ""
 
 msgid "Drop type"
@@ -2240,9 +2240,6 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr ""
 
-msgid "User Name should not exceed {maxHandleSize} characters"
-msgstr ""
-
 msgid "Polymarket PnL"
 msgstr ""
 
@@ -2537,6 +2534,9 @@ msgid "Minting Date"
 msgstr ""
 
 msgid "24 hours"
+msgstr ""
+
+msgid "Bio should be at least {extra} characters"
 msgstr ""
 
 msgid "Failed to create red packet"
@@ -3078,6 +3078,9 @@ msgstr ""
 msgid "Newest"
 msgstr ""
 
+msgid "User Name should not exceed {extra} characters"
+msgstr ""
+
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr ""
@@ -3248,6 +3251,9 @@ msgid "Suspended"
 msgstr ""
 
 msgid "There is no proxy in the contract. The proxy contract means contract owner can modify the function of the token and possibly effect the price."
+msgstr ""
+
+msgid "User Name should be at least {extra} characters"
 msgstr ""
 
 msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
@@ -4549,6 +4555,9 @@ msgid "Create a post to tell everyone about your participation. Votes can be cha
 msgstr ""
 
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
+msgstr ""
+
+msgid "Display Name should not exceed {extra} characters"
 msgstr ""
 
 msgid "Different Account Detected"
