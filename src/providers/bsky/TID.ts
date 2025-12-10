@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 const TID_LEN = 13;
 const S32_CHAR = '234567abcdefghijklmnopqrstuvwxyz';
 
