@@ -1,5 +1,6 @@
 import urlcat from 'urlcat';
 
+import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { type MediaObject, MediaSource } from '@/types/compose.js';
 
@@ -14,7 +15,7 @@ async function downloadUrl(url: string, name: string) {
 }
 
 export async function downloadUrlWithProxy(url: string, name: string) {
-    const proxyUrl = urlcat('/api/proxy-image', { url });
+    const proxyUrl = urlcat(FIREFLY_WORKER_HOST, '/proxy-image', { url });
     const response = await fetch(proxyUrl);
     if (!response.ok) {
         throw new Error(`Failed to download file from ${url}: ${response.statusText}`);
