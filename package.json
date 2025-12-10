@@ -34,7 +34,6 @@
         "packages:publish": "pnpm -r --filter='./packages/*' publish --no-git-checks"
     },
     "dependencies": {
-        "@apollo/client": "^3.13.9",
         "@atproto/api": "^0.18.4",
         "@atproto/common-web": "^0.4.6",
         "@bprogress/next": "^3.2.11",
