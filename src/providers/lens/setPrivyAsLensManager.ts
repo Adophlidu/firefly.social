@@ -5,6 +5,7 @@ import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { AddLensManagerModalRef } from '@/modals/AddLensManagerModal/index.js';
+import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { getLensProfileOwner } from '@/providers/lens/getLensProfileOwner.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
 import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';
@@ -39,6 +40,8 @@ export async function setPrivyAsLensManager(account: Account): Promise<Boolean> 
     if (profiles.some((x) => isSameEthereumAddress(account.profile.profileId, x.profileId))) {
         throw new Error('This privy wallet is already a owner or manager of current lens account.');
     }
+
+    LoginModalRef.close();
 
     // 6. bind manager
     const result = await AddLensManagerModalRef.openAndWaitForClose({

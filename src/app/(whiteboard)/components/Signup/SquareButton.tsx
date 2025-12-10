@@ -19,7 +19,11 @@ export function SquareButton({
 }: SquareButtonProps) {
     return (
         <motion.button
-            className={classNames('relative h-12 w-60', disabled ? 'cursor-not-allowed opacity-50' : '', className)}
+            className={classNames(
+                'relative h-12 w-60',
+                disabled || loading ? 'cursor-not-allowed opacity-50' : '',
+                className,
+            )}
             onClick={(e) => {
                 if (disabled || loading) return;
                 onClick?.(e);

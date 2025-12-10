@@ -20,6 +20,7 @@ import { useRouter } from '@/esm/navigation.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
@@ -60,6 +61,7 @@ export function Signup({ initialStep }: SignupProps) {
     const { currentProfileSession } = useFireflyProfileStore();
     const router = useRouter();
     const hasFinished = useRef<boolean>(false);
+    const { isSyncingMetrics } = useGlobalState();
 
     const changeStep = useCallback(
         (newStep: SignupStep, params?: Record<string, string>) => {
@@ -102,7 +104,7 @@ export function Signup({ initialStep }: SignupProps) {
         }
     }, [currentProfileSession?.profileId]);
 
-    if (hasFireflyAccount && !hasFinished.current && !isSyncing) {
+    if (hasFireflyAccount && !hasFinished.current && !isSyncing && !isSyncingMetrics) {
         LoginModalRef.close();
         router.replace(PageRoute.FollowingPosts);
     }
