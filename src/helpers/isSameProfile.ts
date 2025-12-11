@@ -1,9 +1,14 @@
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import type { FireflyIdentity, Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile, ProfileLike } from '@/providers/types/SocialMedia.js';
 
 export function isSameProfile(profile: ProfileLike | null | undefined, otherProfile: ProfileLike | null | undefined) {
     if (!profile || !otherProfile) return false;
-    return profile.source === otherProfile.source && profile.profileId === otherProfile.profileId;
+    if (profile.source !== otherProfile.source) return false;
+
+    return (
+        profile.profileId === otherProfile.profileId || isSameEthereumAddress(profile.profileId, otherProfile.profileId)
+    );
 }
 
 export function toProfileId(profile: Profile) {
