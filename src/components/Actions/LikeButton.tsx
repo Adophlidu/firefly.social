@@ -3,8 +3,8 @@ import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
-import LikeIcon from '@/assets/like.svg';
-import LikedIcon from '@/assets/liked.svg';
+import LikeIcon from '@/assets/like-large.svg';
+import LikedIcon from '@/assets/liked-large.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
