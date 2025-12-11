@@ -328,9 +328,6 @@ importers:
       thread-stream:
         specifier: ^3.1.0
         version: 3.1.0
-      ts-results-es:
-        specifier: ^4.2.0
-        version: 4.2.0
       tweetnacl:
         specifier: ^1.0.3
         version: 1.0.3
@@ -18029,10 +18026,6 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /ts-results-es@4.2.0:
-    resolution: {integrity: sha512-GfpRk+qvHxa/6gADH8WMN/jXvs5oHYbKtMQc6X9L3VhToy5Lri3iQowyYSytaRcvPDiTT2z3vurzQZXFQFXKRA==}
-    dev: false
-
   /tsconfck@3.1.6(typescript@5.9.3):
     resolution: {integrity: sha512-ks6Vjr/jEw0P1gmOVwutM3B7fWxoWBL2KRDb1JfqGVawBmO5UsvmWOQFGHBPl5yxYz4eERr19E6L7NMv+Fej4w==}
     engines: {node: ^18 || >=20}
@@ -19729,7 +19722,6 @@ time:
   /tailwindcss-safe-area@0.6.0: '2024-08-25T17:31:22.552Z'
   /tailwindcss@3.4.18: '2025-10-01T15:31:37.586Z'
   /thread-stream@3.1.0: '2024-06-13T15:39:11.962Z'
-  /ts-results-es@4.2.0: '2024-05-28T09:14:13.577Z'
   /tsup@8.5.1: '2025-11-12T21:21:42.746Z'
   /tweetnacl@1.0.3: '2020-02-10T19:49:05.829Z'
   /twemoji-parser@14.0.0: '2022-03-11T07:32:07.545Z'
