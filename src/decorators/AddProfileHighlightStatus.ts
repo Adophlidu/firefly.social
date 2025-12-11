@@ -14,9 +14,24 @@ function isSameProfileId(platform: SourceInURL, a: string, b: string) {
     if (platform === SourceInURL.Lens) {
         return isSameEthereumAddress(a, b);
     }
-
     return a === b;
 }
+
+function updateQueryDataAsync(
+    author: Post['author'],
+    ogRecord: SparksAccountInfo | null,
+    idAndHandleList: Array<{ id: string; handle: string }>,
+) {
+    if (idAndHandleList.find((item) => item.id === author.profileId && item.handle === author.handle)) {
+        runInSafe(() => {
+            queryClient.setQueryData(
+                ['profile-highlight-status', author.source, author.profileId, author.handle],
+                ogRecord || null,
+            );
+        });
+    }
+}
+
 function fillHighlightStatus(
     post: Post,
     records: SparksAccountInfo[],
@@ -28,17 +43,11 @@ function fillHighlightStatus(
         (r) => r.platform === platform && isSameProfileId(platform, r.platform_id, author.profileId),
     );
 
-    // update query to reduce redundant calls
-    if (idAndHandleList.find((item) => item.id === author.profileId && item.handle === author.handle)) {
-        runInSafe(() => {
-            queryClient.setQueryData(
-                ['profile-highlight-status', author.source, author.profileId, author.handle],
-                ogRecord || null,
-            );
-        });
-    }
+    updateQueryDataAsync(author, ogRecord || null, idAndHandleList);
 
-    if (!ogRecord) return post;
+    if (!ogRecord) {
+        return post;
+    }
 
     return {
         ...post,
@@ -58,34 +67,32 @@ async function fillAuthorHighlightStatusForPosts(posts: Post[], source: SocialSo
     const idAndHandleList = uniqBy(
         posts
             .flatMap((p) => {
-                return compact([p, p.root, p.commentOn, ...(p.comments || [])]);
+                return compact([p, p.root, p.commentOn, ...(p.comments || []), p.quoteOn]);
             })
             .map((p) => ({ id: p.author.profileId, handle: p.author.handle })),
         ({ id, handle }) => `${id}-${handle}`,
-    ).filter(({ id, handle }) => {
-        const oldData = runInSafe(() =>
-            queryClient.getQueryData<SparksAccountInfo>(['profile-highlight-status', source, id, handle]),
-        );
-        return oldData === undefined;
-    });
-    if (!idAndHandleList.length) return posts;
+    );
+    if (!idAndHandleList.length) return;
 
-    const records = await runInSafeAsync(() => checkGenesisSparksAccounts(source, idAndHandleList));
-    if (!records?.infoList?.length) return posts;
+    const infoList = await runInSafeAsync(() => checkGenesisSparksAccounts(source, idAndHandleList));
+    if (!infoList) return;
 
-    return posts.map((post) => {
-        const newPost = fillHighlightStatus(post, records.infoList, idAndHandleList);
+    const infoRecord = compact(infoList);
+
+    posts.forEach((post) => {
+        const newPost = fillHighlightStatus(post, infoRecord, idAndHandleList);
         if (newPost.root) {
-            newPost.root = fillHighlightStatus(newPost.root, records.infoList, idAndHandleList);
+            fillHighlightStatus(newPost.root, infoRecord, idAndHandleList);
         }
         if (newPost.commentOn) {
-            newPost.commentOn = fillHighlightStatus(newPost.commentOn, records.infoList, idAndHandleList);
+            fillHighlightStatus(newPost.commentOn, infoRecord, idAndHandleList);
         }
         if (newPost.comments?.length) {
-            newPost.comments = newPost.comments.map((p) => fillHighlightStatus(p, records.infoList, idAndHandleList));
+            newPost.comments.forEach((p) => fillHighlightStatus(p, infoRecord, idAndHandleList));
         }
-
-        return newPost;
+        if (newPost.quoteOn) {
+            fillHighlightStatus(newPost.quoteOn, infoRecord, idAndHandleList);
+        }
     });
 }
 
@@ -107,8 +114,7 @@ export function AddAuthorHighlightStatusForPosts(source: SocialSource) {
                     const result = await m.call(target.prototype, ...args);
 
                     if (result.data?.length) {
-                        const posts = await fillAuthorHighlightStatusForPosts(result.data, source);
-                        result.data = posts;
+                        runInSafeAsync(() => fillAuthorHighlightStatusForPosts(result.data, source));
                     }
 
                     return result;
