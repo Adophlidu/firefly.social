@@ -1,38 +1,96 @@
+import { compact } from 'lodash-es';
+
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
-import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
+import { createBatcher } from '@/helpers/createBatcher.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { getBlockRelation } from '@/providers/firefly/endpoint/getBlockRelation.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
-export async function queryMutedProfiles(identities: FireflyIdentity[]) {
-    const bskyIdentities = identities.filter((x) => x.source === Source.Bsky);
-    if (bskyIdentities.length && bskySessionHolder.session) {
-        const response = await bskySessionHolder.agent.getProfiles({ actors: bskyIdentities.map((x) => x.id) });
+interface MutedProfilePayload {
+    source: Source;
+    profileId: string;
+}
+
+interface MutedProfileResult {
+    source: Source;
+    profileId: string;
+    blocked: boolean;
+}
+
+async function fetcher(payloads: MutedProfilePayload[]): Promise<Record<string, MutedProfileResult>> {
+    if (payloads.length === 0) return {};
+
+    const results: Record<string, MutedProfileResult> = {};
+
+    // Separate Bsky and Firefly payloads
+    const bskyPayloads = payloads.filter((p) => p.source === Source.Bsky);
+    const fireflyPayloads = payloads.filter((p) => p.source !== Source.Bsky);
+
+    // Handle Bsky profiles
+    if (bskyPayloads.length > 0 && bskySessionHolder.session) {
+        const response = await bskySessionHolder.agent.getProfiles({
+            actors: bskyPayloads.map((p) => p.profileId),
+        });
         const profiles = response.data.profiles.map((profile) => formatBskyProfile(profile));
         profiles.forEach(({ profileId, viewerContext }) => {
-            queryClient.setQueryData(['profile-is-muted', Source.Bsky, profileId, true], !!viewerContext?.blocking);
+            const blocked = !!viewerContext?.blocking;
+            results[`${Source.Bsky}:${profileId}`] = {
+                source: Source.Bsky,
+                profileId,
+                blocked,
+            };
+            queryClient.setQueryData(['profile-is-muted', Source.Bsky, profileId, true], blocked);
         });
     }
 
-    const session = getSessionFromStorage(SessionType.Firefly);
-    if (!session) return;
+    // Handle Firefly profiles
+    if (fireflyPayloads.length > 0 && fireflySessionHolder.session) {
+        const conditions = compact(
+            fireflyPayloads.map((p) => {
+                const snsPlatform = resolveFireflyPlatform(p.source);
+                return snsPlatform ? { snsPlatform, snsId: p.profileId } : null;
+            }),
+        );
 
-    const conditions = identities
-        .filter((x) => x.source !== Source.Bsky)
-        .map((x) => ({
-            snsPlatform: resolveFireflyPlatform(x.source)!,
-            snsId: x.id,
-        }));
-    if (!conditions.length) return;
+        if (conditions.length > 0) {
+            const relations = await getBlockRelation(conditions);
+            relations.forEach((relation) => {
+                const source = resolveSourceFromFireflyPlatform(relation.snsPlatform);
+                const blocked = relation.blocked;
+                results[`${source}:${relation.snsId}`] = {
+                    source,
+                    profileId: relation.snsId,
+                    blocked,
+                };
+                queryClient.setQueryData(['profile-is-muted', source, relation.snsId, true], blocked);
+            });
+        }
+    }
 
-    const relations = await getBlockRelation(conditions);
-    relations.forEach(({ snsId, snsPlatform, blocked }) => {
-        const source = resolveSourceFromFireflyPlatform(snsPlatform);
-        queryClient.setQueryData(['profile-is-muted', source, snsId, true], blocked);
-    });
+    return results;
+}
+
+const batchedQueryMutedProfile = createBatcher<MutedProfilePayload, MutedProfileResult>('queryMutedProfile', fetcher, {
+    makeKey: (payload) => `${payload.source}:${payload.profileId}`,
+    size: 1000,
+    wait: 300,
+});
+
+/**
+ * Query muted status for a single profile.
+ * This function batches multiple calls together to reduce API requests.
+ * Supports both Bsky and Firefly platforms.
+ */
+export async function queryMutedProfile(source: Source, profileId: string): Promise<boolean | undefined> {
+    const result = await batchedQueryMutedProfile({ source, profileId });
+    return result?.blocked;
+}
+
+export async function queryMutedProfiles(identities: FireflyIdentity[]) {
+    await Promise.all(identities.map((identity) => queryMutedProfile(identity.source, identity.id)));
 }
