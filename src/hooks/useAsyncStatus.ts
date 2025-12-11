@@ -1,4 +1,4 @@
-import { AsyncStatus, type SocialSource } from '@/constants/enum.js';
+import { AsyncStatus, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -10,7 +10,8 @@ export function useAsyncStatusAll(status = AsyncStatus.Pending) {
     const thirdPartyStatus = useThirdPartyProfileStore.use.status();
     return (
         SORTED_SOCIAL_SOURCES.some((x) => store[x].status === status || asyncStatus[x] === status) ||
-        thirdPartyStatus === status
+        thirdPartyStatus === status ||
+        asyncStatus[Source.Firefly] === status
     );
 }
 

@@ -4,12 +4,14 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import { AsyncStatus, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useCallbackRef } from '@/hooks/useCallbackRef.js';
 import { getDesktopStatus } from '@/providers/firefly/endpoint/getDesktopStatus.js';
 import { DesktopLinkInfoStatus, type DesktopLinkInfoStatusData } from '@/providers/types/Firefly.js';
 import { loginWithAppScan } from '@/services/loginWithAppScan.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function usePollingAppScanLogin(
     otp?: string,
@@ -27,6 +29,8 @@ export function usePollingAppScanLogin(
     const onFailureRef = useCallbackRef(options?.onFailure);
     const onCancelRef = useCallbackRef(options?.onCancel);
     const onExpiredRef = useCallbackRef(options?.onExpired);
+
+    const { setAsyncStatus } = useGlobalState();
 
     const { data } = useQuery({
         queryKey: ['desktop-session-status', session],
@@ -46,6 +50,8 @@ export function usePollingAppScanLogin(
             if (data?.status !== DesktopLinkInfoStatus.Confirm || !otp || !data?.encryptedData) return;
 
             try {
+                setAsyncStatus(Source.Firefly, AsyncStatus.Pending);
+
                 const isSigned = await loginWithAppScan(data, otp);
                 if (isSigned) onSuccessRef.current?.();
                 else onCancelRef.current?.();
@@ -53,6 +59,8 @@ export function usePollingAppScanLogin(
                 enqueueErrorMessage(getErrorMessageFromError(error, t`Failed to login.`));
                 onFailureRef.current?.(error);
                 throw error;
+            } finally {
+                setAsyncStatus(Source.Firefly, AsyncStatus.Idle);
             }
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
