@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { type ProfileSource, Source } from '@/constants/enum.js';
 import { resolveProfileStorageKey } from '@/helpers/resolveProfileStorageKey.js';
-import { type ProfileSchema, ProfileStoreSchema } from '@/schemas/profile.js';
+import { ProfileSchema, ProfileStoreSchema } from '@/schemas/profile.js';
 
 export type StateProfile = z.infer<typeof ProfileSchema>;
 
@@ -11,17 +11,16 @@ export function getCurrentProfileFromStorage<T extends ProfileSource>(source: T)
     const state = bom.localStorage?.getItem(resolveProfileStorageKey(source));
     if (!state) return null;
 
-    const jsonData = parseJson<z.infer<typeof ProfileStoreSchema>>(state);
-    const parsed = ProfileStoreSchema.safeParse(jsonData);
-    if (!parsed.success || !jsonData) {
+    const parsed = ProfileStoreSchema.safeParse(parseJson(state));
+    if (!parsed.success) {
         console.error('Failed to parse profile state from storage', parsed.error);
         return null;
     }
 
     // No profile found
-    if (!jsonData.state.currentProfile) return null;
+    if (!parsed.data.state.currentProfile) return null;
 
-    return jsonData.state.currentProfile as StateProfile;
+    return parsed.data.state.currentProfile as StateProfile;
 }
 
 export function getCurrentProfileAllFromStorage(): Record<ProfileSource, StateProfile | null> {
