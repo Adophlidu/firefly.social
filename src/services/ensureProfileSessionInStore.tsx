@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 
 import { type SocialSource } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
@@ -53,7 +53,10 @@ export async function ensureProfileSessionInStore(source: SocialSource, state: P
             }
 
             enqueueWarningMessage(
-                t`Failed to resume session for @${account.profile.handle} on ${resolveSourceName(source)}, you can refresh the page to try again.`,
+                <Trans>
+                    Failed to resume session for @{account.profile.handle} on {resolveSourceName(source)}, you can
+                    refresh the page to try again.
+                </Trans>,
             );
 
             throw checkErr;
@@ -62,9 +65,10 @@ export async function ensureProfileSessionInStore(source: SocialSource, state: P
 
     if (expiredAccounts.length) {
         enqueueWarningMessage(
-            t`Session expired for ${expiredAccounts
-                .map((x) => `@${x.profile.handle}`)
-                .join(', ')} on ${resolveSourceName(source)}.`,
+            <Trans>
+                Session expired for {expiredAccounts.map((x) => `@${x.profile.handle}`).join(', ')} on{' '}
+                {resolveSourceName(source)}.
+            </Trans>,
         );
     }
     if (!state.accounts.length || !state.currentProfile) {

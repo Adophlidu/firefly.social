@@ -4349,7 +4349,7 @@ msgstr "Language"
 msgid "Address on Watching Lists"
 msgstr "Address on Watching Lists"
 
-#. placeholder {0}: expiredAccounts .map((x) => `@${x.profile.handle}`) .join(', ')
+#. placeholder {0}: expiredAccounts.map((x) => `@${x.profile.handle}`).join(', ')
 #. placeholder {1}: resolveSourceName(source)
 msgid "Session expired for {0} on {1}."
 msgstr "Session expired for {0} on {1}."
