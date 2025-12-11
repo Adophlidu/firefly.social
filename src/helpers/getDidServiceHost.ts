@@ -1,11 +1,10 @@
-import { parseUrl } from '@dimensiondev/utils';
-import { first } from 'lodash-es';
-
 import { DEFAULT_DID_SERVICE_URL } from '@/constants/bsky.js';
+import { getPdsUrlFromSession } from '@/providers/bsky/getPdsUrlFromSession.js';
+import type { BskySession } from '@/providers/bsky/Session.js';
 
-export function getDidServiceHost(didDoc: {} | undefined) {
-    const doc = didDoc as { service?: Array<{ serviceEndpoint: string }> } | undefined;
-    const u = parseUrl(first(doc?.service)?.serviceEndpoint ?? DEFAULT_DID_SERVICE_URL);
-    if (!u) throw new Error('Failed to parse service endpoint.');
-    return u.host;
+export function getDidServiceHost(session: BskySession) {
+    const pdsUrl = getPdsUrlFromSession(session);
+    if (pdsUrl) return pdsUrl.host;
+
+    return new URL(DEFAULT_DID_SERVICE_URL).host;
 }

@@ -138,7 +138,7 @@ async function bindBskySessionToFirefly(session: BskySession, signal?: AbortSign
                 body: JSON.stringify({
                     did: session.did,
                     token: session.sessionPayload.accessJwt,
-                    serviceEndpoint: getDidServiceHost(session.sessionPayload.didDoc),
+                    serviceEndpoint: getDidServiceHost(session),
                 }),
                 signal,
             },
