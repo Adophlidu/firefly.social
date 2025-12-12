@@ -47,17 +47,6 @@ class NitterAPI {
         return resolveNitterJsonResponse(url, response);
     }
 
-    @MemoizePromise((id) => id)
-    async convertUserIdToHandle(id: string) {
-        const url = urlcat(FIREFLY_NITTER_URL, '/api/i/user/:id', {
-            id,
-        });
-        const response = await fetchJson<Response<{ username: string }>>(url, {
-            cache: 'force-cache',
-        });
-        return resolveNitterJsonResponse(url, response);
-    }
-
     @MemoizePromise((handle) => handle)
     async getProfileByHandle(handle: string) {
         const url = urlcat(FIREFLY_NITTER_URL, '/api/:handle/profile', {

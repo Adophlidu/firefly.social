@@ -8,14 +8,14 @@ import { createRedirectResponse } from '@/helpers/createRedirectResponse.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { getTwitterHandleById } from '@/providers/firefly/worker/getTwitterHandleById.js';
 import { getTwitterProfileByOG } from '@/providers/twitter/getTwitterProfileByOG.js';
-import { NitterAPIProvider } from '@/providers/twitter/Nitter.js';
 import { nitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
 import type { NextRequestContext } from '@/types/utility.js';
 
 const getTwitterAvatarById = memoizeWithRedis(
     async (twitterId: string) => {
-        const { username } = await NitterAPIProvider.convertUserIdToHandle(twitterId);
+        const username = await getTwitterHandleById(twitterId);
         if (!username) throw new MalformedError('username not found');
         const profile = await getTwitterProfileByOG(username);
         if (profile?.pfp) return profile.pfp;
