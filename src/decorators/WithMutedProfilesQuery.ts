@@ -1,5 +1,6 @@
 import { isServer } from '@tanstack/react-query';
 
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
@@ -33,7 +34,9 @@ export function WithMutedProfilesQuery() {
                         id: x.profileId,
                     }));
 
-                    await queryMutedProfiles(identifiers);
+                    if (identifiers.length) {
+                        runInSafeAsync(() => queryMutedProfiles(identifiers));
+                    }
                     return pageable;
                 },
             });

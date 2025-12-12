@@ -58,16 +58,32 @@ async function fetcher(payloads: MutedProfilePayload[]): Promise<Record<string, 
         );
 
         if (conditions.length > 0) {
-            const relations = await getBlockRelation(conditions);
+            const blockRelationPromise = getBlockRelation(conditions);
+
+            fireflyPayloads.forEach((payload) => {
+                const queryKey = ['profile-is-muted', payload.source, payload.profileId, true];
+                if (!queryClient.getQueryData(queryKey)) {
+                    queryClient.fetchQuery({
+                        queryKey,
+                        queryFn: () => blockRelationPromise,
+                        staleTime: 600_000,
+                    });
+                }
+            });
+
+            const relations = await blockRelationPromise;
+            const relationMap = new Map<string, boolean>();
             relations.forEach((relation) => {
                 const source = resolveSourceFromFireflyPlatform(relation.snsPlatform);
-                const blocked = relation.blocked;
-                results[`${source}:${relation.snsId}`] = {
-                    source,
-                    profileId: relation.snsId,
-                    blocked,
-                };
-                queryClient.setQueryData(['profile-is-muted', source, relation.snsId, true], blocked);
+                relationMap.set(`${source}:${relation.snsId}`, relation.blocked);
+            });
+
+            fireflyPayloads.forEach((payload) => {
+                const key = `${payload.source}:${payload.profileId}`;
+                const blocked = relationMap.get(key) ?? false;
+
+                results[key] = { source: payload.source, profileId: payload.profileId, blocked };
+                queryClient.setQueryData(['profile-is-muted', payload.source, payload.profileId, true], blocked);
             });
         }
     }
@@ -78,7 +94,7 @@ async function fetcher(payloads: MutedProfilePayload[]): Promise<Record<string, 
 const batchedQueryMutedProfile = createBatcher<MutedProfilePayload, MutedProfileResult>('queryMutedProfile', fetcher, {
     makeKey: (payload) => `${payload.source}:${payload.profileId}`,
     size: 1000,
-    wait: 300,
+    wait: 1000,
 });
 
 /**

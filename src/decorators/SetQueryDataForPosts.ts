@@ -4,6 +4,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { prefetchPostLinks } from '@/helpers/prefetchPostLinks.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';
 import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 import type { ClassType } from '@/types/utility.js';
@@ -49,7 +50,9 @@ export function SetQueryDataForPosts<T extends ClassType<Provider>>(target: T): 
                     id: x.author.profileId,
                 }));
 
-                await queryMutedProfiles(identifiers);
+                if (identifiers.length) {
+                    runInSafeAsync(() => queryMutedProfiles(identifiers));
+                }
 
                 await prefetchPostLinks(
                     result.data.map((x) =>
