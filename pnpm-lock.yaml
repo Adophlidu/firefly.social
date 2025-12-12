@@ -130,9 +130,6 @@ importers:
       '@lexical/link':
         specifier: ^0.18.0
         version: 0.18.0
-      '@lexical/markdown':
-        specifier: ^0.18.0
-        version: 0.18.0
       '@lexical/react':
         specifier: ^0.18.0
         version: 0.18.0(patch_hash=ghdbhcm7dq6jsqa6um6vsyfuny)(react-dom@19.2.1)(react@19.2.1)(yjs@13.6.27)
@@ -157,9 +154,6 @@ importers:
       '@noble/ed25519':
         specifier: ^1.7.5
         version: 1.7.5
-      '@number-flow/react':
-        specifier: ^0.5.10
-        version: 0.5.10(react-dom@19.2.1)(react@19.2.1)
       '@okxweb3/dex-widget':
         specifier: ^1.3.16
         version: 1.3.16(patch_hash=vectdpz2wz6bi4qjpx7nov45ve)(@tanstack/react-query@5.85.5)(@types/react@19.2.7)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.1.3)(react-dom@19.2.1)(react@19.2.1)(typescript@5.9.3)(viem@2.40.4)(ws@8.18.3)(zod@3.25.76)
@@ -328,9 +322,6 @@ importers:
       thread-stream:
         specifier: ^3.1.0
         version: 3.1.0
-      tweetnacl:
-        specifier: ^1.0.3
-        version: 1.0.3
       twemoji-parser:
         specifier: ^14.0.0
         version: 14.0.0
@@ -410,9 +401,6 @@ importers:
       '@svgr/webpack':
         specifier: ^8.1.0
         version: 8.1.0(typescript@5.9.3)
-      '@swc/types':
-        specifier: ^0.1.25
-        version: 0.1.25
       '@tailwindcss/forms':
         specifier: ^0.5.10
         version: 0.5.10(tailwindcss@3.4.18)
@@ -5444,18 +5432,6 @@ packages:
     resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
     engines: {node: '>=12.4.0'}
     dev: true
-
-  /@number-flow/react@0.5.10(react-dom@19.2.1)(react@19.2.1):
-    resolution: {integrity: sha512-a8Wh5eNITn7Km4xbddAH7QH8eNmnduR6k34ER1hkHSGO4H2yU1DDnuAWLQM99vciGInFODemSc0tdxrXkJEpbA==}
-    peerDependencies:
-      react: 19.2.1
-      react-dom: 19.2.1
-    dependencies:
-      esm-env: 1.2.2
-      number-flow: 0.5.8
-      react: 19.2.1
-      react-dom: 19.2.1(react@19.2.1)
-    dev: false
 
   /@okxweb3/dex-widget@1.3.16(patch_hash=vectdpz2wz6bi4qjpx7nov45ve)(@tanstack/react-query@5.85.5)(@types/react@19.2.7)(@vercel/kv@1.0.1)(fastestsmallesttextencoderdecoder@1.0.22)(immer@10.1.3)(react-dom@19.2.1)(react@19.2.1)(typescript@5.9.3)(viem@2.40.4)(ws@8.18.3)(zod@3.25.76):
     resolution: {integrity: sha512-tUUMFxkq2576N/9QJKHTF58O2GvXzOW1RFm/BM3xqiuyhoRUDD3F25wxry/+HNrZsA9tbJRemFD4Z/NvwdEvyg==}
@@ -12843,10 +12819,6 @@ packages:
       - supports-color
     dev: true
 
-  /esm-env@1.2.2:
-    resolution: {integrity: sha512-Epxrv+Nr/CaL4ZcFGPJIYLWFom+YeV1DqMLHJoEd9SYRxNbaFruBwfEX/kkHUJf55j2+TUbmDcmuilbP1TmXHA==}
-    dev: false
-
   /esm@3.2.25:
     resolution: {integrity: sha512-U1suiZ2oDVWv4zPO56S0NcR5QriEahGtdN2OR6FiOG4WJvcjBVFB0qI4+eKoWFH483PKGuLuu6V8Z4T5g63UVA==}
     engines: {node: '>=6'}
@@ -15259,12 +15231,6 @@ packages:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
     dependencies:
       boolbase: 1.0.0
-
-  /number-flow@0.5.8:
-    resolution: {integrity: sha512-FPr1DumWyGi5Nucoug14bC6xEz70A1TnhgSHhKyfqjgji2SOTz+iLJxKtv37N5JyJbteGYCm6NQ9p1O4KZ7iiA==}
-    dependencies:
-      esm-env: 1.2.2
-    dev: false
 
   /nuqs@2.7.3(@tanstack/react-router@1.115.3)(next@16.0.8)(react@19.2.1):
     resolution: {integrity: sha512-lQzSYLsXUYftc0cerww64yevjMeYOX8thkcqI25XtyyTEJFTk3LE+i2hcY2h0Jwvp1+owCb+KJ0GMaKQwfmq3g==}
@@ -18114,10 +18080,6 @@ packages:
       - yaml
     dev: true
 
-  /tweetnacl@1.0.3:
-    resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
-    dev: false
-
   /twemoji-parser@11.0.2:
     resolution: {integrity: sha512-5kO2XCcpAql6zjdLwRwJjYvAZyDy3+Uj7v1ipBzLthQmDL7Ce19bEqHr3ImSNeoSW2OA8u02XmARbXHaNO8GhA==}
     dev: true
@@ -19599,7 +19561,6 @@ time:
   /@lens-protocol/client@0.0.0-canary-20250430134539: '2025-04-30T13:48:09.961Z'
   /@lexical/hashtag@0.18.0: '2024-09-26T17:26:33.056Z'
   /@lexical/link@0.18.0: '2024-09-26T17:26:42.173Z'
-  /@lexical/markdown@0.18.0: '2024-09-26T17:26:48.548Z'
   /@lexical/utils@0.18.0: '2024-09-26T17:27:10.771Z'
   /@lingui/cli@5.5.2: '2025-10-30T14:39:58.128Z'
   /@lingui/conf@5.5.2: '2025-10-30T14:39:46.983Z'
@@ -19613,7 +19574,6 @@ time:
   /@next/bundle-analyzer@16.0.7: '2025-12-03T15:16:01.674Z'
   /@next/third-parties@16.0.7: '2025-12-03T15:17:07.020Z'
   /@noble/ed25519@1.7.5: '2025-04-16T10:48:42.894Z'
-  /@number-flow/react@0.5.10: '2025-06-08T14:02:23.427Z'
   /@okxweb3/dex-widget@1.3.16: '2025-06-26T09:31:27.414Z'
   /@reown/appkit-adapter-solana@1.8.14: '2025-11-11T16:21:21.487Z'
   /@reown/appkit-adapter-wagmi@1.8.14: '2025-11-11T16:21:21.364Z'
@@ -19629,7 +19589,6 @@ time:
   /@storybook/nextjs-vite@10.0.8: '2025-11-17T13:10:56.582Z'
   /@storybook/react@10.0.8: '2025-11-17T13:11:31.871Z'
   /@svgr/webpack@8.1.0: '2023-08-15T06:46:24.158Z'
-  /@swc/types@0.1.25: '2025-09-06T11:00:53.225Z'
   /@tailwindcss/forms@0.5.10: '2025-01-07T14:03:20.916Z'
   /@tanstack/react-query-next-experimental@5.85.9: '2025-09-02T12:17:48.528Z'
   /@tanstack/react-query@5.85.5: '2025-08-19T09:41:51.252Z'
@@ -19723,7 +19682,6 @@ time:
   /tailwindcss@3.4.18: '2025-10-01T15:31:37.586Z'
   /thread-stream@3.1.0: '2024-06-13T15:39:11.962Z'
   /tsup@8.5.1: '2025-11-12T21:21:42.746Z'
-  /tweetnacl@1.0.3: '2020-02-10T19:49:05.829Z'
   /twemoji-parser@14.0.0: '2022-03-11T07:32:07.545Z'
   /twitter-api-v2@1.23.2: '2025-05-12T19:19:04.201Z'
   /twitter-text@3.1.0: '2020-03-31T18:30:37.518Z'
