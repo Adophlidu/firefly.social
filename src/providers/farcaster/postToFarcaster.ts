@@ -58,6 +58,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 content: {
                     content: readChars(chars, 'both', Source.Farcaster),
                 },
+                rpPayload: compositePost.rpPayload,
             },
             mediaObjects: mediaObjects.slice(0, maxImageConfig[Source.Farcaster]),
             commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,

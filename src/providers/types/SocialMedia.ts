@@ -20,6 +20,7 @@ import type {
 } from '@/providers/types/Firefly.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import type { Session } from '@/providers/types/Session.js';
+import type { RedPacketPayload } from '@/types/rp.js';
 
 // Strictly match the ProfileSource
 export enum SessionType {
@@ -235,6 +236,7 @@ export interface Post {
             title: string;
             content?: string;
         };
+        rpPayload?: RedPacketPayload | null;
     };
     stats?: {
         comments: number;

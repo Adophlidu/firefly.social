@@ -2,7 +2,7 @@ import { web3 } from '@coral-xyz/anchor';
 import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { ChainContextOverrides } from '@/hooks/useChainContext.js';
+import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 import { getTokenAccountByMint } from '@/providers/solana/getTokenAccountByMint.js';
 import { getRedPacket } from '@/providers/solana/red-packet/getRedPacket.js';
 import { refundNativeToken } from '@/providers/solana/red-packet/refundNativeToken.js';
@@ -10,6 +10,7 @@ import { refundSplToken } from '@/providers/solana/red-packet/refundSplToken.js'
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useRefundSolanaCallback(rpid?: string, overrides?: ChainContextOverrides) {
+    const { account } = useChainContext(overrides);
     const chainId = overrides?.chainId || SolanaChainId.Mainnet;
 
     return useAsyncFn(async () => {
@@ -35,8 +36,13 @@ export function useRefundSolanaCallback(rpid?: string, overrides?: ChainContextO
             });
         }
 
-        await queryClient.refetchQueries({
-            queryKey: ['red-packet', 'solana-availability', rpid],
+        queryClient.setQueryData(['red-packet', 'solana-availability', rpid, account], (oldData: any) => {
+            if (!oldData) return oldData;
+            return {
+                ...oldData,
+                isEmpty: true,
+                balance: '0',
+            };
         });
     }, [rpid, chainId]);
 }

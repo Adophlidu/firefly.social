@@ -7,7 +7,7 @@ import { toHex } from 'viem';
 import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { MessageType, ReactionType } from '@/constants/farcaster.js';
-import { EMPTY_LIST, NEYNAR_URL, RP_HASH_TAG } from '@/constants/index.js';
+import { EMPTY_LIST, NEYNAR_URL } from '@/constants/index.js';
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { fetchNeynarJson } from '@/helpers/fetchNeynarJson.js';
@@ -225,10 +225,9 @@ class NeynarSocialMedia implements Provider {
     async publishPost(post: Post): Promise<{ postId: string }> {
         const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
 
-        const hasRp = post.metadata.content?.content?.includes(RP_HASH_TAG);
-
         const urls = post.metadata.content?.content?.match(URL_REGEX) || [];
         const mediaUrls = post.mediaObjects?.map((v) => ({ url: v.url })) ?? [];
+        const hasRp = !!post.metadata.rpPayload;
         const contentUrls = !hasRp
             ? sortBy(urls, (x) => (isYouTubeUrl(x) ? -1 : 0)).map((url) => ({
                   url: fixUrlProtocol(url),
