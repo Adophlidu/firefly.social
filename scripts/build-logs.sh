@@ -1,18 +1,18 @@
 #!/bin/bash
 
-# Script: build_info.sh
-# Description: Collects build information and dumps them into a build_info.txt file.
-# Author: Your Name
-# Date: $(date +"%Y-%m-%d %H:%M:%S")
+# Script: build-logs.sh
+# Description: Collects build information and writes it to public/next-debug.log
+#              This file contains build metadata including git commit info, versions,
+#              and build time, which can be used for debugging and version tracking.
 
 # Function to get the latest commit hash
 get_latest_commit_hash() {
-  git rev-parse HEAD
+  git rev-parse HEAD 2>/dev/null || echo "unknown"
 }
 
 # Function to get the latest commit message
 get_latest_commit_message() {
-  git log -1 --pretty=%B | sed 's/^/    /'
+  git log -1 --pretty=%B 2>/dev/null | sed 's/^/    /' || echo "    (unable to retrieve commit message)"
 }
 
 # Function to check if the latest commit has a tag and get the tag name
@@ -42,7 +42,8 @@ get_pnpm_version() {
 
 # Main script
 
-# Output file
+# Output file: This file is written to public/next-debug.log and contains build metadata
+# that can be accessed at runtime for debugging and version tracking purposes.
 output_file="public/next-debug.log"
 
 # Check if package.json exists
@@ -53,7 +54,7 @@ if [ -f "package.json" ]; then
   commit_message=$(get_latest_commit_message)
   commit_tag=$(get_latest_commit_tag)
   # Use VERCEL_GIT_COMMIT_REF in Vercel CI, fallback to local branch in dev
-  commit_branch=${VERCEL_GIT_COMMIT_REF:-$(git rev-parse --abbrev-ref HEAD)}
+  commit_branch=${VERCEL_GIT_COMMIT_REF:-$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")}
   version=$(get_package_version)
   node_version=$(get_node_version)
   pnpm_version=$(get_pnpm_version)
