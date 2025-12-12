@@ -3,7 +3,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense } from 'react';
 
-import LoadingPage from '@/app/(normal)/post/[source]/[id]/(detail)/loading.js';
 import { getPostDetailQuery, getPostThreadQuery } from '@/app/(normal)/post/[source]/[id]/(detail)/query.js';
 import { PostActionsWithGrid } from '@/components/Actions/index.js';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
@@ -27,14 +26,11 @@ interface Props {
 
 export function PageDetail({ id: postId, source }: Props) {
     if (!postId) notFound();
-    const { data: post, isLoading, isRefetching } = useSuspenseQuery(getPostDetailQuery(source, postId));
-    const {
-        data: threads,
-        isLoading: threadLoading,
-        isRefetching: threadRefetching,
-    } = useSuspenseQuery(getPostThreadQuery(source, postId, post));
 
-    if ((isLoading || isRefetching || threadLoading || threadRefetching) && !post) return <LoadingPage />;
+    const { data: post } = useSuspenseQuery(getPostDetailQuery(source, postId));
+    const { data: threads } = useSuspenseQuery(getPostThreadQuery(source, postId, post));
+
+    // Check for null after queries - useSuspenseQuery handles loading states
     if (!post) notFound();
 
     const allPosts = threads?.data || EMPTY_LIST;
