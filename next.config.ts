@@ -9,7 +9,7 @@ import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
 
 const require = createRequire(import.meta.url);
 
-const cspConfig = {
+const CSP_SETTINGS = {
     'default-src': ["'self'", 'https:', 'wss:', 'data:', 'blob:'],
     'script-src': [
         "'self'",
@@ -28,17 +28,17 @@ const cspConfig = {
 
 // Add Sentry DSN to CSP report-uri
 if (process.env.NEXT_PUBLIC_SENTRY_REPORT_URL) {
-    cspConfig['report-uri'] = [process.env.NEXT_PUBLIC_SENTRY_REPORT_URL];
+    CSP_SETTINGS['report-uri'] = [process.env.NEXT_PUBLIC_SENTRY_REPORT_URL];
 }
 
 if (process.env.NODE_ENV === 'development') {
-    Object.entries(cspConfig).forEach(([key, value]) => {
+    Object.entries(CSP_SETTINGS).forEach(([key, value]) => {
         if (key === 'report-uri') return;
         value.push('http://localhost:3000', 'ws://localhost:3000');
     });
 }
 
-export const POLICY_SETTINGS = Object.entries(cspConfig)
+export const POLICY_SETTINGS = Object.entries(CSP_SETTINGS)
     .map(([key, value]) => `${key} ${value.join(' ')}`)
     .join('; ');
 
@@ -82,7 +82,7 @@ const config: NextConfig = {
         COMMIT_HASH: execSync('git rev-parse --short HEAD').toString().trim(),
     },
     experimental: {
-        inlineCss: true,
+        inlineCss: false,
         cssChunking: false,
         esmExternals: true,
         scrollRestoration: true,
