@@ -1,3 +1,5 @@
+import { fetch } from '@/helpers/fetch.js';
+
 // Use require to avoid Turbopack build issues with native modules
 // This ensures the module is only loaded at runtime, not during build
 function getTransformer() {
