@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import type { Metadata } from 'next';
 import { Suspense } from 'react';
 
 import { PageDetail } from '@/app/(normal)/post/[source]/[id]/(detail)/client.js';
@@ -11,25 +10,16 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { queryClientConfig } from '@/configs/queryClient.js';
 import { type SocialSourceInURL } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
-import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { createPostMetadata } from '@/providers/firefly/metadata/createPostMetadata.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 export const revalidate = 60;
 
 interface Props extends NextPageProps<{ id: string; source: SocialSourceInURL }> {}
-
-export async function generateMetadata(props: Props): Promise<Metadata> {
-    const { source, id } = await props.params;
-    return isSocialSourceInUrl(source)
-        ? createPostMetadata(source, id, `/post/${source}/${id}`)
-        : createSiteMetadata(`/post/${source}/${id}`);
-}
 
 export default async function Page(props: Props) {
     await setupLocaleForSSR();

@@ -1,9 +1,22 @@
-'use client';
-
 import { Trans } from '@lingui/react/macro';
+import type { Metadata } from 'next';
 import type { PropsWithChildren } from 'react';
 
 import { Comeback } from '@/components/Comeback.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { isSocialSourceInUrl } from '@/helpers/isSource.js';
+import { createPostMetadata } from '@/providers/firefly/metadata/createPostMetadata.js';
+import type { NextPageProps } from '@/types/utility.js';
+
+interface Props extends NextPageProps<{ id: string; source: SocialSourceInURL }> {}
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+    const { source, id } = await props.params;
+    return isSocialSourceInUrl(source)
+        ? createPostMetadata(source, id, `/post/${source}/${id}`)
+        : createSiteMetadata(`/post/${source}/${id}`);
+}
 
 export default function Layout({ children }: PropsWithChildren) {
     return (

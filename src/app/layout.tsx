@@ -20,7 +20,15 @@ import { getAgent } from '@/helpers/getAgent.js';
 import { getCookie } from '@/helpers/getCookies.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
-export const metadata = createSiteMetadata('/');
+export const metadata = {
+    ...createSiteMetadata('/'),
+    themeColor: '#ffffff',
+    robots: IS_PRODUCTION ? undefined : 'noindex, nofollow',
+    other: {
+        googlebot: 'notranslate',
+        'apple-itunes-apps': 'app-id=6445781203',
+    },
+};
 
 export const viewport = {
     width: 'device-width',
@@ -45,12 +53,12 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 
     return (
         <html className={`font-loading ${rootClass}`}>
-            <head>
+            <body className={`${inter.variable} notranslate font-inter`}>
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
                 {IS_PRODUCTION || env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? (
                     <GoogleAnalytics gaId="G-61NFDTK6LT" />
                 ) : null}
-                <Script>{VERCEL_REGION.join('\n')}</Script>
+                <Script id="vercel-region">{VERCEL_REGION.join('\n')}</Script>
                 <Script
                     src="/js/cookie3.analytics.js"
                     integrity="sha384-ihnQ09PGDbDPthGB3QoQ2Heg2RwQIDyWkHkqxMzq91RPeP8OmydAZbQLgAakAOfI"
@@ -59,12 +67,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                     strategy="lazyOnload"
                     site-id="4e0dc4ab-2a63-4303-ad25-8aa14275d2d4"
                 />
-                <meta name="theme-color" content="#ffffff" />
-                <meta name="googlebot" content="notranslate" />
-                {/* for ssr purpose */}
-                <meta name="apple-itunes-apps" content="app-id=6445781203" />
-                {IS_PRODUCTION ? null : <meta name="robots" content="noindex, nofollow" />}
-                <Script>
+                <Script id="global-loading-hide">
                     {`
                         setTimeout(function () {
                             const globalLoading = document.getElementById('global-loading');
@@ -74,8 +77,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                         }, 1000 * 8)
                     `}
                 </Script>
-            </head>
-            <body className={`${inter.variable} notranslate font-inter`}>
                 <ErrorBoundary>
                     <LayoutBody agent={agent}>
                         <NuqsAdapter>{children}</NuqsAdapter>

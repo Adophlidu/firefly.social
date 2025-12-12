@@ -5,23 +5,26 @@ import { FileMimeType } from '@/constants/enum.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, SITE_URL_OFFICIAL } from '@/constants/index.js';
 
 export function createSiteMetadata(pathname: string, metadata?: Partial<Metadata>) {
+    const title = metadata?.title ?? SITE_NAME;
+    const description = metadata?.description ?? SITE_DESCRIPTION;
+
     return {
         metadataBase: new URL(SITE_URL),
-        title: metadata?.title ?? SITE_NAME,
+        title,
         itunes: {
             appId: '1640183078',
         },
-        description: SITE_DESCRIPTION,
+        description,
         openGraph: {
-            title: metadata?.title ?? SITE_NAME,
-            description: SITE_DESCRIPTION,
-            url: SITE_URL,
+            title,
+            description,
+            url: urlcat(SITE_URL, pathname),
             images: [`${SITE_URL}/image/og.png`],
         },
         twitter: {
             card: 'summary_large_image',
-            title: metadata?.title ?? SITE_NAME,
-            description: SITE_DESCRIPTION,
+            title,
+            description,
             creator: '@thefireflyapp',
             images: [`${SITE_URL}/image/og.png`],
         },
