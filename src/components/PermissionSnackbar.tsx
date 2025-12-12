@@ -47,6 +47,7 @@ export function PermissionSnackbar({ id, rejected, ref, onEnable }: PermissionSn
                                     onEnable?.();
                                     closeSnackbar(id);
                                 }}
+                                aria-label="Enable notifications now"
                             >
                                 <Trans>Enable now</Trans>
                             </ClickableButton>
@@ -56,6 +57,7 @@ export function PermissionSnackbar({ id, rejected, ref, onEnable }: PermissionSn
                                     localStorage.setItem(NOTIFICATION_PERMISSION_KEY, Date.now().toString());
                                     closeSnackbar(id);
                                 }}
+                                aria-label="Remind me later"
                             >
                                 <Trans>Remind me later</Trans>
                             </ClickableButton>

@@ -135,6 +135,7 @@ export function RecoveryPhraseModal({ ref }: Props) {
                                 onClick={handleConfirm}
                                 disabled={loading}
                                 loading={loading}
+                                aria-label="I understand"
                             >
                                 <Trans>I understand</Trans>
                             </ClickableButton>
@@ -191,6 +192,7 @@ export function RecoveryPhraseModal({ ref }: Props) {
                             <ClickableButton
                                 className="flex items-center gap-1 rounded-xl p-1 text-sm font-semibold leading-[18px] text-second transition-colors hover:bg-bg"
                                 onClick={() => handleCopy()}
+                                aria-label={copied ? 'Copied' : 'Copy recovery phrase to clipboard'}
                             >
                                 <CopyIcon width={16} height={16} />
                                 <span>{copied ? <Trans>Copied</Trans> : <Trans>Copy to clipboard</Trans>}</span>

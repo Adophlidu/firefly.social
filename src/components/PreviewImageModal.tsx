@@ -81,12 +81,14 @@ export function PreviewImageModal({
                         <ClickableButton
                             ref={prevRef}
                             className="prev-button absolute left-[50px] top-[50%] z-50 max-md:hidden"
+                            aria-label="Previous image"
                         >
                             <ArrowLeftIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
                         </ClickableButton>
                         <ClickableButton
                             ref={nextRef}
                             className="next-button absolute right-[50px] top-[50%] z-50 max-md:hidden"
+                            aria-label="Next image"
                         >
                             <ArrowRightIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
                         </ClickableButton>

@@ -4,8 +4,8 @@ import { BugAntIcon, ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleI
 import { Trans } from '@lingui/react/macro';
 import { type ForwardedRef, type ReactNode, useCallback, useState } from 'react';
 
-import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
 import { env } from '@/constants/env.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
@@ -78,9 +78,7 @@ export function ErrorReportSnackbar({ id, detail, noReport, icon, message, ref }
                                 {message}
                             </div>
                         </div>
-                        <ClickableButton className="ml-4 p-2" onClick={handleDismiss}>
-                            <CloseIcon width={16} height={16} />
-                        </ClickableButton>
+                        <CloseButton className="ml-4 p-2" size={16} onClick={handleDismiss} />
                     </div>
                 </div>
                 {detail ? (
@@ -103,6 +101,7 @@ export function ErrorReportSnackbar({ id, detail, noReport, icon, message, ref }
                             <ClickableButton
                                 className="ml-auto inline-flex cursor-pointer items-center text-white"
                                 onClick={() => handleCopy()}
+                                aria-label={copied ? 'Copied' : 'Copy error details'}
                             >
                                 {copied ? (
                                     <ClipboardDocumentCheckIcon className="mr-1 size-3" />
@@ -118,6 +117,7 @@ export function ErrorReportSnackbar({ id, detail, noReport, icon, message, ref }
                                     onClick={() => {
                                         if (!loading) handleReport();
                                     }}
+                                    aria-label={reported ? 'Error reported' : 'Report error'}
                                 >
                                     <BugAntIcon className="mr-1 size-3" />
                                     {reported ? (

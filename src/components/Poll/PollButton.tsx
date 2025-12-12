@@ -39,6 +39,7 @@ export const PollButton = memo(function PollButton() {
                     if (disabled) return;
                     createPoll();
                 }}
+                aria-label="Create poll"
             >
                 <PollIcon width={24} height={24} />
             </ClickableButton>

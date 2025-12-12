@@ -27,6 +27,7 @@ export function Button({ button, disabled = false, onClick }: Props) {
                 if (!disabled) onClick?.();
             }}
             title={overflow ? button.text : undefined}
+            aria-label={button.text}
         >
             <span className="truncate" ref={ref}>
                 {button.text}

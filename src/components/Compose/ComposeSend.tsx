@@ -109,6 +109,7 @@ export function ComposeSend(props: ComposeSendProps) {
                     className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
                     disabled={disabled}
                     onClick={() => handlePost(!!hasError)}
+                    aria-label={hasError ? 'Retry post' : 'Send post'}
                 >
                     {loading ? (
                         <LoadingIcon size={24} className="text-main" />
@@ -164,6 +165,7 @@ export function ComposeSend(props: ComposeSendProps) {
                     onClick={() => {
                         handlePost(!!hasError);
                     }}
+                    aria-label={hasError ? 'Retry post' : scheduleTime ? 'Send on schedule' : 'Send post'}
                 >
                     {posts.length > 1 && loading ? (
                         <span

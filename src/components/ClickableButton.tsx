@@ -29,6 +29,7 @@ export const ClickableButton = memo(function ClickableButton({
 }: ClickableButtonProps) {
     return (
         <button
+            role="button"
             {...props}
             disabled={props.disabled || loading}
             className={classNames(props.className, {

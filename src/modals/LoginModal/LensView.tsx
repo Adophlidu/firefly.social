@@ -241,6 +241,7 @@ export const LensView = memo(function LensView() {
                                             onClick={() => {
                                                 WalletConnectModalRef.open();
                                             }}
+                                            aria-label="Change wallet"
                                         >
                                             change
                                         </ClickableButton>{' '}
@@ -265,6 +266,7 @@ export const LensView = memo(function LensView() {
                                                 onClick={() => {
                                                     WalletConnectModalRef.open();
                                                 }}
+                                                aria-label="Change wallet"
                                             >
                                                 change
                                             </ClickableButton>{' '}
@@ -284,6 +286,7 @@ export const LensView = memo(function LensView() {
                     loading={loading}
                     onClick={() => login()}
                     className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
+                    aria-label="Sign to Confirm"
                 >
                     {loading ? <Trans>Signing transaction</Trans> : <Trans>Sign to Confirm</Trans>}
                 </ClickableButton>
@@ -293,6 +296,7 @@ export const LensView = memo(function LensView() {
                     onClick={() => {
                         WalletConnectModalRef.open();
                     }}
+                    aria-label="Connect Wallet"
                 >
                     <Trans>Connect Wallet</Trans>
                 </ClickableButton>

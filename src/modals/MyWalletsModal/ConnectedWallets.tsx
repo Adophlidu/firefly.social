@@ -124,6 +124,7 @@ export const ConnectedWallets = memo(function ConnectedWallets({ onOpenWallets }
                     className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
                     disabled={loading}
                     onClick={openWallets}
+                    aria-label="Open connecting wallets"
                 >
                     <WalletIcon width={20} height={20} />
                     <span className="min-w-0 flex-1 truncate text-left text-sm">

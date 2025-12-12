@@ -109,6 +109,7 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
                             : 'border-lightMain text-lightMain',
                     )}
                     onClick={() => handleVote(option)}
+                    aria-label={`Vote for ${option.label}`}
                 >
                     {loading && !isMultiple && option.id === selectedId ? <LoadingIcon /> : option.label}
                 </ClickableButton>
@@ -118,6 +119,7 @@ export const VoteButtonPanel = memo<VoteButtonPanelProps>(function VoteButtonPan
                     className="mt-3 h-10 w-full rounded-full bg-main text-sm font-bold text-primaryBottom"
                     loading={loading}
                     onClick={() => handleVote()}
+                    aria-label="Submit vote"
                 >
                     <Trans>Vote</Trans>
                 </ClickableButton>

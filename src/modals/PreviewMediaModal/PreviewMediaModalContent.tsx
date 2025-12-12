@@ -79,12 +79,14 @@ export function PreviewMediaModalContent({ onClose, post, source, medias, index 
                     <ClickableButton
                         ref={prevRef}
                         className="prev-button absolute left-[50px] top-1/2 z-50 max-md:hidden"
+                        aria-label="Previous media"
                     >
                         <ArrowLeftIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
                     </ClickableButton>
                     <ClickableButton
                         ref={nextRef}
                         className="next-button absolute right-[50px] top-1/2 z-50 max-md:hidden"
+                        aria-label="Next media"
                     >
                         <ArrowRightIcon width={24} height={24} className="rounded-full p-1 text-main hover:bg-bg" />
                     </ClickableButton>

@@ -75,6 +75,7 @@ function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'ori
                 className="flex items-center text-medium font-bold leading-none text-main"
                 disabled={loading}
                 onClick={disconnect}
+                aria-label="Disconnect"
             >
                 {loading ? (
                     <LoadingIcon size={20} />

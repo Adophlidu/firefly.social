@@ -76,6 +76,7 @@ export function NumberSelector({ value, label, numbers, onChange, className, dis
                                             onChange(option);
                                             close();
                                         }}
+                                        aria-label={`Select ${label} ${option}`}
                                     >
                                         {option}
                                     </ClickableButton>

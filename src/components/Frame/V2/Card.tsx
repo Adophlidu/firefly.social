@@ -178,6 +178,13 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
                         className="bg-lightBg px-1 py-3 font-bold text-lightHighlight dark:bg-fireflyBrand dark:text-white"
                         disabled={primaryButton?.loading || primaryButton?.disabled}
                         onClick={onClick}
+                        aria-label={
+                            primaryButton?.text ||
+                            frame.button.title ||
+                            frame.x_manifest?.frame.buttonTitle ||
+                            frame.button.action.name ||
+                            'Frame action'
+                        }
                     >
                         {primaryButton?.text ||
                             frame.button.title ||

@@ -32,6 +32,7 @@ export const SwiperIndicator = memo<SwiperIndicatorProps>(function SwiperIndicat
                     onClick={() => {
                         onChange(index);
                     }}
+                    aria-label={`Go to slide ${index + 1} of ${total}`}
                 >
                     <span className={classNames('size-full bg-highlight', activeIndex === index ? '' : 'opacity-50')} />
                 </ClickableButton>

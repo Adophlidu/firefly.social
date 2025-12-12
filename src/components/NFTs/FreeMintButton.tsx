@@ -38,6 +38,25 @@ function getMintButtonText(mintStatus?: MintStatus) {
     }
 }
 
+function getMintButtonAriaLabel(mintStatus?: MintStatus) {
+    switch (mintStatus) {
+        case MintStatus.Mintable:
+            return 'Mint NFT';
+        case MintStatus.MintAgain:
+            return 'Mint Again';
+        case MintStatus.NotStarted:
+            return 'Not Started';
+        case MintStatus.Ended:
+            return 'Mint Ended';
+        case MintStatus.Minted:
+            return 'Minted';
+        case MintStatus.SoldOut:
+            return 'Sold Out';
+        default:
+            return 'Mint';
+    }
+}
+
 interface FreeMintButtonProps extends Omit<ClickableButtonProps, 'ref'> {
     contractAddress: string;
     tokenId: string;
@@ -138,6 +157,7 @@ export function FreeMintButton({
                         className="flex h-8 flex-1 items-center justify-center rounded-full bg-main px-5 text-sm font-bold text-lightBottom dark:text-darkBottom"
                         disabled={disabled}
                         onClick={handleClick}
+                        aria-label={loading ? 'Minting' : getMintButtonAriaLabel(data?.mintStatus)}
                     >
                         {loading ? <LoadingIcon size={20} /> : getMintButtonText(data?.mintStatus)}
                     </ClickableButton>

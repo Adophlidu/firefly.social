@@ -136,6 +136,7 @@ function FireflyAccount({
                                 connections,
                             });
                         }}
+                        aria-label="Edit Profile"
                     >
                         <Trans>Edit Profile</Trans>
                     </ClickableButton>
@@ -435,6 +436,7 @@ export function MainView() {
                                             )}
                                             disabled={switchLoading}
                                             onClick={isExceed ? undefined : () => onClick(source)}
+                                            aria-label={`Add ${resolveSourceName(source)} account`}
                                         >
                                             <div className="flex items-center gap-2">
                                                 <ProfileSourceIcon source={source} size={20} />
@@ -486,6 +488,7 @@ export function MainView() {
                                                                 setSelectedAccount(account);
                                                                 onSwitchAccount(account);
                                                             }}
+                                                            aria-label={`Switch to ${account.profile.displayName || account.profile.handle}`}
                                                         >
                                                             <SwitchIcon className="size-5" />
                                                         </ClickableButton>
@@ -543,6 +546,11 @@ export function MainView() {
                                             );
                                         }
                                     }}
+                                    aria-label={
+                                        profile
+                                            ? `${formatThirdPartyProfileName(profile.profile)} account`
+                                            : `Add ${resolveSourceName(source)} account`
+                                    }
                                 >
                                     {profile ? (
                                         <div className="flex items-center gap-2">

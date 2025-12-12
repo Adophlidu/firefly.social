@@ -21,6 +21,8 @@ export const LoadingIcon = memo(function LoadingIcon({
             width={size}
             height={size}
             className={classNames('shrink-0', animate ? 'animate-spin' : '', className)}
+            role="status"
+            aria-label="Loading"
         />
     );
 });

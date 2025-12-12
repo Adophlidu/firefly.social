@@ -3,7 +3,7 @@
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
-import CloseIcon from '@/assets/close.svg';
+import { CloseButton } from '@/components/IconButton.js';
 import { SITE_URL } from '@/constants/index.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 
@@ -12,11 +12,11 @@ export const SparksModal = memo(function SparksModal() {
     return (
         <div className="fixed inset-0 z-modal flex flex-col bg-black/50 backdrop-blur-sm">
             <div className="hidden h-10 shrink-0 items-center justify-end md:flex">
-                <CloseIcon
-                    width={24}
-                    height={24}
+                <CloseButton
                     className="mr-2 cursor-pointer text-white hover:opacity-80"
+                    size={24}
                     onClick={() => onClose()}
+                    aria-label="Close"
                 />
             </div>
             <div

@@ -176,7 +176,7 @@ export function OrbView() {
                         {initSignInLoading ? (
                             <LoadingIcon size={26} />
                         ) : (
-                            <ClickableButton onClick={retryInitSignIn}>
+                            <ClickableButton onClick={retryInitSignIn} aria-label="Retry sign in">
                                 <ReloadIcon width={36} height={36} />
                             </ClickableButton>
                         )}

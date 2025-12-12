@@ -13,8 +13,7 @@ import {
     useState,
 } from 'react';
 
-import CloseIcon from '@/assets/close.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 
 type SnackbarVariant = 'default' | 'success' | 'error' | 'warning' | 'info';
 
@@ -300,18 +299,7 @@ const SnackbarContent = forwardRef<
                 {variantIcons[variant]}
                 <div className="flex-1">{children}</div>
             </div>
-            {onClose ? (
-                <ClickableButton
-                    className="ml-4 p-2"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        onClose();
-                    }}
-                >
-                    <CloseIcon width={16} height={16} />
-                </ClickableButton>
-            ) : null}
+            {onClose ? <CloseButton className="ml-4 p-2" size={16} onClick={onClose} /> : null}
         </div>
     );
 });

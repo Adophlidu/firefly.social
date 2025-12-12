@@ -3,9 +3,8 @@
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 
-import UndoSVG from '@/assets/undo.svg';
 import { NFTListByContract } from '@/components/CollectionDetail/NFTListByContract.js';
-import { IconButton } from '@/components/IconButton.js';
+import { UndoButton } from '@/components/IconButton.js';
 import { Image } from '@/components/Image.js';
 import { NFTCollectionList } from '@/components/Profile/NFTCollectionList.js';
 import { POAPList } from '@/components/Profile/POAPList.js';
@@ -31,13 +30,11 @@ export function ProfileNFTs({ address, ...rest }: { address: string; addresses?:
             {selectedCollection ? (
                 <>
                     <div className="mb-2 flex flex-row items-center">
-                        <IconButton
-                            tooltip={<Trans>Back</Trans>}
+                        <UndoButton
                             className="mr-2 rounded-full bg-lightBg p-2"
+                            tooltip={<Trans>Back</Trans>}
                             onClick={() => setSelectedCollection(null)}
-                        >
-                            <UndoSVG className="size-4" />
-                        </IconButton>
+                        />
                         {selectedCollection.collection.large_image_url ? (
                             <Image
                                 className="mr-2 size-6 rounded-full object-cover"

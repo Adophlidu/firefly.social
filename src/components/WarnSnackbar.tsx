@@ -4,8 +4,8 @@ import { ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleIcon } from '
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useCallback, useState } from 'react';
 
-import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { type SnackbarMessage, useSnackbar } from '@/components/Snackbar.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 
@@ -55,9 +55,7 @@ export function WarnSnackbar({ id, detail, message, ref }: ErrorReportSnackbarPr
                                 {message}
                             </div>
                         </div>
-                        <ClickableButton className="ml-4 p-2" onClick={handleDismiss}>
-                            <CloseIcon width={16} height={16} />
-                        </ClickableButton>
+                        <CloseButton className="ml-4 p-2" size={16} onClick={handleDismiss} />
                     </div>
                 </div>
                 {detail ? (
@@ -80,6 +78,7 @@ export function WarnSnackbar({ id, detail, message, ref }: ErrorReportSnackbarPr
                             <ClickableButton
                                 className="ml-auto inline-flex cursor-pointer items-center text-white"
                                 onClick={() => handleCopy()}
+                                aria-label={copied ? 'Copied' : 'Copy warning details'}
                             >
                                 {copied ? (
                                     <ClipboardDocumentCheckIcon className="mr-1 size-3" />

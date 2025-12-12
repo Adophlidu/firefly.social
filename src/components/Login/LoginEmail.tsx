@@ -170,6 +170,7 @@ export function LoginEmail() {
                     className="flex h-[42px] w-full items-center justify-center gap-1 rounded-full border border-line bg-lightMain text-primaryBottom"
                     disabled={loading || !email || !passcode || !isValidEmail || !isValidPasscode}
                     onClick={() => login()}
+                    aria-label="Connect email"
                 >
                     {loading ? (
                         <>

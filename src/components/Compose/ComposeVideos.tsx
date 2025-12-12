@@ -17,7 +17,6 @@ function ComposeVideo({ video, ...rest }: ComposeVideoProps) {
     return (
         <div {...rest} className={classNames('relative overflow-hidden rounded-2xl', rest.className)}>
             <video className="w-full" controls src={blobURL} />
-
             <RemoveButton className="absolute right-1 top-1 z-10" size={18} onClick={() => removeVideo(video)} />
         </div>
     );

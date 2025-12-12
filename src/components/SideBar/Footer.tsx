@@ -49,6 +49,7 @@ export function Footer() {
                             await delay(300);
                             location.href = RouteResolver.signup(SignupStep.LoginSocialPlatform);
                         }}
+                        aria-label="Sign In"
                     >
                         {isLoading ? (
                             <LoadingIcon />

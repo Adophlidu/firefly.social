@@ -290,6 +290,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     DraggablePopoverRef.close();
                                 }}
                                 className="flex flex-1 items-center justify-center rounded-full border border-lightMain py-2 font-bold text-fourMain"
+                                aria-label="New Connect"
                             >
                                 <Trans>New Connect</Trans>
                             </ClickableButton>
@@ -299,6 +300,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     DraggablePopoverRef.close();
                                 }}
                                 className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom"
+                                aria-label="Reconnect"
                             >
                                 <Trans>Reconnect</Trans>
                             </ClickableButton>

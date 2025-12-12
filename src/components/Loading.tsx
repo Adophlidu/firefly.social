@@ -18,6 +18,8 @@ export const Loading = memo(function Loading({ className, minHeight = 500 }: Loa
                 minHeight,
             }}
             data-page-loading
+            role="status"
+            aria-label="Loading"
         >
             <LoadingIcon />
         </div>

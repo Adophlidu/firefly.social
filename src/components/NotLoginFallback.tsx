@@ -105,6 +105,15 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                     }
                     openLoginModal({ source: isNotSocialSource ? undefined : (source as ProfileSource) });
                 }}
+                aria-label={
+                    isWallet
+                        ? 'Connect Wallet'
+                        : isNotSocialSource || isTwitter
+                          ? 'Sign In'
+                          : isTwitterConnecting
+                            ? 'Connecting'
+                            : `Connect to ${resolveSourceName(source)}`
+                }
             >
                 {isWallet ? (
                     <Trans>Connect Wallet</Trans>
