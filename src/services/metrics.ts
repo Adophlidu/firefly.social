@@ -142,6 +142,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
             handle: profileHandle,
             displayName: name,
             pfp: avatar,
+            isProUser: undefined,
         } satisfies Profile;
 
         const currentSession = getSessionFromStorageBySource(source);
@@ -215,6 +216,9 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                 captureAccountLoginEvent(account);
 
                 profileState.addAccount(account, !currentSession);
+                if (!currentSession) {
+                    await runInSafeAsync(() => getProfileState(source)?.refreshCurrentAccount(false));
+                }
                 newAccounts.push(account);
 
                 break;

@@ -30,7 +30,7 @@ export interface ProfileState {
     updateCurrentAccount: (account: Account) => void;
     resetCurrentAccount: () => void;
     refreshAccounts: () => void;
-    refreshCurrentAccount: () => Promise<void>;
+    refreshCurrentAccount: (refreshSession?: boolean) => Promise<void>;
     updateCurrentProfile: (profile: ProfileEditable) => void;
     upgrade: () => void;
     clear: (clearSession?: boolean) => void;
@@ -143,11 +143,11 @@ export function createProfileState(
                         state.updateAccounts(updatedAccounts);
                     });
                 },
-                refreshCurrentAccount: async () => {
-                    const { currentProfile: profile, currentProfileSession } = get();
+                refreshCurrentAccount: async (refreshSession = true) => {
+                    const { currentProfile: profile } = get();
                     if (!profile) return;
 
-                    const session = await provider.refreshCurrentAccountSession?.(currentProfileSession);
+                    const session = refreshSession ? await provider.refreshCurrentAccountSession?.() : null;
 
                     const updatedProfile = await provider.getUpdatedProfile?.(profile);
                     if (!updatedProfile) return;

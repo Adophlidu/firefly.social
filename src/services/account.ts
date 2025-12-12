@@ -477,9 +477,11 @@ export async function switchAccount(
         true,
     );
 
-    if (account.profile.profileSource === Source.Lens && bindLensManager) {
+    if (profileSource === Source.Lens && bindLensManager) {
         await runInSafeAsync(() => setPrivyAsLensManager(account));
     }
+    // only refresh current profile, because session has been updated
+    await runInSafeAsync(() => getProfileState(profileSource)?.refreshCurrentAccount(false));
 }
 
 async function removeAccount(account: Account, signal?: AbortSignal) {
