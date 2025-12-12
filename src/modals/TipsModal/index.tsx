@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { TipsModelRouter, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { NetworkType, Source } from '@/constants/enum.js';
@@ -78,8 +78,7 @@ interface TipModalProps {
 }
 
 export function TipsModal({ ref }: TipModalProps) {
-    const { reset, update, open } = useTipsStore();
-    const [initialEntries, setInitialEntries] = useState<TipsRoutePath[]>([]);
+    const { reset, update, open, recipientList } = useTipsStore();
 
     const [, dispatch] = useSingletonModal(ref, {
         onOpen: ({ identity, handle, profiles, post, pureWallet = false }) => {
@@ -94,23 +93,18 @@ export function TipsModal({ ref }: TipModalProps) {
                         getSortPriority(b.__origin__ as WalletProfile, handle) -
                         getSortPriority(a.__origin__ as WalletProfile, handle),
                 );
-                if (!walletProfiles.length) {
-                    setInitialEntries([TipsRoutePath.NO_AVAILABLE_WALLET]);
-                } else {
-                    setInitialEntries([TipsRoutePath.TIPS]);
-                    update({
-                        recipientList: walletProfiles,
-                        recipient: walletProfiles[0],
-                        identity,
-                        post: post ?? null,
-                        handle:
-                            identity.source === Source.Wallet && !handle
-                                ? formatWalletHandle(walletProfiles, identity.id)
-                                : handle,
-                        pureWallet,
-                        socialProfiles,
-                    });
-                }
+                update({
+                    recipientList: walletProfiles,
+                    recipient: walletProfiles[0] || null,
+                    identity,
+                    post: post ?? null,
+                    handle:
+                        identity.source === Source.Wallet && !handle
+                            ? formatWalletHandle(walletProfiles, identity.id)
+                            : handle,
+                    pureWallet,
+                    socialProfiles,
+                });
             } catch (error) {
                 enqueueMessageFromError(error, <Trans>Failed to send tip. Please try again later.</Trans>);
                 throw error;
@@ -126,6 +120,12 @@ export function TipsModal({ ref }: TipModalProps) {
     const onClose = useCallback(() => {
         dispatch?.close();
     }, [dispatch]);
+
+    const hasRecipients = recipientList.length;
+    const initialEntries = useMemo(
+        () => (hasRecipients ? [TipsRoutePath.TIPS] : [TipsRoutePath.NO_AVAILABLE_WALLET]),
+        [hasRecipients],
+    );
 
     return <TipsModelRouter onClose={onClose} open={open} initialEntries={initialEntries} />;
 }
