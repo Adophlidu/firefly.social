@@ -7,9 +7,8 @@ import { sha256, toHex } from 'viem';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { logger } from '@/libs/Logger.js';
 import { SessionExpiredError } from '@/constants/error.js';
-import { SEVEN_DAYS } from '@/constants/index.js';
+import { SEVEN_DAYS } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
@@ -21,6 +20,7 @@ import { resolveResponseData } from '@/helpers/resolveResponseData.js';
 import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { logger } from '@/libs/Logger.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { deleteMetrics } from '@/providers/firefly/metrics/deleteMetrics.js';
 import { downloadMetaInfo } from '@/providers/firefly/metrics/downloadMetaInfo.js';

@@ -7,8 +7,9 @@ import urlcat from 'urlcat';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { FireflyPlatform, NetworkPluginID, NetworkType, type SocialSource } from '@/constants/enum.js';
-import { SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { SITE_URL } from '@/constants/static.js';
 import { Image } from '@/esm/Image.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';

@@ -15,7 +15,7 @@ import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackContent.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { ARTICLE_LIKE_NOTIFICATION_TYPES } from '@/constants/index.js';
+import { ARTICLE_LIKE_NOTIFICATION_TYPES } from '@/constants/computed.js';
 import { useRouter } from '@/esm/navigation.js';
 import { formatArticleFromNotification } from '@/helpers/formatArticleFromNotification.js';
 import { formatPolymarketFromFirefly } from '@/helpers/formatPolymarketFromFirefly.js';

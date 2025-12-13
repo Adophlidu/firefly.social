@@ -5,8 +5,8 @@ import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { PageRoute } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';

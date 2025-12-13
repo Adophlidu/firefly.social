@@ -4,9 +4,9 @@ import type { ApiV2Includes, TweetV2, TweetV2PaginableTimelineResult } from 'twi
 import urlcat from 'urlcat';
 
 import { RestrictionType, Source } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { TWEET_REGEX } from '@/constants/regexp.js';
+import { SITE_URL } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';

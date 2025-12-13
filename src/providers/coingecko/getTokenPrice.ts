@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { COINGECKO_ROOT_URL } from '@/constants/index.js';
+import { COINGECKO_ROOT_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 
 export async function getTokenPrice(coinId: string): Promise<number | undefined> {

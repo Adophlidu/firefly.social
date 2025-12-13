@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';

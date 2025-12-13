@@ -8,7 +8,7 @@ import { GridListInPage } from '@/components/GridListInPage.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
-import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
+import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { createIndicator } from '@/helpers/pageable.js';

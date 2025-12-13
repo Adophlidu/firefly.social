@@ -1,5 +1,5 @@
 import { env } from '@/constants/env.js';
-import { IS_PREVIEW, IS_PRODUCTION } from '@/constants/index.js';
+import { IS_PREVIEW, IS_PRODUCTION } from '@/constants/static.js';
 import type { ExceptionId } from '@/providers/types/Telemetry.js';
 import { settings } from '@/settings/index.js';
 

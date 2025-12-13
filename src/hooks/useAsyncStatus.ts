@@ -1,5 +1,5 @@
+import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { AsyncStatus, type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';

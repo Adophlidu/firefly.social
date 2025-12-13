@@ -1,6 +1,6 @@
+import { SUPPORTED_ANONYMOUS_POST_SOURCES } from '@/constants/computed.js';
 import { type SocialSource, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { SUPPORTED_ANONYMOUS_POST_SOURCES } from '@/constants/index.js';
 
 export const postFeatures = {
     anonymousPost(source?: SocialSource | null) {

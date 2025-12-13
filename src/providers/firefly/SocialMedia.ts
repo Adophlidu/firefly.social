@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatFireflyNotification } from '@/helpers/formatFireflyNotification.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';

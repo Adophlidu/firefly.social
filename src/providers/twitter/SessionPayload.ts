@@ -4,7 +4,7 @@ import { kv } from '@vercel/kv';
 
 import { KeyType } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { HIDDEN_SECRET } from '@/constants/index.js';
+import { HIDDEN_SECRET } from '@/constants/static.js';
 
 export interface SessionPayload {
     clientId: string;

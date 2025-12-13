@@ -2,15 +2,9 @@ import { first, sortBy } from 'lodash-es';
 import { use } from 'react';
 
 import type { TokenPageProps } from '@/app/(normal)/token/[exchange]/[[...slug]]/types.js';
+import { TOKEN_CATEGORIES, TRACING_CHAINS } from '@/constants/computed.js';
 import { TokenCategory } from '@/constants/enum.js';
-import {
-    COINGECKO_SOL_COIN_ID,
-    EMPTY_LIST,
-    NO_TRACING_COINS,
-    SWAP_SOL_NATIVE_ADDRESS,
-    TOKEN_CATEGORIES,
-    TRACING_CHAINS,
-} from '@/constants/index.js';
+import { COINGECKO_SOL_COIN_ID, EMPTY_LIST, NO_TRACING_COINS, SWAP_SOL_NATIVE_ADDRESS } from '@/constants/static.js';
 import { isValidAddress, isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { resolveCoinGeckoCoinChainId } from '@/helpers/resolveCoingeckoCoinChainId.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';

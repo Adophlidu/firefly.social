@@ -1,5 +1,5 @@
 import { Source } from '@/constants/enum.js';
-import { NOT_DEPEND_SECRET } from '@/constants/index.js';
+import { NOT_DEPEND_SECRET } from '@/constants/static.js';
 import { createDummyProfileFromThirdPartySession } from '@/helpers/createDummyProfile.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';

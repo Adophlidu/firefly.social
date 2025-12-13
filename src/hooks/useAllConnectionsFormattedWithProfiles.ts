@@ -2,8 +2,8 @@ import { unreachable } from '@dimensiondev/utils';
 import { useQueries } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
 
+import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';

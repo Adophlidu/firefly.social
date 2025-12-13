@@ -4,8 +4,8 @@ import { memo, useMemo } from 'react';
 import BookmarkSelectedIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
 import { BaseMenuItem } from '@/components/SideBar/BaseMenuItem.js';
+import { BOOKMARK_SOURCES, DEFAULT_BOOKMARK_SOURCE } from '@/constants/computed.js';
 import { Source } from '@/constants/enum.js';
-import { BOOKMARK_SOURCES, DEFAULT_BOOKMARK_SOURCE } from '@/constants/index.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 

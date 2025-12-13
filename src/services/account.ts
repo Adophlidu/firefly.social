@@ -2,11 +2,10 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
+import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/computed.js';
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
-import { logger } from '@/libs/Logger.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
-import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
 import { getAllProfiles } from '@/helpers/getAllProfiles.js';
@@ -19,6 +18,7 @@ import { resolveSessionHolder, resolveSessionHolderFromProfileSource } from '@/h
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { logger } from '@/libs/Logger.js';
 import { ConfirmFireflyModalRef } from '@/modals/ConfirmFireflyModal.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { BskySession } from '@/providers/bsky/Session.js';

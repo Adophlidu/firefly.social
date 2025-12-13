@@ -10,7 +10,7 @@ import { z } from 'zod';
 import { Card } from '@/components/Frame/V1/Card.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage, getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';

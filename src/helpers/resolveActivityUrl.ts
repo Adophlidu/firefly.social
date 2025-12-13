@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { SITE_URL } from '@/constants/index.js';
+import { SITE_URL } from '@/constants/static.js';
 
 export enum ReferralAccountPlatform {
     X = 'x',

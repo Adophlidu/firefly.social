@@ -1,5 +1,5 @@
+import { FOLLOWING_SOURCES } from '@/constants/computed.js';
 import { type FollowingSource, PageRoute } from '@/constants/enum.js';
-import { FOLLOWING_SOURCES } from '@/constants/index.js';
 import { matchPath } from '@/helpers/matchPath.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 

@@ -1,5 +1,5 @@
+import { SOCIAL_DISCOVER_SOURCE } from '@/constants/computed.js';
 import { HomeTab, type SocialDiscoverSource } from '@/constants/enum.js';
-import { SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useSocialDiscoverSourcesWithWhitelist } from '@/hooks/useSocialDiscoverSourcesWithWhitelist.js';
 import { useDiscoverStoreWithTab } from '@/store/useDiscoverStore.js';

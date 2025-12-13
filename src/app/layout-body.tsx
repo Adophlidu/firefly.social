@@ -6,7 +6,7 @@ import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { Agent, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { EVENT_ROUTES, INTERNAL_ROUTES, WHITEBOARD_ROUTES } from '@/constants/index.js';
+import { EVENT_ROUTES, INTERNAL_ROUTES, WHITEBOARD_ROUTES } from '@/constants/static.js';
 import { dynamic } from '@/esm/dynamic.js';
 
 const Modals = dynamic(() => import('@/modals/index.js').then((m) => m.Modals), { ssr: false });

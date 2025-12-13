@@ -7,6 +7,7 @@ import { base, mainnet } from 'viem/chains';
 
 import { FilterPanel } from '@/components/FilterPanel.js';
 import { SourceNav } from '@/components/SourceNav/SourceNav.js';
+import { EXPLORE_SOURCES } from '@/constants/computed.js';
 import {
     type ExploreSource,
     type ExploreSourceInURL,
@@ -15,7 +16,6 @@ import {
     Source,
     TrendingType,
 } from '@/constants/enum.js';
-import { EXPLORE_SOURCES } from '@/constants/index.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveExploreSource } from '@/helpers/resolveSourceInUrl.js';
 import { resolveExploreSourceName } from '@/helpers/resolveSourceName.js';

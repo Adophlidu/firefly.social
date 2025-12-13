@@ -1,4 +1,4 @@
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';

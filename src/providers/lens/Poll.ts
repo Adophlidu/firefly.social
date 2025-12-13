@@ -5,7 +5,7 @@ import type { Address } from 'viem';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { AuthenticationError, NotImplementedError, WalletAddressMismatchError } from '@/constants/error.js';
-import { LENS_CHAIN_ID } from '@/constants/index.js';
+import { LENS_CHAIN_ID } from '@/constants/static.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';

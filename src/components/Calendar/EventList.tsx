@@ -13,7 +13,7 @@ import { ElementAnchor } from '@/components/ElementAnchor.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 
 interface EventListProps {
     date: Date;

@@ -9,6 +9,11 @@ import { Link } from '@/components/Link.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { ToggleEnableButton } from '@/components/TrumpTruthSocial/ToggleEnableButton.js';
 import {
+    LOGIN_SORTED_PROFILE_TAB_TYPE,
+    SORTED_PROFILE_TAB_TYPE,
+    WALLET_PROFILE_TAB_TYPES,
+} from '@/constants/computed.js';
+import {
     ExploreSwitchType,
     NetworkType,
     type ProfilePageSource,
@@ -16,14 +21,8 @@ import {
     Source,
     WalletProfileCategory,
 } from '@/constants/enum.js';
-import {
-    LOGIN_SORTED_PROFILE_TAB_TYPE,
-    NFT_ENABLED,
-    SORTED_PROFILE_TAB_TYPE,
-    VITALIK_ADDRESS,
-    WALLET_PROFILE_TAB_TYPES,
-} from '@/constants/index.js';
 import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
+import { NFT_ENABLED, VITALIK_ADDRESS } from '@/constants/static.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';

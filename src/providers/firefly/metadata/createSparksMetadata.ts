@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
-import { FIREFLY_S3_URL, SITE_URL_OFFICIAL } from '@/constants/index.js';
+import { FIREFLY_S3_URL, SITE_URL_OFFICIAL } from '@/constants/static.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
 export function createSparksMetadata(): Metadata {

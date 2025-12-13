@@ -5,7 +5,7 @@ import { CloseButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';

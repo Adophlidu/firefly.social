@@ -3,7 +3,7 @@
 import type { Font, FontStyle, FontWeight } from 'satori';
 import urlcat from 'urlcat';
 
-import { SITE_URL } from '@/constants/index.js';
+import { SITE_URL } from '@/constants/static.js';
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 
 interface FontConfig {

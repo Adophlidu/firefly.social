@@ -3,8 +3,8 @@ import { Fragment } from 'react';
 
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@/constants/computed.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@/constants/index.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';

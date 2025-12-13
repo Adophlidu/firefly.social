@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
+import { EXPLORE_DEFAULT_SOURCE } from '@/constants/computed.js';
 import { type ExploreSource, ExploreType } from '@/constants/enum.js';
-import { EXPLORE_DEFAULT_SOURCE } from '@/constants/index.js';
 import { resolveExploreSourceInURL } from '@/helpers/resolveSourceInUrl.js';
 
 export function resolveExploreUrl(explore: ExploreType, source?: ExploreSource) {

@@ -9,7 +9,7 @@ import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoR
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { VirtualGridList, type VirtualGridListProps } from '@/components/VirtualList/VirtualGridList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
-import { EMPTY_OBJECT } from '@/constants/index.js';
+import { EMPTY_OBJECT } from '@/constants/static.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

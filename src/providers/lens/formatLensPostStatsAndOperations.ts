@@ -1,7 +1,7 @@
 import type { LoggedInPostOperations, PostAction, PostStats } from '@lens-protocol/client';
 
+import { SORTED_POLL_SOURCES } from '@/constants/computed.js';
 import { Source } from '@/constants/enum.js';
-import { SORTED_POLL_SOURCES } from '@/constants/index.js';
 import { ORB_POLL_CONTRACT } from '@/constants/poll.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

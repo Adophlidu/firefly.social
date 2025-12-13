@@ -2,7 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 
 import { Link } from '@/components/Link.js';
-import { SITE_URL_OFFICIAL } from '@/constants/index.js';
+import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 
 export function LinkCloud() {
     return (

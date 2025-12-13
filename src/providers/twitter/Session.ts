@@ -3,7 +3,7 @@
 import { signOut } from 'next-auth/react';
 
 import { NotAllowedError } from '@/constants/error.js';
-import { HIDDEN_SECRET } from '@/constants/index.js';
+import { HIDDEN_SECRET } from '@/constants/static.js';
 import { encodeAsciiPayload } from '@/helpers/encodeSessionPayload.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';

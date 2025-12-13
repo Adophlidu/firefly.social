@@ -1,6 +1,6 @@
 import { immutable, StorageClient } from '@lens-chain/storage-client';
 
-import { LENS_CHAIN_ID } from '@/constants/index.js';
+import { LENS_CHAIN_ID } from '@/constants/static.js';
 
 class Grove {
     private lensStorageClient: StorageClient | null = null;

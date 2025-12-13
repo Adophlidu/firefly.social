@@ -1,7 +1,7 @@
 import { sortBy } from 'lodash-es';
 import { useMemo } from 'react';
 
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import type { PriceRecord, TradeRecord } from '@/types/token.js';
 
 /**

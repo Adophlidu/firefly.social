@@ -1,8 +1,8 @@
 import { compact, first } from 'lodash-es';
 import { useMemo } from 'react';
 
+import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
 import { useFarcasterProfileStore } from '@/store/useProfileStore/useFarcasterProfileStore.js';

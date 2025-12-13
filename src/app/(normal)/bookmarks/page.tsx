@@ -1,6 +1,6 @@
 import { msg } from '@lingui/core/macro';
 
-import { DEFAULT_BOOKMARK_SOURCE } from '@/constants/index.js';
+import { DEFAULT_BOOKMARK_SOURCE } from '@/constants/computed.js';
 import { redirect, RedirectType } from '@/esm/navigation/server.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';

@@ -1,5 +1,5 @@
 import { ShareLinkPage, type ShareLinkProps } from '@/app/(normal)/intent/compose/pages/ShareLinkPage.js';
-import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
+import { DEFAULT_SOCIAL_SOURCE } from '@/constants/computed.js';
 import { redirect, RedirectType } from '@/esm/navigation/server.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { trimify } from '@/helpers/trimify.js';

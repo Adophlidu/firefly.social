@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { CALENDAR_BASE_URL } from '@/constants/index.js';
+import { CALENDAR_BASE_URL } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import type { EventDatesResponse, EventProvider } from '@/types/calendar.js';
 

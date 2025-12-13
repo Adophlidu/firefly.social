@@ -2,7 +2,6 @@ import { type AccessToken, type IdToken, mainnet, PublicClient, type RefreshToke
 
 import { Source } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
-import { logger } from '@/libs/Logger.js';
 import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
@@ -10,6 +9,7 @@ import { getAccountMetricsData } from '@/helpers/getAccountMetricsData.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { updateCurrentSessionToStorage } from '@/helpers/updateCurrentSessionToStorage.js';
+import { logger } from '@/libs/Logger.js';
 import { checkPasscode } from '@/providers/firefly/metrics/checkPasscode.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { uploadMetrics as uploadFireflyMetrics } from '@/providers/firefly/metrics/uploadMetrics.js';

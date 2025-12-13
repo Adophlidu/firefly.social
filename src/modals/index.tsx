@@ -4,7 +4,7 @@ import { memo } from 'react';
 
 import { IfPathname } from '@/components/IfPathname.js';
 import { NoSSR } from '@/components/NoSSR.js';
-import { WHITEBOARD_ROUTES } from '@/constants/index.js';
+import { WHITEBOARD_ROUTES } from '@/constants/static.js';
 import { AddCustomERC20Modal, AddCustomERC20ModalRef } from '@/modals/AddCustomERC20Modal.js';
 import { AddCustomERC721Modal, AddCustomERC721ModalRef } from '@/modals/AddCustomERC721Modal.js';
 import { AddLensManagerModal, AddLensManagerModalRef } from '@/modals/AddLensManagerModal/index.js';

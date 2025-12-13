@@ -1,6 +1,6 @@
 import { type MessageDescriptor } from '@lingui/core';
 
-import { SITE_NAME } from '@/constants/index.js';
+import { SITE_NAME } from '@/constants/static.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
 function createPageTitle(title: string) {

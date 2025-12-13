@@ -1,6 +1,6 @@
 import { z, ZodError, ZodIssueCode } from 'zod';
 
-import { ALLOWED_MEDIA_MIMES } from '@/constants/index.js';
+import { ALLOWED_MEDIA_MIMES } from '@/constants/computed.js';
 import { isMediaFileType } from '@/helpers/isMediaFileType.js';
 
 export const AnyFileSchema = z.custom<File>((value) => {

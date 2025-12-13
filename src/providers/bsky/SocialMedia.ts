@@ -8,7 +8,7 @@ import urlcat from 'urlcat';
 import { DISCOVER_AT_URI } from '@/constants/bsky.js';
 import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { BSKY_LOGIN_REQUIRED_FEEDS, EMPTY_LIST } from '@/constants/index.js';
+import { BSKY_LOGIN_REQUIRED_FEEDS, EMPTY_LIST } from '@/constants/static.js';
 import { AddBookmarkStatusForPosts } from '@/decorators/AddBookmarkStatusForPosts.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';

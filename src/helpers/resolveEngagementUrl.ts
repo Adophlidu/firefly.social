@@ -1,8 +1,8 @@
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
+import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/computed.js';
 import { EngagementType, type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

@@ -4,13 +4,13 @@ import type { ApiV2Includes, TweetV2 } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { URL_REGEX } from '@/constants/regexp.js';
+import { SITE_URL } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { parseHtml } from '@/libs/parseHtml.js';
 import { parsePostUrl } from '@/helpers/parsePostUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
+import { parseHtml } from '@/libs/parseHtml.js';
 import { resolveTweetReplySettings } from '@/providers/twitter/formatTwitterPost.js';
 import { formatTwitterProfile, formatTwitterProfileStatus } from '@/providers/twitter/formatTwitterProfile.js';
 import { formatTwitterProfileFromNitter } from '@/providers/twitter/formatTwitterProfileFromNitter.js';

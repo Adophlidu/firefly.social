@@ -5,7 +5,7 @@ import { useAsyncFn } from 'react-use';
 
 import { PasswordStep, PasswordWorkflow, PasswordWorkflowConfig } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
-import { SESSION_PASSWORD_INPUT_ID } from '@/constants/index.js';
+import { SESSION_PASSWORD_INPUT_ID } from '@/constants/static.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import type { PasswordModalOpenProps } from '@/modals/PasswordModal/index.js';
 import { isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';

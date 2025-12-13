@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { X3_PRO_AVATAR_URL } from '@/constants/index.js';
+import { X3_PRO_AVATAR_URL } from '@/constants/static.js';
 import { formatTwitterProfileFromX3Pro } from '@/providers/twitter/formatTwitterProfileFromX3Pro.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { formatX3Id } from '@/providers/x3pro/formatX3Id.js';

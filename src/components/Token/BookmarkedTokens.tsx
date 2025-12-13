@@ -9,7 +9,7 @@ import { AsideTitle } from '@/components/AsideTitle.js';
 import AsideTokensSkeleton from '@/components/Token/AsideTokensSkeleton.js';
 import { BookmarkedTokenItem } from '@/components/Token/BookmarkedTokenItem.js';
 import { Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { Link } from '@/esm/Link.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';

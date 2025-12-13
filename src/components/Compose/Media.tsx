@@ -10,13 +10,13 @@ import VideoIcon from '@/assets/video.svg';
 import { useUpdateImages } from '@/components/Compose/useUpdateImages.js';
 import { useUpdateVideos } from '@/components/Compose/useUpdateVideos.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { FileMimeType } from '@/constants/enum.js';
 import {
     ALLOWED_IMAGES_MIMES,
     ALLOWED_VIDEO_MIMES,
     GIF_MEDIA_SOURCE_CONFIG,
     SUPPORTED_VIDEO_SOURCES,
-} from '@/constants/index.js';
+} from '@/constants/computed.js';
+import { FileMimeType } from '@/constants/enum.js';
 import {
     getCurrentPostGifLimits,
     getCurrentPostImageLimits,

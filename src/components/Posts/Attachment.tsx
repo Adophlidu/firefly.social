@@ -12,12 +12,9 @@ import { SingleImage } from '@/components/Posts/SingleImage.js';
 import { VideoAsset } from '@/components/Posts/VideoAsset.js';
 import { VideoSwiper } from '@/components/Posts/VideoSwiper.js';
 import { WithPreviewLink } from '@/components/Posts/WithPreviewLink.js';
+import { SUPPORTED_MULTIPLE_EMBED_SOURCES, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/computed.js';
 import { Source } from '@/constants/enum.js';
-import {
-    IMAGE_KIT_ATTACHMENT,
-    SUPPORTED_MULTIPLE_EMBED_SOURCES,
-    SUPPORTED_PREVIEW_MEDIA_TYPES,
-} from '@/constants/index.js';
+import { IMAGE_KIT_ATTACHMENT } from '@/constants/static.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';

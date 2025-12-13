@@ -1,7 +1,7 @@
 import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 
-import { FIREFLY_S3_URL, SITE_URL } from '@/constants/index.js';
+import { FIREFLY_S3_URL, SITE_URL } from '@/constants/static.js';
 
 const bgImageUrl = urlcat(SITE_URL, '/image/sparks-default-card.png');
 const defaultAvatar = urlcat(FIREFLY_S3_URL, '/og/sparks_account_avatar.png');

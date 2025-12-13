@@ -3,7 +3,7 @@ import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { LoginEmailError, NotAllowedError, TimeoutError, UnreachableError } from '@/constants/error.js';
-import { NOT_DEPEND_SECRET } from '@/constants/index.js';
+import { NOT_DEPEND_SECRET } from '@/constants/static.js';
 import { fetch } from '@/helpers/fetch.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';

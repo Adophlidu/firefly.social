@@ -5,7 +5,7 @@ import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';

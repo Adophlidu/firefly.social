@@ -7,7 +7,7 @@ import { useAccount, useChainId } from 'wagmi';
 
 import { Image } from '@/components/Image.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { EIP6963_PROVIDER_DESCRIPTION, IS_DEVELOPMENT } from '@/constants/index.js';
+import { EIP6963_PROVIDER_DESCRIPTION, IS_DEVELOPMENT } from '@/constants/static.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { eip5792Polyfill } from '@/helpers/eip5792Polyfill.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';

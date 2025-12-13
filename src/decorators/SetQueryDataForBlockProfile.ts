@@ -2,8 +2,8 @@ import { type Draft, produce } from 'immer';
 import { first, uniqBy } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
+import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/index.js';
 import { toProfileId } from '@/helpers/isSameProfile.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';

@@ -10,7 +10,7 @@ import {
     TraderLayerContext,
     type TraderLayerOptions,
 } from '@/components/PriceChart/TraderLayer.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { formatBalance, trimZero } from '@/helpers/formatBalance.js';
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
 import { useThrottledCallback } from '@/hooks/useThrottledCallback.js';

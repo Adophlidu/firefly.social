@@ -18,7 +18,7 @@ import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { CharTag, type SocialSource } from '@/constants/enum.js';
-import { EMPTY_LIST, SITE_URL } from '@/constants/index.js';
+import { EMPTY_LIST, SITE_URL } from '@/constants/static.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';

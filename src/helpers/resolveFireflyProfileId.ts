@@ -2,8 +2,8 @@ import { safeUnreachable } from '@dimensiondev/utils';
 
 import { Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
-import { logger } from '@/libs/Logger.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
+import { logger } from '@/libs/Logger.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { ProfileLike } from '@/providers/types/SocialMedia.js';

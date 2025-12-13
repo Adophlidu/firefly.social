@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { NotImplementedError } from '@/constants/error.js';
-import { WARPCAST_ROOT_URL_V1 } from '@/constants/index.js';
+import { WARPCAST_ROOT_URL_V1 } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import {
     createIndicator,

@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import type { GetMultiChainTokenListResponse, TokenAsset } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';

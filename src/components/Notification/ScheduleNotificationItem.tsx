@@ -7,7 +7,7 @@ import { useCallback } from 'react';
 import FireflyRoundIcon from '@/assets/firefly-pure.svg';
 import ScheduleIcon from '@/assets/schedule.svg';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { SORTED_SCHEDULE_POST_SOURCES } from '@/constants/index.js';
+import { SORTED_SCHEDULE_POST_SOURCES } from '@/constants/computed.js';
 import { useRouter } from '@/esm/navigation.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';

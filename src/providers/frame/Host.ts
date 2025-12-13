@@ -7,14 +7,14 @@ import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { logger } from '@/libs/Logger.js';
-import { SITE_URL } from '@/constants/index.js';
+import { SITE_URL } from '@/constants/static.js';
 import { createDummyChannel } from '@/helpers/createDummyChannel.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileById } from '@/helpers/getProfileById.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
+import { logger } from '@/libs/Logger.js';
 import { ComposeModalRef } from '@/modals/ComposeModal/index.js';
 import { checkCustodyWallet } from '@/providers/firefly/farcaster-account/checkCustodyWallet.js';
 import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';

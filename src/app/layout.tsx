@@ -12,7 +12,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { GlobalLoadingIndicator } from '@/components/GlobalLoadingIndicator.js';
 import { Agent, SiteCookies, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { IS_PRODUCTION } from '@/constants/index.js';
+import { IS_PRODUCTION } from '@/constants/static.js';
 import { Script } from '@/esm/Script.js';
 import { inter } from '@/fonts/inter.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';

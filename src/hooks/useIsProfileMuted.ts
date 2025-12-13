@@ -3,8 +3,8 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { queryClient } from '@/configs/queryClient.js';
+import { QUERY_MUTE_PROFILE_SOURCES } from '@/constants/computed.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { QUERY_MUTE_PROFILE_SOURCES } from '@/constants/index.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

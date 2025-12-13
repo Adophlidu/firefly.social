@@ -4,7 +4,7 @@ import { type HTMLProps, memo } from 'react';
 
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { RemoveButton } from '@/components/RemoveButton.js';
-import { IMAGE_KIT_ATTACHMENT } from '@/constants/index.js';
+import { IMAGE_KIT_ATTACHMENT } from '@/constants/static.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';

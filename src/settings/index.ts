@@ -7,7 +7,7 @@ import {
     FIREFLY_ROOT_URL_DEV,
     FRAME_DEV_SERVER_URL,
     FRAME_SERVER_URL,
-} from '@/constants/index.js';
+} from '@/constants/static.js';
 
 export const settings = {
     get dev() {

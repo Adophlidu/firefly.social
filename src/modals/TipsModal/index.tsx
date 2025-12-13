@@ -2,8 +2,8 @@ import { Trans } from '@lingui/react/macro';
 import { useCallback, useMemo } from 'react';
 
 import { TipsModelRouter, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
+import { TIPS_SUPPORT_NETWORKS } from '@/constants/computed.js';
 import { NetworkType, Source } from '@/constants/enum.js';
-import { TIPS_SUPPORT_NETWORKS } from '@/constants/index.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';

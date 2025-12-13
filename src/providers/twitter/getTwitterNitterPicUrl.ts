@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { FIREFLY_NITTER_URL } from '@/constants/index.js';
+import { FIREFLY_NITTER_URL } from '@/constants/static.js';
 
 function removePrefix(s: string, prefix: string): string {
     if (s.startsWith(prefix) && prefix.length > 0) {

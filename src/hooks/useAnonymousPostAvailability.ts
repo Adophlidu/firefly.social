@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
+import { SUPPORTED_ANONYMOUS_POST_SOURCES } from '@/constants/computed.js';
 import { type SocialSource, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { SUPPORTED_ANONYMOUS_POST_SOURCES } from '@/constants/index.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { getPostByAnonymousRateLimits } from '@/providers/firefly/endpoint/getPostByAnonymousRateLimits.js';
 import type { PostByAnonymousRateLimitsResponse } from '@/providers/types/Firefly.js';

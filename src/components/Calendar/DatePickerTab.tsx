@@ -7,7 +7,7 @@ import CalendarIcon from '@/assets/calendar.svg';
 import { DatePicker, type DatePickerProps } from '@/components/Calendar/DatePicker.js';
 import { useAvailableDates } from '@/components/Calendar/hooks/useAvailableDates.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { EventProvider } from '@/types/calendar.js';
 
 interface DatePickerTabProps extends DatePickerProps {

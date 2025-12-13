@@ -1,7 +1,7 @@
 import { type Account, type AccountMention } from '@lens-protocol/client';
 
 import { Source } from '@/constants/enum.js';
-import { IMAGE_KIT_AVATAR } from '@/constants/index.js';
+import { IMAGE_KIT_AVATAR } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { formatGroveImage } from '@/helpers/formatGroveImage.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';

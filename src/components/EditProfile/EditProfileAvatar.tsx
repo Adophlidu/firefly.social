@@ -3,7 +3,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 
 import FallbackAvatarSVG from '@/assets/firefly-avatar-fallback.svg';
 import { Avatar } from '@/components/Avatar.js';
-import { FIREFLY_STAMP_URL } from '@/constants/index.js';
+import { FIREFLY_STAMP_URL } from '@/constants/static.js';
 
 export function EditProfileAvatar({ pfp, name, size = 108 }: { pfp: string; name: string; size?: number }) {
     const { control } = useFormContext();

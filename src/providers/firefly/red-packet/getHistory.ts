@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 import type { Hex } from 'viem';
 
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import {
     createIndicator,

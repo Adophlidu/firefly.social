@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-import { IS_PRODUCTION, SITE_URL_OFFICIAL } from '@/constants/index.js';
+import { IS_PRODUCTION, SITE_URL_OFFICIAL } from '@/constants/static.js';
 
 export default function robots(): MetadataRoute.Robots {
     // Block everything on staging, preview, testing, etc

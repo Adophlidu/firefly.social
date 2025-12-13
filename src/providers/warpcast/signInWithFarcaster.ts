@@ -2,7 +2,7 @@ import { parseUrl } from '@dimensiondev/utils';
 import type { SignInOptions } from '@farcaster/miniapp-host';
 import { type Address, checksumAddress, toHex } from 'viem';
 
-import { SITE_URL } from '@/constants/index.js';
+import { SITE_URL } from '@/constants/static.js';
 import { signMessageWithCustodyWallet } from '@/providers/firefly/farcaster-account/signMessageWithCustodyWallet.js';
 import { custodyOf } from '@/providers/warpcast/custodyOf.js';
 import type { FrameV2 } from '@/types/frame.js';

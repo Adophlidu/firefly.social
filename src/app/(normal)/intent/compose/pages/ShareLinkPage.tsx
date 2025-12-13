@@ -4,7 +4,7 @@ import { compact } from 'lodash-es';
 import { useEffect } from 'react';
 
 import { CharTag, FireflyPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST, SITE_URL_OFFICIAL } from '@/constants/index.js';
+import { EMPTY_LIST, SITE_URL_OFFICIAL } from '@/constants/static.js';
 import { useRouter } from '@/esm/navigation.js';
 import { formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { getCurrentProfileAllFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';

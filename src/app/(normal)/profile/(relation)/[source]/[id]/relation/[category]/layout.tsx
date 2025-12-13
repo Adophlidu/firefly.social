@@ -5,8 +5,8 @@ import { ProfileRelationContextProvider } from '@/app/(normal)/profile/pages/Pro
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { Title } from '@/components/Profile/Title.js';
+import { REQUIRE_LOGIN_FOLLOWING_CATEGORY } from '@/constants/computed.js';
 import { type ProfileCategory, type ProfilePageSourceInURL, Source } from '@/constants/enum.js';
-import { REQUIRE_LOGIN_FOLLOWING_CATEGORY } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isSocialSource } from '@/helpers/isSource.js';

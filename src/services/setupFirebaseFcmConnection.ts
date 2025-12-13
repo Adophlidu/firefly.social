@@ -2,7 +2,7 @@ import { getToken } from 'firebase/messaging';
 
 import { firebaseClient } from '@/configs/firebaseClient.js';
 import { env } from '@/constants/env.js';
-import { NOTIFICATION_PERMISSION_KEY } from '@/constants/index.js';
+import { NOTIFICATION_PERMISSION_KEY } from '@/constants/static.js';
 import { enqueuePermissionMessage } from '@/helpers/enqueuePermissionMessage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';

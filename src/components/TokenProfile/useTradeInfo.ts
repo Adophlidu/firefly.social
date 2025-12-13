@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { zeroAddress } from 'viem';
 
 import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupportedChains.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { getChainIdByCoinId } from '@/providers/coingecko/getChainIdByCoinId.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';

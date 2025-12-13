@@ -3,7 +3,7 @@ import { delay } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 import { toHex } from 'viem';
 
-import { LENS_CHAIN_ID } from '@/constants/index.js';
+import { LENS_CHAIN_ID } from '@/constants/static.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';

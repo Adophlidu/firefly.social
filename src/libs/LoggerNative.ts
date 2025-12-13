@@ -1,4 +1,4 @@
-import { IS_PRODUCTION } from '@/constants/index.js';
+import { IS_PRODUCTION } from '@/constants/static.js';
 
 export class Logger {
     debug(message: string, ...args: unknown[]): void {

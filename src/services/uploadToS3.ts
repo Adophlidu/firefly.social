@@ -1,6 +1,7 @@
 import urlcat from 'urlcat';
 
-import { FIREFLY_WORKER_HOST, SUFFIX_NAMES } from '@/constants/index.js';
+import { SUFFIX_NAMES } from '@/constants/computed.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { blobToBase64 } from '@/helpers/blobToBase64.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { memoizePromiseWithTime } from '@/helpers/memoizePromise.js';

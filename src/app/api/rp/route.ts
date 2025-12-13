@@ -6,7 +6,7 @@ import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { Locale } from '@/constants/enum.js';
-import { CACHE_AGE_INDEFINITE_ON_DISK, IS_PREVIEW } from '@/constants/index.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK, IS_PREVIEW } from '@/constants/static.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createRedPacketImage } from '@/services/createRedPacketImage.js';

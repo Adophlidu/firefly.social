@@ -9,7 +9,7 @@ import { HackedButton } from '@/components/Profile/HackedButton.js';
 import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { NetworkType, Source } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
+import { SITE_URL } from '@/constants/static.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { openWindow } from '@/helpers/openWindow.js';

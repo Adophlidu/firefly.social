@@ -13,7 +13,7 @@ import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { Link } from '@/components/Link.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
-import { LENS_CHAIN_ID } from '@/constants/index.js';
+import { LENS_CHAIN_ID } from '@/constants/static.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';

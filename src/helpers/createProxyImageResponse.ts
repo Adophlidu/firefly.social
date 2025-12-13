@@ -1,4 +1,4 @@
-import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/index.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/static.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 
 export async function createProxyImageResponse(url: string) {

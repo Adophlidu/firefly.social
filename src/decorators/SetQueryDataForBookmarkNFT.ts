@@ -2,7 +2,7 @@ import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
-import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
+import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import type { PageData } from '@/decorators/types.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveNFTId, resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';

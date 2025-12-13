@@ -11,7 +11,7 @@ import { Link } from '@/components/Link.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { Source } from '@/constants/enum.js';
-import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
+import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

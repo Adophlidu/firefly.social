@@ -24,7 +24,7 @@ import {
     NotAllowedError,
     TimeoutError,
 } from '@/constants/error.js';
-import { FARCASTER_REPLY_COUNTDOWN } from '@/constants/index.js';
+import { FARCASTER_REPLY_COUNTDOWN } from '@/constants/static.js';
 import {
     enqueueForbiddenMessage,
     enqueueInfoMessage,

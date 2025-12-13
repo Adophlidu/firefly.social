@@ -7,7 +7,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { SORTED_SOCIAL_SOURCES, SUPPORTED_ANONYMOUS_POST_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES, SUPPORTED_ANONYMOUS_POST_SOURCES } from '@/constants/computed.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

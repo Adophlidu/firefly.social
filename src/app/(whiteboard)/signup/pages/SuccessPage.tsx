@@ -8,8 +8,8 @@ import { MusicTogglePlay } from '@/app/(whiteboard)/components/Signup/MusicToggl
 import { ShadowInAndOut } from '@/app/(whiteboard)/components/Signup/ShadowInAndOut.js';
 import { SquareButton } from '@/app/(whiteboard)/components/Signup/SquareButton.js';
 import { PageRoute } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
+import { SITE_URL } from '@/constants/static.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';

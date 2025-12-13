@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL, SITE_URL } from '@/constants/index.js';
+import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL, SITE_URL } from '@/constants/static.js';
 import type { FireflyProfile, LensV3Profile, WalletProfile } from '@/providers/types/Firefly.js';
 
 const STAMP_URL =

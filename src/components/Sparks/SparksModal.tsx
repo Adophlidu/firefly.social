@@ -4,7 +4,7 @@ import { memo } from 'react';
 import urlcat from 'urlcat';
 
 import { CloseButton } from '@/components/IconButton.js';
-import { SITE_URL } from '@/constants/index.js';
+import { SITE_URL } from '@/constants/static.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 
 export const SparksModal = memo(function SparksModal() {

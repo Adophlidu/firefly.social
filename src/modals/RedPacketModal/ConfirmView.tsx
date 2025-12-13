@@ -16,8 +16,8 @@ import { useCreateRedPacketCallback } from '@/components/RedPacket/hooks/useCrea
 import { RedPacketEnvelope } from '@/components/RedPacket/RedPacketEnvelope.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { ALLOWED_COVER_MIMES } from '@/constants/computed.js';
 import { NetworkType } from '@/constants/enum.js';
-import { ALLOWED_COVER_MIMES } from '@/constants/index.js';
 import { DEFAULT_THEME_ID } from '@/constants/rp.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';

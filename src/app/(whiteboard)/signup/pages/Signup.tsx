@@ -15,7 +15,7 @@ import { SocialLoginPage } from '@/app/(whiteboard)/signup/pages/SocialLoginPage
 import { SuccessPage } from '@/app/(whiteboard)/signup/pages/SuccessPage.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { PageRoute, SignupStep } from '@/constants/enum.js';
-import { SIGNUP_AUDIO_ID } from '@/constants/index.js';
+import { SIGNUP_AUDIO_ID } from '@/constants/static.js';
 import { useRouter } from '@/esm/navigation.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';

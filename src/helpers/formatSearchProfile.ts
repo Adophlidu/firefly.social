@@ -1,7 +1,7 @@
 import { compact, first } from 'lodash-es';
 
+import { SORTED_PROFILE_SOURCES } from '@/constants/computed.js';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
-import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { isValidAddress } from '@/helpers/isValidAddress.js';

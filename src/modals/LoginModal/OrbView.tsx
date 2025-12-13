@@ -14,8 +14,8 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
 import { AbortError, ForbiddenError, InvalidOrbPermissionError, InvalidResultError } from '@/constants/error.js';
-import { ORB_REPLY_COUNTDOWN, SEVEN_DAYS } from '@/constants/index.js';
 import { FAKE_REFRESH_TOKEN } from '@/constants/lens.js';
+import { ORB_REPLY_COUNTDOWN, SEVEN_DAYS } from '@/constants/static.js';
 import { Link } from '@/esm/Link.js';
 import {
     enqueueForbiddenMessage,

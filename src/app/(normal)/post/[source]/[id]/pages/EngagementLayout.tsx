@@ -5,8 +5,8 @@ import { type PropsWithChildren, useMemo } from 'react';
 
 import { Comeback } from '@/components/Comeback.js';
 import { SecondTabs } from '@/components/Tabs/SecondTabs.js';
+import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/computed.js';
 import { EngagementType, type SocialSource } from '@/constants/enum.js';
-import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 
 export function EngagementLayout({

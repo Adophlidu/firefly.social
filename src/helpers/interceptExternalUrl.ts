@@ -1,7 +1,7 @@
 import { parseUrl, safeUnreachable } from '@dimensiondev/utils';
 
+import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { ExternalSiteDomain, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getSiteTypeFromUrl } from '@/helpers/getSiteTypeFromUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';

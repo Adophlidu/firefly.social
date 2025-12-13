@@ -12,7 +12,7 @@ import MaskRoundIcon from '@/assets/mask.round.svg';
 import SecurityIcon from '@/assets/security.svg';
 import TelegramIcon from '@/assets/telegram.svg';
 import { XIcon } from '@/components/XIcon.js';
-import { FIREFLY_TELEGRAM_URL } from '@/constants/index.js';
+import { FIREFLY_TELEGRAM_URL } from '@/constants/static.js';
 
 function SmallXIcon() {
     return (

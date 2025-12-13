@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import type { ProfileCategory, ProfilePageSource, SignupStep, Source, TipsDetailViewType } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
+import { SITE_URL } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 
 export class RouteResolver {

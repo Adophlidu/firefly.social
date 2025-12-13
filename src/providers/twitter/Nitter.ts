@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { AccountSuspendedError, NitterError, NotFoundError } from '@/constants/error.js';
-import { FIREFLY_NITTER_URL } from '@/constants/index.js';
+import { FIREFLY_NITTER_URL } from '@/constants/static.js';
 import { LimitConcurrency } from '@/decorators/LimitConcurrency.js';
 import { MemoizePromise } from '@/decorators/MemoizePromise.js';
 import { fetchJson } from '@/helpers/fetchJson.js';

@@ -1,4 +1,13 @@
 import {
+    BOOKMARK_SOURCES,
+    DISCOVER_SOURCES,
+    FOLLOWING_SOURCES,
+    NOTIFICATION_SOURCES,
+    PROFILE_PAGE_SOURCES,
+    SOCIAL_DISCOVER_SOURCE,
+    SORTED_SOCIAL_SOURCES,
+} from '@/constants/computed.js';
+import {
     type BookmarkSource,
     type DiscoverSource,
     type FollowingSource,
@@ -10,15 +19,6 @@ import {
     Source,
     SourceInURL,
 } from '@/constants/enum.js';
-import {
-    BOOKMARK_SOURCES,
-    DISCOVER_SOURCES,
-    FOLLOWING_SOURCES,
-    NOTIFICATION_SOURCES,
-    PROFILE_PAGE_SOURCES,
-    SOCIAL_DISCOVER_SOURCE,
-    SORTED_SOCIAL_SOURCES,
-} from '@/constants/index.js';
 import { resolveSourceInUrl, resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 
 export function isDiscoverSource(source: string): source is DiscoverSource {

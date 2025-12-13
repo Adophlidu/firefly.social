@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { createIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { formatFarcasterProfileFromSuggestedFollow } from '@/providers/farcaster/formatFarcasterProfileFromSuggestedFollow.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import urlcat from 'urlcat';
 
-import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJson } from '@/types/utility.js';

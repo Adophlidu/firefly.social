@@ -9,7 +9,7 @@ import { DatePickerTab } from '@/components/Calendar/DatePickerTab.js';
 import { EventList } from '@/components/Calendar/EventList.js';
 import { useAvailableDates } from '@/components/Calendar/hooks/useAvailableDates.js';
 import { NewsList } from '@/components/Calendar/NewsList.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { EventProvider } from '@/types/calendar.js';
 
 export function CalendarCard() {

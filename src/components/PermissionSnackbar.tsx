@@ -4,7 +4,7 @@ import NotificationIcon from '@/assets/notification.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { useSnackbar } from '@/components/Snackbar.js';
-import { NOTIFICATION_PERMISSION_KEY } from '@/constants/index.js';
+import { NOTIFICATION_PERMISSION_KEY } from '@/constants/static.js';
 
 interface PermissionSnackbarProps {
     id: string;

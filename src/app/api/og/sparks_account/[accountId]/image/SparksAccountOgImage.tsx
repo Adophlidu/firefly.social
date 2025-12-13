@@ -1,7 +1,7 @@
 import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 
-import { FIREFLY_S3_URL } from '@/constants/index.js';
+import { FIREFLY_S3_URL } from '@/constants/static.js';
 import type { SparksAccountResponse } from '@/providers/types/Firefly.js';
 
 interface SparksAccountOgImageProps {

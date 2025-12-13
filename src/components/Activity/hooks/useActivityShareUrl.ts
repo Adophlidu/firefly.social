@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
 import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
+import { SITE_URL } from '@/constants/static.js';
 import { resolveActivityShareUrl } from '@/helpers/resolveActivityUrl.js';
 
 export function useActivityShareUrl(name?: string) {

@@ -7,7 +7,7 @@ import { useCheckSponsorableGasFee } from '@/components/RedPacket/hooks/useCheck
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { useParseRedPacket } from '@/components/RedPacket/hooks/useParseRedPacket.js';
 import { NetworkType } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';

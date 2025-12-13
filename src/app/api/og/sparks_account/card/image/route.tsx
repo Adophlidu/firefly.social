@@ -5,7 +5,7 @@ import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { SparkCardOgImage } from '@/app/api/og/sparks_account/card/image/SparkCardOgImage.js';
-import { CACHE_AGE_INDEFINITE_ON_DISK, FIREFLY_S3_URL } from '@/constants/index.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK, FIREFLY_S3_URL } from '@/constants/static.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

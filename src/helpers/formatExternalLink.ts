@@ -2,8 +2,8 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { ExternalSiteDomain, type SocialSource, Source } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
 import { FARCASTER_DETAIL_REGEX, TWEET_REGEX } from '@/constants/regexp.js';
+import { SITE_URL } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getSiteTypeFromUrl } from '@/helpers/getSiteTypeFromUrl.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';

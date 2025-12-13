@@ -12,8 +12,8 @@ import { FormInput } from '@/components/Form/FormInput.js';
 import { FormInputContainer } from '@/components/Form/FormInputContainer.js';
 import { FormTextarea } from '@/components/Form/FormTextarea.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { ALLOWED_IMAGES_MIMES, EDIT_PROFILE_FIELDS } from '@/constants/computed.js';
 import { ProfileEditableField } from '@/constants/enum.js';
-import { ALLOWED_IMAGES_MIMES, EDIT_PROFILE_FIELDS } from '@/constants/index.js';
 import {
     MAX_PROFILE_BIO_SIZE,
     MAX_PROFILE_DISPLAY_NAME_SIZE,

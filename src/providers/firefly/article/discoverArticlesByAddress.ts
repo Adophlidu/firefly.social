@@ -1,7 +1,7 @@
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { VITALIK_ADDRESS } from '@/constants/index.js';
+import { VITALIK_ADDRESS } from '@/constants/static.js';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isZero } from '@/helpers/number.js';

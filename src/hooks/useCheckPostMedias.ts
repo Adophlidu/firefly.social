@@ -1,8 +1,8 @@
 import { t } from '@lingui/core/macro';
 import { useCallback } from 'react';
 
+import { SUPPORTED_VIDEO_SOURCES } from '@/constants/computed.js';
 import { FileMimeType, Source } from '@/constants/enum.js';
-import { SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
 import { MAX_FILE_SIZE_PER_VIDEO } from '@/constants/limitation.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatFileSize } from '@/helpers/formatFileSize.js';

@@ -4,8 +4,8 @@ import { kv } from '@vercel/kv';
 import { sha256, stringToHex } from 'viem';
 
 import type { KeyType } from '@/constants/enum.js';
-import { logger } from '@/libs/Logger.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { logger } from '@/libs/Logger.js';
 
 interface MemoizedFunction {
     cache: {

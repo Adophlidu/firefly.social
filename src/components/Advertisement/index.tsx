@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { AdvertisementSkeleton } from '@/components/Advertisement/AdvertisementSkeleton.js';
-import { FIREFLY_S3_URL } from '@/constants/index.js';
+import { FIREFLY_S3_URL } from '@/constants/static.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import type { Advertisement } from '@/types/advertisement.js';

@@ -4,9 +4,9 @@ import dayjs from 'dayjs';
 import urlcat from 'urlcat';
 
 import { DraftPageTab } from '@/components/Compose/DraftPage.js';
+import { SUPPORTED_FRAME_SOURCES } from '@/constants/computed.js';
 import { Source } from '@/constants/enum.js';
 import { CreateScheduleError, UnauthorizedError } from '@/constants/error.js';
-import { SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';

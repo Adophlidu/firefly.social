@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 
 import ShareIcon from '@/assets/share.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { SITE_URL } from '@/constants/index.js';
+import { SITE_URL } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

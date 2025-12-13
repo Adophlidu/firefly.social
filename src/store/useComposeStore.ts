@@ -4,14 +4,9 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { HOME_CHANNEL, HOME_CLUB } from '@/constants/channel.js';
+import { SORTED_POLL_SOURCES, SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/computed.js';
 import { CharTag, RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
-import {
-    EMPTY_LIST,
-    MAX_FRAME_SIZE_PER_POST,
-    SORTED_POLL_SOURCES,
-    SORTED_SOCIAL_SOURCES,
-    SUPPORTED_FRAME_SOURCES,
-} from '@/constants/index.js';
+import { EMPTY_LIST, MAX_FRAME_SIZE_PER_POST } from '@/constants/static.js';
 import { readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';

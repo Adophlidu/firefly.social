@@ -5,7 +5,7 @@ import AddThreadIcon from '@/assets/add-thread.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
+import { MAX_POST_SIZE_PER_THREAD } from '@/constants/static.js';
 import { measureChars } from '@/helpers/chars.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';

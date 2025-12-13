@@ -9,7 +9,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { Source } from '@/constants/enum.js';
-import { FARCASTER_REPLY_URL, SITE_URL } from '@/constants/index.js';
+import { FARCASTER_REPLY_URL, SITE_URL } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';

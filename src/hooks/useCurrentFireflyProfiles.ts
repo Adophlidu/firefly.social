@@ -1,8 +1,9 @@
 import { compact, first, uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
 
+import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { toFireflyIdentityId } from '@/helpers/isSameProfile.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { useAllProfiles } from '@/hooks/useAllProfiles.js';

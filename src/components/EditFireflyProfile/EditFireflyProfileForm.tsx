@@ -15,7 +15,7 @@ import { EditProfileAvatar } from '@/components/EditProfile/EditProfileAvatar.js
 import { ErrorMessage } from '@/components/Form/ErrorMessage.js';
 import { FormInput } from '@/components/Form/FormInput.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
+import { ALLOWED_IMAGES_MIMES } from '@/constants/computed.js';
 import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ImageEditorModalRef } from '@/modals/ImageEditorModal.js';

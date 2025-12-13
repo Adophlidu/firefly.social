@@ -23,7 +23,7 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source, TxReactionType } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
+import { SITE_URL } from '@/constants/static.js';
 import { downloadImage } from '@/helpers/downloadImage.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';

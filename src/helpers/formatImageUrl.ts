@@ -1,4 +1,4 @@
-import { LENS_MEDIA_SNAPSHOT_URL } from '@/constants/index.js';
+import { LENS_MEDIA_SNAPSHOT_URL } from '@/constants/static.js';
 import { formatGroveImage } from '@/helpers/formatGroveImage.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 

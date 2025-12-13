@@ -1,8 +1,9 @@
 'use client';
 
 import { SolidSourceTabs } from '@/components/Tabs/SolidSourceTabs.js';
+import { BOOKMARK_SOURCES } from '@/constants/computed.js';
 import { type BookmarkSource, Source } from '@/constants/enum.js';
-import { BOOKMARK_SOURCES, NFT_ENABLED } from '@/constants/index.js';
+import { NFT_ENABLED } from '@/constants/static.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { captureBookmarkTokenViewEvent } from '@/providers/telemetry/captureTokenEvent.js';
 

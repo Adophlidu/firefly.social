@@ -3,7 +3,7 @@ import type { EnvironmentConfig, IStorageProvider } from '@lens-protocol/client'
 import z from 'zod';
 
 import { Source } from '@/constants/enum.js';
-import { SEVEN_DAYS } from '@/constants/index.js';
+import { SEVEN_DAYS } from '@/constants/static.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { updateCurrentSessionToStorage } from '@/helpers/updateCurrentSessionToStorage.js';
 import { LensSession } from '@/providers/lens/Session.js';

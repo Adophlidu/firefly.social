@@ -2,8 +2,8 @@ import crypto from 'crypto';
 
 import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { FIREFLY_ROOT_URL_DEV } from '@/constants/static.js';
 import { logger } from '@/libs/Logger.js';
-import { FIREFLY_ROOT_URL_DEV } from '@/constants/index.js';
 import { settings } from '@/settings/index.js';
 
 export function decryptAes256(cipherText: string, key: string, iv: string) {

@@ -1,4 +1,4 @@
-import { SIGNUP_AUDIO_ID } from '@/constants/index.js';
+import { SIGNUP_AUDIO_ID } from '@/constants/static.js';
 
 let audioTimer: NodeJS.Timeout | null = null;
 let lastVolume = 0.01;

@@ -1,5 +1,5 @@
+import { DEFAULT_NOTIFICATION_SOURCE } from '@/constants/computed.js';
 import { type NotificationSource, PageRoute } from '@/constants/enum.js';
-import { DEFAULT_NOTIFICATION_SOURCE } from '@/constants/index.js';
 import { isNotificationSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 

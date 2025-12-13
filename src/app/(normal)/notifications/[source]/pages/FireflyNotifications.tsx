@@ -4,13 +4,9 @@ import { getNotificationItemContent } from '@/app/(normal)/notifications/[source
 import { updateNotificationReadStatus } from '@/app/(normal)/notifications/[source]/pages/updateNotificationReadStatus.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
+import { SOCIAL_DISCOVER_SOURCE, SOCIAL_NOTIFICATION_TYPES, UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import {
-    EMPTY_LIST,
-    SOCIAL_DISCOVER_SOURCE,
-    SOCIAL_NOTIFICATION_TYPES,
-    UNIFIED_NOTIFICATION_TYPES,
-} from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';

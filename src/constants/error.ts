@@ -1,8 +1,8 @@
 import { parseJson } from '@dimensiondev/utils';
 
 import type { ProfileSource, SocialSource } from '@/constants/enum.js';
-import { logger } from '@/libs/Logger.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { logger } from '@/libs/Logger.js';
 
 export class AbortError extends Error {
     override name = 'AbortError';

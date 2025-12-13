@@ -1,5 +1,5 @@
+import { GIF_MEDIA_SOURCE_CONFIG } from '@/constants/computed.js';
 import { FileMimeType, type SocialSource } from '@/constants/enum.js';
-import { GIF_MEDIA_SOURCE_CONFIG } from '@/constants/index.js';
 import { type MediaObject, MediaSource } from '@/types/compose.js';
 
 export function ensureGifSource(medias: MediaObject[], source: SocialSource) {

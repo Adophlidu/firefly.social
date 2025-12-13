@@ -1,7 +1,8 @@
 import urlcat from 'urlcat';
 
+import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
 import { Source } from '@/constants/enum.js';
-import { EMPTY_LIST, UNIFIED_NOTIFICATION_TYPES } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

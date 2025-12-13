@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { PostLinks } from '@/components/Posts/PostLinks.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface NotificationPostBodyProps {

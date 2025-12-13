@@ -6,7 +6,7 @@ import { LikeButton } from '@/components/Actions/LikeButton.js';
 import { ShareAction } from '@/components/Actions/ShareAction.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
-import { POLYMARKET_URL } from '@/constants/index.js';
+import { POLYMARKET_URL } from '@/constants/static.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useTogglePolymarketBookmark } from '@/hooks/useTogglePolymarketBookmark.js';
 import type { PolymarketActivity } from '@/providers/types/Firefly.js';

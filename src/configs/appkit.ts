@@ -9,8 +9,8 @@ import { solanaAdapter, solanaNetworks } from '@/configs/solanaClient.js';
 import { wagmiAdapter, wagmiNetworks } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { env } from '@/constants/env.js';
-import { IS_PRODUCTION, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
 import { WalletId } from '@/constants/reown.js';
+import { IS_PRODUCTION, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/static.js';
 
 const networks = [...wagmiNetworks, ...solanaNetworks] as [AppKitNetwork, ...AppKitNetwork[]];
 

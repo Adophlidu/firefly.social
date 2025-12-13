@@ -4,7 +4,7 @@ import { type FirebaseApp, type FirebaseOptions, initializeApp } from 'firebase/
 import { getMessaging, type Messaging, onMessage, type Unsubscribe } from 'firebase/messaging';
 
 import { env } from '@/constants/env.js';
-import { SITE_NAME } from '@/constants/index.js';
+import { SITE_NAME } from '@/constants/static.js';
 
 function createFirebaseApp() {
     const firebaseConfig: FirebaseOptions = {

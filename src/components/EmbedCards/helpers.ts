@@ -1,7 +1,6 @@
 import { parseUrl } from '@dimensiondev/utils';
 import { compact, groupBy, uniqBy } from 'lodash-es';
 
-import { EMPTY_LIST } from '@/constants/index.js';
 import {
     ENS_REGEXP,
     EXIST_EVM_ADDRESS,
@@ -10,6 +9,7 @@ import {
     LENS_HANDLE_REGEXP,
     URL_REGEX,
 } from '@/constants/regexp.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import type { DetectAddressResponse } from '@/providers/types/Firefly.js';
 
 type AddressRecord = NonNullable<DetectAddressResponse['data']>['list'][number];

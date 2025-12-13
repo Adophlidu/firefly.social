@@ -7,7 +7,7 @@ import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
 import { SearchType, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/index.js';
+import { EMPTY_LIST, MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/static.js';
 import { composeSearchProfiles, formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';

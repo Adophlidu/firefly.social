@@ -10,7 +10,6 @@ import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import OrbIcon from '@/assets/orb.svg';
-import { logger } from '@/libs/Logger.js';
 import ScanIcon from '@/assets/scan.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -21,7 +20,7 @@ import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { AsyncStatus, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { AbortError, FireflyAlreadyBoundError, ForbiddenError } from '@/constants/error.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import {
     enqueueForbiddenMessage,
     enqueueMessageFromError,
@@ -35,6 +34,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCanBindMoreAccount } from '@/hooks/useCanBindMoreAccount.js';
+import { logger } from '@/libs/Logger.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';

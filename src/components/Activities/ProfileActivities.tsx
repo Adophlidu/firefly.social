@@ -7,7 +7,7 @@ import { getActivitiesItemContent } from '@/components/Activities/getActivitiesI
 import { ListInPage } from '@/components/ListInPage.js';
 import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
 import { ActivitiesPlatform, ScrollListKey, Source } from '@/constants/enum.js';
-import { VITALIK_ADDRESS } from '@/constants/index.js';
+import { VITALIK_ADDRESS } from '@/constants/static.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { ActivitiesFilterNamespace, useActivitiesFilterStore } from '@/store/useActivitiesFilterStore.js';

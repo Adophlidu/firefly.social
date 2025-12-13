@@ -2,7 +2,7 @@ import { NotificationItem } from '@/components/Notification/NotificationItem.js'
 import { ScheduleNotificationItem } from '@/components/Notification/ScheduleNotificationItem.js';
 import { TipsNotificationItem } from '@/components/Notification/TipsNotificationItem.js';
 import { UnifiedNotificationItem } from '@/components/Notification/UnifiedNotificationItem.js';
-import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/index.js';
+import { UNIFIED_NOTIFICATION_TYPES } from '@/constants/computed.js';
 import type {
     ScheduleNotification,
     TipsNotification,

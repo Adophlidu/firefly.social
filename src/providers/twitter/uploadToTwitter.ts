@@ -1,6 +1,6 @@
 import type { UploadMediaV1Params } from 'twitter-api-v2';
 
-import { MAX_SIZE_PER_CHUNK } from '@/constants/index.js';
+import { MAX_SIZE_PER_CHUNK } from '@/constants/static.js';
 import { getVideoDuration } from '@/helpers/getVideoDuration.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { uploadToTwitterWithChunksV2 } from '@/providers/twitter/uploadToTwitterWithChunksV2.js';

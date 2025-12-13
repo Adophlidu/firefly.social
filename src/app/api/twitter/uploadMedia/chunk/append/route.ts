@@ -2,7 +2,7 @@ import { compose } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
-import { TWITTER_UPLOAD_MEDIA_URL } from '@/constants/index.js';
+import { TWITTER_UPLOAD_MEDIA_URL } from '@/constants/static.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getFormDataWithZodSchema } from '@/helpers/getFormDataWithZodSchema.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';

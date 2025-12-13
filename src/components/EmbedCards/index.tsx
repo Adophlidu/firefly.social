@@ -10,7 +10,7 @@ import { AddressCard, AddressCardIndicator } from '@/components/EmbedCards/Addre
 import { DomainCard, DomainCardIndicator } from '@/components/EmbedCards/DomainCard.js';
 import { extractEmbedResources, isAvailableAddress } from '@/components/EmbedCards/helpers.js';
 import { EmbedLinkCard, LinkCardIndicator } from '@/components/EmbedCards/LinkCard.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { useClassifyPostLinks } from '@/hooks/useClassifyPostLink.js';
 import { useEnsAddresses } from '@/hooks/useEnsAddress.js';

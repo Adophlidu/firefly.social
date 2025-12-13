@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { X3_PRO_AVATAR_URL, X3_PRO_HOST } from '@/constants/index.js';
+import { X3_PRO_AVATAR_URL, X3_PRO_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { resolveX3ProResponse } from '@/helpers/resolveX3ProResponse.js';
 import { formatX3Id } from '@/providers/x3pro/formatX3Id.js';

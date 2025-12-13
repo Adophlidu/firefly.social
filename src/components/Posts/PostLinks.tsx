@@ -5,8 +5,8 @@ import { memo, useEffect, useMemo } from 'react';
 
 import { FrameSwiper } from '@/components/Posts/FrameSwiper.js';
 import { PostLinkContent } from '@/components/Posts/PostLinkContent.js';
+import { SUPPORTED_MULTIPLE_EMBED_SOURCES } from '@/constants/computed.js';
 import { type SocialSource } from '@/constants/enum.js';
-import { SUPPORTED_MULTIPLE_EMBED_SOURCES } from '@/constants/index.js';
 import { LINK_MARK_RE } from '@/constants/linkRegExp.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';

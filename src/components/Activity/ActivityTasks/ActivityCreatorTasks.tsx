@@ -9,7 +9,7 @@ import { useMemo } from 'react';
 import { Link } from '@/components/Activity/Link.js';
 import { IS_ANDROID } from '@/constants/browser.js';
 import { Source } from '@/constants/enum.js';
-import { FIREFLY_TELEGRAM_URL } from '@/constants/index.js';
+import { FIREFLY_TELEGRAM_URL } from '@/constants/static.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 

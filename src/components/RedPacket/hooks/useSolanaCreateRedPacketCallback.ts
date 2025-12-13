@@ -9,13 +9,13 @@ import urlcat from 'urlcat';
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { SITE_URL } from '@/constants/index.js';
 import {
     DEFAULT_THEME_ID,
     RED_PACKET_CONTRACT_VERSION,
     RED_PACKET_DURATION,
     RED_PACKET_MIN_SHARES,
 } from '@/constants/rp.js';
+import { SITE_URL } from '@/constants/static.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getRpMaxShares } from '@/helpers/getRpLimitations.js';
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';

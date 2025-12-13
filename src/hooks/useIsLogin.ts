@@ -1,5 +1,5 @@
+import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { HomeTab, type SocialSource } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useSocialDiscoverSourcesWithWhitelist } from '@/hooks/useSocialDiscoverSourcesWithWhitelist.js';
 

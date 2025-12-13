@@ -3,7 +3,7 @@ import { delay, parseUrl } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { FileMimeType } from '@/constants/enum.js';
-import { BSKY_VIDEO_ENDPOINT } from '@/constants/index.js';
+import { BSKY_VIDEO_ENDPOINT } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { resolveExtFromMimeType } from '@/helpers/resolveExtFromMimeType.js';

@@ -1,6 +1,6 @@
 import TWITTER_TIMELINE_WHITELIST from '@/assets/twitter-timeline-whitelist.json' with { type: 'json' };
+import { SOCIAL_DISCOVER_SOURCE, SOCIAL_DISCOVER_WHITELIST_SOURCE } from '@/constants/computed.js';
 import { HomeTab } from '@/constants/enum.js';
-import { SOCIAL_DISCOVER_SOURCE, SOCIAL_DISCOVER_WHITELIST_SOURCE } from '@/constants/index.js';
 import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
 
 export function useSocialDiscoverSourcesWithWhitelist(tab: HomeTab) {

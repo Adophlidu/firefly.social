@@ -15,7 +15,7 @@ import { PoapTrait } from '@/components/NFTDetail/PoapTrait.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
-import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
+import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';

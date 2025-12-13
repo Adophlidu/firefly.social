@@ -1,6 +1,6 @@
 import { first } from 'lodash-es';
 
-import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
+import { MAX_POST_SIZE_PER_THREAD } from '@/constants/static.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { getCommentsByPostId } from '@/providers/lens/getCommentsByPostId.js';
 import { getLensPostById } from '@/providers/lens/getLensPostById.js';

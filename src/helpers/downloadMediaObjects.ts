@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { FIREFLY_WORKER_HOST } from '@/constants/index.js';
+import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { type MediaObject, MediaSource } from '@/types/compose.js';
 

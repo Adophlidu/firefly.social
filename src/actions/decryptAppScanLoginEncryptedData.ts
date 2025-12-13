@@ -6,7 +6,7 @@ import { type Hex, hexToBytes } from 'viem';
 
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { SourceInURL } from '@/constants/enum.js';
-import { HIDDEN_SECRET } from '@/constants/index.js';
+import { HIDDEN_SECRET } from '@/constants/static.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySession } from '@/providers/bsky/Session.js';

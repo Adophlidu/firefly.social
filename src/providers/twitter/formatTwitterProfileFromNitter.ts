@@ -2,12 +2,12 @@ import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
+import { SITE_URL } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { parseHtml } from '@/libs/parseHtml.js';
 import { parsePostUrl } from '@/helpers/parsePostUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
+import { parseHtml } from '@/libs/parseHtml.js';
 import { getTwitterNitterPicUrl } from '@/providers/twitter/getTwitterNitterPicUrl.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { type User, UserVerifiedType } from '@/providers/types/Nitter.js';

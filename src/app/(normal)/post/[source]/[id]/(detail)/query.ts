@@ -1,6 +1,6 @@
 import type { SocialSource } from '@/constants/enum.js';
 import { NotFoundError } from '@/constants/error.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
 import { getThreads } from '@/services/getThreads.js';

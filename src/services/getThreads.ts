@@ -2,7 +2,7 @@ import { last } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
+import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD } from '@/constants/static.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { createPageable } from '@/helpers/pageable.js';

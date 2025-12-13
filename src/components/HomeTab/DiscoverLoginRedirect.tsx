@@ -3,8 +3,8 @@
 import { bom } from '@dimensiondev/utils';
 import { useEffect, useRef } from 'react';
 
+import { DEFAULT_SOCIAL_SOURCE } from '@/constants/computed.js';
 import { PageRoute } from '@/constants/enum.js';
-import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';

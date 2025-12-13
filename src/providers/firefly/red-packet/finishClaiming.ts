@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { FIREFLY_ROOT_URL_DEV } from '@/constants/index.js';
+import { FIREFLY_ROOT_URL_DEV } from '@/constants/static.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';

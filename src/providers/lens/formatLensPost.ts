@@ -12,8 +12,8 @@ import {
 import { compact, first, isEmpty, last, uniqBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regexp.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { formatLensImageUrl } from '@/helpers/formatImageUrl.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';

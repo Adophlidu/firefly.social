@@ -12,7 +12,7 @@ import { Link } from '@/components/Link.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
 import { HomeTab, NetworkType, Source } from '@/constants/enum.js';
-import { NFT_ENABLED } from '@/constants/index.js';
+import { NFT_ENABLED } from '@/constants/static.js';
 import { usePathname } from '@/esm/navigation.js';
 import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
 import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';

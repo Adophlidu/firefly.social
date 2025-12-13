@@ -7,8 +7,8 @@ import { useAsyncFn } from 'react-use';
 
 import EditProfileIcon from '@/assets/edit-profile.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { SORTED_CROSS_AT_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { FireflyPlatform } from '@/constants/enum.js';
-import { SORTED_CROSS_AT_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { EditCrossAtModal, EditCrossAtModalRef } from '@/modals/EditCrossAtModal.js';

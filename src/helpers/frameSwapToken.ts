@@ -3,9 +3,9 @@ import type { MiniAppHost } from '@farcaster/miniapp-host';
 
 import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/debank.js';
 import { OkxProviderType } from '@/constants/enum.js';
-import { logger } from '@/libs/Logger.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
+import { logger } from '@/libs/Logger.js';
 import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
 
 export const frameSwapToken: MiniAppHost['swapToken'] = async function frameSwapToken(options) {

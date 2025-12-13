@@ -2,7 +2,7 @@ import { compact, groupBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BookmarkType } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import {

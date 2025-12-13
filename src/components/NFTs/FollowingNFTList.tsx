@@ -6,7 +6,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { getSingleFollowingNFTItemContent } from '@/components/NFTs/VirtualListHelper.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { getFollowingNFTs } from '@/providers/firefly/endpoint/getFollowingNFTs.js';

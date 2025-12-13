@@ -3,7 +3,7 @@ import { compact } from 'lodash-es';
 import { type HTMLProps, useEffect, useRef, useState } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
+import { SUPPORTED_VIDEO_SOURCES } from '@/constants/computed.js';
 import { getCurrentPostImageLimits, getCurrentPostVideoLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { isImageFileType, isMediaFileType, isVideoFileType } from '@/helpers/isMediaFileType.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';

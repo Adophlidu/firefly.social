@@ -5,10 +5,10 @@ import { jwtDecode } from 'jwt-decode';
 
 import { sentryClient } from '@/configs/sentryClient.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
-import { logger } from '@/libs/Logger.js';
 import { FetchError } from '@/constants/error.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
+import { logger } from '@/libs/Logger.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';

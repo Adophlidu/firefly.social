@@ -5,14 +5,14 @@ import { Fragment, useMemo } from 'react';
 
 import { PostByAnonymous } from '@/components/Compose/PostByAnonymous.js';
 import { PostByItem } from '@/components/Compose/PostByItem.js';
-import { FileMimeType } from '@/constants/enum.js';
 import {
     ENABLED_RP_SOURCES,
     ENABLED_SCHEDULE_POST_SOURCES,
     GIF_MEDIA_SOURCE_CONFIG,
     SORTED_POLL_SOURCES,
     SORTED_SOCIAL_SOURCES,
-} from '@/constants/index.js';
+} from '@/constants/computed.js';
+import { FileMimeType } from '@/constants/enum.js';
 import { ensureGifSource } from '@/helpers/checkPostGif.js';
 import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';

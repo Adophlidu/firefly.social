@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
-import { WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { WARPCAST_ROOT_URL } from '@/constants/static.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';

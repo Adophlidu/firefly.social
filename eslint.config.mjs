@@ -100,7 +100,7 @@ export default defineConfig([
             'no-constructor-return': 'error',
             'no-control-regex': 'error',
             'no-debugger': 'warn',
-            'no-console': ['warn', { allow: [] }],
+            'no-console': 'warn',
             'no-div-regex': 'error',
             'no-duplicate-case': 'error',
             'no-empty-character-class': 'error',
