@@ -4,6 +4,7 @@ import { z } from 'zod';
 
 import { TWITTER_USER_OPTIONS } from '@/constants/twitter.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
+import { logger } from '@/libs/Logger.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
@@ -23,7 +24,7 @@ export const POST = compose(
         const { data, errors } = await client.v2.users(ids, {
             ...TWITTER_USER_OPTIONS,
         });
-        if (errors?.length) console.error('[twitter] v2.users', errors);
+        if (errors?.length) logger.error('[twitter] v2.users', errors);
 
         return createSuccessResponseJson(data);
     },

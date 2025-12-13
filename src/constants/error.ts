@@ -1,6 +1,7 @@
 import { parseJson } from '@dimensiondev/utils';
 
 import type { ProfileSource, SocialSource } from '@/constants/enum.js';
+import { logger } from '@/libs/Logger.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 export class AbortError extends Error {
@@ -70,7 +71,7 @@ export class FetchError extends Error {
 
     toThrow(): never {
         // for sentry will truncate the message if it's too long
-        console.error(
+        logger.error(
             `[fetch error]: ${this.url} ${this.status} ${this.statusText} ${[this.message, this.text].join('\n')}`,
         );
         throw this;

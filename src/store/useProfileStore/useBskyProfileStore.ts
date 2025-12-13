@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 
 import { sentryClient } from '@/configs/sentryClient.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
+import { logger } from '@/libs/Logger.js';
 import { FetchError } from '@/constants/error.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
@@ -36,7 +37,7 @@ const state = createProfileState(
                     await bskySessionHolder.resumeSession(bskySession);
                 }
             } catch (error) {
-                console.error(`[bsky store] error occurs when restore profile store ${error}`);
+                logger.error(`[bsky store] error occurs when restore profile store ${error}`);
                 if (error instanceof FetchError) return;
 
                 const bskySession = state.currentProfileSession as BskySession | null;

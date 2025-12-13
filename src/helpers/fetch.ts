@@ -4,6 +4,7 @@ import urlcat from 'urlcat';
 
 import { FetchError, ForbiddenError, NetworkError, NftScanError } from '@/constants/error.js';
 import { EVENT_FORBIDDEN } from '@/constants/event.js';
+import { logger } from '@/libs/Logger.js';
 import { FIREFLY_USER_AGENT, SITE_URL, SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { addHeaders } from '@/helpers/addHeader.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
@@ -73,7 +74,7 @@ export async function fetch(
     // For static media, use native fetch directly to avoid unnecessary overhead
     if ((u && isStaticMedia(u)) || options?.forceStaticMedia) {
         if (!options?.forceStaticMedia) {
-            console.warn(
+            logger.warn(
                 `[fetch] try to fetch a static media (url=${u?.toString()}), better use the native fetch directly to avoid unnecessary overhead.`,
             );
         }

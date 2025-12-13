@@ -7,6 +7,7 @@ import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { logger } from '@/libs/Logger.js';
 import { SITE_URL } from '@/constants/index.js';
 import { createDummyChannel } from '@/helpers/createDummyChannel.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -42,12 +43,12 @@ export class FarcasterFrameHost implements MiniAppHost {
     ) {}
 
     addFrame: MiniAppHost['addFrame'] = () => {
-        console.warn('[frame host]: addFrame');
+        logger.debug('[frame host]: addFrame');
         return Promise.resolve({});
     };
 
     addMiniApp: MiniAppHost['addMiniApp'] = () => {
-        console.warn('[frame host]: addMiniApp');
+        logger.debug('[frame host]: addMiniApp');
         enqueueWarningMessage(t`This function is not supported yet. Pease add mini app on Farcaster app.`, {
             key: 'frame-host.addMiniApp',
             preventDuplicate: true,
@@ -56,7 +57,7 @@ export class FarcasterFrameHost implements MiniAppHost {
     };
 
     openMiniApp: MiniAppHost['openMiniApp'] = async (options) => {
-        console.warn('[frame host]: openMiniApp', options);
+        logger.debug('[frame host]: openMiniApp', options);
         const frames = await FrameLoader.load([options.url]);
         const frame = first(frames)?.value;
         if (!frame) {
@@ -68,22 +69,22 @@ export class FarcasterFrameHost implements MiniAppHost {
     };
 
     close: MiniAppHost['close'] = () => {
-        console.warn('[frame host]: close');
+        logger.debug('[frame host]: close');
         this.options?.close?.();
     };
 
     openUrl: MiniAppHost['openUrl'] = (url) => {
-        console.warn('[frame host]: openUrl', url);
+        logger.debug('[frame host]: openUrl', url);
         openWindow(url);
     };
 
     ready: MiniAppHost['ready'] = (options) => {
-        console.warn('[frame host]: ready');
+        logger.debug('[frame host]: ready');
         this.options?.ready?.(options);
     };
 
     setPrimaryButton: MiniAppHost['setPrimaryButton'] = (options) => {
-        console.warn('[frame host]: setPrimaryButton', options);
+        logger.debug('[frame host]: setPrimaryButton', options);
         this.options?.setPrimaryButton?.(options);
     };
 
@@ -130,7 +131,7 @@ export class FarcasterFrameHost implements MiniAppHost {
     };
 
     sendToken: MiniAppHost['sendToken'] = async (options) => {
-        console.warn('[frame host]: sendToken', options);
+        logger.debug('[frame host]: sendToken', options);
         throw new NotImplementedError();
     };
 
@@ -140,7 +141,7 @@ export class FarcasterFrameHost implements MiniAppHost {
     };
 
     viewCast: MiniAppHost['viewCast'] = async (options) => {
-        console.warn('[frame host]: viewCast', options);
+        logger.debug('[frame host]: viewCast', options);
 
         const u = `/post/farcaster/${options.hash}`;
 
@@ -153,7 +154,7 @@ export class FarcasterFrameHost implements MiniAppHost {
 
     // @ts-ignore
     composeCast: MiniAppHost['composeCast'] = async (options) => {
-        console.warn('[frame host]: composeCast', options);
+        logger.debug('[frame host]: composeCast', options);
         const result = await ComposeModalRef.openAndWaitForClose({
             source: Source.Farcaster,
             type: 'compose',
@@ -181,7 +182,7 @@ export class FarcasterFrameHost implements MiniAppHost {
     };
 
     viewProfile: MiniAppHost['viewProfile'] = async (options) => {
-        console.warn('[frame host]: viewProfile', options);
+        logger.debug('[frame host]: viewProfile', options);
 
         const profile = await getProfileById(Source.Farcaster, `${options.fid}`);
         if (!profile) {
@@ -197,12 +198,12 @@ export class FarcasterFrameHost implements MiniAppHost {
     };
 
     ethProviderRequest: MiniAppHost['ethProviderRequest'] = (payload) => {
-        console.warn('[frame host]: ethProviderRequest', payload);
+        logger.debug('[frame host]: ethProviderRequest', payload);
         throw new NotImplementedError();
     };
 
     ethProviderRequestV2: MiniAppHost['ethProviderRequestV2'] = (payload) => {
-        console.warn('[frame host]: ethProviderRequestV2', payload);
+        logger.debug('[frame host]: ethProviderRequestV2', payload);
         throw new NotImplementedError();
     };
 
@@ -211,22 +212,22 @@ export class FarcasterFrameHost implements MiniAppHost {
     };
 
     impactOccurred: MiniAppHost['impactOccurred'] = () => {
-        console.warn('[frame host]: impactOccurred');
+        logger.debug('[frame host]: impactOccurred');
         return Promise.resolve();
     };
 
     notificationOccurred: MiniAppHost['notificationOccurred'] = () => {
-        console.warn('[frame host]: notificationOccurred');
+        logger.debug('[frame host]: notificationOccurred');
         return Promise.resolve();
     };
 
     selectionChanged: MiniAppHost['selectionChanged'] = () => {
-        console.warn('[frame host]: selectionChanged');
+        logger.debug('[frame host]: selectionChanged');
         return Promise.resolve();
     };
 
     getCapabilities: MiniAppHost['getCapabilities'] = () => {
-        console.warn('[frame host]: getCapabilities');
+        logger.debug('[frame host]: getCapabilities');
         return Promise.resolve([
             'wallet.getEthereumProvider',
             'wallet.getSolanaProvider',
@@ -251,17 +252,17 @@ export class FarcasterFrameHost implements MiniAppHost {
     };
 
     getChains: MiniAppHost['getChains'] = () => {
-        console.warn('[frame host]: getChains');
+        logger.debug('[frame host]: getChains');
         throw new NotImplementedError();
     };
 
     updateBackState: MiniAppHost['updateBackState'] = () => {
-        console.warn('[frame host]: updateBackState');
+        logger.debug('[frame host]: updateBackState');
         return Promise.resolve();
     };
 
     requestCameraAndMicrophoneAccess: MiniAppHost['requestCameraAndMicrophoneAccess'] = () => {
-        console.warn('[frame host]: requestCameraAndMicrophoneAccess');
+        logger.debug('[frame host]: requestCameraAndMicrophoneAccess');
         return Promise.resolve();
     };
 }

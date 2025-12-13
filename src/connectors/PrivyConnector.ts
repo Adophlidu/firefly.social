@@ -8,6 +8,7 @@ import { ChainNotConfiguredError, ConnectorChainMismatchError, createConnector, 
 
 import { queryClient } from '@/configs/queryClient.js';
 import { WalletSource } from '@/constants/enum.js';
+import { logger } from '@/libs/Logger.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -106,11 +107,11 @@ export function createPrivyConnector() {
                 };
             },
             async disconnect() {
-                console.info(`[privy] disconnect`);
+                logger.debug(`[privy] disconnect`);
                 config.emitter.emit('disconnect');
             },
             async switchChain(parameters) {
-                console.info(`[privy] switchChain`, parameters);
+                logger.debug(`[privy] switchChain`, parameters);
 
                 const chain = config.chains.find((x) => x.id === parameters.chainId);
                 if (!chain) throw new SwitchChainError(new ChainNotConfiguredError());
@@ -137,7 +138,7 @@ export function createPrivyConnector() {
 
                     return chain;
                 } catch (error) {
-                    console.error(`[privy] switchChain error`, error);
+                    logger.error(`[privy] switchChain error`, error);
                     throw new SwitchChainError(error as RpcError);
                 }
             },
@@ -166,19 +167,19 @@ export function createPrivyConnector() {
                 return !!getSessionFromStorage(SessionType.Firefly);
             },
             onAccountsChanged(account) {
-                console.log(`[privy] onAccountsChanged`, account);
+                logger.debug(`[privy] onAccountsChanged`, account);
             },
             onChainChanged(chainId) {
-                console.log(`[privy] onChainChanged`, chainId);
+                logger.debug(`[privy] onChainChanged`, chainId);
             },
             onConnect(connectInfo) {
-                console.log(`[privy] onConnect`, connectInfo);
+                logger.debug(`[privy] onConnect`, connectInfo);
             },
             onDisconnect(error) {
-                console.log(`[privy] onDisconnect`, error);
+                logger.debug(`[privy] onDisconnect`, error);
             },
             onMessage(message) {
-                console.log(`[privy] onMessage`, message);
+                logger.debug(`[privy] onMessage`, message);
             },
         } as ReturnType<CreateConnectorFn>;
     };

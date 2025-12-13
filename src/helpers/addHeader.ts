@@ -1,3 +1,5 @@
+import { logger } from '@/libs/Logger.js';
+
 export function addHeader(headers: HeadersInit, key: string, value: string, force = false): HeadersInit {
     if (!headers) return { [key]: value };
 
@@ -21,7 +23,7 @@ export function addHeader(headers: HeadersInit, key: string, value: string, forc
         };
     }
 
-    console.warn(`[addHeader] Failed to add header [${key}]=${value} due to invalid headers type:`, typeof headers);
+    logger.warn(`[addHeader] Failed to add header [${key}]=${value} due to invalid headers type:`, typeof headers);
     return headers;
 }
 

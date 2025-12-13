@@ -2,6 +2,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 
 import { Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
+import { logger } from '@/libs/Logger.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getAllPlatformProfileFromFirefly } from '@/providers/firefly/endpoint/getAllPlatformProfileFromFirefly.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
@@ -56,7 +57,7 @@ export async function resolveFireflyAccountId(identity: FireflyIdentity | null) 
         const all = await getAllPlatformProfileFromFirefly(identity, false);
         return all.fireflyAccountId;
     } catch (error) {
-        console.error('[resolveFireflyAccountId] Error fetching Firefly account ID:', error);
+        logger.error('[resolveFireflyAccountId] Error fetching Firefly account ID:', error);
         return;
     }
 }

@@ -2,6 +2,7 @@ import { bom, createLookupTableResolver, parseJson } from '@dimensiondev/utils';
 import { z } from 'zod';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { logger } from '@/libs/Logger.js';
 import { resolveProfileStorageKeyBySessionType } from '@/helpers/resolveProfileStorageKey.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
@@ -50,7 +51,7 @@ export function getSessionFromStorage<T extends SessionType>(sessionType: T) {
 
     const parsed = Schema.safeParse(parseJson(state));
     if (!parsed.success) {
-        console.error('Failed to parse session state from storage', parsed.error);
+        logger.error('Failed to parse session state from storage', parsed.error);
         return null;
     }
 
@@ -61,7 +62,7 @@ export function getSessionFromStorage<T extends SessionType>(sessionType: T) {
         const session = SessionFactory.createSession(parsed.data.state.currentProfileSession);
         return session as SessionTypes[typeof sessionType];
     } catch (error) {
-        console.error(`Failed to create session from storage for type ${sessionType}:`, error);
+        logger.error(`Failed to create session from storage for type ${sessionType}:`, error);
         return null;
     }
 }

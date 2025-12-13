@@ -1,5 +1,7 @@
 import { defer } from '@dimensiondev/utils';
 
+import { logger } from '@/libs/Logger.js';
+
 type ValueComparer<T> = (a: T, b: T) => boolean;
 const defaultComparer: ValueComparer<any> = (a, b) => a === b;
 
@@ -20,7 +22,7 @@ export class ValueRef<T> {
             try {
                 fn(newVal, oldVal);
             } catch (err) {
-                console.error(err);
+                logger.error('ValueRef watcher error', err);
             }
         }
     }

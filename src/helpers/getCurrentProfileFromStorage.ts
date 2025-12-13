@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 import { type ProfileSource, Source } from '@/constants/enum.js';
 import { resolveProfileStorageKey } from '@/helpers/resolveProfileStorageKey.js';
+import { logger } from '@/libs/Logger.js';
 import { ProfileSchema, ProfileStoreSchema } from '@/schemas/profile.js';
 
 export type StateProfile = z.infer<typeof ProfileSchema>;
@@ -13,7 +14,7 @@ export function getCurrentProfileFromStorage<T extends ProfileSource>(source: T)
 
     const parsed = ProfileStoreSchema.safeParse(parseJson(state));
     if (!parsed.success) {
-        console.error('Failed to parse profile state from storage', parsed.error);
+        logger.error('Failed to parse profile state from storage', parsed.error);
         return null;
     }
 
@@ -53,7 +54,7 @@ export function getProfilesFromStorage<T extends ProfileSource>(source: T): Stat
 
     const parsed = ProfileStoreSchema.safeParse(parseJson(state));
     if (!parsed.success) {
-        console.error('Failed to parse profile state from storage', parsed.error);
+        logger.error('Failed to parse profile state from storage', parsed.error);
         return [];
     }
 

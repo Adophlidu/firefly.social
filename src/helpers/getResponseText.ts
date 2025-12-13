@@ -1,4 +1,4 @@
-import { parseHtml } from '@/helpers/parseHtml.js';
+import { parseHtml } from '@/libs/parseHtml.js';
 
 export async function getResponseText(response: Response): Promise<string> {
     try {

@@ -3,6 +3,7 @@ import type { MiniAppHost } from '@farcaster/miniapp-host';
 
 import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/debank.js';
 import { OkxProviderType } from '@/constants/enum.js';
+import { logger } from '@/libs/Logger.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
@@ -11,12 +12,12 @@ export const frameSwapToken: MiniAppHost['swapToken'] = async function frameSwap
     const buyToken = options.buyToken ? parseCAIP19(options.buyToken) : undefined;
     const sellToken = options.sellToken ? parseCAIP19(options.sellToken) : undefined;
     if (!buyToken && !sellToken) {
-        console.warn('[frame host]: swapToken', options);
+        logger.warn('[frame host]: swapToken', options);
         return { success: false, reason: 'swap_failed' };
     }
     const originChainId = buyToken?.chainReference || sellToken?.chainReference;
     if (!originChainId) {
-        console.warn('No chain id', options);
+        logger.warn('No chain id', options);
         return { success: false, reason: 'swap_failed' };
     }
     const chainId = Number.parseInt(originChainId, 10);

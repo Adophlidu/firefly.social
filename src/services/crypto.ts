@@ -2,6 +2,7 @@ import crypto from 'crypto';
 
 import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { logger } from '@/libs/Logger.js';
 import { FIREFLY_ROOT_URL_DEV } from '@/constants/index.js';
 import { settings } from '@/settings/index.js';
 
@@ -35,7 +36,7 @@ export function encryptPassword(password: string, accountId: string) {
         const encrypted = encryptAes256(password, key, iv);
         return iv + ':' + encrypted;
     } catch (error) {
-        if (env.shared.NODE_ENV === NODE_ENV.Development) console.error('Encryption failed:', error);
+        if (env.shared.NODE_ENV === NODE_ENV.Development) logger.error('Encryption failed:', error);
         return null;
     }
 }
@@ -48,7 +49,7 @@ export function decryptPassword(encryptedData: string, accountId: string): strin
         const key = crypto.createHash('sha256').update(accountId).digest('hex');
         return decryptAes256(encrypted, key, iv);
     } catch (error) {
-        if (env.shared.NODE_ENV === NODE_ENV.Development) console.error('Decryption failed:', error);
+        if (env.shared.NODE_ENV === NODE_ENV.Development) logger.error('Decryption failed:', error);
         return null;
     }
 }

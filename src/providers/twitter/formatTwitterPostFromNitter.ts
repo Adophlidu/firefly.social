@@ -8,7 +8,7 @@ import { SITE_URL } from '@/constants/index.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { parseHtml } from '@/helpers/parseHtml.js';
+import { parseHtml } from '@/libs/parseHtml.js';
 import { parsePostUrl } from '@/helpers/parsePostUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveTweetReplySettings } from '@/providers/twitter/formatTwitterPost.js';

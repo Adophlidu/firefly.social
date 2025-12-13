@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
+import { logger } from '@/libs/Logger.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
@@ -19,13 +20,13 @@ export const POST = compose(
         const client = await createTwitterClientV2();
         const { data: me, errors } = await client.v2.me();
         if (errors?.length) {
-            console.error('[twitter] v2.me', errors);
+            logger.error('[twitter] v2.me', errors);
             return createTwitterErrorResponseJSON(errors);
         }
 
         const { errors: retweetErrors } = await client.v2.retweet(me.id, postId);
         if (retweetErrors?.length) {
-            console.error('[twitter] v2.retweet', retweetErrors);
+            logger.error('[twitter] v2.retweet', retweetErrors);
             return createTwitterErrorResponseJSON(retweetErrors);
         }
 

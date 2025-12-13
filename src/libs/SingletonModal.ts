@@ -1,3 +1,5 @@
+import { logger } from '@/libs/Logger.js';
+
 export type SingletonModalRefCreator<OpenProps = void, CloseProps = void> = (
     onOpen: (props: OpenProps) => void,
     onClose: (props: CloseProps) => void,
@@ -71,8 +73,7 @@ export class SingletonModal<
      * @param props
      */
     open(props: OpenProps) {
-        if (typeof this.dispatchOpen === 'undefined')
-            console.warn("[SingletonModal]: The modal hasn't registered yet.");
+        if (typeof this.dispatchOpen === 'undefined') logger.warn("[SingletonModal]: The modal hasn't registered yet.");
         this.dispatchOpen?.(props);
     }
 

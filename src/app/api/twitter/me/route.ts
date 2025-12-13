@@ -11,6 +11,7 @@ import {
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { logger } from '@/libs/Logger.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
@@ -26,7 +27,7 @@ export const GET = compose(withTwitterRequestErrorHandler, withRequestErrorHandl
     const client = await createTwitterClientV2();
     const { data, errors } = await client.v2.me();
     if (errors?.length) {
-        console.error('[twitter] v2.me', errors);
+        logger.error('[twitter] v2.me', errors);
         return createTwitterErrorResponseJSON(errors);
     }
     return createSuccessResponseJson(data);

@@ -279,12 +279,20 @@ const config: NextConfig = {
             perf_hooks: false,
         };
 
-        const parseHTMLServer = resolve(__dirname, 'src/helpers/parseHtml.js');
-        const parseHTMLClient = resolve(__dirname, 'src/helpers/parseHtmlNative.js');
+        const parseHTMLServer = resolve(__dirname, 'src/libs/parseHtml.js');
+        const parseHTMLClient = resolve(__dirname, 'src/libs/parseHtmlNative.js');
         if (!context.isServer) {
             config.resolve.alias[parseHTMLServer] = parseHTMLClient;
         } else {
             config.resolve.alias[parseHTMLClient] = parseHTMLServer;
+        }
+
+        const loggerServer = resolve(__dirname, 'src/libs/Logger.js');
+        const loggerClient = resolve(__dirname, 'src/libs/LoggerNative.js');
+        if (!context.isServer) {
+            config.resolve.alias[loggerServer] = loggerClient;
+        } else {
+            config.resolve.alias[loggerClient] = loggerServer;
         }
 
         config.module.rules.push(

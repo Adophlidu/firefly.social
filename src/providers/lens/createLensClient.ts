@@ -2,6 +2,7 @@ import { type AccessToken, type IdToken, mainnet, PublicClient, type RefreshToke
 
 import { Source } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
+import { logger } from '@/libs/Logger.js';
 import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { dispatchCustomEvent } from '@/helpers/dispatchCustomEvents.js';
@@ -39,7 +40,7 @@ async function uploadMetricsAfterForceRefresh(account: Account) {
 
         await uploadFireflyMetrics(localPassword, [metricsData]);
     } catch (error) {
-        console.error('Failed to upload metrics after force refresh.', error);
+        logger.error('Failed to upload metrics after force refresh.', error);
     }
 }
 

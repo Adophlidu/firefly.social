@@ -4,6 +4,7 @@ import { kv } from '@vercel/kv';
 import { sha256, stringToHex } from 'viem';
 
 import type { KeyType } from '@/constants/enum.js';
+import { logger } from '@/libs/Logger.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 
 interface MemoizedFunction {
@@ -66,7 +67,7 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
         },
         async set(fieldKey: string, value: unknown, ttl = DEFAULT_EXPIRES) {
             if (value === null || value === undefined) {
-                console.warn(
+                logger.warn(
                     `[memoizeWithRedis] Attempted to set a null or undefined value for key=${key}, fieldKey=${fieldKey}`,
                 );
                 return;
@@ -82,8 +83,8 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
                     },
                 });
             } catch (error) {
-                console.log(
-                    `[memoizeWithRedis] Error setting value in Redis, key=${key}, fieldKey=${fieldKey}, redisKey=${redisKey}, fieldValue=%s`,
+                logger.error(
+                    `[memoizeWithRedis] Error setting value in Redis, key=${key}, fieldKey=${fieldKey}, redisKey=${redisKey}`,
                     value,
                 );
                 throw error;
@@ -106,9 +107,9 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
             const cacheHit = await cache.get(fieldKey);
             // null is a reserved value, so we need to check if the cache has the value
             if (cacheHit !== null) return cacheHit;
-            console.debug(`[memoizeWithRedis] Cache miss: key=${key}, fieldKey=${fieldKey}`);
+            logger.debug(`[memoizeWithRedis] Cache miss: key=${key}, fieldKey=${fieldKey}`);
         } catch (error) {
-            console.log(
+            logger.error(
                 `[memoizeWithRedis] Error getting value from Redis, key=${key}, fieldKey=${fieldKey}, redisKey=${redisKey}:`,
                 error,
             );

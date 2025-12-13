@@ -4,6 +4,7 @@ import { compact, difference, first } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
+import { logger } from '@/libs/Logger.js';
 import { env } from '@/constants/env.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
@@ -45,7 +46,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { postId, rpPayload } = compositePost;
     if (env.shared.NODE_ENV === NODE_ENV.Development) {
         if (rpPayload?.publicKey && !SORTED_SOCIAL_SOURCES.some((x) => postId[x])) {
-            console.error("[cross post] No any post id for updating RedPacket's claim strategy.");
+            logger.error("[cross post] No any post id for updating RedPacket's claim strategy.");
         }
     }
 
@@ -298,7 +299,7 @@ export async function crossPost(
 
             await Promise.allSettled(staleSources.map((source) => refreshProfileFeed(source)));
         } catch (error) {
-            console.error(`[cross post]: failed to refresh profile feed: ${error}`);
+            logger.error(`[cross post]: failed to refresh profile feed: ${error}`);
         }
     }
 
@@ -306,7 +307,7 @@ export async function crossPost(
     try {
         await updateRpClaimStrategy(updatedCompositePost);
     } catch (error) {
-        console.error(`[cross post]: failed to update red packet claim strategy: ${error}`);
+        logger.error(`[cross post]: failed to update red packet claim strategy: ${error}`);
     }
 
     // set query data
@@ -314,7 +315,7 @@ export async function crossPost(
         if (type === 'reply') await setQueryDataForComment(compositePost, updatedCompositePost);
         if (type === 'quote') await setQueryDataForQuote(compositePost);
     } catch (error) {
-        console.error(`[cross post]: failed to set query data: ${error}`);
+        logger.error(`[cross post]: failed to set query data: ${error}`);
     }
 
     return updatedCompositePost;

@@ -1,7 +1,7 @@
 import { parseJson } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 
-import { parseHtml } from '@/helpers/parseHtml.js';
+import { parseHtml } from '@/libs/parseHtml.js';
 
 interface ParagraphJSONContent {
     type: string;

@@ -7,6 +7,7 @@ import { sha256, toHex } from 'viem';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { logger } from '@/libs/Logger.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { SEVEN_DAYS } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
@@ -151,7 +152,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
             case Source.Lens: {
                 const data = parseJson<LensMetricsData>(decryptCipherText(passcode, ciphertext));
                 if (!data) {
-                    console.warn('[mergeMetrics] Failed to decrypt lens metrics data');
+                    logger.warn('[mergeMetrics] Failed to decrypt lens metrics data');
                     continue;
                 }
                 let session = new LensSession(
@@ -194,7 +195,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
             case Source.Farcaster: {
                 const data = parseJson<FarcasterMetricsData>(decryptCipherText(passcode, ciphertext));
                 if (!data) {
-                    console.warn('[mergeMetrics] Failed to decrypt farcaster metrics data');
+                    logger.warn('[mergeMetrics] Failed to decrypt farcaster metrics data');
                     continue;
                 }
 

@@ -2,6 +2,7 @@ import { BigNumber } from 'bignumber.js';
 import { trimEnd } from 'lodash-es';
 
 import { isLessThan, leftShift, pow10, scale10 } from '@/helpers/number.js';
+import { logger } from '@/libs/Logger.js';
 
 /** Trim ending zeros of decimals */
 export function trimZero(digit: string) {
@@ -49,7 +50,7 @@ export function formatBalance(rawValue: BigNumber.Value = '0', decimals = 0, opt
         if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
             throw new Error(message);
         } else {
-            console.error(message);
+            logger.error(message);
         }
     }
     balance = balance.integerValue();

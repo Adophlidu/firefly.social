@@ -1,6 +1,7 @@
 import { describe, expect, test, vi } from 'vitest';
 
 import { addHeader, addHeaders } from '@/helpers/addHeader.js';
+import { logger } from '@/libs/Logger.js';
 
 describe('addHeader', () => {
     describe('when headers is a Headers instance', () => {
@@ -209,17 +210,17 @@ describe('addHeader', () => {
 
     describe('invalid headers type', () => {
         test('should warn and return original headers for invalid type', () => {
-            const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+            const loggerSpy = vi.spyOn(logger, 'warn').mockImplementation(() => {});
             const invalidHeaders = 'invalid' as unknown as HeadersInit;
             const result = addHeader(invalidHeaders, 'Authorization', 'Bearer token');
 
-            expect(consoleSpy).toHaveBeenCalledWith(
+            expect(loggerSpy).toHaveBeenCalledWith(
                 expect.stringContaining('[addHeader] Failed to add header'),
                 'string',
             );
             expect(result).toBe(invalidHeaders);
 
-            consoleSpy.mockRestore();
+            loggerSpy.mockRestore();
         });
     });
 });

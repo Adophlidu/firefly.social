@@ -5,7 +5,7 @@ import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { parseHtml } from '@/helpers/parseHtml.js';
+import { parseHtml } from '@/libs/parseHtml.js';
 import { parsePostUrl } from '@/helpers/parsePostUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { getTwitterNitterPicUrl } from '@/providers/twitter/getTwitterNitterPicUrl.js';

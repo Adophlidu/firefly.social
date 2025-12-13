@@ -10,6 +10,7 @@ import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import OrbIcon from '@/assets/orb.svg';
+import { logger } from '@/libs/Logger.js';
 import ScanIcon from '@/assets/scan.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -101,7 +102,7 @@ export const LensView = memo(function LensView() {
                 );
             } catch (error) {
                 enqueueMessageFromError(error, <Trans>Failed to fetch profiles.</Trans>);
-                console.error('[login lens] Failed to fetch profiles', error);
+                logger.error('[login lens] Failed to fetch profiles', error);
 
                 throw error;
             }

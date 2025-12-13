@@ -3,6 +3,7 @@ import { compact, first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
+import { logger } from '@/libs/Logger.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { EVENT_SOCIAL_ACCOUNT_EXPIRED } from '@/constants/event.js';
 import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
@@ -233,7 +234,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             : isSameSession(currentFireflySession, fireflySession);
 
     if (!belongsTo) {
-        console.warn('[account] account does not belong to the current firefly session.', {
+        logger.warn('[account] account does not belong to the current firefly session.', {
             account,
             fireflySession,
             currentFireflySession,
@@ -285,7 +286,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     // resume firefly session
     if (!skipResumeFireflySession) {
-        console.warn('[addAccount] resume firefly session');
+        logger.warn('[addAccount] resume firefly session');
         await resumeFireflySession(account, signal);
     }
 
@@ -296,7 +297,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             fireflySessionHolder.session &&
             account.session.type === SessionType.Farcaster
         ) {
-            console.warn('[addAccount] report farcaster signer');
+            logger.warn('[addAccount] report farcaster signer');
             reportFarcasterSigner(account.session as FireflySession);
         }
     });
@@ -378,7 +379,7 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
 
     // resume firefly session
     if (!skipResumeFireflySession && accounts[0]) {
-        console.warn('[addAccount] resume firefly session');
+        logger.warn('[addAccount] resume firefly session');
         await resumeFireflySession(accounts[0]!, signal);
     }
 
@@ -584,7 +585,7 @@ export async function removeAccountByProfileId(source: ProfileSource, profileId:
     const { accounts } = getProfileState(source);
     const account = accounts.find((x) => x.profile.profileId === profileId);
     if (!account) {
-        console.warn(`[removeAccountByProfileId] Account not found: ${profileId}`);
+        logger.warn(`[removeAccountByProfileId] Account not found: ${profileId}`);
         return;
     }
 
@@ -595,7 +596,7 @@ export async function removeAccountByProfileId(source: ProfileSource, profileId:
 export async function removeCurrentAccount(source: SocialSource) {
     const { currentProfile } = getProfileState(source);
     if (!currentProfile) {
-        console.warn(`[removeCurrentAccount] Current account not found: ${source}`);
+        logger.warn(`[removeCurrentAccount] Current account not found: ${source}`);
         return;
     }
 

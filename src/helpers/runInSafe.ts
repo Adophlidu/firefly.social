@@ -1,11 +1,12 @@
 import { AbortError, InvalidAddressError, NftScanError, XRPCNotSupportedError } from '@/constants/error.js';
+import { logger } from '@/libs/Logger.js';
 
 export function runInSafe<T>(fn: () => T, noThrow = true, defaultValue?: T) {
     try {
         return fn();
     } catch (error) {
         if (!noThrow) throw error;
-        console.error(`[runInSafe] ${error}`);
+        logger.error(`[runInSafe]`, error);
         return defaultValue;
     }
 }
@@ -33,7 +34,7 @@ export async function runInSafeAsync<T>(
 
         if (!noThrow) throw error;
 
-        console.warn(`[runInSafeAsync] ${error}`);
+        logger.warn(`[runInSafeAsync]`, error);
 
         return;
     }

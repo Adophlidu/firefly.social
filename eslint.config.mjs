@@ -39,6 +39,12 @@ export default defineConfig([
         'packages/**/node_modules',
     ]),
     {
+        files: ['src/libs/LoggerNative.ts'],
+        rules: {
+            'no-console': 'off',
+        },
+    },
+    {
         plugins: {
             '@next/next': nextPlugin,
             react,
@@ -94,6 +100,7 @@ export default defineConfig([
             'no-constructor-return': 'error',
             'no-control-regex': 'error',
             'no-debugger': 'warn',
+            'no-console': ['warn', { allow: [] }],
             'no-div-regex': 'error',
             'no-duplicate-case': 'error',
             'no-empty-character-class': 'error',

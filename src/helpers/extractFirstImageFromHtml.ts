@@ -1,4 +1,4 @@
-import { parseHtml } from '@/helpers/parseHtml.js';
+import { parseHtml } from '@/libs/parseHtml.js';
 
 /**
  * Extract the first image URL from HTML content
