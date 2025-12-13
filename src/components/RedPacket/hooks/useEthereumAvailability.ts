@@ -8,11 +8,13 @@ import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPaylo
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function useEthereumAvailability(payload: RedPacketJSONPayload) {
     const { account } = useChainContext({ networkType: getNetworkTypeFromRpPayload(payload) });
-    const chainId = payload.chainId || EthereumChainId.Mainnet;
+    const chainId =
+        (payload.network ? EVMChainResolver.chainId(payload.network) : payload.chainId) ?? EthereumChainId.Mainnet;
     const version = payload.contract_version;
     const id = payload.rpid;
 

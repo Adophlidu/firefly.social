@@ -6,12 +6,14 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import { checkClaimStrategyStatus } from '@/providers/firefly/red-packet/checkClaimStrategyStatus.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function useClaimStrategyStatus(payload: RedPacketJSONPayload, source: SocialSource, enabled = true) {
     const rpid = payload.rpid;
 
     const { account } = useChainContext({
-        chainId: payload.chainId,
+        chainId: payload.network ? EVMChainResolver.chainId(payload.network) : EthereumChainId.Mainnet,
         networkType: getNetworkTypeFromRpPayload(payload),
     });
 

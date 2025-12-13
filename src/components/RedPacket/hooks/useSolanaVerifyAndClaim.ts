@@ -17,13 +17,17 @@ import { claimWithNativeToken } from '@/providers/solana/red-packet/claimWithNat
 import { claimWithSplToken } from '@/providers/solana/red-packet/claimWithSplToken.js';
 import { getClaimedRecord } from '@/providers/solana/red-packet/getClaimedRecord.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import { SolanaChainResolver } from '@/web3-providers/solana/ResolverAPI.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, enabled = true) {
     const isNativeToken = isZeroAddressSolana(payload.token?.address);
 
     const walletProvider = useSolanaWalletProvider();
     const { account, chainId: contextChainId } = useChainContext({
-        chainId: payload.chainId,
+        chainId: payload.network
+            ? SolanaChainResolver.chainId(payload.network)
+            : (payload.chainId ?? SolanaChainId.Mainnet),
         networkType: getNetworkTypeFromRpPayload(payload),
     });
     const { data, isFetching, refetch: recheckClaimStatus } = useClaimStrategyStatus(payload, source, enabled);

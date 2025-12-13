@@ -122,6 +122,7 @@ export function useEthereumCreateRedPacketCallback(
                 creation_time: Date.now(),
                 token,
                 network: EVMChainResolver.chainName(chainId),
+                chainId,
                 contract_address: getRedPacketContractAddress(chainId),
                 contract_version: RED_PACKET_CONTRACT_VERSION,
                 txid: '',

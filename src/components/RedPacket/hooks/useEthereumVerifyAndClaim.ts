@@ -15,6 +15,8 @@ import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function useEthereumVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, enabled = true) {
     const { address: account } = useAccount();
@@ -45,14 +47,16 @@ export function useEthereumVerifyAndClaim(payload: RedPacketJSONPayload, source:
                 queryKey: ['red-packet', 'parse', source],
             }),
         ]);
+        const chainId =
+            (payload.network ? EVMChainResolver.chainId(payload.network) : payload.chainId) ?? EthereumChainId.Mainnet;
 
         const availability = (await readContract(wagmiConfig, {
             abi: RED_PACKET_ABI,
             functionName: 'check_availability',
-            address: getRedPacketContractAddress(payload.chainId!),
+            address: getRedPacketContractAddress(chainId),
             args: [payload.rpid],
             account: account as Address,
-            chainId: payload.chainId,
+            chainId,
         })) as [string, bigint, bigint, bigint, boolean, bigint];
 
         const claimed_amount = last(availability) as bigint;
