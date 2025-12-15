@@ -11,7 +11,7 @@ import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 
 const BodySchema = z.object({
-    ids: z.array(z.string()).min(1),
+    ids: z.array(z.string()).min(1).max(100, 'Maximum 100 ids allowed'),
 });
 
 export const POST = compose(

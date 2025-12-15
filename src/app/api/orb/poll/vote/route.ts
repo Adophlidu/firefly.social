@@ -17,7 +17,7 @@ const HeadersSchema = z.object({
 
 const BodySchema = z.object({
     postId: z.string(),
-    pollOptions: z.array(z.number()),
+    pollOptions: z.array(z.number()).max(10, 'Maximum 10 poll options allowed'),
 });
 
 export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {

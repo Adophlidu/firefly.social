@@ -13,10 +13,10 @@ import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterR
 const TweetSchema = z.object({
     text: z.string(),
     replySettings: z.enum(['following', 'mentionedUsers']).optional(),
-    excludeReplyProfileIds: z.array(z.string()).optional(),
+    excludeReplyProfileIds: z.array(z.string()).max(100, 'Maximum 100 exclude reply profile ids allowed').optional(),
     quoteTwitterId: z.string().optional(),
     inReplyToTweetId: z.string().optional(),
-    mediaIds: z.array(z.string()).optional(),
+    mediaIds: z.array(z.string()).max(10, 'Maximum 10 media ids allowed').optional(),
     poll: z
         .object({
             options: z.array(

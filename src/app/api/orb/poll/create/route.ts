@@ -20,7 +20,7 @@ const BodySchema = z.object({
     poll: z.object({
         endTimestamp: z.number(),
         allowMultipleAnswers: z.boolean(),
-        questions: z.array(z.string()),
+        questions: z.array(z.string()).max(10, 'Maximum 10 questions allowed'),
     }),
 });
 

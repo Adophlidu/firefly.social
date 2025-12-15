@@ -35,7 +35,7 @@ const MethodParamSchemas = {
         postId: z.string(),
     }),
     getProfilesByIds: z.object({
-        ids: z.array(z.string()),
+        ids: z.array(z.string()).max(299, 'Maximum 299 ids allowed'),
     }),
     getChannelById: z.object({
         channelId: z.string(),
@@ -43,7 +43,7 @@ const MethodParamSchemas = {
         ownerId: z.string().optional(),
     }),
     getChannelsByIds: z.object({
-        ids: z.array(z.string()),
+        ids: z.array(z.string()).max(299, 'Maximum 299 ids allowed'),
     }),
     getSuggestedFollows: z.object({
         indicator: IndicatorSchema.optional(),
