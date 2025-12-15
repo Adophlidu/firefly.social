@@ -11,27 +11,6 @@ export type Response<T> =
           };
       };
 
-interface List<T> {
-    endRow: number;
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
-    isFirstPage: boolean;
-    isLastPage: boolean;
-    list: T[];
-    navigateFirstPage: number;
-    navigateLastPage: number;
-    navigatePages: number;
-    navigatepageNums: number[];
-    nextPage: number;
-    pageNum: number;
-    pageSize: number;
-    pages: number;
-    prePage: number;
-    size: number;
-    startRow: number;
-    total: number;
-}
-
 export interface Profile {
     /** path of avatar url */
     avatar: string;
@@ -93,7 +72,6 @@ export type Post = {
     originPost: Post | null;
     originPostId: string | null;
     replyCount: number;
-    tokens: any[];
     translatedContent: string | null;
     type: number;
     /** url of origin x post */
