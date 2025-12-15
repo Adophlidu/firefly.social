@@ -12,6 +12,8 @@ interface Wallets {
 interface FireflyWalletState {
     isAuthorized: boolean;
     setIsAuthorized: (isAuthorized: boolean) => void;
+    isConnected: boolean;
+    setIsConnected: (isConnected: boolean) => void;
     wallets: Wallets;
     setWallet: <N extends NetworkType>(networkType: N, wallets: Wallets[N]) => void;
 }
@@ -19,6 +21,7 @@ interface FireflyWalletState {
 export const useFireflyWalletStore = create<FireflyWalletState, [['zustand/immer', never]]>(
     immer((set) => ({
         isAuthorized: false,
+        isConnected: false,
         wallets: {
             [NetworkType.Solana]: [],
             [NetworkType.Ethereum]: [],
@@ -32,6 +35,11 @@ export const useFireflyWalletStore = create<FireflyWalletState, [['zustand/immer
         setIsAuthorized(isAuthorized) {
             set((state) => {
                 state.isAuthorized = isAuthorized;
+            });
+        },
+        setIsConnected(isConnected) {
+            set((state) => {
+                state.isConnected = isConnected;
             });
         },
     })),

@@ -6,7 +6,7 @@ import { Trans } from '@lingui/react/macro';
 import { useCallback, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { type Address, erc20Abi } from 'viem';
-import { useAccount } from 'wagmi';
+import { useAccount, useConnection } from 'wagmi';
 import { readContracts } from 'wagmi/actions';
 
 import { ActionButton } from '@/components/ActionButton.js';
@@ -16,13 +16,13 @@ import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { privyVisibleChains, visibleChains } from '@/configs/chains.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useEvmTokens } from '@/hooks/useEvmTokens.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
-import { ConnectionSource, useWalletConnections } from '@/hooks/useWalletConnections.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { searchTokenLogoURI } from '@/providers/firefly/endpoint/searchTokenLogoURI.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
@@ -34,12 +34,12 @@ interface AddCustomERC20ModalContentProps {
 }
 
 function useVisibleChainIds() {
-    const connections = useWalletConnections();
-    const isPrivyWallet = connections.some((x) => x.source === ConnectionSource.Privy && x.connected);
-    const chainIds: number[] = useMemo(() => {
+    const currentConnection = useConnection();
+    const isPrivyWallet = !!currentConnection.address && currentConnection.connector?.id === PRIVY_CONNECTOR_ID;
+
+    return useMemo<number[]>(() => {
         return (isPrivyWallet ? privyVisibleChains : visibleChains).map((x) => x.id);
     }, [isPrivyWallet]);
-    return chainIds;
 }
 
 function AddCustomERC20ModalContent({

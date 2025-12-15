@@ -22,7 +22,7 @@ export function FireflyWallet() {
     const isOpen = useGlobalState.use.fireflyWalletIsOpen();
     const { isCreatedPrivyWallet } = useIsCreatedPrivyWallet();
     const pathname = usePathname();
-    const { setWallet } = useFireflyWalletStore();
+    const { isAuthorized, setWallet } = useFireflyWalletStore();
     const { updateFireflyWalletIsOpen } = useGlobalState();
 
     const allConnectionsQuery = useAllConnections();
@@ -33,6 +33,8 @@ export function FireflyWallet() {
     }, [allConnectionsQuery.data]);
 
     useEffect(() => {
+        if (!isAuthorized) return;
+
         for (const connection of privyConnections) {
             switch (connection.platform) {
                 case 'eth':
@@ -45,7 +47,7 @@ export function FireflyWallet() {
                     safeUnreachable(connection.platform);
             }
         }
-    }, [privyConnections, setWallet]);
+    }, [privyConnections, isAuthorized, setWallet]);
 
     if (!isLoginFirefly || !isCreatedPrivyWallet) return null;
 

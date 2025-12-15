@@ -10,7 +10,6 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { getWalletAdaptorRequired } from '@/providers/solana/getWalletAdapter.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
-import { useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 
 export class EthereumWalletProvider implements EthereumProvider {
     #walletClient: GetWalletClientReturnType | null = null;
@@ -192,24 +191,9 @@ export class SolanaWalletProvider implements SolanaProvider {
             });
 
         if (event === 'accountChanged') {
-            const tryEmitAccountChanged = async () => {
-                const connected = getWalletAdaptorRequired();
-                return connected.then((provider) => {
-                    const pk = provider.publicKey;
-                    if (!this.#publicKey || pk.toBase58() !== this.#publicKey.toBase58()) {
-                        this.#provider = provider as any;
-                        this.#publicKey = pk;
-                        this.#emit('accountChanged', pk);
-                    }
-                });
-            };
-
-            const unsubscriptionNetwork = useSolanaActiveNetworkStore.subscribe(() => {
-                tryEmitAccountChanged().catch(() => null);
-            });
-            this.#unwatchFns.push(unsubscriptionNetwork);
-
             const unsubscriptionPrivy = useFireflyWalletStore.subscribe((state) => {
+                if (!state.isConnected) return;
+
                 const address = state.wallets[NetworkType.Solana][0]?.address;
                 if (!address) return;
                 const pk = new web3.PublicKey(address);

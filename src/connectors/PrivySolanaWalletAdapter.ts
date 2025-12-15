@@ -10,20 +10,18 @@ import {
 } from '@dimensiondev/iframe-bridge';
 import { bom } from '@dimensiondev/utils';
 import type { Provider as CoreProvider, RequestArguments } from '@reown/appkit';
-import type {
-    AnyTransaction,
-    Provider,
-    ProviderEventEmitterMethods,
-    TransactionOrVersionedTransaction,
-} from '@reown/appkit-adapter-solana';
+import type { AnyTransaction, Provider, TransactionOrVersionedTransaction } from '@reown/appkit-adapter-solana';
 import {
     BaseMessageSignerWalletAdapter,
     scopePollingDetectionStrategy,
     type SendTransactionOptions,
     type SupportedTransactionVersions,
+    WalletAccountError,
     WalletError,
     type WalletName,
     WalletNotConnectedError,
+    WalletNotReadyError,
+    WalletPublicKeyError,
     WalletReadyState,
 } from '@solana/wallet-adapter-base';
 import bs58 from 'bs58';
@@ -32,10 +30,12 @@ import { UserRejectedRequestError } from 'viem';
 
 import { FIREFLY_WALLET_IFRAME_ID } from '@/components/FireflyWallet.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { waitForAuthorization } from '@/connectors/PrivyConnector.js';
-import { NetworkType, WalletSource } from '@/constants/enum.js';
+import { PRIVY_CONNECTOR_ID, waitForAuthorization } from '@/connectors/PrivyConnector.js';
+import { ProviderEventEmitter } from '@/connectors/ProviderEventEmitter.js';
+import { WalletSource } from '@/constants/enum.js';
+import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
@@ -59,32 +59,20 @@ export class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
         super();
 
         this._connecting = false;
-        this._initializeAccounts();
+        this._publicKey = null;
 
         if (this._readyState !== WalletReadyState.Unsupported) {
             scopePollingDetectionStrategy(() => {
+                const fireflySession = getSessionFromStorage(SessionType.Firefly);
+                const walletEl = bom.document?.getElementById(FIREFLY_WALLET_IFRAME_ID);
+                if (!fireflySession || !walletEl) return false;
+
                 this._readyState = WalletReadyState.Installed;
                 this.emit('readyStateChange', this._readyState);
-                return !!document.getElementById(FIREFLY_WALLET_IFRAME_ID);
+
+                return true;
             });
         }
-    }
-
-    private async _initializeAccounts() {
-        if (!bom.window) return;
-        this._connecting = true;
-        await this.getAccounts()
-            .then((accounts) => {
-                this._publicKey = accounts.length > 0 ? new web3.PublicKey(accounts[0]) : null;
-                this._connecting = false;
-                if (this._publicKey) {
-                    this.emit('connect', this._publicKey);
-                }
-            })
-            .catch((error) => {
-                this._connecting = false;
-                console.warn('[PrivySolanaWalletAdapter] Failed to initialize accounts:', error);
-            });
     }
 
     emit(message: string, ...args: unknown[]) {
@@ -109,16 +97,46 @@ export class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
     }
 
     override async autoConnect(): Promise<void> {
-        await this.connect();
+        if (this.readyState === WalletReadyState.Installed) {
+            await this.connect();
+        }
     }
 
     override async connect(): Promise<void> {
-        if (this.connected || this.connecting) return;
-        console.info('[privy] solana connect');
+        try {
+            if (this.connected || this.connecting) return;
+            console.info('[privy] solana connect', this.readyState);
+
+            if (this.readyState !== WalletReadyState.Installed) throw new WalletNotReadyError();
+
+            this._connecting = true;
+
+            const accounts = await this.getAccounts();
+            const account = first(accounts);
+            console.log('[privy] solana accounts', accounts);
+            if (!account) throw new WalletAccountError('No privy solana account found.');
+
+            let publicKey: web3.PublicKey;
+            try {
+                publicKey = new web3.PublicKey(account);
+            } catch (error: any) {
+                throw new WalletPublicKeyError(error?.message, error);
+            }
+
+            this._publicKey = publicKey;
+            this.emit('connect', publicKey);
+        } catch (error) {
+            this.emit('error', error);
+            throw error;
+        } finally {
+            this._connecting = false;
+        }
     }
 
     async disconnect(): Promise<void> {
         console.info('[privy] solana disconnect');
+        this._publicKey = null;
+        this.emit('disconnect');
     }
 
     private async bridgeRequest<M extends SolanaMethod>(params: SolanaRequestArgument<M>) {
@@ -160,7 +178,7 @@ export class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
             (connection) => connection.source === WalletSource.Privy && connection.platform === 'solana',
         );
         const accounts = compact([account?.address]);
-        this._publicKey = accounts.length > 0 ? new web3.PublicKey(accounts[0]) : null;
+        // this._publicKey = accounts.length > 0 ? new web3.PublicKey(accounts[0]) : null;
         return accounts;
     }
 
@@ -242,9 +260,9 @@ export class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
     }
 }
 
-class PrivySolanaWalletProvider implements Provider {
-    id = 'privy';
-    name = 'PrivySolanaWalletName';
+class PrivySolanaWalletProvider extends ProviderEventEmitter implements Provider {
+    id = PRIVY_CONNECTOR_ID;
+    name = PrivySolanaWalletName;
     chain = 'solana' as const;
     chains = [];
     type = 'ANNOUNCED' as const;
@@ -252,58 +270,49 @@ class PrivySolanaWalletProvider implements Provider {
 
     protected adapter: PrivySolanaWalletAdapter;
 
-    constructor() {
-        this.adapter = new PrivySolanaWalletAdapter();
+    constructor(walletAdapter: PrivySolanaWalletAdapter) {
+        super();
+
+        this.adapter = walletAdapter;
     }
 
     get publicKey() {
         return this.adapter.publicKey ?? undefined;
     }
 
+    get imageId() {
+        return PRIVY_CONNECTOR_ID;
+    }
+
+    get imageUrl() {
+        return '/firefly.png';
+    }
+
     async connect(): Promise<string> {
-        const res = await WalletConnectModalRef.openAndWaitForClose({ networkType: NetworkType.Solana });
-        if (!res) throw new WalletNotConnectedError();
-        const accounts = await this.getAccounts();
-        const account = first(accounts);
-        if (!account?.address) throw new WalletNotConnectedError();
-        return account.address;
+        try {
+            await this.adapter.connect();
+            if (!this.adapter.publicKey) throw new WalletNotConnectedError('No public key found after connect');
+
+            this.emit('connect', this.adapter.publicKey);
+            return this.adapter.publicKey.toBase58();
+        } catch (error) {
+            throw new WalletNotConnectedError('Failed to connect to Privy Solana Wallet', error);
+        }
     }
 
     async disconnect(): Promise<void> {
-        throw new Error('Not implemented');
-    }
-
-    emit<E extends ProviderEventEmitterMethods.Event>(
-        event: E,
-        data: ProviderEventEmitterMethods.EventParams[E],
-    ): void {
-        console.info('emit', event, data);
-        throw new Error('Not implemented');
-    }
-
-    on<E extends ProviderEventEmitterMethods.Event>(
-        event: E,
-        listener: (data: ProviderEventEmitterMethods.EventParams[E]) => void,
-    ): void {
-        console.info('emit', event, listener);
-        throw new Error('Not implemented');
-    }
-
-    removeListener<E extends ProviderEventEmitterMethods.Event>(
-        event: E,
-        listener: (data: ProviderEventEmitterMethods.EventParams[E]) => void,
-    ): void {
-        console.info('emit', event, listener);
-        throw new Error('Not implemented');
+        await this.adapter.disconnect();
+        this.emit('disconnect', undefined);
     }
 
     async getAccounts(): Promise<Array<{ namespace: 'solana'; address: string; type: 'eoa' }>> {
-        const [address] = await this.adapter.getAccounts();
-        if (!address) return [];
+        const account = this.adapter.publicKey;
+        if (!account) return [];
+
         return [
             {
                 namespace: this.chain,
-                address,
+                address: account.toBase58(),
                 type: 'eoa',
             },
         ];
@@ -340,4 +349,5 @@ class PrivySolanaWalletProvider implements Provider {
     }
 }
 
-export const PrivySolanaProvider = new PrivySolanaWalletProvider();
+export const privySolanaWalletAdapter = new PrivySolanaWalletAdapter();
+export const PrivySolanaProvider = new PrivySolanaWalletProvider(privySolanaWalletAdapter);

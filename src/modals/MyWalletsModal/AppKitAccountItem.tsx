@@ -1,5 +1,5 @@
 import { t } from '@lingui/core/macro';
-import { CoreConnectionController } from '@reown/appkit';
+import { CoreConnectionController, CoreConnectorController } from '@reown/appkit';
 import { mainnet, solana } from '@reown/appkit/networks';
 import { type FunctionComponent, type SVGAttributes } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -13,13 +13,13 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit } from '@/configs/appkit.js';
-import { NetworkType } from '@/constants/enum.js';
+import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
+import { ConnectionSource, NetworkType } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { type AppKitAccount } from '@/hooks/useAppKitAccounts.js';
 import { useEnsName } from '@/hooks/useEnsName.js';
-import { ConnectionSource } from '@/hooks/useWalletConnections.js';
-import { SolanaNetworkType, useSolanaActiveNetworkStore } from '@/store/useSolanaActiveNetworkStore.js';
 import type { ChainNamespace } from '@/types/utility.js';
 
 const IconMap: Record<ChainNamespace, FunctionComponent<SVGAttributes<SVGElement>>> = {
@@ -47,19 +47,24 @@ export function AppKitAccountItem({
     onOpenPrivy?: () => void;
 }) {
     const { data: ensName } = useEnsName(address, namespace === 'eip155');
-    const setActiveNetwork = useSolanaActiveNetworkStore((s) => s.setActiveNetwork);
 
     const Icon = IconMap[namespace] || WalletIcon;
 
     const [{ loading }, onConnectionClick] = useAsyncFn(async () => {
         try {
-            if (namespace === 'solana') {
-                setActiveNetwork(
-                    source === ConnectionSource.Privy ? SolanaNetworkType.Privy : SolanaNetworkType.Appkit,
-                );
+            appkit.updateRemoteFeatures({ multiWallet: true });
+
+            if (!connected && !connection && source === ConnectionSource.Privy) {
+                const connectors = CoreConnectorController.state.connectors;
+                const privyConnector = connectors.find((c) => c.id === PRIVY_CONNECTOR_ID);
+                const connector = privyConnector?.connectors?.find((c) => c.chain === namespace);
+                if (connector) {
+                    await runInSafeAsync(() => CoreConnectionController.connectExternal(connector, namespace));
+                }
+                onOpenPrivy?.();
+                return;
             }
 
-            appkit.updateRemoteFeatures({ multiWallet: true });
             if (connected || !connection) {
                 const appkitNetwork =
                     connection?.caipNetwork ||
@@ -89,7 +94,7 @@ export function AppKitAccountItem({
         } catch (error) {
             enqueueErrorMessage(t`Failed to switch wallet.`);
         }
-    }, [address, connection, connected, namespace, network, source, onOpenPrivy, setActiveNetwork]);
+    }, [address, connection, connected, namespace, network, source, onOpenPrivy]);
 
     return (
         <ClickableButton

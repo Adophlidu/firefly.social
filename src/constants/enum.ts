@@ -656,3 +656,13 @@ export enum TimeRangeFilter {
 export enum ExtraLikeType {
     Tips = 'tips',
 }
+
+export enum ConnectionSource {
+    Appkit = 'appkit',
+    Privy = 'privy',
+}
+
+export enum SolanaNetworkType {
+    Appkit = 'appkit',
+    Privy = 'privy-solana',
+}

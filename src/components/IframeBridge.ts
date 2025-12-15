@@ -21,6 +21,7 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { reconnectPrivyWallet } from '@/helpers/reconnectPrivyWallet.js';
 import { DownloadMobileAppModalRef } from '@/modals/DownloadMobileAppModal/index.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 
@@ -77,6 +78,7 @@ const allEvents: {
     },
     [IframeBridgeMethod.FIREFLY_WALLET_AUTHORIZED]: async () => {
         useFireflyWalletStore.getState().setIsAuthorized(true);
+        await reconnectPrivyWallet();
     },
     [IframeBridgeMethod.NAVIGATE]: async () => {
         throw new NotImplementedError();

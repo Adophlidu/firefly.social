@@ -9,10 +9,12 @@ import type { CaipAddress, Connection } from '@reown/appkit/react';
 import { compact } from 'lodash-es';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { NetworkType } from '@/constants/enum.js';
+import { ConnectionSource, NetworkType } from '@/constants/enum.js';
 import { walletConnectIcon, walletConnectId } from '@/constants/reown.js';
+import { getAddressType } from '@/helpers/getAddressType.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { networkTypeToChainNamespace } from '@/helpers/networkTypeToChainNamespace.js';
-import { ConnectionSource } from '@/hooks/useWalletConnections.js';
+import { usePrivyConnections } from '@/hooks/usePrivyConnections.js';
 import type { ChainNamespace } from '@/types/utility.js';
 
 export interface AppKitAccount {
@@ -181,4 +183,43 @@ export function useAppKitAccounts() {
     const solana = useAppKitAccountsByNetwork(NetworkType.Solana);
 
     return [...evm, ...solana];
+}
+
+export function usePrivyAppKitAccounts(): {
+    accounts: AppKitAccount[];
+    isLoading: boolean;
+} {
+    const allAccounts = useAppKitAccounts();
+    const { connections, isLoading } = usePrivyConnections();
+
+    const privyEvm = connections.find((x) => getAddressType(x.address) === NetworkType.Ethereum);
+    const privySolana = connections.find((x) => getAddressType(x.address) === NetworkType.Solana);
+
+    const accounts = compact([
+        privyEvm
+            ? {
+                  address: privyEvm.address,
+                  network: NetworkType.Ethereum,
+              }
+            : null,
+        privySolana
+            ? {
+                  address: privySolana.address,
+                  network: NetworkType.Solana,
+              }
+            : null,
+    ]).map((x) => {
+        const account = allAccounts.find((a) => a.network === x.network && isSameAddress(x.address, a.address));
+        if (account) return account;
+
+        return {
+            address: x.address,
+            network: x.network,
+            connected: false,
+            namespace: networkTypeToChainNamespace(x.network)!,
+            source: ConnectionSource.Privy,
+        };
+    });
+
+    return { accounts, isLoading };
 }
