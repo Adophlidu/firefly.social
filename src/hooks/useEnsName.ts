@@ -24,7 +24,7 @@ export async function fetchEnsName(parameters: GetEnsNameParameters) {
 
 export function useEnsName(address?: string, enabled = true) {
     return useQuery({
-        queryKey: ['ensName', address],
+        queryKey: ['ensName', address?.toLowerCase()],
         enabled: !!address && enabled,
         staleTime: Infinity,
         retry: 5, // Retry 5 times

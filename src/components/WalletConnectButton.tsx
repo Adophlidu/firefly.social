@@ -1,9 +1,8 @@
 import { classNames, delay } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { compact } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import { memo } from 'react';
 import { useEffectOnce } from 'react-use';
-import { mainnet } from 'viem/chains';
 import { useConnections } from 'wagmi';
 
 import WalletIcon from '@/assets/wallet.svg';
@@ -44,12 +43,16 @@ export const WalletConnectButton = memo<WalletConnectButtonProps>(function Walle
         if (!connections.length) return;
 
         connections.forEach((connection) => {
-            queryClient.prefetchQuery({
-                queryKey: ['ensName', connection.accounts[0], mainnet.id],
-                queryFn: () =>
-                    fetchEnsName({
-                        address: connection.accounts[0],
-                    }),
+            const address = first(connection.accounts);
+            if (!address) return;
+
+            fetchEnsName({ address }).then((ensName) => {
+                if (ensName !== undefined) {
+                    queryClient.setQueryData(['ensName', address.toLowerCase()], ensName);
+                }
+                if (ensName) {
+                    queryClient.setQueryData(['ensAddress', ensName], address);
+                }
             });
         });
     });
