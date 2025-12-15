@@ -22,11 +22,11 @@ interface NonFungibleCollectionSelectModalOpenProps {
 }
 
 type NonFungibleCollectionSelectModalCloseProps = Collection | null;
-type Props = {
+interface Props {
     ref: React.Ref<
         SingletonModalRefCreator<NonFungibleCollectionSelectModalOpenProps, NonFungibleCollectionSelectModalCloseProps>
     >;
-};
+}
 
 const NonFungibleCollectionSelectPanel = dynamic(() => import('./NonFungibleCollectionSelectPanel.js'), {
     ssr: false,

@@ -12,9 +12,9 @@ type SnackbarOpenProps =
 interface SnackbarCloseProps {
     key?: SnackbarKey;
 }
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<SnackbarOpenProps, SnackbarCloseProps>>;
-};
+}
 
 export function Snackbar({ ref }: Props) {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();

@@ -2,19 +2,17 @@ import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
+import type { PageData } from '@/decorators/types.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { patchActivitiesQuery } from '@/helpers/patchActivitiesQuery.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import type { FireflyWallet } from '@/providers/firefly/Wallet.js';
 import type { Article } from '@/providers/types/Article.js';
-import { type PolymarketActivity, WatchType } from '@/providers/types/Firefly.js';
+import { WatchType } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/utility.js';
 
-type PagesData = { pages: Array<{ data: Article[] }> };
-type PolymarketPagesData = { pages: Array<{ data: PolymarketActivity[] }> };
-
 function toggleWatch(address: string, status: boolean) {
-    const patcher = (old: Draft<PagesData> | undefined) => {
+    const patcher = (old: Draft<PageData<Article>> | undefined) => {
         if (!old) return old;
         return produce(old, (draft) => {
             for (const page of draft.pages) {
@@ -27,14 +25,14 @@ function toggleWatch(address: string, status: boolean) {
             }
         });
     };
-    queryClient.setQueriesData<PagesData>({ queryKey: ['articles'] }, patcher);
+    queryClient.setQueriesData<PageData<Article>>({ queryKey: ['articles'] }, patcher);
     patchActivitiesQuery(Source.Article, (item) => {
         if (isSameEthereumAddress(item.author.id, address)) {
             item.author.isFollowing = status;
         }
     });
 
-    queryClient.setQueriesData<PagesData>({ queryKey: ['posts', Source.Article, 'bookmark'] }, patcher);
+    queryClient.setQueriesData<PageData<Article>>({ queryKey: ['posts', Source.Article, 'bookmark'] }, patcher);
     queryClient.setQueriesData<Article>({ queryKey: ['article-detail'] }, (old) => {
         if (!old) return;
         return produce(old, (draft) => {

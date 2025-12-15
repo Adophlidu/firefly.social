@@ -12,9 +12,9 @@ interface DraggablePopoverProps {
     enableOverflow?: boolean;
     onClose?: () => void;
 }
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<DraggablePopoverProps>>;
-};
+}
 
 export function DraggablePopover({ ref }: Props) {
     const [props, setProps] = useState<DraggablePopoverProps>();

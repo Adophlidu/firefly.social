@@ -14,9 +14,9 @@ const WHITELIST: Array<string | ((url: string) => boolean)> = [
 type ConfirmLeavingModalOpenProps = string;
 
 type ConfirmLeavingModalCloseProps = boolean;
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<ConfirmLeavingModalOpenProps, ConfirmLeavingModalCloseProps>>;
-};
+}
 
 export function ConfirmLeavingModal({ ref }: Props) {
     useSingletonModal(ref, {

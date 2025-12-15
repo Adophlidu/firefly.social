@@ -41,9 +41,9 @@ function createRedPacketRouter(initialEntries: string[] = ['/main']) {
 interface RedPacketModalOpenProps {
     initialPath?: string;
 }
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<RedPacketModalOpenProps | void, string | null | void>>;
-};
+}
 
 export function RedPacketModal({ ref }: Props) {
     const routerRef = useRef(createRedPacketRouter());

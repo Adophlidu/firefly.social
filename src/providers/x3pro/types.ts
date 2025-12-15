@@ -46,7 +46,7 @@ export interface Profile {
     verifyType: number;
 }
 
-export type Post = {
+export interface Post {
     author: Profile;
     collectCount: number;
     content: string;
@@ -78,7 +78,7 @@ export type Post = {
     url: string;
     userId: string;
     viewCount: number;
-};
+}
 
 export type PostListResponse = Response<Post[]>;
 

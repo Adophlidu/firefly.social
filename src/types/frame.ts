@@ -270,8 +270,8 @@ export interface LinkDigestedResponse<T = Frame> {
     frame: T | null;
 }
 
-export type IframeBlockerResponse = {
+export interface IframeBlockerResponse {
     url: string;
     isBlocked: boolean;
     contentSecurityPolicy?: string;
-};
+}

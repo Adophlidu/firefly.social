@@ -4,7 +4,7 @@ import { EVENT_MODAL } from '@/constants/event.js';
 import type { ModalEvents } from '@/helpers/dispatchModalEvent.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
-type SingleModalOptions<OpenProps, CloseProps> = {
+interface SingleModalOptions<OpenProps, CloseProps> {
     /**
      * Optional modal name for document event support.
      * If provided, the modal will listen to document events for open/close/abort actions.
@@ -14,7 +14,7 @@ type SingleModalOptions<OpenProps, CloseProps> = {
     onOpen?: (props: OpenProps, dispatch: ReturnType<SingletonModalRefCreator<OpenProps, CloseProps>>) => void;
     onClose?: (props: CloseProps, dispatch: ReturnType<SingletonModalRefCreator<OpenProps, CloseProps>>) => void;
     onAbort?: (error: Error, dispatch: ReturnType<SingletonModalRefCreator<OpenProps, CloseProps>>) => void;
-};
+}
 
 export function useSingletonModal<OpenProps, CloseProps>(
     ref: React.ForwardedRef<SingletonModalRefCreator<OpenProps, CloseProps>>,

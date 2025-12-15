@@ -320,12 +320,12 @@ export interface Response<T> {
     error?: string[];
 }
 
-type Relationship = {
+interface Relationship {
     id: string;
     address: string;
     snsId: string;
     snsPlatform: string;
-};
+}
 
 export type UsersResponse = Response<UsersData>;
 
@@ -743,7 +743,7 @@ export enum ScheduleTaskStatus {
     Success = 'success',
 }
 
-type ScheduleRelation = {
+interface ScheduleRelation {
     content: string;
     error?: string;
     platform: SocialSourceInURL;
@@ -754,7 +754,7 @@ type ScheduleRelation = {
     task_uuid: string;
     updated_at: string;
     media_type?: PostMediaType[];
-};
+}
 
 export interface ScheduleTask {
     task_uuid: string;
@@ -1189,7 +1189,7 @@ export type ActivityInfoResponse = Response<{
     status: ActivityStatus;
 }>;
 
-export type PolymarketActivity = {
+export interface PolymarketActivity {
     asset: string;
     blockNumber: number;
     blockNumberSort: number;
@@ -1223,14 +1223,14 @@ export type PolymarketActivity = {
     hasBookmarked: boolean;
     isLiked: boolean;
     likeCount: number;
-};
+}
 
 export type PolymarketActivityTimeline = Response<{
     result: PolymarketActivity[];
     cursor?: string;
 }>;
 
-export type Project = {
+export interface Project {
     eval: number;
     project_id: number;
     one_liner: string;
@@ -1240,7 +1240,7 @@ export type Project = {
     project_name: string;
     tags: string[];
     rootdataurl: string;
-};
+}
 
 export interface RootdataPeople {
     people_id: number;
@@ -1282,7 +1282,7 @@ export type SearchNFTResponse = Response<{
     list: EVM.Collection[];
 }>;
 
-export type SearchableToken = {
+export interface SearchableToken {
     /** only search by keyword has platform_type */
     platform_type?: TokenPlatformType;
     api_symbol: string;
@@ -1296,7 +1296,7 @@ export type SearchableToken = {
     symbol: string;
     thumbnail: string;
     fdv?: number;
-};
+}
 
 export type SearchTokenResponse = Response<{
     coins: SearchableToken[];
@@ -1499,7 +1499,7 @@ export type GetBookmarksResponse = Response<{
     }>;
 }>;
 
-export type SponsorMintOptions = {
+export interface SponsorMintOptions {
     walletAddress: string;
     contractAddress: string;
     tokenId: string;
@@ -1508,9 +1508,9 @@ export type SponsorMintOptions = {
     vectorId?: number;
     color?: string;
     collectionId?: string;
-};
+}
 
-export type MintMetadata = {
+export interface MintMetadata {
     mintStatus: MintStatus;
     mintPrice: string;
     platformFee: string;
@@ -1526,14 +1526,14 @@ export type MintMetadata = {
     gasStatus: boolean;
     tokenPrice: unknown;
     nativePrice: number;
-};
+}
 
-type FreeMintResult = {
+interface FreeMintResult {
     status: boolean;
     hash: string;
     errormessage: string;
     gasStatus: boolean;
-};
+}
 
 export type GetSponsorMintStatusResponse = Response<MintMetadata>;
 
@@ -1557,7 +1557,7 @@ export type DetectAddressResponse = Response<{
     list: DetectedAddress[];
 }>;
 
-export type ParagraphMintMetadata = {
+export interface ParagraphMintMetadata {
     blogId: string;
     noteId: string;
     createdAt: number;
@@ -1571,7 +1571,7 @@ export type ParagraphMintMetadata = {
     txHash: string;
     chain: string;
     collectorWallet: string;
-};
+}
 
 export type NFTMintingResponse = Response<ParagraphMintMetadata>;
 
@@ -1583,7 +1583,7 @@ export type TakoExternalHostedData = Response<{
     content: string;
 }>;
 
-export type GetTokenOptions = {
+export interface GetTokenOptions {
     coingecko_id?: string | null;
     network?: string;
     chain_id?: number;
@@ -1595,7 +1595,7 @@ export type GetTokenOptions = {
     community_data?: boolean;
     developer_data?: boolean;
     sparkline?: boolean;
-};
+}
 
 export interface TokenWithMarketData {
     detail_platforms: unknown;
@@ -1671,7 +1671,7 @@ interface SwapToken {
     address: string;
 }
 
-export type SwapActivity = {
+export interface SwapActivity {
     owner: string;
     chain_id: number;
     tx_status: string;
@@ -1695,15 +1695,15 @@ export type SwapActivity = {
     to_chain_hash?: string;
     displayInfo?: FireflyDisplayInfo;
     followingSources: FollowingSource[];
-};
+}
 
-export type FireflyDisplayInfo = {
+export interface FireflyDisplayInfo {
     ensHandle: string;
     avatarUrl: string;
     fireflyName: string;
     fireflyUid: string;
     fireflyAvatarUrl: string;
-};
+}
 
 export type SwapActivityDetail = Response<SwapActivity[]>;
 
@@ -1776,11 +1776,11 @@ export type CollectionStatisticsResponse = Response<{
     volume_change_6h: string;
 }>;
 
-export type NFTBookmarkContent = {
+export interface NFTBookmarkContent {
     nft_id: `${number}.${string}.${string}`;
     own_num: 0;
     following_own_num: 0;
-};
+}
 
 type Stat = [number, number];
 
@@ -1865,12 +1865,12 @@ export type TrumpTruthSocialPostsResponse = Response<{
 
 export type TruthSocialPostResponse = Response<TruthSocialPost>;
 
-export type TokenPriceStatsOptions = {
+export interface TokenPriceStatsOptions {
     coingecko_id?: string | null;
     chain_id?: number;
     address?: string;
     days: number | undefined;
-};
+}
 
 export type DesktopLinkInfoResponse = Response<{
     link: string;
@@ -1960,10 +1960,10 @@ export interface MetricsItemToUpload {
     metaInfo: MetricsMetaInfo;
 }
 
-type PostStateEntry = {
+interface PostStateEntry {
     post_id: string;
     state: boolean;
-};
+}
 
 export type PostState = Response<PostStateEntry>;
 
@@ -2197,7 +2197,7 @@ export type GetAnonymousPostResponse = Response<{
 
 export type GetProfilesResponse = Response<FarcasterProfile[]>;
 
-export type ScheduleNotificationData = {
+export interface ScheduleNotificationData {
     task_uuid: string;
     display_info: {
         content: string;
@@ -2219,37 +2219,37 @@ export type ScheduleNotificationData = {
         uuid: string;
         error?: string;
     }>;
-};
+}
 
 export type ScheduleNotificationsResponse = Response<{
     notifications: ScheduleNotificationData[];
     cursor?: string;
 }>;
 
-export type ScheduleNotification = {
+export interface ScheduleNotification {
     source: Source.Firefly;
     type: SocialNotificationType.Schedule;
     data: ScheduleNotificationData;
     timestamp: number;
     notificationId: string;
     status: ScheduleTaskStatus;
-};
+}
 
-export type UnifiedNotificationData = {
+export interface UnifiedNotificationData {
     type: string;
     data: {
         [key: string]: any;
     };
     created_at: string;
-};
+}
 
-export type UnifiedNotification = {
+export interface UnifiedNotification {
     source: Source.Firefly;
     type: SocialNotificationType;
     data: UnifiedNotificationData['data'];
     timestamp: number;
     notificationId: string;
-};
+}
 
 export type AllNotificationsResponse = Response<{
     notifications: UnifiedNotificationData[];
@@ -2288,13 +2288,13 @@ export type GetExploreSwitchConfigResponse = Response<{
     }>;
 }>;
 
-type OgUser = {
+interface OgUser {
     platform: string;
     platform_id: string;
     handle: string;
     IsClaim: boolean;
     IsActive: boolean;
-};
+}
 
 export enum OgStatus {
     isOgActive = 1,

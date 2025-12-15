@@ -16,9 +16,9 @@ export interface PasswordModalOpenProps {
     descriptions?: StepDescriptions;
 }
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<PasswordModalOpenProps, boolean | void>>;
-};
+}
 
 export function PasswordModal({ ref }: Props) {
     const isMedium = useIsMedium();

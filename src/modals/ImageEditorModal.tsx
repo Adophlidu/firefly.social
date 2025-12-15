@@ -13,9 +13,9 @@ import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonM
 type ImageEditorOpenProps = Omit<ImageEditorContentProps, 'open' | 'onSave' | 'onClose'>;
 type ImageEditorCloseProps = File | null;
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<ImageEditorOpenProps, ImageEditorCloseProps>>;
-};
+}
 
 const ImageEditorContent = dynamic(
     () => import('@/components/ImageEditorContent.js').then((m) => m.ImageEditorContent),

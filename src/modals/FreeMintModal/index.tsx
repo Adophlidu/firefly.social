@@ -14,9 +14,9 @@ interface FreeMintModalOpenProps {
     mintParams: MintMetadata;
     onSuccess?: () => void;
 }
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<FreeMintModalOpenProps>>;
-};
+}
 
 const MintModalContent = dynamic(() => import('@/modals/FreeMintModal/MintModalContent.js'), {
     ssr: false,

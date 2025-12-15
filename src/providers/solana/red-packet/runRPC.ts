@@ -5,9 +5,9 @@ import { requestRPC } from '@/providers/solana/requestRPC.js';
 import type { GetTransactionResponse } from '@/providers/types/Solana.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
-type MethodsBuilder = {
+interface MethodsBuilder {
     rpc: (options?: web3.ConfirmOptions) => Promise<string>;
-};
+}
 
 export async function runRPC(builder: MethodsBuilder) {
     try {

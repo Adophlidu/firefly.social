@@ -5,7 +5,7 @@ import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { requestRPC } from '@/providers/solana/requestRPC.js';
 
-type TokenAccountsByOwnerResponse = {
+interface TokenAccountsByOwnerResponse {
     result?: {
         value?: Array<{
             pubkey?: string;
@@ -21,7 +21,7 @@ type TokenAccountsByOwnerResponse = {
             };
         }>;
     };
-};
+}
 
 async function resolver(chainId: number, account: string, mintAddress: string) {
     const programIds = [TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID];

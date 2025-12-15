@@ -18,10 +18,10 @@ import type { NotificationConfig } from '@/providers/types/Firefly.js';
 import { NotificationPlatform } from '@/providers/types/Firefly.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
 
-type NotificationGroup = {
+interface NotificationGroup {
     groupName: string;
     list: NotificationConfig[];
-};
+}
 
 function restructureNotificationGroups(groups: NotificationGroup[] | null | undefined): NotificationGroup[] | null {
     if (!groups) return null;

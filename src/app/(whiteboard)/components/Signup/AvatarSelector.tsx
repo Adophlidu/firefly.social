@@ -27,11 +27,11 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 
 type AvatarType = 'pfp' | 'random' | 'custom';
 
-export type AvatarConfig = {
+export interface AvatarConfig {
     url: string;
     file?: File | null;
     type: AvatarType;
-};
+}
 
 interface AvatarSelectorProps {
     avatar: string;

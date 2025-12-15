@@ -1,1 +1,3 @@
-export type PageData<T> = { pages: Array<{ data: T[] }> };
+export interface PageData<T> {
+    pages: Array<{ data: T[] }>;
+}

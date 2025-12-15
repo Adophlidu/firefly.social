@@ -30,9 +30,9 @@ export type SignupModalCloseProps = {
     account: Account;
 } | void;
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<SignupModalOpenProps, SignupModalCloseProps>>;
-};
+}
 
 export function SignupModal({ ref }: Props) {
     const [props, setProps] = useState<SignupModalOpenProps>();

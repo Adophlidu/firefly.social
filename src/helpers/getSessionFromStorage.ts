@@ -19,7 +19,7 @@ const Schema = z.object({
     }),
 });
 
-type SessionTypes = {
+interface SessionTypes {
     [SessionType.Bsky]: BskySession;
     [SessionType.Twitter]: TwitterSession;
     [SessionType.Lens]: LensSession;
@@ -29,7 +29,7 @@ type SessionTypes = {
     [SessionType.Email]: ThirdPartySession;
     [SessionType.Google]: ThirdPartySession;
     [SessionType.Telegram]: ThirdPartySession;
-};
+}
 
 const resolveStorageKeyBySource = createLookupTableResolver<SocialSource, SessionType>(
     {

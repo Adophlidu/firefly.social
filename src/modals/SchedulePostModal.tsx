@@ -13,9 +13,9 @@ interface SchedulePostModalOpenProps {
     action: 'create' | 'update';
     task?: ScheduleTask;
 }
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<SchedulePostModalOpenProps>>;
-};
+}
 
 export function SchedulePostModal({ ref }: Props) {
     const [action, setAction] = useState<'create' | 'update'>('create');

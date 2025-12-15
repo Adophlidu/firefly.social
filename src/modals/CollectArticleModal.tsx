@@ -13,9 +13,9 @@ import { type Article } from '@/providers/types/Article.js';
 interface CollectArticleModalOpenProps {
     article: Article;
 }
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<CollectArticleModalOpenProps>>;
-};
+}
 
 export function CollectArticleModal({ ref }: Props) {
     const [props, setProps] = useState<CollectArticleModalOpenProps>();

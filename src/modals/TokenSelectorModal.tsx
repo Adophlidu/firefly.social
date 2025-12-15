@@ -30,9 +30,9 @@ interface TokenSelectorModalOpenProps {
 }
 
 type TokenSelectorModalCloseProps = FungibleToken<EthereumChainId, EthereumSchemaType, Token> | null;
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>>;
-};
+}
 
 export function TokenSelectorModal({ ref }: Props) {
     const [props, setProps] = useState<TokenSelectorModalOpenProps>();

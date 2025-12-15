@@ -17,9 +17,9 @@ interface ConfirmSyncSessionModalOpenProps {
 
 type ConfirmSyncSessionModalCloseProps = boolean;
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<ConfirmSyncSessionModalOpenProps, ConfirmSyncSessionModalCloseProps>>;
-};
+}
 
 export function ConfirmSyncSessionModal({ ref }: Props) {
     const [profiles, setProfiles] = useState<Profile[]>([]);

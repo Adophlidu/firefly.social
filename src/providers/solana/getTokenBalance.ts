@@ -6,7 +6,7 @@ import type { GetBalanceResponse } from '@/providers/types/Solana.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import type { SolanaChainId } from '@/web3-shared/solana/types.js';
 
-type TokenAccountsByOwnerResponse = {
+interface TokenAccountsByOwnerResponse {
     result?: {
         value?: Array<{
             account?: {
@@ -21,7 +21,7 @@ type TokenAccountsByOwnerResponse = {
             };
         }>;
     };
-};
+}
 
 export async function getNativeTokenBalance(address: string, chainId: number) {
     const data = await requestRPC<GetBalanceResponse>(chainId, {

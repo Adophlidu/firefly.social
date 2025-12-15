@@ -138,9 +138,9 @@ function AddCustomERC721Content({
 interface AddCustomERC721ModalOpenProps {
     initialChainId: number;
 }
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<AddCustomERC721ModalOpenProps>>;
-};
+}
 
 export function AddCustomERC721Modal({ ref }: Props) {
     const [props, setProps] = useState<AddCustomERC20ModalOpenProps | undefined>();

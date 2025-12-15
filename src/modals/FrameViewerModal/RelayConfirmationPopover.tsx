@@ -22,9 +22,9 @@ export type RelayConfirmationPopoverCloseProps = {
     authMethod: 'custody' | 'authAddress';
 } | null;
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<RelayConfirmationPopoverOpenProps, RelayConfirmationPopoverCloseProps>>;
-};
+}
 
 export function RelayConfirmationPopover({ ref }: Props) {
     const [props, setProps] = useState<RelayConfirmationPopoverOpenProps>();

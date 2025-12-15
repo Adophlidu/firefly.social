@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 
-type Args = {
+interface Args {
     bios: string[];
-};
+}
 
 const meta = {
     title: 'common/BioMarkup',

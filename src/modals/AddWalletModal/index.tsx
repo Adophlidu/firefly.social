@@ -19,9 +19,9 @@ interface AddWalletModalProps {
 interface AddWalletModalCloseProps {
     response?: BindWalletResponse['data'];
 }
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<AddWalletModalProps, AddWalletModalCloseProps>>;
-};
+}
 
 const SelectNetworkModalContent = dynamic(() => import('@/modals/AddWalletModal/SelectNetworkModalUI.js'), {
     ssr: false,

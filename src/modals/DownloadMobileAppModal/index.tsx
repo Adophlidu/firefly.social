@@ -6,9 +6,9 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { DownloadMobileAppContent } from '@/modals/DownloadMobileAppModal/DownloadMobileAppContent.js';
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator>;
-};
+}
 
 export function DownloadMobileAppModal({ ref }: Props) {
     const [open, dispatch, mounted] = useSingletonModal(ref);

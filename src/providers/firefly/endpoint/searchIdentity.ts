@@ -22,13 +22,13 @@ const allWeb3Platforms = [
     'seekerid',
 ];
 
-type Options = {
+interface Options {
     platforms?: SocialSource[];
     excludes?: SocialSource[];
     size?: number;
     indicator?: PageIndicator;
     signal?: AbortSignal;
-};
+}
 
 export async function searchIdentity(
     keyword: string,

@@ -57,9 +57,9 @@ const initialConfig = {
     onError: () => {},
 };
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<ComposeModalOpenProps, ComposeModalCloseProps>>;
-};
+}
 
 function ComposeModalUI({ ref }: Props) {
     const contentRef = useRef<HTMLDivElement>(null);

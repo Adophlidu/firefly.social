@@ -2,6 +2,7 @@ import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
+import type { PageData } from '@/decorators/types.js';
 import { isSameAddress, isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { patchActivitiesQuery } from '@/helpers/patchActivitiesQuery.js';
@@ -13,7 +14,6 @@ import type { WalletProfile } from '@/providers/types/Firefly.js';
 import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/utility.js';
 
-type PagesData = { pages: Array<{ data: Article[] }> };
 interface NFTPagesData {
     pages: Array<{ data: FollowingNFT[] | NFTFeedV3[] }>;
 }
@@ -33,7 +33,7 @@ function isArticleAuthorAddressMatch(article: Article, address: string): boolean
 }
 
 export function setWalletBlockStatus(address: string, status: boolean) {
-    const patcher = (old: Draft<PagesData> | undefined) => {
+    const patcher = (old: Draft<PageData<Article>> | undefined) => {
         if (!old) return old;
         return produce(old, (draft) => {
             for (const page of draft.pages) {
@@ -54,7 +54,7 @@ export function setWalletBlockStatus(address: string, status: boolean) {
         }
     });
 
-    queryClient.setQueriesData<PagesData>({ queryKey: ['posts', Source.Article, 'bookmark'] }, patcher);
+    queryClient.setQueriesData<PageData<Article>>({ queryKey: ['posts', Source.Article, 'bookmark'] }, patcher);
     queryClient.setQueriesData<Article>({ queryKey: ['article-detail'] }, (old) => {
         if (!old) return;
         return produce(old, (draft) => {

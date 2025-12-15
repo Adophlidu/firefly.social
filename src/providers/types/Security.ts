@@ -1,8 +1,8 @@
-export type GoPlusResponse<T> = {
+export interface GoPlusResponse<T> {
     code: 0 | 1;
     message: 'OK' | string;
     result: T;
-};
+}
 
 type BooleanChar = '0' | '1';
 

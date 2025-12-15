@@ -11,9 +11,9 @@ import type {
 } from '@/modals/FrameViewerModal/FrameViewerModalContent.js';
 import { FrameViewerModalHeader } from '@/modals/FrameViewerModal/FrameViewerModalHeader.js';
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<FrameViewerModalOpenProps>>;
-};
+}
 
 const FrameViewerModalContent = dynamic(() => import('@/modals/FrameViewerModal/FrameViewerModalContent.js'), {
     ssr: false,

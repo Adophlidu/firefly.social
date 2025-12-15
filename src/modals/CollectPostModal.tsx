@@ -18,9 +18,9 @@ const PostCollect = dynamic(() => import('@/components/Posts/PostCollect.js').th
 interface CollectPostModalOpenProps {
     post: Post;
 }
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<CollectPostModalOpenProps>>;
-};
+}
 
 export function CollectPostModal({ ref }: Props) {
     const [props, setProps] = useState<CollectPostModalOpenProps>();

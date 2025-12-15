@@ -2,6 +2,7 @@ import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SearchType, Source } from '@/constants/enum.js';
+import type { PageData } from '@/decorators/types.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { type Notification, type Profile, type Provider } from '@/providers/types/SocialMedia.js';
@@ -45,8 +46,7 @@ export function setFollowStatus(source: Source, profileId: string, status: boole
         });
     });
 
-    type PagesData = { pages: Array<{ data: Profile[] }> };
-    const profilesPatcher = (old: Draft<PagesData> | undefined) => {
+    const profilesPatcher = (old: Draft<PageData<Profile>> | undefined) => {
         if (!old?.pages) return old;
         return produce(old, (draft) => {
             for (const page of draft.pages) {
@@ -61,12 +61,15 @@ export function setFollowStatus(source: Source, profileId: string, status: boole
         });
     };
 
-    queryClient.setQueriesData<PagesData>({ queryKey: ['profiles', source] }, profilesPatcher);
-    queryClient.setQueriesData<PagesData>(
+    queryClient.setQueriesData<PageData<Profile>>({ queryKey: ['profiles', source] }, profilesPatcher);
+    queryClient.setQueriesData<PageData<Profile>>(
         { queryKey: ['search', SearchType.Profiles], type: 'active' },
         profilesPatcher,
     );
-    queryClient.setQueriesData<PagesData>({ queryKey: ['suggested-follows', source], type: 'active' }, profilesPatcher);
+    queryClient.setQueriesData<PageData<Profile>>(
+        { queryKey: ['suggested-follows', source], type: 'active' },
+        profilesPatcher,
+    );
     queryClient.setQueriesData<Profile[]>({ queryKey: ['suggested-follows-lite'] }, (profiles) => {
         if (!profiles) return profiles;
 

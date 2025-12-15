@@ -24,9 +24,9 @@ interface RecoveryPhraseModalOpenProps {
 
 type RecoveryPhraseModalCloseResult = boolean | null;
 
-type Props = {
+interface Props {
     ref: Ref<SingletonModalRefCreator<RecoveryPhraseModalOpenProps, RecoveryPhraseModalCloseResult>>;
-};
+}
 
 export function RecoveryPhraseModal({ ref }: Props) {
     const [props, setProps] = useState<RecoveryPhraseModalOpenProps>();

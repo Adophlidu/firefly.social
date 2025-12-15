@@ -27,9 +27,9 @@ interface EditCrossAtModalOpenProps {
 
 type EditCrossAtModalCloseProps = Profile[] | void;
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<EditCrossAtModalOpenProps, EditCrossAtModalCloseProps>>;
-};
+}
 
 export function EditCrossAtModal({ ref }: Props) {
     const post = useCompositePost();

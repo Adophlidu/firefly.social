@@ -28,9 +28,9 @@ import { removeAccountByProfileId } from '@/services/account.js';
 interface DisconnectFireflyAccountModalProps {
     account: Pick<Account, 'profile' | 'origin'>;
 }
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<DisconnectFireflyAccountModalProps>>;
-};
+}
 
 export function DisconnectFireflyAccountModal({ ref }: Props) {
     const [props, setProps] = useState<DisconnectFireflyAccountModalProps | void>();

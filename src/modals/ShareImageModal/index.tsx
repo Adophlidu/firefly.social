@@ -27,9 +27,9 @@ interface ShareImageModalOpenProps {
     imageUrl: string;
     aspectRatio?: string; // optimize CLS with this
 }
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<ShareImageModalOpenProps>>;
-};
+}
 
 export function ShareImageModal({ ref }: Props) {
     const [props, setProps] = useState<ShareImageModalOpenProps>();

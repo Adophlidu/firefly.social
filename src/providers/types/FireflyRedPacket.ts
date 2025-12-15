@@ -364,7 +364,7 @@ export namespace FireflyRedPacketAPI {
     }
     export type ParseResponse = Response<ParseResult>;
 
-    export type CheckClaimStrategyStatusOptions = {
+    export interface CheckClaimStrategyStatusOptions {
         isSolana: boolean;
         rpid: string;
         profile: {
@@ -380,7 +380,7 @@ export namespace FireflyRedPacketAPI {
         wallet: {
             address: string;
         };
-    };
+    }
     export type PostReactionKind = 'like' | 'repost' | 'quote' | 'comment' | 'collect';
 
     export type ClaimStrategyStatus =
@@ -450,10 +450,10 @@ export namespace FireflyRedPacketAPI {
 
     export type ThemeByIdOptions = { rpid: string } | { themeId: string };
     export type ThemeByIdResponse = Response<ThemeGroupSettings>;
-    export type CreateThemeOptions = {
+    export interface CreateThemeOptions {
         font_color: string;
         /** image url */
         image: string;
-    };
+    }
     export type CreateThemeResponse = Response<{ tid: string }>;
 }

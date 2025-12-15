@@ -24,9 +24,9 @@ interface ConfirmFireflyModalOpenProps {
 }
 
 type ConfirmFireflyModalCloseProps = boolean;
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<ConfirmFireflyModalOpenProps, ConfirmFireflyModalCloseProps>>;
-};
+}
 
 export function ConfirmFireflyModal({ ref }: Props) {
     const avatar = useFireflyAccountAvatar();

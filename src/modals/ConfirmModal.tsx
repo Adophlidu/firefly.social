@@ -33,9 +33,9 @@ interface ConfirmModalOpenProps {
 
 /** Dismissing dialog returns null */
 type ConfirmModalCloseResult = boolean | null;
-type Props = {
+interface Props {
     ref: Ref<SingletonModalRefCreator<ConfirmModalOpenProps, ConfirmModalCloseResult>>;
-};
+}
 
 export function ConfirmModal({ ref }: Props) {
     const [props, setProps] = useState<ConfirmModalOpenProps>();

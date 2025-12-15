@@ -20,15 +20,15 @@ export enum LensMetadataAttributeKey {
     Poll = 'pollId',
 }
 
-type OperationResponse<T extends string> = {
+interface OperationResponse<T extends string> {
     __typename: T;
     hash: TxHash;
-};
+}
 
-type ErrorResponse<T extends string> = {
+interface ErrorResponse<T extends string> {
     __typename: T;
     reason: string;
-};
+}
 
 type DelegableOperationResult<O extends string, E extends string> =
     | OperationResponse<O>

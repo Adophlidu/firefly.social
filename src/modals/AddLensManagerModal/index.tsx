@@ -24,9 +24,9 @@ interface ModalOpenProps {
 }
 type ModalCloseProps = boolean | void;
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<ModalOpenProps, ModalCloseProps>>;
-};
+}
 
 export function AddLensManagerModal({ ref }: Props) {
     const [props, setProps] = useState<ModalOpenProps>();

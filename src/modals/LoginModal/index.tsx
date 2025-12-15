@@ -59,9 +59,9 @@ export interface LoginModalOpenProps {
     };
 }
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<LoginModalOpenProps | void>>;
-};
+}
 
 export function LoginModal({ ref }: Props) {
     const isMedium = useIsMedium();

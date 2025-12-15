@@ -11,7 +11,10 @@ type CommunityType =
     | 'twitter'
     | 'other';
 
-export type ClubUrl = { type: CommunityType; link: string };
+export interface ClubUrl {
+    type: CommunityType;
+    link: string;
+}
 
 interface Coin {
     id: string;

@@ -21,9 +21,9 @@ export interface WalletConnectModalOpenProps {
 interface WalletConnectModalCloseProps {
     networkType: NetworkType;
 }
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<WalletConnectModalOpenProps | void, WalletConnectModalCloseProps | void>>;
-};
+}
 
 function WalletConnectModalRoot({ ref }: Props) {
     const isDark = useIsDarkMode();

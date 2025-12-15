@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { useState } from 'react';
 
-type Args = {
+interface Args {
     paths: string[];
-};
+}
 
 const meta: Meta<Args> = {
     title: 'Token/TokenPage',

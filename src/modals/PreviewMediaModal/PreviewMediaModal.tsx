@@ -10,9 +10,9 @@ import type { PreviewMediaModalContentProps } from '@/modals/PreviewMediaModal/P
 
 interface PreviewMediaModalOpenProps extends Omit<PreviewMediaModalContentProps, 'open' | 'onClose'> {}
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<PreviewMediaModalOpenProps>>;
-};
+}
 
 const PreviewMediaModalContent = dynamic(
     () => import('@/modals/PreviewMediaModal/PreviewMediaModalContent.js').then((m) => m.PreviewMediaModalContent),

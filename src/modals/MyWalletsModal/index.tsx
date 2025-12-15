@@ -7,9 +7,9 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConnectedWallets } from '@/modals/MyWalletsModal/ConnectedWallets.js';
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator>;
-};
+}
 
 export function MyWalletsModal({ ref }: Props) {
     const [open, dispatch] = useSingletonModal(ref, {

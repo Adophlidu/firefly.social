@@ -17,9 +17,9 @@ const SwapModalContent = dynamic(
     },
 );
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<SwapModalOpenProps>>;
-};
+}
 
 export function SwapModal({ ref }: Props) {
     const [props, setProps] = useState<SwapModalOpenProps>();

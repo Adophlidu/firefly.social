@@ -5,7 +5,7 @@ import type { FireflyDisplayInfo } from '@/providers/types/Firefly.js';
 
 export type SnapshotChoice = number[] | { [key: string]: number } | number | string;
 
-export type SnapshotProposal = {
+export interface SnapshotProposal {
     title: string;
     id: string;
     author: string;
@@ -34,9 +34,9 @@ export type SnapshotProposal = {
         id: string;
         name: string;
     };
-};
+}
 
-export type SnapshotVote = {
+export interface SnapshotVote {
     ipfs: string;
     voter: string;
     choice: SnapshotChoice;
@@ -51,15 +51,15 @@ export type SnapshotVote = {
         id: string;
         type: string;
     };
-};
+}
 
-type SnapshotUser = {
+interface SnapshotUser {
     about: string;
     avatar: string;
     created: number;
     id: string;
     name: string;
-};
+}
 
 export interface SnapshotVotes {
     data: {

@@ -169,9 +169,9 @@ function AddCustomERC20ModalContent({
 
 export interface AddCustomERC20ModalOpenProps extends Pick<AddCustomERC20ModalContentProps, 'initialChainId'> {}
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<AddCustomERC20ModalOpenProps>>;
-};
+}
 
 export function AddCustomERC20Modal({ ref }: Props) {
     const [props, setProps] = useState<AddCustomERC20ModalOpenProps | undefined>();

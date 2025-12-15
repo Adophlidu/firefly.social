@@ -7,9 +7,9 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { FireflyAccountSVG } from '@/modals/CreateFireflyAccountGuideModal/FireflyAccountSVG.js';
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator>;
-};
+}
 
 export function CreateFireflyAccountGuideModal({ ref }: Props) {
     const [open, dispatch] = useSingletonModal(ref);

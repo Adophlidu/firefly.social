@@ -251,6 +251,8 @@ export default defineConfig([
                 },
             ],
 
+            '@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
+
             '@typescript-eslint/await-thenable': 'warn',
             'no-return-await': 'error',
             '@typescript-eslint/dot-notation': 'warn',

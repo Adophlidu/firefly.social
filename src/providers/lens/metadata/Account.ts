@@ -21,11 +21,11 @@ interface AccountMetadataDetails {
 }
 type AccountOptions = PartialWith<AccountMetadataDetails, 'id'>;
 
-export type AccountMetadata = {
+export interface AccountMetadata {
     $schema: AccountMetadataSchemaId;
     lens: AccountMetadataDetails;
     signature?: string;
-};
+}
 
 const AccountMetadataSchema: z.ZodType<AccountMetadata, z.ZodTypeDef, object> = z.object({
     $schema: z.literal(AccountMetadataSchemaId.LATEST),

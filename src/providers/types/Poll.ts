@@ -51,13 +51,13 @@ export type CreatePollResponse = FireflyResponse<{
     poll_id: string;
 }>;
 
-type FireflyPollOption = {
+interface FireflyPollOption {
     id: number;
     name: string;
     count: number;
     is_select: boolean;
     percent: number | null;
-};
+}
 
 export interface FireflyPoll {
     poll_id: string;
@@ -72,10 +72,10 @@ export interface FireflyPoll {
 
 export type GetPollResponse = FireflyResponse<FireflyPoll>;
 
-export type VoteResponseData = {
+export interface VoteResponseData {
     is_success: boolean;
     choice_detail: FireflyPollOption[];
-};
+}
 
 export type VoteResponse = FireflyResponse<VoteResponseData>;
 

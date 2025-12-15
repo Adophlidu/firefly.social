@@ -19,9 +19,9 @@ interface LogoutModalProps {
     account?: Account;
 }
 
-type Props = {
+interface Props {
     ref: React.Ref<SingletonModalRefCreator<LogoutModalProps | void>>;
-};
+}
 
 export function LogoutModal({ ref }: Props) {
     const router = useRouter();
