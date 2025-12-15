@@ -7,6 +7,7 @@ import { type Hex, hexToBytes } from 'viem';
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { HIDDEN_SECRET } from '@/constants/static.js';
+import { ensureHexPrefix } from '@/helpers/ensureHexPrefix.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySession } from '@/providers/bsky/Session.js';
@@ -23,7 +24,7 @@ const APP_LOGIN_ENCRYPT_IV = '0x4f05c37c16c801c2516b0338a8fd0cf9';
 
 async function decrypt(data: string, otp: string) {
     const iv = hexToBytes(APP_LOGIN_ENCRYPT_IV);
-    const encryptedData = hexToBytes((data.startsWith('0x') ? data : `0x${data}`) as Hex);
+    const encryptedData = hexToBytes(ensureHexPrefix(data));
 
     // Derive AES key using SHA-256 hash of OTP
     const otpBytes = new TextEncoder().encode(otp);
@@ -73,7 +74,7 @@ export async function decryptAppScanLoginEncryptedData(
                 case SourceInURL.Farcaster:
                     return new FarcasterSession(
                         account.user_id,
-                        account.token.startsWith('0x') ? account.token : `0x${account.token}`,
+                        ensureHexPrefix(account.token),
                         0,
                         0,
                         FAKE_SIGNER_REQUEST_TOKEN,

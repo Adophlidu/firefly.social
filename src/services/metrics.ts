@@ -10,6 +10,7 @@ import { env } from '@/constants/env.js';
 import { SessionExpiredError } from '@/constants/error.js';
 import { SEVEN_DAYS } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
+import { ensureHexPrefix } from '@/helpers/ensureHexPrefix.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getAccountMetricsData } from '@/helpers/getAccountMetricsData.js';
@@ -201,7 +202,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
 
                 const session = new FarcasterSession(
                     profileId,
-                    data.signer_private_key.startsWith('0x') ? data.signer_private_key : `0x${data.signer_private_key}`,
+                    ensureHexPrefix(data.signer_private_key),
                     now,
                     now,
                     FAKE_SIGNER_REQUEST_TOKEN,
