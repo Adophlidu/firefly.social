@@ -5,7 +5,6 @@ interface FireflyPolymarketActivity
     has_bookmarked?: boolean;
     is_like?: boolean;
     like_count?: number;
-    [key: string]: unknown;
 }
 
 export function formatPolymarketFromFirefly(activity: FireflyPolymarketActivity): PolymarketActivity {
