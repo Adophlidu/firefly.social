@@ -97,7 +97,7 @@ async function withReplyPostsToTimeline(timeline: Tweet[]) {
         }),
     );
     const result = resolveTwitterResponseData(response);
-    result.data = result.data ? await patchTweetsClientToFirefly(result.data) : [];
+    result.data = result.data ? await patchTweetsClientToFirefly(result.data) : EMPTY_LIST;
     return timeline.map((tweet) => {
         const tweetV2 = result.data?.find((x) => x.id === tweet.id);
         const commentTweetV2 = result.data?.find((x) => x.id === tweet.replyId);

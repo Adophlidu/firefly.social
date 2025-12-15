@@ -2,6 +2,7 @@ import { uniq } from 'lodash-es';
 import { memo } from 'react';
 
 import { SnapshotChoice } from '@/components/Snapshot/SnapshotChoice.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 
 interface SnapshotApprovalChoicesProps {
     choices: string[];
@@ -14,7 +15,7 @@ export const SnapshotApprovalChoices = memo<SnapshotApprovalChoicesProps>(functi
     choices,
     disabled,
     onChange,
-    value = [],
+    value = EMPTY_LIST,
 }) {
     return (
         <div className="flex flex-col gap-3">

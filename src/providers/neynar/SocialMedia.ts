@@ -122,7 +122,7 @@ class NeynarSocialMedia implements Provider {
             type: MessageType.CAST_ADD,
             castAddBody: {
                 ...result,
-                embedsDeprecated: [],
+                embedsDeprecated: EMPTY_LIST,
                 embeds: [
                     {
                         castId: {
@@ -225,7 +225,7 @@ class NeynarSocialMedia implements Provider {
     async publishPost(post: Post): Promise<{ postId: string }> {
         const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
 
-        const urls = post.metadata.content?.content?.match(URL_REGEX) || [];
+        const urls = post.metadata.content?.content?.match(URL_REGEX) || EMPTY_LIST;
         const mediaUrls = post.mediaObjects?.map((v) => ({ url: v.url })) ?? [];
         const hasRp = !!post.metadata.rpPayload;
         const contentUrls = !hasRp

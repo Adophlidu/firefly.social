@@ -12,7 +12,7 @@ import { SolanaChainId } from '@/web3-shared/solana/types.js';
 export function useTradeInfo(token: CoinGeckoToken | null | undefined, argChainId?: number, argAddress?: string) {
     const { data: trending } = useCoinTrending(token?.id);
     const { data: supportedChains = EMPTY_LIST } = useOkxSupportedChains();
-    const { contracts = [] } = trending ?? {};
+    const { contracts = EMPTY_LIST } = trending ?? {};
     const chainIds = useMemo(
         () => uniq([...supportedChains.map((x) => x.chainId), SolanaChainId.Mainnet]),
         [supportedChains],

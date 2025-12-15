@@ -11,6 +11,7 @@ import SolanaIcon from '@/assets/solana.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { NetworkType, Source } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
@@ -24,7 +25,7 @@ interface Props {
     profiles?: FireflyProfile[];
 }
 
-export function WalletMixInfo({ profiles = [] }: Props) {
+export function WalletMixInfo({ profiles = EMPTY_LIST }: Props) {
     const walletProfiles = profiles
         .filter((profile) => profile.identity.source === Source.Wallet)
         .map((x) => ({ ...x, type: getAddressType(x.identity.id) }))

@@ -3,6 +3,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { NotificationSourceType } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { SearchTokenInfo } from '@/providers/types/Firefly.js';
 
@@ -33,11 +34,11 @@ const defaultPreferences: Preferences = {
     TOKEN_PROFILE_COIN_ID_MAP: {},
     FIREFLY_ACCOUNT_CHECKED_MAP: {},
     NOTIFICATION_READ_RECORD: {
-        [NotificationSourceType.Tips]: [],
-        [NotificationSourceType.Schedule]: [],
-        [NotificationSourceType.Farcaster]: [],
-        [NotificationSourceType.Lens]: [],
-        [NotificationSourceType.Bsky]: [],
+        [NotificationSourceType.Tips]: EMPTY_LIST,
+        [NotificationSourceType.Schedule]: EMPTY_LIST,
+        [NotificationSourceType.Farcaster]: EMPTY_LIST,
+        [NotificationSourceType.Lens]: EMPTY_LIST,
+        [NotificationSourceType.Bsky]: EMPTY_LIST,
     },
 };
 

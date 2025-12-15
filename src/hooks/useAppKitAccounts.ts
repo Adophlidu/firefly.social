@@ -11,6 +11,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { ConnectionSource, NetworkType } from '@/constants/enum.js';
 import { walletConnectIcon, walletConnectId } from '@/constants/reown.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { networkTypeToChainNamespace } from '@/helpers/networkTypeToChainNamespace.js';
@@ -120,7 +121,7 @@ export function useAppKitAccountsByNetwork(network: NetworkType) {
             let addresses = [...(address ? [address] : [])];
 
             if (isBitcoin && connectedConnection) {
-                addresses = connectedConnection.accounts.map((account) => account.address) || [];
+                addresses = connectedConnection.accounts.map((account) => account.address) || EMPTY_LIST;
             }
 
             return CoreConnectionControllerUtil.excludeConnectorAddressFromConnections({
@@ -167,10 +168,10 @@ export function useAppKitAccountsByNetwork(network: NetworkType) {
     }, [chainNamespace, activeConnectorIds, caipAddress, network, connections, hasAnyConnections]);
 
     const activeAccounts = useMemo<AppKitAccount[]>(() => {
-        if (!chainNamespace || !hasAnyConnections) return [];
+        if (!chainNamespace || !hasAnyConnections) return EMPTY_LIST;
 
         const activeConnections = getActiveConnections(chainNamespace).filter((x) => x.accounts.length > 0);
-        if (!activeConnections.length) return [];
+        if (!activeConnections.length) return EMPTY_LIST;
 
         return activeConnections.flatMap((x) => connectionToAccounts(x, network));
     }, [chainNamespace, network, hasAnyConnections, getActiveConnections]);

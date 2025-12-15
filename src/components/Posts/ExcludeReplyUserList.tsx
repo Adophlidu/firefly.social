@@ -9,6 +9,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
@@ -55,7 +56,7 @@ interface ExcludeReplyUserListProps {
     onClickProfile?: (profile: Profile, checked: boolean) => void;
 }
 
-function ExcludeReplyUserList({ post, profiles, excluded = [], onClickProfile }: ExcludeReplyUserListProps) {
+function ExcludeReplyUserList({ post, profiles, excluded = EMPTY_LIST, onClickProfile }: ExcludeReplyUserListProps) {
     const otherProfiles = profiles.filter((profile) => !isSameProfile(profile, post.author));
     return (
         <div className="flex flex-col gap-2">

@@ -6,7 +6,7 @@ import urlcat from 'urlcat';
 import { RestrictionType, Source } from '@/constants/enum.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { TWEET_REGEX } from '@/constants/regexp.js';
-import { SITE_URL } from '@/constants/static.js';
+import { EMPTY_LIST, SITE_URL } from '@/constants/static.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
@@ -237,7 +237,7 @@ export function formatTweetsPage(
     data: TweetV2PaginableTimelineResult,
     currentIndicator?: PageIndicator,
 ): Pageable<Post, PageIndicator> {
-    const posts = data.data?.map((item) => tweetV2ToPost(item, data.includes)) || [];
+    const posts = data.data?.map((item) => tweetV2ToPost(item, data.includes)) || EMPTY_LIST;
     return createPageable(
         posts,
         createIndicator(currentIndicator),

@@ -156,7 +156,7 @@ function formatContentV3(metadata: FullPostMetadata, author: Profile, mentions: 
                     ? uniqBy(compact([asset, ...getAttachmentsV3(metadata.attachments)]), (x) => x.uri)
                     : asset
                       ? [asset]
-                      : [],
+                      : EMPTY_LIST,
             };
         }
         case 'AudioMetadata': {
@@ -446,7 +446,7 @@ export function formatLensPostV3(result: AnyPost): Post {
 
     const mediaObjects = getMediaObjectsV3(result.metadata);
     const content = formatContentV3(result.metadata, profile, result.mentions);
-    const oembedUrl = last(content?.oembedUrls || content?.content.match(URL_REGEX) || []);
+    const oembedUrl = last(content?.oembedUrls || content?.content.match(URL_REGEX) || EMPTY_LIST);
     const mentions = formatLensMentions(result.mentions);
     const locale = getPostLocale(result.metadata);
     const channel = result.feed.group ? formatLensChannelFromPostGroup(result.feed.group) : undefined;

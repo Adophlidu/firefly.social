@@ -3,6 +3,7 @@ import { Reorder } from 'framer-motion';
 import { memo } from 'react';
 
 import ReorderIcon from '@/assets/reorder.svg';
+import { EMPTY_LIST } from '@/constants/static.js';
 
 interface SnapshotRankChoicesProps {
     choices: string[];
@@ -15,7 +16,7 @@ export const SnapshotRankChoices = memo<SnapshotRankChoicesProps>(function Snaps
     choices,
     disabled = false,
     onChange,
-    value = [],
+    value = EMPTY_LIST,
 }) {
     const selectedChoices = value.map((value) => {
         return choices[value - 1];

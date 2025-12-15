@@ -1,6 +1,7 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
+import { EMPTY_LIST } from '@/constants/static.js';
 import { getPoapsByWallet } from '@/services/getPoapsByWallet.js';
 
 export function usePoapsByWallet(address: string) {
@@ -18,6 +19,6 @@ export function usePoapsByWallet(address: string) {
                 return;
             }
         },
-        select: (data) => compact(data.pages.flatMap((x) => x?.data || [])),
+        select: (data) => compact(data.pages.flatMap((x) => x?.data || EMPTY_LIST)),
     });
 }

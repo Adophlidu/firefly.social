@@ -20,7 +20,7 @@ import { captureBookmarkTokenViewEvent } from '@/providers/telemetry/captureToke
 export default memo(function BookmarkedTokens(props: HTMLProps<HTMLDivElement>) {
     const isLogin = useIsLogin();
     const profileIds = useCurrentProfileIds();
-    const { data: tokens = [], isLoading } = useQuery({
+    const { data: tokens = EMPTY_LIST, isLoading } = useQuery({
         enabled: isLogin,
         queryKey: ['bookmarks', 'aside', Source.Tokens, profileIds],
         queryFn: async () => {

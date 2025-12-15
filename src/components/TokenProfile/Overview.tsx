@@ -347,7 +347,7 @@ const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOverview({ ch
                   link: links.telegram_handle ? `https://t.me/${links.telegram_handle}` : null,
               },
           ].filter((x) => x.link) as ClubUrl[])
-        : [];
+        : EMPTY_LIST;
 
     return (
         <div {...rest}>

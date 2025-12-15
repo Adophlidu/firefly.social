@@ -495,11 +495,11 @@ class BskySocialMedia implements Provider {
                         return [(x.record as { subject: { uri: string } }).subject.uri];
                     case 'reply':
                         const parentUri = (x.record as { reply: { parent: { uri: string } } })?.reply?.parent?.uri;
-                        if (!parentUri) return [];
+                        if (!parentUri) return EMPTY_LIST;
 
                         return [x.uri, parentUri];
                     case 'quote':
-                        if (!x.reasonSubject) return [];
+                        if (!x.reasonSubject) return EMPTY_LIST;
 
                         return [x.uri, x.reasonSubject];
                     case 'repost':
@@ -518,7 +518,7 @@ class BskySocialMedia implements Provider {
                   });
                   return resolveBskyResponseData(res).posts?.map((x) => formatBskyPost(x));
               })
-            : [];
+            : EMPTY_LIST;
 
         const notifications = compact(
             await Promise.all(
@@ -718,10 +718,10 @@ class BskySocialMedia implements Provider {
             limit: 25,
         });
         const data = resolveBskyResponseData(response, `Failed to get like reactors postId = ${postId}.`);
-        const likes = data.likes || [];
+        const likes = data.likes || EMPTY_LIST;
         const profiles = likes.length
             ? await runInSafeAsync(() => bskySocialMediaProvider.getProfilesByIds(likes.map((x) => x.actor.did)))
-            : [];
+            : EMPTY_LIST;
 
         return createPageable(
             profiles?.length ? profiles : likes.map((x) => formatBskyProfile(x.actor)),
@@ -737,10 +737,10 @@ class BskySocialMedia implements Provider {
             limit: 25,
         });
         const data = resolveBskyResponseData(response, `Failed to get repost reactors postId = ${postId}.`);
-        const repostedBy = data.repostedBy || [];
+        const repostedBy = data.repostedBy || EMPTY_LIST;
         const profiles = repostedBy.length
             ? await runInSafeAsync(() => bskySocialMediaProvider.getProfilesByIds(repostedBy.map((x) => x.did)))
-            : [];
+            : EMPTY_LIST;
 
         return createPageable(
             profiles?.length ? profiles : repostedBy.map((x) => formatBskyProfile(x)),
@@ -779,14 +779,14 @@ class BskySocialMedia implements Provider {
             cursor: indicator?.id || undefined,
         });
         const response = await fireflySessionHolder.fetch<BookmarkResponse<{}>>(url);
-        const uris = response.data?.list.map((x) => PostAtUri.fromId(x.post_id).toUri()) || [];
+        const uris = response.data?.list.map((x) => PostAtUri.fromId(x.post_id).toUri()) || EMPTY_LIST;
         const posts = uris.length
             ? resolveBskyResponseData(
                   await bskySessionHolder.agent.getPosts({
                       uris,
                   }),
               ).posts
-            : [];
+            : EMPTY_LIST;
 
         return createPageable(
             posts.map((x) => ({ ...formatBskyPost(x), hasBookmarked: true })),

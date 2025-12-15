@@ -413,7 +413,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 next(
                     state,
                     (post) => {
-                        const urls = Array.isArray(post.urls) ? post.urls : [];
+                        const urls = Array.isArray(post.urls) ? post.urls : EMPTY_LIST;
                         if (urls.includes(url)) return post; // avoid duplicate urls
                         return {
                             ...post,

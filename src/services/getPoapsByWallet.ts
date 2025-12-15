@@ -1,5 +1,5 @@
 import { FireflyPlatform } from '@/constants/enum.js';
-import { POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
+import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/static.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getFireflyBookmarksByIds } from '@/providers/firefly/endpoint/getFireflyBookmarkIds.js';
 import { getPOAPs } from '@/providers/firefly/nft/getPOAPs.js';
@@ -10,7 +10,8 @@ export async function getPoapsByWallet(address: string) {
     const nftIds = poaps.map((item) =>
         `${EthereumChainId.xDai}.${POAP_CONTRACT_ADDRESS}.${item.tokenId}`.toLowerCase(),
     );
-    const bookmarkData = (await runInSafeAsync(() => getFireflyBookmarksByIds(FireflyPlatform.NFTs, nftIds))) || [];
+    const bookmarkData =
+        (await runInSafeAsync(() => getFireflyBookmarksByIds(FireflyPlatform.NFTs, nftIds))) || EMPTY_LIST;
     const bookmarksMap = new Map<string, boolean>(
         bookmarkData.map((bookmark) => [bookmark.post_id.toLowerCase(), !!bookmark.has_book_marked]),
     );

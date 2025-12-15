@@ -1,6 +1,7 @@
 import urlcat from 'urlcat';
 
 import { queryClient } from '@/configs/queryClient.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { resolveDebankChain } from '@/helpers/resolveDebankChain.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
@@ -12,7 +13,7 @@ async function getAllTokenList(address: string) {
         address,
     });
     const result = await fireflySessionHolder.fetch<DebankTokensResponse>(url);
-    return result.data?.list || [];
+    return result.data?.list || EMPTY_LIST;
 }
 
 export async function getTokensByAddress(address: string): Promise<

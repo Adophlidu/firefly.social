@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 
 import { chains } from '@/configs/chains.js';
 import { NetworkType } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isGreaterThan, multipliedBy } from '@/helpers/number.js';
 import { useCustomFungibleTokens } from '@/hooks/useCustomFungibleTokens.js';
@@ -18,7 +19,7 @@ export const useEvmTokens = (address?: string) => {
         queryKey: ['tokens', address?.toLowerCase()],
         enabled: !!address,
         queryFn: async () => {
-            if (!address) return [];
+            if (!address) return EMPTY_LIST;
             return getTokensByAddress(address);
         },
     });
@@ -26,7 +27,7 @@ export const useEvmTokens = (address?: string) => {
 
     const tokens = useMemo(() => {
         return sortTokensByUsdValue(
-            (data || [])
+            (data || EMPTY_LIST)
                 .reduce<Token[]>((acc, token) => {
                     if (!token.chainId || !chains.some((chain) => chain.id === token.chainId)) return acc;
                     return [

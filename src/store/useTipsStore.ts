@@ -4,6 +4,7 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { Source } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { dividedBy } from '@/helpers/number.js';
@@ -43,11 +44,11 @@ function createInitialState(): TipsBaseState {
         amount: '',
         latestCustomAmount: '',
         token: null,
-        recipientList: [],
+        recipientList: EMPTY_LIST,
         handle: null,
         hash: null,
         pureWallet: false,
-        socialProfiles: [],
+        socialProfiles: EMPTY_LIST,
         isSending: false,
         error: null,
         hasError: false,

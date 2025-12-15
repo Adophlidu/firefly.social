@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { CALENDAR_BASE_URL } from '@/constants/static.js';
+import { CALENDAR_BASE_URL, EMPTY_LIST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import type { EventDatesResponse, EventProvider } from '@/types/calendar.js';
 
@@ -12,5 +12,5 @@ export async function getAvailableDates(type: EventProvider, start_date: number,
             end_date: end_date / 1000,
         }),
     );
-    return (response.data || []).map((x) => x * 1000);
+    return (response.data || EMPTY_LIST).map((x) => x * 1000);
 }

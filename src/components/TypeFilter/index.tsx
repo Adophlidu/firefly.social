@@ -4,6 +4,7 @@ import { type HTMLProps, memo, type ReactNode } from 'react';
 
 import RadioOff from '@/assets/radio.disable-no.svg';
 import RadioOn from '@/assets/radio.yes.svg';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { captureTypeFilterClickEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 
 interface BaseProps<T extends string> extends HTMLProps<HTMLDivElement> {
@@ -27,9 +28,9 @@ function TypeFilter<T extends string = string>({
     multiple,
     selectedOption,
     onOptionChange,
-    selectedOptions = [],
+    selectedOptions = EMPTY_LIST,
     onOptionsChange,
-    options = [],
+    options = EMPTY_LIST,
     className,
     ...props
 }: SingleOptionProps<T> & MultipleOptionProps<T>) {

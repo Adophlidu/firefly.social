@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { NetworkType } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 
 interface Wallets {
     [NetworkType.Solana]: Array<{ address: string }>;
@@ -23,8 +24,8 @@ export const useFireflyWalletStore = create<FireflyWalletState, [['zustand/immer
         isAuthorized: false,
         isConnected: false,
         wallets: {
-            [NetworkType.Solana]: [],
-            [NetworkType.Ethereum]: [],
+            [NetworkType.Solana]: EMPTY_LIST,
+            [NetworkType.Ethereum]: EMPTY_LIST,
         },
         setWallet(networkType, wallets) {
             set((state) => {

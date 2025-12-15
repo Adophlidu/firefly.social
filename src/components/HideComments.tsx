@@ -21,7 +21,7 @@ interface ShowMoreCommentsProps {
 }
 
 export function HideComments(props: ShowMoreCommentsProps) {
-    const { postId, fallback = null, className, excludePostIds = [], source } = props;
+    const { postId, fallback = null, className, excludePostIds = EMPTY_LIST, source } = props;
     const queryResult = useInfiniteQuery({
         queryKey: ['posts', source, 'hidden-comments', postId],
         async queryFn({ pageParam }) {

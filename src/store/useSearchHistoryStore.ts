@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { MAX_SEARCH_RECORD_SIZE } from '@/constants/static.js';
+import { EMPTY_LIST, MAX_SEARCH_RECORD_SIZE } from '@/constants/static.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 interface SearchHistoryState {
@@ -18,7 +18,7 @@ const useSearchHistoryStateBase = create<
 >(
     persist(
         immer((set) => ({
-            records: [] as string[],
+            records: EMPTY_LIST as string[],
             addRecord: (record: string) =>
                 set((state) => {
                     if (!record) return;

@@ -82,7 +82,7 @@ import { settings } from '@/settings/index.js';
  * TODO: finish this if we have a way to query profile stats
  */
 function ensureFollowersIsNotEmpty(users?: User[]) {
-    if (!Array.isArray(users)) return [];
+    if (!Array.isArray(users)) return EMPTY_LIST;
     return users.map(formatFarcasterProfileFromFirefly);
 }
 
@@ -875,7 +875,7 @@ class FireflySocialMedia implements Provider {
                         ...formatted,
                         hasBookmarked: true,
                     };
-                }) || [],
+                }) || EMPTY_LIST,
             );
 
             return createPageable(

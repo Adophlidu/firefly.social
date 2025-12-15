@@ -25,7 +25,11 @@ const CommentListComponents = {
     Footer: CommentsFooter,
 };
 
-export const CommentList = memo<CommentListProps>(function CommentList({ postId, source, excludePostIds = [] }) {
+export const CommentList = memo<CommentListProps>(function CommentList({
+    postId,
+    source,
+    excludePostIds = EMPTY_LIST,
+}) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'comments', postId],
         queryFn: async ({ pageParam }) => {

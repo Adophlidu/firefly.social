@@ -1,6 +1,7 @@
 import urlcat from 'urlcat';
 
 import { type SocialSource, SourceInURL } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/static.js';
 import { createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
@@ -35,7 +36,7 @@ export async function searchIdentity(
     { platforms, excludes, size = 100, indicator, signal }: Options = {},
 ) {
     let platform: string | undefined = undefined;
-    let sources: SourceInURL[] = [];
+    let sources: SourceInURL[] = EMPTY_LIST;
     if (platforms?.length) {
         sources = platforms.map((x) => resolveSourceInUrlForApi(x));
     }
@@ -60,7 +61,7 @@ export async function searchIdentity(
     });
     const data = resolveFireflyResponseData(response);
     return createPageable(
-        data.list || [],
+        data.list || EMPTY_LIST,
         indicator,
         data.cursor && data.list?.length ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
     );

@@ -23,7 +23,7 @@ interface SuggestProfileListProps {
 export const SuggestProfileList = memo<SuggestProfileListProps>(function SuggestProfileList({ query, onSelect }) {
     const isTwitterLogin = useIsLogin(Source.Twitter);
 
-    const { data: profiles = [], isLoading } = useQuery({
+    const { data: profiles = EMPTY_LIST, isLoading } = useQuery({
         queryKey: ['search-suggest', 'profiles', query],
         staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: async ({ signal }) => {

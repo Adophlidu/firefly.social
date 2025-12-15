@@ -37,7 +37,7 @@ const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInner({ em
         combine(result) {
             return result.map((query) => {
                 const list = query.data?.list.filter(isAvailableAddress);
-                return list || [];
+                return list || EMPTY_LIST;
             });
         },
     });

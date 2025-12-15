@@ -69,7 +69,7 @@ const useComposeStateBase = create<ComposeDraftState, [['zustand/persist', unkno
             name: 'firefly-compose-state',
             version: 1,
             migrate(persistedState, version) {
-                if (!persistedState) return { drafts: [] };
+                if (!persistedState) return { drafts: EMPTY_LIST };
                 // TODO Introduced in 2025/08/27, should be removed in 3 months after 2025/08/27
                 if (version === 0 && 'drafts' in (persistedState as any)) {
                     return produce(persistedState as { drafts: Draft[] }, (state) => {
