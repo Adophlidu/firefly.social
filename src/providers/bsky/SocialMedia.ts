@@ -488,6 +488,38 @@ class BskySocialMedia implements Provider {
         });
         const data = resolveBskyResponseData(response, 'Failed to get notifications.');
 
+        const postIds = compact(
+            data.notifications.flatMap((x) => {
+                switch (x.reason) {
+                    case 'like':
+                        return [(x.record as { subject: { uri: string } }).subject.uri];
+                    case 'reply':
+                        const parentUri = (x.record as { reply: { parent: { uri: string } } })?.reply?.parent?.uri;
+                        if (!parentUri) return [];
+
+                        return [x.uri, parentUri];
+                    case 'quote':
+                        if (!x.reasonSubject) return [];
+
+                        return [x.uri, x.reasonSubject];
+                    case 'repost':
+                        if (!x.reasonSubject) return [];
+
+                        return [x.reasonSubject];
+                    default:
+                        return [];
+                }
+            }),
+        );
+        const posts = postIds.length
+            ? await runInSafeAsync(async () => {
+                  const res = await bskySessionHolder.agent.getPosts({
+                      uris: postIds,
+                  });
+                  return resolveBskyResponseData(res).posts?.map((x) => formatBskyPost(x));
+              })
+            : [];
+
         const notifications = compact(
             await Promise.all(
                 data.notifications.map(async (x) => {
@@ -502,24 +534,25 @@ class BskySocialMedia implements Provider {
                                 followers: [formatBskyProfile(x.author)],
                             } satisfies FollowNotification;
                         case 'like':
+                            const postUri = (x.record as { subject: { uri: string } }).subject.uri;
+                            const post = posts?.find((p) => p.metadata.contentURI === postUri);
+                            if (!post) return null;
+
                             return {
                                 source: Source.Bsky,
                                 notificationId: x.cid,
                                 type: NotificationType.Reaction,
                                 reactors: [formatBskyProfile(x.author)],
-                                post: await runInSafeAsync(() =>
-                                    getPostByUri((x.record as { subject: { uri: string } }).subject.uri),
-                                ),
+                                post,
                                 timestamp,
                             } satisfies ReactionNotification;
                         case 'reply':
                             const parentUri = (x.record as { reply: { parent: { uri: string } } })?.reply?.parent?.uri;
                             if (!parentUri) return null;
 
-                            const [comment, parentPost] = await Promise.all([
-                                runInSafeAsync(() => getPostByUri(x.uri)),
-                                runInSafeAsync(() => getPostByUri(parentUri)),
-                            ]);
+                            const comment = posts?.find((p) => p.metadata.contentURI === x.uri);
+                            const parentPost = posts?.find((p) => p.metadata.contentURI === parentUri);
+                            if (!comment || !parentPost) return null;
 
                             return {
                                 source: Source.Bsky,
@@ -546,12 +579,8 @@ class BskySocialMedia implements Provider {
                         case 'quote':
                             if (!x.reasonSubject) return null;
 
-                            const [quote, targetPost] = await Promise.all([
-                                runInSafeAsync(() => getPostByUri(x.uri)),
-                                runInSafeAsync(() =>
-                                    x.reasonSubject ? getPostByUri(x.reasonSubject) : Promise.resolve(null),
-                                ),
-                            ]);
+                            const quote = posts?.find((p) => p.metadata.contentURI === x.uri);
+                            const targetPost = posts?.find((p) => p.metadata.contentURI === x.reasonSubject);
                             if (!quote || !targetPost) return null;
 
                             return {
@@ -568,14 +597,16 @@ class BskySocialMedia implements Provider {
                             } satisfies QuoteNotification;
                         case 'repost':
                             if (!x.reasonSubject) return null;
+
+                            const originalPost = posts?.find((p) => p.metadata.contentURI === x.reasonSubject);
+                            if (!originalPost) return null;
+
                             return {
                                 source: Source.Bsky,
                                 notificationId: x.cid,
                                 type: NotificationType.Mirror,
                                 mirrors: [formatBskyProfile(x.author)],
-                                post: await runInSafeAsync(() =>
-                                    x.reasonSubject ? getPostByUri(x.reasonSubject) : Promise.resolve(null),
-                                ),
+                                post: originalPost,
                                 timestamp,
                             } satisfies MirrorNotification;
                         case 'starterpack-joined':
