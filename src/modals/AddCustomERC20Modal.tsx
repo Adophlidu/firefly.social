@@ -6,7 +6,7 @@ import { Trans } from '@lingui/react/macro';
 import { useCallback, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { type Address, erc20Abi } from 'viem';
-import { useAccount, useConnection } from 'wagmi';
+import { useConnection } from 'wagmi';
 import { readContracts } from 'wagmi/actions';
 
 import { ActionButton } from '@/components/ActionButton.js';
@@ -46,7 +46,7 @@ function AddCustomERC20ModalContent({
     onClose,
     initialChainId = EthereumChainId.Mainnet,
 }: AddCustomERC20ModalContentProps) {
-    const account = useAccount();
+    const account = useConnection();
     const isMedium = useIsMedium('max');
 
     const chainIds: number[] = useVisibleChainIds();

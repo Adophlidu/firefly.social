@@ -5,7 +5,7 @@ import { rootRouteId, useRouteContext } from '@tanstack/react-router';
 import { isUndefined } from 'lodash-es';
 import { useState } from 'react';
 import { useAsyncRetry } from 'react-use';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -28,7 +28,7 @@ export function AuthWalletSignIn() {
     const context = useRouteContext({ from: rootRouteId });
     const { fid, frame, options, onClose } = context as RelayConfirmationContext;
 
-    const account = useAccount();
+    const account = useConnection();
     const [isScanned, setIsScanned] = useState(false);
     const [isSigned, setIsSigned] = useState(false);
 

@@ -7,7 +7,7 @@ import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 
 import CloseIcon from '@/assets/close.svg';
 import { ActionButton } from '@/components/ActionButton.js';
@@ -39,7 +39,7 @@ function AddCustomERC721Content({
     onClose: () => void;
     initialChainId?: number;
 }) {
-    const account = useAccount();
+    const account = useConnection();
     const isMedium = useIsMedium('max');
     const getChainItem = useCallback(
         (chainId: number, isTag?: boolean) => {

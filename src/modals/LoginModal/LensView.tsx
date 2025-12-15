@@ -7,7 +7,7 @@ import { useLocation, useRouter } from '@tanstack/react-router';
 import { compact, first, uniqBy } from 'lodash-es';
 import { memo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 
 import OrbIcon from '@/assets/orb.svg';
 import ScanIcon from '@/assets/scan.svg';
@@ -55,7 +55,7 @@ export const LensViewBeforeLoad = () => {
 };
 
 function Title() {
-    const account = useAccount();
+    const account = useConnection();
     if (account.isReconnecting) return <Trans>Connecting Wallet</Trans>;
     return <Trans>Sign in with Lens</Trans>;
 }
@@ -68,7 +68,7 @@ export const LensView = memo(function LensView() {
     const router = useRouter();
     const { history } = router;
 
-    const account = useAccount();
+    const account = useConnection();
     const { data: canBindMoreAccount } = useCanBindMoreAccount(Source.Lens);
     const { expectedProfile } = useLocation().search as { expectedProfile?: string };
 

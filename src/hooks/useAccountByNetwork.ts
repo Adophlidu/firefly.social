@@ -5,7 +5,7 @@ import { useAppKitAccount } from '@reown/appkit/react';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { first } from 'lodash-es';
 import { useMemo } from 'react';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 
 import { NetworkType, SolanaNetworkType } from '@/constants/enum.js';
 import { isSameSolanaAddress } from '@/helpers/isSameAddress.js';
@@ -14,7 +14,7 @@ import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
-    const account = useAccount();
+    const account = useConnection();
     const { connection } = useAppKitConnection();
     const { address: solanaAddress } = useAppKitAccount({ namespace: 'solana' });
 
@@ -55,7 +55,7 @@ export function useSolanaAccount() {
 }
 
 export function useWalletAccountAll() {
-    const account = useAccount();
+    const account = useConnection();
     const solana = useSolanaAccount();
 
     return useMemo(() => {

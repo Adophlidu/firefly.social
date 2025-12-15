@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 
 import { EMPTY_LIST } from '@/constants/static.js';
 import { getCollections } from '@/providers/firefly/nft/getCollections.js';
@@ -9,7 +9,7 @@ export function useCustomNonFungibleTokens() {
     const tokens = useCustomTokenStore((state) =>
         Object.values(state.tokens).filter((x) => x.type === CustomTokenType.ERC721),
     );
-    const account = useAccount();
+    const account = useConnection();
 
     const paramList = tokens.map((x) => ({ contractAddress: x.address, chainId: x.chainId }));
     return useQuery({

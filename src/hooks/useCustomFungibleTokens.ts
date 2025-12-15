@@ -1,7 +1,7 @@
 import { useQueries } from '@tanstack/react-query';
 import { compact, uniq } from 'lodash-es';
 import { erc20Abi } from 'viem';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 import { multicall } from 'wagmi/actions';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -26,7 +26,7 @@ export function useCustomFungibleTokens(chainId?: EthereumChainId) {
             .filter((x) => x.type === CustomTokenType.ERC20)
             .filter((x) => (chainId ? x.chainId === chainId : true)),
     );
-    const account = useAccount();
+    const account = useConnection();
     return useQueries({
         queries: uniq(tokens.map((x) => x.chainId)).map((chainId) => {
             const tokensByChainId = tokens.filter((x) => x.chainId === chainId);

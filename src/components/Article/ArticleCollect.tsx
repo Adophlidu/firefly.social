@@ -3,7 +3,7 @@ import { Trans } from '@lingui/react/macro';
 import { produce } from 'immer';
 import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import { useAccount, useChains } from 'wagmi';
+import { useChains, useConnection } from 'wagmi';
 import { sendTransaction } from 'wagmi/actions';
 
 import CollectFillIcon from '@/assets/collect-fill.svg';
@@ -34,7 +34,7 @@ interface ArticleCollectProps {
 }
 
 export function ArticleCollect({ article }: ArticleCollectProps) {
-    const account = useAccount();
+    const account = useConnection();
     const chains = useChains();
 
     const platform = article.platform;

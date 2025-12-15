@@ -2,7 +2,7 @@
 
 import { parseJson, safeUnreachable } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
-import { type Hex, hexToBytes } from 'viem';
+import { hexToBytes } from 'viem';
 
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { SourceInURL } from '@/constants/enum.js';

@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 
 import { getSponsorMintStatus } from '@/providers/firefly/wallet-transaction/getSponsorMintStatus.js';
 import type { SponsorMintOptions } from '@/providers/types/Firefly.js';
 
 export function useSponsorMintStatus(options: SponsorMintOptions) {
-    const account = useAccount();
+    const account = useConnection();
 
     return useQuery({
         queryKey: ['sponsor-mint-status', account.address, options.chainId, options.contractAddress, options.tokenId],

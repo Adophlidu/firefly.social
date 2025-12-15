@@ -5,7 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
-import { useAccount, useChainId, useSwitchChain } from 'wagmi';
+import { useChainId, useConnection, useSwitchChain } from 'wagmi';
 
 import WebsiteIcon from '@/assets/website-circle.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
@@ -74,7 +74,7 @@ export function FreeMintButton({
     className,
     ...rest
 }: FreeMintButtonProps) {
-    const account = useAccount();
+    const account = useConnection();
     const currentChainId = useChainId();
     const { switchChainAsync } = useSwitchChain();
 

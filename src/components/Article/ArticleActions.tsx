@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { memo, useCallback } from 'react';
 import urlcat from 'urlcat';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 
 import { Bookmark } from '@/components/Actions/Bookmark.js';
 import { LikeButton } from '@/components/Actions/LikeButton.js';
@@ -32,7 +32,7 @@ interface ArticleActionsProps {
 
 export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions({ article: oldArticle }) {
     const isLogin = useIsLoginFirefly();
-    const account = useAccount();
+    const account = useConnection();
     const { mutate: onBookmarkChange, isPending: bookmarkMutationLoading } = useToggleArticleBookmark();
     const isMattersArticle = oldArticle.platform === ArticlePlatform.Matters;
     const address = isMattersArticle ? oldArticle.author.info.ethAddress : oldArticle.author.id;

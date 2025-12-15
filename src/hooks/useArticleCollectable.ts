@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 import { estimateFeesPerGas, getBalance } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
@@ -9,7 +9,7 @@ import { type Article } from '@/providers/types/Article.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 
 export function useArticleCollectStatus(article: Article) {
-    const account = useAccount();
+    const account = useConnection();
 
     return useQuery({
         queryKey: ['article-collect-status', article.platform, article.id],

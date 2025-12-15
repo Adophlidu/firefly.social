@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 
 import { ENABLED_DECRYPT_SOURCES } from '@/constants/computed.js';
 import { NetworkType, Source } from '@/constants/enum.js';
@@ -20,7 +20,7 @@ const resolver = memoizePromise(
 );
 
 export function useDecryptPost(post: Post) {
-    const account = useAccount();
+    const account = useConnection();
 
     return useAsyncFn(async () => {
         try {

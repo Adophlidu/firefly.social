@@ -8,7 +8,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 import { getAddress } from 'viem';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 
 import SnapshotIcon from '@/assets/snapshot.svg';
 import { Avatar } from '@/components/Avatar.js';
@@ -190,7 +190,7 @@ export function SnapshotBody({ snapshot, link, postId, activity, showVote = true
 function SnapshotVote({ link, postId, snapshot }: Props) {
     const { choices, type, state } = snapshot;
     const [selectedChoices, setSelectedChoices] = useState<SnapshotChoice | undefined>();
-    const account = useAccount();
+    const account = useConnection();
     const { data: currentUserChoice, isLoading: isLoadingCurrentUserChoice } = useQuery({
         queryKey: ['snapshot-votes', snapshot.id, account.address],
         async queryFn() {

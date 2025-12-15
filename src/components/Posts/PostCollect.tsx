@@ -5,7 +5,7 @@ import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { polygon } from 'viem/chains';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 
 import LinkIcon from '@/assets/link.svg';
 import { Avatar } from '@/components/Avatar.js';
@@ -50,7 +50,7 @@ interface PostCollectProps {
 }
 
 export function PostCollect({ post, onClose }: PostCollectProps) {
-    const account = useAccount();
+    const account = useConnection();
     const currentProfile = useCurrentProfile(post.source);
     const [followLoading, toggleFollow] = useToggleFollow(post.author);
 

@@ -7,7 +7,7 @@ import { rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { EstimatedCost } from '@/components/Tips/EstimatedCost.js';
@@ -211,7 +211,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
 });
 
 export function SendWithEVM() {
-    const account = useAccount();
+    const account = useConnection();
     const onConnect = useCallback(() => {
         WalletConnectModalRef.open({ networkType: NetworkType.Ethereum });
     }, []);

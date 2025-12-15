@@ -3,7 +3,7 @@ import { exposeToIframe } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef } from 'react';
 import { useAsync } from 'react-use';
-import { useAccount, useChainId } from 'wagmi';
+import { useChainId, useConnection } from 'wagmi';
 
 import { Image } from '@/components/Image.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
@@ -78,7 +78,7 @@ interface Props {
 export default function FrameViewerModalContent({ open, props, setProps }: Props) {
     const frameRef = useRef<HTMLIFrameElement | null>(null);
 
-    const account = useAccount();
+    const account = useConnection();
     const chainId = useChainId();
 
     const endpointRef = useRef<ReturnType<typeof exposeToIframe>['endpoint']>(null);

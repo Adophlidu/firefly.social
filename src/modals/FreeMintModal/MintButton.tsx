@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/react/macro';
-import { BigNumber } from 'bignumber.js';
 import { type ChangeEvent, memo, useCallback, useMemo } from 'react';
-import { useAccount, useBalance } from 'wagmi';
+import { useBalance, useConnection } from 'wagmi';
 
 import AddIcon from '@/assets/add-number.svg';
 import MinusIcon from '@/assets/minus-number.svg';
@@ -35,7 +34,7 @@ export const MintButton = memo<MintButtonProps>(function MintButton({
     const addDisabled = mintCount >= maxCount;
     const inputDisabled = addDisabled && minusDisabled;
 
-    const account = useAccount();
+    const account = useConnection();
     const balanceRes = useBalance({
         chainId: mintParams.chainId,
         address: account.address,

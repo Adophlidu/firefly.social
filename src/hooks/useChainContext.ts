@@ -1,5 +1,5 @@
 import { unreachable } from '@dimensiondev/utils';
-import { useAccount, useChainId } from 'wagmi';
+import { useChainId, useConnection } from 'wagmi';
 
 import { NetworkType } from '@/constants/enum.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
@@ -14,7 +14,7 @@ export interface ChainContextOverrides {
 }
 
 export function useChainContext(overrides?: ChainContextOverrides) {
-    const account = useAccount();
+    const account = useConnection();
     const chainId = useChainId();
 
     const walletProvider = useSolanaWalletProvider();

@@ -2,7 +2,7 @@ import { t } from '@lingui/core/macro';
 import { last } from 'lodash-es';
 import { useCallback } from 'react';
 import type { Address } from 'viem';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 import { readContract } from 'wagmi/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
@@ -19,7 +19,7 @@ import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function useEthereumVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, enabled = true) {
-    const { address: account } = useAccount();
+    const { address: account } = useConnection();
 
     const signedMessage = 'privateKey' in payload ? payload.privateKey : payload.password;
     const {
@@ -63,7 +63,16 @@ export function useEthereumVerifyAndClaim(payload: RedPacketJSONPayload, source:
         const amount = formatBalance(claimed_amount.toString(), payload.token?.decimals, { significant: 2 });
 
         return { canClaim: true, amount, tx: hash };
-    }, [account, claimCallback, payload.rpid, payload.token?.decimals, payload.chainId, recheckClaimStatus, source]);
+    }, [
+        account,
+        claimCallback,
+        payload.rpid,
+        payload.token?.decimals,
+        payload.chainId,
+        recheckClaimStatus,
+        source,
+        payload.network,
+    ]);
 
     return [
         {
