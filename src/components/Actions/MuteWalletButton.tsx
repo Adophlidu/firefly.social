@@ -28,13 +28,13 @@ export function MuteWalletButton({ handleOrEnsOrAddress, address, isMuted, ref, 
         mutationFn: async () => {
             if (isMuted) {
                 const result = await fireflyWalletProvider.unblockWallet(address);
-                queryClient.setQueryData(['address-is-muted', address], false);
+                queryClient.setQueryData(['address-is-muted', address.toLowerCase()], false);
                 captureMuteEvent(EventId.UNMUTE_SUCCESS, address);
                 enqueueSuccessMessage(<Trans>Unmuted {handleOrEnsOrAddress}.</Trans>);
                 return result;
             } else {
                 const result = await fireflyWalletProvider.blockWallet(address);
-                queryClient.setQueryData(['address-is-muted', address], true);
+                queryClient.setQueryData(['address-is-muted', address.toLowerCase()], true);
                 enqueueSuccessMessage(<Trans>Muted {handleOrEnsOrAddress}.</Trans>);
                 captureMuteEvent(EventId.MUTE_SUCCESS, address);
                 return result;
