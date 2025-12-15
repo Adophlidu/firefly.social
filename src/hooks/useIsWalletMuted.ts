@@ -5,12 +5,11 @@ import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isProfileMuted } from '@/providers/firefly/endpoint/isProfileMuted.js';
 
 export function useIsWalletMuted(address: string, enabled = true) {
-    const addr = isValidAddressEthereum(address) ? address.toLowerCase() : address;
+    const lowerAddress = address.toLowerCase();
+
     return useQuery({
         enabled,
-        queryKey: ['address-is-muted', addr],
-        queryFn: () => {
-            return isProfileMuted(FireflyPlatform.Wallet, addr);
-        },
+        queryKey: ['address-is-muted', lowerAddress],
+        queryFn: () => isProfileMuted(FireflyPlatform.Wallet, isValidAddressEthereum(address) ? lowerAddress : address),
     });
 }

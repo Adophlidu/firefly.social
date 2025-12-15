@@ -4,7 +4,6 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import type { PageData } from '@/decorators/types.js';
 import { isSameAddress, isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { patchActivitiesQuery } from '@/helpers/patchActivitiesQuery.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import type { FireflyWallet } from '@/providers/firefly/Wallet.js';
@@ -63,10 +62,7 @@ export function setWalletBlockStatus(address: string, status: boolean) {
         });
     });
     // Muted status in wallet profile
-    queryClient.setQueryData(
-        ['address-is-muted', isValidAddressEthereum(address) ? address.toLowerCase() : address],
-        status,
-    );
+    queryClient.setQueryData(['address-is-muted', address.toLowerCase()], status);
 
     const nftsPatcher = (old: Draft<NFTPagesData> | undefined) => {
         if (!old || !status) return old;
