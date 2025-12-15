@@ -93,7 +93,7 @@ function getTopCollectorsItemContent(index: number, item: CollectionHolder) {
 export function TopCollectors(props: TopCollectorsProps) {
     const { address, chainId = EthereumChainId.Mainnet } = props;
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['top-collectors', chainId, address],
+        queryKey: ['top-collectors', chainId, address.toLowerCase()],
         async queryFn() {
             return getCollectionHolders(chainId, address);
         },

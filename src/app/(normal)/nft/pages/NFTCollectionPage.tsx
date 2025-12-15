@@ -8,7 +8,7 @@ import { getCollection } from '@/providers/firefly/nft/getCollection.js';
 
 export function NFTCollectionPage({ chainId, address }: { chainId: number; address: string }) {
     const { data } = useSuspenseQuery({
-        queryKey: ['nft-collection', chainId, address],
+        queryKey: ['nft-collection', chainId, address.toLowerCase()],
         async queryFn() {
             return getCollection(chainId, address);
         },

@@ -13,7 +13,7 @@ import { getFollowingNFTs } from '@/providers/firefly/endpoint/getFollowingNFTs.
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 
 export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) {
-    const queryKey = walletAddress ? ['nfts-of', walletAddress] : ['nfts', 'following', Source.NFTs];
+    const queryKey = walletAddress ? ['nfts-of', walletAddress.toLowerCase()] : ['nfts', 'following', Source.NFTs];
     const queryResult = useMultiInfiniteQueryPageable(
         [...queryKey, ...NFTSCAN_CHAIN_IDS],
         NFTSCAN_CHAIN_IDS.map((chainId) => ({

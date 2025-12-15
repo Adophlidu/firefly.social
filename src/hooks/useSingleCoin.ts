@@ -6,7 +6,7 @@ export function useSingleCoin(coinId: string | null | undefined, chainId?: numbe
     const enabled = !!coinId || !!(chainId && address);
     return useQuery({
         enabled,
-        queryKey: ['single-coin', coinId, chainId, address],
+        queryKey: ['single-coin', coinId, chainId, address?.toLowerCase()],
         queryFn: async () => {
             const result = await getSingleCoin({
                 coingecko_id: coinId,

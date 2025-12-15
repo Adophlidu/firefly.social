@@ -19,7 +19,7 @@ const pageSize = 5;
 
 export function PolymarketProfilePosition({ address, proxyAddress }: PolymarketProfilePositionProps) {
     const { data, isLoading } = useQuery({
-        queryKey: ['polymarket', 'positions-lite', address],
+        queryKey: ['polymarket', 'positions-lite', address.toLowerCase()],
         staleTime: 1000 * 60 * 5,
         queryFn: async () => {
             return getPositionHistory({

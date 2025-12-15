@@ -101,7 +101,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
 
     const address = selectedToken?.contract_address;
     const { data: detected } = useQuery({
-        queryKey: ['detect-address', address],
+        queryKey: ['detect-address', address?.toLowerCase()],
         queryFn: () => fireflyWalletProvider.detectAddress(address),
         select: (data) => {
             if (!data) return;

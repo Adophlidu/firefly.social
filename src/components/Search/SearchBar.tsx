@@ -29,7 +29,7 @@ function useDetectAddress(address?: string) {
     const isAddress = isValidAddressEthereum(address);
 
     return useQuery({
-        queryKey: ['detect-address', address],
+        queryKey: ['detect-address', address?.toLowerCase()],
         staleTime: 1000 * 60 * 60,
         enabled: isAddress,
         queryFn: isAddress ? () => fireflyWalletProvider.detectAddress(address) : skipToken,

@@ -34,7 +34,7 @@ export function AuthWalletSignIn() {
 
     // Check if the current wallet is registered
     const { isLoading, isRefetching, isError, data, refetch } = useQuery({
-        queryKey: ['auth-wallet-status', fid, account.address],
+        queryKey: ['auth-wallet-status', fid, account.address?.toLowerCase()],
         queryFn: async () => {
             setIsScanned(false);
             controller.current.renew();

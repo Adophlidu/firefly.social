@@ -15,7 +15,7 @@ function sortTokensByUsdValue(tokens: Token[]) {
 
 export const useEvmTokens = (address?: string) => {
     const { data, isLoading } = useQuery({
-        queryKey: ['tokens', address],
+        queryKey: ['tokens', address?.toLowerCase()],
         enabled: !!address,
         queryFn: async () => {
             if (!address) return [];

@@ -41,7 +41,7 @@ interface NFTListProps {
 function NFTList({ nfts }: NFTListProps) {
     const queries = useQueries({
         queries: nfts.map((nft) => ({
-            queryKey: ['nft-contract', nft.chainId, nft.contractAddress],
+            queryKey: ['nft-contract', nft.chainId, nft.contractAddress.toLowerCase()],
             queryFn: async () => {
                 return getCollection(+nft.chainId, nft.contractAddress);
             },

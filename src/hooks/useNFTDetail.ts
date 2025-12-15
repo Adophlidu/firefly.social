@@ -13,7 +13,7 @@ export function useNFTDetail(
     const enabled = isEvmAddress && !!address && !!tokenId;
     return useQuery({
         enabled,
-        queryKey: ['nft-detail', address, tokenId, chainId],
+        queryKey: ['nft-detail', address?.toLowerCase(), tokenId, chainId],
         async queryFn() {
             if (!enabled) return;
             return getNFTDetail(chainId, address!, tokenId!);

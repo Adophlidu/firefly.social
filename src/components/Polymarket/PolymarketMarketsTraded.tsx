@@ -22,7 +22,7 @@ export const PolymarketMarketsTraded = memo<PolymarketMarketsTradedProps>(functi
     className,
 }) {
     const { data, isLoading } = useQuery({
-        queryKey: ['polymarket', 'markets-traded', address],
+        queryKey: ['polymarket', 'markets-traded', address.toLowerCase()],
         enabled,
         staleTime: 1000 * 60 * 5,
         queryFn: () => getTradedMarketsCount(proxyAddress || address),

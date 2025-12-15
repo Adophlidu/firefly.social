@@ -17,7 +17,7 @@ export const PolymarketVolumeTraded = memo<PolymarketVolumeTradedProps>(function
     proxyAddress,
 }) {
     const { data, isLoading } = useQuery({
-        queryKey: ['polymarket', 'volume-traded', address],
+        queryKey: ['polymarket', 'volume-traded', address.toLowerCase()],
         staleTime: 1000 * 60 * 5,
         queryFn: () => getVolumeTraded(proxyAddress || address),
     });

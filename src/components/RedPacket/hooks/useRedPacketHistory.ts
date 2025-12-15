@@ -11,7 +11,7 @@ export function useRedPacketHistory(
     platform = FireflyRedPacketAPI.SourceType.All,
 ) {
     return useSuspenseInfiniteQuery({
-        queryKey: ['redpacket-history', address, historyType],
+        queryKey: ['redpacket-history', address.toLowerCase(), historyType],
         initialPageParam: createIndicator(undefined, ''),
         queryFn: async ({ pageParam }) => {
             const res = await getHistory(

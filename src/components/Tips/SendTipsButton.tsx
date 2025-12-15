@@ -52,7 +52,14 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         error,
     } = useQuery({
         staleTime: 1000 * 60 * 2, // 2 minutes
-        queryKey: ['tips-validate', recipient?.networkType, recipient?.address, token?.chainId, token?.id, amount],
+        queryKey: [
+            'tips-validate',
+            recipient?.networkType,
+            recipient?.address?.toLowerCase(),
+            token?.chainId,
+            token?.id,
+            amount,
+        ],
         queryFn: async () => {
             if (token && !token.price && !amount) {
                 return {

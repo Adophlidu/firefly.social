@@ -31,7 +31,7 @@ export function useCustomFungibleTokens(chainId?: EthereumChainId) {
         queries: uniq(tokens.map((x) => x.chainId)).map((chainId) => {
             const tokensByChainId = tokens.filter((x) => x.chainId === chainId);
             return {
-                queryKey: ['custom-fungible-tokens', account.address, chainId, tokensByChainId],
+                queryKey: ['custom-fungible-tokens', account.address?.toLowerCase(), chainId, tokensByChainId],
                 async queryFn() {
                     if (!account.address) return;
                     const contracts = tokensByChainId.map((x) => {
@@ -58,7 +58,7 @@ export function useCustomFungibleTokens(chainId?: EthereumChainId) {
                         await runInSafeAsync(async () => {
                             if (chain) {
                                 const price = await queryClient.ensureQueryData({
-                                    queryKey: ['fungible', 'token-price', chainId, token.address],
+                                    queryKey: ['fungible', 'token-price', chainId, token.address.toLowerCase()],
                                     queryFn: () => getFungibleTokenPrice(chainId, token.address),
                                 });
                                 if (price) {

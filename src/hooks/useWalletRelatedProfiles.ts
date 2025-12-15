@@ -10,7 +10,7 @@ import { getAllPlatformProfileByIdentity } from '@/providers/firefly/endpoint/ge
 export function useWalletRelatedProfiles(address: string, enabled = true) {
     return useQuery({
         enabled,
-        queryKey: ['wallet-related-profiles', address],
+        queryKey: ['wallet-related-profiles', address.toLowerCase()],
         queryFn: async () => {
             return getAllPlatformProfileByIdentity({ id: address, source: Source.Wallet }, false);
         },

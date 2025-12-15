@@ -99,7 +99,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
         );
 
     const { data: walletRelation, isLoading: isLoadingWalletRelation } = useQuery({
-        queryKey: ['wallet-relation', profile.address],
+        queryKey: ['wallet-relation', profile.address.toLowerCase()],
         async queryFn() {
             return fireflyWalletProvider.getWalletRelation(profile.address);
         },
@@ -107,7 +107,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
 
     const address = profile.address;
     const { data: totalBalance } = useQuery({
-        queryKey: ['wallet', 'total-balance', networkType, address],
+        queryKey: ['wallet', 'total-balance', networkType, address.toLowerCase()],
         queryFn: async () => {
             if (!networkType) return null;
 

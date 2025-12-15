@@ -20,7 +20,7 @@ export function useSolanaAvailableBalance(
     const { chainId, account } = useChainContext(overrides);
 
     const { data } = useQuery({
-        queryKey: ['solana', 'balance', account, address],
+        queryKey: ['solana', 'balance', account?.toLowerCase(), address?.toLowerCase()],
         enabled,
         staleTime: 1000 * 60, // 1 minute
         queryFn: async () => {

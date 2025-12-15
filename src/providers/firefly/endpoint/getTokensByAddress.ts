@@ -24,7 +24,7 @@ export async function getTokensByAddress(address: string): Promise<
     >
 > {
     const tokens = await queryClient.fetchQuery({
-        queryKey: ['debank', 'tokens', address],
+        queryKey: ['debank', 'tokens', address.toLowerCase()],
         queryFn: () => getAllTokenList(address),
         staleTime: 1000 * 60 * 1,
     });

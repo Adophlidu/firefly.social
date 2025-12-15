@@ -27,7 +27,7 @@ export function PolymarketPositionList({ address, proxyAddress }: PolymarketPosi
     const [showCurrent, setShowCurrent] = useState(false);
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['polymarket', 'positions', address, showCurrent],
+        queryKey: ['polymarket', 'positions', address.toLowerCase(), showCurrent],
         staleTime: 0,
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);

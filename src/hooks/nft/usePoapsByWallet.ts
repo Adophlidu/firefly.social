@@ -9,7 +9,7 @@ export function usePoapsByWallet(address: string) {
     return useSuspenseInfiniteQuery({
         initialPageParam: '',
         getNextPageParam: () => undefined,
-        queryKey: ['poap-list', address],
+        queryKey: ['poap-list', address.toLowerCase()],
         queryFn: async () => {
             try {
                 const poaps = await getPoapsByWallet(address);

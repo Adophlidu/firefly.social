@@ -5,7 +5,7 @@ import { getTokenByAddress } from '@/providers/x3pro/getTokenByAddress.js';
 export function useX3ProTokenInfo(address: string | undefined, enabled = true) {
     return useQuery({
         enabled,
-        queryKey: ['x3-pro', 'token', address],
+        queryKey: ['x3-pro', 'token', address?.toLowerCase()],
         queryFn: () => {
             if (!address) return null;
             return getTokenByAddress(address);

@@ -313,7 +313,7 @@ interface DexCoinOverviewProps extends HTMLProps<HTMLDivElement> {
 }
 const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOverview({ chainId, address, ...rest }) {
     const { data: detail, isLoading } = useQuery({
-        queryKey: ['dex-coin-detail', chainId, address],
+        queryKey: ['dex-coin-detail', chainId, address.toLowerCase()],
         queryFn: () => getDexCoinDetail(chainId, address),
     });
 

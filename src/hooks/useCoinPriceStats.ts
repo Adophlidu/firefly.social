@@ -13,7 +13,7 @@ export function useCoinPriceStats(
     // stabilize the query key
     const queryKey = coinId
         ? ['coingecko', 'token-price-stats', coinId, days]
-        : ['coingecko', 'token-price-stats', chainId, address, days];
+        : ['coingecko', 'token-price-stats', chainId, address?.toLowerCase(), days];
     return useQuery({
         queryKey,
         queryFn:

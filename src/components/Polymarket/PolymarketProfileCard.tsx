@@ -22,7 +22,7 @@ interface PolymarketProfileCardProps {
 
 export const PolymarketProfileCard = memo<PolymarketProfileCardProps>(function PolymarketProfileCard({ address }) {
     const { isLoading, data } = useQuery({
-        queryKey: ['polymarket', 'profile', address],
+        queryKey: ['polymarket', 'profile', address.toLowerCase()],
         staleTime: 1000 * 60 * 5,
         queryFn: () => getProfile(address),
     });

@@ -37,7 +37,7 @@ export function WalletMixInfo({ profiles = [] }: Props) {
             const address = profile.identity.id;
             const networkType = getAddressType(address)!;
             return {
-                queryKey: ['wallet', 'total-balance', networkType, address],
+                queryKey: ['wallet', 'total-balance', networkType, address.toLowerCase()],
                 async queryFn() {
                     if (!networkType) return null;
 

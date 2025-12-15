@@ -192,7 +192,7 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
     const [selectedChoices, setSelectedChoices] = useState<SnapshotChoice | undefined>();
     const account = useConnection();
     const { data: currentUserChoice, isLoading: isLoadingCurrentUserChoice } = useQuery({
-        queryKey: ['snapshot-votes', snapshot.id, account.address],
+        queryKey: ['snapshot-votes', snapshot.id, account.address?.toLowerCase()],
         async queryFn() {
             if (!account.address) return null;
             const votes = await pathQueryVoteResultsByVoter([snapshot.id], account.address);
@@ -313,7 +313,10 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
                     queryKey: ['post-embed', link, postId],
                 });
             }
-            queryClient.setQueriesData({ queryKey: ['snapshot-votes', snapshot.id, account.address] }, selectedChoices);
+            queryClient.setQueriesData(
+                { queryKey: ['snapshot-votes', snapshot.id, account.address?.toLowerCase()] },
+                selectedChoices,
+            );
         } catch (error) {
             enqueueMessageFromError(error, <Trans>Failed to vote.</Trans>);
             throw error;

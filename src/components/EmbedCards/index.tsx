@@ -31,7 +31,7 @@ const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInner({ em
     const addresses = embeds.filter((x) => x.type === 'address');
     const addressQueries = useQueries({
         queries: addresses.map(({ value: address }) => ({
-            queryKey: ['detect-address', address],
+            queryKey: ['detect-address', address.toLowerCase()],
             queryFn: () => fireflyWalletProvider.detectAddress(address),
         })),
         combine(result) {

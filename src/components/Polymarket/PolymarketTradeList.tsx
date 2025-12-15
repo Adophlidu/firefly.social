@@ -27,7 +27,7 @@ const getTradeItem = (index: number, trade: PolymarketTradeData, listKey: string
 
 export function PolymarketTradeList({ address }: PolymarketTradeListProps) {
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['polymarket', 'trades', address],
+        queryKey: ['polymarket', 'trades', address.toLowerCase()],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             try {

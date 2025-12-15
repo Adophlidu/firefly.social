@@ -19,7 +19,7 @@ const pageSize = 5;
 
 export function PolymarketProfileTrades({ address }: PolymarketProfileTradesProps) {
     const { data, isLoading } = useQuery({
-        queryKey: ['polymarket', 'trades-lite', address],
+        queryKey: ['polymarket', 'trades-lite', address.toLowerCase()],
         staleTime: 1000 * 60 * 5,
         queryFn: async () => {
             const data = await getTradeHistory({ address, limit: pageSize });

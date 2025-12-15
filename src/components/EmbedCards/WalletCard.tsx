@@ -50,7 +50,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
     const { data: profiles = EMPTY_LIST } = useWalletRelatedProfiles(address);
 
     const { data: walletSecurity } = useQuery({
-        queryKey: ['wallet', 'security', address],
+        queryKey: ['wallet', 'security', address.toLowerCase()],
         queryFn: async () => getAddressSecurity(address),
     });
     const addressLink = useMemo(() => {

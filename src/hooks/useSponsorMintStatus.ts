@@ -8,7 +8,13 @@ export function useSponsorMintStatus(options: SponsorMintOptions) {
     const account = useConnection();
 
     return useQuery({
-        queryKey: ['sponsor-mint-status', account.address, options.chainId, options.contractAddress, options.tokenId],
+        queryKey: [
+            'sponsor-mint-status',
+            account.address?.toLowerCase(),
+            options.chainId,
+            options.contractAddress?.toLowerCase(),
+            options.tokenId,
+        ],
         enabled: !!options.chainId && !!options.contractAddress,
         queryFn: async () => {
             return getSponsorMintStatus(options);

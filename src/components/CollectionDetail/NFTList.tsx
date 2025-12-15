@@ -18,7 +18,7 @@ export function NFTList(props: NFTListProps) {
     const { address, chainId, ...rest } = props;
     const queryResult = useSuspenseInfiniteQuery({
         initialPageParam: '',
-        queryKey: ['nft-list', address, chainId],
+        queryKey: ['nft-list', address.toLowerCase(), chainId],
         async queryFn({ pageParam }) {
             if (!chainId) return;
             const indicator = createIndicator(

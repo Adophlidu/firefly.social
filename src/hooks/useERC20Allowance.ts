@@ -17,7 +17,7 @@ export function useERC20TokenAllowance(
 
     return useQuery({
         enabled: !isNativeToken && enabled,
-        queryKey: ['erc20-allowance', address, account, spender],
+        queryKey: ['erc20-allowance', address?.toLowerCase(), account?.toLowerCase(), spender?.toLowerCase()],
         queryFn: async () => {
             if (!account || !address || !spender || isNativeToken) return undefined;
 

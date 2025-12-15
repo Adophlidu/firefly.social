@@ -12,7 +12,7 @@ export function useTokenBalanceForLoggedInLensProfile(tokenAddress?: string, ena
     const profile = useCurrentProfile(Source.Lens);
 
     return useQuery({
-        queryKey: ['token-balance', Source.Lens, profile?.profileId, tokenAddress],
+        queryKey: ['token-balance', Source.Lens, profile?.profileId, tokenAddress?.toLowerCase()],
         enabled: !!profile?.profileId && !!tokenAddress && enabled,
         queryFn: async () => {
             if (!lensSessionClientHolder.sessionClient || !tokenAddress) return;

@@ -13,7 +13,7 @@ export function useCustomNonFungibleTokens() {
 
     const paramList = tokens.map((x) => ({ contractAddress: x.address, chainId: x.chainId }));
     return useQuery({
-        queryKey: ['custom-non-fungible-tokens', account.address, paramList],
+        queryKey: ['custom-non-fungible-tokens', account.address?.toLowerCase(), paramList],
         async queryFn() {
             if (!account.address) return EMPTY_LIST;
             return getCollections(paramList);

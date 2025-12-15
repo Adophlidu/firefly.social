@@ -21,7 +21,7 @@ function getPolymarketItem(data: PolymarketActivity, onClick?: () => void) {
 
 export const ProfilePolymarketList = memo<ProfilePolymarketListProps>(function ProfilePolymarketList({ address }) {
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['polymarket', 'bets-list', address],
+        queryKey: ['polymarket', 'bets-list', address.toLowerCase()],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             return getProfilePolymarketTimeline(address, 'all', indicator);

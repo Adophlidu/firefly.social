@@ -8,7 +8,7 @@ export function useFungibleTokenPrice(address?: string, override?: ChainContextO
 
     return useQuery({
         enabled: !!address,
-        queryKey: ['fungible', 'token-price', chainId, address],
+        queryKey: ['fungible', 'token-price', chainId, address?.toLowerCase()],
         queryFn: async () => (address ? getFungibleTokenPrice(chainId, address) : 0),
     });
 }

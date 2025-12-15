@@ -82,7 +82,7 @@ export const LensView = memo(function LensView() {
         retry: false,
         enabled: !!account.address,
         staleTime: 0,
-        queryKey: ['lens', 'profiles', account.address],
+        queryKey: ['lens', 'profiles', account.address?.toLowerCase()],
         queryFn: async () => {
             try {
                 if (!account.address) return EMPTY_LIST;

@@ -4,7 +4,7 @@ import { getCollectionStatistics } from '@/providers/firefly/nft/getCollectionSt
 
 export function useCollectionMarketInfo(chainId: number | undefined, contractAddress: string | undefined) {
     return useQuery({
-        queryKey: ['collection', 'market-info', chainId, contractAddress],
+        queryKey: ['collection', 'market-info', chainId, contractAddress?.toLowerCase()],
         queryFn: async () => {
             if (!chainId || !contractAddress) return;
             return getCollectionStatistics(chainId, contractAddress);

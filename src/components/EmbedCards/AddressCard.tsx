@@ -14,7 +14,7 @@ import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 export const AddressCard = memo<AddressCardProps>(function AddressCard(props) {
     const address = props.address;
     const { data: detected } = useQuery({
-        queryKey: ['detect-address', address],
+        queryKey: ['detect-address', address.toLowerCase()],
         queryFn: () => fireflyWalletProvider.detectAddress(address),
         select: (data) => data?.list[0],
     });
@@ -53,7 +53,7 @@ export const AddressCardIndicator = memo<AddressCardIndicatorProps>(function Add
     ...rest
 }) {
     const { data: detected } = useQuery({
-        queryKey: ['detect-address', address],
+        queryKey: ['detect-address', address.toLowerCase()],
         queryFn: () => fireflyWalletProvider.detectAddress(address),
         select: (data) => data?.list[0],
     });

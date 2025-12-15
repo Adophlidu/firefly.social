@@ -19,7 +19,7 @@ export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, add
     const isEns = title.endsWith('.eth');
 
     const { data, isLoading } = useQuery({
-        queryKey: ['detect-address', address],
+        queryKey: ['detect-address', address.toLowerCase()],
         queryFn: () => fireflyWalletProvider.detectAddress(address),
         enabled: !isEns,
         select: (data) => data?.list[0],

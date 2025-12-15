@@ -5,7 +5,7 @@ import { fireflyWalletProvider } from '@/providers/firefly/Wallet.js';
 export function useDetectToken(address: string | undefined, enabled = true) {
     return useQuery({
         enabled: enabled && !!address,
-        queryKey: ['detect-address', address],
+        queryKey: ['detect-address', address?.toLowerCase()],
         queryFn: address ? () => fireflyWalletProvider.detectAddress(address) : skipToken,
         select: (data) => {
             if (!data) return;

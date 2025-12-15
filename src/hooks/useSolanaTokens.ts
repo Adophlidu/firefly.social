@@ -6,7 +6,7 @@ import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useSolanaTokens(address?: string) {
     return useQuery({
-        queryKey: ['solana-tokens', address],
+        queryKey: ['solana-tokens', address?.toLowerCase()],
         staleTime: 1000 * 60 * 2, // 2 minutes
         async queryFn() {
             if (!address) return [];
