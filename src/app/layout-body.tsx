@@ -33,6 +33,11 @@ const NotificationListener = dynamic(
     { ssr: false },
 );
 
+const PerformanceDashboard = dynamic(
+    () => import('@/components/PerformanceDashboard.js').then((m) => ({ default: m.PerformanceDashboard })),
+    { ssr: false },
+);
+
 interface LayoutBodyProps {
     agent: Agent | null;
     children: ReactNode;
@@ -73,6 +78,10 @@ export function LayoutBody({ agent, children }: LayoutBodyProps) {
                         <IfPathname isNotOneOf={INTERNAL_ROUTES}>
                             <FireflyAccountChecker />
                         </IfPathname>
+                    ) : null}
+
+                    {env.external.NEXT_PUBLIC_API_PERFORMANCE_PROFILING === STATUS.Enabled ? (
+                        <PerformanceDashboard />
                     ) : null}
                 </RouteProgressBar>
 

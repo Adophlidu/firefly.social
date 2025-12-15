@@ -2,6 +2,8 @@ import { bom, parseUrl } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
+import { STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { FetchError, ForbiddenError, NetworkError, NftScanError } from '@/constants/error.js';
 import { EVENT_FORBIDDEN } from '@/constants/event.js';
 import { FIREFLY_USER_AGENT, SITE_URL, SITE_URL_OFFICIAL } from '@/constants/static.js';
@@ -64,23 +66,12 @@ export interface NextFetchersOptions {
     noDefaultContentType?: boolean;
 }
 
-export async function fetch(
+async function executeFetch(
     input: RequestInfo | URL,
-    init?: RequestInit,
-    options?: NextFetchersOptions,
+    init: RequestInit | undefined,
+    options: NextFetchersOptions | undefined,
+    u: URL | null,
 ): Promise<Response> {
-    const u = resolveRequestUrl(input);
-
-    // For static media, use native fetch directly to avoid unnecessary overhead
-    if ((u && isStaticMedia(u)) || options?.forceStaticMedia) {
-        if (!options?.forceStaticMedia) {
-            logger.warn(
-                `[fetch] try to fetch a static media (url=${u?.toString()}), better use the native fetch directly to avoid unnecessary overhead.`,
-            );
-        }
-        return originalFetch(input, init);
-    }
-
     let response: Response;
 
     try {
@@ -110,4 +101,39 @@ export async function fetch(
         fetchError.toThrow();
     }
     return response;
+}
+
+export async function fetch(
+    input: RequestInfo | URL,
+    init?: RequestInit,
+    options?: NextFetchersOptions,
+): Promise<Response> {
+    const u = resolveRequestUrl(input);
+
+    // For static media, use native fetch directly to avoid unnecessary overhead
+    if ((u && isStaticMedia(u)) || options?.forceStaticMedia) {
+        if (!options?.forceStaticMedia) {
+            logger.warn(
+                `[fetch] try to fetch a static media (url=${u?.toString()}), better use the native fetch directly to avoid unnecessary overhead.`,
+            );
+        }
+        return originalFetch(input, init);
+    }
+
+    // Wrap fetch call with performance tracking if enabled
+    // Only import and use performance tracking if the feature is enabled
+    // Check env variable synchronously first to avoid any module loading when disabled
+    if (env.external.NEXT_PUBLIC_API_PERFORMANCE_PROFILING === STATUS.Enabled) {
+        // Dynamic import to avoid loading the module when disabled
+        // This is safe because we've already checked the env variable synchronously
+        const performanceModule = await import('@/providers/lcp/tracker.js');
+        const urlString =
+            u?.toString() || (typeof input === 'string' ? input : input instanceof URL ? input.toString() : input.url);
+        if (performanceModule.isTrackingEnabled()) {
+            return performanceModule.trackApiCall(urlString, init, () => executeFetch(input, init, options, u));
+        }
+    }
+
+    // Original fetch logic without tracking
+    return executeFetch(input, init, options, u);
 }

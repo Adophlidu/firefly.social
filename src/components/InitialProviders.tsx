@@ -7,6 +7,8 @@ import { useEffectOnce } from 'react-use';
 
 import { SnackbarProvider } from '@/components/Snackbar.js';
 import { sentryClient } from '@/configs/sentryClient.js';
+import { STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { usePathname } from '@/esm/navigation.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
@@ -35,6 +37,13 @@ export const InitialProviders = memo(function Providers(props: { children: React
 
     useLayoutEffect(() => {
         sentryClient.init();
+        // Initialize API performance profiling only if enabled
+        if (env.external.NEXT_PUBLIC_API_PERFORMANCE_PROFILING === STATUS.Enabled) {
+            // Dynamic import to avoid loading the module when disabled
+            import('@/providers/lcp/init.js').then((module) => {
+                module.initPerformanceProfilingFromEnv();
+            });
+        }
     });
 
     const viewerId = useLeafwatchPersistStore.use.viewerId();
