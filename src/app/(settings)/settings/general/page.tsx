@@ -12,6 +12,7 @@ import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
 import { Locale, SiteCookies, type ThemeMode } from '@/constants/enum.js';
 import { useCookie, useLocale } from '@/helpers/getCookies.js';
 import { supportedLocales } from '@/i18n/index.js';
+import { logger } from '@/libs/Logger.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 export default function General() {
@@ -72,7 +73,7 @@ export default function General() {
                         darkMode={mode === 'default' ? (isServer ? rootClass === 'dark' : isDarkOS) : mode === 'dark'}
                         label={supportedLocales[option.value]}
                         onClick={async () => {
-                            console.warn('[18n] change locale', option.value);
+                            logger.warn('[18n] change locale', option.value);
 
                             const data = new FormData();
                             data.append('locale', option.value);

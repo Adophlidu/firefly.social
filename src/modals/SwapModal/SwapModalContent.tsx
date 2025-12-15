@@ -29,6 +29,7 @@ import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnection
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { useSolanaAccount } from '@/hooks/useAccountByNetwork.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
+import { logger } from '@/libs/Logger.js';
 import { EthereumWalletProvider, SolanaWalletProvider } from '@/providers/okx/WalletProvider.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -239,7 +240,7 @@ function SwapModalContentWidget({ providerType, embed, ...props }: WidgetProps) 
                 {
                     event: OkxEvents.ON_FULFILLED_ORDER,
                     handler: (params) => {
-                        console.log('ON_FULFILLED_ORDER', params);
+                        logger.info('ON_FULFILLED_ORDER', params);
                     },
                 },
             ],

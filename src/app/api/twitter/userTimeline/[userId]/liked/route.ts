@@ -7,6 +7,7 @@ import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { patchTweetsClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { logger } from '@/libs/Logger.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
@@ -29,7 +30,7 @@ export const GET = compose(
             max_results: limit,
         });
         if (errors?.length) {
-            console.error('[twitter] v2.userLikedTweets', errors);
+            logger.error('[twitter] v2.userLikedTweets', errors);
             return createTwitterErrorResponseJSON(errors);
         }
 

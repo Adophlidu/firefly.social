@@ -7,6 +7,7 @@ import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { logger } from '@/libs/Logger.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import { Pageable } from '@/schemas/index.js';
@@ -48,7 +49,7 @@ export const GET = compose(
             }
         }
 
-        if (errors?.length) console.error('[twitter] v2.userTimeline', errors);
+        if (errors?.length) logger.error('[twitter] v2.userTimeline', errors);
 
         return createSuccessResponseJson(data);
     },

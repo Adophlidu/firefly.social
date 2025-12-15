@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { logger } from '@/libs/Logger.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
@@ -19,13 +20,13 @@ export const POST = compose(
         const client = await createTwitterClientV2();
         const { data: me, errors } = await client.v2.me();
         if (errors?.length) {
-            console.error('[twitter] v2.me', errors);
+            logger.error('[twitter] v2.me', errors);
             return createTwitterErrorResponseJSON(errors);
         }
 
         const { data, errors: muteErrors } = await client.v2.mute(me.id, targetId);
         if (muteErrors?.length) {
-            console.error('[twitter] v2.mute', muteErrors);
+            logger.error('[twitter] v2.mute', muteErrors);
             return createTwitterErrorResponseJSON(muteErrors);
         }
 
@@ -42,13 +43,13 @@ export const DELETE = compose(
         const client = await createTwitterClientV2();
         const { data: me, errors } = await client.v2.me();
         if (errors?.length) {
-            console.error('[twitter] v2.me', errors);
+            logger.error('[twitter] v2.me', errors);
             return createTwitterErrorResponseJSON(errors);
         }
 
         const { data, errors: unmuteErrors } = await client.v2.unmute(me.id, targetId);
         if (unmuteErrors?.length) {
-            console.error('[twitter] v2.unmute', unmuteErrors);
+            logger.error('[twitter] v2.unmute', unmuteErrors);
             return createTwitterErrorResponseJSON(unmuteErrors);
         }
 

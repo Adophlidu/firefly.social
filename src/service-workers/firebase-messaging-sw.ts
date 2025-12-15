@@ -68,6 +68,7 @@ const analytics = self.firebase.analytics();
 
 messaging.onBackgroundMessage((payload: MessagePayload) => {
     analytics.logEvent('notification_background', payload);
+    // Note: Service workers use console directly as logger may not be available in worker context
     console.log('[firebase] Background message received');
     if (!payload.notification) return;
 

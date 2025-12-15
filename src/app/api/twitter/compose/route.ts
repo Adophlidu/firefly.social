@@ -6,6 +6,7 @@ import { POLL_PEER_OPTION_MAX_CHARS } from '@/constants/poll.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getJsonBodyWithZodSchema } from '@/helpers/getJsonBodyWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { logger } from '@/libs/Logger.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
@@ -82,7 +83,7 @@ export const POST = compose(
         const tweet = await composeTweet(body);
         const { data, errors } = await client.v2.tweet(tweet);
         if (errors?.length) {
-            console.error('[twitter] v2.tweet', errors);
+            logger.error('[twitter] v2.tweet', errors);
             return createTwitterErrorResponseJSON(errors);
         }
 

@@ -1,3 +1,5 @@
+import { logger } from '@/libs/Logger.js';
+
 /**
  * Creates a batcher function that batches multiple requests together to reduce API calls.
  *
@@ -49,7 +51,7 @@ export function createBatcher<Payload extends object, Result>(
     async function flush() {
         const current = queue;
 
-        console.log(`[batcher] ${name} flushing ${current.length} items`);
+        logger.info(`[batcher] ${name} flushing ${current.length} items`);
 
         // Clean
         queue = [];
@@ -72,7 +74,7 @@ export function createBatcher<Payload extends object, Result>(
         const results = await Promise.allSettled(chunks.map((chunk) => fetcher(chunk)));
         const mergedResults: Record<string, Result> = results.reduce((final, x) => {
             if (x.status === 'fulfilled') return Object.assign(final, x.value);
-            console.error(`[batcher] ${name} failed to fetch ${x.reason}`);
+            logger.error(`[batcher] ${name} failed to fetch ${x.reason}`);
             return final;
         }, {});
 

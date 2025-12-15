@@ -1,6 +1,8 @@
 import { getPublicKey, sign } from '@noble/ed25519';
 import { bytesToHex, hexToBytes } from 'viem';
 
+import { logger } from '@/libs/Logger.js';
+
 export async function getPublicKeyInHexFromPrivateKey(privateKey: string | Uint8Array) {
     try {
         const key = typeof privateKey === 'string' ? hexToBytes(privateKey as `0x${string}`) : privateKey;
@@ -8,7 +10,7 @@ export async function getPublicKeyInHexFromPrivateKey(privateKey: string | Uint8
         return bytesToHex(bytes);
     } catch (error) {
         if (process.env.NODE_ENV === 'development') {
-            console.error(
+            logger.error(
                 `[getPublicKeyInHexFromPrivateKey] Failed to get public key from private key: ${privateKey.slice(0, 10)}`,
                 error,
             );
@@ -23,7 +25,7 @@ export async function signMessageWithPrivateKey(privateKey: string | Uint8Array,
         return sign(message, key);
     } catch (error) {
         if (process.env.NODE_ENV === 'development') {
-            console.error(
+            logger.error(
                 `[signMessageWithPrivateKey] Failed to sign message with private key: ${privateKey.slice(0, 10)}`,
                 error,
             );

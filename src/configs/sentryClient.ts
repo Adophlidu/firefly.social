@@ -1,5 +1,6 @@
 import { env } from '@/constants/env.js';
 import { IS_PREVIEW, IS_PRODUCTION } from '@/constants/static.js';
+import { logger } from '@/libs/Logger.js';
 import type { ExceptionId } from '@/providers/types/Telemetry.js';
 import { settings } from '@/settings/index.js';
 
@@ -36,7 +37,7 @@ class SentryClient {
                 sentry.setTag(key, value);
             });
 
-            console.log(`[sentry] Initialized with DSN: ${env.external.NEXT_PUBLIC_SENTRY_DSN}`);
+            logger.info(`[sentry] Initialized with DSN: ${env.external.NEXT_PUBLIC_SENTRY_DSN}`);
         });
     }
 
@@ -51,7 +52,7 @@ class SentryClient {
                 },
             });
         } catch {
-            console.warn(`[sentry] failed to capture exception: ${exceptionId}`, error);
+            logger.warn(`[sentry] failed to capture exception: ${exceptionId}`, error);
         }
     }
 }

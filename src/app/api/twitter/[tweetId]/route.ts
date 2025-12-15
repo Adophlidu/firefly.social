@@ -9,6 +9,7 @@ import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { patchPostClientToFirefly } from '@/helpers/patchPostClientToFirefly.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { logger } from '@/libs/Logger.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
 import { tweetV2ToPost } from '@/providers/twitter/formatTwitterPost.js';
@@ -31,7 +32,7 @@ export const GET = compose(
         } = await client.v2.singleTweet(tweetId, {
             ...TWITTER_TIMELINE_OPTIONS,
         });
-        if (errors?.length) console.error('[twitter] v2.singleTweet', errors);
+        if (errors?.length) logger.error('[twitter] v2.singleTweet', errors);
 
         // The retweeted post may not receive attachment
         const retweeted = data.referenced_tweets?.find((tweet) => tweet.type === 'retweeted');
@@ -75,7 +76,7 @@ export const DELETE = compose(
         const { data, errors } = await client.v2.deleteTweet(tweetId);
 
         if (errors?.length) {
-            console.error('[twitter] v2.deleteTweet', errors);
+            logger.error('[twitter] v2.deleteTweet', errors);
             return createTwitterErrorResponseJSON(errors);
         }
 

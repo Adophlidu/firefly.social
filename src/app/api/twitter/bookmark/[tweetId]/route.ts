@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { logger } from '@/libs/Logger.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
@@ -20,7 +21,7 @@ export const PUT = compose(
         const { errors } = await client.v2.bookmark(tweetId);
 
         if (errors?.length) {
-            console.error('[twitter] v2.bookmark', errors);
+            logger.error('[twitter] v2.bookmark', errors);
             return createTwitterErrorResponseJSON(errors);
         }
 
@@ -38,7 +39,7 @@ export const DELETE = compose(
         const { errors } = await client.v2.deleteBookmark(tweetId);
 
         if (errors?.length) {
-            console.error('[twitter] v2.deleteBookmark', errors);
+            logger.error('[twitter] v2.deleteBookmark', errors);
             return createTwitterErrorResponseJSON(errors);
         }
 

@@ -5,6 +5,7 @@ import { getMessaging, type Messaging, onMessage, type Unsubscribe } from 'fireb
 
 import { env } from '@/constants/env.js';
 import { SITE_NAME } from '@/constants/static.js';
+import { logger } from '@/libs/Logger.js';
 
 function createFirebaseApp() {
     const firebaseConfig: FirebaseOptions = {
@@ -36,7 +37,7 @@ class FirebaseClient {
 
     init() {
         if (!('serviceWorker' in navigator) || !('Notification' in window)) {
-            console.warn('[firebase] Firebase messaging not supported');
+            logger.warn('[firebase] Firebase messaging not supported');
             throw new Error('Firebase messaging not supported');
         }
         if (this._initialized) return;
@@ -48,14 +49,14 @@ class FirebaseClient {
         this.listenMessage();
 
         this._initialized = true;
-        console.log('[firebase] Initialized');
+        logger.info('[firebase] Initialized');
     }
 
     listenMessage() {
         if (!this._firebaseFcm) return;
 
         this._unsubscribe = onMessage(this._firebaseFcm, (payload) => {
-            console.log('[firebase] Foreground message received');
+            logger.info('[firebase] Foreground message received');
             if (this._analytics) {
                 logEvent(this._analytics, 'notification_foreground', payload);
             }

@@ -22,6 +22,7 @@ import { frameSwapToken } from '@/helpers/frameSwapToken.js';
 import { waitForWebviewDidLoadEvent } from '@/helpers/waitForWebviewDidLoadEvent.js';
 import { useFrameAuthor } from '@/hooks/frame/useFrameAuthor.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
+import { logger } from '@/libs/Logger.js';
 import {
     RelayConfirmationPopover,
     RelayConfirmationPopoverRef,
@@ -50,16 +51,16 @@ export default function Page(props: Props) {
     const { loading, error, value } = useAsyncRetry(async () => {
         if (!supported) return;
 
-        console.log('[frame client] supported', supported);
+        logger.info('[frame client] supported', supported);
 
         // iOS needs to wait for the load event to be able to communicate with the bridge
         if (IS_IOS) {
             await waitForWebviewDidLoadEvent();
-            console.log('[frame client] load event');
+            logger.info('[frame client] load event');
         }
 
         const result = await nativeBridgeProvider.request(SupportedMethod.GET_FRAME_CONTEXT, {});
-        console.log('[frame client] context', JSON.stringify(result));
+        logger.info('[frame client] context', JSON.stringify(result));
 
         if (!result.user) throw new Error('No user found in frame context');
 
@@ -82,27 +83,27 @@ export default function Page(props: Props) {
         const frameHost = new FarcasterFrameHost(context, {
             frame: () => frame,
             ready: (options?: Partial<ReadyOptions>) => {
-                console.log('[frame client] ready', JSON.stringify(options));
+                logger.info('[frame client] ready', JSON.stringify(options));
                 if (options) nativeBridgeProvider.request(SupportedMethod.SET_FRAME_READY_OPTIONS, options);
                 setReady(true);
             },
             close: () => {
-                console.log('[frame client] close');
+                logger.info('[frame client] close');
                 nativeBridgeProvider.request(SupportedMethod.CLOSE, {});
             },
             signIn: async (options) => {
-                console.log('[frame client] signIn options', JSON.stringify(options));
+                logger.info('[frame client] signIn options', JSON.stringify(options));
                 const signature = await RelayConfirmationPopoverRef.openAndWaitForClose({
                     fid: context.client.clientFid,
                     frame,
                     options,
                 });
-                console.log('[frame client] signIn result', JSON.stringify(signature));
+                logger.info('[frame client] signIn result', JSON.stringify(signature));
 
                 return signature;
             },
             setPrimaryButton: (options) => {
-                console.log('[frame client] setPrimaryButton', JSON.stringify(options));
+                logger.info('[frame client] setPrimaryButton', JSON.stringify(options));
                 nativeBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options);
             },
             eip6963RequestProvider: () => {

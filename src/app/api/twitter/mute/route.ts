@@ -5,6 +5,7 @@ import { TWITTER_USER_OPTIONS } from '@/constants/twitter.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getSearchParamsWithZodSchema } from '@/helpers/getSearchParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { logger } from '@/libs/Logger.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { withTwitterRequestErrorHandler } from '@/providers/twitter/withTwitterRequestErrorHandler.js';
 import { Pageable } from '@/schemas/index.js';
@@ -17,14 +18,14 @@ export const GET = compose(
 
         const client = await createTwitterClientV2();
         const { data: me, errors } = await client.v2.me();
-        if (errors?.length) console.error('[twitter] v2.me', errors);
+        if (errors?.length) logger.error('[twitter] v2.me', errors);
 
         const { data, errors: muteErrors } = await client.v2.userMutingUsers(me.id, {
             ...TWITTER_USER_OPTIONS,
             pagination_token: cursor,
             max_results: limit,
         });
-        if (muteErrors?.length) console.error('[twitter] v2.userMutingUsers', muteErrors);
+        if (muteErrors?.length) logger.error('[twitter] v2.userMutingUsers', muteErrors);
 
         return createSuccessResponseJson(data);
     },

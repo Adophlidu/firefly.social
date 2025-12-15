@@ -35,6 +35,7 @@ import { ProviderEventEmitter } from '@/connectors/ProviderEventEmitter.js';
 import { WalletSource } from '@/constants/enum.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { queryMyAllConnections } from '@/hooks/useAllConnections.js';
+import { logger } from '@/libs/Logger.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -105,7 +106,7 @@ export class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
     override async connect(): Promise<void> {
         try {
             if (this.connected || this.connecting) return;
-            console.info('[privy] solana connect', this.readyState);
+            logger.info('[privy] solana connect', this.readyState);
 
             if (this.readyState !== WalletReadyState.Installed) throw new WalletNotReadyError();
 
@@ -113,7 +114,7 @@ export class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
 
             const accounts = await this.getAccounts();
             const account = first(accounts);
-            console.log('[privy] solana accounts', accounts);
+            logger.info('[privy] solana accounts', accounts);
             if (!account) throw new WalletAccountError('No privy solana account found.');
 
             let publicKey: web3.PublicKey;
@@ -134,7 +135,7 @@ export class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
     }
 
     async disconnect(): Promise<void> {
-        console.info('[privy] solana disconnect');
+        logger.info('[privy] solana disconnect');
         this._publicKey = null;
         this.emit('disconnect');
     }

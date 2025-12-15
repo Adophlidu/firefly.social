@@ -5,6 +5,7 @@ import { estimateContractGas } from 'viem/actions';
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { isLessThan } from '@/helpers/number.js';
+import { logger } from '@/libs/Logger.js';
 import { getEvmNativeTokenAddress } from '@/providers/ethereum/getNativeTokenAddress.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import type { CreateRedPacketContext, CreateRedPacketParams } from '@/providers/ethereum/red-packet/types.js';
@@ -32,12 +33,12 @@ export async function createRedPacketParams(context: CreateRedPacketContext) {
     };
 
     if (isLessThan(params.total, params.shares)) {
-        console.error('At least [number of lucky drops] tokens to your lucky drop.');
+        logger.error('At least [number of lucky drops] tokens to your lucky drop.');
         return null;
     }
 
     if (params.shares <= 0) {
-        console.error('At least 1 person should be able to claim the lucky drop.');
+        logger.error('At least 1 person should be able to claim the lucky drop.');
         return null;
     }
 

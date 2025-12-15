@@ -4,6 +4,7 @@ import { AdvertisementSkeleton } from '@/components/Advertisement/AdvertisementS
 import { FIREFLY_S3_URL } from '@/constants/static.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
+import { logger } from '@/libs/Logger.js';
 import type { Advertisement } from '@/types/advertisement.js';
 
 const AdvertisementSwiper = dynamic(
@@ -32,7 +33,7 @@ export async function Advertisement() {
         if (!ads?.length) return null;
         return <AdvertisementSwiper items={ads} />;
     } catch (error) {
-        console.error(`Failed to fetch advertisement: ${error}`);
+        logger.error(`Failed to fetch advertisement: ${error}`);
         return null;
     }
 }

@@ -4,6 +4,7 @@ import urlcat from 'urlcat';
 import { AbortError } from '@/constants/error.js';
 import { WARPCAST_ROOT_URL_V2 } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
+import { logger } from '@/libs/Logger.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 
 /**
@@ -38,7 +39,7 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
                 },
             );
 
-            console.log(`[waitForSignedKeyRequest] ${token}`, response);
+            logger.info(`[waitForSignedKeyRequest] ${token}`, response);
 
             // Continue the loop if there are errors in the response
             if (response.errors?.length) continue;

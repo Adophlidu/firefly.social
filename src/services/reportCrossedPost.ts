@@ -7,6 +7,7 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
+import { logger } from '@/libs/Logger.js';
 import { reportPost } from '@/providers/firefly/report/reportPost.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ReportCrossPostResponse } from '@/providers/types/Firefly.js';
@@ -104,11 +105,11 @@ async function report(post: CompositePost) {
         if (x.status === 'fulfilled' && x.value === null) return;
 
         if (x.status === 'rejected') {
-            console.error(`[report]: occurs error when report ${source} post: ${post.postId[source]}`, x.reason);
+            logger.error(`[report]: occurs error when report ${source} post: ${post.postId[source]}`, x.reason);
         } else if (x.value?.code !== 0) {
-            console.error(`[report]: occurs error when report ${source} post: ${post.postId[source]}`, x.value?.error);
+            logger.error(`[report]: occurs error when report ${source} post: ${post.postId[source]}`, x.value?.error);
         } else {
-            console.info(`[report]: report ${source} post: ${post.postId[source]} successfully.`);
+            logger.info(`[report]: report ${source} post: ${post.postId[source]} successfully.`);
         }
     });
 }

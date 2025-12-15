@@ -4,6 +4,7 @@ import type { NextRequest } from 'next/server.js';
 import { getToken, type JWT } from 'next-auth/jwt';
 
 import { env } from '@/constants/env.js';
+import { logger } from '@/libs/Logger.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { type SessionPayload, TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 
@@ -39,13 +40,13 @@ async function createTwitterSessionPayloadFromJWT(request: NextRequest): Promise
 async function createTwitterSessionPayloadFromCookies() {
     const tokenFromCookie = (await cookies()).get('twitterToken');
     if (!tokenFromCookie?.value) {
-        console.warn('[createTwitterSessionPayloadFromCookies] No twitter token found in cookies');
+        logger.warn('[createTwitterSessionPayloadFromCookies] No twitter token found in cookies');
         return null;
     }
 
     const token = parseJson<SessionPayload>(atob(tokenFromCookie.value));
     if (!token) {
-        console.warn('[createTwitterSessionPayloadFromCookies] Failed to parse twitter token from cookies');
+        logger.warn('[createTwitterSessionPayloadFromCookies] Failed to parse twitter token from cookies');
         return null;
     }
 

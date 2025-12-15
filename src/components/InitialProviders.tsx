@@ -11,6 +11,7 @@ import { usePathname } from '@/esm/navigation.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { logger } from '@/libs/Logger.js';
 import { recordUserThemeMode } from '@/services/recordUserThemeMode.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -42,7 +43,9 @@ export const InitialProviders = memo(function Providers(props: { children: React
         if (!viewerId) setViewerId(crypto.randomUUID());
 
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(console.error);
+            navigator.serviceWorker
+                .register('/sw.js', { scope: '/' })
+                .catch((error) => logger.error('Failed to register service worker', error));
         }
     });
 

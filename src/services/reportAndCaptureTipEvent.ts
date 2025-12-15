@@ -1,5 +1,6 @@
 import { resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
+import { logger } from '@/libs/Logger.js';
 import { reportTokenTips, UploadTokenTipsToken } from '@/providers/firefly/report/reportTokenTips.js';
 import { captureTipsSendEvent } from '@/providers/telemetry/captureTipsEvent.js';
 import type { FireflyTipsProfile } from '@/providers/types/Firefly.js';
@@ -64,6 +65,6 @@ export async function reportAndCaptureTipEvent({
             is_custom_amount: isCustomAmount,
         });
     } catch {
-        console.warn('Failed to report and capture tip event');
+        logger.warn('Failed to report and capture tip event');
     }
 }

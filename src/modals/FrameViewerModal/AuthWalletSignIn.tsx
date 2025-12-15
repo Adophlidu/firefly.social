@@ -12,6 +12,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { ensureCreatedFireflyWallet } from '@/helpers/ensureCreatedFireflyWallet.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
+import { logger } from '@/libs/Logger.js';
 import { InfoCard } from '@/modals/FrameViewerModal/InfoCard.js';
 import { LoadingCard } from '@/modals/FrameViewerModal/LoadingCard.js';
 import type { RelayConfirmationContext } from '@/modals/FrameViewerModal/RelayConfirmationRouter.js';
@@ -75,7 +76,7 @@ export function AuthWalletSignIn() {
         if (!wallet) throw new Error('Failed to ensure Firefly wallet');
 
         const signed = await signInWithAuthWallet(wallet.address as `0x${string}`, frame, `${fid}`, options);
-        console.log(
+        logger.info(
             `Success to sign in with address=${wallet.address}, message=${signed.message}, signature=${signed.signature}`,
         );
 

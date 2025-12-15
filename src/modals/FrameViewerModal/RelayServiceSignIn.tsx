@@ -14,6 +14,7 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
+import { logger } from '@/libs/Logger.js';
 import type { RelayConfirmationContext } from '@/modals/FrameViewerModal/RelayConfirmationRouter.js';
 import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
@@ -61,7 +62,7 @@ export function RelayServiceSignIn() {
             if (!data?.channelToken) return;
 
             const signed = await pollingChannelToken(data.channelToken, controller.current.signal);
-            console.log(`[RelayServiceSignIn] signed`, signed);
+            logger.info(`[RelayServiceSignIn] signed`, signed);
 
             const session = getSessionFromStorage(SessionType.Farcaster);
 

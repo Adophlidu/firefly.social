@@ -8,6 +8,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
+import { logger } from '@/libs/Logger.js';
 import { getWalletAdaptorRequired } from '@/providers/solana/getWalletAdapter.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 
@@ -73,7 +74,7 @@ export class EthereumWalletProvider implements EthereumProvider {
                 break;
 
             default:
-                console.warn(`Unsupported event: ${event}`);
+                logger.warn(`Unsupported event: ${event}`);
         }
     }
 
@@ -187,7 +188,7 @@ export class SolanaWalletProvider implements SolanaProvider {
                 }
             })
             .catch((error) => {
-                console.error(`[SolanaWalletProvider] Error setting up watcher for ${event}:`, error);
+                logger.error(`[SolanaWalletProvider] Error setting up watcher for ${event}:`, error);
             });
 
         if (event === 'accountChanged') {

@@ -5,6 +5,7 @@ import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { logger } from '@/libs/Logger.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import { type Events, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
 
@@ -34,12 +35,12 @@ class Telemetry extends Provider<Events, never> {
             rest;
 
         if (env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Disabled) {
-            console.log('[telemetry] event capture is disabled');
+            logger.info('[telemetry] event capture is disabled');
             return;
         }
 
         if (version_filter === VersionFilter.Next) {
-            console.error('[telemetry] event is filtered out:', name, parameters);
+            logger.error('[telemetry] event is filtered out:', name, parameters);
             return;
         }
 
@@ -62,13 +63,13 @@ class Telemetry extends Provider<Events, never> {
 
         if (provider_filter === ProviderFilter.All || provider_filter === ProviderFilter.GA) {
             try {
-                console.info('[ga] capture event:', event.eventType, event.parameters);
+                logger.info('[ga] capture event:', event.eventType, event.parameters);
                 sendGAEvent('event', event.eventType, event.parameters);
             } catch (error) {
-                console.error('[ga] failed to capture event:', event);
+                logger.error('[ga] failed to capture event:', event);
             }
         } else {
-            console.info('[ga] event is filtered out:', name, parameters);
+            logger.info('[ga] event is filtered out:', name, parameters);
         }
     }
 

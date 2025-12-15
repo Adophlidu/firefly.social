@@ -1,5 +1,7 @@
 import urlcat from 'urlcat';
 
+import { logger } from '@/libs/Logger.js';
+
 // https://stackoverflow.com/a/67176726
 const MATCH_IPFS_CID_RAW =
     'Qm[1-9A-HJ-NP-Za-km-z]{44,}|b[2-7A-Za-z]{58,}|B[2-7A-Z]{58,}|z[1-9A-HJ-NP-Za-km-z]{48,}|F[\\dA-F]{50,}';
@@ -69,9 +71,7 @@ export function resolveIPFS_URL(cidOrURL: string | undefined): string | undefine
                     }
                 }
             } catch (error) {
-                console.log({
-                    error,
-                });
+                logger.error('Resolver error', error);
                 // do nothing
             }
         }

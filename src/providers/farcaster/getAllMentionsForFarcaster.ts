@@ -3,6 +3,7 @@ import { first } from 'lodash-es';
 import { Source } from '@/constants/enum.js';
 import { CastType } from '@/constants/farcaster.js';
 import { FARCASTER_MENTION_REGEX } from '@/constants/regexp.js';
+import { logger } from '@/libs/Logger.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 
@@ -38,7 +39,7 @@ export async function getAllMentionsForFarcaster(text: string) {
                 regex.lastIndex = startIndex;
             }
         } catch (error) {
-            console.error(`[getAllMentionsForFarcaster]: ${error}`);
+            logger.error(`[getAllMentionsForFarcaster]: ${error}`);
         }
     }
 

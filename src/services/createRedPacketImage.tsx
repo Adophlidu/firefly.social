@@ -10,6 +10,7 @@ import { UnreachableError } from '@/constants/error.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { loadTwemojiUrls } from '@/helpers/loadTwemojiUrls.js';
 import { removeVS16s } from '@/helpers/removeVS16s.js';
+import { logger } from '@/libs/Logger.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { settings } from '@/settings/index.js';
@@ -57,7 +58,7 @@ async function getTheme(themeId: string, signal?: AbortSignal) {
         },
         signal,
     });
-    console.info(`Get theme ${themeId}`, url, response.data.cover.bg_image);
+    logger.info(`Get theme ${themeId}`, url, response.data.cover.bg_image);
     return response.data;
 }
 

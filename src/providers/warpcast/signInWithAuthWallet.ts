@@ -5,6 +5,7 @@ import type { SignInOptions } from '@farcaster/miniapp-host';
 import { toHex } from 'viem';
 
 import { SITE_URL } from '@/constants/static.js';
+import { logger } from '@/libs/Logger.js';
 import { createSiwfMessage } from '@/providers/warpcast/signInWithFarcaster.js';
 import type { FrameV2 } from '@/types/frame.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
@@ -41,7 +42,7 @@ export async function signInWithAuthWallet(
         }
     };
 
-    console.log(`[signInWithAuthWallet] sign in with wallet address=${address}`);
+    logger.info(`[signInWithAuthWallet] sign in with wallet address=${address}`);
 
     const url = frame.x_url || SITE_URL;
 
@@ -51,7 +52,7 @@ export async function signInWithAuthWallet(
     const siwfMessage = await createSiwfMessage(url, address, fid, options.nonce);
     const signature = await signMessage(siwfMessage);
 
-    console.log(
+    logger.info(
         `[signInWithAuthWallet] signed ${JSON.stringify({ url, address, fid, options, siwfMessage, signature })}`,
     );
 

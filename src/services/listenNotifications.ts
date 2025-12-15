@@ -3,6 +3,7 @@ import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromSto
 import { isSocialSource } from '@/helpers/isSource.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { logger } from '@/libs/Logger.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { getScheduleNotifications } from '@/providers/firefly/endpoint/getScheduleNotifications.js';
@@ -121,7 +122,7 @@ async function runListeners() {
 
     sourceConfig.forEach((config) => {
         scheduleListen(config).catch((error) => {
-            console.error(`Error listening to notifications for ${config.type}:`, error);
+            logger.error(`Error listening to notifications for ${config.type}:`, error);
         });
     });
     delayJobId = null;

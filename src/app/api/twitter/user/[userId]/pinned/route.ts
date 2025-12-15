@@ -6,6 +6,7 @@ import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { logger } from '@/libs/Logger.js';
 import { createTwitterClientV2 } from '@/providers/twitter/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/providers/twitter/createTwitterErrorResponse.js';
 import { tweetV2ToPost } from '@/providers/twitter/formatTwitterPost.js';
@@ -26,7 +27,7 @@ export const GET = compose(
         });
 
         if (user.errors?.length) {
-            console.error('[twitter] v2.user', user.errors);
+            logger.error('[twitter] v2.user', user.errors);
             if (!user.data) return createTwitterErrorResponseJSON(user.errors);
         }
 
@@ -42,9 +43,9 @@ export const GET = compose(
             ...TWITTER_TIMELINE_OPTIONS,
         });
 
-        if (errors?.length) console.error('[twitter] v2.singleTweet (pinned tweet)', errors);
+        if (errors?.length) logger.error('[twitter] v2.singleTweet (pinned tweet)', errors);
         if (!data) {
-            console.error('[twitter] v2.singleTweet (pinned tweet) no data', user.data.pinned_tweet_id);
+            logger.error('[twitter] v2.singleTweet (pinned tweet) no data', user.data.pinned_tweet_id);
             throw new NotFoundError();
         }
 
