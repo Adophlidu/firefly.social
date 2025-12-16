@@ -180,6 +180,17 @@ const config: NextConfig = {
             },
         ];
     },
+    async rewrites() {
+        if (process.env.WALLET_IFRAME_REWRITE) {
+            return [
+                {
+                    source: '/wallet-iframe/:path*',
+                    destination: process.env.WALLET_IFRAME_REWRITE,
+                },
+            ];
+        }
+        return [];
+    },
     async headers() {
         return [
             {
