@@ -1,5 +1,5 @@
 diff --git a/dist/esm/exports/index.js b/dist/esm/exports/index.js
-index 27038068f7fa1e92f11509a2cb4ff121fa8cba62..e1924baf044e45b5a8eddc6d385d33699ff5f8b3 100644
+index 27038068f7fa1e92f11509a2cb4ff121fa8cba62..409374e32b17ad704364731fe51afd305d8bcfce 100644
 --- a/dist/esm/exports/index.js
 +++ b/dist/esm/exports/index.js
 @@ -3,7 +3,6 @@ import { AppKit } from '../src/client/appkit.js';
@@ -10,7 +10,7 @@ index 27038068f7fa1e92f11509a2cb4ff121fa8cba62..e1924baf044e45b5a8eddc6d385d3369
  export function createAppKit(options) {
      return new AppKit({
          ...options,
-@@ -11,4 +10,13 @@ export function createAppKit(options) {
+@@ -11,4 +10,12 @@ export function createAppKit(options) {
      });
  }
  export { AppKit };
@@ -22,20 +22,17 @@ index 27038068f7fa1e92f11509a2cb4ff121fa8cba62..e1924baf044e45b5a8eddc6d385d3369
 +    ConnectionController as CoreConnectionController,
 +    ConnectionControllerUtil as CoreConnectionControllerUtil, ConnectorController as CoreConnectorController, CoreHelperUtil, OptionsController as CoreOptionsController, ProviderController as CoreProviderController, RouterController as CoreRouterController, StorageUtil as CoreStorageUtil
 +} from '@reown/appkit-controllers';
-+export { ConnectorUtil } from '@reown/appkit-scaffold-ui/utils';
  //# sourceMappingURL=index.js.map
 \ No newline at end of file
 diff --git a/dist/types/exports/index.d.ts b/dist/types/exports/index.d.ts
-index c7fc9364d9b8f7d634e3b1064cda41d2a8c54aac..b2cf07a3a67374d4186c887986aa966a6bbd81e4 100644
+index c7fc9364d9b8f7d634e3b1064cda41d2a8c54aac..abe2c32e48c3659cad43370a06f324793b9d9888 100644
 --- a/dist/types/exports/index.d.ts
 +++ b/dist/types/exports/index.d.ts
-@@ -2,9 +2,17 @@ import { AppKit } from '../src/client/appkit.js';
- import type { AppKitOptions } from '../src/utils/TypesUtil.js';
+@@ -3,8 +3,15 @@ import type { AppKitOptions } from '../src/utils/TypesUtil.js';
  export * from '../src/utils/index.js';
  export type * from '@reown/appkit-controllers';
--export type { CaipNetwork, CaipAddress, CaipNetworkId } from '@reown/appkit-common';
+ export type { CaipNetwork, CaipAddress, CaipNetworkId } from '@reown/appkit-common';
 -export { CoreHelperUtil } from '@reown/appkit-controllers';
-+export type { CaipAddress, CaipNetwork, CaipNetworkId } from '@reown/appkit-common';
  export type CreateAppKit = Omit<AppKitOptions, 'sdkType' | 'sdkVersion' | 'basic'>;
  export declare function createAppKit(options: CreateAppKit): AppKit;
  export { AppKit };
@@ -48,4 +45,3 @@ index c7fc9364d9b8f7d634e3b1064cda41d2a8c54aac..b2cf07a3a67374d4186c887986aa966a
 +    ConnectionController as CoreConnectionController,
 +    ConnectionControllerUtil as CoreConnectionControllerUtil, ConnectorController as CoreConnectorController, CoreHelperUtil, OptionsController as CoreOptionsController, ProviderController as CoreProviderController, RouterController as CoreRouterController, StorageUtil as CoreStorageUtil
 +} from '@reown/appkit-controllers';
-+export { ConnectorUtil } from '@reown/appkit-scaffold-ui/utils';

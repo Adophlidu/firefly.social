@@ -329,12 +329,6 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
                                     </th>
                                     <th
                                         className="border border-line p-2 text-left text-lightMain dark:border-secondaryLine dark:text-main"
-                                        title="Start time relative to page load"
-                                    >
-                                        Start Time
-                                    </th>
-                                    <th
-                                        className="border border-line p-2 text-left text-lightMain dark:border-secondaryLine dark:text-main"
                                         title="Whether this API call completed before Largest Contentful Paint (LCP). Calls before LCP may delay page load."
                                     >
                                         Before LCP
@@ -401,17 +395,6 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
                                             >
                                                 {call.status}
                                             </span>
-                                        </td>
-                                        <td className="border border-line p-2 font-mono text-xs text-lightMain dark:border-secondaryLine dark:text-main">
-                                            {report.pageLoadTime ? (
-                                                <span title={`Absolute start time: ${call.startTime.toFixed(2)}ms`}>
-                                                    {(call.startTime - report.pageLoadTime).toFixed(2)}ms
-                                                </span>
-                                            ) : (
-                                                <span title={`Start time: ${call.startTime.toFixed(2)}ms`}>
-                                                    {call.startTime.toFixed(2)}ms
-                                                </span>
-                                            )}
                                         </td>
                                         <td className="border border-line p-2 dark:border-secondaryLine">
                                             {call.beforeLCP ? (
@@ -540,7 +523,7 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
                                                         <div className="font-medium text-warn dark:text-warn">
                                                             {call.domain}
                                                         </div>
-                                                        <div className="mt-1 font-mono text-xs text-warn/90 dark:text-warn">
+                                                        <div className="mt-1 break-all font-mono text-xs text-warn/90 dark:text-warn">
                                                             {call.method} {call.url}
                                                         </div>
                                                     </div>
