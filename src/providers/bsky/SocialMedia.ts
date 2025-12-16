@@ -2,7 +2,7 @@ import { AppBskyActorProfile, AppBskyFeedDefs, moderatePost } from '@atproto/api
 import { BlockedActorError } from '@atproto/api/dist/client/types/app/bsky/feed/getAuthorFeed.js';
 import { safeUnreachable } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
-import { compact, has } from 'lodash-es';
+import { compact, has, uniq } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { DISCOVER_AT_URI } from '@/constants/bsky.js';
@@ -488,28 +488,30 @@ class BskySocialMedia implements Provider {
         });
         const data = resolveBskyResponseData(response, 'Failed to get notifications.');
 
-        const postIds = compact(
-            data.notifications.flatMap((x) => {
-                switch (x.reason) {
-                    case 'like':
-                        return [(x.record as { subject: { uri: string } }).subject.uri];
-                    case 'reply':
-                        const parentUri = (x.record as { reply: { parent: { uri: string } } })?.reply?.parent?.uri;
-                        if (!parentUri) return EMPTY_LIST;
+        const postIds = uniq(
+            compact(
+                data.notifications.flatMap((x) => {
+                    switch (x.reason) {
+                        case 'like':
+                            return [(x.record as { subject: { uri: string } }).subject.uri];
+                        case 'reply':
+                            const parentUri = (x.record as { reply: { parent: { uri: string } } })?.reply?.parent?.uri;
+                            if (!parentUri) return EMPTY_LIST;
 
-                        return [x.uri, parentUri];
-                    case 'quote':
-                        if (!x.reasonSubject) return EMPTY_LIST;
+                            return [x.uri, parentUri];
+                        case 'quote':
+                            if (!x.reasonSubject) return EMPTY_LIST;
 
-                        return [x.uri, x.reasonSubject];
-                    case 'repost':
-                        if (!x.reasonSubject) return [];
+                            return [x.uri, x.reasonSubject];
+                        case 'repost':
+                            if (!x.reasonSubject) return [];
 
-                        return [x.reasonSubject];
-                    default:
-                        return [];
-                }
-            }),
+                            return [x.reasonSubject];
+                        default:
+                            return [];
+                    }
+                }),
+            ),
         );
         const posts = postIds.length
             ? await runInSafeAsync(async () => {
