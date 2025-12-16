@@ -8,7 +8,7 @@ import type { ApiCallMetrics, PerformanceReport } from '@/providers/lcp/types.js
 
 class PerformanceStore {
     private apiCalls: ApiCallMetrics[] = [];
-    private lcpTime: number | null = null;
+    public lcpTime: number | null = null;
     private pageLoadTime: number;
     private maxSize: number;
 
