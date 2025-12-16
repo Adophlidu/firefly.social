@@ -48,8 +48,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             <head>
                 <meta name="theme-color" content="#ffffff" />
                 <meta name="googlebot" content="notranslate" />
-                {/* for ssr purpose */}
-                <meta name="apple-itunes-apps" content="app-id=6445781203" />
                 {IS_PRODUCTION ? null : <meta name="robots" content="noindex, nofollow" />}
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
                 <Script>{VERCEL_REGION.join('\n')}</Script>
