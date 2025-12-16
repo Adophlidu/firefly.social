@@ -1,6 +1,3 @@
-import { Trans } from '@lingui/react/macro';
-
-import { PolymarketPageHeader } from '@/components/Polymarket/PolymarketPageHeader.js';
 import { PolymarketPositionList } from '@/components/Polymarket/PolymarketPositionList.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
@@ -21,10 +18,5 @@ export default async function PolymarketProfilePositionsPage(props: Props) {
     await setupLocaleForSSR();
     const polymarketProfile = await runInSafeAsync(() => getProfile(address));
 
-    return (
-        <div className="min-h-screen">
-            <PolymarketPageHeader pageTitle={<Trans>Positions</Trans>} />
-            <PolymarketPositionList address={address} proxyAddress={polymarketProfile?.proxy} />
-        </div>
-    );
+    return <PolymarketPositionList address={address} proxyAddress={polymarketProfile?.proxy} />;
 }

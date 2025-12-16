@@ -2,7 +2,6 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { memo } from 'react';
 
 import { ProfileActivities } from '@/components/Activities/ProfileActivities.js';
-import { PolymarketProfileCard } from '@/components/Polymarket/PolymarketProfileCard.js';
 import { ProfileNFTs } from '@/components/Profile/NFTs.js';
 import { ProfilePolymarketList } from '@/components/Profile/ProfilePolymarketList.js';
 import { ProfileTransactions } from '@/components/Transactions/ProfileTransactions.js';
@@ -23,12 +22,7 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
         case WalletProfileCategory.Transactions:
             return <ProfileTransactions address={address} />;
         case WalletProfileCategory.Bets:
-            return (
-                <>
-                    <PolymarketProfileCard address={address} />
-                    <ProfilePolymarketList address={address} />
-                </>
-            );
+            return <ProfilePolymarketList address={address} />;
         default:
             safeUnreachable(type);
             return null;

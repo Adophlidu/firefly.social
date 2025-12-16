@@ -1,15 +1,13 @@
 'use client';
 
-import { classNames } from '@dimensiondev/utils';
-import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { type HTMLProps, memo } from 'react';
+import { memo } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { getTradedMarketsCount } from '@/providers/polymarket/getTradedMarketsCount.js';
 
-interface PolymarketMarketsTradedProps extends HTMLProps<HTMLDivElement> {
+interface PolymarketMarketsTradedProps {
     address: string;
     proxyAddress?: string;
     enabled?: boolean;
@@ -19,7 +17,6 @@ export const PolymarketMarketsTraded = memo<PolymarketMarketsTradedProps>(functi
     address,
     proxyAddress,
     enabled = true,
-    className,
 }) {
     const { data, isLoading } = useQuery({
         queryKey: ['polymarket', 'markets-traded', address.toLowerCase()],
@@ -28,14 +25,7 @@ export const PolymarketMarketsTraded = memo<PolymarketMarketsTradedProps>(functi
         queryFn: () => getTradedMarketsCount(proxyAddress || address),
     });
 
-    return (
-        <div className={classNames('flex flex-col gap-1', className)}>
-            <span className="text-xs text-second">
-                <Trans>Markets Traded</Trans>
-            </span>
-            <div className="text-sm font-semibold text-main">
-                {isLoading ? <LoadingIcon size={20} /> : formatPolymarketNumber(data?.traded, { prefix: null })}
-            </div>
-        </div>
-    );
+    if (isLoading) return <LoadingIcon size={20} />;
+
+    return formatPolymarketNumber(data?.traded, { prefix: null });
 });

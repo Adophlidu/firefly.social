@@ -208,9 +208,6 @@ msgstr "{followerCount, plural, one {Follower} other {Followers}}"
 msgid "Delete post"
 msgstr "Delete post"
 
-msgid "No positions yet"
-msgstr "No positions yet"
-
 msgid "This account has expired, please log in again."
 msgstr "This account has expired, please log in again."
 
@@ -913,6 +910,9 @@ msgstr "Failed to load image."
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr "<0>{0}</0> by <1>{1}</1>"
 
+msgid "TOTAL"
+msgstr "TOTAL"
+
 msgid "Failed to unlike tip."
 msgstr "Failed to unlike tip."
 
@@ -921,6 +921,9 @@ msgstr "Snapshot unliked."
 
 msgid "Sending"
 msgstr "Sending"
+
+msgid "Close lost position"
+msgstr "Close lost position"
 
 msgid "Functions with retrievable ownership"
 msgstr "Functions with retrievable ownership"
@@ -1468,6 +1471,9 @@ msgstr "No connector found for {0}"
 msgid "Unmute /{0}"
 msgstr "Unmute /{0}"
 
+msgid "No trades found in this wallet"
+msgstr "No trades found in this wallet"
+
 msgid "Report spam"
 msgstr "Report spam"
 
@@ -1694,9 +1700,6 @@ msgstr "Are you sure you want to remove this NFT from your bookmarks?"
 msgid "Net Worth"
 msgstr "Net Worth"
 
-msgid "VALUE"
-msgstr "VALUE"
-
 msgid "All Wallets"
 msgstr "All Wallets"
 
@@ -1709,9 +1712,6 @@ msgstr "Significant movements in token prices"
 #. placeholder {0}: resolveSourceName(props.source)
 msgid "Create {0} Profile"
 msgstr "Create {0} Profile"
-
-msgid "Market"
-msgstr "Market"
 
 msgid "Executed"
 msgstr "Executed"
@@ -1960,9 +1960,6 @@ msgstr "Enter Total Amount"
 msgid "[Poll]"
 msgstr "[Poll]"
 
-msgid "No trades yet"
-msgstr "No trades yet"
-
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your posts have published successfully on {0}."
 msgstr "Your posts have published successfully on {0}."
@@ -2041,6 +2038,9 @@ msgstr "<0>Collected</0><1/>"
 
 msgid "Post was deleted"
 msgstr "Post was deleted"
+
+msgid "No positions found in this wallet"
+msgstr "No positions found in this wallet"
 
 msgid "Website"
 msgstr "Website"
@@ -2617,7 +2617,7 @@ msgstr "General"
 msgid "Show more tokens"
 msgstr "Show more tokens"
 
-#. placeholder {0}: formatPolymarketNumber(positionData.shares, { prefix: null })
+#. placeholder {0}: formatPolymarketNumber(position.shares, { prefix: null })
 #. placeholder {0}: leftShift(trade.size, 6).toFixed(1)
 msgid "{0} shares"
 msgstr "{0} shares"
@@ -3220,6 +3220,9 @@ msgstr "Authentication Failed"
 msgid "Attendance"
 msgstr "Attendance"
 
+msgid "Volume Traded(shares)"
+msgstr "Volume Traded(shares)"
+
 msgid "Show more"
 msgstr "Show more"
 
@@ -3346,6 +3349,9 @@ msgstr "Sent"
 
 msgid "Token could not be found."
 msgstr "Token could not be found."
+
+msgid "Claim Proceed"
+msgstr "Claim Proceed"
 
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
@@ -3914,9 +3920,6 @@ msgstr "Chain filter"
 msgid "Unfollow"
 msgstr "Unfollow"
 
-msgid "Position"
-msgstr "Position"
-
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted on “{0}”"
 msgstr "🙌 Just voted on “{0}”"
@@ -4096,9 +4099,6 @@ msgstr "Unmute"
 
 msgid "Congratulations!"
 msgstr "Congratulations!"
-
-msgid "Volume Traded"
-msgstr "Volume Traded"
 
 msgid "Clear all requirements"
 msgstr "Clear all requirements"
@@ -4479,9 +4479,6 @@ msgstr "Followers"
 
 msgid "Search channel"
 msgstr "Search channel"
-
-msgid "PnL%"
-msgstr "PnL%"
 
 msgid "Mint function"
 msgstr "Mint function"

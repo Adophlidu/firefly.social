@@ -213,9 +213,6 @@ msgstr ""
 msgid "Delete post"
 msgstr ""
 
-msgid "No positions yet"
-msgstr ""
-
 msgid "This account has expired, please log in again."
 msgstr ""
 
@@ -918,6 +915,9 @@ msgstr ""
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr ""
 
+msgid "TOTAL"
+msgstr ""
+
 msgid "Failed to unlike tip."
 msgstr ""
 
@@ -925,6 +925,9 @@ msgid "Snapshot unliked."
 msgstr ""
 
 msgid "Sending"
+msgstr ""
+
+msgid "Close lost position"
 msgstr ""
 
 msgid "Functions with retrievable ownership"
@@ -1473,6 +1476,9 @@ msgstr ""
 msgid "Unmute /{0}"
 msgstr ""
 
+msgid "No trades found in this wallet"
+msgstr ""
+
 msgid "Report spam"
 msgstr ""
 
@@ -1699,9 +1705,6 @@ msgstr ""
 msgid "Net Worth"
 msgstr ""
 
-msgid "VALUE"
-msgstr ""
-
 msgid "All Wallets"
 msgstr ""
 
@@ -1713,9 +1716,6 @@ msgstr ""
 
 #. placeholder {0}: resolveSourceName(props.source)
 msgid "Create {0} Profile"
-msgstr ""
-
-msgid "Market"
 msgstr ""
 
 msgid "Executed"
@@ -1965,9 +1965,6 @@ msgstr ""
 msgid "[Poll]"
 msgstr ""
 
-msgid "No trades yet"
-msgstr ""
-
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your posts have published successfully on {0}."
 msgstr ""
@@ -2045,6 +2042,9 @@ msgid "<0>Collected</0><1/>"
 msgstr ""
 
 msgid "Post was deleted"
+msgstr ""
+
+msgid "No positions found in this wallet"
 msgstr ""
 
 msgid "Website"
@@ -2622,7 +2622,7 @@ msgstr ""
 msgid "Show more tokens"
 msgstr ""
 
-#. placeholder {0}: formatPolymarketNumber(positionData.shares, { prefix: null })
+#. placeholder {0}: formatPolymarketNumber(position.shares, { prefix: null })
 #. placeholder {0}: leftShift(trade.size, 6).toFixed(1)
 msgid "{0} shares"
 msgstr ""
@@ -3225,6 +3225,9 @@ msgstr ""
 msgid "Attendance"
 msgstr ""
 
+msgid "Volume Traded(shares)"
+msgstr ""
+
 msgid "Show more"
 msgstr ""
 
@@ -3350,6 +3353,9 @@ msgid "Sent"
 msgstr ""
 
 msgid "Token could not be found."
+msgstr ""
+
+msgid "Claim Proceed"
 msgstr ""
 
 msgid "Casts + Replies"
@@ -3919,9 +3925,6 @@ msgstr ""
 msgid "Unfollow"
 msgstr ""
 
-msgid "Position"
-msgstr ""
-
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted on “{0}”"
 msgstr ""
@@ -4100,9 +4103,6 @@ msgid "Unmute"
 msgstr ""
 
 msgid "Congratulations!"
-msgstr ""
-
-msgid "Volume Traded"
 msgstr ""
 
 msgid "Clear all requirements"
@@ -4483,9 +4483,6 @@ msgid "Followers"
 msgstr ""
 
 msgid "Search channel"
-msgstr ""
-
-msgid "PnL%"
 msgstr ""
 
 msgid "Mint function"

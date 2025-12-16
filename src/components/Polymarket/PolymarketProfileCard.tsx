@@ -6,9 +6,7 @@ import { memo } from 'react';
 
 import PolymarketIcon from '@/assets/polymarket.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
-import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
-import { PolymarketMarketsTraded } from '@/components/Polymarket/PolymarketMarketsTraded.js';
 import { toRate } from '@/components/Polymarket/toRate.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
@@ -27,80 +25,79 @@ export const PolymarketProfileCard = memo<PolymarketProfileCardProps>(function P
         queryFn: () => getProfile(address),
     });
 
+    if (isLoading)
+        return (
+            <div className="flex animate-pulse justify-evenly gap-3 rounded-xl bg-primaryBottom p-3">
+                <div className="flex flex-1 items-center gap-2 text-main">
+                    <div className="size-8 shrink-0 rounded-full bg-third" />
+                    <div className="flex h-9 flex-col justify-between">
+                        <div className="h-4 w-[96px] shrink-0 rounded-[4px] bg-third" />
+                        <div className="flex h-4 w-[64px] items-center rounded-[4px] bg-third" />
+                    </div>
+                </div>
+                <div className="flex h-9 flex-1 flex-col items-end justify-between">
+                    <div className="h-4 w-[64px] shrink-0 rounded-[4px] bg-third" />
+                    <div className="ml-auto flex h-4 w-[128px] items-center rounded-[4px] bg-third" />
+                </div>
+                <div className="flex h-9 flex-1 flex-col items-end justify-between">
+                    <div className="h-4 w-[64px] shrink-0 rounded-[4px] bg-third text-sm font-semibold" />
+                    <div className="ml-auto flex h-4 w-[128px] items-center rounded-[4px] bg-third" />
+                </div>
+            </div>
+        );
+
     // TODO: maybe a better way to optimize CLS
     if (!data) return null;
 
     return (
         <Link
-            className="p-4"
+            className="flex justify-evenly gap-3 rounded-xl bg-primaryBottom p-3"
             href={RouteResolver.polymarketProfile(data.proxy)}
-            style={{
-                backgroundColor: '#DADADA33',
-            }}
             onClick={() => capturePolymarketProfileLinkClick()}
             data-disable-progress
         >
-            <div className="flex items-center gap-2 text-main">
-                <PolymarketIcon className="shrink-0" width={20} height={20} />
-                <span className="shrink-0 text-sm font-semibold">
-                    <Trans>Polymarket</Trans>
-                </span>
-                {isLoading ? <LoadingIcon size={18} /> : null}
-                <span className="ml-auto flex items-center text-[13px] font-medium text-second">
-                    {formatAddressEthereum(data.proxy, 4, 2)}
-                    <CopyTextButton
-                        className="ml-2 text-second"
-                        size={14}
-                        text={data.proxy}
-                        data-prevent-progress
-                        onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                        }}
-                    />
-                </span>
-            </div>
-            <div className="mt-4 block md:flex md:flex-wrap md:items-center">
-                <div className="flex shrink-0 items-center md:flex-1">
-                    <div className="flex flex-1 shrink-0 flex-col gap-1">
-                        <span className="text-xs text-second">
-                            <Trans>Portfolio</Trans>
-                        </span>
-                        <span className="relative text-sm font-semibold text-main">
-                            {`$${data ? data.balance.toFixed(2) : '-'}`}
-                        </span>
+            <div className="flex flex-1 items-center gap-2 text-main">
+                <PolymarketIcon className="shrink-0 rounded-full" width={32} height={32} />
+                <div className="flex h-9 flex-col">
+                    <div className="shrink-0 text-sm font-semibold">
+                        {data.platform_name ?? <Trans>Polymarket</Trans>}
                     </div>
-                    <div className="flex flex-1 shrink-0 flex-col gap-1">
-                        <span className="text-xs text-second">
-                            <Trans>PnL</Trans>
-                        </span>
-                        <div className="relative text-success">
-                            <span
-                                className={`text-sm font-semibold ${
-                                    !data ? '' : data.pnl < 0 ? 'text-danger' : 'text-success'
-                                }`}
-                            >
-                                {formatPolymarketNumber(data?.pnl, { symbol: true })}
-                                <span className="ml-0.5 text-xs font-normal">{toRate(data?.pnl_rate)}</span>
-                            </span>
-                        </div>
+                    <div className="ml-auto flex items-center text-[13px] font-medium text-second">
+                        {formatAddressEthereum(data.proxy, 4, 2)}
+                        <CopyTextButton
+                            className="ml-2 text-second"
+                            size={14}
+                            text={data.proxy}
+                            data-prevent-progress
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                            }}
+                        />
                     </div>
                 </div>
-                <div className="mt-2 flex shrink-0 items-center md:mt-0 md:flex-1">
-                    <div className="flex flex-1 shrink-0 flex-col gap-1">
-                        <span className="text-xs text-second">
-                            <Trans>Win Rate</Trans>
-                        </span>
-                        <span className="relative text-sm font-semibold text-main">
-                            {data ? `${(data.win_rate * 100).toFixed(2)}%` : '-'}
-                        </span>
-                    </div>
-                    <PolymarketMarketsTraded
-                        className="flex-1 shrink-0"
-                        address={address}
-                        proxyAddress={data?.proxy}
-                        enabled={!isLoading}
-                    />
+            </div>
+            <div className="flex h-9 flex-1 shrink-0 flex-col items-end justify-between gap-1">
+                <div className="text-xs text-second">
+                    <Trans>Portfolio</Trans>
+                </div>
+                <div className="relative text-sm font-semibold text-main">
+                    {`$${data ? data.balance.toFixed(2) : '-'}`}
+                </div>
+            </div>
+            <div className="flex h-9 flex-1 shrink-0 flex-col items-end justify-between gap-1">
+                <div className="text-xs text-second">
+                    <Trans>PnL</Trans>
+                </div>
+                <div className="relative text-success">
+                    <span
+                        className={`text-sm font-semibold ${
+                            !data ? '' : data.pnl < 0 ? 'text-danger' : 'text-success'
+                        }`}
+                    >
+                        {formatPolymarketNumber(data?.pnl, { symbol: true })}
+                        <span className="ml-0.5 text-xs font-normal">{toRate(data?.pnl_rate)}</span>
+                    </span>
                 </div>
             </div>
         </Link>

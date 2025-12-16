@@ -213,9 +213,6 @@ msgstr "{followerCount, plural, one {追蹤者} other {追蹤者}}"
 msgid "Delete post"
 msgstr "刪除貼文"
 
-msgid "No positions yet"
-msgstr ""
-
 msgid "This account has expired, please log in again."
 msgstr "該帳號已過期，請重新登入。"
 
@@ -918,6 +915,9 @@ msgstr "圖片載入失敗，請重試。"
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr "<0>{0}</0> 由 <1>{1}</1> 建立"
 
+msgid "TOTAL"
+msgstr ""
+
 msgid "Failed to unlike tip."
 msgstr "取消按赞失敗。"
 
@@ -926,6 +926,9 @@ msgstr "已取消按赞。"
 
 msgid "Sending"
 msgstr "發布中"
+
+msgid "Close lost position"
+msgstr ""
 
 msgid "Functions with retrievable ownership"
 msgstr "具有可回收所有權的函式"
@@ -1473,6 +1476,9 @@ msgstr "未找到 {0} 的連接器"
 msgid "Unmute /{0}"
 msgstr "取消隱藏 /{0}"
 
+msgid "No trades found in this wallet"
+msgstr ""
+
 msgid "Report spam"
 msgstr "檢舉垃圾訊息"
 
@@ -1699,9 +1705,6 @@ msgstr "確定要從書籤移除此 NFT？"
 msgid "Net Worth"
 msgstr "淨值"
 
-msgid "VALUE"
-msgstr ""
-
 msgid "All Wallets"
 msgstr "所有錢包"
 
@@ -1714,9 +1717,6 @@ msgstr "代幣價格重大波動"
 #. placeholder {0}: resolveSourceName(props.source)
 msgid "Create {0} Profile"
 msgstr "建立 {0} 個人檔案"
-
-msgid "Market"
-msgstr ""
 
 msgid "Executed"
 msgstr "已執行"
@@ -1965,9 +1965,6 @@ msgstr "輸入總數額"
 msgid "[Poll]"
 msgstr "[投票]"
 
-msgid "No trades yet"
-msgstr ""
-
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your posts have published successfully on {0}."
 msgstr "您的貼文已成功發佈至 {0}。"
@@ -2046,6 +2043,9 @@ msgstr "<0>鑄造收集</0><1/>"
 
 msgid "Post was deleted"
 msgstr "貼文已刪除"
+
+msgid "No positions found in this wallet"
+msgstr ""
 
 msgid "Website"
 msgstr "網站"
@@ -2622,7 +2622,7 @@ msgstr "通用"
 msgid "Show more tokens"
 msgstr "顯示更多代幣"
 
-#. placeholder {0}: formatPolymarketNumber(positionData.shares, { prefix: null })
+#. placeholder {0}: formatPolymarketNumber(position.shares, { prefix: null })
 #. placeholder {0}: leftShift(trade.size, 6).toFixed(1)
 msgid "{0} shares"
 msgstr ""
@@ -3225,6 +3225,9 @@ msgstr "認證失敗"
 msgid "Attendance"
 msgstr "出席"
 
+msgid "Volume Traded(shares)"
+msgstr ""
+
 msgid "Show more"
 msgstr "顯示更多"
 
@@ -3351,6 +3354,9 @@ msgstr "發送"
 
 msgid "Token could not be found."
 msgstr "未找到該代幣。"
+
+msgid "Claim Proceed"
+msgstr ""
 
 msgid "Casts + Replies"
 msgstr "貼文 + 留言"
@@ -3919,9 +3925,6 @@ msgstr ""
 msgid "Unfollow"
 msgstr "取消追蹤"
 
-msgid "Position"
-msgstr ""
-
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted on “{0}”"
 msgstr "🙌 剛投票「{0}」"
@@ -4101,9 +4104,6 @@ msgstr "取消隱藏"
 
 msgid "Congratulations!"
 msgstr "恭喜！"
-
-msgid "Volume Traded"
-msgstr ""
 
 msgid "Clear all requirements"
 msgstr "清除所有條件"
@@ -4486,9 +4486,6 @@ msgstr "追蹤者"
 
 msgid "Search channel"
 msgstr "搜尋群組"
-
-msgid "PnL%"
-msgstr ""
 
 msgid "Mint function"
 msgstr "鑄造功能"

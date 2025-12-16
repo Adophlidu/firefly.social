@@ -16,13 +16,7 @@ interface PolymarketTradeListProps {
 }
 
 const getTradeItem = (index: number, trade: PolymarketTradeData, listKey: string) => {
-    return (
-        <PolymarketTradeItem
-            className={index % 2 === 0 ? 'bg-lightBg' : ''}
-            trade={trade}
-            key={`${trade.slug}-${index}`}
-        />
-    );
+    return <PolymarketTradeItem trade={trade} key={`${trade.slug}-${index}`} />;
 };
 
 export function PolymarketTradeList({ address }: PolymarketTradeListProps) {
@@ -54,8 +48,8 @@ export function PolymarketTradeList({ address }: PolymarketTradeListProps) {
                 <span className="flex-1 text-[11px] uppercase text-second">
                     <Trans>MARKET</Trans>
                 </span>
-                <span className="w-[176px] pl-6 text-[11px] uppercase text-second">
-                    <Trans>VALUE</Trans>
+                <span className="w-[176px] pl-6 text-right text-[11px] uppercase text-second">
+                    <Trans>TOTAL</Trans>
                 </span>
             </div>
             <ListInPage
@@ -70,7 +64,8 @@ export function PolymarketTradeList({ address }: PolymarketTradeListProps) {
                 }}
                 NoResultsFallbackProps={{
                     className: 'mt-20',
-                    message: <Trans>No trades yet</Trans>,
+                    message: <Trans>No trades found in this wallet</Trans>,
+                    icon: <div />,
                 }}
             />
         </>

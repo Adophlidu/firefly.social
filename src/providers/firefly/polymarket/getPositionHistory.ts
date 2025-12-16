@@ -29,14 +29,14 @@ export async function getPositionHistory({
     const response = await fireflySessionHolder.fetch<
         Response<{
             data: PolymarketPositionData[];
-            cursor: string | null;
+            cursor: number | null;
         }>
     >(url, {
         method: 'POST',
         body: JSON.stringify({
             is_polymarketProxy: isProxyAddress,
             limit,
-            cursor: indicator?.id || undefined,
+            cursor: indicator?.id ? +indicator.id : undefined,
             wallet: address,
             is_claim: isClaim,
         }),
@@ -46,6 +46,6 @@ export async function getPositionHistory({
     return createPageable(
         data.data,
         createIndicator(indicator),
-        data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+        data.cursor && data.data.length >= limit ? createNextIndicator(indicator, data.cursor.toString()) : undefined,
     );
 }

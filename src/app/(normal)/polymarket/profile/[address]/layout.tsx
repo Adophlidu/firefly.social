@@ -1,3 +1,13 @@
+import { Trans } from '@lingui/react/macro';
+
+import { ProfileCategoryTabs } from '@/app/(normal)/polymarket/profile/[address]/ProfileCategoryTabs.js';
+import { PolymarketPageHeader } from '@/components/Polymarket/PolymarketPageHeader.js';
+import { PolymarketProfileOverview } from '@/components/Polymarket/PolymarketProfileOverview.js';
+import { notFound } from '@/esm/navigation/server.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
+import { getProfile } from '@/providers/firefly/polymarket/getProfile.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props
@@ -6,5 +16,18 @@ interface Props
     }> {}
 
 export default async function PolymarketProfileLayout(props: Props) {
-    return <div>{props.children}</div>;
+    const { address } = await props.params;
+    if (!address || !isValidAddressEthereum(address)) notFound();
+
+    await setupLocaleForSSR();
+    const polymarketProfile = await runInSafeAsync(() => getProfile(address));
+
+    return (
+        <div>
+            <PolymarketPageHeader pageTitle={<Trans>Bets</Trans>} />
+            <PolymarketProfileOverview address={address} profile={polymarketProfile} />
+            <ProfileCategoryTabs address={address} />
+            {props.children}
+        </div>
+    );
 }

@@ -2347,6 +2347,22 @@ export interface PolymarketProfileData {
     wallet: string;
     win_rate: number;
     win_rate67: string;
+    platform_avatar: string;
+    platform_name: string;
+}
+
+export interface BetPortfolioItem {
+    platform: 'polymarket' | 'opinion';
+    wallet: string;
+    proxy: string;
+    /** url */
+    platform_avatar: string;
+    platform_name: string;
+    pnl: number;
+    cash_balance: number;
+    balance: number;
+    notfill_balance: number;
+    volume?: number;
 }
 
 export interface PolymarketPositionData {

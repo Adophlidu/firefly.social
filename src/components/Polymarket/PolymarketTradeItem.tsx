@@ -34,7 +34,6 @@ function PolymarketTradeType({ type, onlyIcon = false, className }: PolymarketTr
 
     return (
         <div className={classNames('w-[130px] shrink-0 items-center gap-3', className)}>
-            {Icon ? <Icon width={18} height={18} /> : null}
             {!onlyIcon ? <span className="text-sm font-medium text-main">{title}</span> : null}
         </div>
     );
@@ -74,7 +73,7 @@ export function PolymarketTradeItem({ trade, className }: PolymarketTradeItemPro
                         <PolymarketTradeType onlyIcon className="flex !w-auto md:hidden" type={trade.side} />
                         <div
                             className={classNames(
-                                'flex h-[22px] items-center gap-1 rounded-md px-1.5 text-xs font-semibold !leading-[22px]',
+                                'flex h-[18px] items-center gap-1 rounded-md px-1 py-0.5 text-xs font-semibold !leading-[18px]',
                                 isGreen ? 'bg-success/20 text-success' : 'bg-danger/20 text-danger',
                             )}
                         >
@@ -102,14 +101,14 @@ export function PolymarketTradeItem({ trade, className }: PolymarketTradeItemPro
                         </span>
                     </div>
                 </div>
-                <div className="hidden shrink-0 items-center gap-4 md:flex">
+                <div className="hidden shrink-0 items-end gap-1 md:flex md:flex-col">
                     <div
                         className={classNames(
-                            'w-16 text-right text-sm font-medium text-main',
-                            trade.side === 'sell' ? 'text-success' : '',
+                            'w-16 text-right text-sm font-medium',
+                            trade.side === 'sell' ? 'text-success' : 'text-main',
                         )}
                     >
-                        {`${numSymbol || ''}$${leftShift(trade.usdcSize, 6).toFixed(2)}`}
+                        {`${trade.side === 'sell' ? '+' : ''}$${leftShift(trade.usdcSize, 6).toFixed(2)}`}
                     </div>
                     <div className="w-24 text-right text-xs font-medium text-second">
                         <PolymarketTime timestamp={trade.timestamp * 1000} />
