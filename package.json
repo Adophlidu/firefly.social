@@ -60,9 +60,9 @@
         "@next/third-parties": "^16.0.10",
         "@noble/ed25519": "^1.7.5",
         "@okxweb3/dex-widget": "^1.3.16",
-        "@reown/appkit": "1.8.14",
-        "@reown/appkit-adapter-solana": "1.8.14",
-        "@reown/appkit-adapter-wagmi": "1.8.14",
+        "@reown/appkit": "1.8.15",
+        "@reown/appkit-adapter-solana": "1.8.15",
+        "@reown/appkit-adapter-wagmi": "1.8.15",
         "@sentry/browser": "^7.120.4",
         "@solana/spl-token": "^0.4.14",
         "@solana/wallet-adapter-base": "^0.9.27",
@@ -191,7 +191,7 @@
         "overrides": {
             "@floating-ui/react": "0.27.16",
             "@noble/curves": "1.9.2",
-            "@reown/appkit": "1.8.14",
+            "@reown/appkit": "1.8.15",
             "@solana/wallet-adapter-base": "0.9.27",
             "@solana/web3.js": "1.98.4",
             "@tanstack/react-query-next-experimental": "5.85.9",
@@ -232,9 +232,9 @@
             "eslint-plugin-tailwindcss@3.18.2": "patches/eslint-plugin-tailwindcss@3.18.2.patch",
             "@tippyjs/react@4.2.6": "patches/@tippyjs__react@4.2.6.patch",
             "@lens-protocol/client@0.0.0-canary-20250430134539": "patches/@lens-protocol__client@0.0.0-canary-20250430134539.patch",
-            "@reown/appkit@1.8.14": "patches/@reown__appkit@1.8.14.patch",
             "@okxweb3/dex-widget@1.3.16": "patches/@okxweb3__dex-widget@1.3.16.patch",
-            "@sentry/browser@7.120.4": "patches/@sentry__browser@7.120.4.patch"
+            "@sentry/browser@7.120.4": "patches/@sentry__browser@7.120.4.patch",
+            "@reown/appkit@1.8.15": "patches/@reown__appkit@1.8.15.patch"
         }
     },
     "eslintConfig": {

@@ -1,16 +1,11 @@
 /* cspell:disable */
 
-import {
-    type ChainControllerState,
-    CoreChainController,
-    CoreConnectorController,
-    CoreRouterController,
-    type WcWallet,
-} from '@reown/appkit';
+import { type ChainControllerState, CoreChainController, CoreRouterController, type WcWallet } from '@reown/appkit';
 import urlcat from 'urlcat';
 
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { WalletId } from '@/constants/reown.js';
+import { findConnectorByWallet } from '@/modals/WalletConnectModal/findConnectorByWallet.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 
 const CUSTOM_DEEPLINK_WALLETS = {
@@ -88,10 +83,7 @@ function redirectSolanaLinkInNeed(id: string, namespace: ChainControllerState['a
 }
 
 export function selectWallet(wallet: WcWallet) {
-    const connector = CoreConnectorController.getConnector({
-        id: wallet.id,
-        rdns: wallet.rdns,
-    });
+    const connector = findConnectorByWallet(wallet);
 
     if (wallet.id === WalletId.Phantom && IS_MOBILE_DEVICE) {
         redirectSolanaLinkInNeed(connector?.explorerId || wallet.id, 'solana');

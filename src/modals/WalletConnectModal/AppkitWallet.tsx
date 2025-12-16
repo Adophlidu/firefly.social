@@ -1,9 +1,10 @@
-import { CoreAssetUtil, CoreConnectionController, CoreConnectorController, CoreRouterController } from '@reown/appkit';
+import { CoreAssetUtil, CoreConnectionController, CoreRouterController } from '@reown/appkit';
 import { memo, useEffect, useState } from 'react';
 import urlcat from 'urlcat';
 
 import { WalletChainConfig, walletConnectId, WalletId } from '@/constants/reown.js';
 import type { AppkitWalletItem } from '@/hooks/appkit/useAppkitWalletList.js';
+import { findConnectorByWallet } from '@/modals/WalletConnectModal/findConnectorByWallet.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 import { selectWallet } from '@/modals/WalletConnectModal/selectWallet.js';
 import { WalletItem } from '@/modals/WalletConnectModal/WalletItem.js';
@@ -29,10 +30,7 @@ function onWalletClick(item: AppkitWalletItem) {
         return;
     }
 
-    const connector = CoreConnectorController.getConnector({
-        id: wallet.id,
-        rdns: wallet.rdns,
-    });
+    const connector = findConnectorByWallet(wallet);
     if (connector) {
         CoreRouterController.state.data = { connector, redirectView: undefined };
         walletRouter.navigate({ to: urlcat('/connecting', { name: walletName }) });
