@@ -21,7 +21,7 @@ updates:
       directory: '/packages/iframe-bridge'
       schedule:
           interval: 'weekly'
-      open-pull-requests-limit: 10
+      open-pull-requests-limit: 20
       ignore:
           - dependency-name: '*'
             update-types:
@@ -32,7 +32,7 @@ updates:
       directory: '/packages/native-bridge'
       schedule:
           interval: 'weekly'
-      open-pull-requests-limit: 10
+      open-pull-requests-limit: 20
       ignore:
           - dependency-name: '*'
             update-types:
@@ -43,7 +43,7 @@ updates:
       directory: '/packages/utils'
       schedule:
           interval: 'weekly'
-      open-pull-requests-limit: 10
+      open-pull-requests-limit: 20
       ignore:
           - dependency-name: '*'
             update-types:
@@ -55,7 +55,7 @@ updates:
       directory: '/'
       schedule:
           interval: 'weekly'
-      open-pull-requests-limit: 10
+      open-pull-requests-limit: 20
       ignore:
           - dependency-name: '*'
             update-types:
