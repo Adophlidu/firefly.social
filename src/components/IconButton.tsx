@@ -19,7 +19,7 @@ interface IconButtonProps extends ClickableButtonProps {
     children?: ReactNode;
 }
 
-const IconButton = memo(function IconButton({ size = 24, tooltip, children, ref, ...props }: IconButtonProps) {
+export const IconButton = memo(function IconButton({ size = 24, tooltip, children, ref, ...props }: IconButtonProps) {
     const Button = (
         <ClickableButton
             role="button"

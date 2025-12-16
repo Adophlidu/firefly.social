@@ -1,18 +1,10 @@
 'use client';
 
-/**
- * LCP Performance Dashboard
- *
- * A visual dashboard for viewing API performance metrics and identifying bottlenecks affecting LCP.
- *
- * Usage:
- * - Add this component to your app (e.g., in development mode or behind a feature flag)
- * - Access via keyboard shortcut or URL parameter
- */
-
+import { ArrowDownTrayIcon, TrashIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useCallback, useEffect, useState } from 'react';
 
 import { CopyTextButton } from '@/components/CopyTextButton.js';
+import { IconButton } from '@/components/IconButton.js';
 import { clearPerformanceData, exportPerformanceData, getPerformanceReport } from '@/providers/lcp/index.js';
 import type { PerformanceReport } from '@/providers/lcp/types.js';
 
@@ -214,47 +206,50 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
             <div className="sticky top-0 z-10 flex items-center justify-between border-b border-line bg-lightBottom p-4 dark:border-secondaryLine dark:bg-darkBottom">
                 <h2 className="text-xl font-bold text-lightMain dark:text-main">LCP Performance Dashboard</h2>
                 <div className="flex gap-2">
-                    <button
+                    <IconButton
                         onClick={handleExport}
-                        className="rounded bg-secondarySuccess px-3 py-1 text-white transition-opacity hover:opacity-90 dark:hover:opacity-80"
+                        tooltip="Export JSON"
+                        className="rounded bg-secondarySuccess p-2 text-white transition-opacity hover:opacity-90 dark:hover:opacity-80"
                     >
-                        Export JSON
-                    </button>
-                    <button
+                        <ArrowDownTrayIcon className="size-5" />
+                    </IconButton>
+                    <IconButton
                         onClick={handleClear}
-                        className="rounded bg-danger px-3 py-1 text-white transition-opacity hover:opacity-90 dark:hover:opacity-80"
+                        tooltip="Clear"
+                        className="rounded bg-danger p-2 text-white transition-opacity hover:opacity-90 dark:hover:opacity-80"
                     >
-                        Clear
-                    </button>
-                    <button
+                        <TrashIcon className="size-5" />
+                    </IconButton>
+                    <IconButton
                         onClick={() => setIsOpen(false)}
-                        className="rounded bg-second px-3 py-1 text-white transition-opacity hover:opacity-90 dark:bg-third dark:hover:opacity-80"
+                        tooltip="Close"
+                        className="rounded bg-second p-2 text-white transition-opacity hover:opacity-90 dark:bg-third dark:hover:opacity-80"
                     >
-                        Close
-                    </button>
+                        <XMarkIcon className="size-5" />
+                    </IconButton>
                 </div>
             </div>
 
             <div className="p-4">
                 {/* Summary Cards */}
                 <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-4">
-                    <div className="rounded-lg border border-line bg-white p-4 dark:border-secondaryLine dark:bg-black">
+                    <div className="rounded-lg border border-line p-4 dark:border-secondaryLine">
                         <div className="text-sm text-second dark:text-third">Total API Calls</div>
                         <div className="text-2xl font-bold text-lightMain dark:text-main">{summary.totalCalls}</div>
                     </div>
-                    <div className="rounded-lg border border-line bg-white p-4 dark:border-secondaryLine dark:bg-black">
+                    <div className="rounded-lg border border-line p-4 dark:border-secondaryLine">
                         <div className="text-sm text-second dark:text-third">Total Duration</div>
                         <div className="text-2xl font-bold text-lightMain dark:text-main">
                             {summary.totalDuration.toFixed(2)}ms
                         </div>
                     </div>
-                    <div className="rounded-lg border border-line bg-white p-4 dark:border-secondaryLine dark:bg-black">
+                    <div className="rounded-lg border border-line p-4 dark:border-secondaryLine">
                         <div className="text-sm text-second dark:text-third">Avg Duration</div>
                         <div className="text-2xl font-bold text-lightMain dark:text-main">
                             {summary.averageDuration.toFixed(2)}ms
                         </div>
                     </div>
-                    <div className="rounded-lg border border-line bg-white p-4 dark:border-secondaryLine dark:bg-black">
+                    <div className="rounded-lg border border-line p-4 dark:border-secondaryLine">
                         <div className="text-sm text-second dark:text-third">Calls Before LCP</div>
                         <div className="text-2xl font-bold text-lightMain dark:text-main">{summary.callsBeforeLCP}</div>
                         <div className="text-xs text-second dark:text-third">
@@ -334,6 +329,12 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
                                     </th>
                                     <th
                                         className="border border-line p-2 text-left text-lightMain dark:border-secondaryLine dark:text-main"
+                                        title="Start time relative to page load"
+                                    >
+                                        Start Time
+                                    </th>
+                                    <th
+                                        className="border border-line p-2 text-left text-lightMain dark:border-secondaryLine dark:text-main"
                                         title="Whether this API call completed before Largest Contentful Paint (LCP). Calls before LCP may delay page load."
                                     >
                                         Before LCP
@@ -400,6 +401,17 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
                                             >
                                                 {call.status}
                                             </span>
+                                        </td>
+                                        <td className="border border-line p-2 font-mono text-xs text-lightMain dark:border-secondaryLine dark:text-main">
+                                            {report.pageLoadTime ? (
+                                                <span title={`Absolute start time: ${call.startTime.toFixed(2)}ms`}>
+                                                    {(call.startTime - report.pageLoadTime).toFixed(2)}ms
+                                                </span>
+                                            ) : (
+                                                <span title={`Start time: ${call.startTime.toFixed(2)}ms`}>
+                                                    {call.startTime.toFixed(2)}ms
+                                                </span>
+                                            )}
                                         </td>
                                         <td className="border border-line p-2 dark:border-secondaryLine">
                                             {call.beforeLCP ? (
