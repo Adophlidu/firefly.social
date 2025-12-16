@@ -102,7 +102,6 @@ export function AppKitAccountItem({
             className="flex h-10 w-full items-center justify-between gap-2 px-2 text-main"
             onClick={onConnectionClick}
             disabled={loading}
-            {...rest}
         >
             <Icon className="shrink-0" width={20} height={20} />
             {walletIcon ? (
