@@ -581,8 +581,8 @@ importers:
   scripts:
     dependencies:
       dotenv:
-        specifier: ^16.4.5
-        version: 16.4.5
+        specifier: ^16.4.7
+        version: 16.4.7
       esbuild:
         specifier: ^0.25.12
         version: 0.25.12
@@ -12118,8 +12118,8 @@ packages:
       is-obj: 2.0.0
     dev: true
 
-  /dotenv@16.4.5:
-    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
+  /dotenv@16.4.7:
+    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
     engines: {node: '>=12'}
     dev: false
 
@@ -19622,7 +19622,7 @@ time:
   /date-fns@2.30.0: '2023-04-30T02:49:47.228Z'
   /dayjs@1.11.13: '2024-08-20T14:59:52.917Z'
   /dompurify@3.2.7: '2025-09-17T11:48:05.339Z'
-  /dotenv@16.4.5: '2024-02-20T03:33:38.563Z'
+  /dotenv@16.4.7: '2024-12-03T17:21:39.065Z'
   /emoji-picker-react@4.12.4: '2025-07-12T20:57:49.386Z'
   /esbuild@0.25.12: '2025-11-01T23:36:22.605Z'
   /eslint-config-next@16.0.7: '2025-12-03T15:15:39.191Z'
