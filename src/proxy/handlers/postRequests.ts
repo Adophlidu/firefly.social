@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 
-export function handlePostRequests(request: NextRequest) {
+export function handlePostRequests(request: NextRequest, next: () => NextResponse | undefined) {
     const pathname = request.nextUrl.pathname;
 
     if (pathname.startsWith('/post') && !pathname.includes('/photos')) {
@@ -9,5 +9,5 @@ export function handlePostRequests(request: NextRequest) {
         return NextResponse.next({ request });
     }
 
-    return;
+    return next();
 }

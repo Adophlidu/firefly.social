@@ -24,7 +24,7 @@ import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 
-export function handleLegacyRedirects(request: NextRequest) {
+export function handleLegacyRedirects(request: NextRequest, next: () => NextResponse | undefined) {
     const parsedOldDiscoverUrl = parseOldDiscoverUrl(request.nextUrl);
     if (parsedOldDiscoverUrl) {
         const destination = request.nextUrl.clone();
@@ -133,5 +133,5 @@ export function handleLegacyRedirects(request: NextRequest) {
         return NextResponse.redirect(destination);
     }
 
-    return;
+    return next();
 }

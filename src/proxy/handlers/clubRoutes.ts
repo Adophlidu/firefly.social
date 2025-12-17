@@ -5,7 +5,7 @@ import { ChannelTabType } from '@/constants/enum.js';
 import { parseClubUrl } from '@/helpers/parseClubUrl.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
-export function handleClubRoutes(request: NextRequest) {
+export function handleClubRoutes(request: NextRequest, next: () => NextResponse | undefined) {
     const parsedClubUrl = parseClubUrl(request.nextUrl);
 
     if (
@@ -36,5 +36,5 @@ export function handleClubRoutes(request: NextRequest) {
         return NextResponse.rewrite(destination, { request });
     }
 
-    return;
+    return next();
 }

@@ -7,7 +7,7 @@ import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { parseProfileUrl } from '@/helpers/parseProfileUrl.js';
 import { resolveProfileSourceInURL } from '@/helpers/resolveSourceInUrl.js';
 
-export function handleProfileRoutes(request: NextRequest) {
+export function handleProfileRoutes(request: NextRequest, next: () => NextResponse | undefined) {
     const pathname = request.nextUrl.pathname;
     const parsedProfileUrl = parseProfileUrl(pathname);
 
@@ -69,5 +69,5 @@ export function handleProfileRoutes(request: NextRequest) {
         }
     }
 
-    return;
+    return next();
 }
