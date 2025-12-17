@@ -54,7 +54,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" nonce={CSP_NONCE} />
                 <Script nonce={CSP_NONCE}>{VERCEL_REGION.join('\n')}</Script>
                 {IS_PRODUCTION || env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? (
-                    <GoogleAnalytics gaId="G-61NFDTK6LT" />
+                    <GoogleAnalytics nonce={CSP_NONCE} gaId="G-61NFDTK6LT" />
                 ) : null}
                 {IS_PRODUCTION || env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? (
                     <Script
