@@ -61,7 +61,7 @@ export async function setupFirebaseFcmConnection(
     if (!permission.granted) return;
 
     await runInSafeAsync(async () => {
-        firebaseClient.init();
+        await firebaseClient.init();
         const token = await getToken(firebaseClient.firebaseFcm, {
             vapidKey: env.external.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
         });

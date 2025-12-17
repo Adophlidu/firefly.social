@@ -1,7 +1,13 @@
 import { parseUrl } from '@dimensiondev/utils';
-import { type Analytics, getAnalytics, logEvent } from 'firebase/analytics';
+import { type Analytics, getAnalytics, isSupported as isAnalyticsSupported, logEvent } from 'firebase/analytics';
 import { type FirebaseApp, type FirebaseOptions, initializeApp } from 'firebase/app';
-import { getMessaging, type Messaging, onMessage, type Unsubscribe } from 'firebase/messaging';
+import {
+    getMessaging,
+    isSupported as isMessageSupported,
+    type Messaging,
+    onMessage,
+    type Unsubscribe,
+} from 'firebase/messaging';
 
 import { env } from '@/constants/env.js';
 import { SITE_NAME } from '@/constants/static.js';
@@ -35,8 +41,9 @@ class FirebaseClient {
     private _unsubscribe: Unsubscribe | undefined;
     private _analytics: Analytics | null = null;
 
-    init() {
-        if (!('serviceWorker' in navigator) || !('Notification' in window)) {
+    async init() {
+        const supportMessage = await isMessageSupported();
+        if (!supportMessage) {
             logger.warn('[firebase] Firebase messaging not supported');
             throw new Error('Firebase messaging not supported');
         }
@@ -44,7 +51,12 @@ class FirebaseClient {
 
         this._firebaseApp = createFirebaseApp();
         this._firebaseFcm = getMessaging(this._firebaseApp);
-        this._analytics = getAnalytics(this._firebaseApp);
+
+        const supportAnalytics = await isAnalyticsSupported();
+        if (supportAnalytics) {
+            this._analytics = getAnalytics(this._firebaseApp);
+        }
+
         Reflect.set(window, '_firebaseFcm', this._firebaseFcm);
         this.listenMessage();
 
