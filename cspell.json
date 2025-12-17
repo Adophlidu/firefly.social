@@ -567,6 +567,7 @@
     "flagWords": [],
     "ignorePaths": [
         "*.svg",
+        "*.log",
         "pnpm-lock.yaml",
         "scripts/**",
         "patches/**",

@@ -9,39 +9,6 @@ import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
 
 const require = createRequire(import.meta.url);
 
-const CSP_SETTINGS = {
-    'default-src': ["'self'", 'https:', 'wss:', 'data:', 'blob:'],
-    'script-src': [
-        "'self'",
-        'www.googletagmanager.com',
-        'static.cloudflareinsights.com',
-        'cdn.jsdelivr.net',
-        '*.vercel-scripts.com',
-        '*.firefly.land',
-        'vercel.live',
-    ],
-    'img-src': ["'self'", 'https:', 'data:', 'blob:'],
-    'style-src': ["'self'", "'unsafe-inline'", 'vercel.live', 'fonts.googleapis.com'],
-    'worker-src': ["'self'", 'blob:'],
-    'report-uri': [] as string[],
-};
-
-// Add Sentry DSN to CSP report-uri
-if (process.env.NEXT_PUBLIC_SENTRY_REPORT_URL) {
-    CSP_SETTINGS['report-uri'] = [process.env.NEXT_PUBLIC_SENTRY_REPORT_URL];
-}
-
-if (process.env.NODE_ENV === 'development') {
-    Object.entries(CSP_SETTINGS).forEach(([key, value]) => {
-        if (key === 'report-uri') return;
-        value.push('http://localhost:3000', 'ws://localhost:3000');
-    });
-}
-
-export const POLICY_SETTINGS = Object.entries(CSP_SETTINGS)
-    .map(([key, value]) => `${key} ${value.join(' ')}`)
-    .join('; ');
-
 const svgrOptions = {
     ref: true,
     svgoConfig: {
@@ -216,10 +183,9 @@ const config: NextConfig = {
                         key: 'X-XSS-Protection',
                         value: '1; mode=block', // Prevent rendering
                     },
-                    {
-                        key: 'Content-Security-Policy-Report-Only',
-                        value: POLICY_SETTINGS,
-                    },
+                    // Note: CSP is now handled by middleware (proxy.ts) with nonce support
+                    // The middleware will set Content-Security-Policy-Report-Only with nonce
+                    // This allows inline scripts to work with CSP
                 ],
             },
             {

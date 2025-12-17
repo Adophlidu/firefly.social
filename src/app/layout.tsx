@@ -36,6 +36,8 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     const agent = await getAgent();
     const requestHeaders = await headers();
 
+    const CSP_NONCE = requestHeaders.get('X-CSP-Nonce') || '';
+
     const VERCEL_REGION = [
         `var VERCEL_IP_TIMEZONE = ${JSON.stringify(requestHeaders.get('x-vercel-ip-timezone'))};`,
         `var VERCEL_IP_CITY = ${JSON.stringify(requestHeaders.get('x-vercel-ip-city'))};`,
@@ -49,8 +51,8 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 <meta name="theme-color" content="#ffffff" />
                 <meta name="googlebot" content="notranslate" />
                 {IS_PRODUCTION ? null : <meta name="robots" content="noindex, nofollow" />}
-                <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
-                <Script>{VERCEL_REGION.join('\n')}</Script>
+                <Script src="/js/polyfills/base.js" strategy="beforeInteractive" nonce={CSP_NONCE} />
+                <Script nonce={CSP_NONCE}>{VERCEL_REGION.join('\n')}</Script>
                 {IS_PRODUCTION || env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? (
                     <GoogleAnalytics gaId="G-61NFDTK6LT" />
                 ) : null}
@@ -62,9 +64,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                         async
                         strategy="lazyOnload"
                         site-id="4e0dc4ab-2a63-4303-ad25-8aa14275d2d4"
+                        nonce={CSP_NONCE}
                     />
                 ) : null}
-                <Script>
+                <Script nonce={CSP_NONCE}>
                     {`
                         setTimeout(function () {
                             const globalLoading = document.getElementById('global-loading');

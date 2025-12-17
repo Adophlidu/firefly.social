@@ -2,6 +2,7 @@ import { compose } from '@dimensiondev/utils';
 import { NextRequest, NextResponse } from 'next/server.js';
 
 import { handleClubRoutes } from '@/proxy/handlers/clubRoutes.js';
+import { handleCSP } from '@/proxy/handlers/cspHandler.js';
 import { handleLegacyRedirects } from '@/proxy/handlers/legacyRedirects.js';
 import { handlePostRequests } from '@/proxy/handlers/postRequests.js';
 import { handleProfileRoutes } from '@/proxy/handlers/profileRoutes.js';
@@ -11,6 +12,7 @@ type ProxyHandler = (request: NextRequest, next: () => NextResponse | undefined)
 type MiddlewareHandler = (request: NextRequest) => NextResponse | undefined;
 
 const handlers = [
+    handleCSP, // CSP handler should run first to generate nonce
     handleLegacyRedirects,
     handleProfileRoutes,
     handleClubRoutes,
