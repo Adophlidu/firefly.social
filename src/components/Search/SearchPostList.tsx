@@ -67,8 +67,6 @@ export const SearchPostList = memo<Props>(function SearchPostList({
 
     const listKey = `${ScrollListKey.Search}:${searchType}:${keywords.join(',')}:${source}:${orderType}`;
 
-    const keepMutedSpace = source === Source.X3Pro || source === Source.Twitter;
-
     if (queryResult.isPending && !queryResult.data) {
         return loading;
     }
@@ -82,7 +80,7 @@ export const SearchPostList = memo<Props>(function SearchPostList({
             VirtualListProps={{
                 listKey,
                 computeItemKey: (index, post) => `${post.postId}-${orderType}-${index}`,
-                itemContent: (index, post) => getPostItemContent(index, post, listKey, { keepMutedSpace }),
+                itemContent: (index, post) => getPostItemContent(index, post, listKey),
             }}
             NoResultsFallbackProps={{
                 message: isFunction(emptyMessage)
