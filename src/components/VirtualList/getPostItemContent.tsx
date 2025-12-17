@@ -10,6 +10,7 @@ export function getPostItemContent(index: number, post: Post, listKey?: string, 
             listKey={listKey}
             index={index}
             {...postProps}
+            keepMutedSpace
         />
     );
 }

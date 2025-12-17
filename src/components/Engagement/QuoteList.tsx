@@ -11,7 +11,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 function getPostContent(index: number, post: Post) {
-    return <SinglePost key={post.publicationId} post={post} index={index} />;
+    return <SinglePost key={post.publicationId} post={post} index={index} keepMutedSpace />;
 }
 
 export function QuoteList({ postId, type, source }: PostEngagementListProps) {
