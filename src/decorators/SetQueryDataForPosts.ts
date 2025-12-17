@@ -54,7 +54,11 @@ export function SetQueryDataForPosts<T extends ClassType<Provider>>(target: T): 
                     runInSafeAsync(() => queryMutedProfiles(identifiers));
                 }
 
-                await prefetchPostLinks(
+                /**
+                 * No need to await prefetching here
+                 * Will update query when prefetching is done
+                 */
+                prefetchPostLinks(
                     result.data.map((x) =>
                         compact([x.metadata.content?.oembedUrl, ...(x.metadata.content?.oembedUrls ?? [])]),
                     ),
