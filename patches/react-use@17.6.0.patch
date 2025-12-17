@@ -1,6 +1,3 @@
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-deleted file mode 100644
-index c4c78586f76400e2959e233e29713c895aad87f8..0000000000000000000000000000000000000000
 diff --git a/esm/useAsync.js b/esm/useAsync.js
 index ddb0bb0370fc30090cf9a0ecc74bc039800a89ed..de89fc982b7ffdebf0622e1bc0dfd9afe2853865 100644
 --- a/esm/useAsync.js
@@ -19,10 +16,22 @@ index ddb0bb0370fc30090cf9a0ecc74bc039800a89ed..de89fc982b7ffdebf0622e1bc0dfd9af
      return state;
  }
 diff --git a/esm/useAsyncFn.js b/esm/useAsyncFn.js
-index 01d7307bd106229f6d791d0c588589235f404d97..6dd2699c44098e7fdb861c28b5a52c094ee847a8 100644
+index 01d7307bd106229f6d791d0c588589235f404d97..599b7371c29ea53dfd9c831f5db61eb9dfd60f13 100644
 --- a/esm/useAsyncFn.js
 +++ b/esm/useAsyncFn.js
-@@ -21,7 +21,7 @@ export default function useAsyncFn(fn, deps, initialState) {
+@@ -13,15 +13,16 @@ export default function useAsyncFn(fn, deps, initialState) {
+             args[_i] = arguments[_i];
+         }
+         var callId = ++lastCallId.current;
+-        if (!state.loading) {
+-            set(function (prevState) { return (__assign(__assign({}, prevState), { loading: true })); });
+-        }
++        set(function (prevState) {
++            if (prevState.loading) return prevState
++            return (__assign(__assign({}, prevState), { loading: true })); 
++        });
+         return fn.apply(void 0, args).then(function (value) {
+             isMounted() && callId === lastCallId.current && set({ value: value, loading: false });
              return value;
          }, function (error) {
              isMounted() && callId === lastCallId.current && set({ error: error, loading: false });

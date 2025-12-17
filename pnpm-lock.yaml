@@ -25,7 +25,7 @@ overrides:
   isows: 1.0.7
   pino: 10.1.0
   react-dom: 19.2.3
-  react-use: 17.5.1
+  react-use: 17.6.0
   react: 19.2.3
   sha.js: 2.4.12
   uint8arrays: 3.1.1
@@ -65,9 +65,9 @@ patchedDependencies:
   eslint-plugin-tailwindcss@3.18.2:
     hash: wqd3t4enk6x37dshhhfx753wki
     path: patches/eslint-plugin-tailwindcss@3.18.2.patch
-  react-use@17.5.1:
-    hash: jdgfodh3ixpexpgf3fwrwvcmtq
-    path: patches/react-use@17.5.1.patch
+  react-use@17.6.0:
+    hash: dr2bwtweltv6hpd56xnanr357e
+    path: patches/react-use@17.6.0.patch
   twitter-text@3.1.0:
     hash: pb247chqhjl5b5xlo4i7mpxnni
     path: patches/twitter-text@3.1.0.patch
@@ -296,8 +296,8 @@ importers:
         specifier: ^2.0.18
         version: 2.0.18(react@19.2.3)
       react-use:
-        specifier: 17.5.1
-        version: 17.5.1(patch_hash=jdgfodh3ixpexpgf3fwrwvcmtq)(react-dom@19.2.3)(react@19.2.3)
+        specifier: 17.6.0
+        version: 17.6.0(patch_hash=dr2bwtweltv6hpd56xnanr357e)(react-dom@19.2.3)(react@19.2.3)
       react-virtuoso:
         specifier: ^4.12.8
         version: 4.12.8(react-dom@19.2.3)(react@19.2.3)
@@ -3641,7 +3641,7 @@ packages:
       '@giphy/js-util': 5.2.0
       intersection-observer: 0.12.2
       react: 19.2.3
-      react-use: 17.5.1(patch_hash=jdgfodh3ixpexpgf3fwrwvcmtq)(react-dom@19.2.3)(react@19.2.3)
+      react-use: 17.6.0(patch_hash=dr2bwtweltv6hpd56xnanr357e)(react-dom@19.2.3)(react@19.2.3)
       styled-components: 6.1.19(react-dom@19.2.3)(react@19.2.3)
       throttle-debounce: 3.0.1
     transitivePeerDependencies:
@@ -16463,8 +16463,8 @@ packages:
       tslib: 2.8.1
     dev: false
 
-  /react-use@17.5.1(patch_hash=jdgfodh3ixpexpgf3fwrwvcmtq)(react-dom@19.2.3)(react@19.2.3):
-    resolution: {integrity: sha512-LG/uPEVRflLWMwi3j/sZqR00nF6JGqTTDblkXK2nzXsIvij06hXl1V/MZIlwj1OKIQUtlh1l9jK8gLsRyCQxMg==}
+  /react-use@17.6.0(patch_hash=dr2bwtweltv6hpd56xnanr357e)(react-dom@19.2.3)(react@19.2.3):
+    resolution: {integrity: sha512-OmedEScUMKFfzn1Ir8dBxiLLSOzhKe/dPZwVxcujweSj45aNM7BEGPb9BEVIgVEqEXx6f3/TsXzwIktNgUR02g==}
     peerDependencies:
       react: 19.2.3
       react-dom: 19.2.3
@@ -19648,6 +19648,7 @@ time:
   /react-hook-form@7.53.2: '2024-11-08T22:15:09.008Z'
   /react-markdown@9.1.0: '2025-02-20T11:57:00.191Z'
   /react-qr-code@2.0.18: '2025-07-06T20:47:33.365Z'
+  /react-use@17.6.0: '2024-12-09T18:57:38.167Z'
   /react-virtuoso@4.12.8: '2025-05-31T06:24:45.380Z'
   /react@19.2.3: '2025-12-11T22:55:28.598Z'
   /recharts@2.15.4: '2025-06-20T21:43:56.808Z'
