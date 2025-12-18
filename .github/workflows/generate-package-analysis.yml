@@ -39,17 +39,14 @@ jobs:
             - name: Generate Package Analysis
               run: node scripts/generate-package-analysis.mjs
 
-            - name: Prettify Package Analysis
-              run: npx prettier --write docs/PACKAGE_ANALYSIS.md
-
             - name: Commit and Push changes if necessary
               run: |
                   git config --global user.name "github-actions[bot]"
                   git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
                   if [[ $(git status --porcelain) ]]; then
-                    git add docs/PACKAGE_ANALYSIS.md
-                    git commit -m "chore: regenerate PACKAGE_ANALYSIS.md [bot]"
+                    git add docs/PACKAGE_ANALYSIS.txt
+                    git commit -m "chore: regenerate PACKAGE_ANALYSIS.txt [bot]"
                     git push origin HEAD:${{ github.event.pull_request.head.ref }}
                   else
                     echo "No changes to commit."

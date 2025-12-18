@@ -273,48 +273,40 @@ function formatDescription(pkgName, pkgData, version = null) {
     return `${uniqueChains[0]}${uniqueChains.length > 1 ? ` (+${escapeHtml(String(uniqueChains.length - 1))} more)` : ''}`;
 }
 
-// Generate markdown
-let markdown = `# Package Analysis
+// Generate plain text format (easier to diff)
+let output = `Package Analysis
+================
 
-This document lists all packages installed in the codebase (excluding workspace packages).
+Total packages: ${sortedPackages.length}
+Packages with multiple versions: ${multipleVersions.length}
 
-**Total packages:** ${sortedPackages.length}
-**Packages with multiple versions:** ${multipleVersions.length}
+Legend:
+  * = Direct dependency (listed in package.json)
+  Multiple versions shown as: package-name@version1,version2
 
-**Legend:**
-- Listed in package.json: Package is directly specified in package.json
-- Dependency chain: Shows the path from root dependency to this package (e.g., \`a@x.x.x > b@x.x.x > c@x.x.x\`)
-
-## Packages with Multiple Versions
-
-| Package Name | Versions | Description |
-|--------------|----------|-------------|
+Packages with Multiple Versions
+--------------------------------
 `;
 
 // Add multiple versions
 for (const [name, info] of multipleVersions) {
-    const versions = Array.from(info.versions)
-        .sort()
-        .map((v) => `\`${escapeHtml(v)}\``)
-        .join(', ');
-    const description = formatDescription(name, info);
-    markdown += `| \`${escapeHtml(name)}\` | ${versions} | ${description} |\n`;
+    const versions = Array.from(info.versions).sort().join(',');
+    const prefix = info.isDirect ? '*' : ' ';
+    output += `${prefix}${name}@${versions}\n`;
 }
 
-markdown += `\n## Packages with Single Version\n\n`;
-markdown += `| Package Name | Version | Description |\n`;
-markdown += `|--------------|---------|-------------|\n`;
+output += `\nPackages with Single Version\n----------------------------\n`;
 
 // Add single versions
 for (const [name, info] of singleVersion) {
     const version = Array.from(info.versions)[0];
-    const description = formatDescription(name, info, version);
-    markdown += `| \`${escapeHtml(name)}\` | \`${escapeHtml(version)}\` | ${description} |\n`;
+    const prefix = info.isDirect ? '*' : ' ';
+    output += `${prefix}${name}@${version}\n`;
 }
 
 // Ensure docs directory exists
 mkdirSync('docs', { recursive: true });
 
 // Write to file
-writeFileSync('docs/PACKAGE_ANALYSIS.md', markdown);
-console.log(`Generated docs/PACKAGE_ANALYSIS.md with ${sortedPackages.length} packages`);
+writeFileSync('docs/PACKAGE_ANALYSIS.txt', output);
+console.log(`Generated docs/PACKAGE_ANALYSIS.txt with ${sortedPackages.length} packages`);
