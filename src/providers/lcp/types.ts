@@ -44,6 +44,25 @@ export interface ApiCallMetrics {
     metadata?: Record<string, unknown>;
 }
 
+export interface DuplicateGroup {
+    /** Representative URL for this duplicate group */
+    url: string;
+    /** HTTP method */
+    method: string;
+    /** All API calls in this duplicate group */
+    calls: ApiCallMetrics[];
+    /** Number of duplicate calls */
+    count: number;
+    /** Total duration of all calls in this group */
+    totalDuration: number;
+    /** Average duration of calls in this group */
+    averageDuration: number;
+    /** Domain of the calls */
+    domain: string;
+    /** Number of calls that happened before LCP */
+    beforeLCPCount: number;
+}
+
 export interface PerformanceReport {
     /** Page load timestamp */
     pageLoadTime: number;
@@ -53,6 +72,8 @@ export interface PerformanceReport {
     apiCalls: ApiCallMetrics[];
     /** API calls that happened before LCP */
     apiCallsBeforeLCP: ApiCallMetrics[];
+    /** Duplicate GET request groups (using isSameUrl for comparison) */
+    duplicateGroups: DuplicateGroup[];
     /** Summary statistics */
     summary: {
         totalCalls: number;
@@ -64,6 +85,10 @@ export interface PerformanceReport {
         failedCalls: number;
         callsBeforeLCP: number;
         totalDurationBeforeLCP: number;
+        /** Total number of duplicate requests (count - 1 for each duplicate group) */
+        totalDuplicateRequests: number;
+        /** Number of unique duplicate patterns */
+        uniqueDuplicatePatterns: number;
     };
 }
 

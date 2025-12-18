@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { IconButton } from '@/components/IconButton.js';
+import { isSameUrl } from '@/helpers/isSameUrl.js';
 import { clearPerformanceData, exportPerformanceData, getPerformanceReport } from '@/providers/lcp/index.js';
 import type { PerformanceReport } from '@/providers/lcp/types.js';
 
@@ -171,10 +172,23 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
         );
     }
 
-    const { summary, apiCallsBeforeLCP } = report;
+    const { summary, apiCallsBeforeLCP, duplicateGroups } = report;
+
     const filteredCalls = selectedDomain
         ? report.apiCalls.filter((call) => call.domain === selectedDomain)
         : report.apiCalls;
+
+    // Create a map for quick duplicate lookup (for highlighting duplicates in API Calls table)
+    // This maps call ID to duplicate count by matching calls to duplicate groups
+    const duplicateCounts = new Map<string, number>();
+    duplicateGroups.forEach((group) => {
+        // Match calls by checking if they're in this duplicate group using isSameUrl
+        report.apiCalls.forEach((call) => {
+            if (call.method === group.method && isSameUrl(call.url, group.url)) {
+                duplicateCounts.set(call.id, group.count);
+            }
+        });
+    });
 
     const sortedCalls = [...filteredCalls].sort((a, b) => b.duration - a.duration);
 
@@ -182,24 +196,6 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
     const highPriorityCalls = apiCallsBeforeLCP.filter((call) => call.duration > 500);
     const mediumPriorityCalls = apiCallsBeforeLCP.filter((call) => call.duration > 100 && call.duration <= 500);
     const lowPriorityCalls = apiCallsBeforeLCP.filter((call) => call.duration <= 100);
-
-    // Determine bubble color and badge count
-    const highPriorityCount = highPriorityCalls.length;
-    const mediumPriorityCount = mediumPriorityCalls.length;
-
-    let bubbleBgColor = 'bg-green-600';
-    let bubbleHoverColor = 'hover:bg-green-700';
-    let badgeText = '';
-
-    if (highPriorityCount > 0) {
-        bubbleBgColor = 'bg-red-600';
-        bubbleHoverColor = 'hover:bg-red-700';
-        badgeText = highPriorityCount.toString();
-    } else if (mediumPriorityCount > 0) {
-        bubbleBgColor = 'bg-yellow-600';
-        bubbleHoverColor = 'hover:bg-yellow-700';
-        badgeText = '';
-    }
 
     return (
         <div className="fixed inset-4 z-50 overflow-auto rounded-lg bg-lightBottom text-lightMain shadow-2xl dark:bg-darkBottom dark:text-main dark:shadow-primaryDark">
@@ -232,29 +228,36 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
 
             <div className="p-4">
                 {/* Summary Cards */}
-                <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-4">
+                <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-5">
                     <div className="rounded-lg border border-line p-4 dark:border-secondaryLine">
-                        <div className="text-sm text-second dark:text-third">Total API Calls</div>
+                        <div className="text-sm text-lightMain">Total API Calls</div>
                         <div className="text-2xl font-bold text-lightMain dark:text-main">{summary.totalCalls}</div>
                     </div>
                     <div className="rounded-lg border border-line p-4 dark:border-secondaryLine">
-                        <div className="text-sm text-second dark:text-third">Total Duration</div>
+                        <div className="text-sm text-lightMain">Total Duration</div>
                         <div className="text-2xl font-bold text-lightMain dark:text-main">
                             {summary.totalDuration.toFixed(2)}ms
                         </div>
                     </div>
                     <div className="rounded-lg border border-line p-4 dark:border-secondaryLine">
-                        <div className="text-sm text-second dark:text-third">Avg Duration</div>
+                        <div className="text-sm text-lightMain">Avg Duration</div>
                         <div className="text-2xl font-bold text-lightMain dark:text-main">
                             {summary.averageDuration.toFixed(2)}ms
                         </div>
                     </div>
                     <div className="rounded-lg border border-line p-4 dark:border-secondaryLine">
-                        <div className="text-sm text-second dark:text-third">Calls Before LCP</div>
+                        <div className="text-sm text-lightMain">Calls Before LCP</div>
                         <div className="text-2xl font-bold text-lightMain dark:text-main">{summary.callsBeforeLCP}</div>
-                        <div className="text-xs text-second dark:text-third">
+                        <div className="text-xs text-lightMain">
                             {summary.totalDurationBeforeLCP.toFixed(2)}ms total
                         </div>
+                    </div>
+                    <div className="border-purple-500/30 dark:border-purple-400/30 rounded-lg border p-4">
+                        <div className="text-sm text-lightMain">Duplicate Requests</div>
+                        <div className="text-purple-600 dark:text-purple-400 text-2xl font-bold">
+                            {summary.totalDuplicateRequests}
+                        </div>
+                        <div className="text-xs text-lightMain">{summary.uniqueDuplicatePatterns} unique patterns</div>
                     </div>
                 </div>
 
@@ -293,18 +296,111 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
                                 >
                                     <div>
                                         <div className="font-medium text-lightMain dark:text-main">{domain}</div>
-                                        <div className="text-sm text-second dark:text-third">
+                                        <div className="text-sm text-lightMain">
                                             {count} calls • {summary.callsByDomainDuration[domain]?.toFixed(2) || '0'}ms
                                             total
                                         </div>
                                     </div>
-                                    <div className="text-sm text-second dark:text-third">
+                                    <div className="text-sm text-lightMain">
                                         {(summary.callsByDomainDuration[domain] / count).toFixed(2)}ms avg
                                     </div>
                                 </div>
                             ))}
                     </div>
                 </div>
+
+                {/* Duplicate GET Requests Table */}
+                {duplicateGroups.length > 0 && (
+                    <div className="mb-6">
+                        <h3 className="mb-2 text-lg font-semibold text-lightMain dark:text-main">
+                            Duplicate GET Requests
+                        </h3>
+                        <div className="overflow-x-auto">
+                            <table className="w-full border-collapse border border-line dark:border-secondaryLine">
+                                <thead>
+                                    <tr className="bg-bg dark:bg-bg">
+                                        <th className="border border-line p-2 text-left text-lightMain dark:border-secondaryLine dark:text-main">
+                                            Method
+                                        </th>
+                                        <th className="border border-line p-2 text-left text-lightMain dark:border-secondaryLine dark:text-main">
+                                            URL
+                                        </th>
+                                        <th className="border border-line p-2 text-left text-lightMain dark:border-secondaryLine dark:text-main">
+                                            Count
+                                        </th>
+                                        <th className="border border-line p-2 text-left text-lightMain dark:border-secondaryLine dark:text-main">
+                                            Total Duration
+                                        </th>
+                                        <th className="border border-line p-2 text-left text-lightMain dark:border-secondaryLine dark:text-main">
+                                            Avg Duration
+                                        </th>
+                                        <th className="border border-line p-2 text-left text-lightMain dark:border-secondaryLine dark:text-main">
+                                            Domain
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {duplicateGroups.map((group) => (
+                                        <tr key={group.url} className="transition-colors hover:bg-bg dark:hover:bg-bg">
+                                            <td className="border border-line p-2 dark:border-secondaryLine">
+                                                <span
+                                                    className={`rounded px-2 py-1 text-xs ${
+                                                        group.method === 'GET'
+                                                            ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
+                                                            : group.method === 'POST'
+                                                              ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
+                                                              : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
+                                                    }`}
+                                                >
+                                                    {group.method}
+                                                </span>
+                                            </td>
+                                            <td className="border border-line p-2 font-mono text-xs text-lightMain dark:border-secondaryLine dark:text-main">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="max-w-md flex-1 truncate" title={group.url}>
+                                                        {group.url}
+                                                    </div>
+                                                    <CopyTextButton
+                                                        text={group.url}
+                                                        size={14}
+                                                        className="shrink-0 text-lightMain hover:text-lightMain dark:hover:text-main"
+                                                        onClick={(e) => e.stopPropagation()}
+                                                    />
+                                                </div>
+                                            </td>
+                                            <td className="border border-line p-2 dark:border-secondaryLine">
+                                                <span className="bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300 rounded px-2 py-1 font-semibold">
+                                                    {group.count}
+                                                </span>
+                                            </td>
+                                            <td className="border border-line p-2 dark:border-secondaryLine">
+                                                <span className="text-lightMain dark:text-main">
+                                                    {group.totalDuration.toFixed(2)}ms
+                                                </span>
+                                            </td>
+                                            <td className="border border-line p-2 dark:border-secondaryLine">
+                                                <span
+                                                    className={
+                                                        group.averageDuration > 1000
+                                                            ? 'font-bold text-danger dark:text-danger'
+                                                            : group.averageDuration > 500
+                                                              ? 'font-semibold text-warn dark:text-warn'
+                                                              : 'text-lightMain dark:text-main'
+                                                    }
+                                                >
+                                                    {group.averageDuration.toFixed(2)}ms
+                                                </span>
+                                            </td>
+                                            <td className="border border-line p-2 font-mono text-sm text-lightMain dark:border-secondaryLine dark:text-main">
+                                                {group.domain}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )}
 
                 {/* API Calls Table */}
                 <div>
@@ -325,6 +421,9 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
                                         Duration
                                     </th>
                                     <th className="border border-line p-2 text-left text-lightMain dark:border-secondaryLine dark:text-main">
+                                        Start time
+                                    </th>
+                                    <th className="border border-line p-2 text-left text-lightMain dark:border-secondaryLine dark:text-main">
                                         Status
                                     </th>
                                     <th
@@ -339,93 +438,102 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
                                 </tr>
                             </thead>
                             <tbody>
-                                {sortedCalls.map((call) => (
-                                    <tr
-                                        key={call.id}
-                                        className={`transition-colors hover:bg-bg dark:hover:bg-bg ${
-                                            call.beforeLCP ? 'bg-warn/10 dark:bg-warn/20' : ''
-                                        }`}
-                                    >
-                                        <td className="border border-line p-2 dark:border-secondaryLine">
-                                            <span
-                                                className={`rounded px-2 py-1 text-xs ${
-                                                    call.method === 'GET'
-                                                        ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
-                                                        : call.method === 'POST'
-                                                          ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
-                                                          : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
-                                                }`}
-                                            >
-                                                {call.method}
-                                            </span>
-                                        </td>
-                                        <td className="border border-line p-2 font-mono text-xs text-lightMain dark:border-secondaryLine dark:text-main">
-                                            <div className="flex items-center gap-2">
-                                                <div className="max-w-md flex-1 truncate" title={call.url}>
-                                                    {call.url}
+                                {sortedCalls.map((call) => {
+                                    const duplicateCount = duplicateCounts.get(call.id) || 0;
+                                    const isDuplicate = duplicateCount > 1;
+                                    return (
+                                        <tr
+                                            key={call.id}
+                                            className={`transition-colors hover:bg-bg dark:hover:bg-bg ${
+                                                call.beforeLCP ? 'bg-warn/10 dark:bg-warn/20' : ''
+                                            } ${isDuplicate ? 'ring-purple-500/30 dark:ring-purple-400/30 ring-2' : ''}`}
+                                        >
+                                            <td className="border border-line p-2 dark:border-secondaryLine">
+                                                <span
+                                                    className={`rounded px-2 py-1 text-xs ${
+                                                        call.method === 'GET'
+                                                            ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
+                                                            : call.method === 'POST'
+                                                              ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
+                                                              : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
+                                                    }`}
+                                                >
+                                                    {call.method}
+                                                </span>
+                                            </td>
+                                            <td className="border border-line p-2 font-mono text-xs text-lightMain dark:border-secondaryLine dark:text-main">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="max-w-md flex-1 truncate" title={call.url}>
+                                                        {call.url}
+                                                    </div>
+                                                    <CopyTextButton
+                                                        text={call.url}
+                                                        size={14}
+                                                        className="shrink-0 text-lightMain hover:text-lightMain dark:hover:text-main"
+                                                        onClick={(e) => e.stopPropagation()}
+                                                    />
                                                 </div>
-                                                <CopyTextButton
-                                                    text={call.url}
-                                                    size={14}
-                                                    className="shrink-0 text-second hover:text-lightMain dark:text-third dark:hover:text-main"
-                                                    onClick={(e) => e.stopPropagation()}
-                                                />
-                                            </div>
-                                        </td>
-                                        <td className="border border-line p-2 dark:border-secondaryLine">
-                                            <span
-                                                className={
-                                                    call.duration > 1000
-                                                        ? 'font-bold text-danger dark:text-danger'
-                                                        : call.duration > 500
-                                                          ? 'font-semibold text-warn dark:text-warn'
-                                                          : 'text-lightMain dark:text-main'
-                                                }
-                                            >
-                                                {call.duration.toFixed(2)}ms
-                                            </span>
-                                        </td>
-                                        <td className="border border-line p-2 dark:border-secondaryLine">
-                                            <span
-                                                className={
-                                                    call.success
-                                                        ? 'text-secondarySuccess dark:text-secondarySuccess'
-                                                        : 'font-semibold text-danger dark:text-danger'
-                                                }
-                                            >
-                                                {call.status}
-                                            </span>
-                                        </td>
-                                        <td className="border border-line p-2 dark:border-secondaryLine">
-                                            {call.beforeLCP ? (
+                                            </td>
+                                            <td className="border border-line p-2 dark:border-secondaryLine">
                                                 <span
-                                                    className="font-semibold text-warn dark:text-warn"
-                                                    title="Completed before LCP - may be blocking page load"
+                                                    className={
+                                                        call.duration > 1000
+                                                            ? 'font-bold text-danger dark:text-danger'
+                                                            : call.duration > 500
+                                                              ? 'font-semibold text-warn dark:text-warn'
+                                                              : 'text-lightMain dark:text-main'
+                                                    }
                                                 >
-                                                    ✓ Before LCP
+                                                    {call.duration.toFixed(2)}ms
                                                 </span>
-                                            ) : call.lcpOffset !== undefined && call.lcpOffset !== null ? (
+                                            </td>
+                                            <td className="border border-line p-2 dark:border-secondaryLine">
+                                                <span className="text-lightMain dark:text-main">
+                                                    {call.startTime.toFixed(2)}ms
+                                                </span>
+                                            </td>
+                                            <td className="border border-line p-2 dark:border-secondaryLine">
                                                 <span
-                                                    className="text-second dark:text-third"
-                                                    title={`Completed ${Math.abs(call.lcpOffset).toFixed(0)}ms ${call.lcpOffset > 0 ? 'after' : 'before'} LCP`}
+                                                    className={
+                                                        call.success
+                                                            ? 'text-secondarySuccess dark:text-secondarySuccess'
+                                                            : 'font-semibold text-danger dark:text-danger'
+                                                    }
                                                 >
-                                                    {call.lcpOffset > 0 ? '+' : ''}
-                                                    {call.lcpOffset.toFixed(0)}ms
+                                                    {call.status}
                                                 </span>
-                                            ) : (
-                                                <span
-                                                    className="text-second opacity-50 dark:text-third"
-                                                    title="LCP not yet measured"
-                                                >
-                                                    -
-                                                </span>
-                                            )}
-                                        </td>
-                                        <td className="border border-line p-2 font-mono text-sm text-lightMain dark:border-secondaryLine dark:text-main">
-                                            {call.domain}
-                                        </td>
-                                    </tr>
-                                ))}
+                                            </td>
+                                            <td className="border border-line p-2 dark:border-secondaryLine">
+                                                {call.beforeLCP ? (
+                                                    <span
+                                                        className="font-semibold text-warn dark:text-warn"
+                                                        title="Completed before LCP - may be blocking page load"
+                                                    >
+                                                        ✓ Before LCP
+                                                    </span>
+                                                ) : call.lcpOffset !== undefined && call.lcpOffset !== null ? (
+                                                    <span
+                                                        className="text-lightMain"
+                                                        title={`Completed ${Math.abs(call.lcpOffset).toFixed(0)}ms ${call.lcpOffset > 0 ? 'after' : 'before'} LCP`}
+                                                    >
+                                                        {call.lcpOffset > 0 ? '+' : ''}
+                                                        {call.lcpOffset.toFixed(0)}ms
+                                                    </span>
+                                                ) : (
+                                                    <span
+                                                        className="text-lightMain opacity-50 dark:text-third"
+                                                        title="LCP not yet measured"
+                                                    >
+                                                        -
+                                                    </span>
+                                                )}
+                                            </td>
+                                            <td className="border border-line p-2 font-mono text-sm text-lightMain dark:border-secondaryLine dark:text-main">
+                                                {call.domain}
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>
@@ -452,8 +560,8 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
                                         (100-500ms): Consider optimization if they're critical for initial render
                                     </li>
                                     <li>
-                                        <strong className="text-second dark:text-third">Low Priority</strong>{' '}
-                                        (&lt;100ms): Usually fine, optimize only if they're blocking critical content
+                                        <strong className="text-lightMain">Low Priority</strong> (&lt;100ms): Usually
+                                        fine, optimize only if they're blocking critical content
                                     </li>
                                 </ul>
                             </div>
@@ -465,37 +573,55 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
                                 <h3 className="mb-2 text-lg font-semibold text-danger dark:text-danger">
                                     🔴 High Priority - Must Optimize ({highPriorityCalls.length})
                                 </h3>
-                                <p className="mb-2 text-sm text-second dark:text-third">
+                                <p className="mb-2 text-sm text-lightMain">
                                     These slow calls (&gt;500ms) are likely blocking LCP and should be optimized first.
                                 </p>
                                 <div className="space-y-2">
                                     {highPriorityCalls
                                         .sort((a, b) => b.duration - a.duration)
-                                        .map((call) => (
-                                            <div
-                                                key={call.id}
-                                                className="rounded border-2 border-danger/30 bg-danger/10 p-3 dark:border-danger/50 dark:bg-danger/20"
-                                            >
-                                                <div className="flex items-center justify-between">
-                                                    <div className="flex-1">
-                                                        <div className="font-semibold text-danger dark:text-danger">
-                                                            {call.domain}
-                                                        </div>
-                                                        <div className="mt-1 break-all font-mono text-xs text-danger/90 dark:text-danger">
-                                                            {call.method} {call.url}
-                                                        </div>
-                                                        {call.error ? (
-                                                            <div className="mt-1 text-xs text-danger dark:text-danger/90">
-                                                                Error: {call.error}
+                                        .map((call) => {
+                                            const duplicateCount = duplicateCounts.get(call.id) || 0;
+                                            const isDuplicate = duplicateCount > 1;
+                                            return (
+                                                <div
+                                                    key={call.id}
+                                                    className={`rounded border-2 p-3 ${
+                                                        isDuplicate
+                                                            ? 'border-purple-500/50 bg-purple-500/10 dark:border-purple-400/50 dark:bg-purple-400/10'
+                                                            : 'border-danger/30 bg-danger/10 dark:border-danger/50 dark:bg-danger/20'
+                                                    }`}
+                                                >
+                                                    <div className="flex items-center justify-between">
+                                                        <div className="flex-1">
+                                                            <div className="flex items-center gap-2">
+                                                                <span className="font-semibold text-danger dark:text-danger">
+                                                                    {call.domain}
+                                                                </span>
+                                                                {isDuplicate ? (
+                                                                    <span
+                                                                        className="bg-purple-600 dark:bg-purple-500 rounded px-2 py-0.5 text-xs font-semibold text-white"
+                                                                        title={`This request was made ${duplicateCount} times`}
+                                                                    >
+                                                                        {duplicateCount}x Duplicate
+                                                                    </span>
+                                                                ) : null}
                                                             </div>
-                                                        ) : null}
-                                                    </div>
-                                                    <div className="ml-4 text-xl font-bold text-danger dark:text-danger">
-                                                        {call.duration.toFixed(0)}ms
+                                                            <div className="mt-1 break-all font-mono text-xs text-danger/90 dark:text-danger">
+                                                                {call.method} {call.url}
+                                                            </div>
+                                                            {call.error ? (
+                                                                <div className="mt-1 text-xs text-danger dark:text-danger/90">
+                                                                    Error: {call.error}
+                                                                </div>
+                                                            ) : null}
+                                                        </div>
+                                                        <div className="ml-4 text-xl font-bold text-danger dark:text-danger">
+                                                            {call.duration.toFixed(0)}ms
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        ))}
+                                            );
+                                        })}
                                 </div>
                             </div>
                         )}
@@ -506,35 +632,53 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
                                 <h3 className="mb-2 text-lg font-semibold text-warn dark:text-warn">
                                     🟠 Medium Priority - Consider Optimizing ({mediumPriorityCalls.length})
                                 </h3>
-                                <p className="mb-2 text-sm text-second dark:text-third">
+                                <p className="mb-2 text-sm text-lightMain">
                                     These calls (100-500ms) may impact LCP if they're critical for initial render.
                                 </p>
                                 <div className="space-y-2">
                                     {mediumPriorityCalls
                                         .sort((a, b) => b.duration - a.duration)
                                         .slice(0, 10)
-                                        .map((call) => (
-                                            <div
-                                                key={call.id}
-                                                className="rounded border border-warn/30 bg-warn/10 p-3 dark:border-warn/50 dark:bg-warn/20"
-                                            >
-                                                <div className="flex items-center justify-between">
-                                                    <div className="flex-1">
-                                                        <div className="font-medium text-warn dark:text-warn">
-                                                            {call.domain}
+                                        .map((call) => {
+                                            const duplicateCount = duplicateCounts.get(call.id) || 0;
+                                            const isDuplicate = duplicateCount > 1;
+                                            return (
+                                                <div
+                                                    key={call.id}
+                                                    className={`rounded border p-3 ${
+                                                        isDuplicate
+                                                            ? 'border-purple-500/50 bg-purple-500/10 dark:border-purple-400/50 dark:bg-purple-400/10'
+                                                            : 'border-warn/30 bg-warn/10 dark:border-warn/50 dark:bg-warn/20'
+                                                    }`}
+                                                >
+                                                    <div className="flex items-center justify-between">
+                                                        <div className="flex-1">
+                                                            <div className="flex items-center gap-2">
+                                                                <span className="font-medium text-warn dark:text-warn">
+                                                                    {call.domain}
+                                                                </span>
+                                                                {isDuplicate ? (
+                                                                    <span
+                                                                        className="bg-purple-600 dark:bg-purple-500 rounded px-2 py-0.5 text-xs font-semibold text-white"
+                                                                        title={`This request was made ${duplicateCount} times`}
+                                                                    >
+                                                                        {duplicateCount}x Duplicate
+                                                                    </span>
+                                                                ) : null}
+                                                            </div>
+                                                            <div className="mt-1 break-all font-mono text-xs text-warn/90 dark:text-warn">
+                                                                {call.method} {call.url}
+                                                            </div>
                                                         </div>
-                                                        <div className="mt-1 break-all font-mono text-xs text-warn/90 dark:text-warn">
-                                                            {call.method} {call.url}
+                                                        <div className="ml-4 text-lg font-semibold text-warn dark:text-warn">
+                                                            {call.duration.toFixed(0)}ms
                                                         </div>
-                                                    </div>
-                                                    <div className="ml-4 text-lg font-semibold text-warn dark:text-warn">
-                                                        {call.duration.toFixed(0)}ms
                                                     </div>
                                                 </div>
-                                            </div>
-                                        ))}
+                                            );
+                                        })}
                                     {mediumPriorityCalls.length > 10 && (
-                                        <div className="text-sm text-second dark:text-third">
+                                        <div className="text-sm text-lightMain">
                                             ... and {mediumPriorityCalls.length - 10} more
                                         </div>
                                     )}
@@ -545,15 +689,15 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
                         {/* Low Priority */}
                         {lowPriorityCalls.length > 0 && (
                             <div className="mb-4">
-                                <h3 className="mb-2 text-lg font-semibold text-second dark:text-third">
+                                <h3 className="mb-2 text-lg font-semibold text-lightMain">
                                     ⚪ Low Priority - Usually Fine ({lowPriorityCalls.length})
                                 </h3>
-                                <p className="mb-2 text-sm text-second dark:text-third">
+                                <p className="mb-2 text-sm text-lightMain">
                                     These fast calls (&lt;100ms) are typically fine, but optimize if they block critical
                                     content.
                                 </p>
                                 <details className="cursor-pointer">
-                                    <summary className="text-sm text-second transition-colors hover:text-lightMain dark:text-third dark:hover:text-main">
+                                    <summary className="text-sm text-lightMain transition-colors hover:text-lightMain dark:hover:text-main">
                                         Show {lowPriorityCalls.length} fast calls
                                     </summary>
                                     <div className="mt-2 space-y-1">
@@ -566,10 +710,10 @@ export function PerformanceDashboard({ defaultOpen = false, toggleKey = 'p' }: P
                                                     className="rounded border border-line bg-bg p-2 text-sm dark:border-secondaryLine dark:bg-bg"
                                                 >
                                                     <div className="flex items-center justify-between">
-                                                        <span className="font-mono text-xs text-second dark:text-third">
+                                                        <span className="font-mono text-xs text-lightMain">
                                                             {call.domain}
                                                         </span>
-                                                        <span className="text-second dark:text-third">
+                                                        <span className="text-lightMain">
                                                             {call.duration.toFixed(0)}ms
                                                         </span>
                                                     </div>
