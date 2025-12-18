@@ -12,7 +12,7 @@ import { $getSelection, $isRangeSelection, type TextNode } from 'lexical';
 import { compact } from 'lodash-es';
 import { type JSX, memo, useCallback, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useDebounce, useOnClickOutside } from 'usehooks-ts';
+import { useDebounceValue, useOnClickOutside } from 'usehooks-ts';
 
 import { Avatar } from '@/components/Avatar.js';
 import { $createMentionNode, MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
@@ -184,7 +184,7 @@ export function MentionsPlugin(): JSX.Element | null {
     const [queryString, setQueryString] = useState<string | null>(null);
     const [editor] = useLexicalComposerContext();
 
-    const debounceQuery = useDebounce(queryString, 1000);
+    const [debounceQuery] = useDebounceValue(queryString, 1000);
 
     const { data, isLoading } = useQuery({
         enabled: !!debounceQuery,

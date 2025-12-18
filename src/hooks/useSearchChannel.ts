@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounceValue } from 'usehooks-ts';
 
 import { FF_GARDEN_CHANNEL, HOME_CHANNEL, HOME_CLUB } from '@/constants/channel.js';
 import { SORTED_CHANNEL_SOURCES } from '@/constants/computed.js';
@@ -53,7 +53,7 @@ async function searchChannels(source: SocialSource, keyword: string, { hasRedPac
 }
 
 export function useSearchChannels(keyword: string, source: SocialSource, hasRedPacket: boolean) {
-    const debouncedKeyword = useDebounce(keyword, 300);
+    const [debouncedKeyword] = useDebounceValue(keyword, 300);
     const profilesAll = useCurrentProfilesAll();
     const profileIds = SORTED_CHANNEL_SOURCES.map((x) => profilesAll[x]?.profileId);
 

@@ -1,6 +1,6 @@
 import { classNames } from '@dimensiondev/utils';
 import { memo, Suspense, useState } from 'react';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounceValue } from 'usehooks-ts';
 
 import SearchIcon from '@/assets/search.svg';
 import { TenorGifList } from '@/components/Gif/TenorGifList.js';
@@ -16,7 +16,7 @@ interface TenorGifSelectorProps {
 export const TenorGifSelector = memo<TenorGifSelectorProps>(function TenorGifSelector({ onSelected }) {
     const isMedium = useIsMedium('max');
     const [inputText, setInputText] = useState('');
-    const debouncedKeyword = useDebounce(inputText, 300);
+    const [debouncedKeyword] = useDebounceValue(inputText, 300);
 
     return (
         <>

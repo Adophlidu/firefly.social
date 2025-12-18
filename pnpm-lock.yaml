@@ -344,8 +344,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
       usehooks-ts:
-        specifier: ^2.16.0
-        version: 2.16.0(react@19.2.3)
+        specifier: ^3.1.1
+        version: 3.1.1(react@19.2.3)
       viem:
         specifier: ^2.40.4
         version: 2.40.4(typescript@5.9.3)(zod@3.25.76)
@@ -18503,8 +18503,8 @@ packages:
       react: 19.2.3
     dev: false
 
-  /usehooks-ts@2.16.0(react@19.2.3):
-    resolution: {integrity: sha512-bez95WqYujxp6hFdM/CpRDiVPirZPxlMzOH2QB8yopoKQMXpscyZoxOjpEdaxvV+CAWUDSM62cWnqHE0E/MZ7w==}
+  /usehooks-ts@3.1.1(react@19.2.3):
+    resolution: {integrity: sha512-I4diPp9Cq6ieSUH2wu+fDAVQO43xwtulo+fKEidHUwZPnYImbtkTjzIJYcDcJqxgmX31GVqNFURodvcgHcW0pA==}
     engines: {node: '>=16.15.0'}
     peerDependencies:
       react: 19.2.3
@@ -19674,7 +19674,7 @@ time:
   /unist-util-flatmap@1.0.0: '2018-07-21T19:29:06.641Z'
   /unist-util-visit@5.0.0: '2023-07-07T09:39:42.469Z'
   /unstated-next@1.1.0: '2019-05-13T23:34:47.580Z'
-  /usehooks-ts@2.16.0: '2024-03-05T12:06:50.264Z'
+  /usehooks-ts@3.1.1: '2025-02-05T23:18:19.076Z'
   /viem@2.40.4: '2025-12-02T20:49:50.234Z'
   /vite-plugin-svgr@4.3.0: '2024-11-01T14:32:48.372Z'
   /vite@6.4.1: '2025-10-20T05:27:28.086Z'
