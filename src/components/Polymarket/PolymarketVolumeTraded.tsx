@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { first } from 'lodash-es';
 import { memo } from 'react';
 
-import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { getVolumeTraded } from '@/providers/polymarket/getVolumeTraded.js';
 
 interface PolymarketVolumeTradedProps {
@@ -19,8 +18,11 @@ export const PolymarketVolumeTraded = memo<PolymarketVolumeTradedProps>(function
         queryKey: ['polymarket', 'volume-traded', address.toLowerCase()],
         staleTime: 1000 * 60 * 5,
         queryFn: () => getVolumeTraded(proxyAddress || address),
+        select(data) {
+            return data.find((x) => isSameEthereumAddress(x.proxyWallet, address))?.amount;
+        },
     });
-    const volume = first(data)?.amount;
 
-    return isLoading ? <LoadingIcon size={20} /> : formatPolymarketNumber(volume, { prefix: '' });
+    if (isLoading) return <span className="inline-block h-3 w-16 animate-pulse rounded-sm bg-third" />;
+    return formatPolymarketNumber(data, { prefix: '' });
 });

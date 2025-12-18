@@ -19,8 +19,7 @@ export default async function PolymarketProfileLayout(props: Props) {
     const { address } = await props.params;
     if (!address || !isValidAddressEthereum(address)) notFound();
 
-    await setupLocaleForSSR();
-    const polymarketProfile = await runInSafeAsync(() => getProfile(address));
+    const [, polymarketProfile] = await Promise.all([setupLocaleForSSR(), runInSafeAsync(() => getProfile(address))]);
 
     return (
         <div>
