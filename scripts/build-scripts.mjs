@@ -25,6 +25,11 @@ const buildConfigs = [
         target: 'es2020',
         external: ['fs', 'https', 'crypto', 'zlib'],
     },
+    {
+        entryPoints: ['src/scripts/home-redirect.ts'],
+        outfile: 'public/js/home-redirect.js',
+        target: 'es2020',
+    },
 ];
 
 buildConfigs.forEach(({ entryPoints, outfile, target, external = [] }) => {

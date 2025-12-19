@@ -51,6 +51,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 <meta name="theme-color" content="#ffffff" />
                 <meta name="googlebot" content="notranslate" />
                 {IS_PRODUCTION ? null : <meta name="robots" content="noindex, nofollow" />}
+                <Script src="/js/home-redirect.js" strategy="beforeInteractive" nonce={CSP_NONCE} />
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" nonce={CSP_NONCE} />
                 <Script nonce={CSP_NONCE}>{VERCEL_REGION.join('\n')}</Script>
                 {IS_PRODUCTION || env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled ? (

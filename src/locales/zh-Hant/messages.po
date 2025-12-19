@@ -1261,7 +1261,7 @@ msgstr "個人簡介"
 msgid "[Photo]"
 msgstr "[照片]"
 
-#. placeholder {0}: resolveSourceName(source)
+#. placeholder {0}: resolveSourceName(Source.Posts)
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "追蹤更多朋友以繼續探索{0}。"
 

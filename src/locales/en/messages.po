@@ -1256,7 +1256,7 @@ msgstr "Bio"
 msgid "[Photo]"
 msgstr "[Photo]"
 
-#. placeholder {0}: resolveSourceName(source)
+#. placeholder {0}: resolveSourceName(Source.Posts)
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
 

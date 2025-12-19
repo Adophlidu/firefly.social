@@ -25,6 +25,13 @@ import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 
 export function handleLegacyRedirects(request: NextRequest, next: () => NextResponse | undefined) {
+    const pathname = request.nextUrl.pathname;
+    if (pathname === '/' && request.method === 'GET') {
+        const destination = request.nextUrl.clone();
+        destination.pathname = '/following/posts';
+        return NextResponse.redirect(destination);
+    }
+
     const parsedOldDiscoverUrl = parseOldDiscoverUrl(request.nextUrl);
     if (parsedOldDiscoverUrl) {
         const destination = request.nextUrl.clone();
