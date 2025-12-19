@@ -402,8 +402,8 @@ importers:
         specifier: ^8.1.0
         version: 8.1.0(typescript@5.9.3)
       '@tailwindcss/forms':
-        specifier: ^0.5.10
-        version: 0.5.10(tailwindcss@3.4.19)
+        specifier: ^0.5.11
+        version: 0.5.11(tailwindcss@3.4.19)
       '@testing-library/react':
         specifier: ^16.3.1
         version: 16.3.1(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3)(@types/react@19.2.7)(react-dom@19.2.3)(react@19.2.3)
@@ -8571,8 +8571,8 @@ packages:
       '@swc/counter': 0.1.3
     dev: true
 
-  /@tailwindcss/forms@0.5.10(tailwindcss@3.4.19):
-    resolution: {integrity: sha512-utI1ONF6uf/pPNO68kmN1b8rEwNXv3czukalo8VtJH8ksIkZXr3Q3VYudZLkCsDd4Wku120uF02hYK25XGPorw==}
+  /@tailwindcss/forms@0.5.11(tailwindcss@3.4.19):
+    resolution: {integrity: sha512-h9wegbZDPurxG22xZSoWtdzc41/OlNEUQERNqI/0fOwa2aVlWGu7C35E/x6LDyD3lgtztFSSjKZyuVM0hxhbgA==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1 || >= 4.0.0-alpha.20 || >= 4.0.0-beta.1'
     dependencies:
@@ -19692,7 +19692,7 @@ time:
   /@storybook/nextjs-vite@10.0.8: '2025-11-17T13:10:56.582Z'
   /@storybook/react@10.0.8: '2025-11-17T13:11:31.871Z'
   /@svgr/webpack@8.1.0: '2023-08-15T06:46:24.158Z'
-  /@tailwindcss/forms@0.5.10: '2025-01-07T14:03:20.916Z'
+  /@tailwindcss/forms@0.5.11: '2025-12-17T19:22:39.875Z'
   /@tanstack/react-query-next-experimental@5.85.9: '2025-09-02T12:17:48.528Z'
   /@tanstack/react-query@5.85.5: '2025-08-19T09:41:51.252Z'
   /@tanstack/react-ranger@0.0.5: '2025-12-06T12:17:28.691Z'
