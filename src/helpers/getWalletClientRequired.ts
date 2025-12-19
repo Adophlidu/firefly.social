@@ -9,6 +9,11 @@ import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 
+function resolveExpectChainId(error: ConnectorChainMismatchError) {
+    const chainId = error.message.match(/Expected Chain ID: (\d+)/);
+    return chainId ? Number(chainId[1]) : undefined;
+}
+
 export type OpenProps = WalletConnectModalOpenProps & { silent?: boolean };
 
 export async function getWalletClientRequired(
@@ -26,9 +31,14 @@ export async function getWalletClientRequired(
                 ...modalOptions,
                 networkType: NetworkType.Ethereum,
             });
-        } else if (error instanceof ConnectorChainMismatchError && clientParameters?.chainId) {
-            // starting from wagmi/core 2.2, the validation of chains will be strict.
-            await switchEthereumChain(clientParameters.chainId);
+        } else if (error instanceof ConnectorChainMismatchError) {
+            const expectedChainId = clientParameters?.chainId || resolveExpectChainId(error);
+            if (expectedChainId) {
+                // starting from wagmi/core 2.2, the validation of chains will be strict.
+                await switchEthereumChain(expectedChainId);
+            } else {
+                throw error;
+            }
         } else {
             throw error;
         }
