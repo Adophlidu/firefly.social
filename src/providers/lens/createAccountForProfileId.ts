@@ -1,7 +1,9 @@
 import { SessionClient } from '@lens-protocol/client';
+import { mainnet } from 'viem/chains';
 
+import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { createLensSession } from '@/providers/lens/createLensSession.js';
-import { getWalletClientForLensChain } from '@/providers/lens/getWalletClientForLensChain.js';
 import { loginLensProfile } from '@/providers/lens/loginLensProfile.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -20,7 +22,7 @@ async function createAccountWithSessionClient(sessionClient: SessionClient, prof
 }
 
 export async function createAccountForProfileId(profile: Profile, signal?: AbortSignal) {
-    const walletClient = await getWalletClientForLensChain();
+    const walletClient = await getWalletClientRequired(wagmiConfig, { chainId: mainnet.id });
     const sessionClient = await loginLensProfile(profile, {
         ownerOrManager: walletClient.account.address,
         signMessage: (message) => walletClient.signMessage({ message }),
