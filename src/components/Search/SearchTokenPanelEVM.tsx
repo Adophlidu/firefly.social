@@ -24,7 +24,7 @@ function getTokenItem(token: Token) {
     return <TokenItem key={token.id} token={token} />;
 }
 
-export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTokenPanel({
+export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTokenPanelEVM({
     address,
     onSelected,
     isSelected,

@@ -20,7 +20,7 @@ function getTokenItem(token: Token) {
     return <TokenItem key={token.id} token={token} disableChainIcon />;
 }
 
-export const SearchTokenPanelSolana = memo<SearchSolanaTokenPanelProps>(function SearchSolanaTokenPanel({
+export const SearchTokenPanelSolana = memo<SearchSolanaTokenPanelProps>(function SearchSolanaTokenPanelSolana({
     address,
     onSelected,
     isSelected,

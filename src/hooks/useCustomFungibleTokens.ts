@@ -3,6 +3,7 @@ import { compact, uniq } from 'lodash-es';
 import { erc20Abi } from 'viem';
 import { useConnection } from 'wagmi';
 import { multicall } from 'wagmi/actions';
+import { useShallow } from 'zustand/shallow';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
@@ -21,10 +22,12 @@ export interface Token extends TipsToken {
 }
 
 export function useCustomFungibleTokens(chainId?: EthereumChainId) {
-    const tokens = useCustomTokenStore((state) =>
-        Object.values(state.tokens)
-            .filter((x) => x.type === CustomTokenType.ERC20)
-            .filter((x) => (chainId ? x.chainId === chainId : true)),
+    const tokens = useCustomTokenStore(
+        useShallow((state) =>
+            Object.values(state.tokens)
+                .filter((x) => x.type === CustomTokenType.ERC20)
+                .filter((x) => (chainId ? x.chainId === chainId : true)),
+        ),
     );
     const account = useConnection();
     return useQueries({

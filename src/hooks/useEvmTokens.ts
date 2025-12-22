@@ -11,11 +11,11 @@ import { getTokensByAddress } from '@/providers/firefly/endpoint/getTokensByAddr
 import type { Token } from '@/providers/types/Transfer.js';
 
 function sortTokensByUsdValue(tokens: Token[]) {
-    return tokens.sort((a, b) => b.usdValue - a.usdValue);
+    return tokens.slice().sort((a, b) => b.usdValue - a.usdValue);
 }
 
 export const useEvmTokens = (address?: string) => {
-    const { data, isLoading } = useQuery({
+    const { data = EMPTY_LIST, isLoading } = useQuery({
         queryKey: ['tokens', address?.toLowerCase()],
         enabled: !!address,
         queryFn: async () => {
@@ -27,7 +27,7 @@ export const useEvmTokens = (address?: string) => {
 
     const tokens = useMemo(() => {
         return sortTokensByUsdValue(
-            (data || EMPTY_LIST)
+            data
                 .reduce<Token[]>((acc, token) => {
                     if (!token.chainId || !chains.some((chain) => chain.id === token.chainId)) return acc;
                     return [
