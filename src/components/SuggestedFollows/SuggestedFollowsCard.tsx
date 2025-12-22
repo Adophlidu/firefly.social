@@ -16,9 +16,8 @@ import { Link } from '@/components/Link.js';
 import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
 import { SuggestedFollowsSkeleton } from '@/components/SuggestedFollows/SuggestedFollowsSkeleton.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
-import { ExploreType, type SocialSource, Source } from '@/constants/enum.js';
+import { ExploreType, Source } from '@/constants/enum.js';
 import { isSocialDiscoverSource } from '@/helpers/isSource.js';
-import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { mergeLists } from '@/helpers/mergeLists.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -30,13 +29,6 @@ import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { queryMutedProfiles } from '@/services/queryMutedProfiles.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useBskyProfileStore } from '@/store/useProfileStore/useBskyProfileStore.js';
-
-const getSuggestedFollowersCached = memoizePromise(
-    async (source: SocialSource, profileId?: string) => {
-        return getSuggestedFollowsInCard(source);
-    },
-    (source, profileId) => `${source}-${profileId}`,
-);
 
 export function SuggestedFollowsCard() {
     const isLarge = useIsLarge('min');
@@ -58,7 +50,7 @@ export function SuggestedFollowsCard() {
         queryFn: async () => {
             const suggestedProfiles = await Promise.allSettled(
                 SORTED_SOCIAL_SOURCES.map((source) =>
-                    runInSafeAsync(() => getSuggestedFollowersCached(source, profileAll[source]?.profileId)),
+                    runInSafeAsync(() => getSuggestedFollowsInCard(source, profileAll[source]?.profileId)),
                 ),
             );
             const results = mergeLists(

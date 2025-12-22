@@ -33,12 +33,18 @@ export function SuggestedFollowUsersList({ source }: Props) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['suggested-follows', source, profile?.profileId, asyncStatus],
         queryFn: async ({ pageParam }) => {
-            const result = await getSuggestedFollowsInPage(source, createIndicator(undefined, pageParam), true);
+            const result = await getSuggestedFollowsInPage(
+                source,
+                profile?.profileId,
+                createIndicator(undefined, pageParam),
+                true,
+            );
             await runInSafeAsync(() =>
                 queryMutedProfiles(result.data.map((x) => ({ source: x.source, id: x.profileId }))),
             );
             return result;
         },
+        staleTime: 60 * 1000,
         initialPageParam: '',
         getNextPageParam: (
             lastPage: Pageable<Profile, PageIndicator>,

@@ -7,9 +7,12 @@ import type { Session } from '@/providers/types/Session.js';
 export class SessionHolder<T extends Session> {
     protected internalSession: T | null = null;
 
-    private removeQueries() {
+    private resetQueries() {
         if (!this.session) return;
-        queryClient.removeQueries({ queryKey: ['profile', resolveSourceFromSessionType(this.session.type)] });
+        const source = resolveSourceFromSessionType(this.session.type);
+        queryClient.removeQueries({ queryKey: ['profile', source] });
+        queryClient.invalidateQueries({ queryKey: ['@internal', 'suggested-follows', source] });
+        queryClient.invalidateQueries({ queryKey: ['suggested-follows', source] });
     }
 
     get session() {
@@ -35,12 +38,12 @@ export class SessionHolder<T extends Session> {
     }
 
     async resumeSession(session: T): Promise<void> {
-        this.removeQueries();
+        this.resetQueries();
         this.internalSession = session;
     }
 
     removeSession() {
-        this.removeQueries();
+        this.resetQueries();
         this.internalSession = null;
     }
 

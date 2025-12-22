@@ -1,4 +1,5 @@
-import { type Locale, type SocialSource, Source } from '@/constants/enum.js';
+import { queryClient } from '@/configs/queryClient.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { getSessionFromStorageBySource } from '@/helpers/getSessionFromStorage.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -27,11 +28,24 @@ async function getProfilesWithFixedTotal(
     return createPageable(data, createIndicator(undefined), indicator);
 }
 
-export async function getSuggestedFollowsInCard(source: SocialSource, queryStats?: boolean) {
+export async function getSuggestedFollowsInCard(source: SocialSource, viewerId?: string, queryStats?: boolean) {
     const provider = resolveSocialMediaProvider(source, { [Source.Twitter]: 'twitter' });
     const session = getSessionFromStorageBySource(source);
     const result = await getProfilesWithFixedTotal(
-        (indicator) => provider.getSuggestedFollows(indicator, queryStats),
+        (indicator) => {
+            const queryKey: any[] = ['@internal', 'suggested-follows', source, viewerId, indicator?.id || undefined];
+            // Only query stats for Bsky, other sources should already include stats
+            if (source === Source.Bsky) {
+                queryKey.push(queryStats);
+            }
+            return queryClient.ensureQueryData({
+                queryKey,
+                staleTime: 60 * 1000,
+                queryFn: async function querySuggestedFollowsInCard() {
+                    return provider.getSuggestedFollows(indicator, queryStats);
+                },
+            });
+        },
         (oldData, newData) =>
             [
                 ...oldData,
@@ -50,14 +64,27 @@ export async function getSuggestedFollowsInCard(source: SocialSource, queryStats
 
 export async function getSuggestedFollowsInPage(
     source: SocialSource,
+    viewerId?: string,
     indicator?: PageIndicator,
     queryStats?: boolean,
-    locale?: Locale,
 ) {
     const session = getSessionFromStorageBySource(source);
     const provider = resolveSocialMediaProvider(source);
     return getProfilesWithFixedTotal(
-        (indicator) => provider.getSuggestedFollows(indicator, queryStats, locale),
+        (indicator) => {
+            const queryKey: any[] = ['@internal', 'suggested-follows', source, viewerId, indicator?.id || undefined];
+            // Only query stats for Bsky, other sources should already include stats
+            if (source === Source.Bsky) {
+                queryKey.push(queryStats);
+            }
+            return queryClient.ensureQueryData({
+                queryKey,
+                staleTime: 60 * 1000,
+                queryFn: async function querySuggestedFollowsInPage() {
+                    return provider.getSuggestedFollows(indicator, queryStats);
+                },
+            });
+        },
         (oldData, newData) => [
             ...oldData,
             ...newData.filter(

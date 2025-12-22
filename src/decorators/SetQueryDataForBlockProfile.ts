@@ -141,7 +141,8 @@ export function setBlockStatus(source: SocialSource, profileId: string, status: 
     queryClient.setQueryData(['profile-is-muted', source, profileId], status);
     queryClient.setQueriesData<PagesData>({ queryKey: ['profiles', source, 'muted-list'] }, profilesPatcher);
     queryClient.setQueriesData<PagesData>({ queryKey: ['suggested-follows', source], type: 'active' }, profilesPatcher);
-    queryClient.refetchQueries({ queryKey: ['suggested-follows-lite'] });
+    queryClient.invalidateQueries({ queryKey: ['suggested-follows-lite'] });
+    queryClient.invalidateQueries({ queryKey: ['@internal', 'suggested-follows'] });
 
     if (!status) queryClient.setQueryData(['profile', 'mute-all', source, profileId], status);
 }
