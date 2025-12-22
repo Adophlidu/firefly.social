@@ -31,6 +31,7 @@ const providers: Provider[] = [
 export const authOptions: AuthOptions = {
     debug: env.shared.NODE_ENV === NODE_ENV.Development,
     providers,
+    useSecureCookies: env.shared.NODE_ENV === NODE_ENV.Production,
     cookies: {
         nonce: {
             name: 'next-auth.nonce',
@@ -79,6 +80,9 @@ export const authOptions: AuthOptions = {
                 token[account.provider] = {};
             }
 
+            // SECURITY WARNING: OAuth tokens are stored in JWT which is signed but not encrypted
+            // Consider storing these server-side and only storing a reference in the JWT
+            // For now, keeping this for backward compatibility but should be refactored
             if (account?.oauth_token && account?.oauth_token_secret) {
                 token[account.provider] = {
                     oauthToken: account.oauth_token,

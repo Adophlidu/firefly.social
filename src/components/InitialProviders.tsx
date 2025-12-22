@@ -23,6 +23,7 @@ import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 export const InitialProviders = memo(function Providers(props: { children: ReactNode }) {
     const isDarkMode = useIsDarkMode();
     const themeMode = useThemeModeStore.use.themeMode();
+
     useLayoutEffect(() => {
         document.documentElement.classList.toggle('dark', isDarkMode);
 
