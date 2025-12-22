@@ -1,18 +1,17 @@
 import { t } from '@lingui/core/macro';
 import { useMutation } from '@tanstack/react-query';
-import { produce } from 'immer';
 
-import { queryClient } from '@/configs/queryClient.js';
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
+import { patchBetsActivityData } from '@/helpers/patchBetsActivityData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { PolymarketActivity } from '@/providers/types/Firefly.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
 
-export function useTogglePolymarketBookmark() {
+export function useToggleBetsBookmark() {
     return useMutation({
-        mutationFn: async (activity: PolymarketActivity) => {
+        mutationFn: async (activity: BetsActivity) => {
             if (!fireflySessionHolder.session) {
                 openLoginModal();
                 return;
@@ -31,26 +30,11 @@ export function useTogglePolymarketBookmark() {
                     );
                     enqueueSuccessMessage(t`Added to bookmarks`);
                 }
-                queryClient.setQueriesData<{
-                    pages: Array<{ data: PolymarketActivity[] }>;
-                }>(
-                    {
-                        queryKey: ['polymarket'],
-                    },
-                    (old) => {
-                        if (!old?.pages) return old;
-
-                        return produce(old, (draft) => {
-                            draft.pages.forEach((page) => {
-                                page.data.forEach((oldData: PolymarketActivity) => {
-                                    if (oldData.transactionHash === activity.transactionHash) {
-                                        oldData.hasBookmarked = !hasBookmarked;
-                                    }
-                                });
-                            });
-                        });
-                    },
-                );
+                patchBetsActivityData((oldData) => {
+                    if (oldData.transactionHash === activity.transactionHash) {
+                        oldData.hasBookmarked = !hasBookmarked;
+                    }
+                });
             } catch (error) {
                 enqueueMessageFromError(
                     error,

@@ -10,11 +10,11 @@ import EvmIcon from '@/assets/evm.svg';
 import LinkIcon from '@/assets/link-square.svg';
 import SolanaIcon from '@/assets/solana.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { BetsProfilesCard } from '@/components/Bets/BetsProfilesCard.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { Link } from '@/components/Link.js';
 import { NoSSR } from '@/components/NoSSR.js';
-import { PolymarketProfileCard } from '@/components/Polymarket/PolymarketProfileCard.js';
 import { WalletActions } from '@/components/Profile/WalletActions.js';
 import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -249,7 +249,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                         </div>
                     </div>
                 </div>
-                <PolymarketProfileCard address={profile.address} />
+                <BetsProfilesCard address={profile.address} />
             </div>
             {profile.hacked ? (
                 <div className="mt-3 md:ml-1">

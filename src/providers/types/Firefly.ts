@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import type { Address, Hex } from 'viem';
 
 import {
+    BetsPlatform,
     BookmarkType,
     ExploreSwitchType,
     FireflyPlatform,
@@ -1189,7 +1190,7 @@ export type ActivityInfoResponse = Response<{
     status: ActivityStatus;
 }>;
 
-export interface PolymarketActivity {
+export interface BetsActivity {
     asset: string;
     blockNumber: number;
     blockNumberSort: number;
@@ -1223,12 +1224,13 @@ export interface PolymarketActivity {
     hasBookmarked: boolean;
     isLiked: boolean;
     likeCount: number;
+    platform: BetsPlatform;
+    parent_title: string;
+    is_like: boolean;
+    like_count: number;
+    has_bookmarked: boolean;
+    url: string;
 }
-
-export type PolymarketActivityTimeline = Response<{
-    result: PolymarketActivity[];
-    cursor?: string;
-}>;
 
 export interface Project {
     eval: number;
@@ -1799,8 +1801,8 @@ export type TransactionsItem = {
           data: SwapActivity;
       }
     | {
-          source: Source.Polymarket;
-          data: PolymarketActivity;
+          source: Source.Bets;
+          data: BetsActivity;
       }
     | {
           source: Source.NFTs;
@@ -2352,7 +2354,7 @@ export interface PolymarketProfileData {
 }
 
 export interface BetPortfolioItem {
-    platform: 'polymarket' | 'opinion';
+    platform: BetsPlatform;
     wallet: string;
     proxy: string;
     /** url */

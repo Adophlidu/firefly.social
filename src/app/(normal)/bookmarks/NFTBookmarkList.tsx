@@ -116,7 +116,7 @@ function NFTBookmarkListContent() {
 
 export function NFTBookmarkList() {
     return (
-        <LoginRequiredGuard source={Source.Polymarket}>
+        <LoginRequiredGuard source={Source.Bets}>
             <NFTBookmarkListContent />
         </LoginRequiredGuard>
     );

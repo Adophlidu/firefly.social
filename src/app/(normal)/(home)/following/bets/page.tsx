@@ -1,14 +1,14 @@
 import { Suspense } from 'react';
 
+import { FollowingBetsTimeline } from '@/components/Bets/FollowingBetsTimeline.js';
 import { Loading } from '@/components/Loading.js';
 import { NoSSR } from '@/components/NoSSR.js';
-import { FollowingPolymarketList } from '@/components/Polymarket/FollowingPolymarketList.js';
 
-export default function FollowingPolymarketPage() {
+export default function FollowingBetsPage() {
     return (
         <NoSSR>
             <Suspense fallback={<Loading />}>
-                <FollowingPolymarketList />
+                <FollowingBetsTimeline />
             </Suspense>
         </NoSSR>
     );

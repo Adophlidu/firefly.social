@@ -20,8 +20,8 @@ function resolveInitialLikeData({ type, data }: LikeTarget) {
     switch (type) {
         case Source.Article:
         case Source.DAOs:
-        case Source.Polymarket:
         case ExtraLikeType.Tips:
+        case Source.Bets:
             return { isLiked: data.isLiked, likeCount: data.likeCount || 0 };
         case Source.Swap:
             return { isLiked: data.is_like, likeCount: data.like_count || 0 };

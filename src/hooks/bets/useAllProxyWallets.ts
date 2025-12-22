@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { WalletSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
-import { getBetsPortfolio } from '@/providers/firefly/polymarket/getBetsPortfolio.js';
+import { getBetsPortfolio } from '@/providers/firefly/bets/getBetsPortfolio.js';
 
 export function useAllProxyWallets() {
     const { data: { evmConnections = EMPTY_LIST } = {} } = useAllConnections();

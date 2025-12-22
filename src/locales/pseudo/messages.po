@@ -119,9 +119,6 @@ msgstr ""
 msgid "Unmute successfully."
 msgstr ""
 
-msgid "Failed to like polymarket."
-msgstr ""
-
 msgid "Copy to clipboard"
 msgstr ""
 
@@ -339,9 +336,6 @@ msgstr ""
 msgid "Ended"
 msgstr ""
 
-msgid "Polymarket liked."
-msgstr ""
-
 msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr ""
 
@@ -400,6 +394,9 @@ msgid "Tax can be modified"
 msgstr ""
 
 msgid "<0>Burned</0><1/>"
+msgstr ""
+
+msgid "Opinion"
 msgstr ""
 
 msgid "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
@@ -554,10 +551,6 @@ msgstr ""
 msgid "Club details"
 msgstr ""
 
-#. placeholder {0}: formatAmount(usdcSize)
-msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
-msgstr ""
-
 msgid "Transactions"
 msgstr ""
 
@@ -704,7 +697,7 @@ msgstr ""
 msgid "True Token"
 msgstr ""
 
-#. placeholder {0}: formatAmount(activity.size)
+#. placeholder {0}: toFixedTrimmed(+activity.size, 2)
 msgid "×{0} shares"
 msgstr ""
 
@@ -769,6 +762,9 @@ msgstr ""
 #. placeholder {0}: channel.followerCount
 #. placeholder {0}: profile.followerCount
 msgid "{0, plural, one {Follower} other {Followers}}"
+msgstr ""
+
+msgid "Bets liked."
 msgstr ""
 
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
@@ -1104,10 +1100,6 @@ msgstr ""
 msgid "Failed to bookmark article."
 msgstr ""
 
-#. placeholder {0}: formatAmount(usdcSize)
-msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
-msgstr ""
-
 msgid "Holders"
 msgstr ""
 
@@ -1328,6 +1320,10 @@ msgstr ""
 msgid "Registered account not found. Please switch to another wallet and try again."
 msgstr ""
 
+#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
+msgid "<0>Sold a bet</0><1>worth ${0} at <2/></1>"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Quoted on {0}."
 msgstr ""
@@ -1444,6 +1440,9 @@ msgid "Change password"
 msgstr ""
 
 msgid "Verified by {provider}"
+msgstr ""
+
+msgid "Failed to like bets."
 msgstr ""
 
 msgid "Resend full or remaining?"
@@ -2257,9 +2256,6 @@ msgid "NFT minted successfully!"
 msgstr ""
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
-msgstr ""
-
-msgid "Failed to unlike polymarket."
 msgstr ""
 
 msgid "Lens"
@@ -3302,6 +3298,9 @@ msgstr ""
 msgid "Upload photo"
 msgstr ""
 
+msgid "Bets unliked."
+msgstr ""
+
 msgid "Cross at handles"
 msgstr ""
 
@@ -3405,10 +3404,6 @@ msgstr ""
 msgid "Connection failed. {0}"
 msgstr ""
 
-#. placeholder {0}: outcome.toUpperCase()
-msgid "Settled as {0}"
-msgstr ""
-
 msgid "No available wallet."
 msgstr ""
 
@@ -3441,6 +3436,9 @@ msgid "Non-contract address found."
 msgstr ""
 
 msgid "Home"
+msgstr ""
+
+msgid "Failed to unlike bets."
 msgstr ""
 
 msgid "Re-enter Password"
@@ -3489,6 +3487,9 @@ msgid "Sorry, we are not able to find this collection"
 msgstr ""
 
 msgid "<0>You</0> reposted"
+msgstr ""
+
+msgid "Settled as {outcome}"
 msgstr ""
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
@@ -3683,6 +3684,10 @@ msgstr ""
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutuals[2].displayName
 msgid "Followed by {0} , {1}, and {2}"
+msgstr ""
+
+#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
+msgid "<0>Placed a bet</0><1>worth ${0} at <2/></1>"
 msgstr ""
 
 msgid "Vote"
@@ -4508,9 +4513,6 @@ msgid "This wallet is already linked to a different Firefly account."
 msgstr ""
 
 msgid "Unmuted {handleOrEnsOrAddress}."
-msgstr ""
-
-msgid "Polymarket unliked."
 msgstr ""
 
 msgid "No trading cooldown function."

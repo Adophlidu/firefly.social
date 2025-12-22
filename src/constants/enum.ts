@@ -68,7 +68,6 @@ export enum Source {
     WalletMix = 'Wallets',
     NFTs = 'NFTs',
     Tokens = 'Tokens',
-    Polymarket = 'Polymarket',
     Telegram = 'Telegram',
     Google = 'Google',
     Apple = 'Apple',
@@ -80,6 +79,7 @@ export enum Source {
     Transactions = 'Transactions',
     Activities = 'Activities',
     X3Pro = 'X3Pro',
+    Bets = 'Bets',
 }
 
 export enum SourceInURL {
@@ -93,7 +93,6 @@ export enum SourceInURL {
     WalletMix = 'wallets',
     NFTs = 'nfts',
     Tokens = 'tokens',
-    Polymarket = 'polymarket',
     Telegram = 'telegram',
     Google = 'google',
     Apple = 'apple',
@@ -106,6 +105,7 @@ export enum SourceInURL {
     X = 'x',
     Transactions = 'transactions',
     Activities = 'activities',
+    Bets = 'bets',
 }
 
 export const enum CharTag {
@@ -179,7 +179,7 @@ export type SocialSourceInURL =
 export type ProfilePageSource = SocialSource | Source.Wallet | Source.WalletMix;
 export type ProfilePageSourceInURL = SocialSourceInURL | SourceInURL.Wallet | SourceInURL.WalletMix;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter;
-export type DiscoverSource = Source.Posts | Source.Activities | Source.Transactions;
+export type DiscoverSource = Source.Posts | Source.Activities | Source.Transactions | Source.Bets;
 export type BookmarkSource =
     | Source.Farcaster
     | Source.Lens
@@ -188,7 +188,7 @@ export type BookmarkSource =
     | Source.NFTs
     | Source.Tokens
     | Source.Bsky;
-export type FollowingSource = DiscoverSource | Source.Transactions | Source.Activities | Source.Polymarket;
+export type FollowingSource = DiscoverSource | Source.Transactions | Source.Activities | Source.Bets;
 export type ExploreSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter | TrendingType;
 export type ExploreSourceInURL =
     | SourceInURL.Farcaster
@@ -207,7 +207,7 @@ export type LoginFallbackSource =
     | SocialSource
     | Source.Article
     | Source.DAOs
-    | Source.Polymarket
+    | Source.Bets
     | Source.Posts
     | Source.Notifications
     | Source.NFTs
@@ -306,7 +306,6 @@ export enum ScrollListKey {
     SchedulePosts = 'schedule-posts',
     SnapshotVotes = 'snapshot-votes',
     Activity = 'activity',
-    Polymarket = 'polymarket-list',
     RedPacketHistory = 'redpacket-history',
     TrendingFeeds = 'trending-feeds',
     Swap = 'swap-list',
@@ -316,6 +315,7 @@ export enum ScrollListKey {
     ChannelFollowers = 'channel-followers',
     Transactions = 'transactions-list',
     Activities = 'activities-list',
+    Bets = 'bets-list',
 }
 
 export enum FarcasterSignType {
@@ -665,4 +665,9 @@ export enum ConnectionSource {
 export enum SolanaNetworkType {
     Appkit = 'appkit',
     Privy = 'privy-solana',
+}
+
+export enum BetsPlatform {
+    Polymarket = 'polymarket',
+    Opinion = 'opinion',
 }

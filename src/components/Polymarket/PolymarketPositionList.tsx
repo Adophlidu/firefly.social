@@ -16,7 +16,7 @@ import { EMPTY_LIST } from '@/constants/static.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useAllProxyWallets } from '@/hooks/bets/useAllProxyWallets.js';
-import { getPositionHistory } from '@/providers/firefly/polymarket/getPositionHistory.js';
+import { getPositionHistory } from '@/providers/firefly/bets/getPositionHistory.js';
 import type { PolymarketPositionData } from '@/providers/types/Firefly.js';
 
 interface PolymarketPositionListProps {
@@ -86,12 +86,12 @@ export function PolymarketPositionList({ address, proxyAddress }: PolymarketPosi
                 <Loading />
             ) : (
                 <ListInPage
-                    source={Source.Polymarket}
-                    key={Source.Polymarket}
+                    source={Source.Bets}
+                    key={Source.Bets}
                     queryResult={queryResult}
                     VirtualListProps={{
                         useWindowScroll: true,
-                        listKey: `${ScrollListKey.Polymarket}:positions`,
+                        listKey: `${ScrollListKey.Bets}:positions`,
                         computeItemKey: (index, positionData) => `${positionData.Id}-${index}`,
                         itemContent: (index, positionData) => getPositionItem(index, positionData, isMyAddress),
                     }}

@@ -7,12 +7,12 @@ import { discoverNFTs } from '@/providers/firefly/endpoint/discoverNFTs.js';
 import { getFollowingNFTs } from '@/providers/firefly/endpoint/getFollowingNFTs.js';
 import { getFollowingSwapTimeline } from '@/providers/firefly/endpoint/getFollowingSwapTimeline.js';
 import { getSwapTimelineByAddress } from '@/providers/firefly/endpoint/getSwapTimelineByAddress.js';
-import type { PolymarketActivity, SwapActivity, TransactionsItem } from '@/providers/types/Firefly.js';
+import type { BetsActivity, SwapActivity, TransactionsItem } from '@/providers/types/Firefly.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 
 function createTransactionsFetcher(
     fetchSwaps: (indicator: PageIndicator, chainId?: number) => Promise<Pageable<SwapActivity, PageIndicator>>,
-    fetchBets: (indicator: PageIndicator) => Promise<Pageable<PolymarketActivity, PageIndicator>>,
+    fetchBets: (indicator: PageIndicator) => Promise<Pageable<BetsActivity, PageIndicator>>,
     fetchNfts: (indicator: PageIndicator, chainId?: number) => Promise<Pageable<NFTFeedV3, PageIndicator>>,
 ) {
     return async function fetchTransactions(source: TransactionsItem['source'], pageParam?: string, chainId?: number) {
@@ -29,7 +29,7 @@ function createTransactionsFetcher(
                     })),
                 };
             }
-            case Source.Polymarket: {
+            case Source.Bets: {
                 if (chainId && chainId !== polygon.id) {
                     return createPageable([], createIndicator(undefined, pageParam));
                 }
@@ -66,13 +66,13 @@ function createTransactionsFetcher(
 
 export const getFollowingTransactions = createTransactionsFetcher(
     (indicator, chainId) => getFollowingSwapTimeline(chainId ? [chainId] : [], undefined, indicator, 30),
-    (indicator) => Promise.resolve(createPageable([] as PolymarketActivity[], createIndicator(indicator))),
+    (indicator) => Promise.resolve(createPageable([] as BetsActivity[], createIndicator(indicator))),
     (indicator) => Promise.resolve(createPageable([] as NFTFeedV3[], createIndicator(indicator))),
 );
 
 export const getForYouTransactions = createTransactionsFetcher(
     () => Promise.resolve(createPageable([] as SwapActivity[], createIndicator(undefined))),
-    () => Promise.resolve(createPageable([] as PolymarketActivity[], createIndicator(undefined))),
+    () => Promise.resolve(createPageable([] as BetsActivity[], createIndicator(undefined))),
     (indicator, chainId) => discoverNFTs({ indicator, chainId }),
 );
 
@@ -85,7 +85,7 @@ export function getProfileTransactions(
 ) {
     const fetcher = createTransactionsFetcher(
         (indicator, chainId) => getSwapTimelineByAddress(addresses, chainId ? [chainId] : [], undefined, indicator),
-        () => Promise.resolve(createPageable([] as PolymarketActivity[], createIndicator(undefined))),
+        () => Promise.resolve(createPageable([] as BetsActivity[], createIndicator(undefined))),
         (indicator, chainId) =>
             getFollowingNFTs({
                 indicator,

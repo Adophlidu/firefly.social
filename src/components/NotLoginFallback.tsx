@@ -27,7 +27,7 @@ const resolveConnectButtonClass = createLookupTableResolver<LoginFallbackSource,
             'w-[203px] text-[#AD7BFF] ring-[#AD7BFF] shadow-[0_0_16px_0_rgba(101,119,134,0.2)] hover:bg-[#AD7BFF33]/20',
         [Source.DAOs]:
             'w-[203px] text-[#AD7BFF] ring-[#AD7BFF] shadow-[0_0_16px_0_rgba(101,119,134,0.2)] hover:bg-[#AD7BFF33]/20',
-        [Source.Polymarket]:
+        [Source.Bets]:
             'w-[203px] text-[#AD7BFF] ring-[#AD7BFF] shadow-[0_0_16px_0_rgba(101,119,134,0.2)] hover:bg-[#AD7BFF33]/20',
         [Source.Posts]:
             'w-[203px] text-[#AD7BFF] ring-[#AD7BFF] shadow-[0_0_16px_0_rgba(101,119,134,0.2)] hover:bg-[#AD7BFF33]/20',
@@ -56,7 +56,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
     const isNotSocialSource = [
         Source.Article,
         Source.DAOs,
-        Source.Polymarket,
+        Source.Bets,
         Source.NFTs,
         Source.Posts,
         Source.Notifications,

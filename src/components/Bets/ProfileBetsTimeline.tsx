@@ -3,28 +3,35 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useCallback } from 'react';
 
+import { BetsActivityItem } from '@/components/Bets/BetsActivityItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
-import { PolymarketActivityItem } from '@/components/Polymarket/PolymarketActivityItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { getProfilePolymarketTimeline } from '@/providers/firefly/polymarket/getProfilePolymarketTimeline.js';
+import { getBetsTimelineByAddress } from '@/providers/firefly/bets/getBetsTimelineByAddress.js';
 import { captureProfilePolymarketLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
-import type { PolymarketActivity } from '@/providers/types/Firefly.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { BetsFilterNamespace, useBetsSourceFilterStore } from '@/store/useBetsSourceFilterStore.js';
 
-interface ProfilePolymarketListProps {
+interface ProfileBetsTimelineProps {
     address: string;
 }
 
-function getPolymarketItem(data: PolymarketActivity, onClick?: () => void) {
-    return <PolymarketActivityItem activity={data} onPolymarketLinkClick={onClick} />;
+function getBetsActivityItem(data: BetsActivity, onClick?: () => void) {
+    return <BetsActivityItem activity={data} onLinkClick={onClick} />;
 }
 
-export const ProfilePolymarketList = memo<ProfilePolymarketListProps>(function ProfilePolymarketList({ address }) {
+export const ProfileBetsTimeline = memo<ProfileBetsTimelineProps>(function ProfileBetsTimeline({ address }) {
+    const { platforms } = useBetsSourceFilterStore(BetsFilterNamespace.Profile);
+
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['polymarket', 'bets-list', address.toLowerCase()],
+        queryKey: ['bets', 'list', 'profile', address.toLowerCase(), platforms.join(',')],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
-            return getProfilePolymarketTimeline(address, 'all', indicator);
+            return getBetsTimelineByAddress({
+                walletAddresses: [address],
+                indicator,
+                platforms,
+            });
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
@@ -37,13 +44,13 @@ export const ProfilePolymarketList = memo<ProfilePolymarketListProps>(function P
 
     return (
         <ListInPage
-            source={Source.Polymarket}
-            key={Source.Polymarket}
+            source={Source.Bets}
+            key={Source.Bets}
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Polymarket}:${address}`,
+                listKey: `${ScrollListKey.Bets}:${address}`,
                 computeItemKey: (index, data) => `${data.transactionHash}-${index}`,
-                itemContent: (_, item) => getPolymarketItem(item, onPolymarketLinkClick),
+                itemContent: (_, item) => getBetsActivityItem(item, onPolymarketLinkClick),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

@@ -8,7 +8,7 @@ import { Loading } from '@/components/Loading.js';
 import { PolymarketTradeItem } from '@/components/Polymarket/PolymarketTradeItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
-import { getTradeHistory } from '@/providers/firefly/polymarket/getTradeHistory.js';
+import { getTradeHistory } from '@/providers/firefly/bets/getTradeHistory.js';
 import type { PolymarketTradeData } from '@/providers/types/Firefly.js';
 
 interface PolymarketTradeListProps {
@@ -53,14 +53,14 @@ export function PolymarketTradeList({ address }: PolymarketTradeListProps) {
                 </span>
             </div>
             <ListInPage
-                source={Source.Polymarket}
-                key={Source.Polymarket}
+                source={Source.Bets}
+                key={Source.Bets}
                 queryResult={queryResult}
                 VirtualListProps={{
                     useWindowScroll: true,
-                    listKey: `${ScrollListKey.Polymarket}:trades`,
+                    listKey: `${ScrollListKey.Bets}:trades`,
                     computeItemKey: (index, trade) => `${trade.slug}-${index}`,
-                    itemContent: (index, trade) => getTradeItem(index, trade, `${ScrollListKey.Polymarket}:trades`),
+                    itemContent: (index, trade) => getTradeItem(index, trade, `${ScrollListKey.Bets}:trades`),
                 }}
                 NoResultsFallbackProps={{
                     className: 'mt-20',

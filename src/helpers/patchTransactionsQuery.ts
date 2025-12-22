@@ -2,15 +2,15 @@ import { produce, type WritableDraft } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
-import type { PolymarketActivity, SwapActivity, TransactionsItem } from '@/providers/types/Firefly.js';
+import type { BetsActivity, SwapActivity, TransactionsItem } from '@/providers/types/Firefly.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 
 export function patchTransactionsQuery<
     T extends TransactionsItem['source'],
     D = T extends Source.Swap
         ? WritableDraft<SwapActivity>
-        : T extends Source.Polymarket
-          ? WritableDraft<PolymarketActivity>
+        : T extends Source.Bets
+          ? WritableDraft<BetsActivity>
           : T extends Source.NFTs
             ? WritableDraft<NFTFeedV3>
             : never,

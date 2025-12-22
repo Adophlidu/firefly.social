@@ -8,21 +8,26 @@ import BuyIcon from '@/assets/bet-buy.svg';
 import SellIcon from '@/assets/bet-sell.svg';
 import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction.js';
 import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellActionTag.js';
-import { PolymarketBetType } from '@/constants/enum.js';
-import { formatAmount } from '@/helpers/polymarket.js';
+import { BetsName } from '@/components/Bets/BetsName.js';
+import { BetsPlatform, PolymarketBetType } from '@/constants/enum.js';
+import { toFixedTrimmed } from '@/helpers/polymarket.js';
 
-export function ActivityCellPolymarketAction({
-    type,
-    children,
-    usdcSize,
-}: PropsWithChildren<{ type: PolymarketBetType; usdcSize: string }>) {
+interface Props {
+    type: PolymarketBetType;
+    usdcSize: string;
+    platform: BetsPlatform;
+}
+
+export function BetsActivityTxType({ type, platform, children, usdcSize }: PropsWithChildren<Props>) {
     switch (type) {
         case PolymarketBetType.Buy:
             return (
                 <ActivityCellAction>
                     <Trans>
                         <ActivityCellActionTag icon={<BuyIcon />}>Placed a bet</ActivityCellActionTag>
-                        <span>worth ${formatAmount(usdcSize)} at Polymarket</span>
+                        <span>
+                            worth ${toFixedTrimmed(+usdcSize, 2)} at <BetsName platform={platform} />
+                        </span>
                     </Trans>
                     {children}
                 </ActivityCellAction>
@@ -32,7 +37,9 @@ export function ActivityCellPolymarketAction({
                 <ActivityCellAction>
                     <Trans>
                         <ActivityCellActionTag icon={<SellIcon />}>Sold a bet</ActivityCellActionTag>
-                        <span>worth ${formatAmount(usdcSize)} at Polymarket</span>
+                        <span>
+                            worth ${toFixedTrimmed(+usdcSize, 2)} at <BetsName platform={platform} />
+                        </span>
                     </Trans>
                     {children}
                 </ActivityCellAction>

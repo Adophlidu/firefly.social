@@ -1,6 +1,6 @@
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
-import type { PolymarketActivity } from '@/providers/types/Firefly.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
 
 const tailZero = /\.0+$|(\.\d*[1-9])0+$/;
 
@@ -11,16 +11,7 @@ export function toFixedTrimmed(num: number, fixed: number) {
     return fixedNum.replace(tailZero, '$1');
 }
 
-export function formatAmount(amount: string) {
-    const numStr = runInSafe(() => {
-        const num = Number.parseFloat(amount);
-        return toFixedTrimmed(num / 1e6, 2);
-    }, true);
-
-    return numStr ?? '0';
-}
-
-export function computeVolume(activity: PolymarketActivity, index: number) {
+export function computeVolume(activity: BetsActivity, index: number) {
     const ratio = runInSafe(
         () => {
             const total = activity.conditionOutcomePrices.reduce((acc, price) => acc + Number.parseFloat(price), 0);

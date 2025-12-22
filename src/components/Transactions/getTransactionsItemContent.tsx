@@ -1,7 +1,7 @@
 import { safeUnreachable } from '@dimensiondev/utils';
 
+import { BetsActivityItem } from '@/components/Bets/BetsActivityItem.js';
 import { getSingleNFTFeedItemContent } from '@/components/NFTs/VirtualListHelper.js';
-import { PolymarketActivityItem } from '@/components/Polymarket/PolymarketActivityItem.js';
 import { SwapActivityItem } from '@/components/Swap/SwapActivityItem.js';
 import { Source } from '@/constants/enum.js';
 import type { TransactionsItem } from '@/providers/types/Firefly.js';
@@ -10,8 +10,8 @@ export function getTransactionsItemContent(data: TransactionsItem, index: number
     switch (data.source) {
         case Source.Swap:
             return <SwapActivityItem activity={data.data} listKey={listKey} index={index} />;
-        case Source.Polymarket:
-            return <PolymarketActivityItem activity={data.data} />;
+        case Source.Bets:
+            return <BetsActivityItem activity={data.data} />;
         case Source.NFTs:
             return getSingleNFTFeedItemContent(index, data.data, data.data.chain_id, {
                 listKey,

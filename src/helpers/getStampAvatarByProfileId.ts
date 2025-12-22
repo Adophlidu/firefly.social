@@ -32,7 +32,7 @@ export function getStampAvatarByProfileId(source: Source, profileId: string, siz
         case Source.Tokens:
         case Source.Article:
         case Source.DAOs:
-        case Source.Polymarket:
+        case Source.Bets:
             return urlcat(STAMP_URL, '/:address', { address: profileId, s });
         case Source.Telegram:
         case Source.Google:

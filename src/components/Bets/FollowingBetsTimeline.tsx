@@ -3,30 +3,34 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
+import { BetsActivityItem } from '@/components/Bets/BetsActivityItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
-import { PolymarketActivityItem } from '@/components/Polymarket/PolymarketActivityItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
-import { getFollowingPolymarketTimeline } from '@/providers/firefly/polymarket/getFollowingPolymarketTimeline.js';
+import { getFollowingBetsList } from '@/providers/firefly/bets/getFollowingBetsList.js';
 import { captureFollowingPolymarketLinkClick } from '@/providers/telemetry/capturePolymarketEvent.js';
-import type { PolymarketActivity } from '@/providers/types/Firefly.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
+import { BetsFilterNamespace, useBetsSourceFilterStore } from '@/store/useBetsSourceFilterStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 
-function getPolymarketActivityItem(index: number, activity: PolymarketActivity, onClick?: () => void) {
-    return (
-        <PolymarketActivityItem activity={activity} key={`${activity.slug}-${index}`} onPolymarketLinkClick={onClick} />
-    );
+function getBetsActivityItem(index: number, activity: BetsActivity, onClick?: () => void) {
+    return <BetsActivityItem activity={activity} key={`${activity.slug}-${index}`} onLinkClick={onClick} />;
 }
 
-export function FollowingPolymarketList() {
+export function FollowingBetsTimeline() {
     const { currentProfileSession } = useFireflyProfileStore();
+    const { platforms } = useBetsSourceFilterStore(BetsFilterNamespace.Following);
+
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['polymarket', 'following-list', currentProfileSession?.profileId],
+        queryKey: ['bets', 'list', 'following', currentProfileSession?.profileId, platforms.join(',')],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             try {
-                return await getFollowingPolymarketTimeline('all', indicator);
+                return await getFollowingBetsList({
+                    indicator,
+                    platforms,
+                });
             } catch {
                 return createPageable([], indicator);
             }
@@ -36,7 +40,7 @@ export function FollowingPolymarketList() {
         select: (data) => data.pages.flatMap((x) => x.data),
     });
 
-    const onPolymarketLinkClick = useCallback(() => {
+    const onBetsLinkClick = useCallback(() => {
         captureFollowingPolymarketLinkClick();
     }, []);
 
@@ -46,14 +50,14 @@ export function FollowingPolymarketList() {
 
     return (
         <ListInPage
-            source={Source.Polymarket}
-            key={Source.Polymarket}
+            source={Source.Bets}
+            key={Source.Bets}
             queryResult={queryResult}
             VirtualListProps={{
                 useWindowScroll: true,
-                listKey: `${ScrollListKey.Polymarket}:following`,
+                listKey: `${ScrollListKey.Bets}:following`,
                 computeItemKey: (index, activity) => `${activity.slug}-${index}`,
-                itemContent: (index, activity) => getPolymarketActivityItem(index, activity, onPolymarketLinkClick),
+                itemContent: (index, activity) => getBetsActivityItem(index, activity, onBetsLinkClick),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

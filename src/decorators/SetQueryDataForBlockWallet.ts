@@ -92,7 +92,7 @@ export function setWalletBlockStatus(address: string, status: boolean) {
         });
     });
 
-    patchTransactionsQuery(Source.Polymarket, undefined, (data) => !isSameEthereumAddress(data.wallet, address));
+    patchTransactionsQuery(Source.Bets, undefined, (data) => !isSameEthereumAddress(data.wallet, address));
     patchTransactionsQuery(Source.Swap, undefined, (data) => !isSameAddress(data.owner, address));
 
     queryClient.setQueriesData<DAOPagesData>({ queryKey: ['snapshots'] }, (old) => {

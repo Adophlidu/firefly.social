@@ -1,27 +1,29 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
+import { compact } from 'lodash-es';
 import { type CSSProperties, memo, type ReactNode } from 'react';
 
-import { ActivityCellPolymarketAction } from '@/components/ActivityCell/Polymarket/ActivityCellPolymarketAction.js';
+import { BetsActivityRate } from '@/components/Bets/BetsActivityRate.js';
+import { BetsActivityResult } from '@/components/Bets/BetsActivityResult.js';
+import { BetsActivityTxType } from '@/components/Bets/BetsActivityTxType.js';
 import { Image } from '@/components/Image.js';
-import { PolymarketActivityRate } from '@/components/Polymarket/PolymarketActivityRate.js';
-import { PolymarketActivityResult } from '@/components/Polymarket/PolymarketActivityResult.js';
-import { formatAmount } from '@/helpers/polymarket.js';
+import { BetsPlatform } from '@/constants/enum.js';
+import { toFixedTrimmed } from '@/helpers/polymarket.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
-import type { PolymarketActivity } from '@/providers/types/Firefly.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
 
 function floor(num: number | string) {
     return Number.isNaN(+num) ? 0 : Math.floor(+num);
 }
 
-interface PolymarketBetCellProps {
-    activity: PolymarketActivity;
+interface BetsActivityBodyProps {
+    activity: BetsActivity;
     className?: string;
     style?: CSSProperties;
     wrapper?: (children: ReactNode) => ReactNode;
 }
 
-export const PolymarketBetCell = memo<PolymarketBetCellProps>(function PolymarketBetCell({
+export const BetsActivityBody = memo<BetsActivityBodyProps>(function BetsActivityBody({
     activity,
     className,
     style,
@@ -36,11 +38,15 @@ export const PolymarketBetCell = memo<PolymarketBetCellProps>(function Polymarke
         '--danger-color': isDarkMode ? '#66120D' : '#FFD5D2',
         ...style,
     } as CSSProperties;
+    const displayTitle =
+        activity.platform === BetsPlatform.Opinion
+            ? compact([activity.parent_title, activity.title]).join(' - ')
+            : activity.title;
 
     const content = (
         <>
-            <ActivityCellPolymarketAction type={activity.side} usdcSize={activity.usdcSize} />
-            <div className="mt-1.5 rounded-xl border border-line bg-lightBg p-3">
+            <BetsActivityTxType type={activity.side} usdcSize={activity.usdcSize} platform={activity.platform} />
+            <div className="mt-1.5 rounded-2xl border border-line p-4">
                 <div className="flex gap-x-2">
                     <Image
                         alt={activity.title}
@@ -49,27 +55,25 @@ export const PolymarketBetCell = memo<PolymarketBetCellProps>(function Polymarke
                         className="size-6 shrink-0 rounded-lg"
                         src={activity.image}
                     />
-                    <span className="line-clamp-2 text-sm font-semibold leading-6 text-lightMain">
-                        {activity.title}
-                    </span>
+                    <span className="line-clamp-2 text-sm font-semibold leading-6 text-lightMain">{displayTitle}</span>
                 </div>
-                <div className="mt-2 flex items-center gap-x-1 text-sm font-medium">
+                <div className="mt-3 flex items-center gap-x-1 text-sm font-medium">
                     <span
-                        className={classNames('rounded-lg border px-2 leading-6', {
-                            'border-success text-success': isLeft,
-                            'border-danger text-danger': !isLeft,
+                        className={classNames('rounded-lg px-2 leading-6', {
+                            'bg-success/20 text-success': isLeft,
+                            'bg-danger/20 text-danger': !isLeft,
                         })}
                     >
-                        {outcome.toUpperCase()} - {floor(+activity.price * 100)}¢
+                        {outcome} - {floor(+activity.price * 100)}¢
                     </span>
-                    <span className="h-6 rounded-lg bg-lightBottom px-2 leading-6 text-lightMain dark:bg-lightBg">
-                        <Trans>×{formatAmount(activity.size)} shares</Trans>
+                    <span className="h-6 rounded-lg bg-lightBg px-2 leading-6 text-lightMain">
+                        <Trans>×{toFixedTrimmed(+activity.size, 2)} shares</Trans>
                     </span>
                 </div>
                 {activity.umaResolutionStatus === 'resolved' ? (
-                    <PolymarketActivityResult activity={activity} />
+                    <BetsActivityResult activity={activity} />
                 ) : (
-                    <PolymarketActivityRate activity={activity} />
+                    <BetsActivityRate activity={activity} />
                 )}
             </div>
         </>

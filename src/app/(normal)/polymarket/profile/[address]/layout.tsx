@@ -7,7 +7,7 @@ import { notFound } from '@/esm/navigation/server.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { getProfile } from '@/providers/firefly/polymarket/getProfile.js';
+import { getProfile } from '@/providers/firefly/bets/getProfile.js';
 import type { NextPageProps } from '@/types/utility.js';
 
 interface Props

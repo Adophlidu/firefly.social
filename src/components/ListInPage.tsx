@@ -42,7 +42,7 @@ export function ListInPage<T = unknown, C = unknown>({
         Source.NFTs,
         Source.Tokens,
         Source.Notifications,
-        Source.Polymarket,
+        Source.Bets,
     ].includes(source);
 
     const { virtuosoState, setVirtuosoState } = useGlobalState();

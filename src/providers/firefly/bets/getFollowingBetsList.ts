@@ -1,25 +1,34 @@
 import urlcat from 'urlcat';
 
-import { SourceInURL } from '@/constants/enum.js';
+import { BetsPlatform, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { formatPolymarketFromFirefly } from '@/helpers/formatPolymarketFromFirefly.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { PolymarketActivityTimeline } from '@/providers/types/Firefly.js';
+import type { BetsActivity, Response as FireflyResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
-export async function getFollowingPolymarketTimeline(
-    platformFollowing: SourceInURL | 'all' = 'all',
-    indicator?: PageIndicator,
-    size = 25,
-) {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/timeline/polymarket');
-    const response = await fireflySessionHolder.fetch<PolymarketActivityTimeline>(url, {
+interface Options {
+    platformFollowing?: SourceInURL | 'all';
+    indicator?: PageIndicator;
+    size?: number;
+    platforms?: BetsPlatform[];
+}
+
+export async function getFollowingBetsList({ platformFollowing = 'all', indicator, platforms, size = 20 }: Options) {
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/timeline/bets');
+    const response = await fireflySessionHolder.fetch<
+        FireflyResponse<{
+            result: BetsActivity[];
+            cursor?: string;
+        }>
+    >(url, {
         method: 'POST',
         body: JSON.stringify({
             platformFollowing,
             size,
+            platform: platforms?.join(',') || undefined,
             cursor: indicator?.id,
         }),
     });

@@ -3,12 +3,14 @@ import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { ExtraLikeType, Source, TxReactionType } from '@/constants/enum.js';
+import type { PageData } from '@/decorators/types.js';
+import { patchBetsActivityData } from '@/helpers/patchBetsActivityData.js';
 import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { updateTipsReactionStatus } from '@/helpers/updateTipsReactionStatus.js';
 import type { LikeTarget } from '@/hooks/useToggleLike.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import { type Article } from '@/providers/types/Article.js';
-import type { PolymarketActivity, SwapActivity } from '@/providers/types/Firefly.js';
+import type { BetsActivity, SwapActivity } from '@/providers/types/Firefly.js';
 
 function updateQueryForArticle(article: Article, isLiked: boolean) {
     queryClient.setQueryData<Article>(['article', article.id], (old) => {
@@ -19,9 +21,7 @@ function updateQueryForArticle(article: Article, isLiked: boolean) {
         });
     });
 
-    queryClient.setQueriesData<{
-        pages: Array<{ data: Article[] }>;
-    }>(
+    queryClient.setQueriesData<PageData<Article>>(
         {
             queryKey: ['articles'],
         },
@@ -51,9 +51,7 @@ function updateQueryForArticle(article: Article, isLiked: boolean) {
     });
 }
 function updateQueryForSnapshot(activity: SnapshotActivity, isLiked: boolean) {
-    queryClient.setQueriesData<{
-        pages: Array<{ data: any[] }>;
-    }>(
+    queryClient.setQueriesData<PageData<SnapshotActivity>>(
         {
             queryKey: ['activities'],
         },
@@ -95,33 +93,16 @@ function updateQueryForSnapshot(activity: SnapshotActivity, isLiked: boolean) {
         },
     );
 }
-function updateQueryForPolymarket(activity: PolymarketActivity, isLiked: boolean) {
-    queryClient.setQueriesData<{
-        pages: Array<{ data: PolymarketActivity[] }>;
-    }>(
-        {
-            queryKey: ['polymarket'],
-        },
-        (old) => {
-            if (!old?.pages) return old;
-
-            return produce(old, (draft) => {
-                draft.pages.forEach((page) => {
-                    page.data.forEach((oldData: PolymarketActivity) => {
-                        if (oldData.transactionHash === activity.transactionHash) {
-                            oldData.isLiked = !isLiked;
-                            oldData.likeCount = (activity.likeCount || 0) + (isLiked ? -1 : 1);
-                        }
-                    });
-                });
-            });
-        },
-    );
+function updateQueryForPolymarket(activity: BetsActivity, isLiked: boolean) {
+    patchBetsActivityData((oldData) => {
+        if (oldData.transactionHash === activity.transactionHash) {
+            oldData.isLiked = !isLiked;
+            oldData.likeCount = (activity.likeCount || 0) + (isLiked ? -1 : 1);
+        }
+    });
 }
 function updateQueryForSwap(activity: SwapActivity, isLiked: boolean) {
-    queryClient.setQueriesData<{
-        pages: Array<{ data: SwapActivity[] }>;
-    }>(
+    queryClient.setQueriesData<PageData<SwapActivity>>(
         {
             queryKey: ['swaps'],
         },
@@ -164,7 +145,7 @@ export function updateQueryForLikeReaction(target: LikeTarget, isLiked: boolean)
             return updateQueryForArticle(target.data, isLiked);
         case Source.DAOs:
             return updateQueryForSnapshot(target.data, isLiked);
-        case Source.Polymarket:
+        case Source.Bets:
             return updateQueryForPolymarket(target.data, isLiked);
         case Source.Swap:
             return updateQueryForSwap(target.data, isLiked);

@@ -1,6 +1,7 @@
 /* cspell:disable */
 
 import {
+    BetsPlatform,
     type BookmarkSource,
     ChannelTabType,
     type DiscoverSource,
@@ -195,11 +196,16 @@ export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Farcaster,
 export const SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED: SocialDiscoverSource[] = [Source.Twitter];
 export const SOCIAL_DISCOVER_WHITELIST_SOURCE: SocialDiscoverSource[] = [Source.Twitter];
 export const QUERY_MUTE_PROFILE_SOURCES = [Source.Bsky, Source.Twitter, Source.Lens];
-export const DISCOVER_SOURCES: DiscoverSource[] = [Source.Posts, Source.Transactions, Source.Activities] as const;
+export const DISCOVER_SOURCES: DiscoverSource[] = [
+    Source.Posts,
+    Source.Transactions,
+    Source.Bets,
+    Source.Activities,
+] as const;
 export const FOLLOWING_SOURCES: FollowingSource[] = [
     Source.Posts,
     Source.Transactions,
-    Source.Polymarket,
+    Source.Bets,
     Source.Activities,
 ] as const;
 export const FOLLOWING_CATEGORY = [FollowCategory.Followers, FollowCategory.Mutuals, FollowCategory.Following] as const;
@@ -348,3 +354,5 @@ export const SOCIAL_NOTIFICATION_TYPES: NotificationType[] = [
     NotificationType.Mention,
     NotificationType.Act,
 ];
+
+export const SORTED_BETS_PLATFORM: BetsPlatform[] = [BetsPlatform.Polymarket, BetsPlatform.Opinion];

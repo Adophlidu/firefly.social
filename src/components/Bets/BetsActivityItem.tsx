@@ -1,33 +1,28 @@
 import { first } from 'lodash-es';
 import { memo, useCallback } from 'react';
 import type { Address } from 'viem';
-import { polygon } from 'viem/chains';
 
 import { Avatar } from '@/components/Avatar.js';
-import { ChainIcon } from '@/components/ChainIcon.js';
+import { BetsActivityAction } from '@/components/Bets/BetsActivityAction.js';
+import { BetsActivityBody } from '@/components/Bets/BetsActivityBody.js';
+import { BetsIcon } from '@/components/Bets/BetsIcon.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Link } from '@/components/Link.js';
-import { PolymarketBetCell } from '@/components/Polymarket/PolymarketBetCell.js';
-import { PolymarketFooterBar } from '@/components/Polymarket/PolymarketFooterBar.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source, WalletProfileCategory } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
-import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
-import type { PolymarketActivity } from '@/providers/types/Firefly.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
 
-interface PolymarketActivityProps {
-    activity: PolymarketActivity;
-    onPolymarketLinkClick?: () => void;
+interface BetsActivityItemProps {
+    activity: BetsActivity;
+    onLinkClick?: () => void;
 }
 
-export const PolymarketActivityItem = memo<PolymarketActivityProps>(function PolymarketActivityItem({
-    activity,
-    onPolymarketLinkClick,
-}) {
+export const BetsActivityItem = memo<BetsActivityItemProps>(function BetsActivityItem({ activity, onLinkClick }) {
     const isMyProfile = useIsMyRelatedProfile(Source.Wallet, activity.wallet);
 
     const addressName = formatAddress(activity.wallet, 4);
@@ -35,11 +30,11 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
 
     const wrapper = useCallback(
         (children: React.ReactNode) => (
-            <Link target="_blank" href={resolvePolymarketEventUrl(activity.eventSlug)} onClick={onPolymarketLinkClick}>
+            <Link target="_blank" href={activity.url} onClick={onLinkClick}>
                 {children}
             </Link>
         ),
-        [activity.eventSlug, onPolymarketLinkClick],
+        [activity.url, onLinkClick],
     );
 
     return (
@@ -71,7 +66,7 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                                 · <TimestampFormatter time={activity.timestamp * 1000} /> ·
                             </span>
                         ) : null}
-                        <ChainIcon chainId={polygon.id} size={15} className="mr-auto shrink-0" />
+                        <BetsIcon platform={activity.platform} size={15} className="mr-auto shrink-0" />
                         {isMyProfile ? null : (
                             <WalletBaseMoreAction
                                 address={activity.wallet as Address}
@@ -79,9 +74,9 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                             />
                         )}
                     </div>
-                    <PolymarketBetCell activity={activity} wrapper={wrapper} />
+                    <BetsActivityBody activity={activity} wrapper={wrapper} />
 
-                    <PolymarketFooterBar activity={activity} />
+                    <BetsActivityAction activity={activity} />
                 </div>
             </div>
         </div>

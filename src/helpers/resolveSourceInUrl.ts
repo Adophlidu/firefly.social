@@ -28,7 +28,7 @@ export const resolveSourceInUrlForApi = createLookupTableResolver<Source, Source
         [Source.NFTs]: SourceInURL.NFTs,
         [Source.Tokens]: SourceInURL.Tokens,
         [Source.DAOs]: SourceInURL.DAOs,
-        [Source.Polymarket]: SourceInURL.Polymarket,
+        [Source.Bets]: SourceInURL.Bets,
         [Source.Telegram]: SourceInURL.Telegram,
         [Source.Google]: SourceInURL.Google,
         [Source.Apple]: SourceInURL.Apple,

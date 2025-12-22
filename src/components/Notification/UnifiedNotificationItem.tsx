@@ -10,7 +10,7 @@ import LikeIcon from '@/assets/like.svg';
 import { ActivityCellSnapshotAction } from '@/components/ActivityCell/Snapshot/ActivityCellSnapshotAction.js';
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
 import { Avatar } from '@/components/Avatar.js';
-import { PolymarketBetCell } from '@/components/Polymarket/PolymarketBetCell.js';
+import { BetsActivityBody } from '@/components/Bets/BetsActivityBody.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackContent.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
@@ -165,7 +165,7 @@ function BetLikeNotification({ notification }: BetLikeNotificationProps) {
         >
             {betActivity ? (
                 <div className="mt-2 min-w-0 flex-1 overflow-hidden">
-                    <PolymarketBetCell activity={betActivity} />
+                    <BetsActivityBody activity={betActivity} />
                 </div>
             ) : null}
         </UnifiedNotificationBase>

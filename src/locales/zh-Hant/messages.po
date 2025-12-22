@@ -124,9 +124,6 @@ msgstr "未找到群組 {id}。"
 msgid "Unmute successfully."
 msgstr "成功取消隱藏。"
 
-msgid "Failed to like polymarket."
-msgstr "按赞失敗。"
-
 msgid "Copy to clipboard"
 msgstr ""
 
@@ -344,9 +341,6 @@ msgstr "🙌 剛在「{0}」投了「{choice}」"
 msgid "Ended"
 msgstr "已結束"
 
-msgid "Polymarket liked."
-msgstr ""
-
 msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr "無法在 Firefly 上追蹤 {handleOrEnsOrAddress}。"
 
@@ -406,6 +400,9 @@ msgstr "稅率可修改"
 
 msgid "<0>Burned</0><1/>"
 msgstr "<0>已銷毀</0><1/>"
+
+msgid "Opinion"
+msgstr ""
 
 msgid "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
 msgstr ""
@@ -559,10 +556,6 @@ msgstr "貼文"
 msgid "Club details"
 msgstr "群組詳情"
 
-#. placeholder {0}: formatAmount(usdcSize)
-msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
-msgstr "<0>賣出投注</0><1>價值 ${0} 於 Polymarket</1>"
-
 msgid "Transactions"
 msgstr "交易記錄"
 
@@ -709,7 +702,7 @@ msgstr "Bluesky"
 msgid "True Token"
 msgstr "真實代幣"
 
-#. placeholder {0}: formatAmount(activity.size)
+#. placeholder {0}: toFixedTrimmed(+activity.size, 2)
 msgid "×{0} shares"
 msgstr ""
 
@@ -775,6 +768,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}}<4> 追�
 #. placeholder {0}: profile.followerCount
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {追蹤者} other {追蹤者}}"
+
+msgid "Bets liked."
+msgstr ""
 
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr "您的帳戶已被封鎖，請聯繫客服了解詳情。"
@@ -1109,10 +1105,6 @@ msgstr "資訊"
 msgid "Failed to bookmark article."
 msgstr "收藏文章失敗。"
 
-#. placeholder {0}: formatAmount(usdcSize)
-msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
-msgstr "<0>投注</0><1>價值${0}於 Polymarket</1>"
-
 msgid "Holders"
 msgstr "擁有者"
 
@@ -1333,6 +1325,10 @@ msgstr "更新"
 msgid "Registered account not found. Please switch to another wallet and try again."
 msgstr "未發現任意在Firefly註冊帳號，請更改錢包重試。"
 
+#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
+msgid "<0>Sold a bet</0><1>worth ${0} at <2/></1>"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Quoted on {0}."
 msgstr "🎭 已在 {0} 引用。"
@@ -1450,6 +1446,9 @@ msgstr "變更密碼"
 
 msgid "Verified by {provider}"
 msgstr "由 {provider} 驗證"
+
+msgid "Failed to like bets."
+msgstr ""
 
 msgid "Resend full or remaining?"
 msgstr "重新發布全部或剩餘部分？"
@@ -2263,9 +2262,6 @@ msgstr "NFT 鑄造成功！"
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "此操作不可逆，並且預約發布任務將被取消。"
-
-msgid "Failed to unlike polymarket."
-msgstr "取消按赞成功。"
 
 msgid "Lens"
 msgstr "Lens"
@@ -3307,6 +3303,9 @@ msgstr "新密碼不能與舊密碼相同。請重試。"
 msgid "Upload photo"
 msgstr "上傳照片"
 
+msgid "Bets unliked."
+msgstr ""
+
 msgid "Cross at handles"
 msgstr "跨平台用戶名稱"
 
@@ -3410,10 +3409,6 @@ msgstr "firefly.eth 喜歡您的交易"
 msgid "Connection failed. {0}"
 msgstr "連接失敗。{0}"
 
-#. placeholder {0}: outcome.toUpperCase()
-msgid "Settled as {0}"
-msgstr "已結算為 {0}"
-
 msgid "No available wallet."
 msgstr "沒有可用的錢包。"
 
@@ -3447,6 +3442,9 @@ msgstr "檢測到非合約地址。"
 
 msgid "Home"
 msgstr "主頁"
+
+msgid "Failed to unlike bets."
+msgstr ""
 
 msgid "Re-enter Password"
 msgstr "再次輸入密碼"
@@ -3495,6 +3493,9 @@ msgstr "抱歉，找不到此系列"
 
 msgid "<0>You</0> reposted"
 msgstr "<0>您</0>轉發了"
+
+msgid "Settled as {outcome}"
+msgstr ""
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "本合約可能包含增發功能，可能導致代幣大量生成引發價格波動，建議確認是否符合項目方發行說明。"
@@ -3689,6 +3690,10 @@ msgstr "掃碼登入帳戶"
 #. placeholder {2}: mutuals[2].displayName
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "共同追蹤者包含 {0}、{1} 及 {2}"
+
+#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
+msgid "<0>Placed a bet</0><1>worth ${0} at <2/></1>"
+msgstr ""
 
 msgid "Vote"
 msgstr "投票"
@@ -4516,9 +4521,6 @@ msgstr "此電子郵件已綁定其他 Firefly 帳戶。"
 
 msgid "Unmuted {handleOrEnsOrAddress}."
 msgstr "已取消隱藏 {handleOrEnsOrAddress}。"
-
-msgid "Polymarket unliked."
-msgstr "取消按赞成功。"
 
 msgid "No trading cooldown function."
 msgstr "無交易冷卻機制。"

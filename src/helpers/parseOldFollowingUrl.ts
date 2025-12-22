@@ -20,9 +20,12 @@ function fixFollowingSource(source: Source | null) {
 export function parseOldFollowingUrl(url: URL) {
     if (!url.pathname.startsWith('/following')) return null;
 
+    const sourceFromPath = url.pathname.split('/')[2];
     const source =
         resolveSourceFromUrlNoFallback(url.searchParams.get('source')) ||
-        fixFollowingSource(resolveSourceFromUrlNoFallback(url.pathname.split('/')[2]));
+        (sourceFromPath === 'polymarket'
+            ? Source.Bets
+            : fixFollowingSource(resolveSourceFromUrlNoFallback(sourceFromPath)));
 
     if (!source || !isFollowingSource(source)) return null;
 

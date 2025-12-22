@@ -8,16 +8,16 @@ import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
 import { POLYMARKET_URL } from '@/constants/static.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
-import { useTogglePolymarketBookmark } from '@/hooks/useTogglePolymarketBookmark.js';
-import type { PolymarketActivity } from '@/providers/types/Firefly.js';
+import { useToggleBetsBookmark } from '@/hooks/useToggleBetsBookmark.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
 
-interface PolymarketFooterBarProps {
-    activity: PolymarketActivity;
+interface BetsActivityActionProps {
+    activity: BetsActivity;
 }
 
-export const PolymarketFooterBar = memo<PolymarketFooterBarProps>(function PolymarketFooterBar({ activity }) {
+export const BetsActivityAction = memo<BetsActivityActionProps>(function BetsActivityAction({ activity }) {
     const identity = useFireflyIdentity(Source.Wallet, activity.wallet as Address);
-    const { mutate: toggleBookmark, isPending: isBookmarkPending } = useTogglePolymarketBookmark();
+    const { mutate: toggleBookmark, isPending: isBookmarkPending } = useToggleBetsBookmark();
 
     const { hasBookmarked } = activity;
 
@@ -30,7 +30,7 @@ export const PolymarketFooterBar = memo<PolymarketFooterBarProps>(function Polym
     return (
         <div className="mt-3 flex items-center justify-between text-second">
             <div className="flex items-center">
-                <LikeButton type={Source.Polymarket} data={activity} />
+                <LikeButton type={Source.Bets} data={activity} />
             </div>
 
             <div className="flex items-center gap-2">

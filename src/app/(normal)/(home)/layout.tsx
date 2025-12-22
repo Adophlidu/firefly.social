@@ -1,7 +1,6 @@
 import { msg } from '@lingui/core/macro';
 import type { PropsWithChildren } from 'react';
 
-import { DiscoverLoginRedirect } from '@/components/HomeTab/DiscoverLoginRedirect.js';
 import { HomeTabs } from '@/components/HomeTab/index.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
@@ -21,7 +20,6 @@ export default async function Layout({ children }: PropsWithChildren) {
         <div className="flex w-full flex-col">
             <NoSSR>
                 <HomeTabs />
-                <DiscoverLoginRedirect />
                 {children}
             </NoSSR>
         </div>
