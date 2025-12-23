@@ -32,10 +32,8 @@ const ExternalEnvSchema = z.object({
     // urls
     NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.social'),
     NEXT_PUBLIC_SOLANA_RPC_URL: z.string().default('https://api.mainnet-beta.solana.com'),
-    NEXT_PUBLIC_SOLANA_RPC_WS_URL: z.string().default('wss://api.mainnet-beta.solana.com'),
 
     // features
-    NEXT_PUBLIC_FIREFLY_WALLET_IFRAME: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_ACTIVITY_PARTICLE: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_COMPOSE_GIF: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_FIREFLY_DEV_API: z.nativeEnum(STATUS).default(STATUS.Disabled),
@@ -68,8 +66,6 @@ const ExternalEnvSchema = z.object({
 
     // app url scheme
     NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK: z.string().default('https://5euxu.app.link/PHvNiyVemIb'),
-    NEXT_PUBLIC_FIREFLY_IOS_HOME: z.string().default('firefly://'),
-    NEXT_PUBLIC_FIREFLY_ANDROID_HOME: z.string().default('firefly://home'),
 
     // gif
     NEXT_PUBLIC_GIPHY_API_KEY: z.string().default('invalid_giphy_api_key'),
@@ -77,9 +73,6 @@ const ExternalEnvSchema = z.object({
 
     // w3m
     NEXT_PUBLIC_W3M_PROJECT_ID: z.string().default('invalid_w3m_project_id'),
-
-    // privy
-    NEXT_PUBLIC_PRIVY_APP_ID: z.string().default('invalid_privy_app_id'),
 
     // firebase
     NEXT_PUBLIC_FIREBASE_API_KEY: z.string().optional(),
@@ -90,8 +83,11 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_FIREBASE_APP_ID: z.string().optional(),
     NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: z.string().optional(),
     NEXT_PUBLIC_FIREBASE_VAPID_KEY: z.string().optional(),
+
+    // lens
     NEXT_PUBLIC_LENS_APP_ADDRESS: z.string().optional(),
 
+    // passcode
     NEXT_PUBLIC_PASSCODE_PUBLIC_KEY: z.string().default('invalid_passcode_public_key'),
     NEXT_PUBLIC_PASSCODE_PUBLIC_KEY_STAGING: z.string().default('invalid_passcode_public_key_staging'),
     NEXT_PUBLIC_PASSCODE_IV: z.string().default('invalid_passcode_iv'),
@@ -108,17 +104,19 @@ export const env = {
         : {}) as z.infer<typeof InternalEnvSchema>,
     external: ExternalEnvSchema.parse({
         NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
-        NEXT_PUBLIC_PRIVY_APP_ID: process.env.NEXT_PUBLIC_PRIVY_APP_ID,
 
         // urls
         NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
         NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
-        NEXT_PUBLIC_SOLANA_RPC_WS_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_WS_URL,
 
         // features
+        NEXT_PUBLIC_ACTIVITY_PARTICLE: process.env.NEXT_PUBLIC_ACTIVITY_PARTICLE,
         NEXT_PUBLIC_COMPOSE_GIF: process.env.NEXT_PUBLIC_COMPOSE_GIF,
         NEXT_PUBLIC_FIREFLY_DEV_API: process.env.NEXT_PUBLIC_FIREFLY_DEV_API,
+        NEXT_PUBLIC_IFRAME_BRIDGE: process.env.NEXT_PUBLIC_IFRAME_BRIDGE,
         NEXT_PUBLIC_FORCE_SIGNUP: process.env.NEXT_PUBLIC_FORCE_SIGNUP,
+        NEXT_PUBLIC_FRAME_V1: process.env.NEXT_PUBLIC_FRAME_V1,
+        NEXT_PUBLIC_FRAME_V2: process.env.NEXT_PUBLIC_FRAME_V2,
         NEXT_PUBLIC_FRAME: process.env.NEXT_PUBLIC_FRAME,
         NEXT_PUBLIC_NITTER: process.env.NEXT_PUBLIC_NITTER,
         NEXT_PUBLIC_OPENGRAPH: process.env.NEXT_PUBLIC_OPENGRAPH,
@@ -165,6 +163,7 @@ export const env = {
         // lens
         NEXT_PUBLIC_LENS_APP_ADDRESS: process.env.NEXT_PUBLIC_LENS_APP_ADDRESS,
 
+        // passcode
         NEXT_PUBLIC_PASSCODE_PUBLIC_KEY: process.env.NEXT_PUBLIC_PASSCODE_PUBLIC_KEY,
         NEXT_PUBLIC_PASSCODE_PUBLIC_KEY_STAGING: process.env.NEXT_PUBLIC_PASSCODE_PUBLIC_KEY_STAGING,
         NEXT_PUBLIC_PASSCODE_IV: process.env.NEXT_PUBLIC_PASSCODE_IV,
