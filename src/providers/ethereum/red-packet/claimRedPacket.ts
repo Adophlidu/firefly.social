@@ -27,8 +27,10 @@ export async function claimRedPacket(context: ClaimRedPacketContext) {
     if (globalChainId !== chainId) await switchChain(wagmiConfig, { chainId });
 
     const claimWithSponsorHash = await runInSafeAsync(async () => {
-        const me = await getCurrentClaimProfile(source);
-        const sponsorable = await checkGasFreeStatus(chainId, account);
+        const [me, sponsorable] = await Promise.all([
+            getCurrentClaimProfile(source),
+            checkGasFreeStatus(chainId, account),
+        ]);
         if (!sponsorable || !me?.profileId) return;
         return claimForGasFree(rpid, account, {
             needLensAndFarcasterHandle: true,

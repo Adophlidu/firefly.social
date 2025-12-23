@@ -13,6 +13,8 @@ import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useIsPrivyWallet } from '@/hooks/useIsPrivyWallet.js';
+import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
@@ -27,6 +29,7 @@ interface Props {
     isClaiming: boolean;
     isRefunded: boolean;
     isBlacklist: boolean;
+    isSponsorable: boolean;
     canRefund: boolean;
     handleShare: () => void;
     handleRefund: () => void;
@@ -46,6 +49,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     isClaiming,
     isRefunded,
     isBlacklist,
+    isSponsorable,
     canRefund,
     handleShare,
     handleRefund,
@@ -60,6 +64,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     const { currentProfile } = useProfileStore(post.source);
     const isLogin = useIsLogin();
     const { account } = useChainContext({ networkType });
+    const isPrivyWallet = useIsPrivyWallet(networkType);
 
     const connectWallet = useCallback(() => {
         switch (networkType) {
@@ -72,6 +77,8 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
                 break;
         }
     }, [networkType]);
+
+    const openFireflyWallet = useOpenFireflyWallet();
 
     if (isRefunded || isEmpty) return null;
 
@@ -164,7 +171,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
                 <SendIcon width={16} height={16} />
                 <Trans>Share</Trans>
             </ActionButton>
-            {balance > 0 ? (
+            {balance > 0 || isSponsorable ? (
                 <ActionButton
                     loading={estimateLoading || isClaiming}
                     onClick={onClaim}
@@ -177,7 +184,14 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
                 <ActionButton
                     className="flex w-full items-center justify-center gap-x-1 text-sm leading-[18px]"
                     loading={estimateLoading}
-                    disabled
+                    disabled={!isPrivyWallet}
+                    onClick={() => {
+                        if (isPrivyWallet) {
+                            openFireflyWallet({
+                                path: `/receive?chain=${payload.chainId}`,
+                            });
+                        }
+                    }}
                 >
                     <Trans>Insufficient Balance for Gas Fee</Trans>
                 </ActionButton>

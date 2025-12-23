@@ -270,6 +270,7 @@ export function RedPacketCardContent({ payload, post }: Props) {
                         isEmpty={isEmpty}
                         isExpired={isExpired}
                         isClaiming={isClaiming}
+                        isSponsorable={isSponsorable}
                         canRefund={canRefund}
                         handleShare={handleShare}
                         handleRefund={refund}

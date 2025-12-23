@@ -3,13 +3,54 @@ import { Trans } from '@lingui/react/macro';
 import urlcat from 'urlcat';
 
 import CircleSuccessIcon from '@/assets/circle-success.svg';
+import type { NetworkType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
+import { useIsPrivyWallet } from '@/hooks/useIsPrivyWallet.js';
+import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-export function sharePostAfterClaimed(post: Post, amount: string, symbol?: string) {
+interface ShareOptions {
+    post: Post;
+    amount: string;
+    networkType: NetworkType;
+    chainId?: number;
+    symbol?: string;
+    txHash?: string;
+}
+
+interface Props extends Omit<ShareOptions, 'post'> {}
+
+function ClaimMessage({ amount, symbol, networkType, chainId, txHash }: Props) {
+    const isPrivyWallet = useIsPrivyWallet(networkType);
+    const openFireflyWallet = useOpenFireflyWallet();
+    if (isPrivyWallet)
+        return (
+            <Trans>
+                Your claimed {amount} {symbol} to your{' '}
+                <span
+                    className="text-highlight"
+                    onClick={() => {
+                        openFireflyWallet({
+                            path: `/transitions?chain=${chainId}&tx=${txHash}`,
+                        });
+                    }}
+                >
+                    Firefly Wallet
+                </span>
+                .
+            </Trans>
+        );
+    return (
+        <Trans>
+            Your claimed {amount} {symbol}.
+        </Trans>
+    );
+}
+
+export function sharePostAfterClaimed({ post, ...rest }: ShareOptions) {
     const postUrl = urlcat(SITE_URL, getPostUrl(post));
 
     ConfirmModalRef.open({
@@ -21,13 +62,7 @@ export function sharePostAfterClaimed(post: Post, amount: string, symbol?: strin
                     <Trans>Congratulations!</Trans>
                 </div>
                 <div className="mt-10 text-base font-bold leading-5 text-main">
-                    {amount ? (
-                        <Trans>
-                            Your claimed {amount} {symbol}.
-                        </Trans>
-                    ) : (
-                        <Trans>Claimed successfully.</Trans>
-                    )}
+                    {rest.amount ? <ClaimMessage {...rest} /> : <Trans>Claimed successfully.</Trans>}
                 </div>
             </div>
         ),

@@ -47,7 +47,14 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
                 );
             }
 
-            sharePostAfterClaimed(post, result.amount || '', symbol);
+            sharePostAfterClaimed({
+                post,
+                amount: result.amount || '',
+                networkType,
+                symbol,
+                chainId: payload.chainId,
+                txHash: result.tx,
+            });
             enqueueSuccessMessage(
                 result.amount && symbol
                     ? t`Claimed lucky drop with ${result.amount} ${symbol} successfully`
@@ -58,7 +65,7 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
             enqueueMessageFromError(error, t`Failed to claim red packet`);
             throw error;
         }
-    }, [claimWithEthereum, claimWithSolana, symbol, post, networkType, payload.rpid, source]);
+    }, [networkType, claimWithEthereum, claimWithSolana, source, post, symbol, payload.chainId, payload.rpid]);
 
     switch (networkType) {
         case NetworkType.Solana:
