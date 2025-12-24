@@ -461,6 +461,7 @@ export interface ProfileBadge {
     href?: string;
     icon?: string;
     color?: string;
+    description?: string;
 }
 
 export enum ProfileBadgePresetColors {

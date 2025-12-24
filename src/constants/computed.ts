@@ -213,6 +213,7 @@ export const REQUIRE_LOGIN_FOLLOWING_CATEGORY = [FollowCategory.Mutuals];
 export const SUPPORTED_ANONYMOUS_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Twitter];
 
 export const EXPLORE_TYPES: ExploreType[] = [
+    ExploreType.Bets,
     ExploreType.TopProfiles,
     ExploreType.TruthSocial,
     ExploreType.CryptoTrends,
@@ -239,6 +240,7 @@ export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource | undefin
     [ExploreType.CryptoTrends]: TrendingType.Trending,
     [ExploreType.TopChannels]: Source.Farcaster,
     [ExploreType.NFTs]: TrendingType.Trending,
+    [ExploreType.Bets]: undefined,
 };
 
 export const BOOKMARK_SOURCES: BookmarkSource[] = [
@@ -246,6 +248,7 @@ export const BOOKMARK_SOURCES: BookmarkSource[] = [
     Source.Lens,
     Source.Bsky,
     Source.Tokens,
+    Source.Bets,
     Source.NFTs,
     Source.Article,
     Source.DAOs,

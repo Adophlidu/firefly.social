@@ -80,6 +80,9 @@ const allEvents: {
         useFireflyWalletStore.getState().setIsAuthorized(true);
         await reconnectPrivyWallet();
     },
+    [IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE]: async () => {
+        throw new NotImplementedError();
+    },
     [IframeBridgeMethod.NAVIGATE]: async () => {
         throw new NotImplementedError();
     },

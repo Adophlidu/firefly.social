@@ -2,14 +2,15 @@
 
 import { safeUnreachable } from '@dimensiondev/utils';
 
+import { BetsList } from '@/components/BetsList.js';
 import { ChannelList } from '@/components/Channel/ChannelList.js';
 import { TrendingNFTs } from '@/components/Explores/TrendingNFTs.js';
 import { SuggestedFollowUsersList } from '@/components/SuggestedFollows/SuggestedFollowUsersList.js';
 import { TokenTrendingList } from '@/components/TokenTrendingList.js';
-import { type ExploreSource, ExploreType, type SocialSource, TrendingType } from '@/constants/enum.js';
+import { ExploreType, type SocialSource, TrendingType } from '@/constants/enum.js';
 
 interface Props {
-    source: ExploreSource;
+    source: string;
     type: ExploreType;
 }
 
@@ -39,6 +40,8 @@ export function ExplorePage({ source, type }: Props) {
         case ExploreType.Projects:
         case ExploreType.TruthSocial:
             return null;
+        case ExploreType.Bets:
+            return <BetsList source={source} />;
         default:
             safeUnreachable(type);
             return null;

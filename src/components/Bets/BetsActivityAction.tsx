@@ -19,7 +19,7 @@ export const BetsActivityAction = memo<BetsActivityActionProps>(function BetsAct
     const identity = useFireflyIdentity(Source.Wallet, activity.wallet as Address);
     const { mutate: toggleBookmark, isPending: isBookmarkPending } = useToggleBetsBookmark();
 
-    const { hasBookmarked } = activity;
+    const { hasBookmarked, has_bookmarked } = activity;
 
     const polymarketUrl = `${POLYMARKET_URL}/event/${activity.eventSlug}`;
 
@@ -35,7 +35,7 @@ export const BetsActivityAction = memo<BetsActivityActionProps>(function BetsAct
 
             <div className="flex items-center gap-2">
                 <Bookmark
-                    hasBookmarked={hasBookmarked}
+                    hasBookmarked={hasBookmarked || has_bookmarked}
                     onClick={handleBookmark}
                     hiddenCount
                     loading={isBookmarkPending}

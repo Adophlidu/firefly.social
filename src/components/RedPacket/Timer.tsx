@@ -11,9 +11,10 @@ import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 
 interface TimerProps extends HTMLProps<HTMLDivElement> {
     endTime: number;
+    icon?: React.ReactNode;
 }
 
-export function Timer({ endTime, className }: TimerProps) {
+export function Timer({ endTime, className, icon }: TimerProps) {
     const [now, setNow] = useState(Date.now());
 
     const timeLeft = getTimeLeft(endTime, now);
@@ -33,7 +34,7 @@ export function Timer({ endTime, className }: TimerProps) {
                 className,
             )}
         >
-            <HourGlassIcon width={12} height={12} />
+            {icon || <HourGlassIcon width={12} height={12} />}
             <span className="flex-1 text-xs leading-4">
                 <Trans>
                     {timeLeft.hours}h: {timeLeft.minutes}m: {timeLeft.seconds}s

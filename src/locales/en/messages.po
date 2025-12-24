@@ -405,6 +405,9 @@ msgstr "User Name can only contain lowercase letters, numbers, and -, and should
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 
+msgid "No bets found"
+msgstr "No bets found"
+
 msgid "Firefly wallets"
 msgstr "Firefly wallets"
 
@@ -2891,6 +2894,9 @@ msgstr "User Name is not available"
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 
+msgid "Buy {firstOutcome}"
+msgstr "Buy {firstOutcome}"
+
 msgid "Minutes"
 msgstr "Minutes"
 
@@ -2920,6 +2926,9 @@ msgstr "Paragraph article"
 
 msgid "Bio should be at least {minBioSize} characters"
 msgstr "Bio should be at least {minBioSize} characters"
+
+msgid "Buy {secondOutcome}"
+msgstr "Buy {secondOutcome}"
 
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
@@ -3413,6 +3422,10 @@ msgstr "firefly.eth liked your transaction"
 msgid "Connection failed. {0}"
 msgstr "Connection failed. {0}"
 
+#. placeholder {0}: resolvedOutcome.outcome
+msgid "Settled as {0}"
+msgstr "Settled as {0}"
+
 msgid "No available wallet."
 msgstr "No available wallet."
 
@@ -3716,6 +3729,9 @@ msgstr "Customize your Lucky Drop sender: Choose from your social account handle
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 
+msgid "Search bets"
+msgstr "Search bets"
+
 msgid "Channels"
 msgstr "Channels"
 
@@ -3948,6 +3964,9 @@ msgstr "You can set one or multiple rules to be eligible to win a Lucky Drop."
 #. placeholder {1}: collection.price_symbol
 msgid "{0} {1} <0>24H Vol</0>"
 msgstr "{0} {1} <0>24H Vol</0>"
+
+msgid "NEW"
+msgstr "NEW"
 
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)

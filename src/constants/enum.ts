@@ -187,7 +187,8 @@ export type BookmarkSource =
     | Source.DAOs
     | Source.NFTs
     | Source.Tokens
-    | Source.Bsky;
+    | Source.Bsky
+    | Source.Bets;
 export type FollowingSource = DiscoverSource | Source.Transactions | Source.Activities | Source.Bets;
 export type ExploreSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter | TrendingType;
 export type ExploreSourceInURL =
@@ -221,6 +222,7 @@ export enum ExploreType {
     TopChannels = 'clubs',
     TruthSocial = 'truth-social',
     NFTs = 'nfts',
+    Bets = 'bets',
 }
 
 export enum TrendingType {
@@ -237,6 +239,7 @@ export enum SearchType {
     NFTs = 'nfts',
     Tokens = 'tokens',
     Clubs = 'clubs',
+    Bets = 'bets',
 }
 
 /**

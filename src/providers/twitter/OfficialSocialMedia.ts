@@ -665,6 +665,7 @@ class OfficialSocialMedia implements Provider {
                       source: Source.Twitter,
                       icon: userInfo.affiliates_highlighted_label.label.badge.url,
                       href,
+                      description: userInfo.affiliates_highlighted_label.label.description,
                   }
                 : null,
         ]);

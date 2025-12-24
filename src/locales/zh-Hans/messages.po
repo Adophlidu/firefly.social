@@ -410,6 +410,9 @@ msgstr "用户名只能包含小写字母、数字和短横线（-），且不�
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr "🤑刚刚在领取了一个 #FireflyLuckyDrop 🧧💰✨ {postUrl}"
 
+msgid "No bets found"
+msgstr ""
+
 msgid "Firefly wallets"
 msgstr "Firefly 钱包"
 
@@ -2896,6 +2899,9 @@ msgstr "用户名不可用"
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr "热门前 200 榜单｜数据来源：<0> Rootdata </0>"
 
+msgid "Buy {firstOutcome}"
+msgstr ""
+
 msgid "Minutes"
 msgstr "分钟"
 
@@ -2925,6 +2931,9 @@ msgstr "Paragraph 文章"
 
 msgid "Bio should be at least {minBioSize} characters"
 msgstr "个人简介应至少包含 {minBioSize} 个字符"
+
+msgid "Buy {secondOutcome}"
+msgstr ""
 
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "这是从公开数据库或我们的算法中检索到的钱包。请先添加此钱包再设置为主钱包。"
@@ -3418,6 +3427,10 @@ msgstr "firefly.eth 点赞了你的交易"
 msgid "Connection failed. {0}"
 msgstr "连接失败。{0}"
 
+#. placeholder {0}: resolvedOutcome.outcome
+msgid "Settled as {0}"
+msgstr ""
+
 msgid "No available wallet."
 msgstr "没有可用的钱包。"
 
@@ -3721,6 +3734,9 @@ msgstr "自定义你的红包发送者名称：可选择你的社交账号或钱
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr "<0>已发送</0><1/><2>到</2><3><4>{0}</4></3>"
 
+msgid "Search bets"
+msgstr ""
+
 msgid "Channels"
 msgstr "圈子"
 
@@ -3953,6 +3969,9 @@ msgstr "你可以设置一个或多个规则，作为领取红包的条件。"
 #. placeholder {1}: collection.price_symbol
 msgid "{0} {1} <0>24H Vol</0>"
 msgstr "{0} {1} <0>24 小时交易量</0>"
+
+msgid "NEW"
+msgstr ""
 
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)

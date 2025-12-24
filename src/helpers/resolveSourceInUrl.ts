@@ -62,7 +62,7 @@ export const resolveSocialSourceInUrl = createLookupTableResolver<SocialSource, 
     },
 );
 
-export const resolveExploreSourceInURL = createLookupTableResolver<ExploreSource, ExploreSourceInURL>(
+export const resolveExploreSourceInURL = createLookupTableResolver<string, ExploreSourceInURL>(
     {
         [Source.Farcaster]: SourceInURL.Farcaster,
         [Source.Lens]: SourceInURL.Lens,

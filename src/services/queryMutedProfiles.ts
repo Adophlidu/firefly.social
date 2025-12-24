@@ -58,20 +58,7 @@ async function fetcher(payloads: MutedProfilePayload[]): Promise<Record<string, 
         );
 
         if (conditions.length > 0) {
-            const blockRelationPromise = getBlockRelation(conditions);
-
-            fireflyPayloads.forEach((payload) => {
-                const queryKey = ['profile-is-muted', payload.source, payload.profileId, true];
-                if (!queryClient.getQueryData(queryKey)) {
-                    queryClient.fetchQuery({
-                        queryKey,
-                        queryFn: () => blockRelationPromise,
-                        staleTime: 600_000,
-                    });
-                }
-            });
-
-            const relations = await blockRelationPromise;
+            const relations = await getBlockRelation(conditions);
             const relationMap = new Map<string, boolean>();
             relations.forEach((relation) => {
                 const source = resolveSourceFromFireflyPlatform(relation.snsPlatform);
@@ -79,11 +66,12 @@ async function fetcher(payloads: MutedProfilePayload[]): Promise<Record<string, 
             });
 
             fireflyPayloads.forEach((payload) => {
+                const queryKey = ['profile-is-muted', payload.source, payload.profileId, true];
                 const key = `${payload.source}:${payload.profileId}`;
                 const blocked = relationMap.get(key) ?? false;
 
                 results[key] = { source: payload.source, profileId: payload.profileId, blocked };
-                queryClient.setQueryData(['profile-is-muted', payload.source, payload.profileId, true], blocked);
+                queryClient.setQueryData(queryKey, blocked);
             });
         }
     }

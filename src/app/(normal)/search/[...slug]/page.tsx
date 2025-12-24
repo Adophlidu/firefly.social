@@ -2,6 +2,7 @@
 
 import { safeUnreachable } from '@dimensiondev/utils';
 
+import { SearchBetContent } from '@/app/(normal)/search/[...slug]/pages/SearchBetContent.js';
 import { SearchChannelContent } from '@/app/(normal)/search/[...slug]/pages/SearchChannelContent.js';
 import { SearchCollectionContent } from '@/app/(normal)/search/[...slug]/pages/SearchCollectionContent.js';
 import { SearchCommunityContent } from '@/app/(normal)/search/[...slug]/pages/SearchCommunityContent.js';
@@ -27,6 +28,8 @@ export default function Page() {
             return <SearchCollectionContent />;
         case SearchType.Clubs:
             return <SearchCommunityContent />;
+        case SearchType.Bets:
+            return <SearchBetContent />;
         default:
             safeUnreachable(searchType);
             return null;

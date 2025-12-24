@@ -410,6 +410,9 @@ msgstr ""
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr ""
 
+msgid "No bets found"
+msgstr ""
+
 msgid "Firefly wallets"
 msgstr ""
 
@@ -2896,6 +2899,9 @@ msgstr ""
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr ""
 
+msgid "Buy {firstOutcome}"
+msgstr ""
+
 msgid "Minutes"
 msgstr ""
 
@@ -2924,6 +2930,9 @@ msgid "Paragraph article"
 msgstr ""
 
 msgid "Bio should be at least {minBioSize} characters"
+msgstr ""
+
+msgid "Buy {secondOutcome}"
 msgstr ""
 
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
@@ -3418,6 +3427,10 @@ msgstr ""
 msgid "Connection failed. {0}"
 msgstr ""
 
+#. placeholder {0}: resolvedOutcome.outcome
+msgid "Settled as {0}"
+msgstr ""
+
 msgid "No available wallet."
 msgstr ""
 
@@ -3721,6 +3734,9 @@ msgstr ""
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr ""
 
+msgid "Search bets"
+msgstr ""
+
 msgid "Channels"
 msgstr ""
 
@@ -3952,6 +3968,9 @@ msgstr ""
 #. placeholder {0}: collection.volume_1d
 #. placeholder {1}: collection.price_symbol
 msgid "{0} {1} <0>24H Vol</0>"
+msgstr ""
+
+msgid "NEW"
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(Source.Bsky)

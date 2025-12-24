@@ -28,6 +28,7 @@ export const BookmarkMenu = memo<BookmarkMenuProps>(function BookmarkMenu({ isSe
                 case Source.Article:
                 case Source.NFTs:
                 case Source.Tokens:
+                case Source.Bets:
                 case Source.DAOs:
                     return true;
                 default:

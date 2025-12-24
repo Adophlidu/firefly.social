@@ -410,6 +410,9 @@ msgstr ""
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr "🤑 剛領取了一個 #FireflyLuckyDrop 🧧💰✨ {postUrl}"
 
+msgid "No bets found"
+msgstr ""
+
 msgid "Firefly wallets"
 msgstr "Firefly 錢包"
 
@@ -2896,6 +2899,9 @@ msgstr ""
 msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr ""
 
+msgid "Buy {firstOutcome}"
+msgstr ""
+
 msgid "Minutes"
 msgstr "分鐘"
 
@@ -2925,6 +2931,9 @@ msgstr ""
 
 msgid "Bio should be at least {minBioSize} characters"
 msgstr "個人簡介至少需 {minBioSize} 字元"
+
+msgid "Buy {secondOutcome}"
+msgstr ""
 
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "此錢包來自公開數據或我們的算法，請先添加錢包再設為主要錢包。"
@@ -3418,6 +3427,10 @@ msgstr "firefly.eth 喜歡您的交易"
 msgid "Connection failed. {0}"
 msgstr "連接失敗。{0}"
 
+#. placeholder {0}: resolvedOutcome.outcome
+msgid "Settled as {0}"
+msgstr ""
+
 msgid "No available wallet."
 msgstr "沒有可用的錢包。"
 
@@ -3721,6 +3734,9 @@ msgstr "自訂你的紅包發送者名稱：可選擇社交帳號或錢包地址
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr "<0>已發送</0><1/><2>至</2><3><4>{0}</4></3>"
 
+msgid "Search bets"
+msgstr ""
+
 msgid "Channels"
 msgstr "群組"
 
@@ -3952,6 +3968,9 @@ msgstr "可設定一或多項規則，作為領取紅包的條件。"
 #. placeholder {0}: collection.volume_1d
 #. placeholder {1}: collection.price_symbol
 msgid "{0} {1} <0>24H Vol</0>"
+msgstr ""
+
+msgid "NEW"
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(Source.Bsky)

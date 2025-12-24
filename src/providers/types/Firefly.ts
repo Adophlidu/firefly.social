@@ -2367,6 +2367,210 @@ export interface BetPortfolioItem {
     volume?: number;
 }
 
+export interface PolymarketEventSlugListData {
+    slug: string;
+    label: string;
+    sub_slug: Array<{
+        slug: string;
+        label: string;
+    }>;
+}
+
+export enum PolymarketUmaResolutionStatus {
+    Resolved = 'resolved',
+    Disputed = 'disputed',
+    Settled = 'settled',
+    Proposed = 'proposed',
+    Requested = 'requested',
+}
+
+export interface PolymarketEventListData {
+    id: string;
+    ticker: string;
+    slug: string;
+    title: string;
+    description: string;
+    resolutionSource: string;
+    startDate: string;
+    creationDate: string;
+    endDate: string;
+    image: string;
+    icon: string;
+    active: boolean;
+    closed: boolean;
+    archived: boolean;
+    new: boolean;
+    featured: boolean;
+    restricted: boolean;
+    liquidity: number;
+    volume: number;
+    openInterest: number;
+    createdAt: string;
+    updatedAt: string;
+    competitive: number;
+    volume24hr: number;
+    volume1wk: number;
+    volume1mo: number;
+    volume1yr: number;
+    enableOrderBook: boolean;
+    liquidityClob: number;
+    negRisk: boolean;
+    negRiskMarketID: string;
+    commentCount: number;
+    markets: PolymarketMarketData[];
+    tags: PolymarketTagData[];
+    cyom: boolean;
+    showAllOutcomes: boolean;
+    showMarketImages: boolean;
+    enableNegRisk: boolean;
+    automaticallyActive: boolean;
+    gmpChartMode: string;
+    negRiskAugmented: boolean;
+    featuredOrder: number;
+    pendingDeployment: boolean;
+    deploying: boolean;
+    deployingTimestamp: string;
+    requiresTranslation: boolean;
+    is_ff_activity: boolean;
+    series?: PolymarketSeriesData[] | null;
+}
+
+export interface PolymarketSeriesData {
+    id: string;
+    ticker: string;
+    slug: string;
+    title: string;
+    active: boolean;
+    archived: boolean;
+    closed: boolean;
+    commentCount: number;
+    createdAt: string;
+    featured: boolean;
+    icon: string;
+    image: string;
+    liquidity: number;
+    recurrence: string;
+    requiresTranslation: boolean;
+    restricted: boolean;
+    seriesType: string;
+    updatedAt: string;
+    volume: number;
+}
+
+export interface PolymarketMarketData {
+    id: string;
+    question: string;
+    conditionId: string;
+    slug: string;
+    resolutionSource: string;
+    endDate: string;
+    liquidity: string;
+    startDate: string;
+    image: string;
+    icon: string;
+    description: string;
+    outcomes: string;
+    outcomePrices: string;
+    volume: string;
+    active: boolean;
+    closed: boolean;
+    marketMakerAddress: string;
+    createdAt: string;
+    updatedAt: string;
+    new: boolean;
+    featured: boolean;
+    submitted_by: string;
+    archived: boolean;
+    resolvedBy: string;
+    restricted: boolean;
+    groupItemTitle: string;
+    groupItemThreshold: string;
+    questionID: string;
+    enableOrderBook: boolean;
+    orderPriceMinTickSize: number;
+    orderMinSize: number;
+    volumeNum: number;
+    liquidityNum: number;
+    endDateIso: string;
+    startDateIso: string;
+    hasReviewedDates: boolean;
+    volume24hr: number;
+    volume1wk: number;
+    volume1mo: number;
+    volume1yr: number;
+    clobTokenIds: string;
+    umaBond: string;
+    umaReward: string;
+    volume24hrClob: number;
+    volume1wkClob: number;
+    volume1moClob: number;
+    volume1yrClob: number;
+    volumeClob: number;
+    liquidityClob: number;
+    customLiveness: number;
+    acceptingOrders: boolean;
+    negRisk: boolean;
+    negRiskMarketID: string;
+    negRiskRequestID: string;
+    ready: boolean;
+    funded: boolean;
+    acceptingOrdersTimestamp: string;
+    cyom: boolean;
+    competitive: number;
+    pagerDutyNotificationEnabled: boolean;
+    approved: boolean;
+    clobRewards: PolymarketClobRewardData[];
+    rewardsMinSize: number;
+    rewardsMaxSpread: number;
+    spread: number;
+    oneDayPriceChange: number;
+    oneHourPriceChange: number;
+    oneWeekPriceChange: number;
+    lastTradePrice: number;
+    bestBid: number;
+    bestAsk: number;
+    automaticallyActive: boolean;
+    clearBookOnStart: boolean;
+    seriesColor: string;
+    showGmpSeries: boolean;
+    showGmpOutcome: boolean;
+    manualActivation: boolean;
+    negRiskOther: boolean;
+    umaResolutionStatuses: string;
+    pendingDeployment: boolean;
+    deploying: boolean;
+    deployingTimestamp: string;
+    rfqEnabled: boolean;
+    holdingRewardsEnabled: boolean;
+    feesEnabled: boolean;
+    requiresTranslation: boolean;
+    umaResolutionStatus?: PolymarketUmaResolutionStatus;
+}
+
+export interface PolymarketClobRewardData {
+    id: string;
+    conditionId: string;
+    assetAddress: string;
+    rewardsAmount: number;
+    rewardsDailyRate: number;
+    startDate: string;
+    endDate: string;
+}
+
+export interface PolymarketTagData {
+    id: string;
+    label: string;
+    slug: string;
+    forceShow: boolean;
+    publishedAt?: string;
+    updatedBy?: number;
+    createdAt: string;
+    updatedAt: string;
+    forceHide?: boolean;
+    requiresTranslation: boolean;
+    isCarousel?: boolean;
+}
+
 export interface PolymarketPositionData {
     Id: string;
     IsClaim: boolean;

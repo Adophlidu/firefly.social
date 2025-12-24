@@ -20,13 +20,14 @@ const resolveSearchTypeTitle = createLookupTableResolver<SearchType, MessageDesc
         [SearchType.Posts]: msg`Search post`,
         [SearchType.Channels]: msg`Search channel`,
         [SearchType.NFTs]: msg`Search nft`,
+        [SearchType.Bets]: msg`Search bets`,
         [SearchType.Tokens]: msg`Search token`,
         [SearchType.Clubs]: msg`Search clubs`,
     },
     msg`Search`,
 );
 
-const ENABLED_SINGLE_SEARCH_TYPES = [SearchType.Profiles, SearchType.NFTs, SearchType.Tokens];
+const ENABLED_SINGLE_SEARCH_TYPES = [SearchType.Profiles, SearchType.NFTs, SearchType.Tokens, SearchType.Bets];
 const ENABLED_DOUBLE_SEARCH_TYPES = [SearchType.Profiles, SearchType.Posts];
 const ENABLED_SOURCES = [SourceInURL.Farcaster, SourceInURL.Lens, SourceInURL.Twitter, SourceInURL.Bsky, SourceInURL.X];
 

@@ -3,6 +3,8 @@
 import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import type { HTMLProps } from 'react';
 
+import PolymarketSquare from '@/assets/polymarket-square.svg';
+import PolymarketSquareWhite from '@/assets/polymarket-square-white.svg';
 import VerifyIcon from '@/assets/verify.svg';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
@@ -12,6 +14,11 @@ import { type Profile, ProfileBadgePresetColors } from '@/providers/types/Social
 
 interface Props extends HTMLProps<HTMLDivElement> {
     profile: Profile;
+}
+
+enum PolymarketBadgeDescription {
+    Polymarket = 'Polymarket',
+    PolymarketTraders = 'Polymarket Traders',
 }
 
 const presetColors: Record<string, string> = {
@@ -41,6 +48,12 @@ export function ProfileVerifyBadge({ profile, className }: Props) {
     return (
         <div className={className}>
             {icons.map((icon, i) => {
+                if (icon.description === PolymarketBadgeDescription.PolymarketTraders) {
+                    return <PolymarketSquareWhite key={i} className="size-4 shrink-0" width={16} height={16} />;
+                }
+                if (icon.description === PolymarketBadgeDescription.Polymarket) {
+                    return <PolymarketSquare key={i} className="size-4 shrink-0" width={16} height={16} />;
+                }
                 if (icon.icon) {
                     const iconEl = (
                         <Image
