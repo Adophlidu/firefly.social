@@ -2,7 +2,6 @@ import { t } from '@lingui/core/macro';
 import { last } from 'lodash-es';
 import { useCallback } from 'react';
 import type { Address } from 'viem';
-import { useConnection } from 'wagmi';
 import { readContract } from 'wagmi/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
@@ -10,23 +9,25 @@ import { useClaimCallback } from '@/components/RedPacket/hooks/useClaimCallback.
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import type { SocialSource } from '@/constants/enum.js';
+import { NetworkType, type SocialSource } from '@/constants/enum.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
+import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export function useEthereumVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, enabled = true) {
-    const { address: account } = useConnection();
+    const appkitAccount = usePrivyAppkitAccountByNetwork(NetworkType.Ethereum);
+    const account = appkitAccount.account?.address || '';
 
     const signedMessage = 'privateKey' in payload ? payload.privateKey : payload.password;
     const {
         data,
         isFetching,
         refetch: recheckClaimStatus,
-    } = useClaimStrategyStatus(payload, source, enabled && !signedMessage);
+    } = useClaimStrategyStatus(payload, source, account, enabled && !signedMessage);
 
     const [{ loading: isClaiming }, claimCallback] = useClaimCallback(source, account ?? '', payload);
 

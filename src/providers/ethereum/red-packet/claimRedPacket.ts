@@ -3,6 +3,7 @@ import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
@@ -52,6 +53,8 @@ export async function claimRedPacket(context: ClaimRedPacketContext) {
         args: [payload.rpid, signed?.signedMessage, account],
         address: getRedPacketContractAddress(chainId),
         account: account as Address,
+        // Claim with Firefly Wallet
+        connector: wagmiConfig.connectors.find((x) => x.id === PRIVY_CONNECTOR_ID),
     });
 
     await waitForEthereumTransaction(chainId, hash);

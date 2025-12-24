@@ -34,8 +34,8 @@ import { minus, ZERO } from '@/helpers/number.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
 import { usePreloadImage } from '@/helpers/preloadImage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
-import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketModalRef } from '@/modals/RedPacketModal/index.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
@@ -67,7 +67,8 @@ export function RedPacketCardContent({ payload, post }: Props) {
     } = useAvailabilityComputed(payload, post);
     // #endregion
 
-    const { account } = useChainContext({ networkType });
+    const appkitAccount = usePrivyAppkitAccountByNetwork(networkType);
+    const account = appkitAccount.account?.address || '';
 
     const { data: cover } = useRedPacketCover({
         ...payload,
@@ -101,6 +102,7 @@ export function RedPacketCardContent({ payload, post }: Props) {
         {
             chainId: parsedChainId,
             networkType,
+            account,
         },
     );
 
@@ -184,7 +186,7 @@ export function RedPacketCardContent({ payload, post }: Props) {
                         {isSponsorable ? (
                             <Image
                                 alt="gasless"
-                                arial-label="gasless"
+                                aria-label="gasless"
                                 src="/image/gasless.png"
                                 className="pointer-events-none absolute left-0 top-0 size-[100px] overflow-hidden rounded-tl-[18px]"
                                 width={100}

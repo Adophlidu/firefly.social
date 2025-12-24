@@ -4,38 +4,33 @@ import { useAsyncFn } from 'react-use';
 
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { privySolanaWalletAdapter } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { NetworkType, type SocialSource } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
-import { useChainContext } from '@/hooks/useChainContext.js';
-import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
+import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { claimWithNativeToken } from '@/providers/solana/red-packet/claimWithNativeToken.js';
 import { claimWithSplToken } from '@/providers/solana/red-packet/claimWithSplToken.js';
 import { getClaimedRecord } from '@/providers/solana/red-packet/getClaimedRecord.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
-import { SolanaChainResolver } from '@/web3-providers/solana/ResolverAPI.js';
 import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, enabled = true) {
     const isNativeToken = isZeroAddressSolana(payload.token?.address);
 
-    const walletProvider = useSolanaWalletProvider();
-    const { account, chainId: contextChainId } = useChainContext({
-        chainId: payload.network
-            ? SolanaChainResolver.chainId(payload.network)
-            : (payload.chainId ?? SolanaChainId.Mainnet),
-        networkType: getNetworkTypeFromRpPayload(payload),
-    });
-    const { data, isFetching, refetch: recheckClaimStatus } = useClaimStrategyStatus(payload, source, enabled);
+    const appkitAccount = usePrivyAppkitAccountByNetwork(NetworkType.Solana);
+    const contextChainId = SolanaChainId.Mainnet;
+    const account = appkitAccount.account?.address || '';
+    const { data, isFetching, refetch: recheckClaimStatus } = useClaimStrategyStatus(payload, source, account, enabled);
 
+    const publicKey = privySolanaWalletAdapter?.publicKey;
     const [{ loading }, handleClaim] = useAsyncFn(async () => {
         const accountId = payload.rpid;
 
-        if (!walletProvider?.publicKey) {
+        if (!publicKey) {
             WalletConnectModalRef.open({ networkType: NetworkType.Solana });
             return { canClaim: true };
         }
@@ -90,22 +85,14 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: S
                 queryKey: ['red-packet', 'claim', payload.rpid],
             }),
             queryClient.refetchQueries({
-                queryKey: ['red-packet', 'solana-availability', payload.rpid, account],
+                queryKey: ['red-packet', 'solana-availability', payload.rpid, account?.toLowerCase()],
             }),
         ]);
         const claimedRecord = await getClaimedRecord(new web3.PublicKey(accountId), new web3.PublicKey(account));
         const amount = formatBalance(claimedRecord?.amount.toString() || '0', payload.token.decimals);
 
         return { canClaim: true, amount, tx: result.signature };
-    }, [
-        payload.rpid,
-        payload.token,
-        payload.tokenProgram,
-        walletProvider?.publicKey,
-        isNativeToken,
-        recheckClaimStatus,
-        account,
-    ]);
+    }, [payload, publicKey, recheckClaimStatus, contextChainId, account, source, isNativeToken]);
 
     return [
         {

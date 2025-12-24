@@ -12,7 +12,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
  * With `account`, would parse and check the availability.
  * Without `account`, would only parse.
  */
-export function useParseRedPacket(account: string, post: Post, enabled = true) {
+export function useParseRedPacket(account: string | undefined, post: Post, enabled = true) {
     const source = post.source;
     const { currentProfile } = useProfileStore(source);
     const image = first(
@@ -21,9 +21,9 @@ export function useParseRedPacket(account: string, post: Post, enabled = true) {
 
     const { data, isLoading } = useQuery({
         enabled,
-        queryKey: ['red-packet', 'parse', source, image, account, currentProfile?.profileId],
+        queryKey: ['red-packet', 'parse', source, image, account?.toLowerCase(), currentProfile?.profileId],
         queryFn: async () => {
-            if (!image) return;
+            if (!image) return null;
             return parse({
                 image: {
                     imageUrl: image,

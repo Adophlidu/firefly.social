@@ -10,7 +10,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { useChainContext } from '@/hooks/useChainContext.js';
+import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -24,7 +24,9 @@ import { SolanaChainId } from '@/web3-shared/solana/types.js';
 export function useAvailabilityComputed(payload: RedPacketJSONPayload, post: Post) {
     const payloadChainId = payload.token?.chainId as number | undefined;
     const networkType = getNetworkTypeFromRpPayload(payload);
-    const { account } = useChainContext({ networkType });
+    const appkitAccount = usePrivyAppkitAccountByNetwork(networkType);
+    const account = appkitAccount.account?.address || '';
+
     const { data: availability, refetch: recheckAvailability } = useAvailability(payload);
 
     const { parsed } = useParseRedPacket(account, post);
@@ -36,7 +38,7 @@ export function useAvailabilityComputed(payload: RedPacketJSONPayload, post: Pos
     ) => Promise<QueryObserverResult<typeof availability>>;
 
     const { data: password } = useQuery({
-        queryKey: ['red-packet', 'signed-message', account, post.source, payload],
+        queryKey: ['red-packet', 'signed-message', account?.toLowerCase(), post.source, payload],
         queryFn: async () => {
             const signed = await signClaimMessage({
                 account,
@@ -49,7 +51,12 @@ export function useAvailabilityComputed(payload: RedPacketJSONPayload, post: Pos
     });
 
     const signedMessage = 'privateKey' in payload ? payload.privateKey : payload.password;
-    const { data, refetch, isFetching, isLoading } = useClaimStrategyStatus(payload, post.source, !signedMessage);
+    const { data, refetch, isFetching, isLoading } = useClaimStrategyStatus(
+        payload,
+        post.source,
+        account,
+        !signedMessage,
+    );
 
     const recheckClaimStatus = useCallback(async () => {
         const { data } = await refetch();

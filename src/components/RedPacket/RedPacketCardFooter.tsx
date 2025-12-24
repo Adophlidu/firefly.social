@@ -11,14 +11,15 @@ import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useChainContext } from '@/hooks/useChainContext.js';
+import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { useIsPrivyWallet } from '@/hooks/useIsPrivyWallet.js';
 import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { EthereumChainId } from '@/web3-shared/evm/types.js';
+import { SolanaChainId } from '@/web3-shared/solana/types.js';
 
 interface Props {
     post: Post;
@@ -63,8 +64,8 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
 
     const { currentProfile } = useProfileStore(post.source);
     const isLogin = useIsLogin();
-    const { account } = useChainContext({ networkType });
-    const isPrivyWallet = useIsPrivyWallet(networkType);
+    const appkitAccount = usePrivyAppkitAccountByNetwork(networkType);
+    const account = appkitAccount.account?.address || '';
 
     const connectWallet = useCallback(() => {
         switch (networkType) {
@@ -184,13 +185,13 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
                 <ActionButton
                     className="flex w-full items-center justify-center gap-x-1 text-sm leading-[18px]"
                     loading={estimateLoading}
-                    disabled={!isPrivyWallet}
                     onClick={() => {
-                        if (isPrivyWallet) {
-                            openFireflyWallet({
-                                path: `/receive?chain=${payload.chainId}`,
-                            });
-                        }
+                        const chainId =
+                            payload.chainId ||
+                            (networkType === NetworkType.Solana ? SolanaChainId.Mainnet : EthereumChainId.Mainnet);
+                        openFireflyWallet({
+                            path: `/receive?chain=${chainId}`,
+                        });
                     }}
                 >
                     <Trans>Insufficient Balance for Gas Fee</Trans>

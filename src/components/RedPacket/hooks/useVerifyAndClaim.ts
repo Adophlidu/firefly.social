@@ -18,16 +18,10 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
     const networkType = getNetworkTypeFromRpPayload(payload);
     const symbol = payload.token?.symbol;
 
-    const [ethereumStatus, claimWithEthereum] = useEthereumVerifyAndClaim(
-        payload,
-        source,
-        networkType === NetworkType.Ethereum,
-    );
-    const [solanaStatus, claimWithSolana] = useSolanaVerifyAndClaim(
-        payload,
-        post.source,
-        networkType === NetworkType.Solana,
-    );
+    const isEvm = networkType === NetworkType.Ethereum;
+    const [ethereumStatus, claimWithEthereum] = useEthereumVerifyAndClaim(payload, source, isEvm);
+    const isSol = networkType === NetworkType.Solana;
+    const [solanaStatus, claimWithSolana] = useSolanaVerifyAndClaim(payload, post.source, isSol);
 
     const [{ loading }, handleClaim] = useAsyncFn(async () => {
         try {

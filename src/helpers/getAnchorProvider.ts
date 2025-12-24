@@ -15,8 +15,8 @@ const resolveCluster = createLookupTableResolver<SolanaChainId, web3.Cluster>(
     'devnet',
 );
 
-export function getAnchorProvider(chainId = SolanaChainId.Mainnet): AnchorProvider {
-    const adaptor = getWalletAdaptorConnected();
+export function getAnchorProvider(customAdaptor?: ReturnType<typeof getWalletAdaptorConnected>): AnchorProvider {
+    const adaptor = customAdaptor ?? getWalletAdaptorConnected();
     const connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');
     const wallet = {
         publicKey: adaptor.publicKey,

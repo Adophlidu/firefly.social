@@ -46,9 +46,8 @@ export function useSolanaAvailableBalance(
     });
     const { balance, nativeBalance } = data || {};
 
-    const gasFee = SOLANA_DEFAULT_CREATE_GAS;
-
     return useMemo(() => {
+        const gasFee = SOLANA_DEFAULT_CREATE_GAS;
         if (!balance || !enabled) return;
 
         const origin = {
@@ -74,5 +73,5 @@ export function useSolanaAvailableBalance(
             gasFee,
             insufficientGas: isGreaterThan(gasFee, nativeBalance?.value ?? '0'),
         };
-    }, [balance, gasFee, nativeBalance, isNativeToken, enabled]);
+    }, [balance, nativeBalance, isNativeToken, enabled]);
 }
