@@ -3,7 +3,7 @@
 import { classNames, getEnumAsArray } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import ArrowDownCircleIcon from '@/assets/arrow-circle-down.svg';
 import { BetsPlatformFilter } from '@/components/Bets/BetsPlatformFilter.js';
@@ -48,10 +48,6 @@ export function HomeTabs({
 }) {
     const pathname = usePathname();
     const { hasOpenSwap, setHasOpenSwap } = useTransactionsStateStore(NetworkType.Ethereum);
-    const [allTabs, setAllTabs] = useState<Record<HomeTab, Source>>({
-        [HomeTab.Discover]: types[HomeTab.Discover][0],
-        [HomeTab.Following]: types[HomeTab.Following][0],
-    });
     const { tab: currentTab, source } = useMemo(() => {
         const parsedFollowingPageUrl = parseFollowingPageUrl(pathname);
         if (parsedFollowingPageUrl) {
@@ -114,9 +110,10 @@ export function HomeTabs({
                                         <div className="w-full translate-y-[-50px] pt-[50px]">
                                             <div className="flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom py-3 shadow-messageShadow">
                                                 {getEnumAsArray(HomeTab).map(({ value: tab }) => {
-                                                    const type = types[tab].includes(allTabs[tab])
-                                                        ? allTabs[tab]
-                                                        : types[tab][0];
+                                                    const type =
+                                                        types[tab].includes(source) && tab !== currentTab
+                                                            ? source
+                                                            : types[tab][0];
                                                     return (
                                                         <MenuItem key={tab}>
                                                             <Link
@@ -166,10 +163,6 @@ export function HomeTabs({
                                 if (!hasOpenSwap) setHasOpenSwap(true);
                                 captureSwapEvent(EventId.EVENT_FOLLOWING_SWAP_CLICK);
                             }
-                            setAllTabs((x) => ({
-                                ...x,
-                                [currentTab]: source,
-                            }));
                         }}
                     />
                     {source === Source.Posts ? (
