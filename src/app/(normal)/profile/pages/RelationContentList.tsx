@@ -1,5 +1,7 @@
 'use client';
 
+import { safeUnreachable } from '@dimensiondev/utils';
+
 import { FollowersList } from '@/app/(normal)/profile/pages/FollowersList.js';
 import { FollowingList } from '@/app/(normal)/profile/pages/FollowingList.js';
 import { MutualFollowersList } from '@/app/(normal)/profile/pages/MutualFollowersList.js';
@@ -13,10 +15,10 @@ interface RelationContentListProps {
 
 export function RelationContentList({ category }: RelationContentListProps) {
     const { profile } = ProfileRelationContext.useContainer();
-
     if (!profile) return <NoResultsFallback />;
 
-    switch (category) {
+    const followCategory = category as FollowCategory;
+    switch (followCategory) {
         case FollowCategory.Following:
             return <FollowingList profileId={profile.profileId} source={profile.source} />;
         case FollowCategory.Followers:
@@ -24,6 +26,7 @@ export function RelationContentList({ category }: RelationContentListProps) {
         case FollowCategory.Mutuals:
             return <MutualFollowersList profileId={profile.profileId} source={profile.source} />;
         default:
+            safeUnreachable(followCategory);
             return <NoResultsFallback />;
     }
 }

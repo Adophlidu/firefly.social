@@ -1,4 +1,4 @@
-import { delay } from '@dimensiondev/utils';
+import { delay, safeUnreachable } from '@dimensiondev/utils';
 import type { UploadMediaV1Params } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
@@ -27,6 +27,7 @@ async function waitForUpload(media_id: string, retry = 30) {
             await delay(1000 * seconds);
             return waitForUpload(media_id, retry - 1);
         default:
+            safeUnreachable(data.processing_info?.state);
             throw new UnreachableError('UploadMediaStatus', data.processing_info?.state);
     }
 }

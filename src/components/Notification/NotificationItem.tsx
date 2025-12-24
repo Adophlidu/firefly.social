@@ -404,6 +404,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     router.push(getPostUrl(notification.post));
                     break;
                 default:
+                    safeUnreachable(type);
                     break;
             }
         },

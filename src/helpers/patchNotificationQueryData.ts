@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@dimensiondev/utils';
 import { type Draft, produce } from 'immer';
 import { first } from 'lodash-es';
 
@@ -62,8 +63,16 @@ export function patchNotificationQueryDataOnPost(source: Source, patcher: PostPa
             case NotificationType.Follow:
             case NotificationType.Mirror:
             case NotificationType.Reaction:
+            case NotificationType.LikeMatters:
+            case NotificationType.LikeMirror:
+            case NotificationType.LikeParagraph:
+            case NotificationType.LikeLimo:
+            case NotificationType.LikeBets:
+            case NotificationType.LikeDAO:
+            case NotificationType.LikeNFT:
                 break;
             default:
+                safeUnreachable(type);
                 return;
         }
 
@@ -124,7 +133,16 @@ export function patchNotificationQueryDataOnAuthor(source: Source, patcher: Prof
                 target = first(reactionNotif.reactors);
                 break;
             }
+            case NotificationType.LikeMatters:
+            case NotificationType.LikeMirror:
+            case NotificationType.LikeParagraph:
+            case NotificationType.LikeLimo:
+            case NotificationType.LikeBets:
+            case NotificationType.LikeDAO:
+            case NotificationType.LikeNFT:
+                break;
             default:
+                safeUnreachable(type);
                 return;
         }
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@dimensiondev/utils';
+import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -20,6 +20,8 @@ import { captureNFTMintClickEvent, captureNFTViewWebsiteClickEvent } from '@/pro
 import type { SponsorMintOptions } from '@/providers/types/Firefly.js';
 
 function getMintButtonText(mintStatus?: MintStatus) {
+    if (!mintStatus) return <Trans>Unknown status</Trans>;
+
     switch (mintStatus) {
         case MintStatus.Mintable:
             return <Trans>Mint</Trans>;
@@ -34,11 +36,14 @@ function getMintButtonText(mintStatus?: MintStatus) {
         case MintStatus.SoldOut:
             return <Trans>Sold Out</Trans>;
         default:
+            safeUnreachable(mintStatus);
             return <Trans>Unknown status</Trans>;
     }
 }
 
 function getMintButtonAriaLabel(mintStatus?: MintStatus) {
+    if (!mintStatus) return 'Mint';
+
     switch (mintStatus) {
         case MintStatus.Mintable:
             return 'Mint NFT';
@@ -53,6 +58,7 @@ function getMintButtonAriaLabel(mintStatus?: MintStatus) {
         case MintStatus.SoldOut:
             return 'Sold Out';
         default:
+            safeUnreachable(mintStatus);
             return 'Mint';
     }
 }

@@ -505,7 +505,6 @@ class BskySocialMedia implements Provider {
                             return [x.uri, x.reasonSubject];
                         case 'repost':
                             if (!x.reasonSubject) return [];
-
                             return [x.reasonSubject];
                         default:
                             return [];

@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@dimensiondev/utils';
 import { useCallback } from 'react';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
@@ -49,6 +50,7 @@ function resolveSourceFromClubType(clubType: ClubType) {
         case ClubType.LensGroup:
             return Source.Lens;
         default:
+            safeUnreachable(clubType);
             return undefined;
     }
 }

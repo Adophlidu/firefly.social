@@ -75,6 +75,7 @@ export class EthereumWalletProvider implements EthereumProvider {
 
             default:
                 logger.warn(`Unsupported event: ${event}`);
+                break;
         }
     }
 

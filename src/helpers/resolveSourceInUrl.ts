@@ -46,11 +46,7 @@ export const resolveSourceInUrlForApi = createLookupTableResolver<Source, Source
 );
 
 export function resolveSourceInUrl(source: Source) {
-    // twitter -> x
-    if (source === Source.Twitter) {
-        return SourceInURL.X;
-    }
-
+    if (source === Source.Twitter) return SourceInURL.X;
     return resolveSourceInUrlForApi(source);
 }
 

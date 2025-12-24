@@ -29,16 +29,11 @@ interface Props extends NextPageProps<{ id: string; source: ProfilePageSourceInU
 
 // Now we only support profile handle in url, so we fix the identity here
 function fixIdentity(identity: FireflyIdentity, profiles: FireflyProfile[]) {
-    switch (identity.source) {
-        case Source.Farcaster:
-        case Source.Twitter:
-            const profile = profiles.find(
-                (p) => p.identity.source === identity.source && p.displayName === identity.id,
-            );
-            return profile?.identity || identity;
-        default:
-            return identity;
+    if (identity.source === Source.Farcaster || identity.source === Source.Twitter) {
+        const profile = profiles.find((p) => p.identity.source === identity.source && p.displayName === identity.id);
+        return profile?.identity || identity;
     }
+    return identity;
 }
 
 export default async function Layout(props: Props) {

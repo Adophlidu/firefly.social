@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@dimensiondev/utils';
+import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { memo, useCallback, useMemo } from 'react';
@@ -241,10 +241,7 @@ export const UnifiedNotificationItem = memo<UnifiedNotificationItemProps>(functi
     notification,
 }) {
     const isArticleNotification = ARTICLE_LIKE_NOTIFICATION_TYPES.includes(notification.type as NotificationType);
-
-    if (isArticleNotification) {
-        return <ArticleLikeNotification notification={notification} />;
-    }
+    if (isArticleNotification) return <ArticleLikeNotification notification={notification} />;
 
     switch (notification.type) {
         case NotificationType.LikeBets:
@@ -253,7 +250,25 @@ export const UnifiedNotificationItem = memo<UnifiedNotificationItemProps>(functi
             return <DAOLikeNotification notification={notification} />;
         case NotificationType.LikeNFT:
             return <NFTLikeNotification notification={notification} />;
+        case NotificationType.Act:
+        case NotificationType.Comment:
+        case NotificationType.Follow:
+        case NotificationType.LikeBets:
+        case NotificationType.LikeDAO:
+        case NotificationType.LikeLimo:
+        case NotificationType.LikeMatters:
+        case NotificationType.LikeMirror:
+        case NotificationType.LikeNFT:
+        case NotificationType.LikeParagraph:
+        case NotificationType.Mention:
+        case NotificationType.Mirror:
+        case NotificationType.Quote:
+        case NotificationType.Reaction:
+        case NotificationType.Schedule:
+        case NotificationType.Tips:
+            return null;
         default:
+            safeUnreachable(notification.type);
             return null;
     }
 });

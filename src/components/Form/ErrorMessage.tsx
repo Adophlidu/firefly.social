@@ -1,4 +1,4 @@
-import { classNames } from '@dimensiondev/utils';
+import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import type { HTMLProps } from 'react';
 import { type Control, useFormState } from 'react-hook-form';
@@ -25,7 +25,7 @@ export enum ValidationErrorCode {
 }
 
 function ValidationErrorMessage({ errorCode }: Props) {
-    const [code, extra] = errorCode.split(':');
+    const [code, extra] = errorCode.split(':') as [ValidationErrorCode, string];
 
     switch (code) {
         case ValidationErrorCode.LENS_HANDLE_ERROR:
@@ -51,6 +51,7 @@ function ValidationErrorMessage({ errorCode }: Props) {
         case ValidationErrorCode.BIO_MAX_SIZE_ERROR:
             return <Trans>Bio should not exceed {extra} characters</Trans>;
         default:
+            safeUnreachable(code);
             return errorCode;
     }
 }

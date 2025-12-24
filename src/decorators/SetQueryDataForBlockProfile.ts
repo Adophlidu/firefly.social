@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@dimensiondev/utils';
 import { type Draft, produce } from 'immer';
 import { first, uniqBy } from 'lodash-es';
 
@@ -120,7 +121,16 @@ export function setBlockStatus(source: SocialSource, profileId: string, status: 
                             if (!reactor) return true;
                             return reactor.profileId !== profileId;
                         }
+                        case NotificationType.LikeMatters:
+                        case NotificationType.LikeMirror:
+                        case NotificationType.LikeParagraph:
+                        case NotificationType.LikeLimo:
+                        case NotificationType.LikeBets:
+                        case NotificationType.LikeDAO:
+                        case NotificationType.LikeNFT:
+                            return true;
                         default:
+                            safeUnreachable(notification.type);
                             return true;
                     }
                 });

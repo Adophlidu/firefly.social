@@ -120,6 +120,7 @@ export enum EventId {
     MIRROR_ARTICLE_CLICK = 'mirror_article_click', // ✅
     PARAGRAPH_ARTICLE_CLICK = 'paragraph_article_click', // ✅
     MATTERS_ARTICLE_CLICK = 'matters_article_click', // ✅
+    LIMO_ARTICLE_CLICK = 'limo_article_click', // ✅
 
     // snapshot
     SNAPSHOT_VOTE_SUBMIT = 'snapshot_vote_submit', // ✅

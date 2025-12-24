@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 
@@ -39,6 +40,7 @@ export async function BetsProfileDetailContent({ address, platform }: Props) {
                     return profile ? formatOpinionProfile(profile) : undefined;
                 }
                 default:
+                    safeUnreachable(platform);
                     return;
             }
         }),

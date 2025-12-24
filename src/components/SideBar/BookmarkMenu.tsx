@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { memo, useMemo } from 'react';
 
@@ -24,7 +25,13 @@ export const BookmarkMenu = memo<BookmarkMenuProps>(function BookmarkMenu({ isSe
                 case Source.Bsky:
                 case Source.Lens:
                     return !!allProfiles[source]?.profileId;
+                case Source.Article:
+                case Source.NFTs:
+                case Source.Tokens:
+                case Source.DAOs:
+                    return true;
                 default:
+                    safeUnreachable(source);
                     return false;
             }
         });

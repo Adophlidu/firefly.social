@@ -1,3 +1,5 @@
+import { safeUnreachable } from '@dimensiondev/utils';
+
 import { type ProfilePageSource, Source } from '@/constants/enum.js';
 import { WatchType } from '@/providers/types/Firefly.js';
 
@@ -9,11 +11,13 @@ export function resolveWatchTypeToSource(watchType: WatchType): ProfilePageSourc
             return Source.Lens;
         case WatchType.Twitter:
             return Source.Twitter;
-
         case WatchType.Wallet:
         case WatchType.SolanaWallet:
             return Source.Wallet;
+        case WatchType.MaskX:
+            throw new Error('MaskX is not supported');
         default:
+            safeUnreachable(watchType);
             throw new Error(`Unknown watch type: ${watchType}`);
     }
 }

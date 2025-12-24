@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import {
     createMemoryHistory,
@@ -28,6 +29,7 @@ function MainTitle() {
         case NetworkType.Solana:
             return <Trans>Connect Solana Wallet</Trans>;
         default:
+            safeUnreachable(networkType);
             return <Trans>Connect Wallet</Trans>;
     }
 }

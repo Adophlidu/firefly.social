@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
@@ -60,6 +61,7 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
                     case NetworkType.Solana:
                         return isSameAddress(item.id, token?.address);
                     default:
+                        safeUnreachable(networkType);
                         return false;
                 }
             },

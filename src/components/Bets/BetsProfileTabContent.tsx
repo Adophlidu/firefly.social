@@ -1,5 +1,6 @@
 'use client';
 
+import { safeUnreachable } from '@dimensiondev/utils';
 import { Suspense } from 'react';
 
 import { BetsProfilePositionList } from '@/components/Bets/BetsProfilePositionList.js';
@@ -23,6 +24,7 @@ function BetsProfileTabContentList({ platform, address, proxyAddress }: Props) {
         case Category.Trades:
             return <BetsTradeList platform={platform} address={address} />;
         default:
+            safeUnreachable(currentTab);
             return null;
     }
 }

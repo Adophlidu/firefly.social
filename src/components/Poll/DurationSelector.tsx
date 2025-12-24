@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { last } from 'lodash-es';
 
@@ -46,6 +47,7 @@ export function DurationSelector({ poll, readonly }: DurationSelectorProps) {
                 updatePoll({ ...poll, duration: getValidDuration(type, { days, hours, minutes: value }) });
                 break;
             default:
+                safeUnreachable(type);
                 break;
         }
     };

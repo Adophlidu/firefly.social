@@ -1,7 +1,7 @@
 import { compact, isEmpty } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
+import { BookmarkType, FireflyPlatform, type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
@@ -761,7 +761,7 @@ class FireflySocialMedia implements Provider {
 
     async getBlockedProfiles(
         indicator?: PageIndicator,
-        source?: Exclude<SourceInURL, SourceInURL.Article>,
+        source?: SocialSourceInURL,
     ): Promise<Pageable<Profile, PageIndicator>> {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/platformMuteList', {
             size: 20,
@@ -769,7 +769,8 @@ class FireflySocialMedia implements Provider {
             platform: source,
         });
         const response = await fireflySessionHolder.fetch<BlockedUsersResponse>(url);
-        const ids = response.data?.blocks.map((x) => x.snsId);
+        const data = resolveFireflyResponseData(response);
+        const ids = data.blocks.map((x) => x.snsId);
         const profiles: Profile[] = ids?.length && source ? await getProfilesByIds(source, ids) : EMPTY_LIST;
 
         const blockedProfiles: Profile[] = profiles.map((profile) => ({
@@ -781,7 +782,7 @@ class FireflySocialMedia implements Provider {
         return createPageable(
             blockedProfiles,
             createIndicator(indicator),
-            response.data?.nextPage ? createNextIndicator(indicator, `${response.data?.nextPage}`) : undefined,
+            data.nextPage ? createNextIndicator(indicator, `${data.nextPage}`) : undefined,
         );
     }
 

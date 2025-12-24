@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@dimensiondev/utils';
 import { msg } from '@lingui/core/macro';
 
 import { IfPathname } from '@/components/IfPathname.js';
@@ -64,6 +65,7 @@ export default async function Layout(props: Props) {
         case Agent.FarcasterFrame:
             return null;
         default:
+            safeUnreachable(resolvedAgent);
             return null;
     }
 }

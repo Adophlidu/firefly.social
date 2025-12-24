@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@dimensiondev/utils';
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -32,7 +33,11 @@ function setJoinStatus(source: SocialSource, channel: Channel, status: boolean) 
         case Source.Lens:
             queryClient.refetchQueries({ queryKey: ['profiles', source, 'members-of', channel.id] });
             break;
+        case Source.Bsky:
+        case Source.Twitter:
+            break;
         default:
+            safeUnreachable(source);
             break;
     }
 }

@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { compose } from '@dimensiondev/utils';
+import { compose, safeUnreachable } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
@@ -48,7 +48,12 @@ function resolveAttachmentsSrc(asset?: Attachment) {
         case 'Video':
         case 'AnimatedGif':
             return asset.coverUri;
+        case 'Audio':
+        case 'Poll':
+        case 'Unknown':
+            return null;
         default:
+            safeUnreachable(asset.type);
             return null;
     }
 }

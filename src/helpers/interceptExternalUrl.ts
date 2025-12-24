@@ -4,6 +4,7 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { ExternalSiteDomain, Source } from '@/constants/enum.js';
 import { getSiteTypeFromUrl } from '@/helpers/getSiteTypeFromUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
+import { logger } from '@/libs/Logger.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
@@ -53,6 +54,7 @@ async function interceptFarcasterUrl(u: URL) {
             return true;
         }
         default:
+            logger.warn(`[interceptFarcasterUrl] Unknown pathname: ${u.pathname}`);
             return false;
     }
 }

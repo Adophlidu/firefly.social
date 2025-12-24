@@ -1,3 +1,5 @@
+import { safeUnreachable } from '@dimensiondev/utils';
+
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';
@@ -110,11 +112,16 @@ export function captureArticleClickEvent(platform: ArticlePlatform, fireflyAccou
                 return TelemetryProvider.captureEvent(EventId.PARAGRAPH_ARTICLE_CLICK, {
                     firefly_account_id: fireflyAccountId,
                 });
+            case ArticlePlatform.Limo:
+                return TelemetryProvider.captureEvent(EventId.LIMO_ARTICLE_CLICK, {
+                    firefly_account_id: fireflyAccountId,
+                });
             case ArticlePlatform.Matters:
                 return TelemetryProvider.captureEvent(EventId.MATTERS_ARTICLE_CLICK, {
                     firefly_account_id: fireflyAccountId,
                 });
             default:
+                safeUnreachable(platform);
                 return;
         }
     });

@@ -1,4 +1,4 @@
-import { parseUrl } from '@dimensiondev/utils';
+import { parseUrl, safeUnreachable } from '@dimensiondev/utils';
 
 import { FRAME_DEV_SERVER_URL, FRAME_SERVER_URL } from '@/constants/static.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -72,8 +72,17 @@ export function resolveEmbedMediaType(url: string, type?: EmbedMediaType) {
             return 'Video';
         case EmbedMediaType.UNKNOWN:
             return 'Unknown';
-        default:
+        case EmbedMediaType.FRAME:
             if (isValidPollFrameUrl(url)) return 'Poll';
+            return;
+        case EmbedMediaType.APPLICATION:
+        case EmbedMediaType.CAST:
+        case EmbedMediaType.TEXT:
+        case EmbedMediaType.NFT:
+        case EmbedMediaType.FONT:
+            return;
+        default:
+            safeUnreachable(type);
             return;
     }
 }

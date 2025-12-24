@@ -1,5 +1,6 @@
 'use client';
 
+import { safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
@@ -29,7 +30,11 @@ function getFollowSuccessMessage(channel: Channel, isFollowing: boolean) {
             return `${isFollowing ? 'Removed' : 'Added'} #${channel.name} on ${sourceName}`;
         case Source.Lens:
             return `${isFollowing ? 'Left' : 'Joined'} #${channel.name} on ${sourceName}`;
+        case Source.Farcaster:
+        case Source.Twitter:
+            return `${isFollowing ? 'Unfollowed' : 'Followed'} /${channel.id} on ${sourceName}`;
         default:
+            safeUnreachable(channel.source);
             return `${isFollowing ? 'Unfollowed' : 'Followed'} /${channel.id} on ${sourceName}`;
     }
 }
@@ -42,7 +47,11 @@ function getFollowErrorMessage(channel: Channel, isFollowing: boolean) {
             return `Failed to ${isFollowing ? 'remove' : 'add'} #${channel.name} on ${sourceName}`;
         case Source.Lens:
             return `Failed to ${isFollowing ? 'leave' : 'join'} #${channel.name} on ${sourceName}`;
+        case Source.Farcaster:
+        case Source.Twitter:
+            return `Failed to ${isFollowing ? 'unfollow' : 'follow'} /${channel.id} on ${sourceName}`;
         default:
+            safeUnreachable(channel.source);
             return `Failed to ${isFollowing ? 'unfollow' : 'follow'} /${channel.id} on ${sourceName}`;
     }
 }

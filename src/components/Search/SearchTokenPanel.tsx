@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@dimensiondev/utils';
 import { memo } from 'react';
 
 import { SearchTokenPanelEVM } from '@/components/Search/SearchTokenPanelEVM.js';
@@ -19,6 +20,7 @@ export const SearchTokenPanel = memo<SearchTokenPanelProps>(function SearchToken
         case NetworkType.Solana:
             return <SearchTokenPanelSolana {...props} />;
         default:
+            safeUnreachable(networkType);
             return null;
     }
 });

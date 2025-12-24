@@ -130,13 +130,10 @@ export function eip5792Polyfill(requestHandler: RequestHandler) {
         switch (method) {
             case EthereumMethodType.EXT_ETH_WALLET_GET_CAPABILITIES:
                 return handleGetCapabilities(params as Array<`0x${string}`>);
-
             case EthereumMethodType.EXT_ETH_WALLET_SEND_CALLS:
                 return handleSendCalls(params, requestHandler);
-
             case EthereumMethodType.EXT_ETH_WALLET_GET_CALLS_STATUS:
                 return handleGetCallsStatus(params[0] as string, requestHandler);
-
             default:
                 return requestHandler(requestArguments);
         }

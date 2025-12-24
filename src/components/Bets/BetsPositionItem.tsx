@@ -1,4 +1,4 @@
-import { classNames } from '@dimensiondev/utils';
+import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact, first, isUndefined } from 'lodash-es';
 
@@ -29,6 +29,7 @@ function resolveEventUrl(platform: BetsPlatform, positionData: BetsPositionDataF
                 ? resolveOpinionEventUrl(positionData.topicId, Boolean(positionData.is_mutil))
                 : undefined;
         default:
+            safeUnreachable(platform);
             return;
     }
 }
