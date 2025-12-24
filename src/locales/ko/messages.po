@@ -1060,6 +1060,9 @@ msgstr ""
 msgid "Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly."
 msgstr ""
 
+msgid "No opinion profile found."
+msgstr ""
+
 msgid "Transaction Hash"
 msgstr ""
 
@@ -1118,6 +1121,9 @@ msgid "Max"
 msgstr ""
 
 msgid "Mute all"
+msgstr ""
+
+msgid "Polymarket Profile"
 msgstr ""
 
 msgid "Failed to generate signature packet with source = {source}."
@@ -1764,6 +1770,9 @@ msgstr ""
 msgid "Verify and Claim"
 msgstr ""
 
+msgid "Opinion Profile"
+msgstr ""
+
 msgid "Failed to connect on {source}"
 msgstr ""
 
@@ -2254,9 +2263,6 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr ""
 
-msgid "Polymarket PnL"
-msgstr ""
-
 msgid "Reset password"
 msgstr ""
 
@@ -2622,7 +2628,7 @@ msgid "Show more tokens"
 msgstr ""
 
 #. placeholder {0}: formatPolymarketNumber(position.shares, { prefix: null })
-#. placeholder {0}: leftShift(trade.size, 6).toFixed(1)
+#. placeholder {0}: toFixedTrimmed(+trade.size, 2)
 msgid "{0} shares"
 msgstr ""
 
@@ -3084,6 +3090,9 @@ msgstr ""
 #. placeholder {0}: dayjs(task.schedule_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
 msgid "will send on {0} at {1}"
+msgstr ""
+
+msgid "<0/> PnL"
 msgstr ""
 
 msgid "Failed to like the post."
@@ -4111,6 +4120,9 @@ msgid "Unmute"
 msgstr ""
 
 msgid "Congratulations!"
+msgstr ""
+
+msgid "Volume Traded"
 msgstr ""
 
 msgid "Clear all requirements"

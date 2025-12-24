@@ -1,26 +1,29 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
+import { compact } from 'lodash-es';
 import type { HTMLProps } from 'react';
 
 import BuyIcon from '@/assets/polymarket-bought.svg';
 import SellIcon from '@/assets/polymarket-sold.svg';
+import { BetsTime } from '@/components/Bets/BetsTime.js';
 import { Link } from '@/components/Link.js';
-import { PolymarketTime } from '@/components/Polymarket/PolymarketTime.js';
+import { BetsPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
-import { leftShift, rightShift } from '@/helpers/number.js';
-import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';
-import type { PolymarketTradeData } from '@/providers/types/Firefly.js';
+import { rightShift } from '@/helpers/number.js';
+import { toFixedTrimmed } from '@/helpers/polymarket.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
 
-interface PolymarketTradeItemProps extends HTMLProps<HTMLDivElement> {
-    trade: PolymarketTradeData;
+interface BetsTradeItemProps extends HTMLProps<HTMLDivElement> {
+    trade: BetsActivity;
+    platform: BetsPlatform;
 }
-interface PolymarketTradeTypeProps extends HTMLProps<HTMLDivElement> {
+interface BetsTradeTypeProps extends HTMLProps<HTMLDivElement> {
     type: string;
     onlyIcon?: boolean;
 }
 
-function PolymarketTradeType({ type, onlyIcon = false, className }: PolymarketTradeTypeProps) {
+function BetsTradeType({ type, onlyIcon = false, className }: BetsTradeTypeProps) {
     const Icon = {
         buy: BuyIcon,
         sell: SellIcon,
@@ -39,22 +42,20 @@ function PolymarketTradeType({ type, onlyIcon = false, className }: PolymarketTr
     );
 }
 
-export function PolymarketTradeItem({ trade, className }: PolymarketTradeItemProps) {
-    const isGreen = trade.outcome === 'Yes';
-    const numSymbol = {
-        buy: '-',
-        sell: '+',
-    }[trade.side];
+export function BetsTradeItem({ trade, platform, className }: BetsTradeItemProps) {
+    const isGreen = trade.outcome.toLowerCase() === 'yes';
+    const displayTitle =
+        platform === BetsPlatform.Opinion ? compact([trade.parent_title, trade.title]).join(' - ') : trade.title;
 
     return (
         <div className={classNames('flex items-center border-t border-line px-4 py-2', className)}>
-            <PolymarketTradeType className="hidden md:flex" type={trade.side} />
+            <BetsTradeType className="hidden md:flex" type={trade.side} />
             <div className="flex min-w-0 flex-1 gap-3 md:items-center">
                 <div className="flex size-11 shrink-0 items-center overflow-hidden rounded">
-                    {trade.icon ? (
+                    {trade.image ? (
                         <Image
-                            src={trade.icon}
-                            alt={trade.title}
+                            src={trade.image}
+                            alt={displayTitle}
                             className="size-full object-cover"
                             width={44}
                             height={44}
@@ -64,13 +65,13 @@ export function PolymarketTradeItem({ trade, className }: PolymarketTradeItemPro
                 <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                     <Link
                         target="_blank"
-                        href={resolvePolymarketEventUrl(trade.slug)}
+                        href={trade.url}
                         className="text-[13px] font-medium text-main hover:underline"
                     >
-                        {trade.title}
+                        {displayTitle}
                     </Link>
                     <div className="flex items-center gap-1">
-                        <PolymarketTradeType onlyIcon className="flex !w-auto md:hidden" type={trade.side} />
+                        <BetsTradeType onlyIcon className="flex !w-auto md:hidden" type={trade.side} />
                         <div
                             className={classNames(
                                 'flex h-[18px] items-center gap-1 rounded-md px-1 py-0.5 text-xs font-semibold !leading-[18px]',
@@ -81,37 +82,27 @@ export function PolymarketTradeItem({ trade, className }: PolymarketTradeItemPro
                             <span>{removeTrailingZeros(rightShift(trade.price, 2).toFixed(1))}¢</span>
                         </div>
                         <span className="text-xs font-medium text-second">
-                            <Trans>{leftShift(trade.size, 6).toFixed(1)} shares</Trans>
+                            <Trans>{toFixedTrimmed(+trade.size, 2)} shares</Trans>
                         </span>
                     </div>
                     <div className="mt-1.5 flex items-end justify-between md:hidden">
                         <div className="flex flex-col">
-                            <span
-                                className={classNames(
-                                    'text-sm font-medium text-main',
-                                    trade.side === 'sell' ? 'text-success' : '',
-                                )}
-                            >{`${numSymbol || ''}$${leftShift(trade.usdcSize, 6).toFixed(2)}`}</span>
+                            <span className="text-sm font-medium text-main">{`$${toFixedTrimmed(+trade.usdcSize, 2)}`}</span>
                             <span className="text-xs font-medium text-second">
                                 <Trans>Value</Trans>
                             </span>
                         </div>
                         <span className="text-xs font-medium text-second">
-                            <PolymarketTime timestamp={trade.timestamp * 1000} />
+                            <BetsTime timestamp={trade.timestamp * 1000} />
                         </span>
                     </div>
                 </div>
                 <div className="hidden shrink-0 items-end gap-1 md:flex md:flex-col">
-                    <div
-                        className={classNames(
-                            'w-16 text-right text-sm font-medium',
-                            trade.side === 'sell' ? 'text-success' : 'text-main',
-                        )}
-                    >
-                        {`${trade.side === 'sell' ? '+' : ''}$${leftShift(trade.usdcSize, 6).toFixed(2)}`}
+                    <div className="w-16 text-right text-sm font-medium text-main">
+                        {`$${toFixedTrimmed(+trade.usdcSize, 2)}`}
                     </div>
                     <div className="w-24 text-right text-xs font-medium text-second">
-                        <PolymarketTime timestamp={trade.timestamp * 1000} />
+                        <BetsTime timestamp={trade.timestamp * 1000} />
                     </div>
                 </div>
             </div>

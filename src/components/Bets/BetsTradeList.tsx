@@ -3,29 +3,41 @@
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
+import { BetsTradeItem } from '@/components/Bets/BetsTradeItem.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
-import { PolymarketTradeItem } from '@/components/Polymarket/PolymarketTradeItem.js';
-import { ScrollListKey, Source } from '@/constants/enum.js';
+import { BetsPlatform, ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
-import { getTradeHistory } from '@/providers/firefly/bets/getTradeHistory.js';
-import type { PolymarketTradeData } from '@/providers/types/Firefly.js';
+import { getBetsTimelineByAddress } from '@/providers/firefly/bets/getBetsTimelineByAddress.js';
+import type { BetsActivity } from '@/providers/types/Firefly.js';
 
-interface PolymarketTradeListProps {
+interface BetsTradeListProps {
     address: string;
+    platform: BetsPlatform;
+}
+interface Options {
+    trade: BetsActivity;
+    listKey: string;
+    platform: BetsPlatform;
+    index: number;
 }
 
-const getTradeItem = (index: number, trade: PolymarketTradeData, listKey: string) => {
-    return <PolymarketTradeItem trade={trade} key={`${trade.slug}-${index}`} />;
+const getTradeItem = ({ trade, platform, index }: Options) => {
+    return <BetsTradeItem trade={trade} key={`${trade.slug}-${index}`} platform={platform} />;
 };
 
-export function PolymarketTradeList({ address }: PolymarketTradeListProps) {
+export function BetsTradeList({ address, platform }: BetsTradeListProps) {
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['polymarket', 'trades', address.toLowerCase()],
+        queryKey: ['bets', 'trades', address.toLowerCase()],
         queryFn: async ({ pageParam }) => {
             const indicator = createIndicator(undefined, pageParam);
             try {
-                return await getTradeHistory({ address, limit: 25, indicator });
+                return await getBetsTimelineByAddress({
+                    walletAddresses: [address],
+                    platforms: [platform],
+                    indicator,
+                    size: 15,
+                });
             } catch {
                 return createPageable([], indicator);
             }
@@ -60,7 +72,13 @@ export function PolymarketTradeList({ address }: PolymarketTradeListProps) {
                     useWindowScroll: true,
                     listKey: `${ScrollListKey.Bets}:trades`,
                     computeItemKey: (index, trade) => `${trade.slug}-${index}`,
-                    itemContent: (index, trade) => getTradeItem(index, trade, `${ScrollListKey.Bets}:trades`),
+                    itemContent: (index, trade) =>
+                        getTradeItem({
+                            index,
+                            trade,
+                            listKey: `${ScrollListKey.Bets}:trades`,
+                            platform,
+                        }),
                 }}
                 NoResultsFallbackProps={{
                     className: 'mt-20',

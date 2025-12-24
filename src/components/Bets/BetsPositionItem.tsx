@@ -1,29 +1,51 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
-import { first, isUndefined } from 'lodash-es';
+import { compact, first, isUndefined } from 'lodash-es';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
+import { BetsPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
+import { resolveOpinionEventUrl } from '@/helpers/resolveOpinionEventUrl.js';
 import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';
-import type { PolymarketPositionData } from '@/providers/types/Firefly.js';
+import type { BetsPositionDataForUI } from '@/types/bets.js';
 
-interface PolymarketPositionItemProps {
-    positionData: PolymarketPositionData;
+interface BetsPositionItemProps {
+    platform: BetsPlatform;
+    positionData: BetsPositionDataForUI;
     showAction?: boolean;
 }
 
-function formatPolymarketPrice(price: number) {
+function resolveEventUrl(platform: BetsPlatform, positionData: BetsPositionDataForUI) {
+    switch (platform) {
+        case BetsPlatform.Polymarket: {
+            const eventSlug = first(positionData.event_slugs);
+            return eventSlug ? resolvePolymarketEventUrl(eventSlug) : undefined;
+        }
+        case BetsPlatform.Opinion:
+            return positionData.topicId
+                ? resolveOpinionEventUrl(positionData.topicId, Boolean(positionData.is_mutil))
+                : undefined;
+        default:
+            return;
+    }
+}
+
+function formatBetsPrice(price: number) {
     return removeTrailingZeros((price * 100).toFixed(2)) + '¢';
 }
 
-export function PolymarketPositionItem({ positionData: position, showAction }: PolymarketPositionItemProps) {
-    if (isUndefined(position.title)) return null;
+export function BetsPositionItem({ positionData: position, platform, showAction }: BetsPositionItemProps) {
+    const displayTitle =
+        platform === BetsPlatform.Opinion
+            ? compact([position.parent_title, position.title]).join(' - ')
+            : position.title;
+    if (isUndefined(displayTitle)) return null;
 
-    const isGreen = ['Yes', 'Up'].includes(position.vote_status);
-    const eventSlug = first(position.event_slugs);
+    const isGreen = ['yes', 'up'].includes(position.vote_status.toLowerCase());
+    const eventUrl = resolveEventUrl(platform, position);
 
     return (
         <div key={position.Id} className="mb-4 flex flex-col items-start gap-3 rounded-xl border border-line p-3">
@@ -35,23 +57,21 @@ export function PolymarketPositionItem({ positionData: position, showAction }: P
                             height={40}
                             className="size-10 shrink-0 rounded object-cover"
                             src={position.image}
-                            alt={position.title}
+                            alt={displayTitle}
                         />
                     ) : null}
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col">
-                    {eventSlug ? (
+                    {eventUrl ? (
                         <Link
                             target="_blank"
-                            href={resolvePolymarketEventUrl(eventSlug)}
+                            href={eventUrl}
                             className="line-clamp-5 w-full break-words text-sm font-bold text-main hover:underline"
                         >
-                            {position.title}
+                            {displayTitle}
                         </Link>
                     ) : (
-                        <h3 className="line-clamp-5 w-full break-words text-sm font-bold text-main">
-                            {position.title}
-                        </h3>
+                        <h3 className="line-clamp-5 w-full break-words text-sm font-bold text-main">{displayTitle}</h3>
                     )}
                     <div className="flex items-center gap-2">
                         <div
@@ -71,13 +91,13 @@ export function PolymarketPositionItem({ positionData: position, showAction }: P
             </div>
             <div className="flex w-full items-center justify-evenly gap-2">
                 <div className="flex flex-1 shrink-0 flex-col items-start">
-                    <span className="text-sm font-medium text-main">{formatPolymarketPrice(position.avg_price)}</span>
+                    <span className="text-sm font-medium text-main">{formatBetsPrice(position.avg_price)}</span>
                     <span className="text-[11px] text-second">
                         <Trans>Avg</Trans>
                     </span>
                 </div>
                 <div className="flex flex-1 shrink-0 flex-col items-start">
-                    <span className="text-sm font-medium text-main">{formatPolymarketPrice(position.cur_price)}</span>
+                    <span className="text-sm font-medium text-main">{formatBetsPrice(position.cur_price)}</span>
                     <span className="text-[11px] text-second">
                         <Trans>Current</Trans>
                     </span>
@@ -93,7 +113,7 @@ export function PolymarketPositionItem({ positionData: position, showAction }: P
                         {formatPolymarketNumber(position.total_buy)}
                     </span>
                 </div>
-                {showAction ? (
+                {showAction && platform === BetsPlatform.Polymarket ? (
                     <div className="flex flex-1 items-center justify-end">
                         <ClickableButton
                             className={classNames(

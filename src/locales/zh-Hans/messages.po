@@ -1060,6 +1060,9 @@ msgstr "添加另一个帖子..."
 msgid "Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly."
 msgstr "断开绑定失败。请至少保留一个账户或钱包绑定，以保持您在 Firefly 中的体验。"
 
+msgid "No opinion profile found."
+msgstr ""
+
 msgid "Transaction Hash"
 msgstr "交易哈希"
 
@@ -1119,6 +1122,9 @@ msgstr "最大"
 
 msgid "Mute all"
 msgstr "全部隐藏"
+
+msgid "Polymarket Profile"
+msgstr ""
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "未能生成签名包 = {source}"
@@ -1764,6 +1770,9 @@ msgstr "草稿已被保存"
 msgid "Verify and Claim"
 msgstr "校验并且领取"
 
+msgid "Opinion Profile"
+msgstr ""
+
 msgid "Failed to connect on {source}"
 msgstr "在 {source} 上连接失败。"
 
@@ -2254,9 +2263,6 @@ msgstr "图片下载失败，请重试。"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>铸造收集了你的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {帖子}}</5>"
 
-msgid "Polymarket PnL"
-msgstr "Polymarket 收益"
-
 msgid "Reset password"
 msgstr "重置密码"
 
@@ -2622,7 +2628,7 @@ msgid "Show more tokens"
 msgstr "展示更多代币"
 
 #. placeholder {0}: formatPolymarketNumber(position.shares, { prefix: null })
-#. placeholder {0}: leftShift(trade.size, 6).toFixed(1)
+#. placeholder {0}: toFixedTrimmed(+trade.size, 2)
 msgid "{0} shares"
 msgstr "{0} 份"
 
@@ -3085,6 +3091,9 @@ msgstr "取消收藏投票失败。"
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
 msgid "will send on {0} at {1}"
 msgstr "将在 {0} {1} 发布"
+
+msgid "<0/> PnL"
+msgstr ""
 
 msgid "Failed to like the post."
 msgstr "点赞失败。"
@@ -4112,6 +4121,9 @@ msgstr "取消隐藏"
 
 msgid "Congratulations!"
 msgstr "恭喜！"
+
+msgid "Volume Traded"
+msgstr ""
 
 msgid "Clear all requirements"
 msgstr "清除所有任务"

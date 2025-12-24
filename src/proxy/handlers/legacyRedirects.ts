@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server.js';
 
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { parseOldDiscoverUrl } from '@/helpers/parseDiscoverUrl.js';
 import { parseOldEngagementUrl } from '@/helpers/parseEngagementUrl.js';
 import { parseOldBookmarkUrl } from '@/helpers/parseOldBookmarkUrl.js';
@@ -26,9 +27,18 @@ import { resolveTxPageUrl } from '@/helpers/resolveTxPageUrl.js';
 
 export function handleLegacyRedirects(request: NextRequest, next: () => NextResponse | undefined) {
     const pathname = request.nextUrl.pathname;
+
     if (pathname === '/' && request.method === 'GET') {
         const destination = request.nextUrl.clone();
         destination.pathname = '/following/posts';
+        return NextResponse.redirect(destination);
+    }
+
+    if (isRoutePathname(pathname, '/polymarket/profile/:address/:type', true)) {
+        const destination = request.nextUrl.clone();
+        const [, , , address, type] = pathname.split('/');
+        destination.pathname = `/polymarket/profile/${address}`;
+        destination.searchParams.set('tab', type);
         return NextResponse.redirect(destination);
     }
 

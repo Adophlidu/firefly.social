@@ -1,6 +1,13 @@
 import urlcat from 'urlcat';
 
-import type { ProfileCategory, ProfilePageSource, SignupStep, Source, TipsDetailViewType } from '@/constants/enum.js';
+import type {
+    BetsPlatform,
+    ProfileCategory,
+    ProfilePageSource,
+    SignupStep,
+    Source,
+    TipsDetailViewType,
+} from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 
@@ -32,10 +39,19 @@ export class RouteResolver {
     static token() {}
     static nft() {}
     static article() {}
-    static polymarketProfile(address: string, subPath?: 'trades' | 'positions') {
-        return urlcat(SITE_URL, `/polymarket/profile/:address${subPath ? '/:subPath' : ''}`, {
-            address,
+    static betsProfile(
+        address: string,
+        {
             subPath,
+            platform,
+        }: {
+            platform: BetsPlatform;
+            subPath?: 'trades' | 'positions';
+        },
+    ) {
+        return urlcat(SITE_URL, `/${platform}/profile/:address`, {
+            address,
+            tab: subPath,
         });
     }
 }

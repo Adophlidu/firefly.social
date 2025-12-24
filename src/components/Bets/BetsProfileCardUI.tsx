@@ -22,7 +22,9 @@ export const BetsProfileCardUI = memo<BetsProfileCardUIProps>(function BetsProfi
     return (
         <Link
             className="flex justify-evenly gap-3 rounded-xl bg-primaryBottom p-3"
-            href={RouteResolver.polymarketProfile(profile.proxy)}
+            href={RouteResolver.betsProfile(profile.proxy, {
+                platform: profile.platform,
+            })}
             onClick={() => capturePolymarketProfileLinkClick()}
             data-disable-progress
         >

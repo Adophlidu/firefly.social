@@ -1055,6 +1055,9 @@ msgstr "Add another post..."
 msgid "Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly."
 msgstr "Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly."
 
+msgid "No opinion profile found."
+msgstr "No opinion profile found."
+
 msgid "Transaction Hash"
 msgstr "Transaction Hash"
 
@@ -1114,6 +1117,9 @@ msgstr "Max"
 
 msgid "Mute all"
 msgstr "Mute all"
+
+msgid "Polymarket Profile"
+msgstr "Polymarket Profile"
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "Failed to generate signature packet with source = {source}."
@@ -1759,6 +1765,9 @@ msgstr "Your draft was saved."
 msgid "Verify and Claim"
 msgstr "Verify and Claim"
 
+msgid "Opinion Profile"
+msgstr "Opinion Profile"
+
 msgid "Failed to connect on {source}"
 msgstr "Failed to connect on {source}"
 
@@ -2249,9 +2258,6 @@ msgstr "Failed to download image. Please try again later."
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 
-msgid "Polymarket PnL"
-msgstr "Polymarket PnL"
-
 msgid "Reset password"
 msgstr "Reset password"
 
@@ -2617,7 +2623,7 @@ msgid "Show more tokens"
 msgstr "Show more tokens"
 
 #. placeholder {0}: formatPolymarketNumber(position.shares, { prefix: null })
-#. placeholder {0}: leftShift(trade.size, 6).toFixed(1)
+#. placeholder {0}: toFixedTrimmed(+trade.size, 2)
 msgid "{0} shares"
 msgstr "{0} shares"
 
@@ -3080,6 +3086,9 @@ msgstr "Failed to un-bookmark snapshot."
 #. placeholder {1}: dayjs(task.schedule_at).format('hh:mm A')
 msgid "will send on {0} at {1}"
 msgstr "will send on {0} at {1}"
+
+msgid "<0/> PnL"
+msgstr "<0/> PnL"
 
 msgid "Failed to like the post."
 msgstr "Failed to like the post."
@@ -4107,6 +4116,9 @@ msgstr "Unmute"
 
 msgid "Congratulations!"
 msgstr "Congratulations!"
+
+msgid "Volume Traded"
+msgstr "Volume Traded"
 
 msgid "Clear all requirements"
 msgstr "Clear all requirements"

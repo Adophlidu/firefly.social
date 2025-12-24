@@ -2390,40 +2390,6 @@ export interface PolymarketPositionData {
     wallet: string;
 }
 
-export interface PolymarketTradeData {
-    asset: string;
-    avgPrice: string;
-    blockNumber: number;
-    blockNumberSort: number;
-    conditionId: string;
-    conditionOutcomePrices: string[];
-    conditionOutcomes: string[];
-    conditionRawData: unknown;
-    endDate: string;
-    eventSlug: string;
-    icon: string;
-    image: string;
-    outcome: string;
-    outcomeIndex: number;
-    owner: string;
-    pnl: string;
-    pnlPercent: string;
-    position: string;
-    price: string;
-    proxyWallet: string;
-    resolvedResult: number;
-    side: string;
-    size: string;
-    slug: string;
-    timestamp: number;
-    title: string;
-    transactionHash: string;
-    umaResolutionStatus: string;
-    usdcSize: string;
-    volume: string;
-    wallet: string;
-}
-
 export type PrivySignMessageResponse = Response<{
     signature: string;
     encoding: string;
@@ -2462,3 +2428,22 @@ export type EncryptedAccountInfoResponse = Response<{ data: string }>;
 
 export type CheckBatchCustodyWalletResponse = Response<{ [key: string]: boolean }>;
 export type GetMnemonicPhraseByFidResponse = Response<{ data: string }>;
+
+export interface BetsPosition {
+    wallet: string;
+    conditionId: string;
+    tokenId: string;
+    topicId: number;
+    is_mutil: 0 | 1; // 1 means multi-event, 0 means single-event
+    vote_status: string;
+    parent_title: string;
+    title: string;
+    image: string;
+    shares: number;
+    notfill_pnl: number;
+    pnl_rate: number;
+    avg_price: number;
+    cur_price: number;
+    closed_time: number;
+    offset: 0 | 1; // 0-left 1-right
+}

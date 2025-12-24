@@ -8,11 +8,11 @@ import { useMounted } from '@/hooks/useMounted.js';
 
 dayjs.extend(relativeTime);
 
-interface PolymarketTimeProps {
+interface BetsTimeProps {
     timestamp: number;
 }
 
-export const PolymarketTime = memo<PolymarketTimeProps>(function PolymarketTime({ timestamp }) {
+export const BetsTime = memo<BetsTimeProps>(function BetsTime({ timestamp }) {
     const isMounted = useMounted();
 
     if (!isMounted) return null;

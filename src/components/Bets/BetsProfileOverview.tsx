@@ -5,94 +5,112 @@ import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
+import { BetsName } from '@/components/Bets/BetsName.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { PolymarketVolumeTraded } from '@/components/Polymarket/PolymarketVolumeTraded.js';
 import { toRate } from '@/components/Polymarket/toRate.js';
-import { Source } from '@/constants/enum.js';
+import { BetsPlatform, Source } from '@/constants/enum.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import type { PolymarketProfileData } from '@/providers/types/Firefly.js';
+import type { BetsProfileDataForUI } from '@/types/bets.js';
 
-interface PolymarketProfileOverviewProps {
-    profile?: PolymarketProfileData;
+interface BetsProfileOverviewProps {
+    profile: BetsProfileDataForUI;
     address: string;
+    platform: BetsPlatform;
 }
 
-export function PolymarketProfileOverview({ profile, address }: PolymarketProfileOverviewProps) {
+export function BetsProfileOverview({ profile, platform, address }: BetsProfileOverviewProps) {
+    const isOpinion = platform === BetsPlatform.Opinion;
+
     const dataConfig = useMemo(() => {
-        return [
+        return compact([
             {
-                label: <Trans>Polymarket PnL</Trans>,
+                label: (
+                    <Trans>
+                        <BetsName platform={platform} /> PnL
+                    </Trans>
+                ),
                 value: (
-                    <span className={!profile ? '' : profile.pnl < 0 ? 'text-danger' : 'text-success'}>
-                        {formatPolymarketNumber(profile?.pnl, { symbol: true })}
+                    <span className={profile.pnl < 0 ? 'text-danger' : 'text-success'}>
+                        {formatPolymarketNumber(profile.pnl, { symbol: true })}
                     </span>
                 ),
             },
+            isOpinion
+                ? null
+                : {
+                      label: <Trans>Markets Traded</Trans>,
+                      value: <span>{profile.position_traded ?? '-'}</span>,
+                  },
             {
-                label: <Trans>Markets Traded</Trans>,
-                value: <span>{profile?.position_traded ?? '-'}</span>,
-            },
-            {
-                label: <Trans>Volume Traded(shares)</Trans>,
-                value: <PolymarketVolumeTraded key="volume-traded" address={address} proxyAddress={profile?.proxy} />,
+                label: isOpinion ? <Trans>Volume Traded</Trans> : <Trans>Volume Traded(shares)</Trans>,
+                value: isOpinion ? (
+                    formatPolymarketNumber(profile.volume)
+                ) : (
+                    <PolymarketVolumeTraded key="volume-traded" address={address} proxyAddress={profile.proxy} />
+                ),
             },
             {
                 label: <Trans>Current Positions</Trans>,
-                value: <span>{formatPolymarketNumber(profile?.notfill_balance)}</span>,
+                value: <span>{formatPolymarketNumber(profile.notfill_balance)}</span>,
             },
             {
                 label: <Trans>Available Balance</Trans>,
-                value: <span>{!profile ? '-' : `$${formatPrice(profile.cash_balance)}`}</span>,
+                value: <span>{`$${formatPrice(profile.cash_balance)}`}</span>,
             },
-            {
-                label: <Trans>Win Rate</Trans>,
-                value: <span>{toRate(profile?.win_rate)}</span>,
-            },
+            isOpinion
+                ? null
+                : {
+                      label: <Trans>Win Rate</Trans>,
+                      value: <span>{toRate(profile.win_rate)}</span>,
+                  },
             {
                 label: <Trans>Total Value</Trans>,
-                value: <span>{formatPolymarketNumber(profile?.balance)}</span>,
+                value: <span>{formatPolymarketNumber(profile.balance)}</span>,
             },
-            {
-                label: <Trans>Total Losses</Trans>,
-                value: (
-                    <span>
-                        {formatPolymarketNumber(profile?.losses, {
-                            symbol: true,
-                        })}
-                    </span>
-                ),
-            },
-            {
-                label: <Trans>Total Gains</Trans>,
-                value: (
-                    <span>
-                        {formatPolymarketNumber(profile?.gains, {
-                            symbol: true,
-                        })}
-                    </span>
-                ),
-            },
-        ];
-    }, [address, profile]);
-    const tags = useMemo(() => {
-        if (!profile) return [];
-        return compact([profile.pnl1m, profile.win_rate67, profile.join1year, profile.pnl100]);
-    }, [profile]);
+            isOpinion
+                ? null
+                : {
+                      label: <Trans>Total Losses</Trans>,
+                      value: (
+                          <span>
+                              {`-${formatPolymarketNumber(profile.losses, {
+                                  symbol: false,
+                              })}`}
+                          </span>
+                      ),
+                  },
+            isOpinion
+                ? null
+                : {
+                      label: <Trans>Total Gains</Trans>,
+                      value: (
+                          <span>
+                              {formatPolymarketNumber(profile.gains, {
+                                  symbol: true,
+                              })}
+                          </span>
+                      ),
+                  },
+        ]);
+    }, [address, profile, isOpinion, platform]);
 
     return (
         <div className="flex flex-col">
             <div className="flex items-center gap-4 px-4 pt-3">
                 <Avatar
-                    src={profile?.platform_avatar ?? getStampAvatarByProfileId(Source.Wallet, address)}
+                    src={profile.platform_avatar ?? getStampAvatarByProfileId(Source.Wallet, address)}
                     alt="avatar"
                     size={40}
                     className="size-10 rounded-full border border-highlight"
                 />
                 <div>
-                    <div className="text-lg font-semibold text-main">{profile?.platform_name ?? 'Polymarket'}</div>
+                    <div className="text-lg font-semibold text-main">
+                        {profile.platform_name || <BetsName platform={platform} />}
+                    </div>
                     <div className="ml-auto flex items-center text-[13px] font-medium text-second">
                         {formatAddressEthereum(address, 4, 2)}
                         <CopyTextButton
@@ -108,9 +126,9 @@ export function PolymarketProfileOverview({ profile, address }: PolymarketProfil
                     </div>
                 </div>
             </div>
-            {tags.length ? (
+            {profile.tags?.length ? (
                 <div className="flex flex-wrap items-center gap-3 px-4 py-3">
-                    {tags.map((tag, i) => (
+                    {profile.tags.map((tag, i) => (
                         <span
                             key={i}
                             className="h-[26px] rounded-full border border-line bg-lightBg px-3 font-inter text-xs font-medium !leading-6 text-main"

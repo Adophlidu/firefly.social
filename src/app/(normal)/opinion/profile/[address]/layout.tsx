@@ -12,11 +12,11 @@ interface Props
 export async function generateMetadata(props: Props) {
     const { address } = await props.params;
 
-    return createSiteMetadata(`/polymarket/profile/${address}`, {
-        title: await createPageTitleSSR(msg`Polymarket Profile`),
+    return createSiteMetadata(`/opinion/profile/${address}`, {
+        title: await createPageTitleSSR(msg`Opinion Profile`),
     });
 }
 
-export default async function PolymarketProfileLayout(props: Props) {
+export default async function OpinionProfileLayout(props: Props) {
     return props.children;
 }

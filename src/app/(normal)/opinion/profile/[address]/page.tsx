@@ -7,8 +7,8 @@ interface Props
         address: string;
     }> {}
 
-export default async function PolymarketProfilePage(props: Props) {
+export default async function OpinionProfilePage(props: Props) {
     const { address } = await props.params;
 
-    return <BetsProfileDetailContent address={address} platform={BetsPlatform.Polymarket} />;
+    return <BetsProfileDetailContent address={address} platform={BetsPlatform.Opinion} />;
 }
