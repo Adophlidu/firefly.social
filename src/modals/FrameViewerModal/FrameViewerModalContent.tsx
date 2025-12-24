@@ -5,13 +5,13 @@ import { useEffect, useRef } from 'react';
 import { useAsync } from 'react-use';
 import { useChainId, useConnection } from 'wagmi';
 
+import { frameSwapToken } from '@/components/Frame/V2/frameSwapToken.js';
 import { Image } from '@/components/Image.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { EIP6963_PROVIDER_DESCRIPTION, EMPTY_LIST, IS_DEVELOPMENT } from '@/constants/static.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { eip5792Polyfill } from '@/helpers/eip5792Polyfill.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { frameSwapToken } from '@/helpers/frameSwapToken.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { useStateMachine } from '@/hooks/useStateMachine.js';

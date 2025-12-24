@@ -2,7 +2,7 @@
 
 import { nativeBridgeProvider, SupportedMethod } from '@dimensiondev/native-bridge';
 import { bom, parseUrl } from '@dimensiondev/utils';
-import { exposeToIframe, type ReadyOptions } from '@farcaster/miniapp-host';
+import { exposeToIframe, type MiniAppHost, type ReadyOptions } from '@farcaster/miniapp-host';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
@@ -10,6 +10,7 @@ import { useAsyncRetry } from 'react-use';
 import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/components/FramePage.js';
 import { GhostError } from '@/app/(whiteboard)/components/GhostError.js';
 import FireflyLogo from '@/assets/firefly.logo.svg';
+import { frameSwapToken } from '@/components/Frame/V2/frameSwapToken.js';
 import { Image } from '@/components/Image.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { IS_IOS } from '@/constants/browser.js';
@@ -18,7 +19,6 @@ import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { createFireflyWalletClient } from '@/helpers/createFireflyWalletClient.js';
 import { eip5792Polyfill } from '@/helpers/eip5792Polyfill.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { frameSwapToken } from '@/helpers/frameSwapToken.js';
 import { waitForWebviewDidLoadEvent } from '@/helpers/waitForWebviewDidLoadEvent.js';
 import { useFrameAuthor } from '@/hooks/frame/useFrameAuthor.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
@@ -112,6 +112,16 @@ export default function Page(props: Props) {
                     info: EIP6963_PROVIDER_DESCRIPTION,
                 });
             },
+            composeCast: (async (options) => {
+                await nativeBridgeProvider.request(SupportedMethod.COMPOSE, {
+                    text: options.text ?? '',
+                    activity: '',
+                    mentions: [],
+                });
+                return {
+                    cast: null,
+                };
+            }) as MiniAppHost['composeCast'],
             swapToken: frameSwapToken,
         });
 

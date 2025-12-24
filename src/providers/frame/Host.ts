@@ -8,16 +8,13 @@ import urlcat from 'urlcat';
 import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/static.js';
-import { createDummyChannel } from '@/helpers/createDummyChannel.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileById } from '@/helpers/getProfileById.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { logger } from '@/libs/Logger.js';
-import { ComposeModalRef } from '@/modals/ComposeModal/index.js';
 import { checkCustodyWallet } from '@/providers/firefly/farcaster-account/checkCustodyWallet.js';
-import { fireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { FrameLoader } from '@/providers/frame/Loader.js';
 import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -34,6 +31,7 @@ export class FarcasterFrameHost implements MiniAppHost {
             signIn?: (options: SignInOptions) => Promise<UnwrapPromise<ReturnType<MiniAppHost['signIn']>> | null>;
             close?: MiniAppHost['close'];
             setPrimaryButton?: MiniAppHost['setPrimaryButton'];
+            composeCast?: MiniAppHost['composeCast'];
             viewCast?: (hash: string) => void;
             viewProfile?: (profile: Profile) => void;
             openMiniApps?: (frame: FrameV2) => void;
@@ -151,30 +149,8 @@ export class FarcasterFrameHost implements MiniAppHost {
     // @ts-ignore
     composeCast: MiniAppHost['composeCast'] = async (options) => {
         logger.debug('[frame host]: composeCast', options);
-        const result = await ComposeModalRef.openAndWaitForClose({
-            source: Source.Farcaster,
-            type: 'compose',
-            chars: options.text,
-            embeds: options.embeds,
-            channel: options.channelKey ? createDummyChannel(Source.Farcaster, options.channelKey) : undefined,
-            post: options.parent ? await fireflySocialMediaProvider.getPostById(options.parent.hash) : undefined,
-        });
-
-        if (options.close) {
-            this.close();
-            return;
-        }
-
-        if (!result)
-            return {
-                cast: null,
-            };
-
-        return {
-            cast: {
-                hash: result.post?.postId[Source.Farcaster],
-            },
-        };
+        assert(this.options?.composeCast, 'composeCast is not available');
+        return this.options?.composeCast?.(options);
     };
 
     viewProfile: MiniAppHost['viewProfile'] = async (options) => {

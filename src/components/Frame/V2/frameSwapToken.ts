@@ -8,7 +8,7 @@ import { parseCAIP19 } from '@/helpers/parseCAIP19.js';
 import { logger } from '@/libs/Logger.js';
 import { SwapModalRef } from '@/modals/SwapModal/SwapModal.js';
 
-export const frameSwapToken: MiniAppHost['swapToken'] = async function frameSwapToken(options) {
+export const frameSwapToken = async function frameSwapToken(options) {
     const buyToken = options.buyToken ? parseCAIP19(options.buyToken) : undefined;
     const sellToken = options.sellToken ? parseCAIP19(options.sellToken) : undefined;
     if (!buyToken && !sellToken) {
@@ -46,4 +46,4 @@ export const frameSwapToken: MiniAppHost['swapToken'] = async function frameSwap
             transactions: [],
         },
     };
-};
+} as MiniAppHost['swapToken'];

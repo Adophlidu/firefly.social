@@ -4,11 +4,12 @@ import { memo, useMemo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { FootnoteLink } from '@/components/FootnoteLink.js';
+import { frameComposeCast } from '@/components/Frame/V2/frameComposeCast.js';
+import { frameSwapToken } from '@/components/Frame/V2/frameSwapToken.js';
 import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/static.js';
 import { useRouter } from '@/esm/navigation.js';
-import { frameSwapToken } from '@/helpers/frameSwapToken.js';
 import { getCurrentProfileFromStorage, type StateProfile } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
@@ -114,6 +115,7 @@ function createFrameHost(
                 frameHost: createFrameHost(frame, post, router, { profile }),
             });
         },
+        composeCast: frameComposeCast,
         swapToken: frameSwapToken,
     });
 
