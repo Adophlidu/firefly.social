@@ -4,7 +4,7 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { memo } from 'react';
 
 import FilterIcon from '@/assets/filter.svg';
-import { BetsName } from '@/components/Bets/BetsName.js';
+import { BetsPlatformName } from '@/components/Bets/BetsPlatformName.js';
 import { TypeFilter } from '@/components/TypeFilter/index.js';
 import { SORTED_BETS_PLATFORM } from '@/constants/computed.js';
 import { BetsPlatform } from '@/constants/enum.js';
@@ -30,7 +30,7 @@ export const BetsPlatformFilter = memo<BetsPlatformFilterProps>(function BetsPla
                     <TypeFilter
                         multiple
                         options={SORTED_BETS_PLATFORM.map((x) => {
-                            return { value: x, label: <BetsName platform={x} /> };
+                            return { value: x, label: <BetsPlatformName platform={x} /> };
                         })}
                         selectedOptions={platforms}
                         onOptionsChange={(value: BetsPlatform[]) => {

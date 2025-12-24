@@ -5,7 +5,7 @@ import type { Address } from 'viem';
 import { Avatar } from '@/components/Avatar.js';
 import { BetsActivityAction } from '@/components/Bets/BetsActivityAction.js';
 import { BetsActivityBody } from '@/components/Bets/BetsActivityBody.js';
-import { BetsIcon } from '@/components/Bets/BetsIcon.js';
+import { BetsPlatformIcon } from '@/components/Bets/BetsPlatformIcon.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Link } from '@/components/Link.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
@@ -66,7 +66,7 @@ export const BetsActivityItem = memo<BetsActivityItemProps>(function BetsActivit
                                 · <TimestampFormatter time={activity.timestamp * 1000} /> ·
                             </span>
                         ) : null}
-                        <BetsIcon platform={activity.platform} size={15} className="mr-auto shrink-0" />
+                        <BetsPlatformIcon platform={activity.platform} size={15} className="mr-auto shrink-0" />
                         {isMyProfile ? null : (
                             <WalletBaseMoreAction
                                 address={activity.wallet as Address}

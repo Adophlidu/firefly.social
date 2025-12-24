@@ -3,8 +3,8 @@
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import { BetsIcon } from '@/components/Bets/BetsIcon.js';
-import { BetsName } from '@/components/Bets/BetsName.js';
+import { BetsPlatformIcon } from '@/components/Bets/BetsPlatformIcon.js';
+import { BetsPlatformName } from '@/components/Bets/BetsPlatformName.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { Link } from '@/esm/Link.js';
@@ -29,10 +29,10 @@ export const BetsProfileCardUI = memo<BetsProfileCardUIProps>(function BetsProfi
             data-disable-progress
         >
             <div className="flex flex-1 items-center gap-2 text-main">
-                <BetsIcon platform={profile.platform} className="shrink-0 rounded-full" size={32} />
+                <BetsPlatformIcon platform={profile.platform} className="shrink-0 rounded-full" size={32} />
                 <div className="flex h-9 w-28 flex-col items-start">
                     <div className="w-full shrink-0 truncate text-sm font-semibold">
-                        {profile.platform_name || <BetsName platform={profile.platform} />}
+                        {profile.platform_name || <BetsPlatformName platform={profile.platform} />}
                     </div>
                     <div className="ml-auto flex items-center text-[13px] font-medium text-second">
                         {formatAddressEthereum(profile.proxy, 4, 2)}

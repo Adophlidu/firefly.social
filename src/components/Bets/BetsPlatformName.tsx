@@ -3,11 +3,11 @@ import { Trans } from '@lingui/react/macro';
 
 import { BetsPlatform } from '@/constants/enum.js';
 
-interface BetsNameProps {
+interface BetsPlatformNameProps {
     platform: BetsPlatform;
 }
 
-export function BetsName({ platform }: BetsNameProps) {
+export function BetsPlatformName({ platform }: BetsPlatformNameProps) {
     switch (platform) {
         case BetsPlatform.Polymarket:
             return <Trans>Polymarket</Trans>;

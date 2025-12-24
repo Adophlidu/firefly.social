@@ -5,7 +5,7 @@ import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
-import { BetsName } from '@/components/Bets/BetsName.js';
+import { BetsPlatformName } from '@/components/Bets/BetsPlatformName.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { formatPolymarketNumber } from '@/components/Polymarket/formatPolymarketNumber.js';
 import { PolymarketVolumeTraded } from '@/components/Polymarket/PolymarketVolumeTraded.js';
@@ -30,7 +30,7 @@ export function BetsProfileOverview({ profile, platform, address }: BetsProfileO
             {
                 label: (
                     <Trans>
-                        <BetsName platform={platform} /> PnL
+                        <BetsPlatformName platform={platform} /> PnL
                     </Trans>
                 ),
                 value: (
@@ -109,7 +109,7 @@ export function BetsProfileOverview({ profile, platform, address }: BetsProfileO
                 />
                 <div>
                     <div className="text-lg font-semibold text-main">
-                        {profile.platform_name || <BetsName platform={platform} />}
+                        {profile.platform_name || <BetsPlatformName platform={platform} />}
                     </div>
                     <div className="ml-auto flex items-center text-[13px] font-medium text-second">
                         {formatAddressEthereum(address, 4, 2)}

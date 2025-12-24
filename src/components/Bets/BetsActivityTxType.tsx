@@ -8,7 +8,7 @@ import BuyIcon from '@/assets/bet-buy.svg';
 import SellIcon from '@/assets/bet-sell.svg';
 import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction.js';
 import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellActionTag.js';
-import { BetsName } from '@/components/Bets/BetsName.js';
+import { BetsPlatformName } from '@/components/Bets/BetsPlatformName.js';
 import { BetsPlatform, PolymarketBetType } from '@/constants/enum.js';
 import { toFixedTrimmed } from '@/helpers/polymarket.js';
 
@@ -26,7 +26,7 @@ export function BetsActivityTxType({ type, platform, children, usdcSize }: Props
                     <Trans>
                         <ActivityCellActionTag icon={<BuyIcon />}>Placed a bet</ActivityCellActionTag>
                         <span>
-                            worth ${toFixedTrimmed(+usdcSize, 2)} at <BetsName platform={platform} />
+                            worth ${toFixedTrimmed(+usdcSize, 2)} at <BetsPlatformName platform={platform} />
                         </span>
                     </Trans>
                     {children}
@@ -38,7 +38,7 @@ export function BetsActivityTxType({ type, platform, children, usdcSize }: Props
                     <Trans>
                         <ActivityCellActionTag icon={<SellIcon />}>Sold a bet</ActivityCellActionTag>
                         <span>
-                            worth ${toFixedTrimmed(+usdcSize, 2)} at <BetsName platform={platform} />
+                            worth ${toFixedTrimmed(+usdcSize, 2)} at <BetsPlatformName platform={platform} />
                         </span>
                     </Trans>
                     {children}
