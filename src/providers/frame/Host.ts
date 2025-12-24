@@ -49,10 +49,6 @@ export class FarcasterFrameHost implements MiniAppHost {
 
     addMiniApp: MiniAppHost['addMiniApp'] = () => {
         logger.debug('[frame host]: addMiniApp');
-        enqueueWarningMessage(t`This function is not supported yet. Pease add mini app on Farcaster app.`, {
-            key: 'frame-host.addMiniApp',
-            preventDuplicate: true,
-        });
         throw new NotImplementedError();
     };
 

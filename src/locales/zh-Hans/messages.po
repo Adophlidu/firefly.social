@@ -2821,9 +2821,6 @@ msgstr "铸造收集费"
 msgid "{0, plural, =1 {{1}} =2 {{2}} =3 {{3}} =4 {{4}} other {{5}}}"
 msgstr "{0, plural, =1 {{1}} =2 {{2}} =3 {{3}} =4 {{4}} other {{5}}}"
 
-msgid "This function is not supported yet. Pease add mini app on Farcaster app."
-msgstr "此功能暂未支持，请在 Farcaster 应用中添加该 Mini App。"
-
 msgid "View engagements"
 msgstr "查看互动"
 
