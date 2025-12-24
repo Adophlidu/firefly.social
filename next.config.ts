@@ -1,11 +1,11 @@
 /* cspell:disable */
 
 import createBundleAnalyzer from '@next/bundle-analyzer';
+import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
 import { execSync } from 'child_process';
 import { createRequire } from 'module';
 import type { NextConfig } from 'next';
 import { resolve } from 'path';
-import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
 
 const require = createRequire(import.meta.url);
 
@@ -130,6 +130,10 @@ const config: NextConfig = {
             {
                 protocol: 'https',
                 hostname: '*.amazonaws.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'images.opinion.trade',
             },
         ],
     },
