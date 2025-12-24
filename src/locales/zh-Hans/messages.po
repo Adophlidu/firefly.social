@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-12-22 12:01\n"
+"PO-Revision-Date: 2025-12-23 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -296,7 +296,7 @@ msgid "Collecting"
 msgstr "收集中"
 
 msgid "Your recovery phrase is like a password, keep it secret."
-msgstr ""
+msgstr "你的助记词就像密码一样，请务必妥善保管并保持私密。"
 
 msgid "Open"
 msgstr "打开"
@@ -358,7 +358,7 @@ msgstr "翻译帖子"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
-msgstr ""
+msgstr "您的 {0} 登录令牌已过期。请重新登录。"
 
 msgid "Free"
 msgstr "免费"
@@ -402,7 +402,7 @@ msgid "<0>Burned</0><1/>"
 msgstr "<0>已销毁</0><1/>"
 
 msgid "Opinion"
-msgstr ""
+msgstr "Opinion"
 
 msgid "User Name can only contain lowercase letters, numbers, and -, and should not start with -"
 msgstr "用户名只能包含小写字母、数字和短横线（-），且不能以短横线（-）开头"
@@ -770,7 +770,7 @@ msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {关注者} other {关注者}}"
 
 msgid "Bets liked."
-msgstr ""
+msgstr "点赞成功。"
 
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr "糟糕！你的账户当前已被封禁。请联系客服了解具体原因。"
@@ -779,13 +779,13 @@ msgid "Mutes"
 msgstr "隐藏"
 
 msgid "Keep Your Recovery Phrase Safe"
-msgstr ""
+msgstr "请妥善保管，切勿分享"
 
 msgid "Failed to bookmark NFT."
 msgstr "收藏 NFT 失败。"
 
 msgid "Hope this sparks a smile."
-msgstr ""
+msgstr "希望这能让你会心一笑。"
 
 msgid "Firefly wallet"
 msgstr "Firefly 钱包"
@@ -924,7 +924,7 @@ msgid "Sending"
 msgstr "发送中"
 
 msgid "Close lost position"
-msgstr ""
+msgstr "关闭亏损仓位"
 
 msgid "Functions with retrievable ownership"
 msgstr "具有可回收所有权的函数"
@@ -1142,7 +1142,7 @@ msgid "Swap unliked."
 msgstr "已取消点赞。"
 
 msgid "Bio should not exceed {extra} characters"
-msgstr ""
+msgstr "个人简介不可以超过 {extra} 个字符"
 
 msgid "Drop type"
 msgstr "红包类型"
@@ -1330,7 +1330,7 @@ msgstr "未发现任何在Firefly注册的账号，请更换钱包重试。"
 
 #. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
 msgid "<0>Sold a bet</0><1>worth ${0} at <2/></1>"
-msgstr ""
+msgstr "<0>卖出了一笔赌注</0><1>价值 ${0} 于 <2/></1>"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Quoted on {0}."
@@ -1451,7 +1451,7 @@ msgid "Verified by {provider}"
 msgstr "由 {provider} 校验"
 
 msgid "Failed to like bets."
-msgstr ""
+msgstr "点赞失败。"
 
 msgid "Resend full or remaining?"
 msgstr "重新发布完整还是剩余部分？"
@@ -1479,7 +1479,7 @@ msgid "Unmute /{0}"
 msgstr "取消隐藏 /{0}"
 
 msgid "No trades found in this wallet"
-msgstr ""
+msgstr "当前钱包未找到任何交易"
 
 msgid "Report spam"
 msgstr "举报垃圾信息"
@@ -2047,7 +2047,7 @@ msgid "Post was deleted"
 msgstr "帖子已被删除"
 
 msgid "No positions found in this wallet"
-msgstr ""
+msgstr "当前钱包未找到任何持仓"
 
 msgid "Website"
 msgstr "网站"
@@ -2079,7 +2079,7 @@ msgid "5 minutes"
 msgstr "5 分钟"
 
 msgid "Search <0>posts</0>, <1>users</1>, <2>tokens</2>..."
-msgstr ""
+msgstr "搜索 <0>帖子</0>，<1>用户</1>，<2>代币</2>……"
 
 msgid "This Bluesky account is already linked to another Firefly account."
 msgstr "这个 Bluesky 账号已绑定到另一个 Firefly 账户。"
@@ -2548,7 +2548,7 @@ msgid "24 hours"
 msgstr "24 小时"
 
 msgid "Bio should be at least {extra} characters"
-msgstr ""
+msgstr "个人简介应至少包含 {extra} 个字符"
 
 msgid "Failed to create red packet"
 msgstr "创建红包失败"
@@ -2560,7 +2560,7 @@ msgid "Change Password"
 msgstr "修改密码"
 
 msgid "If you enter it in another app, it can steal your funds and Farcaster account."
-msgstr ""
+msgstr "如果你在其他应用中输入它，可能会导致你的资金和 Farcaster 账户被盗。"
 
 #. placeholder {0}: failedAt.length
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
@@ -2816,7 +2816,7 @@ msgid "{0, plural, =1 {{1}} =2 {{2}} =3 {{3}} =4 {{4}} other {{5}}}"
 msgstr "{0, plural, =1 {{1}} =2 {{2}} =3 {{3}} =4 {{4}} other {{5}}}"
 
 msgid "This function is not supported yet. Pease add mini app on Farcaster app."
-msgstr ""
+msgstr "此功能暂未支持，请在 Farcaster 应用中添加该 Mini App。"
 
 msgid "View engagements"
 msgstr "查看互动"
@@ -3096,7 +3096,7 @@ msgid "Newest"
 msgstr "最新"
 
 msgid "User Name should not exceed {extra} characters"
-msgstr ""
+msgstr "用户名长度不能超过 {extra} 个字符"
 
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
@@ -3137,7 +3137,7 @@ msgstr "{0, plural, one {转发} other {转发}}"
 #. placeholder {0}: account.profile.handle
 #. placeholder {1}: resolveSourceName(source)
 msgid "Failed to resume session for @{0} on {1}, you can refresh the page to try again."
-msgstr ""
+msgstr "无法恢复 {1} 上 @{0} 的会话，你可以刷新页面再试一次。"
 
 msgid "Total Value"
 msgstr "总值"
@@ -3225,7 +3225,7 @@ msgid "Attendance"
 msgstr "出席"
 
 msgid "Volume Traded(shares)"
-msgstr ""
+msgstr "成交量（份额）"
 
 msgid "Show more"
 msgstr "显示更多"
@@ -3274,7 +3274,7 @@ msgid "There is no proxy in the contract. The proxy contract means contract owne
 msgstr "合约中没有代理。代理意味着合约所有者可以修改代币的功能，并可能影响价格。"
 
 msgid "User Name should be at least {extra} characters"
-msgstr ""
+msgstr "用户名长度至少需要 {extra} 个字符"
 
 msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
 msgstr "{totalVotes, plural, one {{totalVotes} 投票} other {{totalVotes} 投票}}"
@@ -3307,7 +3307,7 @@ msgid "Upload photo"
 msgstr "上传照片"
 
 msgid "Bets unliked."
-msgstr ""
+msgstr "已取消点赞。"
 
 msgid "Cross at handles"
 msgstr "跨平台用户名"
@@ -3358,7 +3358,7 @@ msgid "Token could not be found."
 msgstr "未找到该代币。"
 
 msgid "Claim Proceed"
-msgstr ""
+msgstr "成功领取"
 
 msgid "Casts + Replies"
 msgstr "帖子 + 评论"
@@ -3447,7 +3447,7 @@ msgid "Home"
 msgstr "首页"
 
 msgid "Failed to unlike bets."
-msgstr ""
+msgstr "取消点赞失败。"
 
 msgid "Re-enter Password"
 msgstr "再次输入密码"
@@ -3498,7 +3498,7 @@ msgid "<0>You</0> reposted"
 msgstr "<0>你</0> 转发了"
 
 msgid "Settled as {outcome}"
-msgstr ""
+msgstr "已结算为 {outcome}"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
@@ -3527,7 +3527,7 @@ msgid "No profile found"
 msgstr "找不到任何账户"
 
 msgid "Failed to switch wallet."
-msgstr ""
+msgstr "切换钱包失败。"
 
 msgid "Clubs"
 msgstr "圈子"
@@ -3696,7 +3696,7 @@ msgstr "被 {0} 和 {1} 和 {2} 关注"
 
 #. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
 msgid "<0>Placed a bet</0><1>worth ${0} at <2/></1>"
-msgstr ""
+msgstr "<0>下了一笔投注</0><1>，金额为 ${0}，投注于 <2/></1>"
 
 msgid "Vote"
 msgstr "投票"
@@ -3835,7 +3835,7 @@ msgid "The account you are trying to log in with is already linked to a differen
 msgstr "你尝试登录的账户已绑定其他Firefly 账户。"
 
 msgid "Your Recovery Phrase"
-msgstr ""
+msgstr "你的助记词"
 
 msgid "Username or email address"
 msgstr "用户名或者邮箱地址"
@@ -3894,7 +3894,7 @@ msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
 
 msgid "Trending Clubs"
-msgstr ""
+msgstr "热门频道"
 
 #. placeholder {0}: post.mirrors.find((profile) => !isSameProfile(profile, currentProfile)) ?.displayName
 msgid "<0>You</0> and {0} recasted"
@@ -4129,7 +4129,7 @@ msgid "Failed to read avatar file, please try again."
 msgstr "头像读取失败，请重试"
 
 msgid "We do not recommend ever sharing it with any app or person."
-msgstr ""
+msgstr "我们强烈不建议将其分享给任何应用或任何人。"
 
 msgid "This Telegram account is already linked to another Firefly account."
 msgstr "这个 Telegram 账号已绑定到另一个 Firefly 账户。"
@@ -4293,7 +4293,7 @@ msgid "Only show holding"
 msgstr "近展示持有中"
 
 msgid "Failed to get recovery phrase. Please try again."
-msgstr ""
+msgstr "获取助记词失败，请重试。"
 
 msgid "Searching collections"
 msgstr "NFT 系列搜索中"
@@ -4365,7 +4365,7 @@ msgstr "关注名单地址"
 #. placeholder {0}: expiredAccounts.map((x) => `@${x.profile.handle}`).join(', ')
 #. placeholder {1}: resolveSourceName(source)
 msgid "Session expired for {0} on {1}."
-msgstr ""
+msgstr "{0} 在 {1} 的会话已过期。"
 
 msgid "FREE"
 msgstr "免费"
@@ -4385,7 +4385,7 @@ msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{t
 msgstr "<0>已领取: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> <3>{token_symbol}</3>"
 
 msgid "Keep it safe and do not share"
-msgstr ""
+msgstr "请妥善保管，切勿分享"
 
 msgid "1 hour"
 msgstr "1 小时"
@@ -4409,8 +4409,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "验证密码时出现意外步骤：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
+msgstr "如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
 "但如果你仍想访问另一个社交账号绑定的 Firefly 钱包，建议你切换账户，而不是删除账户。"
 
 msgid "<0>You</0> recasted"
@@ -4592,7 +4591,7 @@ msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firef
 msgstr "如有任何疑问，请<0>联系我们</0>。版权所有 © Firefly。"
 
 msgid "Display Name should not exceed {extra} characters"
-msgstr ""
+msgstr "全名不可以超过 {extra} 个字"
 
 msgid "Different Account Detected"
 msgstr "检测到账户冲突"
@@ -4690,3 +4689,4 @@ msgstr "多设备登录"
 
 msgid "Success"
 msgstr "成功"
+
