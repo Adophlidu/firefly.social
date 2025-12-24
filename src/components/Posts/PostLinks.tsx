@@ -33,7 +33,7 @@ function PostLinksSingle({ post, isInCompose = false }: Props) {
     useEffect(() => {
         if (!url || !content) return;
 
-        if (isLoading) {
+        if (isLoading || data) {
             patchPostQueryData(post.source, post.postId, (draft) => {
                 if (draft.metadata.content?.content) {
                     draft.metadata.content.truncatedContent = removeAtEnd(draft.metadata.content.content, url);
