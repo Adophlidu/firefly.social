@@ -52,7 +52,7 @@ export async function BetsProfileDetailContent({ address, platform }: Props) {
         <div>
             <BetsProfilePageHeader pageTitle={<Trans>Bets</Trans>} />
             <BetsProfileOverview address={address} profile={betsProfile} platform={platform} />
-            <BetsProfileCategoryTabs address={address} />
+            <BetsProfileCategoryTabs />
             <BetsProfileTabContent
                 platform={platform}
                 address={betsProfile?.wallet || address}
