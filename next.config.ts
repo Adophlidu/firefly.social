@@ -159,6 +159,9 @@ const config: NextConfig = {
         return [];
     },
     async headers() {
+        // Get the site URL for the payment method manifest Link header
+        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://firefly.social';
+
         return [
             {
                 source: '/(.*)?', // Matches all pages
@@ -182,6 +185,10 @@ const config: NextConfig = {
                     {
                         key: 'X-XSS-Protection',
                         value: '1; mode=block', // Prevent rendering
+                    },
+                    {
+                        key: 'Link',
+                        value: `<${siteUrl}/.well-known/payment-method-manifest.json>; rel="payment-method-manifest"`,
                     },
                     // Note: CSP is now handled by middleware (proxy.ts) with nonce support
                     // The middleware will set Content-Security-Policy-Report-Only with nonce
