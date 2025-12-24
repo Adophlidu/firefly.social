@@ -1,4 +1,5 @@
 import { useQueryState } from 'nuqs';
+import { parseAsStringEnum } from 'nuqs/server';
 
 export enum Category {
     Positions = 'positions',
@@ -6,12 +7,8 @@ export enum Category {
 }
 
 export function useBetsProfileTab() {
-    return useQueryState<Category>('tab', {
-        defaultValue: Category.Positions,
-        parse: (val) => {
-            return [Category.Positions, Category.Trades].some((x) => x === val)
-                ? (val as Category)
-                : Category.Positions;
-        },
-    });
+    return useQueryState<Category>(
+        'tab',
+        parseAsStringEnum([Category.Positions, Category.Trades]).withDefault(Category.Positions),
+    );
 }
