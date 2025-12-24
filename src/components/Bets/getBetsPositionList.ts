@@ -40,7 +40,7 @@ export async function getBetsPositionList(
                     is_closed: false,
                     pnl: position.notfill_pnl,
                     pnl_rate: position.pnl_rate,
-                    total_buy: 0,
+                    total_buy: (position.cur_price || 0) * (position.shares || 0),
                 })),
             };
         }

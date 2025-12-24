@@ -108,7 +108,7 @@ export function BetsPositionItem({ positionData: position, platform, showAction 
                         className={classNames('text-xs font-medium', position.pnl < 0 ? 'text-danger' : 'text-success')}
                     >
                         {formatPolymarketNumber(position.pnl, { symbol: true })}
-                        {`(${removeTrailingZeros((position.pnl_rate * 100).toFixed(2))}%)`}
+                        {`(${removeTrailingZeros((Math.abs(position.pnl_rate) * 100).toFixed(2))}%)`}
                     </span>
                     <span className="text-sm font-medium leading-[21px] tracking-[0.15px] text-second">
                         {formatPolymarketNumber(position.total_buy)}
