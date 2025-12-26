@@ -1262,7 +1262,7 @@ Packages with Single Version
  form-data@4.0.5
 *foxact@0.2.49
  fraction.js@5.3.4
-*framer-motion@12.9.2
+*framer-motion@12.23.26
 *franc-min@6.2.0
  fs.realpath@1.0.0
  fsevents@2.3.3
@@ -1483,8 +1483,8 @@ Packages with Single Version
  mlly@1.8.0
  module-alias@2.2.3
  moo@0.5.2
- motion-dom@12.9.1
- motion-utils@12.8.3
+ motion-dom@12.23.23
+ motion-utils@12.23.6
  mrmime@2.0.1
  mz@2.7.0
  n-gram@2.0.2
