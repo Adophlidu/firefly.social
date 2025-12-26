@@ -180,7 +180,7 @@ const config: NextConfig = {
                     },
                     {
                         key: 'X-Frame-Options',
-                        value: 'SAMEORIGIN',
+                        value: process.env.NODE_ENV === 'development' ? 'DENY' : 'SAMEORIGIN',
                     },
                     {
                         key: 'X-Content-Type-Options',
