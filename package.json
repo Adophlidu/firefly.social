@@ -73,7 +73,7 @@
         "@tanstack/react-router": "^1.115.3",
         "@tippyjs/react": "^4.2.6",
         "@vercel/kv": "^1.0.1",
-        "@wagmi/core": "^3.0.0",
+        "@wagmi/core": "^3.0.1",
         "bignumber.js": "9.3.1",
         "bs58": "^6.0.0",
         "core-js": "3.42.0",
@@ -124,7 +124,7 @@
         "urlcat": "^3.1.0",
         "usehooks-ts": "^3.1.1",
         "viem": "^2.40.4",
-        "wagmi": "^3.0.2",
+        "wagmi": "^3.0.3",
         "zod": "^3.25.76",
         "zustand": "^5.0.9"
     },
