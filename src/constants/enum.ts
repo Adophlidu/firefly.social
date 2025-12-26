@@ -319,6 +319,7 @@ export enum ScrollListKey {
     Transactions = 'transactions-list',
     Activities = 'activities-list',
     Bets = 'bets-list',
+    BetsLeaderboard = 'bets-leaderboard',
 }
 
 export enum FarcasterSignType {
@@ -494,6 +495,25 @@ export enum MintStatus {
 export enum HomeTab {
     Discover = 'discover',
     Following = 'following',
+}
+
+export enum BetsLeaderboardTab {
+    Global = 'global',
+    Following = 'following',
+}
+
+export enum PolymarketRankPeriod {
+    OneDay = '1d',
+    OneWeek = '1w',
+    OneMonth = '1m',
+    OneYear = '1y',
+    All = 'all',
+}
+
+export enum PolymarketRankOrder {
+    Pnl = 'pnl',
+    PnlRate = 'pnl_rate',
+    Volume = 'volume',
 }
 
 export enum BskyEmbedType {

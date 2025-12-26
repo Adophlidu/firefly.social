@@ -1,6 +1,5 @@
 'use client';
 
-import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
@@ -8,6 +7,7 @@ import { capitalize, first } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
 import TimeIcon from '@/assets/time.svg';
+import { BUTTON_COLORS } from '@/components/Bets/BetsActivityRate.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
@@ -15,6 +15,7 @@ import { Timer } from '@/components/RedPacket/Timer.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';
 import {
     type PolymarketEventListData,
@@ -23,19 +24,6 @@ import {
 } from '@/providers/types/Firefly.js';
 
 const MAX_DISPLAYED_MARKETS = 2;
-
-const BUTTON_COLORS = {
-    success: {
-        bg: 'bg-[#dcf1d9]',
-        hover: 'hover:bg-[#284129]',
-        text: 'text-success',
-    },
-    danger: {
-        bg: 'bg-[#ffe6e4]',
-        hover: 'hover:bg-[#502829]',
-        text: 'text-danger',
-    },
-} as const;
 
 const parseMarketOutcomes = (market?: PolymarketMarketData) => {
     if (!market) return { outcomes: [], prices: [] };
@@ -410,9 +398,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                             BUTTON_COLORS.success.text,
                                         )}
                                         onClick={() => {
-                                            iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE, {
-                                                path: `/bets/${event.slug}?outcome=${firstOutcome}`,
-                                            });
+                                            openPredictionPage(event.slug, firstOutcome);
                                         }}
                                     >
                                         <Trans>Buy {firstOutcome}</Trans>
@@ -427,9 +413,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                             BUTTON_COLORS.danger.text,
                                         )}
                                         onClick={() => {
-                                            iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE, {
-                                                path: `/bets/${event.slug}?outcome=${secondOutcome}`,
-                                            });
+                                            openPredictionPage(event.slug, secondOutcome);
                                         }}
                                     >
                                         <Trans>Buy {secondOutcome}</Trans>

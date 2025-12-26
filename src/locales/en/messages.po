@@ -153,6 +153,9 @@ msgstr "Failed to quote on {0}."
 msgid "Communities"
 msgstr "Communities"
 
+msgid "Volume"
+msgstr "Volume"
+
 msgid "{shares, plural, one {Repost or Quote} other {Reposts or Quotes}}"
 msgstr "{shares, plural, one {Repost or Quote} other {Reposts or Quotes}}"
 
@@ -336,6 +339,9 @@ msgstr "🙌 Just voted “{choice}” on “{0}”"
 msgid "Ended"
 msgstr "Ended"
 
+msgid "Profit/Loss"
+msgstr "Profit/Loss"
+
 msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr "Failed to follow {handleOrEnsOrAddress} on Firefly."
 
@@ -350,6 +356,9 @@ msgstr "More"
 
 msgid "Translate post"
 msgstr "Translate post"
+
+msgid "Global"
+msgstr "Global"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
@@ -466,6 +475,9 @@ msgstr "FAILED POST"
 
 msgid "User Name must start with a letter/number, only _ allowed in between"
 msgstr "User Name must start with a letter/number, only _ allowed in between"
+
+msgid "Year"
+msgstr "Year"
 
 msgid "Published successfully on {sortedSourceNames}"
 msgstr "Published successfully on {sortedSourceNames}"
@@ -1393,6 +1405,9 @@ msgstr "Log out"
 msgid "Oops... Not all the requirements have been met"
 msgstr "Oops... Not all the requirements have been met"
 
+msgid "Prediction Leaderboard"
+msgstr "Prediction Leaderboard"
+
 msgid "Unmuting..."
 msgstr "Unmuting..."
 
@@ -1521,6 +1536,9 @@ msgstr "Custom token amount"
 
 msgid "Failed to send."
 msgstr "Failed to send."
+
+msgid "Month"
+msgstr "Month"
 
 msgid "Channel"
 msgstr "Channel"
@@ -3192,6 +3210,9 @@ msgstr "Link up to three accounts"
 msgid "Total Gains"
 msgstr "Total Gains"
 
+msgid "Today"
+msgstr "Today"
+
 msgid "Claimed lucky drop successfully"
 msgstr "Claimed lucky drop successfully"
 
@@ -3732,6 +3753,9 @@ msgstr "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgid "Search bets"
 msgstr "Search bets"
 
+msgid "P&L Rate"
+msgstr "P&L Rate"
+
 msgid "Channels"
 msgstr "Channels"
 
@@ -4217,6 +4241,9 @@ msgstr "The connection has timed out. Please try again later."
 
 msgid "Reload page"
 msgstr "Reload page"
+
+msgid "Leaderboard"
+msgstr "Leaderboard"
 
 msgid "Emoji"
 msgstr "Emoji"
@@ -4708,6 +4735,9 @@ msgstr "Golden"
 
 msgid "Multi-device login"
 msgstr "Multi-device login"
+
+msgid "Week"
+msgstr "Week"
 
 msgid "Success"
 msgstr "Success"

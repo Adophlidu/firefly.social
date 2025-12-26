@@ -158,6 +158,9 @@ msgstr ""
 msgid "Communities"
 msgstr ""
 
+msgid "Volume"
+msgstr ""
+
 msgid "{shares, plural, one {Repost or Quote} other {Reposts or Quotes}}"
 msgstr ""
 
@@ -341,6 +344,9 @@ msgstr ""
 msgid "Ended"
 msgstr ""
 
+msgid "Profit/Loss"
+msgstr ""
+
 msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr ""
 
@@ -354,6 +360,9 @@ msgid "More"
 msgstr ""
 
 msgid "Translate post"
+msgstr ""
+
+msgid "Global"
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
@@ -470,6 +479,9 @@ msgid "FAILED POST"
 msgstr ""
 
 msgid "User Name must start with a letter/number, only _ allowed in between"
+msgstr ""
+
+msgid "Year"
 msgstr ""
 
 msgid "Published successfully on {sortedSourceNames}"
@@ -1398,6 +1410,9 @@ msgstr ""
 msgid "Oops... Not all the requirements have been met"
 msgstr ""
 
+msgid "Prediction Leaderboard"
+msgstr ""
+
 msgid "Unmuting..."
 msgstr ""
 
@@ -1525,6 +1540,9 @@ msgid "Custom token amount"
 msgstr ""
 
 msgid "Failed to send."
+msgstr ""
+
+msgid "Month"
 msgstr ""
 
 msgid "Channel"
@@ -3197,6 +3215,9 @@ msgstr ""
 msgid "Total Gains"
 msgstr ""
 
+msgid "Today"
+msgstr ""
+
 msgid "Claimed lucky drop successfully"
 msgstr ""
 
@@ -3737,6 +3758,9 @@ msgstr ""
 msgid "Search bets"
 msgstr ""
 
+msgid "P&L Rate"
+msgstr ""
+
 msgid "Channels"
 msgstr ""
 
@@ -4221,6 +4245,9 @@ msgid "The connection has timed out. Please try again later."
 msgstr ""
 
 msgid "Reload page"
+msgstr ""
+
+msgid "Leaderboard"
 msgstr ""
 
 msgid "Emoji"
@@ -4712,6 +4739,9 @@ msgid "Golden"
 msgstr ""
 
 msgid "Multi-device login"
+msgstr ""
+
+msgid "Week"
 msgstr ""
 
 msgid "Success"

@@ -5,10 +5,11 @@ import { Trans } from '@lingui/react/macro';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { isZero } from '@/helpers/number.js';
+import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { computeVolume, toFixedTrimmed } from '@/helpers/polymarket.js';
 import type { BetsActivity } from '@/providers/types/Firefly.js';
 
-const BUTTON_COLORS = {
+export const BUTTON_COLORS = {
     success: {
         bg: 'bg-[#dcf1d9]',
         hover: 'hover:bg-[#284129]',
@@ -84,9 +85,7 @@ export function BetsActivityRate({ activity }: ActivityRateProps) {
                             BUTTON_COLORS.danger.text,
                         )}
                         onClick={() => {
-                            iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE, {
-                                path: `/bets/${activity.eventSlug}?outcome=${secondOutcome}`,
-                            });
+                            openPredictionPage(activity.eventSlug, secondOutcome);
                         }}
                     >
                         <Trans>Buy {secondOutcome}</Trans>

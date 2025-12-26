@@ -158,6 +158,9 @@ msgstr "在 {0} 引用失败。"
 msgid "Communities"
 msgstr "社区"
 
+msgid "Volume"
+msgstr ""
+
 msgid "{shares, plural, one {Repost or Quote} other {Reposts or Quotes}}"
 msgstr "{shares, plural, one {转发或引用} other {转发或引用}}"
 
@@ -341,6 +344,9 @@ msgstr "🙌 刚刚在 ‘{0}’上投了 ‘{choice}’ 票"
 msgid "Ended"
 msgstr "已结束"
 
+msgid "Profit/Loss"
+msgstr ""
+
 msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr "未能在 Firefly 上关注 @{handleOrEnsOrAddress}。"
 
@@ -355,6 +361,9 @@ msgstr "更多"
 
 msgid "Translate post"
 msgstr "翻译帖子"
+
+msgid "Global"
+msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
@@ -471,6 +480,9 @@ msgstr "发帖失败"
 
 msgid "User Name must start with a letter/number, only _ allowed in between"
 msgstr "用户名必须以字母或数字开头，中间只能包含下划线 (_)"
+
+msgid "Year"
+msgstr ""
 
 msgid "Published successfully on {sortedSourceNames}"
 msgstr "已成功发布至 {sortedSourceNames}"
@@ -1398,6 +1410,9 @@ msgstr "登出"
 msgid "Oops... Not all the requirements have been met"
 msgstr "哎呀... 并未满足所有要求"
 
+msgid "Prediction Leaderboard"
+msgstr ""
+
 msgid "Unmuting..."
 msgstr "正在取消隐藏…"
 
@@ -1526,6 +1541,9 @@ msgstr "自定义代币数额"
 
 msgid "Failed to send."
 msgstr "发布失败。"
+
+msgid "Month"
+msgstr ""
 
 msgid "Channel"
 msgstr "圈子"
@@ -3197,6 +3215,9 @@ msgstr "最多连接 3 个账号"
 msgid "Total Gains"
 msgstr "总收益"
 
+msgid "Today"
+msgstr ""
+
 msgid "Claimed lucky drop successfully"
 msgstr "红包领取成功"
 
@@ -3737,6 +3758,9 @@ msgstr "<0>已发送</0><1/><2>到</2><3><4>{0}</4></3>"
 msgid "Search bets"
 msgstr ""
 
+msgid "P&L Rate"
+msgstr ""
+
 msgid "Channels"
 msgstr "圈子"
 
@@ -4222,6 +4246,9 @@ msgstr "连接已经超时。请稍后重试。"
 
 msgid "Reload page"
 msgstr "重新加载页面"
+
+msgid "Leaderboard"
+msgstr ""
 
 msgid "Emoji"
 msgstr "表情"
@@ -4715,6 +4742,9 @@ msgstr "金色的"
 
 msgid "Multi-device login"
 msgstr "多设备登录"
+
+msgid "Week"
+msgstr ""
 
 msgid "Success"
 msgstr "成功"

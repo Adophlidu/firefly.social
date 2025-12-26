@@ -158,6 +158,9 @@ msgstr "在 {0} 引用失敗。"
 msgid "Communities"
 msgstr "群組"
 
+msgid "Volume"
+msgstr ""
+
 msgid "{shares, plural, one {Repost or Quote} other {Reposts or Quotes}}"
 msgstr "{shares, plural, one {轉發或引用} other {轉發或引用}}"
 
@@ -341,6 +344,9 @@ msgstr "🙌 剛在「{0}」投了「{choice}」"
 msgid "Ended"
 msgstr "已結束"
 
+msgid "Profit/Loss"
+msgstr ""
+
 msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr "無法在 Firefly 上追蹤 {handleOrEnsOrAddress}。"
 
@@ -355,6 +361,9 @@ msgstr "更多"
 
 msgid "Translate post"
 msgstr "翻譯貼文"
+
+msgid "Global"
+msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
@@ -470,6 +479,9 @@ msgid "FAILED POST"
 msgstr "發文失敗"
 
 msgid "User Name must start with a letter/number, only _ allowed in between"
+msgstr ""
+
+msgid "Year"
 msgstr ""
 
 msgid "Published successfully on {sortedSourceNames}"
@@ -1398,6 +1410,9 @@ msgstr "登出"
 msgid "Oops... Not all the requirements have been met"
 msgstr "哎呀...尚未滿足所有要求"
 
+msgid "Prediction Leaderboard"
+msgstr ""
+
 msgid "Unmuting..."
 msgstr "正在取消隐藏……"
 
@@ -1526,6 +1541,9 @@ msgstr "自訂代幣數額"
 
 msgid "Failed to send."
 msgstr "發布失敗。"
+
+msgid "Month"
+msgstr ""
 
 msgid "Channel"
 msgstr "群組"
@@ -3197,6 +3215,9 @@ msgstr ""
 msgid "Total Gains"
 msgstr ""
 
+msgid "Today"
+msgstr ""
+
 msgid "Claimed lucky drop successfully"
 msgstr "紅包領取成功"
 
@@ -3737,6 +3758,9 @@ msgstr "<0>已發送</0><1/><2>至</2><3><4>{0}</4></3>"
 msgid "Search bets"
 msgstr ""
 
+msgid "P&L Rate"
+msgstr ""
+
 msgid "Channels"
 msgstr "群組"
 
@@ -4222,6 +4246,9 @@ msgstr "連線逾時，請稍後重試。"
 
 msgid "Reload page"
 msgstr "重新載入頁面"
+
+msgid "Leaderboard"
+msgstr ""
 
 msgid "Emoji"
 msgstr "表情"
@@ -4715,6 +4742,9 @@ msgstr "黃金版"
 
 msgid "Multi-device login"
 msgstr "多裝置登入"
+
+msgid "Week"
+msgstr ""
 
 msgid "Success"
 msgstr "成功"
