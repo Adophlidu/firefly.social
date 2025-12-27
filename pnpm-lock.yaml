@@ -110,8 +110,8 @@ importers:
         specifier: ^5.6.0
         version: 5.6.0
       '@giphy/react-components':
-        specifier: ^10.1.0
-        version: 10.1.0(react-dom@19.2.3)(react@19.2.3)(styled-components@6.1.19)
+        specifier: ^10.1.1
+        version: 10.1.1(react-dom@19.2.3)(react@19.2.3)(styled-components@6.1.19)
       '@headlessui/react':
         specifier: 2.1.10
         version: 2.1.10(patch_hash=roq3pv4art7yqmupqbnd3ablue)(react-dom@19.2.3)(react@19.2.3)
@@ -2075,7 +2075,7 @@ packages:
       eth-json-rpc-filters: 6.0.1
       eventemitter3: 5.0.1
       keccak: 3.0.4
-      preact: 10.28.0
+      preact: 10.28.1
       sha.js: 2.4.12
     transitivePeerDependencies:
       - supports-color
@@ -3628,8 +3628,8 @@ packages:
       uuid: 9.0.1
     dev: false
 
-  /@giphy/react-components@10.1.0(react-dom@19.2.3)(react@19.2.3)(styled-components@6.1.19):
-    resolution: {integrity: sha512-MVtLwLBkYs75gs5OMEcr+c5Ld3Xg0wtvgF06jHk6xQPWWj/801WwYPEOndATkHnKAojiZb2YKc9RJm2XdPYJfw==}
+  /@giphy/react-components@10.1.1(react-dom@19.2.3)(react@19.2.3)(styled-components@6.1.19):
+    resolution: {integrity: sha512-K5Qnipj+QEoZCMFRZ3PqxMv7FgTIP474xIUFFGFa9x6zJIx0OpilKOFqwNtJS/CtVu9VFmHNkDO/Y9xsHfdplA==}
     peerDependencies:
       react: 19.2.3
       styled-components: '>= 5'
@@ -6258,7 +6258,7 @@ packages:
       viem: 2.40.4(typescript@5.9.3)(zod@3.25.76)
       wagmi: 3.1.0(@tanstack/react-query@5.85.5)(@types/react@19.2.7)(immer@10.1.3)(react@19.2.3)(typescript@5.9.3)(viem@2.40.4)
     optionalDependencies:
-      '@wagmi/connectors': 7.0.2(@wagmi/core@3.0.1)(typescript@5.9.3)(viem@2.40.4)
+      '@wagmi/connectors': 7.0.5(@wagmi/core@3.0.1)(typescript@5.9.3)(viem@2.40.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -6768,8 +6768,8 @@ packages:
     dev: true
     optional: true
 
-  /@rollup/rollup-linux-x64-gnu@4.53.5:
-    resolution: {integrity: sha512-Pg6E+oP7GvZ4XwgRJBuSXZjcqpIW3yCBhK4BcsANvb47qMvAbCjR6E+1a/U2WXz1JJxp9/4Dno3/iSJLcm5auw==}
+  /@rollup/rollup-linux-x64-gnu@4.54.0:
+    resolution: {integrity: sha512-WGt5J8Ij/rvyqpFexxk3ffKqqbLf9AqrTBbWDk7ApGUzaIs6V+s2s84kAxklFwmMF/vBNGrVdYgbblCOFFezMQ==}
     cpu: [x64]
     os: [linux]
     dev: false
@@ -9591,8 +9591,8 @@ packages:
       viem: 2.40.4(typescript@5.9.3)(zod@3.25.76)
     dev: false
 
-  /@wagmi/connectors@7.0.2(@wagmi/core@3.0.1)(typescript@5.9.3)(viem@2.40.4):
-    resolution: {integrity: sha512-JQmFNZR/EmeAkIWgEfAsS8lrnqMjVHFEpnPgVl6wIDU58LhrWe0D1/lHxzdCyFiX3gu/rkIERrHu0BXRxkuB1A==}
+  /@wagmi/connectors@7.0.5(@wagmi/core@3.0.1)(typescript@5.9.3)(viem@2.40.4):
+    resolution: {integrity: sha512-2Ot4IK9CnqiR1RV8NZo6ls4puYckHx1vzzj/NcfJhMsumjz1GLZ6zHDFzdXVZ8xztsik4AQoBXp0/cJqMqStKQ==}
     peerDependencies:
       '@base-org/account': ~2.4.0
       '@coinbase/wallet-sdk': ~4.3.6
@@ -9600,7 +9600,7 @@ packages:
       '@metamask/sdk': ~0.33.1
       '@safe-global/safe-apps-provider': ~0.18.6
       '@safe-global/safe-apps-sdk': ~9.1.0
-      '@wagmi/core': 3.0.0
+      '@wagmi/core': 3.0.1
       '@walletconnect/ethereum-provider': ~2.21.1
       porto: ~0.2.35
       typescript: '>=5.7.3'
@@ -14477,8 +14477,8 @@ packages:
     resolution: {integrity: sha512-3K/B0RpzjoW+Wj2E455wWXxkqxqK8UgdIiuqkOqdOsoSSo5mCkHOU6eVw7Nlmlr1MFvAMzGmz4RPn8NZaLQ2Mw==}
     dev: false
 
-  /lib0@0.2.115:
-    resolution: {integrity: sha512-noaW4yNp6hCjOgDnWWxW0vGXE3kZQI5Kqiwz+jIWXavI9J9WyfJ9zjsbQlQlgjIbHBrvlA/x3TSIXBUJj+0L6g==}
+  /lib0@0.2.116:
+    resolution: {integrity: sha512-4zsosjzmt33rx5XjmFVYUAeLNh+BTeDTiwGdLt4muxiir2btsc60Nal0EvkvDRizg+pnlK1q+BtYi7M+d4eStw==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
@@ -15203,7 +15203,7 @@ packages:
     resolution: {integrity: sha512-kOCT/1MCPAxY5iUV3wytNFUMUolzuwd/VF/1KCx7kf6CutrOsTie+84zTGTpgQycjvfLdBBdvBvFLqFD2c0wkQ==}
     engines: {node: '>=18'}
     optionalDependencies:
-      '@rollup/rollup-linux-x64-gnu': 4.53.5
+      '@rollup/rollup-linux-x64-gnu': 4.54.0
     dev: false
 
   /next-auth@4.24.13(next@16.0.10)(react-dom@19.2.3)(react@19.2.3):
@@ -16127,8 +16127,8 @@ packages:
     resolution: {integrity: sha512-5SYSgFKSyhCbk6SrXyMpqjb5+MQBgfvEKE/OC+PujcY34sOpqtr+0AZQtPYx5IA6VxynQ7rUPCtKzyovpj9Bpg==}
     dev: false
 
-  /preact@10.28.0:
-    resolution: {integrity: sha512-rytDAoiXr3+t6OIP3WGlDd0ouCUG1iCWzkcY3++Nreuoi17y6T5i/zRhe6uYfoVcxq6YU+sBtJouuRDsq8vvqA==}
+  /preact@10.28.1:
+    resolution: {integrity: sha512-u1/ixq/lVQI0CakKNvLDEcW5zfCjUQfZdK9qqWuIJtsezuyG6pk9TWj75GMuI/EzRSZB/VAE43sNWWZfiy8psw==}
     dev: false
 
   /prelude-ls@1.2.1:
@@ -19119,6 +19119,14 @@ packages:
       graceful-fs: 4.2.11
     dev: true
 
+  /watchpack@2.5.0:
+    resolution: {integrity: sha512-e6vZvY6xboSwLz2GD36c16+O/2Z6fKvIf4pOXptw2rY9MVwE/TXc6RGqxD3I3x0a28lwBY7DE+76uTPSsBrrCA==}
+    engines: {node: '>=10.13.0'}
+    dependencies:
+      glob-to-regexp: 0.4.1
+      graceful-fs: 4.2.11
+    dev: true
+
   /wcwidth@1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
     dependencies:
@@ -19280,7 +19288,7 @@ packages:
       schema-utils: 4.3.3
       tapable: 2.3.0
       terser-webpack-plugin: 5.3.16(@swc/core@1.15.7)(webpack@5.104.1)
-      watchpack: 2.4.4
+      watchpack: 2.5.0
       webpack-sources: 3.3.3
     transitivePeerDependencies:
       - '@swc/core'
@@ -19580,7 +19588,7 @@ packages:
     resolution: {integrity: sha512-EgnDOXs8+hBVm6mq3/S89Kiwzh5JRbn7w2wXwbrMRyKy/8dOFsLvuIfC+x19ZdtaDc0tA9rQmdZzbqqNHG44wA==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
     dependencies:
-      lib0: 0.2.115
+      lib0: 0.2.116
     dev: false
 
   /yocto-queue@0.1.0:
@@ -19723,7 +19731,7 @@ time:
   /@farcaster/miniapp-host@0.2.14: '2025-10-16T16:10:18.601Z'
   /@floating-ui/react@0.27.16: '2025-08-21T06:33:44.461Z'
   /@giphy/js-fetch-api@5.6.0: '2024-05-28T16:39:28.633Z'
-  /@giphy/react-components@10.1.0: '2025-07-08T16:16:15.609Z'
+  /@giphy/react-components@10.1.1: '2025-12-19T20:57:21.199Z'
   /@heroicons/react@2.2.0: '2024-11-18T15:33:27.317Z'
   /@lens-chain/storage-client@1.0.6: '2025-08-19T19:29:05.046Z'
   /@lens-protocol/client@0.0.0-canary-20250430134539: '2025-04-30T13:48:09.961Z'

@@ -2,7 +2,7 @@ Package Analysis
 ================
 
 Total packages: 1817
-Packages with multiple versions: 222
+Packages with multiple versions: 223
 
 Legend:
   * = Direct dependency (listed in package.json)
@@ -72,7 +72,7 @@ Packages with Multiple Versions
  @next/env@16.0.0,16.0.10
  @noble/ciphers@1.2.1,1.3.0
  @noble/hashes@1.4.0,1.7.0,1.7.1,1.8.0
- @rollup/rollup-linux-x64-gnu@4.39.0,4.53.5
+ @rollup/rollup-linux-x64-gnu@4.39.0,4.54.0
  @scure/base@1.1.9,1.2.6
  @scure/bip32@1.4.0,1.6.2,1.7.0
  @scure/bip39@1.3.0,1.5.4,1.6.0
@@ -92,7 +92,7 @@ Packages with Multiple Versions
  @vitest/pretty-format@3.1.4,3.2.4
  @vitest/spy@3.1.4,3.2.4
  @vitest/utils@3.1.4,3.2.4
- @wagmi/connectors@5.11.2,7.0.2
+ @wagmi/connectors@5.11.2,7.0.2,7.0.5
 *@wagmi/core@2.21.2,3.0.0,3.0.1
  @walletconnect/core@2.21.1,2.23.0
  @walletconnect/sign-client@2.21.1,2.23.0
@@ -183,7 +183,7 @@ Packages with Multiple Versions
  pify@2.3.0,3.0.0,5.0.0
  pngjs@5.0.0,6.0.0,7.0.0
 *postcss@8.4.31,8.4.49,8.5.6
- preact@10.24.2,10.27.2,10.28.0
+ preact@10.24.2,10.27.2,10.28.1
  pretty-format@27.5.1,29.7.0,3.8.0
 *punycode@1.4.1,2.3.1
  react-is@16.13.1,17.0.2,18.3.1
@@ -220,6 +220,7 @@ Packages with Multiple Versions
  uuid@8.3.2,9.0.1
 *viem@2.23.2,2.37.9,2.40.4
 *wagmi@2.17.5,3.1.0
+ watchpack@2.4.4,2.5.0
  webidl-conversions@3.0.1,4.0.2
  webpack@5.103.0,5.104.1
  whatwg-url@5.0.0,7.1.0
@@ -491,7 +492,7 @@ Packages with Single Version
 *@giphy/js-fetch-api@5.6.0
  @giphy/js-types@5.1.0
  @giphy/js-util@5.2.0
-*@giphy/react-components@10.1.0
+*@giphy/react-components@10.1.1
  @gql.tada/cli-utils@1.6.3
  @gql.tada/internal@1.0.8
  @grpc/grpc-js@1.9.15
@@ -1408,7 +1409,7 @@ Packages with Single Version
  leven@3.1.0
  levn@0.4.1
 *lexical@0.18.0
- lib0@0.2.115
+ lib0@0.2.116
  lie@3.1.1
  lilconfig@3.1.3
  linebreak@1.1.0
@@ -1798,7 +1799,6 @@ Packages with Single Version
 *vitest@3.1.4
  vscode-languageserver-textdocument@1.0.12
  vscode-uri@3.1.0
- watchpack@2.4.4
  wcwidth@1.0.1
  web-vitals@4.2.4
  web3-errors@1.3.1
