@@ -19,7 +19,7 @@ export function RedPacketEnvelope({
     usage,
     ...rest
 }: Props) {
-    const { data: cover, isLoading: isLoadingCover } = useRedPacketCover({
+    const { data: cover } = useRedPacketCover({
         rpid,
         themeId,
         token,
