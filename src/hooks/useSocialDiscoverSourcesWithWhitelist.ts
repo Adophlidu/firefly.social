@@ -1,11 +1,11 @@
-import TWITTER_TIMELINE_WHITELIST from '@/assets/twitter-timeline-whitelist.json' with { type: 'json' };
 import { SOCIAL_DISCOVER_SOURCE, SOCIAL_DISCOVER_WHITELIST_SOURCE } from '@/constants/computed.js';
 import { HomeTab } from '@/constants/enum.js';
+import { TWITTER_TIMELINE_WHITELIST_UID_SET } from '@/constants/twitterTimelineWhitelist.js';
 import { useCurrentFireflyAccountUID } from '@/hooks/useCurrentFireflyAccountUID.js';
 
 export function useSocialDiscoverSourcesWithWhitelist(tab: HomeTab) {
     const fireflyUID = useCurrentFireflyAccountUID();
-    const isWhitelist = TWITTER_TIMELINE_WHITELIST.some((x) => x.uid === fireflyUID);
+    const isWhitelist = fireflyUID ? TWITTER_TIMELINE_WHITELIST_UID_SET.has(fireflyUID) : false;
     if (tab !== HomeTab.Following) return SOCIAL_DISCOVER_SOURCE;
     return isWhitelist ? [...SOCIAL_DISCOVER_SOURCE, ...SOCIAL_DISCOVER_WHITELIST_SOURCE] : SOCIAL_DISCOVER_SOURCE;
 }
