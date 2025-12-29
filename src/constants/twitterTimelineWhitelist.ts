@@ -10,9 +10,13 @@ export const TWITTER_TIMELINE_WHITELIST_UID_SET: ReadonlySet<string> = new Set([
     '1753375837', // farcaster: @saitejak
     '1918273493', // suji
     '2103613615', // x: @LeifXu88998899
+    '2171547191', // hongkongdoll
     '2229461391', // farcaster: @kalel04.eth
+    '2250087362', // danfinlay
     '2283485284', // ddjking
+    '2471908290', // songadaymann
     '2495874052', // vitalik.eth
+    '2686278913', // David Hoffman
     '2974712182', // farcaster: @fdnxyz
     '3008110105',
     '3207396612', // farcaster: @kunyang
