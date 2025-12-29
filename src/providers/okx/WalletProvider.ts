@@ -110,7 +110,7 @@ export class SolanaWalletProvider implements SolanaProvider {
     isPhantom = false;
     #listeners: Record<string, Set<(...args: any[]) => void>> = {};
     #unwatchFns: Array<() => void> = [];
-    #muted: boolean = false;
+    #muted = false;
 
     constructor(muted?: boolean) {
         this.#muted = muted || false;

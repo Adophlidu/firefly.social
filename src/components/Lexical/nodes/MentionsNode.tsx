@@ -17,7 +17,7 @@ interface SerializedMentionNode extends SerializedLexicalNode {
 }
 
 export class MentionNode extends DecoratorNode<ReactNode> {
-    static __isDarkMode: boolean = false;
+    static __isDarkMode = false;
 
     static setIsDarkMode(isDark: boolean) {
         this.__isDarkMode = isDark;

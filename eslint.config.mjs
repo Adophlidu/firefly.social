@@ -263,6 +263,12 @@ export default defineConfig([
             '@typescript-eslint/no-extra-non-null-assertion': 'warn',
             '@typescript-eslint/no-for-in-array': 'warn',
             '@typescript-eslint/no-implied-eval': 'error',
+            '@typescript-eslint/no-inferrable-types': [
+                'error',
+                {
+                    ignoreParameters: false,
+                },
+            ],
             '@typescript-eslint/no-loop-func': 'warn',
             '@typescript-eslint/no-loss-of-precision': 'error',
             '@typescript-eslint/no-meaningless-void-operator': 'warn',

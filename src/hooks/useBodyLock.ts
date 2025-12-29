@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 let lockCount = 0;
 
-export function useBodyLock(open: boolean = true) {
+export function useBodyLock(open = true) {
     useEffect(() => {
         if (typeof window === 'undefined' || !open) return;
         if (lockCount === 0) {

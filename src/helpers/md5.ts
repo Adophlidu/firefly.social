@@ -11,13 +11,13 @@ interface HasherState {
 export class Md5 {
     public static hashStr(str: string, raw?: false): string;
     public static hashStr(str: string, raw: true): Int32Array;
-    public static hashStr(str: string, raw: boolean = false) {
+    public static hashStr(str: string, raw = false) {
         return this.onePassHasher.start().appendStr(str).end(raw);
     }
 
     public static hashAsciiStr(str: string, raw?: false): string;
     public static hashAsciiStr(str: string, raw: true): Int32Array;
-    public static hashAsciiStr(str: string, raw: boolean = false) {
+    public static hashAsciiStr(str: string, raw = false) {
         return this.onePassHasher.start().appendAsciiStr(str).end(raw);
     }
 
@@ -337,7 +337,7 @@ export class Md5 {
         }
     }
 
-    public end(raw: boolean = false) {
+    public end(raw = false) {
         const bufLen = this._bufferLength;
         const buf8 = this._buffer8;
         const buf32 = this._buffer32;

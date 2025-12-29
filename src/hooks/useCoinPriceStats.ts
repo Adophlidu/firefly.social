@@ -37,7 +37,7 @@ export function useCoinPrice24hStats(
     coinId: string | null | undefined,
     chainId: number | undefined,
     address: string | undefined,
-    days: number = 1,
+    days = 1,
 ) {
     const { data: priceStats = EMPTY_LIST, isPending } = useCoinPriceStats(coinId, chainId, address, days);
     const { isUp } = useIsPriceUp(priceStats);

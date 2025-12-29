@@ -123,7 +123,7 @@ export function formatCurrency(
         isDigitalCurrency,
     );
 
-    let result: string = '';
+    let result = '';
 
     if (
         bn.lt(

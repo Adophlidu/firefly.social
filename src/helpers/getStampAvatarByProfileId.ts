@@ -9,7 +9,7 @@ import type { FireflyProfile, LensV3Profile, WalletProfile } from '@/providers/t
 const STAMP_URL =
     env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled ? FIREFLY_STAMP_DEV_URL : FIREFLY_STAMP_URL;
 
-export function getStampAvatarByProfileId(source: Source, profileId: string, size: number = 240) {
+export function getStampAvatarByProfileId(source: Source, profileId: string, size = 240) {
     const s = Math.min(size, 500);
     switch (source) {
         case Source.Farcaster:
