@@ -128,7 +128,7 @@ function getSuccessMessage(type: LikeTarget['type'], liked: boolean) {
         case Source.DAOs:
             return liked ? <Trans>Snapshot liked.</Trans> : <Trans>Snapshot unliked.</Trans>;
         case Source.Bets:
-            return liked ? <Trans>Bets liked.</Trans> : <Trans>Bets unliked.</Trans>;
+            return liked ? <Trans>Prediction liked.</Trans> : <Trans>Prediction unliked.</Trans>;
         case Source.Swap:
             return liked ? <Trans>Swap liked.</Trans> : <Trans>Swap unliked.</Trans>;
         case ExtraLikeType.Tips:
@@ -145,7 +145,7 @@ function getErrorMessage(type: LikeTarget['type'], liked: boolean) {
         case Source.DAOs:
             return liked ? <Trans>Failed to like snapshot.</Trans> : <Trans>Failed to unlike snapshot.</Trans>;
         case Source.Bets:
-            return liked ? <Trans>Failed to like bets.</Trans> : <Trans>Failed to unlike bets.</Trans>;
+            return liked ? <Trans>Failed to like prediction.</Trans> : <Trans>Failed to unlike prediction.</Trans>;
         case Source.Swap:
             return liked ? <Trans>Failed to like swap.</Trans> : <Trans>Failed to unlike swap.</Trans>;
         case ExtraLikeType.Tips:

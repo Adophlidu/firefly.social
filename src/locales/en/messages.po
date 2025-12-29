@@ -783,9 +783,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> follo
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {Follower} other {Followers}}"
 
-msgid "Bets liked."
-msgstr "Bets liked."
-
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr "Oops! Your account is currently blocked. Reach out to support for more details."
 
@@ -1348,10 +1345,6 @@ msgstr "Update"
 msgid "Registered account not found. Please switch to another wallet and try again."
 msgstr "Registered account not found. Please switch to another wallet and try again."
 
-#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
-msgid "<0>Sold a bet</0><1>worth ${0} at <2/></1>"
-msgstr "<0>Sold a bet</0><1>worth ${0} at <2/></1>"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Quoted on {0}."
 msgstr "🎭 Quoted on {0}."
@@ -1405,6 +1398,9 @@ msgstr "The number of token transactions is limited. The number of scam token tr
 
 msgid "Log out"
 msgstr "Log out"
+
+msgid "Search predictions"
+msgstr "Search predictions"
 
 msgid "Oops... Not all the requirements have been met"
 msgstr "Oops... Not all the requirements have been met"
@@ -1472,9 +1468,6 @@ msgstr "Change password"
 
 msgid "Verified by {provider}"
 msgstr "Verified by {provider}"
-
-msgid "Failed to like bets."
-msgstr "Failed to like bets."
 
 msgid "Resend full or remaining?"
 msgstr "Resend full or remaining?"
@@ -1971,6 +1964,10 @@ msgstr "You can withdraw any unclaimed amount 24 hours after creating this lucky
 msgid "This address is already verified"
 msgstr "This address is already verified"
 
+#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
+msgid "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
+msgstr "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
+
 msgid "Only people you mention"
 msgstr "Only people you mention"
 
@@ -2175,6 +2172,9 @@ msgstr "This token is issued by its declared team. Some scams will create a well
 
 msgid "Search ${symbol}"
 msgstr "Search ${symbol}"
+
+msgid "Prediction liked."
+msgstr "Prediction liked."
 
 #. placeholder {0}: channel.id
 #. placeholder {0}: channel.name
@@ -2394,6 +2394,10 @@ msgstr "Standard"
 
 msgid "Video duration limit reached"
 msgstr "Video duration limit reached"
+
+#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
+msgid "<0>Sold a position</0><1>worth ${0} at <2/></1>"
+msgstr "<0>Sold a position</0><1>worth ${0} at <2/></1>"
 
 msgid "No darkweb transactions found."
 msgstr "No darkweb transactions found."
@@ -3354,9 +3358,6 @@ msgstr "Upload photo"
 msgid "Failed to verify address: {0}"
 msgstr "Failed to verify address: {0}"
 
-msgid "Bets unliked."
-msgstr "Bets unliked."
-
 msgid "Cross at handles"
 msgstr "Cross at handles"
 
@@ -3497,9 +3498,6 @@ msgstr "Non-contract address found."
 
 msgid "Home"
 msgstr "Home"
-
-msgid "Failed to unlike bets."
-msgstr "Failed to unlike bets."
 
 msgid "Re-enter Password"
 msgstr "Re-enter Password"
@@ -3749,10 +3747,6 @@ msgstr "Scan QR code to access your account"
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "Followed by {0} , {1}, and {2}"
 
-#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
-msgid "<0>Placed a bet</0><1>worth ${0} at <2/></1>"
-msgstr "<0>Placed a bet</0><1>worth ${0} at <2/></1>"
-
 msgid "Vote"
 msgstr "Vote"
 
@@ -3769,9 +3763,6 @@ msgstr "Customize your Lucky Drop sender: Choose from your social account handle
 #. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
-
-msgid "Search bets"
-msgstr "Search bets"
 
 msgid "P&L Rate"
 msgstr "P&L Rate"
@@ -3815,6 +3806,9 @@ msgstr "{days}d left"
 
 msgid "Money laundering found."
 msgstr "Money laundering found."
+
+msgid "Failed to like prediction."
+msgstr "Failed to like prediction."
 
 msgid "Sign Up"
 msgstr "Sign Up"
@@ -4144,6 +4138,9 @@ msgstr "Sign in with Bluesky"
 msgid "Failed to send tip. Please try again later."
 msgstr "Failed to send tip. Please try again later."
 
+msgid "Failed to unlike prediction."
+msgstr "Failed to unlike prediction."
+
 msgid "24h Vol"
 msgstr "24h Vol"
 
@@ -4353,6 +4350,9 @@ msgstr "No one you follow has traded this token."
 msgid "Explore now"
 msgstr "Explore now"
 
+msgid "Predictions"
+msgstr "Predictions"
+
 msgid "Hidden owner."
 msgstr "Hidden owner."
 
@@ -4399,6 +4399,9 @@ msgstr "{0}h: {1}m: {2}s"
 #. placeholder {1}: error instanceof Error ? error.message : ''
 msgid "Failed to create {0} profile.{1}"
 msgstr "Failed to create {0} profile.{1}"
+
+msgid "Prediction unliked."
+msgstr "Prediction unliked."
 
 #. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
 #. placeholder {1}: feed.deployPlatform && feed.deployPlatformLogo ? ( <div className="flex items-center gap-1"> on <Image src={feed.deployPlatformLogo} className="size-[18px] rounded-full" alt={feed.deployPlatform} width={18} height={18} /> <span className="h-6 capitalize leading-6">{feed.deployPlatform}</span> </div> ) : null

@@ -42,7 +42,7 @@ export const SearchTabs = memo(function SearchTabs() {
                 link: fixSearchUrl(searchKeyword, SearchType.Tokens, source, clubType),
             },
             {
-                label: <Trans>Bets</Trans>,
+                label: <Trans>Predictions</Trans>,
                 link: fixSearchUrl(searchKeyword, SearchType.Bets, source, clubType),
             },
             NFT_ENABLED

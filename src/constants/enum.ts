@@ -79,7 +79,7 @@ export enum Source {
     Transactions = 'Transactions',
     Activities = 'Activities',
     X3Pro = 'X3Pro',
-    Bets = 'Bets',
+    Bets = 'Prediction',
 }
 
 export enum SourceInURL {

@@ -788,9 +788,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}}<4> 追�
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {追蹤者} other {追蹤者}}"
 
-msgid "Bets liked."
-msgstr ""
-
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr "您的帳戶已被封鎖，請聯繫客服了解詳情。"
 
@@ -1353,10 +1350,6 @@ msgstr "更新"
 msgid "Registered account not found. Please switch to another wallet and try again."
 msgstr "未發現任意在Firefly註冊帳號，請更改錢包重試。"
 
-#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
-msgid "<0>Sold a bet</0><1>worth ${0} at <2/></1>"
-msgstr ""
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Quoted on {0}."
 msgstr "🎭 已在 {0} 引用。"
@@ -1410,6 +1403,9 @@ msgstr "代幣交易次數受限。詐騙代幣交易次數可能受限（詐騙
 
 msgid "Log out"
 msgstr "登出"
+
+msgid "Search predictions"
+msgstr ""
 
 msgid "Oops... Not all the requirements have been met"
 msgstr "哎呀...尚未滿足所有要求"
@@ -1477,9 +1473,6 @@ msgstr "變更密碼"
 
 msgid "Verified by {provider}"
 msgstr "由 {provider} 驗證"
-
-msgid "Failed to like bets."
-msgstr ""
 
 msgid "Resend full or remaining?"
 msgstr "重新發布全部或剩餘部分？"
@@ -1976,6 +1969,10 @@ msgstr "創建紅包 24 小時後可撤回未領取數額。"
 msgid "This address is already verified"
 msgstr ""
 
+#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
+msgid "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
+msgstr ""
+
 msgid "Only people you mention"
 msgstr "僅您提及的人"
 
@@ -2180,6 +2177,9 @@ msgstr "此代幣由聲明團隊發行，請注意同名詐騙代幣風險。"
 
 msgid "Search ${symbol}"
 msgstr "搜尋 ${symbol}"
+
+msgid "Prediction liked."
+msgstr ""
 
 #. placeholder {0}: channel.id
 #. placeholder {0}: channel.name
@@ -2399,6 +2399,10 @@ msgstr "標準"
 
 msgid "Video duration limit reached"
 msgstr "達到影片時長上限"
+
+#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
+msgid "<0>Sold a position</0><1>worth ${0} at <2/></1>"
+msgstr ""
 
 msgid "No darkweb transactions found."
 msgstr "未發現暗網交易。"
@@ -3359,9 +3363,6 @@ msgstr "上傳照片"
 msgid "Failed to verify address: {0}"
 msgstr ""
 
-msgid "Bets unliked."
-msgstr ""
-
 msgid "Cross at handles"
 msgstr "跨平台用戶名稱"
 
@@ -3502,9 +3503,6 @@ msgstr "檢測到非合約地址。"
 
 msgid "Home"
 msgstr "主頁"
-
-msgid "Failed to unlike bets."
-msgstr ""
 
 msgid "Re-enter Password"
 msgstr "再次輸入密碼"
@@ -3754,10 +3752,6 @@ msgstr "掃碼登入帳戶"
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "共同追蹤者包含 {0}、{1} 及 {2}"
 
-#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
-msgid "<0>Placed a bet</0><1>worth ${0} at <2/></1>"
-msgstr ""
-
 msgid "Vote"
 msgstr "投票"
 
@@ -3774,9 +3768,6 @@ msgstr "自訂你的紅包發送者名稱：可選擇社交帳號或錢包地址
 #. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr "<0>已發送</0><1/><2>至</2><3><4>{0}</4></3>"
-
-msgid "Search bets"
-msgstr ""
 
 msgid "P&L Rate"
 msgstr ""
@@ -3820,6 +3811,9 @@ msgstr "剩餘 {days} 日"
 
 msgid "Money laundering found."
 msgstr "檢測到洗錢行為。"
+
+msgid "Failed to like prediction."
+msgstr ""
 
 msgid "Sign Up"
 msgstr "註冊"
@@ -4149,6 +4143,9 @@ msgstr "使用 Bluesky 登入"
 msgid "Failed to send tip. Please try again later."
 msgstr "小費發送失敗，請稍後重試。"
 
+msgid "Failed to unlike prediction."
+msgstr ""
+
 msgid "24h Vol"
 msgstr "24 小時交易量"
 
@@ -4358,6 +4355,9 @@ msgstr "你追蹤的人中沒有人交易過此代幣。"
 msgid "Explore now"
 msgstr "開始探索"
 
+msgid "Predictions"
+msgstr ""
+
 msgid "Hidden owner."
 msgstr "隱藏的擁有者。"
 
@@ -4403,6 +4403,9 @@ msgstr "{0}時： {1}分： {2}秒"
 #. placeholder {0}: resolveSourceName(source)
 #. placeholder {1}: error instanceof Error ? error.message : ''
 msgid "Failed to create {0} profile.{1}"
+msgstr ""
+
+msgid "Prediction unliked."
 msgstr ""
 
 #. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null

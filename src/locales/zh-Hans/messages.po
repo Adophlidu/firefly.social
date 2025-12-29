@@ -788,9 +788,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}}<4> 关�
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {关注者} other {关注者}}"
 
-msgid "Bets liked."
-msgstr "点赞成功。"
-
 msgid "Oops! Your account is currently blocked. Reach out to support for more details."
 msgstr "糟糕！你的账户当前已被封禁。请联系客服了解具体原因。"
 
@@ -1353,10 +1350,6 @@ msgstr "更新"
 msgid "Registered account not found. Please switch to another wallet and try again."
 msgstr "未发现任何在Firefly注册的账号，请更换钱包重试。"
 
-#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
-msgid "<0>Sold a bet</0><1>worth ${0} at <2/></1>"
-msgstr "<0>卖出了一笔赌注</0><1>价值 ${0} 于 <2/></1>"
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "🎭 Quoted on {0}."
 msgstr "🎭 已在 {0} 引用。"
@@ -1410,6 +1403,9 @@ msgstr "代表的交易次数受限。可疑代币的交易次数可能会被限
 
 msgid "Log out"
 msgstr "登出"
+
+msgid "Search predictions"
+msgstr ""
 
 msgid "Oops... Not all the requirements have been met"
 msgstr "哎呀... 并未满足所有要求"
@@ -1477,9 +1473,6 @@ msgstr "修改密码"
 
 msgid "Verified by {provider}"
 msgstr "由 {provider} 校验"
-
-msgid "Failed to like bets."
-msgstr "点赞失败。"
 
 msgid "Resend full or remaining?"
 msgstr "重新发布完整还是剩余部分？"
@@ -1976,6 +1969,10 @@ msgstr "发送红包 24 小时后可提取未领取数额。"
 msgid "This address is already verified"
 msgstr ""
 
+#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
+msgid "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
+msgstr ""
+
 msgid "Only people you mention"
 msgstr "只有你提及的人"
 
@@ -2180,6 +2177,9 @@ msgstr "此代币由其宣称的团队发行。一些骗局会创建同名的知
 
 msgid "Search ${symbol}"
 msgstr "搜索 ${symbol}"
+
+msgid "Prediction liked."
+msgstr ""
 
 #. placeholder {0}: channel.id
 #. placeholder {0}: channel.name
@@ -2399,6 +2399,10 @@ msgstr "标准"
 
 msgid "Video duration limit reached"
 msgstr "达到视频时长上限"
+
+#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
+msgid "<0>Sold a position</0><1>worth ${0} at <2/></1>"
+msgstr ""
 
 msgid "No darkweb transactions found."
 msgstr "未发现暗网交易。"
@@ -3359,9 +3363,6 @@ msgstr "上传照片"
 msgid "Failed to verify address: {0}"
 msgstr ""
 
-msgid "Bets unliked."
-msgstr "已取消点赞。"
-
 msgid "Cross at handles"
 msgstr "跨平台用户名"
 
@@ -3502,9 +3503,6 @@ msgstr "发现非合约地址。"
 
 msgid "Home"
 msgstr "首页"
-
-msgid "Failed to unlike bets."
-msgstr "取消点赞失败。"
 
 msgid "Re-enter Password"
 msgstr "再次输入密码"
@@ -3754,10 +3752,6 @@ msgstr "扫码登录账户"
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "被 {0} 和 {1} 和 {2} 关注"
 
-#. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
-msgid "<0>Placed a bet</0><1>worth ${0} at <2/></1>"
-msgstr "<0>下了一笔投注</0><1>，金额为 ${0}，投注于 <2/></1>"
-
 msgid "Vote"
 msgstr "投票"
 
@@ -3774,9 +3768,6 @@ msgstr "自定义你的红包发送者名称：可选择你的社交账号或钱
 #. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr "<0>已发送</0><1/><2>到</2><3><4>{0}</4></3>"
-
-msgid "Search bets"
-msgstr ""
 
 msgid "P&L Rate"
 msgstr ""
@@ -3820,6 +3811,9 @@ msgstr "剩余 {days} 天"
 
 msgid "Money laundering found."
 msgstr "被识别为洗钱。"
+
+msgid "Failed to like prediction."
+msgstr ""
 
 msgid "Sign Up"
 msgstr "注册"
@@ -4149,6 +4143,9 @@ msgstr "使用 Bluesky 登录"
 msgid "Failed to send tip. Please try again later."
 msgstr "发送打赏失败，请稍后重试。"
 
+msgid "Failed to unlike prediction."
+msgstr ""
+
 msgid "24h Vol"
 msgstr "24 小时交易量"
 
@@ -4358,6 +4355,9 @@ msgstr "你关注的人没有交易过这个代币哦。"
 msgid "Explore now"
 msgstr "开始探索"
 
+msgid "Predictions"
+msgstr ""
+
 msgid "Hidden owner."
 msgstr "隐蔽的所有者。"
 
@@ -4404,6 +4404,9 @@ msgstr "{0}时: {1}分: {2}秒"
 #. placeholder {1}: error instanceof Error ? error.message : ''
 msgid "Failed to create {0} profile.{1}"
 msgstr "创建 {0} 账户失败。{1}"
+
+msgid "Prediction unliked."
+msgstr ""
 
 #. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
 #. placeholder {1}: feed.deployPlatform && feed.deployPlatformLogo ? ( <div className="flex items-center gap-1"> on <Image src={feed.deployPlatformLogo} className="size-[18px] rounded-full" alt={feed.deployPlatform} width={18} height={18} /> <span className="h-6 capitalize leading-6">{feed.deployPlatform}</span> </div> ) : null

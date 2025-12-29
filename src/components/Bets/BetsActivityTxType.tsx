@@ -24,7 +24,7 @@ export function BetsActivityTxType({ type, platform, children, usdcSize }: Props
             return (
                 <ActivityCellAction>
                     <Trans>
-                        <ActivityCellActionTag icon={<BuyIcon />}>Placed a bet</ActivityCellActionTag>
+                        <ActivityCellActionTag icon={<BuyIcon />}>Made a prediction</ActivityCellActionTag>
                         <span>
                             worth ${toFixedTrimmed(+usdcSize, 2)} at <BetsPlatformName platform={platform} />
                         </span>
@@ -36,7 +36,7 @@ export function BetsActivityTxType({ type, platform, children, usdcSize }: Props
             return (
                 <ActivityCellAction>
                     <Trans>
-                        <ActivityCellActionTag icon={<SellIcon />}>Sold a bet</ActivityCellActionTag>
+                        <ActivityCellActionTag icon={<SellIcon />}>Sold a position</ActivityCellActionTag>
                         <span>
                             worth ${toFixedTrimmed(+usdcSize, 2)} at <BetsPlatformName platform={platform} />
                         </span>
