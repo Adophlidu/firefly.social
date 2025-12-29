@@ -399,6 +399,10 @@ msgstr "Set Password"
 msgid "Joined"
 msgstr "Joined"
 
+#. placeholder {0}: error.message
+msgid "Failed to remove address: {0}"
+msgstr "Failed to remove address: {0}"
+
 msgid "Tax can be modified"
 msgstr "Tax can be modified"
 
@@ -1964,6 +1968,9 @@ msgstr "Comment"
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 
+msgid "This address is already verified"
+msgstr "This address is already verified"
+
 msgid "Only people you mention"
 msgstr "Only people you mention"
 
@@ -2874,6 +2881,9 @@ msgstr "Current Positions"
 msgid "Price"
 msgstr "Price"
 
+msgid "Remove Address"
+msgstr "Remove Address"
+
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
 
@@ -2944,6 +2954,9 @@ msgstr "Paragraph article"
 
 msgid "Bio should be at least {minBioSize} characters"
 msgstr "Bio should be at least {minBioSize} characters"
+
+msgid "Verified addresses"
+msgstr "Verified addresses"
 
 msgid "Buy {secondOutcome}"
 msgstr "Buy {secondOutcome}"
@@ -3337,6 +3350,10 @@ msgstr "New password cannot be the same as the old one. Please try again."
 msgid "Upload photo"
 msgstr "Upload photo"
 
+#. placeholder {0}: error.message
+msgid "Failed to verify address: {0}"
+msgstr "Failed to verify address: {0}"
+
 msgid "Bets unliked."
 msgstr "Bets unliked."
 
@@ -3578,6 +3595,9 @@ msgstr "<0>Sold</0><1/>"
 msgid "Show more collections"
 msgstr "Show more collections"
 
+msgid "No verified addresses found"
+msgstr "No verified addresses found"
+
 #. placeholder {0}: user.followerCount
 msgid "{0, plural, one {<0>{count}</0> Follower} other {<1>{count}</1> Followers}}"
 msgstr "{0, plural, one {<0>{count}</0> Follower} other {<1>{count}</1> Followers}}"
@@ -3799,6 +3819,9 @@ msgstr "Money laundering found."
 msgid "Sign Up"
 msgstr "Sign Up"
 
+msgid "Address verified on Farcaster"
+msgstr "Address verified on Farcaster"
+
 msgid "Share image"
 msgstr "Share image"
 
@@ -3929,6 +3952,9 @@ msgstr "No codes found to suspend trading."
 
 msgid "This token can self destruct."
 msgstr "This token can self destruct."
+
+msgid "Address removed on Farcaster"
+msgstr "Address removed on Farcaster"
 
 #. placeholder {0}: percentageToNumber(info.buy_tax)
 msgid "Buy Tax: {0}%"
@@ -4075,6 +4101,9 @@ msgstr "1Y"
 
 msgid "Primary account"
 msgstr "Primary account"
+
+msgid "EVM wallets"
+msgstr "EVM wallets"
 
 msgid "Hide tokens with small balances"
 msgstr "Hide tokens with small balances"
@@ -4406,6 +4435,9 @@ msgstr "By @{0}"
 msgid "Video"
 msgstr "Video"
 
+msgid "Confirm to remove this verified address from your Farcaster profile?"
+msgstr "Confirm to remove this verified address from your Farcaster profile?"
+
 msgid "Language"
 msgstr "Language"
 
@@ -4475,6 +4507,9 @@ msgstr "Value"
 
 msgid "1h"
 msgstr "1h"
+
+msgid "Verify Address"
+msgstr "Verify Address"
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "This is not an airdrop scam. Many scams attract users through airdrops."

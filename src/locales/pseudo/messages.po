@@ -399,6 +399,10 @@ msgstr ""
 msgid "Joined"
 msgstr ""
 
+#. placeholder {0}: error.message
+msgid "Failed to remove address: {0}"
+msgstr ""
+
 msgid "Tax can be modified"
 msgstr ""
 
@@ -1964,6 +1968,9 @@ msgstr ""
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr ""
 
+msgid "This address is already verified"
+msgstr ""
+
 msgid "Only people you mention"
 msgstr ""
 
@@ -2874,6 +2881,9 @@ msgstr ""
 msgid "Price"
 msgstr ""
 
+msgid "Remove Address"
+msgstr ""
+
 msgid "Failed to bookmark post."
 msgstr ""
 
@@ -2943,6 +2953,9 @@ msgid "Paragraph article"
 msgstr ""
 
 msgid "Bio should be at least {minBioSize} characters"
+msgstr ""
+
+msgid "Verified addresses"
 msgstr ""
 
 msgid "Buy {secondOutcome}"
@@ -3337,6 +3350,10 @@ msgstr ""
 msgid "Upload photo"
 msgstr ""
 
+#. placeholder {0}: error.message
+msgid "Failed to verify address: {0}"
+msgstr ""
+
 msgid "Bets unliked."
 msgstr ""
 
@@ -3578,6 +3595,9 @@ msgstr ""
 msgid "Show more collections"
 msgstr ""
 
+msgid "No verified addresses found"
+msgstr ""
+
 #. placeholder {0}: user.followerCount
 msgid "{0, plural, one {<0>{count}</0> Follower} other {<1>{count}</1> Followers}}"
 msgstr ""
@@ -3799,6 +3819,9 @@ msgstr ""
 msgid "Sign Up"
 msgstr ""
 
+msgid "Address verified on Farcaster"
+msgstr ""
+
 msgid "Share image"
 msgstr ""
 
@@ -3928,6 +3951,9 @@ msgid "No codes found to suspend trading."
 msgstr ""
 
 msgid "This token can self destruct."
+msgstr ""
+
+msgid "Address removed on Farcaster"
 msgstr ""
 
 #. placeholder {0}: percentageToNumber(info.buy_tax)
@@ -4074,6 +4100,9 @@ msgid "1Y"
 msgstr ""
 
 msgid "Primary account"
+msgstr ""
+
+msgid "EVM wallets"
 msgstr ""
 
 msgid "Hide tokens with small balances"
@@ -4406,6 +4435,9 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
+msgid "Confirm to remove this verified address from your Farcaster profile?"
+msgstr ""
+
 msgid "Language"
 msgstr ""
 
@@ -4474,6 +4506,9 @@ msgid "Value"
 msgstr ""
 
 msgid "1h"
+msgstr ""
+
+msgid "Verify Address"
 msgstr ""
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."

@@ -13,6 +13,7 @@ import DisconnectIcon from '@/assets/disconnect.svg';
 import InfoIcon from '@/assets/info-outline.svg';
 import MoreIcon from '@/assets/more-fill.svg';
 import SecurityIcon from '@/assets/security2.svg';
+import WalletBoldIcon from '@/assets/wallet-bold2.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorHandler } from '@/components/ErrorHandler.js';
@@ -32,6 +33,7 @@ import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnection
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { DisconnectFireflyAccountModalRef } from '@/modals/DisconnectFireflyAccountModal.js';
 import { RecoveryPhraseModalRef } from '@/modals/RecoveryPhraseModal.js';
+import { VerifiedAddressModalRef } from '@/modals/VerifiedAddressModal/index.js';
 import { checkBatchCustodyWallet } from '@/providers/firefly/endpoint/checkBatchCustodyWallet.js';
 import type { Account } from '@/providers/types/Account.js';
 
@@ -214,6 +216,23 @@ export function AccountCards() {
                                                                 loginRequired={false}
                                                             >
                                                                 <MenuGroup>
+                                                                    <MenuItem>
+                                                                        {({ close }) => (
+                                                                            <MenuButton
+                                                                                onClick={() => {
+                                                                                    VerifiedAddressModalRef.open({
+                                                                                        fid: profile.profileId,
+                                                                                    });
+                                                                                    close();
+                                                                                }}
+                                                                            >
+                                                                                <span className="flex items-center gap-2 font-bold leading-[22px] text-main">
+                                                                                    <WalletBoldIcon className="size-[18px]" />
+                                                                                    <Trans>Verified addresses</Trans>
+                                                                                </span>
+                                                                            </MenuButton>
+                                                                        )}
+                                                                    </MenuItem>
                                                                     {isCustodyWallet ? (
                                                                         <MenuItem>
                                                                             {({ close }) => (

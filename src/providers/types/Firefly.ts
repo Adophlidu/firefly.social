@@ -810,16 +810,28 @@ export interface LensConnection extends LensV3Profile {
 }
 
 export interface FarcasterConnection {
-    bio: string;
-    connectedAddresses: string[];
-    display_name: string;
     fid: number;
-    pfp: string;
     username: string;
-    connectedAt?: string;
-    isDefault?: boolean;
-    url: string;
+    display_name: string;
+    bio?: string;
+    pfp?: string;
+    url?: string;
+    banner?: string;
+    connectedAddresses: string[];
     id: number;
+    source?: string;
+    sortIndex?: string;
+    isDefault?: boolean;
+    connectedAt?: string;
+}
+
+export interface GetVerifiedAddressesResponse {
+    data: {
+        farcaster?: {
+            connected: FarcasterConnection[];
+            unconnected: FarcasterConnection[];
+        };
+    };
 }
 
 export interface TwitterConnection {
@@ -2629,6 +2641,30 @@ export interface FarcasterAccountInfo {
 
 export type FarcasterAccountInfoResponse = Response<FarcasterAccountInfo[]>;
 export type EncryptedAccountInfoResponse = Response<{ data: string }>;
+
+export interface FarcasterBufferData {
+    type: 'Buffer';
+    data: number[];
+}
+
+export interface FarcasterHubMessage {
+    data: {
+        type: number;
+        fid: number;
+        timestamp: number;
+        network: number;
+        verificationRemoveBody?: {
+            address: FarcasterBufferData;
+            protocol: number;
+        };
+    };
+    hash: FarcasterBufferData;
+    hashScheme: number;
+    signature: FarcasterBufferData;
+    signatureScheme: number;
+    signer: FarcasterBufferData;
+    dataBytes: FarcasterBufferData;
+}
 
 export type CheckBatchCustodyWalletResponse = Response<{ [key: string]: boolean }>;
 export type GetMnemonicPhraseByFidResponse = Response<{ data: string }>;

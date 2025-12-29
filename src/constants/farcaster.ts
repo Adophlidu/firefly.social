@@ -1,3 +1,8 @@
+export enum Protocol {
+    ETHEREUM = 0,
+    SOLANA = 1,
+}
+
 export enum FarcasterNetwork {
     NONE = 0,
     /** MAINNET - Public primary network */

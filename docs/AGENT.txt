@@ -14,6 +14,7 @@ Coding Standards
   - Replace `console` with `Logger` if available in the codebase.
   - For Next.js projects, implement `generateMetadata` when adding a new page.
   - Ensure exhaustive enum handling; always include `unreachable` or `safeUnreachable` in switch-case defaults.
+  - Import types only from @farcaster/core.
 
 General Quality
 --------------------------------

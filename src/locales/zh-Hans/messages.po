@@ -404,6 +404,10 @@ msgstr "设置密码"
 msgid "Joined"
 msgstr "已加入"
 
+#. placeholder {0}: error.message
+msgid "Failed to remove address: {0}"
+msgstr ""
+
 msgid "Tax can be modified"
 msgstr "税率可以被修改"
 
@@ -1969,6 +1973,9 @@ msgstr "评论"
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr "发送红包 24 小时后可提取未领取数额。"
 
+msgid "This address is already verified"
+msgstr ""
+
 msgid "Only people you mention"
 msgstr "只有你提及的人"
 
@@ -2879,6 +2886,9 @@ msgstr "当前持仓"
 msgid "Price"
 msgstr "价格"
 
+msgid "Remove Address"
+msgstr ""
+
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
 
@@ -2949,6 +2959,9 @@ msgstr "Paragraph 文章"
 
 msgid "Bio should be at least {minBioSize} characters"
 msgstr "个人简介应至少包含 {minBioSize} 个字符"
+
+msgid "Verified addresses"
+msgstr ""
 
 msgid "Buy {secondOutcome}"
 msgstr ""
@@ -3342,6 +3355,10 @@ msgstr "新密码不能与旧密码相同。请重试。"
 msgid "Upload photo"
 msgstr "上传照片"
 
+#. placeholder {0}: error.message
+msgid "Failed to verify address: {0}"
+msgstr ""
+
 msgid "Bets unliked."
 msgstr "已取消点赞。"
 
@@ -3583,6 +3600,9 @@ msgstr "<0>卖出</0><1/>"
 msgid "Show more collections"
 msgstr "展示更多系列"
 
+msgid "No verified addresses found"
+msgstr ""
+
 #. placeholder {0}: user.followerCount
 msgid "{0, plural, one {<0>{count}</0> Follower} other {<1>{count}</1> Followers}}"
 msgstr "{0, plural, one {<0>{count}</0> 关注者} other {<1>{count}</1> 关注者}}"
@@ -3804,6 +3824,9 @@ msgstr "被识别为洗钱。"
 msgid "Sign Up"
 msgstr "注册"
 
+msgid "Address verified on Farcaster"
+msgstr ""
+
 msgid "Share image"
 msgstr "分享图片"
 
@@ -3934,6 +3957,9 @@ msgstr "没有发现可以暂停交易的代码。"
 
 msgid "This token can self destruct."
 msgstr "该代币可以自我销毁。"
+
+msgid "Address removed on Farcaster"
+msgstr ""
 
 #. placeholder {0}: percentageToNumber(info.buy_tax)
 msgid "Buy Tax: {0}%"
@@ -4080,6 +4106,9 @@ msgstr "1年"
 
 msgid "Primary account"
 msgstr "主账号"
+
+msgid "EVM wallets"
+msgstr ""
 
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额代币"
@@ -4411,6 +4440,9 @@ msgstr "由 @{0} 创建"
 msgid "Video"
 msgstr "视频"
 
+msgid "Confirm to remove this verified address from your Farcaster profile?"
+msgstr ""
+
 msgid "Language"
 msgstr "语言"
 
@@ -4482,6 +4514,9 @@ msgstr "价值"
 
 msgid "1h"
 msgstr "1 小时"
+
+msgid "Verify Address"
+msgstr ""
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
