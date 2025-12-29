@@ -7,8 +7,8 @@ import { runRPC } from '@/providers/solana/red-packet/runRPC.js';
 import type { ClaimNativeTokenContext } from '@/providers/solana/red-packet/types.js';
 
 export async function claimWithNativeToken({ signedMessage, message, publicKey, accountId }: ClaimNativeTokenContext) {
-    const program = getProgram();
-    const receiver = getCreator();
+    const program = getProgram(true);
+    const receiver = getCreator(true);
 
     if (!message || !publicKey) {
         throw new Error('Message and publicKey are required');

@@ -11,6 +11,7 @@ import { EMPTY_LIST } from '@/constants/static.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -26,6 +27,7 @@ export function useAvailabilityComputed(payload: RedPacketJSONPayload, post: Pos
     const networkType = getNetworkTypeFromRpPayload(payload);
     const appkitAccount = usePrivyAppkitAccountByNetwork(networkType);
     const account = appkitAccount.account?.address || '';
+    const { account: connectedAccount } = useChainContext({ networkType });
 
     const { data: availability, refetch: recheckAvailability } = useAvailability(payload);
 
@@ -101,7 +103,7 @@ export function useAvailabilityComputed(payload: RedPacketJSONPayload, post: Pos
     const isExpired = availability.expired;
     const isClaimed = redpacket?.isClaimed || redpacket?.isFireflyClaimed || availability.claimed_amount !== '0';
     const isRefunded = isEmpty && availability.claimed < availability.total;
-    const isCreator = isSameAddress(payload?.sender.address ?? '', account);
+    const isCreator = isSameAddress(payload?.sender.address ?? '', connectedAccount);
     const isPasswordValid = !!(password && password !== 'PASSWORD INVALID');
     // For a central RedPacket, we don't need to check about if the password is valid
     const canClaimByContract = !isExpired && !isEmpty && !isClaimed;
