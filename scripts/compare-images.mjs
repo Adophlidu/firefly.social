@@ -44,7 +44,11 @@ const OUTPUT_DIR = join(projectRoot, '.image-comparison');
  */
 async function downloadImage(url) {
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            headers: {
+                'x-vercel-protection-bypass': process.env.INTERNAL_STATIC_REQUEST_BYPASS,
+            },
+        });
         if (!response.ok) {
             throw new Error(`Failed to download ${url}: ${response.status} ${response.statusText}`);
         }
