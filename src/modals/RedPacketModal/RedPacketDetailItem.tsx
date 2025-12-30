@@ -243,8 +243,9 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                                 isPrecise: true,
                                             })}
                                             /
-                                            {formatBalance(total_amounts, token_decimal ?? 18, {
-                                                significant: 2,
+                                            {formatBalance(total_amounts || '0', token_decimal ?? 18, {
+                                                isFixed: true,
+                                                fixedDecimals: token_decimal ?? 18,
                                                 isPrecise: true,
                                             })}
                                         </span>

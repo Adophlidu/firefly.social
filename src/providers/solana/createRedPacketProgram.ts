@@ -17,14 +17,15 @@ export function createRedPacketProgram(
     requireWallet = false,
     forcePrivy = false,
 ): Program<Redpacket> {
-    const key = `${chainId}-${requireWallet}`;
+    const provider = forcePrivy
+        ? (PrivySolanaProvider as ReturnType<typeof getWalletAdaptorConnected>)
+        : getWalletAdaptorConnected();
+
+    const key = `${chainId}-${requireWallet}-${forcePrivy}-${provider.name}-${provider.publicKey.toBase58()}`;
     const hit = storage.get(key);
     if (hit) return hit;
 
     if (requireWallet) {
-        const provider = forcePrivy
-            ? (PrivySolanaProvider as ReturnType<typeof getWalletAdaptorConnected>)
-            : getWalletAdaptorConnected();
         const program = new Program<Redpacket>(RedPacketIDL, getAnchorProvider(provider));
         storage.set(key, program);
         return program;
