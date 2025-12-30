@@ -101,7 +101,7 @@ export function useAvailabilityComputed(payload: RedPacketJSONPayload, post: Pos
         };
     const isEmpty = availability.balance === '0';
     const isExpired = availability.expired;
-    const isClaimed = redpacket?.isClaimed || redpacket?.isFireflyClaimed;
+    const isClaimed = !!(redpacket?.isClaimed || redpacket?.isFireflyClaimed);
     const isRefunded = isEmpty && availability.claimed < availability.total;
     const isCreator = isSameAddress(payload?.sender.address ?? '', connectedAccount);
     const isPasswordValid = !!(password && password !== 'PASSWORD INVALID');

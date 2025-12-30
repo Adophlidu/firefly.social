@@ -183,7 +183,7 @@
     {
         "chainId": 56,
         "type": "Binance",
-        "name": "BNB",
+        "name": "BNB Chain",
         "color": "rgb(240, 185, 10)",
         "network": "mainnet",
         "fullName": "Binance Smart Chain Mainnet",
