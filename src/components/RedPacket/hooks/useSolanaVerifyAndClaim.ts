@@ -4,13 +4,11 @@ import { useAsyncFn } from 'react-use';
 
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { privySolanaWalletAdapter } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { NetworkType, type SocialSource } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
-import { WalletConnectModalRef } from '@/modals/WalletConnectModal/index.js';
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { claimWithNativeToken } from '@/providers/solana/red-packet/claimWithNativeToken.js';
 import { claimWithSplToken } from '@/providers/solana/red-packet/claimWithSplToken.js';
@@ -26,14 +24,8 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: S
     const account = appkitAccount.account?.address || '';
     const { data, isFetching, refetch: recheckClaimStatus } = useClaimStrategyStatus(payload, source, account, enabled);
 
-    const publicKey = privySolanaWalletAdapter?.publicKey;
     const [{ loading }, handleClaim] = useAsyncFn(async () => {
         const accountId = payload.rpid;
-
-        if (!publicKey) {
-            WalletConnectModalRef.open({ networkType: NetworkType.Solana });
-            return { canClaim: true };
-        }
 
         if (!payload.token) throw new Error('Token is missing');
 
@@ -93,7 +85,7 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: S
         const amount = formatBalance(claimedRecord?.amount.toString() || '0', payload.token.decimals);
 
         return { canClaim: true, amount, tx: result.signature };
-    }, [payload, publicKey, recheckClaimStatus, contextChainId, account, source, isNativeToken]);
+    }, [payload, recheckClaimStatus, contextChainId, account, source, isNativeToken]);
 
     return [
         {

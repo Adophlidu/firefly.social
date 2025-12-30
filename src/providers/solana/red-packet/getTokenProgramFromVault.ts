@@ -1,5 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
-import { getAssociatedTokenAddressSync,TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
+import { getAssociatedTokenAddressSync, TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
 import { requestRPC } from '@/providers/solana/requestRPC.js';
 
