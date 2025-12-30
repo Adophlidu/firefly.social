@@ -2380,9 +2380,6 @@ msgstr "Cryptocurrency mixer."
 msgid "Remove Truth Social"
 msgstr "Remove Truth Social"
 
-msgid "Signing transaction"
-msgstr "Signing transaction"
-
 msgid "Scan the QR code with the <0>Camera app</0> <1/>and give <2>edit permission</2> to sign in instantly"
 msgstr "Scan the QR code with the <0>Camera app</0> <1/>and give <2>edit permission</2> to sign in instantly"
 
@@ -2742,6 +2739,9 @@ msgstr "No results for \"{keyword}\""
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
+
+msgid "Signing to confirm"
+msgstr "Signing to confirm"
 
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "Sorry, we are not able to find a wallet for {displayName}."

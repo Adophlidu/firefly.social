@@ -289,7 +289,7 @@ export const LensView = memo(function LensView() {
                     className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-lightMain text-sm font-bold text-primaryBottom"
                     aria-label="Sign to Confirm"
                 >
-                    {loading ? <Trans>Signing transaction</Trans> : <Trans>Sign to Confirm</Trans>}
+                    {loading ? <Trans>Signing to confirm</Trans> : <Trans>Sign to Confirm</Trans>}
                 </ClickableButton>
             ) : (
                 <ClickableButton

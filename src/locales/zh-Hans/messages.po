@@ -2385,9 +2385,6 @@ msgstr "加密货币混合器。"
 msgid "Remove Truth Social"
 msgstr "移除Truth Social"
 
-msgid "Signing transaction"
-msgstr "签署交易"
-
 msgid "Scan the QR code with the <0>Camera app</0> <1/>and give <2>edit permission</2> to sign in instantly"
 msgstr "使用<0>相机应用</0><1/>扫描二维码并授予<2>编辑权限</2>以即时登录"
 
@@ -2747,6 +2744,9 @@ msgstr "未找到与 \"{keyword}\" 相关的结果"
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "如果该功能存在，项目方即使放弃所有权后仍可能重新获得控制权"
+
+msgid "Signing to confirm"
+msgstr ""
 
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "抱歉，我们无法找到 {displayName} 的钱包。"
