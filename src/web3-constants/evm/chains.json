@@ -187,7 +187,7 @@
         "color": "rgb(240, 185, 10)",
         "network": "mainnet",
         "fullName": "Binance Smart Chain Mainnet",
-        "shortName": "bnb",
+        "shortName": "bsc",
         "features": [],
         "nativeCurrency": {
             "chainId": 56,

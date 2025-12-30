@@ -37,6 +37,7 @@ export interface ClaimSplTokenContext extends ClaimNativeTokenContext {
     tokenAddress: string;
     chainId: number;
     account: string;
+    tokenProgram?: string;
 }
 
 interface RefundNativeTokenContext {

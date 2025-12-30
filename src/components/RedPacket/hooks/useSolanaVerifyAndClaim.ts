@@ -73,6 +73,7 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: S
                 account,
                 chainId: contextChainId,
                 tokenAddress: payload.token.address,
+                tokenProgram: payload.tokenProgram,
             });
         }
         if (!result) throw new Error('Failed to claim red packet');

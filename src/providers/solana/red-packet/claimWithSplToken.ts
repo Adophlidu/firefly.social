@@ -2,25 +2,33 @@ import { web3 } from '@coral-xyz/anchor';
 import { bs58 } from '@coral-xyz/anchor/dist/cjs/utils/bytes/index.js';
 import { ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddressSync } from '@solana/spl-token';
 
-import { getTokenAccountByMint } from '@/providers/solana/getTokenAccountByMint.js';
 import { getCreator } from '@/providers/solana/red-packet/getCreator.js';
 import { getProgram } from '@/providers/solana/red-packet/getProgram.js';
+import { getTokenProgramFromVault } from '@/providers/solana/red-packet/getTokenProgramFromVault.js';
 import { runRPC } from '@/providers/solana/red-packet/runRPC.js';
 import type { ClaimSplTokenContext } from '@/providers/solana/red-packet/types.js';
 
 export async function claimWithSplToken(context: ClaimSplTokenContext) {
     const program = getProgram();
     const receiver = getCreator();
-    const { accountId, publicKey, message, signedMessage, tokenAddress, chainId, account } = context;
-    const tokenAccount = await getTokenAccountByMint(chainId, account, tokenAddress);
-    if (!tokenAccount) {
-        throw new Error('Token account not found');
-    }
+    const {
+        accountId,
+        publicKey,
+        message,
+        signedMessage,
+        tokenAddress,
+        chainId,
+        tokenProgram: tokenProgramString,
+    } = context;
     if (!publicKey || !message) {
         throw new Error('Public key and message are required');
     }
     const tokenMint = new web3.PublicKey(tokenAddress);
-    const tokenProgram = tokenAccount.owner;
+
+    const tokenProgram = tokenProgramString
+        ? new web3.PublicKey(tokenProgramString)
+        : await getTokenProgramFromVault(chainId, accountId, tokenMint);
+    if (!tokenProgram) throw new Error('Token program not found');
     const receiverTokenAccount = getAssociatedTokenAddressSync(tokenMint, receiver, true, tokenProgram);
     const vault = getAssociatedTokenAddressSync(tokenMint, accountId, true, tokenProgram);
     const publicKeyBytes = new web3.PublicKey(publicKey).toBytes();
