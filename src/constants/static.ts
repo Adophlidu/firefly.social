@@ -6,7 +6,7 @@ import {
     type SocialSource,
     Source,
     STATUS,
-    VERCEL_NEV,
+    VERCEL_ENV,
 } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 
@@ -151,9 +151,9 @@ export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL ?? SITE_URL_OFFICIAL;
 
 export const NFT_ENABLED = env.external.NEXT_PUBLIC_NFT_FEATURES === STATUS.Enabled;
 
-export const IS_PRODUCTION = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Production;
-export const IS_DEVELOPMENT = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Development;
-export const IS_PREVIEW = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview;
+export const IS_PRODUCTION = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_ENV.Production;
+export const IS_DEVELOPMENT = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_ENV.Development;
+export const IS_PREVIEW = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_ENV.Preview;
 
 export const MAX_POST_SIZE_PER_THREAD = env.shared.NODE_ENV === NODE_ENV.Development ? 10 : 25;
 

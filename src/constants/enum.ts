@@ -4,7 +4,7 @@ export enum NODE_ENV {
     Test = 'test',
 }
 
-export enum VERCEL_NEV {
+export enum VERCEL_ENV {
     Production = 'production',
     Preview = 'preview',
     Development = 'development',

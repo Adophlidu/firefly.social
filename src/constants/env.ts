@@ -1,7 +1,7 @@
 import { bom } from '@dimensiondev/utils';
 import { z } from 'zod';
 
-import { NODE_ENV, STATUS, VERCEL_NEV } from '@/constants/enum.js';
+import { NODE_ENV, STATUS, VERCEL_ENV } from '@/constants/enum.js';
 
 const InternalEnvSchema = z.object({
     TWITTER_CLIENT_ID: z.string(),
@@ -30,7 +30,7 @@ const InternalEnvSchema = z.object({
 });
 
 const ExternalEnvSchema = z.object({
-    NEXT_PUBLIC_VERCEL_ENV: z.nativeEnum(VERCEL_NEV).default(VERCEL_NEV.Development),
+    NEXT_PUBLIC_VERCEL_ENV: z.nativeEnum(VERCEL_ENV).default(VERCEL_ENV.Development),
 
     // urls
     NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.social'),
