@@ -857,6 +857,9 @@ msgstr ""
 msgid "Save Post?"
 msgstr ""
 
+msgid "Insufficient gas."
+msgstr ""
+
 msgid "Failed to set password."
 msgstr ""
 

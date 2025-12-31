@@ -857,6 +857,9 @@ msgstr "Users must like, repost/quote, or comment on your post containing the Lu
 msgid "Save Post?"
 msgstr "Save Post?"
 
+msgid "Insufficient gas."
+msgstr "Insufficient gas."
+
 msgid "Failed to set password."
 msgstr "Failed to set password."
 

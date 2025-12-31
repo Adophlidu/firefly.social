@@ -8,6 +8,7 @@ import type { SnackbarMessage } from '@/components/Snackbar.js';
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 import { DecryptionError, FarcasterInvalidSignerKey, FetchError, UserRejectionError } from '@/constants/error.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
+import { isInsufficientGasError } from '@/helpers/isInsufficientGasError.js';
 import { isUserRejectErrorInWallet } from '@/helpers/isUserRejectErrorInWallet.js';
 
 const ClientErrorSchema = z.object({
@@ -23,6 +24,9 @@ const ClientErrorSchema = z.object({
 export function getWarningMessageFromError(error: unknown, fallback?: string) {
     if (isUserRejectErrorInWallet(error)) {
         return t`The user rejected the request.`;
+    }
+    if (isInsufficientGasError(error)) {
+        return t`Insufficient gas.`;
     }
 
     return fallback;

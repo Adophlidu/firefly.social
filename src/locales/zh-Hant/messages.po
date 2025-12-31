@@ -862,6 +862,9 @@ msgstr "用戶需對您包含紅包的貼文按讚、轉發/引用或留言。"
 msgid "Save Post?"
 msgstr "儲存草稿？"
 
+msgid "Insufficient gas."
+msgstr ""
+
 msgid "Failed to set password."
 msgstr "密碼設定失敗。"
 
