@@ -44,8 +44,8 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
             sharePostAfterClaimed({
                 post,
                 amount: result.amount || '',
-                networkType,
                 symbol,
+                networkType,
                 chainId: payload.chainId,
                 txHash: result.tx,
             });

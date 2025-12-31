@@ -3405,9 +3405,6 @@ msgstr "{days, plural, one {剩余 # 天} other {剩余 # 天}}"
 msgid "No cybercrime involved."
 msgstr "不涉及网络犯罪。"
 
-msgid "Your claimed {amount} {symbol}."
-msgstr "你领取了{amount} {symbol}。"
-
 msgid "Sent"
 msgstr "发送"
 

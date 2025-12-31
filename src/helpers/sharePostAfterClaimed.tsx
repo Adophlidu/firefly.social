@@ -7,7 +7,6 @@ import type { NetworkType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { openComposeModal } from '@/helpers/openComposeModal.js';
-import { useIsPrivyWallet } from '@/hooks/useIsPrivyWallet.js';
 import { useOpenFireflyWallet } from '@/hooks/useOpenFireflyWallet.js';
 import { ConfirmModalRef } from '@/modals/ConfirmModal.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -15,8 +14,8 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 interface ShareOptions {
     post: Post;
     amount: string;
-    networkType: NetworkType;
     chainId?: number;
+    networkType: NetworkType;
     symbol?: string;
     txHash?: string;
 }
@@ -24,28 +23,21 @@ interface ShareOptions {
 interface Props extends Omit<ShareOptions, 'post'> {}
 
 function ClaimMessage({ amount, symbol, networkType, chainId, txHash }: Props) {
-    const isPrivyWallet = useIsPrivyWallet(networkType);
     const openFireflyWallet = useOpenFireflyWallet();
-    if (isPrivyWallet)
-        return (
-            <Trans>
-                Your claimed {amount} {symbol} to your{' '}
-                <span
-                    className="text-highlight"
-                    onClick={() => {
-                        openFireflyWallet({
-                            path: `/transitions?chain=${chainId}&tx=${txHash}`,
-                        });
-                    }}
-                >
-                    Firefly Wallet
-                </span>
-                .
-            </Trans>
-        );
     return (
         <Trans>
-            Your claimed {amount} {symbol}.
+            Your claimed {amount} {symbol} to your{' '}
+            <span
+                className="cursor-pointer text-highlight"
+                onClick={() => {
+                    openFireflyWallet({
+                        path: urlcat('/transactions', { chain: chainId, tx: txHash, network: networkType }),
+                    });
+                }}
+            >
+                Firefly Wallet
+            </span>
+            .
         </Trans>
     );
 }

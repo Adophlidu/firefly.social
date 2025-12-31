@@ -3400,9 +3400,6 @@ msgstr "{days, plural, one {# day left} other {# days left}}"
 msgid "No cybercrime involved."
 msgstr "No cybercrime involved."
 
-msgid "Your claimed {amount} {symbol}."
-msgstr "Your claimed {amount} {symbol}."
-
 msgid "Sent"
 msgstr "Sent"
 

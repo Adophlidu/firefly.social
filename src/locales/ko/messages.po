@@ -3405,9 +3405,6 @@ msgstr ""
 msgid "No cybercrime involved."
 msgstr ""
 
-msgid "Your claimed {amount} {symbol}."
-msgstr ""
-
 msgid "Sent"
 msgstr ""
 
