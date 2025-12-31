@@ -3039,9 +3039,6 @@ msgstr ""
 msgid "Multi-device login is required for schedule post. Set a 6-digit password to verify your identity."
 msgstr ""
 
-msgid "Swapped 0.1 ETH for 253.97 Virtual."
-msgstr ""
-
 msgid "Light Mode"
 msgstr ""
 
@@ -4739,9 +4736,6 @@ msgstr ""
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
-msgstr ""
-
-msgid "👉 vitalik.eth"
 msgstr ""
 
 msgid "Collectible"

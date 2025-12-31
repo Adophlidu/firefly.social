@@ -23,15 +23,17 @@ async function askNotificationPermission(options?: Options): Promise<{
     try {
         if (!window || !('Notification' in window)) return { granted: false };
         if (Notification.permission === 'granted') return { granted: true };
+
+        const lastTime = localStorage.getItem(NOTIFICATION_PERMISSION_KEY);
+        const hideAlert =
+            !!lastTime &&
+            (lastTime === `${Infinity}` || (!Number.isNaN(+lastTime) && Date.now() - Number(lastTime) < ONE_DAY));
+
         if (Notification.permission === 'denied') {
-            return { granted: false, rejected: true, showAlert: true };
+            return { granted: false, rejected: true, showAlert: !hideAlert };
         }
         if (options?.showUi) {
-            const lastTime = localStorage.getItem(NOTIFICATION_PERMISSION_KEY);
-            if (lastTime && !Number.isNaN(lastTime) && Date.now() - Number(lastTime) < ONE_DAY && !options.force)
-                return { granted: false };
-
-            return { granted: false, showAlert: true };
+            return { granted: false, showAlert: !hideAlert };
         }
 
         const permission = await Notification.requestPermission();

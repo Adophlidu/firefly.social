@@ -3039,9 +3039,6 @@ msgstr "Follow @thefireflyapp on X"
 msgid "Multi-device login is required for schedule post. Set a 6-digit password to verify your identity."
 msgstr "Multi-device login is required for schedule post. Set a 6-digit password to verify your identity."
 
-msgid "Swapped 0.1 ETH for 253.97 Virtual."
-msgstr "Swapped 0.1 ETH for 253.97 Virtual."
-
 msgid "Light Mode"
 msgstr "Light Mode"
 
@@ -4740,9 +4737,6 @@ msgstr "Failed to unlike swap."
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
 msgstr "{0, plural, one {like} other {likes}}"
-
-msgid "👉 vitalik.eth"
-msgstr "👉 vitalik.eth"
 
 msgid "Collectible"
 msgstr "Collectible"

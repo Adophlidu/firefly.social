@@ -3044,9 +3044,6 @@ msgstr "在 X 追蹤 @thefireflyapp"
 msgid "Multi-device login is required for schedule post. Set a 6-digit password to verify your identity."
 msgstr "定時發佈需啟用多裝置登入。請設定 6 位數字密碼以驗證身份。"
 
-msgid "Swapped 0.1 ETH for 253.97 Virtual."
-msgstr "以 0.1 ETH 兌換 253.97 Virtual。"
-
 msgid "Light Mode"
 msgstr "淺色模式"
 
@@ -4747,9 +4744,6 @@ msgstr "取消按赞失敗。"
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
 msgstr "{0, plural, one {讚} other {讚}}"
-
-msgid "👉 vitalik.eth"
-msgstr "👉 vitalik.eth"
 
 msgid "Collectible"
 msgstr "NFT"

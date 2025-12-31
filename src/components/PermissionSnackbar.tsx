@@ -18,7 +18,14 @@ export function PermissionSnackbar({ id, rejected, ref, onEnable }: PermissionSn
 
     return (
         <div className="relative flex w-[343px] !items-start gap-2 rounded-2xl bg-lightBottom p-4 text-xs text-main shadow-popover dark:bg-darkBottom dark:shadow-none">
-            <CloseButton size={18} className="absolute right-3 top-3" onClick={() => closeSnackbar(id)} />
+            <CloseButton
+                size={18}
+                className="absolute right-3 top-3"
+                onClick={() => {
+                    localStorage.setItem(NOTIFICATION_PERMISSION_KEY, `${Infinity}`);
+                    closeSnackbar(id);
+                }}
+            />
             <div className="px-1 pt-4 text-second">
                 <NotificationIcon width={24} height={24} />
             </div>
@@ -30,15 +37,6 @@ export function PermissionSnackbar({ id, rejected, ref, onEnable }: PermissionSn
                     <>
                         <p className="mt-2 text-sm">
                             <Trans>✨ Turn on browser notifications to never miss a trade update.</Trans>
-                        </p>
-                        <p className="mt-2">
-                            <span className="font-bold">
-                                <Trans>👉 vitalik.eth</Trans>
-                            </span>
-                            <br />
-                            <span className="pl-4">
-                                <Trans>Swapped 0.1 ETH for 253.97 Virtual.</Trans>
-                            </span>
                         </p>
                         <div className="mt-4 flex items-center gap-3 font-bold">
                             <ClickableButton
