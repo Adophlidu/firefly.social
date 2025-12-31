@@ -1,7 +1,7 @@
 import { CoreConnectionController, CoreConnectorController } from '@reown/appkit';
 
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
-import { PrivySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
+import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { logger } from '@/libs/Logger.js';
 import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 
@@ -14,7 +14,7 @@ export async function reconnectPrivyWallet() {
 
         const currentSolanaId = CoreConnectorController.getConnectorId('solana');
         if (!currentSolanaId || currentSolanaId === PRIVY_CONNECTOR_ID) {
-            await CoreConnectionController.connectExternal(PrivySolanaProvider, PrivySolanaProvider.chain);
+            await CoreConnectionController.connectExternal(privySolanaProvider, privySolanaProvider.chain);
             logger.info('[privy] reconnect privy wallet successful');
         }
 

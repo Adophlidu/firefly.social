@@ -2,7 +2,7 @@
 
 import { Program, web3 } from '@coral-xyz/anchor';
 
-import { PrivySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
+import { privySolanaProvider } from '@/connectors/PrivySolanaWalletAdapter.js';
 import { getAnchorProvider } from '@/helpers/getAnchorProvider.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import type { Redpacket } from '@/idls/redpacket.js';
@@ -18,7 +18,7 @@ export function createRedPacketProgram(
     forcePrivy = false,
 ): Program<Redpacket> {
     const provider = forcePrivy
-        ? (PrivySolanaProvider as ReturnType<typeof getWalletAdaptorConnected>)
+        ? (privySolanaProvider as ReturnType<typeof getWalletAdaptorConnected>)
         : getWalletAdaptorConnected();
 
     const key = `${chainId}-${requireWallet}-${forcePrivy}-${provider.name}-${provider.publicKey.toBase58()}`;

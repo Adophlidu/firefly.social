@@ -43,7 +43,7 @@ import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfil
 
 const PrivySolanaWalletName = 'Firefly Wallet' as WalletName<'Firefly Wallet'>;
 
-export class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
+class PrivySolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
     name = PrivySolanaWalletName;
     url = 'https://firefly.social/';
     icon = '/firefly.png';
@@ -351,4 +351,4 @@ class PrivySolanaWalletProvider extends ProviderEventEmitter implements Provider
 }
 
 export const privySolanaWalletAdapter = new PrivySolanaWalletAdapter();
-export const PrivySolanaProvider = new PrivySolanaWalletProvider(privySolanaWalletAdapter);
+export const privySolanaProvider = new PrivySolanaWalletProvider(privySolanaWalletAdapter);
