@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@dimensiondev/utils';
+import { createLookupTableResolver , UnreachableError } from '@dimensiondev/utils';
 
 import {
     FireflyPlatform,
@@ -8,7 +8,6 @@ import {
     Source,
     SourceInURL,
 } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 

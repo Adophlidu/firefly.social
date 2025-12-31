@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@dimensiondev/utils';
+import { classNames , NotFoundError } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { type HTMLProps, memo } from 'react';
@@ -16,7 +16,6 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
 import { ENABLED_BOOKMARK_SOURCES } from '@/constants/computed.js';
 import { Source } from '@/constants/enum.js';
-import { NotFoundError } from '@/constants/error.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsPostDetailPage } from '@/hooks/post/useIsPostDetailPage.js';

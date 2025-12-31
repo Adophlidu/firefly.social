@@ -1,8 +1,8 @@
-import { bom } from '@dimensiondev/utils';
+import { bom , NotFoundError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { AccountSuspendedError, NitterError, NotFoundError } from '@/constants/error.js';
+import { AccountSuspendedError, NitterError } from '@/constants/error.js';
 import { FIREFLY_NITTER_URL } from '@/constants/static.js';
 import { LimitConcurrency } from '@/decorators/LimitConcurrency.js';
 import { MemoizePromise } from '@/decorators/MemoizePromise.js';

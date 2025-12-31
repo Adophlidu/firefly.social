@@ -1,3 +1,4 @@
+import { AbortError, ForbiddenError } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useRef, useState } from 'react';
@@ -10,7 +11,7 @@ import { ClearButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SendPasscodeButton } from '@/components/Login/SendPasscodeButton.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
-import { AbortError, FireflyAlreadyBoundError, ForbiddenError } from '@/constants/error.js';
+import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import { EMAIL_REGEX } from '@/constants/regexp.js';
 import {
     enqueueForbiddenMessage,

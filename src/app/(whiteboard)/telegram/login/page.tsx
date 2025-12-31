@@ -1,6 +1,6 @@
 'use client';
 
-import { delay } from '@dimensiondev/utils';
+import { AbortError, delay , ForbiddenError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { use, useMemo } from 'react';
@@ -10,7 +10,7 @@ import FullLogo from '@/assets/logo-full.svg';
 import { Loading } from '@/components/Loading.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { Source } from '@/constants/enum.js';
-import { AbortError, FireflyAlreadyBoundError, ForbiddenError } from '@/constants/error.js';
+import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import { useRouter } from '@/esm/navigation.js';
 import { createDummyProfileFromThirdPartySession } from '@/helpers/createDummyProfile.js';
 import {

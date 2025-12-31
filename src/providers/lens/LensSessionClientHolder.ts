@@ -1,6 +1,5 @@
+import { AuthenticationError } from '@dimensiondev/utils';
 import { SessionClient } from '@lens-protocol/client';
-
-import { AuthenticationError } from '@/constants/error.js';
 
 class LensSessionClientHolder {
     private lensSessionClient: SessionClient | null = null;

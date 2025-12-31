@@ -1,9 +1,9 @@
+import { InvalidResultError } from '@dimensiondev/utils';
 import type { SessionClient } from '@lens-protocol/client';
 import { canCreateUsername, createAccountWithUsername, fetchAccount } from '@lens-protocol/client/actions';
 
 import { Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { InvalidResultError } from '@/constants/error.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { retry } from '@/helpers/retry.js';

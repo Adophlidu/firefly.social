@@ -1,7 +1,6 @@
-import { createLookupTableResolver } from '@dimensiondev/utils';
+import { createLookupTableResolver , UnreachableError } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 import { postToBsky } from '@/providers/bsky/postToBsky.js';
 import { postToFarcaster } from '@/providers/farcaster/postToFarcaster.js';
 import { postToLens } from '@/providers/lens/postToLens.js';

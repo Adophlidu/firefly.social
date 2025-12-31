@@ -1,5 +1,6 @@
+import { NotImplementedError } from '@dimensiondev/utils';
+
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
 import { UserDataType } from '@/constants/farcaster.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';

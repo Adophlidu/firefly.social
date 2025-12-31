@@ -1,6 +1,6 @@
+import { NotFoundError } from '@dimensiondev/utils';
 import { fetchPost } from '@lens-protocol/client/actions';
 
-import { NotFoundError } from '@/constants/error.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensPostV3 } from '@/providers/lens/formatLensPost.js';
 import { getLensClient } from '@/providers/lens/getLensClient.js';

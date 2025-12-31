@@ -1,7 +1,6 @@
-import { safeUnreachable } from '@dimensiondev/utils';
+import { safeUnreachable , UnreachableError } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 
-import { UnreachableError } from '@/constants/error.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getComposeEventParameters, type Options } from '@/providers/telemetry/getComposeEventParameters.js';
 import { getPostEventId, getPostEventParameters } from '@/providers/telemetry/getPostEventParameters.js';

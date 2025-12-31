@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, createLookupTableResolver, delay } from '@dimensiondev/utils';
+import { classNames, createLookupTableResolver, delay , UnreachableError } from '@dimensiondev/utils';
 import {
     createOkxSwapWidget,
     type EthereumProvider,
@@ -22,7 +22,6 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Loading } from '@/components/Loading.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Locale, OkxProviderType } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 import { NATIVE_SOLANA_TOKEN_ADDRESS, NATIVE_TOKEN_ADDRESS, SOLANA_CHAIN_ID_IN_OKX } from '@/constants/okx.js';
 import { useLocale } from '@/helpers/getCookies.js';
 import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';

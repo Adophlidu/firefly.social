@@ -1,11 +1,11 @@
 import { web3 } from '@coral-xyz/anchor';
+import { NotImplementedError } from '@dimensiondev/utils';
 import type { EthereumProvider, JsonRpcRequest, SolanaProvider } from '@okxweb3/dex-widget';
 import { type Provider, type ProviderEventEmitterMethods } from '@reown/appkit-adapter-solana';
 import { type GetWalletClientReturnType, watchAccount } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { logger } from '@/libs/Logger.js';

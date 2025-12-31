@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@dimensiondev/utils';
+import { createLookupTableResolver , UnreachableError } from '@dimensiondev/utils';
 
 import {
     type ExploreSource,
@@ -13,7 +13,6 @@ import {
     SourceInURL,
     TrendingType,
 } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 
 export const resolveSourceInUrlForApi = createLookupTableResolver<Source, SourceInURL>(
     {

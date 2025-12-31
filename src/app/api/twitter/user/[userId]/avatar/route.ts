@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { KeyType } from '@/constants/enum.js';
-import { MalformedError } from '@/constants/error.js';
+import { MalformedRequestError } from '@/constants/error.js';
 import { createRedirectResponse } from '@/helpers/createRedirectResponse.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
@@ -16,7 +16,7 @@ import type { NextRequestContext } from '@/types/utility.js';
 const getTwitterAvatarById = memoizeWithRedis(
     async (twitterId: string) => {
         const username = await getTwitterHandleById(twitterId);
-        if (!username) throw new MalformedError('username not found');
+        if (!username) throw new MalformedRequestError('username not found');
         const profile = await getTwitterProfileByOG(username);
         if (profile?.pfp) return profile.pfp;
         const { pfp } = await nitterSocialMediaProvider.getProfileByHandle(username);

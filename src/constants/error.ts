@@ -4,18 +4,6 @@ import type { ProfileSource, SocialSource } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { logger } from '@/libs/Logger.js';
 
-export class AbortError extends Error {
-    override name = 'AbortError';
-
-    constructor(message = 'Aborted') {
-        super(message);
-    }
-
-    static is(error: unknown) {
-        return error instanceof AbortError || (error instanceof DOMException && error.name === 'AbortError');
-    }
-}
-
 export class DecryptionError extends Error {
     override name = 'DecryptionFailed';
 
@@ -24,35 +12,11 @@ export class DecryptionError extends Error {
     }
 }
 
-export class MalformedError extends Error {
-    override name = 'MalformedError';
+export class MalformedRequestError extends Error {
+    override name = 'MalformedRequestError';
 
     constructor(message?: string) {
         super(message ?? 'Malformed request');
-    }
-}
-
-export class UnauthorizedError extends Error {
-    override name = 'UnauthorizedError';
-
-    constructor(message?: string) {
-        super(message ?? 'Unauthorized');
-    }
-}
-
-export class ForbiddenError extends Error {
-    override name = 'ForbiddenError';
-
-    constructor(message?: string) {
-        super(message ?? 'Forbidden');
-    }
-}
-
-export class NetworkError extends Error {
-    override name = 'NetworkError';
-
-    constructor(message?: string) {
-        super(message ?? 'Network error');
     }
 }
 
@@ -95,10 +59,7 @@ export class FetchError extends Error {
 
     get errorMessage() {
         const parsed = parseJson<{ error?: string[] | string }>(this.text);
-        if (parsed?.error) {
-            return Array.isArray(parsed.error) ? parsed.error.join(', ') : parsed.error;
-        }
-
+        if (parsed?.error) return Array.isArray(parsed.error) ? parsed.error.join(', ') : parsed.error;
         return;
     }
 }
@@ -141,83 +102,11 @@ export class FireflyBindTimeoutError extends Error {
     }
 }
 
-export class ContentTypeError extends Error {
-    override name = 'ContentTypeError';
-
-    constructor(message?: string) {
-        super(message ?? 'Content-Type is not multipart/form-data');
-    }
-}
-
-export class AuthenticationError extends Error {
-    override name = 'AuthenticationError';
-
-    constructor(message?: string) {
-        super(message ?? 'Failed to authenticate');
-    }
-}
-
-export class UserRejectionError extends Error {
-    override name = 'UserRejectionError';
-
-    constructor(message?: string) {
-        super(message ?? 'User rejected.');
-    }
-}
-
-export class TimeoutError extends Error {
-    override name = 'TimeoutError';
-
-    constructor(message?: string) {
-        super(message ?? 'Timeout.');
-    }
-}
-
-export class UnreachableError extends Error {
-    override name = 'UnreachableError';
-
-    constructor(label: string, value: unknown) {
-        super(`Unreachable ${label} = ${value}.`);
-    }
-}
-
-export class NotImplementedError extends Error {
-    override name = 'NotImplementedError';
-
-    constructor(message?: string) {
-        super(message ?? 'Not implemented.');
-    }
-}
-
-export class NotAllowedError extends Error {
-    override name = 'NotAllowedError';
-
-    constructor(message?: string) {
-        super(message ?? 'Not allowed.');
-    }
-}
-
-export class InvalidResultError extends Error {
-    override name = 'InvalidResultError';
-
-    constructor() {
-        super('Invalid result.');
-    }
-}
-
 export class InvalidOrbPermissionError extends Error {
     override name = 'InvalidOrbPermissionError';
 
     constructor() {
         super('Invalid Orb permission.');
-    }
-}
-
-export class NotFoundError extends Error {
-    override name = 'NotFoundError';
-
-    constructor(message?: string) {
-        super(message ?? 'Not Found.');
     }
 }
 
@@ -238,6 +127,14 @@ export class SwitchChainError extends Error {
                 ? `Please switch to the ${chainName} network in your wallet.`
                 : `Please switch to the correct network in your wallet.`,
         );
+    }
+}
+
+export class ChainConfigMismatchError extends Error {
+    override name = 'ChainConfigMismatchError';
+
+    constructor(message?: string) {
+        super(message ?? 'Chain config mismatch.');
     }
 }
 
@@ -264,7 +161,7 @@ export class LoginEmailError extends Error {
     override name = 'LoginEmailError';
 
     constructor(message?: string) {
-        super(message ?? 'The code you’ve entered is incorrect, please try again.');
+        super(message ?? 'The code you have entered is incorrect, please try again.');
     }
 }
 
@@ -294,14 +191,6 @@ export class WalletAddressMismatchError extends Error {
 
 export class WalletNotConnectedError extends Error {
     override name = 'WalletNotConnectedError';
-}
-
-export class ChainConfigMismatchError extends Error {
-    override name = 'ChainConfigMismatchError';
-
-    constructor(message?: string) {
-        super(message ?? 'Chain config mismatch.');
-    }
 }
 
 /**

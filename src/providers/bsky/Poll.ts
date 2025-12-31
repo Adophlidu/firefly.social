@@ -1,4 +1,5 @@
-import { NotImplementedError } from '@/constants/error.js';
+import { NotImplementedError } from '@dimensiondev/utils';
+
 import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
 
 class BskyPoll implements Provider {

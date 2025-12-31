@@ -1,11 +1,7 @@
+import { AbortError, AuthenticationError } from '@dimensiondev/utils';
+
 import { sentryClient } from '@/configs/sentryClient.js';
-import {
-    AbortError,
-    AuthenticationError,
-    FarcasterPatchSignerError,
-    FireflyAlreadyBoundError,
-    FireflyBindTimeoutError,
-} from '@/constants/error.js';
+import { FarcasterPatchSignerError, FireflyAlreadyBoundError, FireflyBindTimeoutError } from '@/constants/error.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Session } from '@/providers/types/Session.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';

@@ -1,10 +1,11 @@
+import { AuthenticationError, NotImplementedError } from '@dimensiondev/utils';
 import { fetchAccount } from '@lens-protocol/client/actions';
 import { first, sumBy } from 'lodash-es';
 import type { Address } from 'viem';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
-import { AuthenticationError, NotImplementedError, WalletAddressMismatchError } from '@/constants/error.js';
+import { WalletAddressMismatchError } from '@/constants/error.js';
 import { LENS_CHAIN_ID } from '@/constants/static.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';

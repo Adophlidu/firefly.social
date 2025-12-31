@@ -1,3 +1,4 @@
+import { UnauthorizedError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { ConnectorNotConnectedError } from '@wagmi/core';
 import dayjs from 'dayjs';
@@ -6,7 +7,7 @@ import urlcat from 'urlcat';
 import { DraftPageTab } from '@/components/Compose/DraftPage.js';
 import { SUPPORTED_FRAME_SOURCES } from '@/constants/computed.js';
 import { Source } from '@/constants/enum.js';
-import { CreateScheduleError, UnauthorizedError } from '@/constants/error.js';
+import { CreateScheduleError } from '@/constants/error.js';
 import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';

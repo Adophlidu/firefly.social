@@ -1,4 +1,4 @@
-import { unreachable } from '@dimensiondev/utils';
+import { NotFoundError, NotImplementedError,unreachable  } from '@dimensiondev/utils';
 import {
     type Account,
     AccountReportReason,
@@ -56,7 +56,6 @@ import { compact, first, flatMap, uniqBy, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { FireflyPlatform, MetadataAttributeType, Source, SourceInURL } from '@/constants/enum.js';
-import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';

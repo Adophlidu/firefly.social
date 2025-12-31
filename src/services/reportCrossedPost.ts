@@ -1,11 +1,10 @@
-import { createLookupTableResolver } from '@dimensiondev/utils';
+import { createLookupTableResolver , UnreachableError } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { SORTED_SOCIAL_SOURCES } from '@/constants/computed.js';
 import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { logger } from '@/libs/Logger.js';
 import { reportPost } from '@/providers/firefly/report/reportPost.js';

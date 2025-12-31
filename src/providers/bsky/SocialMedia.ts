@@ -1,13 +1,12 @@
 import { AppBskyActorProfile, AppBskyFeedDefs, moderatePost } from '@atproto/api';
 import { BlockedActorError } from '@atproto/api/dist/client/types/app/bsky/feed/getAuthorFeed.js';
-import { safeUnreachable } from '@dimensiondev/utils';
+import { NotImplementedError,safeUnreachable  } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { compact, has, uniq } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { DISCOVER_AT_URI } from '@/constants/bsky.js';
 import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
 import { BSKY_LOGIN_REQUIRED_FEEDS, EMPTY_LIST } from '@/constants/static.js';
 import { AddBookmarkStatusForPosts } from '@/decorators/AddBookmarkStatusForPosts.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';

@@ -1,7 +1,6 @@
+import { AbortError } from '@dimensiondev/utils';
 import { useRef } from 'react';
 import { useUnmount } from 'react-use';
-
-import { AbortError } from '@/constants/error.js';
 
 class Controller {
     private controller: AbortController | null = null;

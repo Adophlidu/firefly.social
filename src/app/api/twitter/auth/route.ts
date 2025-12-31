@@ -1,7 +1,6 @@
-import { compose } from '@dimensiondev/utils';
+import { compose , UnauthorizedError } from '@dimensiondev/utils';
 
 import { env } from '@/constants/env.js';
-import { UnauthorizedError } from '@/constants/error.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { createTwitterSessionBeforeLogin } from '@/providers/twitter/createTwitterSessionPayload.js';

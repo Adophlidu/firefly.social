@@ -1,4 +1,4 @@
-import { assert } from '@dimensiondev/utils';
+import { assert , NotImplementedError } from '@dimensiondev/utils';
 import { type Context, type MiniAppHost, type SignInOptions } from '@farcaster/miniapp-host';
 import { t } from '@lingui/core/macro';
 import { first } from 'lodash-es';
@@ -6,7 +6,6 @@ import type { UnwrapPromise } from 'next/dist/lib/coalesced-function.js';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/static.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileById } from '@/helpers/getProfileById.js';

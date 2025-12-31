@@ -1,4 +1,6 @@
-import { AbortError, InvalidAddressError, NftScanError, XRPCNotSupportedError } from '@/constants/error.js';
+import { AbortError } from '@dimensiondev/utils';
+
+import { InvalidAddressError, NftScanError, XRPCNotSupportedError } from '@/constants/error.js';
 import { logger } from '@/libs/Logger.js';
 
 export function runInSafe<T>(fn: () => T, noThrow = true, defaultValue?: T) {

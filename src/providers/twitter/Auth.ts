@@ -1,4 +1,5 @@
-import { NotImplementedError } from '@/constants/error.js';
+import { NotImplementedError } from '@dimensiondev/utils';
+
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { Provider } from '@/providers/types/Auth.js';

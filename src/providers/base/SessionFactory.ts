@@ -1,7 +1,6 @@
-import { parseJson, parseUrl, safeUnreachable } from '@dimensiondev/utils';
+import { parseJson, parseUrl, safeUnreachable , UnreachableError } from '@dimensiondev/utils';
 import { z } from 'zod';
 
-import { UnreachableError } from '@/constants/error.js';
 import { decodeAsciiPayload, decodeNoAsciiPayload } from '@/helpers/encodeSessionPayload.js';
 import { logger } from '@/libs/Logger.js';
 import { BskySession } from '@/providers/bsky/Session.js';

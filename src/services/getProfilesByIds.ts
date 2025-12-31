@@ -1,7 +1,6 @@
-import { safeUnreachable } from '@dimensiondev/utils';
+import { safeUnreachable , UnreachableError } from '@dimensiondev/utils';
 
 import { type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 import { bskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { farcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { lensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';

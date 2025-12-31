@@ -1,13 +1,8 @@
-import { safeUnreachable } from '@dimensiondev/utils';
+import { NotAllowedError, safeUnreachable , UnreachableError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import {
-    FireflyAlreadyBoundError,
-    FireflyBindTimeoutError,
-    NotAllowedError,
-    UnreachableError,
-} from '@/constants/error.js';
+import { FireflyAlreadyBoundError, FireflyBindTimeoutError } from '@/constants/error.js';
 import { NOT_DEPEND_SECRET } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';

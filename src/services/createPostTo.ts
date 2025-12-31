@@ -1,7 +1,6 @@
-import { safeUnreachable } from '@dimensiondev/utils';
+import { safeUnreachable , UnreachableError } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 import { mergeMediaObjects } from '@/helpers/mergeMediaObjects.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';

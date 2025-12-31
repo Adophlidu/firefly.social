@@ -1,11 +1,11 @@
 /* cspell:disable */
 
+import { NotImplementedError } from '@dimensiondev/utils';
 import { sortBy, toInteger, uniqBy } from 'lodash-es';
 import urlcat from 'urlcat';
 import { toHex } from 'viem';
 
 import { Source } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
 import { MessageType, ReactionType } from '@/constants/farcaster.js';
 import { MAX_IMAGE_SIZE_PER_POST, MAX_IMAGE_SIZE_PRO_PER_POST } from '@/constants/limitation.js';
 import { URL_REGEX } from '@/constants/regexp.js';

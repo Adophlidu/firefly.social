@@ -1,6 +1,6 @@
+import { NotAllowedError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { NotAllowedError } from '@/constants/error.js';
 import { WARPCAST_ROOT_URL_V2 } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { BaseSession } from '@/providers/base/Session.js';

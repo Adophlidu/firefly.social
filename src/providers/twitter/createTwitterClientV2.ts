@@ -1,6 +1,6 @@
+import { UnauthorizedError } from '@dimensiondev/utils';
 import { TwitterApi } from 'twitter-api-v2';
 
-import { UnauthorizedError } from '@/constants/error.js';
 import { createTwitterSessionAfterLogin } from '@/providers/twitter/createTwitterSessionPayload.js';
 
 // OAuth 1.0a (User context)

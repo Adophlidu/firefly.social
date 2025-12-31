@@ -1,7 +1,6 @@
-import { safeUnreachable } from '@dimensiondev/utils';
+import { safeUnreachable , UnreachableError } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';

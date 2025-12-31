@@ -1,3 +1,4 @@
+import { UserRejectionError } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
@@ -6,7 +7,7 @@ import { z } from 'zod';
 
 import type { SnackbarMessage } from '@/components/Snackbar.js';
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
-import { DecryptionError, FarcasterInvalidSignerKey, FetchError, UserRejectionError } from '@/constants/error.js';
+import { DecryptionError, FarcasterInvalidSignerKey, FetchError } from '@/constants/error.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
 import { isInsufficientGasError } from '@/helpers/isInsufficientGasError.js';
 import { isUserRejectErrorInWallet } from '@/helpers/isUserRejectErrorInWallet.js';

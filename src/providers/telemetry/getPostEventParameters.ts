@@ -1,7 +1,6 @@
-import { createLookupTableResolver, safeUnreachable } from '@dimensiondev/utils';
+import { createLookupTableResolver, safeUnreachable , UnreachableError } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 import {
     getProfileEventParameters,
     getSelfProfileEventParameters,

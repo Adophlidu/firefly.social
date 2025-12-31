@@ -1,6 +1,6 @@
+import { NotFoundError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
-import { NotFoundError } from '@/constants/error.js';
 import { formatFarcasterPostFromFirefly } from '@/providers/farcaster/formatFarcasterPostFromFirefly.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { CastResponse } from '@/providers/types/Firefly.js';

@@ -1,3 +1,4 @@
+import { NotImplementedError } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import type {
@@ -10,7 +11,6 @@ import type {
 import urlcat from 'urlcat';
 
 import { FireflyPlatform, Locale, Source } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
 import { TWITTER_PROFILE_SEARCH_REGEXP } from '@/constants/regexp.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { AddLikeStatusToTwitterPosts } from '@/decorators/AddLikeStatusToTwitterPosts.js';

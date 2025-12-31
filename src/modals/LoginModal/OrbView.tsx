@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames } from '@dimensiondev/utils';
+import { AbortError, classNames , ForbiddenError, InvalidResultError } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
@@ -13,7 +13,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
-import { AbortError, ForbiddenError, InvalidOrbPermissionError, InvalidResultError } from '@/constants/error.js';
+import { InvalidOrbPermissionError } from '@/constants/error.js';
 import { FAKE_REFRESH_TOKEN } from '@/constants/lens.js';
 import { ORB_REPLY_COUNTDOWN, SEVEN_DAYS } from '@/constants/static.js';
 import { Link } from '@/esm/Link.js';

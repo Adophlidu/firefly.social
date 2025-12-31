@@ -1,4 +1,4 @@
-import { AbortError } from '@/constants/error.js';
+import { AbortError } from '@dimensiondev/utils';
 
 function untilImageLoaded(img: HTMLImageElement, signal?: AbortSignal) {
     return new Promise<HTMLImageElement>((resolve, reject) => {

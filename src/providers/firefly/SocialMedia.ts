@@ -1,8 +1,8 @@
+import { NotFoundError, NotImplementedError } from '@dimensiondev/utils';
 import { compact, isEmpty } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform, type SocialSourceInURL, Source } from '@/constants/enum.js';
-import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import { formatFireflyNotification } from '@/helpers/formatFireflyNotification.js';

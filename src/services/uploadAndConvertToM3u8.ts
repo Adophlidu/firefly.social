@@ -1,8 +1,7 @@
-import { delay, parseUrl, safeUnreachable } from '@dimensiondev/utils';
+import { delay, parseUrl, safeUnreachable , UnreachableError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { S3ConvertStatus, SourceInURL } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

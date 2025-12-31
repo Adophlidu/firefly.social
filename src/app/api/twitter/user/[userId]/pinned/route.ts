@@ -1,7 +1,6 @@
-import { compose } from '@dimensiondev/utils';
+import { compose , NotFoundError } from '@dimensiondev/utils';
 import { z } from 'zod';
 
-import { NotFoundError } from '@/constants/error.js';
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';

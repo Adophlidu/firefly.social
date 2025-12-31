@@ -1,8 +1,8 @@
-import { parseJson } from '@dimensiondev/utils';
+import { NotFoundError, parseJson,UnauthorizedError } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 import { ZodError } from 'zod';
 
-import { ContentTypeError, MalformedError, NotFoundError, UnauthorizedError } from '@/constants/error.js';
+import { MalformedRequestError } from '@/constants/error.js';
 import { createErrorResponseJson } from '@/helpers/createResponseJson.js';
 import type { NextRequestContext } from '@/types/utility.js';
 
@@ -16,17 +16,12 @@ export function withRequestErrorHandler<P>(options?: { throwError?: boolean }) {
             try {
                 return await handler(request, context);
             } catch (error) {
-                if (error instanceof ContentTypeError) {
-                    return createErrorResponseJson(error.message, {
-                        status: 400,
-                    });
-                }
                 if (error instanceof ZodError) {
                     return createErrorResponseJson(parseJson(error.message) ?? error.message, {
                         status: 400,
                     });
                 }
-                if (error instanceof MalformedError) {
+                if (error instanceof MalformedRequestError) {
                     return createErrorResponseJson(error.message, {
                         status: 400,
                     });

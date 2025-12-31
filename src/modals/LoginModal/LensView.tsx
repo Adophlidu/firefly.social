@@ -1,5 +1,6 @@
 'use client';
 
+import { AbortError, ForbiddenError } from '@dimensiondev/utils';
 import { lastLoggedInAccount } from '@lens-protocol/client/actions';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -19,7 +20,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { PRIVY_CONNECTOR_ID } from '@/connectors/PrivyConnector.js';
 import { AsyncStatus, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { AbortError, FireflyAlreadyBoundError, ForbiddenError } from '@/constants/error.js';
+import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import {
     enqueueForbiddenMessage,

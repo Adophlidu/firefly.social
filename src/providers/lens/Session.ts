@@ -1,4 +1,5 @@
-import { NotAllowedError } from '@/constants/error.js';
+import { NotAllowedError } from '@dimensiondev/utils';
+
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';

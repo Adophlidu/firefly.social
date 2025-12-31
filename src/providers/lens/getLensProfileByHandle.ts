@@ -1,6 +1,6 @@
+import { NotFoundError } from '@dimensiondev/utils';
 import { fetchAccount } from '@lens-protocol/client/actions';
 
-import { NotFoundError } from '@/constants/error.js';
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { formatLensProfileV3 } from '@/providers/lens/formatLensProfile.js';
 import { getAccountWithStatsByHandle } from '@/providers/lens/getAccountWithStats.js';

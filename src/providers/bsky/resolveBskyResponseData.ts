@@ -1,5 +1,7 @@
+import { NotFoundError } from '@dimensiondev/utils';
+
 import { Source } from '@/constants/enum.js';
-import { AccountSuspendedError, NotFoundError } from '@/constants/error.js';
+import { AccountSuspendedError } from '@/constants/error.js';
 
 interface Response<T> {
     success: boolean;

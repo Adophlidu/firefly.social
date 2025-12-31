@@ -6,12 +6,11 @@ import {
     type IframeBridgeRequestArguments,
     type IframeBridgeResponseResult,
 } from '@dimensiondev/iframe-bridge';
-import { safeUnreachable } from '@dimensiondev/utils';
+import { NotImplementedError,safeUnreachable  } from '@dimensiondev/utils';
 import { memo, useEffect } from 'react';
 
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import type { ProfileSource } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
 import { useRouter } from '@/esm/navigation.js';
 import {
     enqueueErrorMessage,

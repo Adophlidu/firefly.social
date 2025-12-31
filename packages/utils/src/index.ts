@@ -6,6 +6,7 @@ export * from '@/classNames.js';
 export * from '@/compose.js';
 export * from '@/createLookupTableResolver.js';
 export * from '@/defer.js';
+export * from '@/error.js';
 export * from '@/delay.js';
 export * from '@/getEnumAsArray.js';
 export * from '@/hexToRGBA.js';

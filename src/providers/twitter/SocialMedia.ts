@@ -1,4 +1,5 @@
-import { NotImplementedError } from '@/constants/error.js';
+import { NotImplementedError } from '@dimensiondev/utils';
+
 import { nitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
 import { OfficialSocialMedia, officialSocialMediaProvider } from '@/providers/twitter/OfficialSocialMedia.js';
 

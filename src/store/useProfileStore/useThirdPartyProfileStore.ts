@@ -1,11 +1,11 @@
 'use client';
 
-import { bom } from '@dimensiondev/utils';
+import { bom , ForbiddenError } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { getSession, signOut } from 'next-auth/react';
 
 import { AsyncStatus, Source } from '@/constants/enum.js';
-import { FireflyAlreadyBoundError, ForbiddenError } from '@/constants/error.js';
+import { FireflyAlreadyBoundError } from '@/constants/error.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import {

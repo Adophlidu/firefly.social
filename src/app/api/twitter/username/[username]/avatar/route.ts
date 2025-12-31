@@ -1,8 +1,7 @@
-import { compose } from '@dimensiondev/utils';
+import { compose , NotFoundError } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
-import { NotFoundError } from '@/constants/error.js';
 import { createRedirectResponse } from '@/helpers/createRedirectResponse.js';
 import { getParamsWithZodSchema } from '@/helpers/getParamsWithZodSchema.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

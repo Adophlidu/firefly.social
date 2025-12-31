@@ -1,7 +1,6 @@
-import { safeUnreachable } from '@dimensiondev/utils';
+import { safeUnreachable , UnreachableError } from '@dimensiondev/utils';
 
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';

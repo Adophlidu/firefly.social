@@ -1,7 +1,6 @@
-import { createLookupTableResolver } from '@dimensiondev/utils';
+import { createLookupTableResolver , UnreachableError } from '@dimensiondev/utils';
 
 import { type ProfilePageSource, type SocialSource, Source } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getProfileEventParameters } from '@/providers/telemetry/getProfileEventParameters.js';
 import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';

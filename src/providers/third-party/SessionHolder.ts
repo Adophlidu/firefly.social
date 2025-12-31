@@ -1,4 +1,5 @@
-import { NotAllowedError } from '@/constants/error.js';
+import { NotAllowedError } from '@dimensiondev/utils';
+
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
 

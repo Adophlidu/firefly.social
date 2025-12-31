@@ -1,8 +1,8 @@
+import { NotImplementedError } from '@dimensiondev/utils';
 import { type Address, type Hash } from 'viem';
 import { getAccount, getChainId } from 'wagmi/actions';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
-import { NotImplementedError } from '@/constants/error.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import type { NetworkProvider } from '@/providers/types/Network.js';
 import { EVMExplorerResolver } from '@/web3-providers/evm/ResolverAPI.js';

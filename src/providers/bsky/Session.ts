@@ -1,8 +1,8 @@
 /* cspell:disable */
 
 import type { AtpSessionData } from '@atproto/api';
+import { NotAllowedError } from '@dimensiondev/utils';
 
-import { NotAllowedError } from '@/constants/error.js';
 import { encodeAsciiPayload } from '@/helpers/encodeSessionPayload.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';

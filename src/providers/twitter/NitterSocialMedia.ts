@@ -1,10 +1,10 @@
+import { NotFoundError, NotImplementedError } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { compact, last, uniq } from 'lodash-es';
 import type { TweetV2LookupResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { AddAuthorHighlightStatusForPosts } from '@/decorators/AddProfileHighlightStatus.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
