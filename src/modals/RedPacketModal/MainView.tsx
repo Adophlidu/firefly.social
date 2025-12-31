@@ -18,6 +18,7 @@ import { useDefaultCreateGas } from '@/components/RedPacket/hooks/useDefaultCrea
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { TokenValue } from '@/components/TokenValue.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { rpSupportedChains } from '@/configs/chains.js';
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
 import { RED_PACKET_CONTRACT_VERSION, RED_PACKET_DURATION, RED_PACKET_MIN_SHARES } from '@/constants/rp.js';
@@ -144,13 +145,23 @@ export default function MainView() {
         isGreaterThan(minTotalAmount, balance.toString()) || isGreaterThan(totalAmount, balance.toString());
     const noAmount = isZero(amount);
     const isNotEnoughAllowance = !isUndefined(allowance) && !isGreaterThan(allowance.toString(), totalAmount);
+    const isUnsupportedChain =
+        networkType === NetworkType.Ethereum ? rpSupportedChains.every((chain) => chain.id !== +chainId) : false;
 
-    const disabled = noShares || isGteMaxShares || insufficientBalance || noAmount || !isDivisible || insufficientGas;
+    const disabled =
+        noShares ||
+        isGteMaxShares ||
+        insufficientBalance ||
+        noAmount ||
+        !isDivisible ||
+        insufficientGas ||
+        isUnsupportedChain;
     const loading = priceLoading || gasLoading || allowanceLoading;
     // #endregion
 
     // #region button
     const buttonText = useMemo(() => {
+        if (isUnsupportedChain) return <Trans>Unsupported Chain</Trans>;
         if (noShares) return <Trans>Enter Number of Winners</Trans>;
         if (isGteMaxShares) return <Trans>At most {getRpMaxShares(networkType)} recipients</Trans>;
         if (insufficientBalance) return <Trans>Insufficient Balance</Trans>;
@@ -201,6 +212,7 @@ export default function MainView() {
         isNotEnoughAllowance,
         isRandom,
         networkType,
+        isUnsupportedChain,
     ]);
 
     const [{ loading: interactionLoading }, handleClick] = useAsyncFn(async () => {

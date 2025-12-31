@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { useEstimateFeesPerGas } from 'wagmi';
+import { useBalance, useEstimateFeesPerGas } from 'wagmi';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
@@ -20,6 +20,7 @@ export function useEVMAvailableBalance(
     const { chainId, isEIP1559, account } = useChainContext(overrides);
 
     const { data: balance } = useBalanceOf(chainId, account as `0x${string}`, address, enabled);
+    const { data: nativeBalance } = useBalance({ address: account as `0x${string}`, chainId });
 
     const { data } = useEstimateFeesPerGas({
         chainId,
@@ -30,25 +31,26 @@ export function useEVMAvailableBalance(
     const { gasPrice, maxFeePerGas } = data ?? {};
 
     return useMemo(() => {
-        if (!balance || !enabled) return;
+        if (!balance || !enabled || !nativeBalance) return;
         const gasFee = multipliedBy((isEIP1559 ? maxFeePerGas?.toString() : gasPrice?.toString()) ?? ZERO, gas);
 
+        const insufficientGas = isGreaterThan(gasFee, nativeBalance.value ?? 0);
         if (!isNativeToken)
             return {
                 ...balance,
                 origin: balance,
                 gasFee,
-                insufficientGas: isGreaterThan(gasFee, balance?.value.toString() ?? 0),
+                insufficientGas,
             };
-
         const result = balance.value - BigInt(gasFee.toNumber());
+
         return {
             ...balance,
             formatted: result < 0 ? '0' : formatBalance(result.toString(), balance.decimals),
             value: result < 0 ? 0 : result,
             gasFee,
             origin: balance,
-            insufficientGas: result < 0,
+            insufficientGas,
         };
-    }, [isNativeToken, balance, isEIP1559, gas, gasPrice, maxFeePerGas, balance?.value, enabled]);
+    }, [balance, enabled, nativeBalance, isEIP1559, maxFeePerGas, gasPrice, gas, isNativeToken]);
 }

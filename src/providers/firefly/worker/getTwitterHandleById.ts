@@ -4,7 +4,7 @@ import { FIREFLY_WORKER_HOST } from '@/constants/static.js';
 import { fetchJson } from '@/helpers/fetchJson.js';
 import type { ResponseJson } from '@/types/utility.js';
 
-export type GetTwitterHandleByIdResponse = ResponseJson<{
+type GetTwitterHandleByIdResponse = ResponseJson<{
     username: string;
 }>;
 

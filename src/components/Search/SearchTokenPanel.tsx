@@ -9,6 +9,7 @@ import type { Token } from '@/providers/types/Transfer.js';
 interface SearchTokenPanelProps {
     networkType: NetworkType;
     address: string;
+    validChainIds?: number[];
     onSelected?: (selected: Token) => void;
     isSelected?: (item: Token) => boolean;
 }

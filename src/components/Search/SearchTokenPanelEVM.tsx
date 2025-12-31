@@ -16,6 +16,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 interface SearchTokenPanelProps {
     address: string;
+    validChainIds?: number[];
     onSelected?: (selected: Token) => void;
     isSelected?: (item: Token) => boolean;
 }
@@ -26,18 +27,19 @@ function getTokenItem(token: Token) {
 
 export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTokenPanelEVM({
     address,
+    validChainIds = visibleChains.map((chain) => chain.id),
     onSelected,
     isSelected,
 }) {
     const [showSmall, setShowSmall] = useState(false);
     const isMedium = useIsMedium('max');
-    const { tokens, isLoading } = useEvmTokens(address);
+    const { tokens, isLoading } = useEvmTokens(address, validChainIds);
     const chainIds = useMemo(() => {
         return orderBy(uniq(tokens.map((token) => token.chainId)), (chainId) => {
-            const index = visibleChains.findIndex((chain) => chain.id === chainId);
+            const index = validChainIds.findIndex((id) => id === chainId);
             return index === -1 ? Number.MAX_SAFE_INTEGER : index;
-        });
-    }, [tokens]);
+        }).filter((chainId) => validChainIds.includes(chainId));
+    }, [tokens, validChainIds]);
 
     const getChainItem = useCallback(
         (chainId: number, isTag?: boolean) => {

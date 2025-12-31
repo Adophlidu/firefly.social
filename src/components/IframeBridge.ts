@@ -70,6 +70,9 @@ const allEvents: {
             ? (window.location.href = 'https://5euxu.app.link/PHvNiyVemIb')
             : DownloadMobileAppModalRef.open();
     },
+    [IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE]: async () => {
+        throw new NotImplementedError();
+    },
     [IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC]: async () => {
         throw new NotImplementedError();
     },
@@ -79,9 +82,6 @@ const allEvents: {
     [IframeBridgeMethod.FIREFLY_WALLET_AUTHORIZED]: async () => {
         useFireflyWalletStore.getState().setIsAuthorized(true);
         await reconnectPrivyWallet();
-    },
-    [IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE]: async () => {
-        throw new NotImplementedError();
     },
     [IframeBridgeMethod.NAVIGATE]: async () => {
         throw new NotImplementedError();

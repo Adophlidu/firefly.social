@@ -175,6 +175,7 @@ export function useSolanaCreateRedPacketCallback(
         maxShares,
         totalAmount,
         randomType,
+        publicKey,
         message,
         shareFromName,
         account,

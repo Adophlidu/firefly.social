@@ -6,6 +6,7 @@ import { type ChangeEvent, memo, useCallback, useMemo } from 'react';
 
 import ArrowDown from '@/assets/arrow-down.svg';
 import { TokenIcon } from '@/components/TokenIcon.js';
+import { rpSupportedChains } from '@/configs/chains.js';
 import { NetworkType } from '@/constants/enum.js';
 import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
@@ -49,6 +50,7 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
         const picked = await TokenSelectorModalRef.openAndWaitForClose({
             networkType,
             address: account,
+            validChainIds: rpSupportedChains.map((chain) => chain.id),
             isSelected: (item) => {
                 switch (networkType) {
                     case NetworkType.Ethereum:

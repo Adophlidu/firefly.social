@@ -71,7 +71,7 @@ function connectionToAccounts(connection: Connection, network: NetworkType) {
     );
 }
 
-export function useAppKitAccountsByNetwork(network: NetworkType) {
+function useAppKitAccountsByNetwork(network: NetworkType) {
     const [activeConnectorIds, setActiveConnectorIds] = useState(CoreConnectorController.state.activeConnectorIds);
     const [caipAddress, setCaipAddress] = useState<CaipAddress | undefined>();
     const [connections, setConnections] = useState<Connection[]>([]);

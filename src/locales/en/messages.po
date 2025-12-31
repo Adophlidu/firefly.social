@@ -2580,6 +2580,9 @@ msgstr "24 hours"
 msgid "Bio should be at least {extra} characters"
 msgstr "Bio should be at least {extra} characters"
 
+msgid "Unsupported Chain"
+msgstr "Unsupported Chain"
+
 msgid "Failed to create red packet"
 msgstr "Failed to create red packet"
 

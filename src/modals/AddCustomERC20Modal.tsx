@@ -31,6 +31,7 @@ import { EthereumChainId } from '@/web3-shared/evm/types.js';
 interface AddCustomERC20ModalContentProps {
     onClose: () => void;
     initialChainId?: number;
+    validChainIds?: number[];
 }
 
 function useVisibleChainIds() {
@@ -44,12 +45,17 @@ function useVisibleChainIds() {
 
 function AddCustomERC20ModalContent({
     onClose,
+    validChainIds,
     initialChainId = EthereumChainId.Mainnet,
 }: AddCustomERC20ModalContentProps) {
     const account = useConnection();
     const isMedium = useIsMedium('max');
 
     const chainIds: number[] = useVisibleChainIds();
+    const filteredChainIds = useMemo(
+        () => (validChainIds?.length ? chainIds.filter((id) => validChainIds.includes(id)) : chainIds),
+        [chainIds, validChainIds],
+    );
 
     const getChainItem = useCallback(
         (chainId: number, isTag?: boolean) => {
@@ -139,7 +145,7 @@ function AddCustomERC20ModalContent({
             <div className="mb-6 flex w-full flex-col">
                 <div className="flex items-center gap-2.5">
                     <FilterPopover
-                        data={chainIds}
+                        data={filteredChainIds}
                         popoverClassName="w-[150px]"
                         onSelected={(x) => {
                             if (x) setSelectedChain(x);
@@ -167,7 +173,8 @@ function AddCustomERC20ModalContent({
     );
 }
 
-export interface AddCustomERC20ModalOpenProps extends Pick<AddCustomERC20ModalContentProps, 'initialChainId'> {}
+export interface AddCustomERC20ModalOpenProps
+    extends Pick<AddCustomERC20ModalContentProps, 'initialChainId' | 'validChainIds'> {}
 
 interface Props {
     ref: React.Ref<SingletonModalRefCreator<AddCustomERC20ModalOpenProps>>;
@@ -196,7 +203,13 @@ export function AddCustomERC20Modal({ ref }: Props) {
             title={<Trans>Add Token</Trans>}
             enableClose
         >
-            {props ? <AddCustomERC20ModalContent onClose={onClose} initialChainId={props.initialChainId} /> : null}
+            {props ? (
+                <AddCustomERC20ModalContent
+                    onClose={onClose}
+                    validChainIds={props.validChainIds}
+                    initialChainId={props.initialChainId}
+                />
+            ) : null}
         </Modal>
     );
 }

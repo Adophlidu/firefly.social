@@ -4,6 +4,5 @@ export function resolvePolymarketResponse<T extends object>(response: Polymarket
     if ('error' in response) {
         throw new Error(response.error);
     }
-
     return response;
 }

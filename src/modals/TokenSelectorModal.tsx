@@ -27,6 +27,7 @@ interface TokenSelectorModalOpenProps {
     isSelected?: (item: Token) => boolean;
     initialAddTokenChainId?: number;
     isConnectRequest?: boolean;
+    validChainIds?: number[];
 }
 
 type TokenSelectorModalCloseProps = FungibleToken<EthereumChainId, EthereumSchemaType, Token> | null;
@@ -72,9 +73,10 @@ export function TokenSelectorModal({ ref }: Props) {
                     </span>
                     {[NetworkType.Ethereum].includes(props.networkType) ? (
                         <ClickableButton
-                            className="text-md absolute right-0 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2 text-main"
+                            className="absolute right-0 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2 text-main"
                             onClick={() => {
                                 AddCustomERC20ModalRef.open({
+                                    validChainIds: props.validChainIds,
                                     initialChainId: props.initialAddTokenChainId ?? chainId,
                                 });
                             }}
@@ -88,6 +90,7 @@ export function TokenSelectorModal({ ref }: Props) {
                         <SearchTokenPanel
                             networkType={props.networkType}
                             address={props.address}
+                            validChainIds={props.validChainIds}
                             isSelected={props.isSelected}
                             onSelected={onSelected}
                         />

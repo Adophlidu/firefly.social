@@ -2585,6 +2585,9 @@ msgstr "24 小时"
 msgid "Bio should be at least {extra} characters"
 msgstr "个人简介应至少包含 {extra} 个字符"
 
+msgid "Unsupported Chain"
+msgstr ""
+
 msgid "Failed to create red packet"
 msgstr "创建红包失败"
 

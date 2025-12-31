@@ -3,11 +3,12 @@
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { sum, uniqBy } from 'lodash-es';
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { ListInPage } from '@/components/ListInPage.js';
+import { Loading } from '@/components/Loading.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
@@ -26,12 +27,10 @@ function getSuggestedFollowUserInList(index: number, profile: Profile) {
     return <ProfileInList profile={profile} key={`${profile.profileId}-${index}`} />;
 }
 
-export function SuggestedFollowUsersList({ source }: Props) {
+const SuggestedFollowers = memo<Props>(function SuggestedFollowers({ source }) {
     const profile = useCurrentProfile(source);
-    const asyncStatus = useAsyncStatus(source);
-
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['suggested-follows', source, profile?.profileId, asyncStatus],
+        queryKey: ['suggested-follows', source, profile?.profileId],
         queryFn: async ({ pageParam }) => {
             const result = await getSuggestedFollowsInPage(
                 source,
@@ -96,4 +95,10 @@ export function SuggestedFollowUsersList({ source }: Props) {
             }}
         />
     );
+});
+
+export function SuggestedFollowUsersList({ source }: Props) {
+    const asyncStatus = useAsyncStatus(source);
+    if (asyncStatus) return <Loading />;
+    return <SuggestedFollowers source={source} />;
 }

@@ -9,8 +9,6 @@ import { runRPC } from '@/providers/solana/red-packet/runRPC.js';
 import type { ClaimSplTokenContext } from '@/providers/solana/red-packet/types.js';
 
 export async function claimWithSplToken(context: ClaimSplTokenContext) {
-    const program = getProgram();
-    const receiver = getCreator();
     const {
         accountId,
         publicKey,
@@ -23,6 +21,8 @@ export async function claimWithSplToken(context: ClaimSplTokenContext) {
     if (!publicKey || !message) {
         throw new Error('Public key and message are required');
     }
+    const program = getProgram(true);
+    const receiver = getCreator(true);
     const tokenMint = new web3.PublicKey(tokenAddress);
 
     const tokenProgram = tokenProgramString

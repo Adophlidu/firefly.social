@@ -2585,6 +2585,9 @@ msgstr ""
 msgid "Bio should be at least {extra} characters"
 msgstr ""
 
+msgid "Unsupported Chain"
+msgstr ""
+
 msgid "Failed to create red packet"
 msgstr ""
 

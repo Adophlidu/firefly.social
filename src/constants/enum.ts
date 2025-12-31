@@ -350,6 +350,11 @@ export enum NetworkType {
     Solana = 'solana',
 }
 
+export enum SolanaNetworkType {
+    Appkit = 'appkit',
+    Privy = 'privy-solana',
+}
+
 export enum OkxProviderType {
     EVM = 'EVM',
     SOLANA = 'SOLANA',
@@ -683,11 +688,6 @@ export enum ExtraLikeType {
 export enum ConnectionSource {
     Appkit = 'appkit',
     Privy = 'privy',
-}
-
-export enum SolanaNetworkType {
-    Appkit = 'appkit',
-    Privy = 'privy-solana',
 }
 
 export enum BetsPlatform {

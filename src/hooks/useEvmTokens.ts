@@ -14,7 +14,7 @@ function sortTokensByUsdValue(tokens: Token[]) {
     return tokens.slice().sort((a, b) => b.usdValue - a.usdValue);
 }
 
-export const useEvmTokens = (address?: string) => {
+export const useEvmTokens = (address?: string, chainIds?: number[]) => {
     const { data = EMPTY_LIST, isLoading } = useQuery({
         queryKey: ['tokens', address?.toLowerCase()],
         enabled: !!address,
@@ -26,7 +26,7 @@ export const useEvmTokens = (address?: string) => {
     const customTokens = useCustomFungibleTokens();
 
     const tokens = useMemo(() => {
-        return sortTokensByUsdValue(
+        const sortedTokens = sortTokensByUsdValue(
             data
                 .reduce<Token[]>((acc, token) => {
                     if (!token.chainId || !chains.some((chain) => chain.id === token.chainId)) return acc;
@@ -47,7 +47,8 @@ export const useEvmTokens = (address?: string) => {
                 .filter((token) => isGreaterThan(token.usdValue, 0))
                 .concat(customTokens),
         );
-    }, [customTokens, data]);
+        return chainIds?.length ? sortedTokens.filter((token) => chainIds.includes(+token.chainId)) : sortedTokens;
+    }, [customTokens, data, chainIds]);
 
     return { tokens, isLoading };
 };

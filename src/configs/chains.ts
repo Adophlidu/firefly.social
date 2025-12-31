@@ -171,3 +171,5 @@ export const privyVisibleChains = [
     wagmiCelo,
     wagmiPlasma,
 ] as const satisfies ReadonlyArray<(typeof chains)[number]>;
+
+export const rpSupportedChains = [wagmiMainnet, wagmiBsc, wagmiBase, wagmiOptimism, wagmiPolygon, wagmiArbitrum];

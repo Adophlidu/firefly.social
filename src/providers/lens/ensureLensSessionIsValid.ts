@@ -6,7 +6,7 @@ import { fetchJson } from '@/helpers/fetchJson.js';
 import { refreshLensSession } from '@/providers/lens/refreshLensSession.js';
 import { LensSession } from '@/providers/lens/Session.js';
 
-export async function fetchMe(session: LensSession) {
+async function fetchMe(session: LensSession) {
     const response = await fetchJson<{
         data: {
             me: {
