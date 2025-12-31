@@ -19,7 +19,7 @@ export function useParseRedPacket(account: string | undefined, post: Post, enabl
         compact(post.metadata.content?.attachments?.filter((x) => x.type === 'Image').map((x) => x.uri)),
     );
 
-    const { data, isLoading } = useQuery({
+    const { data, refetch, isLoading } = useQuery({
         enabled,
         queryKey: ['red-packet', 'parse', source, image, account?.toLowerCase(), currentProfile?.profileId],
         queryFn: async () => {
@@ -37,5 +37,5 @@ export function useParseRedPacket(account: string | undefined, post: Post, enabl
 
     const metadata = data?.redpacket?.payload || data?.meta[RedPacketMetaKey] || data?.meta[SolanaRedPacketMetaKey];
 
-    return { parsed: data, payloadImage: metadata ? image : undefined, metadata, isLoading };
+    return { parsed: data, payloadImage: metadata ? image : undefined, metadata, isLoading, refetch };
 }

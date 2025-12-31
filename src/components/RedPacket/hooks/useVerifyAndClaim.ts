@@ -3,12 +3,14 @@ import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
 import { useEthereumVerifyAndClaim } from '@/components/RedPacket/hooks/useEthereumVerifyAndClaim.js';
+import { useParseRedPacket } from '@/components/RedPacket/hooks/useParseRedPacket.js';
 import { useSolanaVerifyAndClaim } from '@/components/RedPacket/hooks/useSolanaVerifyAndClaim.js';
 import { NetworkType, type SocialSource } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { sharePostAfterClaimed } from '@/helpers/sharePostAfterClaimed.js';
+import { usePrivyAppkitAccountByNetwork } from '@/hooks/appkit/usePrivyAppkitAccountByNetwork.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import { finishClaiming } from '@/providers/firefly/red-packet/finishClaiming.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
@@ -22,6 +24,10 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
     const [ethereumStatus, claimWithEthereum] = useEthereumVerifyAndClaim(payload, source, isEvm);
     const isSol = networkType === NetworkType.Solana;
     const [solanaStatus, claimWithSolana] = useSolanaVerifyAndClaim(payload, post.source, isSol);
+
+    const appkitAccount = usePrivyAppkitAccountByNetwork(networkType);
+    const account = appkitAccount.account?.address || '';
+    const { refetch } = useParseRedPacket(account, post);
 
     const [{ loading }, handleClaim] = useAsyncFn(async () => {
         try {
@@ -40,6 +46,7 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
                     ),
                 );
             }
+            refetch();
 
             sharePostAfterClaimed({
                 post,
@@ -59,7 +66,7 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
             enqueueMessageFromError(error, t`Failed to claim red packet`);
             throw error;
         }
-    }, [networkType, claimWithEthereum, claimWithSolana, source, post, symbol, payload.chainId, payload.rpid]);
+    }, [networkType, claimWithEthereum, claimWithSolana, source, refetch, post, symbol, payload.chainId, payload.rpid]);
 
     switch (networkType) {
         case NetworkType.Solana:
