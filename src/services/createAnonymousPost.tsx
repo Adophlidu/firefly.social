@@ -1,4 +1,4 @@
-import { delay, NotImplementedError, safeUnreachable, TimeoutError,unreachable  } from '@dimensiondev/utils';
+import { delay, NotImplementedError, safeUnreachable, TimeoutError, unreachable } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';

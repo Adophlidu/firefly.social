@@ -1,4 +1,4 @@
-import { compose , NotFoundError } from '@dimensiondev/utils';
+import { compose, NotFoundError } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 

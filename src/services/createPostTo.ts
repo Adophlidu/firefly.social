@@ -1,4 +1,4 @@
-import { safeUnreachable , UnreachableError } from '@dimensiondev/utils';
+import { safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { mergeMediaObjects } from '@/helpers/mergeMediaObjects.js';

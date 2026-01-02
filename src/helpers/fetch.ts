@@ -1,4 +1,4 @@
-import { bom, ForbiddenError, NetworkError,parseUrl  } from '@dimensiondev/utils';
+import { bom, ForbiddenError, NetworkError, parseUrl } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 

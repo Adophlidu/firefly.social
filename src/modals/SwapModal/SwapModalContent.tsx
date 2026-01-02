@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames, createLookupTableResolver, delay , UnreachableError } from '@dimensiondev/utils';
+import { classNames, createLookupTableResolver, delay, UnreachableError } from '@dimensiondev/utils';
 import {
     createOkxSwapWidget,
     type EthereumProvider,

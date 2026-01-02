@@ -1,4 +1,4 @@
-import { NotAllowedError, safeUnreachable , UnreachableError } from '@dimensiondev/utils';
+import { NotAllowedError, safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';

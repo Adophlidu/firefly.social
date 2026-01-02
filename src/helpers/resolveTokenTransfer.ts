@@ -1,4 +1,4 @@
-import { createLookupTableResolver , UnreachableError } from '@dimensiondev/utils';
+import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
 import { NetworkType } from '@/constants/enum.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';

@@ -1,6 +1,6 @@
 'use client';
 
-import { AbortError, delay , ForbiddenError } from '@dimensiondev/utils';
+import { AbortError, delay, ForbiddenError } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { use, useMemo } from 'react';

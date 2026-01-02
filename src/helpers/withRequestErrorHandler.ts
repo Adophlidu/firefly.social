@@ -1,4 +1,4 @@
-import { NotFoundError, parseJson,UnauthorizedError } from '@dimensiondev/utils';
+import { NotFoundError, parseJson, UnauthorizedError } from '@dimensiondev/utils';
 import type { NextRequest } from 'next/server.js';
 import { ZodError } from 'zod';
 

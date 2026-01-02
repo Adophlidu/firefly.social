@@ -1,4 +1,4 @@
-import { NotAllowedError, safeUnreachable , TimeoutError, UnreachableError } from '@dimensiondev/utils';
+import { NotAllowedError, safeUnreachable, TimeoutError, UnreachableError } from '@dimensiondev/utils';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 

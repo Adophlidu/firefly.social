@@ -1,4 +1,4 @@
-import { parseJson, parseUrl, safeUnreachable , UnreachableError } from '@dimensiondev/utils';
+import { parseJson, parseUrl, safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 import { z } from 'zod';
 
 import { decodeAsciiPayload, decodeNoAsciiPayload } from '@/helpers/encodeSessionPayload.js';

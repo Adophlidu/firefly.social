@@ -1,6 +1,6 @@
 import { AppBskyActorProfile, AppBskyFeedDefs, moderatePost } from '@atproto/api';
 import { BlockedActorError } from '@atproto/api/dist/client/types/app/bsky/feed/getAuthorFeed.js';
-import { NotImplementedError,safeUnreachable  } from '@dimensiondev/utils';
+import { NotImplementedError, safeUnreachable } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 import { compact, has, uniq } from 'lodash-es';
 import urlcat from 'urlcat';

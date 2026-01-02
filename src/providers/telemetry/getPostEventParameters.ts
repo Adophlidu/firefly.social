@@ -1,4 +1,4 @@
-import { createLookupTableResolver, safeUnreachable , UnreachableError } from '@dimensiondev/utils';
+import { createLookupTableResolver, safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import {

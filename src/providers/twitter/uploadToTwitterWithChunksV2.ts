@@ -1,4 +1,4 @@
-import { delay, safeUnreachable , TimeoutError, UnreachableError } from '@dimensiondev/utils';
+import { delay, safeUnreachable, TimeoutError, UnreachableError } from '@dimensiondev/utils';
 import type { UploadMediaV1Params } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 

@@ -1,4 +1,4 @@
-import { createLookupTableResolver, NotAllowedError, safeUnreachable , UnreachableError } from '@dimensiondev/utils';
+import { createLookupTableResolver, NotAllowedError, safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 
 import { type LoginSource, type ProfileSource, Source } from '@/constants/enum.js';
 import { getProfilesFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';

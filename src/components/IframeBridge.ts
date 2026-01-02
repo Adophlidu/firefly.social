@@ -6,7 +6,7 @@ import {
     type IframeBridgeRequestArguments,
     type IframeBridgeResponseResult,
 } from '@dimensiondev/iframe-bridge';
-import { NotImplementedError,safeUnreachable  } from '@dimensiondev/utils';
+import { NotImplementedError, safeUnreachable } from '@dimensiondev/utils';
 import { memo, useEffect } from 'react';
 
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';

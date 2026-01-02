@@ -1,4 +1,4 @@
-import { bom , NotFoundError } from '@dimensiondev/utils';
+import { bom, NotFoundError } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';

@@ -1,4 +1,4 @@
-import { createLookupTableResolver , UnreachableError } from '@dimensiondev/utils';
+import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';

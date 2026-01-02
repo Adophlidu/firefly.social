@@ -1,6 +1,6 @@
 'use client';
 
-import { bom , ForbiddenError } from '@dimensiondev/utils';
+import { bom, ForbiddenError } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { getSession, signOut } from 'next-auth/react';
 

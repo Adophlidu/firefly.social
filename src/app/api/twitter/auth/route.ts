@@ -1,4 +1,4 @@
-import { compose , UnauthorizedError } from '@dimensiondev/utils';
+import { compose, UnauthorizedError } from '@dimensiondev/utils';
 
 import { env } from '@/constants/env.js';
 import { createSuccessResponseJson } from '@/helpers/createResponseJson.js';

@@ -1,4 +1,4 @@
-import { compose , NotFoundError } from '@dimensiondev/utils';
+import { compose, NotFoundError } from '@dimensiondev/utils';
 import { z } from 'zod';
 
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';

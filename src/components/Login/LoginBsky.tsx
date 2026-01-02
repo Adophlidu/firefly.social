@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import { AbortError, classNames, ForbiddenError,parseUrl  } from '@dimensiondev/utils';
+import { AbortError, classNames, ForbiddenError, parseUrl } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';

@@ -1,4 +1,4 @@
-import { AbortError, delay , InvalidResultError } from '@dimensiondev/utils';
+import { AbortError, delay, InvalidResultError } from '@dimensiondev/utils';
 
 interface Options {
     times?: number;

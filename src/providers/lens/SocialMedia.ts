@@ -1,4 +1,4 @@
-import { NotFoundError, NotImplementedError,unreachable  } from '@dimensiondev/utils';
+import { NotFoundError, NotImplementedError, unreachable } from '@dimensiondev/utils';
 import {
     type Account,
     AccountReportReason,

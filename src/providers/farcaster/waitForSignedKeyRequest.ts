@@ -1,4 +1,4 @@
-import { AbortError,delay  } from '@dimensiondev/utils';
+import { AbortError, delay } from '@dimensiondev/utils';
 import urlcat from 'urlcat';
 
 import { WARPCAST_ROOT_URL_V2 } from '@/constants/static.js';

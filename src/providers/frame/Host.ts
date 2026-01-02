@@ -1,4 +1,4 @@
-import { assert , NotImplementedError } from '@dimensiondev/utils';
+import { assert, NotImplementedError } from '@dimensiondev/utils';
 import { type Context, type MiniAppHost, type SignInOptions } from '@farcaster/miniapp-host';
 import { t } from '@lingui/core/macro';
 import { first } from 'lodash-es';

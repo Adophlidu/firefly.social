@@ -1,4 +1,4 @@
-import { safeUnreachable , UnreachableError } from '@dimensiondev/utils';
+import { safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 import dayjs from 'dayjs';
 
 import { runInSafeAsync } from '@/helpers/runInSafe.js';

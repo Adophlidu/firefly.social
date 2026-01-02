@@ -1,4 +1,11 @@
-import { AbortError, classNames, ForbiddenError, NotAllowedError, safeUnreachable , TimeoutError } from '@dimensiondev/utils';
+import {
+    AbortError,
+    classNames,
+    ForbiddenError,
+    NotAllowedError,
+    safeUnreachable,
+    TimeoutError,
+} from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 import { ConnectorNotConnectedError } from '@wagmi/core';

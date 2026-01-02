@@ -1,4 +1,4 @@
-import { safeUnreachable , UnreachableError } from '@dimensiondev/utils';
+import { safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';

@@ -1,4 +1,4 @@
-import { createLookupTableResolver , UnreachableError } from '@dimensiondev/utils';
+import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
 import {
     FireflyPlatform,

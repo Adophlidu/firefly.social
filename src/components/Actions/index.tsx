@@ -1,6 +1,6 @@
 'use client';
 
-import { classNames , NotFoundError } from '@dimensiondev/utils';
+import { classNames, NotFoundError } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { type HTMLProps, memo } from 'react';

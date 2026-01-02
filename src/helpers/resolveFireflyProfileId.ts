@@ -1,4 +1,4 @@
-import { safeUnreachable , UnreachableError } from '@dimensiondev/utils';
+import { safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 
 import { Source } from '@/constants/enum.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';

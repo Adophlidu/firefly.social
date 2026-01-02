@@ -1,4 +1,4 @@
-import { safeUnreachable , UnreachableError } from '@dimensiondev/utils';
+import { safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 import { isServer } from '@tanstack/react-query';
 
 import { type SocialSource, Source } from '@/constants/enum.js';

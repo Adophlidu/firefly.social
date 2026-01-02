@@ -1,6 +1,6 @@
 'use client';
 
-import { AuthenticationError, bom , ForbiddenError } from '@dimensiondev/utils';
+import { AuthenticationError, bom, ForbiddenError } from '@dimensiondev/utils';
 import { t } from '@lingui/core/macro';
 import dayjs from 'dayjs';
 import { getSession, signOut } from 'next-auth/react';

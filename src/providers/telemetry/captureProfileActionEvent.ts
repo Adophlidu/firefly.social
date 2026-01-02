@@ -1,4 +1,4 @@
-import { createLookupTableResolver , UnreachableError } from '@dimensiondev/utils';
+import { createLookupTableResolver, UnreachableError } from '@dimensiondev/utils';
 
 import { type ProfilePageSource, type SocialSource, Source } from '@/constants/enum.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
