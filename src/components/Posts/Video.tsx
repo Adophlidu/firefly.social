@@ -32,7 +32,9 @@ interface VideoProps extends HTMLProps<HTMLVideoElement> {
     preload?: 'metadata' | 'none' | 'auto';
     autoPlayInViewport?: boolean;
     aspectRatio?: number;
+    useFetchLoader?: boolean;
 }
+type LoaderContext = Parameters<Required<Required<Player.VideoProps>['hlsConfig']>['fetchSetup']>[0];
 
 function VideoContent({
     loop,
@@ -41,12 +43,14 @@ function VideoContent({
     children,
     autoPlayInViewport,
     __scopeMedia,
+    useFetchLoader,
 }: MediaScopedProps<{
     loop?: boolean;
     poster?: string;
     autoPlay?: boolean;
     children?: ReactNode;
     autoPlayInViewport?: boolean;
+    useFetchLoader?: boolean;
 }>) {
     const context = useMediaContext('CustomPlayTime', __scopeMedia);
     const { hidden, playing, duration, progress, canPlay, togglePlay, setHidden } = useStore(
@@ -101,6 +105,19 @@ function VideoContent({
                 className="size-full rounded-md object-contain"
                 poster={poster}
                 muted={autoPlay || autoPlayInViewport}
+                hlsConfig={
+                    useFetchLoader
+                        ? {
+                              progressive: true,
+                              fetchSetup: (context: LoaderContext, initParams: RequestInit) => {
+                                  return new self.Request(context.url, {
+                                      ...initParams,
+                                      referrerPolicy: 'no-referrer',
+                                  });
+                              },
+                          }
+                        : undefined
+                }
             />
 
             <Player.LoadingIndicator asChild>
@@ -227,6 +244,7 @@ export const Video = memo<VideoProps>(function Video({
     preload = 'metadata',
     autoPlayInViewport,
     aspectRatio,
+    useFetchLoader,
     children,
 }) {
     const videoSrc = useMemo(() => {
@@ -244,7 +262,13 @@ export const Video = memo<VideoProps>(function Video({
                 forceNoToken={forceNoToken}
                 aspectRatio={aspectRatio}
             >
-                <VideoContent loop={loop} poster={poster} autoPlay={autoPlay} autoPlayInViewport={autoPlayInViewport}>
+                <VideoContent
+                    loop={loop}
+                    poster={poster}
+                    autoPlay={autoPlay}
+                    autoPlayInViewport={autoPlayInViewport}
+                    useFetchLoader={useFetchLoader}
+                >
                     {children}
                 </VideoContent>
             </Player.Root>

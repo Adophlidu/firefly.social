@@ -68,6 +68,7 @@ export function VideoAsset({ asset, minimal, source, autoPlay, videoClassName }:
                 src={asset.uri}
                 poster={asset.coverUri}
                 forceNoToken={source === Source.Twitter}
+                useFetchLoader={source === Source.Twitter}
                 aspectRatio={width && height ? width / height : undefined}
             >
                 {isGif ? (
