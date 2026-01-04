@@ -26,7 +26,7 @@ export function Footer() {
     const { updateSidebarOpen } = useNavigatorState();
 
     return (
-        <footer className={classNames('absolute inset-x-0 bottom-20 pl-2 md:pl-6')}>
+        <footer className={classNames('absolute inset-x-0 bottom-20 pl-2 pb-safe-or-10 md:pl-6')}>
             {isLoginFirefly || isLogin ? (
                 <>
                     <WalletConnectButton className="mb-6" />
