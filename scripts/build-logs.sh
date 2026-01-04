@@ -58,13 +58,14 @@ if [ -f "package.json" ]; then
   version=$(get_package_version)
   node_version=$(get_node_version)
   pnpm_version=$(get_pnpm_version)
-  build_time=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+  build_time=$(date -u +"%Y-%m-%d %H:%M:%S %Z")
+  build_time_utc8=$(TZ=UTC-8 date +"%Y-%m-%d %H:%M:%S %Z+8")
 
   # Create or overwrite the output file
   echo "Build Information" > "$output_file"
   echo "-----------------" >> "$output_file"
   echo "Vercel ENV: $VERCEL_ENV" >> "$output_file"
-  echo "Build Time: $build_time" >> "$output_file"
+  echo "Build Time: $build_time ($build_time_utc8)" >> "$output_file"
   echo "Node.js Version: $node_version" >> "$output_file"
   echo "PNPM Version: $pnpm_version" >> "$output_file"
   echo "Application Version: v$version" >> "$output_file"
