@@ -92,7 +92,7 @@ Packages with Multiple Versions
  @vitest/pretty-format@3.1.4,3.2.4
  @vitest/spy@3.1.4,3.2.4
  @vitest/utils@3.1.4,3.2.4
- @wagmi/connectors@6.2.0,7.0.5,7.0.6
+ @wagmi/connectors@6.2.0,7.0.6
 *@wagmi/core@2.22.1,3.0.2
  @walletconnect/core@2.21.1,2.23.0
  @walletconnect/sign-client@2.21.1,2.23.0
@@ -1744,7 +1744,7 @@ Packages with Single Version
  ts-interface-checker@0.1.13
  tsconfck@3.1.6
  tsup@8.5.1
-*twitter-api-v2@1.23.2
+*twitter-api-v2@1.28.0
 *twitter-text@3.1.0
  type-check@0.4.0
  typed-array-buffer@1.0.3
