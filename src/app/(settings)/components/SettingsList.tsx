@@ -21,7 +21,7 @@ export function SettingsList() {
         { name: <Trans>Connected wallets</Trans>, link: '/wallets', isHidden: !isLoggedIn },
         { name: <Trans>Connected accounts</Trans>, link: '/connected', isHidden: !isLoggedIn },
         { name: <Trans>Notifications</Trans>, link: '/notification-settings', isHidden: !isLoggedIn },
-        { name: <Trans>Content preference</Trans>, link: '/preference' },
+        { name: <Trans>Content preference</Trans>, link: '/preference', isHidden: !isLoggedIn },
         {
             name: <Trans>Privacy and security</Trans>,
             link: '/privacy-and-security',

@@ -209,6 +209,7 @@ export type LoginFallbackSource =
     | Source.Article
     | Source.DAOs
     | Source.Bets
+    | Source.Tokens
     | Source.Posts
     | Source.Notifications
     | Source.NFTs
