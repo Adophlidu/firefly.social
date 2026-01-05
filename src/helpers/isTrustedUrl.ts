@@ -72,6 +72,10 @@ const trustedHosts = [
     'discord.com',
     'pump.fun',
     'polymarket.com',
+    'x.com',
+    'twitter.com',
+    'vxtwitter.com', // third-party twitter url converter
+    'farcaster.xyz',
 
     // articles platforms
     'matters.town',
