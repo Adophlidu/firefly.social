@@ -695,3 +695,8 @@ export enum BetsPlatform {
     Polymarket = 'polymarket',
     Opinion = 'opinion',
 }
+
+export enum RedpacketTxType {
+    create = 'create',
+    claim = 'claim',
+}

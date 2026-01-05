@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
+import type BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { SOLANA_DEFAULT_CREATE_GAS } from '@/constants/rp.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { isGreaterThan } from '@/helpers/number.js';
@@ -12,7 +12,7 @@ import { SolanaChainResolver } from '@/web3-providers/solana/ResolverAPI.js';
 
 export function useSolanaAvailableBalance(
     address: string,
-    gas: number,
+    gasFee: BigNumber,
     overrides?: ChainContextOverrides,
     enabled = true,
 ) {
@@ -47,7 +47,6 @@ export function useSolanaAvailableBalance(
     const { balance, nativeBalance } = data || {};
 
     return useMemo(() => {
-        const gasFee = SOLANA_DEFAULT_CREATE_GAS;
         if (!balance || !enabled) return;
 
         const origin = {
@@ -73,5 +72,5 @@ export function useSolanaAvailableBalance(
             gasFee,
             insufficientGas: isGreaterThan(gasFee, nativeBalance?.value ?? '0'),
         };
-    }, [balance, nativeBalance, isNativeToken, enabled]);
+    }, [balance, enabled, isNativeToken, gasFee, nativeBalance?.value]);
 }

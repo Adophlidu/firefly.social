@@ -23,7 +23,7 @@ import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SUPPORTED_MEDIA_CORS_SOURCES } from '@/constants/computed.js';
-import { NetworkType } from '@/constants/enum.js';
+import { NetworkType, RedpacketTxType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/static.js';
 import { Image } from '@/esm/Image.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
@@ -104,6 +104,7 @@ export function RedPacketCardContent({ payload, post }: Props) {
             networkType,
             account,
         },
+        RedpacketTxType.claim,
     );
 
     const { value: balance = 0 } = balanceResult ?? {};
