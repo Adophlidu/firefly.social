@@ -2,6 +2,7 @@ import { safeUnreachable } from '@dimensiondev/utils';
 import { compact, first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
+import { queryClient } from '@/configs/queryClient.js';
 import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/computed.js';
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { SessionExpiredError } from '@/constants/error.js';
@@ -29,9 +30,11 @@ import { checkAndSyncMetrics } from '@/providers/firefly/metrics/checkAndSyncMet
 import { deleteMetrics } from '@/providers/firefly/metrics/deleteMetrics.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { autoLoginLensAccountsInSignup } from '@/providers/lens/autoLoginLensAccountsInSignup.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
+import { updateLensAccounts } from '@/providers/lens/updateLensAccounts.js';
 import {
     captureAccountConflictEvent,
     captureAccountCreateSuccessEvent,
@@ -312,7 +315,21 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     if (!skipSyncAccounts && fireflySession) {
         // no need to wait, and we use another status to record
         useGlobalState.getState().setIsSyncingMetrics(true);
-        checkAndSyncMetrics(account, { bindLensManager, forceUploadMetrics }).finally(() => {
+        checkAndSyncMetrics(account, { bindLensManager, forceUploadMetrics }).finally(async () => {
+            const fireflyAccountId = useFireflyProfileStore.getState().currentProfileSession?.profileId;
+            if (!fireflyAccountId) return;
+
+            const newLensAccounts = await runInSafeAsync(() =>
+                autoLoginLensAccountsInSignup({
+                    fireflyAccountId: fireflyAccountId.toString(),
+                    forceUseCache: true,
+                }),
+            );
+            if (newLensAccounts?.length) {
+                updateLensAccounts(newLensAccounts);
+                queryClient.setQueryData(['auto-login', Source.Lens, fireflyAccountId], newLensAccounts);
+            }
+
             useGlobalState.getState().setIsSyncingMetrics(false);
         });
     }

@@ -6,6 +6,7 @@ import { createLensSession } from '@/providers/lens/createLensSession.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
 import { loginLensProfile } from '@/providers/lens/loginLensProfile.js';
 import type { Account } from '@/providers/types/Account.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 async function getProfileNeedToLogin(profileId: string) {
     const privyEvmWallet = (await ensureCreatedFireflyWallet('eth'))?.address;
@@ -23,27 +24,32 @@ async function getProfileNeedToLogin(profileId: string) {
     };
 }
 
-export async function autoLoginWithPrivy(profileId: string) {
-    // 1. ensure privy wallet is owner or manager
-    const { profileToLogin, privyEvmWallet } = await getProfileNeedToLogin(profileId);
-
-    // 2. login lens
-    const sessionClient = await loginLensProfile(profileToLogin, {
-        ownerOrManager: privyEvmWallet,
+export async function autoLoginProfileWithPrivy(profile: Profile, address: string) {
+    // 1. login lens
+    const sessionClient = await loginLensProfile(profile, {
+        ownerOrManager: address,
         signMessage: async (message) => {
             const result = await signMessageWithPrivy(message);
             return result.signature;
         },
     });
 
-    // 3. create new account
-    const lensSession = createLensSession(profileToLogin.profileId, sessionClient);
+    // 2. create new account
+    const lensSession = createLensSession(profile.profileId, sessionClient);
     const account = {
-        profile: profileToLogin,
+        profile,
         session: lensSession,
         origin: 'force_restore',
         fireflySession: fireflySessionHolder.session ?? undefined,
     } satisfies Account;
 
     return { account, sessionClient } as const;
+}
+
+export async function autoLoginWithPrivy(profileId: string) {
+    // 1. ensure privy wallet is owner or manager
+    const { profileToLogin, privyEvmWallet } = await getProfileNeedToLogin(profileId);
+
+    // 2. login lens
+    return autoLoginProfileWithPrivy(profileToLogin, privyEvmWallet);
 }

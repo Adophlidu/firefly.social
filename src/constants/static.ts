@@ -93,6 +93,8 @@ export const MAX_FRAME_SIZE_PER_POST = 1;
 export const MIN_CHAR_LENGTH_TO_TRANSLATE = 3;
 export const MIN_POST_SIZE_PER_THREAD = 3;
 
+export const MAX_ACCOUNT_COUNT_PER_SOURCE = 3;
+
 // Contracts
 export const POAP_CONTRACT_ADDRESS = '0x22C1f6050E56d2876009903609a2cC3fEf83B415';
 

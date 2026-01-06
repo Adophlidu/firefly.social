@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
-import type { ReactNode } from 'react';
+import { type ReactNode, useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { Card } from '@/app/(whiteboard)/components/Signup/Card.js';
@@ -19,7 +19,9 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal.js';
+import { autoLoginLensAccountsInSignup } from '@/providers/lens/autoLoginLensAccountsInSignup.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
 import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdPartyProfileStore.js';
 
 interface SocialLoginPageProps {
@@ -71,6 +73,16 @@ export function SocialLoginPage({ changeStep }: SocialLoginPageProps) {
         }
         changeStep(SignupStep.CreateAccountForm);
     }, [isLoginFirefly, changeStep]);
+
+    useEffect(() => {
+        return useFireflyProfileStore.subscribe((state, prevState) => {
+            const currentId = state.currentProfileSession?.profileId;
+            const prevId = prevState.currentProfileSession?.profileId;
+            if (!currentId || currentId === prevId) return;
+
+            autoLoginLensAccountsInSignup({ fireflyAccountId: currentId.toString() });
+        });
+    }, []);
 
     return (
         <ShadowInAndOut className="absolute inset-0 z-1 flex items-center justify-center overflow-hidden">

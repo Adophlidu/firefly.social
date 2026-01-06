@@ -1,11 +1,11 @@
 'use client';
 
-import { classNames, delay, safeUnreachable } from '@dimensiondev/utils';
+import { classNames, safeUnreachable } from '@dimensiondev/utils';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
 import { signIn } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
@@ -16,40 +16,29 @@ import LogoutIcon from '@/assets/log-out.svg';
 import MoreIcon from '@/assets/more-fill.svg';
 import PlusIcon from '@/assets/plus.svg';
 import ScanIcon from '@/assets/scan.svg';
-import SwitchIcon from '@/assets/switch.svg';
 import { Avatar } from '@/components/Avatar.js';
-import { AvatarGroup } from '@/components/AvatarGroup.js';
-import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
-import { ClickableArea } from '@/components/ClickableArea.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
-import { Tooltip } from '@/components/Tooltip.js';
 import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@/constants/computed.js';
-import { PageRoute, PasswordWorkflow, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
-import { SessionExpiredError } from '@/constants/error.js';
-import { usePathname, useRouter as useNextRouter } from '@/esm/navigation.js';
-import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { PageRoute, PasswordWorkflow, Source, type ThirdPartySource } from '@/constants/enum.js';
+import { MAX_ACCOUNT_COUNT_PER_SOURCE } from '@/constants/static.js';
+import { useRouter as useNextRouter } from '@/esm/navigation.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
-import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
-import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
-import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLoginFirefly.js';
-import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
-import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import { EditFireflyProfileModalRef } from '@/modals/EditFireflyProfileModal/EditFireflyProfileModal.js';
+import { CurrentProfilesCard } from '@/modals/LoginModal/CurrentProfilesCard.js';
 import { type LoginModalOpenProps, LoginModalRef } from '@/modals/LoginModal/index.js';
+import { LensCurrentProfilesCard } from '@/modals/LoginModal/LensCurrentProfilesCard.js';
 import { LogoutModalRef } from '@/modals/LogoutModal.js';
 import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
 import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal.js';
@@ -61,12 +50,9 @@ import {
     captureMobileQrLoginClickEvent,
     captureMultiDeviceLoginClickEvent,
 } from '@/providers/telemetry/captureSyncTokenEvent.js';
-import type { Account } from '@/providers/types/Account.js';
 import type { AllConnections, FireflyAccountProfile } from '@/providers/types/Firefly.js';
-import { switchAccount } from '@/services/account.js';
 import { mergeMetrics } from '@/services/metrics.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
-import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 function FireflyAccountLoadingSkeleton() {
     return (
@@ -275,38 +261,18 @@ export function MainView() {
     const { history } = router;
     const [selectedSource, setSelectedSource] = useState<ThirdPartySource>();
     const [isOpenFireflyAccountMenu, setIsOpenFireflyAccountMenu] = useState(false);
-    const [selectedAccount, setSelectedAccount] = useState<Account | null>(null);
 
     const isLoginFirefly = useIsLoginFirefly();
     const profileStore = useProfileStoreAll();
-    const profilesAll = useCurrentProfilesAll();
     const { data: allConnections } = useAllConnectionsFormattedWithProfiles();
-    const socialConnections = allConnections?.socialConnections || [];
 
     const { data, isLoading } = useAllConnections();
-
-    const pathname = usePathname();
-    const updateParams = useUpdateParams();
-    const { identity } = useFireflyIdentityState();
-
-    const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
     const { context } = useMatch({ from: rootRouteId }) as {
         context: { props?: LoginModalOpenProps };
     };
 
-    const isPureProfilePage = pathname === PageRoute.Profile;
-    const isMyProfilePage = isMyProfile && (isPureProfilePage || isRoutePathname(pathname, PageRoute.Profile));
     const hideSocialLogin = context?.props?.options?.hideSocialLogin;
-
-    const onClick = (source: SocialSource) => {
-        const path = urlcat('/:source', {
-            source: resolveSourceInUrl(source),
-        });
-
-        // history.back() is buggy, use .replace() instead.
-        history.replace(path);
-    };
 
     const [{ loading }, onAuthClick] = useAsyncFn(async (source: ThirdPartySource) => {
         try {
@@ -332,49 +298,31 @@ export function MainView() {
         }
     }, []);
 
-    const [{ loading: switchLoading }, onSwitchAccount] = useAsyncFn(
-        async (account: Account) => {
-            try {
-                const source = account.profile.source;
-
-                if (!account.session) {
-                    await delay(300);
-                    openLoginModal({
-                        source,
-                        options: { expectedProfile: account.profile.profileId },
+    const accountList = useMemo(() => {
+        return SORTED_LOGIN_SOCIAL_SOURCES.map((source) => {
+            const socialConnections = allConnections?.socialConnections || [];
+            const accounts = profileStore[source].accounts;
+            const connectedProfiles = socialConnections
+                .flatMap((x) => {
+                    if (x.source !== source) return [];
+                    return x.items.filter(({ connection }) => {
+                        const isConnected =
+                            ('connectedAt' in connection && connection.connectedAt) ||
+                            ('connected' in connection && connection.connected);
+                        return isConnected;
                     });
-                    return;
-                }
+                })
+                .filter((x) => !accounts.some((y) => isSameProfile(x.profile, y.profile)))
+                .slice(0, MAX_ACCOUNT_COUNT_PER_SOURCE)
+                .map((x) => x.profile);
 
-                await switchAccount(account);
-
-                if (
-                    isMyProfilePage &&
-                    identity.source === source &&
-                    identity.id !== resolveFireflyProfileId(account.profile)
-                ) {
-                    updateParams(
-                        new URLSearchParams({
-                            source: resolveSourceInUrl(account.profile.source),
-                        }),
-                        isPureProfilePage
-                            ? undefined
-                            : urlcat('/profile/:id', {
-                                  id: resolveFireflyProfileId(account.profile),
-                              }),
-                    );
-                }
-
-                enqueueSuccessMessage(<Trans>Switch Done!</Trans>);
-            } catch (error) {
-                if (error instanceof SessionExpiredError) return;
-
-                enqueueMessageFromError(error, <Trans>Failed to switch.</Trans>);
-                throw error;
-            }
-        },
-        [identity.id, identity.source, isMyProfilePage, isPureProfilePage, updateParams],
-    );
+            return {
+                source,
+                accounts,
+                connectedProfiles,
+            };
+        });
+    }, [profileStore, allConnections]);
 
     return (
         <div className="rounded-[6px] px-6 pb-6 max-md:max-h-[calc(100vh_-_64px)] max-md:overflow-auto md:w-[400px]">
@@ -403,114 +351,13 @@ export function MainView() {
                             <Trans>Social accounts</Trans>
                         </div>
                         <div className="flex flex-col gap-2">
-                            {SORTED_LOGIN_SOCIAL_SOURCES.map((source, index) => {
-                                const accounts = profileStore[source].accounts;
-                                const connectedProfiles = socialConnections
-                                    .flatMap((x) => {
-                                        if (x.source !== source) return [];
-                                        return x.items.filter(({ connection }) => {
-                                            const isConnected =
-                                                ('connectedAt' in connection && connection.connectedAt) ||
-                                                ('connected' in connection && connection.connected);
-                                            return isConnected;
-                                        });
-                                    })
-                                    .filter((x) => !accounts.some((y) => isSameProfile(x.profile, y.profile)))
-                                    .slice(0, 3)
-                                    .map((x) => x.profile);
-                                const isExceed = accounts.length >= 3;
-                                return (
-                                    <div
-                                        className="overflow-hidden rounded-lg border border-secondaryLine"
-                                        key={source}
-                                    >
-                                        <ClickableButton
-                                            className={classNames(
-                                                'flex w-full items-center justify-between p-2',
-                                                isExceed ? 'cursor-not-allowed' : 'cursor-pointer',
-                                                {
-                                                    'bg-bg': !isLoginFirefly ? index % 2 === 0 : true,
-                                                    'border-b border-secondaryLine':
-                                                        isLoginFirefly && profileStore[source].accounts.length > 0,
-                                                },
-                                            )}
-                                            disabled={switchLoading}
-                                            onClick={isExceed ? undefined : () => onClick(source)}
-                                            aria-label={`Add ${resolveSourceName(source)} account`}
-                                        >
-                                            <div className="flex items-center gap-2">
-                                                <ProfileSourceIcon source={source} size={20} />
-                                                <span>{resolveSourceName(source)}</span>
-                                            </div>
-                                            <Tooltip
-                                                content={isExceed ? <Trans>Link up to three accounts</Trans> : null}
-                                            >
-                                                <PlusIcon
-                                                    className={classNames('size-5', isExceed ? 'opacity-40' : '')}
-                                                />
-                                            </Tooltip>
-                                        </ClickableButton>
-                                        {accounts.map((account, index) => {
-                                            const isCurrent = isSameProfile(profilesAll[source], account.profile);
-                                            return (
-                                                <div
-                                                    className="flex min-w-0 items-center justify-between p-2"
-                                                    key={index}
-                                                >
-                                                    <div className="mr-2 flex min-w-0 items-center gap-2">
-                                                        <ProfileAvatar
-                                                            profile={account.profile}
-                                                            enableSourceIcon={false}
-                                                            size={40}
-                                                            enableDefaultAvatar
-                                                        />
-                                                        <div className="flex min-w-0 flex-col items-start text-[14px] leading-5">
-                                                            <span className="max-w-full truncate font-bold">
-                                                                {account.profile.displayName}
-                                                            </span>
-                                                            <span className="max-w-full truncate text-secondary">
-                                                                @{account.profile.handle}
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    {isCurrent ? (
-                                                        <CircleCheckboxIcon className="shrink-0" checked />
-                                                    ) : (
-                                                        <ClickableButton
-                                                            className="size-5"
-                                                            disabled={switchLoading}
-                                                            loading={
-                                                                switchLoading
-                                                                    ? isSameAccount(selectedAccount, account)
-                                                                    : false
-                                                            }
-                                                            onClick={() => {
-                                                                setSelectedAccount(account);
-                                                                onSwitchAccount(account);
-                                                            }}
-                                                            aria-label={`Switch to ${account.profile.displayName || account.profile.handle}`}
-                                                        >
-                                                            <SwitchIcon className="size-5" />
-                                                        </ClickableButton>
-                                                    )}
-                                                </div>
-                                            );
-                                        })}
-                                        {connectedProfiles.length > 0 ? (
-                                            <ClickableArea
-                                                className="flex cursor-pointer items-center gap-[10px] border-t border-t-line p-2"
-                                                onClick={() => onClick(source)}
-                                            >
-                                                <AvatarGroup
-                                                    profiles={connectedProfiles}
-                                                    AvatarProps={{ className: 'size-5', size: 20 }}
-                                                />
-                                                <span className="text-sm font-normal text-second">
-                                                    <Trans>Reauthorize connected account</Trans>
-                                                </span>
-                                            </ClickableArea>
-                                        ) : null}
-                                    </div>
+                            {accountList.map(({ source, accounts, connectedProfiles }, index) => {
+                                const props = { source, accounts, connectedProfiles, index };
+
+                                return source === Source.Lens ? (
+                                    <LensCurrentProfilesCard key={source} {...props} />
+                                ) : (
+                                    <CurrentProfilesCard key={source} {...props} />
                                 );
                             })}
                         </div>

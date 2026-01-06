@@ -1,10 +1,13 @@
 import { InvalidResultError } from '@dimensiondev/utils';
-import type { SessionClient } from '@lens-protocol/client';
+import { type SessionClient } from '@lens-protocol/client';
 import { canCreateUsername, createAccountWithUsername, fetchAccount } from '@lens-protocol/client/actions';
+import { mainnet } from 'viem/chains';
 
+import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -24,7 +27,7 @@ import type { Profile, ProfileForSignup } from '@/providers/types/SocialMedia.js
 
 const loginOnboardingUser = memoizePromise(
     async (address: string) => {
-        const walletClient = await getWalletClientForLensChain();
+        const walletClient = await getWalletClientRequired(wagmiConfig, { chainId: mainnet.id });
         const client = createLensPublicClient();
         return ensureLensResult(
             client.login({

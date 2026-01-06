@@ -606,6 +606,9 @@ msgstr "新增中..."
 msgid "Failed to like snapshot."
 msgstr "取消按赞失敗。"
 
+msgid "Trying auto login..."
+msgstr ""
+
 msgid "Mint"
 msgstr "鑄造"
 

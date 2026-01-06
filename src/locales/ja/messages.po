@@ -606,6 +606,9 @@ msgstr ""
 msgid "Failed to like snapshot."
 msgstr ""
 
+msgid "Trying auto login..."
+msgstr ""
+
 msgid "Mint"
 msgstr ""
 
