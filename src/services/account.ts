@@ -22,8 +22,6 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { logger } from '@/libs/Logger.js';
 import { ConfirmFireflyModalRef } from '@/modals/ConfirmFireflyModal.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
-import { BskySession } from '@/providers/bsky/Session.js';
-import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { getAllConnections } from '@/providers/firefly/endpoint/getAllConnections.js';
 import { reportFarcasterSigner } from '@/providers/firefly/farcaster-account/reportFarcasterSigner.js';
 import { checkAndSyncMetrics } from '@/providers/firefly/metrics/checkAndSyncMetrics.js';
@@ -31,8 +29,6 @@ import { deleteMetrics } from '@/providers/firefly/metrics/deleteMetrics.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { autoLoginLensAccountsInSignup } from '@/providers/lens/autoLoginLensAccountsInSignup.js';
-import { LensSession } from '@/providers/lens/Session.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import { updateLensAccounts } from '@/providers/lens/updateLensAccounts.js';
 import {
@@ -426,7 +422,7 @@ export async function switchAccount(
         signal?: AbortSignal;
     },
 ) {
-    const { bindLensManager = true, signal } = options ?? {};
+    const { bindLensManager = true } = options ?? {};
 
     const profileSource = account.profile.profileSource;
     const { state, sessionHolder } = getContext(profileSource);
@@ -444,16 +440,9 @@ export async function switchAccount(
     }
 
     switch (profileSource) {
-        case Source.Lens: {
-            const lensSession = session as LensSession;
-            await lensSessionHolder.resumeSession(lensSession);
+        case Source.Lens:
+        case Source.Bsky:
             break;
-        }
-        case Source.Bsky: {
-            const bskySession = session as BskySession;
-            await bskySessionHolder.resumeSession(bskySession);
-            break;
-        }
         case Source.Twitter: {
             const nextSession = session as TwitterSession;
             const prevSession = twitterSessionHolder.session;
@@ -494,6 +483,11 @@ export async function switchAccount(
         },
         true,
     );
+
+    // resume session after store updated for lens/bsky
+    if ([Source.Lens, Source.Bsky].includes(profileSource)) {
+        await sessionHolder.resumeSession(session);
+    }
 
     if (profileSource === Source.Lens && bindLensManager) {
         await runInSafeAsync(() => setPrivyAsLensManager(account));
