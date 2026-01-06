@@ -78,7 +78,7 @@ export function useSolanaVerifyAndClaim(payload: RedPacketJSONPayload, source: S
                 queryKey: ['red-packet', 'claim', payload.rpid],
             }),
             queryClient.refetchQueries({
-                queryKey: ['red-packet', 'solana-availability', payload.rpid, account?.toLowerCase()],
+                queryKey: ['red-packet', 'solana-availability', payload.rpid, account],
             }),
         ]);
         const claimedRecord = await getClaimedRecord(new web3.PublicKey(accountId), new web3.PublicKey(account));
