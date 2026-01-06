@@ -8,9 +8,9 @@ import { CreateScheduleError } from '@/constants/error.js';
 import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import {
-    enqueueInfoMessage,
     enqueueMessageFromError,
     enqueueSuccessMessage,
+    enqueueWarningMessage,
     MessageKey,
 } from '@/helpers/enqueueMessage.js';
 import { getPostMediaTypes } from '@/helpers/getPostMediaTypes.js';
@@ -80,7 +80,7 @@ export async function crossPostScheduleThread(scheduleTime: Date, signal?: Abort
         enqueueSuccessMessage(t`Your schedule thread has created successfully.`);
     } catch (error) {
         if (error instanceof CreateScheduleError) {
-            enqueueInfoMessage(error.message);
+            enqueueWarningMessage(error.message);
         } else {
             if (error instanceof ConnectorNotConnectedError) throw error;
             enqueueMessageFromError(error, t`Failed to create schedule thread posts.`, {

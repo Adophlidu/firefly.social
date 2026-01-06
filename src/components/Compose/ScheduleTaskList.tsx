@@ -65,7 +65,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
                 title: <Trans>Delete</Trans>,
                 content: (
                     <div className="text-fourMain">
-                        <Trans>This can’t be undone, and the scheduled send will be canceled.</Trans>
+                        <Trans>This can’t be undone, and the scheduled send will be cancelled.</Trans>
                     </div>
                 ),
                 confirmButtonText: <Trans>Confirm</Trans>,

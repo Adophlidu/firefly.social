@@ -2295,9 +2295,6 @@ msgstr "Reset password"
 msgid "NFT minted successfully!"
 msgstr "NFT minted successfully!"
 
-msgid "This can’t be undone, and the scheduled send will be canceled."
-msgstr "This can’t be undone, and the scheduled send will be canceled."
-
 msgid "Lens"
 msgstr "Lens"
 
@@ -4770,6 +4767,9 @@ msgstr "Golden"
 
 msgid "Multi-device login"
 msgstr "Multi-device login"
+
+msgid "This can’t be undone, and the scheduled send will be cancelled."
+msgstr "This can’t be undone, and the scheduled send will be cancelled."
 
 msgid "Week"
 msgstr "Week"

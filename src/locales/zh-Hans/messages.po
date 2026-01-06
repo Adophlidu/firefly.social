@@ -2300,9 +2300,6 @@ msgstr "重置密码"
 msgid "NFT minted successfully!"
 msgstr "NFT 铸造成功！"
 
-msgid "This can’t be undone, and the scheduled send will be canceled."
-msgstr "操作无法回滚，并且定时发布任务将会被取消。"
-
 msgid "Lens"
 msgstr "Lens"
 
@@ -4777,6 +4774,9 @@ msgstr "金色的"
 
 msgid "Multi-device login"
 msgstr "多设备登录"
+
+msgid "This can’t be undone, and the scheduled send will be cancelled."
+msgstr "操作无法回滚，并且定时发布任务将会被取消。"
 
 msgid "Week"
 msgstr ""

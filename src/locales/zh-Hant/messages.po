@@ -2300,9 +2300,6 @@ msgstr "重設密碼"
 msgid "NFT minted successfully!"
 msgstr "NFT 鑄造成功！"
 
-msgid "This can’t be undone, and the scheduled send will be canceled."
-msgstr "此操作不可逆，並且預約發布任務將被取消。"
-
 msgid "Lens"
 msgstr "Lens"
 
@@ -4777,6 +4774,9 @@ msgstr "黃金版"
 
 msgid "Multi-device login"
 msgstr "多裝置登入"
+
+msgid "This can’t be undone, and the scheduled send will be cancelled."
+msgstr "此操作不可逆，並且預約發布任務將被取消。"
 
 msgid "Week"
 msgstr ""

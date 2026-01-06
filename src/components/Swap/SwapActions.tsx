@@ -81,8 +81,8 @@ export const SwapActions = memo<SwapActionsProps>(function SwapActions({ activit
             if (repostResult) {
                 queryClient.setQueryData(['swap', activity.hash, activity.chain_id], (old?: SwapActivity) => {
                     return {
-                        ...old,
-                        repost_count: (old?.repost_count || 0) + 1,
+                        ...(old || activity),
+                        repost_count: (old?.repost_count || activity.repost_count || 0) + 1,
                         is_repost: true,
                     };
                 });

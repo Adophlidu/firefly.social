@@ -10,7 +10,11 @@ import { Source } from '@/constants/enum.js';
 import { CreateScheduleError } from '@/constants/error.js';
 import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
-import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import {
+    enqueueMessageFromError,
+    enqueueSuccessMessage,
+    enqueueWarningMessage,
+} from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getPostMediaTypes } from '@/helpers/getPostMediaTypes.js';
@@ -115,7 +119,7 @@ export async function crossSchedulePost(
         );
     } catch (error) {
         if (error instanceof CreateScheduleError) {
-            enqueueInfoMessage(error.message);
+            enqueueWarningMessage(error.message);
         } else {
             if (error instanceof ConnectorNotConnectedError) throw error;
             enqueueMessageFromError(error, <Trans>Failed to create schedule post.</Trans>);
