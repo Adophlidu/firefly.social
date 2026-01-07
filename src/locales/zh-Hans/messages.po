@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-04 12:01\n"
+"PO-Revision-Date: 2026-01-06 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -159,7 +159,7 @@ msgid "Communities"
 msgstr "社区"
 
 msgid "Volume"
-msgstr ""
+msgstr "交易量"
 
 msgid "{shares, plural, one {Repost or Quote} other {Reposts or Quotes}}"
 msgstr "{shares, plural, one {转发或引用} other {转发或引用}}"
@@ -345,7 +345,7 @@ msgid "Ended"
 msgstr "已结束"
 
 msgid "Profit/Loss"
-msgstr ""
+msgstr "损益"
 
 msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr "未能在 Firefly 上关注 @{handleOrEnsOrAddress}。"
@@ -363,7 +363,7 @@ msgid "Translate post"
 msgstr "翻译帖子"
 
 msgid "Global"
-msgstr ""
+msgstr "全球"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Your {0} login token has expired. Please sign in again."
@@ -406,7 +406,7 @@ msgstr "已加入"
 
 #. placeholder {0}: error.message
 msgid "Failed to remove address: {0}"
-msgstr ""
+msgstr "移除地址失败：{0}"
 
 msgid "Tax can be modified"
 msgstr "税率可以被修改"
@@ -424,7 +424,7 @@ msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr "🤑刚刚在领取了一个 #FireflyLuckyDrop 🧧💰✨ {postUrl}"
 
 msgid "No bets found"
-msgstr ""
+msgstr "未找到投注"
 
 msgid "Firefly wallets"
 msgstr "Firefly 钱包"
@@ -486,7 +486,7 @@ msgid "User Name must start with a letter/number, only _ allowed in between"
 msgstr "用户名必须以字母或数字开头，中间只能包含下划线 (_)"
 
 msgid "Year"
-msgstr ""
+msgstr "年"
 
 msgid "Published successfully on {sortedSourceNames}"
 msgstr "已成功发布至 {sortedSourceNames}"
@@ -607,7 +607,7 @@ msgid "Failed to like snapshot."
 msgstr "取消点赞失败。"
 
 msgid "Trying auto login..."
-msgstr ""
+msgstr "正在尝试自动登录..."
 
 msgid "Mint"
 msgstr "铸造"
@@ -866,7 +866,7 @@ msgid "Save Post?"
 msgstr "保存草稿？"
 
 msgid "Insufficient gas."
-msgstr ""
+msgstr "燃油费不足。"
 
 msgid "Failed to set password."
 msgstr "密码设置失败。"
@@ -1083,7 +1083,7 @@ msgid "Failed to disconnect. Please leave at least 1 account or wallet address c
 msgstr "断开绑定失败。请至少保留一个账户或钱包绑定，以保持您在 Firefly 中的体验。"
 
 msgid "No opinion profile found."
-msgstr ""
+msgstr "未找到 Opinion 个人资料。"
 
 msgid "Transaction Hash"
 msgstr "交易哈希"
@@ -1146,7 +1146,7 @@ msgid "Mute all"
 msgstr "全部隐藏"
 
 msgid "Polymarket Profile"
-msgstr ""
+msgstr "Polymarket 个人信息"
 
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "未能生成签名包 = {source}"
@@ -1185,7 +1185,7 @@ msgid "Connect Wallet"
 msgstr "连接钱包"
 
 msgid "Your claimed {amount} {symbol} to your <0>Firefly Wallet</0>."
-msgstr ""
+msgstr "你领取的 {amount} {symbol} 已转入你的 <0>Firefly 钱包</0>。"
 
 msgid "Mobile QR login is interrupted. Please try again."
 msgstr "移动端二维码登录已中断。请重试。"
@@ -1411,13 +1411,13 @@ msgid "Log out"
 msgstr "登出"
 
 msgid "Search predictions"
-msgstr ""
+msgstr "搜索预测"
 
 msgid "Oops... Not all the requirements have been met"
 msgstr "哎呀... 并未满足所有要求"
 
 msgid "Prediction Leaderboard"
-msgstr ""
+msgstr "预测排行榜"
 
 msgid "Unmuting..."
 msgstr "正在取消隐藏…"
@@ -1546,7 +1546,7 @@ msgid "Failed to send."
 msgstr "发布失败。"
 
 msgid "Month"
-msgstr ""
+msgstr "月"
 
 msgid "Channel"
 msgstr "圈子"
@@ -1795,7 +1795,7 @@ msgid "Verify and Claim"
 msgstr "校验并且领取"
 
 msgid "Opinion Profile"
-msgstr ""
+msgstr "Opinion 个人信息"
 
 msgid "Failed to connect on {source}"
 msgstr "在 {source} 上连接失败。"
@@ -1973,11 +1973,11 @@ msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky 
 msgstr "发送红包 24 小时后可提取未领取数额。"
 
 msgid "This address is already verified"
-msgstr ""
+msgstr "此地址已验证"
 
 #. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
 msgid "<0>Made a prediction</0><1>worth ${0} at <2/></1>"
-msgstr ""
+msgstr "<0>发起了一项预测</0><1>价值 ${0} 于 <2/></1>"
 
 msgid "Only people you mention"
 msgstr "只有你提及的人"
@@ -2072,7 +2072,7 @@ msgid "Failed to mint NFT."
 msgstr "铸造 NFT 失败。"
 
 msgid "PnL"
-msgstr "收益"
+msgstr "盈亏"
 
 msgid "Unlike"
 msgstr "取消点赞"
@@ -2185,7 +2185,7 @@ msgid "Search ${symbol}"
 msgstr "搜索 ${symbol}"
 
 msgid "Prediction liked."
-msgstr ""
+msgstr "点赞成功。"
 
 #. placeholder {0}: channel.id
 #. placeholder {0}: channel.name
@@ -2402,7 +2402,7 @@ msgstr "达到视频时长上限"
 
 #. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
 msgid "<0>Sold a position</0><1>worth ${0} at <2/></1>"
-msgstr ""
+msgstr "<0>卖出了一个仓位</0><1>价值 ${0} 于 <2/></1>"
 
 msgid "No darkweb transactions found."
 msgstr "未发现暗网交易。"
@@ -2752,7 +2752,7 @@ msgid "If this function exists, it is possible for the project owner to regain o
 msgstr "如果该功能存在，项目方即使放弃所有权后仍可能重新获得控制权"
 
 msgid "Signing to confirm"
-msgstr ""
+msgstr "签名确认"
 
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "抱歉，我们无法找到 {displayName} 的钱包。"
@@ -2897,7 +2897,7 @@ msgid "Price"
 msgstr "价格"
 
 msgid "Remove Address"
-msgstr ""
+msgstr "删除地址"
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
@@ -2938,7 +2938,7 @@ msgid "Top 200 Web3 profiles powered by <0>Rootdata</0>"
 msgstr "热门前 200 榜单｜数据来源：<0> Rootdata </0>"
 
 msgid "Buy {firstOutcome}"
-msgstr ""
+msgstr "买 {firstOutcome}"
 
 msgid "Minutes"
 msgstr "分钟"
@@ -2971,10 +2971,10 @@ msgid "Bio should be at least {minBioSize} characters"
 msgstr "个人简介应至少包含 {minBioSize} 个字符"
 
 msgid "Verified addresses"
-msgstr ""
+msgstr "已验证地址"
 
 msgid "Buy {secondOutcome}"
-msgstr ""
+msgstr "买入 {secondOutcome}"
 
 msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
 msgstr "这是从公开数据库或我们的算法中检索到的钱包。请先添加此钱包再设置为主钱包。"
@@ -3236,7 +3236,7 @@ msgid "Total Gains"
 msgstr "总收益"
 
 msgid "Today"
-msgstr ""
+msgstr "今天"
 
 msgid "Claimed lucky drop successfully"
 msgstr "红包领取成功"
@@ -3770,7 +3770,7 @@ msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr "<0>已发送</0><1/><2>到</2><3><4>{0}</4></3>"
 
 msgid "P&L Rate"
-msgstr ""
+msgstr "损益率"
 
 msgid "Channels"
 msgstr "圈子"
@@ -4015,7 +4015,7 @@ msgid "{0} {1} <0>24H Vol</0>"
 msgstr "{0} {1} <0>24 小时交易量</0>"
 
 msgid "NEW"
-msgstr ""
+msgstr "新"
 
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
@@ -4102,7 +4102,7 @@ msgid "Primary account"
 msgstr "主账号"
 
 msgid "EVM wallets"
-msgstr ""
+msgstr "EVM 钱包"
 
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额代币"
@@ -4499,8 +4499,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "验证密码时出现意外步骤：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
+msgstr "如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
 "但如果你仍想访问另一个社交账号绑定的 Firefly 钱包，建议你切换账户，而不是删除账户。"
 
 msgid "<0>You</0> recasted"
@@ -4519,7 +4518,7 @@ msgid "1h"
 msgstr "1 小时"
 
 msgid "Verify Address"
-msgstr ""
+msgstr "验证地址"
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
@@ -4779,10 +4778,11 @@ msgid "Multi-device login"
 msgstr "多设备登录"
 
 msgid "This can’t be undone, and the scheduled send will be cancelled."
-msgstr "操作无法回滚，并且定时发布任务将会被取消。"
+msgstr ""
 
 msgid "Week"
-msgstr ""
+msgstr "周"
 
 msgid "Success"
 msgstr "成功"
+
