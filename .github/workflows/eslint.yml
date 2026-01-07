@@ -1,0 +1,39 @@
+name: ESLint
+
+on:
+    push:
+        branches:
+            - '**'
+            - '!main'
+            - '!released'
+    workflow_dispatch:
+
+concurrency:
+    group: eslint
+    cancel-in-progress: false
+
+jobs:
+    eslint:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Authenticate NPM
+              uses: DimensionDev/github-token-action@latest
+              with:
+                  registry: true
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version-file: '.node-version'
+
+            - uses: pnpm/action-setup@v4
+
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Run ESLint
+              run: npx eslint . --quiet

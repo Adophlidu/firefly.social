@@ -4,6 +4,7 @@ import { readContract } from 'wagmi/actions';
 
 import RED_PACKET_ABI from '@/abis/RedPacket.json' with { type: 'json' };
 import { wagmiConfig } from '@/configs/wagmiClient.js';
+import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { getRedPacketContractAddress } from '@/providers/ethereum/getRedPacketContract.js';
@@ -11,24 +12,28 @@ import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js
 import { EVMChainResolver } from '@/web3-providers/evm/ResolverAPI.js';
 import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
-export function useEthereumAvailability(payload: RedPacketJSONPayload) {
-    const { account } = useChainContext({ networkType: getNetworkTypeFromRpPayload(payload) });
-    const chainId =
-        (payload.network ? EVMChainResolver.chainId(payload.network) : payload.chainId) ?? EthereumChainId.Mainnet;
+export function useEthereumAvailability(payload: RedPacketJSONPayload, options?: { enabled?: boolean }) {
+    const networkType = getNetworkTypeFromRpPayload(payload);
+    const enabled = (options?.enabled ?? true) && networkType === NetworkType.Ethereum;
+    const { account } = useChainContext({ networkType });
+    const chainId = enabled
+        ? ((payload.network ? EVMChainResolver.chainId(payload.network) : payload.chainId) ?? EthereumChainId.Mainnet)
+        : undefined;
     const version = payload.contract_version;
     const id = payload.rpid;
 
     return useQuery({
         queryKey: ['red-packet', 'check-availability', chainId, version, id, account],
+        enabled,
         queryFn: async () => {
             if (!id) return null;
             const data = await readContract(wagmiConfig, {
                 abi: RED_PACKET_ABI,
                 functionName: 'check_availability',
-                address: getRedPacketContractAddress(chainId),
+                address: getRedPacketContractAddress(chainId ?? EthereumChainId.Mainnet),
                 args: [id],
                 account: account as Address,
-                chainId,
+                chainId: chainId ?? EthereumChainId.Mainnet,
             });
 
             const [token_address, balance, total, claimed, expired, claimed_amount] = data as [

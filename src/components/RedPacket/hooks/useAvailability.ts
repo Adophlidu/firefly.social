@@ -8,11 +8,13 @@ import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js
 
 export function useAvailability(payload: RedPacketJSONPayload) {
     const networkType = getNetworkTypeFromRpPayload(payload);
+    const ethereum = useEthereumAvailability(payload, { enabled: networkType === NetworkType.Ethereum });
+    const solana = useSolanaAvailability(payload, { enabled: networkType === NetworkType.Solana });
     switch (networkType) {
         case NetworkType.Ethereum:
-            return useEthereumAvailability(payload);
+            return ethereum;
         case NetworkType.Solana:
-            return useSolanaAvailability(payload);
+            return solana;
         default:
             unreachable(networkType);
     }

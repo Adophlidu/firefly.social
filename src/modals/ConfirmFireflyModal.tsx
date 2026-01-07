@@ -52,7 +52,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                             </Trans>
                         </p>
                         {fireflyProfile ? (
-                            <menu className="no-scrollbar mb-2 flex max-h-[192px] flex-col gap-3 overflow-auto rounded-md border border-highlight border-line p-2">
+                            <menu className="no-scrollbar mb-2 flex max-h-[192px] flex-col gap-3 overflow-auto rounded-md border border-line p-2">
                                 <ProfileInList
                                     key={account.profile.profileId}
                                     selectable={false}

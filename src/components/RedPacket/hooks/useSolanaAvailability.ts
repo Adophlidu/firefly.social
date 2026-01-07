@@ -1,6 +1,7 @@
 import { BN, web3 } from '@coral-xyz/anchor';
 import { useQuery } from '@tanstack/react-query';
 
+import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { minus } from '@/helpers/number.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
@@ -8,11 +9,14 @@ import { getClaimedRecord } from '@/providers/solana/red-packet/getClaimedRecord
 import { getRedPacket } from '@/providers/solana/red-packet/getRedPacket.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
-export function useSolanaAvailability(payload: RedPacketJSONPayload) {
-    const { account } = useChainContext({ networkType: getNetworkTypeFromRpPayload(payload) });
+export function useSolanaAvailability(payload: RedPacketJSONPayload, options?: { enabled?: boolean }) {
+    const networkType = getNetworkTypeFromRpPayload(payload);
+    const enabled = (options?.enabled ?? true) && networkType === NetworkType.Solana;
+    const { account } = useChainContext({ networkType });
 
     return useQuery({
         queryKey: ['red-packet', 'solana-availability', payload.rpid, account],
+        enabled,
         queryFn: async () => {
             try {
                 const accountId = payload.rpid;

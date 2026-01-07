@@ -3,7 +3,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
-import { capitalize, first } from 'lodash-es';
+import { capitalize, first, isNil } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
 import TimeIcon from '@/assets/time.svg';
@@ -77,8 +77,8 @@ const sortMarkets = (markets: PolymarketMarketData[], sortBy?: string): Polymark
                 return bPrice - aPrice; // Descending
             });
         } else {
-            const withThreshold = marketsToSort.filter((m) => m.groupItemThreshold != null);
-            const withoutThreshold = marketsToSort.filter((m) => m.groupItemThreshold == null);
+            const withThreshold = marketsToSort.filter((m) => !isNil(m.groupItemThreshold));
+            const withoutThreshold = marketsToSort.filter((m) => isNil(m.groupItemThreshold));
 
             const sortByThreshold = (a: PolymarketMarketData, b: PolymarketMarketData) => {
                 const aNum = parseSafeInt(a.groupItemThreshold, Number.MAX_SAFE_INTEGER);

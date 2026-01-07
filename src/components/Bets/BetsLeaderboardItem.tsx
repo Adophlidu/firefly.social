@@ -1,6 +1,7 @@
 'use client';
 
 import { classNames } from '@dimensiondev/utils';
+import { isNil } from 'lodash-es';
 import { memo } from 'react';
 
 import MedalBronzeIcon from '@/assets/medal-bronze.svg';
@@ -47,16 +48,16 @@ export const BetsLeaderboardItem = memo<BetsLeaderboardItemProps>(function BetsL
         symbol: true,
     });
 
-    const rateValue =
-        item.pnl_rate != null
-            ? typeof item.pnl_rate === 'string'
-                ? Number.parseFloat(item.pnl_rate)
-                : item.pnl_rate
-            : null;
-    const rate = rateValue != null && !Number.isNaN(rateValue) ? rateValue * 100 : null;
-    const pnlRateValue =
-        rate != null ? `${formatPolymarketNumber(rate, { prefix: '', symbol: false, digits: 2 })}%` : '-';
-    const pnlRateColorClass = rate != null ? (rate >= 0 ? 'text-success' : 'text-danger') : 'text-success';
+    const rateValue = !isNil(item.pnl_rate)
+        ? typeof item.pnl_rate === 'string'
+            ? Number.parseFloat(item.pnl_rate)
+            : item.pnl_rate
+        : null;
+    const rate = !isNil(rateValue) && !Number.isNaN(rateValue) ? rateValue * 100 : null;
+    const pnlRateValue = !isNil(rate)
+        ? `${formatPolymarketNumber(rate, { prefix: '', symbol: false, digits: 2 })}%`
+        : '-';
+    const pnlRateColorClass = !isNil(rate) ? (rate >= 0 ? 'text-success' : 'text-danger') : 'text-success';
 
     const volumeValue = formatPolymarketNumber(Number(item.volume), {
         prefix: '$',
