@@ -2,7 +2,11 @@ import type { Hex } from 'viem';
 import { z } from 'zod';
 
 export const Pageable = z.object({
-    cursor: z.string().optional(),
+    // Twitter API doesn't tolerate empty string
+    cursor: z
+        .string()
+        .optional()
+        .transform((v) => v || undefined),
     limit: z.coerce
         .number()
         .default(25)
@@ -14,7 +18,11 @@ export const Pageable = z.object({
 
 export const SearchPageable = z.object({
     query: z.string().min(1),
-    cursor: z.string().optional(),
+    // Twitter API doesn't tolerate empty string
+    cursor: z
+        .string()
+        .optional()
+        .transform((v) => v || undefined),
     limit: z.coerce
         .number()
         .default(25)
