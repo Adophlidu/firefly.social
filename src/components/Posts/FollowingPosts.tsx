@@ -96,8 +96,6 @@ export const FollowingPosts = memo(function FollowingPosts() {
         if (!isLogin || !asyncStatusAll) return;
 
         const selectedSources = SORTED_SOCIAL_SOURCES.filter((x) => {
-            if (x === Source.Twitter) return false;
-
             const session = getSessionFromStorageBySource(x);
             if (!session) return false;
 
