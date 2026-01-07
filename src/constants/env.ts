@@ -35,6 +35,9 @@ const ExternalEnvSchema = z.object({
     // urls
     NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.social'),
     NEXT_PUBLIC_SOLANA_RPC_URL: z.string().default('https://api.mainnet-beta.solana.com'),
+    /** truth social trump proxy avatar url */
+    NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_PROXY: z.string().optional(),
+    NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_ORIGINAL: z.string().optional(),
 
     // features
     NEXT_PUBLIC_ACTIVITY_PARTICLE: z.nativeEnum(STATUS).default(STATUS.Disabled),
@@ -111,6 +114,8 @@ export const env = {
         // urls
         NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
         NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
+        NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_PROXY: process.env.NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_PROXY,
+        NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_ORIGINAL: process.env.NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_ORIGINAL,
 
         // features
         NEXT_PUBLIC_ACTIVITY_PARTICLE: process.env.NEXT_PUBLIC_ACTIVITY_PARTICLE,

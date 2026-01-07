@@ -1,6 +1,7 @@
 import { compact, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { MENTION_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
@@ -8,9 +9,14 @@ import type { TruthSocialPost } from '@/providers/types/Firefly.js';
 import { type Attachment, type Post, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 function formatAuthor(account: TruthSocialPost['account']): Profile {
+    const pfp =
+        account.avatar && account.avatar === env.external.NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_ORIGINAL
+            ? env.external.NEXT_PUBLIC_TRUTH_SOCIAL_AVATAR_PROXY || account.avatar
+            : account.avatar;
+
     return {
         source: Source.Twitter,
-        pfp: account.avatar,
+        pfp,
         handle: TRUMP_TWITTER_PROFILE.handle,
         displayName: account.display_name,
         profileId: TRUMP_TWITTER_PROFILE.platform_id,
