@@ -48,16 +48,6 @@ export function TableListInPage<T = unknown, C = unknown>({
         await fetchNextPage();
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
-    if (loginRequired && !isLogin) {
-        return <NotLoginFallback source={currentSocialSource} />;
-    }
-
-    if (noResultsFallbackRequired && !data.length) {
-        return <NoResultsFallback {...NoResultsFallbackProps} />;
-    }
-
-    const List = VirtualTableList<T, C>;
-
     const Context = useMemo(
         () => ({
             hasNextPage,
@@ -68,6 +58,16 @@ export function TableListInPage<T = unknown, C = unknown>({
         }),
         [hasNextPage, fetchNextPage, isFetching, VirtualTableListProps?.context, itemsRenderedRef.current],
     );
+
+    if (loginRequired && !isLogin) {
+        return <NotLoginFallback source={currentSocialSource} />;
+    }
+
+    if (noResultsFallbackRequired && !data.length) {
+        return <NoResultsFallback {...NoResultsFallbackProps} />;
+    }
+
+    const List = VirtualTableList<T, C>;
 
     return (
         <div className={className}>

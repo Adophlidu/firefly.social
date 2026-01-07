@@ -12,7 +12,12 @@ import {
     Source,
 } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { getPolymarketRank } from '@/providers/firefly/bets/getPolymarketRank.js';
+import { getPolymarketRank, type PolymarketRankItem } from '@/providers/firefly/bets/getPolymarketRank.js';
+
+function getBetsLeaderboardItem(index: number, tab: BetsLeaderboardTab, item: PolymarketRankItem) {
+    const itemRank = item.rank ?? index + 1;
+    return <BetsLeaderboardItem item={item} rank={itemRank} showPnLRate={tab === BetsLeaderboardTab.Following} />;
+}
 
 interface BetsLeaderboardContentProps {
     tab: BetsLeaderboardTab;
@@ -46,16 +51,7 @@ export function BetsLeaderboardContent({ tab, period, order }: BetsLeaderboardCo
             VirtualListProps={{
                 listKey: `${ScrollListKey.BetsLeaderboard}:${tab}:${period}:${order}`,
                 computeItemKey: (index, item) => `${item.owner || item.wallet}-${index}`,
-                itemContent: (index, item) => {
-                    const itemRank = item.rank ?? index + 1;
-                    return (
-                        <BetsLeaderboardItem
-                            item={item}
-                            rank={itemRank}
-                            showPnLRate={tab === BetsLeaderboardTab.Following}
-                        />
-                    );
-                },
+                itemContent: (index, item) => getBetsLeaderboardItem(index, tab, item),
             }}
         />
     );

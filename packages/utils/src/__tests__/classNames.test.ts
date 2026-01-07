@@ -173,12 +173,12 @@ describe('classNames', () => {
             const args: Array<string | Record<string, boolean>> = [];
 
             // Add 10 string arguments (reduced for easier testing)
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 10; i += 1) {
                 args.push(`class-${i}`);
             }
 
             // Add 10 object arguments where even indexes are true
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 10; i += 1) {
                 args.push({ [`obj-class-${i}`]: i % 2 === 0 });
             }
 
@@ -199,7 +199,7 @@ describe('classNames', () => {
         test('should handle objects with many properties', () => {
             const largeObject: Record<string, boolean> = {};
 
-            for (let i = 0; i < 1000; i++) {
+            for (let i = 0; i < 1000; i += 1) {
                 largeObject[`class-${i}`] = i % 3 === 0;
             }
 
@@ -238,8 +238,8 @@ describe('classNames', () => {
 
             const result = classNames(
                 'base-class',
-                dynamicCondition && 'conditional-class',
-                anotherCondition && 'hidden-class',
+                dynamicCondition ? 'conditional-class' : undefined,
+                anotherCondition ? 'hidden-class' : undefined,
                 {
                     active: dynamicCondition,
                     inactive: !dynamicCondition,

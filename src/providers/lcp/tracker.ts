@@ -157,7 +157,8 @@ export async function trackApiCall(
         return fetchFn();
     }
 
-    const callId = `api-call-${++callCounter}`;
+    callCounter += 1;
+    const callId = `api-call-${callCounter}`;
     const startTime = typeof performance !== 'undefined' ? performance.now() : Date.now();
     const method = init?.method || 'GET';
     const domain = extractDomain(url);

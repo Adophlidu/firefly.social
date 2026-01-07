@@ -1,6 +1,5 @@
 /* cspell:disable */
-import { safeUnreachable } from '@dimensiondev/utils';
-import { UnreachableError } from '@dimensiondev/utils';
+import { safeUnreachable, UnreachableError } from '@dimensiondev/utils';
 import satori from 'satori';
 import urlcat from 'urlcat';
 

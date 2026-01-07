@@ -253,12 +253,9 @@ export const UnifiedNotificationItem = memo<UnifiedNotificationItemProps>(functi
         case NotificationType.Act:
         case NotificationType.Comment:
         case NotificationType.Follow:
-        case NotificationType.LikeBets:
-        case NotificationType.LikeDAO:
         case NotificationType.LikeLimo:
         case NotificationType.LikeMatters:
         case NotificationType.LikeMirror:
-        case NotificationType.LikeNFT:
         case NotificationType.LikeParagraph:
         case NotificationType.Mention:
         case NotificationType.Mirror:

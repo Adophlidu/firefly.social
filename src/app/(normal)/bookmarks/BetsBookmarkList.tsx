@@ -22,7 +22,7 @@ export function BetsBookmarkList() {
         queryKey: ['bookmarks', Source.Bets, profileIds],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
-            return await getBetBookmarks(createIndicator(undefined, pageParam));
+            return getBetBookmarks(createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
