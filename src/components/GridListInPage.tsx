@@ -49,14 +49,6 @@ export function GridListInPage<T = unknown, C = unknown>({
         await fetchNextPage();
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
-    if (loginRequired && !isLogin) {
-        return <NotLoginFallback source={currentSocialSource} />;
-    }
-
-    if (noResultsFallbackRequired && !data.length) {
-        return <NoResultsFallback {...NoResultsFallbackProps} />;
-    }
-
     const List = VirtualGridList<T, C>;
 
     const Context = useMemo(
@@ -69,6 +61,14 @@ export function GridListInPage<T = unknown, C = unknown>({
         }),
         [hasNextPage, fetchNextPage, isFetching, VirtualGridListProps?.context],
     );
+
+    if (loginRequired && !isLogin) {
+        return <NotLoginFallback source={currentSocialSource} />;
+    }
+
+    if (noResultsFallbackRequired && !data.length) {
+        return <NoResultsFallback {...NoResultsFallbackProps} />;
+    }
 
     return (
         <div className={className}>

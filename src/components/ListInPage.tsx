@@ -61,14 +61,6 @@ export function ListInPage<T = unknown, C = unknown>({
         await fetchNextPage();
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
-    if (loginRequired && !isLogin) {
-        return <NotLoginFallback source={isNotSocialSource ? (source as LoginFallbackSource) : currentSocialSource} />;
-    }
-
-    if (noResultsFallbackRequired && !data.length) {
-        return <NoResultsFallback {...NoResultsFallbackProps} />;
-    }
-
     const listKey = VirtualListProps?.listKey;
 
     const isScrolling = useCallback(
@@ -93,16 +85,25 @@ export function ListInPage<T = unknown, C = unknown>({
         [VirtualListProps?.components],
     );
 
+    const itemsRendered = itemsRenderedRef.current;
     const Context = useMemo(
         () => ({
             hasNextPage,
             fetchNextPage,
             isFetching,
-            itemsRendered: itemsRenderedRef.current,
+            itemsRendered,
             ...VirtualListProps?.context,
         }),
-        [hasNextPage, fetchNextPage, isFetching, VirtualListProps?.context, itemsRenderedRef.current],
+        [hasNextPage, fetchNextPage, isFetching, itemsRendered, VirtualListProps?.context],
     );
+
+    if (loginRequired && !isLogin) {
+        return <NotLoginFallback source={isNotSocialSource ? (source as LoginFallbackSource) : currentSocialSource} />;
+    }
+
+    if (noResultsFallbackRequired && !data.length) {
+        return <NoResultsFallback {...NoResultsFallbackProps} />;
+    }
 
     return (
         <List
