@@ -17,7 +17,7 @@ import { useThirdPartyProfileStore } from '@/store/useProfileStore/useThirdParty
 
 export function useAllConnectionsFormattedWithProfiles(options?: { enabled?: boolean }) {
     const { accounts } = useThirdPartyProfileStore();
-    const { data: connections, refetch } = useAllConnections({ enabled: options?.enabled });
+    const { data: connections, isLoading, refetch } = useAllConnections({ enabled: options?.enabled });
     const query = useQueries({
         queries: compact(
             SORTED_SOCIAL_SOURCES.map((source) => {
@@ -88,6 +88,8 @@ export function useAllConnectionsFormattedWithProfiles(options?: { enabled?: boo
     });
     return {
         ...query,
+        connections,
+        connectionLoading: isLoading,
         refetch,
     };
 }
