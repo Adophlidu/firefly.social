@@ -1,6 +1,7 @@
-import { EventPayload, RequestArguments, SupportedEvent, ResponseResult, SupportedMethod } from '@/types';
 import { bom, parseJson, timeout } from '@dimensiondev/utils';
 import { uniqueId } from 'lodash-es';
+
+import { EventPayload, RequestArguments, ResponseResult, SupportedEvent, SupportedMethod } from '@/types';
 
 const REQUEST_ONLY_METHODS = [
     SupportedMethod.SHARE,

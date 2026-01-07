@@ -24,7 +24,7 @@ export interface SolanaRequestArguments {
     };
 }
 
-export type SolanaRequestArgument<M extends SolanaMethod = SolanaMethod> = {
+export interface SolanaRequestArgument<M extends SolanaMethod = SolanaMethod> {
     method: M;
     params: {
         [SolanaMethod.SignMessage]: SolanaRequestArguments[SolanaMethod.SignMessage];
@@ -32,7 +32,7 @@ export type SolanaRequestArgument<M extends SolanaMethod = SolanaMethod> = {
         [SolanaMethod.SignAndSendAllTransactions]: SolanaRequestArguments[SolanaMethod.SignAndSendAllTransactions];
         [SolanaMethod.SignTransaction]: SolanaRequestArguments[SolanaMethod.SignTransaction];
     }[M];
-};
+}
 
 export type SolanaResponse<M extends SolanaMethod = SolanaMethod> = {
     [SolanaMethod.SignMessage]: string;

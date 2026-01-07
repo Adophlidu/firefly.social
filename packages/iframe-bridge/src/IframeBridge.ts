@@ -1,10 +1,10 @@
+import { bom, timeout } from '@dimensiondev/utils';
 import { uniqueId } from 'lodash-es';
 
-import { bom, timeout } from '@dimensiondev/utils';
 import { getTargetWindow } from '@/getTargetWindow.js';
 import {
-    IframeBridgeMethod,
     type IframeBridgeMessage,
+    IframeBridgeMethod,
     type IframeBridgeRequestArguments,
     type IframeBridgeResponseResult,
 } from '@/types.js';
@@ -56,7 +56,7 @@ export class IframeBridgeProvider {
             if (event.origin !== bom.window?.location.origin) return;
 
             const message = event.data as IframeBridgeMessage;
-            if (!message || message.type !== 'iframe-bridge-response') return;
+            if (message?.type !== 'iframe-bridge-response') return;
 
             const { id, payload } = message;
             if (this.callbacks.has(id) && payload) {
@@ -135,7 +135,7 @@ export class IframeBridgeProvider {
             if (event.origin !== bom.window?.location.origin) return;
 
             const message = event.data as IframeBridgeMessage;
-            if (!message || message.type !== 'iframe-bridge-request') return;
+            if (message?.type !== 'iframe-bridge-request') return;
 
             const { method, params, id } = message;
 
