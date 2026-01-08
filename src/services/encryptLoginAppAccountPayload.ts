@@ -33,7 +33,7 @@ async function encrypt(plainText: string, cryptoKey: string) {
         plainBytes,
     );
 
-    return toHex(new Uint8Array(encryptedBuffer));
+    return toHex(new Uint8Array(encryptedBuffer)).slice(2);
 }
 
 interface SocialAccountTwitter {
