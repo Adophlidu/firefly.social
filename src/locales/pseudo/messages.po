@@ -4438,6 +4438,9 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
+msgid "Firefly Wallet"
+msgstr ""
+
 msgid "Confirm to remove this verified address from your Farcaster profile?"
 msgstr ""
 

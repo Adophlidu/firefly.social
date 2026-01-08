@@ -67,7 +67,7 @@ export function FireflyWallet() {
                 <div
                     className={classNames(
                         'absolute bottom-0 right-4 z-50 size-[calc(100%-32px)] h-[600px] max-w-[385px] origin-bottom-right overflow-hidden rounded-xl border border-line bg-primaryBottom bg-bottom pt-14 text-main shadow-lg duration-300 lg:right-0',
-                        isOpen ? '-translate-y-4' : 'translate-y-[calc(100%-56px)] max-lg:scale-0 max-lg:opacity-0',
+                        { 'translate-y-[calc(100%-56px)] max-lg:scale-0 max-lg:opacity-0': !isOpen },
                     )}
                 >
                     <div
@@ -80,7 +80,7 @@ export function FireflyWallet() {
                     >
                         <div className="flex items-center text-medium font-medium">
                             <WalletIcon width={24} height={24} className="mr-2" />
-                            <Trans>Wallet</Trans>
+                            <Trans>Firefly Wallet</Trans>
                         </div>
                         <button
                             className="flex size-8 cursor-pointer items-center justify-center rounded-full bg-bg"
