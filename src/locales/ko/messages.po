@@ -213,6 +213,9 @@ msgstr ""
 msgid "Delete post"
 msgstr ""
 
+msgid "Sign In to Mobile"
+msgstr ""
+
 msgid "This account has expired, please log in again."
 msgstr ""
 
@@ -1009,6 +1012,9 @@ msgstr ""
 msgid "Host"
 msgstr ""
 
+msgid "Sign in Confirmation"
+msgstr ""
+
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
 msgid "{0, plural, one {# day} other {# days}}"
 msgstr ""
@@ -1070,6 +1076,9 @@ msgid "Channel {id} could not be found."
 msgstr ""
 
 msgid "Reposted"
+msgstr ""
+
+msgid "Failed to confirm scan."
 msgstr ""
 
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
@@ -1269,9 +1278,6 @@ msgid "Address"
 msgstr ""
 
 msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
-msgstr ""
-
-msgid "Mobile QR login"
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
@@ -2757,6 +2763,9 @@ msgstr ""
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr ""
 
+msgid "Failed to upload data. Please try again."
+msgstr ""
+
 msgid "This Lens account has expired, please log in again."
 msgstr ""
 
@@ -3139,6 +3148,9 @@ msgstr ""
 msgid "<0/> PnL"
 msgstr ""
 
+msgid "Your account is requesting to sign in to mobile. Please confirm that the device is with you and that it is you who is signing in"
+msgstr ""
+
 msgid "Failed to like the post."
 msgstr ""
 
@@ -3400,6 +3412,9 @@ msgid "Cancel Repost"
 msgstr ""
 
 msgid "{days, plural, one {# day left} other {# days left}}"
+msgstr ""
+
+msgid "Sign in to Firefly App"
 msgstr ""
 
 msgid "No cybercrime involved."
@@ -4222,6 +4237,9 @@ msgid "Wallet"
 msgstr ""
 
 msgid "My Accounts"
+msgstr ""
+
+msgid "Failed to cancel scan."
 msgstr ""
 
 #. placeholder {0}: profile.handle

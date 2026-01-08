@@ -208,6 +208,9 @@ msgstr "{followerCount, plural, one {Follower} other {Followers}}"
 msgid "Delete post"
 msgstr "Delete post"
 
+msgid "Sign In to Mobile"
+msgstr "Sign In to Mobile"
+
 msgid "This account has expired, please log in again."
 msgstr "This account has expired, please log in again."
 
@@ -1004,6 +1007,9 @@ msgstr "Failed to refund red packet."
 msgid "Host"
 msgstr "Host"
 
+msgid "Sign in Confirmation"
+msgstr "Sign in Confirmation"
+
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
 msgid "{0, plural, one {# day} other {# days}}"
 msgstr "{0, plural, one {# day} other {# days}}"
@@ -1066,6 +1072,9 @@ msgstr "Channel {id} could not be found."
 
 msgid "Reposted"
 msgstr "Reposted"
+
+msgid "Failed to confirm scan."
+msgstr "Failed to confirm scan."
 
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Today at {0}"
@@ -1265,9 +1274,6 @@ msgstr "Address"
 
 msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgstr "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
-
-msgid "Mobile QR login"
-msgstr "Mobile QR login"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Sign in to {0}"
@@ -2752,6 +2758,9 @@ msgstr "Signing to confirm"
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "Sorry, we are not able to find a wallet for {displayName}."
 
+msgid "Failed to upload data. Please try again."
+msgstr "Failed to upload data. Please try again."
+
 msgid "This Lens account has expired, please log in again."
 msgstr "This Lens account has expired, please log in again."
 
@@ -3134,6 +3143,9 @@ msgstr "will send on {0} at {1}"
 msgid "<0/> PnL"
 msgstr "<0/> PnL"
 
+msgid "Your account is requesting to sign in to mobile. Please confirm that the device is with you and that it is you who is signing in"
+msgstr "Your account is requesting to sign in to mobile. Please confirm that the device is with you and that it is you who is signing in"
+
 msgid "Failed to like the post."
 msgstr "Failed to like the post."
 
@@ -3396,6 +3408,9 @@ msgstr "Cancel Repost"
 
 msgid "{days, plural, one {# day left} other {# days left}}"
 msgstr "{days, plural, one {# day left} other {# days left}}"
+
+msgid "Sign in to Firefly App"
+msgstr "Sign in to Firefly App"
 
 msgid "No cybercrime involved."
 msgstr "No cybercrime involved."
@@ -4218,6 +4233,9 @@ msgstr "Wallet"
 
 msgid "My Accounts"
 msgstr "My Accounts"
+
+msgid "Failed to cancel scan."
+msgstr "Failed to cancel scan."
 
 #. placeholder {0}: profile.handle
 msgid "Unmute @{0}"

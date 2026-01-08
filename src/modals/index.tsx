@@ -45,6 +45,7 @@ import { RecoveryPhraseModal, RecoveryPhraseModalRef } from '@/modals/RecoveryPh
 import { RedPacketModal, RedPacketModalRef } from '@/modals/RedPacketModal/index.js';
 import { SchedulePostModal, SchedulePostModalRef } from '@/modals/SchedulePostModal.js';
 import { ShareImageModal, ShareImageModalRef } from '@/modals/ShareImageModal/index.js';
+import { SignInToFireflyAppModal, SignInToFireflyAppModalRef } from '@/modals/SignInToFireflyAppModal.js';
 import { SignInWithFireflyAppModal, SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal.js';
 import { SignupModal, SignupModalRef } from '@/modals/SignupModal/index.js';
 import { Snackbar, SnackbarRef } from '@/modals/Snackbar.js';
@@ -64,6 +65,7 @@ export const Modals = memo(function Modals() {
             <LoginModal ref={LoginModalRef.register} />
             <LogoutModal ref={LogoutModalRef.register} />
             <SignInWithFireflyAppModal ref={SignInWithFireflyAppModalRef.register} />
+            <SignInToFireflyAppModal ref={SignInToFireflyAppModalRef.register} />
             <Snackbar ref={SnackbarRef.register} />
             <WalletConnectModal ref={WalletConnectModalRef.register} />
             <ConfirmModal ref={ConfirmModalRef.register} />

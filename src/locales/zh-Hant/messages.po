@@ -213,6 +213,9 @@ msgstr "{followerCount, plural, one {追蹤者} other {追蹤者}}"
 msgid "Delete post"
 msgstr "刪除貼文"
 
+msgid "Sign In to Mobile"
+msgstr ""
+
 msgid "This account has expired, please log in again."
 msgstr "該帳號已過期，請重新登入。"
 
@@ -1009,6 +1012,9 @@ msgstr "退款紅包失敗"
 msgid "Host"
 msgstr "主持人"
 
+msgid "Sign in Confirmation"
+msgstr ""
+
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
 msgid "{0, plural, one {# day} other {# days}}"
 msgstr "{0, plural, one {# 日} other {# 日}}"
@@ -1071,6 +1077,9 @@ msgstr "找不到群組 {id}。"
 
 msgid "Reposted"
 msgstr "轉發了"
+
+msgid "Failed to confirm scan."
+msgstr ""
 
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Today at {0}"
@@ -1270,9 +1279,6 @@ msgstr "地址"
 
 msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgstr "無法在 Firefly 上取消追蹤 {handleOrEnsOrAddress} 。"
-
-msgid "Mobile QR login"
-msgstr "行動版二維碼登入"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Sign in to {0}"
@@ -2757,6 +2763,9 @@ msgstr "正在簽名確認"
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "抱歉，我們無法找到 {displayName} 的錢包。"
 
+msgid "Failed to upload data. Please try again."
+msgstr ""
+
 msgid "This Lens account has expired, please log in again."
 msgstr "此 Lens 帳號已過期，請重新登入。"
 
@@ -3139,6 +3148,9 @@ msgstr "將於 {0} {1} 發布"
 msgid "<0/> PnL"
 msgstr ""
 
+msgid "Your account is requesting to sign in to mobile. Please confirm that the device is with you and that it is you who is signing in"
+msgstr ""
+
 msgid "Failed to like the post."
 msgstr "按讚貼文失敗。"
 
@@ -3401,6 +3413,9 @@ msgstr "取消轉發"
 
 msgid "{days, plural, one {# day left} other {# days left}}"
 msgstr "{days, plural, one {剩餘 # 日} other {剩餘 # 日}}"
+
+msgid "Sign in to Firefly App"
+msgstr ""
 
 msgid "No cybercrime involved."
 msgstr "未涉及網路犯罪。"
@@ -4223,6 +4238,9 @@ msgstr "錢包"
 
 msgid "My Accounts"
 msgstr "我的帳戶"
+
+msgid "Failed to cancel scan."
+msgstr ""
 
 #. placeholder {0}: profile.handle
 msgid "Unmute @{0}"

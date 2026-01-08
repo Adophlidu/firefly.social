@@ -21,7 +21,7 @@ import { EditFireflyProfileModalRef } from '@/modals/EditFireflyProfileModal/Edi
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
 import { LogoutModalRef } from '@/modals/LogoutModal.js';
 import { PasswordModalRef } from '@/modals/PasswordModal/index.js';
-import { SignInWithFireflyAppModalRef } from '@/modals/SignInWithFireflyAppModal.js';
+import { SignInToFireflyAppModalRef } from '@/modals/SignInToFireflyAppModal.js';
 import { getMetricsStatus } from '@/providers/firefly/metrics/getMetricsStatus.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import {
@@ -143,11 +143,11 @@ export const FireflyAccount = memo<FireflyAccountProps>(function FireflyAccount(
                                                 close();
                                                 LoginModalRef.close();
                                                 captureMobileQrLoginClickEvent();
-                                                SignInWithFireflyAppModalRef.open();
+                                                SignInToFireflyAppModalRef.open();
                                             }}
                                         >
                                             <ScanIcon className="mr-2 size-[18px]" />
-                                            <Trans>Mobile QR login</Trans>
+                                            <Trans>Sign In to Mobile</Trans>
                                         </button>
                                     )}
                                 </MenuItem>

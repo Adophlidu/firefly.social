@@ -2687,3 +2687,16 @@ export interface BetsPosition {
     closed_time: number;
     offset: 0 | 1; // 0-left 1-right
 }
+
+export enum DesktopSyncChannelStatus {
+    Pending = 'pending',
+    Scanned = 'scanned',
+    Confirmed = 'confirmed',
+    DataReady = 'dataReady',
+    Cancel = 'cancel',
+    Expired = 'expired',
+}
+
+export type SyncChannelStatusResponse = Response<{
+    status: DesktopSyncChannelStatus;
+}>;
