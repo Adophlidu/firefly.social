@@ -7,7 +7,7 @@ import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 export function LinkCloud() {
     return (
         <nav className="flex flex-wrap gap-x-[12px] gap-y-2 px-3 pb-20 text-xs text-second lg:px-0">
-            <span className="font-bold text-gray-500">© {2025} Firefly</span>
+            <span className="font-bold text-gray-500">© {2026} Firefly</span>
             {compact([
                 { name: <Trans>Communities</Trans>, link: '/settings/more', self: true },
 
