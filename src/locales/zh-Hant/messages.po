@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-07 12:01\n"
+"PO-Revision-Date: 2026-01-08 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -3212,7 +3212,7 @@ msgid "Failed to resume session for @{0} on {1}, you can refresh the page to try
 msgstr ""
 
 msgid "Total Value"
-msgstr ""
+msgstr "交易量"
 
 msgid "This does not appear to be a honeypot."
 msgstr "未檢測到詐騙風險。"
@@ -4124,7 +4124,7 @@ msgid "Primary account"
 msgstr "主要帳號"
 
 msgid "EVM wallets"
-msgstr ""
+msgstr "EVM錢包"
 
 msgid "Hide tokens with small balances"
 msgstr "隱藏小額代幣"
@@ -4469,7 +4469,7 @@ msgid "Video"
 msgstr "影片"
 
 msgid "Firefly Wallet"
-msgstr ""
+msgstr "Firefly 錢包"
 
 msgid "Confirm to remove this verified address from your Farcaster profile?"
 msgstr "確定要從 Farcaster 個人資料中移除此已驗證地址？"
