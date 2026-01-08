@@ -48,7 +48,11 @@ export function BetsProfileOverview({ profile, platform, address }: BetsProfileO
             {
                 label: isOpinion ? <Trans>Volume Traded</Trans> : <Trans>Volume Traded(shares)</Trans>,
                 value: isOpinion ? (
-                    formatPolymarketNumber(profile.volume)
+                    profile.volume && profile.volume > 1 ? (
+                        Math.floor(profile.volume)
+                    ) : (
+                        formatPolymarketNumber(profile.volume)
+                    )
                 ) : (
                     <PolymarketVolumeTraded key="volume-traded" address={address} proxyAddress={profile.proxy} />
                 ),
@@ -77,7 +81,7 @@ export function BetsProfileOverview({ profile, platform, address }: BetsProfileO
                       label: <Trans>Total Losses</Trans>,
                       value: (
                           <span>
-                              {`-${formatPolymarketNumber(profile.losses, {
+                              {`${formatPolymarketNumber(profile.losses, {
                                   symbol: false,
                               })}`}
                           </span>

@@ -4,10 +4,30 @@ import type { BetsActivity } from '@/providers/types/Firefly.js';
 
 const tailZero = /\.0+$|(\.\d*[1-9])0+$/;
 
+function truncateToDecimalPlaces(num: number, digits: number): number {
+    const factor = Math.pow(10, digits);
+    return Math.trunc(num * factor) / factor;
+}
+
 export function toFixedTrimmed(num: number, fixed: number) {
     if (Number.isNaN(num)) return '0';
 
-    const fixedNum = num.toFixed(fixed);
+    const truncated = truncateToDecimalPlaces(num, fixed);
+    const fixedNum = truncated.toString();
+
+    const decimalIndex = fixedNum.indexOf('.');
+    if (decimalIndex === -1) {
+        if (fixed > 0) {
+            return fixedNum + '.' + '0'.repeat(fixed);
+        }
+        return fixedNum;
+    }
+
+    const currentDecimals = fixedNum.length - decimalIndex - 1;
+    if (currentDecimals < fixed) {
+        return fixedNum + '0'.repeat(fixed - currentDecimals);
+    }
+
     return fixedNum.replace(tailZero, '$1');
 }
 
