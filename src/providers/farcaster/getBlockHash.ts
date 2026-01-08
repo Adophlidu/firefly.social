@@ -6,7 +6,7 @@ import { EthereumChainId } from '@/web3-shared/evm/types.js';
 
 export async function getEthereumBlockHash(): Promise<string> {
     try {
-        const publicClient = createWagmiPublicClient(EthereumChainId.Optimism);
+        const publicClient = createWagmiPublicClient(EthereumChainId.Optimism, 'default');
         const latestBlock = await publicClient.getBlock();
         return latestBlock.hash ?? '';
     } catch (error) {

@@ -27,7 +27,7 @@ export async function verifyEthereumAddress(fid: string): Promise<string> {
         fid,
         address,
         blockHash,
-        network: EthereumChainId.Optimism,
+        network: EthereumChainId.Mainnet,
     });
     const signature = await walletClient.signTypedData({
         domain: typedData.domain,

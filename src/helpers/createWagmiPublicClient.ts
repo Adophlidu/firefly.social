@@ -18,15 +18,16 @@ const map = new Map<string, PublicClient>();
 
 export function createWagmiPublicClient(
     chainId: EthereumChainId,
-    providerUrl = resolvePublicProviderUrl(chainId),
+    providerType: 'public' | 'default' = 'public',
 ): PublicClient {
-    const cacheKey = providerUrl || `${chainId}`;
+    const cacheKey = providerType === 'default' ? `default-rpc-${chainId}` : `public-rpc-${chainId}`;
+
     const client = map.get(cacheKey);
     if (client) return client;
 
     const newClient = createClient({
         chain: chains.find((x) => x.id === chainId) as Chain | undefined,
-        transport: http(providerUrl, { batch: true }),
+        transport: http(providerType === 'default' ? undefined : resolvePublicProviderUrl(chainId), { batch: true }),
     });
     map.set(cacheKey, newClient);
     return newClient;

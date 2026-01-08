@@ -42,7 +42,7 @@ enum AddressType {
 }
 
 async function checkEthereumAddressType(address: string): Promise<AddressType> {
-    const client = createWagmiPublicClient(EthereumChainId.Mainnet);
+    const client = createWagmiPublicClient(EthereumChainId.Mainnet, 'default');
     const code = await client.getCode({
         address: address as `0x${string}`,
     });
