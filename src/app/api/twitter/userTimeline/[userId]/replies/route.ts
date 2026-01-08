@@ -30,7 +30,8 @@ export const GET = compose(
         });
         if (errors?.length) logger.error('[twitter] v2.userTimeline', errors);
 
-        result.data = await patchTweetsClientToFirefly(result.data);
+        // result.data could be undefined at runtime
+        result.data = await patchTweetsClientToFirefly(result.data || []);
         return createSuccessResponseJson(result);
     },
 );
