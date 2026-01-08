@@ -2,11 +2,11 @@
 
 import { parseJson, safeUnreachable } from '@dimensiondev/utils';
 import { compact } from 'lodash-es';
-import { hexToBytes } from 'viem';
 
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { HIDDEN_SECRET } from '@/constants/static.js';
+import { decrypt } from '@/helpers/encodec.js';
 import { ensureHexPrefix } from '@/helpers/ensureHexPrefix.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -19,30 +19,6 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { type AuthDataFromApp } from '@/services/loginWithAppScan.js';
-
-const APP_LOGIN_ENCRYPT_IV = '0x4f05c37c16c801c2516b0338a8fd0cf9';
-
-async function decrypt(data: string, otp: string) {
-    const iv = hexToBytes(APP_LOGIN_ENCRYPT_IV);
-    const encryptedData = hexToBytes(ensureHexPrefix(data));
-
-    // Derive AES key using SHA-256 hash of OTP
-    const otpBytes = new TextEncoder().encode(otp);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', otpBytes);
-    const aesKey = await crypto.subtle.importKey('raw', hashBuffer, { name: 'AES-CBC' }, false, ['decrypt']);
-
-    // Decrypt using AES-CBC
-    const decryptedBuffer = await crypto.subtle.decrypt(
-        {
-            name: 'AES-CBC',
-            iv,
-        },
-        aesKey,
-        encryptedData,
-    );
-
-    return new TextDecoder().decode(decryptedBuffer);
-}
 
 export async function decryptAppScanLoginEncryptedData(
     data: string,

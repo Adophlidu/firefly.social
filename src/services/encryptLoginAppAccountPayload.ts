@@ -1,7 +1,7 @@
 import { compact } from 'lodash-es';
-import { hexToBytes, toHex } from 'viem';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
+import { encrypt } from '@/helpers/encodec.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -12,28 +12,6 @@ interface AuthDataToUpload extends AuthDataFromApp {
     account_uid?: string;
     display_name?: string | null;
     avatar?: string | null;
-}
-
-const APP_LOGIN_ENCRYPT_IV = '0x4f05c37c16c801c2516b0338a8fd0cf9';
-
-async function encrypt(plainText: string, cryptoKey: string) {
-    const iv = hexToBytes(APP_LOGIN_ENCRYPT_IV);
-
-    const cryptoBytes = new TextEncoder().encode(cryptoKey);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', cryptoBytes);
-    const aesKey = await crypto.subtle.importKey('raw', hashBuffer, { name: 'AES-CBC' }, false, ['encrypt']);
-
-    const plainBytes = new TextEncoder().encode(plainText);
-    const encryptedBuffer = await crypto.subtle.encrypt(
-        {
-            name: 'AES-CBC',
-            iv,
-        },
-        aesKey,
-        plainBytes,
-    );
-
-    return toHex(new Uint8Array(encryptedBuffer)).slice(2);
 }
 
 interface SocialAccountTwitter {
