@@ -701,6 +701,9 @@ msgstr "重試"
 msgid "Get {0}"
 msgstr "獲取 {0}"
 
+msgid "Only approved followers can see these posts.<0/>To request access, click Follow."
+msgstr ""
+
 msgid "Show less"
 msgstr "折疊"
 
@@ -762,6 +765,9 @@ msgstr "{0} 已隱藏群組"
 
 msgid "[Video]"
 msgstr "[影片]"
+
+msgid "These posts are protected"
+msgstr ""
 
 msgid "The author is muted by you."
 msgstr "您已隱藏此作者。"

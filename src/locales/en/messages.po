@@ -696,6 +696,9 @@ msgstr "Retry"
 msgid "Get {0}"
 msgstr "Get {0}"
 
+msgid "Only approved followers can see these posts.<0/>To request access, click Follow."
+msgstr "Only approved followers can see these posts.<0/>To request access, click Follow."
+
 msgid "Show less"
 msgstr "Show less"
 
@@ -757,6 +760,9 @@ msgstr "{0} muted channels"
 
 msgid "[Video]"
 msgstr "[Video]"
+
+msgid "These posts are protected"
+msgstr "These posts are protected"
 
 msgid "The author is muted by you."
 msgstr "The author is muted by you."

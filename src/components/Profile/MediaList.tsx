@@ -1,5 +1,7 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
+import ProtectedIcon from '@/assets/protected.svg';
+import { ProtectedPostsMessage } from '@/components/fallbacks/ProtectedPostsMessage.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, SocialProfileCategory, type SocialSource, Source } from '@/constants/enum.js';
@@ -7,6 +9,7 @@ import { EMPTY_LIST } from '@/constants/static.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useIsProfileProtected } from '@/hooks/useIsProfileProtected.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface MediaListProps {
@@ -15,6 +18,7 @@ interface MediaListProps {
 }
 
 export function MediaList({ profileId, source }: MediaListProps) {
+    const isProtected = useIsProfileProtected(source, profileId);
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'posts-of', 'medias', profileId],
 
@@ -45,6 +49,8 @@ export function MediaList({ profileId, source }: MediaListProps) {
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',
+                icon: isProtected ? <ProtectedIcon width={190} height={50} className="text-third" /> : undefined,
+                message: isProtected ? <ProtectedPostsMessage /> : undefined,
             }}
         />
     );
