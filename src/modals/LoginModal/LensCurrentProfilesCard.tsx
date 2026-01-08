@@ -24,9 +24,10 @@ interface Props {
 export const LensCurrentProfilesCard = memo<Props>(function LensCurrentProfilesCard(props) {
     const { currentProfileSession } = useFireflyProfileStore();
     const lensAccounts = useLensProfileStore.use.accounts();
-    const { isFetching, isPending } = useQuery({
+    const { isLoading, isRefetching } = useQuery({
         queryKey: ['auto-login', Source.Lens, currentProfileSession?.profileId],
         staleTime: 1000 * 60 * 5, // 5 minutes
+        retry: false,
         enabled: !!currentProfileSession && lensAccounts.length < MAX_ACCOUNT_COUNT_PER_SOURCE,
         queryFn: async () => {
             const result = await runInSafeAsync(() => autoLoginLensAccounts());
@@ -34,5 +35,5 @@ export const LensCurrentProfilesCard = memo<Props>(function LensCurrentProfilesC
         },
     });
 
-    return <CurrentProfilesCard {...props} loading={isFetching || isPending} />;
+    return <CurrentProfilesCard {...props} loading={isLoading || isRefetching} />;
 });
