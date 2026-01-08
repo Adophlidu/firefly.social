@@ -86,7 +86,12 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                 })}
                 onClick={() => {
                     if (isDisabled) {
-                        enqueueWarningMessage(<Trans>Cannot choose due to account mismatch.</Trans>);
+                        enqueueWarningMessage(
+                            <Trans>
+                                Selection disabled. Only editable by{' '}
+                                {draft.availableProfiles.map((x) => `@${x.handle}`).join(', ')}
+                            </Trans>,
+                        );
                         return;
                     }
 

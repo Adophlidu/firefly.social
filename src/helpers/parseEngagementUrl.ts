@@ -2,7 +2,7 @@ import { EngagementType } from '@/constants/enum.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
-function isEngagementType(value: string): value is EngagementType {
+export function isEngagementType(value: string): value is EngagementType {
     return [EngagementType.Mirrors, EngagementType.Quotes, EngagementType.Likes, EngagementType.Recasts].includes(
         value as EngagementType,
     );

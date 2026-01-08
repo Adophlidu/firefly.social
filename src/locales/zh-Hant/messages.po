@@ -115,6 +115,10 @@ msgstr "貼文"
 msgid "Show assets < 1 USD"
 msgstr "顯示少於 1 美元的資產"
 
+#. placeholder {0}: draft.availableProfiles.map((x) => `@${x.handle}`).join(', ')
+msgid "Selection disabled. Only editable by {0}"
+msgstr ""
+
 msgid "Repost or quote"
 msgstr "轉發或引用"
 
@@ -1473,9 +1477,6 @@ msgstr "發佈失敗"
 
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 msgstr "掃描此二維碼，並在 Farcaster 行動版應用中確認，即可開始使用你的帳戶。"
-
-msgid "Cannot choose due to account mismatch."
-msgstr "因帳戶不匹配無法選擇。"
 
 msgid "In some cases, you can also find a more detailed breakdown of holders in the explorer page."
 msgstr "您也可以在區塊鏈瀏覽器頁面找到更詳細的持幣者分析。"

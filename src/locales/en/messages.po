@@ -110,6 +110,10 @@ msgstr "Posts"
 msgid "Show assets < 1 USD"
 msgstr "Show assets < 1 USD"
 
+#. placeholder {0}: draft.availableProfiles.map((x) => `@${x.handle}`).join(', ')
+msgid "Selection disabled. Only editable by {0}"
+msgstr "Selection disabled. Only editable by {0}"
+
 msgid "Repost or quote"
 msgstr "Repost or quote"
 
@@ -1468,9 +1472,6 @@ msgstr "Failed Post"
 
 msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
 msgstr "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
-
-msgid "Cannot choose due to account mismatch."
-msgstr "Cannot choose due to account mismatch."
 
 msgid "In some cases, you can also find a more detailed breakdown of holders in the explorer page."
 msgstr "In some cases, you can also find a more detailed breakdown of holders in the explorer page."
