@@ -7,6 +7,6 @@ import { settings } from '@/settings/index.js';
 
 export async function getDesktopLinkInfo() {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/desktop/linkInfo');
-    const response = await fireflySessionHolder.fetchWithSession<DesktopLinkInfoResponse>(url);
+    const response = await fireflySessionHolder.fetch<DesktopLinkInfoResponse>(url);
     return resolveFireflyResponseData(response);
 }
