@@ -2,7 +2,7 @@
 
 import { classNames } from '@dimensiondev/utils';
 import { useQuery } from '@tanstack/react-query';
-import { type HTMLProps, memo } from 'react';
+import { type HTMLProps, memo, useLayoutEffect, useRef } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { getEventSlugList } from '@/providers/firefly/bets/getEventSlugList.js';
@@ -21,6 +21,18 @@ export const BetsSourceNav = memo<Props>(function BetsSourceNav({ className, sou
         refetchOnWindowFocus: false,
     });
 
+    const activeTabRef = useRef<HTMLAnchorElement>(null);
+
+    useLayoutEffect(() => {
+        if (activeTabRef.current) {
+            activeTabRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'center',
+            });
+        }
+    }, [source]);
+
     if (!data) return null;
 
     return (
@@ -28,6 +40,7 @@ export const BetsSourceNav = memo<Props>(function BetsSourceNav({ className, sou
             <nav className="flex space-x-2 px-1.5 pb-1.5 pt-3" aria-label="Tabs">
                 {data.map((slug) => (
                     <Link
+                        ref={source === slug.slug ? activeTabRef : undefined}
                         href={`/explore/bets/${slug.slug}`}
                         key={slug.slug}
                         className={classNames(

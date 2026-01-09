@@ -967,6 +967,9 @@ msgstr "發布中"
 msgid "Close lost position"
 msgstr "平倉虧損部位"
 
+msgid "No predictions found"
+msgstr ""
+
 msgid "Functions with retrievable ownership"
 msgstr "具有可回收所有權的函式"
 

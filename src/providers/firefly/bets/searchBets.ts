@@ -55,8 +55,7 @@ export async function searchBets({
     const events = data?.events || [];
     const currentIndicator = createIndicator(indicator);
     const hasMore = data?.pagination.hasMore ?? false;
-    const currentOffset = indicator?.id ? +indicator.id : 0;
-    const nextIndicator = hasMore ? createNextIndicator(indicator, `${currentOffset + limit}`, limit) : undefined;
+    const nextIndicator = hasMore ? createNextIndicator(indicator, `${page + 1}`) : undefined;
 
     return createPageable<PolymarketEventListData>(events, currentIndicator, nextIndicator);
 }

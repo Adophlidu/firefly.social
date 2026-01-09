@@ -962,6 +962,9 @@ msgstr "Sending"
 msgid "Close lost position"
 msgstr "Close lost position"
 
+msgid "No predictions found"
+msgstr "No predictions found"
+
 msgid "Functions with retrievable ownership"
 msgstr "Functions with retrievable ownership"
 

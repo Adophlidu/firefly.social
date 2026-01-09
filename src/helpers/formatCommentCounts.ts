@@ -17,9 +17,10 @@ export const humanize = (number: number): string => {
  *
  * @param num The number to format.
  * @param digits The number of digits to show after the decimal point. Default is 1.
+ * @param useFloor If true, uses Math.floor for rounding down; otherwise uses toFixed for rounding. Default is false.
  * @returns The formatted number as a string with the appropriate prefix.
  */
-export const nFormatter = (num: number, digits = 1): string => {
+export const nFormatter = (num: number, digits = 1, useFloor = false): string => {
     const lookup = [
         { value: 1, symbol: '' },
         { value: 1e3, symbol: 'k' },
@@ -30,23 +31,22 @@ export const nFormatter = (num: number, digits = 1): string => {
         { value: 1e18, symbol: 'E' },
     ];
 
-    // Remove trailing zeros and round to the specified number of digits
     const rx = /\.0+$|(\.\d*[1-9])0+$/;
 
-    // Handle numbers less than 1
+    const formatToDigits = (value: number, decimalPlaces: number): string => {
+        const factor = Math.pow(10, decimalPlaces);
+        const floored = useFloor ? Math.floor(value * factor) / factor : value;
+        return floored.toFixed(decimalPlaces).replace(rx, '$1');
+    };
+
     if (num < 1 && num > 0) {
-        return num.toFixed(digits).replace(rx, '$1');
+        return formatToDigits(num, digits);
     }
 
-    // Find the appropriate SI prefix for the number
     const item = [...lookup].reverse().find(function (item) {
         return num >= item.value;
     });
 
     // Format the number with the appropriate SI prefix and number of digits
-    return item
-        ? num < 1000
-            ? humanize(num)
-            : (num / item.value).toFixed(digits).replace(rx, '$1') + item.symbol
-        : '0';
+    return item ? (num < 1000 ? humanize(num) : formatToDigits(num / item.value, digits) + item.symbol) : '0';
 };

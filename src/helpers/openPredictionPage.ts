@@ -8,7 +8,6 @@ export async function openPredictionPage(slug: string, outcome: number) {
     if (!useFireflyWalletStore.getState().isAuthorized) {
         await waitForAuthorization();
     }
-    console.log(`/bet/event/${slug}?outcome=${outcome}`);
     iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE, {
         path: `/bet/event/${slug}?outcome=${outcome}`,
     });

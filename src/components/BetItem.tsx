@@ -15,6 +15,7 @@ import { Timer } from '@/components/RedPacket/Timer.js';
 import { EMPTY_LIST } from '@/constants/static.js';
 import { bedStead } from '@/fonts/bedStead/index.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { isZero } from '@/helpers/number.js';
 import { openPredictionPage } from '@/helpers/openPredictionPage.js';
 import { resolvePolymarketEventUrl } from '@/helpers/resolvePolymarketEventUrl.js';
 import {
@@ -28,15 +29,20 @@ const MAX_DISPLAYED_MARKETS = 2;
 const calculateRatio = (market: PolymarketMarketData): number => {
     const { prices } = parseMarketOutcomes(market);
 
-    if (!prices || prices.length === 0) return 0.5;
+    if (!prices || prices.length < 2) return 0;
 
-    const firstPrice = prices[0] ? parseFloat(String(prices[0])) : 0;
-    const secondPrice = prices[1] ? parseFloat(String(prices[1])) : 0;
+    if (prices.every((price) => isZero(price))) {
+        return 0;
+    }
 
-    if (Number.isNaN(firstPrice) || Number.isNaN(secondPrice)) return 0.5;
+    const firstPrice = parseFloat(String(prices[0]));
+    const secondPrice = parseFloat(String(prices[1]));
+
+    if (Number.isNaN(firstPrice) || Number.isNaN(secondPrice)) return 0;
 
     const sum = firstPrice + secondPrice;
-    if (sum === 0) return 0.5;
+
+    if (isZero(sum)) return 0;
 
     const ratio = firstPrice / sum;
     return Math.max(0, Math.min(1, ratio));
@@ -47,22 +53,29 @@ const parseMarketOutcomes = (market?: PolymarketMarketData) => {
 
     try {
         const outcomes = market.outcomes ? JSON.parse(market.outcomes) : [];
-        const prices = market.outcomePrices ? JSON.parse(market.outcomePrices) : [];
+        const prices: string[] = market.outcomePrices ? JSON.parse(market.outcomePrices) : [];
         return { outcomes, prices };
     } catch {
         return { outcomes: [], prices: [] };
     }
 };
 
-const formatPriceCents = (price: string | null) => {
-    if (!price) return '0¢';
-    const cents = (parseFloat(price) * 100).toFixed(1);
+const formatPriceCents = (price: string | null): string => {
+    if (!price) return '50¢';
+
+    const numPrice = parseFloat(price);
+
+    if (Number.isNaN(numPrice) || numPrice < 0 || numPrice > 1) {
+        return '50¢';
+    }
+
+    const cents = (Math.floor(numPrice * 1000) / 10).toFixed(1);
     return `${cents}¢`;
 };
 
 const formatWinRate = (percentage: number): string => {
     if (percentage < 1) return '<1%';
-    return `${Math.round(percentage)}%`;
+    return `${Math.floor(percentage)}%`;
 };
 
 const tryParseIntOrMax = (value: string | null | undefined): number => {
@@ -84,17 +97,23 @@ const sortMarkets = (markets: PolymarketMarketData[], sortBy?: string): Polymark
                 return bRatio - aRatio;
             });
         } else {
-            return [...marketsToSort].sort((a, b) => {
-                const aThreshold = tryParseIntOrMax(a.groupItemThreshold);
-                const bThreshold = tryParseIntOrMax(b.groupItemThreshold);
-                if (aThreshold !== bThreshold) {
+            const sortedWithThreshold = marketsToSort
+                .filter((market) => !!market.groupItemThreshold)
+                .sort((a, b) => {
+                    const aThreshold = tryParseIntOrMax(a.groupItemThreshold);
+                    const bThreshold = tryParseIntOrMax(b.groupItemThreshold);
                     return aThreshold - bThreshold;
-                }
+                });
 
-                const aId = tryParseIntOrMax(a.id);
-                const bId = tryParseIntOrMax(b.id);
-                return aId - bId;
-            });
+            const sortedWithoutThreshold = marketsToSort
+                .filter((market) => !market.groupItemThreshold)
+                .sort((a, b) => {
+                    const aId = tryParseIntOrMax(a.id);
+                    const bId = tryParseIntOrMax(b.id);
+                    return aId - bId;
+                });
+
+            return sortedWithThreshold.concat(sortedWithoutThreshold);
         }
     };
 
@@ -151,8 +170,8 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
 
     const sortedMarkets = useMemo(() => {
         if (!event.markets || event.markets.length === 0) return EMPTY_LIST;
-        return sortMarkets(event.markets);
-    }, [event.markets]);
+        return sortMarkets(event.markets, event.sortBy);
+    }, [event.markets, event.sortBy]);
 
     const primaryMarket = first(sortedMarkets);
 
@@ -171,10 +190,12 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
     const isResolved = useMemo(() => {
         if (isMultiMarket) {
             return (
-                event.markets?.some((market) => market.resolvedBy || (market.closed && market.outcomePrices)) ?? false
+                event.markets?.some(
+                    (market) => market.umaResolutionStatus === PolymarketUmaResolutionStatus.Resolved,
+                ) ?? false
             );
         }
-        return !!(primaryMarket?.resolvedBy || (primaryMarket?.closed && primaryMarket?.outcomePrices));
+        return primaryMarket?.umaResolutionStatus === PolymarketUmaResolutionStatus.Resolved;
     }, [isMultiMarket, event.markets, primaryMarket]);
 
     const resolvedOutcome = useMemo(() => {
@@ -200,8 +221,11 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
         if (hoursUntilEnd > 0 && hoursUntilEnd <= 24) {
             return (
                 <div className="flex items-center gap-1">
-                    <TimeIcon className="shrink-0 text-second" width={12} height={12} />
-                    <Timer endTime={endTime} className="!bg-inherit !p-0 text-xs leading-[14px] text-second" />
+                    <Timer
+                        icon={<TimeIcon className="shrink-0 text-second" width={12} height={12} />}
+                        endTime={endTime}
+                        className="!bg-inherit !p-0 text-xs leading-[14px] text-second"
+                    />
                 </div>
             );
         }
@@ -220,12 +244,12 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
     const series = event.series ? first(event.series) : undefined;
 
     const isNew = useMemo(() => {
-        if (!event.startDate || isResolved) return false;
+        if (!event.startDate) return false;
         const startTime = new Date(event.startDate).getTime();
         const now = Date.now();
         const hoursSinceStart = dayjs(now).diff(dayjs(startTime), 'hour', true);
         return hoursSinceStart >= 0 && hoursSinceStart < 24;
-    }, [isResolved, event.startDate]);
+    }, [event.startDate]);
 
     return (
         <Link
@@ -269,9 +293,9 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
 
                             return (
                                 <div key={market.id} className="flex items-center gap-4">
-                                    <div className="flex min-w-0 flex-1 flex-col">
+                                    <div className="min-w-0 flex-1">
                                         <p className="truncate text-sm leading-5 text-lightMain">
-                                            {market.groupItemTitle}
+                                            {market.groupItemTitle || market.question}
                                         </p>
                                     </div>
                                     <div className="flex shrink-0 flex-col text-right">
@@ -298,7 +322,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                         <div className="flex shrink-0 gap-2">
                                             <ClickableButton
                                                 className={classNames(
-                                                    'flex-1 rounded-lg px-3 py-1.5 text-sm font-bold leading-6 md:min-w-[120px]',
+                                                    'min-w-0 flex-1 rounded-lg px-3 py-1.5 text-sm font-bold leading-6 md:min-w-[120px]',
                                                     BUTTON_COLORS.success.bg,
                                                     BUTTON_COLORS.success.hover,
                                                     BUTTON_COLORS.success.text,
@@ -307,12 +331,12 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                                     openPredictionPage(event.slug, 0);
                                                 }}
                                             >
-                                                {firstOutcome}
+                                                <span className="truncate">{firstOutcome}</span>
                                             </ClickableButton>
                                             {secondOutcome ? (
                                                 <ClickableButton
                                                     className={classNames(
-                                                        'flex-1 rounded-lg px-3 py-1.5 text-sm font-bold leading-6 md:min-w-[120px]',
+                                                        'min-w-0 flex-1 rounded-lg px-3 py-1.5 text-sm font-bold leading-6 md:min-w-[120px]',
                                                         BUTTON_COLORS.danger.bg,
                                                         BUTTON_COLORS.danger.hover,
                                                         BUTTON_COLORS.danger.text,
@@ -321,7 +345,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                                         openPredictionPage(event.slug, 1);
                                                     }}
                                                 >
-                                                    {secondOutcome}
+                                                    <span className="truncate">{secondOutcome}</span>
                                                 </ClickableButton>
                                             ) : null}
                                         </div>
@@ -395,7 +419,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                 {firstOutcome ? (
                                     <ClickableButton
                                         className={classNames(
-                                            'flex-1 rounded-lg px-4 py-2 text-sm font-bold leading-6',
+                                            'min-w-0 flex-1 rounded-lg px-4 py-2 text-sm font-bold leading-6',
                                             BUTTON_COLORS.success.bg,
                                             BUTTON_COLORS.success.hover,
                                             BUTTON_COLORS.success.text,
@@ -404,13 +428,15 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                             openPredictionPage(event.slug, 0);
                                         }}
                                     >
-                                        <Trans>Buy {firstOutcome}</Trans>
+                                        <span className="truncate">
+                                            <Trans>Buy {firstOutcome}</Trans>
+                                        </span>
                                     </ClickableButton>
                                 ) : null}
                                 {secondOutcome ? (
                                     <ClickableButton
                                         className={classNames(
-                                            'flex-1 rounded-lg px-4 py-2 text-sm font-bold leading-6',
+                                            'min-w-0 flex-1 rounded-lg px-4 py-2 text-sm font-bold leading-6',
                                             BUTTON_COLORS.danger.bg,
                                             BUTTON_COLORS.danger.hover,
                                             BUTTON_COLORS.danger.text,
@@ -419,7 +445,9 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                             openPredictionPage(event.slug, 1);
                                         }}
                                     >
-                                        <Trans>Buy {secondOutcome}</Trans>
+                                        <span className="truncate">
+                                            <Trans>Buy {secondOutcome}</Trans>
+                                        </span>
                                     </ClickableButton>
                                 ) : null}
                             </div>
@@ -429,7 +457,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
 
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm leading-[17px] text-second">
-                        <span>${nFormatter(event.volume, 2)} Vol.</span>
+                        <span>${nFormatter(event.volume, 2, true)} Vol.</span>
                         {series?.recurrence ? <span>{capitalize(series.recurrence)}</span> : null}
                     </div>
                     {isNew ? (

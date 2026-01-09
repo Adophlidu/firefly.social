@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { forwardRef, useCallback } from 'react';
 
 import { Link as OriginalLink } from '@/esm/Link.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
@@ -15,7 +15,7 @@ type LinkProps = React.ComponentProps<typeof OriginalLink>;
 /**
  * Would show a confirmation modal if the link is external and not trusted
  */
-export function Link({ href, onClick, ...rest }: LinkProps) {
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link({ href, onClick, ...rest }, ref) {
     const { data: internalLink } = useInternalLink(href);
     const isTrusted = isTrustedUrl(href);
     const openConfirmModal = !isTrusted && !internalLink && typeof href === 'string';
@@ -36,6 +36,7 @@ export function Link({ href, onClick, ...rest }: LinkProps) {
 
     return (
         <OriginalLink
+            ref={ref}
             data-prevent-progress={openConfirmModal}
             {...rest}
             target={internalLink ? (!isSelfReference(internalLink) ? '_blank' : '_self') : rest.target}
@@ -43,4 +44,4 @@ export function Link({ href, onClick, ...rest }: LinkProps) {
             onClick={onLinkClick}
         />
     );
-}
+});

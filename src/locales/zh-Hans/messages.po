@@ -967,6 +967,9 @@ msgstr "发送中"
 msgid "Close lost position"
 msgstr "关闭亏损仓位"
 
+msgid "No predictions found"
+msgstr ""
+
 msgid "Functions with retrievable ownership"
 msgstr "具有可回收所有权的函数"
 

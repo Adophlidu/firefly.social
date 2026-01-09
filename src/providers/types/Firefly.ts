@@ -2446,6 +2446,7 @@ export interface PolymarketEventListData {
     requiresTranslation: boolean;
     is_ff_activity: boolean;
     series?: PolymarketSeriesData[] | null;
+    sortBy?: string;
 }
 
 export interface PolymarketSeriesData {

@@ -48,7 +48,7 @@ export function SearchBetContent() {
                     itemContent: getBetsItemContent,
                 }}
                 NoResultsFallbackProps={{
-                    message: <Trans>No bets found</Trans>,
+                    message: <Trans>No predictions found</Trans>,
                 }}
             />
         </div>
