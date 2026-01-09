@@ -779,6 +779,9 @@ msgstr "举报 @{0} 失败"
 msgid "Failed to login profile by orb"
 msgstr "Orb 登录失败"
 
+msgid "Ensure the pair code matches"
+msgstr ""
+
 msgid "Report submitted"
 msgstr "已举报"
 

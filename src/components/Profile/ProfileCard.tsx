@@ -16,6 +16,7 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -78,7 +79,12 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
         <ClickableArea className="flex w-[350px] flex-col gap-y-3 rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
             <div className="flex gap-2.5">
                 <Link href={url}>
-                    <Avatar src={profile.pfp} alt="avatar" size={80} className="size-20 cursor-pointer rounded-full" />
+                    <Avatar
+                        src={profile.pfp || getStampAvatarByProfileId(profile.source, profile.profileId)}
+                        alt="avatar"
+                        size={80}
+                        className="size-20 cursor-pointer rounded-full"
+                    />
                 </Link>
                 <div className="flex min-w-0 flex-1 grow flex-col gap-[6px]">
                     <div className="flex items-center gap-2">

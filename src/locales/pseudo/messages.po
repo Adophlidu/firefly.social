@@ -774,6 +774,9 @@ msgstr ""
 msgid "Failed to login profile by orb"
 msgstr ""
 
+msgid "Ensure the pair code matches"
+msgstr ""
+
 msgid "Report submitted"
 msgstr ""
 

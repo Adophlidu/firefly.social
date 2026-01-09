@@ -774,6 +774,9 @@ msgstr "Failed to report @{0}"
 msgid "Failed to login profile by orb"
 msgstr "Failed to login profile by orb"
 
+msgid "Ensure the pair code matches"
+msgstr "Ensure the pair code matches"
+
 msgid "Report submitted"
 msgstr "Report submitted"
 

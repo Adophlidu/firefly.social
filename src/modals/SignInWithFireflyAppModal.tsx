@@ -109,6 +109,8 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
 
     const loading = isLoading || isRefetching || isSigning;
 
+    console.log('loading,schemaURL', loading, schemaURL);
+
     return (
         <>
             {IS_MOBILE_DEVICE ? (
@@ -168,7 +170,9 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
                 </>
             )}
             <div className="align-center flex w-full flex-col justify-center">
-                <div className="leading-6">Ensure the pair code matches</div>
+                <div className="leading-6">
+                    <Trans>Ensure the pair code matches</Trans>
+                </div>
                 <div className="h-6 text-lg font-bold leading-6">{otp}</div>
             </div>
         </>
