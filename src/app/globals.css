@@ -724,6 +724,10 @@ body {
     counter-increment: list-counter;
     content: counter(list-counter) '. ';
 }
+.markup code {
+    word-break: break-all;
+    white-space: pre-wrap;
+}
 
 .snapshot-markup ol {
     list-style-type: decimal;
