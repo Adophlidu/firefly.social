@@ -13,11 +13,6 @@ function truncateToDecimalPlaces(num: number, digits: number): number {
 }
 
 function formatTruncated(num: number, digits: number): string {
-    // For very small numbers, preserve their actual value instead of truncating to 0
-    if (num > 0 && num < Math.pow(10, -digits)) {
-        return num.toString();
-    }
-
     const truncated = truncateToDecimalPlaces(num, digits);
     let result = truncated.toString();
     const decimalIndex = result.indexOf('.');
