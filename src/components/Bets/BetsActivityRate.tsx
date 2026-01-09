@@ -1,4 +1,3 @@
-import { IframeBridgeMethod, iframeBridgeProvider } from '@dimensiondev/iframe-bridge';
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 
@@ -68,9 +67,7 @@ export function BetsActivityRate({ activity }: ActivityRateProps) {
                             BUTTON_COLORS.success.text,
                         )}
                         onClick={() => {
-                            iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE, {
-                                path: `/bets/${activity.eventSlug}?outcome=${firstOutcome}`,
-                            });
+                            openPredictionPage(activity.rawData.slug, firstOutcome);
                         }}
                     >
                         <Trans>Buy {firstOutcome}</Trans>
@@ -85,7 +82,7 @@ export function BetsActivityRate({ activity }: ActivityRateProps) {
                             BUTTON_COLORS.danger.text,
                         )}
                         onClick={() => {
-                            openPredictionPage(activity.eventSlug, secondOutcome);
+                            openPredictionPage(activity.rawData.slug, secondOutcome);
                         }}
                     >
                         <Trans>Buy {secondOutcome}</Trans>

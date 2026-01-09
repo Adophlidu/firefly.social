@@ -16,6 +16,9 @@ export const BetsSourceNav = memo<Props>(function BetsSourceNav({ className, sou
     const { data } = useQuery({
         queryKey: ['bets', 'slugs-list'],
         queryFn: () => getEventSlugList(),
+        staleTime: Infinity,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
     });
 
     if (!data) return null;

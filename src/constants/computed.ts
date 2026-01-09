@@ -184,7 +184,7 @@ export const ENABLED_RP_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens
 export const DEFAULT_SOCIAL_SOURCE = Source.Posts;
 export const DEFAULT_BOOKMARK_SOURCE = Source.Farcaster;
 export const DEFAULT_NOTIFICATION_SOURCE = Source.Notifications;
-export const DEFAULT_EXPLORE_TYPE = ExploreType.TopProfiles;
+export const DEFAULT_EXPLORE_TYPE = ExploreType.Bets;
 
 export const SUPPORTED_MULTIPLE_EMBED_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];

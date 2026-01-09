@@ -1212,7 +1212,6 @@ export interface BetsActivity {
     conditionRawData: {};
     displayInfo: FireflyDisplayInfo;
     endDate: string;
-    eventSlug: string;
     followingSources: FollowingSource[];
     icon: string;
     image: string;
@@ -1242,6 +1241,7 @@ export interface BetsActivity {
     like_count: number;
     has_bookmarked: boolean;
     url: string;
+    rawData: PolymarketMarketData;
 }
 
 export interface Project {

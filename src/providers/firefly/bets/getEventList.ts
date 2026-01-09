@@ -10,7 +10,7 @@ import { settings } from '@/settings/index.js';
 export async function getEventList(slug?: string, indicator?: PageIndicator) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/polymarket/event/list');
     const response = await fireflySessionHolder.fetch<
-        Response<{ data: PolymarketEventListData[]; pagination: { totalResults: number; hasMore: boolean } }>
+        Response<{ data: PolymarketEventListData[] | null; pagination: { totalResults: number; hasMore: boolean } }>
     >(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -25,7 +25,7 @@ export async function getEventList(slug?: string, indicator?: PageIndicator) {
         }),
     });
     const data = resolveFireflyResponseData(response);
-    if (!data.data) {
+    if (!data?.data) {
         return createPageable<PolymarketEventListData>(EMPTY_LIST, createIndicator(indicator), undefined);
     }
 

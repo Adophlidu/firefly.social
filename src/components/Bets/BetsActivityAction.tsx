@@ -21,7 +21,7 @@ export const BetsActivityAction = memo<BetsActivityActionProps>(function BetsAct
 
     const { hasBookmarked, has_bookmarked } = activity;
 
-    const polymarketUrl = `${POLYMARKET_URL}/event/${activity.eventSlug}`;
+    const polymarketUrl = `${POLYMARKET_URL}/event/${activity.rawData.slug}`;
 
     const handleBookmark = useCallback(() => {
         toggleBookmark(activity);

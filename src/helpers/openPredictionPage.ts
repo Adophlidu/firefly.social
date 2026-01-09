@@ -10,6 +10,6 @@ export async function openPredictionPage(slug: string, outcome: string) {
         await waitForAuthorization();
     }
     iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_NAVIGATE, {
-        path: `/prediction/${slug}?outcome=${outcome}`,
+        path: `/wallet-iframe/bet/event/${slug}?outcome=${outcome}`,
     });
 }

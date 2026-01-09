@@ -3,7 +3,7 @@
 import { classNames } from '@dimensiondev/utils';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
-import { capitalize, first, isNil } from 'lodash-es';
+import { capitalize, first } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
 import TimeIcon from '@/assets/time.svg';
@@ -24,6 +24,23 @@ import {
 } from '@/providers/types/Firefly.js';
 
 const MAX_DISPLAYED_MARKETS = 2;
+
+const calculateRatio = (market: PolymarketMarketData): number => {
+    const { prices } = parseMarketOutcomes(market);
+
+    if (!prices || prices.length === 0) return 0.5;
+
+    const firstPrice = prices[0] ? parseFloat(String(prices[0])) : 0;
+    const secondPrice = prices[1] ? parseFloat(String(prices[1])) : 0;
+
+    if (Number.isNaN(firstPrice) || Number.isNaN(secondPrice)) return 0.5;
+
+    const sum = firstPrice + secondPrice;
+    if (sum === 0) return 0.5;
+
+    const ratio = firstPrice / sum;
+    return Math.max(0, Math.min(1, ratio));
+};
 
 const parseMarketOutcomes = (market?: PolymarketMarketData) => {
     if (!market) return { outcomes: [], prices: [] };
@@ -48,19 +65,11 @@ const formatWinRate = (percentage: number): string => {
     return `${Math.round(percentage)}%`;
 };
 
-const parseSafeInt = (value: string | null | undefined, fallback: number): number => {
-    if (!value) return fallback;
-    const parsed = parseInt(value, 10);
-    return Number.isNaN(parsed) ? fallback : parsed;
+const tryParseIntOrMax = (value: string | null | undefined): number => {
+    const parsed = value ? parseInt(value, 10) : NaN;
+    return Number.isNaN(parsed) ? Number.MAX_SAFE_INTEGER : parsed;
 };
 
-/**
- * Sort markets according to Kotlin logic:
- * 1. Unresolved markets first, then resolved markets
- * 2. Within each group:
- *    - If sortBy === "price": sort by ratio (first price) descending
- *    - Otherwise: sort by groupItemThreshold (if exists) or id, ascending
- */
 const sortMarkets = (markets: PolymarketMarketData[], sortBy?: string): PolymarketMarketData[] => {
     const unresolved = markets.filter(
         (market) => market.umaResolutionStatus !== PolymarketUmaResolutionStatus.Resolved,
@@ -70,29 +79,22 @@ const sortMarkets = (markets: PolymarketMarketData[], sortBy?: string): Polymark
     const sortInternal = (marketsToSort: PolymarketMarketData[]): PolymarketMarketData[] => {
         if (sortBy === 'price') {
             return [...marketsToSort].sort((a, b) => {
-                const aData = parseMarketOutcomes(a);
-                const bData = parseMarketOutcomes(b);
-                const aPrice = aData.prices[0] ? parseFloat(aData.prices[0]) : 0;
-                const bPrice = bData.prices[0] ? parseFloat(bData.prices[0]) : 0;
-                return bPrice - aPrice; // Descending
+                const aRatio = calculateRatio(a);
+                const bRatio = calculateRatio(b);
+                return bRatio - aRatio;
             });
         } else {
-            const withThreshold = marketsToSort.filter((m) => !isNil(m.groupItemThreshold));
-            const withoutThreshold = marketsToSort.filter((m) => isNil(m.groupItemThreshold));
+            return [...marketsToSort].sort((a, b) => {
+                const aThreshold = tryParseIntOrMax(a.groupItemThreshold);
+                const bThreshold = tryParseIntOrMax(b.groupItemThreshold);
+                if (aThreshold !== bThreshold) {
+                    return aThreshold - bThreshold;
+                }
 
-            const sortByThreshold = (a: PolymarketMarketData, b: PolymarketMarketData) => {
-                const aNum = parseSafeInt(a.groupItemThreshold, Number.MAX_SAFE_INTEGER);
-                const bNum = parseSafeInt(b.groupItemThreshold, Number.MAX_SAFE_INTEGER);
-                return aNum - bNum;
-            };
-
-            const sortById = (a: PolymarketMarketData, b: PolymarketMarketData) => {
-                const aNum = parseSafeInt(a.id, Number.MAX_SAFE_INTEGER);
-                const bNum = parseSafeInt(b.id, Number.MAX_SAFE_INTEGER);
-                return aNum - bNum;
-            };
-
-            return [...withThreshold].sort(sortByThreshold).concat([...withoutThreshold].sort(sortById));
+                const aId = tryParseIntOrMax(a.id);
+                const bId = tryParseIntOrMax(b.id);
+                return aId - bId;
+            });
         }
     };
 
@@ -213,7 +215,8 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
     }, [isResolved, isMultiMarket, event.closed, event.archived, endTime]);
 
     const displayedMarkets = sortedMarkets.slice(0, MAX_DISPLAYED_MARKETS);
-    const remainingCount = Math.max(0, sortedMarkets.length - MAX_DISPLAYED_MARKETS);
+    const activeMarkets = sortedMarkets.filter((market) => market.active);
+    const remainingCount = Math.max(0, activeMarkets.length - MAX_DISPLAYED_MARKETS);
     const series = event.series ? first(event.series) : undefined;
 
     const isNew = useMemo(() => {
@@ -301,7 +304,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                                     BUTTON_COLORS.success.text,
                                                 )}
                                                 onClick={() => {
-                                                    // TODO: Handle buy for first outcome
+                                                    openPredictionPage(event.slug, firstOutcome);
                                                 }}
                                             >
                                                 {firstOutcome}
@@ -315,7 +318,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                                         BUTTON_COLORS.danger.text,
                                                     )}
                                                     onClick={() => {
-                                                        // TODO: Handle buy for second outcome
+                                                        openPredictionPage(event.slug, secondOutcome);
                                                     }}
                                                 >
                                                     {secondOutcome}

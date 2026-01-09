@@ -41,7 +41,7 @@ function createTransactionsFetcher(
                         source,
                         data: item,
                         timestamp: Number(item.timestamp) * 1000,
-                        id: item.eventSlug,
+                        id: item.rawData.slug,
                     })),
                 };
             }
