@@ -134,6 +134,9 @@ msgstr "复制到剪贴板"
 msgid "Refunded"
 msgstr "已退款"
 
+msgid "Content is not suitable for all audiences"
+msgstr ""
+
 msgid "Send a tip"
 msgstr "发送打赏"
 
@@ -4383,6 +4386,9 @@ msgstr "你关注的人没有交易过这个代币哦。"
 msgid "Explore now"
 msgstr "开始探索"
 
+msgid "Adult content"
+msgstr ""
+
 msgid "Predictions"
 msgstr "Predictions"
 
@@ -4459,6 +4465,10 @@ msgstr "兑换"
 #. placeholder {0}: nFormatter(collection.collection.amounts_total || collection.items_total || 0)
 msgid "{0} <0> Items</0>"
 msgstr "{0} <0> 项</0>"
+
+#. placeholder {0}: post.moderator?.displayName
+msgid "Labeled by <0>{0}</0>."
+msgstr ""
 
 msgid "Collect"
 msgstr "收集"

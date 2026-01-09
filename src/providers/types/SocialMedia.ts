@@ -202,9 +202,11 @@ export interface Post {
     mediaObjects?: MediaObject[];
     permalink?: string;
     parentPermalink?: string;
+    moderator?: Profile;
+    moderationReasons?: string[];
     isHidden?: boolean;
     isEncrypted?: boolean;
-    isEncryptedByMask?: boolean;
+    isModerated?: boolean;
     restrictions?: RestrictionType[];
     metadata: {
         locale: string;

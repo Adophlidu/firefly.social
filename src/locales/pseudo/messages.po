@@ -129,6 +129,9 @@ msgstr ""
 msgid "Refunded"
 msgstr ""
 
+msgid "Content is not suitable for all audiences"
+msgstr ""
+
 msgid "Send a tip"
 msgstr ""
 
@@ -4378,6 +4381,9 @@ msgstr ""
 msgid "Explore now"
 msgstr ""
 
+msgid "Adult content"
+msgstr ""
+
 msgid "Predictions"
 msgstr ""
 
@@ -4453,6 +4459,10 @@ msgstr ""
 
 #. placeholder {0}: nFormatter(collection.collection.amounts_total || collection.items_total || 0)
 msgid "{0} <0> Items</0>"
+msgstr ""
+
+#. placeholder {0}: post.moderator?.displayName
+msgid "Labeled by <0>{0}</0>."
 msgstr ""
 
 msgid "Collect"

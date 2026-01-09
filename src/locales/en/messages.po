@@ -129,6 +129,9 @@ msgstr "Copy to clipboard"
 msgid "Refunded"
 msgstr "Refunded"
 
+msgid "Content is not suitable for all audiences"
+msgstr "Content is not suitable for all audiences"
+
 msgid "Send a tip"
 msgstr "Send a tip"
 
@@ -4378,6 +4381,9 @@ msgstr "No one you follow has traded this token."
 msgid "Explore now"
 msgstr "Explore now"
 
+msgid "Adult content"
+msgstr "Adult content"
+
 msgid "Predictions"
 msgstr "Predictions"
 
@@ -4454,6 +4460,10 @@ msgstr "Swap"
 #. placeholder {0}: nFormatter(collection.collection.amounts_total || collection.items_total || 0)
 msgid "{0} <0> Items</0>"
 msgstr "{0} <0> Items</0>"
+
+#. placeholder {0}: post.moderator?.displayName
+msgid "Labeled by <0>{0}</0>."
+msgstr "Labeled by <0>{0}</0>."
 
 msgid "Collect"
 msgstr "Collect"

@@ -16,6 +16,7 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { AppBskyEmbed, AppBskyFeed, AppBskyRecord } from '@/providers/bsky/contentChecker.js';
+import { formatBskyModeratorProfile } from '@/providers/bsky/formatBskyModeratorProfile.js';
 import { formatBskyProfile } from '@/providers/bsky/formatBskyProfile.js';
 import { type Attachment, type Post, type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 
@@ -107,6 +108,9 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
     ) as AppBskyFeedPost.Main;
     const createdAt = original.indexedAt;
 
+    const moderationLabels = original.labels?.filter((label) => ['porn', 'sexual', 'nudity'].includes(label.val));
+    const moderationLabel = first(moderationLabels);
+
     const post: Post = {
         publicationId: original.cid,
         postId: PostAtUri.from(original.uri).toId(),
@@ -132,6 +136,9 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
                 ...formatBskyMedia(original.embed),
             },
         },
+        moderator: moderationLabel ? formatBskyModeratorProfile(moderationLabel.src) : undefined,
+        moderationReasons: moderationLabels?.map((label) => label.val),
+        isModerated: !!moderationLabel,
     };
     if (AppBskyFeedPost.isMain(original.record)) {
         const { contentArr, mentions, oembedUrls } = [
