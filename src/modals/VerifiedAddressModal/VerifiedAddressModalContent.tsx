@@ -128,8 +128,9 @@ export const VerifiedAddressModalContent = forwardRef<HTMLDivElement, VerifiedAd
 
                 const network = selectedWallet.networkType;
                 const checkResult = await checkAddressAlreadyVerified(network);
-
                 if (!checkResult) return null;
+
+                const addressToVerify = checkResult.address;
 
                 if (checkResult.isVerified) {
                     enqueueSuccessMessage(<Trans>This address is already verified</Trans>);
@@ -138,7 +139,7 @@ export const VerifiedAddressModalContent = forwardRef<HTMLDivElement, VerifiedAd
 
                 switch (network) {
                     case NetworkType.Ethereum:
-                        return verifyEthereumAddress(fid);
+                        return verifyEthereumAddress(fid, addressToVerify as `0x${string}`);
                     case NetworkType.Solana:
                         return verifySolanaAddress(fid);
                     default:

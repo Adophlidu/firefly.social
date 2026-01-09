@@ -14,12 +14,13 @@ import { EthereumChainId } from '@/web3-shared/evm/types.js';
 /**
  * Verify an Ethereum address for Farcaster
  * @param fid - Farcaster ID
+ * @param account - Optional account address to use for verification
  * @returns The verified Ethereum address
  */
-export async function verifyEthereumAddress(fid: string): Promise<string> {
+export async function verifyEthereumAddress(fid: string, account?: `0x${string}`): Promise<string> {
     const blockHash = await getEthereumBlockHash();
 
-    const walletClient = await getWalletClientRequired(wagmiConfig, undefined, {
+    const walletClient = await getWalletClientRequired(wagmiConfig, account ? { account } : undefined, {
         origin: ClickOrigin.Settings,
     });
     const address = walletClient.account.address.toLowerCase() as `0x${string}`;
