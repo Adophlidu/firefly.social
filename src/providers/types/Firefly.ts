@@ -1242,6 +1242,7 @@ export interface BetsActivity {
     has_bookmarked: boolean;
     url: string;
     rawData: PolymarketMarketData;
+    topicId: string;
 }
 
 export interface Project {

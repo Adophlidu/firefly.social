@@ -304,7 +304,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                                     BUTTON_COLORS.success.text,
                                                 )}
                                                 onClick={() => {
-                                                    openPredictionPage(event.slug, firstOutcome);
+                                                    openPredictionPage(event.slug, 0);
                                                 }}
                                             >
                                                 {firstOutcome}
@@ -318,7 +318,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                                         BUTTON_COLORS.danger.text,
                                                     )}
                                                     onClick={() => {
-                                                        openPredictionPage(event.slug, secondOutcome);
+                                                        openPredictionPage(event.slug, 1);
                                                     }}
                                                 >
                                                     {secondOutcome}
@@ -401,7 +401,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                             BUTTON_COLORS.success.text,
                                         )}
                                         onClick={() => {
-                                            openPredictionPage(event.slug, firstOutcome);
+                                            openPredictionPage(event.slug, 0);
                                         }}
                                     >
                                         <Trans>Buy {firstOutcome}</Trans>
@@ -416,7 +416,7 @@ export const BetItem = memo(function BetItem({ event, className }: BetItemProps)
                                             BUTTON_COLORS.danger.text,
                                         )}
                                         onClick={() => {
-                                            openPredictionPage(event.slug, secondOutcome);
+                                            openPredictionPage(event.slug, 1);
                                         }}
                                     >
                                         <Trans>Buy {secondOutcome}</Trans>

@@ -67,7 +67,7 @@ export function BetsActivityRate({ activity }: ActivityRateProps) {
                             BUTTON_COLORS.success.text,
                         )}
                         onClick={() => {
-                            openPredictionPage(activity.rawData.slug, firstOutcome);
+                            openPredictionPage(activity.topicId, 0);
                         }}
                     >
                         <Trans>Buy {firstOutcome}</Trans>
@@ -82,7 +82,7 @@ export function BetsActivityRate({ activity }: ActivityRateProps) {
                             BUTTON_COLORS.danger.text,
                         )}
                         onClick={() => {
-                            openPredictionPage(activity.rawData.slug, secondOutcome);
+                            openPredictionPage(activity.topicId, 1);
                         }}
                     >
                         <Trans>Buy {secondOutcome}</Trans>
