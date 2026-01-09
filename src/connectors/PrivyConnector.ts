@@ -37,39 +37,57 @@ export async function waitForAuthorization(): Promise<void> {
     });
 }
 
-const provider = {
-    async request<T = unknown>(params: { method: string; params?: unknown[] | object }): Promise<T> {
-        if (INTERACTIVE_METHODS.has(params.method)) {
-            useGlobalState.getState().updateFireflyWalletIsOpen(true);
-        }
-        if (!useFireflyWalletStore.getState().isAuthorized) {
-            await waitForAuthorization();
-        }
-        return new Promise(async (resolve, reject) => {
-            const unsubscribe = useGlobalState.subscribe((state) => {
-                if (!state.fireflyWalletIsOpen) {
-                    unsubscribe();
-                    reject(new UserRejectedRequestError(new Error()));
-                }
-            });
-            iframeBridgeProvider
-                .request(IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC, params)
-                .then((rpcResult) => {
-                    unsubscribe();
-                    useGlobalState.getState().updateFireflyWalletIsOpen(false);
-                    resolve(rpcResult as T);
-                })
-                .catch((error) => {
-                    unsubscribe();
-                    if (`${error}`.includes('user rejected')) {
+function getPrivyEvmProvider({
+    silent,
+}: {
+    silent?: boolean;
+} = {}) {
+    return {
+        async request<T = unknown>(params: { method: string; params?: unknown[] | object }): Promise<T> {
+            if (!silent && INTERACTIVE_METHODS.has(params.method)) {
+                useGlobalState.getState().updateFireflyWalletIsOpen(true);
+            }
+            if (!useFireflyWalletStore.getState().isAuthorized) {
+                await waitForAuthorization();
+            }
+            if (silent) {
+                await iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY, { visible: false });
+            }
+            return new Promise(async (resolve, reject) => {
+                const unsubscribe = useGlobalState.subscribe((state) => {
+                    if (!state.fireflyWalletIsOpen) {
+                        unsubscribe();
                         reject(new UserRejectedRequestError(new Error()));
-                        return;
                     }
-                    reject(error);
                 });
-        });
-    },
-};
+                iframeBridgeProvider
+                    .request(IframeBridgeMethod.FIREFLY_WALLET_EVM_RPC, params)
+                    .then((rpcResult) => {
+                        unsubscribe();
+                        if (!silent) {
+                            useGlobalState.getState().updateFireflyWalletIsOpen(false);
+                        } else {
+                            iframeBridgeProvider.request(IframeBridgeMethod.FIREFLY_WALLET_VISIBILITY, {
+                                visible: true,
+                            });
+                        }
+                        resolve(rpcResult as T);
+                    })
+                    .catch((error) => {
+                        unsubscribe();
+                        if (`${error}`.includes('user rejected')) {
+                            reject(new UserRejectedRequestError(new Error()));
+                            return;
+                        }
+                        reject(error);
+                    });
+            });
+        },
+    };
+}
+
+export const privyEvmProvider = getPrivyEvmProvider();
+export const privyEvmProviderSilent = getPrivyEvmProvider({ silent: true });
 
 export function createPrivyConnector() {
     const fn = (config: Parameters<CreateConnectorFn>[0]) => {
@@ -117,7 +135,7 @@ export function createPrivyConnector() {
                 if (!chain) throw new SwitchChainError(new ChainNotConfiguredError());
 
                 try {
-                    await provider.request({
+                    await privyEvmProvider.request({
                         method: EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN,
                         params: [
                             {
@@ -143,7 +161,7 @@ export function createPrivyConnector() {
                 }
             },
             async getChainId() {
-                const chainId = await provider.request<Hex>({
+                const chainId = await privyEvmProvider.request<Hex>({
                     method: EthereumMethodType.ETH_CHAIN_ID,
                 });
                 return Number.parseInt(chainId, 16);
@@ -161,7 +179,7 @@ export function createPrivyConnector() {
             },
             async getProvider() {
                 const isAuthorized = await this.isAuthorized();
-                return isAuthorized ? provider : null;
+                return isAuthorized ? privyEvmProvider : null;
             },
             async isAuthorized() {
                 return !!getSessionFromStorage(SessionType.Firefly);

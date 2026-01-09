@@ -1,36 +1,43 @@
 import { AuthenticationError, NotImplementedError } from '@dimensiondev/utils';
-import { fetchAccount } from '@lens-protocol/client/actions';
 import { first, sumBy } from 'lodash-es';
-import type { Address } from 'viem';
+import { getAddress } from 'viem';
 
 import { wagmiConfig } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { WalletAddressMismatchError } from '@/constants/error.js';
 import { LENS_CHAIN_ID } from '@/constants/static.js';
 import { SetQueryDataForVote } from '@/decorators/SetQueryDataForVote.js';
+import { createPrivyWalletClient } from '@/helpers/createPrivyWalletClient.js';
 import { getCurrentProfileFromStorage } from '@/helpers/getCurrentProfileFromStorage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { memoizePromise } from '@/helpers/memoizePromise.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { memoizePromiseWithTime } from '@/helpers/memoizePromise.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
-import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { sendCustomEip712Transaction } from '@/helpers/sendCustomEip712Transaction.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { commitPoll } from '@/providers/firefly/poll/commitPoll.js';
-import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
+import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
 import { isLensOwnerOrManager } from '@/providers/lens/isLensOwnerOrManager.js';
-import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
 import { vote } from '@/providers/orb/vote.js';
 import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 
-const fetchAccountOwner = memoizePromise(
-    async (address: string) => {
-        const account = await ensureLensResult(
-            fetchAccount(lensClientHolder.client, { address: safeEvmAddress(address) }),
-        );
-        return (account?.owner as Address) || null;
+const getWalletTypeToVote = memoizePromiseWithTime(
+    async (profile: Profile, address: string, privyAddress: string | null) => {
+        const user = ensureLensResultSync(lensSessionClientHolder.sessionClient.getAuthenticatedUser());
+        if (user && privyAddress && isSameEthereumAddress(user.signer, privyAddress)) return 'privy';
+
+        const currentIsManager = await isLensOwnerOrManager(address, profile);
+        if (currentIsManager) return 'current';
+
+        return;
     },
-    (address) => address.toLowerCase(),
+    (profile: Profile, address: string, privyAddress: string | null) =>
+        [profile.profileId, address.toLowerCase(), privyAddress ? privyAddress.toLowerCase() : '-'].join('_'),
+    { cacheTime: 60 * 5 }, // 5 minutes
 );
 
 @SetQueryDataForVote(Source.Lens)
@@ -49,8 +56,6 @@ class LensPoll implements Provider {
 
     async vote({
         postId,
-        pollId,
-        frameUrl,
         options,
         allOptions,
     }: {
@@ -66,8 +71,11 @@ class LensPoll implements Provider {
         const walletClient = await getWalletClientRequired(wagmiConfig, {
             chainId: LENS_CHAIN_ID,
         });
-        const addressType = await isLensOwnerOrManager(walletClient.account.address, currentProfile);
-        if (!addressType) {
+        const privyEvm = first(useFireflyWalletStore.getState().wallets.ethereum)?.address ?? null;
+        const currentAddress = walletClient.account.address;
+
+        const walletType = await runInSafeAsync(() => getWalletTypeToVote(currentProfile, currentAddress, privyEvm));
+        if (!walletType) {
             throw new WalletAddressMismatchError();
         }
 
@@ -80,10 +88,12 @@ class LensPoll implements Provider {
             throw new Error('No transaction found.');
         }
 
+        const isPrivy = walletType === 'privy';
+        const accountForTx = isPrivy ? privyEvm : currentAddress;
         await Promise.all(
             result.transactions.map(async (transaction) => {
-                const hash = await sendCustomEip712Transaction(LENS_CHAIN_ID, {
-                    account: walletClient.account,
+                const options = {
+                    account: accountForTx ? getAddress(accountForTx) : null,
                     data: transaction.data,
                     gas: BigInt(transaction.gasLimit),
                     maxFeePerGas: BigInt(transaction.maxFeePerGas),
@@ -92,6 +102,14 @@ class LensPoll implements Provider {
                     paymasterInput: transaction.paymasterInput,
                     to: transaction.to,
                     value: BigInt(transaction.amount),
+                };
+
+                const hash = await sendCustomEip712Transaction(LENS_CHAIN_ID, options, {
+                    client: isPrivy
+                        ? await createPrivyWalletClient({
+                              chainId: LENS_CHAIN_ID,
+                          })
+                        : undefined,
                 });
                 await waitForEthereumTransaction(transaction.chainId, hash);
             }),
