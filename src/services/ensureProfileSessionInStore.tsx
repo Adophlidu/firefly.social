@@ -5,6 +5,7 @@ import { SessionExpiredError } from '@/constants/error.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { logger } from '@/libs/Logger.js';
 import type { Account } from '@/providers/types/Account.js';
 import { ensureSessionIsValid } from '@/services/ensureSessionIsValid.js';
 import type { ProfileState } from '@/store/useProfileStore/createProfileState.js';
@@ -59,7 +60,13 @@ export async function ensureProfileSessionInStore(source: SocialSource, state: P
                 </Trans>,
             );
 
-            throw checkErr;
+            /**
+             * Stop checking other accounts if an unexpected error occurs,
+             * and keep the current profile session because the session might still be valid.
+             * and don't throw error to ensure resuming session process can continue.
+             */
+            logger.error('ensureProfileSessionInStore', checkErr);
+            break;
         }
     }
 
