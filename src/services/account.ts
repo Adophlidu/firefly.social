@@ -13,12 +13,13 @@ import { getAllProfiles } from '@/helpers/getAllProfiles.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { getSessionFromStorage } from '@/helpers/getSessionFromStorage.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSessionHolder, resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { runInSafe, runInSafeAsync } from '@/helpers/runInSafe.js';
 import { logger } from '@/libs/Logger.js';
 import { ConfirmFireflyModalRef } from '@/modals/ConfirmFireflyModal.js';
 import { LoginModalRef } from '@/modals/LoginModal/index.js';
@@ -29,6 +30,9 @@ import { deleteMetrics } from '@/providers/firefly/metrics/deleteMetrics.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { autoLoginLensAccountsInSignup } from '@/providers/lens/autoLoginLensAccountsInSignup.js';
+import { ensureLensResultSync } from '@/providers/lens/ensureLensResultSync.js';
+import { lensSessionClientHolder } from '@/providers/lens/LensSessionClientHolder.js';
+import { reLoginLensCurrentAccountWithPrivy } from '@/providers/lens/reLoginLensCurrentAccountWithPrivy.js';
 import { setPrivyAsLensManager } from '@/providers/lens/setPrivyAsLensManager.js';
 import { updateLensAccounts } from '@/providers/lens/updateLensAccounts.js';
 import {
@@ -47,6 +51,7 @@ import { ensureSessionIsValid } from '@/services/ensureSessionIsValid.js';
 import { downloadAccounts } from '@/services/metrics.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { verifyAndGetPassword } from '@/services/verifyAndGetPassword.js';
+import { useFireflyWalletStore } from '@/store/useFireflyWalletStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyProfileStore } from '@/store/useProfileStore/useFireflyProfileStore.js';
@@ -476,13 +481,11 @@ export async function switchAccount(
             safeUnreachable(profileSource);
     }
 
-    state.addAccount(
-        {
-            ...account,
-            session,
-        },
-        true,
-    );
+    const newAccount = {
+        ...account,
+        session,
+    };
+    state.addAccount(newAccount, true);
 
     // resume session after store updated for lens/bsky
     if ([Source.Lens, Source.Bsky].includes(profileSource)) {
@@ -494,6 +497,17 @@ export async function switchAccount(
     }
     // only refresh current profile, because session has been updated
     await runInSafeAsync(() => getProfileState(profileSource)?.refreshCurrentAccount(false));
+
+    // try re-login with privy for lens if possible
+    if (profileSource === Source.Lens) {
+        runInSafe(() => {
+            const privyEvm = first(useFireflyWalletStore.getState().wallets.ethereum)?.address;
+            const user = ensureLensResultSync(lensSessionClientHolder.sessionClient.getAuthenticatedUser());
+            if (!privyEvm || !user || isSameEthereumAddress(privyEvm, user.signer)) return;
+
+            reLoginLensCurrentAccountWithPrivy(newAccount);
+        });
+    }
 }
 
 async function removeAccount(account: Account, signal?: AbortSignal) {

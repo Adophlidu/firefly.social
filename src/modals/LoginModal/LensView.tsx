@@ -42,6 +42,7 @@ import { createAccountForProfileId } from '@/providers/lens/createAccountForProf
 import { ensureLensResult } from '@/providers/lens/ensureLensResult.js';
 import { getProfilesByAddress } from '@/providers/lens/getProfilesByAddress.js';
 import { lensClientHolder } from '@/providers/lens/LensClientHolder.js';
+import { reLoginLensCurrentAccountWithPrivy } from '@/providers/lens/reLoginLensCurrentAccountWithPrivy.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -139,6 +140,9 @@ export const LensView = memo(function LensView() {
                 await lensSessionHolder.resumeSession(account.session);
                 LoginModalRef.close();
                 enqueueSuccessMessage(<Trans>Your {resolveSourceName(Source.Lens)} account is now connected.</Trans>);
+
+                // try re-login with privy if possible
+                reLoginLensCurrentAccountWithPrivy(account);
             }
         } catch (error) {
             if (AbortError.is(error)) return;
