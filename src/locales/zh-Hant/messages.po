@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-08 12:01\n"
+"PO-Revision-Date: 2026-01-09 07:51\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -117,7 +117,7 @@ msgstr "顯示少於 1 美元的資產"
 
 #. placeholder {0}: draft.availableProfiles.map((x) => `@${x.handle}`).join(', ')
 msgid "Selection disabled. Only editable by {0}"
-msgstr ""
+msgstr "已停用選取。僅限 {0} 編輯"
 
 msgid "Repost or quote"
 msgstr "轉發或引用"
@@ -218,7 +218,7 @@ msgid "Delete post"
 msgstr "刪除貼文"
 
 msgid "Sign In to Mobile"
-msgstr ""
+msgstr "登入行動應用程式"
 
 msgid "This account has expired, please log in again."
 msgstr "該帳號已過期，請重新登入。"
@@ -736,7 +736,7 @@ msgstr "真實代幣"
 
 #. placeholder {0}: toFixedTrimmed(+activity.size, 2)
 msgid "×{0} shares"
-msgstr ""
+msgstr "×{0} 份"
 
 msgid "Bookmarks"
 msgstr "書籤"
@@ -754,7 +754,7 @@ msgid "Followed by {0} , {1}, and {2} others you follow"
 msgstr "被您追蹤的 {0}、{1} 及其他 {2} 人追蹤著"
 
 msgid "Tell us something about you!"
-msgstr ""
+msgstr "請向我們介紹一下你自己！"
 
 msgid "Confirm"
 msgstr "確認"
@@ -767,7 +767,7 @@ msgid "[Video]"
 msgstr "[影片]"
 
 msgid "These posts are protected"
-msgstr ""
+msgstr "這些貼文受到保護"
 
 msgid "The author is muted by you."
 msgstr "您已隱藏此作者。"
@@ -780,7 +780,7 @@ msgid "Failed to login profile by orb"
 msgstr "Orb 登入失敗"
 
 msgid "Ensure the pair code matches"
-msgstr ""
+msgstr "請確保配對碼一致"
 
 msgid "Report submitted"
 msgstr "已檢舉"
@@ -814,7 +814,7 @@ msgid "Mutes"
 msgstr "隱藏"
 
 msgid "Keep Your Recovery Phrase Safe"
-msgstr ""
+msgstr "妥善保管您的助記詞"
 
 msgid "Failed to bookmark NFT."
 msgstr "無法收藏 NFT。"
@@ -882,7 +882,7 @@ msgid "Save Post?"
 msgstr "儲存草稿？"
 
 msgid "Insufficient gas."
-msgstr ""
+msgstr "燃料不足。"
 
 msgid "Failed to set password."
 msgstr "密碼設定失敗。"
@@ -914,7 +914,7 @@ msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]}
 msgstr "{0, select, Image {[圖片]} Video {[影片]} Audio {[音頻]} Poll {[投票]} other {}}"
 
 msgid "This event has ended. Stay tuned for what's next!"
-msgstr ""
+msgstr "此活動已結束。敬請期待後續動向！"
 
 #. placeholder {0}: profile.handle
 msgid "Failed to follow @{0} on {sourceName}."
@@ -1026,7 +1026,7 @@ msgid "Host"
 msgstr "主持人"
 
 msgid "Sign in Confirmation"
-msgstr ""
+msgstr "登入確認"
 
 #. placeholder {0}: Math.floor(span / DAY_SPAN)
 msgid "{0, plural, one {# day} other {# days}}"
@@ -1092,7 +1092,7 @@ msgid "Reposted"
 msgstr "轉發了"
 
 msgid "Failed to confirm scan."
-msgstr ""
+msgstr "掃描確認失敗。"
 
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Today at {0}"
@@ -1925,7 +1925,7 @@ msgid "One Firefly account manages all your social accounts"
 msgstr "一個 Firefly 帳戶即可管理所有社交帳號"
 
 msgid "Portfolio"
-msgstr ""
+msgstr "投資組合"
 
 msgid "Your gateway to a personalized social experience."
 msgstr "通往個人化社交體驗的入口。"
@@ -2064,7 +2064,7 @@ msgid "Hide more comments"
 msgstr "隱藏更多留言"
 
 msgid "Failed to switch wallet. Please try again"
-msgstr ""
+msgstr "切換錢包失敗。請再試一次"
 
 msgid "Like / Repost / Comment"
 msgstr "按讚/轉發/留言"
@@ -2418,7 +2418,7 @@ msgstr "達到影片時長上限"
 
 #. placeholder {0}: toFixedTrimmed(+usdcSize, 2)
 msgid "<0>Sold a position</0><1>worth ${0} at <2/></1>"
-msgstr ""
+msgstr "<0>已卖出仓位</0><1>价值 ${0}，卖出时间为 <2/></1>"
 
 msgid "No darkweb transactions found."
 msgstr "未發現暗網交易。"
@@ -2681,7 +2681,7 @@ msgstr "顯示更多代幣"
 #. placeholder {0}: formatPolymarketNumber(position.shares, { prefix: null })
 #. placeholder {0}: toFixedTrimmed(+trade.size, 2)
 msgid "{0} shares"
-msgstr ""
+msgstr "{0} 份"
 
 msgid "<0/>Edit profile"
 msgstr "<0/>編輯個人檔案"
@@ -2774,7 +2774,7 @@ msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "抱歉，我們無法找到 {displayName} 的錢包。"
 
 msgid "Failed to upload data. Please try again."
-msgstr ""
+msgstr "上傳資料失敗。請再試一次。"
 
 msgid "This Lens account has expired, please log in again."
 msgstr "此 Lens 帳號已過期，請重新登入。"
@@ -3029,7 +3029,7 @@ msgstr "手續費"
 #. placeholder {1}: activity.dex_logo ? ( <Image src={activity.dex_logo} alt={activity.dex_name} className="size-4 rounded-full" width={16} height={16} /> ) : null
 #. placeholder {2}: activity.dex_name || formatAddress(activity.router_address, 4)
 msgid "<0><1/><2>{0}</2></0><3>on</3>{1}<4>{2}</4>"
-msgstr ""
+msgstr "<0><1/><2>{0}</2></0><3>on</3>{1}<4>{2}</4>"
 
 msgid "Failed to update profile."
 msgstr "更新個人檔案失敗。"
@@ -3156,7 +3156,7 @@ msgid "will send on {0} at {1}"
 msgstr "將於 {0} {1} 發布"
 
 msgid "<0/> PnL"
-msgstr ""
+msgstr "<0/> 盈虧"
 
 msgid "Your account is requesting to sign in to mobile. Please confirm that the device is with you and that it is you who is signing in"
 msgstr ""
@@ -3168,7 +3168,7 @@ msgid "Enter the amount that each winner can claim"
 msgstr "輸入每位獲獎者可領取金額"
 
 msgid "Newest"
-msgstr ""
+msgstr "最新"
 
 msgid "User Name should not exceed {extra} characters"
 msgstr ""
@@ -3184,7 +3184,7 @@ msgid "Download image"
 msgstr "下載圖片"
 
 msgid "User Name should not be blank"
-msgstr ""
+msgstr "用戶名稱不能為空"
 
 msgid "Sorry, today's free collect quota has been reached."
 msgstr "抱歉，今日免費鑄造收集額度已用盡。"
@@ -3193,7 +3193,7 @@ msgid "Explore and follow accounts to see the feed"
 msgstr "探索並追蹤帳戶以查看動態"
 
 msgid "Sign to Authorize"
-msgstr ""
+msgstr "簽署以授權"
 
 msgid "Muted contents"
 msgstr "已隱藏內容"
@@ -3252,10 +3252,10 @@ msgid "👉 To stay updated on trades, enable notifications in your browser sett
 msgstr "👉 為了隨時掌握交易動態，請在瀏覽器設定中開啟通知。"
 
 msgid "Link up to three accounts"
-msgstr ""
+msgstr "連結最多三個帳戶"
 
 msgid "Total Gains"
-msgstr ""
+msgstr "總收益"
 
 msgid "Today"
 msgstr "今天"
@@ -3278,11 +3278,11 @@ msgstr "草稿"
 
 #. js-lingui-explicit-id
 msgid "error-report"
-msgstr ""
+msgstr "回報錯誤"
 
 #. js-lingui-explicit-id
 msgid "error-reported"
-msgstr ""
+msgstr "已回報錯誤"
 
 msgid "Wallets"
 msgstr "錢包"
@@ -3303,7 +3303,7 @@ msgid "Attendance"
 msgstr "出席"
 
 msgid "Volume Traded(shares)"
-msgstr ""
+msgstr "成交量 (份)"
 
 msgid "Show more"
 msgstr "顯示更多"
@@ -3352,7 +3352,7 @@ msgid "There is no proxy in the contract. The proxy contract means contract owne
 msgstr "合約未包含代理機制。代理合約允許持有者修改代幣功能並可能影響價格。"
 
 msgid "User Name should be at least {extra} characters"
-msgstr ""
+msgstr "使用者名稱長度至少需為 {extra} 個字元"
 
 msgid "{totalVotes, plural, one {{totalVotes} Vote} other {{totalVotes} Votes}}"
 msgstr "{totalVotes, plural, one {{totalVotes} 票} other {{totalVotes} 票}}"
@@ -3386,7 +3386,7 @@ msgstr "上傳照片"
 
 #. placeholder {0}: error.message
 msgid "Failed to verify address: {0}"
-msgstr ""
+msgstr "無法移除地址：{0}"
 
 msgid "Cross at handles"
 msgstr "跨平台用戶名稱"
@@ -3425,7 +3425,7 @@ msgid "{days, plural, one {# day left} other {# days left}}"
 msgstr "{days, plural, one {剩餘 # 日} other {剩餘 # 日}}"
 
 msgid "Sign in to Firefly App"
-msgstr ""
+msgstr "使用 Firefly App 登入"
 
 msgid "No cybercrime involved."
 msgstr "未涉及網路犯罪。"
@@ -3911,7 +3911,7 @@ msgstr "不少於 {0}"
 
 #. placeholder {0}: error instanceof Error ? ` ${error.message}` : ''
 msgid "Failed to vote.{0}"
-msgstr ""
+msgstr "投票失敗。{0}"
 
 msgid "Only people you follow"
 msgstr "僅限你追蹤的人"
@@ -4037,10 +4037,10 @@ msgstr "可設定一或多項規則，作為領取紅包的條件。"
 #. placeholder {0}: collection.volume_1d
 #. placeholder {1}: collection.price_symbol
 msgid "{0} {1} <0>24H Vol</0>"
-msgstr ""
+msgstr "{0} {1} <0>24H 成交量</0>"
 
 msgid "NEW"
-msgstr ""
+msgstr "新增"
 
 #. placeholder {0}: resolveSourceName(Source.Bsky)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
@@ -4127,7 +4127,7 @@ msgid "Primary account"
 msgstr "主要帳號"
 
 msgid "EVM wallets"
-msgstr "EVM錢包"
+msgstr "EVM 錢包"
 
 msgid "Hide tokens with small balances"
 msgstr "隱藏小額代幣"
@@ -4250,7 +4250,7 @@ msgid "My Accounts"
 msgstr "我的帳戶"
 
 msgid "Failed to cancel scan."
-msgstr ""
+msgstr "無法取消掃描。"
 
 #. placeholder {0}: profile.handle
 msgid "Unmute @{0}"
@@ -4530,8 +4530,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "驗證密碼時出現意外步驟：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。\n"
+msgstr "如果你使用不同的社交帳號建立了多個 Firefly 帳戶，刪除此帳戶可以幫助你整合所有社交帳戶。\n"
 "但如果你仍想存取綁定至另一個社交帳號的 Firefly 錢包，建議你切換帳戶，而不是刪除帳戶。"
 
 msgid "<0>You</0> recasted"
@@ -4817,3 +4816,4 @@ msgstr "週"
 
 msgid "Success"
 msgstr "成功"
+

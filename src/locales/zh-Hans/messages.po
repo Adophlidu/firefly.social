@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-08 12:01\n"
+"PO-Revision-Date: 2026-01-09 07:51\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -2789,7 +2789,7 @@ msgid "Show More"
 msgstr "显示更多"
 
 msgid "Search..."
-msgstr "搜索中..."
+msgstr "搜索…"
 
 #. placeholder {0}: <>{i18n.number(traderCount)} person I follow has traded</>
 #. placeholder {1}: <>{i18n.number(traderCount)} people I follow have traded</>
@@ -4530,8 +4530,7 @@ msgid "Unexpected step for setting password: {step}."
 msgstr "验证密码时出现意外步骤：{step}。"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-"如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
+msgstr "如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
 "但如果你仍想访问另一个社交账号绑定的 Firefly 钱包，建议你切换账户，而不是删除账户。"
 
 msgid "<0>You</0> recasted"
@@ -4817,3 +4816,4 @@ msgstr "周"
 
 msgid "Success"
 msgstr "成功"
+
