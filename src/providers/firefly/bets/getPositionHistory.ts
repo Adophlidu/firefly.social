@@ -46,6 +46,6 @@ export async function getPositionHistory({
     return createPageable(
         data.data,
         createIndicator(indicator),
-        data.cursor && data.data.length >= limit ? createNextIndicator(indicator, data.cursor.toString()) : undefined,
+        data.cursor ? createNextIndicator(indicator, data.cursor.toString()) : undefined,
     );
 }
