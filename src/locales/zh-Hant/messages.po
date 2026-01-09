@@ -1094,9 +1094,6 @@ msgstr "找不到群組 {id}。"
 msgid "Reposted"
 msgstr "轉發了"
 
-msgid "Failed to confirm scan."
-msgstr "掃描確認失敗。"
-
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Today at {0}"
 msgstr "今天 {0}"
@@ -2776,9 +2773,6 @@ msgstr "正在簽名確認"
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "抱歉，我們無法找到 {displayName} 的錢包。"
 
-msgid "Failed to upload data. Please try again."
-msgstr "上傳資料失敗。請再試一次。"
-
 msgid "This Lens account has expired, please log in again."
 msgstr "此 Lens 帳號已過期，請重新登入。"
 
@@ -4251,9 +4245,6 @@ msgstr "錢包"
 
 msgid "My Accounts"
 msgstr "我的帳戶"
-
-msgid "Failed to cancel scan."
-msgstr "無法取消掃描。"
 
 #. placeholder {0}: profile.handle
 msgid "Unmute @{0}"

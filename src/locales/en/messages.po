@@ -1089,9 +1089,6 @@ msgstr "Channel {id} could not be found."
 msgid "Reposted"
 msgstr "Reposted"
 
-msgid "Failed to confirm scan."
-msgstr "Failed to confirm scan."
-
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Today at {0}"
 msgstr "Today at {0}"
@@ -2771,9 +2768,6 @@ msgstr "Signing to confirm"
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "Sorry, we are not able to find a wallet for {displayName}."
 
-msgid "Failed to upload data. Please try again."
-msgstr "Failed to upload data. Please try again."
-
 msgid "This Lens account has expired, please log in again."
 msgstr "This Lens account has expired, please log in again."
 
@@ -4246,9 +4240,6 @@ msgstr "Wallet"
 
 msgid "My Accounts"
 msgstr "My Accounts"
-
-msgid "Failed to cancel scan."
-msgstr "Failed to cancel scan."
 
 #. placeholder {0}: profile.handle
 msgid "Unmute @{0}"

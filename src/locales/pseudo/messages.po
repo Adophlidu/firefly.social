@@ -1089,9 +1089,6 @@ msgstr ""
 msgid "Reposted"
 msgstr ""
 
-msgid "Failed to confirm scan."
-msgstr ""
-
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Today at {0}"
 msgstr ""
@@ -2771,9 +2768,6 @@ msgstr ""
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr ""
 
-msgid "Failed to upload data. Please try again."
-msgstr ""
-
 msgid "This Lens account has expired, please log in again."
 msgstr ""
 
@@ -4245,9 +4239,6 @@ msgid "Wallet"
 msgstr ""
 
 msgid "My Accounts"
-msgstr ""
-
-msgid "Failed to cancel scan."
 msgstr ""
 
 #. placeholder {0}: profile.handle

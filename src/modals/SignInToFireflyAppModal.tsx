@@ -1,10 +1,9 @@
 'use client';
 
 import { classNames, delay } from '@dimensiondev/utils';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
@@ -14,8 +13,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { SITE_URL_OFFICIAL } from '@/constants/static.js';
 import { Link } from '@/esm/Link.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { usePollingSyncChannelStatus } from '@/hooks/usePollingSyncChannelStatus.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { SingletonModal, type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -59,6 +56,7 @@ export const SignInToFireflyAppModal = memo(function SignInToFireflyAppModal({ r
 function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void }) {
     const [cryptoKey, setCryptoKey] = useState(generateCryptoKey);
     const regenerateCryptoKey = () => setCryptoKey(generateCryptoKey);
+    const [invalidMap, setInvalidMap] = useState<Record<string, boolean>>({});
 
     const {
         isLoading,
@@ -76,53 +74,28 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
         refetchOnMount: true,
     });
 
-    const [isInvalid, setIsInvalid] = useState(false);
     const session = linkInfoData?.session;
-    useEffect(() => {
-        if (session) setIsInvalid(false);
-    }, [session]);
-
-    const confirmScan = useCallback(async () => {
-        if (!session) return;
-
-        try {
-            await confirmSyncChannel(session, 'confirm');
-        } catch (error) {
-            enqueueErrorMessage(getErrorMessageFromError(error, t`Failed to confirm scan.`));
-            throw error;
-        }
-    }, [session]);
+    const isInvalid = session ? invalidMap[session] : false;
 
     const [{ loading: isUploading }, confirmAndUpload] = useAsyncFn(async () => {
         if (!session || !cryptoKey) return;
 
-        try {
-            await confirmScan();
+        await confirmSyncChannel(session, 'confirm');
 
-            // Get all profiles and encrypt the account data
-            const encryptedData = await encryptLoginAppAccountPayload(cryptoKey);
+        // Get all profiles and encrypt the account data
+        const encryptedData = await encryptLoginAppAccountPayload(cryptoKey);
 
-            await uploadSyncData(session, encryptedData);
+        await uploadSyncData(session, encryptedData);
 
-            enqueueSuccessMessage(<Trans>Your Firefly Account is now connected</Trans>);
-            onClose?.();
-        } catch (error) {
-            enqueueErrorMessage(<Trans>Failed to upload data. Please try again.</Trans>);
-            throw error;
-        }
-    }, [session, cryptoKey, confirmScan, onClose]);
+        onClose?.();
+    }, [session, cryptoKey, onClose]);
 
     const [{ loading: isCanceling }, handleCancel] = useAsyncFn(async () => {
         if (!session) return;
 
-        try {
-            await confirmSyncChannel(session, 'cancel');
-            regenerateCryptoKey();
-            refetchDesktopLinkInfo();
-        } catch (error) {
-            enqueueErrorMessage(getErrorMessageFromError(error, t`Failed to cancel scan.`));
-            throw error;
-        }
+        await confirmSyncChannel(session, 'cancel');
+        regenerateCryptoKey();
+        refetchDesktopLinkInfo();
     }, [refetchDesktopLinkInfo, session]);
 
     usePollingSyncChannelStatus({
@@ -150,7 +123,7 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
             }
         },
         onExpired() {
-            setIsInvalid(true);
+            if (session) setInvalidMap((x) => ({ ...x, [session]: true }));
         },
     });
 
@@ -184,7 +157,6 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
                 onClick={async () => {
                     await refetchDesktopLinkInfo();
                     regenerateCryptoKey();
-                    setIsInvalid(false);
                 }}
             >
                 {!loading && schemaURL ? (

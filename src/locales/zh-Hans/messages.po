@@ -1094,9 +1094,6 @@ msgstr "未找到圈子 {id} 。"
 msgid "Reposted"
 msgstr "转发了"
 
-msgid "Failed to confirm scan."
-msgstr ""
-
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Today at {0}"
 msgstr "今天 {0}"
@@ -2776,9 +2773,6 @@ msgstr "签名确认"
 msgid "Sorry, we are not able to find a wallet for {displayName}."
 msgstr "抱歉，我们无法找到 {displayName} 的钱包。"
 
-msgid "Failed to upload data. Please try again."
-msgstr ""
-
 msgid "This Lens account has expired, please log in again."
 msgstr "此 Lens 账号已过期，请重新登录。"
 
@@ -4251,9 +4245,6 @@ msgstr "钱包"
 
 msgid "My Accounts"
 msgstr "我的账户"
-
-msgid "Failed to cancel scan."
-msgstr ""
 
 #. placeholder {0}: profile.handle
 msgid "Unmute @{0}"
